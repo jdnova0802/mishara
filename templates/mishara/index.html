@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mishara — Your AI Rights. Documented. Verified. Yours.</title>
+<meta name="description" content="The first place to go when an AI decision harmed you. Get a cryptographic receipt, understand your rights, and join others holding platforms accountable.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF8;--surface:#FFFFFF;--primary:#0D7377;--primary-dark:#095456;
+  --accent:#F4A261;--text:#1A1A2E;--muted:#5C5C72;--border:#E8E6E1;
+  --shadow:0 4px 24px rgba(26,26,46,0.08);--radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;}
+a{color:var(--primary);text-decoration:none;}
+a:hover{text-decoration:underline;}
+header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.header-inner{max-width:720px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo{font-weight:700;font-size:1.25rem;letter-spacing:0.08em;color:var(--primary);}
+.tagline{font-size:0.7rem;color:var(--muted);margin-top:2px;}
+nav{display:flex;gap:16px;font-size:0.875rem;font-weight:500;}
+nav a{color:var(--muted);}
+nav a:hover{color:var(--primary);}
+main{max-width:720px;margin:0 auto;padding:24px 20px 80px;}
+.hero{padding:32px 0 24px;}
+.hero h1{font-size:clamp(1.75rem,5vw,2.25rem);font-weight:700;line-height:1.25;margin-bottom:16px;color:var(--text);}
+.hero p{font-size:1.05rem;color:var(--muted);max-width:640px;}
+.section{margin-top:32px;}
+.section-label{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);margin-bottom:12px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);}
+label{display:block;font-weight:600;font-size:0.875rem;margin-bottom:8px;}
+textarea,input[type=text],input[type=date],input[type=email]{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:12px;font-family:inherit;font-size:16px;background:var(--surface);color:var(--text);margin-bottom:16px;}
+textarea{min-height:140px;resize:vertical;}
+textarea::placeholder,input::placeholder{color:#999;}
+.harm-grid{display:grid;grid-template-columns:1fr;gap:10px;}
+@media(min-width:480px){.harm-grid{grid-template-columns:1fr 1fr;}}
+.harm-card{border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:var(--surface);}
+.harm-card:hover{border-color:var(--primary);background:rgba(13,115,119,0.04);}
+.harm-card.selected{border-color:var(--primary);background:rgba(13,115,119,0.08);box-shadow:0 0 0 1px var(--primary);}
+.harm-card .emoji{font-size:1.5rem;margin-bottom:6px;}
+.harm-card .title{font-weight:600;font-size:0.95rem;margin-bottom:4px;}
+.harm-card .hint{font-size:0.8rem;color:var(--muted);line-height:1.4;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 24px;border:none;border-radius:12px;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;width:100%;transition:transform 0.15s,opacity 0.15s;}
+.btn:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover:not(:disabled){background:var(--primary-dark);}
+.btn-secondary{background:transparent;border:2px solid var(--border);color:var(--text);margin-top:10px;}
+.btn-gold{background:var(--accent);color:var(--text);}
+.step-indicator{display:flex;gap:8px;margin-bottom:24px;}
+.step-dot{flex:1;height:4px;border-radius:2px;background:var(--border);}
+.step-dot.active{background:var(--primary);}
+.step-dot.done{background:var(--accent);}
+.hidden{display:none!important;}
+.progress-box{text-align:center;padding:40px 20px;}
+.progress-box .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.progress-step{font-size:0.95rem;color:var(--muted);margin:8px 0;}
+.progress-step.done{color:var(--primary);font-weight:500;}
+.receipt-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:24px;}
+.receipt-header{background:linear-gradient(135deg,var(--primary),#0a5c5f);color:#fff;padding:20px 24px;}
+.receipt-header h2{font-size:1.1rem;font-weight:700;letter-spacing:0.05em;}
+.receipt-header p{font-size:0.85rem;opacity:0.9;margin-top:4px;}
+.receipt-body{padding:24px;}
+.receipt-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.9rem;}
+.receipt-row:last-child{border-bottom:none;}
+.receipt-label{color:var(--muted);font-weight:500;}
+.receipt-val{text-align:right;font-weight:600;word-break:break-all;}
+.receipt-section{margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+.receipt-section h3{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin-bottom:10px;}
+.receipt-section p,.receipt-section li{font-size:0.9rem;color:var(--text);}
+.receipt-section ul{padding-left:18px;margin-top:8px;}
+.mono{font-family:'JetBrains Mono',monospace;font-size:0.8rem;}
+.actions-grid{display:grid;gap:10px;margin-top:20px;}
+@media(min-width:480px){.actions-grid{grid-template-columns:1fr 1fr;}}
+.pattern-banner{margin-top:20px;padding:16px;border-radius:12px;font-size:0.9rem;}
+.pattern-banner.building{background:rgba(13,115,119,0.08);border:1px solid rgba(13,115,119,0.2);color:var(--primary);}
+.pattern-banner.class_action{background:rgba(244,162,97,0.15);border:1px solid var(--accent);color:#8B4513;}
+.pattern-banner.systemic{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.3);color:#991B1B;}
+.path-card{border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:16px;background:var(--surface);}
+.path-card h4{font-size:1rem;margin-bottom:8px;color:var(--primary);}
+.help-list{list-style:none;margin-top:12px;}
+.help-list li{margin-bottom:10px;padding:12px;background:var(--bg);border-radius:10px;}
+.help-list a{font-weight:600;}
+.email-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.email-row input{flex:1;min-width:180px;margin-bottom:0;}
+.email-row button{width:auto;padding:14px 20px;}
+#how-it-works,#about-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
+#how-it-works h2,#about-section h2{font-size:1.35rem;margin-bottom:16px;}
+#how-it-works ol{padding-left:20px;color:var(--muted);}
+#how-it-works li{margin-bottom:12px;}
+@media print{
+  header,footer,.path-card,.actions-grid,.btn,#step-indicator,.hero{display:none!important;}
+  body{background:#fff;}
+  .receipt-card{box-shadow:none;border:1px solid #ccc;}
+}
+footer strong{color:var(--text);}
+.modal{position:fixed;inset:0;background:rgba(26,26,46,0.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:200;}
+.modal-inner{background:var(--surface);border-radius:var(--radius);max-width:560px;width:100%;max-height:85vh;overflow:auto;padding:24px;}
+.modal-inner pre{white-space:pre-wrap;font-size:0.85rem;line-height:1.5;background:var(--bg);padding:16px;border-radius:10px;max-height:50vh;overflow:auto;}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo">MISHARA</div>
+      <div class="tagline">Your AI Rights. Documented. Verified. Yours.</div>
+    </div>
+    <nav>
+      <a href="#how-it-works">How it works</a>
+      <a href="{{ velaru_verify }}" target="_blank" rel="noopener">Verify a receipt</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="start">
+    <h1>An AI made a decision about you.<br>You deserve proof of what happened.</h1>
+    <p>Mishara gives you a cryptographic receipt of every AI decision that affected your life — independently verifiable, legally meaningful, yours to keep.</p>
+  </section>
+
+  <div class="step-indicator" id="step-indicator">
+    <div class="step-dot active" data-step="1"></div>
+    <div class="step-dot" data-step="2"></div>
+    <div class="step-dot" data-step="3"></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <section class="section card" id="step-1-panel">
+    <div class="section-label">Step 1 — What happened to you?</div>
+    <label for="description">Describe what happened</label>
+    <textarea id="description" placeholder="Tell us in your own words. You don't need to know legal terms. Just describe what the AI did and how it affected you."></textarea>
+    <label for="platform">Which company or platform?</label>
+    <input type="text" id="platform" placeholder="e.g. LinkedIn, Airbnb, Uber, Meta">
+    <label for="incident_date">When did this happen? (approximate is OK)</label>
+    <input type="date" id="incident_date">
+    <button type="button" class="btn btn-primary" id="btn-step-1">Continue →</button>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="section card hidden" id="step-2-panel">
+    <div class="section-label">Step 2 — What type of harm?</div>
+    <div class="harm-grid" id="harm-grid">
+      {% for key, harm in harm_types.items() %}
+      <div class="harm-card" data-harm="{{ key }}" tabindex="0" role="button">
+        <div class="emoji">{{ harm.emoji }}</div>
+        <div class="title">{{ harm.label }}</div>
+        <div class="hint">{{ harm.hint }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <button type="button" class="btn btn-primary" id="btn-step-2" disabled style="margin-top:20px;">Continue →</button>
+    <button type="button" class="btn btn-secondary" id="btn-back-2">← Back</button>
+  </section>
+
+  <!-- STEP 3 — GENERATE -->
+  <section class="section card hidden" id="step-3-panel">
+    <div class="section-label">Step 3 — Get your receipt</div>
+    <p style="color:var(--muted);margin-bottom:20px;">We'll classify your experience through Velaru's independent audit infrastructure and return a signed, verifiable record.</p>
+    <button type="button" class="btn btn-primary" id="btn-generate">Generate My Receipt</button>
+    <button type="button" class="btn btn-secondary" id="btn-back-3">← Back</button>
+    <div class="progress-box hidden" id="progress-box">
+      <div class="spinner"></div>
+      <div class="progress-step" id="prog-1">Classifying your experience...</div>
+      <div class="progress-step" id="prog-2">Signing with Ed25519...</div>
+      <div class="progress-step" id="prog-3">Anchoring to external record...</div>
+      <div class="progress-step" id="prog-4">Receipt ready.</div>
+    </div>
+  </section>
+
+  <!-- RECEIPT + ACTIONS -->
+  <section class="hidden" id="receipt-section">
+    <div class="receipt-card" id="receipt-card"></div>
+    <div class="actions-grid" style="margin-top:20px;">
+      <button type="button" class="btn btn-secondary" id="btn-download-receipt">Download Receipt</button>
+      <button type="button" class="btn btn-secondary" id="btn-download-pdf">Save as PDF (Print)</button>
+    </div>
+
+    <div class="path-card" id="path-demand">
+      <h4>📄 Path A — Demand Letter</h4>
+      <p style="font-size:0.9rem;color:var(--muted);">Generate a professional demand letter you can send to the platform, referencing your cryptographic receipt as Exhibit A.</p>
+      <button type="button" class="btn btn-primary" id="btn-demand-letter">Generate Demand Letter</button>
+    </div>
+
+    <div class="path-card" id="path-help">
+      <h4>🤝 Path B — Find Help</h4>
+      <p style="font-size:0.9rem;color:var(--muted);">Connect with advocacy organizations for your situation. Attorney referral coming soon.</p>
+      <ul class="help-list" id="help-list"></ul>
+    </div>
+
+    <div class="path-card" id="path-pattern">
+      <h4>📊 Path C — Add to Pattern</h4>
+      <p style="font-size:0.9rem;color:var(--muted);">Your submission was added anonymously — no personal details stored. Together we surface systemic harm.</p>
+      <div class="pattern-banner building" id="pattern-banner"></div>
+      <div class="email-row hidden" id="email-row">
+        <input type="email" id="notify-email" placeholder="Your email for updates">
+        <button type="button" class="btn btn-gold" id="btn-notify">Notify Me</button>
+      </div>
+      <p id="notify-msg" style="font-size:0.85rem;margin-top:8px;color:var(--muted);"></p>
+    </div>
+
+    <button type="button" class="btn btn-secondary" style="margin-top:24px;" id="btn-start-over">Start a new case</button>
+  </section>
+
+  <section id="how-it-works">
+    <h2>How it works</h2>
+    <ol>
+      <li><strong>Receipt</strong> — Describe what happened. Mishara calls Velaru's independent audit API to classify and cryptographically sign your record.</li>
+      <li><strong>Action</strong> — Get plain-English rights guidance, a demand letter template, and links to advocacy organizations.</li>
+      <li><strong>Pattern</strong> — Anonymous reports aggregate by platform. When enough people report similar harm, Mishara flags class-action and regulatory potential.</li>
+    </ol>
+  </section>
+
+  <section id="about-section">
+    <h2>About Mishara</h2>
+    <p style="color:var(--muted);">Mishara means justice in Akkadian — protection of the weak from the powerful. We believe everyone harmed by an AI decision deserves proof, not platitudes.</p>
+  </section>
+</main>
+
+<footer>
+  <p><strong>Mishara</strong> is powered by <a href="{{ velaru_base }}" target="_blank" rel="noopener">Velaru</a> (Nisaba LLC) — the only AI audit record no one controls.</p>
+  <p>Patent #64/124,027 · <a href="https://velaru.xyz" target="_blank" rel="noopener">velaru.xyz</a></p>
+  <p><em>Mishara means justice in Akkadian — protection of the weak from the powerful.</em></p>
+</footer>
+
+<div class="modal hidden" id="letter-modal">
+  <div class="modal-inner">
+    <h3 style="margin-bottom:12px;">Your Demand Letter</h3>
+    <pre id="letter-content"></pre>
+    <button type="button" class="btn btn-primary" id="btn-copy-letter" style="margin-top:16px;">Copy Letter</button>
+    <button type="button" class="btn btn-secondary" id="btn-close-letter">Close</button>
+  </div>
+</div>
+
+<script>
+const VELARU_VERIFY = {{ velaru_verify|tojson }};
+let selectedHarm = null;
+let lastReceipt = null;
+let lastForm = {};
+
+document.querySelectorAll('.harm-card').forEach(card => {
+  card.addEventListener('click', () => selectHarm(card.dataset.harm));
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectHarm(card.dataset.harm); }});
+});
+
+function selectHarm(key) {
+  selectedHarm = key;
+  document.querySelectorAll('.harm-card').forEach(c => c.classList.toggle('selected', c.dataset.harm === key));
+  document.getElementById('btn-step-2').disabled = false;
+}
+
+function setStep(n) {
+  document.getElementById('step-1-panel').classList.toggle('hidden', n !== 1);
+  document.getElementById('step-2-panel').classList.toggle('hidden', n !== 2);
+  document.getElementById('step-3-panel').classList.toggle('hidden', n !== 3);
+  document.getElementById('receipt-section').classList.toggle('hidden', n !== 4);
+  document.querySelectorAll('.step-dot').forEach((d, i) => {
+    d.classList.toggle('active', i + 1 === n);
+    d.classList.toggle('done', i + 1 < n);
+  });
+}
+
+document.getElementById('btn-step-1').onclick = () => {
+  const desc = document.getElementById('description').value.trim();
+  const plat = document.getElementById('platform').value.trim();
+  if (desc.length < 20) { alert('Please describe what happened in a bit more detail.'); return; }
+  if (!plat) { alert('Please enter the company or platform name.'); return; }
+  setStep(2);
+};
+
+document.getElementById('btn-back-2').onclick = () => setStep(1);
+document.getElementById('btn-step-2').onclick = () => { if (selectedHarm) setStep(3); };
+document.getElementById('btn-back-3').onclick = () => setStep(2);
+
+async function animateProgress() {
+  const box = document.getElementById('progress-box');
+  box.classList.remove('hidden');
+  const steps = ['prog-1','prog-2','prog-3','prog-4'];
+  for (let i = 0; i < steps.length; i++) {
+    await new Promise(r => setTimeout(r, i === 0 ? 400 : 700));
+    document.getElementById(steps[i]).classList.add('done');
+  }
+}
+
+function truncHash(h) { return h ? h.slice(0, 12) + '…' + h.slice(-8) : 'N/A'; }
+
+function renderReceipt(r, pattern) {
+  const html = `
+    <div class="receipt-header">
+      <h2>MISHARA RECEIPT</h2>
+      <p>Your AI Rights Record</p>
+    </div>
+    <div class="receipt-body">
+      <div class="receipt-row"><span class="receipt-label">Date</span><span class="receipt-val">${r.timestamp || '—'}</span></div>
+      <div class="receipt-row"><span class="receipt-label">Case</span><span class="receipt-val mono">${truncHash(r.entry_id)}</span></div>
+      <div class="receipt-row"><span class="receipt-label">Platform</span><span class="receipt-val">${escapeHtml(r.platform)}</span></div>
+      <div class="receipt-row"><span class="receipt-label">Harm type</span><span class="receipt-val">${escapeHtml(r.harm_label)}</span></div>
+      <div class="receipt-row"><span class="receipt-label">Classification</span><span class="receipt-val">${r.classification}</span></div>
+      <div class="receipt-section">
+        <h3>What this means</h3>
+        <p>${escapeHtml(r.explanation)}</p>
+      </div>
+      <div class="receipt-section">
+        <h3>Your rights</h3>
+        <ul>${(r.rights || []).map(x => '<li>' + escapeHtml(x) + '</li>').join('')}</ul>
+      </div>
+      <div class="receipt-section">
+        <h3>Cryptographic proof</h3>
+        <p>This receipt is signed and anchored by Velaru. Neither Mishara nor the platform can alter it retroactively.</p>
+        <p class="mono" style="margin-top:8px;">Hash: ${truncHash(r.hash)}</p>
+        <p style="margin-top:8px;"><a href="${r.verify_url}" target="_blank" rel="noopener">Verify at velaru.onrender.com/verify →</a></p>
+      </div>
+    </div>`;
+  document.getElementById('receipt-card').innerHTML = html;
+
+  const helpList = document.getElementById('help-list');
+  helpList.innerHTML = (r.help_links || []).map(h =>
+    `<li><a href="${h.url}" target="_blank" rel="noopener">${escapeHtml(h.name)}</a><br><span style="font-size:0.85rem;color:var(--muted);">${escapeHtml(h.note)}</span></li>`
+  ).join('') + '<li style="font-style:italic;color:var(--muted);">Attorney referral coming soon.</li>';
+
+  const banner = document.getElementById('pattern-banner');
+  banner.className = 'pattern-banner ' + (pattern.level || 'building');
+  banner.textContent = (pattern.level === 'class_action' ? '⚠ ' : pattern.level === 'systemic' ? '🚨 ' : '') + (pattern.message || '');
+
+  document.getElementById('email-row').classList.toggle('hidden', pattern.level !== 'class_action' && pattern.level !== 'systemic');
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+document.getElementById('btn-generate').onclick = async () => {
+  const btn = document.getElementById('btn-generate');
+  btn.disabled = true;
+  lastForm = {
+    description: document.getElementById('description').value.trim(),
+    platform: document.getElementById('platform').value.trim(),
+    incident_date: document.getElementById('incident_date').value,
+    harm_type: selectedHarm
+  };
+  await animateProgress();
+  try {
+    const res = await fetch('/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...lastForm, contribute_pattern: true })
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.message || 'Submission failed');
+    lastReceipt = data.receipt;
+    sessionStorage.setItem('mishara_last_receipt', JSON.stringify({ receipt: data.receipt, form: lastForm }));
+    renderReceipt(data.receipt, data.pattern);
+    setStep(4);
+    document.getElementById('progress-box').classList.add('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    alert(e.message || 'Could not generate receipt. Please try again.');
+    document.getElementById('progress-box').classList.add('hidden');
+  }
+  btn.disabled = false;
+};
+
+document.getElementById('btn-download-receipt').onclick = () => {
+  if (!lastReceipt) return;
+  const text = buildReceiptText(lastReceipt);
+  downloadBlob(text, 'mishara-receipt-' + truncHash(lastReceipt.hash).replace(/…/g,'') + '.txt', 'text/plain');
+};
+
+document.getElementById('btn-download-pdf').onclick = () => window.print();
+
+function buildReceiptText(r) {
+  return `MISHARA RECEIPT — Your AI Rights Record
+========================================
+Date: ${r.timestamp}
+Case ID: ${r.entry_id}
+Platform: ${r.platform}
+Harm type: ${r.harm_label}
+Classification: ${r.classification}
+
+WHAT THIS MEANS
+${r.explanation}
+
+YOUR RIGHTS
+${(r.rights||[]).map(x=>'• '+x).join('\n')}
+
+CRYPTOGRAPHIC PROOF
+Hash: ${r.hash}
+Verify: ${r.verify_url}
+
+Powered by Velaru (Nisaba LLC) — Patent #64/124,027
+`;
+}
+
+function downloadBlob(content, filename, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], { type }));
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+document.getElementById('btn-demand-letter').onclick = async () => {
+  if (!lastReceipt || !lastForm.description) return;
+  const btn = document.getElementById('btn-demand-letter');
+  btn.disabled = true;
+  btn.textContent = 'Generating…';
+  try {
+    const res = await fetch('/demand-letter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        description: lastForm.description,
+        platform: lastReceipt.platform,
+        classification: lastReceipt.classification,
+        domain: lastReceipt.domain,
+        receipt_hash: lastReceipt.hash,
+        reason: lastReceipt.reason
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Failed');
+    document.getElementById('letter-content').textContent = data.letter;
+    document.getElementById('letter-modal').classList.remove('hidden');
+  } catch (e) {
+    alert(e.message);
+  }
+  btn.disabled = false;
+  btn.textContent = 'Generate Demand Letter';
+};
+
+document.getElementById('btn-copy-letter').onclick = () => {
+  navigator.clipboard.writeText(document.getElementById('letter-content').textContent);
+  document.getElementById('btn-copy-letter').textContent = 'Copied!';
+  setTimeout(() => document.getElementById('btn-copy-letter').textContent = 'Copy Letter', 1500);
+};
+
+document.getElementById('btn-close-letter').onclick = () => document.getElementById('letter-modal').classList.add('hidden');
+
+document.getElementById('btn-notify').onclick = async () => {
+  const email = document.getElementById('notify-email').value.trim();
+  if (!email) return;
+  const res = await fetch('/join-pattern', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, platform: lastReceipt.platform, domain: lastReceipt.domain })
+  });
+  const data = await res.json();
+  document.getElementById('notify-msg').textContent = data.message || data.error || 'Done.';
+};
+
+document.getElementById('btn-start-over').onclick = () => {
+  lastReceipt = null;
+  selectedHarm = null;
+  document.getElementById('description').value = '';
+  document.getElementById('platform').value = '';
+  document.getElementById('incident_date').value = '';
+  document.querySelectorAll('.harm-card').forEach(c => c.classList.remove('selected'));
+  setStep(1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// Restore session if present
+try {
+  const saved = JSON.parse(sessionStorage.getItem('mishara_last_receipt') || 'null');
+  if (saved && saved.receipt) {
+    lastReceipt = saved.receipt;
+    lastForm = saved.form || {};
+    renderReceipt(saved.receipt, { level: 'building', message: 'Your receipt from this session.' });
+    setStep(4);
+  }
+} catch(e) {}
+</script>
+</body>
+</html>
