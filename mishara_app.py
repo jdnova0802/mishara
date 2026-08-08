@@ -13,15 +13,17 @@ from datetime import datetime, timezone
 
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
+import openai
 
 load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("MISHARA_SECRET_KEY", os.urandom(24).hex())
 
+client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
 VELARU_VERIFY = f"{VELARU_BASE}/verify"
-ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 DB_PATH = os.getenv("MISHARA_DB_PATH", os.path.join(os.path.dirname(__file__), "mishara.db"))
 
 HARM_TYPES = {
@@ -311,21 +313,19 @@ def fallback_explanation(classification, velaru_domain, reason=""):
     )
 
 
-def claude_text(system_prompt, user_prompt, max_tokens=800):
-    if not ANTHROPIC_API_KEY:
+def openai_text(system_prompt, user_prompt, max_tokens=800):
+    if not os.environ.get("OPENAI_API_KEY"):
         return None
     try:
-        import anthropic
-
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-        msg = client.messages.create(
-            model="claude-sonnet-4-20250514",
+        resp = client.chat.completions.create(
+            model="gpt-4o",
             max_tokens=max_tokens,
-            system=system_prompt,
-            messages=[{"role": "user", "content": user_prompt}],
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
         )
-        parts = [b.text for b in msg.content if hasattr(b, "text")]
-        return "\n".join(parts).strip() if parts else None
+        return (resp.choices[0].message.content or "").strip() or None
     except Exception:
         return None
 
@@ -341,7 +341,7 @@ def plain_english_explanation(classification, velaru_domain, description, reason
         f"Domain: {velaru_domain}\nClassification: {classification}\nReason: {reason}\n"
         f"User description (summary only): {description[:500]}"
     )
-    result = claude_text(system, user, max_tokens=350)
+    result = openai_text(system, user, max_tokens=350)
     return result or fallback_explanation(classification, velaru_domain, reason)
 
 
@@ -359,7 +359,7 @@ def generate_demand_letter(platform, description, classification, velaru_domain,
         f"Velaru receipt hash (Exhibit A): {receipt_hash}\nReason: {reason}\n\n"
         f"Consumer's account:\n{description}"
     )
-    result = claude_text(system, user, max_tokens=1200)
+    result = openai_text(system, user, max_tokens=1200)
     if result:
         return result
     rights = RIGHTS_BY_DOMAIN.get(velaru_domain, RIGHTS_BY_DOMAIN["companion"])
@@ -496,7 +496,7 @@ def health():
             "service": "mishara",
             "velaru_reachable": velaru_health_ok(),
             "velaru_base": VELARU_BASE,
-            "claude_configured": bool(ANTHROPIC_API_KEY),
+            "openai_configured": bool(os.environ.get("OPENAI_API_KEY")),
         }
     )
 
