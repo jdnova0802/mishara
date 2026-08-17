@@ -4,5 +4,6 @@ __pycache__/
 mishara.db
 gate/gate.db
 gate/.venv/
+gate/.env
 .venv/
 venv/
