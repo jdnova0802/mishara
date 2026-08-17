@@ -10,31 +10,36 @@ if ! command -v python3 >/dev/null 2>&1; then
   exit 1
 fi
 
-if [ ! -d .venv ]; then
-  echo "→ Creating virtualenv"
-  python3 -m venv .venv
+USE_VENV=1
+if [ -d .venv ] && [ ! -f .venv/bin/activate ]; then
+  echo "→ Removing broken .venv"
+  rm -rf .venv
 fi
 
-# shellcheck disable=SC1091
-source .venv/bin/activate
+if [ ! -d .venv ]; then
+  echo "→ Creating virtualenv"
+  if python3 -m venv .venv 2>/dev/null && [ -f .venv/bin/activate ]; then
+    USE_VENV=1
+  else
+    rm -rf .venv
+    echo "→ venv unavailable — using system python"
+    USE_VENV=0
+  fi
+fi
+
+if [ "$USE_VENV" = 1 ]; then
+  # shellcheck disable=SC1091
+  source .venv/bin/activate
+fi
 
 echo "→ Installing dependencies"
-pip install -q --upgrade pip
-pip install -q -r requirements.txt
+python3 -m pip install -q --upgrade pip
+python3 -m pip install -q -r requirements.txt
 
 if [ ! -f .env ]; then
-  echo "→ Creating .env (dev mode — no Stripe required)"
+  echo "→ Creating .env in dev mode"
   cp .env.example .env
-  python3 - <<'PY'
-from pathlib import Path
-p = Path(".env")
-text = p.read_text()
-text = text.replace("GATE_DEV_MODE=0", "GATE_DEV_MODE=1")
-text = text.replace("GATE_SECRET_KEY=change-me", f"GATE_SECRET_KEY={__import__('secrets').token_hex(32)}")
-if "GATE_PUBLIC_URL=http://localhost:5001" not in text:
-    pass
-p.write_text(text)
-PY
+  python3 -c "from pathlib import Path; import secrets; p=Path('.env'); t=p.read_text(); t=t.replace('GATE_DEV_MODE=0','GATE_DEV_MODE=1'); t=t.replace('GATE_SECRET_KEY=change-me', 'GATE_SECRET_KEY='+secrets.token_hex(32)); p.write_text(t)"
 fi
 
 echo ""

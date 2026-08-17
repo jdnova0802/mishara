@@ -3,13 +3,13 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-if [ ! -d .venv ]; then
+if [ -f .venv/bin/activate ]; then
+  # shellcheck disable=SC1091
+  source .venv/bin/activate
+elif [ ! -f .env ]; then
   echo "Run ./setup.sh first"
   exit 1
 fi
-
-# shellcheck disable=SC1091
-source .venv/bin/activate
 
 if [ ! -f .env ]; then
   echo "Run ./setup.sh first"
