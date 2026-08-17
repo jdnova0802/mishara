@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}48hr Agent Fuse Install{% endblock %}
+{% block content %}
+<div class="container section">
+  <div class="install-hero">
+    {% if install_slots > 0 %}
+      <span class="slot-badge">{{ install_slots }} slot{{ 's' if install_slots != 1 else '' }} left this month</span>
+    {% else %}
+      <span class="slot-badge sold-out">Sold out — waitlist only</span>
+    {% endif %}
+    <h1>48hr Agent Fuse Install</h1>
+    <p class="install-lead">I wire your pre-exec gate. DEAD fuse → fail closed. Every hop → stranger-verifiable receipt. You ship; I don't sell you a compliance quiz.</p>
+    <div class="install-price">{{ install_price }} <span>one-time · non-refundable</span></div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Included</h3>
+      <ul class="check-list">
+        <li>One agent path wired to fuse hop</li>
+        <li>Lookup + hop + verify handoff</li>
+        <li>48hr turnaround from payment</li>
+        <li>Screen-share walkthrough on delivery</li>
+        <li>Gate API key + Pro month included</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Scope cap</h3>
+      <ul class="check-list muted-list">
+        <li>One stack (Python/Node/curl OK)</li>
+        <li>One fuse id / agent surface</li>
+        <li>No custom enterprise bind room</li>
+        <li>Changes after delivery = new sprint</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Proof you get</h3>
+      <ul class="check-list">
+        <li>Live DEAD → verdict:false demo</li>
+        <li>Verify URL in every response</li>
+        <li>Receipt hash for your runbook</li>
+        <li>Patent-backed Velaru engine</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card install-checkout-card">
+    <h2>Book a slot</h2>
+    {% if sold_out %}
+      <p>All install slots are booked for {{ install_slots is defined and 'this month' or 'now' }}. Email <a href="mailto:{{ contact_email }}?subject=FUSE%20waitlist">{{ contact_email }}</a> with subject <strong>FUSE</strong>.</p>
+    {% else %}
+      <p>Pay → I email you within 2 hours → we start the clock. No sales call required.</p>
+      <form method="post" action="{{ url_for('install_checkout') }}" class="install-form">
+        <div class="form-group">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Pay {{ install_price }} — start 48hr install</button>
+        <p class="fine-print">Non-refundable prepay. Grey-area max: scoped delivery, no refund on buyer remorse. Illegal stuff = instant void.</p>
+      </form>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>DIY instead?</h2>
+    <p>Self-serve API keys are free (1,000 hops/mo). Docs take ~5 minutes.</p>
+    <a href="{{ url_for('signup') }}" class="btn btn-ghost btn-sm">Get free API key</a>
+    <a href="{{ url_for('docs') }}" class="btn btn-ghost btn-sm">Read docs</a>
+  </div>
+</div>
+{% endblock %}

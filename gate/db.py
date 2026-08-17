@@ -46,6 +46,14 @@ def init_db():
                 checks INTEGER NOT NULL DEFAULT 0,
                 PRIMARY KEY (account_id, period)
             );
+            CREATE TABLE IF NOT EXISTS install_orders (
+                id TEXT PRIMARY KEY,
+                email TEXT NOT NULL,
+                stripe_session_id TEXT UNIQUE,
+                amount_cents INTEGER NOT NULL DEFAULT 250000,
+                status TEXT NOT NULL DEFAULT 'pending',
+                created_at TEXT NOT NULL
+            );
             """
         )
 
@@ -159,3 +167,45 @@ def set_plan(account_id: str, plan: str, stripe_customer_id=None, stripe_subscri
                stripe_subscription_id = COALESCE(?, stripe_subscription_id) WHERE id = ?""",
             (plan, stripe_customer_id, stripe_subscription_id, account_id),
         )
+
+
+INSTALL_SLOTS = int(os.getenv("GATE_INSTALL_SLOTS", "2"))
+
+
+def install_slots_remaining() -> int:
+    period = current_period()
+    with db() as conn:
+        row = conn.execute(
+            """SELECT COUNT(*) AS n FROM install_orders
+               WHERE status = 'paid' AND created_at LIKE ?""",
+            (f"{period}%",),
+        ).fetchone()
+    booked = row["n"] if row else 0
+    return max(0, INSTALL_SLOTS - booked)
+
+
+def create_install_order(email: str, stripe_session_id: str, amount_cents: int = 250000) -> str:
+    order_id = str(uuid.uuid4())
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO install_orders (id, email, stripe_session_id, amount_cents, status, created_at)
+               VALUES (?, ?, ?, ?, 'pending', ?)""",
+            (order_id, email.lower().strip(), stripe_session_id, amount_cents, utc_now()),
+        )
+    return order_id
+
+
+def mark_install_paid(stripe_session_id: str):
+    with db() as conn:
+        conn.execute(
+            "UPDATE install_orders SET status = 'paid' WHERE stripe_session_id = ?",
+            (stripe_session_id,),
+        )
+
+
+def get_install_order_by_session(stripe_session_id: str):
+    with db() as conn:
+        return conn.execute(
+            "SELECT * FROM install_orders WHERE stripe_session_id = ?",
+            (stripe_session_id,),
+        ).fetchone()

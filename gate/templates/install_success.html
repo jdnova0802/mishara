@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Install booked{% endblock %}
+{% block content %}
+<div class="container section" style="max-width: 560px; text-align: center;">
+  <div class="success-icon">✓</div>
+  <h1>You're in.</h1>
+  {% if order %}
+    <p>Payment received for <strong>{{ order.email }}</strong>. Clock starts when I confirm scope by email.</p>
+  {% else %}
+    <p>Payment received. Clock starts when I confirm scope by email.</p>
+  {% endif %}
+  <div class="card" style="text-align: left; margin-top: 2rem;">
+    <h3>Next steps</h3>
+    <ol class="steps-list">
+      <li>Check inbox (and spam) — intro within 2 hours</li>
+      <li>Reply with your stack (Python/Node/MCP/etc.)</li>
+      <li>48hr delivery: wired hop + verify demo + handoff call</li>
+    </ol>
+  </div>
+  <p style="color: var(--muted); margin-top: 1.5rem;">Questions? <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+  <a href="{{ url_for('index') }}" class="btn btn-ghost" style="margin-top: 1rem;">Back to Gate API</a>
+</div>
+{% endblock %}

@@ -2,20 +2,19 @@
 {% block title %}Pricing{% endblock %}
 {% block content %}
 <div class="container section">
-  <h1 style="text-align: center;">Simple metered pricing</h1>
-  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">No sales calls. Self-serve API keys. Upgrade when you hit the wall.</p>
+  <h1 style="text-align: center;">Pick your path</h1>
+  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">DIY free · Pro metered · Done-for-you install · Enterprise on Velaru</p>
 
-  <div class="pricing-grid">
+  <div class="pricing-grid pricing-grid-3">
     <div class="price-card">
       <h3>Free</h3>
       <div class="price">$0</div>
       <ul>
         <li>1,000 hops / month</li>
-        <li>All endpoints</li>
-        <li>Fuse lookup + hop + execute-gate</li>
+        <li>All API endpoints</li>
         <li>402 when limit hit</li>
       </ul>
-      <a href="{{ url_for('signup') }}" class="btn btn-ghost" style="width: 100%; text-align: center;">Get started</a>
+      <a href="{{ url_for('signup') }}" class="btn btn-ghost" style="width: 100%; text-align: center;">Get API key</a>
     </div>
 
     <div class="price-card featured">
@@ -23,29 +22,44 @@
       <div class="price">{{ pro_price }}</div>
       <ul>
         <li>1,000,000 hops / month</li>
-        <li>Priority upstream proxy</li>
-        <li>Stripe subscription — cancel anytime</li>
-        <li>Same endpoints, no rate anxiety</li>
+        <li>Cancel anytime</li>
+        <li>Same endpoints, no anxiety</li>
       </ul>
       {% if session.get('account_id') %}
         <form action="{{ url_for('billing_checkout') }}" method="post">
-          <button type="submit" class="btn btn-primary" style="width: 100%;">Upgrade to Pro</button>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Upgrade</button>
         </form>
       {% else %}
-        <a href="{{ url_for('signup') }}" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">Sign up → upgrade</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">Sign up → Pro</a>
+      {% endif %}
+    </div>
+
+    <div class="price-card install-card">
+      <h3>48hr Install</h3>
+      <div class="price">{{ install_price }}</div>
+      <ul>
+        <li>One-time · non-refundable</li>
+        <li>I wire your agent path</li>
+        <li>Handoff + verify demo</li>
+        <li>{{ install_slots }} slot{{ 's' if install_slots != 1 else '' }} left</li>
+      </ul>
+      {% if install_slots > 0 %}
+        <a href="{{ url_for('install') }}" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">Book install</a>
+      {% else %}
+        <a href="mailto:{{ contact_email }}?subject=FUSE%20waitlist" class="btn btn-ghost" style="width: 100%; text-align: center; display: block;">Join waitlist</a>
       {% endif %}
     </div>
   </div>
 
   <div class="card" style="margin-top: 2rem;">
     <h2>What counts as a hop?</h2>
-    <p>Each successful API call to <code class="inline">/v1/fuse/lookup</code>, <code class="inline">/v1/fuse/hop</code>, <code class="inline">/v1/execute-gate</code>, or <code class="inline">/v1/classify</code> increments your meter. Failed auth does not count. Upstream Velaru errors after auth may still count — design your retry logic accordingly.</p>
+    <p>Each successful call to <code class="inline">/v1/fuse/lookup</code>, <code class="inline">/v1/fuse/hop</code>, <code class="inline">/v1/execute-gate</code>, or <code class="inline">/v1/classify</code>. Auth failures don't count.</p>
   </div>
 
   <div class="card">
     <h2>Enterprise</h2>
-    <p>Need org-wide mortality roots, bind rooms, or on-prem fuse? That's Velaru Enterprise ($80–150K/yr). Gate API is the self-serve dev on-ramp.</p>
-    <p style="margin-top: 0.5rem;"><a href="mailto:hello@velaru.xyz">hello@velaru.xyz</a></p>
+    <p>Org mortality roots, bind rooms, on-prem — Velaru Enterprise ($80–150K/yr). Gate is the dev on-ramp; install is the fast lane.</p>
+    <p style="margin-top: 0.5rem;"><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
   </div>
 </div>
 {% endblock %}

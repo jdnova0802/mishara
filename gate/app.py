@@ -43,9 +43,13 @@ GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
+STRIPE_INSTALL_PRICE_ID = os.getenv("STRIPE_INSTALL_PRICE_ID", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
+INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
+INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
+CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
@@ -59,6 +63,16 @@ def _ensure_db():
     if not getattr(app, "_db_ready", False):
         init()
         app._db_ready = True
+
+
+@app.context_processor
+def inject_globals():
+    return {
+        "gate_public_url": GATE_PUBLIC_URL,
+        "install_price": INSTALL_PRICE_LABEL,
+        "install_slots": db.install_slots_remaining(),
+        "contact_email": CONTACT_EMAIL,
+    }
 
 
 def login_required(view):
@@ -242,6 +256,8 @@ def index():
         public_url=GATE_PUBLIC_URL,
         velaru_base=VELARU_BASE,
         pro_price=PRO_PRICE_LABEL,
+        install_price=INSTALL_PRICE_LABEL,
+        install_slots=db.install_slots_remaining(),
     )
 
 
@@ -260,7 +276,67 @@ def pricing():
         "pricing.html",
         public_url=GATE_PUBLIC_URL,
         pro_price=PRO_PRICE_LABEL,
+        install_price=INSTALL_PRICE_LABEL,
+        install_slots=db.install_slots_remaining(),
         stripe_publishable=STRIPE_PUBLISHABLE_KEY,
+    )
+
+
+@app.route("/install")
+def install():
+    slots = db.install_slots_remaining()
+    return render_template(
+        "install.html",
+        public_url=GATE_PUBLIC_URL,
+        install_price=INSTALL_PRICE_LABEL,
+        install_slots=slots,
+        sold_out=slots <= 0,
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/install/checkout", methods=["POST"])
+def install_checkout():
+    slots = db.install_slots_remaining()
+    if slots <= 0:
+        flash("Install slots are full this month. Email us for the waitlist.", "error")
+        return redirect(url_for("install"))
+
+    email = (request.form.get("email") or "").strip()
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email for project contact.", "error")
+        return redirect(url_for("install"))
+
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, INSTALL_PRICE_CENTS)
+        db.mark_install_paid(fake_session)
+        return redirect(url_for("install_success", session_id=fake_session))
+
+    if not stripe.api_key or not STRIPE_INSTALL_PRICE_ID:
+        flash(f"Checkout not configured yet. Email {CONTACT_EMAIL} with subject FUSE.", "error")
+        return redirect(url_for("install"))
+
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[{"price": STRIPE_INSTALL_PRICE_ID, "quantity": 1}],
+        success_url=f"{GATE_PUBLIC_URL}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{GATE_PUBLIC_URL}/install?canceled=1",
+        metadata={"product": "install_sprint", "contact_email": email},
+    )
+    db.create_install_order(email, checkout.id, INSTALL_PRICE_CENTS)
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/install/success")
+def install_success():
+    session_id = request.args.get("session_id", "")
+    order = db.get_install_order_by_session(session_id) if session_id else None
+    return render_template(
+        "install_success.html",
+        order=order,
+        contact_email=CONTACT_EMAIL,
     )
 
 
@@ -381,10 +457,14 @@ def billing_webhook():
 
     if event["type"] == "checkout.session.completed":
         sess = event["data"]["object"]
-        account_id = (sess.get("metadata") or {}).get("gate_account_id")
-        sub_id = sess.get("subscription")
-        if account_id:
-            db.set_plan(account_id, "pro", stripe_subscription_id=sub_id)
+        product = (sess.get("metadata") or {}).get("product")
+        if product == "install_sprint":
+            db.mark_install_paid(sess["id"])
+        else:
+            account_id = (sess.get("metadata") or {}).get("gate_account_id")
+            sub_id = sess.get("subscription")
+            if account_id:
+                db.set_plan(account_id, "pro", stripe_subscription_id=sub_id)
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
         sub = event["data"]["object"]
         customer_id = sub.get("customer")
@@ -468,6 +548,28 @@ def api_me():
         "api_base": GATE_PUBLIC_URL,
         "velaru_base": VELARU_BASE,
     }
+
+
+@app.route("/openapi.json")
+def openapi():
+    return jsonify(
+        {
+            "openapi": "3.1.0",
+            "info": {
+                "title": "Gate API",
+                "version": "1.0.0",
+                "description": "Metered agent fuse gate — lookup, hop, execute-gate, classify.",
+            },
+            "servers": [{"url": GATE_PUBLIC_URL}],
+            "paths": {
+                "/v1/fuse/lookup": {"get": {"summary": "Fuse existence lookup"}},
+                "/v1/fuse/hop": {"post": {"summary": "Pre-exec fuse hop"}},
+                "/v1/execute-gate": {"post": {"summary": "PERMIT/DENY bind gate"}},
+                "/v1/classify": {"post": {"summary": "Classify → signed receipt"}},
+                "/v1/me": {"get": {"summary": "Key metadata + usage"}},
+            },
+        }
+    )
 
 
 if __name__ == "__main__":
