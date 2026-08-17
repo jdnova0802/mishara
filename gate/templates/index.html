@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Agent mortality fuse{% endblock %}
+{% block meta %}
+<meta name="description" content="Can this agent still act right now? Metered fuse hop API. DEAD = fail closed. Stranger verify every receipt.">
+<meta property="og:title" content="Gate API — Can this agent still act?">
+<meta property="og:description" content="Agent mortality fuse. LIVE · ARMED · DEAD · UNSIGNED. Metered hop API + 48hr install.">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+{% block content %}
+{% if install_slots > 0 %}
+<div class="top-banner">
+  <span><strong>{{ install_slots }} install slot{{ 's' if install_slots != 1 else '' }}</strong> — 48hr fuse wiring · {{ install_price }}</span>
+  <a href="{{ url_for('install') }}" class="btn btn-primary btn-sm">Book install</a>
+</div>
+{% endif %}
+
+<section class="hero container">
+  <div class="states">
+    <span class="state live">LIVE</span>
+    <span class="state armed">ARMED</span>
+    <span class="state dead">DEAD</span>
+    <span class="state unsigned">UNSIGNED</span>
+  </div>
+  <h1>Can this agent still act right now?</h1>
+  <p class="hero-sub">Agent mortality fuse. Hop before commit. DEAD → <code class="inline">verdict: false</code> + signed receipt. Anyone verifies free.</p>
+  <div class="hero-actions">
+    <a href="{{ url_for('signup') }}" class="btn btn-primary">Get free API key</a>
+    <a href="{{ url_for('install') }}" class="btn btn-accent-outline">48hr install · {{ install_price }}</a>
+    <a href="{{ url_for('docs') }}" class="btn btn-ghost">Docs</a>
+  </div>
+</section>
+
+<section class="container proof-strip">
+  <div class="proof-item">
+    <span class="proof-label">Question</span>
+    <span class="proof-value">Can this agent still act?</span>
+  </div>
+  <div class="proof-item">
+    <span class="proof-label">Answer</span>
+    <span class="proof-value dead-text">DEAD = no</span>
+  </div>
+  <div class="proof-item">
+    <span class="proof-label">Proof</span>
+    <span class="proof-value"><a href="https://velaru.xyz/verify">velaru.xyz/verify</a></span>
+  </div>
+</section>
+
+<section class="container-wide section">
+  <div class="grid-3">
+    <div class="card">
+      <h3>1 · Lookup</h3>
+      <p>Fuse id → LIVE · ARMED · DEAD · UNSIGNED. Public existence, not a dashboard tab.</p>
+    </div>
+    <div class="card">
+      <h3>2 · Hop</h3>
+      <p>Pre-exec gate. DEAD fails closed. Every allow burns τ and returns a receipt.</p>
+    </div>
+    <div class="card">
+      <h3>3 · Prove</h3>
+      <p>Post the verify link. Strangers confirm without your login. That's the flex.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <h2>Ship in 5 minutes</h2>
+  <pre>curl -s "{{ public_url }}/v1/fuse/hop" \
+  -H "Authorization: Bearer gate_sk_live_YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
+  <p style="color: var(--muted);">Returns <code class="inline">verdict</code>, <code class="inline">state</code>, <code class="inline">verify_url</code>. Free: 1k hops/mo · Pro: {{ pro_price }} · DIY or <a href="{{ url_for('install') }}">we wire it in 48hr</a>.</p>
+</section>
+
+<section class="container section paths-grid">
+  <div class="card path-card">
+    <h3>Self-serve</h3>
+    <p>Free API key. Metered proxy. 402 when you hit the wall.</p>
+    <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Start free</a>
+  </div>
+  <div class="card path-card featured-path">
+    <h3>Done-for-you</h3>
+    <p>{{ install_price }} · 48hr install · one agent path wired + handoff.</p>
+    <a href="{{ url_for('install') }}" class="btn btn-primary btn-sm">Book slot</a>
+  </div>
+  <div class="card path-card">
+    <h3>Scale</h3>
+    <p>Pro {{ pro_price }} · 1M hops/mo. No rate anxiety.</p>
+    <a href="{{ url_for('pricing') }}" class="btn btn-ghost btn-sm">See pricing</a>
+  </div>
+</section>
+
+<section class="container section" style="text-align: center; padding-bottom: 3rem;">
+  <p style="color: var(--muted); margin-bottom: 1rem;">Engine: Velaru · Patent #64/124,027 · Nisaba LLC</p>
+  <a href="{{ url_for('signup') }}" class="btn btn-primary">Get API key — free</a>
+</section>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Documentation{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>Gate API docs</h1>
+  <p style="color: var(--muted); margin-bottom: 2rem;">Metered proxy to the Velaru fuse engine. All requests require <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>.</p>
+
+  <div class="card">
+    <h2>Authentication</h2>
+    <p>Create an account → dashboard → copy your API key. Keys are shown once.</p>
+    <pre>Authorization: Bearer gate_sk_live_xxxxxxxx</pre>
+  </div>
+
+  <div class="card">
+    <h2>GET /v1/fuse/lookup</h2>
+    <p>Public existence check. Returns fuse state without burning hop quota on Velaru side — counts as 1 hop on Gate meter.</p>
+    <pre>curl -s "{{ public_url }}/v1/fuse/lookup?fuse_id=fuse_velaru_drill" \
+  -H "Authorization: Bearer $GATE_KEY"</pre>
+    <p>Response headers: <code class="inline">X-Gate-Usage-Hops</code>, <code class="inline">X-Gate-Usage-Limit</code>, <code class="inline">X-Gate-Plan</code></p>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/fuse/hop</h2>
+    <p>Pre-execution gate. DEAD fuse → 200 with <code class="inline">verdict: false</code> + signed restraint receipt.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/fuse/hop" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/execute-gate/demo</h2>
+    <p>PERMIT/DENY/SILENCE bind gate smoke test. Same hop family as carrier execute-gate.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/execute-gate/demo" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/classify</h2>
+    <p>Velaru classify → signed receipt. Pass-through for agent audit trails.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/classify" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Sample message","domain":"companion"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>GET /v1/me</h2>
+    <p>Key metadata + current period usage.</p>
+    <pre>curl -s "{{ public_url }}/v1/me" \
+  -H "Authorization: Bearer $GATE_KEY"</pre>
+  </div>
+
+  <div class="card">
+    <h2>402 Payment Required</h2>
+    <p>When monthly hop limit is exceeded:</p>
+    <pre>{
+  "error": {
+    "type": "payment_required",
+    "code": "hop_limit_exceeded",
+    "message": "Monthly hop limit reached...",
+    "usage": { "hops": 1000, "hop_limit": 1000, "plan": "free" },
+    "upgrade_url": "{{ public_url }}/pricing"
+  }
+}</pre>
+  </div>
+
+  <div class="card">
+    <h2>Verify receipts</h2>
+    <p>Hop responses include <code class="inline">verify_url</code>. Humans verify free at <a href="https://velaru.xyz/verify">velaru.xyz/verify</a>. Engine: {{ velaru_base }}</p>
+  </div>
+
+  <div class="card">
+    <h2>Health</h2>
+    <pre>curl -s "{{ public_url }}/health"</pre>
+  </div>
+</div>
+{% endblock %}
