@@ -4,6 +4,18 @@ Metered dev API wrapping the Velaru fuse engine. Identity, billing, docs, 402 on
 
 **One question:** Can this agent still act right now?
 
+## On your laptop (2 commands)
+
+After git pull:
+
+```bash
+cd gate
+chmod +x setup.sh start.sh
+./setup.sh && ./start.sh
+```
+
+Opens **http://localhost:5001** — full site + install page + signup. Dev mode skips Stripe (install checkout works instantly for testing).
+
 ## Deploy (Render)
 
 1. New Web Service → connect this repo
