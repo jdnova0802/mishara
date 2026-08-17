@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Trust & proof{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>Trust & proof</h1>
+  <p style="color: var(--muted); max-width: 640px; margin-bottom: 2rem;">What Gate proves, how it proves it, and what we explicitly do not claim.</p>
+
+  <div class="card">
+    <h2>The question</h2>
+    <p><strong>Can this agent still act right now?</strong></p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">Four answers only: LIVE · ARMED · DEAD · UNSIGNED. Not a safety score. Public existence proof.</p>
+  </div>
+
+  <div class="card">
+    <h2>The flow</h2>
+    <pre class="flow-diagram">Lookup → fuse state (LIVE|ARMED|DEAD|UNSIGNED)
+   ↓
+Hop   → pre-exec gate · DEAD → verdict:false + restraint receipt
+   ↓
+Prove → stranger verify at {{ velaru_base }}/verify (free, no login)</pre>
+  </div>
+
+  <div class="card">
+    <h2>What we prove</h2>
+    <ul class="check-list">
+      <li>Signed public fuse existence at hop time</li>
+      <li>Fail-closed behavior when fuse is DEAD</li>
+      <li>Hash-chained receipts strangers can verify</li>
+      <li>Metered access — no infinite free labor</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>What we do not claim</h2>
+    <ul class="check-list muted-list">
+      <li>We do not prove model truth or complete logs</li>
+      <li>UNSIGNED is not a legality or safety score</li>
+      <li>We are not resurrecting fuses from UI — CHARGE webhook only on Velaru</li>
+      <li>Gate is the meter + identity layer; Velaru is the proof engine</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Legal & IP</h2>
+    <p>Patent Pending #64/124,027 · Nisaba LLC · Operator: Demond Davis</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">Engine: <a href="https://velaru.xyz">velaru.xyz</a> · Verify: <a href="https://velaru.xyz/verify">velaru.xyz/verify</a></p>
+  </div>
+
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="{{ url_for('index') }}" class="btn btn-ghost btn-sm">Home</a>
+    <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Get API key</a>
+  </div>
+</div>
+{% endblock %}

@@ -209,3 +209,30 @@ def get_install_order_by_session(stripe_session_id: str):
             "SELECT * FROM install_orders WHERE stripe_session_id = ?",
             (stripe_session_id,),
         ).fetchone()
+
+
+def count_accounts() -> int:
+    with db() as conn:
+        row = conn.execute("SELECT COUNT(*) AS n FROM accounts").fetchone()
+    return row["n"] if row else 0
+
+
+def total_hops_period() -> int:
+    period = current_period()
+    with db() as conn:
+        row = conn.execute(
+            "SELECT COALESCE(SUM(hops), 0) AS n FROM usage WHERE period = ?",
+            (period,),
+        ).fetchone()
+    return row["n"] if row else 0
+
+
+def paid_installs_period() -> int:
+    period = current_period()
+    with db() as conn:
+        row = conn.execute(
+            """SELECT COUNT(*) AS n FROM install_orders
+               WHERE status = 'paid' AND created_at LIKE ?""",
+            (f"{period}%",),
+        ).fetchone()
+    return row["n"] if row else 0

@@ -345,6 +345,22 @@ footer a { color: var(--muted); }
 .pricing-grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 .install-card { border-color: #fbbf2444; }
 
+.demo-card { border-color: var(--accent); }
+.demo-output { min-height: 120px; margin-top: 1rem; font-size: 0.8rem; }
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.status-card.ok { border-color: #4ade8044; }
+.status-card.down { border-color: #f8717144; }
+.status-big { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0; }
+.status-meta { font-size: 0.85rem; color: var(--muted); }
+
+.flow-diagram { font-size: 0.8rem; line-height: 1.5; }
+
 @media (max-width: 640px) {
   .nav-links { gap: 0.75rem; font-size: 0.85rem; }
   .nav-links .nav-install { display: none; }

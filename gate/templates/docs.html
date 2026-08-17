@@ -73,6 +73,35 @@
   </div>
 
   <div class="card">
+    <h2>Python SDK</h2>
+    <pre>from gate.sdk import GateClient
+
+client = GateClient(api_key="gate_sk_live_...", base_url="{{ public_url }}")
+result = client.hop("fuse_velaru_drill")
+print(result["verdict"], result.get("verify_url"))</pre>
+  </div>
+
+  <div class="card">
+    <h2>CLI</h2>
+    <pre>export GATE_API_KEY="gate_sk_live_..."
+python cli.py hop fuse_velaru_drill
+python cli.py lookup fuse_velaru_drill
+python cli.py me</pre>
+  </div>
+
+  <div class="card">
+    <h2>Public demo (no key)</h2>
+    <pre>curl -s -X POST "{{ public_url }}/demo/hop" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>Discovery</h2>
+    <p><a href="{{ public_url }}/openapi.json">openapi.json</a> · <a href="{{ public_url }}/.well-known/gate.json">.well-known/gate.json</a></p>
+  </div>
+
+  <div class="card">
     <h2>Health</h2>
     <pre>curl -s "{{ public_url }}/health"</pre>
   </div>

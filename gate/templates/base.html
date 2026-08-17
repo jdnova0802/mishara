@@ -17,6 +17,7 @@
         <a href="{{ url_for('docs') }}">Docs</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('install') }}" class="nav-install">Install</a>
+        <a href="{{ url_for('status_page') }}">Status</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('dashboard') }}">Dashboard</a>
           <a href="{{ url_for('logout') }}">Log out</a>
@@ -42,7 +43,8 @@
 
   <footer>
     <div class="container">
-      Gate API · agent mortality fuse · <a href="{{ url_for('install') }}">48hr install</a> ·
+      Gate API · <a href="{{ url_for('trust') }}">Trust</a> ·
+      <a href="{{ url_for('install') }}">48hr install</a> ·
       <a href="https://velaru.xyz/verify">verify</a> · Patent #64/124,027 · Nisaba LLC
     </div>
   </footer>

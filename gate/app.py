@@ -31,6 +31,11 @@ try:
 except ImportError:
     import db
 
+try:
+    from gate import demo_limit
+except ImportError:
+    import demo_limit
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -258,6 +263,92 @@ def index():
         pro_price=PRO_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         install_slots=db.install_slots_remaining(),
+    )
+
+
+@app.route("/status")
+def status_page():
+    velaru_ok = False
+    velaru_data = {}
+    try:
+        r = velaru_request("GET", "/health", timeout=10)
+        velaru_ok = r.status_code == 200
+        velaru_data = r.json() if velaru_ok else {}
+    except requests.RequestException:
+        pass
+    return render_template(
+        "status.html",
+        velaru_ok=velaru_ok,
+        velaru_data=velaru_data,
+        velaru_base=VELARU_BASE,
+        accounts=db.count_accounts(),
+        hops_month=db.total_hops_period(),
+        installs_month=db.paid_installs_period(),
+        install_slots=db.install_slots_remaining(),
+        public_url=GATE_PUBLIC_URL,
+    )
+
+
+@app.route("/trust")
+def trust():
+    return render_template("trust.html", velaru_base=VELARU_BASE, public_url=GATE_PUBLIC_URL)
+
+
+@app.route("/demo/hop", methods=["POST"])
+def demo_hop():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
+    try:
+        r = velaru_request("POST", "/api/v1/fuse/hop", json={"fuse_id": fuse_id})
+        data = r.json()
+        data["demo"] = True
+        data["signup_url"] = f"{GATE_PUBLIC_URL}/signup"
+        return jsonify(data), r.status_code
+    except requests.RequestException as e:
+        return jsonify({"error": {"code": "upstream_error", "message": str(e)}}), 502
+
+
+@app.route("/demo/lookup")
+def demo_lookup():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    fuse_id = request.args.get("fuse_id", "fuse_velaru_drill").strip()
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
+    try:
+        r = velaru_request("GET", "/api/v1/fuse/lookup", params={"fuse_id": fuse_id})
+        data = r.json()
+        data["demo"] = True
+        return jsonify(data), r.status_code
+    except requests.RequestException as e:
+        return jsonify({"error": {"code": "upstream_error", "message": str(e)}}), 502
+
+
+@app.route("/.well-known/gate.json")
+def well_known_gate():
+    return jsonify(
+        {
+            "name": "Gate API",
+            "description": "Can this agent still act right now? Metered fuse hop.",
+            "version": "1.0.0",
+            "openapi": f"{GATE_PUBLIC_URL}/openapi.json",
+            "signup": f"{GATE_PUBLIC_URL}/signup",
+            "install": f"{GATE_PUBLIC_URL}/install",
+            "verify_engine": "https://velaru.xyz/verify",
+            "demo_hop": f"{GATE_PUBLIC_URL}/demo/hop",
+            "sdk": {
+                "python": "from gate.sdk import GateClient",
+                "pip": "pip install -r requirements.txt  # sdk in-repo",
+            },
+            "patent": "64/124,027",
+            "operator": "Nisaba LLC",
+        }
     )
 
 
@@ -558,15 +649,68 @@ def openapi():
             "info": {
                 "title": "Gate API",
                 "version": "1.0.0",
-                "description": "Metered agent fuse gate — lookup, hop, execute-gate, classify.",
+                "description": "Metered agent mortality fuse. Can this agent still act right now?",
+                "contact": {"email": CONTACT_EMAIL, "url": GATE_PUBLIC_URL},
             },
-            "servers": [{"url": GATE_PUBLIC_URL}],
+            "servers": [{"url": GATE_PUBLIC_URL, "description": "Gate API"}],
+            "components": {
+                "securitySchemes": {
+                    "BearerAuth": {
+                        "type": "http",
+                        "scheme": "bearer",
+                        "description": "gate_sk_live_... from dashboard",
+                    }
+                },
+                "schemas": {
+                    "FuseHopResponse": {
+                        "type": "object",
+                        "properties": {
+                            "ok": {"type": "boolean"},
+                            "fuse_id": {"type": "string"},
+                            "state": {"enum": ["LIVE", "ARMED", "DEAD", "UNSIGNED"]},
+                            "verdict": {"type": "boolean"},
+                            "verify_url": {"type": "string", "format": "uri"},
+                            "receipt_id": {"type": "string"},
+                        },
+                    }
+                },
+            },
             "paths": {
-                "/v1/fuse/lookup": {"get": {"summary": "Fuse existence lookup"}},
-                "/v1/fuse/hop": {"post": {"summary": "Pre-exec fuse hop"}},
-                "/v1/execute-gate": {"post": {"summary": "PERMIT/DENY bind gate"}},
-                "/v1/classify": {"post": {"summary": "Classify → signed receipt"}},
-                "/v1/me": {"get": {"summary": "Key metadata + usage"}},
+                "/v1/fuse/lookup": {
+                    "get": {
+                        "summary": "Fuse existence lookup",
+                        "security": [{"BearerAuth": []}],
+                        "parameters": [
+                            {
+                                "name": "fuse_id",
+                                "in": "query",
+                                "required": True,
+                                "schema": {"type": "string"},
+                            }
+                        ],
+                        "responses": {"200": {"description": "Fuse state"}, "402": {"description": "Hop limit exceeded"}},
+                    }
+                },
+                "/v1/fuse/hop": {
+                    "post": {
+                        "summary": "Pre-exec fuse hop — DEAD fails closed",
+                        "security": [{"BearerAuth": []}],
+                        "responses": {
+                            "200": {
+                                "description": "Hop result + receipt",
+                                "content": {"application/json": {"schema": {"$ref": "#/components/schemas/FuseHopResponse"}}},
+                            },
+                            "402": {"description": "Hop limit exceeded"},
+                        },
+                    }
+                },
+                "/v1/execute-gate/demo": {"post": {"summary": "PERMIT/DENY demo", "security": [{"BearerAuth": []}]}},
+                "/v1/classify": {"post": {"summary": "Classify → signed receipt", "security": [{"BearerAuth": []}]}},
+                "/v1/me": {"get": {"summary": "Key metadata + usage", "security": [{"BearerAuth": []}]}},
+                "/demo/hop": {"post": {"summary": "Public demo hop (no key, rate limited)", "security": []}},
+                "/demo/lookup": {"get": {"summary": "Public demo lookup", "security": []}},
+                "/health": {"get": {"summary": "Service health"}},
+                "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},
             },
         }
     )
