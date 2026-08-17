@@ -2,5 +2,7 @@
 __pycache__/
 *.pyc
 mishara.db
+gate/gate.db
+gate/.venv/
 .venv/
 venv/

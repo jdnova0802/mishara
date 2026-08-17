@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+<div class="container section" style="max-width: 420px;">
+  <h1>Get your API key</h1>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Free tier · 1,000 hops/mo · no credit card</p>
+  <form method="post">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">Create account</button>
+  </form>
+  <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+</div>
+{% endblock %}

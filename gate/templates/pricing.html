@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Pricing{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1 style="text-align: center;">Simple metered pricing</h1>
+  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">No sales calls. Self-serve API keys. Upgrade when you hit the wall.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Free</h3>
+      <div class="price">$0</div>
+      <ul>
+        <li>1,000 hops / month</li>
+        <li>All endpoints</li>
+        <li>Fuse lookup + hop + execute-gate</li>
+        <li>402 when limit hit</li>
+      </ul>
+      <a href="{{ url_for('signup') }}" class="btn btn-ghost" style="width: 100%; text-align: center;">Get started</a>
+    </div>
+
+    <div class="price-card featured">
+      <h3>Pro</h3>
+      <div class="price">{{ pro_price }}</div>
+      <ul>
+        <li>1,000,000 hops / month</li>
+        <li>Priority upstream proxy</li>
+        <li>Stripe subscription — cancel anytime</li>
+        <li>Same endpoints, no rate anxiety</li>
+      </ul>
+      {% if session.get('account_id') %}
+        <form action="{{ url_for('billing_checkout') }}" method="post">
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Upgrade to Pro</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('signup') }}" class="btn btn-primary" style="width: 100%; text-align: center; display: block;">Sign up → upgrade</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 2rem;">
+    <h2>What counts as a hop?</h2>
+    <p>Each successful API call to <code class="inline">/v1/fuse/lookup</code>, <code class="inline">/v1/fuse/hop</code>, <code class="inline">/v1/execute-gate</code>, or <code class="inline">/v1/classify</code> increments your meter. Failed auth does not count. Upstream Velaru errors after auth may still count — design your retry logic accordingly.</p>
+  </div>
+
+  <div class="card">
+    <h2>Enterprise</h2>
+    <p>Need org-wide mortality roots, bind rooms, or on-prem fuse? That's Velaru Enterprise ($80–150K/yr). Gate API is the self-serve dev on-ramp.</p>
+    <p style="margin-top: 0.5rem;"><a href="mailto:hello@velaru.xyz">hello@velaru.xyz</a></p>
+  </div>
+</div>
+{% endblock %}

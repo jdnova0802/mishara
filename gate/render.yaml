@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: gate-api
+    runtime: python
+    plan: starter
+    rootDir: gate
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.13.0"
+      - key: GATE_DB_PATH
+        value: /tmp/gate.db
+      - key: VELARU_API_URL
+        value: https://velaru.onrender.com
+      - key: GATE_DEV_MODE
+        value: "0"
+      - key: GATE_SECRET_KEY
+        sync: false
+      - key: GATE_PUBLIC_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_ID
+        sync: false

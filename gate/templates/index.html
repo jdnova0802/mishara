@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Agent existence gate{% endblock %}
+{% block content %}
+<section class="hero container">
+  <div class="states">
+    <span class="state live">LIVE</span>
+    <span class="state armed">ARMED</span>
+    <span class="state dead">DEAD</span>
+    <span class="state unsigned">UNSIGNED</span>
+  </div>
+  <h1>Can this agent still act right now?</h1>
+  <p>Metered API for Velaru fuse lookup, hop, and execute-gate. Identity, billing, and 402 limits — so your engine stops doing free labor.</p>
+  <div class="hero-actions">
+    <a href="{{ url_for('signup') }}" class="btn btn-primary">Get free API key</a>
+    <a href="{{ url_for('docs') }}" class="btn btn-ghost">Read the docs</a>
+  </div>
+</section>
+
+<section class="container-wide section">
+  <div class="grid-3">
+    <div class="card">
+      <h3>1 · Lookup</h3>
+      <p>Paste a fuse id. Get LIVE · ARMED · DEAD · UNSIGNED — signed public existence, not a dashboard tab.</p>
+    </div>
+    <div class="card">
+      <h3>2 · Hop</h3>
+      <p>Burn τ on allow. DEAD fuse → <code class="inline">verdict: false</code> + restraint receipt. Fail closed.</p>
+    </div>
+    <div class="card">
+      <h3>3 · Prove</h3>
+      <p>Stranger verify at Velaru <code class="inline">/verify</code>. Every hop returns a receipt you can link.</p>
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <h2>Three curls to ship</h2>
+  <pre>curl -s "{{ public_url }}/v1/fuse/lookup?fuse_id=fuse_velaru_drill" \
+  -H "Authorization: Bearer gate_sk_live_YOUR_KEY"</pre>
+  <pre>curl -s -X POST "{{ public_url }}/v1/fuse/hop" \
+  -H "Authorization: Bearer gate_sk_live_YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
+  <pre>curl -s -X POST "{{ public_url }}/v1/execute-gate/demo" \
+  -H "Authorization: Bearer gate_sk_live_YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{}'</pre>
+  <p style="color: var(--muted); margin-top: 1rem;">Free tier: 1,000 hops/mo. Pro: 1M hops/mo at {{ pro_price }}. Hit the limit → HTTP 402 with upgrade URL.</p>
+</section>
+
+<section class="container section" style="text-align: center; padding-bottom: 3rem;">
+  <a href="{{ url_for('signup') }}" class="btn btn-primary">Start building — free</a>
+</section>
+{% endblock %}
