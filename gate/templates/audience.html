@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ plate.title }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ plate.headline }} — {{ plate.subhead }}">
+{% endblock %}
+{% block content %}
+<div class="container section audience-page">
+  <a href="{{ url_for('start_hub') }}" class="back-link">← All paths</a>
+  <span class="audience-emoji">{{ plate.emoji }}</span>
+  <p class="audience-tag">{{ plate.title }}</p>
+  <h1>{{ plate.headline }}</h1>
+  <p class="audience-sub">{{ plate.subhead }}</p>
+
+  <div class="card audience-offer">
+    <div class="offer-price">{{ plate.price }}</div>
+    <p><strong>The pain:</strong> {{ plate.pain }}</p>
+    <p style="margin-top: 0.75rem;"><strong>The plate:</strong> {{ plate.offer }}</p>
+    <p style="margin-top: 0.75rem; color: var(--muted);"><strong>Proof:</strong> {{ plate.proof }}</p>
+    <div class="hero-actions" style="margin-top: 1.5rem; justify-content: flex-start;">
+      {% if plate.cta_route %}
+        <a href="{{ url_for(plate.cta_route) }}" class="btn btn-primary">{{ plate.cta_label }}</a>
+      {% elif plate.cta_href %}
+        <a href="{{ plate.cta_href }}" class="btn btn-primary" target="_blank" rel="noopener">{{ plate.cta_label }}</a>
+      {% elif plate.cta_mailto %}
+        <a href="mailto:{{ contact_email }}?{{ plate.cta_mailto }}" class="btn btn-primary">{{ plate.cta_label }}</a>
+      {% endif %}
+      {% if plate.secondary_route %}
+        <a href="{{ url_for(plate.secondary_route) }}" class="btn btn-ghost">{{ plate.secondary_label }}</a>
+      {% elif plate.secondary_href %}
+        <a href="{{ plate.secondary_href }}" class="btn btn-ghost" target="_blank" rel="noopener">{{ plate.secondary_label }}</a>
+      {% elif plate.secondary_mailto %}
+        <a href="mailto:{{ contact_email }}?{{ plate.secondary_mailto }}" class="btn btn-ghost">{{ plate.secondary_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if slug in ['developers', 'agents', 'startups', 'boards'] %}
+  <div class="card">
+    <h3>Try live proof</h3>
+    <button type="button" class="btn btn-primary btn-sm demo-hop-inline">Run DEAD hop demo</button>
+    <pre class="demo-output demo-output-inline" style="margin-top: 1rem;">Click to hop fuse_velaru_drill</pre>
+  </div>
+  <script src="{{ url_for('static', filename='demo.js') }}"></script>
+  <script>
+    document.querySelectorAll('.demo-hop-inline').forEach(function(btn) {
+      btn.id = 'demo-hop-btn';
+      var pre = btn.parentElement.querySelector('.demo-output-inline');
+      if (pre) pre.id = 'demo-output';
+    });
+  </script>
+  {% endif %}
+
+  <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--muted);">
+    Share this door: <code class="inline">{{ public_url }}/for/{{ slug }}</code>
+    · <code class="inline">{{ public_url }}/pitch/{{ slug }}</code>
+  </p>
+</div>
+{% endblock %}

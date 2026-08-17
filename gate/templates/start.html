@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Choose your path{% endblock %}
+{% block meta %}
+<meta name="description" content="14 optimized entry points — developers, legal, carriers, boards, enterprise, and more. One proof engine.">
+{% endblock %}
+{% block content %}
+<section class="hero container" style="padding-bottom: 2rem;">
+  <h1>One engine. Every buyer gets their own door.</h1>
+  <p class="hero-sub">Pick the plate that matches who you're talking to. Same fuse. Same verify. Zero museum navigation.</p>
+</section>
+
+<section class="container-wide section" style="padding-top: 0;">
+  <div class="plate-grid">
+    {% for p in plates %}
+    <a href="{{ url_for('audience_plate', slug=p.slug) }}" class="card plate-card">
+      <span class="plate-emoji">{{ p.emoji }}</span>
+      <h3>{{ p.title }}</h3>
+      <p class="plate-headline">{{ p.headline }}</p>
+      <p class="plate-price">{{ p.price }}</p>
+      <span class="plate-cta">Enter →</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>For outbound</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Paste the path that matches the human. Each URL is a full landing — not a section on a buffet page.</p>
+    <pre>{{ public_url }}/start
+{{ public_url }}/for/legal
+{{ public_url }}/for/carriers
+{{ public_url }}/for/startups
+{{ public_url }}/.well-known/opportunities.json</pre>
+  </div>
+</section>
+{% endblock %}

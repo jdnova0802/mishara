@@ -16,6 +16,7 @@ import stripe
 from dotenv import load_dotenv
 from flask import (
     Flask,
+    abort,
     flash,
     g,
     jsonify,
@@ -35,6 +36,11 @@ try:
     from gate import demo_limit
 except ImportError:
     import demo_limit
+
+try:
+    from gate import audiences
+except ImportError:
+    import audiences
 
 load_dotenv()
 
@@ -292,6 +298,38 @@ def status_page():
 @app.route("/trust")
 def trust():
     return render_template("trust.html", velaru_base=VELARU_BASE, public_url=GATE_PUBLIC_URL)
+
+
+@app.route("/start")
+def start_hub():
+    plates = audiences.plate_list()
+    return render_template("start.html", plates=plates, public_url=GATE_PUBLIC_URL)
+
+
+@app.route("/for/<slug>")
+def audience_plate(slug):
+    plate = audiences.get_plate(slug)
+    if not plate:
+        abort(404)
+    return render_template(
+        "audience.html",
+        slug=slug,
+        plate=plate,
+        public_url=GATE_PUBLIC_URL,
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/pitch/<slug>")
+def audience_pitch(slug):
+    if not audiences.get_plate(slug):
+        abort(404)
+    return redirect(url_for("audience_plate", slug=slug))
+
+
+@app.route("/.well-known/opportunities.json")
+def well_known_opportunities():
+    return jsonify(audiences.opportunities_manifest(GATE_PUBLIC_URL, CONTACT_EMAIL))
 
 
 @app.route("/demo/hop", methods=["POST"])

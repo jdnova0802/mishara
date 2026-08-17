@@ -361,6 +361,46 @@ footer a { color: var(--muted); }
 
 .flow-diagram { font-size: 0.8rem; line-height: 1.5; }
 
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.plate-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.plate-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.plate-emoji { font-size: 1.75rem; display: block; margin-bottom: 0.5rem; }
+.plate-headline { font-size: 0.9rem; color: var(--muted); margin: 0.5rem 0; line-height: 1.4; }
+.plate-price { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); margin: 0.5rem 0; }
+.plate-cta { font-size: 0.8rem; color: var(--muted); }
+
+.audience-page { max-width: 720px; }
+.back-link { font-size: 0.85rem; color: var(--muted); display: inline-block; margin-bottom: 1rem; }
+.audience-emoji { font-size: 2.5rem; }
+.audience-tag { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem; }
+.audience-sub { color: var(--muted); font-size: 1.1rem; margin: 1rem 0 2rem; }
+.offer-price { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+.audience-offer { border-color: var(--accent); }
+
+.subtle-banner {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  border-top: none;
+}
+
+.subtle-banner .btn-ghost { border-color: var(--border); }
+
 @media (max-width: 640px) {
   .nav-links { gap: 0.75rem; font-size: 0.85rem; }
   .nav-links .nav-install { display: none; }
