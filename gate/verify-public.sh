@@ -59,6 +59,8 @@ check bind_room GET 200 "$URL/bind-room"
 check officer GET 200 "$URL/bind-room/officer-pack.json"
 check bound GET 200 "$URL/bound"
 check bound_wk GET 200 "$URL/.well-known/bound-answer.json"
+check only GET 200 "$URL/only"
+check exclusive_wk GET 200 "$URL/.well-known/exclusive-timing.json"
 
 check demo_hop POST 200 \
   -X POST "$URL/demo/hop" \

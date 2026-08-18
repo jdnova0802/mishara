@@ -83,6 +83,11 @@ try:
 except ImportError:
     import bound
 
+try:
+    from gate import exclusive
+except ImportError:
+    import exclusive
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -156,6 +161,7 @@ def cors_discovery(resp):
             "/robots.txt",
             "/sitemap.xml",
             "/bound",
+            "/only",
         )
         or path.startswith("/demo/")
     ):
@@ -396,6 +402,7 @@ def health():
         "mcp": f"{pub}/mcp",
         "bind_room": f"{pub}/bind-room",
         "bound": f"{pub}/bound",
+        "only": f"{pub}/only",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -509,9 +516,9 @@ def demo_hop():
         "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
     )
     if isinstance(data, dict):
-        bound.attach(data, status)
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
+        bound.attach(data, status, demo=True)
     return data, status, extra
 
 
@@ -548,7 +555,8 @@ def run_welded_act(fuse_id: str, action: str):
             hop["acted"] = False
             hop["action"] = action
             hop["welded"] = True
-            bound.attach(hop, status)
+            hop["closed_world"] = True
+            bound.attach(hop, status, closed_world=True)
         return hop, status, extra
 
     allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
@@ -568,7 +576,7 @@ def run_welded_act(fuse_id: str, action: str):
         ),
     }
     extra["X-Gate-Acted"] = "1" if allowed else "0"
-    bound.attach(result, 200)
+    bound.attach(result, 200, closed_world=True)
     return result, 200, extra
 
 
@@ -586,6 +594,7 @@ def demo_act():
     if isinstance(data, dict):
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
+        bound.attach(data, status, demo=True, closed_world=True)
     return data, status, extra
 
 
@@ -707,11 +716,11 @@ def demo_pas_bind_check():
         return blocked, code
     data, status, extra = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
     if isinstance(data, dict):
-        bound.attach(data, status)
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
         data["listing"] = f"{advertised_url()}/.well-known/listings.json"
         data["bind_room"] = f"{advertised_url()}/bind-room"
+        bound.attach(data, status, demo=True)
     return data, status, extra
 
 
@@ -730,6 +739,7 @@ def demo_pc_pre_bind():
     data, status, extra = run_policycenter_pre_bind(body)
     if isinstance(data, dict):
         data["demo"] = True
+        bound.attach(data, status, demo=True)
     return data, status, extra
 
 
@@ -748,6 +758,7 @@ def demo_mga_authority():
     data, status, extra = run_mga_authority(body)
     if isinstance(data, dict):
         data["demo"] = True
+        bound.attach(data, status, demo=True)
     return data, status, extra
 
 
@@ -766,6 +777,7 @@ def demo_dc_pre_bind():
     data, status, extra = run_duckcreek_pre_bind(body)
     if isinstance(data, dict):
         data["demo"] = True
+        bound.attach(data, status, demo=True)
     return data, status, extra
 
 
@@ -781,7 +793,9 @@ def well_known_gate():
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
             "bound": f"{advertised_url()}/bound",
+            "only": f"{advertised_url()}/only",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
+            "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{advertised_url()}/demo/hop",
             "demo_act": f"{advertised_url()}/demo/act",
@@ -832,6 +846,16 @@ def bound_page():
     return render_template("bound.html", public_url=advertised_url())
 
 
+@app.route("/.well-known/exclusive-timing.json")
+def well_known_exclusive():
+    return jsonify(exclusive.manifesto(advertised_url()))
+
+
+@app.route("/only")
+def only_page():
+    return render_template("only.html", public_url=advertised_url())
+
+
 def _mcp_call_tool(name: str, arguments: dict):
     """MCP tools: metered if a key is present, else public demo fuses only."""
     row = authenticate_api_key()
@@ -874,7 +898,7 @@ def _mcp_call_tool(name: str, arguments: dict):
             "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
         )
         if isinstance(data, dict):
-            bound.attach(data, status)
+            bound.attach(data, status, demo=not keyed)
             data["http_status"] = status
         if keyed:
             db.increment_usage(row["account_id"], "hops")
@@ -886,6 +910,9 @@ def _mcp_call_tool(name: str, arguments: dict):
             return {"error": {"code": "demo_fuse_only"}}
         data, status, _ = run_welded_act(fuse_id, action)
         if isinstance(data, dict):
+            if not keyed:
+                data["demo"] = True
+                bound.attach(data, status, demo=True, closed_world=True)
             data["http_status"] = status
         if keyed:
             db.increment_usage(row["account_id"], "hops")
@@ -1497,8 +1524,10 @@ def sitemap():
         "/install",
         "/bind-room",
         "/bound",
+        "/only",
         "/trust",
         "/.well-known/bound-answer.json",
+        "/.well-known/exclusive-timing.json",
         "/status",
         "/signup",
         "/llms.txt",
@@ -1532,7 +1561,9 @@ def llms_txt():
         f"- Install ($2,500): {advertised_url()}/install",
         f"- Bind Room ($1,750): {advertised_url()}/bind-room",
         f"- A no that holds: {advertised_url()}/bound",
+        f"- The only door: {advertised_url()}/only",
         f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
+        f"- Exclusive timing: {advertised_url()}/.well-known/exclusive-timing.json",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
@@ -1543,6 +1574,7 @@ def llms_txt():
         "",
         "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
         "More valuable than a question is a no that holds: narrow, enforced, provable.",
+        "Worth more than that: the act that never happens, because there was no other door.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
         "PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
@@ -1649,7 +1681,9 @@ def openapi():
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
+                "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
+                "/.well-known/exclusive-timing.json": {"get": {"summary": "Exclusive-timing manifesto. Receipt is not the product."}},
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},

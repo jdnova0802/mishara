@@ -8,6 +8,11 @@ The prize is a no that holds.
 """
 from __future__ import annotations
 
+try:
+    from gate import exclusive as exclusive_mod
+except ImportError:
+    import exclusive as exclusive_mod
+
 QUESTION = "Can this agent still act right now?"
 SPEC = "gate-bound-answer-v1"
 STACK = "question → four states → hop that fails closed → verify"
@@ -98,7 +103,14 @@ def from_payload(payload: dict | None, status: int, *, write_path: str | None = 
     }
 
 
-def attach(payload, status: int, *, write_path: str | None = None):
+def attach(
+    payload,
+    status: int,
+    *,
+    write_path: str | None = None,
+    demo: bool = False,
+    closed_world: bool = False,
+):
     if isinstance(payload, dict) and (
         payload.get("halt") is not None
         or payload.get("verdict") is not None
@@ -109,6 +121,9 @@ def attach(payload, status: int, *, write_path: str | None = None):
         or isinstance(payload.get("hop"), dict)
     ):
         payload["bound_answer"] = from_payload(payload, status, write_path=write_path)
+        payload["exclusive_timing"] = exclusive_mod.classify(
+            payload, payload["bound_answer"], demo=demo, closed_world=closed_world
+        )
     return payload
 
 
@@ -135,6 +150,8 @@ def manifesto(public_url: str) -> dict:
             "pre_bind": f"POST {public_url}/demo/pas/policycenter/pre-bind",
         },
         "page": f"{public_url}/bound",
+        "deeper": f"{public_url}/only",
         "bind_room": f"{public_url}/bind-room",
         "verify": "https://velaru.xyz/verify",
+        "worth_more": "A bound answer can still be a museum. Exclusive timing is the only door.",
     }

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}The only door{% endblock %}
+{% block meta %}
+<meta name="description" content="Worth more than a bound answer: exclusive timing. The act that never happens, because there was no other door. The receipt is not the product.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Exclusive timing</p>
+  <h1>The act that never happens</h1>
+  <p class="audience-sub">Narrow, enforced, and provable can still be a demo. A beautiful DEAD on a hop nobody required. A museum of “we could have stopped it.”</p>
+
+  <div class="card">
+    <h2>What’s more</h2>
+    <p>The bind, the wire, the deploy cannot complete on any other path. Bypass costs more than going through you. CHARGE costs more than the act was worth. Then the receipt is not the product. The product is the <strong>irreversible that didn’t occur</strong>.</p>
+    <p style="color: var(--muted); margin-top: 0.75rem;">You cannot screenshot a non-event. The empty space after DEAD stays empty only if you own the only moment the act could have taken.</p>
+  </div>
+
+  <div class="grid-3" style="margin: 2rem 0;">
+    <div class="card">
+      <h3>Museum</h3>
+      <p>Public <code class="inline">/demo/hop</code>. <code class="inline">exclusive_timing.museum: true</code>. Proof that a no can hold — on a door nobody had to use.</p>
+    </div>
+    <div class="card">
+      <h3>Gate’s only door</h3>
+      <p><code class="inline">POST /v1/act</code> is the only act path on this service. Closed world. Still not their PolicyCenter.</p>
+    </div>
+    <div class="card">
+      <h3>Theirs</h3>
+      <p>We will not set <code class="inline">their_production: true</code> from here. That is true after they weld and do not bypass. Bind Room + 48hr. Bind-only worker on one origin.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Honor required</h2>
+    <p>PolicyCenter pre-bind returns <code class="inline">exclusive_if_honored</code>. If they still POST bind-and-issue, the no leaked. Raise the Manual UW issue. CHARGE is the only resurrect.</p>
+    <pre>curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'</pre>
+    <p style="margin-top: 1rem; color: var(--muted);">Look for <code class="inline">exclusive_timing</code>. Demo stays a museum. Metered weld + their worker is the door.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Bind Room</a>
+    <a href="{{ url_for('install') }}" class="btn btn-accent-outline">48hr weld</a>
+    <a href="{{ url_for('bound_page') }}" class="btn btn-ghost">A no that holds</a>
+    <a href="{{ url_for('well_known_exclusive') }}" class="btn btn-ghost">exclusive-timing.json</a>
+  </div>
+</div>
+{% endblock %}

@@ -6,6 +6,8 @@ Metered dev API wrapping the Velaru fuse engine. Identity, billing, docs, 402 on
 
 **More valuable than the question:** a no that holds — narrow, enforced, provable. See `/bound`.
 
+**Worth more than that:** the act that never happens, because there was no other door. See `/only`. Demo hops are a museum. We do not claim their production.
+
 ## On your laptop (2 commands)
 
 After git pull:

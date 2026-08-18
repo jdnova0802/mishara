@@ -26,6 +26,7 @@ import fields  # noqa: E402
 import weld  # noqa: E402
 import bind_room  # noqa: E402
 import bound  # noqa: E402
+import exclusive  # noqa: E402
 import app as gate_app  # noqa: E402
 
 
@@ -84,6 +85,8 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("google", m["do_not_date"])
         self.assertIn("bind_room", m)
         self.assertIn("bound_answer", m)
+        self.assertIn("exclusive_timing", m)
+        self.assertFalse(m["exclusive_timing"]["their_production"])
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
 
@@ -234,6 +237,44 @@ class BoundAnswerTests(unittest.TestCase):
         self.assertIn("bind-and-issue", ba["write_path"] or "")
 
 
+class ExclusiveTimingTests(unittest.TestCase):
+    def test_demo_hop_is_museum(self):
+        ba = bound.from_payload(
+            {"verdict": False, "halt": True, "state": "DEAD", "verify_url": "https://velaru.xyz/verify"},
+            200,
+        )
+        ex = exclusive.classify({"demo": True}, ba, demo=True)
+        self.assertTrue(ex["museum"])
+        self.assertFalse(ex["exclusive"])
+        self.assertFalse(ex["their_production"])
+        self.assertIsNone(ex["product"])
+
+    def test_closed_world_dead_is_non_event(self):
+        payload = {
+            "spec": "gate-welded-act-v1",
+            "closed_world": True,
+            "acted": False,
+            "halt": True,
+            "hop": {"verdict": False, "halt": True, "state": "DEAD", "verify_url": "https://velaru.xyz/verify"},
+        }
+        ba = bound.from_payload(payload, 200)
+        ex = exclusive.classify(payload, ba, closed_world=True)
+        self.assertFalse(ex["museum"])
+        self.assertTrue(ex["exclusive"])
+        self.assertTrue(ex["non_event"])
+        self.assertEqual(ex["product"], "the irreversible that didn't occur")
+        self.assertFalse(ex["their_production"])
+
+    def test_pc_honor_required_not_their_prod(self):
+        plan = weld.policycenter_plan("pc:1", {"verdict": False, "halt": True, "state": "DEAD"}, 200)
+        ba = bound.from_payload(plan, 200)
+        ex = exclusive.classify(plan, ba)
+        self.assertTrue(ex["exclusive_if_honored"])
+        self.assertFalse(ex["exclusive"])
+        self.assertFalse(ex["their_production"])
+        self.assertTrue(ex["non_event"])
+
+
 class FieldAndWeldTests(unittest.TestCase):
     def test_pii_rejected(self):
         err = fields.pii_error({"fuse_id": "fuse_velaru_drill", "ssn": "000-00-0000"})
@@ -360,6 +401,15 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r2.status_code, 200)
         self.assertEqual(r2.get_json()["more_valuable_than_a_question"], "a no that holds")
 
+    def test_only_page_and_manifest(self):
+        r = self.client.get("/only")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"never happens", r.data)
+        r2 = self.client.get("/.well-known/exclusive-timing.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertFalse(r2.get_json()["their_production"])
+        self.assertTrue(r2.get_json()["receipt_is_not_the_product"])
+
     def test_demo_hop_attaches_bound_answer(self):
         dead = {
             "ok": True,
@@ -371,9 +421,12 @@ class BindRoomFlaskTests(unittest.TestCase):
         with mock.patch.object(gate_app, "velaru_fuse", return_value=(dead, 200, {})):
             r = self.client.post("/demo/hop", json={"fuse_id": "fuse_velaru_drill"})
         self.assertEqual(r.status_code, 200)
-        ba = r.get_json()["bound_answer"]
+        body = r.get_json()
+        ba = body["bound_answer"]
         self.assertTrue(ba["holds"])
         self.assertFalse(ba["answer"])
+        self.assertTrue(body["exclusive_timing"]["museum"])
+        self.assertFalse(body["exclusive_timing"]["their_production"])
 
     def test_listings_still_health(self):
         r = self.client.get("/health")

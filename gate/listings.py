@@ -61,6 +61,13 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "prize": "a no that holds",
             "tests": ["narrow", "enforced", "provable"],
         },
+        "exclusive_timing": {
+            "page": f"{public_url}/only",
+            "manifest": f"{public_url}/.well-known/exclusive-timing.json",
+            "worth_more": "the act that never happens — because there was no other door",
+            "receipt_is_not_the_product": True,
+            "their_production": False,
+        },
         "bind_room": {
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",
