@@ -225,6 +225,34 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("acted", inner)
         self.assertIsInstance(inner["acted"], bool)
 
+    def test_nav_and_clickable_pages_are_not_broken(self):
+        home = self.client.get("/").get_data(as_text=True)
+        self.assertIn("href=\"/scanner\"", home)
+        self.assertIn(">Scanner</a>", home)
+        for path in (
+            "/",
+            "/start",
+            "/scanner",
+            "/capture",
+            "/this",
+            "/docs",
+            "/for/carriers",
+            "/for/consumers",
+            "/signup",
+            "/login",
+            "/pricing",
+            "/install",
+            "/bind-room",
+        ):
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+        carriers = self.client.get("/for/carriers").get_data(as_text=True)
+        self.assertNotIn("href=\"/v1/pas/policycenter/pre-bind\"", carriers)
+        self.assertIn("href=\"/capture\"", carriers)
+        consumers = self.client.get("/for/consumers").get_data(as_text=True)
+        self.assertNotIn("Open Mishara", consumers)
+        self.assertIn("Open Gate", consumers)
+
 
 class BoundAnswerTests(unittest.TestCase):
     def test_dead_hop_holds(self):
@@ -901,7 +929,7 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:SCAN-2",
+                    "job_id": "pc:SCAN-BAI-1",
                     "action": "bind-and-issue",
                 },
             )
