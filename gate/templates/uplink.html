@@ -22,8 +22,8 @@ now     = UTC</pre>
 
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Fail closed</h2>
-    <p><code class="inline">command_now_required</code> — redeem omitted now.</p>
-    <p style="margin-top: 0.5rem;"><code class="inline">command_now_invalid</code> — presented now is outside the skew. A command that is not in the shared now is not a command.</p>
+    <p><code class="inline">command_now_required</code> — redeem omitted now. Ticket not consumed.</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">command_now_invalid</code> — garbage now, or skew beyond the window. A command that is not in the shared now is not a command. Ticket not consumed.</p>
     <p style="margin-top: 0.5rem;"><code class="inline">ticket_expired</code> — Command Loss Timer. Silence is DEAD.</p>
   </div>
 

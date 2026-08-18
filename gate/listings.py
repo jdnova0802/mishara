@@ -119,6 +119,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "manifest": f"{public_url}/.well-known/command-radiation.json",
             "question": "May this CLTU still be radiated, for this vehicle, in this now?",
             "now_required": True,
+            "radiation_abort_does_not_consume": True,
         },
         "bind_room": {
             "url": f"{public_url}/bind-room",

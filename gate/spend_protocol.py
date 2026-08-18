@@ -175,14 +175,16 @@ def spec(public_url: str) -> dict:
         },
         "redeem": {
             "path": f"{base}/v1/pas/bind-ticket/redeem",
-            "required": ["ticket_id", "token", "job_id", "method", "path"],
+            "required": ["ticket_id", "token", "job_id", "method", "path", "now"],
             "optional": ["spend_fingerprint"],
+            "now": "UTC. Missing or skewed now is radiation_abort; the ticket is not consumed.",
             "mismatch": REASON_MISMATCH,
             "missing_write": REASON_REQUIRED,
             "not_in_protocol": REASON_NOT_IN_PROTOCOL,
             "fail_closed": True,
             "recompute": "Hash the write being forwarded, not the fingerprint copied off the ticket.",
         },
+        "command_radiation": f"{base}/.well-known/command-radiation.json",
         "refused_writes": [
             "POST /job/v1/jobs/{job_id}/bind-and-issue",
             "POST /policy/v1/policies/{policy_id}/issue",
