@@ -44,7 +44,7 @@
 
   <div class="card">
     <h2>POST /v1/pas/policycenter/pre-bind</h2>
-    <p>Hop first. LIVE + verdict true → <code class="inline">allow_bind: true</code> and next is <code class="inline">POST /job/v1/jobs/{jobId}/bind-and-issue</code>. DEAD or timeout → raise Manual UW issue. Do <em>not</em> call bind-and-issue. UW approve without CHARGE does not resurrect.</p>
+    <p>Hop first. LIVE + verdict true → next may be bind-and-issue. DEAD → <code class="inline">do_not_call_all</code> includes <code class="inline">bind-only</code> (already Bound) and <code class="inline">bind-and-issue</code>. UW type must BlocksBind, not QuoteRelease. UW approve without CHARGE does not resurrect.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/pas/policycenter/pre-bind" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \

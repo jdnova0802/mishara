@@ -18,6 +18,7 @@ Bind Room + PolicyCenter/MGA weld + no-PII contract are in this repo. **You stil
 - Exclusive timing: `/only` · `exclusive_timing.museum` on demo hops. `/v1/act` is Gate’s only door. `their_production` is never claimed from Gate.
 - Floor: `/floor` · `stakes.cleverer_layer` is null. Last conceptual layer.
 - Particular: `/this` · name one, let it try. Demo hop without a job is still philosophizing. `tuesday_moved` is never claimed from Gate. Appendix is the dated instance.
+- Production capture: `/capture` · wrap **bind-only** (already Bound) not only bind-and-issue. UW type must BlocksBind. UI bind + auto-renewal remain other doors.
 - Bind Room: `/bind-room` · officer-pack.json · appendix.schema.json · Exhibit C HITL · `$1,750`
 - No PII: PAS paths reject SSN / ACORD / named insured / ECDIS with `400 no_pii`
 - Contract: `/listings/control-not-model.json`

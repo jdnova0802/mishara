@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Capture — bind-only is already Bound{% endblock %}
+{% block meta %}
+<meta name="description" content="PolicyCenter production spend writes. bind-only legally Bound the policy. Wrap that or the world is already spent. UW issue must BlocksBind, not QuoteRelease.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Production capture</p>
+  <h1>bind-only already Bound the policy</h1>
+  <p class="audience-sub">Guidewire Cloud API. No pre-bind hook. If you only wrap <code class="inline">bind-and-issue</code>, they call <code class="inline">bind-only</code> and the contract exists. Status Bound. Documents later. The world is spent.</p>
+
+  <div class="card">
+    <h2>The three Cloud API spends</h2>
+    <pre>POST /job/v1/jobs/{jobId}/bind-only
+POST /job/v1/jobs/{jobId}/bind-and-issue
+POST /policy/v1/policies/{policyId}/issue</pre>
+    <p style="margin-top: 0.75rem; color: var(--muted);">DEAD hop → raise a UW issue whose blocking point is <strong>Binding</strong> (<code class="inline">blocksBind</code>). <code class="inline">UWManagerReviewBlocksQuoteRelease</code> blocks quote, not bind. Open issue → bind returns 422. Approve is not CHARGE.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Doors Cloud API cannot see</h2>
+    <p>PolicyCenter UI Bind. Renewal auto-bind workflow. If those stay open, you are still philosophizing. Close them in-house or attach the bind worker to the only origin that can bind.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Fire it</h2>
+    <pre>curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:4040"}'</pre>
+    <p style="margin-top: 0.75rem;">Look for <code class="inline">do_not_call_all</code> — bind-only first. Worker: <a href="{{ public_url }}/listings/cloudflare-worker-bind.js">cloudflare-worker-bind.js</a>.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Bind Room</a>
+    <a href="{{ url_for('well_known_capture') }}" class="btn btn-ghost">capture.json</a>
+    <a href="{{ url_for('this_page') }}" class="btn btn-ghost">This one</a>
+  </div>
+</div>
+{% endblock %}

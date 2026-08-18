@@ -174,6 +174,7 @@ def cors_discovery(resp):
             "/only",
             "/floor",
             "/this",
+            "/capture",
         )
         or path.startswith("/demo/")
     ):
@@ -417,6 +418,7 @@ def health():
         "only": f"{pub}/only",
         "floor": f"{pub}/floor",
         "this": f"{pub}/this",
+        "capture": f"{pub}/capture",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -810,6 +812,7 @@ def well_known_gate():
             "only": f"{advertised_url()}/only",
             "floor": f"{advertised_url()}/floor",
             "this": f"{advertised_url()}/this",
+            "capture": f"{advertised_url()}/capture",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
             "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
             "stakes": f"{advertised_url()}/.well-known/floor.json",
@@ -892,6 +895,16 @@ def well_known_particular():
 @app.route("/this")
 def this_page():
     return render_template("this.html", public_url=advertised_url())
+
+
+@app.route("/.well-known/capture.json")
+def well_known_capture():
+    return jsonify(weld.capture_manifest(advertised_url()))
+
+
+@app.route("/capture")
+def capture_page():
+    return render_template("capture.html", public_url=advertised_url())
 
 
 def _mcp_call_tool(name: str, arguments: dict):
@@ -1567,11 +1580,13 @@ def sitemap():
         "/only",
         "/floor",
         "/this",
+        "/capture",
         "/trust",
         "/.well-known/bound-answer.json",
         "/.well-known/exclusive-timing.json",
         "/.well-known/floor.json",
         "/.well-known/particular.json",
+        "/.well-known/capture.json",
         "/status",
         "/signup",
         "/llms.txt",
@@ -1608,10 +1623,12 @@ def llms_txt():
         f"- The only door: {advertised_url()}/only",
         f"- The floor: {advertised_url()}/floor",
         f"- This one: {advertised_url()}/this",
+        f"- Production capture: {advertised_url()}/capture",
         f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
         f"- Exclusive timing: {advertised_url()}/.well-known/exclusive-timing.json",
         f"- Floor: {advertised_url()}/.well-known/floor.json",
         f"- Particular: {advertised_url()}/.well-known/particular.json",
+        f"- Capture: {advertised_url()}/.well-known/capture.json",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
@@ -1734,10 +1751,12 @@ def openapi():
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
                 "/this": {"get": {"summary": "A particular. Name one. Let it try to spend. Not a deeper idea."}},
+                "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
                 "/.well-known/exclusive-timing.json": {"get": {"summary": "Exclusive-timing manifesto. Receipt is not the product."}},
                 "/.well-known/floor.json": {"get": {"summary": "The floor. cleverer_layer is null."}},
                 "/.well-known/particular.json": {"get": {"summary": "Particular manifesto. An event, not a question."}},
+                "/.well-known/capture.json": {"get": {"summary": "Complete Cloud API spend map. bind-only leak."}},
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},

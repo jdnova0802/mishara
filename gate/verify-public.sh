@@ -65,6 +65,8 @@ check floor GET 200 "$URL/floor"
 check floor_wk GET 200 "$URL/.well-known/floor.json"
 check this GET 200 "$URL/this"
 check particular_wk GET 200 "$URL/.well-known/particular.json"
+check capture GET 200 "$URL/capture"
+check capture_wk GET 200 "$URL/.well-known/capture.json"
 
 check demo_hop POST 200 \
   -X POST "$URL/demo/hop" \

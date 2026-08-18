@@ -90,6 +90,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("exclusive_timing", m)
         self.assertIn("floor", m)
         self.assertIn("particular", m)
+        self.assertIn("capture", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
@@ -238,7 +239,7 @@ class BoundAnswerTests(unittest.TestCase):
         plan = weld.policycenter_plan("pc:1", {"verdict": False, "halt": True, "state": "DEAD"}, 200)
         ba = bound.from_payload(plan, 200)
         self.assertTrue(ba["holds"])
-        self.assertIn("bind-and-issue", ba["write_path"] or "")
+        self.assertIn("bind-only", ba["write_path"] or "")
 
 
 class ExclusiveTimingTests(unittest.TestCase):
@@ -341,8 +342,11 @@ class FieldAndWeldTests(unittest.TestCase):
         plan = weld.policycenter_plan("pc:1", hop, 200)
         self.assertFalse(plan["allow_bind"])
         self.assertIn("uw-issues", plan["raise_uw_issue"]["path"])
-        self.assertEqual(plan["raise_uw_issue"]["body"]["data"]["attributes"]["issueType"]["code"], "UWManagerReviewBlocksQuoteRelease")
-        self.assertIn("bind-and-issue", plan["do_not_call"]["path"])
+        self.assertEqual(plan["raise_uw_issue"]["blocking_point_required"], "Binding")
+        self.assertIn("bind-only", plan["do_not_call"]["path"])
+        paths = [w["path"] for w in plan["do_not_call_all"]]
+        self.assertTrue(any("bind-and-issue" in p for p in paths))
+        self.assertTrue(any("bind-only" in p for p in paths))
 
     def test_pc_live_allows_bind(self):
         hop = {"verdict": True, "state": "LIVE"}
@@ -407,7 +411,9 @@ class BindRoomFlaskTests(unittest.TestCase):
         data = r.get_json()
         self.assertFalse(data["allow_bind"])
         self.assertIn("uw-issues", data["raise_uw_issue"]["path"])
-        self.assertIn("bind-and-issue", data["do_not_call"]["path"])
+        self.assertIn("bind-only", data["do_not_call"]["path"])
+        paths = [w["path"] for w in data["do_not_call_all"]]
+        self.assertTrue(any("bind-and-issue" in p for p in paths))
         self.assertTrue(data["particular"]["particular"])
         self.assertTrue(data["particular"]["this_one_tried"])
         self.assertFalse(data["particular"]["tuesday_moved"])
@@ -479,6 +485,18 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r2.status_code, 200)
         self.assertTrue(r2.get_json()["not_a_deeper_idea"])
         self.assertFalse(r2.get_json()["tuesday_moved"])
+
+    def test_capture_page_and_manifest(self):
+        r = self.client.get("/capture")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"bind-only", r.data)
+        r2 = self.client.get("/.well-known/capture.json")
+        self.assertEqual(r2.status_code, 200)
+        data = r2.get_json()
+        self.assertFalse(data["their_production"])
+        paths = [w["path"] for w in data["cloud_api_spend_writes"]]
+        self.assertTrue(any("bind-only" in p for p in paths))
+        self.assertIn("quote", data["uw_issue"]["not_sufficient_why"].lower())
 
     def test_demo_hop_attaches_bound_answer(self):
         dead = {
