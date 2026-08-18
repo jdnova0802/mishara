@@ -104,6 +104,11 @@ except ImportError:
     import liturgy as liturgy_mod
 
 try:
+    from gate import inhabitant as inhabitant_mod
+except ImportError:
+    import inhabitant as inhabitant_mod
+
+try:
     from gate import ticket as ticket_mod
 except ImportError:
     import ticket as ticket_mod
@@ -451,6 +456,7 @@ def health():
         "floor": f"{pub}/floor",
         "this": f"{pub}/this",
         "capture": f"{pub}/capture",
+        "inhabitant": f"{pub}/inhabitant",
         "mass": f"{pub}/mass",
         "refusal": f"{pub}/refusal",
         "tattoo": f"{pub}/tattoo",
@@ -720,9 +726,13 @@ def _finalize_spend_plan(
         redeem_url=_redeem_url(),
     )
     plan["event_id"] = event_id
+    letter = inhabitant_mod.for_event(row, advertised_url())
+    plan["inhabitant"] = letter
+    plan["inhabitant_url"] = letter["page"]
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
+    extra["X-Gate-Inhabitant"] = letter["page"]
     out_status = status if status >= 500 else 200
     bound.attach(plan, out_status)
     return plan, out_status, extra
@@ -950,10 +960,12 @@ def well_known_gate():
             "floor": f"{advertised_url()}/floor",
             "this": f"{advertised_url()}/this",
             "capture": f"{advertised_url()}/capture",
+            "inhabitant": f"{advertised_url()}/inhabitant",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
             "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
             "stakes": f"{advertised_url()}/.well-known/floor.json",
             "particular": f"{advertised_url()}/.well-known/particular.json",
+            "inhabitant": f"{advertised_url()}/.well-known/inhabitant.json",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{advertised_url()}/demo/hop",
             "demo_act": f"{advertised_url()}/demo/act",
@@ -1042,6 +1054,33 @@ def this_page():
     return render_template("this.html", public_url=advertised_url())
 
 
+@app.route("/.well-known/inhabitant.json")
+def well_known_inhabitant():
+    return jsonify(inhabitant_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/inhabitant/<event_id>.json")
+def well_known_inhabitant_letter(event_id: str):
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+    return jsonify(inhabitant_mod.for_event(row, advertised_url()))
+
+
+@app.route("/inhabitant")
+def inhabitant_page():
+    return render_template("inhabitant.html", public_url=advertised_url(), letter=None)
+
+
+@app.route("/inhabitant/<event_id>")
+def inhabitant_letter_page(event_id: str):
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+    letter = inhabitant_mod.for_event(row, advertised_url())
+    return render_template("inhabitant.html", public_url=advertised_url(), letter=letter)
+
+
 @app.route("/.well-known/capture.json")
 def well_known_capture():
     return jsonify(weld.capture_manifest(advertised_url()))
@@ -1056,7 +1095,7 @@ def well_known_receipt(event_id: str):
         from gate import receipt as receipt_mod
     except ImportError:
         import receipt as receipt_mod
-    return jsonify(receipt_mod.receipt_to_public_payload(receipt_row=row))
+    return jsonify(receipt_mod.receipt_to_public_payload(receipt_row=row, public_url=advertised_url()))
 
 
 @app.route("/.well-known/receipt/<event_id>/proof.json")
@@ -1940,6 +1979,7 @@ def sitemap():
         "/only",
         "/floor",
         "/this",
+        "/inhabitant",
         "/capture",
         "/mass",
         "/refusal",
@@ -1949,6 +1989,7 @@ def sitemap():
         "/.well-known/exclusive-timing.json",
         "/.well-known/floor.json",
         "/.well-known/particular.json",
+        "/.well-known/inhabitant.json",
         "/.well-known/capture.json",
         "/.well-known/counterfactual-spend.json",
         "/.well-known/commit-auth.json",
@@ -1993,6 +2034,7 @@ def llms_txt():
         f"- The only door: {advertised_url()}/only",
         f"- The floor: {advertised_url()}/floor",
         f"- This one: {advertised_url()}/this",
+        f"- Inhabitant copy (they did not have to ask): {advertised_url()}/inhabitant",
         f"- Production capture: {advertised_url()}/capture",
         f"- Stranger Mass: {advertised_url()}/mass",
         f"- Refusal SKU ({REFUSAL_PRICE_LABEL}): {advertised_url()}/refusal",
@@ -2134,6 +2176,7 @@ def openapi():
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
                 "/this": {"get": {"summary": "A particular. Name one. Let it try to spend. Not a deeper idea."}},
+                "/inhabitant": {"get": {"summary": "The someone who has to live there. They did not have to ask."}},
                 "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},

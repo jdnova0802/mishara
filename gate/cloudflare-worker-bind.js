@@ -2,7 +2,8 @@
  * Bind-path only. Intercept bind-and-issue / issue. Everything else passes through.
  * wrangler secret put GATE_KEY
  * GATE_URL = live https Gate — never localhost.
- * Halt JSON always includes verify_url so the inhabitant gets a receipt without asking.
+ * Halt JSON always includes verify_url and inhabitant_url so the inhabitant
+ * gets a copy without asking.
  */
 function isLocal(url) {
   const u = (url || "").toLowerCase();

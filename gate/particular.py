@@ -132,6 +132,7 @@ def manifesto(public_url: str) -> dict:
         "try": f"POST {public_url}/demo/pas/policycenter/pre-bind",
         "appendix": f"GET {public_url}/v1/pas/bind-appendix",
         "page": f"{public_url}/this",
+        "inhabitant": f"{public_url}/inhabitant",
         "floor": f"{public_url}/floor",
         "bind_room": f"{public_url}/bind-room",
     }

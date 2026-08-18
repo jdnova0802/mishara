@@ -4,7 +4,8 @@
  *
  * wrangler secret put GATE_KEY
  * [vars] GATE_URL must be the LIVE https origin — never localhost.
- * Halt JSON always includes verify_url so the inhabitant gets a receipt without asking.
+ * Halt JSON always includes verify_url and inhabitant_url so the inhabitant
+ * gets a copy without asking.
  */
 function isLocal(url) {
   const u = (url || "").toLowerCase();

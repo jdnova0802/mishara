@@ -79,6 +79,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "unrepeatable": True,
             "not_only_yours": True,
             "not_in_contest": "someone's irreversible that did occur",
+            "inhabitant": f"{public_url}/inhabitant",
         },
         "particular": {
             "page": f"{public_url}/this",
@@ -86,6 +87,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "not_a_deeper_idea": True,
             "tuesday_moved": False,
             "work": "the gate firing for this one, before the spend, with no bypass",
+            "hand_to_them": f"{public_url}/inhabitant",
         },
         "capture": {
             "page": f"{public_url}/capture",
@@ -93,7 +95,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "spent_if_unwrapped": "POST /job/v1/jobs/{jobId}/bind-only",
             "ui_bind": f"{public_url}/listings/guidewire-gosu-prebind.gs",
             "renewal_auto_bind": f"{public_url}/listings/guidewire-renewal-prebind.gs",
-            "halt_always_includes": "verify_url",
+            "halt_always_includes": ["verify_url", "inhabitant_url"],
         },
         "commit_auth": {
             "manifest": f"{public_url}/.well-known/commit-auth.json",

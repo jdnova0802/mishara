@@ -247,7 +247,7 @@ def capture_manifest(public_url: str) -> dict:
         },
         "worker": f"{public_url}/listings/cloudflare-worker-bind.js",
         "pre_bind": f"POST {public_url}/v1/pas/policycenter/pre-bind",
-        "halt_always_includes": "verify_url",
+        "halt_always_includes": ["verify_url", "inhabitant_url"],
         "their_production": False,
         "later": {
             "tpm_hsm": "After first invoice. Do not stall the weld for a root of trust nobody asked for yet.",

@@ -180,7 +180,9 @@ def issue_receipt(
     }
 
 
-def receipt_to_public_payload(*, receipt_row: dict, canonical_receipt_json: str | None = None) -> dict:
+def receipt_to_public_payload(
+    *, receipt_row: dict, canonical_receipt_json: str | None = None, public_url: str | None = None
+) -> dict:
     # Gate does not publish full hop; only the canonical receipt fields are used.
     # canonical_receipt_json may be supplied if you want the client to recompute the hash.
     payload = {
@@ -254,5 +256,12 @@ def receipt_to_public_payload(*, receipt_row: dict, canonical_receipt_json: str 
     except ImportError:
         import counterfactual as counterfactual_mod
 
-    return counterfactual_mod.attach_to_receipt_payload(payload, receipt_row)
+    payload = counterfactual_mod.attach_to_receipt_payload(payload, receipt_row)
+    if public_url:
+        try:
+            from gate import inhabitant as inhabitant_mod
+        except ImportError:
+            import inhabitant as inhabitant_mod
+        payload = inhabitant_mod.attach_to_receipt_payload(payload, receipt_row, public_url)
+    return payload
 

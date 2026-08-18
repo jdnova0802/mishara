@@ -94,10 +94,12 @@ def manifesto(public_url: str) -> dict:
         "treat_as_real": [
             f"Bind Room: {public_url}/bind-room",
             f"48hr weld: {public_url}/install",
+            f"Inhabitant copy: {public_url}/inhabitant",
             f"Only door: {public_url}/only",
             "CHARGE is the only DEAD→LIVE path. UW approve is not resurrection.",
         ],
         "page": f"{public_url}/floor",
+        "inhabitant": f"{public_url}/inhabitant",
         "only": f"{public_url}/only",
         "bound": f"{public_url}/bound",
     }
