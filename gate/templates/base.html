@@ -27,16 +27,12 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate<span>API</span></a>
       <div class="nav-links">
-        <a href="{{ url_for('start_hub') }}">Paths</a>
-        <a href="{{ url_for('bound_page') }}">Bound</a>
-        <a href="{{ url_for('only_page') }}">Only</a>
-        <a href="{{ url_for('floor_page') }}">Floor</a>
-        <a href="{{ url_for('this_page') }}">This</a>
+        <a href="{{ url_for('audience_plate', slug='carriers') }}">Carriers</a>
+        <a href="{{ url_for('bind_room') }}">Bind Room</a>
         <a href="{{ url_for('scanner_page') }}">Scanner</a>
-        <a href="{{ url_for('uplink_page') }}">Uplink</a>
         <a href="{{ url_for('docs') }}">Docs</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
-        <a href="{{ url_for('bind_room') }}">Bind Room</a>
+        <a href="{{ url_for('start_hub') }}">All paths</a>
         <a href="{{ url_for('install') }}" class="nav-install">Install</a>
         <a href="{{ url_for('status_page') }}">Status</a>
         {% if session.get('account_id') %}
