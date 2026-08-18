@@ -80,6 +80,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "not_only_yours": True,
             "not_in_contest": "someone's irreversible that did occur",
             "inhabitant": f"{public_url}/inhabitant",
+            "afterward": f"{public_url}/afterward",
         },
         "particular": {
             "page": f"{public_url}/this",

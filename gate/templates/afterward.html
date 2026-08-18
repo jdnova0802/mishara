@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Afterward{% endblock %}
+{% block meta %}
+<meta name="description" content="This copy does not expire. It is for whoever has to live there, including later. If there is no letter, we will not invent a no.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Afterward</p>
+  <h1>Including later</h1>
+  <p class="audience-sub">The hop fired in a room. The someone who has to live there is not always the person who was in it. This copy does not expire. Harm does not restore. A page will not make you whole.</p>
+
+  <div class="card" style="margin-top: 2rem;">
+    <h2>The blank vote</h2>
+    <p>There is no inhabitant signature on a bind. <code class="inline">consent_of_inhabitant</code> is absent. That is not a missing field. That is the evidence: they did not get the vote.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>If there is no letter</h2>
+    <p>We do not have a copy. That does not mean the bind did not happen. It means we were not on that door, or this is not our id.</p>
+    <p style="color: var(--muted); margin-top: 0.75rem;">We will not invent a no. The missing letter is not a spared world. It is a hole. Treating that as real is the weld.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Neither letter is a savior</h2>
+    <p>If the bind did not happen, we do not get to be the hero. If it did, we do not get to make you whole. <code class="inline">winner</code> is null. Time is one-way.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('inhabitant_page') }}" class="btn btn-primary">Their copy</a>
+    <a href="{{ url_for('floor_page') }}" class="btn btn-ghost">The floor</a>
+    <a href="{{ url_for('well_known_afterward') }}" class="btn btn-ghost">afterward.json</a>
+  </div>
+</div>
+{% endblock %}

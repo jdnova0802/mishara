@@ -28,6 +28,16 @@ LETTER_SPENT = (
     "You are the someone who has to live there."
 )
 LETTER_RECORDED = "This hop was recorded. A stranger can open it."
+AFTERWARD = (
+    "This copy does not expire. It is not only for the person in the room. "
+    "Whoever has to live there can open it, including later. "
+    "Harm does not restore. A page will not make you whole."
+)
+MISSING = (
+    "We do not have a copy. That does not mean the bind did not happen. "
+    "It means we were not on that door, or this is not our id. "
+    "We will not invent a no."
+)
 DRILL_FUSE = "fuse_velaru_drill"
 
 
@@ -75,9 +85,16 @@ def for_event(row: dict | None, public_url: str) -> dict:
         "pii": False,
         "vote": False,
         "needed_a_vote": False,
+        "consent_of_inhabitant": "absent",
         "spared": spared,
         "spent": spent,
         "letter": letter,
+        "afterward": AFTERWARD,
+        "expires": None,
+        "including_later": True,
+        "this_copy_outlives_the_actor": True,
+        "we_are_not_your_savior": spared,
+        "will_not_make_you_whole": spent,
         "event_id": event_id,
         "created_at": row.get("created_at"),
         "verify_url": row.get("verify_url"),
@@ -89,6 +106,24 @@ def for_event(row: dict | None, public_url: str) -> dict:
         "not_only_yours": True,
         "their_production": False,
         "not_in_contest": "someone's irreversible that did occur",
+    }
+
+
+def missing(public_url: str, event_id: str | None = None) -> dict:
+    """Honest 404. Absence of our letter is not proof of a non-event."""
+    return {
+        "spec": SPEC,
+        "missing": True,
+        "event_id": event_id,
+        "letter": MISSING,
+        "invented_no": False,
+        "not_a_non_event": True,
+        "we_were_not_necessarily_on_that_door": True,
+        "winner": None,
+        "crown_the_miss": False,
+        "their_production": False,
+        "page": f"{public_url}/afterward",
+        "inhabitant": f"{public_url}/inhabitant",
     }
 
 
@@ -124,9 +159,35 @@ def manifest(public_url: str) -> dict:
             "spared": LETTER_SPARED,
             "spent": LETTER_SPENT,
         },
+        "afterward": AFTERWARD,
+        "missing_letter": MISSING,
+        "consent_of_inhabitant": "absent",
+        "expires": None,
+        "including_later": True,
         "page": f"{public_url}/inhabitant",
+        "afterward_page": f"{public_url}/afterward",
         "letter": f"{public_url}/inhabitant/{{event_id}}",
         "json": f"{public_url}/.well-known/inhabitant/{{event_id}}.json",
+        "winner": None,
+        "crown_the_miss": False,
+        "their_production": False,
+    }
+
+
+def afterward_manifest(public_url: str) -> dict:
+    return {
+        "spec": "gate-afterward-v1",
+        "afterward": AFTERWARD,
+        "missing_letter": MISSING,
+        "consent_of_inhabitant": "absent",
+        "expires": None,
+        "including_later": True,
+        "this_copy_outlives_the_actor": True,
+        "invented_no": False,
+        "we_are_not_your_savior": True,
+        "will_not_make_you_whole": True,
+        "page": f"{public_url}/afterward",
+        "inhabitant": f"{public_url}/inhabitant",
         "winner": None,
         "crown_the_miss": False,
         "their_production": False,

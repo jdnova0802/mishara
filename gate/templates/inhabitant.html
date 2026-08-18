@@ -1,12 +1,22 @@
 {% extends "base.html" %}
 {% block title %}For the someone who has to live there{% endblock %}
 {% block meta %}
-<meta name="description" content="This copy is for the person who didn’t get the vote. They did not have to ask. No name. No PII.">
+<meta name="description" content="This copy is for whoever has to live there, including later. They did not have to ask. No name. We will not invent a no.">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Inhabitant</p>
-  {% if letter %}
+  {% if missing %}
+    <h1>We do not have a copy</h1>
+    <p class="audience-sub">That does not mean the bind did not happen. It means we were not on that door, or this is not our id. We will not invent a no.</p>
+    <div class="card" style="margin-top: 2rem;">
+      <p>The missing letter is not a spared world. It is a hole. Someone may already have to live there. We do not get to narrate what we did not see.</p>
+    </div>
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+      <a href="{{ url_for('afterward_page') }}" class="btn btn-primary">Afterward</a>
+      <a href="{{ url_for('floor_page') }}" class="btn btn-ghost">The floor</a>
+    </div>
+  {% elif letter %}
     {% if letter.spared %}
       <h1>This bind did not happen</h1>
     {% elif letter.spent %}
@@ -22,7 +32,8 @@
 
     <div class="card" style="margin-top: 2rem;">
       <p>You did not get a vote. You did not need one. The no sat outside the actor.</p>
-      <p style="color: var(--muted); margin-top: 0.75rem;">No name is on this page. That is the point. <code class="inline">winner</code> is null. We do not crown a miss, and we do not interpret a spend.</p>
+      <p style="margin-top: 0.75rem;">{{ letter.afterward }}</p>
+      <p style="color: var(--muted); margin-top: 0.75rem;">No name is on this page. Consent of the inhabitant is absent. <code class="inline">expires</code> is null. We are not a savior. We will not make you whole.</p>
       {% if letter.created_at %}
       <p style="margin-top: 1rem;"><code class="inline">{{ letter.created_at }}</code></p>
       {% endif %}
@@ -35,22 +46,23 @@
       {% if letter.receipt %}
       <a href="{{ letter.receipt }}" class="btn btn-ghost">Receipt</a>
       {% endif %}
+      <a href="{{ url_for('afterward_page') }}" class="btn btn-ghost">Afterward</a>
       <a href="{{ url_for('floor_page') }}" class="btn btn-ghost">The floor</a>
     </div>
   {% else %}
     <h1>You didn’t get the vote</h1>
-    <p class="audience-sub">You didn’t need one. Every other Gate object is for the actor’s institution. This copy is for the someone who has to live there. They do not have to ask. No name. No PII.</p>
+    <p class="audience-sub">You didn’t need one. This copy is for whoever has to live there, including later. They do not have to ask. No name. No PII. The letter does not expire.</p>
 
     <div class="card" style="margin-top: 2rem;">
       <h2>Two letters. Neither is a trophy.</h2>
-      <p><strong>Spared.</strong> This bind did not happen.</p>
-      <p style="margin-top: 0.75rem;"><strong>Spent.</strong> This one happened. We do not interpret it. Date it. Let a stranger open it. Hand it to them.</p>
-      <p style="color: var(--muted); margin-top: 1rem;">A halt already carries <code class="inline">inhabitant_url</code>. That is the promise in the worker, made into a page.</p>
+      <p><strong>Spared.</strong> This bind did not happen. We are not your savior.</p>
+      <p style="margin-top: 0.75rem;"><strong>Spent.</strong> This one happened. We will not make you whole.</p>
+      <p style="color: var(--muted); margin-top: 1rem;">If there is no letter, we were not on that door. We will not invent a no.</p>
     </div>
 
     <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
-      <a href="{{ url_for('floor_page') }}" class="btn btn-primary">The floor</a>
-      <a href="{{ url_for('this_page') }}" class="btn btn-ghost">This one</a>
+      <a href="{{ url_for('afterward_page') }}" class="btn btn-primary">Afterward</a>
+      <a href="{{ url_for('floor_page') }}" class="btn btn-ghost">The floor</a>
       <a href="{{ url_for('well_known_inhabitant') }}" class="btn btn-ghost">inhabitant.json</a>
     </div>
   {% endif %}

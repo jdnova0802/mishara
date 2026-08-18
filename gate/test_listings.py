@@ -688,6 +688,21 @@ class BindRoomFlaskTests(unittest.TestCase):
         r_json = self.client.get(f"/.well-known/inhabitant/{event_id}.json")
         self.assertEqual(r_json.status_code, 200)
         self.assertEqual(r_json.get_json()["audience"], "the someone who has to live there")
+        self.assertIsNone(r_json.get_json()["expires"])
+        self.assertTrue(r_json.get_json()["including_later"])
+        self.assertEqual(r_json.get_json()["consent_of_inhabitant"], "absent")
+
+        missing = self.client.get("/inhabitant/not-a-real-event")
+        self.assertEqual(missing.status_code, 404)
+        self.assertIn(b"will not invent", missing.data)
+        missing_json = self.client.get("/.well-known/inhabitant/not-a-real-event.json")
+        self.assertEqual(missing_json.status_code, 404)
+        self.assertTrue(missing_json.get_json()["missing"])
+        self.assertFalse(missing_json.get_json()["invented_no"])
+
+        afterward = self.client.get("/afterward")
+        self.assertEqual(afterward.status_code, 200)
+        self.assertIn(b"Including later", afterward.data)
 
         r3 = self.client.get("/.well-known/counterfactual-spend.json")
         self.assertEqual(r3.status_code, 200)

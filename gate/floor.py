@@ -100,6 +100,7 @@ def manifesto(public_url: str) -> dict:
         ],
         "page": f"{public_url}/floor",
         "inhabitant": f"{public_url}/inhabitant",
+        "afterward": f"{public_url}/afterward",
         "only": f"{public_url}/only",
         "bound": f"{public_url}/bound",
     }
