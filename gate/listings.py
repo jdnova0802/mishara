@@ -114,6 +114,12 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "married_write": "POST /job/v1/jobs/{job_id}/bind-only",
             "worker": f"{public_url}/listings/cloudflare-worker-bind.js",
         },
+        "command_radiation": {
+            "page": f"{public_url}/uplink",
+            "manifest": f"{public_url}/.well-known/command-radiation.json",
+            "question": "May this CLTU still be radiated, for this vehicle, in this now?",
+            "now_required": True,
+        },
         "bind_room": {
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",

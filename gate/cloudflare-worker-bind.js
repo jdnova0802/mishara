@@ -99,6 +99,7 @@ export default {
         method: request.method,
         path: url.pathname,
         spend_fingerprint: ticket.spend_fingerprint,
+        now: new Date().toISOString(),
       }),
     });
     const redeemed = await redeem.json().catch(() => ({ ok: false, halt: true }));

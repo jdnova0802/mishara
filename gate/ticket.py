@@ -39,6 +39,11 @@ try:
 except ImportError:
     import spend_protocol
 
+try:
+    from gate import command_radiation
+except ImportError:
+    import command_radiation
+
 SPEC = "gate-bind-ticket-v1"
 DEFAULT_TTL = 15
 
@@ -129,6 +134,25 @@ def public_from_bearer(bearer: dict | None) -> dict | None:
     return out
 
 
+def _halt(*, reason: str, ticket_id: str | None = None, job_id: str | None = None, extra: dict | None = None) -> dict:
+    out = {
+        "ok": False,
+        "halt": True,
+        "allow_bind": False,
+        "radiation_abort": True,
+        "reason": reason,
+        "spec": SPEC,
+        "stale_hop_cannot_spend": True,
+    }
+    if ticket_id:
+        out["ticket_id"] = ticket_id
+    if job_id:
+        out["job_id"] = job_id
+    if extra:
+        out.update(extra)
+    return out
+
+
 def redeem(
     *,
     ticket_id: str,
@@ -138,20 +162,23 @@ def redeem(
     path: str | None = None,
     spend_fingerprint: str | None = None,
     spend_kind: str | None = None,
+    now: str | None = None,
 ) -> dict:
-    """Atomic consume. Fail closed on missing, stale, mismatch, replay, or wrong write."""
-    now = datetime.now(timezone.utc).isoformat()
+    """Atomic consume. Fail closed on missing now, skew, stale, mismatch, replay, or wrong write."""
+    server_now = datetime.now(timezone.utc)
     tid = (ticket_id or "").strip()
     tok = (token or "").strip()
     jid = (job_id or "").strip()
     if not tid or not tok or not jid:
-        return {
-            "ok": False,
-            "halt": True,
-            "allow_bind": False,
-            "reason": "ticket_required",
-            "spec": SPEC,
-        }
+        return _halt(reason="ticket_required")
+    clock = command_radiation.check_now(now, server=server_now)
+    if not clock.get("ok"):
+        return _halt(
+            reason=clock.get("reason") or command_radiation.REASON_NOW_REQUIRED,
+            ticket_id=tid,
+            job_id=jid,
+            extra={"command_radiation": clock},
+        )
     presented = spend_protocol.presented_write(
         job_id=jid,
         method=method,
@@ -159,35 +186,25 @@ def redeem(
         spend_kind=spend_kind,
     )
     if presented is None:
-        return {
-            "ok": False,
-            "halt": True,
-            "allow_bind": False,
-            "reason": spend_protocol.REASON_REQUIRED,
-            "ticket_id": tid,
-            "job_id": jid,
-            "spec": SPEC,
-            "stale_hop_cannot_spend": True,
-        }
+        return _halt(
+            reason=spend_protocol.REASON_REQUIRED,
+            ticket_id=tid,
+            job_id=jid,
+        )
     presented_fp = spend_protocol.fingerprint(presented)
     claimed = (spend_fingerprint or "").strip()
     if claimed and presented_fp and claimed.lower() != presented_fp.lower():
-        return {
-            "ok": False,
-            "halt": True,
-            "allow_bind": False,
-            "reason": spend_protocol.REASON_MISMATCH,
-            "ticket_id": tid,
-            "job_id": jid,
-            "spec": SPEC,
-            "stale_hop_cannot_spend": True,
-        }
+        return _halt(
+            reason=spend_protocol.REASON_MISMATCH,
+            ticket_id=tid,
+            job_id=jid,
+        )
     token_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
     result = db.consume_bind_ticket(
         ticket_id=tid,
         token_hash=token_hash,
         job_id=jid,
-        now=now,
+        now=server_now.isoformat(),
         spend_fingerprint=presented_fp,
     )
     if result.get("ok"):
@@ -195,24 +212,22 @@ def redeem(
             "ok": True,
             "halt": False,
             "allow_bind": True,
+            "radiation_abort": False,
+            "radiated": True,
             "ticket_id": tid,
             "job_id": jid,
-            "consumed_at": now,
+            "consumed_at": server_now.isoformat(),
             "spec": SPEC,
             "single_use": True,
             "spend_fingerprint": presented_fp,
             "spend_write": presented,
+            "command_radiation": clock,
         }
-    return {
-        "ok": False,
-        "halt": True,
-        "allow_bind": False,
-        "reason": result.get("reason") or "ticket_invalid",
-        "ticket_id": tid,
-        "job_id": jid,
-        "spec": SPEC,
-        "stale_hop_cannot_spend": True,
-    }
+    return _halt(
+        reason=result.get("reason") or "ticket_invalid",
+        ticket_id=tid,
+        job_id=jid,
+    )
 
 
 def stamp(plan: dict, *, ticket_public: dict | None, epoch: dict | None, redeem_url: str) -> dict:
@@ -226,6 +241,8 @@ def stamp(plan: dict, *, ticket_public: dict | None, epoch: dict | None, redeem_
         "single_use": True,
         "non_decomposable": "A hop without a live ticket is not a bind grant.",
         "married_write": spend_protocol.PATH_TEMPLATE,
+        "now_required": True,
+        "max_skew_seconds": command_radiation.max_skew_seconds(),
         "redeem": redeem_url,
         "ticket": ticket_public,
         "epoch": epoch or {"locked": False},
@@ -258,6 +275,7 @@ def manifest(public_url: str) -> dict:
         "spend_fingerprint_required": True,
         "married_write": spend_protocol.PATH_TEMPLATE,
         "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
+        "command_radiation": f"{public_url}/.well-known/command-radiation.json",
         "redeem": f"{public_url}/v1/pas/bind-ticket/redeem",
         "demo_redeem": f"{public_url}/demo/pas/bind-ticket/redeem",
         "their_production": False,

@@ -23,6 +23,7 @@ ALLOWED_PAS_KEYS = frozenset(
         "path",
         "spend_fingerprint",
         "spend_kind",
+        "now",
     }
 )
 

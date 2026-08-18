@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 import base64
+from datetime import datetime, timedelta, timezone
 from unittest import mock
 
 # Isolate env before importing app.
@@ -33,6 +34,10 @@ except Exception:
 HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
+
+
+def _now():
+    return datetime.now(timezone.utc).isoformat()
 
 import public_url  # noqa: E402
 import listings  # noqa: E402
@@ -110,6 +115,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("inhabitant", m["floor"])
         self.assertIn("commit_auth", m)
         self.assertIn("spend_protocol", m)
+        self.assertIn("command_radiation", m)
         self.assertIn("liturgy", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
@@ -229,10 +235,13 @@ class FlaskListingTests(unittest.TestCase):
         home = self.client.get("/").get_data(as_text=True)
         self.assertIn("href=\"/scanner\"", home)
         self.assertIn(">Scanner</a>", home)
+        self.assertIn("href=\"/uplink\"", home)
+        self.assertIn(">Uplink</a>", home)
         for path in (
             "/",
             "/start",
             "/scanner",
+            "/uplink",
             "/capture",
             "/this",
             "/docs",
@@ -582,6 +591,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("bind-ticket/redeem", worker)
         self.assertIn("spend_fingerprint", worker)
         self.assertIn("spend_write_not_in_protocol", worker)
+        self.assertIn("toISOString", worker)
         generic = self.client.get("/listings/cloudflare-worker.js").get_data(as_text=True)
         self.assertIn("haltResponse", generic)
 
@@ -824,10 +834,12 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "method": "POST",
                 "path": "/job/v1/jobs/pc:TICKET-1/bind-only",
                 "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
             },
         )
         self.assertEqual(redeem.status_code, 200)
         self.assertTrue(redeem.get_json()["ok"])
+        self.assertTrue(redeem.get_json()["radiated"])
 
         replay = self.client.post(
             "/demo/pas/bind-ticket/redeem",
@@ -838,6 +850,7 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "method": "POST",
                 "path": "/job/v1/jobs/pc:TICKET-1/bind-only",
                 "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
             },
         )
         self.assertEqual(replay.status_code, 403)
@@ -879,12 +892,25 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(fp, spend_protocol_mod.fingerprint(married))
         self.assertEqual(body["spend_protocol"]["fingerprint"], fp)
 
+        missing_now = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:SCAN-1",
+            },
+        )
+        self.assertEqual(missing_now.status_code, 403)
+        self.assertEqual(missing_now.get_json()["reason"], "command_now_required")
+        self.assertTrue(missing_now.get_json()["radiation_abort"])
+
         missing = self.client.post(
             "/demo/pas/bind-ticket/redeem",
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
                 "job_id": "pc:SCAN-1",
+                "now": _now(),
             },
         )
         self.assertEqual(missing.status_code, 403)
@@ -899,6 +925,7 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "method": "POST",
                 "path": "/job/v1/jobs/pc:SCAN-1/bind-and-issue",
                 "spend_fingerprint": fp,
+                "now": _now(),
             },
         )
         self.assertEqual(wrong_path.status_code, 403)
@@ -912,6 +939,7 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "job_id": "pc:SCAN-1",
                 "method": "POST",
                 "path": "/job/v1/jobs/pc:SCAN-1/bind-only",
+                "now": _now(),
             },
         )
         self.assertEqual(ok.status_code, 200)
@@ -929,7 +957,7 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:SCAN-BAI-1",
+                    "job_id": "pc:SCAN-BAI-NOW",
                     "action": "bind-and-issue",
                 },
             )
@@ -949,6 +977,44 @@ class BindRoomFlaskTests(unittest.TestCase):
         page = self.client.get("/scanner")
         self.assertEqual(page.status_code, 200)
         self.assertIn("Fingerprint or no print", page.get_data(as_text=True))
+
+    def test_command_radiation_requires_shared_now(self):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=uplink",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:UPLINK-1"},
+            )
+        self.assertEqual(r.status_code, 200)
+        ticket = r.get_json()["bind_ticket"]
+        stale = (datetime.now(timezone.utc) - timedelta(seconds=120)).isoformat()
+        skewed = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:UPLINK-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:UPLINK-1/bind-only",
+                "now": stale,
+            },
+        )
+        self.assertEqual(skewed.status_code, 403)
+        body = skewed.get_json()
+        self.assertEqual(body["reason"], "command_now_invalid")
+        self.assertTrue(body["radiation_abort"])
+
+        spec = self.client.get("/.well-known/command-radiation.json")
+        self.assertEqual(spec.status_code, 200)
+        self.assertEqual(spec.get_json()["spec"], "gate-command-radiation-v1")
+        page = self.client.get("/uplink")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn("This vehicle. This now.", page.get_data(as_text=True))
 
     def test_epoch_lock_requires_charge_id(self):
         dead = {
@@ -1063,6 +1129,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertIn("bind_room", r.get_json())
         self.assertIn("scanner", r.get_json())
+        self.assertIn("uplink", r.get_json())
         self.assertIn("mass", r.get_json())
         r2 = self.client.get("/.well-known/listings.json")
         self.assertEqual(r2.status_code, 200)

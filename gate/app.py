@@ -119,6 +119,11 @@ except ImportError:
     import spend_protocol as spend_protocol_mod
 
 try:
+    from gate import command_radiation as command_radiation_mod
+except ImportError:
+    import command_radiation as command_radiation_mod
+
+try:
     from gate import epoch as epoch_mod
 except ImportError:
     import epoch as epoch_mod
@@ -216,6 +221,7 @@ def cors_discovery(resp):
             "/this",
             "/capture",
             "/scanner",
+            "/uplink",
             "/mass",
             "/tattoo",
         )
@@ -463,6 +469,7 @@ def health():
         "this": f"{pub}/this",
         "capture": f"{pub}/capture",
         "scanner": f"{pub}/scanner",
+        "uplink": f"{pub}/uplink",
         "inhabitant": f"{pub}/inhabitant",
         "afterward": f"{pub}/afterward",
         "mass": f"{pub}/mass",
@@ -937,6 +944,7 @@ def _redeem_ticket_view(*, demo: bool = False):
         path=str(body.get("path") or ""),
         spend_fingerprint=str(body.get("spend_fingerprint") or ""),
         spend_kind=str(body.get("spend_kind") or "") or None,
+        now=str(body.get("now") or ""),
     )
     if isinstance(result, dict):
         result["demo"] = demo
@@ -1007,6 +1015,7 @@ def well_known_gate():
             "this": f"{advertised_url()}/this",
             "capture": f"{advertised_url()}/capture",
             "scanner": f"{advertised_url()}/scanner",
+            "uplink": f"{advertised_url()}/uplink",
             "inhabitant": f"{advertised_url()}/inhabitant",
             "afterward": f"{advertised_url()}/afterward",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
@@ -1034,6 +1043,7 @@ def well_known_gate():
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
+            "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -1215,6 +1225,7 @@ def well_known_commit_auth():
             ),
             "bind_ticket": ticket_mod.manifest(advertised_url()),
             "spend_protocol": spend_protocol_mod.spec(advertised_url()),
+            "command_radiation": command_radiation_mod.spec(advertised_url()),
             "epoch": {
                 "spec": "gate-epoch-v1",
                 "rule": "Latest HALT/BLOCK for a job_id stays HALT until charge_id is presented.",
@@ -1233,12 +1244,26 @@ def well_known_spend_protocol():
     return jsonify(spend_protocol_mod.spec(advertised_url()))
 
 
+@app.route("/.well-known/command-radiation.json")
+def well_known_command_radiation():
+    return jsonify(command_radiation_mod.spec(advertised_url()))
+
+
 @app.route("/scanner")
 def scanner_page():
     return render_template(
         "scanner.html",
         public_url=advertised_url(),
         protocol=spend_protocol_mod.spec(advertised_url()),
+    )
+
+
+@app.route("/uplink")
+def uplink_page():
+    return render_template(
+        "uplink.html",
+        public_url=advertised_url(),
+        protocol=command_radiation_mod.spec(advertised_url()),
     )
 
 
@@ -2068,6 +2093,7 @@ def sitemap():
         "/afterward",
         "/capture",
         "/scanner",
+        "/uplink",
         "/mass",
         "/refusal",
         "/tattoo",
@@ -2080,6 +2106,7 @@ def sitemap():
         "/.well-known/afterward.json",
         "/.well-known/capture.json",
         "/.well-known/spend-protocol.json",
+        "/.well-known/command-radiation.json",
         "/.well-known/counterfactual-spend.json",
         "/.well-known/commit-auth.json",
         "/.well-known/evidence-head.json",
@@ -2127,6 +2154,7 @@ def llms_txt():
         f"- Afterward (including later; we will not invent a no): {advertised_url()}/afterward",
         f"- Production capture: {advertised_url()}/capture",
         f"- Spend protocol (the scanner): {advertised_url()}/scanner",
+        f"- Command radiation (the uplink): {advertised_url()}/uplink",
         f"- Stranger Mass: {advertised_url()}/mass",
         f"- Refusal SKU ({REFUSAL_PRICE_LABEL}): {advertised_url()}/refusal",
         f"- Weld tattoo: {advertised_url()}/tattoo",
@@ -2138,6 +2166,7 @@ def llms_txt():
         f"- Particular: {advertised_url()}/.well-known/particular.json",
         f"- Capture: {advertised_url()}/.well-known/capture.json",
         f"- Spend protocol: {advertised_url()}/.well-known/spend-protocol.json",
+        f"- Command radiation: {advertised_url()}/.well-known/command-radiation.json",
         f"- Commit-time auth (tickets + epoch + exclusion): {advertised_url()}/.well-known/commit-auth.json",
         f"- Exclusion proof: {advertised_url()}/.well-known/exclusion.json?job_id=JOB_ID",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
@@ -2155,7 +2184,7 @@ def llms_txt():
         "Worth more than philosophy: this one trying to spend. The check is an act. Tuesday is not claimed from here.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
-        "PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
+        "PolicyCenter: hop first. Ticket prints bind-only. Redeem must present UTC now or radiation aborts.",
         "PAS bodies are fuse_id + job_id only. PII / ACORD / ECDIS → 400 no_pii.",
         "",
     ]
@@ -2272,6 +2301,9 @@ def openapi():
                 "/afterward": {"get": {"summary": "Including later. Missing letter is a hole, not a spared world."}},
                 "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
                 "/scanner": {"get": {"summary": "Spend protocol — the scanner. One write. Fingerprint or no print."}},
+                "/uplink": {"get": {"summary": "Command radiation — may this CLTU still be radiated, in this now?"}},
+                "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
+                "/.well-known/command-radiation.json": {"get": {"summary": "Public command-radiation spec. Redeem must present UTC now."}},
                 "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},

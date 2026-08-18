@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Command radiation — the uplink{% endblock %}
+{% block meta %}
+<meta name="description" content="May this CLTU still be radiated, for this vehicle, in this now? Missing now or clock skew aborts radiation.">
+<meta property="og:title" content="Gate — Command radiation">
+<meta property="og:description" content="The only mouth that can still talk to something that already left.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Command radiation</p>
+  <h1>This vehicle. This now. Or abort.</h1>
+  <p class="audience-sub">The scanner prints bind-only. The uplink is whether that CLTU may still be radiated. Redeem must present UTC <code class="inline">now</code>. Skew beyond {{ protocol.now.max_skew_seconds }}s, a missing now, a stale ticket, or the wrong write → <code class="inline">radiation_abort</code>. Silence does not reset the timer.</p>
+
+  <div class="card">
+    <h2>The mouth</h2>
+    <pre>vehicle = job_id
+CLTU    = bind ticket + spend fingerprint
+radiate = redeem, then forward bind-only
+now     = UTC</pre>
+    <p style="margin-top: 0.75rem; color: var(--muted);">DSN aborts command radiation if monitors fail. There is no second copy of the bits. Spec: <a href="{{ public_url }}/.well-known/command-radiation.json">command-radiation.json</a>.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Fail closed</h2>
+    <p><code class="inline">command_now_required</code> — redeem omitted now.</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">command_now_invalid</code> — presented now is outside the skew. A command that is not in the shared now is not a command.</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">ticket_expired</code> — Command Loss Timer. Silence is DEAD.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('well_known_command_radiation') }}" class="btn btn-primary">command-radiation.json</a>
+    <a href="{{ url_for('scanner_page') }}" class="btn btn-ghost">Scanner</a>
+    <a href="{{ public_url }}/listings/cloudflare-worker-bind.js" class="btn btn-ghost">Worker</a>
+  </div>
+</div>
+{% endblock %}

@@ -84,15 +84,19 @@ class GateClient:
         job_id: str,
         method: str,
         path: str,
+        now: str | None = None,
         spend_fingerprint: str | None = None,
         **extra,
     ) -> dict[str, Any]:
+        from datetime import datetime, timezone
+
         body = {
             "ticket_id": ticket_id,
             "token": token,
             "job_id": job_id,
             "method": method,
             "path": path,
+            "now": now or datetime.now(timezone.utc).isoformat(),
             **extra,
         }
         if spend_fingerprint:
