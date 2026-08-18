@@ -18,6 +18,11 @@ try:
 except ImportError:
     import floor as floor_mod
 
+try:
+    from gate import particular as particular_mod
+except ImportError:
+    import particular as particular_mod
+
 QUESTION = "Can this agent still act right now?"
 SPEC = "gate-bound-answer-v1"
 STACK = "question → four states → hop that fails closed → verify"
@@ -130,6 +135,12 @@ def attach(
             payload, payload["bound_answer"], demo=demo, closed_world=closed_world
         )
         payload["stakes"] = floor_mod.stamp(payload["exclusive_timing"])
+        payload["particular"] = particular_mod.classify(
+            payload,
+            payload["bound_answer"],
+            payload["exclusive_timing"],
+            demo=demo,
+        )
     return payload
 
 

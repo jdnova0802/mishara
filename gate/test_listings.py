@@ -28,6 +28,7 @@ import bind_room  # noqa: E402
 import bound  # noqa: E402
 import exclusive  # noqa: E402
 import floor  # noqa: E402
+import particular  # noqa: E402
 import app as gate_app  # noqa: E402
 
 
@@ -88,7 +89,8 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("bound_answer", m)
         self.assertIn("exclusive_timing", m)
         self.assertIn("floor", m)
-        self.assertIsNone(m["floor"]["cleverer_layer"])
+        self.assertIn("particular", m)
+        self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
 
@@ -295,6 +297,34 @@ class FloorTests(unittest.TestCase):
         self.assertTrue(s["treat_as_real"])
 
 
+class ParticularTests(unittest.TestCase):
+    def test_hop_without_job_is_philosophizing(self):
+        payload = {"verdict": False, "halt": True, "state": "DEAD", "fuse_id": "fuse_velaru_drill"}
+        ba = bound.from_payload(payload, 200)
+        ex = exclusive.classify({"demo": True}, ba, demo=True)
+        p = particular.classify(payload, ba, ex, demo=True)
+        self.assertTrue(p["philosophizing"])
+        self.assertFalse(p["particular"])
+        self.assertFalse(p["tuesday_moved"])
+
+    def test_named_job_on_prebind_is_particular(self):
+        plan = weld.policycenter_plan("pc:THIS", {"verdict": False, "halt": True, "state": "DEAD"}, 200)
+        plan["fuse_id"] = "fuse_velaru_drill"
+        plan["job_id"] = "pc:THIS"
+        ba = bound.from_payload(plan, 200)
+        ex = exclusive.classify(plan, ba)
+        p = particular.classify(plan, ba, ex)
+        self.assertTrue(p["particular"])
+        self.assertFalse(p["philosophizing"])
+        self.assertTrue(p["this_one_tried"])
+        self.assertEqual(p["name_one"]["not"], "AI")
+        self.assertFalse(p["tuesday_moved"])
+
+    def test_refuses_to_name_ai(self):
+        named = particular.name_one({"fuse_id": "AI", "job_id": "x"})
+        self.assertIsNone(named["fuse_id"])
+
+
 class FieldAndWeldTests(unittest.TestCase):
     def test_pii_rejected(self):
         err = fields.pii_error({"fuse_id": "fuse_velaru_drill", "ssn": "000-00-0000"})
@@ -378,6 +408,9 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertFalse(data["allow_bind"])
         self.assertIn("uw-issues", data["raise_uw_issue"]["path"])
         self.assertIn("bind-and-issue", data["do_not_call"]["path"])
+        self.assertTrue(data["particular"]["particular"])
+        self.assertTrue(data["particular"]["this_one_tried"])
+        self.assertFalse(data["particular"]["tuesday_moved"])
 
     def test_mga_premium_over_limit_blocks(self):
         live = {"ok": True, "verdict": True, "state": "LIVE"}
@@ -437,6 +470,15 @@ class BindRoomFlaskTests(unittest.TestCase):
         r2 = self.client.get("/.well-known/floor.json")
         self.assertEqual(r2.status_code, 200)
         self.assertIsNone(r2.get_json()["cleverer_layer"])
+
+    def test_this_page_and_manifest(self):
+        r = self.client.get("/this")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"This one", r.data)
+        r2 = self.client.get("/.well-known/particular.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertTrue(r2.get_json()["not_a_deeper_idea"])
+        self.assertFalse(r2.get_json()["tuesday_moved"])
 
     def test_demo_hop_attaches_bound_answer(self):
         dead = {

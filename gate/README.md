@@ -10,6 +10,8 @@ Metered dev API wrapping the Velaru fuse engine. Identity, billing, docs, 402 on
 
 **The floor:** unrepeatable, not only yours. `cleverer_layer` is null. See `/floor`.
 
+**Not a deeper idea — an event:** name one job, let it try to spend. See `/this`. Gate does not claim `tuesday_moved`.
+
 ## On your laptop (2 commands)
 
 After git pull:

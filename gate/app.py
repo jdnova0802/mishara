@@ -93,6 +93,11 @@ try:
 except ImportError:
     import floor
 
+try:
+    from gate import particular
+except ImportError:
+    import particular
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -168,6 +173,7 @@ def cors_discovery(resp):
             "/bound",
             "/only",
             "/floor",
+            "/this",
         )
         or path.startswith("/demo/")
     ):
@@ -410,6 +416,7 @@ def health():
         "bound": f"{pub}/bound",
         "only": f"{pub}/only",
         "floor": f"{pub}/floor",
+        "this": f"{pub}/this",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -802,9 +809,11 @@ def well_known_gate():
             "bound": f"{advertised_url()}/bound",
             "only": f"{advertised_url()}/only",
             "floor": f"{advertised_url()}/floor",
+            "this": f"{advertised_url()}/this",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
             "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
             "stakes": f"{advertised_url()}/.well-known/floor.json",
+            "particular": f"{advertised_url()}/.well-known/particular.json",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{advertised_url()}/demo/hop",
             "demo_act": f"{advertised_url()}/demo/act",
@@ -873,6 +882,16 @@ def well_known_floor():
 @app.route("/floor")
 def floor_page():
     return render_template("floor.html", public_url=advertised_url())
+
+
+@app.route("/.well-known/particular.json")
+def well_known_particular():
+    return jsonify(particular.manifesto(advertised_url()))
+
+
+@app.route("/this")
+def this_page():
+    return render_template("this.html", public_url=advertised_url())
 
 
 def _mcp_call_tool(name: str, arguments: dict):
@@ -1460,21 +1479,23 @@ def pas_bind_appendix():
     events = db.list_bind_events(g.account_id, limit=200)
     items = []
     for event in events:
-        items.append(
-            {
-                "id": event["id"],
-                "created_at": event["created_at"],
-                "fuse_id": event["fuse_id"],
-                "job_id": event["job_id"],
-                "decision": event["decision"],
-                "acted": event.get("acted"),
-                "verify_url": event.get("verify_url"),
-                "hop": event.get("hop"),
-            }
-        )
+        item = {
+            "id": event["id"],
+            "created_at": event["created_at"],
+            "fuse_id": event["fuse_id"],
+            "job_id": event["job_id"],
+            "decision": event["decision"],
+            "acted": event.get("acted"),
+            "verify_url": event.get("verify_url"),
+            "hop": event.get("hop"),
+            "particular": particular.from_event(event),
+        }
+        items.append(item)
     return {
         "spec": "gate-bind-room-appendix-v1",
         "not_the_serff_filing": True,
+        "not_a_prompt": True,
+        "dated_instances": True,
         "items": items,
     }
 
@@ -1545,10 +1566,12 @@ def sitemap():
         "/bound",
         "/only",
         "/floor",
+        "/this",
         "/trust",
         "/.well-known/bound-answer.json",
         "/.well-known/exclusive-timing.json",
         "/.well-known/floor.json",
+        "/.well-known/particular.json",
         "/status",
         "/signup",
         "/llms.txt",
@@ -1584,9 +1607,11 @@ def llms_txt():
         f"- A no that holds: {advertised_url()}/bound",
         f"- The only door: {advertised_url()}/only",
         f"- The floor: {advertised_url()}/floor",
+        f"- This one: {advertised_url()}/this",
         f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
         f"- Exclusive timing: {advertised_url()}/.well-known/exclusive-timing.json",
         f"- Floor: {advertised_url()}/.well-known/floor.json",
+        f"- Particular: {advertised_url()}/.well-known/particular.json",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
@@ -1599,6 +1624,7 @@ def llms_txt():
         "More valuable than a question is a no that holds: narrow, enforced, provable.",
         "Worth more than that: the act that never happens, because there was no other door.",
         "The floor: some things only happen once, and someone else has to live there afterward. There is not a cleverer layer.",
+        "Worth more than philosophy: this one trying to spend. The check is an act. Tuesday is not claimed from here.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
         "PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
@@ -1707,9 +1733,11 @@ def openapi():
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
+                "/this": {"get": {"summary": "A particular. Name one. Let it try to spend. Not a deeper idea."}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
                 "/.well-known/exclusive-timing.json": {"get": {"summary": "Exclusive-timing manifesto. Receipt is not the product."}},
                 "/.well-known/floor.json": {"get": {"summary": "The floor. cleverer_layer is null."}},
+                "/.well-known/particular.json": {"get": {"summary": "Particular manifesto. An event, not a question."}},
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},

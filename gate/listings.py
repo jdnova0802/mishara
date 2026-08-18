@@ -75,6 +75,13 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "unrepeatable": True,
             "not_only_yours": True,
         },
+        "particular": {
+            "page": f"{public_url}/this",
+            "manifest": f"{public_url}/.well-known/particular.json",
+            "not_a_deeper_idea": True,
+            "tuesday_moved": False,
+            "work": "the gate firing for this one, before the spend, with no bypass",
+        },
         "bind_room": {
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}This one{% endblock %}
+{% block meta %}
+<meta name="description" content="Not a deeper idea. An event. Name one. Remove the other doors. Let it try to spend. The check is an act, not a prompt.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Particular</p>
+  <h1>This one</h1>
+  <p class="audience-sub">Philosophy can name the floor. Tuesday does not move. What’s more is one dated instance: this path, this job, this no that sat. You don’t ask the particular. You put it on a path where yes would spend someone else’s world.</p>
+
+  <div class="grid-3" style="margin: 2rem 0;">
+    <div class="card">
+      <h3>1 · Name one</h3>
+      <p>This fuse. This job. This bind. Not “AI”.</p>
+    </div>
+    <div class="card">
+      <h3>2 · No other doors</h3>
+      <p>If they can skip you, you are still philosophizing.</p>
+    </div>
+    <div class="card">
+      <h3>3 · Let it try</h3>
+      <p>Hop, bind, send, deploy. The check is an act, not a prompt. Ask nothing of the actor.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>If it’s already spent</h2>
+    <p>Don’t interpret it. Date it. Sign it. Let a stranger open it. Hand it to the someone who has to live there. That’s the appendix, not a story about the hop.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Make this one answer by trying</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Look for <code class="inline">particular.this_one_tried</code>. A hop with no job is still talk. Gate will not set <code class="inline">tuesday_moved</code>.</p>
+    <pre>curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:THIS"}'</pre>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Hand it to them</a>
+    <a href="{{ url_for('floor_page') }}" class="btn btn-ghost">The floor</a>
+    <a href="{{ url_for('only_page') }}" class="btn btn-ghost">The only door</a>
+    <a href="{{ url_for('well_known_particular') }}" class="btn btn-ghost">particular.json</a>
+  </div>
+</div>
+{% endblock %}
