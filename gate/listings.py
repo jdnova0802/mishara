@@ -98,6 +98,25 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "appendix": f"{public_url}/bind-room/appendix.schema.json",
             "price": "$1,750",
         },
+        "liturgy": {
+            "stranger_mass": {
+                "page": f"{public_url}/mass",
+                "manifest": f"{public_url}/.well-known/mass.json",
+                "relics": f"{public_url}/.well-known/relics.json",
+                "rule": "Every Sunday UTC, one DEAD receipt. Congregation of the non-event.",
+            },
+            "refusal_sku": {
+                "page": f"{public_url}/refusal",
+                "certificate": f"{public_url}/refusal/certificate.schema.json",
+                "price": "$7,500",
+                "deliverable": "birth certificate of a non-entity — no hop, no fuse",
+            },
+            "weld_tattoo": {
+                "page": f"{public_url}/tattoo",
+                "manifest": f"{public_url}/.well-known/tattoo.json",
+                "worker": f"{public_url}/listings/cloudflare-worker-bind.js",
+            },
+        },
         "welds": {
             "policycenter": {
                 "status": "code_ready",

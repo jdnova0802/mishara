@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Stranger Mass{% endblock %}
+{% block meta %}
+<meta name="description" content="Every Sunday, one DEAD receipt. Anyone verifies together — no login. Congregation of the non-event.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Stranger Mass</p>
+  <h1>The miracle is nothing happened</h1>
+  <p class="audience-sub">Not marketing. One URL per week. Anyone opens the same DEAD receipt and confirms the world did not get spent. No account. No brand. Congregation of the non-event.</p>
+
+  <div class="card">
+    <h2>This week — {{ mass.week }}</h2>
+    <p><strong>Relic:</strong> {{ mass.relic.protected }}</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">{{ mass.relic.fuse_id }}</code> · <code class="inline">{{ mass.relic.job_id }}</code> · {{ mass.relic.decision }}</p>
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 1rem;">
+      <a href="{{ mass.verify_url }}" class="btn btn-primary" rel="noopener">Verify together</a>
+      <a href="{{ url_for('well_known_mass') }}" class="btn btn-ghost">mass.json</a>
+    </div>
+    {% if mass.sunday_utc %}
+    <p style="margin-top: 1rem; color: var(--muted);">Today is Sunday UTC. The mass is live.</p>
+    {% else %}
+    <p style="margin-top: 1rem; color: var(--muted);">Next Sunday UTC: {{ mass.next_sunday_utc }}. The relic is fixed for the week.</p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Relic vault</h2>
+    <p>Wunderkammer of unicorn absences — binds that halted. Not a dashboard. A cabinet of worlds that did not get spent.</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_relics') }}">relics.json</a> · {{ relics.count }} on file</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('refusal_page') }}" class="btn btn-ghost">Refusal SKU</a>
+    <a href="{{ url_for('tattoo_page') }}" class="btn btn-ghost">Weld tattoo</a>
+    <a href="{{ url_for('bound_page') }}">A no that holds</a>
+  </div>
+</div>
+{% endblock %}

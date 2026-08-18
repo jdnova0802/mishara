@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Weld tattoo{% endblock %}
+{% block meta %}
+<meta name="description" content="One carrier. One production origin. Cloudflare worker burned in. Bypass more expensive than compliance.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Weld tattoo</p>
+  <h1>Stigmata on their stack</h1>
+  <p class="audience-sub">You do not integrate politely. You brand the exclusive door into one origin. One carrier. One production hostname. <code class="inline">cloudflare-worker-bind.js</code> intercepts bind-only, bind-and-issue, and issue. Bypass costs more than compliance.</p>
+
+  <div class="card">
+    <h2>Burn it in</h2>
+    <pre>wrangler deploy -c wrangler-bind.toml
+# wrangler secret put GATE_KEY
+# GATE_URL = live https Gate — never localhost
+# FUSE_ID = their fuse</pre>
+    <p style="margin-top: 0.75rem;">Worker: <a href="{{ public_url }}/listings/cloudflare-worker-bind.js">cloudflare-worker-bind.js</a> · <a href="{{ public_url }}/listings/wrangler-bind.toml">wrangler-bind.toml</a></p>
+    <p style="margin-top: 0.75rem;">Console Bind and midnight renewal still need Gosu: <a href="{{ public_url }}/listings/guidewire-gosu-prebind.gs">ui bind</a> · <a href="{{ public_url }}/listings/guidewire-renewal-prebind.gs">renewal</a></p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Contract</h2>
+    <p>DEAD → do not POST bind-only, bind-and-issue, or policy issue. Raise UW issue with <code class="inline">blocksBind</code>. Halt JSON always includes <code class="inline">verify_url</code>.</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('capture_page') }}">Production capture</a> · <a href="{{ url_for('well_known_tattoo') }}">tattoo.json</a></p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('install') }}" class="btn btn-primary">48hr weld {{ install_price }}</a>
+    <a href="{{ url_for('mass_page') }}" class="btn btn-ghost">Stranger Mass</a>
+    <a href="{{ url_for('refusal_page') }}" class="btn btn-ghost">Refusal</a>
+  </div>
+  <p style="margin-top: 1rem; color: var(--muted);"><code class="inline">their_production</code> stays false until the tattoo is on the only origin that can bind and Gosu closes the console.</p>
+</div>
+{% endblock %}

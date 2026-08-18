@@ -98,6 +98,11 @@ try:
 except ImportError:
     import particular
 
+try:
+    from gate import liturgy as liturgy_mod
+except ImportError:
+    import liturgy as liturgy_mod
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -117,6 +122,7 @@ STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 STRIPE_INSTALL_PRICE_ID = os.getenv("STRIPE_INSTALL_PRICE_ID", "")
 STRIPE_BIND_ROOM_PRICE_ID = os.getenv("STRIPE_BIND_ROOM_PRICE_ID", "")
+STRIPE_REFUSAL_PRICE_ID = os.getenv("STRIPE_REFUSAL_PRICE_ID", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
@@ -124,6 +130,8 @@ INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
 BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
 BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
+REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
+REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
 OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
@@ -151,6 +159,7 @@ def inject_globals():
         "gate_public_url": advertised_url(),
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
+        "refusal_price": REFUSAL_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
     }
@@ -162,7 +171,8 @@ def cors_discovery(resp):
     if (
         path.startswith("/.well-known/")
         or path.startswith("/listings/")
-        or         path.startswith("/bind-room")
+        or path.startswith("/bind-room")
+        or path.startswith("/refusal")
         or path in (
             "/mcp",
             "/llms.txt",
@@ -175,6 +185,8 @@ def cors_discovery(resp):
             "/floor",
             "/this",
             "/capture",
+            "/mass",
+            "/tattoo",
         )
         or path.startswith("/demo/")
     ):
@@ -419,6 +431,9 @@ def health():
         "floor": f"{pub}/floor",
         "this": f"{pub}/this",
         "capture": f"{pub}/capture",
+        "mass": f"{pub}/mass",
+        "refusal": f"{pub}/refusal",
+        "tattoo": f"{pub}/tattoo",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -907,6 +922,94 @@ def capture_page():
     return render_template("capture.html", public_url=advertised_url())
 
 
+def _public_bind_events(limit: int = 48) -> list:
+    return db.list_bind_events(None, limit=limit)
+
+
+@app.route("/.well-known/mass.json")
+def well_known_mass():
+    return jsonify(liturgy_mod.stranger_mass(advertised_url(), _public_bind_events()))
+
+
+@app.route("/.well-known/relics.json")
+def well_known_relics():
+    return jsonify(liturgy_mod.relics_manifest(advertised_url(), _public_bind_events()))
+
+
+@app.route("/mass")
+def mass_page():
+    events = _public_bind_events()
+    mass = liturgy_mod.stranger_mass(advertised_url(), events)
+    relics = liturgy_mod.relics_manifest(advertised_url(), events)
+    return render_template("mass.html", mass=mass, relics=relics, public_url=advertised_url())
+
+
+@app.route("/refusal")
+def refusal_page():
+    return render_template(
+        "refusal.html",
+        public_url=advertised_url(),
+        refusal_price=REFUSAL_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        stripe_refusal=bool(STRIPE_REFUSAL_PRICE_ID or GATE_DEV_MODE),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/refusal/certificate.schema.json")
+def refusal_certificate_schema():
+    return jsonify(liturgy_mod.refusal_certificate_schema())
+
+
+@app.route("/refusal/checkout", methods=["POST"])
+def refusal_checkout():
+    email = (request.form.get("email") or "").strip()
+    agent_name = (request.form.get("agent_name") or "").strip()[:128]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("refusal_page"))
+    if not agent_name:
+        flash("Name the agent we refuse to build.", "error")
+        return redirect(url_for("refusal_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, REFUSAL_PRICE_CENTS, product="refusal")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "Refusal booked (dev)",
+            f"{email} refused agent {agent_name!r} — {REFUSAL_PRICE_LABEL}",
+            {"email": email, "agent_name": agent_name, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key or not STRIPE_REFUSAL_PRICE_ID:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Refusal SKU.", "error")
+        return redirect(url_for("refusal_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[{"price": STRIPE_REFUSAL_PRICE_ID, "quantity": 1}],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/refusal?canceled=1",
+        metadata={"product": "refusal", "contact_email": email, "agent_name": agent_name},
+    )
+    db.create_install_order(email, checkout.id, REFUSAL_PRICE_CENTS, product="refusal")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/.well-known/tattoo.json")
+def well_known_tattoo():
+    return jsonify(liturgy_mod.weld_tattoo_manifest(advertised_url()))
+
+
+@app.route("/tattoo")
+def tattoo_page():
+    return render_template(
+        "tattoo.html",
+        public_url=advertised_url(),
+        install_price=INSTALL_PRICE_LABEL,
+    )
+
+
 def _mcp_call_tool(name: str, arguments: dict):
     """MCP tools: metered if a key is present, else public demo fuses only."""
     row = authenticate_api_key()
@@ -1382,6 +1485,15 @@ def billing_webhook():
                 f"{BIND_ROOM_PRICE_LABEL} from {email}",
                 {"email": email, "session": sess["id"]},
             )
+        elif product == "refusal":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            agent_name = (sess.get("metadata") or {}).get("agent_name") or "unnamed"
+            notify.money(
+                "CASH — Refusal SKU",
+                f"{REFUSAL_PRICE_LABEL} from {email} — refused {agent_name!r}",
+                {"email": email, "agent_name": agent_name, "session": sess["id"]},
+            )
         else:
             account_id = (sess.get("metadata") or {}).get("gate_account_id")
             sub_id = sess.get("subscription")
@@ -1588,12 +1700,18 @@ def sitemap():
         "/floor",
         "/this",
         "/capture",
+        "/mass",
+        "/refusal",
+        "/tattoo",
         "/trust",
         "/.well-known/bound-answer.json",
         "/.well-known/exclusive-timing.json",
         "/.well-known/floor.json",
         "/.well-known/particular.json",
         "/.well-known/capture.json",
+        "/.well-known/mass.json",
+        "/.well-known/relics.json",
+        "/.well-known/tattoo.json",
         "/status",
         "/signup",
         "/llms.txt",
@@ -1631,6 +1749,9 @@ def llms_txt():
         f"- The floor: {advertised_url()}/floor",
         f"- This one: {advertised_url()}/this",
         f"- Production capture: {advertised_url()}/capture",
+        f"- Stranger Mass: {advertised_url()}/mass",
+        f"- Refusal SKU ({REFUSAL_PRICE_LABEL}): {advertised_url()}/refusal",
+        f"- Weld tattoo: {advertised_url()}/tattoo",
         f"- UI Bind Gosu: {advertised_url()}/listings/guidewire-gosu-prebind.gs",
         f"- Renewal auto-bind Gosu: {advertised_url()}/listings/guidewire-renewal-prebind.gs",
         f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",

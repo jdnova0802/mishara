@@ -29,6 +29,7 @@ import bound  # noqa: E402
 import exclusive  # noqa: E402
 import floor  # noqa: E402
 import particular  # noqa: E402
+import liturgy  # noqa: E402
 import app as gate_app  # noqa: E402
 
 
@@ -91,6 +92,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("floor", m)
         self.assertIn("particular", m)
         self.assertIn("capture", m)
+        self.assertIn("liturgy", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
@@ -531,6 +533,37 @@ class BindRoomFlaskTests(unittest.TestCase):
         )
         self.assertIn("r=1", plan2["verify_url"])
 
+    def test_liturgy_trilogy(self):
+        mass = liturgy.stranger_mass("https://example.test", [])
+        self.assertEqual(mass["spec"], "gate-stranger-mass-v1")
+        self.assertIn("verify_url", mass)
+        self.assertTrue(mass["not_marketing"])
+        relics = liturgy.relics_manifest("https://example.test", [])
+        self.assertGreaterEqual(relics["count"], 1)
+        refusal = liturgy.refusal_pack("https://example.test", "hello@velaru.xyz", "$7,500")
+        self.assertIn("non-entity", refusal["product"])
+        tattoo = liturgy.weld_tattoo_manifest("https://example.test")
+        self.assertIn("cloudflare-worker-bind.js", tattoo["worker"])
+        self.assertFalse(tattoo["their_production"])
+
+    def test_mass_refusal_tattoo_pages(self):
+        r = self.client.get("/mass")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"non-event", r.data)
+        r2 = self.client.get("/.well-known/mass.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertIn("relic", r2.get_json())
+        r3 = self.client.get("/refusal")
+        self.assertEqual(r3.status_code, 200)
+        self.assertIn(b"non-entity", r3.data)
+        r4 = self.client.get("/refusal/certificate.schema.json")
+        self.assertIsNone(r4.get_json()["proof_of_absence"]["fuse_id"])
+        r5 = self.client.get("/tattoo")
+        self.assertEqual(r5.status_code, 200)
+        self.assertIn(b"Stigmata", r5.data)
+        r6 = self.client.get("/.well-known/tattoo.json")
+        self.assertEqual(r6.get_json()["spec"], "gate-weld-tattoo-v1")
+
     def test_demo_hop_attaches_bound_answer(self):
         dead = {
             "ok": True,
@@ -556,6 +589,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/health")
         self.assertEqual(r.status_code, 200)
         self.assertIn("bind_room", r.get_json())
+        self.assertIn("mass", r.get_json())
         r2 = self.client.get("/.well-known/listings.json")
         self.assertEqual(r2.status_code, 200)
         self.assertIn("welds", r2.get_json())

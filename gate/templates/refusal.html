@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Refusal — birth certificate of a non-entity{% endblock %}
+{% block meta %}
+<meta name="description" content="We will not build this agent. Paid deliverable: signed certificate of what was never born. No hop. No fuse.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Refusal SKU</p>
+  <h1>We will not build this agent</h1>
+  <p class="audience-sub">Flagship anti-product. You pay for absence. No hop. No fuse. No particular stood up. Deliverable: a signed birth certificate of a non-entity — illegitimate, unphotographable, honest.</p>
+  <div class="install-price">{{ refusal_price }} <span>refusal · due now</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Bind Room is paperwork for a weld. Install is 48hr in their house. This is the most expensive thing on the menu because the product is the hole.</p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    {% if stripe_refusal %}
+    <form method="post" action="{{ url_for('refusal_checkout') }}">
+      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <input type="text" name="agent_name" placeholder="agent name we refuse" required style="margin-right: 0.5rem; padding: 0.5rem; max-width: 14rem;">
+      <button type="submit" class="btn btn-primary">Buy the refusal</button>
+    </form>
+    {% else %}
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Refusal%20SKU%20%E2%80%94%20non-entity">Email {{ refusal_price }}</a>
+    {% endif %}
+    <a class="btn btn-ghost" href="{{ url_for('bind_room') }}">Bind Room {{ bind_room_price }}</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Deliverable</h3>
+      <p>Signed PDF: this agent was refused. Date. Your name. Our name. No technical artifact behind it.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('refusal_certificate_schema') }}">certificate.schema.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Proof of absence</h3>
+      <p><code class="inline">fuse_id</code>: null. <code class="inline">hop</code>: false. <code class="inline">weld</code>: false. The receipt is that nothing was born.</p>
+    </div>
+    <div class="card">
+      <h3>We refuse to build</h3>
+      <p>Inventory SaaS. Appetite extraction. PII on PAS paths. Another dashboard that philosophizes instead of halting spend.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Receipt idolatry trial</h2>
+    <p>We built verify links because nobody wanted to be in the room. Then we host Stranger Mass anyway. <a href="{{ url_for('mass_page') }}">Sunday mass</a> is the congregation; this is the paid heresy of saying no before you stand anything up.</p>
+  </div>
+</div>
+{% endblock %}
