@@ -944,6 +944,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         )
         self.assertEqual(ok.status_code, 200)
         self.assertTrue(ok.get_json()["ok"])
+        self.assertTrue(ok.get_json()["radiated"])
 
     def test_bind_and_issue_is_not_printed(self):
         live = {
@@ -1009,9 +1010,42 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(body["reason"], "command_now_invalid")
         self.assertTrue(body["radiation_abort"])
 
+        garbage = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:UPLINK-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:UPLINK-1/bind-only",
+                "now": "not-a-clock",
+            },
+        )
+        self.assertEqual(garbage.status_code, 403)
+        self.assertEqual(garbage.get_json()["reason"], "command_now_invalid")
+        self.assertTrue(garbage.get_json()["radiation_abort"])
+
+        still = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:UPLINK-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:UPLINK-1/bind-only",
+                "now": _now(),
+            },
+        )
+        self.assertEqual(still.status_code, 200)
+        self.assertTrue(still.get_json()["radiated"])
+
         spec = self.client.get("/.well-known/command-radiation.json")
         self.assertEqual(spec.status_code, 200)
-        self.assertEqual(spec.get_json()["spec"], "gate-command-radiation-v1")
+        spec_body = spec.get_json()
+        self.assertEqual(spec_body["spec"], "gate-command-radiation-v1")
+        self.assertTrue(spec_body["now"]["required"])
+        spend = self.client.get("/.well-known/spend-protocol.json")
+        self.assertIn("now", spend.get_json()["redeem"]["required"])
         page = self.client.get("/uplink")
         self.assertEqual(page.status_code, 200)
         self.assertIn("This vehicle. This now.", page.get_data(as_text=True))
