@@ -1,8 +1,12 @@
-"""Exclusive timing — worth more than narrow, enforced, and provable.
+"""Exclusive timing — a miss on the only door.
 
 A bound answer can still be a demo: a beautiful DEAD on a hop nobody required.
 What's more is the only door. The wire / bind / deploy cannot complete elsewhere.
-The receipt is not the product. The product is the irreversible that didn't occur.
+The receipt is not the product. Gate still makes misses (the irreversible that
+didn't occur). Crowning that miss as the winner is the trap.
+
+The only thing not in this contest: someone's irreversible that did occur.
+The climb is the luxury of not having been that.
 
 Gate will not claim their_production. That is true only after they weld and do not bypass.
 """
@@ -12,6 +16,13 @@ SPEC = "gate-exclusive-timing-v1"
 WORTH_MORE = "the act that never happens — because there was no other door"
 PRODUCT = "the irreversible that didn't occur"
 MUSEUM = "A DEAD receipt on a hop nobody required is a museum."
+TRAP = "The original is not the winner. It is the trap the climb falls back into if you try to crown a miss."
+NOT_IN_CONTEST = (
+    "someone's irreversible that did occur — the whole climb is the luxury of not having been that"
+)
+ESCAPE = (
+    "Not 'no relation,' if that still means the thing that escapes relation. Escape is still from something."
+)
 
 
 def classify(payload: dict | None, bound_answer: dict | None, *, demo: bool = False, closed_world: bool = False) -> dict:
@@ -45,6 +56,8 @@ def classify(payload: dict | None, bound_answer: dict | None, *, demo: bool = Fa
         "closed_world": closed_world,
         "non_event": non_event,
         "product": product,
+        "winner": None,
+        "crown_the_miss": False,
         "receipt_is_not_the_product": True,
         "worth_more": WORTH_MORE,
         "bypass": "Bypass must cost more than going through this door.",
@@ -61,6 +74,11 @@ def manifesto(public_url: str) -> dict:
         "worth_more_than_narrow_enforced_provable": WORTH_MORE,
         "receipt_is_not_the_product": True,
         "product": PRODUCT,
+        "winner": None,
+        "crown_the_miss": False,
+        "trap": TRAP,
+        "not_in_contest": NOT_IN_CONTEST,
+        "escape_is_still_from_something": ESCAPE,
         "museum": MUSEUM,
         "exclusive_timing": (
             "The bind, the wire, the deploy cannot complete on any other path. "

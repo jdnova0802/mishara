@@ -74,8 +74,11 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "page": f"{public_url}/floor",
             "manifest": f"{public_url}/.well-known/floor.json",
             "cleverer_layer": None,
+            "winner": None,
+            "crown_the_miss": False,
             "unrepeatable": True,
             "not_only_yours": True,
+            "not_in_contest": "someone's irreversible that did occur",
         },
         "particular": {
             "page": f"{public_url}/this",

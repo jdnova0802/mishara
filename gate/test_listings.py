@@ -270,6 +270,8 @@ class ExclusiveTimingTests(unittest.TestCase):
         self.assertTrue(ex["exclusive"])
         self.assertTrue(ex["non_event"])
         self.assertEqual(ex["product"], "the irreversible that didn't occur")
+        self.assertIsNone(ex["winner"])
+        self.assertFalse(ex["crown_the_miss"])
         self.assertFalse(ex["their_production"])
 
     def test_pc_honor_required_not_their_prod(self):
@@ -286,6 +288,10 @@ class FloorTests(unittest.TestCase):
     def test_no_cleverer_layer(self):
         m = floor.manifesto("https://example.test")
         self.assertIsNone(m["cleverer_layer"])
+        self.assertIsNone(m["winner"])
+        self.assertFalse(m["crown_the_miss"])
+        self.assertIn("did occur", m["not_in_contest"])
+        self.assertIn("Escape is still from something", m["escape_is_still_from_something"])
         names = [x["is"] for x in m["layers"]]
         self.assertEqual(names, ["talk", "a fact", "control", "a clean timeline"])
 
@@ -470,6 +476,8 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r2.status_code, 200)
         self.assertFalse(r2.get_json()["their_production"])
         self.assertTrue(r2.get_json()["receipt_is_not_the_product"])
+        self.assertIsNone(r2.get_json()["winner"])
+        self.assertFalse(r2.get_json()["crown_the_miss"])
 
     def test_floor_page_and_manifest(self):
         r = self.client.get("/floor")
@@ -478,6 +486,8 @@ class BindRoomFlaskTests(unittest.TestCase):
         r2 = self.client.get("/.well-known/floor.json")
         self.assertEqual(r2.status_code, 200)
         self.assertIsNone(r2.get_json()["cleverer_layer"])
+        self.assertIsNone(r2.get_json()["winner"])
+        self.assertIn(b"not in this contest", r.data)
 
     def test_this_page_and_manifest(self):
         r = self.client.get("/this")
