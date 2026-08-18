@@ -9,8 +9,8 @@ Issuance is documents. Wrapping only bind-and-issue leaks:
 UW issue type UWManagerReviewBlocksQuoteRelease blocks quoting, not bind.
 The issue type in their admin data must have blocking point Binding (blocksBind).
 
-Remaining doors Cloud API cannot see: PolicyCenter UI bind, renewal auto-bind workflow.
-Those must be closed in-house or the hop is still philosophizing.
+Remaining Cloud API-invisible doors: PolicyCenter UI bind, renewal auto-bind workflow.
+Those get paste artifacts (Gosu checking set + RenewalWF step). Worker still wraps bind-only.
 """
 from __future__ import annotations
 
@@ -21,6 +21,9 @@ PC_UW = "/job/v1/jobs/{job_id}/uw-issues"
 # Base-config type. Blocks QUOTE RELEASE — not sufficient to stop bind.
 DEFAULT_ISSUE_TYPE = "UWManagerReviewBlocksQuoteRelease"
 BINDING_POINT = "Binding"
+DEFAULT_VERIFY = "https://velaru.xyz/verify"
+GOSU_PREBIND = "guidewire-gosu-prebind.gs"
+GOSU_RENEWAL = "guidewire-renewal-prebind.gs"
 
 
 def spend_writes(job_id: str, policy_id: str | None = None) -> list[dict]:
@@ -48,10 +51,33 @@ def spend_writes(job_id: str, policy_id: str | None = None) -> list[dict]:
     ]
 
 
-def other_doors() -> list[str]:
+def verify_url(hop: dict | None) -> str:
+    if isinstance(hop, dict):
+        url = hop.get("verify_url") or hop.get("restraint_permalink")
+        if url:
+            return str(url)
+    return DEFAULT_VERIFY
+
+
+def listing_url(public_url: str | None, name: str) -> str:
+    base = (public_url or "").rstrip("/")
+    return f"{base}/listings/{name}" if base else f"/listings/{name}"
+
+
+def other_doors(public_url: str | None = None) -> list[dict]:
     return [
-        "PolicyCenter UI Bind — skips Cloud API if users bind in the console",
-        "Renewal workflow auto-bind — PolicyCenter can bind some renewals with no API call",
+        {
+            "door": "PolicyCenter UI Bind",
+            "why": "Console Bind never hits Cloud API. The worker cannot see it.",
+            "close": "Paste guidewire-gosu-prebind.gs into the Bind checking set and Bind PCF button before JobProcess.bind().",
+            "file": listing_url(public_url, GOSU_PREBIND),
+        },
+        {
+            "door": "Renewal workflow auto-bind",
+            "why": "Some renewals bind at midnight with no API call and no UI click.",
+            "close": "Paste guidewire-renewal-prebind.gs as a RenewalWF step before Bind. continue-on-error off.",
+            "file": listing_url(public_url, GOSU_RENEWAL),
+        },
     ]
 
 
@@ -75,12 +101,14 @@ def policycenter_plan(
     writes = spend_writes(jid, policy_id)
     bind_only = writes[0]["path"]
     bind_and_issue = writes[1]["path"]
+    receipt = verify_url(hop)
     if hop_allows_bind(hop, status):
         return {
             "spec": "gate-policycenter-weld-v1",
             "allow_bind": True,
             "halt": False,
             "job_id": jid,
+            "verify_url": receipt,
             "next": {"method": "POST", "path": bind_and_issue, "body": None},
             "also_allowed": writes,
             "do_not_call": None,
@@ -94,6 +122,7 @@ def policycenter_plan(
         "allow_bind": False,
         "halt": True,
         "job_id": jid,
+        "verify_url": receipt,
         "next": None,
         "do_not_call": {"method": "POST", "path": bind_only},
         "do_not_call_all": writes,
@@ -123,6 +152,7 @@ def duckcreek_plan(job_id: str, hop: dict | None, status: int) -> dict:
         "allow_bind": allowed,
         "halt": not allowed,
         "job_id": jid,
+        "verify_url": verify_url(hop),
         "next": {"method": "POST", "path": f"/api/issue/{jid}"} if allowed else None,
         "do_not_call": None if allowed else {"method": "POST", "path": f"/api/issue/{jid}"},
         "note": "Mirror of PolicyCenter. Paymentus is pay ≠ allowed — not this weld.",
@@ -162,6 +192,7 @@ def mga_authority(
         "result": "ALLOW" if allowed else "BLOCK",
         "reasons": reasons,
         "halt": not allowed,
+        "verify_url": verify_url(hop),
         "charge": "CHARGE webhook is the only DEAD→LIVE path. Authority approve is not CHARGE.",
         "hop": hop,
         "checks": {
@@ -209,9 +240,19 @@ def capture_manifest(public_url: str) -> dict:
             "not_sufficient_why": "Blocks quote release. Bind-only and bind-and-issue can still fire.",
             "open_issue_with_blocksBind": "Cloud API bind returns 422 rule-violation until approved. Approve is not CHARGE.",
         },
-        "other_doors": other_doors(),
+        "other_doors": other_doors(public_url),
+        "in_house_paste": {
+            "ui_bind": listing_url(public_url, GOSU_PREBIND),
+            "renewal_auto_bind": listing_url(public_url, GOSU_RENEWAL),
+        },
         "worker": f"{public_url}/listings/cloudflare-worker-bind.js",
         "pre_bind": f"POST {public_url}/v1/pas/policycenter/pre-bind",
+        "halt_always_includes": "verify_url",
         "their_production": False,
+        "later": {
+            "tpm_hsm": "After first invoice. Do not stall the weld for a root of trust nobody asked for yet.",
+            "claims_pay": "Second spend. Marry bind first.",
+            "org_tree": "Parent DEAD kills child is a Velaru engine fact. Gate will not fake an org tree.",
+        },
         "page": f"{public_url}/capture",
     }

@@ -490,6 +490,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/capture")
         self.assertEqual(r.status_code, 200)
         self.assertIn(b"bind-only", r.data)
+        self.assertIn(b"guidewire-gosu-prebind.gs", r.data)
         r2 = self.client.get("/.well-known/capture.json")
         self.assertEqual(r2.status_code, 200)
         data = r2.get_json()
@@ -497,6 +498,38 @@ class BindRoomFlaskTests(unittest.TestCase):
         paths = [w["path"] for w in data["cloud_api_spend_writes"]]
         self.assertTrue(any("bind-only" in p for p in paths))
         self.assertIn("quote", data["uw_issue"]["not_sufficient_why"].lower())
+        self.assertEqual(data["halt_always_includes"], "verify_url")
+        self.assertIn("guidewire-gosu-prebind.gs", data["in_house_paste"]["ui_bind"])
+        self.assertIn("guidewire-renewal-prebind.gs", data["in_house_paste"]["renewal_auto_bind"])
+        self.assertIn("tpm_hsm", data["later"])
+        doors = [d["door"] for d in data["other_doors"]]
+        self.assertTrue(any("UI Bind" in d for d in doors))
+
+    def test_gosu_listings_and_worker_receipt(self):
+        r = self.client.get("/listings/guidewire-gosu-prebind.gs")
+        self.assertEqual(r.status_code, 200)
+        text = r.get_data(as_text=True)
+        self.assertIn("assertBindAllowed", text)
+        self.assertIn("VelaruBlocksBind", text)
+        self.assertIn("does not charge", text.lower())
+        r2 = self.client.get("/listings/guidewire-renewal-prebind.gs")
+        self.assertEqual(r2.status_code, 200)
+        self.assertIn("assertBeforeAutoBind", r2.get_data(as_text=True))
+        worker = self.client.get("/listings/cloudflare-worker-bind.js").get_data(as_text=True)
+        self.assertIn("haltResponse", worker)
+        self.assertIn("verify_url", worker)
+        generic = self.client.get("/listings/cloudflare-worker.js").get_data(as_text=True)
+        self.assertIn("haltResponse", generic)
+
+    def test_prebind_halt_always_has_verify_url(self):
+        plan = weld.policycenter_plan("pc:1", {"verdict": False, "halt": True, "state": "DEAD"}, 200)
+        self.assertEqual(plan["verify_url"], weld.DEFAULT_VERIFY)
+        plan2 = weld.policycenter_plan(
+            "pc:1",
+            {"verdict": False, "halt": True, "verify_url": "https://velaru.xyz/verify?r=1"},
+            200,
+        )
+        self.assertIn("r=1", plan2["verify_url"])
 
     def test_demo_hop_attaches_bound_answer(self):
         dead = {

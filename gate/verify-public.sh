@@ -67,6 +67,8 @@ check this GET 200 "$URL/this"
 check particular_wk GET 200 "$URL/.well-known/particular.json"
 check capture GET 200 "$URL/capture"
 check capture_wk GET 200 "$URL/.well-known/capture.json"
+check gosu GET 200 "$URL/listings/guidewire-gosu-prebind.gs"
+check renewal GET 200 "$URL/listings/guidewire-renewal-prebind.gs"
 
 check demo_hop POST 200 \
   -X POST "$URL/demo/hop" \

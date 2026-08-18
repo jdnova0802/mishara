@@ -1080,16 +1080,23 @@ LISTING_FILES = {
     "control-not-model.json": lambda: listings_mod.control_not_model(advertised_url(), CONTACT_EMAIL),
 }
 
+LISTING_STATIC = {
+    "cloudflare-worker.js": "application/javascript; charset=utf-8",
+    "cloudflare-worker-bind.js": "application/javascript; charset=utf-8",
+    "guidewire-gosu-prebind.gs": "text/plain; charset=utf-8",
+    "guidewire-renewal-prebind.gs": "text/plain; charset=utf-8",
+}
+
 
 @app.route("/listings/<name>")
 def listing_file(name):
-    if name in ("cloudflare-worker.js", "cloudflare-worker-bind.js"):
+    if name in LISTING_STATIC:
         here = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(here, name)
         if not os.path.isfile(path):
             abort(404)
         with open(path, encoding="utf-8") as f:
-            return f.read(), 200, {"Content-Type": "application/javascript; charset=utf-8"}
+            return f.read(), 200, {"Content-Type": LISTING_STATIC[name]}
     if name not in LISTING_FILES:
         abort(404)
     payload = LISTING_FILES[name]()
@@ -1624,6 +1631,8 @@ def llms_txt():
         f"- The floor: {advertised_url()}/floor",
         f"- This one: {advertised_url()}/this",
         f"- Production capture: {advertised_url()}/capture",
+        f"- UI Bind Gosu: {advertised_url()}/listings/guidewire-gosu-prebind.gs",
+        f"- Renewal auto-bind Gosu: {advertised_url()}/listings/guidewire-renewal-prebind.gs",
         f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
         f"- Exclusive timing: {advertised_url()}/.well-known/exclusive-timing.json",
         f"- Floor: {advertised_url()}/.well-known/floor.json",

@@ -19,7 +19,10 @@ POST /policy/v1/policies/{policyId}/issue</pre>
 
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Doors Cloud API cannot see</h2>
-    <p>PolicyCenter UI Bind. Renewal auto-bind workflow. If those stay open, you are still philosophizing. Close them in-house or attach the bind worker to the only origin that can bind.</p>
+    <p>Worker wraps bind-only. Console Bind and midnight renewal never hit that origin. Paste these into Studio or you are still philosophizing.</p>
+    <p style="margin-top: 0.75rem;"><strong>UI Bind</strong> — Bind checking set + Bind PCF button before <code class="inline">JobProcess.bind()</code>. <a href="{{ public_url }}/listings/guidewire-gosu-prebind.gs">guidewire-gosu-prebind.gs</a></p>
+    <p style="margin-top: 0.75rem;"><strong>Renewal auto-bind</strong> — RenewalWF step before Bind. continue-on-error off. <a href="{{ public_url }}/listings/guidewire-renewal-prebind.gs">guidewire-renewal-prebind.gs</a></p>
+    <p style="margin-top: 0.75rem; color: var(--muted);">Halt JSON always includes <code class="inline">verify_url</code>. TPM, claims-pay, and a fake org tree wait. Bind first.</p>
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">

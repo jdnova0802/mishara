@@ -2,6 +2,7 @@
  * Bind-path only. Intercept bind-and-issue / issue. Everything else passes through.
  * wrangler secret put GATE_KEY
  * GATE_URL = live https Gate — never localhost.
+ * Halt JSON always includes verify_url so the inhabitant gets a receipt without asking.
  */
 function isLocal(url) {
   const u = (url || "").toLowerCase();
@@ -13,6 +14,30 @@ function isBindWrite(path) {
   return /bind-and-issue|bind-only|\/bind\b|\/issue\b/i.test(path);
 }
 
+function verifyFrom(body, env) {
+  const src = body && typeof body === "object" ? body : {};
+  const hop = src.hop && typeof src.hop === "object" ? src.hop : {};
+  return (
+    src.verify_url ||
+    src.restraint_permalink ||
+    hop.verify_url ||
+    hop.restraint_permalink ||
+    env.VERIFY_URL ||
+    "https://velaru.xyz/verify"
+  );
+}
+
+function haltResponse(body, env, extra, status) {
+  const src = body && typeof body === "object" ? body : {};
+  const payload = Object.assign({ halt: true, allow_bind: false }, src, extra || {}, {
+    verify_url: verifyFrom(src, env),
+  });
+  return new Response(JSON.stringify(payload), {
+    status: status || 403,
+    headers: { "content-type": "application/json", "x-gate-welded": "1" },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -21,10 +46,7 @@ export default {
     }
     const gate = (env.GATE_URL || "").replace(/\/$/, "");
     if (!gate || !env.GATE_KEY || (isLocal(gate) && env.ALLOW_LOCAL !== "1")) {
-      return new Response(JSON.stringify({ halt: true, allow_bind: false, reason: "gate_not_public" }), {
-        status: 503,
-        headers: { "content-type": "application/json", "x-gate-welded": "1" },
-      });
+      return haltResponse(null, env, { reason: "gate_not_public" }, 503);
     }
     const parts = url.pathname.split("/").filter(Boolean);
     const last = (parts[parts.length - 1] || "").toLowerCase();
@@ -44,10 +66,7 @@ export default {
     });
     const body = await hop.json().catch(() => ({ halt: true, allow_bind: false }));
     if (!hop.ok || body.halt || body.allow_bind === false) {
-      return new Response(JSON.stringify(body), {
-        status: hop.status === 503 ? 503 : 403,
-        headers: { "content-type": "application/json", "x-gate-welded": "1" },
-      });
+      return haltResponse(body, env, null, hop.status === 503 ? 503 : 403);
     }
     return fetch(request);
   },
