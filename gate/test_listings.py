@@ -107,6 +107,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("floor", m)
         self.assertIn("particular", m)
         self.assertIn("capture", m)
+        self.assertIn("commit_auth", m)
         self.assertIn("liturgy", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
@@ -545,6 +546,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         worker = self.client.get("/listings/cloudflare-worker-bind.js").get_data(as_text=True)
         self.assertIn("haltResponse", worker)
         self.assertIn("verify_url", worker)
+        self.assertIn("bind-ticket/redeem", worker)
         generic = self.client.get("/listings/cloudflare-worker.js").get_data(as_text=True)
         self.assertIn("haltResponse", generic)
 
@@ -634,10 +636,18 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("prev_receipt_hash", payload)
 
     def test_counterfactual_spend_on_halt_receipt(self):
-        r = self.client.post(
-            "/demo/pas/policycenter/pre-bind",
-            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-CF"},
-        )
+        dead = {
+            "ok": True,
+            "verdict": False,
+            "halt": True,
+            "state": "DEAD",
+            "verify_url": "https://velaru.xyz/verify?r=cf",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(dead, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-CF"},
+            )
         self.assertEqual(r.status_code, 200)
         body = r.get_json()
         self.assertFalse(body.get("allow_bind"))
@@ -654,9 +664,10 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIsNotNone(cf)
         self.assertEqual(cf["spec"], "gate-counterfactual-spend-v1")
         self.assertEqual(cf["type"], "INACTION")
-        self.assertEqual(cf["decision"], "BLOCK")
+        self.assertIn(cf["decision"], ("HALT", "BLOCK"))
         self.assertTrue(cf["forbidden_transitions"])
         self.assertIn("bind-only", cf["forbidden_transitions"][0]["path"])
+        self.assertIn("PATH", cf["types"])
         self.assertIsNone(cf["winner"])
         self.assertFalse(cf["crown_the_miss"])
 
@@ -714,6 +725,161 @@ class BindRoomFlaskTests(unittest.TestCase):
                 proof=bundle["inclusion"],
             )
         )
+
+    def test_bind_ticket_commit_time_and_replay(self):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=ticket",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:TICKET-1"},
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["allow_bind"])
+        ticket = body["bind_ticket"]
+        self.assertEqual(ticket["spec"], "gate-bind-ticket-v1")
+        self.assertTrue(ticket["stale_hop_cannot_spend"])
+        self.assertIn("token", ticket)
+        self.assertTrue(body["commit_time_authorization"]["bind_ticket_required"])
+
+        redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:TICKET-1",
+            },
+        )
+        self.assertEqual(redeem.status_code, 200)
+        self.assertTrue(redeem.get_json()["ok"])
+
+        replay = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:TICKET-1",
+            },
+        )
+        self.assertEqual(replay.status_code, 403)
+        self.assertEqual(replay.get_json()["reason"], "ticket_replay")
+
+        spent = self.client.get("/.well-known/exclusion.json?job_id=pc:TICKET-1")
+        self.assertEqual(spent.status_code, 200)
+        self.assertTrue(spent.get_json()["spent"])
+
+    def test_epoch_lock_requires_charge_id(self):
+        dead = {
+            "ok": True,
+            "verdict": False,
+            "halt": True,
+            "state": "DEAD",
+            "verify_url": "https://velaru.xyz/verify?r=epoch",
+        }
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=epoch-live",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(dead, 200, {})):
+            r1 = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:EPOCH-1"},
+            )
+        self.assertEqual(r1.status_code, 200)
+        self.assertFalse(r1.get_json()["allow_bind"])
+
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r2 = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:EPOCH-1"},
+            )
+        self.assertEqual(r2.status_code, 200)
+        locked = r2.get_json()
+        self.assertFalse(locked["allow_bind"])
+        self.assertTrue(locked["commit_time_authorization"]["epoch"]["locked"])
+        self.assertEqual(locked["commit_time_authorization"]["epoch"]["reason"], "prior_halt_requires_charge")
+
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r3 = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:EPOCH-1",
+                    "charge_id": "chg_test_epoch",
+                },
+            )
+        self.assertEqual(r3.status_code, 200)
+        opened = r3.get_json()
+        self.assertTrue(opened["allow_bind"])
+        self.assertFalse(opened["commit_time_authorization"]["epoch"]["locked"])
+        self.assertIn("bind_ticket", opened)
+
+    def test_exclusion_and_consistency_proofs(self):
+        import exclusion as exclusion_mod
+        import evidence_log as evidence_log_mod
+        import db as gate_db
+
+        proof = exclusion_mod.prove("pc:NEVER-SPENT", spent_ids=["pc:AAA", "pc:ZZZ"])
+        self.assertFalse(proof["spent"])
+        self.assertEqual(proof["neighbors"]["left"]["job_id"], "pc:AAA")
+        self.assertEqual(proof["neighbors"]["right"]["job_id"], "pc:ZZZ")
+        self.assertTrue(exclusion_mod.verify_exclusion(proof))
+
+        r = self.client.get("/.well-known/exclusion.json?job_id=pc:NEVER-SPENT")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertFalse(body["spent"])
+        self.assertTrue(exclusion_mod.verify_exclusion(body))
+
+        rows = gate_db.list_bind_events_chronological()
+        leaves = evidence_log_mod.log_from_rows(rows)
+        old = max(0, len(leaves) - 1)
+        cons = evidence_log_mod.consistency_proof(old, leaves)
+        self.assertTrue(cons["valid"])
+        self.assertTrue(
+            evidence_log_mod.verify_consistency(
+                old_size=old,
+                old_root=cons["old_root"],
+                new_root=cons["new_root"],
+                leaf_hashes_hex=leaves,
+            )
+        )
+        r2 = self.client.get(f"/.well-known/evidence-consistency.json?old_size={old}")
+        self.assertEqual(r2.status_code, 200)
+        self.assertTrue(r2.get_json()["valid"])
+
+        r3 = self.client.get("/.well-known/commit-auth.json")
+        self.assertEqual(r3.status_code, 200)
+        self.assertTrue(r3.get_json()["stale_hop_cannot_spend"])
+
+    def test_constraint_counterfactual_on_mga_block(self):
+        live = {"ok": True, "verdict": True, "state": "LIVE"}
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/mga-authority",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:MGA-CONSTRAINT-1",
+                    "premium": 60000,
+                    "authority_limit": 50000,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["result"], "BLOCK")
+        import db as gate_db
+
+        latest = gate_db.list_bind_events(None, limit=1)[0]
+        payload = self.client.get(f"/.well-known/receipt/{latest['id']}.json").get_json()
+        cf = payload["counterfactual_spend"]
+        self.assertIn("CONSTRAINT", cf["types"])
+        self.assertIn("premium_exceeds_authority", cf["constraint"]["reasons"])
 
     def test_listings_still_health(self):
         r = self.client.get("/health")

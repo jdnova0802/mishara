@@ -16,6 +16,9 @@ ALLOWED_PAS_KEYS = frozenset(
         "bind_path",
         "allowed_lines",
         "allowed_states",
+        "charge_id",
+        "ticket_id",
+        "token",
     }
 )
 

@@ -95,6 +95,13 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "renewal_auto_bind": f"{public_url}/listings/guidewire-renewal-prebind.gs",
             "halt_always_includes": "verify_url",
         },
+        "commit_auth": {
+            "manifest": f"{public_url}/.well-known/commit-auth.json",
+            "bind_ticket_ttl_seconds": 15,
+            "stale_hop_cannot_spend": True,
+            "exclusion": f"{public_url}/.well-known/exclusion.json?job_id={{job_id}}",
+            "epoch": "Latest HALT/BLOCK for a job stays HALT until charge_id.",
+        },
         "bind_room": {
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",

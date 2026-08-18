@@ -103,6 +103,26 @@ try:
 except ImportError:
     import liturgy as liturgy_mod
 
+try:
+    from gate import ticket as ticket_mod
+except ImportError:
+    import ticket as ticket_mod
+
+try:
+    from gate import epoch as epoch_mod
+except ImportError:
+    import epoch as epoch_mod
+
+try:
+    from gate import exclusion as exclusion_mod
+except ImportError:
+    import exclusion as exclusion_mod
+
+try:
+    from gate import evidence_log as evidence_log_mod
+except ImportError:
+    import evidence_log as evidence_log_mod
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -643,6 +663,71 @@ def _verify_from(hop):
     return hop.get("verify_url") or hop.get("restraint_permalink")
 
 
+def _redeem_url() -> str:
+    return f"{advertised_url()}/v1/pas/bind-ticket/redeem"
+
+
+def _finalize_spend_plan(
+    plan: dict,
+    *,
+    fuse_id: str,
+    job_id: str | None,
+    hop_d: dict,
+    status: int,
+    extra: dict,
+    account_id,
+    charge_id: str | None,
+    epoch_meta: dict | None,
+    decision: str,
+    acted: bool,
+):
+    jid = (job_id or "").strip() or None
+    if acted and not jid:
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["reason"] = plan.get("reason") or "job_id_required_for_ticket"
+    cid = epoch_mod.normalize_charge_id(charge_id)
+    event_id = db.record_bind_event(
+        fuse_id=fuse_id,
+        job_id=jid,
+        account_id=account_id,
+        decision=decision,
+        acted=acted,
+        verify_url=_verify_from(hop_d),
+        hop=hop_d or None,
+        charge_id=cid,
+    )
+    row = db.get_bind_event(event_id) or {}
+    ticket_pack = None
+    if acted:
+        ticket_pack = ticket_mod.issue(
+            job_id=jid,
+            fuse_id=fuse_id,
+            event_id=event_id,
+            receipt_hash=row.get("receipt_hash"),
+            redeem_url=_redeem_url(),
+        )
+        if ticket_pack:
+            plan["bind_ticket"] = ticket_pack["bearer"]
+    ticket_mod.stamp(
+        plan,
+        ticket_public=(ticket_pack or {}).get("public") if ticket_pack else None,
+        epoch=epoch_meta,
+        redeem_url=_redeem_url(),
+    )
+    plan["event_id"] = event_id
+    extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
+    extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
+    extra["X-Gate-Event-Id"] = event_id
+    out_status = status if status >= 500 else 200
+    bound.attach(plan, out_status)
+    return plan, out_status, extra
+
+
 def _num(value):
     if value is None or value == "":
         return None
@@ -660,22 +745,25 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
     )
     extra = dict(extra or {})
     hop_d = hop if isinstance(hop, dict) else {}
+    hop_d, epoch_meta = epoch_mod.apply(
+        job_id=job_id, hop=hop_d, charge_id=body.get("charge_id")
+    )
     plan = weld.policycenter_plan(job_id, hop_d, status, body.get("issue_type"))
     plan["fuse_id"] = fuse_id
     decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
-    db.record_bind_event(
+    return _finalize_spend_plan(
+        plan,
         fuse_id=fuse_id,
-        job_id=job_id or None,
+        job_id=job_id,
+        hop_d=hop_d,
+        status=status,
+        extra=extra,
         account_id=account_id,
+        charge_id=body.get("charge_id"),
+        epoch_meta=epoch_meta,
         decision=decision,
         acted=bool(plan.get("allow_bind")),
-        verify_url=_verify_from(hop_d),
-        hop=hop_d or None,
     )
-    extra["X-Gate-Allow-Bind"] = "1" if plan.get("allow_bind") else "0"
-    out_status = status if status >= 500 else 200
-    bound.attach(plan, out_status)
-    return plan, out_status, extra
 
 
 def run_mga_authority(body: dict, account_id=None):
@@ -685,6 +773,10 @@ def run_mga_authority(body: dict, account_id=None):
     )
     extra = dict(extra or {})
     hop_d = hop if isinstance(hop, dict) else {}
+    job_id = (str(body.get("job_id") or "")).strip()
+    hop_d, epoch_meta = epoch_mod.apply(
+        job_id=job_id, hop=hop_d, charge_id=body.get("charge_id")
+    )
     plan = weld.mga_authority(
         hop_d,
         status,
@@ -696,20 +788,22 @@ def run_mga_authority(body: dict, account_id=None):
         allowed_states=body.get("allowed_states") if isinstance(body.get("allowed_states"), list) else None,
     )
     plan["fuse_id"] = fuse_id
-    plan["job_id"] = body.get("job_id")
-    db.record_bind_event(
+    plan["job_id"] = job_id or None
+    if plan.get("reasons"):
+        hop_d["constraint_reasons"] = plan["reasons"]
+    return _finalize_spend_plan(
+        plan,
         fuse_id=fuse_id,
-        job_id=(str(body.get("job_id") or "") or None),
+        job_id=job_id,
+        hop_d=hop_d,
+        status=status,
+        extra=extra,
         account_id=account_id,
+        charge_id=body.get("charge_id"),
+        epoch_meta=epoch_meta,
         decision=plan.get("result") or "BLOCK",
         acted=bool(plan.get("bind_allowed")),
-        verify_url=_verify_from(hop_d),
-        hop=hop_d or None,
     )
-    extra["X-Gate-Allow-Bind"] = "1" if plan.get("bind_allowed") else "0"
-    out_status = status if status >= 500 else 200
-    bound.attach(plan, out_status)
-    return plan, out_status, extra
 
 
 def run_duckcreek_pre_bind(body: dict, account_id=None):
@@ -720,21 +814,25 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
     )
     extra = dict(extra or {})
     hop_d = hop if isinstance(hop, dict) else {}
+    hop_d, epoch_meta = epoch_mod.apply(
+        job_id=job_id, hop=hop_d, charge_id=body.get("charge_id")
+    )
     plan = weld.duckcreek_plan(job_id, hop_d, status)
     plan["fuse_id"] = fuse_id
-    db.record_bind_event(
+    decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
+    return _finalize_spend_plan(
+        plan,
         fuse_id=fuse_id,
-        job_id=job_id or None,
+        job_id=job_id,
+        hop_d=hop_d,
+        status=status,
+        extra=extra,
         account_id=account_id,
-        decision="ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK"),
+        charge_id=body.get("charge_id"),
+        epoch_meta=epoch_meta,
+        decision=decision,
         acted=bool(plan.get("allow_bind")),
-        verify_url=_verify_from(hop_d),
-        hop=hop_d or None,
     )
-    extra["X-Gate-Allow-Bind"] = "1" if plan.get("allow_bind") else "0"
-    out_status = status if status >= 500 else 200
-    bound.attach(plan, out_status)
-    return plan, out_status, extra
 
 
 @app.route("/demo/pas/bind-check", methods=["POST"])
@@ -772,6 +870,30 @@ def demo_pc_pre_bind():
         data["demo"] = True
         bound.attach(data, status, demo=True)
     return data, status, extra
+
+
+def _redeem_ticket_view(*, demo: bool = False):
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    result = ticket_mod.redeem(
+        ticket_id=str(body.get("ticket_id") or ""),
+        token=str(body.get("token") or ""),
+        job_id=str(body.get("job_id") or ""),
+    )
+    if isinstance(result, dict):
+        result["demo"] = demo
+        bound.attach(result, 200 if result.get("ok") else 403, demo=demo)
+    return result, 200 if result.get("ok") else 403
+
+
+@app.route("/demo/pas/bind-ticket/redeem", methods=["POST"])
+def demo_bind_ticket_redeem():
+    _, err = _demo_gate()
+    if err:
+        return err
+    return _redeem_ticket_view(demo=True)
 
 
 @app.route("/demo/pas/mga-authority", methods=["POST"])
@@ -849,6 +971,10 @@ def well_known_gate():
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
+            "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
+            "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
+            "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
+            "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
             "fail_closed": "Timeout or 5xx → HTTP 503 halt. Never treat UNREACHABLE as LIVE.",
             "charge": "DEAD→LIVE only via Velaru CHARGE webhook.",
             "sdk": {
@@ -966,6 +1092,64 @@ def well_known_counterfactual_spend():
     except ImportError:
         import counterfactual as counterfactual_mod
     return jsonify(counterfactual_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/commit-auth.json")
+def well_known_commit_auth():
+    return jsonify(
+        {
+            "spec": "gate-commit-auth-v1",
+            "greater_than_ed25519": (
+                "Signatures prove a hop occurred. Tickets, epoch lock, and exclusion "
+                "prove the hop cannot spend stale, cannot resurrect without CHARGE, "
+                "and that this job has no spend leaf."
+            ),
+            "bind_ticket": ticket_mod.manifest(advertised_url()),
+            "epoch": {
+                "spec": "gate-epoch-v1",
+                "rule": "Latest HALT/BLOCK for a job_id stays HALT until charge_id is presented.",
+                "not_admin_charge": True,
+            },
+            "exclusion": exclusion_mod.manifest(advertised_url()),
+            "ttl_seconds": ticket_mod.ttl_seconds(),
+            "stale_hop_cannot_spend": True,
+            "their_production": False,
+        }
+    )
+
+
+@app.route("/.well-known/exclusion.json")
+def well_known_exclusion():
+    job_id = (request.args.get("job_id") or "").strip()
+    return jsonify(exclusion_mod.prove(job_id))
+
+
+@app.route("/.well-known/evidence-consistency.json")
+def well_known_evidence_consistency():
+    try:
+        old_size = int(request.args.get("old_size") or 0)
+    except ValueError:
+        old_size = 0
+    rows = db.list_bind_events_chronological()
+    leaves = evidence_log_mod.log_from_rows(rows)
+    proof = evidence_log_mod.consistency_proof(old_size, leaves)
+    proof["tree_head"] = evidence_log_mod.signed_tree_head(leaves)
+    return jsonify(proof)
+
+
+@app.route("/.well-known/evidence-leaves.json")
+def well_known_evidence_leaves():
+    rows = db.list_bind_events_chronological()
+    leaves = evidence_log_mod.log_from_rows(rows)
+    return jsonify(
+        {
+            "spec": "gate-evidence-leaves-v1",
+            "tree_size": len(leaves),
+            "receipt_hashes": leaves,
+            "root_hash": evidence_log_mod.merkle_root(leaves),
+            "note": "Hashes only. No PII. Recompute merkle root and compare to evidence-head.json.",
+        }
+    )
 
 
 @app.route("/capture")
@@ -1656,6 +1840,12 @@ def pas_duckcreek_pre_bind():
     return run_duckcreek_pre_bind(body, account_id=g.account_id)
 
 
+@app.route("/v1/pas/bind-ticket/redeem", methods=["POST"])
+@metered_api(count_usage=False)
+def pas_bind_ticket_redeem():
+    return _redeem_ticket_view(demo=False)
+
+
 @app.route("/v1/pas/bind-appendix")
 @metered_api(count_usage=False)
 def pas_bind_appendix():
@@ -1761,7 +1951,9 @@ def sitemap():
         "/.well-known/particular.json",
         "/.well-known/capture.json",
         "/.well-known/counterfactual-spend.json",
+        "/.well-known/commit-auth.json",
         "/.well-known/evidence-head.json",
+        "/.well-known/exclusion.json",
         "/.well-known/mass.json",
         "/.well-known/relics.json",
         "/.well-known/tattoo.json",
@@ -1812,6 +2004,8 @@ def llms_txt():
         f"- Floor: {advertised_url()}/.well-known/floor.json",
         f"- Particular: {advertised_url()}/.well-known/particular.json",
         f"- Capture: {advertised_url()}/.well-known/capture.json",
+        f"- Commit-time auth (tickets + epoch + exclusion): {advertised_url()}/.well-known/commit-auth.json",
+        f"- Exclusion proof: {advertised_url()}/.well-known/exclusion.json?job_id=JOB_ID",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
@@ -1916,6 +2110,12 @@ def openapi():
                 "/v1/pas/duckcreek/pre-bind": {
                     "post": {"summary": "Duck Creek issue wrap — do not call issue if halt", "security": [{"BearerAuth": []}]}
                 },
+                "/v1/pas/bind-ticket/redeem": {
+                    "post": {
+                        "summary": "Consume a single-use bind ticket. Stale/replay/mismatch → HALT.",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
                 "/v1/pas/bind-appendix": {
                     "get": {"summary": "On-request examiner appendix: job_id + verify_url. Not the SERFF filing.", "security": [{"BearerAuth": []}]}
                 },
@@ -1935,6 +2135,8 @@ def openapi():
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
                 "/this": {"get": {"summary": "A particular. Name one. Let it try to spend. Not a deeper idea."}},
                 "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
+                "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, exclusion proofs"}},
+                "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
                 "/.well-known/exclusive-timing.json": {"get": {"summary": "Exclusive-timing manifesto. Receipt is not the product."}},
                 "/.well-known/floor.json": {"get": {"summary": "The floor. cleverer_layer is null."}},

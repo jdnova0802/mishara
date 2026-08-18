@@ -92,6 +92,27 @@ def init_db():
             conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_signature TEXT")
         if "receipt_public_key_fingerprint" not in bind_cols:
             conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_public_key_fingerprint TEXT")
+        if "charge_id" not in bind_cols:
+            conn.execute("ALTER TABLE bind_events ADD COLUMN charge_id TEXT")
+
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS bind_tickets (
+                id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL,
+                fuse_id TEXT,
+                event_id TEXT,
+                receipt_hash TEXT,
+                token_hash TEXT NOT NULL,
+                not_before TEXT NOT NULL,
+                not_after TEXT NOT NULL,
+                consumed_at TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_bind_tickets_job ON bind_tickets(job_id);
+            CREATE INDEX IF NOT EXISTS idx_bind_events_job ON bind_events(job_id, created_at);
+            """
+        )
 
 
 @contextmanager
@@ -250,6 +271,7 @@ def record_bind_event(
     acted: bool | None = None,
     verify_url: str | None = None,
     hop: dict | None = None,
+    charge_id: str | None = None,
 ) -> str:
     import json
 
@@ -285,8 +307,8 @@ def record_bind_event(
             """INSERT INTO bind_events
                (id, account_id, fuse_id, job_id, decision, acted, verify_url, hop_json,
                 prev_receipt_hash, receipt_hash, receipt_signature, receipt_public_key_fingerprint,
-                created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                created_at, charge_id)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 event_id,
                 account_id,
@@ -301,6 +323,7 @@ def record_bind_event(
                 receipt_issue.get("receipt_signature"),
                 receipt_issue.get("receipt_public_key_fingerprint"),
                 created_at,
+                charge_id,
             ),
         )
     return event_id
@@ -362,6 +385,90 @@ def list_bind_events_chronological(limit: int = 10000) -> list:
             item["acted"] = bool(item["acted"])
         out.append(item)
     return out
+
+
+def latest_bind_event_for_job(job_id: str) -> dict | None:
+    jid = (job_id or "").strip()
+    if not jid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            """SELECT * FROM bind_events WHERE job_id = ?
+               ORDER BY created_at DESC, id DESC LIMIT 1""",
+            (jid,),
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    if item.get("acted") is not None:
+        item["acted"] = bool(item["acted"])
+    return item
+
+
+def insert_bind_ticket(
+    *,
+    ticket_id: str,
+    job_id: str,
+    fuse_id: str | None,
+    event_id: str | None,
+    receipt_hash: str | None,
+    token_hash: str,
+    not_before: str,
+    not_after: str,
+) -> None:
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO bind_tickets
+               (id, job_id, fuse_id, event_id, receipt_hash, token_hash,
+                not_before, not_after, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                ticket_id,
+                job_id,
+                fuse_id,
+                event_id,
+                receipt_hash,
+                token_hash,
+                not_before,
+                not_after,
+                utc_now(),
+            ),
+        )
+
+
+def consume_bind_ticket(*, ticket_id: str, token_hash: str, job_id: str, now: str) -> dict:
+    with db() as conn:
+        row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (ticket_id,)).fetchone()
+        if not row:
+            return {"ok": False, "reason": "ticket_not_found"}
+        if row["token_hash"] != token_hash:
+            return {"ok": False, "reason": "ticket_token_mismatch"}
+        if row["job_id"] != job_id:
+            return {"ok": False, "reason": "ticket_job_mismatch"}
+        if row["consumed_at"]:
+            return {"ok": False, "reason": "ticket_replay"}
+        if row["not_after"] < now:
+            return {"ok": False, "reason": "ticket_expired"}
+        if row["not_before"] > now:
+            return {"ok": False, "reason": "ticket_not_yet_valid"}
+        cur = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
+            (now, ticket_id, token_hash),
+        )
+        if cur.rowcount != 1:
+            return {"ok": False, "reason": "ticket_replay"}
+    return {"ok": True}
+
+
+def consumed_spend_job_ids() -> list[str]:
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT DISTINCT job_id FROM bind_tickets
+               WHERE consumed_at IS NOT NULL AND job_id IS NOT NULL
+               ORDER BY job_id ASC"""
+        ).fetchall()
+    return [r["job_id"] for r in rows]
 
 
 def get_bind_event(event_id: str) -> dict | None:

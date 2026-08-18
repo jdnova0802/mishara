@@ -202,9 +202,12 @@ def receipt_to_public_payload(*, receipt_row: dict, canonical_receipt_json: str 
         "verdict": None,
     }
     try:
-        hop_json = receipt_row.get("hop_json")
-        if hop_json:
-            hop = json.loads(hop_json)
+        hop = receipt_row.get("hop") if isinstance(receipt_row.get("hop"), dict) else None
+        if hop is None:
+            hop_json = receipt_row.get("hop_json")
+            if hop_json:
+                hop = json.loads(hop_json)
+        if hop:
             payload["state"] = hop.get("state")
             payload["halt"] = hop.get("halt")
             payload["verdict"] = hop.get("verdict")

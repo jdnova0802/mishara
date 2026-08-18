@@ -68,6 +68,27 @@ export default {
     if (!hop.ok || body.halt || body.allow_bind === false) {
       return haltResponse(body, env, null, hop.status === 503 ? 503 : 403);
     }
+    // Commit-time authorization: a LIVE hop is not a bind grant. Redeem the ticket.
+    const ticket = body.bind_ticket || {};
+    if (!ticket.token || !ticket.ticket_id) {
+      return haltResponse(body, env, { reason: "ticket_required" }, 403);
+    }
+    const redeem = await fetch(`${gate}/v1/pas/bind-ticket/redeem`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.GATE_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ticket_id: ticket.ticket_id,
+        token: ticket.token,
+        job_id: jobId,
+      }),
+    });
+    const redeemed = await redeem.json().catch(() => ({ ok: false, halt: true }));
+    if (!redeem.ok || redeemed.ok === false || redeemed.halt) {
+      return haltResponse(redeemed, env, { reason: redeemed.reason || "ticket_invalid" }, 403);
+    }
     return fetch(request);
   },
 };

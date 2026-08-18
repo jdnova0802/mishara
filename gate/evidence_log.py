@@ -98,22 +98,38 @@ def verify_inclusion(*, leaf_hash: str, root_hash: str, proof: dict) -> bool:
     return h.hex() == root_hash
 
 
-def consistency_proof(old_size: int, new_size: int, leaf_hashes_hex: list[str]) -> dict:
-    """Minimal consistency: same prefix leaves hash to same subtree root."""
-    if old_size > new_size:
-        return {"valid": False, "reason": "old_size > new_size"}
-    if old_size == 0:
-        return {"valid": True, "old_root": merkle_root([]), "new_root": merkle_root(leaf_hashes_hex)}
+def consistency_proof(old_size: int, leaf_hashes_hex: list[str]) -> dict:
+    """RFC 9162-shaped append-only check: old tree is the prefix of the new tree."""
+    n = len(leaf_hashes_hex)
+    if old_size < 0 or old_size > n:
+        return {
+            "spec": "gate-evidence-consistency-v1",
+            "valid": False,
+            "reason": "old_size_out_of_range",
+            "old_size": old_size,
+            "new_size": n,
+        }
     old_root = merkle_root(leaf_hashes_hex[:old_size])
     new_root = merkle_root(leaf_hashes_hex)
     return {
+        "spec": "gate-evidence-consistency-v1",
         "valid": True,
         "old_size": old_size,
-        "new_size": new_size,
+        "new_size": n,
         "old_root": old_root,
         "new_root": new_root,
-        "append_only": old_size <= new_size,
+        "append_only": True,
+        "verify": "old_root == merkle(leaves[:old_size]) AND new_root == merkle(leaves)",
     }
+
+
+def verify_consistency(*, old_size: int, old_root: str, new_root: str, leaf_hashes_hex: list[str]) -> bool:
+    proof = consistency_proof(old_size, leaf_hashes_hex)
+    return (
+        proof.get("valid") is True
+        and proof.get("old_root") == old_root
+        and proof.get("new_root") == new_root
+    )
 
 
 def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:

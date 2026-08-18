@@ -64,12 +64,18 @@ def build_claim(
     return {
         "spec": SPEC,
         "type": "INACTION",
+        "types": ["INACTION", "PATH"],
         "claim": "forbidden_spend_did_not_execute_within_boundary",
         "event_id": event_id,
         "fuse_id": fuse_id,
         "job_id": job_id,
         "decision": decision,
         "forbidden_transitions": forbidden_for_job(job_id),
+        "represented_paths_not_selected": forbidden_for_job(job_id),
+        "path": {
+            "type": "PATH",
+            "claim": "bind_spend_writes_were_represented_and_not_selected",
+        },
         "boundary": {
             "observation": "pre_bind_hop_before_PAS_write",
             "fail_closed": True,
@@ -90,7 +96,7 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
         return payload
-    payload["counterfactual_spend"] = build_claim(
+    claim = build_claim(
         event_id=row.get("id"),
         fuse_id=row.get("fuse_id"),
         job_id=row.get("job_id"),
@@ -99,6 +105,16 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
         created_at=row.get("created_at"),
         receipt_hash=row.get("receipt_hash"),
     )
+    hop = row.get("hop") if isinstance(row.get("hop"), dict) else {}
+    reasons = hop.get("constraint_reasons") or hop.get("mga_reasons")
+    if reasons:
+        claim["types"] = ["INACTION", "PATH", "CONSTRAINT"]
+        claim["constraint"] = {
+            "type": "CONSTRAINT",
+            "claim": "authority_boundary_was_not_crossed_because_bind_was_blocked",
+            "reasons": reasons,
+        }
+    payload["counterfactual_spend"] = claim
     return payload
 
 
@@ -113,7 +129,12 @@ def manifest(public_url: str) -> dict:
         ),
         "types": {
             "INACTION": "forbidden spend transition did not execute (HALT/BLOCK on bind path)",
+            "PATH": "bind-only / bind-and-issue / issue were represented in the plan and not selected",
+            "CONSTRAINT": "authority/premium/line/state boundary was not crossed — bind blocked",
         },
+        "exclusion": f"{public_url}/.well-known/exclusion.json?job_id={{job_id}}",
+        "consistency": f"{public_url}/.well-known/evidence-consistency.json?old_size={{n}}",
+        "commit_auth": f"{public_url}/.well-known/commit-auth.json",
         "monotonic_accountability": MONOTONIC_ACCOUNTABILITY,
         "forbidden_template": FORBIDDEN_BIND,
         "evidence_log": f"{public_url}/.well-known/evidence-head.json",
