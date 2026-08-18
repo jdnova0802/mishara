@@ -88,6 +88,11 @@ try:
 except ImportError:
     import exclusive
 
+try:
+    from gate import floor
+except ImportError:
+    import floor
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -162,6 +167,7 @@ def cors_discovery(resp):
             "/sitemap.xml",
             "/bound",
             "/only",
+            "/floor",
         )
         or path.startswith("/demo/")
     ):
@@ -403,6 +409,7 @@ def health():
         "bind_room": f"{pub}/bind-room",
         "bound": f"{pub}/bound",
         "only": f"{pub}/only",
+        "floor": f"{pub}/floor",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -794,8 +801,10 @@ def well_known_gate():
             "bind_room": f"{advertised_url()}/bind-room",
             "bound": f"{advertised_url()}/bound",
             "only": f"{advertised_url()}/only",
+            "floor": f"{advertised_url()}/floor",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
             "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
+            "stakes": f"{advertised_url()}/.well-known/floor.json",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{advertised_url()}/demo/hop",
             "demo_act": f"{advertised_url()}/demo/act",
@@ -854,6 +863,16 @@ def well_known_exclusive():
 @app.route("/only")
 def only_page():
     return render_template("only.html", public_url=advertised_url())
+
+
+@app.route("/.well-known/floor.json")
+def well_known_floor():
+    return jsonify(floor.manifesto(advertised_url()))
+
+
+@app.route("/floor")
+def floor_page():
+    return render_template("floor.html", public_url=advertised_url())
 
 
 def _mcp_call_tool(name: str, arguments: dict):
@@ -1525,9 +1544,11 @@ def sitemap():
         "/bind-room",
         "/bound",
         "/only",
+        "/floor",
         "/trust",
         "/.well-known/bound-answer.json",
         "/.well-known/exclusive-timing.json",
+        "/.well-known/floor.json",
         "/status",
         "/signup",
         "/llms.txt",
@@ -1562,8 +1583,10 @@ def llms_txt():
         f"- Bind Room ($1,750): {advertised_url()}/bind-room",
         f"- A no that holds: {advertised_url()}/bound",
         f"- The only door: {advertised_url()}/only",
+        f"- The floor: {advertised_url()}/floor",
         f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
         f"- Exclusive timing: {advertised_url()}/.well-known/exclusive-timing.json",
+        f"- Floor: {advertised_url()}/.well-known/floor.json",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
@@ -1575,6 +1598,7 @@ def llms_txt():
         "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
         "More valuable than a question is a no that holds: narrow, enforced, provable.",
         "Worth more than that: the act that never happens, because there was no other door.",
+        "The floor: some things only happen once, and someone else has to live there afterward. There is not a cleverer layer.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
         "PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
@@ -1682,8 +1706,10 @@ def openapi():
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
+                "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
                 "/.well-known/exclusive-timing.json": {"get": {"summary": "Exclusive-timing manifesto. Receipt is not the product."}},
+                "/.well-known/floor.json": {"get": {"summary": "The floor. cleverer_layer is null."}},
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},

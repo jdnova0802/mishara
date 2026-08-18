@@ -76,6 +76,7 @@ def manifesto(public_url: str) -> dict:
             "Bind Room + 48hr weld puts the door on their path. Demo hops do not.",
         ],
         "page": f"{public_url}/only",
+        "floor": f"{public_url}/floor",
         "bound": f"{public_url}/bound",
         "bind_room": f"{public_url}/bind-room",
         "worker": f"{public_url}/listings/cloudflare-worker-bind.js",

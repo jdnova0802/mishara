@@ -13,6 +13,11 @@ try:
 except ImportError:
     import exclusive as exclusive_mod
 
+try:
+    from gate import floor as floor_mod
+except ImportError:
+    import floor as floor_mod
+
 QUESTION = "Can this agent still act right now?"
 SPEC = "gate-bound-answer-v1"
 STACK = "question → four states → hop that fails closed → verify"
@@ -124,6 +129,7 @@ def attach(
         payload["exclusive_timing"] = exclusive_mod.classify(
             payload, payload["bound_answer"], demo=demo, closed_world=closed_world
         )
+        payload["stakes"] = floor_mod.stamp(payload["exclusive_timing"])
     return payload
 
 
@@ -151,6 +157,7 @@ def manifesto(public_url: str) -> dict:
         },
         "page": f"{public_url}/bound",
         "deeper": f"{public_url}/only",
+        "floor": f"{public_url}/floor",
         "bind_room": f"{public_url}/bind-room",
         "verify": "https://velaru.xyz/verify",
         "worth_more": "A bound answer can still be a museum. Exclusive timing is the only door.",

@@ -68,6 +68,13 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "receipt_is_not_the_product": True,
             "their_production": False,
         },
+        "floor": {
+            "page": f"{public_url}/floor",
+            "manifest": f"{public_url}/.well-known/floor.json",
+            "cleverer_layer": None,
+            "unrepeatable": True,
+            "not_only_yours": True,
+        },
         "bind_room": {
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",

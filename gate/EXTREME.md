@@ -16,6 +16,7 @@ Bind Room + PolicyCenter/MGA weld + no-PII contract are in this repo. **You stil
 - Appendix: `GET /v1/pas/bind-appendix` (on-request; not the SERFF body)
 - Bound answer: `/bound` · `/.well-known/bound-answer.json` · hop/act/pre-bind include `bound_answer.holds`
 - Exclusive timing: `/only` · `exclusive_timing.museum` on demo hops. `/v1/act` is Gate’s only door. `their_production` is never claimed from Gate.
+- Floor: `/floor` · `stakes.cleverer_layer` is null. This is the last conceptual layer. Treating it as real is the weld.
 - Bind Room: `/bind-room` · officer-pack.json · appendix.schema.json · Exhibit C HITL · `$1,750`
 - No PII: PAS paths reject SSN / ACORD / named insured / ECDIS with `400 no_pii`
 - Contract: `/listings/control-not-model.json`

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}The floor{% endblock %}
+{% block meta %}
+<meta name="description" content="Some things are real. They only happen once. Someone who isn't the actor has to live there afterward. There is not a cleverer layer under that.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">The floor</p>
+  <h1>They only happen once</h1>
+  <p class="audience-sub">Some things are real. Someone who isn’t the actor has to live there afterward. Time is one-way. Harm does not restore. Money does not un-leave.</p>
+
+  <div class="grid-3" style="margin: 2rem 0;">
+    <div class="card">
+      <h3>Talk</h3>
+      <p>A question is talk.</p>
+    </div>
+    <div class="card">
+      <h3>Fact</h3>
+      <p>A bound answer is a fact.</p>
+    </div>
+    <div class="card">
+      <h3>Control</h3>
+      <p>An exclusive door is control. A non-event is a clean timeline.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Why DEAD can matter more than LIVE</h2>
+    <p>Yes spends a world. The person who inhabits the spent world usually didn’t get the vote. The actor will not stop themselves at the moment of acting. The no sits outside them.</p>
+    <p style="color: var(--muted); margin-top: 0.75rem;">The machinery exists for one reason: what’s at stake is unrepeatable, and it isn’t only yours.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>There isn’t a cleverer layer</h2>
+    <p><code class="inline">stakes.cleverer_layer</code> is null. On purpose. A demo hop can be true and still not treat this as real. Treating it as real is the weld: their bind path, Bind Room, CHARGE-only resurrect.</p>
+    <pre>curl -s "{{ public_url }}/.well-known/floor.json"</pre>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Treat it as real</a>
+    <a href="{{ url_for('only_page') }}" class="btn btn-ghost">The only door</a>
+    <a href="{{ url_for('bound_page') }}" class="btn btn-ghost">A no that holds</a>
+    <a href="{{ url_for('well_known_floor') }}" class="btn btn-ghost">floor.json</a>
+  </div>
+</div>
+{% endblock %}

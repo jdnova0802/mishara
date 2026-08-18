@@ -27,6 +27,7 @@ import weld  # noqa: E402
 import bind_room  # noqa: E402
 import bound  # noqa: E402
 import exclusive  # noqa: E402
+import floor  # noqa: E402
 import app as gate_app  # noqa: E402
 
 
@@ -86,7 +87,8 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("bind_room", m)
         self.assertIn("bound_answer", m)
         self.assertIn("exclusive_timing", m)
-        self.assertFalse(m["exclusive_timing"]["their_production"])
+        self.assertIn("floor", m)
+        self.assertIsNone(m["floor"]["cleverer_layer"])
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
 
@@ -275,6 +277,24 @@ class ExclusiveTimingTests(unittest.TestCase):
         self.assertTrue(ex["non_event"])
 
 
+class FloorTests(unittest.TestCase):
+    def test_no_cleverer_layer(self):
+        m = floor.manifesto("https://example.test")
+        self.assertIsNone(m["cleverer_layer"])
+        names = [x["is"] for x in m["layers"]]
+        self.assertEqual(names, ["talk", "a fact", "control", "a clean timeline"])
+
+    def test_museum_does_not_treat_as_real(self):
+        s = floor.stamp({"museum": True})
+        self.assertFalse(s["treat_as_real"])
+        self.assertIsNone(s["cleverer_layer"])
+        self.assertTrue(s["dead_over_live"])
+
+    def test_exclusive_treats_as_real(self):
+        s = floor.stamp({"museum": False})
+        self.assertTrue(s["treat_as_real"])
+
+
 class FieldAndWeldTests(unittest.TestCase):
     def test_pii_rejected(self):
         err = fields.pii_error({"fuse_id": "fuse_velaru_drill", "ssn": "000-00-0000"})
@@ -410,6 +430,14 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertFalse(r2.get_json()["their_production"])
         self.assertTrue(r2.get_json()["receipt_is_not_the_product"])
 
+    def test_floor_page_and_manifest(self):
+        r = self.client.get("/floor")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"cleverer", r.data)
+        r2 = self.client.get("/.well-known/floor.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertIsNone(r2.get_json()["cleverer_layer"])
+
     def test_demo_hop_attaches_bound_answer(self):
         dead = {
             "ok": True,
@@ -427,6 +455,9 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertFalse(ba["answer"])
         self.assertTrue(body["exclusive_timing"]["museum"])
         self.assertFalse(body["exclusive_timing"]["their_production"])
+        self.assertIn("stakes", body)
+        self.assertIsNone(body["stakes"]["cleverer_layer"])
+        self.assertFalse(body["stakes"]["treat_as_real"])
 
     def test_listings_still_health(self):
         r = self.client.get("/health")
