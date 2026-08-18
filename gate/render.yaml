@@ -7,11 +7,19 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
     healthCheckPath: /health
+    disk:
+      name: gate-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: "3.13.0"
       - key: GATE_DB_PATH
-        value: /tmp/gate.db
+        value: /var/data/gate.db
+      - key: GATE_NOTIFY_WEBHOOK
+        sync: false
+      - key: GATE_OPS_TOKEN
+        sync: false
       - key: VELARU_API_URL
         value: https://velaru.onrender.com
       - key: GATE_DEV_MODE

@@ -42,14 +42,24 @@ try:
 except ImportError:
     import audiences
 
-load_dotenv()
+try:
+    from gate import notify
+except ImportError:
+    import notify
 
-app = Flask(__name__)
-app.config["SECRET_KEY"] = os.getenv("GATE_SECRET_KEY", os.urandom(32).hex())
+load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
 GATE_PUBLIC_URL = os.getenv("GATE_PUBLIC_URL", "http://localhost:5001").rstrip("/")
 GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
+OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
+
+app = Flask(__name__)
+app.config["SECRET_KEY"] = os.getenv("GATE_SECRET_KEY", os.urandom(32).hex())
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+if not GATE_DEV_MODE and GATE_PUBLIC_URL.startswith("https"):
+    app.config["SESSION_COOKIE_SECURE"] = True
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
@@ -260,6 +270,22 @@ def health():
     )
 
 
+@app.route("/ops/orders")
+def ops_orders():
+    token = request.args.get("token") or request.headers.get("X-Ops-Token", "")
+    if not OPS_TOKEN or token != OPS_TOKEN:
+        return jsonify({"error": "unauthorized"}), 401
+    rows = db.list_paid_installs()
+    return jsonify(
+        {
+            "paid_installs": [dict(r) for r in rows],
+            "slots_remaining": db.install_slots_remaining(),
+            "hops_month": db.total_hops_period(),
+            "accounts": db.count_accounts(),
+        }
+    )
+
+
 @app.route("/")
 def index():
     return render_template(
@@ -440,6 +466,11 @@ def install_checkout():
         fake_session = f"dev_{uuid.uuid4().hex}"
         db.create_install_order(email, fake_session, INSTALL_PRICE_CENTS)
         db.mark_install_paid(fake_session)
+        notify.money(
+            "Install booked (dev)",
+            f"{email} paid {INSTALL_PRICE_LABEL}",
+            {"email": email, "session": fake_session},
+        )
         return redirect(url_for("install_success", session_id=fake_session))
 
     if not stripe.api_key or not STRIPE_INSTALL_PRICE_ID:
@@ -589,11 +620,23 @@ def billing_webhook():
         product = (sess.get("metadata") or {}).get("product")
         if product == "install_sprint":
             db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            notify.money(
+                "CASH — 48hr install",
+                f"{INSTALL_PRICE_LABEL} from {email}",
+                {"email": email, "session": sess["id"]},
+            )
         else:
             account_id = (sess.get("metadata") or {}).get("gate_account_id")
             sub_id = sess.get("subscription")
             if account_id:
                 db.set_plan(account_id, "pro", stripe_subscription_id=sub_id)
+                acct = db.get_account(account_id)
+                notify.money(
+                    "CASH — Gate Pro",
+                    f"{PRO_PRICE_LABEL} from {acct['email'] if acct else account_id}",
+                    {"account_id": account_id, "subscription": sub_id},
+                )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
         sub = event["data"]["object"]
         customer_id = sub.get("customer")

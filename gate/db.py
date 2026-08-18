@@ -11,8 +11,13 @@ PRO_HOPS_PER_MONTH = int(os.getenv("GATE_PRO_HOPS", "1000000"))
 
 
 def _connect():
-    conn = sqlite3.connect(DB_PATH)
+    db_dir = os.path.dirname(os.path.abspath(DB_PATH))
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
+    conn = sqlite3.connect(DB_PATH, timeout=30)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
     return conn
 
 
@@ -236,3 +241,13 @@ def paid_installs_period() -> int:
             (f"{period}%",),
         ).fetchone()
     return row["n"] if row else 0
+
+
+def list_paid_installs(limit: int = 50):
+    with db() as conn:
+        return conn.execute(
+            """SELECT id, email, amount_cents, status, created_at, stripe_session_id
+               FROM install_orders WHERE status = 'paid'
+               ORDER BY created_at DESC LIMIT ?""",
+            (limit,),
+        ).fetchall()
