@@ -21,9 +21,18 @@ Opens **http://localhost:5001** — full site + install page + signup. Dev mode 
 1. New Web Service → connect this repo
 2. Root directory: `gate`
 3. Copy env from `.env.example`
-4. Set `GATE_PUBLIC_URL` to your Render URL (e.g. `https://gate-api.onrender.com`)
-5. Stripe Dashboard → Product $99/mo → copy `STRIPE_PRICE_ID`
-6. Stripe Webhook → `https://YOUR_URL/billing/webhook` → events: `checkout.session.completed`, `customer.subscription.deleted`
+4. `GATE_PUBLIC_URL` = `https://YOUR_SERVICE.onrender.com` (if you leave it localhost, Gate lifts `RENDER_EXTERNAL_URL` automatically)
+5. Disk: `/var/data` with `GATE_DB_PATH=/var/data/gate.db`
+6. Stripe Dashboard → Product $99/mo → `STRIPE_PRICE_ID` + install price
+7. Stripe Webhook → `https://YOUR_URL/billing/webhook`
+
+Then **prove it is not local**:
+
+```bash
+./verify-public.sh https://YOUR_GATE.onrender.com
+```
+
+If that command is given `localhost`, it exits 1 on purpose.
 
 ## Local dev
 

@@ -116,12 +116,33 @@ python cli.py me</pre>
     <h2>Public demo (no key)</h2>
     <pre>curl -s -X POST "{{ public_url }}/demo/hop" \
   -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
+  -d '{"fuse_id":"fuse_velaru_drill"}'
+
+curl -s -X POST "{{ public_url }}/demo/act" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","action":"bind"}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/bind-check" \
+  -H "Content-Type: application/json" \
+  -d '{}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>MCP (Kong / TrueFoundry / AWS AgentCore)</h2>
+    <p>One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>.</p>
+    <pre>curl -s -X POST "{{ public_url }}/mcp" \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl","version":"1"}}}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>PAS applications (paperwork, not a weld)</h2>
+    <p><a href="{{ public_url }}/listings/guidewire-partnerconnect.json">Guidewire PartnerConnect packet</a> · <a href="{{ public_url }}/listings/duckcreek-partner.json">Duck Creek partner packet</a>. Date both. Marry one production bind path.</p>
   </div>
 
   <div class="card">
     <h2>Discovery</h2>
-    <p><a href="{{ public_url }}/openapi.json">openapi.json</a> · <a href="{{ public_url }}/.well-known/gate.json">.well-known/gate.json</a></p>
+    <p><a href="{{ public_url }}/openapi.json">openapi.json</a> · <a href="{{ public_url }}/.well-known/gate.json">gate.json</a> · <a href="{{ public_url }}/.well-known/listings.json">listings.json</a> · <a href="{{ public_url }}/.well-known/x402.json">x402.json</a></p>
   </div>
 
   <div class="card">

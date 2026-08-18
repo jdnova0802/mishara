@@ -11,9 +11,9 @@
       <p class="status-big">{{ 'Operational' if velaru_ok else 'Unreachable' }}</p>
       <p class="status-meta">{{ velaru_base }}</p>
     </div>
-    <div class="card status-card ok">
+    <div class="card status-card {{ 'ok' if public_url.startswith('https://') else 'down' }}">
       <h3>Gate API</h3>
-      <p class="status-big">Operational</p>
+      <p class="status-big">{{ 'Public' if public_url.startswith('https://') else 'LOCAL' }}</p>
       <p class="status-meta">{{ public_url }}</p>
     </div>
     <div class="card status-card">

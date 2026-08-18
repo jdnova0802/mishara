@@ -8,7 +8,7 @@ Be found by **agents, AI crawlers, and humans you send a URL to.**
 1. Show HN — title in `LAUNCH.md` (use velaru.xyz/check until Gate is live)
 2. Paste **one plate** to one human (`/for/legal` after Gate deploy; until then `https://velaru.xyz/check`)
 3. Submit sitemap after Gate is on Render: Google Search Console + Bing
-4. Listings: Product Hunt, Indie Hackers, HN, MCP/x402 bazaar if they’ll take `.well-known/gate.json`
+4. Listings: Product Hunt, Indie Hackers, HN, plus live `/.well-known/listings.json` (MCP / x402 / Guidewire / Duck Creek packets — date all, marry one weld)
 5. `https://velaru.xyz/llms.txt` — add the same file on Velaru later; Gate has `/llms.txt` now
 
 ## Coding that helps (this commit)

@@ -1,0 +1,14 @@
+# Cloudflare Worker weld — attach to ONE origin after Gate is public.
+#   wrangler secret put GATE_KEY
+# GATE_URL must be the LIVE https origin. verify-public.sh fails on localhost.
+
+name = "gate-weld"
+main = "cloudflare-worker.js"
+compatibility_date = "2026-08-18"
+
+[vars]
+FUSE_ID = "fuse_velaru_drill"
+ALLOW_LOCAL = "0"
+# Set GATE_URL in the dashboard or:
+#   wrangler secret put GATE_URL
+# Example: https://YOUR_GATE.onrender.com

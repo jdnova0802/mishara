@@ -20,6 +20,7 @@ from flask import (
     flash,
     g,
     jsonify,
+    make_response,
     redirect,
     render_template,
     request,
@@ -47,10 +48,25 @@ try:
 except ImportError:
     import notify
 
+try:
+    from gate import public_url as public_url_mod
+except ImportError:
+    import public_url as public_url_mod
+
+try:
+    from gate import listings as listings_mod
+except ImportError:
+    import listings as listings_mod
+
+try:
+    from gate import mcp_server
+except ImportError:
+    import mcp_server
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
-GATE_PUBLIC_URL = os.getenv("GATE_PUBLIC_URL", "http://localhost:5001").rstrip("/")
+GATE_PUBLIC_URL = public_url_mod.resolve_public_url()
 GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
 
@@ -87,14 +103,36 @@ def _ensure_db():
         app._db_ready = True
 
 
+def advertised_url() -> str:
+    return public_url_mod.resolve_public_url()
+
+
 @app.context_processor
 def inject_globals():
     return {
-        "gate_public_url": GATE_PUBLIC_URL,
+        "gate_public_url": advertised_url(),
         "install_price": INSTALL_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
     }
+
+
+@app.after_request
+def cors_discovery(resp):
+    path = request.path or ""
+    if (
+        path.startswith("/.well-known/")
+        or path.startswith("/listings/")
+        or path in ("/mcp", "/llms.txt", "/openapi.json", "/health", "/robots.txt", "/sitemap.xml")
+        or path.startswith("/demo/")
+    ):
+        resp.headers.setdefault("Access-Control-Allow-Origin", "*")
+        resp.headers.setdefault(
+            "Access-Control-Allow-Headers",
+            "Authorization, Content-Type, Mcp-Session-Id, X-Gate-Key, X-API-Key",
+        )
+        resp.headers.setdefault("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+    return resp
 
 
 def login_required(view):
@@ -172,12 +210,17 @@ def payment_required_response(account_id: str, plan: str):
                     "message": "Monthly hop limit reached. Upgrade to Pro for 1M hops/mo.",
                     "request_id": f"req_{uuid.uuid4().hex[:16]}",
                     "usage": usage,
-                    "upgrade_url": f"{GATE_PUBLIC_URL}/pricing",
+                    "upgrade_url": f"{advertised_url()}/pricing",
+                    "x402Version": 2,
                 }
             }
         ),
         402,
-        {"X-Gate-Usage-Hops": str(usage["hops"]), "X-Gate-Usage-Limit": str(usage["hop_limit"])},
+        {
+            "X-Gate-Usage-Hops": str(usage["hops"]),
+            "X-Gate-Usage-Limit": str(usage["hop_limit"]),
+            "X-Payment-Required": "stripe",
+        },
     )
 
 
@@ -296,19 +339,37 @@ def metered_api(view=None, *, count_usage=True):
 def health():
     velaru_ok = False
     try:
-        r = velaru_request("GET", "/health", timeout=10)
+        r = velaru_request("GET", "/health", timeout=10, params={"format": "json"})
         velaru_ok = r.status_code == 200
     except requests.RequestException:
         pass
-    return jsonify(
-        {
-            "status": "ok",
-            "service": "gate-api",
-            "velaru_reachable": velaru_ok,
-            "velaru_base": VELARU_BASE,
-            "public_url": GATE_PUBLIC_URL,
-        }
-    )
+    pub = advertised_url()
+    local = public_url_mod.is_local_url(pub)
+    https_ok = public_url_mod.public_ok(pub)
+    db_path = os.getenv("GATE_DB_PATH", "./gate.db")
+    ephemeral_db = public_url_mod.db_path_is_ephemeral(db_path)
+    payload = {
+        "status": "ok",
+        "service": "gate-api",
+        "velaru_reachable": velaru_ok,
+        "velaru_base": VELARU_BASE,
+        "public_url": pub,
+        "local": local,
+        "https": https_ok,
+        "ephemeral_db": ephemeral_db,
+        "dev_mode": GATE_DEV_MODE,
+        "listings": f"{pub}/.well-known/listings.json",
+        "mcp": f"{pub}/mcp",
+    }
+    prod_public = (not local) and https_ok
+    if GATE_DEV_MODE:
+        return jsonify(payload)
+    if not prod_public:
+        payload["status"] = "not_public"
+        payload["message"] = "GATE_PUBLIC_URL is still local/http. Set https origin or rely on RENDER_EXTERNAL_URL."
+        return jsonify(payload), 503
+    payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
+    return jsonify(payload)
 
 
 @app.route("/ops/orders")
@@ -331,7 +392,7 @@ def ops_orders():
 def index():
     return render_template(
         "index.html",
-        public_url=GATE_PUBLIC_URL,
+        public_url=advertised_url(),
         velaru_base=VELARU_BASE,
         pro_price=PRO_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
@@ -344,7 +405,7 @@ def status_page():
     velaru_ok = False
     velaru_data = {}
     try:
-        r = velaru_request("GET", "/health", timeout=10)
+        r = velaru_request("GET", "/health", timeout=10, params={"format": "json"})
         velaru_ok = r.status_code == 200
         velaru_data = r.json() if velaru_ok else {}
     except requests.RequestException:
@@ -358,19 +419,19 @@ def status_page():
         hops_month=db.total_hops_period(),
         installs_month=db.paid_installs_period(),
         install_slots=db.install_slots_remaining(),
-        public_url=GATE_PUBLIC_URL,
+        public_url=advertised_url(),
     )
 
 
 @app.route("/trust")
 def trust():
-    return render_template("trust.html", velaru_base=VELARU_BASE, public_url=GATE_PUBLIC_URL)
+    return render_template("trust.html", velaru_base=VELARU_BASE, public_url=advertised_url())
 
 
 @app.route("/start")
 def start_hub():
     plates = audiences.plate_list()
-    return render_template("start.html", plates=plates, public_url=GATE_PUBLIC_URL)
+    return render_template("start.html", plates=plates, public_url=advertised_url())
 
 
 @app.route("/for/<slug>")
@@ -382,7 +443,7 @@ def audience_plate(slug):
         "audience.html",
         slug=slug,
         plate=plate,
-        public_url=GATE_PUBLIC_URL,
+        public_url=advertised_url(),
         contact_email=CONTACT_EMAIL,
     )
 
@@ -396,7 +457,7 @@ def audience_pitch(slug):
 
 @app.route("/.well-known/opportunities.json")
 def well_known_opportunities():
-    return jsonify(audiences.opportunities_manifest(GATE_PUBLIC_URL, CONTACT_EMAIL))
+    return jsonify(audiences.opportunities_manifest(advertised_url(), CONTACT_EMAIL))
 
 
 @app.route("/demo/hop", methods=["POST"])
@@ -413,7 +474,7 @@ def demo_hop():
     )
     if isinstance(data, dict):
         data["demo"] = True
-        data["signup_url"] = f"{GATE_PUBLIC_URL}/signup"
+        data["signup_url"] = f"{advertised_url()}/signup"
     return data, status, extra
 
 
@@ -433,6 +494,76 @@ def demo_lookup():
     return data, status, extra
 
 
+def _demo_gate():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return None, (jsonify({"error": {"code": "rate_limited", "message": msg}}), 429)
+    return True, None
+
+
+def run_welded_act(fuse_id: str, action: str):
+    hop, status, extra = velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id})
+    extra = dict(extra or {})
+    extra["X-Gate-Closed-World"] = "1"
+
+    if status >= 500 or (isinstance(hop, dict) and hop.get("halt")):
+        if isinstance(hop, dict):
+            hop["acted"] = False
+            hop["action"] = action
+            hop["welded"] = True
+        return hop, status, extra
+
+    allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
+    result = {
+        "spec": "gate-welded-act-v1",
+        "welded": True,
+        "closed_world": True,
+        "action": action,
+        "acted": allowed,
+        "halt": not allowed,
+        "fuse_id": fuse_id,
+        "hop": hop,
+        "message": (
+            "Act allowed — hop LIVE/verdict true. This endpoint is the only act path."
+            if allowed
+            else "Act refused — DEAD or verdict false. No side door."
+        ),
+    }
+    extra["X-Gate-Acted"] = "1" if allowed else "0"
+    return result, 200, extra
+
+
+@app.route("/demo/act", methods=["POST"])
+def demo_act():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    action = (body.get("action") or "demo").strip()[:128]
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
+    data, status, extra = run_welded_act(fuse_id, action)
+    if isinstance(data, dict):
+        data["demo"] = True
+        data["signup_url"] = f"{advertised_url()}/signup"
+    return data, status, extra
+
+
+@app.route("/demo/pas/bind-check", methods=["POST"])
+def demo_pas_bind_check():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    data, status, extra = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
+    if isinstance(data, dict):
+        data["demo"] = True
+        data["signup_url"] = f"{advertised_url()}/signup"
+        data["listing"] = f"{advertised_url()}/.well-known/listings.json"
+    return data, status, extra
+
+
 @app.route("/.well-known/gate.json")
 def well_known_gate():
     return jsonify(
@@ -440,16 +571,20 @@ def well_known_gate():
             "name": "Gate API",
             "description": "Can this agent still act right now? Metered fuse hop.",
             "version": "1.0.0",
-            "openapi": f"{GATE_PUBLIC_URL}/openapi.json",
-            "signup": f"{GATE_PUBLIC_URL}/signup",
-            "install": f"{GATE_PUBLIC_URL}/install",
+            "openapi": f"{advertised_url()}/openapi.json",
+            "signup": f"{advertised_url()}/signup",
+            "install": f"{advertised_url()}/install",
             "verify_engine": "https://velaru.xyz/verify",
-            "demo_hop": f"{GATE_PUBLIC_URL}/demo/hop",
-            "ocsp": f"{GATE_PUBLIC_URL}/v1/fuse/lookup",
-            "act": f"{GATE_PUBLIC_URL}/v1/act",
-            "pas_bind": f"{GATE_PUBLIC_URL}/v1/pas/bind-check",
-            "mcp": f"{GATE_PUBLIC_URL}/.well-known/mcp.json",
-            "x402": f"{GATE_PUBLIC_URL}/.well-known/x402.json",
+            "demo_hop": f"{advertised_url()}/demo/hop",
+            "demo_act": f"{advertised_url()}/demo/act",
+            "demo_pas": f"{advertised_url()}/demo/pas/bind-check",
+            "ocsp": f"{advertised_url()}/v1/fuse/lookup",
+            "act": f"{advertised_url()}/v1/act",
+            "pas_bind": f"{advertised_url()}/v1/pas/bind-check",
+            "mcp": f"{advertised_url()}/mcp",
+            "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
+            "x402": f"{advertised_url()}/.well-known/x402.json",
+            "listings": f"{advertised_url()}/.well-known/listings.json",
             "fail_closed": "Timeout or 5xx → HTTP 503 halt. Never treat UNREACHABLE as LIVE.",
             "charge": "DEAD→LIVE only via Velaru CHARGE webhook.",
             "sdk": {
@@ -464,77 +599,167 @@ def well_known_gate():
 
 @app.route("/.well-known/mcp.json")
 def well_known_mcp():
-    return jsonify(
-        {
-            "mcpVersion": "2025-03-26",
-            "name": "gate-api",
-            "description": "Fuse hop before commit. Fail closed on timeout. CHARGE-only resurrection.",
-            "server": GATE_PUBLIC_URL,
-            "auth": "Authorization: Bearer gate_sk_live_...",
-            "tools": [
-                {
-                    "name": "fuse_lookup",
-                    "description": "OCSP of capability. 503 halt if unreachable. Never treat timeout as LIVE.",
-                    "path": "/v1/fuse/lookup",
-                    "method": "GET",
-                },
-                {
-                    "name": "fuse_hop",
-                    "description": "Pre-exec hop. DEAD → verdict false + verify_url.",
-                    "path": "/v1/fuse/hop",
-                    "method": "POST",
-                },
-                {
-                    "name": "welded_act",
-                    "description": "Closed world. Only act path. Hop first; DEAD never acts.",
-                    "path": "/v1/act",
-                    "method": "POST",
-                },
-                {
-                    "name": "pas_bind_check",
-                    "description": "PAS-shaped bind ALLOW/BLOCK + restraint.",
-                    "path": "/v1/pas/bind-check",
-                    "method": "POST",
-                },
-            ],
-        }
-    )
+    return jsonify(listings_mod.mcp_discovery(advertised_url()))
 
 
 @app.route("/.well-known/x402.json")
 def well_known_x402():
-    return jsonify(
-        {
-            "x402Version": 2,
-            "name": "Gate API",
-            "description": "Metered fuse hop. 402 on hop limit. Agents: discover here, not Google.",
-            "baseUrl": GATE_PUBLIC_URL,
-            "resources": [
-                {
-                    "path": "/v1/fuse/hop",
-                    "method": "POST",
-                    "description": "Pre-exec fuse hop",
-                },
-                {
-                    "path": "/v1/act",
-                    "method": "POST",
-                    "description": "Welded closed-world act",
-                },
-                {
-                    "path": "/v1/pas/bind-check",
-                    "method": "POST",
-                    "description": "PAS bind gate demo",
-                },
-            ],
-        }
-    )
+    return jsonify(listings_mod.x402_catalog(advertised_url()))
+
+
+@app.route("/.well-known/listings.json")
+def well_known_listings():
+    return jsonify(listings_mod.listings_manifest(advertised_url(), CONTACT_EMAIL))
+
+
+def _mcp_call_tool(name: str, arguments: dict):
+    """MCP tools: metered if a key is present, else public demo fuses only."""
+    row = authenticate_api_key()
+    keyed = row is not None
+    if keyed:
+        usage = db.get_usage(row["account_id"])
+        if usage["hops"] >= db.hop_limit(row["plan"]):
+            return {
+                "error": {
+                    "type": "payment_required",
+                    "code": "hop_limit_exceeded",
+                    "upgrade_url": f"{advertised_url()}/pricing",
+                }
+            }
+    else:
+        ok, msg = demo_limit.allow_demo(request)
+        if not ok:
+            return {"error": {"code": "rate_limited", "message": msg}}
+    if name == "fuse_lookup":
+        fuse_id = (arguments.get("fuse_id") or "").strip()
+        if not fuse_id:
+            return {"error": {"code": "fuse_id_required"}}
+        if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
+            return {"error": {"code": "demo_fuse_only", "message": "Sign up for a key to look up private fuses."}}
+        data, status, _ = velaru_fuse(
+            "GET", "/api/v1/fuse/lookup", fuse_id=fuse_id, params={"fuse_id": fuse_id}
+        )
+        if isinstance(data, dict):
+            data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    if name == "fuse_hop":
+        fuse_id = (arguments.get("fuse_id") or "").strip()
+        if not fuse_id:
+            return {"error": {"code": "fuse_id_required"}}
+        if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
+            return {"error": {"code": "demo_fuse_only"}}
+        data, status, _ = velaru_fuse(
+            "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
+        )
+        if isinstance(data, dict):
+            data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    if name == "welded_act":
+        fuse_id = (arguments.get("fuse_id") or "fuse_velaru_drill").strip()
+        action = (arguments.get("action") or "mcp").strip()[:128]
+        if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
+            return {"error": {"code": "demo_fuse_only"}}
+        data, status, _ = run_welded_act(fuse_id, action)
+        if isinstance(data, dict):
+            data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    if name == "pas_bind_check":
+        data, status, _ = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=arguments)
+        if isinstance(data, dict):
+            data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    return {"error": {"code": "unknown_tool"}}
+
+
+@app.route("/mcp", methods=["GET", "POST", "DELETE", "OPTIONS"])
+def mcp_endpoint():
+    if request.method == "OPTIONS":
+        resp = make_response("", 204)
+        resp.headers["Access-Control-Allow-Origin"] = "*"
+        resp.headers["Access-Control-Allow-Methods"] = "GET, POST, DELETE, OPTIONS"
+        resp.headers["Access-Control-Allow-Headers"] = (
+            "Authorization, Content-Type, Mcp-Session-Id, Accept, X-Gate-Key"
+        )
+        return resp
+    if request.method == "DELETE":
+        return "", 204
+    if request.method == "GET":
+        # Spec allows SSE GET. We are POST-primary; advertise the endpoint.
+        body = "event: endpoint\ndata: /mcp\n\n"
+        return body, 200, {"Content-Type": "text/event-stream", "Cache-Control": "no-cache"}
+
+    payload = request.get_json(silent=True)
+    if payload is None:
+        return jsonify({"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": "Parse error"}}), 400
+
+    def _dispatch(msg):
+        return mcp_server.handle_message(
+            msg, public_url=advertised_url(), call_tool=_mcp_call_tool
+        )
+
+    session_id = request.headers.get("Mcp-Session-Id") or mcp_server.new_session_id()
+
+    if isinstance(payload, list):
+        out = []
+        status = 200
+        for msg in payload:
+            body, st = _dispatch(msg)
+            if body is not None:
+                out.append(body)
+            if st > status:
+                status = st
+        resp = make_response(jsonify(out), 202 if not out else status)
+    else:
+        body, status = _dispatch(payload)
+        if body is None:
+            resp = make_response("", 202)
+        else:
+            resp = make_response(jsonify(body), status)
+
+    resp.headers["Mcp-Session-Id"] = session_id
+    resp.headers["Access-Control-Expose-Headers"] = "Mcp-Session-Id"
+    return resp
+
+
+LISTING_FILES = {
+    "kong-mcp.yaml": lambda: listings_mod.kong_mcp_yaml(advertised_url()),
+    "truefoundry-mcp.yaml": lambda: listings_mod.truefoundry_mcp_yaml(advertised_url()),
+    "aws-agentcore.json": lambda: listings_mod.aws_agentcore_json(advertised_url()),
+    "guidewire-partnerconnect.json": lambda: listings_mod.guidewire_packet(advertised_url(), CONTACT_EMAIL),
+    "duckcreek-partner.json": lambda: listings_mod.duckcreek_packet(advertised_url(), CONTACT_EMAIL),
+    "wrangler.toml": lambda: listings_mod.wrangler_toml(advertised_url()),
+}
+
+
+@app.route("/listings/<name>")
+def listing_file(name):
+    if name == "cloudflare-worker.js":
+        here = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(here, "cloudflare-worker.js")
+        with open(path, encoding="utf-8") as f:
+            return f.read(), 200, {"Content-Type": "application/javascript; charset=utf-8"}
+    if name not in LISTING_FILES:
+        abort(404)
+    payload = LISTING_FILES[name]()
+    if name.endswith(".json"):
+        return jsonify(payload)
+    ctype = "text/yaml; charset=utf-8" if name.endswith(".yaml") else "text/plain; charset=utf-8"
+    return payload, 200, {"Content-Type": ctype}
 
 
 @app.route("/docs")
 def docs():
     return render_template(
         "docs.html",
-        public_url=GATE_PUBLIC_URL,
+        public_url=advertised_url(),
         velaru_base=VELARU_BASE,
     )
 
@@ -543,7 +768,7 @@ def docs():
 def pricing():
     return render_template(
         "pricing.html",
-        public_url=GATE_PUBLIC_URL,
+        public_url=advertised_url(),
         pro_price=PRO_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         install_slots=db.install_slots_remaining(),
@@ -556,7 +781,7 @@ def install():
     slots = db.install_slots_remaining()
     return render_template(
         "install.html",
-        public_url=GATE_PUBLIC_URL,
+        public_url=advertised_url(),
         install_price=INSTALL_PRICE_LABEL,
         install_slots=slots,
         sold_out=slots <= 0,
@@ -595,8 +820,8 @@ def install_checkout():
         mode="payment",
         customer_email=email,
         line_items=[{"price": STRIPE_INSTALL_PRICE_ID, "quantity": 1}],
-        success_url=f"{GATE_PUBLIC_URL}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
-        cancel_url=f"{GATE_PUBLIC_URL}/install?canceled=1",
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/install?canceled=1",
         metadata={"product": "install_sprint", "contact_email": email},
     )
     db.create_install_order(email, checkout.id, INSTALL_PRICE_CENTS)
@@ -711,8 +936,8 @@ def billing_checkout():
         customer=customer_id,
         mode="subscription",
         line_items=[{"price": STRIPE_PRICE_ID, "quantity": 1}],
-        success_url=f"{GATE_PUBLIC_URL}/dashboard?upgraded=1",
-        cancel_url=f"{GATE_PUBLIC_URL}/pricing?canceled=1",
+        success_url=f"{advertised_url()}/dashboard?upgraded=1",
+        cancel_url=f"{advertised_url()}/pricing?canceled=1",
         metadata={"gate_account_id": account["id"]},
     )
     return redirect(checkout.url, code=303)
@@ -794,36 +1019,7 @@ def welded_act():
     action = (body.get("action") or "commit").strip()[:128]
     if not fuse_id:
         return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
-
-    hop, status, extra = velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id})
-    extra = dict(extra or {})
-    extra["X-Gate-Closed-World"] = "1"
-
-    if status >= 500 or (isinstance(hop, dict) and hop.get("halt")):
-        if isinstance(hop, dict):
-            hop["acted"] = False
-            hop["action"] = action
-            hop["welded"] = True
-        return hop, status, extra
-
-    allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
-    result = {
-        "spec": "gate-welded-act-v1",
-        "welded": True,
-        "closed_world": True,
-        "action": action,
-        "acted": allowed,
-        "halt": not allowed,
-        "fuse_id": fuse_id,
-        "hop": hop,
-        "message": (
-            "Act allowed — hop LIVE/verdict true. This endpoint is the only act path."
-            if allowed
-            else "Act refused — DEAD or verdict false. No side door."
-        ),
-    }
-    extra["X-Gate-Acted"] = "1" if allowed else "0"
-    return result, 200, extra
+    return run_welded_act(fuse_id, action)
 
 
 @app.route("/v1/pas/bind-check", methods=["POST"])
@@ -869,7 +1065,7 @@ def api_me():
         "email": g.api_account["email"],
         "plan": g.plan,
         "usage": usage,
-        "api_base": GATE_PUBLIC_URL,
+        "api_base": advertised_url(),
         "velaru_base": VELARU_BASE,
     }
 
@@ -880,7 +1076,7 @@ def robots():
         [
             "User-agent: *",
             "Allow: /",
-            f"Sitemap: {GATE_PUBLIC_URL}/sitemap.xml",
+            f"Sitemap: {advertised_url()}/sitemap.xml",
             "",
         ]
     )
@@ -904,11 +1100,13 @@ def sitemap():
         "/.well-known/opportunities.json",
         "/.well-known/mcp.json",
         "/.well-known/x402.json",
+        "/.well-known/listings.json",
+        "/mcp",
         "/v1/ocsp",
     ]
     paths += [f"/for/{slug}" for slug in audiences.all_plates()]
     urls = "".join(
-        f"<url><loc>{GATE_PUBLIC_URL}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
+        f"<url><loc>{advertised_url()}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
     )
     xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>'
     return xml, 200, {"Content-Type": "application/xml"}
@@ -921,21 +1119,24 @@ def llms_txt():
         "",
         "> Can this agent still act right now? Metered fuse hop. DEAD = fail closed. Stranger verify.",
         "",
-        f"- Home: {GATE_PUBLIC_URL}/",
-        f"- Docs: {GATE_PUBLIC_URL}/docs",
-        f"- Audience hub: {GATE_PUBLIC_URL}/start",
-        f"- Install ($2,500): {GATE_PUBLIC_URL}/install",
-        f"- OpenAPI: {GATE_PUBLIC_URL}/openapi.json",
-        f"- Agent manifest: {GATE_PUBLIC_URL}/.well-known/gate.json",
+        f"- Home: {advertised_url()}/",
+        f"- Docs: {advertised_url()}/docs",
+        f"- Audience hub: {advertised_url()}/start",
+        f"- Install ($2,500): {advertised_url()}/install",
+        f"- OpenAPI: {advertised_url()}/openapi.json",
+        f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
+        f"- Listings (date all): {advertised_url()}/.well-known/listings.json",
+        f"- MCP: {advertised_url()}/mcp",
         f"- Verify engine: https://velaru.xyz/verify",
         f"- Public check: https://velaru.xyz/check",
         "",
         "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
+        "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
         "",
     ]
     for slug, p in audiences.all_plates().items():
-        lines.append(f"- {p['title']}: {GATE_PUBLIC_URL}/for/{slug} — {p['headline']}")
+        lines.append(f"- {p['title']}: {advertised_url()}/for/{slug} — {p['headline']}")
     return "\n".join(lines) + "\n", 200, {"Content-Type": "text/plain; charset=utf-8"}
 
 
@@ -948,9 +1149,9 @@ def openapi():
                 "title": "Gate API",
                 "version": "1.0.0",
                 "description": "Metered agent mortality fuse. Can this agent still act right now?",
-                "contact": {"email": CONTACT_EMAIL, "url": GATE_PUBLIC_URL},
+                "contact": {"email": CONTACT_EMAIL, "url": advertised_url()},
             },
-            "servers": [{"url": GATE_PUBLIC_URL, "description": "Gate API"}],
+            "servers": [{"url": advertised_url(), "description": "Gate API"}],
             "components": {
                 "securitySchemes": {
                     "BearerAuth": {
@@ -1010,10 +1211,14 @@ def openapi():
                 "/v1/me": {"get": {"summary": "Key metadata + usage", "security": [{"BearerAuth": []}]}},
                 "/demo/hop": {"post": {"summary": "Public demo hop (no key, rate limited)", "security": []}},
                 "/demo/lookup": {"get": {"summary": "Public demo lookup", "security": []}},
-                "/health": {"get": {"summary": "Service health"}},
+                "/demo/act": {"post": {"summary": "Public welded act on drill fuse (no key)", "security": []}},
+                "/demo/pas/bind-check": {"post": {"summary": "Public PAS BIND/BLOCK demo (no key)", "security": []}},
+                "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
+                "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},
                 "/.well-known/mcp.json": {"get": {"summary": "MCP tool discovery"}},
                 "/.well-known/x402.json": {"get": {"summary": "x402 resource catalog"}},
+                "/.well-known/listings.json": {"get": {"summary": "Date-all listing map (MCP, CF, x402, Guidewire, Duck Creek)"}},
             },
         }
     )
