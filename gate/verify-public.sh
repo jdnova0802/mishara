@@ -57,6 +57,8 @@ check control GET 200 "$URL/listings/control-not-model.json"
 check bind_js GET 200 "$URL/listings/cloudflare-worker-bind.js"
 check bind_room GET 200 "$URL/bind-room"
 check officer GET 200 "$URL/bind-room/officer-pack.json"
+check bound GET 200 "$URL/bound"
+check bound_wk GET 200 "$URL/.well-known/bound-answer.json"
 
 check demo_hop POST 200 \
   -X POST "$URL/demo/hop" \

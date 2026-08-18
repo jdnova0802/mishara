@@ -4,6 +4,8 @@ Metered dev API wrapping the Velaru fuse engine. Identity, billing, docs, 402 on
 
 **One question:** Can this agent still act right now?
 
+**More valuable than the question:** a no that holds — narrow, enforced, provable. See `/bound`.
+
 ## On your laptop (2 commands)
 
 After git pull:

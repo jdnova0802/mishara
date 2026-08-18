@@ -19,9 +19,12 @@
       const data = await r.json();
       out.textContent = JSON.stringify(data, null, 2);
 
-      if (data.verify_url) {
-        verifyLink.href = data.verify_url;
-        verifyLink.textContent = "Open verify proof →";
+      const verify = (data.bound_answer && data.bound_answer.verify_url) || data.verify_url;
+      if (verify) {
+        verifyLink.href = verify;
+        verifyLink.textContent = data.bound_answer && data.bound_answer.holds
+          ? "No that holds — open receipt →"
+          : "Open verify proof →";
         verifyLink.style.display = "inline-block";
       }
     } catch (e) {

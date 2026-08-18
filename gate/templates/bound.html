@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}A no that holds{% endblock %}
+{% block meta %}
+<meta name="description" content="More valuable than a question is a bound answer: narrow, enforced, provable. DEAD cannot act. A stranger opens the receipt.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Bound answer</p>
+  <h1>A no that holds</h1>
+  <p class="audience-sub">A question that cannot stop a write is a museum label. The cheap one is “is this agent safe?” The bound one is yes or no, on the hop, with a receipt a stranger can open.</p>
+
+  <div class="grid-3" style="margin: 2rem 0;">
+    <div class="card">
+      <h3>Narrow</h3>
+      <p>Yes or no. LIVE or DEAD at the write. Not a score. Not “mostly safe.”</p>
+    </div>
+    <div class="card">
+      <h3>Enforced</h3>
+      <p>DEAD cannot act. A dashboard warning is still a question. Timeout is halt, never LIVE.</p>
+    </div>
+    <div class="card">
+      <h3>Provable</h3>
+      <p>A stranger opens <a href="https://velaru.xyz/verify">the receipt</a>. No login. No trust-me PDF.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>The stack</h2>
+    <pre class="flow-diagram">question → four states → hop that fails closed → verify
+   ↓
+If the no is not on the write path, it does not hold.
+DEAD hop + bind-and-issue still firing = a no that leaked.</pre>
+  </div>
+
+  <div class="card">
+    <h2>Live — no key</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Public drill fuse. Look for <code class="inline">bound_answer.holds</code>.</p>
+    <button type="button" id="demo-hop-btn" class="btn btn-primary">Run live hop</button>
+    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify proof →</a>
+    <pre id="demo-output" class="demo-output">Click to hop fuse_velaru_drill</pre>
+  </div>
+  <script src="{{ url_for('static', filename='demo.js') }}"></script>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>On their write path</h2>
+    <p>PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue. UW approve is not CHARGE.</p>
+    <pre>curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'</pre>
+    <p style="margin-top: 1rem;">
+      <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
+      <a href="{{ url_for('well_known_bound_answer') }}">bound-answer.json</a> ·
+      <a href="{{ url_for('trust') }}">Trust</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

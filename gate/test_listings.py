@@ -25,6 +25,7 @@ import mcp_server  # noqa: E402
 import fields  # noqa: E402
 import weld  # noqa: E402
 import bind_room  # noqa: E402
+import bound  # noqa: E402
 import app as gate_app  # noqa: E402
 
 
@@ -82,6 +83,7 @@ class ManifestTests(unittest.TestCase):
             self.assertIn(key, m["dates"])
         self.assertIn("google", m["do_not_date"])
         self.assertIn("bind_room", m)
+        self.assertIn("bound_answer", m)
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
 
@@ -194,6 +196,42 @@ class FlaskListingTests(unittest.TestCase):
         inner = json.loads(text)
         self.assertIn("acted", inner)
         self.assertIsInstance(inner["acted"], bool)
+
+
+class BoundAnswerTests(unittest.TestCase):
+    def test_dead_hop_holds(self):
+        ba = bound.from_payload(
+            {"verdict": False, "halt": True, "state": "DEAD", "verify_url": "https://velaru.xyz/verify?r=1"},
+            200,
+        )
+        self.assertFalse(ba["answer"])
+        self.assertTrue(ba["holds"])
+        self.assertTrue(ba["tests"]["enforced"])
+        self.assertTrue(ba["tests"]["provable"])
+        self.assertEqual(ba["prize"], "a no that holds")
+
+    def test_live_yes_is_bound_not_the_prize(self):
+        ba = bound.from_payload(
+            {"verdict": True, "state": "LIVE", "verify_url": "https://velaru.xyz/verify?r=1"},
+            200,
+        )
+        self.assertTrue(ba["answer"])
+        self.assertFalse(ba["holds"])
+        self.assertEqual(ba["prize"], "a bound yes")
+
+    def test_dead_that_still_acted_does_not_hold(self):
+        ba = bound.from_payload(
+            {"verdict": False, "state": "DEAD", "acted": True, "halt": True},
+            200,
+        )
+        self.assertFalse(ba["holds"])
+        self.assertFalse(ba["tests"]["enforced"])
+
+    def test_pc_block_holds_on_write_path(self):
+        plan = weld.policycenter_plan("pc:1", {"verdict": False, "halt": True, "state": "DEAD"}, 200)
+        ba = bound.from_payload(plan, 200)
+        self.assertTrue(ba["holds"])
+        self.assertIn("bind-and-issue", ba["write_path"] or "")
 
 
 class FieldAndWeldTests(unittest.TestCase):
@@ -313,6 +351,29 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/bind-room")
         self.assertEqual(r.status_code, 200)
         self.assertIn(b"Officer pack", r.data)
+
+    def test_bound_page_and_manifest(self):
+        r = self.client.get("/bound")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"A no that holds", r.data)
+        r2 = self.client.get("/.well-known/bound-answer.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertEqual(r2.get_json()["more_valuable_than_a_question"], "a no that holds")
+
+    def test_demo_hop_attaches_bound_answer(self):
+        dead = {
+            "ok": True,
+            "verdict": False,
+            "halt": True,
+            "state": "DEAD",
+            "verify_url": "https://velaru.xyz/verify?r=demo",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(dead, 200, {})):
+            r = self.client.post("/demo/hop", json={"fuse_id": "fuse_velaru_drill"})
+        self.assertEqual(r.status_code, 200)
+        ba = r.get_json()["bound_answer"]
+        self.assertTrue(ba["holds"])
+        self.assertFalse(ba["answer"])
 
     def test_listings_still_health(self):
         r = self.client.get("/health")

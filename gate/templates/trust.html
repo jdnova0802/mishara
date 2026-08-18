@@ -6,18 +6,28 @@
   <p style="color: var(--muted); max-width: 640px; margin-bottom: 2rem;">What Gate proves, how it proves it, and what we explicitly do not claim.</p>
 
   <div class="card">
-    <h2>The question</h2>
+    <h2>The question is cheap</h2>
     <p><strong>Can this agent still act right now?</strong></p>
-    <p style="color: var(--muted); margin-top: 0.5rem;">Four answers only: LIVE · ARMED · DEAD · UNSIGNED. Not a safety score. Public existence proof.</p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">Four answers only: LIVE · ARMED · DEAD · UNSIGNED. Not a safety score. More valuable than the question is a <a href="{{ url_for('bound_page') }}">no that holds</a>.</p>
+  </div>
+
+  <div class="card">
+    <h2>The bound answer</h2>
+    <ul class="check-list">
+      <li>Narrow — yes or no, not a score</li>
+      <li>Enforced — DEAD cannot act; timeout is halt, never LIVE</li>
+      <li>Provable — a stranger opens the receipt with no login</li>
+    </ul>
+    <p style="color: var(--muted); margin-top: 0.75rem;">A DEAD hop that still lets bind-and-issue fire is a no that leaked.</p>
   </div>
 
   <div class="card">
     <h2>The flow</h2>
-    <pre class="flow-diagram">Lookup → fuse state (LIVE|ARMED|DEAD|UNSIGNED)
+    <pre class="flow-diagram">question → four states → hop that fails closed → verify
    ↓
-Hop   → pre-exec gate · DEAD → verdict:false + restraint receipt
-   ↓
-Prove → stranger verify at {{ velaru_base }}/verify (free, no login)</pre>
+Lookup → LIVE|ARMED|DEAD|UNSIGNED
+Hop    → DEAD → verdict:false + restraint receipt
+Prove  → stranger verify at {{ velaru_base }}/verify (free, no login)</pre>
   </div>
 
   <div class="card">

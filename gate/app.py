@@ -78,6 +78,11 @@ try:
 except ImportError:
     import bind_room as bind_room_mod
 
+try:
+    from gate import bound
+except ImportError:
+    import bound
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -142,8 +147,16 @@ def cors_discovery(resp):
     if (
         path.startswith("/.well-known/")
         or path.startswith("/listings/")
-        or path.startswith("/bind-room")
-        or path in ("/mcp", "/llms.txt", "/openapi.json", "/health", "/robots.txt", "/sitemap.xml")
+        or         path.startswith("/bind-room")
+        or path in (
+            "/mcp",
+            "/llms.txt",
+            "/openapi.json",
+            "/health",
+            "/robots.txt",
+            "/sitemap.xml",
+            "/bound",
+        )
         or path.startswith("/demo/")
     ):
         resp.headers.setdefault("Access-Control-Allow-Origin", "*")
@@ -269,6 +282,7 @@ def fail_closed(reason: str, fuse_id=None):
         "charge": "CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "spec": "gate-ocsp-fuse-v1",
     }
+    bound.attach(payload, 503)
     headers = {
         "Cache-Control": "no-store",
         "X-Gate-Fail-Closed": "1",
@@ -381,6 +395,7 @@ def health():
         "listings": f"{pub}/.well-known/listings.json",
         "mcp": f"{pub}/mcp",
         "bind_room": f"{pub}/bind-room",
+        "bound": f"{pub}/bound",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -494,6 +509,7 @@ def demo_hop():
         "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
     )
     if isinstance(data, dict):
+        bound.attach(data, status)
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
     return data, status, extra
@@ -532,6 +548,7 @@ def run_welded_act(fuse_id: str, action: str):
             hop["acted"] = False
             hop["action"] = action
             hop["welded"] = True
+            bound.attach(hop, status)
         return hop, status, extra
 
     allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
@@ -551,6 +568,7 @@ def run_welded_act(fuse_id: str, action: str):
         ),
     }
     extra["X-Gate-Acted"] = "1" if allowed else "0"
+    bound.attach(result, 200)
     return result, 200, extra
 
 
@@ -615,7 +633,9 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
         hop=hop_d or None,
     )
     extra["X-Gate-Allow-Bind"] = "1" if plan.get("allow_bind") else "0"
-    return plan, (status if status >= 500 else 200), extra
+    out_status = status if status >= 500 else 200
+    bound.attach(plan, out_status)
+    return plan, out_status, extra
 
 
 def run_mga_authority(body: dict, account_id=None):
@@ -647,7 +667,9 @@ def run_mga_authority(body: dict, account_id=None):
         hop=hop_d or None,
     )
     extra["X-Gate-Allow-Bind"] = "1" if plan.get("bind_allowed") else "0"
-    return plan, (status if status >= 500 else 200), extra
+    out_status = status if status >= 500 else 200
+    bound.attach(plan, out_status)
+    return plan, out_status, extra
 
 
 def run_duckcreek_pre_bind(body: dict, account_id=None):
@@ -670,7 +692,9 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
         hop=hop_d or None,
     )
     extra["X-Gate-Allow-Bind"] = "1" if plan.get("allow_bind") else "0"
-    return plan, (status if status >= 500 else 200), extra
+    out_status = status if status >= 500 else 200
+    bound.attach(plan, out_status)
+    return plan, out_status, extra
 
 
 @app.route("/demo/pas/bind-check", methods=["POST"])
@@ -683,6 +707,7 @@ def demo_pas_bind_check():
         return blocked, code
     data, status, extra = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
     if isinstance(data, dict):
+        bound.attach(data, status)
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
         data["listing"] = f"{advertised_url()}/.well-known/listings.json"
@@ -755,6 +780,8 @@ def well_known_gate():
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
+            "bound": f"{advertised_url()}/bound",
+            "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{advertised_url()}/demo/hop",
             "demo_act": f"{advertised_url()}/demo/act",
@@ -793,6 +820,16 @@ def well_known_x402():
 @app.route("/.well-known/listings.json")
 def well_known_listings():
     return jsonify(listings_mod.listings_manifest(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/.well-known/bound-answer.json")
+def well_known_bound_answer():
+    return jsonify(bound.manifesto(advertised_url()))
+
+
+@app.route("/bound")
+def bound_page():
+    return render_template("bound.html", public_url=advertised_url())
 
 
 def _mcp_call_tool(name: str, arguments: dict):
@@ -837,6 +874,7 @@ def _mcp_call_tool(name: str, arguments: dict):
             "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
         )
         if isinstance(data, dict):
+            bound.attach(data, status)
             data["http_status"] = status
         if keyed:
             db.increment_usage(row["account_id"], "hops")
@@ -859,6 +897,7 @@ def _mcp_call_tool(name: str, arguments: dict):
         args = fields.allowlist_pas(arguments)
         data, status, _ = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=args)
         if isinstance(data, dict):
+            bound.attach(data, status)
             data["http_status"] = status
         if keyed:
             db.increment_usage(row["account_id"], "hops")
@@ -1300,7 +1339,10 @@ def fuse_lookup():
 def fuse_hop():
     body = request.get_json(silent=True) or {}
     fuse_id = (body.get("fuse_id") or "").strip()
-    return velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json=body)
+    data, status, extra = velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json=body)
+    if isinstance(data, dict):
+        bound.attach(data, status)
+    return data, status, extra
 
 
 @app.route("/v1/act", methods=["POST"])
@@ -1321,7 +1363,10 @@ def pas_bind_check():
     body, blocked, code = _pas_incoming()
     if blocked:
         return blocked, code
-    return velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
+    data, status, extra = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
+    if isinstance(data, dict):
+        bound.attach(data, status)
+    return data, status, extra
 
 
 @app.route("/v1/pas/policycenter/pre-bind", methods=["POST"])
@@ -1451,7 +1496,9 @@ def sitemap():
         "/pricing",
         "/install",
         "/bind-room",
+        "/bound",
         "/trust",
+        "/.well-known/bound-answer.json",
         "/status",
         "/signup",
         "/llms.txt",
@@ -1484,6 +1531,8 @@ def llms_txt():
         f"- Audience hub: {advertised_url()}/start",
         f"- Install ($2,500): {advertised_url()}/install",
         f"- Bind Room ($1,750): {advertised_url()}/bind-room",
+        f"- A no that holds: {advertised_url()}/bound",
+        f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
@@ -1493,6 +1542,7 @@ def llms_txt():
         f"- Public check: https://velaru.xyz/check",
         "",
         "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
+        "More valuable than a question is a no that holds: narrow, enforced, provable.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
         "PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
@@ -1598,6 +1648,8 @@ def openapi():
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
+                "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
+                "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},

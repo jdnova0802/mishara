@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Agent mortality fuse{% endblock %}
 {% block meta %}
-<meta name="description" content="Can this agent still act right now? Metered fuse hop API. DEAD = fail closed. Stranger verify every receipt.">
-<meta property="og:title" content="Gate API — Can this agent still act?">
-<meta property="og:description" content="Agent mortality fuse. LIVE · ARMED · DEAD · UNSIGNED. Metered hop API + 48hr install.">
+<meta name="description" content="More valuable than a question is a no that holds. Narrow, enforced, provable. Metered fuse hop. Stranger verify.">
+<meta property="og:title" content="Gate API — A no that holds">
+<meta property="og:description" content="Can this agent still act right now? Four states. Hop fails closed. A stranger opens the receipt.">
 <meta name="twitter:card" content="summary_large_image">
 {% endblock %}
 {% block content %}
@@ -25,8 +25,8 @@
     <span class="state dead">DEAD</span>
     <span class="state unsigned">UNSIGNED</span>
   </div>
-  <h1>Can this agent still act right now?</h1>
-  <p class="hero-sub">Agent mortality fuse. Hop before commit. DEAD → <code class="inline">verdict: false</code> + signed receipt. Anyone verifies free.</p>
+  <h1>A no that holds</h1>
+  <p class="hero-sub">The question is cheap: <em>can this agent still act right now?</em> Four states. Hop fails closed. A stranger opens the receipt. If the no is not on the write path, it is a museum label.</p>
   <div class="hero-actions">
     <a href="{{ url_for('signup') }}" class="btn btn-primary">Get free API key</a>
     <a href="{{ url_for('install') }}" class="btn btn-accent-outline">48hr install · {{ install_price }}</a>
@@ -36,23 +36,23 @@
 
 <section class="container proof-strip">
   <div class="proof-item">
-    <span class="proof-label">Question</span>
-    <span class="proof-value">Can this agent still act?</span>
+    <span class="proof-label">Narrow</span>
+    <span class="proof-value">Yes or no — not a score</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Answer</span>
-    <span class="proof-value dead-text">DEAD = no</span>
+    <span class="proof-label">Enforced</span>
+    <span class="proof-value dead-text">DEAD cannot act</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Proof</span>
-    <span class="proof-value"><a href="https://velaru.xyz/verify">velaru.xyz/verify</a></span>
+    <span class="proof-label">Provable</span>
+    <span class="proof-value"><a href="https://velaru.xyz/verify">stranger verify</a></span>
   </div>
 </section>
 
 <section class="container section">
   <div class="card demo-card">
     <h2>Live proof — no API key</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Hop the public drill fuse. DEAD → fail closed + receipt. Click verify to prove it stranger-side.</p>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Hop the public drill fuse. Look for <code class="inline">bound_answer.holds</code>. Click verify to prove it stranger-side.</p>
     <button type="button" id="demo-hop-btn" class="btn btn-primary">Run live hop</button>
     <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify proof →</a>
     <pre id="demo-output" class="demo-output">Click to run live hop on fuse_velaru_drill</pre>

@@ -14,6 +14,7 @@ Bind Room + PolicyCenter/MGA weld + no-PII contract are in this repo. **You stil
 - MGA authority: `POST /v1/pas/mga-authority` (premium / line / state)
 - Duck Creek wrap: `POST /v1/pas/duckcreek/pre-bind`
 - Appendix: `GET /v1/pas/bind-appendix` (on-request; not the SERFF body)
+- Bound answer: `/bound` · `/.well-known/bound-answer.json` · hop/act/pre-bind include `bound_answer.holds`
 - Bind Room: `/bind-room` · officer-pack.json · appendix.schema.json · Exhibit C HITL · `$1,750`
 - No PII: PAS paths reject SSN / ACORD / named insured / ECDIS with `400 no_pii`
 - Contract: `/listings/control-not-model.json`

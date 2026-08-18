@@ -55,6 +55,12 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                 "note": "Paperwork. Paymentus marketplace is pay ≠ allowed — do not confuse with bind.",
             },
         },
+        "bound_answer": {
+            "page": f"{public_url}/bound",
+            "manifest": f"{public_url}/.well-known/bound-answer.json",
+            "prize": "a no that holds",
+            "tests": ["narrow", "enforced", "provable"],
+        },
         "bind_room": {
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",
