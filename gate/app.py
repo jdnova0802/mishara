@@ -722,6 +722,68 @@ def api_me():
     }
 
 
+@app.route("/robots.txt")
+def robots():
+    body = "\n".join(
+        [
+            "User-agent: *",
+            "Allow: /",
+            f"Sitemap: {GATE_PUBLIC_URL}/sitemap.xml",
+            "",
+        ]
+    )
+    return body, 200, {"Content-Type": "text/plain"}
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    paths = [
+        "/",
+        "/start",
+        "/docs",
+        "/pricing",
+        "/install",
+        "/trust",
+        "/status",
+        "/signup",
+        "/llms.txt",
+        "/openapi.json",
+        "/.well-known/gate.json",
+        "/.well-known/opportunities.json",
+    ]
+    paths += [f"/for/{slug}" for slug in audiences.all_plates()]
+    urls = "".join(
+        f"<url><loc>{GATE_PUBLIC_URL}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
+    )
+    xml = f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>'
+    return xml, 200, {"Content-Type": "application/xml"}
+
+
+@app.route("/llms.txt")
+def llms_txt():
+    lines = [
+        "# Gate API — Nisaba LLC",
+        "",
+        "> Can this agent still act right now? Metered fuse hop. DEAD = fail closed. Stranger verify.",
+        "",
+        f"- Home: {GATE_PUBLIC_URL}/",
+        f"- Docs: {GATE_PUBLIC_URL}/docs",
+        f"- Audience hub: {GATE_PUBLIC_URL}/start",
+        f"- Install ($2,500): {GATE_PUBLIC_URL}/install",
+        f"- OpenAPI: {GATE_PUBLIC_URL}/openapi.json",
+        f"- Agent manifest: {GATE_PUBLIC_URL}/.well-known/gate.json",
+        f"- Verify engine: https://velaru.xyz/verify",
+        f"- Public check: https://velaru.xyz/check",
+        "",
+        "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
+        "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
+        "",
+    ]
+    for slug, p in audiences.all_plates().items():
+        lines.append(f"- {p['title']}: {GATE_PUBLIC_URL}/for/{slug} — {p['headline']}")
+    return "\n".join(lines) + "\n", 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
 @app.route("/openapi.json")
 def openapi():
     return jsonify(

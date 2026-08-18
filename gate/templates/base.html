@@ -8,6 +8,19 @@
   <meta name="description" content="Agent mortality fuse API. Can this agent still act right now? Metered hop, fail-closed DEAD, stranger verify.">
   {% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Gate API",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "Can this agent still act right now? Metered fuse hop. DEAD fails closed. Stranger verify.",
+    "url": "{{ gate_public_url }}",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "provider": {"@type": "Organization", "name": "Nisaba LLC"}
+  }
+  </script>
 </head>
 <body>
   <nav>
