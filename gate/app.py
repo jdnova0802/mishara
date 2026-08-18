@@ -71,6 +71,7 @@ PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
 INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
+OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
@@ -185,8 +186,48 @@ def velaru_request(method: str, path: str, **kwargs):
     headers = kwargs.pop("headers", {})
     headers.setdefault("Content-Type", "application/json")
     headers.setdefault("User-Agent", "GateAPI/1.0")
-    timeout = kwargs.pop("timeout", 30)
+    timeout = kwargs.pop("timeout", OCSP_TIMEOUT)
     return requests.request(method, url, headers=headers, timeout=timeout, **kwargs)
+
+
+def fail_closed(reason: str, fuse_id=None):
+    """OCSP-shaped: unreachable is HALT, never LIVE. Relying party must not act."""
+    payload = {
+        "ok": False,
+        "halt": True,
+        "fail_closed": True,
+        "ocsp": True,
+        "verdict": False,
+        "state": "UNREACHABLE",
+        "acted": False,
+        "message": "Relying party MUST halt. Timeout or upstream failure is not LIVE.",
+        "reason": reason,
+        "fuse_id": fuse_id,
+        "charge": "CHARGE webhook is the only DEAD→LIVE path on the engine.",
+        "spec": "gate-ocsp-fuse-v1",
+    }
+    headers = {
+        "Cache-Control": "no-store",
+        "X-Gate-Fail-Closed": "1",
+        "X-Gate-Halt": "1",
+    }
+    return payload, 503, headers
+
+
+def velaru_fuse(method: str, path: str, fuse_id=None, **kwargs):
+    try:
+        r = velaru_request(method, path, timeout=OCSP_TIMEOUT, **kwargs)
+    except requests.Timeout:
+        return fail_closed("ocsp_timeout", fuse_id)
+    except requests.RequestException as e:
+        return fail_closed(f"upstream_unreachable:{e}", fuse_id)
+    if r.status_code >= 500:
+        return fail_closed(f"upstream_{r.status_code}", fuse_id)
+    try:
+        data = r.json()
+    except ValueError:
+        return fail_closed("upstream_non_json", fuse_id)
+    return data, r.status_code, {}
 
 
 def metered_api(view=None, *, count_usage=True):
@@ -367,14 +408,13 @@ def demo_hop():
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
-    try:
-        r = velaru_request("POST", "/api/v1/fuse/hop", json={"fuse_id": fuse_id})
-        data = r.json()
+    data, status, extra = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
+    )
+    if isinstance(data, dict):
         data["demo"] = True
         data["signup_url"] = f"{GATE_PUBLIC_URL}/signup"
-        return jsonify(data), r.status_code
-    except requests.RequestException as e:
-        return jsonify({"error": {"code": "upstream_error", "message": str(e)}}), 502
+    return data, status, extra
 
 
 @app.route("/demo/lookup")
@@ -385,13 +425,12 @@ def demo_lookup():
     fuse_id = request.args.get("fuse_id", "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
-    try:
-        r = velaru_request("GET", "/api/v1/fuse/lookup", params={"fuse_id": fuse_id})
-        data = r.json()
+    data, status, extra = velaru_fuse(
+        "GET", "/api/v1/fuse/lookup", fuse_id=fuse_id, params={"fuse_id": fuse_id}
+    )
+    if isinstance(data, dict):
         data["demo"] = True
-        return jsonify(data), r.status_code
-    except requests.RequestException as e:
-        return jsonify({"error": {"code": "upstream_error", "message": str(e)}}), 502
+    return data, status, extra
 
 
 @app.route("/.well-known/gate.json")
@@ -406,12 +445,87 @@ def well_known_gate():
             "install": f"{GATE_PUBLIC_URL}/install",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{GATE_PUBLIC_URL}/demo/hop",
+            "ocsp": f"{GATE_PUBLIC_URL}/v1/fuse/lookup",
+            "act": f"{GATE_PUBLIC_URL}/v1/act",
+            "pas_bind": f"{GATE_PUBLIC_URL}/v1/pas/bind-check",
+            "mcp": f"{GATE_PUBLIC_URL}/.well-known/mcp.json",
+            "x402": f"{GATE_PUBLIC_URL}/.well-known/x402.json",
+            "fail_closed": "Timeout or 5xx → HTTP 503 halt. Never treat UNREACHABLE as LIVE.",
+            "charge": "DEAD→LIVE only via Velaru CHARGE webhook.",
             "sdk": {
                 "python": "from gate.sdk import GateClient",
                 "pip": "pip install -r requirements.txt  # sdk in-repo",
             },
             "patent": "64/124,027",
             "operator": "Nisaba LLC",
+        }
+    )
+
+
+@app.route("/.well-known/mcp.json")
+def well_known_mcp():
+    return jsonify(
+        {
+            "mcpVersion": "2025-03-26",
+            "name": "gate-api",
+            "description": "Fuse hop before commit. Fail closed on timeout. CHARGE-only resurrection.",
+            "server": GATE_PUBLIC_URL,
+            "auth": "Authorization: Bearer gate_sk_live_...",
+            "tools": [
+                {
+                    "name": "fuse_lookup",
+                    "description": "OCSP of capability. 503 halt if unreachable. Never treat timeout as LIVE.",
+                    "path": "/v1/fuse/lookup",
+                    "method": "GET",
+                },
+                {
+                    "name": "fuse_hop",
+                    "description": "Pre-exec hop. DEAD → verdict false + verify_url.",
+                    "path": "/v1/fuse/hop",
+                    "method": "POST",
+                },
+                {
+                    "name": "welded_act",
+                    "description": "Closed world. Only act path. Hop first; DEAD never acts.",
+                    "path": "/v1/act",
+                    "method": "POST",
+                },
+                {
+                    "name": "pas_bind_check",
+                    "description": "PAS-shaped bind ALLOW/BLOCK + restraint.",
+                    "path": "/v1/pas/bind-check",
+                    "method": "POST",
+                },
+            ],
+        }
+    )
+
+
+@app.route("/.well-known/x402.json")
+def well_known_x402():
+    return jsonify(
+        {
+            "x402Version": 2,
+            "name": "Gate API",
+            "description": "Metered fuse hop. 402 on hop limit. Agents: discover here, not Google.",
+            "baseUrl": GATE_PUBLIC_URL,
+            "resources": [
+                {
+                    "path": "/v1/fuse/hop",
+                    "method": "POST",
+                    "description": "Pre-exec fuse hop",
+                },
+                {
+                    "path": "/v1/act",
+                    "method": "POST",
+                    "description": "Welded closed-world act",
+                },
+                {
+                    "path": "/v1/pas/bind-check",
+                    "method": "POST",
+                    "description": "PAS bind gate demo",
+                },
+            ],
         }
     )
 
@@ -654,27 +768,69 @@ def billing_webhook():
 
 
 @app.route("/v1/fuse/lookup")
+@app.route("/v1/ocsp")
 @metered_api
 def fuse_lookup():
     fuse_id = request.args.get("fuse_id", "").strip()
     if not fuse_id:
         return {"error": {"code": "fuse_id_required", "message": "fuse_id query param required"}}, 400
-    try:
-        r = velaru_request("GET", "/api/v1/fuse/lookup", params={"fuse_id": fuse_id})
-        return r.json(), r.status_code
-    except requests.RequestException as e:
-        return {"error": {"code": "upstream_error", "message": str(e)}}, 502
+    return velaru_fuse("GET", "/api/v1/fuse/lookup", fuse_id=fuse_id, params={"fuse_id": fuse_id})
 
 
 @app.route("/v1/fuse/hop", methods=["POST"])
 @metered_api
 def fuse_hop():
     body = request.get_json(silent=True) or {}
-    try:
-        r = velaru_request("POST", "/api/v1/fuse/hop", json=body)
-        return r.json(), r.status_code
-    except requests.RequestException as e:
-        return {"error": {"code": "upstream_error", "message": str(e)}}, 502
+    fuse_id = (body.get("fuse_id") or "").strip()
+    return velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json=body)
+
+
+@app.route("/v1/act", methods=["POST"])
+@metered_api
+def welded_act():
+    """Closed world: the only Gate path that 'acts'. Hop first. DEAD/timeout never acts."""
+    body = request.get_json(silent=True) or {}
+    fuse_id = (body.get("fuse_id") or "").strip()
+    action = (body.get("action") or "commit").strip()[:128]
+    if not fuse_id:
+        return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
+
+    hop, status, extra = velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id})
+    extra = dict(extra or {})
+    extra["X-Gate-Closed-World"] = "1"
+
+    if status >= 500 or (isinstance(hop, dict) and hop.get("halt")):
+        if isinstance(hop, dict):
+            hop["acted"] = False
+            hop["action"] = action
+            hop["welded"] = True
+        return hop, status, extra
+
+    allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
+    result = {
+        "spec": "gate-welded-act-v1",
+        "welded": True,
+        "closed_world": True,
+        "action": action,
+        "acted": allowed,
+        "halt": not allowed,
+        "fuse_id": fuse_id,
+        "hop": hop,
+        "message": (
+            "Act allowed — hop LIVE/verdict true. This endpoint is the only act path."
+            if allowed
+            else "Act refused — DEAD or verdict false. No side door."
+        ),
+    }
+    extra["X-Gate-Acted"] = "1" if allowed else "0"
+    return result, 200, extra
+
+
+@app.route("/v1/pas/bind-check", methods=["POST"])
+@metered_api
+def pas_bind_check():
+    body = request.get_json(silent=True) or {}
+    return velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
 
 
 @app.route("/v1/execute-gate", methods=["POST"])
@@ -687,11 +843,7 @@ def execute_gate():
     for h in ("Idempotency-Key", "AGENT-DECISION-OBJECT"):
         if request.headers.get(h):
             headers[h] = request.headers[h]
-    try:
-        r = velaru_request("POST", path, json=body, headers=headers)
-        return r.json(), r.status_code
-    except requests.RequestException as e:
-        return {"error": {"code": "upstream_error", "message": str(e)}}, 502
+    return velaru_fuse("POST", path, json=body, headers=headers)
 
 
 @app.route("/v1/classify", methods=["POST"])
@@ -750,6 +902,9 @@ def sitemap():
         "/openapi.json",
         "/.well-known/gate.json",
         "/.well-known/opportunities.json",
+        "/.well-known/mcp.json",
+        "/.well-known/x402.json",
+        "/v1/ocsp",
     ]
     paths += [f"/for/{slug}" for slug in audiences.all_plates()]
     urls = "".join(
@@ -847,6 +1002,9 @@ def openapi():
                         },
                     }
                 },
+                "/v1/act": {"post": {"summary": "Welded closed-world act — hop first, DEAD never acts", "security": [{"BearerAuth": []}]}},
+                "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo", "security": [{"BearerAuth": []}]}},
+                "/v1/ocsp": {"get": {"summary": "OCSP alias for fuse lookup — 503 halt if unreachable", "security": [{"BearerAuth": []}]}},
                 "/v1/execute-gate/demo": {"post": {"summary": "PERMIT/DENY demo", "security": [{"BearerAuth": []}]}},
                 "/v1/classify": {"post": {"summary": "Classify → signed receipt", "security": [{"BearerAuth": []}]}},
                 "/v1/me": {"get": {"summary": "Key metadata + usage", "security": [{"BearerAuth": []}]}},
@@ -854,6 +1012,8 @@ def openapi():
                 "/demo/lookup": {"get": {"summary": "Public demo lookup", "security": []}},
                 "/health": {"get": {"summary": "Service health"}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},
+                "/.well-known/mcp.json": {"get": {"summary": "MCP tool discovery"}},
+                "/.well-known/x402.json": {"get": {"summary": "x402 resource catalog"}},
             },
         }
     )

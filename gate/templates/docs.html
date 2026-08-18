@@ -20,6 +20,29 @@
   </div>
 
   <div class="card">
+    <h2>OCSP-strict lookup — GET /v1/fuse/lookup or /v1/ocsp</h2>
+    <p>Timeout or 5xx → <strong>HTTP 503</strong> with <code class="inline">halt: true</code>. Unreachable is never LIVE. Relying party MUST NOT act.</p>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/act — welded closed world</h2>
+    <p>The only Gate act path. Hops first. DEAD or timeout → never acts. No side door on this service.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/act" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","action":"bind"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/pas/bind-check</h2>
+    <p>PAS-shaped bind ALLOW/BLOCK. Same family as Guidewire/Duck Creek gate.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/pas/bind-check" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{}'</pre>
+  </div>
+
+  <div class="card">
     <h2>POST /v1/fuse/hop</h2>
     <p>Pre-execution gate. DEAD fuse → 200 with <code class="inline">verdict: false</code> + signed restraint receipt.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/fuse/hop" \

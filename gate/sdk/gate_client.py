@@ -42,12 +42,9 @@ class GateClient:
         except ValueError:
             data = {"error": {"message": r.text}}
         if r.status_code >= 400:
-            err = data.get("error", {})
-            raise GateError(
-                err.get("message") or f"HTTP {r.status_code}",
-                status_code=r.status_code,
-                payload=data,
-            )
+            err = data.get("error") if isinstance(data.get("error"), dict) else {}
+            msg = (err or {}).get("message") or data.get("message") or f"HTTP {r.status_code}"
+            raise GateError(msg, status_code=r.status_code, payload=data)
         return data
 
     def lookup(self, fuse_id: str) -> dict[str, Any]:
@@ -56,6 +53,12 @@ class GateClient:
     def hop(self, fuse_id: str, **extra) -> dict[str, Any]:
         body = {"fuse_id": fuse_id, **extra}
         return self._request("POST", "/v1/fuse/hop", json=body)
+
+    def act(self, fuse_id: str, action: str = "commit") -> dict[str, Any]:
+        return self._request("POST", "/v1/act", json={"fuse_id": fuse_id, "action": action})
+
+    def pas_bind_check(self, **body) -> dict[str, Any]:
+        return self._request("POST", "/v1/pas/bind-check", json=body)
 
     def execute_gate_demo(self, **body) -> dict[str, Any]:
         return self._request("POST", "/v1/execute-gate/demo", json=body)
