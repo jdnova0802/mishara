@@ -22,6 +22,9 @@ if HERE not in sys.path:
 import public_url  # noqa: E402
 import listings  # noqa: E402
 import mcp_server  # noqa: E402
+import fields  # noqa: E402
+import weld  # noqa: E402
+import bind_room  # noqa: E402
 import app as gate_app  # noqa: E402
 
 
@@ -78,6 +81,9 @@ class ManifestTests(unittest.TestCase):
         for key in ("mcp_gateways", "cloudflare", "x402", "guidewire", "duckcreek"):
             self.assertIn(key, m["dates"])
         self.assertIn("google", m["do_not_date"])
+        self.assertIn("bind_room", m)
+        self.assertIn("policycenter", m["welds"])
+        self.assertIn("PII", " ".join(m["refuse"]))
 
     def test_mcp_stateless_tools_list(self):
         body, status = mcp_server.handle_message(
@@ -87,7 +93,17 @@ class ManifestTests(unittest.TestCase):
         )
         self.assertEqual(status, 200)
         names = {t["name"] for t in body["result"]["tools"]}
-        self.assertEqual(names, {"fuse_lookup", "fuse_hop", "welded_act", "pas_bind_check"})
+        self.assertEqual(
+            names,
+            {
+                "fuse_lookup",
+                "fuse_hop",
+                "welded_act",
+                "pas_bind_check",
+                "policycenter_pre_bind",
+                "mga_authority",
+            },
+        )
 
 
 class FlaskListingTests(unittest.TestCase):
@@ -178,6 +194,133 @@ class FlaskListingTests(unittest.TestCase):
         inner = json.loads(text)
         self.assertIn("acted", inner)
         self.assertIsInstance(inner["acted"], bool)
+
+
+class FieldAndWeldTests(unittest.TestCase):
+    def test_pii_rejected(self):
+        err = fields.pii_error({"fuse_id": "fuse_velaru_drill", "ssn": "000-00-0000"})
+        self.assertIsNotNone(err)
+        self.assertEqual(err["error"]["code"], "no_pii")
+        self.assertIn("ssn", err["error"]["rejected_keys"])
+
+    def test_allowlist_drops_unknown(self):
+        cleaned = fields.allowlist_pas({"fuse_id": "x", "job_id": "j1", "named_insured": "nope", "extra": 1})
+        self.assertEqual(cleaned, {"fuse_id": "x", "job_id": "j1"})
+
+    def test_pc_dead_raises_uw_issue(self):
+        hop = {"verdict": False, "halt": True, "state": "DEAD"}
+        plan = weld.policycenter_plan("pc:1", hop, 200)
+        self.assertFalse(plan["allow_bind"])
+        self.assertIn("uw-issues", plan["raise_uw_issue"]["path"])
+        self.assertEqual(plan["raise_uw_issue"]["body"]["data"]["attributes"]["issueType"]["code"], "UWManagerReviewBlocksQuoteRelease")
+        self.assertIn("bind-and-issue", plan["do_not_call"]["path"])
+
+    def test_pc_live_allows_bind(self):
+        hop = {"verdict": True, "state": "LIVE"}
+        plan = weld.policycenter_plan("pc:1", hop, 200)
+        self.assertTrue(plan["allow_bind"])
+        self.assertIsNone(plan["raise_uw_issue"])
+        self.assertIn("bind-and-issue", plan["next"]["path"])
+
+    def test_mga_premium_blocks(self):
+        hop = {"verdict": True, "state": "LIVE"}
+        plan = weld.mga_authority(
+            hop,
+            200,
+            premium=60000,
+            authority_limit=50000,
+            line="GL",
+            state="CO",
+            allowed_lines=None,
+            allowed_states=None,
+        )
+        self.assertEqual(plan["result"], "BLOCK")
+        self.assertIn("premium_exceeds_authority", plan["reasons"])
+        self.assertFalse(plan["bind_allowed"])
+
+    def test_officer_pack_has_5a2(self):
+        pack = bind_room.officer_pack("https://example.test", "hello@velaru.xyz")
+        ids = [s["id"] for s in pack["sections"]]
+        self.assertIn("5.A.2", ids)
+        self.assertIn("5.A.1", ids)
+        self.assertIn("5.A.13", ids)
+
+
+class BindRoomFlaskTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_no_pii_on_demo_pre_bind(self):
+        r = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "ssn": "000-00-0000", "job_id": "pc:1"},
+        )
+        self.assertEqual(r.status_code, 400)
+        self.assertEqual(r.get_json()["error"]["code"], "no_pii")
+
+    def test_pc_pre_bind_blocks_and_raises_uw(self):
+        dead = {
+            "ok": True,
+            "verdict": False,
+            "halt": True,
+            "state": "DEAD",
+            "verify_url": "https://velaru.xyz/verify?r=demo",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(dead, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:1"},
+            )
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertFalse(data["allow_bind"])
+        self.assertIn("uw-issues", data["raise_uw_issue"]["path"])
+        self.assertIn("bind-and-issue", data["do_not_call"]["path"])
+
+    def test_mga_premium_over_limit_blocks(self):
+        live = {"ok": True, "verdict": True, "state": "LIVE"}
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/mga-authority",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "premium": 60000,
+                    "authority_limit": 50000,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["result"], "BLOCK")
+        self.assertIn("premium_exceeds_authority", data["reasons"])
+
+    def test_officer_pack_route(self):
+        r = self.client.get("/bind-room/officer-pack.json")
+        self.assertEqual(r.status_code, 200)
+        ids = [s["id"] for s in r.get_json()["sections"]]
+        self.assertIn("5.A.2", ids)
+
+    def test_control_not_model_listing(self):
+        r = self.client.get("/listings/control-not-model.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertIn("Not ECDIS", data["classification"])
+        self.assertIn("bind-appendix", data["audit_rights"])
+
+    def test_bind_room_page(self):
+        r = self.client.get("/bind-room")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"Officer pack", r.data)
+
+    def test_listings_still_health(self):
+        r = self.client.get("/health")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("bind_room", r.get_json())
+        r2 = self.client.get("/.well-known/listings.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertIn("welds", r2.get_json())
 
 
 if __name__ == "__main__":

@@ -60,6 +60,26 @@ class GateClient:
     def pas_bind_check(self, **body) -> dict[str, Any]:
         return self._request("POST", "/v1/pas/bind-check", json=body)
 
+    def policycenter_pre_bind(self, fuse_id: str, job_id: str, **extra) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/v1/pas/policycenter/pre-bind",
+            json={"fuse_id": fuse_id, "job_id": job_id, **extra},
+        )
+
+    def mga_authority(self, fuse_id: str, **extra) -> dict[str, Any]:
+        return self._request("POST", "/v1/pas/mga-authority", json={"fuse_id": fuse_id, **extra})
+
+    def duckcreek_pre_bind(self, fuse_id: str, job_id: str, **extra) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/v1/pas/duckcreek/pre-bind",
+            json={"fuse_id": fuse_id, "job_id": job_id, **extra},
+        )
+
+    def bind_appendix(self) -> dict[str, Any]:
+        return self._request("GET", "/v1/pas/bind-appendix")
+
     def execute_gate_demo(self, **body) -> dict[str, Any]:
         return self._request("POST", "/v1/execute-gate/demo", json=body)
 

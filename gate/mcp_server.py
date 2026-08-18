@@ -46,7 +46,36 @@ TOOLS = [
             "properties": {
                 "policy_number": {"type": "string"},
                 "premium": {"type": "number"},
+                "job_id": {"type": "string"},
             },
+        },
+    },
+    {
+        "name": "policycenter_pre_bind",
+        "description": "Hop then return PolicyCenter next step: bind-and-issue or raise Manual UW issue. No PII.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "fuse_id": {"type": "string"},
+                "job_id": {"type": "string"},
+                "issue_type": {"type": "string"},
+            },
+            "required": ["fuse_id", "job_id"],
+        },
+    },
+    {
+        "name": "mga_authority",
+        "description": "Delegated-authority check: fuse hop + premium/line/state limits. Fastest yes that is still their paper.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "fuse_id": {"type": "string"},
+                "premium": {"type": "number"},
+                "authority_limit": {"type": "number"},
+                "line": {"type": "string"},
+                "state": {"type": "string"},
+            },
+            "required": ["fuse_id"],
         },
     },
 ]

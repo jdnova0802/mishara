@@ -35,11 +35,36 @@
 
   <div class="card">
     <h2>POST /v1/pas/bind-check</h2>
-    <p>PAS-shaped bind ALLOW/BLOCK. Same family as Guidewire/Duck Creek gate.</p>
+    <p>PAS-shaped bind ALLOW/BLOCK. Same family as Guidewire/Duck Creek gate. <code class="inline">fuse_id</code> + job identifiers only. PII / ACORD / ECDIS → 400 <code class="inline">no_pii</code>.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/pas/bind-check" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \
-  -d '{}'</pre>
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/pas/policycenter/pre-bind</h2>
+    <p>Hop first. LIVE + verdict true → <code class="inline">allow_bind: true</code> and next is <code class="inline">POST /job/v1/jobs/{jobId}/bind-and-issue</code>. DEAD or timeout → raise Manual UW issue. Do <em>not</em> call bind-and-issue. UW approve without CHARGE does not resurrect.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/pas/policycenter/pre-bind" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>POST /v1/pas/mga-authority</h2>
+    <p>Delegated-authority check: fuse hop + premium / line / state limits. Fastest yes that is still their paper.</p>
+    <pre>curl -s -X POST "{{ public_url }}/v1/pas/mga-authority" \
+  -H "Authorization: Bearer $GATE_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000,"line":"GL","state":"CO"}'</pre>
+  </div>
+
+  <div class="card">
+    <h2>GET /v1/pas/bind-appendix</h2>
+    <p>On-request examiner file. Each job_id → ALLOW/BLOCK/HALT + verify_url. Not the SERFF 10-pager.</p>
+    <pre>curl -s "{{ public_url }}/v1/pas/bind-appendix" \
+  -H "Authorization: Bearer $GATE_KEY"</pre>
   </div>
 
   <div class="card">
@@ -101,7 +126,9 @@
 
 client = GateClient(api_key="gate_sk_live_...", base_url="{{ public_url }}")
 result = client.hop("fuse_velaru_drill")
-print(result["verdict"], result.get("verify_url"))</pre>
+print(result["verdict"], result.get("verify_url"))
+plan = client.policycenter_pre_bind("fuse_velaru_drill", "pc:DEMO")
+print(plan["allow_bind"], plan.get("raise_uw_issue"))</pre>
   </div>
 
   <div class="card">
@@ -109,6 +136,9 @@ print(result["verdict"], result.get("verify_url"))</pre>
     <pre>export GATE_API_KEY="gate_sk_live_..."
 python cli.py hop fuse_velaru_drill
 python cli.py lookup fuse_velaru_drill
+python cli.py pre-bind fuse_velaru_drill pc:DEMO
+python cli.py mga fuse_velaru_drill --premium 60000 --limit 50000
+python cli.py appendix
 python cli.py me</pre>
   </div>
 
@@ -124,12 +154,16 @@ curl -s -X POST "{{ public_url }}/demo/act" \
 
 curl -s -X POST "{{ public_url }}/demo/pas/bind-check" \
   -H "Content-Type: application/json" \
-  -d '{}'</pre>
+  -d '{}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'</pre>
   </div>
 
   <div class="card">
     <h2>MCP (Kong / TrueFoundry / AWS AgentCore)</h2>
-    <p>One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>.</p>
+    <p>One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>. Tools include <code class="inline">policycenter_pre_bind</code> and <code class="inline">mga_authority</code>. MCP never wins a production weld slot.</p>
     <pre>curl -s -X POST "{{ public_url }}/mcp" \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl","version":"1"}}}'</pre>
@@ -137,7 +171,12 @@ curl -s -X POST "{{ public_url }}/demo/pas/bind-check" \
 
   <div class="card">
     <h2>PAS applications (paperwork, not a weld)</h2>
-    <p><a href="{{ public_url }}/listings/guidewire-partnerconnect.json">Guidewire PartnerConnect packet</a> · <a href="{{ public_url }}/listings/duckcreek-partner.json">Duck Creek partner packet</a>. Date both. Marry one production bind path.</p>
+    <p><a href="{{ public_url }}/listings/guidewire-partnerconnect.json">Guidewire PartnerConnect packet</a> · <a href="{{ public_url }}/listings/duckcreek-partner.json">Duck Creek partner packet</a> · <a href="{{ public_url }}/listings/control-not-model.json">control, not a model</a>. Date both PAS packets. Marry one production bind path.</p>
+  </div>
+
+  <div class="card">
+    <h2>Bind Room</h2>
+    <p><a href="{{ public_url }}/bind-room">/bind-room</a> — officer pack examiners take + on-request appendix. <a href="{{ public_url }}/bind-room/officer-pack.json">officer-pack.json</a> · <a href="{{ public_url }}/listings/cloudflare-worker-bind.js">bind-only Cloudflare worker</a>.</p>
   </div>
 
   <div class="card">

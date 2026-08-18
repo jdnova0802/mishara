@@ -53,6 +53,10 @@ check openapi GET 200 "$URL/openapi.json"
 check kong GET 200 "$URL/listings/kong-mcp.yaml"
 check gw GET 200 "$URL/listings/guidewire-partnerconnect.json"
 check dc GET 200 "$URL/listings/duckcreek-partner.json"
+check control GET 200 "$URL/listings/control-not-model.json"
+check bind_js GET 200 "$URL/listings/cloudflare-worker-bind.js"
+check bind_room GET 200 "$URL/bind-room"
+check officer GET 200 "$URL/bind-room/officer-pack.json"
 
 check demo_hop POST 200 \
   -X POST "$URL/demo/hop" \
@@ -68,6 +72,21 @@ check demo_pas POST 200 \
   -X POST "$URL/demo/pas/bind-check" \
   -H "Content-Type: application/json" \
   -d '{}'
+
+check demo_pc POST 200 \
+  -X POST "$URL/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'
+
+check demo_mga POST 200 \
+  -X POST "$URL/demo/pas/mga-authority" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000}'
+
+check no_pii POST 400 \
+  -X POST "$URL/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","ssn":"000-00-0000"}'
 
 init="$(mktemp)"
 got="$(curl -sS -o "$init" -w "%{http_code}" \
@@ -90,6 +109,7 @@ if [[ "$fail" -ne 0 ]]; then
   exit 1
 fi
 echo ""
-echo "Public. Paste $URL/for/carriers or $URL/for/legal to one human."
+echo "Public. Paste $URL/for/carriers or $URL/bind-room to one human."
 echo "Paperwork: $URL/listings/guidewire-partnerconnect.json"
 echo "           $URL/listings/duckcreek-partner.json"
+echo "Contract:  $URL/listings/control-not-model.json"

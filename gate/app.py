@@ -63,6 +63,21 @@ try:
 except ImportError:
     import mcp_server
 
+try:
+    from gate import fields
+except ImportError:
+    import fields
+
+try:
+    from gate import weld
+except ImportError:
+    import weld
+
+try:
+    from gate import bind_room as bind_room_mod
+except ImportError:
+    import bind_room as bind_room_mod
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
@@ -81,11 +96,14 @@ stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 STRIPE_INSTALL_PRICE_ID = os.getenv("STRIPE_INSTALL_PRICE_ID", "")
+STRIPE_BIND_ROOM_PRICE_ID = os.getenv("STRIPE_BIND_ROOM_PRICE_ID", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
 INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
+BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
+BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
 OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
@@ -112,6 +130,7 @@ def inject_globals():
     return {
         "gate_public_url": advertised_url(),
         "install_price": INSTALL_PRICE_LABEL,
+        "bind_room_price": BIND_ROOM_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
     }
@@ -123,6 +142,7 @@ def cors_discovery(resp):
     if (
         path.startswith("/.well-known/")
         or path.startswith("/listings/")
+        or path.startswith("/bind-room")
         or path in ("/mcp", "/llms.txt", "/openapi.json", "/health", "/robots.txt", "/sitemap.xml")
         or path.startswith("/demo/")
     ):
@@ -360,6 +380,7 @@ def health():
         "dev_mode": GATE_DEV_MODE,
         "listings": f"{pub}/.well-known/listings.json",
         "mcp": f"{pub}/mcp",
+        "bind_room": f"{pub}/bind-room",
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -550,17 +571,176 @@ def demo_act():
     return data, status, extra
 
 
+def _pas_incoming():
+    raw = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(raw)
+    if blocked:
+        return None, blocked, 400
+    return fields.allowlist_pas(raw), None, 200
+
+
+def _verify_from(hop):
+    if not isinstance(hop, dict):
+        return None
+    return hop.get("verify_url") or hop.get("restraint_permalink")
+
+
+def _num(value):
+    if value is None or value == "":
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def run_policycenter_pre_bind(body: dict, account_id=None):
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    job_id = (str(body.get("job_id") or "")).strip()
+    hop, status, extra = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json={"fuse_id": fuse_id}
+    )
+    extra = dict(extra or {})
+    hop_d = hop if isinstance(hop, dict) else {}
+    plan = weld.policycenter_plan(job_id, hop_d, status, body.get("issue_type"))
+    plan["fuse_id"] = fuse_id
+    decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
+    db.record_bind_event(
+        fuse_id=fuse_id,
+        job_id=job_id or None,
+        account_id=account_id,
+        decision=decision,
+        acted=bool(plan.get("allow_bind")),
+        verify_url=_verify_from(hop_d),
+        hop=hop_d or None,
+    )
+    extra["X-Gate-Allow-Bind"] = "1" if plan.get("allow_bind") else "0"
+    return plan, (status if status >= 500 else 200), extra
+
+
+def run_mga_authority(body: dict, account_id=None):
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    hop, status, extra = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json={"fuse_id": fuse_id}
+    )
+    extra = dict(extra or {})
+    hop_d = hop if isinstance(hop, dict) else {}
+    plan = weld.mga_authority(
+        hop_d,
+        status,
+        premium=_num(body.get("premium")),
+        authority_limit=_num(body.get("authority_limit")),
+        line=body.get("line"),
+        state=body.get("state"),
+        allowed_lines=body.get("allowed_lines") if isinstance(body.get("allowed_lines"), list) else None,
+        allowed_states=body.get("allowed_states") if isinstance(body.get("allowed_states"), list) else None,
+    )
+    plan["fuse_id"] = fuse_id
+    plan["job_id"] = body.get("job_id")
+    db.record_bind_event(
+        fuse_id=fuse_id,
+        job_id=(str(body.get("job_id") or "") or None),
+        account_id=account_id,
+        decision=plan.get("result") or "BLOCK",
+        acted=bool(plan.get("bind_allowed")),
+        verify_url=_verify_from(hop_d),
+        hop=hop_d or None,
+    )
+    extra["X-Gate-Allow-Bind"] = "1" if plan.get("bind_allowed") else "0"
+    return plan, (status if status >= 500 else 200), extra
+
+
+def run_duckcreek_pre_bind(body: dict, account_id=None):
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    job_id = (str(body.get("job_id") or "")).strip()
+    hop, status, extra = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json={"fuse_id": fuse_id}
+    )
+    extra = dict(extra or {})
+    hop_d = hop if isinstance(hop, dict) else {}
+    plan = weld.duckcreek_plan(job_id, hop_d, status)
+    plan["fuse_id"] = fuse_id
+    db.record_bind_event(
+        fuse_id=fuse_id,
+        job_id=job_id or None,
+        account_id=account_id,
+        decision="ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK"),
+        acted=bool(plan.get("allow_bind")),
+        verify_url=_verify_from(hop_d),
+        hop=hop_d or None,
+    )
+    extra["X-Gate-Allow-Bind"] = "1" if plan.get("allow_bind") else "0"
+    return plan, (status if status >= 500 else 200), extra
+
+
 @app.route("/demo/pas/bind-check", methods=["POST"])
 def demo_pas_bind_check():
     _, err = _demo_gate()
     if err:
         return err
-    body = request.get_json(silent=True) or {}
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
     data, status, extra = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
     if isinstance(data, dict):
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
         data["listing"] = f"{advertised_url()}/.well-known/listings.json"
+        data["bind_room"] = f"{advertised_url()}/bind-room"
+    return data, status, extra
+
+
+@app.route("/demo/pas/policycenter/pre-bind", methods=["POST"])
+def demo_pc_pre_bind():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return {"error": {"code": "demo_fuse_only"}}, 400
+    body["fuse_id"] = fuse_id
+    data, status, extra = run_policycenter_pre_bind(body)
+    if isinstance(data, dict):
+        data["demo"] = True
+    return data, status, extra
+
+
+@app.route("/demo/pas/mga-authority", methods=["POST"])
+def demo_mga_authority():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return {"error": {"code": "demo_fuse_only"}}, 400
+    body["fuse_id"] = fuse_id
+    data, status, extra = run_mga_authority(body)
+    if isinstance(data, dict):
+        data["demo"] = True
+    return data, status, extra
+
+
+@app.route("/demo/pas/duckcreek/pre-bind", methods=["POST"])
+def demo_dc_pre_bind():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return {"error": {"code": "demo_fuse_only"}}, 400
+    body["fuse_id"] = fuse_id
+    data, status, extra = run_duckcreek_pre_bind(body)
+    if isinstance(data, dict):
+        data["demo"] = True
     return data, status, extra
 
 
@@ -574,6 +754,7 @@ def well_known_gate():
             "openapi": f"{advertised_url()}/openapi.json",
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
+            "bind_room": f"{advertised_url()}/bind-room",
             "verify_engine": "https://velaru.xyz/verify",
             "demo_hop": f"{advertised_url()}/demo/hop",
             "demo_act": f"{advertised_url()}/demo/act",
@@ -581,6 +762,8 @@ def well_known_gate():
             "ocsp": f"{advertised_url()}/v1/fuse/lookup",
             "act": f"{advertised_url()}/v1/act",
             "pas_bind": f"{advertised_url()}/v1/pas/bind-check",
+            "policycenter_pre_bind": f"{advertised_url()}/v1/pas/policycenter/pre-bind",
+            "mga_authority": f"{advertised_url()}/v1/pas/mga-authority",
             "mcp": f"{advertised_url()}/mcp",
             "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
             "x402": f"{advertised_url()}/.well-known/x402.json",
@@ -670,7 +853,47 @@ def _mcp_call_tool(name: str, arguments: dict):
             db.increment_usage(row["account_id"], "hops")
         return data
     if name == "pas_bind_check":
-        data, status, _ = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=arguments)
+        blocked = fields.pii_error(arguments)
+        if blocked:
+            return blocked
+        args = fields.allowlist_pas(arguments)
+        data, status, _ = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=args)
+        if isinstance(data, dict):
+            data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    if name == "policycenter_pre_bind":
+        blocked = fields.pii_error(arguments)
+        if blocked:
+            return blocked
+        args = fields.allowlist_pas(arguments)
+        fuse_id = (args.get("fuse_id") or "").strip()
+        if not fuse_id:
+            return {"error": {"code": "fuse_id_required"}}
+        if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
+            return {"error": {"code": "demo_fuse_only"}}
+        args["fuse_id"] = fuse_id
+        data, status, _ = run_policycenter_pre_bind(
+            args, account_id=row["account_id"] if keyed else None
+        )
+        if isinstance(data, dict):
+            data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    if name == "mga_authority":
+        blocked = fields.pii_error(arguments)
+        if blocked:
+            return blocked
+        args = fields.allowlist_pas(arguments)
+        fuse_id = (args.get("fuse_id") or "").strip()
+        if not fuse_id:
+            return {"error": {"code": "fuse_id_required"}}
+        if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
+            return {"error": {"code": "demo_fuse_only"}}
+        args["fuse_id"] = fuse_id
+        data, status, _ = run_mga_authority(args, account_id=row["account_id"] if keyed else None)
         if isinstance(data, dict):
             data["http_status"] = status
         if keyed:
@@ -736,14 +959,18 @@ LISTING_FILES = {
     "guidewire-partnerconnect.json": lambda: listings_mod.guidewire_packet(advertised_url(), CONTACT_EMAIL),
     "duckcreek-partner.json": lambda: listings_mod.duckcreek_packet(advertised_url(), CONTACT_EMAIL),
     "wrangler.toml": lambda: listings_mod.wrangler_toml(advertised_url()),
+    "wrangler-bind.toml": lambda: listings_mod.wrangler_bind_toml(advertised_url()),
+    "control-not-model.json": lambda: listings_mod.control_not_model(advertised_url(), CONTACT_EMAIL),
 }
 
 
 @app.route("/listings/<name>")
 def listing_file(name):
-    if name == "cloudflare-worker.js":
+    if name in ("cloudflare-worker.js", "cloudflare-worker-bind.js"):
         here = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(here, "cloudflare-worker.js")
+        path = os.path.join(here, name)
+        if not os.path.isfile(path):
+            abort(404)
         with open(path, encoding="utf-8") as f:
             return f.read(), 200, {"Content-Type": "application/javascript; charset=utf-8"}
     if name not in LISTING_FILES:
@@ -803,7 +1030,7 @@ def install_checkout():
 
     if GATE_DEV_MODE:
         fake_session = f"dev_{uuid.uuid4().hex}"
-        db.create_install_order(email, fake_session, INSTALL_PRICE_CENTS)
+        db.create_install_order(email, fake_session, INSTALL_PRICE_CENTS, product="install_sprint")
         db.mark_install_paid(fake_session)
         notify.money(
             "Install booked (dev)",
@@ -824,7 +1051,7 @@ def install_checkout():
         cancel_url=f"{advertised_url()}/install?canceled=1",
         metadata={"product": "install_sprint", "contact_email": email},
     )
-    db.create_install_order(email, checkout.id, INSTALL_PRICE_CENTS)
+    db.create_install_order(email, checkout.id, INSTALL_PRICE_CENTS, product="install_sprint")
     return redirect(checkout.url, code=303)
 
 
@@ -837,6 +1064,64 @@ def install_success():
         order=order,
         contact_email=CONTACT_EMAIL,
     )
+
+
+@app.route("/bind-room")
+def bind_room():
+    return render_template(
+        "bind_room.html",
+        public_url=advertised_url(),
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        install_price=INSTALL_PRICE_LABEL,
+        stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/bind-room/officer-pack.json")
+def bind_room_officer_pack():
+    return jsonify(bind_room_mod.officer_pack(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/bind-room/appendix.schema.json")
+def bind_room_appendix_schema():
+    return jsonify(bind_room_mod.appendix_schema())
+
+
+@app.route("/bind-room/exhibit-c-hitl.json")
+def exhibit_c_hitl():
+    return jsonify(bind_room_mod.exhibit_c_hitl(advertised_url()))
+
+
+@app.route("/bind-room/checkout", methods=["POST"])
+def bind_room_checkout():
+    email = (request.form.get("email") or "").strip()
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("bind_room"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, BIND_ROOM_PRICE_CENTS, product="bind_room")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "Bind Room booked (dev)",
+            f"{email} paid {BIND_ROOM_PRICE_LABEL}",
+            {"email": email, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key or not STRIPE_BIND_ROOM_PRICE_ID:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Bind Room.", "error")
+        return redirect(url_for("bind_room"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[{"price": STRIPE_BIND_ROOM_PRICE_ID, "quantity": 1}],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/bind-room?canceled=1",
+        metadata={"product": "bind_room", "contact_email": email},
+    )
+    db.create_install_order(email, checkout.id, BIND_ROOM_PRICE_CENTS, product="bind_room")
+    return redirect(checkout.url, code=303)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -965,6 +1250,14 @@ def billing_webhook():
                 f"{INSTALL_PRICE_LABEL} from {email}",
                 {"email": email, "session": sess["id"]},
             )
+        elif product == "bind_room":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            notify.money(
+                "CASH — Bind Room",
+                f"{BIND_ROOM_PRICE_LABEL} from {email}",
+                {"email": email, "session": sess["id"]},
+            )
         else:
             account_id = (sess.get("metadata") or {}).get("gate_account_id")
             sub_id = sess.get("subscription")
@@ -1025,8 +1318,74 @@ def welded_act():
 @app.route("/v1/pas/bind-check", methods=["POST"])
 @metered_api
 def pas_bind_check():
-    body = request.get_json(silent=True) or {}
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
     return velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
+
+
+@app.route("/v1/pas/policycenter/pre-bind", methods=["POST"])
+@metered_api
+def pas_policycenter_pre_bind():
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "").strip()
+    if not fuse_id:
+        return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
+    body["fuse_id"] = fuse_id
+    return run_policycenter_pre_bind(body, account_id=g.account_id)
+
+
+@app.route("/v1/pas/mga-authority", methods=["POST"])
+@metered_api
+def pas_mga_authority():
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "").strip()
+    if not fuse_id:
+        return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
+    body["fuse_id"] = fuse_id
+    return run_mga_authority(body, account_id=g.account_id)
+
+
+@app.route("/v1/pas/duckcreek/pre-bind", methods=["POST"])
+@metered_api
+def pas_duckcreek_pre_bind():
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "").strip()
+    if not fuse_id:
+        return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
+    body["fuse_id"] = fuse_id
+    return run_duckcreek_pre_bind(body, account_id=g.account_id)
+
+
+@app.route("/v1/pas/bind-appendix")
+@metered_api(count_usage=False)
+def pas_bind_appendix():
+    events = db.list_bind_events(g.account_id, limit=200)
+    items = []
+    for event in events:
+        items.append(
+            {
+                "id": event["id"],
+                "created_at": event["created_at"],
+                "fuse_id": event["fuse_id"],
+                "job_id": event["job_id"],
+                "decision": event["decision"],
+                "acted": event.get("acted"),
+                "verify_url": event.get("verify_url"),
+                "hop": event.get("hop"),
+            }
+        )
+    return {
+        "spec": "gate-bind-room-appendix-v1",
+        "not_the_serff_filing": True,
+        "items": items,
+    }
 
 
 @app.route("/v1/execute-gate", methods=["POST"])
@@ -1091,6 +1450,7 @@ def sitemap():
         "/docs",
         "/pricing",
         "/install",
+        "/bind-room",
         "/trust",
         "/status",
         "/signup",
@@ -1123,6 +1483,8 @@ def llms_txt():
         f"- Docs: {advertised_url()}/docs",
         f"- Audience hub: {advertised_url()}/start",
         f"- Install ($2,500): {advertised_url()}/install",
+        f"- Bind Room ($1,750): {advertised_url()}/bind-room",
+        f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
         f"- Listings (date all): {advertised_url()}/.well-known/listings.json",
@@ -1133,6 +1495,8 @@ def llms_txt():
         "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
         "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
         "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
+        "PolicyCenter: hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
+        "PAS bodies are fuse_id + job_id only. PII / ACORD / ECDIS → 400 no_pii.",
         "",
     ]
     for slug, p in audiences.all_plates().items():
@@ -1204,7 +1568,25 @@ def openapi():
                     }
                 },
                 "/v1/act": {"post": {"summary": "Welded closed-world act — hop first, DEAD never acts", "security": [{"BearerAuth": []}]}},
-                "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo", "security": [{"BearerAuth": []}]}},
+                "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo. fuse_id + job ids only.", "security": [{"BearerAuth": []}]}},
+                "/v1/pas/policycenter/pre-bind": {
+                    "post": {
+                        "summary": "Hop then PolicyCenter next step: bind-and-issue or raise Manual UW issue",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
+                "/v1/pas/mga-authority": {
+                    "post": {
+                        "summary": "Delegated-authority check: hop + premium/line/state limits",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
+                "/v1/pas/duckcreek/pre-bind": {
+                    "post": {"summary": "Duck Creek issue wrap — do not call issue if halt", "security": [{"BearerAuth": []}]}
+                },
+                "/v1/pas/bind-appendix": {
+                    "get": {"summary": "On-request examiner appendix: job_id + verify_url. Not the SERFF filing.", "security": [{"BearerAuth": []}]}
+                },
                 "/v1/ocsp": {"get": {"summary": "OCSP alias for fuse lookup — 503 halt if unreachable", "security": [{"BearerAuth": []}]}},
                 "/v1/execute-gate/demo": {"post": {"summary": "PERMIT/DENY demo", "security": [{"BearerAuth": []}]}},
                 "/v1/classify": {"post": {"summary": "Classify → signed receipt", "security": [{"BearerAuth": []}]}},
@@ -1213,6 +1595,9 @@ def openapi():
                 "/demo/lookup": {"get": {"summary": "Public demo lookup", "security": []}},
                 "/demo/act": {"post": {"summary": "Public welded act on drill fuse (no key)", "security": []}},
                 "/demo/pas/bind-check": {"post": {"summary": "Public PAS BIND/BLOCK demo (no key)", "security": []}},
+                "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
+                "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
+                "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},

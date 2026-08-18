@@ -59,8 +59,24 @@ def init_db():
                 status TEXT NOT NULL DEFAULT 'pending',
                 created_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS bind_events (
+                id TEXT PRIMARY KEY,
+                account_id TEXT,
+                fuse_id TEXT NOT NULL,
+                job_id TEXT,
+                decision TEXT NOT NULL,
+                acted INTEGER,
+                verify_url TEXT,
+                hop_json TEXT,
+                created_at TEXT NOT NULL
+            );
             """
         )
+        cols = {row[1] for row in conn.execute("PRAGMA table_info(install_orders)").fetchall()}
+        if "product" not in cols:
+            conn.execute(
+                "ALTER TABLE install_orders ADD COLUMN product TEXT NOT NULL DEFAULT 'install_sprint'"
+            )
 
 
 @contextmanager
@@ -189,15 +205,89 @@ def install_slots_remaining() -> int:
     return max(0, INSTALL_SLOTS - booked)
 
 
-def create_install_order(email: str, stripe_session_id: str, amount_cents: int = 250000) -> str:
+def create_install_order(
+    email: str, stripe_session_id: str, amount_cents: int = 250000, product: str = "install_sprint"
+) -> str:
     order_id = str(uuid.uuid4())
     with db() as conn:
-        conn.execute(
-            """INSERT INTO install_orders (id, email, stripe_session_id, amount_cents, status, created_at)
-               VALUES (?, ?, ?, ?, 'pending', ?)""",
-            (order_id, email.lower().strip(), stripe_session_id, amount_cents, utc_now()),
-        )
+        cols = {row[1] for row in conn.execute("PRAGMA table_info(install_orders)").fetchall()}
+        if "product" in cols:
+            conn.execute(
+                """INSERT INTO install_orders (id, email, stripe_session_id, amount_cents, status, created_at, product)
+                   VALUES (?, ?, ?, ?, 'pending', ?, ?)""",
+                (order_id, email.lower().strip(), stripe_session_id, amount_cents, utc_now(), product),
+            )
+        else:
+            conn.execute(
+                """INSERT INTO install_orders (id, email, stripe_session_id, amount_cents, status, created_at)
+                   VALUES (?, ?, ?, ?, 'pending', ?)""",
+                (order_id, email.lower().strip(), stripe_session_id, amount_cents, utc_now()),
+            )
     return order_id
+
+
+def record_bind_event(
+    *,
+    fuse_id: str,
+    decision: str,
+    job_id: str | None = None,
+    account_id: str | None = None,
+    acted: bool | None = None,
+    verify_url: str | None = None,
+    hop: dict | None = None,
+) -> str:
+    import json
+
+    event_id = str(uuid.uuid4())
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO bind_events
+               (id, account_id, fuse_id, job_id, decision, acted, verify_url, hop_json, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                event_id,
+                account_id,
+                fuse_id,
+                job_id,
+                decision,
+                None if acted is None else (1 if acted else 0),
+                verify_url,
+                json.dumps(hop) if hop is not None else None,
+                utc_now(),
+            ),
+        )
+    return event_id
+
+
+def list_bind_events(account_id: str | None, limit: int = 50) -> list:
+    import json
+
+    with db() as conn:
+        if account_id:
+            rows = conn.execute(
+                """SELECT * FROM bind_events WHERE account_id = ?
+                   ORDER BY created_at DESC LIMIT ?""",
+                (account_id, limit),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                """SELECT * FROM bind_events WHERE account_id IS NULL
+                   ORDER BY created_at DESC LIMIT ?""",
+                (limit,),
+            ).fetchall()
+    out = []
+    for r in rows:
+        item = dict(r)
+        if item.get("hop_json"):
+            try:
+                item["hop"] = json.loads(item["hop_json"])
+            except ValueError:
+                item["hop"] = None
+        item.pop("hop_json", None)
+        if item.get("acted") is not None:
+            item["acted"] = bool(item["acted"])
+        out.append(item)
+    return out
 
 
 def mark_install_paid(stripe_session_id: str):

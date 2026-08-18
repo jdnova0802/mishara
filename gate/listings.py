@@ -28,8 +28,10 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "cloudflare": {
                 "status": "listing",
                 "worker": f"{public_url}/listings/cloudflare-worker.js",
+                "bind_worker": f"{public_url}/listings/cloudflare-worker-bind.js",
                 "wrangler": f"{public_url}/listings/wrangler.toml",
-                "note": "Weld worker in front of one origin. Fail closed if GATE_URL is localhost.",
+                "wrangler_bind": f"{public_url}/listings/wrangler-bind.toml",
+                "note": "Generic worker or bind-only worker. Fail closed if GATE_URL is localhost.",
             },
             "x402": {
                 "status": "listing",
@@ -53,17 +55,49 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                 "note": "Paperwork. Paymentus marketplace is pay ≠ allowed — do not confuse with bind.",
             },
         },
+        "bind_room": {
+            "url": f"{public_url}/bind-room",
+            "officer_pack": f"{public_url}/bind-room/officer-pack.json",
+            "appendix": f"{public_url}/bind-room/appendix.schema.json",
+            "price": "$1,750",
+        },
         "welds": {
+            "policycenter": {
+                "status": "code_ready",
+                "pre_bind": f"{public_url}/v1/pas/policycenter/pre-bind",
+                "demo": f"{public_url}/demo/pas/policycenter/pre-bind",
+                "rule": "Hop first. DEAD → raise Manual UW issue. Do not call bind-and-issue.",
+            },
+            "mga_authority": {
+                "status": "code_ready",
+                "path": f"{public_url}/v1/pas/mga-authority",
+                "demo": f"{public_url}/demo/pas/mga-authority",
+            },
             "production_pas": {
                 "status": "open",
-                "rule": "One production write-path at a time. Second PAS is a clone of the first receipt.",
+                "two_yeses": [
+                    "Bind-path owner with a live job API this quarter",
+                    "Else CUO / Colorado 10-1-1 owner or NAIC pilot domestic",
+                    "Else GC Bind Room pack",
+                    "MCP never wins a slot",
+                ],
             },
             "tpm_hsm": {
                 "status": "later",
                 "rule": "After one PAS is in production. Not before first invoice.",
             },
         },
+        "contract": f"{public_url}/listings/control-not-model.json",
         "do_not_date": ["google", "openai", "palantir"],
+        "refuse": [
+            "inventory / bias-audit SaaS",
+            "appetite extraction",
+            "free workshops",
+            "PII / ACORD / ECDIS on Gate PAS paths",
+            "L12 / admin CHARGE / Google-Palantir partnerships",
+            "price $0",
+            "filing Gate as a rating/UW model",
+        ],
     }
 
 
@@ -105,6 +139,18 @@ def mcp_discovery(public_url: str) -> dict:
                 "name": "pas_bind_check",
                 "description": "PAS-shaped bind ALLOW/BLOCK + restraint.",
                 "path": "/v1/pas/bind-check",
+                "method": "POST",
+            },
+            {
+                "name": "policycenter_pre_bind",
+                "description": "Hop then PolicyCenter next step. DEAD → raise Manual UW issue. No PII.",
+                "path": "/v1/pas/policycenter/pre-bind",
+                "method": "POST",
+            },
+            {
+                "name": "mga_authority",
+                "description": "Delegated-authority check: hop + premium/line/state. Fastest yes that is still their paper.",
+                "path": "/v1/pas/mga-authority",
                 "method": "POST",
             },
         ],
@@ -172,7 +218,7 @@ def x402_catalog(public_url: str) -> dict:
                 "resource": f"{public_url}/mcp",
                 "type": "mcp",
                 "x402Version": 2,
-                "description": "MCP tools: fuse_lookup, fuse_hop, welded_act, pas_bind_check",
+                "description": "MCP tools: fuse_lookup, fuse_hop, welded_act, pas_bind_check, policycenter_pre_bind, mga_authority",
                 "extensions": {
                     "bazaar": {
                         "info": {
@@ -239,6 +285,8 @@ tools:
   - fuse_hop
   - welded_act
   - pas_bind_check
+  - policycenter_pre_bind
+  - mga_authority
 notes: Discovery and auth only. DEAD verify is Gate, not TrueFoundry.
 """
 
@@ -256,7 +304,14 @@ def aws_agentcore_json(public_url: str) -> dict:
             "header": "Authorization",
             "secretParameter": "GATE_API_KEY",
         },
-        "tools": ["fuse_lookup", "fuse_hop", "welded_act", "pas_bind_check"],
+        "tools": [
+            "fuse_lookup",
+            "fuse_hop",
+            "welded_act",
+            "pas_bind_check",
+            "policycenter_pre_bind",
+            "mga_authority",
+        ],
         "note": "AWS MCP Gateway / AgentCore registers this URL. They do not become the bind path.",
     }
 
@@ -280,12 +335,21 @@ def guidewire_packet(public_url: str, contact_email: str) -> dict:
         ),
         "demo": {
             "plate": f"{public_url}/for/carriers",
+            "bind_room": f"{public_url}/bind-room",
             "no_key": f"POST {public_url}/demo/pas/bind-check",
-            "metered": f"POST {public_url}/v1/pas/bind-check",
-            "expected": "bind_allowed: false, result: BLOCK, verify_url present",
+            "pre_bind": f"POST {public_url}/demo/pas/policycenter/pre-bind",
+            "metered": f"POST {public_url}/v1/pas/policycenter/pre-bind",
+            "expected": "allow_bind: false + raise_uw_issue body; do not call bind-and-issue",
         },
-        "what_this_is_not": "Not a listing of 343 SKUs. Not a production weld until a carrier's bind-only path is in their PAS.",
-        "status": "Application / dating. Exclusive PolicyCenter weld is one at a time.",
+        "weld": {
+            "hop": f"POST {public_url}/v1/act",
+            "pre_bind": f"POST {public_url}/v1/pas/policycenter/pre-bind",
+            "create_uw_issue": "POST /job/v1/jobs/{jobId}/uw-issues (Manual checking set)",
+            "bind_and_issue": "POST /job/v1/jobs/{jobId}/bind-and-issue — only if allow_bind true",
+            "charge": "UW approve without CHARGE does not resurrect.",
+        },
+        "what_this_is_not": "Not ProNavigator. Not appetite extraction. Control plane on bind-and-issue.",
+        "status": "Application / dating. Code for the weld is live. Exclusive production path is one at a time.",
     }
 
 
@@ -304,11 +368,33 @@ def duckcreek_packet(public_url: str, contact_email: str) -> dict:
         "integration_pattern": "Pre-commit hook on bind / issue. Fail closed on timeout. Independent verify.",
         "demo": {
             "plate": f"{public_url}/for/carriers",
+            "bind_room": f"{public_url}/bind-room",
             "no_key": f"POST {public_url}/demo/pas/bind-check",
-            "expected": "BLOCK + restraint permalink",
+            "pre_bind": f"POST {public_url}/demo/pas/duckcreek/pre-bind",
+            "expected": "allow_bind: false — do not call issue",
         },
         "do_not_confuse": "Paymentus / Payments Marketplace is pay ≠ allowed. This packet is bind, not payments.",
         "status": "Application / dating. One production PAS weld at a time.",
+    }
+
+
+def control_not_model(public_url: str, contact_email: str) -> dict:
+    return {
+        "spec": "gate-control-not-model-v1",
+        "vendor": "Nisaba LLC",
+        "product": "Gate API / Velaru fuse hop",
+        "patent": "64/124,027",
+        "classification": "Control plane. Not ECDIS. Not a rating or underwriting model. Not a third-party pricing vendor for the NAIC TPDMWG docket.",
+        "data": {
+            "accepted": ["fuse_id", "job_id", "premium", "authority_limit", "line", "state", "policy_number"],
+            "rejected": "PII, ACORD, loss runs, named insured, SSN, ECDIS",
+            "path": f"{public_url}/v1/pas/policycenter/pre-bind",
+        },
+        "carrier_duties": "Insurer remains responsible (CO 10-1-1 §5.B, NAIC third-party draft). This contract does not shift that.",
+        "audit_rights": "Carrier and regulator may request hop + verify_url for any job_id we processed. Appendix B via GET /v1/pas/bind-appendix.",
+        "charge": "DEAD→LIVE only via Velaru CHARGE webhook. PAS approval is not resurrection.",
+        "contact": contact_email,
+        "dpa": "No personal data processed on PAS paths if the client honors the allowlist. If they send PII, Gate returns 400 no_pii and does not store it.",
     }
 
 
@@ -316,9 +402,26 @@ def wrangler_toml(public_url: str) -> str:
     return f"""# Cloudflare Worker weld — attach to ONE origin.
 # wrangler secret put GATE_KEY
 # Set GATE_URL to the LIVE https origin, never localhost.
+# Bind-only intercept: use wrangler-bind.toml + cloudflare-worker-bind.js
 
 name = "gate-weld"
 main = "cloudflare-worker.js"
+compatibility_date = "2026-08-18"
+
+[vars]
+GATE_URL = "{public_url}"
+FUSE_ID = "fuse_velaru_drill"
+ALLOW_LOCAL = "0"
+"""
+
+
+def wrangler_bind_toml(public_url: str) -> str:
+    return f"""# Bind-path only. Intercept bind-and-issue / issue. Everything else passes through.
+# wrangler secret put GATE_KEY
+# GATE_URL = live https Gate — never localhost.
+
+name = "gate-bind-weld"
+main = "cloudflare-worker-bind.js"
 compatibility_date = "2026-08-18"
 
 [vars]

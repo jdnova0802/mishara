@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Bind Room{% endblock %}
+{% block meta %}
+<meta name="description" content="Officer pack examiners take + PolicyCenter pre-bind weld. $1,750. Control, not a rating model.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Bind Room</p>
+  <h1>Two artifacts. One weld. Not a mailbox.</h1>
+  <p class="audience-sub">Examiners take an officer-signed narrative. On request they take verify permalinks. Bind still needs a hop in <em>their</em> PolicyCenter or MGA pen.</p>
+  <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Weld in their house: {{ install_price }} / 48hr. Fuse_id + job_id only. No PII.</p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    {% if stripe_bind_room %}
+    <form method="post" action="{{ url_for('bind_room_checkout') }}">
+      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <button type="submit" class="btn btn-primary">Book Bind Room</button>
+    </form>
+    {% else %}
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
+    {% endif %}
+    <a class="btn btn-ghost" href="{{ url_for('install') }}">48hr weld {{ install_price }}</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>A. Officer pack</h3>
+      <p>Colorado 10-1-1 SERFF shape. Titles on each Section 5 duty. NYDFS CL7 + Exhibit C HITL mapped. ≤10 pages. Not a fuse hash in SERFF.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a></p>
+    </div>
+    <div class="card">
+      <h3>B. Appendix</h3>
+      <p>On-request. Each job_id → ALLOW/BLOCK/HALT + verify_url. Pull after you weld.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_appendix_schema') }}">appendix.schema.json</a> · <a href="{{ url_for('exhibit_c_hitl') }}">Exhibit C HITL</a></p>
+    </div>
+    <div class="card">
+      <h3>The weld</h3>
+      <p>Hop. If DEAD, raise Manual UW issue. Do not call <code class="inline">bind-and-issue</code>. UW approve ≠ CHARGE.</p>
+      <p style="margin-top: 0.75rem;"><a href="/listings/guidewire-partnerconnect.json">PolicyCenter packet</a> · <a href="/listings/control-not-model.json">control, not model</a></p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Public proof (no key, no PII)</h2>
+    <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/mga-authority" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000,"line":"GL","state":"CO"}'</pre>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Two yeses — who wins</h2>
+    <ol>
+      <li>Bind-path owner with a live job API this quarter (MGA pen or PolicyCenter)</li>
+      <li>Else CUO / named Colorado 10-1-1 owner or NAIC pilot domestic</li>
+      <li>Else this pack (cash, not a weld)</li>
+      <li>MCP / listings never win a slot</li>
+    </ol>
+  </div>
+</div>
+{% endblock %}

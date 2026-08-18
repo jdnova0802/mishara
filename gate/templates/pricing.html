@@ -52,8 +52,14 @@
   </div>
 
   <div class="card" style="margin-top: 2rem;">
+    <h2>Bind Room — {{ bind_room_price }}</h2>
+    <p>Officer-signed SERFF-shaped pack + appendix schema. Examiners take titles on Section 5 duties, not a fuse hash. Weld in their PolicyCenter or MGA pen is the 48hr install.</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
+  </div>
+
+  <div class="card" style="margin-top: 2rem;">
     <h2>What counts as a hop?</h2>
-    <p>Each successful call to <code class="inline">/v1/fuse/lookup</code>, <code class="inline">/v1/fuse/hop</code>, <code class="inline">/v1/execute-gate</code>, or <code class="inline">/v1/classify</code>. Auth failures don't count.</p>
+    <p>Each successful call to lookup, hop, act, PAS bind / pre-bind / MGA authority, execute-gate, or classify. Auth failures and appendix pulls don't count.</p>
   </div>
 
   <div class="card">
