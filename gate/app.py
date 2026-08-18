@@ -845,6 +845,10 @@ def well_known_gate():
             "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
             "x402": f"{advertised_url()}/.well-known/x402.json",
             "listings": f"{advertised_url()}/.well-known/listings.json",
+            "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
+            "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
+            "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
+            "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "fail_closed": "Timeout or 5xx → HTTP 503 halt. Never treat UNREACHABLE as LIVE.",
             "charge": "DEAD→LIVE only via Velaru CHARGE webhook.",
             "sdk": {
@@ -927,6 +931,41 @@ def well_known_receipt(event_id: str):
     except ImportError:
         import receipt as receipt_mod
     return jsonify(receipt_mod.receipt_to_public_payload(receipt_row=row))
+
+
+@app.route("/.well-known/receipt/<event_id>/proof.json")
+def well_known_receipt_proof(event_id: str):
+    try:
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import evidence_log as evidence_log_mod
+
+    rows = db.list_bind_events_chronological()
+    bundle = evidence_log_mod.proof_bundle(rows, event_id)
+    if not bundle:
+        abort(404)
+    return jsonify(bundle)
+
+
+@app.route("/.well-known/evidence-head.json")
+def well_known_evidence_head():
+    try:
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import evidence_log as evidence_log_mod
+
+    rows = db.list_bind_events_chronological()
+    leaves = evidence_log_mod.log_from_rows(rows)
+    return jsonify(evidence_log_mod.signed_tree_head(leaves))
+
+
+@app.route("/.well-known/counterfactual-spend.json")
+def well_known_counterfactual_spend():
+    try:
+        from gate import counterfactual as counterfactual_mod
+    except ImportError:
+        import counterfactual as counterfactual_mod
+    return jsonify(counterfactual_mod.manifest(advertised_url()))
 
 
 @app.route("/capture")
@@ -1721,6 +1760,8 @@ def sitemap():
         "/.well-known/floor.json",
         "/.well-known/particular.json",
         "/.well-known/capture.json",
+        "/.well-known/counterfactual-spend.json",
+        "/.well-known/evidence-head.json",
         "/.well-known/mass.json",
         "/.well-known/relics.json",
         "/.well-known/tattoo.json",

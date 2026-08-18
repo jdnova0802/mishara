@@ -245,5 +245,11 @@ def receipt_to_public_payload(*, receipt_row: dict, canonical_receipt_json: str 
 
     if canonical_receipt_json:
         payload["canonical_receipt_json"] = canonical_receipt_json
-    return payload
+
+    try:
+        from gate import counterfactual as counterfactual_mod
+    except ImportError:
+        import counterfactual as counterfactual_mod
+
+    return counterfactual_mod.attach_to_receipt_payload(payload, receipt_row)
 

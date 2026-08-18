@@ -337,6 +337,33 @@ def list_bind_events(account_id: str | None, limit: int = 50) -> list:
     return out
 
 
+def list_bind_events_chronological(limit: int = 10000) -> list:
+    """All bind events with receipt hashes, oldest first (Merkle evidence log order)."""
+    import json
+
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM bind_events
+               WHERE receipt_hash IS NOT NULL
+               ORDER BY created_at ASC, id ASC
+               LIMIT ?""",
+            (limit,),
+        ).fetchall()
+    out = []
+    for r in rows:
+        item = dict(r)
+        if item.get("hop_json"):
+            try:
+                item["hop"] = json.loads(item["hop_json"])
+            except ValueError:
+                item["hop"] = None
+        item.pop("hop_json", None)
+        if item.get("acted") is not None:
+            item["acted"] = bool(item["acted"])
+        out.append(item)
+    return out
+
+
 def get_bind_event(event_id: str) -> dict | None:
     import json
 

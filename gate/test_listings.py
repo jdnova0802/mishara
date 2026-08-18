@@ -633,6 +633,88 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("receipt_signature", payload)
         self.assertIn("prev_receipt_hash", payload)
 
+    def test_counterfactual_spend_on_halt_receipt(self):
+        r = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-CF"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertFalse(body.get("allow_bind"))
+
+        import db as gate_db
+
+        latest = gate_db.list_bind_events(None, limit=1)[0]
+        event_id = latest["id"]
+
+        r2 = self.client.get(f"/.well-known/receipt/{event_id}.json")
+        self.assertEqual(r2.status_code, 200)
+        payload = r2.get_json()
+        cf = payload.get("counterfactual_spend")
+        self.assertIsNotNone(cf)
+        self.assertEqual(cf["spec"], "gate-counterfactual-spend-v1")
+        self.assertEqual(cf["type"], "INACTION")
+        self.assertEqual(cf["decision"], "BLOCK")
+        self.assertTrue(cf["forbidden_transitions"])
+        self.assertIn("bind-only", cf["forbidden_transitions"][0]["path"])
+        self.assertIsNone(cf["winner"])
+        self.assertFalse(cf["crown_the_miss"])
+
+        r3 = self.client.get("/.well-known/counterfactual-spend.json")
+        self.assertEqual(r3.status_code, 200)
+        manifest = r3.get_json()
+        self.assertEqual(manifest["spec"], "gate-counterfactual-spend-v1")
+        self.assertIn("evidence_log", manifest)
+
+    def test_evidence_merkle_inclusion_proof(self):
+        import evidence_log as evidence_log_mod
+
+        for i in range(3):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": f"pc:DEMO-MERKLE-{i}"},
+            )
+            self.assertEqual(r.status_code, 200)
+
+        import db as gate_db
+
+        rows = gate_db.list_bind_events_chronological()
+        self.assertGreaterEqual(len(rows), 3)
+        event_id = rows[-1]["id"]
+        receipt_hash = rows[-1]["receipt_hash"]
+        leaves = evidence_log_mod.log_from_rows(rows)
+        idx = len(leaves) - 1
+        proof = evidence_log_mod.inclusion_proof(leaves, idx)
+        self.assertTrue(
+            evidence_log_mod.verify_inclusion(
+                leaf_hash=receipt_hash,
+                root_hash=proof["root_hash"],
+                proof=proof,
+            )
+        )
+
+        r_head = self.client.get("/.well-known/evidence-head.json")
+        self.assertEqual(r_head.status_code, 200)
+        head = r_head.get_json()
+        self.assertEqual(head["spec"], "gate-evidence-log-v1")
+        self.assertEqual(head["tree_size"], len(leaves))
+        self.assertEqual(head["root_hash"], proof["root_hash"])
+        self.assertIn("head_signature", head)
+
+        r_proof = self.client.get(f"/.well-known/receipt/{event_id}/proof.json")
+        self.assertEqual(r_proof.status_code, 200)
+        bundle = r_proof.get_json()
+        self.assertEqual(bundle["event_id"], event_id)
+        self.assertEqual(bundle["receipt_hash"], receipt_hash)
+        self.assertEqual(bundle["tree_head"]["root_hash"], head["root_hash"])
+        self.assertTrue(
+            evidence_log_mod.verify_inclusion(
+                leaf_hash=bundle["receipt_hash"],
+                root_hash=bundle["tree_head"]["root_hash"],
+                proof=bundle["inclusion"],
+            )
+        )
+
     def test_listings_still_health(self):
         r = self.client.get("/health")
         self.assertEqual(r.status_code, 200)
