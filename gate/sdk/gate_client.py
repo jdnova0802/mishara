@@ -77,6 +77,28 @@ class GateClient:
             json={"fuse_id": fuse_id, "job_id": job_id, **extra},
         )
 
+    def redeem_bind_ticket(
+        self,
+        ticket_id: str,
+        token: str,
+        job_id: str,
+        method: str,
+        path: str,
+        spend_fingerprint: str | None = None,
+        **extra,
+    ) -> dict[str, Any]:
+        body = {
+            "ticket_id": ticket_id,
+            "token": token,
+            "job_id": job_id,
+            "method": method,
+            "path": path,
+            **extra,
+        }
+        if spend_fingerprint:
+            body["spend_fingerprint"] = spend_fingerprint
+        return self._request("POST", "/v1/pas/bind-ticket/redeem", json=body)
+
     def bind_appendix(self) -> dict[str, Any]:
         return self._request("GET", "/v1/pas/bind-appendix")
 

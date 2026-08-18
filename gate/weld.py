@@ -109,12 +109,14 @@ def policycenter_plan(
             "halt": False,
             "job_id": jid,
             "verify_url": receipt,
-            "next": {"method": "POST", "path": bind_and_issue, "body": None},
+            "next": {"method": "POST", "path": bind_only, "body": None},
+            "spend_write": {"method": "POST", "path": bind_only, "spend_kind": "bind"},
             "also_allowed": writes,
+            "not_granted": [bind_and_issue, writes[2]["path"]],
             "do_not_call": None,
             "do_not_call_all": None,
             "raise_uw_issue": None,
-            "charge": "LIVE hop only. CHARGE webhook is the only DEAD→LIVE path.",
+            "charge": "LIVE hop only. CHARGE webhook is the only DEAD→LIVE path. Ticket prints bind-only.",
             "hop": hop,
         }
     return {

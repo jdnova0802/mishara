@@ -114,6 +114,11 @@ except ImportError:
     import ticket as ticket_mod
 
 try:
+    from gate import spend_protocol as spend_protocol_mod
+except ImportError:
+    import spend_protocol as spend_protocol_mod
+
+try:
     from gate import epoch as epoch_mod
 except ImportError:
     import epoch as epoch_mod
@@ -210,6 +215,7 @@ def cors_discovery(resp):
             "/floor",
             "/this",
             "/capture",
+            "/scanner",
             "/mass",
             "/tattoo",
         )
@@ -456,6 +462,7 @@ def health():
         "floor": f"{pub}/floor",
         "this": f"{pub}/this",
         "capture": f"{pub}/capture",
+        "scanner": f"{pub}/scanner",
         "inhabitant": f"{pub}/inhabitant",
         "afterward": f"{pub}/afterward",
         "mass": f"{pub}/mass",
@@ -687,8 +694,10 @@ def _finalize_spend_plan(
     epoch_meta: dict | None,
     decision: str,
     acted: bool,
+    spend_write: dict | None = None,
 ):
     jid = (job_id or "").strip() or None
+    fp = spend_protocol_mod.fingerprint(spend_write)
     if acted and not jid:
         acted = False
         decision = "HALT"
@@ -697,6 +706,14 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = plan.get("reason") or "job_id_required_for_ticket"
+    if acted and not fp:
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["reason"] = plan.get("reason") or spend_protocol_mod.REASON_NOT_IN_PROTOCOL
     cid = epoch_mod.normalize_charge_id(charge_id)
     event_id = db.record_bind_event(
         fuse_id=fuse_id,
@@ -717,6 +734,7 @@ def _finalize_spend_plan(
             event_id=event_id,
             receipt_hash=row.get("receipt_hash"),
             redeem_url=_redeem_url(),
+            spend_write=spend_write,
         )
         if ticket_pack:
             plan["bind_ticket"] = ticket_pack["bearer"]
@@ -726,6 +744,12 @@ def _finalize_spend_plan(
         epoch=epoch_meta,
         redeem_url=_redeem_url(),
     )
+    plan["spend_protocol"] = {
+        "spec": spend_protocol_mod.SPEC,
+        "write": spend_write,
+        "fingerprint": fp,
+        "spec_url": f"{advertised_url()}/.well-known/spend-protocol.json",
+    }
     plan["event_id"] = event_id
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
@@ -761,6 +785,18 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
     )
     plan = weld.policycenter_plan(job_id, hop_d, status, body.get("issue_type"))
     plan["fuse_id"] = fuse_id
+    spend_write = spend_protocol_mod.intended_policycenter(
+        job_id=job_id,
+        action=body.get("action"),
+        method=body.get("method"),
+        path=body.get("path") or body.get("bind_path"),
+        bind_path=body.get("bind_path"),
+    )
+    if plan.get("allow_bind") and spend_write is None:
+        plan["allow_bind"] = False
+        plan["halt"] = True
+        plan["next"] = None
+        plan["reason"] = spend_protocol_mod.REASON_NOT_IN_PROTOCOL
     decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
     return _finalize_spend_plan(
         plan,
@@ -774,6 +810,7 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
         epoch_meta=epoch_meta,
         decision=decision,
         acted=bool(plan.get("allow_bind")),
+        spend_write=spend_write,
     )
 
 
@@ -802,6 +839,7 @@ def run_mga_authority(body: dict, account_id=None):
     plan["job_id"] = job_id or None
     if plan.get("reasons"):
         hop_d["constraint_reasons"] = plan["reasons"]
+    spend_write = spend_protocol_mod.intended_mga(job_id=job_id)
     return _finalize_spend_plan(
         plan,
         fuse_id=fuse_id,
@@ -814,6 +852,7 @@ def run_mga_authority(body: dict, account_id=None):
         epoch_meta=epoch_meta,
         decision=plan.get("result") or "BLOCK",
         acted=bool(plan.get("bind_allowed")),
+        spend_write=spend_write,
     )
 
 
@@ -830,6 +869,7 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
     )
     plan = weld.duckcreek_plan(job_id, hop_d, status)
     plan["fuse_id"] = fuse_id
+    spend_write = spend_protocol_mod.intended_duckcreek(job_id=job_id)
     decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
     return _finalize_spend_plan(
         plan,
@@ -843,6 +883,7 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
         epoch_meta=epoch_meta,
         decision=decision,
         acted=bool(plan.get("allow_bind")),
+        spend_write=spend_write,
     )
 
 
@@ -892,6 +933,10 @@ def _redeem_ticket_view(*, demo: bool = False):
         ticket_id=str(body.get("ticket_id") or ""),
         token=str(body.get("token") or ""),
         job_id=str(body.get("job_id") or ""),
+        method=str(body.get("method") or ""),
+        path=str(body.get("path") or ""),
+        spend_fingerprint=str(body.get("spend_fingerprint") or ""),
+        spend_kind=str(body.get("spend_kind") or "") or None,
     )
     if isinstance(result, dict):
         result["demo"] = demo
@@ -961,6 +1006,7 @@ def well_known_gate():
             "floor": f"{advertised_url()}/floor",
             "this": f"{advertised_url()}/this",
             "capture": f"{advertised_url()}/capture",
+            "scanner": f"{advertised_url()}/scanner",
             "inhabitant": f"{advertised_url()}/inhabitant",
             "afterward": f"{advertised_url()}/afterward",
             "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
@@ -987,6 +1033,7 @@ def well_known_gate():
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
+            "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -1167,6 +1214,7 @@ def well_known_commit_auth():
                 "and that this job has no spend leaf."
             ),
             "bind_ticket": ticket_mod.manifest(advertised_url()),
+            "spend_protocol": spend_protocol_mod.spec(advertised_url()),
             "epoch": {
                 "spec": "gate-epoch-v1",
                 "rule": "Latest HALT/BLOCK for a job_id stays HALT until charge_id is presented.",
@@ -1177,6 +1225,20 @@ def well_known_commit_auth():
             "stale_hop_cannot_spend": True,
             "their_production": False,
         }
+    )
+
+
+@app.route("/.well-known/spend-protocol.json")
+def well_known_spend_protocol():
+    return jsonify(spend_protocol_mod.spec(advertised_url()))
+
+
+@app.route("/scanner")
+def scanner_page():
+    return render_template(
+        "scanner.html",
+        public_url=advertised_url(),
+        protocol=spend_protocol_mod.spec(advertised_url()),
     )
 
 
@@ -2005,6 +2067,7 @@ def sitemap():
         "/inhabitant",
         "/afterward",
         "/capture",
+        "/scanner",
         "/mass",
         "/refusal",
         "/tattoo",
@@ -2016,6 +2079,7 @@ def sitemap():
         "/.well-known/inhabitant.json",
         "/.well-known/afterward.json",
         "/.well-known/capture.json",
+        "/.well-known/spend-protocol.json",
         "/.well-known/counterfactual-spend.json",
         "/.well-known/commit-auth.json",
         "/.well-known/evidence-head.json",
@@ -2062,6 +2126,7 @@ def llms_txt():
         f"- Inhabitant copy (they did not have to ask): {advertised_url()}/inhabitant",
         f"- Afterward (including later; we will not invent a no): {advertised_url()}/afterward",
         f"- Production capture: {advertised_url()}/capture",
+        f"- Spend protocol (the scanner): {advertised_url()}/scanner",
         f"- Stranger Mass: {advertised_url()}/mass",
         f"- Refusal SKU ({REFUSAL_PRICE_LABEL}): {advertised_url()}/refusal",
         f"- Weld tattoo: {advertised_url()}/tattoo",
@@ -2072,6 +2137,7 @@ def llms_txt():
         f"- Floor: {advertised_url()}/.well-known/floor.json",
         f"- Particular: {advertised_url()}/.well-known/particular.json",
         f"- Capture: {advertised_url()}/.well-known/capture.json",
+        f"- Spend protocol: {advertised_url()}/.well-known/spend-protocol.json",
         f"- Commit-time auth (tickets + epoch + exclusion): {advertised_url()}/.well-known/commit-auth.json",
         f"- Exclusion proof: {advertised_url()}/.well-known/exclusion.json?job_id=JOB_ID",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
@@ -2165,7 +2231,7 @@ def openapi():
                 "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo. fuse_id + job ids only.", "security": [{"BearerAuth": []}]}},
                 "/v1/pas/policycenter/pre-bind": {
                     "post": {
-                        "summary": "Hop then PolicyCenter next step: bind-and-issue or raise Manual UW issue",
+                        "summary": "Hop then PolicyCenter next step: bind-only ticket, or raise Manual UW issue. bind-and-issue is not granted.",
                         "security": [{"BearerAuth": []}],
                     }
                 },
@@ -2180,7 +2246,7 @@ def openapi():
                 },
                 "/v1/pas/bind-ticket/redeem": {
                     "post": {
-                        "summary": "Consume a single-use bind ticket. Stale/replay/mismatch → HALT.",
+                        "summary": "Consume a single-use bind ticket bound to one spend fingerprint. Stale/replay/wrong write → HALT.",
                         "security": [{"BearerAuth": []}],
                     }
                 },
@@ -2205,6 +2271,8 @@ def openapi():
                 "/inhabitant": {"get": {"summary": "The someone who has to live there. They did not have to ask."}},
                 "/afterward": {"get": {"summary": "Including later. Missing letter is a hole, not a spared world."}},
                 "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
+                "/scanner": {"get": {"summary": "Spend protocol — the scanner. One write. Fingerprint or no print."}},
+                "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},

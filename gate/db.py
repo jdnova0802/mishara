@@ -113,6 +113,9 @@ def init_db():
             CREATE INDEX IF NOT EXISTS idx_bind_events_job ON bind_events(job_id, created_at);
             """
         )
+        ticket_cols = {row[1] for row in conn.execute("PRAGMA table_info(bind_tickets)").fetchall()}
+        if "spend_fingerprint" not in ticket_cols:
+            conn.execute("ALTER TABLE bind_tickets ADD COLUMN spend_fingerprint TEXT")
 
 
 @contextmanager
@@ -415,13 +418,14 @@ def insert_bind_ticket(
     token_hash: str,
     not_before: str,
     not_after: str,
+    spend_fingerprint: str | None = None,
 ) -> None:
     with db() as conn:
         conn.execute(
             """INSERT INTO bind_tickets
                (id, job_id, fuse_id, event_id, receipt_hash, token_hash,
-                not_before, not_after, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                not_before, not_after, spend_fingerprint, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 ticket_id,
                 job_id,
@@ -431,12 +435,20 @@ def insert_bind_ticket(
                 token_hash,
                 not_before,
                 not_after,
+                spend_fingerprint,
                 utc_now(),
             ),
         )
 
 
-def consume_bind_ticket(*, ticket_id: str, token_hash: str, job_id: str, now: str) -> dict:
+def consume_bind_ticket(
+    *,
+    ticket_id: str,
+    token_hash: str,
+    job_id: str,
+    now: str,
+    spend_fingerprint: str | None = None,
+) -> dict:
     with db() as conn:
         row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (ticket_id,)).fetchone()
         if not row:
@@ -445,6 +457,17 @@ def consume_bind_ticket(*, ticket_id: str, token_hash: str, job_id: str, now: st
             return {"ok": False, "reason": "ticket_token_mismatch"}
         if row["job_id"] != job_id:
             return {"ok": False, "reason": "ticket_job_mismatch"}
+        issued_fp = ""
+        try:
+            issued_fp = (row["spend_fingerprint"] or "").strip()
+        except (IndexError, KeyError):
+            issued_fp = ""
+        presented_fp = (spend_fingerprint or "").strip()
+        if issued_fp:
+            if not presented_fp:
+                return {"ok": False, "reason": "ticket_spend_mismatch"}
+            if issued_fp.lower() != presented_fp.lower():
+                return {"ok": False, "reason": "ticket_spend_mismatch"}
         if row["consumed_at"]:
             return {"ok": False, "reason": "ticket_replay"}
         if row["not_after"] < now:

@@ -109,6 +109,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("capture", m)
         self.assertIn("inhabitant", m["floor"])
         self.assertIn("commit_auth", m)
+        self.assertIn("spend_protocol", m)
         self.assertIn("liturgy", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
@@ -378,7 +379,8 @@ class FieldAndWeldTests(unittest.TestCase):
         plan = weld.policycenter_plan("pc:1", hop, 200)
         self.assertTrue(plan["allow_bind"])
         self.assertIsNone(plan["raise_uw_issue"])
-        self.assertIn("bind-and-issue", plan["next"]["path"])
+        self.assertIn("bind-only", plan["next"]["path"])
+        self.assertNotIn("bind-and-issue", plan["next"]["path"])
 
     def test_mga_premium_blocks(self):
         hop = {"verdict": True, "state": "LIVE"}
@@ -550,6 +552,8 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("verify_url", worker)
         self.assertIn("inhabitant_url", worker)
         self.assertIn("bind-ticket/redeem", worker)
+        self.assertIn("spend_fingerprint", worker)
+        self.assertIn("spend_write_not_in_protocol", worker)
         generic = self.client.get("/listings/cloudflare-worker.js").get_data(as_text=True)
         self.assertIn("haltResponse", generic)
 
@@ -778,7 +782,10 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(ticket["spec"], "gate-bind-ticket-v1")
         self.assertTrue(ticket["stale_hop_cannot_spend"])
         self.assertIn("token", ticket)
+        self.assertIn("spend_fingerprint", ticket)
+        self.assertEqual(ticket["spend_write"]["path"], "/job/v1/jobs/pc:TICKET-1/bind-only")
         self.assertTrue(body["commit_time_authorization"]["bind_ticket_required"])
+        self.assertTrue(body["commit_time_authorization"]["spend_fingerprint_required"])
 
         redeem = self.client.post(
             "/demo/pas/bind-ticket/redeem",
@@ -786,6 +793,9 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
                 "job_id": "pc:TICKET-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:TICKET-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
             },
         )
         self.assertEqual(redeem.status_code, 200)
@@ -797,6 +807,9 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
                 "job_id": "pc:TICKET-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:TICKET-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
             },
         )
         self.assertEqual(replay.status_code, 403)
@@ -805,6 +818,109 @@ class BindRoomFlaskTests(unittest.TestCase):
         spent = self.client.get("/.well-known/exclusion.json?job_id=pc:TICKET-1")
         self.assertEqual(spent.status_code, 200)
         self.assertTrue(spent.get_json()["spent"])
+
+    def test_spend_protocol_fingerprint_and_mismatch(self):
+        import spend_protocol as spend_protocol_mod
+
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=scan",
+        }
+        married = spend_protocol_mod.intended_policycenter(job_id="pc:SCAN-1")
+        self.assertEqual(married["path"], "/job/v1/jobs/pc:SCAN-1/bind-only")
+        self.assertIsNone(
+            spend_protocol_mod.intended_policycenter(job_id="pc:SCAN-1", action="bind-and-issue")
+        )
+        self.assertIsNone(
+            spend_protocol_mod.intended_policycenter(
+                job_id="pc:SCAN-1", path="/job/v1/jobs/pc:SCAN-1/bind-and-issue"
+            )
+        )
+
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:SCAN-1"},
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        ticket = body["bind_ticket"]
+        fp = ticket["spend_fingerprint"]
+        self.assertEqual(fp, spend_protocol_mod.fingerprint(married))
+        self.assertEqual(body["spend_protocol"]["fingerprint"], fp)
+
+        missing = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:SCAN-1",
+            },
+        )
+        self.assertEqual(missing.status_code, 403)
+        self.assertEqual(missing.get_json()["reason"], "spend_write_required")
+
+        wrong_path = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:SCAN-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:SCAN-1/bind-and-issue",
+                "spend_fingerprint": fp,
+            },
+        )
+        self.assertEqual(wrong_path.status_code, 403)
+        self.assertEqual(wrong_path.get_json()["reason"], "ticket_spend_mismatch")
+
+        ok = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:SCAN-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:SCAN-1/bind-only",
+            },
+        )
+        self.assertEqual(ok.status_code, 200)
+        self.assertTrue(ok.get_json()["ok"])
+
+    def test_bind_and_issue_is_not_printed(self):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=not-printed",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:SCAN-2",
+                    "action": "bind-and-issue",
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertFalse(body["allow_bind"])
+        self.assertTrue(body["halt"])
+        self.assertEqual(body["reason"], "spend_write_not_in_protocol")
+        self.assertNotIn("bind_ticket", body)
+
+        spec = self.client.get("/.well-known/spend-protocol.json")
+        self.assertEqual(spec.status_code, 200)
+        data = spec.get_json()
+        self.assertEqual(data["spec"], "gate-spend-protocol-v1")
+        self.assertIn("bind-only", data["married_write"]["path"])
+        self.assertTrue(data["redeem"]["fail_closed"])
+        page = self.client.get("/scanner")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn("Fingerprint or no print", page.get_data(as_text=True))
 
     def test_epoch_lock_requires_charge_id(self):
         dead = {
@@ -918,6 +1034,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/health")
         self.assertEqual(r.status_code, 200)
         self.assertIn("bind_room", r.get_json())
+        self.assertIn("scanner", r.get_json())
         self.assertIn("mass", r.get_json())
         r2 = self.client.get("/.well-known/listings.json")
         self.assertEqual(r2.status_code, 200)

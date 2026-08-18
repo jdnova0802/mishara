@@ -52,7 +52,7 @@ TOOLS = [
     },
     {
         "name": "policycenter_pre_bind",
-        "description": "Hop then return PolicyCenter next step: bind-and-issue or raise Manual UW issue. No PII.",
+        "description": "Hop then return PolicyCenter next step: bind-only ticket, or raise Manual UW issue. bind-and-issue is not granted. No PII.",
         "inputSchema": {
             "type": "object",
             "properties": {

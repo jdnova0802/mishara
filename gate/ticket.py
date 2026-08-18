@@ -34,6 +34,11 @@ try:
 except ImportError:
     import db
 
+try:
+    from gate import spend_protocol
+except ImportError:
+    import spend_protocol
+
 SPEC = "gate-bind-ticket-v1"
 DEFAULT_TTL = 15
 
@@ -57,15 +62,26 @@ def issue(
     event_id: str,
     receipt_hash: str | None,
     redeem_url: str,
+    spend_write: dict | None = None,
 ) -> dict | None:
-    """Mint a bearer ticket. Token is returned once; public receipts never include it."""
+    """Mint a bearer ticket. Token is returned once; public receipts never include it.
+
+    Fail closed if there is no spend fingerprint. A job-only ticket is not a print.
+    """
     jid = (job_id or "").strip()
-    if not jid:
+    fp = spend_protocol.fingerprint(spend_write)
+    if not jid or not fp or not isinstance(spend_write, dict):
         return None
     now = datetime.now(timezone.utc)
     ttl = ttl_seconds()
     ticket_id = str(uuid.uuid4())
     token = secrets.token_urlsafe(32)
+    write = {
+        "method": spend_write.get("method"),
+        "path": spend_write.get("path"),
+        "job_id": spend_write.get("job_id") or jid,
+        "spend_kind": spend_write.get("spend_kind"),
+    }
     body = {
         "spec": SPEC,
         "ticket_id": ticket_id,
@@ -77,6 +93,9 @@ def issue(
         "not_after": (now + timedelta(seconds=ttl)).isoformat(),
         "single_use": True,
         "spend": "bind",
+        "spend_kind": write["spend_kind"],
+        "spend_write": write,
+        "spend_fingerprint": fp,
         "ttl_seconds": ttl,
         "stale_hop_cannot_spend": True,
     }
@@ -91,6 +110,7 @@ def issue(
         token_hash=hashlib.sha256(token.encode("utf-8")).hexdigest(),
         not_before=body["not_before"],
         not_after=body["not_after"],
+        spend_fingerprint=fp,
     )
     public = {
         **body,
@@ -109,8 +129,17 @@ def public_from_bearer(bearer: dict | None) -> dict | None:
     return out
 
 
-def redeem(*, ticket_id: str, token: str, job_id: str) -> dict:
-    """Atomic consume. Fail closed on missing, stale, mismatch, or replay."""
+def redeem(
+    *,
+    ticket_id: str,
+    token: str,
+    job_id: str,
+    method: str | None = None,
+    path: str | None = None,
+    spend_fingerprint: str | None = None,
+    spend_kind: str | None = None,
+) -> dict:
+    """Atomic consume. Fail closed on missing, stale, mismatch, replay, or wrong write."""
     now = datetime.now(timezone.utc).isoformat()
     tid = (ticket_id or "").strip()
     tok = (token or "").strip()
@@ -123,12 +152,43 @@ def redeem(*, ticket_id: str, token: str, job_id: str) -> dict:
             "reason": "ticket_required",
             "spec": SPEC,
         }
+    presented = spend_protocol.presented_write(
+        job_id=jid,
+        method=method,
+        path=path,
+        spend_kind=spend_kind,
+    )
+    if presented is None:
+        return {
+            "ok": False,
+            "halt": True,
+            "allow_bind": False,
+            "reason": spend_protocol.REASON_REQUIRED,
+            "ticket_id": tid,
+            "job_id": jid,
+            "spec": SPEC,
+            "stale_hop_cannot_spend": True,
+        }
+    presented_fp = spend_protocol.fingerprint(presented)
+    claimed = (spend_fingerprint or "").strip()
+    if claimed and presented_fp and claimed.lower() != presented_fp.lower():
+        return {
+            "ok": False,
+            "halt": True,
+            "allow_bind": False,
+            "reason": spend_protocol.REASON_MISMATCH,
+            "ticket_id": tid,
+            "job_id": jid,
+            "spec": SPEC,
+            "stale_hop_cannot_spend": True,
+        }
     token_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
     result = db.consume_bind_ticket(
         ticket_id=tid,
         token_hash=token_hash,
         job_id=jid,
         now=now,
+        spend_fingerprint=presented_fp,
     )
     if result.get("ok"):
         return {
@@ -140,6 +200,8 @@ def redeem(*, ticket_id: str, token: str, job_id: str) -> dict:
             "consumed_at": now,
             "spec": SPEC,
             "single_use": True,
+            "spend_fingerprint": presented_fp,
+            "spend_write": presented,
         }
     return {
         "ok": False,
@@ -158,10 +220,12 @@ def stamp(plan: dict, *, ticket_public: dict | None, epoch: dict | None, redeem_
     plan["commit_time_authorization"] = {
         "spec": "gate-commit-auth-v1",
         "bind_ticket_required": True,
+        "spend_fingerprint_required": True,
         "ttl_seconds": ttl_seconds(),
         "stale_hop_cannot_spend": True,
         "single_use": True,
         "non_decomposable": "A hop without a live ticket is not a bind grant.",
+        "married_write": spend_protocol.PATH_TEMPLATE,
         "redeem": redeem_url,
         "ticket": ticket_public,
         "epoch": epoch or {"locked": False},
@@ -186,11 +250,14 @@ def manifest(public_url: str) -> dict:
         "name": "Bind ticket",
         "greater_than_ed25519": (
             "Signatures prove a hop occurred. Tickets prove the hop is still "
-            "allowed to spend, right now, once, for this job."
+            "allowed to spend, right now, once, for this job and this write."
         ),
         "ttl_seconds": ttl_seconds(),
         "stale_hop_cannot_spend": True,
         "single_use": True,
+        "spend_fingerprint_required": True,
+        "married_write": spend_protocol.PATH_TEMPLATE,
+        "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
         "redeem": f"{public_url}/v1/pas/bind-ticket/redeem",
         "demo_redeem": f"{public_url}/demo/pas/bind-ticket/redeem",
         "their_production": False,

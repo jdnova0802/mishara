@@ -1,5 +1,7 @@
 /**
- * Bind-path only. Intercept bind-and-issue / issue. Everything else passes through.
+ * Bind-path scanner. Intercept bind-only / bind-and-issue / issue.
+ * Only bind-only can print. Redeem hashes THIS request's write, not a
+ * fingerprint copied off the ticket. Everything else passes through.
  * wrangler secret put GATE_KEY
  * GATE_URL = live https Gate — never localhost.
  * Halt JSON always includes verify_url and inhabitant_url so the inhabitant
@@ -11,8 +13,12 @@ function isLocal(url) {
 }
 
 function isBindWrite(path) {
-  // bind-only is already a legally Bound contract. Catch it, not only bind-and-issue.
+  // Catch every spend write. Only bind-only can redeem a ticket.
   return /bind-and-issue|bind-only|\/bind\b|\/issue\b/i.test(path);
+}
+
+function isBindOnly(path) {
+  return /bind-only/i.test(path);
 }
 
 function verifyFrom(body, env) {
@@ -63,15 +69,21 @@ export default {
         fuse_id: env.FUSE_ID || "fuse_velaru_drill",
         job_id: jobId,
         action,
+        method: request.method,
+        path: url.pathname,
       }),
     });
     const body = await hop.json().catch(() => ({ halt: true, allow_bind: false }));
     if (!hop.ok || body.halt || body.allow_bind === false) {
       return haltResponse(body, env, null, hop.status === 503 ? 503 : 403);
     }
-    // Commit-time authorization: a LIVE hop is not a bind grant. Redeem the ticket.
+    if (!isBindOnly(url.pathname)) {
+      return haltResponse(body, env, { reason: "spend_write_not_in_protocol" }, 403);
+    }
+    // Commit-time authorization: a LIVE hop is not a bind grant. Redeem the ticket
+    // against THIS write. Do not copy a fingerprint onto a different path.
     const ticket = body.bind_ticket || {};
-    if (!ticket.token || !ticket.ticket_id) {
+    if (!ticket.token || !ticket.ticket_id || !ticket.spend_fingerprint) {
       return haltResponse(body, env, { reason: "ticket_required" }, 403);
     }
     const redeem = await fetch(`${gate}/v1/pas/bind-ticket/redeem`, {
@@ -84,6 +96,9 @@ export default {
         ticket_id: ticket.ticket_id,
         token: ticket.token,
         job_id: jobId,
+        method: request.method,
+        path: url.pathname,
+        spend_fingerprint: ticket.spend_fingerprint,
       }),
     });
     const redeemed = await redeem.json().catch(() => ({ ok: false, halt: true }));

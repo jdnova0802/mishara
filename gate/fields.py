@@ -19,6 +19,10 @@ ALLOWED_PAS_KEYS = frozenset(
         "charge_id",
         "ticket_id",
         "token",
+        "method",
+        "path",
+        "spend_fingerprint",
+        "spend_kind",
     }
 )
 

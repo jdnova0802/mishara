@@ -102,8 +102,17 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "manifest": f"{public_url}/.well-known/commit-auth.json",
             "bind_ticket_ttl_seconds": 15,
             "stale_hop_cannot_spend": True,
+            "spend_fingerprint_required": True,
+            "married_write": "POST /job/v1/jobs/{job_id}/bind-only",
+            "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
             "exclusion": f"{public_url}/.well-known/exclusion.json?job_id={{job_id}}",
             "epoch": "Latest HALT/BLOCK for a job stays HALT until charge_id.",
+        },
+        "spend_protocol": {
+            "page": f"{public_url}/scanner",
+            "manifest": f"{public_url}/.well-known/spend-protocol.json",
+            "married_write": "POST /job/v1/jobs/{job_id}/bind-only",
+            "worker": f"{public_url}/listings/cloudflare-worker-bind.js",
         },
         "bind_room": {
             "url": f"{public_url}/bind-room",
@@ -135,7 +144,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                 "status": "code_ready",
                 "pre_bind": f"{public_url}/v1/pas/policycenter/pre-bind",
                 "demo": f"{public_url}/demo/pas/policycenter/pre-bind",
-                "rule": "Hop first. DEAD → UW issue that BlocksBind. Do not call bind-only or bind-and-issue.",
+                "rule": "Hop first. Ticket prints bind-only. bind-and-issue and issue are not granted. DEAD → UW issue that BlocksBind.",
                 "ui_bind": f"{public_url}/listings/guidewire-gosu-prebind.gs",
                 "renewal_auto_bind": f"{public_url}/listings/guidewire-renewal-prebind.gs",
             },
@@ -493,8 +502,8 @@ ALLOW_LOCAL = "0"
 
 
 def wrangler_bind_toml(public_url: str) -> str:
-    return f"""# Bind-path only. Intercept bind-and-issue / issue. Everything else passes through.
-# wrangler secret put GATE_KEY
+    return f"""# Bind-path scanner. Intercept bind-only / bind-and-issue / issue.
+# Only bind-only can redeem. wrangler secret put GATE_KEY
 # GATE_URL = live https Gate — never localhost.
 
 name = "gate-bind-weld"

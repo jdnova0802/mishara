@@ -30,7 +30,7 @@ POST /policy/v1/policies/{policyId}/issue</pre>
     <pre>curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
   -H "Content-Type: application/json" \
   -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:4040"}'</pre>
-    <p style="margin-top: 0.75rem;">Look for <code class="inline">do_not_call_all</code> — bind-only first. Worker: <a href="{{ public_url }}/listings/cloudflare-worker-bind.js">cloudflare-worker-bind.js</a>.</p>
+    <p style="margin-top: 0.75rem;">Look for <code class="inline">do_not_call_all</code> — bind-only first. Worker: <a href="{{ public_url }}/listings/cloudflare-worker-bind.js">cloudflare-worker-bind.js</a>. Scanner: <a href="{{ url_for('scanner_page') }}">spend protocol</a>.</p>
   </div>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">

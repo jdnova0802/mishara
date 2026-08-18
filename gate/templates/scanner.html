@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Spend protocol — the scanner{% endblock %}
+{% block meta %}
+<meta name="description" content="A LIVE hop is not a print. The print is a ticket bound to POST bind-only. Wrong path, missing fingerprint, or a copied YES → fail closed.">
+<meta property="og:title" content="Gate — Spend protocol">
+<meta property="og:description" content="The only scanner that can print a YES on this irreversible spend.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Spend protocol</p>
+  <h1>One write. Fingerprint or no print.</h1>
+  <p class="audience-sub">A LIVE hop is not authorization. The grant is a 15-second, single-use ticket bound to <code class="inline">POST /job/v1/jobs/{job_id}/bind-only</code>. Redeem must present that same write. bind-and-issue and issue are not this scanner.</p>
+
+  <div class="card">
+    <h2>The print</h2>
+    <pre>SHA-256( canonical_json({
+  method, path, job_id, spend_kind
+}) )</pre>
+    <p style="margin-top: 0.75rem; color: var(--muted);">Hash the write you are about to forward. Do not copy the fingerprint off the ticket and forward a different path. Spec: <a href="{{ public_url }}/.well-known/spend-protocol.json">spend-protocol.json</a>.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Fail closed</h2>
+    <p><code class="inline">spend_write_not_in_protocol</code> — hop asked for bind-and-issue or issue. No ticket.</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">spend_write_required</code> — redeem omitted method + path.</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">ticket_spend_mismatch</code> — the write being forwarded is not the write the ticket printed.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Implementor</h2>
+    <p>Worker: <a href="{{ public_url }}/listings/cloudflare-worker-bind.js">cloudflare-worker-bind.js</a>. Intercepts every bind write. Only bind-only can redeem. Everything else is a halt, including a LIVE hop with the wrong path.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a href="{{ url_for('well_known_spend_protocol') }}" class="btn btn-primary">spend-protocol.json</a>
+    <a href="{{ url_for('capture_page') }}" class="btn btn-ghost">Capture</a>
+    <a href="{{ public_url }}/listings/cloudflare-worker-bind.js" class="btn btn-ghost">Worker</a>
+  </div>
+</div>
+{% endblock %}
