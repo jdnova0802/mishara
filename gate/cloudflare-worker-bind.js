@@ -81,7 +81,8 @@ export default {
       return haltResponse(body, env, { reason: "spend_write_not_in_protocol" }, 403);
     }
     // Commit-time authorization: a LIVE hop is not a bind grant. Redeem the ticket
-    // against THIS write. Do not copy a fingerprint onto a different path.
+    // against THIS write, in this UTC now. Do not copy a fingerprint onto a
+    // different path. Missing or skewed now is radiation_abort.
     const ticket = body.bind_ticket || {};
     if (!ticket.token || !ticket.ticket_id || !ticket.spend_fingerprint) {
       return haltResponse(body, env, { reason: "ticket_required" }, 403);

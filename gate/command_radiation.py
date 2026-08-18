@@ -53,16 +53,30 @@ def parse_utc(value: str | None) -> datetime | None:
 
 
 def check_now(presented: str | None, *, server: datetime | None = None) -> dict:
-    """Fail closed if the command is not in the shared now."""
+    """Fail closed if the command is not in the shared now.
+
+    Missing now is not the same as a broken monitor. Empty → required.
+    Unparseable or skewed → invalid. Neither consumes the ticket.
+    """
     server = server or datetime.now(timezone.utc)
-    parsed = parse_utc(presented)
     skew = max_skew_seconds()
-    if parsed is None:
+    raw = (presented or "").strip()
+    if not raw:
         return {
             "ok": False,
             "radiation_abort": True,
             "reason": REASON_NOW_REQUIRED,
             "server_now": server.isoformat(),
+            "max_skew_seconds": skew,
+        }
+    parsed = parse_utc(raw)
+    if parsed is None:
+        return {
+            "ok": False,
+            "radiation_abort": True,
+            "reason": REASON_NOW_INVALID,
+            "server_now": server.isoformat(),
+            "presented_now": raw,
             "max_skew_seconds": skew,
         }
     delta = abs((parsed - server).total_seconds())
@@ -113,9 +127,10 @@ def spec(public_url: str) -> dict:
             "scale": "UTC",
             "max_skew_seconds": max_skew_seconds(),
             "missing": REASON_NOW_REQUIRED,
-            "skew": REASON_NOW_INVALID,
+            "invalid": REASON_NOW_INVALID,
         },
         "radiation_abort": True,
+        "abort_does_not_consume": True,
         "fail_closed": True,
         "spend_protocol": f"{base}/.well-known/spend-protocol.json",
         "redeem": f"{base}/v1/pas/bind-ticket/redeem",
