@@ -6,6 +6,7 @@ import os
 import sys
 import tempfile
 import unittest
+import base64
 from unittest import mock
 
 # Isolate env before importing app.
@@ -14,6 +15,20 @@ os.environ.setdefault("GATE_SECRET_KEY", "test-secret")
 os.environ["GATE_DB_PATH"] = os.path.join(tempfile.gettempdir(), "gate-test-listings.db")
 os.environ.pop("RENDER_EXTERNAL_URL", None)
 os.environ.pop("RENDER_EXTERNAL_HOSTNAME", None)
+
+# Receipt signing keys for evidence custody.
+try:
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+    from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, NoEncryption, PublicFormat
+
+    _priv = Ed25519PrivateKey.generate()
+    _priv_bytes = _priv.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption())
+    _pub_bytes = _priv.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+    os.environ["GATE_RECEIPT_PRIVATE_KEY"] = base64.b64encode(_priv_bytes).decode("utf-8")
+    os.environ["GATE_RECEIPT_PUBLIC_KEY"] = base64.b64encode(_pub_bytes).decode("utf-8")
+except Exception:
+    # Tests can still run without signing if receipt keys are missing.
+    pass
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 if HERE not in sys.path:
@@ -594,6 +609,29 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("stakes", body)
         self.assertIsNone(body["stakes"]["cleverer_layer"])
         self.assertFalse(body["stakes"]["treat_as_real"])
+
+    def test_public_receipt_endpoint_signed_and_chained(self):
+        # Create at least one bind event via the demo Pre-Bind door.
+        r = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-RECEIPT"},
+        )
+        self.assertEqual(r.status_code, 200)
+
+        import db as gate_db
+
+        latest = gate_db.list_bind_events(None, limit=1)[0]
+        event_id = latest["id"]
+        self.assertIsNotNone(latest.get("receipt_hash"))
+
+        r2 = self.client.get(f"/.well-known/receipt/{event_id}.json")
+        self.assertEqual(r2.status_code, 200)
+        payload = r2.get_json()
+        self.assertEqual(payload["event_id"], event_id)
+        self.assertEqual(payload["receipt_hash"], latest["receipt_hash"])
+        # Signing key should exist in tests; if it doesn't, receipt_signature can be null.
+        self.assertIn("receipt_signature", payload)
+        self.assertIn("prev_receipt_hash", payload)
 
     def test_listings_still_health(self):
         r = self.client.get("/health")

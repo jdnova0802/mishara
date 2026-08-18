@@ -917,6 +917,18 @@ def well_known_capture():
     return jsonify(weld.capture_manifest(advertised_url()))
 
 
+@app.route("/.well-known/receipt/<event_id>.json")
+def well_known_receipt(event_id: str):
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+    try:
+        from gate import receipt as receipt_mod
+    except ImportError:
+        import receipt as receipt_mod
+    return jsonify(receipt_mod.receipt_to_public_payload(receipt_row=row))
+
+
 @app.route("/capture")
 def capture_page():
     return render_template("capture.html", public_url=advertised_url())

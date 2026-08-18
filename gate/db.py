@@ -68,6 +68,10 @@ def init_db():
                 acted INTEGER,
                 verify_url TEXT,
                 hop_json TEXT,
+                prev_receipt_hash TEXT,
+                receipt_hash TEXT,
+                receipt_signature TEXT,
+                receipt_public_key_fingerprint TEXT,
                 created_at TEXT NOT NULL
             );
             """
@@ -77,6 +81,17 @@ def init_db():
             conn.execute(
                 "ALTER TABLE install_orders ADD COLUMN product TEXT NOT NULL DEFAULT 'install_sprint'"
             )
+
+        # bind_events: receipt chain columns (added after the initial bootstrap).
+        bind_cols = {row[1] for row in conn.execute("PRAGMA table_info(bind_events)").fetchall()}
+        if "prev_receipt_hash" not in bind_cols:
+            conn.execute("ALTER TABLE bind_events ADD COLUMN prev_receipt_hash TEXT")
+        if "receipt_hash" not in bind_cols:
+            conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_hash TEXT")
+        if "receipt_signature" not in bind_cols:
+            conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_signature TEXT")
+        if "receipt_public_key_fingerprint" not in bind_cols:
+            conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_public_key_fingerprint TEXT")
 
 
 @contextmanager
@@ -239,11 +254,39 @@ def record_bind_event(
     import json
 
     event_id = str(uuid.uuid4())
+    created_at = utc_now()
+
     with db() as conn:
+        # Append-only chain: the previous receipt_hash becomes the pointer.
+        prev = conn.execute(
+            "SELECT receipt_hash FROM bind_events ORDER BY created_at DESC LIMIT 1"
+        ).fetchone()
+        prev_receipt_hash = prev["receipt_hash"] if prev and prev["receipt_hash"] else None
+
+        # Mint signed receipt (hash-chained, no PII).
+        try:
+            from gate import receipt as receipt_mod
+        except ImportError:
+            import receipt as receipt_mod
+
+        receipt_issue = receipt_mod.issue_receipt(
+            event_id=event_id,
+            fuse_id=fuse_id,
+            job_id=job_id,
+            decision=decision,
+            acted=acted,
+            verify_url=verify_url,
+            created_at=created_at,
+            hop=hop,
+            prev_receipt_hash=prev_receipt_hash,
+        )
+
         conn.execute(
             """INSERT INTO bind_events
-               (id, account_id, fuse_id, job_id, decision, acted, verify_url, hop_json, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+               (id, account_id, fuse_id, job_id, decision, acted, verify_url, hop_json,
+                prev_receipt_hash, receipt_hash, receipt_signature, receipt_public_key_fingerprint,
+                created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 event_id,
                 account_id,
@@ -253,7 +296,11 @@ def record_bind_event(
                 None if acted is None else (1 if acted else 0),
                 verify_url,
                 json.dumps(hop) if hop is not None else None,
-                utc_now(),
+                prev_receipt_hash,
+                receipt_issue.get("receipt_hash"),
+                receipt_issue.get("receipt_signature"),
+                receipt_issue.get("receipt_public_key_fingerprint"),
+                created_at,
             ),
         )
     return event_id
@@ -288,6 +335,28 @@ def list_bind_events(account_id: str | None, limit: int = 50) -> list:
             item["acted"] = bool(item["acted"])
         out.append(item)
     return out
+
+
+def get_bind_event(event_id: str) -> dict | None:
+    import json
+
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM bind_events WHERE id = ?",
+            (event_id,),
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    if item.get("hop_json"):
+        try:
+            item["hop"] = json.loads(item["hop_json"])
+        except ValueError:
+            item["hop"] = None
+    item.pop("hop_json", None)
+    if item.get("acted") is not None:
+        item["acted"] = bool(item["acted"])
+    return item
 
 
 def mark_install_paid(stripe_session_id: str):
