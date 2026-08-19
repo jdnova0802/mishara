@@ -16,6 +16,7 @@ import stripe
 from dotenv import load_dotenv
 from flask import (
     Flask,
+    Response,
     abort,
     flash,
     g,
@@ -1320,6 +1321,22 @@ def register_page():
         weld_price=WELD_PRICE_LABEL,
         floor_price=FLOOR_PRICE_LABEL,
     )
+
+
+@app.route("/stack")
+def stack_page():
+    return render_template(
+        "stack.html",
+        public_url=advertised_url(),
+        weld_price=WELD_PRICE_LABEL,
+        floor_price=FLOOR_PRICE_LABEL,
+    )
+
+
+@app.route("/export/operator-one-pager.txt")
+def export_operator_one_pager():
+    body = operator_mod.render_one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8", headers={"Cache-Control": "public, max-age=300"})
 
 
 @app.route("/.well-known/bound-answer.json")

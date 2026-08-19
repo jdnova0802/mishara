@@ -106,9 +106,8 @@ def manifest(public_url: str) -> dict:
             "atom_age_civic_optimism": ATOM_AGE_CIVIC_OPTIMISM,
         },
         "one_line": (
-            "Cybernetic ops room without the theater; maintenance over hype; "
-            "intergenerational mouth; possibility after the bind is gated; "
-            "digest incumbents don't clone SaaS; public verify without naivety."
+            "Default before the irreversible act — wire, bind, withdraw, list. "
+            "Cybernetic ops room without theater; maintenance over hype; public verify without naivety."
         ),
         "links": {
             "register": f"{base}/.well-known/register.json",

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Gate API{% endblock %} — Can this agent still act?</title>
+  <title>{% block title %}Gate{% endblock %} — Default before the irreversible act</title>
   {% block meta %}
-  <meta name="description" content="Agent mortality fuse API. Can this agent still act right now? Metered hop, fail-closed DEAD, stranger verify.">
+  <meta name="description" content="Production mouth on irreversible spend. Weld one write. κ register. 10 bps on cleared flow. Not SaaS — infrastructure.">
   {% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script type="application/ld+json">
@@ -15,7 +15,7 @@
     "name": "Gate API",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web",
-    "description": "Can this agent still act right now? Metered fuse hop. DEAD fails closed. Stranger verify.",
+    "description": "Default before the irreversible act. Production mouth, weld checkout, κ register, stranger verify via Velaru.",
     "url": "{{ gate_public_url }}",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "provider": {"@type": "Organization", "name": "Nisaba LLC"}
@@ -27,15 +27,12 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate<span>API</span></a>
       <div class="nav-links">
-        <a href="{{ url_for('audience_plate', slug='carriers') }}">Carriers</a>
-        <a href="{{ url_for('bind_room') }}">Bind Room</a>
-        <a href="{{ url_for('scanner_page') }}">Scanner</a>
-        <a href="{{ url_for('docs') }}">Docs</a>
-        <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('register_page') }}" class="nav-install">Register</a>
         <a href="{{ url_for('operator_page') }}">Weld</a>
+        <a href="{{ url_for('stack_page') }}">Stack</a>
+        <a href="{{ url_for('docs') }}">Docs</a>
         <a href="{{ url_for('bind_room') }}">Bind Room</a>
-        <a href="{{ url_for('install') }}">Install</a>
+        <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('status_page') }}">Status</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('dashboard') }}">Dashboard</a>
@@ -62,15 +59,14 @@
 
   <footer>
     <div class="container">
-      Gate API · <a href="{{ url_for('trust') }}">Trust</a> ·
-      <a href="{{ url_for('scanner_page') }}">Scanner</a> ·
-      <a href="{{ url_for('uplink_page') }}">Uplink</a> ·
+      Gate · production mouth ·
+      <a href="{{ url_for('stack_page') }}">Stack map</a> ·
       <a href="{{ url_for('register_page') }}">Register</a> ·
-      <a href="{{ url_for('positioning_page') }}">Positioning</a> ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
-      <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
-      <a href="{{ url_for('install') }}">48hr install</a> ·
-      <a href="https://velaru.xyz/verify">verify</a> · Patent #64/124,027 · Nisaba LLC
+      <a href="https://velaru.xyz/instant">Velaru proof</a> ·
+      <a href="https://velaru.xyz/verify">Verify</a> ·
+      <a href="https://velaru.xyz/legal/processor-one-pager.txt">Processor embed</a> ·
+      Nisaba LLC · Patent #64/124,027
     </div>
   </footer>
 </body>

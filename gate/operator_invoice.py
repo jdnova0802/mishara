@@ -343,3 +343,38 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "contract_json": f"{public_url}/.well-known/operator.json",
         "register_json": f"{public_url}/.well-known/register.json",
     }
+
+
+def render_one_pager(public_url: str, contact_email: str) -> str:
+    """Forwardable whale path summary — paste into email or counsel packet."""
+    base = (public_url or "").rstrip("/")
+    return f"""GATE OPERATOR — ONE-PAGER (paste-forward)
+=====================================
+Nisaba LLC · {contact_email} · {base}
+
+THESIS
+  Default before the irreversible act — wire, bind, withdraw, list.
+  Not SaaS. Production mouth + GP-style register on cleared flow.
+
+STACK (one company, three doors)
+  Velaru  → proof + stranger verify + $49 instant   https://velaru.xyz/instant
+  Gate    → production weld + κ register (this doc)  {base}/operator
+  Mishara → consumer harm only (not operator)        https://mishara.app
+
+WHALE CHECKOUT (live Stripe)
+  Weld:       {WELD_PRICE_LABEL} one-time — one production write (48hr)
+  Management: {FLOOR_PRICE_LABEL} per welded write + per LIVE license parent / mo
+  Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo hurdle
+  Checkout:   {base}/operator
+
+PROOF CHAIN (no login)
+  Register:   {base}/register
+  Manifests:  {base}/.well-known/kappa.json · schism.json · operator.json
+  Verify:     https://velaru.xyz/verify
+  Processor:  https://velaru.xyz/legal/processor-one-pager.txt
+
+REFUSE
+  Unlicensed gambling · second write in same weld · PII on hop · seat-pricing story
+
+Not legal advice. Licensed operators only.
+"""

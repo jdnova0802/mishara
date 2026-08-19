@@ -5,10 +5,24 @@
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Checkout</p>
+  <p class="audience-tag">Checkout · whale path</p>
   <h1>Weld + management. Then flow.</h1>
   <p class="audience-sub">One irreversible write — withdraw or bind-only. <strong>{{ weld_price }}</strong> to weld. <strong>{{ floor_price }}</strong> per mouth per month (management leg). Then <strong>10 bps</strong> on cleared + <strong>+5 bps</strong> above $500M/mo hurdle. Licensed operators only. No weld without management.</p>
   <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }}/mo per mouth</span></div>
+
+  <div class="card" style="margin: 1.25rem 0;">
+    <h2>Proof chain (forward internally)</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Counsel and ops can verify the system before checkout — no login.</p>
+    <p style="font-size: 0.9rem;">
+      <a href="{{ url_for('register_page') }}">κ register</a> ·
+      <a href="{{ url_for('well_known_kappa') }}">kappa.json</a> ·
+      <a href="{{ url_for('well_known_schism') }}">schism.json</a> ·
+      <a href="https://velaru.xyz/verify">stranger verify</a> ·
+      <a href="{{ url_for('index') }}#demo-hop-btn">live hop demo</a> ·
+      <a href="/export/operator-one-pager.txt">one-pager paste</a> ·
+      <a href="https://velaru.xyz/legal/processor-one-pager.txt">processor embed</a>
+    </p>
+  </div>
 
   <div class="grid-3">
     <div class="card">
@@ -57,7 +71,7 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary btn-lg">Pay {{ weld_price }} + start {{ floor_price }} management</button>
-      <p class="fine-print">Non-refundable weld. Management is monthly until cancelled. Unlicensed gambling = void. One write. fuse_id + job_id only — no PII. <a href="{{ url_for('register_page') }}">The register</a> · <a href="{{ url_for('well_known_operator') }}">operator.json</a></p>
+      <p class="fine-print">Non-refundable weld. Management is monthly until cancelled. Unlicensed gambling = void. One write. fuse_id + job_id only — no PII. <a href="{{ url_for('register_page') }}">The register</a> · <a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="https://velaru.xyz/instant">Velaru proof sandbox</a></p>
     </form>
     {% else %}
     <p>Checkout is not wired yet. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld%20%2B%20management">{{ contact_email }}</a> — weld + management, which write.</p>
