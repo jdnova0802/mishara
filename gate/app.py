@@ -1242,6 +1242,32 @@ def well_known_settlement():
     return jsonify(settlement_mod.spec(advertised_url()))
 
 
+@app.route("/.well-known/settlement-members.json")
+def well_known_settlement_members():
+    import db as gate_db
+
+    return jsonify(
+        {
+            "spec": "gate-settlement-members-v1",
+            "their_production": False,
+            "members": gate_db.list_settlement_members(limit=50),
+        }
+    )
+
+
+@app.route("/.well-known/settlement-windows.json")
+def well_known_settlement_windows():
+    import db as gate_db
+
+    return jsonify(
+        {
+            "spec": "gate-settlement-windows-v1",
+            "their_production": False,
+            "windows": gate_db.list_settlement_windows(limit=20),
+        }
+    )
+
+
 @app.route("/register")
 def register_page():
     return render_template(

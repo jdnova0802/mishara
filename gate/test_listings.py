@@ -1783,6 +1783,25 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("regulatory_reporting", data["components"])
         self.assertTrue(data["fail_closed"])
 
+    def test_settlement_members_endpoint(self):
+        r = self.client.get("/.well-known/settlement-members.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-settlement-members-v1")
+        self.assertIn("members", data)
+        self.assertIsInstance(data["members"], list)
+        # Seeded in db.init_db() so this should exist in a fresh test DB.
+        member_ids = {m.get("member_id") for m in data["members"] if isinstance(m, dict)}
+        self.assertIn("gate", member_ids)
+
+    def test_settlement_windows_endpoint(self):
+        r = self.client.get("/.well-known/settlement-windows.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-settlement-windows-v1")
+        self.assertIn("windows", data)
+        self.assertIsInstance(data["windows"], list)
+
     def test_finality_hash_deterministic(self):
         import settlement as s
 

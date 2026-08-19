@@ -134,6 +134,81 @@ def init_db():
             """
         )
 
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS settlement_members (
+                member_id TEXT PRIMARY KEY,
+                state TEXT NOT NULL DEFAULT 'ACTIVE',
+                risk_limit_cents INTEGER NOT NULL DEFAULT 0,
+                margin_rate_bps INTEGER NOT NULL DEFAULT 500,
+                default_fund_weight INTEGER NOT NULL DEFAULT 1,
+                posted_collateral_cents INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_settlement_members_state ON settlement_members(state);
+
+            -- Optional: store settlement windows so auditors can refer to finality by id.
+            CREATE TABLE IF NOT EXISTS settlement_windows (
+                id TEXT PRIMARY KEY,
+                state TEXT NOT NULL,
+                opened_at TEXT NOT NULL,
+                cutoff_at TEXT,
+                settled_at TEXT,
+                finality_hash TEXT,
+                window_duration_minutes INTEGER NOT NULL DEFAULT 60,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_settlement_windows_opened_at ON settlement_windows(opened_at);
+
+            CREATE TABLE IF NOT EXISTS settlement_net_positions (
+                window_id TEXT NOT NULL,
+                member_id TEXT NOT NULL,
+                asset_class TEXT NOT NULL,
+                gross_pay_cents INTEGER NOT NULL DEFAULT 0,
+                gross_receive_cents INTEGER NOT NULL DEFAULT 0,
+                net_cents INTEGER NOT NULL DEFAULT 0,
+                obligation_count INTEGER NOT NULL DEFAULT 0,
+                settled INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY (window_id, member_id, asset_class),
+                FOREIGN KEY (window_id) REFERENCES settlement_windows(id)
+            );
+
+            CREATE TABLE IF NOT EXISTS settlement_waterfall_steps (
+                window_id TEXT NOT NULL,
+                layer INTEGER NOT NULL,
+                source TEXT NOT NULL,
+                available_cents INTEGER NOT NULL DEFAULT 0,
+                consumed_cents INTEGER NOT NULL DEFAULT 0,
+                remaining_loss_cents INTEGER NOT NULL DEFAULT 0,
+                allocations_json TEXT,
+                PRIMARY KEY (window_id, layer, source),
+                FOREIGN KEY (window_id) REFERENCES settlement_windows(id)
+            );
+            """
+        )
+
+        # Seed a default member so the public registry is never empty.
+        row = conn.execute("SELECT COUNT(*) AS n FROM settlement_members").fetchone()
+        if row and row["n"] == 0:
+            conn.execute(
+                """
+                INSERT INTO settlement_members (
+                    member_id, state, risk_limit_cents, margin_rate_bps,
+                    default_fund_weight, posted_collateral_cents, created_at, updated_at
+                ) VALUES (?, 'ACTIVE', ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    "gate",
+                    0,
+                    500,
+                    1,
+                    0,
+                    utc_now(),
+                    utc_now(),
+                ),
+            )
+
 
 @contextmanager
 def db():
@@ -690,3 +765,32 @@ def list_paid_installs(limit: int = 50):
                ORDER BY created_at DESC LIMIT ?""",
             (limit,),
         ).fetchall()
+
+
+def list_settlement_members(limit: int = 50) -> list[dict]:
+    """Public-ish registry view for settlement risk committee semantics."""
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT member_id, state, risk_limit_cents, margin_rate_bps,
+                      default_fund_weight, posted_collateral_cents,
+                      created_at, updated_at
+               FROM settlement_members
+               ORDER BY created_at DESC
+               LIMIT ?""",
+            (limit,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def list_settlement_windows(limit: int = 20) -> list[dict]:
+    """Settlement windows recorded by the settlement engine (audit trail)."""
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT id, state, opened_at, cutoff_at, settled_at,
+                      finality_hash, window_duration_minutes, created_at
+               FROM settlement_windows
+               ORDER BY opened_at DESC
+               LIMIT ?""",
+            (limit,),
+        ).fetchall()
+    return [dict(r) for r in rows]
