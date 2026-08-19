@@ -321,6 +321,33 @@ def _finality_hash(window: SettlementWindow) -> str:
     return hashlib.sha256(canonical.encode()).hexdigest()
 
 
+def route_obligation_with_schism(
+    *,
+    obligation: Obligation,
+    current_window: SettlementWindow,
+    next_window: SettlementWindow,
+) -> tuple[SettlementWindow, dict | None]:
+    """Accept obligation into current window, or route to next with schism if late."""
+    try:
+        from gate import kappa as kappa_mod
+    except ImportError:
+        import kappa as kappa_mod
+
+    payload = asdict(obligation)
+    schism = kappa_mod.schism_at_cutoff(
+        obligation_id=obligation.id,
+        obligation_at=obligation.created_at,
+        cutoff_at=current_window.cutoff_at or "",
+        would_window_id=current_window.id,
+        actual_window_id=next_window.id,
+    )
+    if schism:
+        next_window.obligations.append(payload)
+        return next_window, schism
+    current_window.obligations.append(payload)
+    return current_window, None
+
+
 # ---------------------------------------------------------------------------
 # Margin / Collateral
 # ---------------------------------------------------------------------------

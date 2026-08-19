@@ -1185,6 +1185,8 @@ def well_known_gate():
             "x402": f"{advertised_url()}/.well-known/x402.json",
             "listings": f"{advertised_url()}/.well-known/listings.json",
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
+            "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
+            "schism": f"{advertised_url()}/.well-known/schism.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1266,6 +1268,27 @@ def well_known_settlement_windows():
             "windows": gate_db.list_settlement_windows(limit=20),
         }
     )
+
+
+@app.route("/.well-known/kappa.json")
+def well_known_kappa():
+    import db as gate_db
+
+    try:
+        from gate import kappa as kappa_mod
+    except ImportError:
+        import kappa as kappa_mod
+    events = gate_db.list_bind_events_chronological(limit=10000)
+    return jsonify(kappa_mod.register_from_events(events, public_url=advertised_url()))
+
+
+@app.route("/.well-known/schism.json")
+def well_known_schism():
+    try:
+        from gate import kappa as kappa_mod
+    except ImportError:
+        import kappa as kappa_mod
+    return jsonify(kappa_mod.schism_manifest(advertised_url()))
 
 
 @app.route("/register")

@@ -1847,6 +1847,107 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(hash1, hash2)
         self.assertEqual(len(hash1), 64)
 
+    def test_kappa_register_conservation(self):
+        import kappa as kappa_mod
+
+        events = [
+            {"decision": "HALT", "acted": False, "created_at": datetime.now(timezone.utc).isoformat()},
+            {"decision": "HALT", "acted": False, "created_at": datetime.now(timezone.utc).isoformat()},
+            {"decision": "ALLOW", "acted": True, "created_at": datetime.now(timezone.utc).isoformat()},
+        ]
+        reg = kappa_mod.register_from_events(events, public_url="https://gate.test")
+        self.assertEqual(reg["spec"], "gate-kappa-register-v1")
+        self.assertTrue(reg["conserved"])
+        self.assertEqual(reg["mass"]["M_cf"], 2)
+        self.assertEqual(reg["mass"]["M_live"], 1)
+        self.assertEqual(reg["mass"]["M_total"], 3)
+        self.assertAlmostEqual(reg["kappa"], 2 / 3, places=5)
+        self.assertIsNotNone(reg["velocity"]["V_hops_per_day"])
+        self.assertIsNotNone(reg["tension"]["tau"])
+
+    def test_schism_at_cutoff(self):
+        import kappa as kappa_mod
+        import settlement as s
+
+        w1 = s.open_window()
+        w2 = s.open_window()
+        cutoff = datetime.fromisoformat(w1.cutoff_at.replace("Z", "+00:00"))
+        opened = datetime.fromisoformat(w1.opened_at.replace("Z", "+00:00"))
+        late = s.Obligation(
+            member_id="M1",
+            gross_cents=100_00,
+            created_at=(cutoff + timedelta(seconds=30)).isoformat(),
+        )
+        routed, schism = s.route_obligation_with_schism(
+            obligation=late,
+            current_window=w1,
+            next_window=w2,
+        )
+        self.assertIsNotNone(schism)
+        self.assertEqual(schism["spec"], "gate-schism-v1")
+        self.assertEqual(schism["timeline_a"]["window_id"], w1.id)
+        self.assertEqual(schism["timeline_b"]["window_id"], w2.id)
+        self.assertEqual(routed.id, w2.id)
+        self.assertEqual(len(w2.obligations), 1)
+
+        on_time = s.Obligation(
+            member_id="M2",
+            gross_cents=50_00,
+            created_at=(opened + timedelta(minutes=1)).isoformat(),
+        )
+        routed2, schism2 = s.route_obligation_with_schism(
+            obligation=on_time,
+            current_window=w1,
+            next_window=w2,
+        )
+        self.assertIsNone(schism2)
+        self.assertEqual(routed2.id, w1.id)
+        self.assertEqual(len(w1.obligations), 1)
+
+        none = kappa_mod.schism_at_cutoff(
+            obligation_id="x",
+            obligation_at=w1.opened_at,
+            cutoff_at=w1.cutoff_at or "",
+            would_window_id=w1.id,
+            actual_window_id=w2.id,
+        )
+        self.assertIsNone(none)
+
+    def test_kappa_well_known_endpoints(self):
+        import db as gate_db
+        import uuid
+
+        email = f"kappa-{uuid.uuid4().hex[:8]}@example.test"
+        aid = gate_db.create_account(email, "hash")
+        gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            decision="HALT",
+            job_id="pc:KAPPA-CF",
+            account_id=aid,
+            acted=False,
+        )
+        gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            decision="ALLOW",
+            job_id="pc:KAPPA-LIVE",
+            account_id=aid,
+            acted=True,
+        )
+
+        r = self.client.get("/.well-known/kappa.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-kappa-register-v1")
+        self.assertTrue(data["conserved"])
+        self.assertGreaterEqual(data["mass"]["M_total"], 2)
+
+        r2 = self.client.get("/.well-known/schism.json")
+        self.assertEqual(r2.status_code, 200)
+        self.assertEqual(r2.get_json()["spec"], "gate-schism-v1")
+
+        gate = self.client.get("/.well-known/gate.json")
+        self.assertIn("kappa_register", gate.get_json())
+
 
 if __name__ == "__main__":
     unittest.main()
