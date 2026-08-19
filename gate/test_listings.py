@@ -1702,6 +1702,31 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(total_consumed, 17_000_000_00)
         self.assertEqual(steps[-1].remaining_loss_cents, 3_000_000_00)
 
+    def test_default_waterfall_pro_rata_allocation_consumes_remaining(self):
+        import settlement as s
+
+        # Supply surviving net exposures so the engine must allocate the remaining loss.
+        surviving = {
+            "M-A": 2_000_000_00,
+            "M-B": 1_000_000_00,
+        }
+        steps = s.run_waterfall(
+            loss_cents=20_000_000_00,
+            defaulter_margin_cents=2_000_000_00,
+            mutualized_fund_cents=10_000_000_00,
+            gate_capital_cents=5_000_000_00,
+            surviving_net_exposures_cents=surviving,
+        )
+
+        self.assertEqual(steps[0].source, "defaulter_margin")
+        self.assertEqual(steps[1].source, "mutualized_fund")
+        self.assertEqual(steps[2].source, "gate_capital")
+        self.assertEqual(steps[-1].source, "loss_allocation_to_surviving_members")
+        self.assertEqual(steps[-1].remaining_loss_cents, 0)
+        self.assertIsInstance(steps[-1].allocations, dict)
+        allocated = sum((steps[-1].allocations or {}).values())
+        self.assertEqual(allocated, 3_000_000_00)
+
     def test_margin_adequacy(self):
         import settlement as s
 
@@ -1750,6 +1775,8 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(data["spec"], "gate-settlement-v1")
         self.assertIn("netting", data["components"])
         self.assertIn("default_waterfall", data["components"])
+        self.assertIn("member_registry", data["components"])
+        self.assertIn("cutoff_schedule", data["components"])
         self.assertIn("margin", data["components"])
         self.assertIn("settlement_windows", data["components"])
         self.assertIn("asset_classes", data["components"])

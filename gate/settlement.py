@@ -91,6 +91,109 @@ class WaterfallStep:
     available_cents: int = 0
     consumed_cents: int = 0
     remaining_loss_cents: int = 0
+    # Only populated for the final "loss_allocation_to_surviving_members" step.
+    # Keys are member_ids, values are allocated cents.
+    allocations: dict[str, int] | None = None
+
+
+@dataclass
+class MemberProfile:
+    """Member risk profile (DTCC-style: limits + suspension/default states)."""
+
+    member_id: str
+    state: str = MemberState.ACTIVE.value
+    # Maximum allowed gross exposure for participation in a settlement window.
+    risk_limit_cents: int = 0
+    # Margin rate used to compute required collateral.
+    # Keep this constant inline so module import order doesn't matter.
+    margin_rate_bps: int = 500  # 5% default
+    # Mutualized default-fund contribution weight (relative, not necessarily cents).
+    default_fund_weight: int = 1
+
+
+@dataclass
+class CutoffSchedule:
+    """Settlement cutoff scheduling semantics (T+0 intraday)."""
+
+    window_duration_minutes: int = WINDOW_DURATION_MINUTES if "WINDOW_DURATION_MINUTES" in globals() else 60
+    # Finality hash is stamped after state transitions to SETTLED/DEFAULTED.
+    finality_hash_at: str = "settled_at"
+    # Window ordering phases within a single cycle.
+    phases: dict[str, str] = field(
+        default_factory=lambda: {
+            "OPEN": "accept obligations until cutoff_at",
+            "NETTING": "collapse to net positions + compute margin snapshot",
+            "SETTLED/DEFAULTED": "stamp finality hash and freeze exports",
+        }
+    )
+
+
+def member_registry_manifest() -> dict:
+    """Public architecture manifest for member/risk registry semantics."""
+    return {
+        "spec": "gate-member-registry-v1",
+        "member_states": [s.value for s in MemberState],
+        "risk_limit_basis": "max gross exposure (cents) allowed in a settlement window",
+        "margin": {
+            "rate_bps_default": DEFAULT_MARGIN_BPS,
+            "trigger": "insufficient posted collateral => suspension => default waterfall",
+        },
+        "default_fund": {
+            "contribution_model": "mutualized default fund via relative weights (implemented as constants in this MVP)",
+            "gate_skin_in_game": GATE_CAPITAL_CENTS,
+        },
+        "their_production": False,
+    }
+
+
+def cutoff_schedule_manifest() -> dict:
+    return {
+        "spec": "gate-cutoff-schedule-v1",
+        "window_duration_minutes": WINDOW_DURATION_MINUTES,
+        "cutoff_semantics": {
+            "cutoff_at": "opened_at + window_duration_minutes",
+            "finality_hash": "SHA-256 over settled window state, stamped at settled_at",
+        },
+        "phases": {
+            "OPEN": "accept obligations until cutoff_at",
+            "NETTING": "compute net positions + margin snapshot",
+            "SETTLED/DEFAULTED": "freeze and export compliance artifacts",
+        },
+        "their_production": False,
+    }
+
+
+def pro_rata_allocate(loss_cents: int, net_exposures_cents: dict[str, int]) -> dict[str, int]:
+    """Pro-rata integer allocation of a loss across surviving members.
+
+    - shares are floored deterministically
+    - remainder cents are distributed to the highest exposures (then member_id tie-break)
+    """
+    total = sum(max(0, int(v)) for v in (net_exposures_cents or {}).values())
+    if loss_cents <= 0 or total <= 0:
+        return {}
+
+    raw: dict[str, int] = {}
+    allocated = 0
+    for member_id, exposure in sorted(net_exposures_cents.items(), key=lambda kv: (-kv[1], kv[0])):
+        if exposure <= 0:
+            continue
+        share = (loss_cents * exposure) // total
+        raw[member_id] = share
+        allocated += share
+
+    remainder = loss_cents - allocated
+    if remainder > 0:
+        # Give remaining cents to highest-exposure members first.
+        ordered = [m for m, _ in sorted(net_exposures_cents.items(), key=lambda kv: (-kv[1], kv[0])) if net_exposures_cents.get(m, 0) > 0]
+        for i in range(remainder):
+            if not ordered:
+                break
+            raw[ordered[i % len(ordered)]] = raw.get(ordered[i % len(ordered)], 0) + 1
+
+    # Final normalization: ensure exact sum if possible.
+    # (If exposures had all <=0, we'd have returned {} earlier.)
+    return raw
 
 
 @dataclass
@@ -185,10 +288,19 @@ def close_window(window: SettlementWindow) -> SettlementWindow:
     if defaulted:
         window.state = SettlementState.DEFAULTED.value
         total_loss = sum(m.required_collateral_cents - m.posted_collateral_cents for m in defaulted)
-        window.waterfall = [asdict(s) for s in run_waterfall(
+        # Loss allocation is by surviving members' *net* exposure.
+        surviving_exposures: dict[str, int] = {}
+        for p in positions:
+            if p.member_id in window.defaulted_members:
+                continue
+            surviving_exposures[p.member_id] = surviving_exposures.get(p.member_id, 0) + abs(int(p.net_cents))
+
+        waterfall_steps = run_waterfall(
             loss_cents=total_loss,
             defaulter_margin_cents=sum(m.posted_collateral_cents for m in defaulted),
-        )]
+            surviving_net_exposures_cents=surviving_exposures,
+        )
+        window.waterfall = [asdict(s) for s in waterfall_steps]
     else:
         for p_dict in window.net_positions:
             p_dict["settled"] = True
@@ -250,6 +362,7 @@ def run_waterfall(
     defaulter_margin_cents: int = 0,
     mutualized_fund_cents: int = MUTUALIZED_FUND_CENTS,
     gate_capital_cents: int = GATE_CAPITAL_CENTS,
+    surviving_net_exposures_cents: dict[str, int] | None = None,
 ) -> list[WaterfallStep]:
     """DTCC-shaped default waterfall: defaulter margin → mutualized fund → Gate capital → loss allocation.
 
@@ -276,13 +389,21 @@ def run_waterfall(
         ))
 
     if remaining > 0:
-        steps.append(WaterfallStep(
-            layer=len(layers) + 1,
-            source="loss_allocation_to_surviving_members",
-            available_cents=0,
-            consumed_cents=0,
-            remaining_loss_cents=remaining,
-        ))
+        allocations = pro_rata_allocate(remaining, surviving_net_exposures_cents or {})
+        allocated_sum = sum(allocations.values())
+        # If there are no surviving exposures, Gate cannot allocate further.
+        remaining_after = remaining - allocated_sum
+
+        steps.append(
+            WaterfallStep(
+                layer=len(layers) + 1,
+                source="loss_allocation_to_surviving_members",
+                available_cents=allocated_sum,
+                consumed_cents=allocated_sum,
+                remaining_loss_cents=max(0, remaining_after),
+                allocations=allocations or None,
+            )
+        )
 
     return steps
 
@@ -326,6 +447,8 @@ def spec(public_url: str) -> dict:
         "name": "Gate Settlement Engine",
         "architecture": "DTCC-shaped: netting + settlement windows + default waterfall + margin + multi-asset",
         "components": {
+            "member_registry": member_registry_manifest(),
+            "cutoff_schedule": cutoff_schedule_manifest(),
             "netting": {
                 "spec": NETTING_SPEC,
                 "what": "Collapse gross obligations into net positions per member per asset class",
@@ -342,7 +465,7 @@ def spec(public_url: str) -> dict:
                     "1. Defaulter's posted margin",
                     "2. Mutualized default fund (all members contribute)",
                     "3. Gate (Nisaba) skin-in-the-game capital",
-                    "4. Loss allocation to surviving members (last resort)",
+                    "4. Pro-rata loss allocation to surviving members by net exposure (last resort)",
                 ],
                 "mutualized_fund_cents": MUTUALIZED_FUND_CENTS,
                 "gate_capital_cents": GATE_CAPITAL_CENTS,
