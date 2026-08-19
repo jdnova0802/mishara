@@ -1,7 +1,9 @@
 # Opportunity map — paste the right URL per human
 
-Hub: **`/start`** — all 14 doors  
+Hub: **`/start`** — all 15 doors  
 Manifest: **`/.well-known/opportunities.json`** — programmatic discovery
+
+Money door (paste this first): **`/operator`** — $25,000 weld + $5,000/mo floor.
 
 Replace `YOUR_GATE_URL` with your live Gate deploy.
 
@@ -11,6 +13,7 @@ Replace `YOUR_GATE_URL` with your live Gate deploy.
 
 | Who you're talking to | Paste this | They see |
 |----------------------|------------|----------|
+| Payout / licensed iGaming / creator withdraw | `/operator` | $25k weld · $5k/mo floor · max(floor, 10 bps, $0.10/hop) |
 | Dev / HN / API person | `/for/developers` | Free API key, curls, docs |
 | MCP / agent builder | `/for/agents` | Kill switch, gate.json, hop |
 | Startup founder | `/for/startups` | $2,500 48hr install |
@@ -35,13 +38,13 @@ Every path also works at `/pitch/<slug>` (redirects to `/for/<slug>`).
 Examples:
 - `YOUR_GATE_URL/pitch/legal`
 - `YOUR_GATE_URL/pitch/carriers`
-- `YOUR_GATE_URL/pitch/startups`
+- `YOUR_GATE_URL/pitch/operators`
 
 ---
 
 ## Email subject lines (pre-filled mailto on several plates)
 
-- Legal: `Bind Room — Legal`
+- Operator: `Operator weld — $25,000`
 - Enterprise: `Enterprise — Org reactor`
 - Defense: `Defense — Agent fuse`
 - Broker: `Broker renewal rail`

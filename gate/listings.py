@@ -127,6 +127,16 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "appendix": f"{public_url}/bind-room/appendix.schema.json",
             "price": "$1,750",
         },
+        "operator_invoice": {
+            "page": f"{public_url}/operator",
+            "manifest": f"{public_url}/.well-known/operator.json",
+            "listing": f"{public_url}/listings/operator.json",
+            "weld": "$25,000",
+            "floor": "$5,000/mo",
+            "formula": "max($5,000 floor, 10 bps of cleared flow, $0.10/hop)",
+            "one_write_per_weld": True,
+            "licensed_only": True,
+        },
         "liturgy": {
             "stranger_mass": {
                 "page": f"{public_url}/mass",
@@ -184,6 +194,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "L12 / admin CHARGE / Google-Palantir partnerships",
             "price $0",
             "filing Gate as a rating/UW model",
+            "unlicensed / offshore gambling as a customer",
         ],
     }
 
