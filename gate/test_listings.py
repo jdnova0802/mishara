@@ -704,6 +704,40 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("receipt_signature", payload)
         self.assertIn("prev_receipt_hash", payload)
 
+    def test_evidence_packet_bundle_endpoint(self):
+        # Create at least one bind event via the demo Pre-Bind door.
+        r = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-EVIDENCE-PACKET"},
+        )
+        self.assertEqual(r.status_code, 200)
+
+        import db as gate_db
+
+        latest = gate_db.list_bind_events(None, limit=1)[0]
+        event_id = latest["id"]
+        self.assertIsNotNone(latest.get("receipt_hash"))
+
+        spec_url = f"/.well-known/evidence-packet/{event_id}.json"
+        r2 = self.client.get(spec_url)
+        self.assertEqual(r2.status_code, 200)
+        body = r2.get_json()
+
+        self.assertEqual(body["spec"], "gate-evidence-packet-v1")
+        self.assertEqual(body["event_id"], event_id)
+
+        self.assertIn("receipt", body)
+        self.assertEqual(body["receipt"]["event_id"], event_id)
+        self.assertEqual(body["receipt"]["receipt_hash"], latest["receipt_hash"])
+
+        self.assertIn("receipt_inclusion_proof", body)
+        self.assertEqual(body["receipt_inclusion_proof"]["spec"], "gate-evidence-proof-v1")
+        self.assertEqual(body["receipt_inclusion_proof"]["event_id"], event_id)
+        self.assertEqual(
+            body["receipt_inclusion_proof"]["receipt_hash"],
+            latest["receipt_hash"],
+        )
+
     def test_counterfactual_spend_on_halt_receipt(self):
         dead = {
             "ok": True,

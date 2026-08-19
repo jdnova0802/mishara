@@ -1361,6 +1361,53 @@ def well_known_receipt_proof(event_id: str):
     return jsonify(bundle)
 
 
+@app.route("/.well-known/evidence-packet/<event_id>.json")
+def well_known_evidence_packet(event_id: str):
+    """Operator/Risk-committee convenience: one object with receipt + inclusion proof.
+
+    This is intentionally public (no PII) and is meant to be a single "evidence download"
+    for each bind event id.
+    """
+    try:
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import evidence_log as evidence_log_mod
+
+    try:
+        from gate import receipt as receipt_mod
+    except ImportError:
+        import receipt as receipt_mod
+
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+
+    rows = db.list_bind_events_chronological()
+    bundle = evidence_log_mod.proof_bundle(rows, event_id)
+    if not bundle:
+        abort(404)
+
+    receipt_payload = receipt_mod.receipt_to_public_payload(
+        receipt_row=row, public_url=advertised_url()
+    )
+
+    return jsonify(
+        {
+            "spec": "gate-evidence-packet-v1",
+            "event_id": event_id,
+            "their_production": False,
+            "evidence_head": bundle.get("tree_head"),
+            "receipt": receipt_payload,
+            "receipt_inclusion_proof": bundle,
+            "urls": {
+                "receipt": f"{advertised_url()}/.well-known/receipt/{event_id}.json",
+                "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{event_id}/proof.json",
+                "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
+            },
+        }
+    )
+
+
 @app.route("/.well-known/evidence-head.json")
 def well_known_evidence_head():
     try:
