@@ -1233,6 +1233,15 @@ def well_known_register():
     return jsonify(register_mod.manifest(advertised_url(), CONTACT_EMAIL))
 
 
+@app.route("/.well-known/settlement.json")
+def well_known_settlement():
+    try:
+        from gate import settlement as settlement_mod
+    except ImportError:
+        import settlement as settlement_mod
+    return jsonify(settlement_mod.spec(advertised_url()))
+
+
 @app.route("/register")
 def register_page():
     return render_template(

@@ -7,6 +7,7 @@ import sys
 import tempfile
 import unittest
 import base64
+from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
 from unittest import mock
 
@@ -1635,6 +1636,138 @@ class LicenseFuseTests(unittest.TestCase):
         )
         self.assertEqual(r.status_code, 400)
         self.assertEqual(r.get_json()["error"]["code"], "no_pii")
+
+
+class SettlementEngineTests(unittest.TestCase):
+    """DTCC-shaped settlement: netting, windows, waterfall, margin, reporting."""
+
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_netting_collapses_gross_to_net(self):
+        import settlement as s
+
+        obligations = [
+            s.Obligation(member_id="A", counterparty_id="B", gross_cents=1_000_000, direction="pay", asset_class="withdraw"),
+            s.Obligation(member_id="A", counterparty_id="C", gross_cents=500_000, direction="receive", asset_class="withdraw"),
+            s.Obligation(member_id="B", counterparty_id="A", gross_cents=700_000, direction="pay", asset_class="withdraw"),
+            s.Obligation(member_id="B", counterparty_id="C", gross_cents=300_000, direction="receive", asset_class="withdraw"),
+        ]
+        positions = s.compute_net_positions(obligations)
+        self.assertGreater(len(positions), 0)
+        a_pos = next(p for p in positions if p.member_id == "A")
+        self.assertEqual(a_pos.gross_pay_cents, 1_000_000)
+        self.assertEqual(a_pos.gross_receive_cents, 500_000)
+        self.assertEqual(a_pos.net_cents, 500_000)
+
+        ratio = s.netting_ratio(positions)
+        self.assertEqual(ratio["spec"], "gate-netting-v1")
+        self.assertGreater(ratio["reduction_ratio"], 0)
+        self.assertLessEqual(ratio["reduction_ratio"], 1.0)
+
+    def test_settlement_window_lifecycle(self):
+        import settlement as s
+
+        window = s.open_window()
+        self.assertEqual(window.state, "OPEN")
+        self.assertIsNotNone(window.cutoff_at)
+
+        window.obligations = [
+            asdict(s.Obligation(member_id="X", counterparty_id="Y", gross_cents=100_000, direction="pay")),
+            asdict(s.Obligation(member_id="Y", counterparty_id="X", gross_cents=80_000, direction="pay")),
+        ]
+        closed = s.close_window(window)
+        self.assertIn(closed.state, ("SETTLED", "DEFAULTED"))
+        self.assertIsNotNone(closed.finality_hash)
+        self.assertGreater(len(closed.net_positions), 0)
+
+    def test_default_waterfall_layers(self):
+        import settlement as s
+
+        steps = s.run_waterfall(
+            loss_cents=20_000_000_00,
+            defaulter_margin_cents=2_000_000_00,
+            mutualized_fund_cents=10_000_000_00,
+            gate_capital_cents=5_000_000_00,
+        )
+        self.assertEqual(steps[0].source, "defaulter_margin")
+        self.assertEqual(steps[0].consumed_cents, 2_000_000_00)
+        self.assertEqual(steps[1].source, "mutualized_fund")
+        self.assertGreater(steps[1].consumed_cents, 0)
+        self.assertEqual(steps[2].source, "gate_capital")
+        total_consumed = sum(st.consumed_cents for st in steps if st.source != "loss_allocation_to_surviving_members")
+        self.assertEqual(total_consumed, 17_000_000_00)
+        self.assertEqual(steps[-1].remaining_loss_cents, 3_000_000_00)
+
+    def test_margin_adequacy(self):
+        import settlement as s
+
+        obs = [s.Obligation(member_id="M1", gross_cents=10_000_000)]
+        adequate = s.compute_margin(ob_list=obs, member_id="M1", posted_cents=600_000)
+        self.assertTrue(adequate.adequate)
+
+        inadequate = s.compute_margin(ob_list=obs, member_id="M1", posted_cents=100_000)
+        self.assertFalse(inadequate.adequate)
+
+    def test_multi_asset_class_netting(self):
+        import settlement as s
+
+        obligations = [
+            s.Obligation(member_id="A", gross_cents=500_000, direction="pay", asset_class="withdraw"),
+            s.Obligation(member_id="A", gross_cents=300_000, direction="pay", asset_class="bind_only"),
+            s.Obligation(member_id="A", gross_cents=200_000, direction="receive", asset_class="withdraw"),
+        ]
+        positions = s.compute_net_positions(obligations)
+        withdraw_pos = next(p for p in positions if p.asset_class == "withdraw")
+        bind_pos = next(p for p in positions if p.asset_class == "bind_only")
+        self.assertEqual(withdraw_pos.net_cents, 300_000)
+        self.assertEqual(bind_pos.net_cents, 300_000)
+
+    def test_regulatory_report_structure(self):
+        import settlement as s
+
+        window = s.open_window()
+        window.obligations = [
+            asdict(s.Obligation(member_id="R1", gross_cents=1_000_000, direction="pay", asset_class="withdraw")),
+            asdict(s.Obligation(member_id="R1", gross_cents=500_000, direction="pay", asset_class="payout")),
+        ]
+        s.close_window(window)
+        report = s.regulatory_report(window)
+        self.assertEqual(report["spec"], "gate-regulatory-report-v1")
+        self.assertEqual(report["obligation_count"], 2)
+        self.assertIn("withdraw", report["gross_by_asset_class_cents"])
+        self.assertIn("payout", report["gross_by_asset_class_cents"])
+        self.assertIsNotNone(report["finality_hash"])
+        self.assertFalse(report["their_production"])
+
+    def test_settlement_well_known_endpoint(self):
+        r = self.client.get("/.well-known/settlement.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-settlement-v1")
+        self.assertIn("netting", data["components"])
+        self.assertIn("default_waterfall", data["components"])
+        self.assertIn("margin", data["components"])
+        self.assertIn("settlement_windows", data["components"])
+        self.assertIn("asset_classes", data["components"])
+        self.assertIn("regulatory_reporting", data["components"])
+        self.assertTrue(data["fail_closed"])
+
+    def test_finality_hash_deterministic(self):
+        import settlement as s
+
+        window = s.open_window()
+        window.obligations = [
+            asdict(s.Obligation(member_id="D", gross_cents=50_000, direction="pay")),
+        ]
+        s.close_window(window)
+        hash1 = window.finality_hash
+        hash2 = s._finality_hash(window)
+        self.assertEqual(hash1, hash2)
+        self.assertEqual(len(hash1), 64)
 
 
 if __name__ == "__main__":
