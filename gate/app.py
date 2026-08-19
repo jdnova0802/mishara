@@ -1944,35 +1944,37 @@ def operator_page():
 def operator_checkout():
     email = (request.form.get("email") or "").strip()
     write_kind = (request.form.get("write") or "").strip()
-    include_floor = (request.form.get("include_floor") or "0").strip() == "1"
+    include_floor = (request.form.get("include_floor") or "1").strip() == "1"
     if not EMAIL_RE.match(email):
         flash("Enter a valid work email.", "error")
         return redirect(url_for("operator_page"))
     if write_kind not in OPERATOR_WRITES:
         flash("Pick one write: withdraw or bind-only.", "error")
         return redirect(url_for("operator_page"))
-    if include_floor and not (STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE):
-        flash("Floor checkout is not configured. Pay the weld, then email for the floor.", "error")
-        include_floor = False
-    product = "operator_weld_floor" if include_floor else "operator_weld"
-    amount = WELD_PRICE_CENTS + (FLOOR_PRICE_CENTS if include_floor else 0)
+    if not include_floor:
+        flash("Weld requires the management leg (per-mouth rent). See the register.", "error")
+        return redirect(url_for("operator_page"))
+    if not (STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE):
+        flash("Management checkout is not configured yet. Email us — weld requires per-mouth rent.", "error")
+        return redirect(url_for("operator_page"))
+    product = "operator_weld_floor"
+    amount = WELD_PRICE_CENTS + FLOOR_PRICE_CENTS
     if GATE_DEV_MODE:
         fake_session = f"dev_{uuid.uuid4().hex}"
         db.create_install_order(email, fake_session, amount, product=product)
         db.mark_install_paid(fake_session)
         notify.money(
             "Operator booked (dev)",
-            f"{email} {product} write={write_kind} {WELD_PRICE_LABEL}"
-            + (f" + {FLOOR_PRICE_LABEL}" if include_floor else ""),
+            f"{email} {product} write={write_kind} {WELD_PRICE_LABEL} + {FLOOR_PRICE_LABEL} management",
             {"email": email, "write": write_kind, "session": fake_session},
         )
         return redirect(url_for("install_success", session_id=fake_session))
     if not _operator_stripe_ready():
         flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Operator weld.", "error")
         return redirect(url_for("operator_page"))
-    line_items = [{"price": STRIPE_WELD_PRICE_ID, "quantity": 1}]
+    line_items = [{"price": STRIPE_WELD_PRICE_ID, "quantity": 1}, {"price": STRIPE_FLOOR_PRICE_ID, "quantity": 1}]
     session_kwargs = {
-        "mode": "payment",
+        "mode": "subscription",
         "customer_email": email,
         "line_items": line_items,
         "success_url": f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
@@ -1982,17 +1984,14 @@ def operator_checkout():
             "contact_email": email,
             "write": write_kind,
         },
-    }
-    if include_floor:
-        line_items.append({"price": STRIPE_FLOOR_PRICE_ID, "quantity": 1})
-        session_kwargs["mode"] = "subscription"
-        session_kwargs["subscription_data"] = {
+        "subscription_data": {
             "metadata": {
                 "product": "operator_floor",
                 "contact_email": email,
                 "write": write_kind,
             }
-        }
+        },
+    }
     checkout = stripe.checkout.Session.create(**session_kwargs)
     db.create_install_order(email, checkout.id, amount, product=product)
     return redirect(checkout.url, code=303)

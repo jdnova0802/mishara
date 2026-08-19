@@ -1,66 +1,50 @@
 {% extends "base.html" %}
-{% block title %}Operator weld{% endblock %}
+{% block title %}Weld the door{% endblock %}
 {% block meta %}
-<meta name="description" content="The only door on one irreversible write. Then 10 bps of what clears. {{ weld_price }} to sit down. {{ floor_price }} quiet-door minimum.">
+<meta name="description" content="Weld one production write + management leg. {{ weld_price }} + {{ floor_price }} per mouth. Then 10 bps + carry on cleared flow.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Operator</p>
-  <h1>The only door. Then 10 bps.</h1>
-  <p class="audience-sub">We sit in front of <strong>one</strong> step that cannot be undone — withdraw or bind-only. You cannot go around us. We take <strong>10 bps</strong> of what clears through that door. Volume is the check. Licensed operators and carriers only.</p>
-  <div class="install-price">{{ weld_price }} <span>to weld the door · one write · 48hr</span></div>
-  <p style="color: var(--muted); margin: 0.35rem 0 1.5rem;">A quiet door still pays {{ floor_price }} so this is not a hobby. That minimum is not the product.</p>
+  <p class="audience-tag">Checkout</p>
+  <h1>Weld + management. Then flow.</h1>
+  <p class="audience-sub">One irreversible write — withdraw or bind-only. <strong>{{ weld_price }}</strong> to weld. <strong>{{ floor_price }}</strong> per mouth per month (management leg). Then <strong>10 bps</strong> on cleared + <strong>+5 bps</strong> above $500M/mo hurdle. Licensed operators only. No weld without management.</p>
+  <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }}/mo per mouth</span></div>
 
   <div class="grid-3">
     <div class="card">
-      <h3>Default</h3>
+      <h3>Weld</h3>
       <ul class="check-list">
         <li>One production path, fail-closed</li>
         <li>Ticket married to that write</li>
-        <li>DEAD / timeout → the money does not move</li>
-        <li>Parent license dies → children cannot spend</li>
+        <li>Parent license fuse available</li>
+        <li>48hr delivery</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Bps × volume</h3>
+      <h3>Management</h3>
       <ul class="check-list">
-        <li>10 bps of cleared flow</li>
-        <li>$0.10 per hop if hops win</li>
-        <li>You pay whichever is highest vs the minimum</li>
-        <li>Extra socket = another {{ weld_price }}</li>
+        <li>{{ floor_price }} / welded write / mo</li>
+        <li>{{ floor_price }} / LIVE parent / mo</li>
+        <li>Fund 2%-analog — rent the mouth</li>
+        <li>Required at checkout</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Not in scope</h3>
-      <ul class="check-list muted-list">
-        <li>Unlicensed / offshore gambling</li>
-        <li>Two writes in one weld</li>
-        <li>We do not move the money</li>
-        <li>Demo hops are not production</li>
+      <h3>Flow register</h3>
+      <ul class="check-list">
+        <li>10 bps cleared</li>
+        <li>+5 bps above $500M/mo</li>
+        <li>$0.10/hop if hops win</li>
+        <li>Stacks with management</li>
       </ul>
     </div>
-  </div>
-
-  <div class="card">
-    <h2>What the year looks like</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">10 bps of what actually goes through the door. Not a forecast. A quiet door still pays {{ floor_price }} ($60,000/year) so a toy cannot rent it.</p>
-    <pre>10 bps of the only door
-
-$100M through it   →  $100,000/year
-$1B                →  $1,000,000/year
-$10B               →  $10,000,000/year
-$100B              →  $100,000,000/year
-
-Quiet month        →  {{ floor_price }}  (the minimum, not the prize)
-Second write later →  another {{ weld_price }}</pre>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> — the contract object, including the $1T row. Agent path at $2,500 is still <a href="{{ url_for('install') }}">/install</a>.</p>
   </div>
 
   <div class="card install-checkout-card">
-    <h2>Pay → the door is ours</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Pick the write. Pay the weld and start the minimum so month 1 cannot be $0. Then 10 bps of whatever clears.</p>
+    <h2>Pay → mouth goes live</h2>
     {% if stripe_operator %}
     <form method="post" action="{{ url_for('operator_checkout') }}" class="install-form">
+      <input type="hidden" name="include_floor" value="1">
       <div class="form-group">
         <label for="email">Work email</label>
         <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
@@ -72,19 +56,12 @@ Second write later →  another {{ weld_price }}</pre>
           <option value="bind_only">Bind-only — policy becomes Bound</option>
         </select>
       </div>
-      <div class="hero-actions" style="justify-content: flex-start; margin-top: 0.5rem;">
-        {% if stripe_floor %}
-        <button type="submit" name="include_floor" value="1" class="btn btn-primary btn-lg">Pay {{ weld_price }} + start 10 bps / {{ floor_price }} min</button>
-        <button type="submit" name="include_floor" value="0" class="btn btn-ghost">Weld without the minimum</button>
-        {% else %}
-        <button type="submit" name="include_floor" value="0" class="btn btn-primary btn-lg">Pay {{ weld_price }} weld</button>
-        {% endif %}
-      </div>
-      <p class="fine-print">Non-refundable weld. Minimum is monthly until cancelled. Unlicensed gambling and anything illegal = void, no refund. One write. Fuse_id + job_id only — no PII.</p>
+      <button type="submit" class="btn btn-primary btn-lg">Pay {{ weld_price }} + start {{ floor_price }} management</button>
+      <p class="fine-print">Non-refundable weld. Management is monthly until cancelled. Unlicensed gambling = void. One write. fuse_id + job_id only — no PII. <a href="{{ url_for('register_page') }}">The register</a> · <a href="{{ url_for('well_known_operator') }}">operator.json</a></p>
     </form>
     {% else %}
-    <p>Checkout is not wired yet. Email <a href="mailto:{{ contact_email }}?subject=Operator%20weld%20%E2%80%94%20only%20door%20x%2010%20bps">{{ contact_email }}</a> with subject <strong>Operator weld</strong> and which write (withdraw or bind-only).</p>
-    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Operator%20weld%20%E2%80%94%20only%20door%20x%2010%20bps">Email {{ weld_price }}</a>
+    <p>Checkout is not wired yet. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld%20%2B%20management">{{ contact_email }}</a> — weld + management, which write.</p>
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Gate%20weld%20%2B%20management">Email weld + management</a>
     {% endif %}
   </div>
 </div>

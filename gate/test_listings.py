@@ -243,7 +243,8 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("href=\"/uplink\"", home)
         self.assertIn(">Uplink</a>", home)
         self.assertIn("href=\"/operator\"", home)
-        self.assertIn(">Operator</a>", home)
+        self.assertIn(">Register</a>", home)
+        self.assertIn(">Weld</a>", home)
         for path in (
             "/",
             "/start",
@@ -258,6 +259,7 @@ class FlaskListingTests(unittest.TestCase):
             "/login",
             "/pricing",
             "/install",
+            "/register",
             "/operator",
             "/bind-room",
             "/for/operators",
@@ -1233,6 +1235,31 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(billed["billed_cents"], 2_000_000)
         self.assertEqual(billed["winner"], "per_hop")
 
+    def test_fund_style_register_stacks_management_and_flow(self):
+        import operator_invoice as oi
+
+        reg = oi.register_invoice(
+            cleared_cents=100_000_000_000,
+            hop_count=1_000,
+            welded_writes=10,
+            live_parents=25,
+        )
+        self.assertEqual(reg["management"]["total_cents"], 175_000_00)  # 35 * $5k
+        self.assertGreater(reg["flow"]["billed_cents"], 0)
+        self.assertEqual(
+            reg["total_cents"],
+            reg["management"]["total_cents"] + reg["flow"]["billed_cents"],
+        )
+
+    def test_carry_above_hurdle(self):
+        import operator_invoice as oi
+
+        below = oi.flow_register(cleared_cents=10_000_000_000)  # $100M
+        above = oi.flow_register(cleared_cents=100_000_000_000)  # $1B
+        self.assertEqual(below["carry_cents"], 0)
+        self.assertGreater(above["carry_cents"], 0)
+        self.assertGreater(above["billed_cents"], below["billed_cents"])
+
     def test_manifest_is_one_write_licensed(self):
         import operator_invoice as oi
 
@@ -1241,7 +1268,10 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertTrue(m["licensed_only"])
         self.assertTrue(m["not_a_new_engine"])
         self.assertEqual(m["skus"]["weld"]["amount_cents"], 2_500_000)
-        self.assertEqual(m["skus"]["floor"]["amount_cents"], 500_000)
+        self.assertEqual(m["skus"]["floor_per_mouth"]["amount_cents"], 500_000)
+        self.assertTrue(m["not_saas"])
+        self.assertIn("register_fees", m)
+        self.assertIn("potential", m["register_fees"])
         self.assertIn("year", m["invoice"])
         self.assertEqual(m["invoice"]["year"][-1]["through"], "$1T")
         ids = {w["id"] for w in m["writes"]}
@@ -1253,6 +1283,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         body = page.get_data(as_text=True)
         self.assertIn("$25,000", body)
         self.assertIn("$5,000/mo", body)
+        self.assertIn("management", body.lower())
+        self.assertNotIn("Weld without the minimum", body)
         self.assertIn("Unlicensed", body)
         spec = self.client.get("/.well-known/operator.json")
         self.assertEqual(spec.status_code, 200)
@@ -1269,7 +1301,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(page.status_code, 200)
         body = page.get_data(as_text=True)
         self.assertIn("Not SaaS", body)
-        self.assertIn("The mouth", body)
+        self.assertIn("mouth", body.lower())
         self.assertIn("$1,000,000,000", body)
         spec = self.client.get("/.well-known/register.json")
         self.assertEqual(spec.status_code, 200)
@@ -1277,9 +1309,14 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(data["spec"], "gate-register-v1")
         self.assertFalse(data["their_production"])
         self.assertIn("SaaS", data["not"])
-        self.assertEqual(data["scale"]["year"][-1]["through"], "$1T")
+        self.assertIn("register_fees", data)
+        self.assertIn("civilization", data)
+        self.assertIn("potential", data["scale"])
         m = register_mod.manifest("https://example.test", "hello@velaru.xyz")
-        self.assertEqual(m["equations"]["bps"], 10)
+        self.assertIn("civilization", m)
+        self.assertIn("management", m["equations"])
+        self.assertIn("10 bps", m["equations"]["flow"])
+        self.assertEqual(m["scale"]["potential"]["mouths"]["welded_writes"], 100)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
