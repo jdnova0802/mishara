@@ -71,6 +71,15 @@ export default {
         action,
         method: request.method,
         path: url.pathname,
+        ...(env.LICENSE_ID ? { license_id: env.LICENSE_ID } : {}),
+        ...(env.COUNTERPART_ID
+          ? {
+              counterpart_id: env.COUNTERPART_ID,
+              ...(env.COUNTERPART_KIND ? { counterpart_kind: env.COUNTERPART_KIND } : {}),
+              ...(env.COUNTERPART_PATH ? { counterpart_path: env.COUNTERPART_PATH } : {}),
+              ...(env.COUNTERPART_METHOD ? { counterpart_method: env.COUNTERPART_METHOD } : {}),
+            }
+          : {}),
       }),
     });
     const body = await hop.json().catch(() => ({ halt: true, allow_bind: false }));
@@ -101,6 +110,15 @@ export default {
         path: url.pathname,
         spend_fingerprint: ticket.spend_fingerprint,
         now: new Date().toISOString(),
+        ...(env.LICENSE_ID ? { license_id: env.LICENSE_ID } : {}),
+        ...(env.COUNTERPART_ID
+          ? {
+              counterpart_id: env.COUNTERPART_ID,
+              ...(env.COUNTERPART_KIND ? { counterpart_kind: env.COUNTERPART_KIND } : {}),
+              ...(env.COUNTERPART_PATH ? { counterpart_path: env.COUNTERPART_PATH } : {}),
+              ...(env.COUNTERPART_METHOD ? { counterpart_method: env.COUNTERPART_METHOD } : {}),
+            }
+          : {}),
       }),
     });
     const redeemed = await redeem.json().catch(() => ({ ok: false, halt: true }));

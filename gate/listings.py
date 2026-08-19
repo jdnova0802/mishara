@@ -107,6 +107,8 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
             "exclusion": f"{public_url}/.well-known/exclusion.json?job_id={{job_id}}",
             "epoch": "Latest HALT/BLOCK for a job stays HALT until charge_id.",
+            "license_fuse": f"{public_url}/.well-known/license-fuse.json",
+            "restraint": f"{public_url}/.well-known/restraint.json",
         },
         "spend_protocol": {
             "page": f"{public_url}/scanner",
@@ -120,6 +122,24 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "question": "May this CLTU still be radiated, for this vehicle, in this now?",
             "now_required": True,
             "radiation_abort_does_not_consume": True,
+        },
+        "license_fuse": {
+            "manifest": f"{public_url}/.well-known/license-fuse.json",
+            "pas_key": "license_id",
+            "not": "license_number",
+            "children_cannot_outlive_parent": True,
+            "resurrection": "CHARGE only",
+            "omit": "No license_id → current scanner behavior.",
+            "charge": f"{public_url}/v1/pas/licenses/{{license_id}}/charge",
+        },
+        "counterpart": {
+            "optional": True,
+            "not_a_second_write": True,
+            "keys": ["counterpart_id", "counterpart_kind", "counterpart_path", "counterpart_method"],
+        },
+        "restraint": {
+            "manifest": f"{public_url}/.well-known/restraint.json",
+            "what": "Nos this mouth printed. Production HALT/BLOCK. No PII. Not demo.",
         },
         "bind_room": {
             "url": f"{public_url}/bind-room",

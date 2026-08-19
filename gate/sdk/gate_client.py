@@ -103,6 +103,19 @@ class GateClient:
             body["spend_fingerprint"] = spend_fingerprint
         return self._request("POST", "/v1/pas/bind-ticket/redeem", json=body)
 
+    def license_charge(self, license_id: str, charge_id: str) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            f"/v1/pas/licenses/{license_id}/charge",
+            json={"charge_id": charge_id},
+        )
+
+    def license_dead(self, license_id: str) -> dict[str, Any]:
+        return self._request("POST", f"/v1/pas/licenses/{license_id}/dead", json={})
+
+    def license_snapshot(self, license_id: str) -> dict[str, Any]:
+        return self._request("GET", f"/v1/pas/licenses/{license_id}")
+
     def bind_appendix(self) -> dict[str, Any]:
         return self._request("GET", "/v1/pas/bind-appendix")
 

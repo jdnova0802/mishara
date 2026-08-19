@@ -24,6 +24,11 @@ ALLOWED_PAS_KEYS = frozenset(
         "spend_fingerprint",
         "spend_kind",
         "now",
+        "license_id",
+        "counterpart_id",
+        "counterpart_kind",
+        "counterpart_path",
+        "counterpart_method",
     }
 )
 

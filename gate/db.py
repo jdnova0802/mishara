@@ -116,6 +116,23 @@ def init_db():
         ticket_cols = {row[1] for row in conn.execute("PRAGMA table_info(bind_tickets)").fetchall()}
         if "spend_fingerprint" not in ticket_cols:
             conn.execute("ALTER TABLE bind_tickets ADD COLUMN spend_fingerprint TEXT")
+        if "license_id" not in ticket_cols:
+            conn.execute("ALTER TABLE bind_tickets ADD COLUMN license_id TEXT")
+        if "counterpart_fingerprint" not in ticket_cols:
+            conn.execute("ALTER TABLE bind_tickets ADD COLUMN counterpart_fingerprint TEXT")
+
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS license_parents (
+                license_id TEXT PRIMARY KEY,
+                state TEXT NOT NULL,
+                charge_id TEXT,
+                updated_at TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_bind_tickets_license ON bind_tickets(license_id);
+            """
+        )
 
 
 @contextmanager
@@ -427,13 +444,16 @@ def insert_bind_ticket(
     not_before: str,
     not_after: str,
     spend_fingerprint: str | None = None,
+    license_id: str | None = None,
+    counterpart_fingerprint: str | None = None,
 ) -> None:
     with db() as conn:
         conn.execute(
             """INSERT INTO bind_tickets
                (id, job_id, fuse_id, event_id, receipt_hash, token_hash,
-                not_before, not_after, spend_fingerprint, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                not_before, not_after, spend_fingerprint, license_id,
+                counterpart_fingerprint, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 ticket_id,
                 job_id,
@@ -444,9 +464,20 @@ def insert_bind_ticket(
                 not_before,
                 not_after,
                 spend_fingerprint,
+                license_id,
+                counterpart_fingerprint,
                 utc_now(),
             ),
         )
+
+
+def get_bind_ticket(ticket_id: str) -> dict | None:
+    tid = (ticket_id or "").strip()
+    if not tid:
+        return None
+    with db() as conn:
+        row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (tid,)).fetchone()
+    return dict(row) if row else None
 
 
 def consume_bind_ticket(
@@ -456,6 +487,7 @@ def consume_bind_ticket(
     job_id: str,
     now: str,
     spend_fingerprint: str | None = None,
+    counterpart_fingerprint: str | None = None,
 ) -> dict:
     with db() as conn:
         row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (ticket_id,)).fetchone()
@@ -476,6 +508,17 @@ def consume_bind_ticket(
                 return {"ok": False, "reason": "ticket_spend_mismatch"}
             if issued_fp.lower() != presented_fp.lower():
                 return {"ok": False, "reason": "ticket_spend_mismatch"}
+        issued_cp = ""
+        try:
+            issued_cp = (row["counterpart_fingerprint"] or "").strip()
+        except (IndexError, KeyError):
+            issued_cp = ""
+        presented_cp = (counterpart_fingerprint or "").strip()
+        if issued_cp:
+            if not presented_cp:
+                return {"ok": False, "reason": "counterpart_mismatch"}
+            if issued_cp.lower() != presented_cp.lower():
+                return {"ok": False, "reason": "counterpart_mismatch"}
         if row["consumed_at"]:
             return {"ok": False, "reason": "ticket_replay"}
         if row["not_after"] < now:
@@ -490,6 +533,78 @@ def consume_bind_ticket(
         if cur.rowcount != 1:
             return {"ok": False, "reason": "ticket_replay"}
     return {"ok": True}
+
+
+def get_license_parent(license_id: str) -> dict | None:
+    lid = (license_id or "").strip()
+    if not lid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM license_parents WHERE license_id = ?", (lid,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def upsert_license_parent(*, license_id: str, state: str, charge_id: str | None = None) -> None:
+    lid = (license_id or "").strip()
+    st = (state or "").strip().upper()
+    if not lid or st not in {"UNSIGNED", "LIVE", "DEAD"}:
+        raise ValueError("license parent requires license_id and UNSIGNED|LIVE|DEAD")
+    now = utc_now()
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO license_parents (license_id, state, charge_id, updated_at, created_at)
+               VALUES (?, ?, ?, ?, ?)
+               ON CONFLICT(license_id) DO UPDATE SET
+                 state = excluded.state,
+                 charge_id = excluded.charge_id,
+                 updated_at = excluded.updated_at""",
+            (lid, st, charge_id, now, now),
+        )
+
+
+def count_unconsumed_tickets_for_license(license_id: str) -> int:
+    lid = (license_id or "").strip()
+    if not lid:
+        return 0
+    with db() as conn:
+        row = conn.execute(
+            """SELECT COUNT(*) AS n FROM bind_tickets
+               WHERE license_id = ? AND consumed_at IS NULL""",
+            (lid,),
+        ).fetchone()
+    return int(row["n"] if row else 0)
+
+
+def list_restraint_events(limit: int = 200) -> list:
+    """Production HALT/BLOCK only. Metered account, not demo, no hop body in the query result beyond reason extraction."""
+    import json
+
+    cap = max(1, min(int(limit or 200), 500))
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM bind_events
+               WHERE account_id IS NOT NULL
+                 AND UPPER(decision) IN ('HALT', 'BLOCK')
+                 AND (acted IS NULL OR acted = 0)
+               ORDER BY created_at DESC, id DESC
+               LIMIT ?""",
+            (cap,),
+        ).fetchall()
+    out = []
+    for r in rows:
+        item = dict(r)
+        if item.get("hop_json"):
+            try:
+                item["hop"] = json.loads(item["hop_json"])
+            except ValueError:
+                item["hop"] = None
+        item.pop("hop_json", None)
+        if item.get("acted") is not None:
+            item["acted"] = bool(item["acted"])
+        out.append(item)
+    return out
 
 
 def consumed_spend_job_ids() -> list[str]:
