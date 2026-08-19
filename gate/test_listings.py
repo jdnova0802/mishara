@@ -1373,6 +1373,38 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("/install/success", r.headers.get("Location", ""))
         self.assertEqual(gate_db.install_slots_remaining(), before)
 
+    def test_dev_operator_checkout_is_idempotent(self):
+        idem = "idem-ops-weld-1"
+        r1 = self.client.post(
+            "/operator/checkout",
+            data={
+                "email": "ops@example.test",
+                "write": "withdraw",
+                "include_floor": "1",
+                "idempotency_key": idem,
+            },
+            follow_redirects=False,
+        )
+        self.assertEqual(r1.status_code, 302)
+        loc1 = r1.headers.get("Location", "")
+        self.assertIn("/install/success", loc1)
+
+        r2 = self.client.post(
+            "/operator/checkout",
+            data={
+                "email": "ops@example.test",
+                "write": "withdraw",
+                "include_floor": "1",
+                "idempotency_key": idem,
+            },
+            follow_redirects=False,
+        )
+        self.assertEqual(r2.status_code, 302)
+        loc2 = r2.headers.get("Location", "")
+
+        # Must be the exact same booking outcome.
+        self.assertEqual(loc1, loc2)
+
     def test_checkout_rejects_unknown_write(self):
         r = self.client.post(
             "/operator/checkout",

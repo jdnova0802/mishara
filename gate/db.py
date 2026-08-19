@@ -185,6 +185,20 @@ def init_db():
                 PRIMARY KEY (window_id, layer, source),
                 FOREIGN KEY (window_id) REFERENCES settlement_windows(id)
             );
+
+            -- Idempotency keys: prevents duplicate checkout submissions
+            -- (common with retries / double-click / flaky network).
+            CREATE TABLE IF NOT EXISTS idempotency_keys (
+                scope TEXT NOT NULL,
+                idempotency_key TEXT NOT NULL,
+                request_fingerprint TEXT NOT NULL,
+                redirect_url TEXT,
+                install_order_id TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                PRIMARY KEY (scope, idempotency_key)
+            );
+            CREATE INDEX IF NOT EXISTS idx_idempotency_scope_key ON idempotency_keys(scope, idempotency_key);
             """
         )
 
@@ -728,6 +742,44 @@ def get_install_order_by_session(stripe_session_id: str):
             "SELECT * FROM install_orders WHERE stripe_session_id = ?",
             (stripe_session_id,),
         ).fetchone()
+
+
+def get_idempotency_record(scope: str, idempotency_key: str) -> dict | None:
+    with db() as conn:
+        row = conn.execute(
+            """SELECT scope, idempotency_key, request_fingerprint, redirect_url,
+                      install_order_id, created_at, updated_at
+               FROM idempotency_keys
+               WHERE scope = ? AND idempotency_key = ?""",
+            (scope, idempotency_key),
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def create_idempotency_record(
+    *,
+    scope: str,
+    idempotency_key: str,
+    request_fingerprint: str,
+    redirect_url: str,
+    install_order_id: str,
+) -> None:
+    # Insert-if-absent. If it exists, we rely on request_fingerprint checks in the caller.
+    with db() as conn:
+        conn.execute(
+            """INSERT OR IGNORE INTO idempotency_keys
+               (scope, idempotency_key, request_fingerprint, redirect_url, install_order_id, created_at, updated_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (
+                scope,
+                idempotency_key,
+                request_fingerprint,
+                redirect_url,
+                install_order_id,
+                utc_now(),
+                utc_now(),
+            ),
+        )
 
 
 def count_accounts() -> int:

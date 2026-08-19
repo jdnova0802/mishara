@@ -2039,18 +2039,48 @@ def operator_checkout():
     if not (STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE):
         flash("Management checkout is not configured yet. Email us — weld requires per-mouth rent.", "error")
         return redirect(url_for("operator_page"))
+
+    # DTCC-style immovability for ops: avoid duplicate checkout submissions.
+    idempotency_key = (request.form.get("idempotency_key") or request.headers.get("Idempotency-Key") or "").strip()[:128]
+    request_fingerprint = None
+    if idempotency_key:
+        import hashlib
+
+        normalized_email = email.lower().strip()
+        request_fingerprint = hashlib.sha256(
+            f"{normalized_email}|{write_kind}|{int(include_floor)}|operator_weld_floor".encode("utf-8")
+        ).hexdigest()
+        existing = db.get_idempotency_record("operator_weld_floor", idempotency_key)
+        if existing:
+            if existing.get("request_fingerprint") != request_fingerprint:
+                flash("Idempotency key reused with a different request.", "error")
+                return redirect(url_for("operator_page"))
+            if existing.get("redirect_url"):
+                return redirect(existing["redirect_url"])
+            # Fallback: safest is operator page.
+            return redirect(url_for("operator_page"))
+
     product = "operator_weld_floor"
     amount = WELD_PRICE_CENTS + FLOOR_PRICE_CENTS
     if GATE_DEV_MODE:
         fake_session = f"dev_{uuid.uuid4().hex}"
-        db.create_install_order(email, fake_session, amount, product=product)
+        install_order_id = db.create_install_order(email, fake_session, amount, product=product)
         db.mark_install_paid(fake_session)
         notify.money(
             "Operator booked (dev)",
             f"{email} {product} write={write_kind} {WELD_PRICE_LABEL} + {FLOOR_PRICE_LABEL} management",
             {"email": email, "write": write_kind, "session": fake_session},
         )
-        return redirect(url_for("install_success", session_id=fake_session))
+        redirect_url = url_for("install_success", session_id=fake_session)
+        if idempotency_key and request_fingerprint:
+            db.create_idempotency_record(
+                scope="operator_weld_floor",
+                idempotency_key=idempotency_key,
+                request_fingerprint=request_fingerprint,
+                redirect_url=redirect_url,
+                install_order_id=install_order_id,
+            )
+        return redirect(redirect_url)
     if not _operator_stripe_ready():
         flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Operator weld.", "error")
         return redirect(url_for("operator_page"))
@@ -2075,7 +2105,15 @@ def operator_checkout():
         },
     }
     checkout = stripe.checkout.Session.create(**session_kwargs)
-    db.create_install_order(email, checkout.id, amount, product=product)
+    install_order_id = db.create_install_order(email, checkout.id, amount, product=product)
+    if idempotency_key and request_fingerprint:
+        db.create_idempotency_record(
+            scope="operator_weld_floor",
+            idempotency_key=idempotency_key,
+            request_fingerprint=request_fingerprint,
+            redirect_url=checkout.url,
+            install_order_id=install_order_id,
+        )
     return redirect(checkout.url, code=303)
 
 
