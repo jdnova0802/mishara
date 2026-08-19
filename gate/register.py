@@ -68,5 +68,6 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "their_production": False,
         "page": f"{base}/register",
         "operator_contract": f"{base}/.well-known/operator.json",
+        "positioning": f"{base}/.well-known/positioning.json",
         "engine": "https://velaru.xyz",
     }

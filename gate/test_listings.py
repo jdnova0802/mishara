@@ -1353,6 +1353,32 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("10 bps", m["equations"]["flow"])
         self.assertEqual(m["scale"]["potential"]["mouths"]["welded_writes"], 100)
 
+    def test_positioning_manifest_and_page(self):
+        import positioning as positioning_mod
+
+        page = self.client.get("/positioning")
+        self.assertEqual(page.status_code, 200)
+        body = page.get_data(as_text=True)
+        self.assertIn("Cybersyn", body)
+        self.assertIn("Anthropophagy", body)
+        self.assertIn("Maintenance futurism", body)
+
+        spec = self.client.get("/.well-known/positioning.json")
+        self.assertEqual(spec.status_code, 200)
+        data = spec.get_json()
+        self.assertEqual(data["spec"], "gate-positioning-v1")
+        self.assertIn("ops_philosophy", data)
+        self.assertIn("narrative_brand", data)
+        self.assertIn("cybernetics_cybersyn", data["ops_philosophy"])
+        self.assertIn("anthropophagy", data["narrative_brand"])
+        self.assertFalse(data["their_production"])
+
+        reg = self.client.get("/.well-known/register.json").get_json()
+        self.assertIn("positioning", reg)
+
+        cards = positioning_mod.page_cards()
+        self.assertEqual(len(cards), 6)
+
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Positioning{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate positioning: cybernetic ops, maintenance futurism, intergenerational mouth, post-bind possibility, anthropophagy, public verify.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Brand · deploy-facing</p>
+  <h1>Borrowed lenses. Operational meaning.</h1>
+  <p class="audience-sub">{{ headline }}</p>
+
+  <div class="grid-3" style="margin-top: 2rem;">
+    {% for card in cards %}
+    <div class="card">
+      <p class="audience-tag" style="margin-bottom: 0.5rem;">{{ card.tag }} · {{ card.ref }}</p>
+      <h3>{{ card.title }}</h3>
+      <p style="color: var(--muted);">{{ card.body }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Machine-readable</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Full positioning manifest for agents, partners, and future you.</p>
+    <a href="{{ url_for('well_known_positioning') }}" class="btn btn-ghost btn-sm">positioning.json</a>
+    <a href="{{ url_for('register_page') }}" class="btn btn-primary btn-sm">The register</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Weld →</a>
+  </div>
+</div>
+{% endblock %}

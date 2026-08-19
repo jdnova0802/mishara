@@ -89,6 +89,11 @@ except ImportError:
     import register as register_mod
 
 try:
+    from gate import positioning as positioning_mod
+except ImportError:
+    import positioning as positioning_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -1187,6 +1192,7 @@ def well_known_gate():
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
+            "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1289,6 +1295,21 @@ def well_known_schism():
     except ImportError:
         import kappa as kappa_mod
     return jsonify(kappa_mod.schism_manifest(advertised_url()))
+
+
+@app.route("/.well-known/positioning.json")
+def well_known_positioning():
+    return jsonify(positioning_mod.manifest(advertised_url()))
+
+
+@app.route("/positioning")
+def positioning_page():
+    m = positioning_mod.manifest(advertised_url())
+    return render_template(
+        "positioning.html",
+        headline=m["one_line"],
+        cards=positioning_mod.page_cards(),
+    )
 
 
 @app.route("/register")
