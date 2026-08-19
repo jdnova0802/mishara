@@ -9,6 +9,21 @@
   <h1>Real to civilization. Paid like a GP.</h1>
   <p class="audience-sub">The <strong>mouth</strong> is default on irreversible spend — withdraw, bind-only, licensed payout. Parent dies, children cannot spend. That is the asset civilization keeps. The <strong>register</strong> is how the GP is rewarded: management rent on each mouth + 10 bps on cleared flow + carry above hurdle. Not SaaS. Not a hoard without a function.</p>
 
+  <div class="card" style="margin-top: 1.25rem;">
+    <h2 style="margin-bottom: 0.5rem;">What Gate is (in one minute)</h2>
+    <ul class="check-list">
+      <li><strong>Fail-closed door</strong> on irreversible writes (one married write; no bypass).</li>
+      <li><strong>Receipts you can verify</strong> so “what happened” and “what didn’t” are auditable.</li>
+      <li><strong>Settlement finality</strong> (windows + hashes) so ops can close risk.</li>
+    </ul>
+    <div class="hero-actions" style="justify-content: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+      <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld + start management →</a>
+      <a href="{{ url_for('scanner_page') }}" class="btn btn-ghost btn-sm">Implement scanner</a>
+      <a href="https://velaru.xyz/instant" class="btn btn-ghost btn-sm">Velaru proof sandbox</a>
+      <a href="{{ url_for('positioning_page') }}" class="btn btn-ghost btn-sm">Why this story</a>
+    </div>
+  </div>
+
   <div class="grid-3" style="margin-top: 2rem;">
     <div class="card">
       <h3>Mouth (asset)</h3>
@@ -54,7 +69,7 @@ $1T                  →  $1,000,000,000
 + management: (welded writes + LIVE parents) × {{ floor_price }}
   100 writes + 500 parents  →  $3,000,000/mo management alone
   Same mouths + $1B/mo flow →  $1M flow + $3M mgmt that month</pre>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="{{ url_for('well_known_register') }}">register.json</a> · <a href="https://velaru.xyz/instant">Velaru proof sandbox ($49)</a> — post verify internally before weld</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="{{ url_for('well_known_register') }}">register.json</a> · <a href="https://velaru.xyz/instant">Velaru proof sandbox ($49)</a></p>
   </div>
 
   <div class="card install-checkout-card" style="margin-top: 1.5rem;">
@@ -66,24 +81,20 @@ $1T                  →  $1,000,000,000
     </div>
   </div>
 
-  <section class="container section" style="padding-left: 0; padding-right: 0;">
+  <div class="card" style="margin-top: 1.5rem;">
     <p class="audience-tag">Positioning</p>
-    <h2 style="margin-bottom: 0.5rem;">Maintenance futurism, not launch theater</h2>
-    <p style="color: var(--muted); margin-bottom: 1.25rem;">Cybernetic feedback without cosplay. Intergenerational mouth. Digest incumbents — don't clone SaaS. <a href="{{ url_for('positioning_page') }}">Full positioning →</a></p>
-    <div class="grid-3">
-      <div class="card">
-        <h3>Ops room</h3>
-        <p style="color: var(--muted);">κ, settlement, restraint — public manifests. CHARGE and weld keep humans in the loop on irreversible spend.</p>
-      </div>
-      <div class="card">
-        <h3>Common Task</h3>
-        <p style="color: var(--muted);">Parent dies; children cannot spend. Receipts include later. Built for mouths the next generation inherits.</p>
-      </div>
-      <div class="card">
-        <h3>Public verify</h3>
-        <p style="color: var(--muted);">Stranger verify, published nos, evidence packets — atom-age confidence with fail-closed teeth.</p>
-      </div>
+    <h2 style="margin-bottom: 0.5rem;">Why this form</h2>
+    <ul class="check-list">
+      <li><strong>Cybersyn, operationally:</strong> public manifests are the ops room (κ, settlement, restraint).</li>
+      <li><strong>Maintenance futurism:</strong> evidence and finality over launch-day theater.</li>
+      <li><strong>Anthropophagy:</strong> digest incumbent rails, do not clone US SaaS patterns.</li>
+    </ul>
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+      <a href="{{ url_for('positioning_page') }}" class="btn btn-ghost btn-sm">Full positioning</a>
+      <a href="{{ url_for('well_known_positioning') }}" class="btn btn-ghost btn-sm">positioning.json</a>
+      <a href="{{ url_for('focus_hub') }}" class="btn btn-ghost btn-sm">GTM focus</a>
+      <a href="{{ url_for('stack_page') }}" class="btn btn-ghost btn-sm">Stack map</a>
     </div>
-  </section>
+  </div>
 </div>
 {% endblock %}
