@@ -40,7 +40,7 @@ cd gate
 
 That script **fails** if you pass localhost. Then:
 
-1. Stripe: Pro `$99`, install `$2,500`, Bind Room `$1,750` → `STRIPE_PRICE_ID`, `STRIPE_INSTALL_PRICE_ID`, `STRIPE_BIND_ROOM_PRICE_ID`
+1. Stripe: Pro `$99`, install `$2,500`, Bind Room `$1,750`, operator weld `$25,000` + floor `$5,000/mo` → `STRIPE_PRICE_ID`, `STRIPE_INSTALL_PRICE_ID`, `STRIPE_BIND_ROOM_PRICE_ID`, `STRIPE_WELD_PRICE_ID`, `STRIPE_FLOOR_PRICE_ID`
 2. `GATE_PUBLIC_URL` (or leave unset — Render hostname is used). Disk `/var/data`.
 3. Paste `https://YOUR_GATE/for/carriers` or `/bind-room` to **one** human
 4. Optional paperwork: Guidewire + Duck Creek packets (forms, not a weld)

@@ -44,6 +44,10 @@ services:
         sync: false
       - key: STRIPE_BIND_ROOM_PRICE_ID
         sync: false
+      - key: STRIPE_WELD_PRICE_ID
+        sync: false
+      - key: STRIPE_FLOOR_PRICE_ID
+        sync: false
       - key: GATE_BIND_ROOM_PRICE_LABEL
         value: "$1,750"
       - key: GATE_BIND_ROOM_PRICE_CENTS

@@ -107,6 +107,8 @@ class ManifestTests(unittest.TestCase):
             self.assertIn(key, m["dates"])
         self.assertIn("google", m["do_not_date"])
         self.assertIn("bind_room", m)
+        self.assertIn("operator_invoice", m)
+        self.assertTrue(m["operator_invoice"]["licensed_only"])
         self.assertIn("bound_answer", m)
         self.assertIn("exclusive_timing", m)
         self.assertIn("floor", m)
@@ -237,6 +239,8 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn(">Scanner</a>", home)
         self.assertIn("href=\"/uplink\"", home)
         self.assertIn(">Uplink</a>", home)
+        self.assertIn("href=\"/operator\"", home)
+        self.assertIn(">Operator</a>", home)
         for path in (
             "/",
             "/start",
@@ -251,13 +255,15 @@ class FlaskListingTests(unittest.TestCase):
             "/login",
             "/pricing",
             "/install",
+            "/operator",
             "/bind-room",
+            "/for/operators",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
         carriers = self.client.get("/for/carriers").get_data(as_text=True)
         self.assertNotIn("href=\"/v1/pas/policycenter/pre-bind\"", carriers)
-        self.assertIn("href=\"/capture\"", carriers)
+        self.assertIn("href=\"/operator\"", carriers)
         consumers = self.client.get("/for/consumers").get_data(as_text=True)
         self.assertNotIn("Open Mishara", consumers)
         self.assertIn("Open Gate", consumers)
@@ -1162,12 +1168,93 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/health")
         self.assertEqual(r.status_code, 200)
         self.assertIn("bind_room", r.get_json())
+        self.assertIn("operator", r.get_json())
         self.assertIn("scanner", r.get_json())
         self.assertIn("uplink", r.get_json())
         self.assertIn("mass", r.get_json())
         r2 = self.client.get("/.well-known/listings.json")
         self.assertEqual(r2.status_code, 200)
         self.assertIn("welds", r2.get_json())
+        self.assertIn("operator_invoice", r2.get_json())
+
+
+class OperatorInvoiceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_formula_floor_wins_on_sleepy_desk(self):
+        import operator_invoice as oi
+
+        billed = oi.invoice(cleared_cents=120_000_000, hop_count=8_000)
+        self.assertEqual(billed["billed_cents"], 500_000)
+        self.assertEqual(billed["winner"], "floor")
+        self.assertEqual(billed["legs_cents"]["bps"], 120_000)
+
+    def test_formula_bps_wins_on_fat_flow(self):
+        import operator_invoice as oi
+
+        billed = oi.invoice(cleared_cents=2_000_000_000, hop_count=1_000)
+        self.assertEqual(billed["billed_cents"], 2_000_000)
+        self.assertEqual(billed["winner"], "bps")
+
+    def test_formula_per_hop_wins_on_chatty_tiny_dollars(self):
+        import operator_invoice as oi
+
+        billed = oi.invoice(cleared_cents=1_000_000, hop_count=200_000)
+        self.assertEqual(billed["billed_cents"], 2_000_000)
+        self.assertEqual(billed["winner"], "per_hop")
+
+    def test_manifest_is_one_write_licensed(self):
+        import operator_invoice as oi
+
+        m = oi.manifest("https://example.test", "hello@velaru.xyz")
+        self.assertTrue(m["one_write_per_weld"])
+        self.assertTrue(m["licensed_only"])
+        self.assertTrue(m["not_a_new_engine"])
+        self.assertEqual(m["skus"]["weld"]["amount_cents"], 2_500_000)
+        self.assertEqual(m["skus"]["floor"]["amount_cents"], 500_000)
+        ids = {w["id"] for w in m["writes"]}
+        self.assertEqual(ids, {"withdraw", "bind_only"})
+
+    def test_operator_page_and_well_known(self):
+        page = self.client.get("/operator")
+        self.assertEqual(page.status_code, 200)
+        body = page.get_data(as_text=True)
+        self.assertIn("$25,000", body)
+        self.assertIn("$5,000/mo", body)
+        self.assertIn("Unlicensed", body)
+        spec = self.client.get("/.well-known/operator.json")
+        self.assertEqual(spec.status_code, 200)
+        data = spec.get_json()
+        self.assertTrue(data["licensed_only"])
+        listing = self.client.get("/listings/operator.json")
+        self.assertEqual(listing.status_code, 200)
+        self.assertEqual(listing.get_json()["spec"], "gate-operator-invoice-v1")
+
+    def test_dev_checkout_weld_does_not_eat_install_slots(self):
+        import db as gate_db
+
+        before = gate_db.install_slots_remaining()
+        r = self.client.post(
+            "/operator/checkout",
+            data={"email": "ops@example.test", "write": "withdraw", "include_floor": "1"},
+            follow_redirects=False,
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("/install/success", r.headers.get("Location", ""))
+        self.assertEqual(gate_db.install_slots_remaining(), before)
+
+    def test_checkout_rejects_unknown_write(self):
+        r = self.client.post(
+            "/operator/checkout",
+            data={"email": "ops@example.test", "write": "memecoin", "include_floor": "0"},
+            follow_redirects=False,
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertTrue(r.headers.get("Location", "").endswith("/operator"))
 
 
 if __name__ == "__main__":

@@ -235,11 +235,19 @@ INSTALL_SLOTS = int(os.getenv("GATE_INSTALL_SLOTS", "2"))
 def install_slots_remaining() -> int:
     period = current_period()
     with db() as conn:
-        row = conn.execute(
-            """SELECT COUNT(*) AS n FROM install_orders
-               WHERE status = 'paid' AND created_at LIKE ?""",
-            (f"{period}%",),
-        ).fetchone()
+        cols = {row[1] for row in conn.execute("PRAGMA table_info(install_orders)").fetchall()}
+        if "product" in cols:
+            row = conn.execute(
+                """SELECT COUNT(*) AS n FROM install_orders
+                   WHERE status = 'paid' AND product = 'install_sprint' AND created_at LIKE ?""",
+                (f"{period}%",),
+            ).fetchone()
+        else:
+            row = conn.execute(
+                """SELECT COUNT(*) AS n FROM install_orders
+                   WHERE status = 'paid' AND created_at LIKE ?""",
+                (f"{period}%",),
+            ).fetchone()
     booked = row["n"] if row else 0
     return max(0, INSTALL_SLOTS - booked)
 

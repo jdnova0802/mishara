@@ -1,22 +1,39 @@
 {% extends "base.html" %}
-{% block title %}Install booked{% endblock %}
+{% block title %}Payment received{% endblock %}
 {% block content %}
 <div class="container section" style="max-width: 560px; text-align: center;">
   <div class="success-icon">✓</div>
   <h1>You're in.</h1>
-  {% if order %}
-    <p>Payment received for <strong>{{ order.email }}</strong>. Clock starts when I confirm scope by email.</p>
+  {% set product = order.product if order else '' %}
+  {% if product in ['operator_weld', 'operator_weld_floor'] %}
+    {% if order %}
+      <p>Payment received for <strong>{{ order.email }}</strong>. Operator clock starts when I confirm the one write by email.</p>
+    {% else %}
+      <p>Payment received. Operator clock starts when I confirm the one write by email.</p>
+    {% endif %}
+    <div class="card" style="text-align: left; margin-top: 2rem;">
+      <h3>Next steps</h3>
+      <ol class="steps-list">
+        <li>Check inbox (and spam) — intro within 2 hours</li>
+        <li>Reply with the write (withdraw URL or bind-only job path) and stack</li>
+        <li>48hr: fail-closed weld + verify demo + invoice line max(floor, 10 bps, $0.10/hop)</li>
+      </ol>
+    </div>
   {% else %}
-    <p>Payment received. Clock starts when I confirm scope by email.</p>
+    {% if order %}
+      <p>Payment received for <strong>{{ order.email }}</strong>. Clock starts when I confirm scope by email.</p>
+    {% else %}
+      <p>Payment received. Clock starts when I confirm scope by email.</p>
+    {% endif %}
+    <div class="card" style="text-align: left; margin-top: 2rem;">
+      <h3>Next steps</h3>
+      <ol class="steps-list">
+        <li>Check inbox (and spam) — intro within 2 hours</li>
+        <li>Reply with your stack (Python/Node/MCP/etc.)</li>
+        <li>48hr delivery: wired hop + verify demo + handoff call</li>
+      </ol>
+    </div>
   {% endif %}
-  <div class="card" style="text-align: left; margin-top: 2rem;">
-    <h3>Next steps</h3>
-    <ol class="steps-list">
-      <li>Check inbox (and spam) — intro within 2 hours</li>
-      <li>Reply with your stack (Python/Node/MCP/etc.)</li>
-      <li>48hr delivery: wired hop + verify demo + handoff call</li>
-    </ol>
-  </div>
   <p style="color: var(--muted); margin-top: 1.5rem;">Questions? <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
   <a href="{{ url_for('index') }}" class="btn btn-ghost" style="margin-top: 1rem;">Back to Gate API</a>
 </div>

@@ -79,6 +79,11 @@ except ImportError:
     import bind_room as bind_room_mod
 
 try:
+    from gate import operator_invoice as operator_mod
+except ImportError:
+    import operator_invoice as operator_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -158,6 +163,8 @@ STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 STRIPE_INSTALL_PRICE_ID = os.getenv("STRIPE_INSTALL_PRICE_ID", "")
 STRIPE_BIND_ROOM_PRICE_ID = os.getenv("STRIPE_BIND_ROOM_PRICE_ID", "")
 STRIPE_REFUSAL_PRICE_ID = os.getenv("STRIPE_REFUSAL_PRICE_ID", "")
+STRIPE_WELD_PRICE_ID = os.getenv("STRIPE_WELD_PRICE_ID", "")
+STRIPE_FLOOR_PRICE_ID = os.getenv("STRIPE_FLOOR_PRICE_ID", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 
 PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
@@ -167,7 +174,12 @@ BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
 BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
 REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
 REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
+WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
+WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
+FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
+FLOOR_PRICE_CENTS = int(os.getenv("GATE_FLOOR_PRICE_CENTS", str(operator_mod.FLOOR_PRICE_CENTS)))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
+OPERATOR_WRITES = frozenset(operator_mod.WRITES)
 OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -195,6 +207,8 @@ def inject_globals():
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
         "refusal_price": REFUSAL_PRICE_LABEL,
+        "weld_price": WELD_PRICE_LABEL,
+        "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
     }
@@ -207,6 +221,7 @@ def cors_discovery(resp):
         path.startswith("/.well-known/")
         or path.startswith("/listings/")
         or path.startswith("/bind-room")
+        or path.startswith("/operator")
         or path.startswith("/refusal")
         or path in (
             "/mcp",
@@ -463,6 +478,7 @@ def health():
         "listings": f"{pub}/.well-known/listings.json",
         "mcp": f"{pub}/mcp",
         "bind_room": f"{pub}/bind-room",
+        "operator": f"{pub}/operator",
         "bound": f"{pub}/bound",
         "only": f"{pub}/only",
         "floor": f"{pub}/floor",
@@ -1009,6 +1025,8 @@ def well_known_gate():
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
+            "operator": f"{advertised_url()}/operator",
+            "operator_invoice": f"{advertised_url()}/.well-known/operator.json",
             "bound": f"{advertised_url()}/bound",
             "only": f"{advertised_url()}/only",
             "floor": f"{advertised_url()}/floor",
@@ -1072,6 +1090,11 @@ def well_known_x402():
 @app.route("/.well-known/listings.json")
 def well_known_listings():
     return jsonify(listings_mod.listings_manifest(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/.well-known/operator.json")
+def well_known_operator():
+    return jsonify(operator_mod.manifest(advertised_url(), CONTACT_EMAIL))
 
 
 @app.route("/.well-known/bound-answer.json")
@@ -1565,6 +1588,7 @@ LISTING_FILES = {
     "wrangler.toml": lambda: listings_mod.wrangler_toml(advertised_url()),
     "wrangler-bind.toml": lambda: listings_mod.wrangler_bind_toml(advertised_url()),
     "control-not-model.json": lambda: listings_mod.control_not_model(advertised_url(), CONTACT_EMAIL),
+    "operator.json": lambda: operator_mod.manifest(advertised_url(), CONTACT_EMAIL),
 }
 
 LISTING_STATIC = {
@@ -1609,6 +1633,8 @@ def pricing():
         public_url=advertised_url(),
         pro_price=PRO_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
+        floor_price=FLOOR_PRICE_LABEL,
         install_slots=db.install_slots_remaining(),
         stripe_publishable=STRIPE_PUBLISHABLE_KEY,
     )
@@ -1732,6 +1758,81 @@ def bind_room_checkout():
         metadata={"product": "bind_room", "contact_email": email},
     )
     db.create_install_order(email, checkout.id, BIND_ROOM_PRICE_CENTS, product="bind_room")
+    return redirect(checkout.url, code=303)
+
+
+def _operator_stripe_ready() -> bool:
+    return bool(stripe.api_key and STRIPE_WELD_PRICE_ID)
+
+
+@app.route("/operator")
+def operator_page():
+    return render_template(
+        "operator.html",
+        public_url=advertised_url(),
+        weld_price=WELD_PRICE_LABEL,
+        floor_price=FLOOR_PRICE_LABEL,
+        stripe_operator=bool(_operator_stripe_ready() or GATE_DEV_MODE),
+        stripe_floor=bool(STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/operator/checkout", methods=["POST"])
+def operator_checkout():
+    email = (request.form.get("email") or "").strip()
+    write_kind = (request.form.get("write") or "").strip()
+    include_floor = (request.form.get("include_floor") or "0").strip() == "1"
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid work email.", "error")
+        return redirect(url_for("operator_page"))
+    if write_kind not in OPERATOR_WRITES:
+        flash("Pick one write: withdraw or bind-only.", "error")
+        return redirect(url_for("operator_page"))
+    if include_floor and not (STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE):
+        flash("Floor checkout is not configured. Pay the weld, then email for the floor.", "error")
+        include_floor = False
+    product = "operator_weld_floor" if include_floor else "operator_weld"
+    amount = WELD_PRICE_CENTS + (FLOOR_PRICE_CENTS if include_floor else 0)
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, amount, product=product)
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "Operator booked (dev)",
+            f"{email} {product} write={write_kind} {WELD_PRICE_LABEL}"
+            + (f" + {FLOOR_PRICE_LABEL}" if include_floor else ""),
+            {"email": email, "write": write_kind, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not _operator_stripe_ready():
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Operator weld.", "error")
+        return redirect(url_for("operator_page"))
+    line_items = [{"price": STRIPE_WELD_PRICE_ID, "quantity": 1}]
+    session_kwargs = {
+        "mode": "payment",
+        "customer_email": email,
+        "line_items": line_items,
+        "success_url": f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        "cancel_url": f"{advertised_url()}/operator?canceled=1",
+        "metadata": {
+            "product": product,
+            "contact_email": email,
+            "write": write_kind,
+        },
+    }
+    if include_floor:
+        line_items.append({"price": STRIPE_FLOOR_PRICE_ID, "quantity": 1})
+        session_kwargs["mode"] = "subscription"
+        session_kwargs["subscription_data"] = {
+            "metadata": {
+                "product": "operator_floor",
+                "contact_email": email,
+                "write": write_kind,
+            }
+        }
+    checkout = stripe.checkout.Session.create(**session_kwargs)
+    db.create_install_order(email, checkout.id, amount, product=product)
     return redirect(checkout.url, code=303)
 
 
@@ -1877,6 +1978,17 @@ def billing_webhook():
                 "CASH — Refusal SKU",
                 f"{REFUSAL_PRICE_LABEL} from {email} — refused {agent_name!r}",
                 {"email": email, "agent_name": agent_name, "session": sess["id"]},
+            )
+        elif product in ("operator_weld", "operator_weld_floor"):
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            write_kind = (sess.get("metadata") or {}).get("write") or ""
+            notify.money(
+                "CASH — Operator weld",
+                f"{WELD_PRICE_LABEL}"
+                + (f" + {FLOOR_PRICE_LABEL}" if product == "operator_weld_floor" else "")
+                + f" from {email} write={write_kind}",
+                {"email": email, "write": write_kind, "session": sess["id"], "product": product},
             )
         else:
             account_id = (sess.get("metadata") or {}).get("gate_account_id")
@@ -2085,6 +2197,7 @@ def sitemap():
         "/pricing",
         "/install",
         "/bind-room",
+        "/operator",
         "/bound",
         "/only",
         "/floor",
@@ -2120,6 +2233,7 @@ def sitemap():
         "/openapi.json",
         "/.well-known/gate.json",
         "/.well-known/opportunities.json",
+        "/.well-known/operator.json",
         "/.well-known/mcp.json",
         "/.well-known/x402.json",
         "/.well-known/listings.json",
@@ -2144,8 +2258,10 @@ def llms_txt():
         f"- Home: {advertised_url()}/",
         f"- Docs: {advertised_url()}/docs",
         f"- Audience hub: {advertised_url()}/start",
-        f"- Install ($2,500): {advertised_url()}/install",
+        f"- Operator weld ({WELD_PRICE_LABEL} + {FLOOR_PRICE_LABEL} floor): {advertised_url()}/operator",
+        f"- Install ($2,500 agent path): {advertised_url()}/install",
         f"- Bind Room ($1,750): {advertised_url()}/bind-room",
+        f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- A no that holds: {advertised_url()}/bound",
         f"- The only door: {advertised_url()}/only",
         f"- The floor: {advertised_url()}/floor",
@@ -2293,6 +2409,8 @@ def openapi():
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
+                "/operator": {"get": {"summary": "Operator weld $25,000. Floor $5,000/mo. max(floor, 10 bps, $0.10/hop)."}},
+                "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},

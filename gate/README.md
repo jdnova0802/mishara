@@ -31,7 +31,7 @@ Opens **http://localhost:5001** — full site + install page + signup. Dev mode 
 3. Copy env from `.env.example`
 4. `GATE_PUBLIC_URL` = `https://YOUR_SERVICE.onrender.com` (if you leave it localhost, Gate lifts `RENDER_EXTERNAL_URL` automatically)
 5. Disk: `/var/data` with `GATE_DB_PATH=/var/data/gate.db`
-6. Stripe Dashboard → Product $99/mo → `STRIPE_PRICE_ID` + install `$2,500` + Bind Room `$1,750`
+6. Stripe Dashboard → Product $99/mo → `STRIPE_PRICE_ID` + install `$2,500` + Bind Room `$1,750` + operator weld `$25,000` (`STRIPE_WELD_PRICE_ID`) + floor `$5,000/mo` (`STRIPE_FLOOR_PRICE_ID`)
 7. Stripe Webhook → `https://YOUR_URL/billing/webhook`
 
 Then **prove it is not local**:

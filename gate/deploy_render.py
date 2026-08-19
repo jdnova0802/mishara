@@ -151,6 +151,8 @@ def main() -> None:
         "STRIPE_INSTALL_PRICE_ID",
         "STRIPE_BIND_ROOM_PRICE_ID",
         "STRIPE_REFUSAL_PRICE_ID",
+        "STRIPE_WELD_PRICE_ID",
+        "STRIPE_FLOOR_PRICE_ID",
         "GATE_NOTIFY_WEBHOOK",
     ):
         v = (os.getenv(k) or "").strip()

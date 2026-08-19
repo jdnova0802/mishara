@@ -3,7 +3,13 @@
 {% block content %}
 <div class="container section">
   <h1 style="text-align: center;">Pick your path</h1>
-  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">DIY free · Pro metered · Done-for-you install · Enterprise on Velaru</p>
+  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">Operator weld is the money. Agent install is the toy door. DIY free · Pro metered.</p>
+
+  <div class="card" style="margin-bottom: 2rem;">
+    <h2>Operator weld — {{ weld_price }}</h2>
+    <p>One production write (withdraw or bind-only) fail-closed in 48hr. Then <strong>max({{ floor_price }}, 10 bps, $0.10/hop)</strong>. Extra write = another {{ weld_price }}. Licensed operators and carriers only.</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Pay the weld</a></p>
+  </div>
 
   <div class="pricing-grid pricing-grid-3">
     <div class="price-card">

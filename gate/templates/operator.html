@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Operator weld{% endblock %}
+{% block meta %}
+<meta name="description" content="One production write fail-closed. {{ weld_price }} weld. {{ floor_price }} floor. Bill max(floor, 10 bps, $0.10/hop). Licensed payout or bind-only.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Operator</p>
+  <h1>One write. Then the invoice.</h1>
+  <p class="audience-sub">We weld Gate in front of <strong>one</strong> irreversible step — withdraw or bind-only. After that you pay <code class="inline">max({{ floor_price }}, 10 bps, $0.10/hop)</code>. No sales call. Extra socket = another weld fee.</p>
+  <div class="install-price">{{ weld_price }} <span>weld · one write · 48hr</span></div>
+  <p style="color: var(--muted); margin: 0.35rem 0 1.5rem;">Usage floor {{ floor_price }} so a sleepy month still pays. Licensed operators and carriers only.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>In the weld</h3>
+      <ul class="check-list">
+        <li>One production path, fail-closed</li>
+        <li>Ticket married to that write</li>
+        <li>DEAD / timeout → the money does not move</li>
+        <li>Stranger-verifiable receipt</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The bill</h3>
+      <ul class="check-list">
+        <li>{{ floor_price }} minimum</li>
+        <li>10 bps of cleared flow</li>
+        <li>$0.10 per hop</li>
+        <li>You pay whichever is highest</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Not in scope</h3>
+      <ul class="check-list muted-list">
+        <li>Unlicensed / offshore gambling</li>
+        <li>Two writes in one weld</li>
+        <li>We do not move the money</li>
+        <li>Demo hops are not production</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card install-checkout-card">
+    <h2>Pay → we start the clock</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Pick the write. Pay the weld. Optionally start the floor now so month 1 cannot be $0.</p>
+    {% if stripe_operator %}
+    <form method="post" action="{{ url_for('operator_checkout') }}" class="install-form">
+      <div class="form-group">
+        <label for="email">Work email</label>
+        <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="write">The one write</label>
+        <select id="write" name="write" required>
+          <option value="withdraw">Withdraw / payout — clear before wire</option>
+          <option value="bind_only">Bind-only — policy becomes Bound</option>
+        </select>
+      </div>
+      <div class="hero-actions" style="justify-content: flex-start; margin-top: 0.5rem;">
+        <button type="submit" name="include_floor" value="0" class="btn btn-ghost btn-lg">Pay {{ weld_price }} weld only</button>
+        {% if stripe_floor %}
+        <button type="submit" name="include_floor" value="1" class="btn btn-primary btn-lg">Pay {{ weld_price }} + start {{ floor_price }}</button>
+        {% endif %}
+      </div>
+      <p class="fine-print">Non-refundable weld. Floor is monthly until cancelled. Unlicensed gambling and anything illegal = void, no refund. One write. Fuse_id + job_id only — no PII.</p>
+    </form>
+    {% else %}
+    <p>Checkout is not wired yet. Email <a href="mailto:{{ contact_email }}?subject=Operator%20weld%20%E2%80%94%20{{ weld_price }}">{{ contact_email }}</a> with subject <strong>Operator weld</strong> and which write (withdraw or bind-only).</p>
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Operator%20weld%20%E2%80%94%20{{ weld_price }}">Email {{ weld_price }}</a>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>What a month looks like</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Same formula. Different volume. The floor is why a tiny desk is not a $800 invoice.</p>
+    <pre>max({{ floor_price }}, 10 bps, $0.10/hop)
+
+$1.2M cleared, 8k hops  →  floor wins  →  {{ floor_price }}
+$20M cleared            →  10 bps      →  $20,000
+200k hops, small dollars →  per-hop    →  $20,000
+Second write later      →  another {{ weld_price }}</pre>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> — the contract object. Agent path at $2,500 is still <a href="{{ url_for('install') }}">/install</a>.</p>
+  </div>
+</div>
+{% endblock %}

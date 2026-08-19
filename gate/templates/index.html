@@ -7,14 +7,12 @@
 <meta name="twitter:card" content="summary_large_image">
 {% endblock %}
 {% block content %}
-{% if install_slots > 0 %}
 <div class="top-banner">
-  <span><strong>{{ install_slots }} install slot{{ 's' if install_slots != 1 else '' }}</strong> — 48hr fuse wiring · {{ install_price }}</span>
-  <a href="{{ url_for('install') }}" class="btn btn-primary btn-sm">Book install</a>
+  <span><strong>Operator weld {{ weld_price }}</strong> — one write · {{ floor_price }} floor · max(floor, 10 bps, $0.10/hop)</span>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Pay the weld</a>
 </div>
-{% endif %}
 <div class="top-banner subtle-banner">
-  <span>14 buyer paths — legal, carriers, devs, boards, enterprise…</span>
+  <span>Agent path still {{ install_price }}{% if install_slots > 0 %} · {{ install_slots }} slot{{ 's' if install_slots != 1 else '' }}{% endif %} · 15 buyer doors</span>
   <a href="{{ url_for('start_hub') }}" class="btn btn-ghost btn-sm">Choose your door →</a>
 </div>
 
@@ -29,7 +27,7 @@
   <p class="hero-sub">The question is cheap. A no that holds is a fact. The only door is control. Under that: some things only happen once, and someone else has to live there. <a href="{{ url_for('floor_page') }}">That’s the floor.</a></p>
   <div class="hero-actions">
     <a href="{{ url_for('signup') }}" class="btn btn-primary">Get free API key</a>
-    <a href="{{ url_for('install') }}" class="btn btn-accent-outline">48hr install · {{ install_price }}</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline">Operator weld · {{ weld_price }}</a>
     <a href="{{ url_for('docs') }}" class="btn btn-ghost">Docs</a>
   </div>
 </section>
@@ -83,7 +81,7 @@
   -H "Authorization: Bearer gate_sk_live_YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
-  <p style="color: var(--muted);">Returns <code class="inline">verdict</code>, <code class="inline">state</code>, <code class="inline">verify_url</code>. Free: 1k hops/mo · Pro: {{ pro_price }} · DIY or <a href="{{ url_for('install') }}">we wire it in 48hr</a>.</p>
+  <p style="color: var(--muted);">Returns <code class="inline">verdict</code>, <code class="inline">state</code>, <code class="inline">verify_url</code>. Free: 1k hops/mo · Pro: {{ pro_price }} · Money path: <a href="{{ url_for('operator_page') }}">operator weld {{ weld_price }}</a>.</p>
 </section>
 
 <section class="container section paths-grid">
@@ -93,9 +91,14 @@
     <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Start free</a>
   </div>
   <div class="card path-card featured-path">
+    <h3>Operator</h3>
+    <p>{{ weld_price }} weld · {{ floor_price }} floor · one production write.</p>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Pay the weld</a>
+  </div>
+  <div class="card path-card">
     <h3>Done-for-you</h3>
-    <p>{{ install_price }} · 48hr install · one agent path wired + handoff.</p>
-    <a href="{{ url_for('install') }}" class="btn btn-primary btn-sm">Book slot</a>
+    <p>{{ install_price }} · 48hr · one agent path (not payout / bind).</p>
+    <a href="{{ url_for('install') }}" class="btn btn-ghost btn-sm">Book slot</a>
   </div>
   <div class="card path-card">
     <h3>Scale</h3>
