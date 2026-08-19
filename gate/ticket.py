@@ -44,6 +44,16 @@ try:
 except ImportError:
     import command_radiation
 
+try:
+    from gate import counterpart as counterpart_mod
+except ImportError:
+    import counterpart as counterpart_mod
+
+try:
+    from gate import license_fuse as license_fuse_mod
+except ImportError:
+    import license_fuse as license_fuse_mod
+
 SPEC = "gate-bind-ticket-v1"
 DEFAULT_TTL = 15
 
@@ -68,15 +78,25 @@ def issue(
     receipt_hash: str | None,
     redeem_url: str,
     spend_write: dict | None = None,
+    license_id: str | None = None,
+    counterpart: dict | None = None,
 ) -> dict | None:
     """Mint a bearer ticket. Token is returned once; public receipts never include it.
 
     Fail closed if there is no spend fingerprint. A job-only ticket is not a print.
+    If license_id is present, the parent must be LIVE. Children cannot outlive it.
     """
     jid = (job_id or "").strip()
     fp = spend_protocol.fingerprint(spend_write)
     if not jid or not fp or not isinstance(spend_write, dict):
         return None
+    parent = license_fuse_mod.presented(license_id)
+    if not parent.get("ok"):
+        return None
+    lid = parent.get("license_id")
+    cp = counterpart if isinstance(counterpart, dict) else {}
+    counterpart_fp = (cp.get("fingerprint") or None) if cp.get("fused") else None
+    counterpart_write = cp.get("write") if cp.get("fused") else None
     now = datetime.now(timezone.utc)
     ttl = ttl_seconds()
     ticket_id = str(uuid.uuid4())
@@ -101,6 +121,10 @@ def issue(
         "spend_kind": write["spend_kind"],
         "spend_write": write,
         "spend_fingerprint": fp,
+        "license_id": lid,
+        "children_cannot_outlive_parent": bool(lid),
+        "counterpart_fingerprint": counterpart_fp,
+        "counterpart": counterpart_write,
         "ttl_seconds": ttl,
         "stale_hop_cannot_spend": True,
     }
@@ -116,6 +140,8 @@ def issue(
         not_before=body["not_before"],
         not_after=body["not_after"],
         spend_fingerprint=fp,
+        license_id=lid,
+        counterpart_fingerprint=counterpart_fp,
     )
     public = {
         **body,
@@ -163,8 +189,10 @@ def redeem(
     spend_fingerprint: str | None = None,
     spend_kind: str | None = None,
     now: str | None = None,
+    license_id: str | None = None,
+    counterpart: dict | None = None,
 ) -> dict:
-    """Atomic consume. Fail closed on missing now, skew, stale, mismatch, replay, or wrong write."""
+    """Atomic consume. Fail closed on missing now, skew, stale, mismatch, replay, dead parent, or wrong write."""
     server_now = datetime.now(timezone.utc)
     tid = (ticket_id or "").strip()
     tok = (token or "").strip()
@@ -199,6 +227,44 @@ def redeem(
             ticket_id=tid,
             job_id=jid,
         )
+    row = db.get_bind_ticket(tid)
+    issued_lid = ""
+    issued_cp = ""
+    if row:
+        try:
+            issued_lid = (row.get("license_id") or "").strip()
+        except (AttributeError, KeyError):
+            issued_lid = ""
+        try:
+            issued_cp = (row.get("counterpart_fingerprint") or "").strip()
+        except (AttributeError, KeyError):
+            issued_cp = ""
+    if issued_lid:
+        presented_lid = license_fuse_mod.normalize_id(license_id)
+        if presented_lid and presented_lid != issued_lid:
+            return _halt(
+                reason=license_fuse_mod.REASON_MISMATCH,
+                ticket_id=tid,
+                job_id=jid,
+                extra={"license_fuse": license_fuse_mod.snapshot(issued_lid)},
+            )
+        parent = license_fuse_mod.require_live(issued_lid)
+        if not parent.get("ok"):
+            return _halt(
+                reason=parent.get("reason") or license_fuse_mod.REASON_NOT_LIVE,
+                ticket_id=tid,
+                job_id=jid,
+                extra={"license_fuse": license_fuse_mod.snapshot(issued_lid)},
+            )
+    cp_parsed = counterpart if isinstance(counterpart, dict) else counterpart_mod.parse({})
+    presented_cp = (cp_parsed.get("fingerprint") or "").strip() if cp_parsed.get("ok") else ""
+    if issued_cp:
+        if not presented_cp or issued_cp.lower() != presented_cp.lower():
+            return _halt(
+                reason=counterpart_mod.REASON_MISMATCH,
+                ticket_id=tid,
+                job_id=jid,
+            )
     token_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
     result = db.consume_bind_ticket(
         ticket_id=tid,
@@ -206,6 +272,7 @@ def redeem(
         job_id=jid,
         now=server_now.isoformat(),
         spend_fingerprint=presented_fp,
+        counterpart_fingerprint=presented_cp or None,
     )
     if result.get("ok"):
         return {
@@ -221,6 +288,8 @@ def redeem(
             "single_use": True,
             "spend_fingerprint": presented_fp,
             "spend_write": presented,
+            "license_id": issued_lid or None,
+            "counterpart_fingerprint": presented_cp or None,
             "command_radiation": clock,
         }
     return _halt(
@@ -243,6 +312,9 @@ def stamp(plan: dict, *, ticket_public: dict | None, epoch: dict | None, redeem_
         "married_write": spend_protocol.PATH_TEMPLATE,
         "now_required": True,
         "max_skew_seconds": command_radiation.max_skew_seconds(),
+        "license_id_parent": True,
+        "children_cannot_outlive_parent": True,
+        "counterpart_optional": True,
         "redeem": redeem_url,
         "ticket": ticket_public,
         "epoch": epoch or {"locked": False},
@@ -276,6 +348,8 @@ def manifest(public_url: str) -> dict:
         "married_write": spend_protocol.PATH_TEMPLATE,
         "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
         "command_radiation": f"{public_url}/.well-known/command-radiation.json",
+        "license_fuse": f"{public_url}/.well-known/license-fuse.json",
+        "children_cannot_outlive_parent": True,
         "redeem": f"{public_url}/v1/pas/bind-ticket/redeem",
         "demo_redeem": f"{public_url}/demo/pas/bind-ticket/redeem",
         "their_production": False,

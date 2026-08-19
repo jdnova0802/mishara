@@ -118,6 +118,8 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("commit_auth", m)
         self.assertIn("spend_protocol", m)
         self.assertIn("command_radiation", m)
+        self.assertIn("license_fuse", m)
+        self.assertIn("restraint", m)
         self.assertIn("liturgy", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
@@ -406,6 +408,17 @@ class FieldAndWeldTests(unittest.TestCase):
         cleaned = fields.allowlist_pas({"fuse_id": "x", "job_id": "j1", "named_insured": "nope", "extra": 1})
         self.assertEqual(cleaned, {"fuse_id": "x", "job_id": "j1"})
 
+    def test_license_id_is_not_license_number(self):
+        self.assertIn("license_number", fields.PII_KEYS)
+        self.assertNotIn("license_id", fields.PII_KEYS)
+        self.assertIn("license_id", fields.ALLOWED_PAS_KEYS)
+        err = fields.pii_error({"fuse_id": "fuse_velaru_drill", "license_number": "AB-123"})
+        self.assertIsNotNone(err)
+        cleaned = fields.allowlist_pas(
+            {"fuse_id": "x", "job_id": "j1", "license_id": "lic:CO-1", "license_number": "nope"}
+        )
+        self.assertEqual(cleaned, {"fuse_id": "x", "job_id": "j1", "license_id": "lic:CO-1"})
+
     def test_pc_dead_raises_uw_issue(self):
         hop = {"verdict": False, "halt": True, "state": "DEAD"}
         plan = weld.policycenter_plan("pc:1", hop, 200)
@@ -596,6 +609,8 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("inhabitant_url", worker)
         self.assertIn("bind-ticket/redeem", worker)
         self.assertIn("spend_fingerprint", worker)
+        self.assertIn("LICENSE_ID", worker)
+        self.assertIn("counterpart_id", worker)
         self.assertIn("spend_write_not_in_protocol", worker)
         self.assertIn("toISOString", worker)
         generic = self.client.get("/listings/cloudflare-worker.js").get_data(as_text=True)
@@ -1176,6 +1191,16 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r2.status_code, 200)
         self.assertIn("welds", r2.get_json())
         self.assertIn("operator_invoice", r2.get_json())
+        self.assertIn("license_fuse", r2.get_json())
+        self.assertIn("restraint", r2.get_json())
+        fuse = self.client.get("/.well-known/license-fuse.json")
+        self.assertEqual(fuse.status_code, 200)
+        self.assertTrue(fuse.get_json()["children_cannot_outlive_parent"])
+        self.assertFalse(fuse.get_json()["their_production"])
+        nos = self.client.get("/.well-known/restraint.json")
+        self.assertEqual(nos.status_code, 200)
+        self.assertFalse(nos.get_json()["pii"])
+        self.assertFalse(nos.get_json()["demo"])
 
 
 class OperatorInvoiceTests(unittest.TestCase):
@@ -1255,6 +1280,261 @@ class OperatorInvoiceTests(unittest.TestCase):
         )
         self.assertEqual(r.status_code, 302)
         self.assertTrue(r.headers.get("Location", "").endswith("/operator"))
+
+
+class LicenseFuseTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def _live(self, tag):
+        return {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": f"https://velaru.xyz/verify?r={tag}",
+        }
+
+    def test_unsigned_parent_prints_no_ticket(self):
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(self._live("unsigned"), 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:FUSE-UNSIGNED-1",
+                    "license_id": "lic:CO-UNSIGNED-1",
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertFalse(body["allow_bind"])
+        self.assertTrue(body["halt"])
+        self.assertEqual(body["reason"], "license_parent_not_live")
+        self.assertNotIn("bind_ticket", body)
+        self.assertEqual(body["license_fuse"]["stored"], "UNSIGNED")
+
+    def test_charge_only_live_then_children_die_with_parent(self):
+        lid = "lic:CO-PARENT-1"
+        missing = self.client.post(f"/demo/pas/licenses/{lid}/charge", json={})
+        self.assertEqual(missing.status_code, 403)
+        self.assertEqual(missing.get_json()["reason"], "charge_id_required")
+
+        charged = self.client.post(
+            f"/demo/pas/licenses/{lid}/charge",
+            json={"charge_id": "chg_parent_1"},
+        )
+        self.assertEqual(charged.status_code, 200)
+        self.assertEqual(charged.get_json()["state"], "LIVE")
+
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(self._live("parent"), 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:FUSE-PARENT-1",
+                    "license_id": lid,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["allow_bind"])
+        ticket = body["bind_ticket"]
+        self.assertEqual(ticket["license_id"], lid)
+        self.assertTrue(ticket["children_cannot_outlive_parent"])
+        armed = self.client.get(f"/demo/pas/licenses/{lid}")
+        self.assertEqual(armed.status_code, 200)
+        self.assertEqual(armed.get_json()["state"], "ARMED")
+
+        blown = self.client.post(f"/demo/pas/licenses/{lid}/dead", json={})
+        self.assertEqual(blown.status_code, 200)
+        self.assertEqual(blown.get_json()["state"], "DEAD")
+
+        dead_redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:FUSE-PARENT-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:FUSE-PARENT-1/bind-only",
+                "license_id": lid,
+                "now": _now(),
+            },
+        )
+        self.assertEqual(dead_redeem.status_code, 403)
+        dead_body = dead_redeem.get_json()
+        self.assertEqual(dead_body["reason"], "license_parent_not_live")
+        self.assertTrue(dead_body["radiation_abort"])
+
+        resurrected = self.client.post(
+            f"/demo/pas/licenses/{lid}/charge",
+            json={"charge_id": "chg_parent_2"},
+        )
+        self.assertEqual(resurrected.status_code, 200)
+        self.assertEqual(resurrected.get_json()["state"], "LIVE")
+
+        ok = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:FUSE-PARENT-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:FUSE-PARENT-1/bind-only",
+                "license_id": lid,
+                "now": _now(),
+            },
+        )
+        self.assertEqual(ok.status_code, 200)
+        self.assertTrue(ok.get_json()["ok"])
+
+    def test_counterpart_fingerprint_is_optional_and_fail_closed(self):
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(self._live("cp-partial"), 200, {})):
+            partial = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:FUSE-CP-PARTIAL",
+                    "counterpart_kind": "payout_rail",
+                },
+            )
+        self.assertEqual(partial.status_code, 200)
+        self.assertTrue(partial.get_json()["halt"])
+        self.assertEqual(partial.get_json()["reason"], "counterpart_id_required")
+        self.assertNotIn("bind_ticket", partial.get_json())
+
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(self._live("cp"), 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:FUSE-CP-1",
+                    "counterpart_id": "rail:ACH-9",
+                    "counterpart_kind": "payout_rail",
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        ticket = r.get_json()["bind_ticket"]
+        self.assertTrue(ticket["counterpart_fingerprint"])
+        self.assertEqual(ticket["counterpart"]["counterpart_id"], "rail:ACH-9")
+
+        missing = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:FUSE-CP-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:FUSE-CP-1/bind-only",
+                "now": _now(),
+            },
+        )
+        self.assertEqual(missing.status_code, 403)
+        self.assertEqual(missing.get_json()["reason"], "counterpart_mismatch")
+
+        wrong = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:FUSE-CP-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:FUSE-CP-1/bind-only",
+                "counterpart_id": "rail:WIRE-0",
+                "counterpart_kind": "payout_rail",
+                "now": _now(),
+            },
+        )
+        self.assertEqual(wrong.status_code, 403)
+        self.assertEqual(wrong.get_json()["reason"], "counterpart_mismatch")
+
+        ok = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:FUSE-CP-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:FUSE-CP-1/bind-only",
+                "counterpart_id": "rail:ACH-9",
+                "counterpart_kind": "payout_rail",
+                "now": _now(),
+            },
+        )
+        self.assertEqual(ok.status_code, 200)
+        self.assertTrue(ok.get_json()["ok"])
+
+    def test_restraint_inventory_is_production_nos_without_pii(self):
+        import db as gate_db
+        import uuid
+
+        email = f"restraint-{uuid.uuid4().hex[:8]}@example.test"
+        aid = gate_db.create_account(email, "hash")
+        demo_id = gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            decision="HALT",
+            job_id="pc:DEMO-NO-SECRET",
+            account_id=None,
+            acted=False,
+            hop={"reason": "prior_halt_requires_charge"},
+        )
+        allow_id = gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            decision="ALLOW",
+            job_id="pc:PROD-YES",
+            account_id=aid,
+            acted=True,
+            hop={"reason": "should_not_list"},
+        )
+        prod_id = gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            decision="HALT",
+            job_id="pc:PROD-NO-SECRET",
+            account_id=aid,
+            acted=False,
+            hop={
+                "reason": "license_parent_not_live",
+                "ssn": "000-00-0000",
+                "named_insured": "nope",
+            },
+        )
+        r = self.client.get("/.well-known/restraint.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-restraint-v1")
+        self.assertFalse(data["pii"])
+        self.assertFalse(data["demo"])
+        self.assertFalse(data["their_production"])
+        ids = {e["event_id"] for e in data["events"]}
+        self.assertIn(prod_id, ids)
+        self.assertNotIn(demo_id, ids)
+        self.assertNotIn(allow_id, ids)
+        blob = json.dumps(data)
+        self.assertNotIn("000-00-0000", blob)
+        self.assertNotIn("pc:PROD-NO-SECRET", blob)
+        self.assertNotIn("named_insured", blob)
+        self.assertNotIn("pc:DEMO-NO-SECRET", blob)
+        hit = next(e for e in data["events"] if e["event_id"] == prod_id)
+        self.assertEqual(hit["decision"], "HALT")
+        self.assertEqual(hit["reason"], "license_parent_not_live")
+        self.assertNotIn("job_id", hit)
+        self.assertNotIn("hop", hit)
+
+    def test_license_number_on_redeem_is_still_pii(self):
+        r = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": "x",
+                "token": "y",
+                "job_id": "pc:PII",
+                "license_number": "AB-123",
+                "now": _now(),
+            },
+        )
+        self.assertEqual(r.status_code, 400)
+        self.assertEqual(r.get_json()["error"]["code"], "no_pii")
 
 
 if __name__ == "__main__":

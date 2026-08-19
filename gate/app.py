@@ -134,6 +134,21 @@ except ImportError:
     import epoch as epoch_mod
 
 try:
+    from gate import counterpart as counterpart_mod
+except ImportError:
+    import counterpart as counterpart_mod
+
+try:
+    from gate import license_fuse as license_fuse_mod
+except ImportError:
+    import license_fuse as license_fuse_mod
+
+try:
+    from gate import restraint as restraint_mod
+except ImportError:
+    import restraint as restraint_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -718,6 +733,8 @@ def _finalize_spend_plan(
     decision: str,
     acted: bool,
     spend_write: dict | None = None,
+    license_id: str | None = None,
+    counterpart: dict | None = None,
 ):
     jid = (job_id or "").strip() or None
     fp = spend_protocol_mod.fingerprint(spend_write)
@@ -737,6 +754,27 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = plan.get("reason") or spend_protocol_mod.REASON_NOT_IN_PROTOCOL
+    cp = counterpart if isinstance(counterpart, dict) else counterpart_mod.parse({})
+    if acted and not cp.get("ok"):
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["reason"] = cp.get("reason") or counterpart_mod.REASON_REQUIRED
+    parent = license_fuse_mod.presented(license_id)
+    plan["license_fuse"] = license_fuse_mod.snapshot(parent.get("license_id"))
+    if acted and not parent.get("ok"):
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["reason"] = parent.get("reason") or license_fuse_mod.REASON_NOT_LIVE
+    if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
+        hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
     event_id = db.record_bind_event(
         fuse_id=fuse_id,
@@ -758,6 +796,8 @@ def _finalize_spend_plan(
             receipt_hash=row.get("receipt_hash"),
             redeem_url=_redeem_url(),
             spend_write=spend_write,
+            license_id=parent.get("license_id"),
+            counterpart=cp,
         )
         if ticket_pack:
             plan["bind_ticket"] = ticket_pack["bearer"]
@@ -834,6 +874,8 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
         decision=decision,
         acted=bool(plan.get("allow_bind")),
         spend_write=spend_write,
+        license_id=body.get("license_id"),
+        counterpart=counterpart_mod.parse(body),
     )
 
 
@@ -876,6 +918,8 @@ def run_mga_authority(body: dict, account_id=None):
         decision=plan.get("result") or "BLOCK",
         acted=bool(plan.get("bind_allowed")),
         spend_write=spend_write,
+        license_id=body.get("license_id"),
+        counterpart=counterpart_mod.parse(body),
     )
 
 
@@ -907,6 +951,8 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
         decision=decision,
         acted=bool(plan.get("allow_bind")),
         spend_write=spend_write,
+        license_id=body.get("license_id"),
+        counterpart=counterpart_mod.parse(body),
     )
 
 
@@ -948,10 +994,11 @@ def demo_pc_pre_bind():
 
 
 def _redeem_ticket_view(*, demo: bool = False):
-    body = request.get_json(silent=True) or {}
-    blocked = fields.pii_error(body)
+    raw = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(raw)
     if blocked:
         return blocked, 400
+    body = fields.allowlist_pas(raw)
     result = ticket_mod.redeem(
         ticket_id=str(body.get("ticket_id") or ""),
         token=str(body.get("token") or ""),
@@ -961,11 +1008,85 @@ def _redeem_ticket_view(*, demo: bool = False):
         spend_fingerprint=str(body.get("spend_fingerprint") or ""),
         spend_kind=str(body.get("spend_kind") or "") or None,
         now=str(body.get("now") or ""),
+        license_id=str(body.get("license_id") or "") or None,
+        counterpart=counterpart_mod.parse(body),
     )
     if isinstance(result, dict):
         result["demo"] = demo
         bound.attach(result, 200 if result.get("ok") else 403, demo=demo)
     return result, 200 if result.get("ok") else 403
+
+
+def _license_body():
+    raw = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(raw)
+    if blocked:
+        return None, blocked, 400
+    return fields.allowlist_pas(raw), None, 200
+
+
+def _license_charge_view(license_id: str, *, demo: bool = False):
+    body, blocked, code = _license_body()
+    if blocked:
+        return blocked, code
+    result = license_fuse_mod.charge(
+        license_id=license_id,
+        charge_id=(body or {}).get("charge_id"),
+    )
+    if isinstance(result, dict):
+        result["demo"] = demo
+        bound.attach(result, 200 if result.get("ok") else 403, demo=demo)
+    return result, 200 if result.get("ok") else 403
+
+
+def _license_dead_view(license_id: str, *, demo: bool = False):
+    raw = request.get_json(silent=True) or {}
+    if raw:
+        blocked = fields.pii_error(raw)
+        if blocked:
+            return blocked, 400
+    result = license_fuse_mod.dead(license_id=license_id)
+    if isinstance(result, dict):
+        result["demo"] = demo
+        bound.attach(result, 200 if result.get("ok") else 403, demo=demo)
+    return result, 200 if result.get("ok") else 403
+
+
+def _license_snapshot_view(license_id: str, *, demo: bool = False):
+    lid = license_fuse_mod.normalize_id(license_id)
+    if not lid:
+        payload = {"ok": False, "halt": True, "reason": license_fuse_mod.REASON_INVALID, "demo": demo}
+        bound.attach(payload, 400, demo=demo)
+        return payload, 400
+    snap = license_fuse_mod.snapshot(lid)
+    snap["ok"] = True
+    snap["demo"] = demo
+    bound.attach(snap, 200, demo=demo)
+    return snap, 200
+
+
+@app.route("/demo/pas/licenses/<license_id>/charge", methods=["POST"])
+def demo_license_charge(license_id):
+    _, err = _demo_gate()
+    if err:
+        return err
+    return _license_charge_view(license_id, demo=True)
+
+
+@app.route("/demo/pas/licenses/<license_id>/dead", methods=["POST"])
+def demo_license_dead(license_id):
+    _, err = _demo_gate()
+    if err:
+        return err
+    return _license_dead_view(license_id, demo=True)
+
+
+@app.route("/demo/pas/licenses/<license_id>", methods=["GET"])
+def demo_license_snapshot(license_id):
+    _, err = _demo_gate()
+    if err:
+        return err
+    return _license_snapshot_view(license_id, demo=True)
 
 
 @app.route("/demo/pas/bind-ticket/redeem", methods=["POST"])
@@ -1062,6 +1183,8 @@ def well_known_gate():
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
+            "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
+            "restraint": f"{advertised_url()}/.well-known/restraint.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -1254,6 +1377,9 @@ def well_known_commit_auth():
                 "rule": "Latest HALT/BLOCK for a job_id stays HALT until charge_id is presented.",
                 "not_admin_charge": True,
             },
+            "license_fuse": license_fuse_mod.spec(advertised_url()),
+            "counterpart": counterpart_mod.spec(advertised_url()),
+            "restraint": f"{advertised_url()}/.well-known/restraint.json",
             "exclusion": exclusion_mod.manifest(advertised_url()),
             "ttl_seconds": ticket_mod.ttl_seconds(),
             "stale_hop_cannot_spend": True,
@@ -1270,6 +1396,18 @@ def well_known_spend_protocol():
 @app.route("/.well-known/command-radiation.json")
 def well_known_command_radiation():
     return jsonify(command_radiation_mod.spec(advertised_url()))
+
+
+@app.route("/.well-known/license-fuse.json")
+def well_known_license_fuse():
+    spec = license_fuse_mod.spec(advertised_url())
+    spec["counterpart"] = counterpart_mod.spec(advertised_url())
+    return jsonify(spec)
+
+
+@app.route("/.well-known/restraint.json")
+def well_known_restraint():
+    return jsonify(restraint_mod.inventory(advertised_url()))
 
 
 @app.route("/scanner")
@@ -2107,6 +2245,24 @@ def pas_bind_ticket_redeem():
     return _redeem_ticket_view(demo=False)
 
 
+@app.route("/v1/pas/licenses/<license_id>/charge", methods=["POST"])
+@metered_api(count_usage=False)
+def pas_license_charge(license_id):
+    return _license_charge_view(license_id, demo=False)
+
+
+@app.route("/v1/pas/licenses/<license_id>/dead", methods=["POST"])
+@metered_api(count_usage=False)
+def pas_license_dead(license_id):
+    return _license_dead_view(license_id, demo=False)
+
+
+@app.route("/v1/pas/licenses/<license_id>", methods=["GET"])
+@metered_api(count_usage=False)
+def pas_license_snapshot(license_id):
+    return _license_snapshot_view(license_id, demo=False)
+
+
 @app.route("/v1/pas/bind-appendix")
 @metered_api(count_usage=False)
 def pas_bind_appendix():
@@ -2220,6 +2376,8 @@ def sitemap():
         "/.well-known/capture.json",
         "/.well-known/spend-protocol.json",
         "/.well-known/command-radiation.json",
+        "/.well-known/license-fuse.json",
+        "/.well-known/restraint.json",
         "/.well-known/counterfactual-spend.json",
         "/.well-known/commit-auth.json",
         "/.well-known/evidence-head.json",
@@ -2283,6 +2441,8 @@ def llms_txt():
         f"- Capture: {advertised_url()}/.well-known/capture.json",
         f"- Spend protocol: {advertised_url()}/.well-known/spend-protocol.json",
         f"- Command radiation: {advertised_url()}/.well-known/command-radiation.json",
+        f"- License Fuse (parent; children cannot outlive it): {advertised_url()}/.well-known/license-fuse.json",
+        f"- Inventory of nos (production HALT/BLOCK, no PII): {advertised_url()}/.well-known/restraint.json",
         f"- Commit-time auth (tickets + epoch + exclusion): {advertised_url()}/.well-known/commit-auth.json",
         f"- Exclusion proof: {advertised_url()}/.well-known/exclusion.json?job_id=JOB_ID",
         f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
@@ -2391,7 +2551,25 @@ def openapi():
                 },
                 "/v1/pas/bind-ticket/redeem": {
                     "post": {
-                        "summary": "Consume a single-use bind ticket bound to one spend fingerprint. Stale/replay/wrong write → HALT.",
+                        "summary": "Consume a single-use bind ticket bound to one spend fingerprint. Stale/replay/wrong write/dead parent → HALT.",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
+                "/v1/pas/licenses/{license_id}/charge": {
+                    "post": {
+                        "summary": "CHARGE-only resurrection of a license parent. UNSIGNED/DEAD → LIVE. Not admin CHARGE. Not a second bind-only write.",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
+                "/v1/pas/licenses/{license_id}/dead": {
+                    "post": {
+                        "summary": "Blow the license parent. Outstanding tickets cannot redeem until CHARGE.",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
+                "/v1/pas/licenses/{license_id}": {
+                    "get": {
+                        "summary": "License parent snapshot. UNSIGNED until CHARGE. ARMED = LIVE with unredeemed children.",
                         "security": [{"BearerAuth": []}],
                     }
                 },
@@ -2422,8 +2600,9 @@ def openapi():
                 "/uplink": {"get": {"summary": "Command radiation — may this CLTU still be radiated, in this now?"}},
                 "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
                 "/.well-known/command-radiation.json": {"get": {"summary": "Public command-radiation spec. Redeem must present UTC now."}},
-                "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
-                "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, exclusion proofs"}},
+                "/.well-known/license-fuse.json": {"get": {"summary": "License Fuse. Parent must be LIVE. Children cannot outlive it. CHARGE-only resurrection."}},
+                "/.well-known/restraint.json": {"get": {"summary": "Inventory of production nos. HALT/BLOCK, no PII, not demo."}},
+                "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
                 "/.well-known/exclusive-timing.json": {"get": {"summary": "Exclusive-timing manifesto. Receipt is not the product."}},
