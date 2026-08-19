@@ -84,6 +84,11 @@ except ImportError:
     import operator_invoice as operator_mod
 
 try:
+    from gate import register as register_mod
+except ImportError:
+    import register as register_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -237,6 +242,7 @@ def cors_discovery(resp):
         or path.startswith("/listings/")
         or path.startswith("/bind-room")
         or path.startswith("/operator")
+        or path.startswith("/register")
         or path.startswith("/refusal")
         or path in (
             "/mcp",
@@ -1147,6 +1153,8 @@ def well_known_gate():
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
             "operator": f"{advertised_url()}/operator",
+            "register": f"{advertised_url()}/register",
+            "register_manifest": f"{advertised_url()}/.well-known/register.json",
             "operator_invoice": f"{advertised_url()}/.well-known/operator.json",
             "bound": f"{advertised_url()}/bound",
             "only": f"{advertised_url()}/only",
@@ -1218,6 +1226,21 @@ def well_known_listings():
 @app.route("/.well-known/operator.json")
 def well_known_operator():
     return jsonify(operator_mod.manifest(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/.well-known/register.json")
+def well_known_register():
+    return jsonify(register_mod.manifest(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/register")
+def register_page():
+    return render_template(
+        "register.html",
+        public_url=advertised_url(),
+        weld_price=WELD_PRICE_LABEL,
+        floor_price=FLOOR_PRICE_LABEL,
+    )
 
 
 @app.route("/.well-known/bound-answer.json")
@@ -1727,6 +1750,7 @@ LISTING_FILES = {
     "wrangler-bind.toml": lambda: listings_mod.wrangler_bind_toml(advertised_url()),
     "control-not-model.json": lambda: listings_mod.control_not_model(advertised_url(), CONTACT_EMAIL),
     "operator.json": lambda: operator_mod.manifest(advertised_url(), CONTACT_EMAIL),
+    "register.json": lambda: register_mod.manifest(advertised_url(), CONTACT_EMAIL),
 }
 
 LISTING_STATIC = {
@@ -2354,6 +2378,7 @@ def sitemap():
         "/install",
         "/bind-room",
         "/operator",
+        "/register",
         "/bound",
         "/only",
         "/floor",
@@ -2392,6 +2417,7 @@ def sitemap():
         "/.well-known/gate.json",
         "/.well-known/opportunities.json",
         "/.well-known/operator.json",
+        "/.well-known/register.json",
         "/.well-known/mcp.json",
         "/.well-known/x402.json",
         "/.well-known/listings.json",
@@ -2416,7 +2442,8 @@ def llms_txt():
         f"- Home: {advertised_url()}/",
         f"- Docs: {advertised_url()}/docs",
         f"- Audience hub: {advertised_url()}/start",
-        f"- Operator weld ({WELD_PRICE_LABEL} + {FLOOR_PRICE_LABEL} floor): {advertised_url()}/operator",
+        f"- The register (infrastructure, not SaaS): {advertised_url()}/register",
+        f"- Operator weld ({WELD_PRICE_LABEL} checkout): {advertised_url()}/operator",
         f"- Install ($2,500 agent path): {advertised_url()}/install",
         f"- Bind Room ($1,750): {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
@@ -2587,7 +2614,9 @@ def openapi():
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
-                "/operator": {"get": {"summary": "Operator weld $25,000. Floor $5,000/mo. max(floor, 10 bps, $0.10/hop)."}},
+                "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},
+                "/operator": {"get": {"summary": "Weld checkout. One production write. Then max(floor, 10 bps, $0.10/hop)."}},
+                "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},

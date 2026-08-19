@@ -1,7 +1,8 @@
 """Operator invoice — the money machine next to the weld.
 
-One write per customer. Bill max(floor, bps, per-hop). Extra write = extra weld.
-Licensed payout / bind only. Not a second engine.
+The product is the only door x 10 bps x volume through that door.
+Bill max(floor, bps, per-hop) so a quiet door still pays. The floor is not the check.
+One write per weld. Licensed payout / bind only. Not a second engine.
 """
 from __future__ import annotations
 
@@ -13,6 +14,16 @@ FLOOR_PRICE_CENTS = 500_000
 BPS = 10
 HOP_CENTS = 10  # $0.10
 EXTRA_WRITE_CENTS = WELD_PRICE_CENTS
+
+# Annual cleared flow through the door → Gate's 10 bps cut (cents).
+# The floor is a quiet-door minimum. These rows are the actual check.
+YEAR_SCALE = (
+    {"cleared_cents": 10_000_000_000, "through": "$100M"},       # $100k
+    {"cleared_cents": 100_000_000_000, "through": "$1B"},        # $1M
+    {"cleared_cents": 1_000_000_000_000, "through": "$10B"},     # $10M
+    {"cleared_cents": 10_000_000_000_000, "through": "$100B"},   # $100M
+    {"cleared_cents": 100_000_000_000_000, "through": "$1T"},    # $1B
+)
 
 WRITES = {
     "withdraw": {
@@ -60,16 +71,45 @@ def invoice(
     }
 
 
+def bps_cents(cleared_cents: int, bps: int = BPS) -> int:
+    return (max(0, int(cleared_cents)) * int(bps)) // 10_000
+
+
+def year_scale(*, bps: int = BPS) -> list[dict]:
+    """How the check gets large. Not a forecast. 10 bps of what actually clears."""
+    rows = []
+    for row in YEAR_SCALE:
+        gate = bps_cents(row["cleared_cents"], bps=bps)
+        rows.append(
+            {
+                "through": row["through"],
+                "cleared_cents": row["cleared_cents"],
+                "bps": int(bps),
+                "gate_cents": gate,
+                "gate": f"${gate / 100:,.0f}",
+            }
+        )
+    return rows
+
+
 def manifest(public_url: str, contact_email: str) -> dict:
     return {
         "spec": SPEC,
-        "page": f"{public_url}/operator",
+        "page": f"{public_url}/register",
+        "checkout": f"{public_url}/operator",
         "operator": "Nisaba LLC",
         "contact": contact_email,
         "not_a_new_engine": True,
         "one_write_per_weld": True,
         "their_production": False,
         "licensed_only": True,
+        "thesis": {
+            "default": "the only door on one irreversible write",
+            "bps": BPS,
+            "volume": "cleared flow through that door",
+            "product": "default x bps x volume",
+            "not_the_product": "the $5,000/mo quiet-door minimum",
+        },
         "refuse": [
             "unlicensed / offshore gambling",
             "second married write in the same weld",
@@ -86,7 +126,7 @@ def manifest(public_url: str, contact_email: str) -> dict:
                 "label": FLOOR_PRICE_LABEL,
                 "amount_cents": FLOOR_PRICE_CENTS,
                 "kind": "monthly",
-                "deliverable": "usage floor so toy volume cannot pay like a toy",
+                "deliverable": "usage floor so a quiet door cannot pay like a toy. Not the check.",
             },
             "extra_write": {
                 "label": WELD_PRICE_LABEL,
@@ -100,9 +140,12 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "bps": BPS,
             "hop_cents": HOP_CENTS,
             "floor_cents": FLOOR_PRICE_CENTS,
+            "quiet_month": invoice(cleared_cents=120_000_000, hop_count=8_000),
             "example": invoice(cleared_cents=120_000_000, hop_count=8_000),
+            "year": year_scale(),
         },
         "writes": list(WRITES.values()),
         "checkout": f"{public_url}/operator",
         "contract_json": f"{public_url}/.well-known/operator.json",
+        "register_json": f"{public_url}/.well-known/register.json",
     }
