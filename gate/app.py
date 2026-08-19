@@ -1308,6 +1308,9 @@ def positioning_page():
     return render_template(
         "positioning.html",
         headline=m["one_line"],
+        focus_plain=m.get("focus_plain"),
+        focus_for=m.get("focus_for") or [],
+        next_steps=m.get("next_steps") or [],
         cards=positioning_mod.page_cards(),
     )
 

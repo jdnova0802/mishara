@@ -9,6 +9,30 @@ from __future__ import annotations
 SPEC = "gate-positioning-v1"
 
 # ---------------------------------------------------------------------------
+# GTM / focus (plain operational translation)
+# ---------------------------------------------------------------------------
+FOCUS_PLAIN = (
+    "Gate is fail-closed infrastructure for irreversible spend. "
+    "It publishes verifyable receipts (what happened + what didn’t), "
+    "runs settlement with finality hashes, and exposes a κ (Kappa) restraint register "
+    "so partners can cite the operational reality instead of trusting vibes."
+)
+
+FOCUS_FOR = [
+    "Operators (weld the production door and start management)",
+    "Carriers & implementors (wire one scanner + one protocol face)",
+    "Auditors & risk (verify LIVE/DEAD decisions + evidence proofs)",
+    "Engineers (see shipped invariants: spend protocol, receipts, settlement windows)",
+]
+
+NEXT_STEPS = [
+    {"label": "Weld + management", "endpoint": "operator_page", "style": "btn-primary"},
+    {"label": "Read the register fees", "endpoint": "register_page", "style": "btn-ghost"},
+    {"label": "Implement the scanner", "endpoint": "scanner_page", "style": "btn-ghost"},
+    {"label": "Machine-readable positioning.json", "endpoint": "well_known_positioning", "style": "btn-ghost"},
+]
+
+# ---------------------------------------------------------------------------
 # Ops / design philosophy (how we run and build)
 # ---------------------------------------------------------------------------
 
@@ -94,6 +118,9 @@ def manifest(public_url: str) -> dict:
         "spec": SPEC,
         "name": "Gate positioning",
         "headline": "Infrastructure mouth — borrowed lenses, operational meaning.",
+        "focus_plain": FOCUS_PLAIN,
+        "focus_for": FOCUS_FOR,
+        "next_steps": NEXT_STEPS,
         "deploy_note": "Manifests are live surfaces. Positioning is how we explain why they exist.",
         "ops_philosophy": {
             "cybernetics_cybersyn": CYBERNETICS,
