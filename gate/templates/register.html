@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}The register{% endblock %}
+{% block meta %}
+<meta name="description" content="Not SaaS. The mouth on irreversible spend. Default door, permission mortality, 10 bps of what clears. Infrastructure.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Infrastructure</p>
+  <h1>Not SaaS. The mouth.</h1>
+  <p class="audience-sub">Gate sits on the step that cannot be undone — withdraw, bind-only, licensed payout. You cannot go around it. Parent dies, children cannot spend. The ticket is married to one write. That is the <strong>asset</strong>. The <strong>register</strong> is 10 bps of what clears, with a quiet minimum so a toy cannot rent the door.</p>
+
+  <div class="grid-3" style="margin-top: 2rem;">
+    <div class="card">
+      <h3>The mouth</h3>
+      <ul class="check-list">
+        <li>One irreversible write per weld</li>
+        <li>License parent — children cannot outlive it</li>
+        <li>Ticket + fingerprint — no bypass</li>
+        <li>Public inventory of nos — no PII</li>
+        <li>Stranger verify — not a trust-me dashboard</li>
+      </ul>
+      <p style="margin-top: 0.75rem; color: var(--muted); font-size: 0.9rem;"><a href="{{ public_url }}/.well-known/license-fuse.json">license-fuse.json</a> · <a href="{{ public_url }}/.well-known/restraint.json">restraint.json</a></p>
+    </div>
+    <div class="card">
+      <h3>The register</h3>
+      <ul class="check-list">
+        <li>10 bps of cleared flow</li>
+        <li>$0.10/hop if hops win</li>
+        <li>{{ floor_price }} quiet minimum — not the prize</li>
+        <li>You pay whichever is highest</li>
+        <li>Extra socket = another {{ weld_price }} weld</li>
+      </ul>
+      <p style="margin-top: 0.75rem; color: var(--muted); font-size: 0.9rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> — the cash contract</p>
+    </div>
+    <div class="card">
+      <h3>Not this</h3>
+      <ul class="check-list muted-list">
+        <li>SaaS seat math as the story</li>
+        <li>Calculators and demo toys</li>
+        <li>Unlicensed / offshore gambling</li>
+        <li>Two writes in one weld</li>
+        <li>We do not move the money</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>When the door is default</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">10 bps of what actually clears through welded mouths. Civilization-scale flow, respectful basis-point register. The {{ floor_price }} line is one quiet door — not the ceiling.</p>
+    <pre>10 bps through the only door
+
+$100M / year   →  $100,000
+$1B            →  $1,000,000
+$10B           →  $10,000,000
+$100B          →  $100,000,000
+$1T            →  $1,000,000,000
+
+Quiet month    →  {{ floor_price }} minimum (one door, not the product)</pre>
+    <p style="margin-top: 0.75rem; color: var(--muted);">Many doors × many parents × cleared volume. That is global default. Not a subscription tier.</p>
+  </div>
+
+  <div class="card install-checkout-card" style="margin-top: 1.5rem;">
+    <h2>Weld one door</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">{{ weld_price }} · one production write · 48hr · licensed payout or bind-only. Then the register runs on what clears.</p>
+    <div class="hero-actions" style="justify-content: flex-start;">
+      <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-lg">Weld the door →</a>
+      <a href="{{ url_for('well_known_register') }}" class="btn btn-ghost">register.json</a>
+    </div>
+    <p class="fine-print" style="margin-top: 1rem;">Agent path {{ install_price }} at <a href="{{ url_for('install') }}">/install</a> is not the money mouth. Demo hops are not production.</p>
+  </div>
+</div>
+{% endblock %}

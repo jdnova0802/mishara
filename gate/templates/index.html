@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Agent mortality fuse{% endblock %}
+{% block title %}The mouth{% endblock %}
 {% block meta %}
-<meta name="description" content="More valuable than a question is a no that holds. Narrow, enforced, provable. Metered fuse hop. Stranger verify.">
-<meta property="og:title" content="Gate API — A no that holds">
-<meta property="og:description" content="Can this agent still act right now? Four states. Hop fails closed. A stranger opens the receipt.">
+<meta name="description" content="Not SaaS. Infrastructure on irreversible spend. The only door. Permission mortality. 10 bps of what clears.">
+<meta property="og:title" content="Gate — The mouth on irreversible spend">
+<meta property="og:description" content="Not SaaS. Default door on withdraw and bind-only. Parent dies, children cannot spend.">
 <meta name="twitter:card" content="summary_large_image">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Operator weld {{ weld_price }}</strong> — one write · {{ floor_price }} floor · max(floor, 10 bps, $0.10/hop)</span>
-  <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Pay the weld</a>
+  <span><strong>Not SaaS.</strong> The mouth on irreversible spend. Default door · 10 bps register · licensed rails only</span>
+  <a href="{{ url_for('register_page') }}" class="btn btn-primary btn-sm">The register →</a>
 </div>
 <div class="top-banner subtle-banner">
-  <span>Agent path still {{ install_price }}{% if install_slots > 0 %} · {{ install_slots }} slot{{ 's' if install_slots != 1 else '' }}{% endif %} · 15 buyer doors</span>
-  <a href="{{ url_for('start_hub') }}" class="btn btn-ghost btn-sm">Choose your door →</a>
+  <span>Demo hop below · Agent toy path {{ install_price }} · Production = weld one door</span>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld {{ weld_price }} →</a>
 </div>
 
 <section class="hero container">
@@ -23,26 +23,26 @@
     <span class="state dead">DEAD</span>
     <span class="state unsigned">UNSIGNED</span>
   </div>
-  <h1>A no that holds</h1>
-  <p class="hero-sub">Commercial weld for carriers and bind officers. Metered hop, fail-closed DEAD, stranger verify on every restraint.</p>
+  <h1>The mouth. Not a subscription.</h1>
+  <p class="hero-sub">Irreversible spend does not complete unless this layer says yes — withdraw, bind-only, licensed payout. Parent license dies, children cannot spend. One married write. Stranger verify. That is infrastructure. The register is 10 bps of what clears.</p>
   <div class="hero-actions">
-    <a href="{{ url_for('signup') }}" class="btn btn-primary">Get free API key</a>
-    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline">Operator weld · {{ weld_price }}</a>
-    <a href="{{ url_for('docs') }}" class="btn btn-ghost">Docs</a>
+    <a href="{{ url_for('register_page') }}" class="btn btn-primary">The register</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline">Weld a door · {{ weld_price }}</a>
+    <a href="{{ url_for('docs') }}" class="btn btn-ghost">Implement</a>
   </div>
 </section>
 
 <section class="container proof-strip">
   <div class="proof-item">
-    <span class="proof-label">Narrow</span>
-    <span class="proof-value">Yes or no — not a score</span>
+    <span class="proof-label">Mouth</span>
+    <span class="proof-value">No bypass on the write</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Enforced</span>
-    <span class="proof-value dead-text">DEAD cannot act</span>
+    <span class="proof-label">Parent</span>
+    <span class="proof-value dead-text">DEAD kills children</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Provable</span>
+    <span class="proof-label">Prove</span>
     <span class="proof-value"><a href="https://velaru.xyz/verify">stranger verify</a></span>
   </div>
 </section>
@@ -50,7 +50,7 @@
 <section class="container section">
   <div class="card demo-card">
     <h2>Live proof — no API key</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Hop the public drill fuse. Look for <code class="inline">bound_answer.holds</code>. Click verify to prove it stranger-side.</p>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Hop the public drill fuse. Production is not this button — it is a welded door with the register running on cleared flow.</p>
     <button type="button" id="demo-hop-btn" class="btn btn-primary">Run live hop</button>
     <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify proof →</a>
     <pre id="demo-output" class="demo-output">Click to run live hop on fuse_velaru_drill</pre>
@@ -61,54 +61,45 @@
 <section class="container-wide section">
   <div class="grid-3">
     <div class="card">
-      <h3>1 · Lookup</h3>
-      <p>Fuse id → LIVE · ARMED · DEAD · UNSIGNED. Public existence, not a dashboard tab.</p>
+      <h3>Permission</h3>
+      <p>License parent, bind ticket, spend fingerprint. Children cannot outlive the parent. Not a dashboard score.</p>
     </div>
     <div class="card">
-      <h3>2 · Hop</h3>
-      <p>Pre-exec gate. DEAD fails closed. Every allow burns τ and returns a receipt.</p>
+      <h3>One door</h3>
+      <p>One irreversible write per weld. bind-and-issue and issue are not granted. Fail closed on DEAD.</p>
     </div>
     <div class="card">
-      <h3>3 · Prove</h3>
-      <p>Post the verify link. Strangers confirm without your login. That's the flex.</p>
+      <h3>Register</h3>
+      <p>10 bps of cleared flow. {{ floor_price }} quiet minimum on one door — not the civilizational prize.</p>
     </div>
   </div>
-</section>
-
-<section class="container section">
-  <h2>Ship in 5 minutes</h2>
-  <pre>curl -s "{{ public_url }}/v1/fuse/hop" \
-  -H "Authorization: Bearer gate_sk_live_YOUR_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill"}'</pre>
-  <p style="color: var(--muted);">Returns <code class="inline">verdict</code>, <code class="inline">state</code>, <code class="inline">verify_url</code>. Free: 1k hops/mo · Pro: {{ pro_price }} · Money path: <a href="{{ url_for('operator_page') }}">operator weld {{ weld_price }}</a>.</p>
 </section>
 
 <section class="container section paths-grid">
-  <div class="card path-card">
-    <h3>Self-serve</h3>
-    <p>Free API key. Metered proxy. 402 when you hit the wall.</p>
-    <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Start free</a>
-  </div>
   <div class="card path-card featured-path">
-    <h3>Operator</h3>
-    <p>{{ weld_price }} weld · {{ floor_price }} floor · one production write.</p>
+    <h3>The register</h3>
+    <p>Infrastructure face. Mouth + scale + weld. Not SaaS tiers.</p>
+    <a href="{{ url_for('register_page') }}" class="btn btn-primary btn-sm">Open register</a>
+  </div>
+  <div class="card path-card">
+    <h3>Weld</h3>
+    <p>{{ weld_price }} · one production write · licensed payout or bind-only.</p>
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Pay the weld</a>
   </div>
   <div class="card path-card">
-    <h3>Done-for-you</h3>
-    <p>{{ install_price }} · 48hr · one agent path (not payout / bind).</p>
-    <a href="{{ url_for('install') }}" class="btn btn-ghost btn-sm">Book slot</a>
+    <h3>Implement</h3>
+    <p>Scanner, uplink, spend protocol. For engineers wiring the mouth.</p>
+    <a href="{{ url_for('scanner_page') }}" class="btn btn-ghost btn-sm">Scanner</a>
   </div>
   <div class="card path-card">
-    <h3>Scale</h3>
-    <p>Pro {{ pro_price }} · 1M hops/mo. No rate anxiety.</p>
-    <a href="{{ url_for('pricing') }}" class="btn btn-ghost btn-sm">See pricing</a>
+    <h3>Agent toy</h3>
+    <p>{{ install_price }} install · free API key · not the money path.</p>
+    <a href="{{ url_for('install') }}" class="btn btn-ghost btn-sm">Install</a>
   </div>
 </section>
 
 <section class="container section" style="text-align: center; padding-bottom: 3rem;">
   <p style="color: var(--muted); margin-bottom: 1rem;">Engine: Velaru · Patent #64/124,027 · Nisaba LLC</p>
-  <a href="{{ url_for('signup') }}" class="btn btn-primary">Get API key — free</a>
+  <a href="{{ url_for('register_page') }}" class="btn btn-primary">The register</a>
 </section>
 {% endblock %}

@@ -120,6 +120,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("command_radiation", m)
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
+        self.assertIn("register", m)
         self.assertIn("liturgy", m)
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
@@ -1241,6 +1242,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertTrue(m["not_a_new_engine"])
         self.assertEqual(m["skus"]["weld"]["amount_cents"], 2_500_000)
         self.assertEqual(m["skus"]["floor"]["amount_cents"], 500_000)
+        self.assertIn("year", m["invoice"])
+        self.assertEqual(m["invoice"]["year"][-1]["through"], "$1T")
         ids = {w["id"] for w in m["writes"]}
         self.assertEqual(ids, {"withdraw", "bind_only"})
 
@@ -1258,6 +1261,32 @@ class OperatorInvoiceTests(unittest.TestCase):
         listing = self.client.get("/listings/operator.json")
         self.assertEqual(listing.status_code, 200)
         self.assertEqual(listing.get_json()["spec"], "gate-operator-invoice-v1")
+
+    def test_register_page_and_manifest(self):
+        import register as register_mod
+
+        page = self.client.get("/register")
+        self.assertEqual(page.status_code, 200)
+        body = page.get_data(as_text=True)
+        self.assertIn("Not SaaS", body)
+        self.assertIn("The mouth", body)
+        self.assertIn("$1,000,000,000", body)
+        spec = self.client.get("/.well-known/register.json")
+        self.assertEqual(spec.status_code, 200)
+        data = spec.get_json()
+        self.assertEqual(data["spec"], "gate-register-v1")
+        self.assertFalse(data["their_production"])
+        self.assertIn("SaaS", data["not"])
+        self.assertEqual(data["scale"]["year"][-1]["through"], "$1T")
+        m = register_mod.manifest("https://example.test", "hello@velaru.xyz")
+        self.assertEqual(m["equations"]["bps"], 10)
+
+    def test_homepage_leads_register_not_saas(self):
+        r = self.client.get("/")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Not SaaS", body)
+        self.assertIn("/register", body)
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
