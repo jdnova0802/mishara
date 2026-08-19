@@ -591,6 +591,12 @@ def start_hub():
     return render_template("start.html", plates=plates, public_url=advertised_url())
 
 
+@app.route("/focus")
+def focus_hub():
+    core = audiences.core_gtm_plates()
+    return render_template("focus.html", plates=core, public_url=advertised_url())
+
+
 @app.route("/for/<slug>")
 def audience_plate(slug):
     plate = audiences.get_plate(slug)

@@ -1385,6 +1385,16 @@ class OperatorInvoiceTests(unittest.TestCase):
         body = r.get_data(as_text=True)
         self.assertIn("Not SaaS", body)
         self.assertIn("/register", body)
+        self.assertIn("GTM focus", body)
+
+    def test_focus_page_core_icps(self):
+        r = self.client.get("/focus")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Three buyers. One quarter.", body)
+        self.assertIn("/for/operators", body)
+        self.assertIn("/for/carriers", body)
+        self.assertIn("/for/compliance", body)
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db

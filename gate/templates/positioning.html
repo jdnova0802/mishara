@@ -27,6 +27,7 @@
           {% for step in next_steps %}
           <a href="{{ url_for(step.endpoint) }}" class="btn {{ step.style }} btn-sm">{{ step.label }}</a>
           {% endfor %}
+          <a href="{{ url_for('focus_hub') }}" class="btn btn-accent-outline btn-sm">GTM focus</a>
         </div>
       </div>
     </div>
