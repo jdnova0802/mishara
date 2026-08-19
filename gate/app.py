@@ -249,6 +249,7 @@ def cors_discovery(resp):
         or path.startswith("/bind-room")
         or path.startswith("/operator")
         or path.startswith("/register")
+        or path.startswith("/focus")
         or path.startswith("/refusal")
         or path in (
             "/mcp",
@@ -590,6 +591,12 @@ def trust():
 def start_hub():
     plates = audiences.plate_list()
     return render_template("start.html", plates=plates, public_url=advertised_url())
+
+
+@app.route("/focus")
+def focus_hub():
+    core = audiences.core_gtm_plates()
+    return render_template("focus.html", plates=core, public_url=advertised_url())
 
 
 @app.route("/for/<slug>")
@@ -1309,6 +1316,9 @@ def positioning_page():
     return render_template(
         "positioning.html",
         headline=m["one_line"],
+        focus_plain=m.get("focus_plain"),
+        focus_for=m.get("focus_for") or [],
+        next_steps=m.get("next_steps") or [],
         cards=positioning_mod.page_cards(),
     )
 

@@ -248,6 +248,18 @@ def plate_list() -> list[dict]:
     return items
 
 
+def core_gtm_plates() -> list[dict]:
+    """High-intent ICPs for immediate GTM focus."""
+    slugs = ("operators", "carriers", "compliance")
+    out = []
+    for slug in slugs:
+        p = PLATES.get(slug)
+        if not p:
+            continue
+        out.append({"slug": slug, **p})
+    return out
+
+
 def opportunities_manifest(public_url: str, contact_email: str) -> dict:
     entries = []
     for slug, p in PLATES.items():
