@@ -13,7 +13,7 @@ import urllib.request
 
 API = "https://api.render.com/v1"
 SERVICE_ID = os.getenv("RENDER_GATE_SERVICE_ID", "srv-d9romc2jnfac7385gn80")
-GATE_PUBLIC = os.getenv("GATE_PUBLIC_URL", "https://mishara.onrender.com").rstrip("/")
+GATE_PUBLIC = os.getenv("GATE_PUBLIC_URL", "https://gate.velaru.xyz").rstrip("/")
 
 START = (
     'python -c "from public_url import assert_prod_public; assert_prod_public()" '
