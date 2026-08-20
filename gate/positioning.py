@@ -12,10 +12,10 @@ SPEC = "gate-positioning-v1"
 # GTM / focus (plain operational translation)
 # ---------------------------------------------------------------------------
 FOCUS_PLAIN = (
-    "Gate is fail-closed infrastructure for irreversible spend. "
-    "It publishes verifyable receipts (what happened + what didn’t), "
-    "runs settlement with finality hashes, and exposes a κ (Kappa) restraint register "
-    "so partners can cite the operational reality instead of trusting vibes."
+    "Three faces on the hull: exclusive door, CHARGE port, distribution stack. "
+    "Fail-closed on irreversible spend. DEAD→LIVE only via unforgeable CHARGE. "
+    "Post-trade propagation matches the register — doctrine at apex, bps at operator. "
+    "Everything else is moat."
 )
 
 FOCUS_FOR = [
@@ -137,15 +137,18 @@ def manifest(public_url: str) -> dict:
             "intergenerational mouth; possibility after the bind is gated; "
             "digest incumbents don't clone SaaS; public verify without naivety."
         ),
+        "public_face": {
+            "manifest": f"{base}/.well-known/public-face.json",
+            "door": f"{base}/.well-known/monolith.json",
+            "charge": f"{base}/.well-known/costliness.json",
+            "distribution": f"{base}/.well-known/distribution.json",
+        },
+        "catalog": {
+            "inventions": f"{base}/.well-known/inventions.json",
+            "moat": f"{base}/.well-known/moat.json",
+        },
         "links": {
             "register": f"{base}/.well-known/register.json",
-            "kappa": f"{base}/.well-known/kappa.json",
-            "settlement": f"{base}/.well-known/settlement.json",
-            "possibility_finality": f"{base}/.well-known/possibility-finality.json",
-            "mouth_constitution": f"{base}/.well-known/mouth-constitution.json",
-            "inventions": f"{base}/.well-known/inventions.json",
-            "restraint": f"{base}/.well-known/restraint.json",
-            "counterfactual": f"{base}/.well-known/counterfactual-spend.json",
             "verify_engine": "https://velaru.xyz/verify",
         },
         "page": f"{base}/positioning",
@@ -154,114 +157,9 @@ def manifest(public_url: str) -> dict:
 
 
 def page_cards() -> list[dict]:
-    """Short cards for HTML surfaces — title, tag, body."""
-    return [
-        {
-            "tag": "Ops",
-            "title": "Cybersyn without the wallpaper",
-            "body": (
-                "Public manifests are the ops room: κ, settlement, restraint, evidence-head. "
-                "Humans stay on CHARGE and weld — irreversible spend never fully automates away."
-            ),
-            "ref": "Cybernetics / Cybersyn",
-        },
-        {
-            "tag": "Ops",
-            "title": "Maintenance futurism",
-            "body": (
-                "Credibility over launch theater. Merkle proofs, idempotent checkout, finality hashes — "
-                "infrastructure someone else can inherit."
-            ),
-            "ref": "Maintenance futurism",
-        },
-        {
-            "tag": "Ops",
-            "title": "Common Task",
-            "body": (
-                "Parent license dies; children cannot spend. Inhabitant receipts include later. "
-                "Design the mouth for the generation that did not ship v1."
-            ),
-            "ref": "Cosmism's Common Task",
-        },
-        {
-            "tag": "Brand",
-            "title": "After the bind is gated",
-            "body": (
-                "When the mouth holds, builders stop guarding every write. "
-                "Possibility — not utopia — on licensed rails."
-            ),
-            "ref": "Situationist New Babylon",
-        },
-        {
-            "tag": "Brand",
-            "title": "Anthropophagy",
-            "body": (
-                "Digest DTCC, SWIFT, Visa. Excrete something that is not another US SaaS clone — "
-                "GP register, .well-known manifests, one welded door."
-            ),
-            "ref": "Anthropophagy",
-        },
-        {
-            "tag": "Brand",
-            "title": "Public confidence",
-            "body": (
-                "Stranger verify. Published nos. Evidence you can fetch. "
-                "Atom-age visible infrastructure — fail-closed, licensed, no naivety."
-            ),
-            "ref": "Atom-age civic optimism",
-        },
-        {
-            "tag": "Invention",
-            "title": "Mouth Constitution",
-            "body": (
-                "do(bind) not observe(risk). X counts as permitted spend in C. "
-                "HALT as STIT duty. Clearing extinguishes obligations — then wire. Ours."
-            ),
-            "ref": "Intervention · Counts-As · STIT · Extinguishment",
-        },
-        {
-            "tag": "Invention",
-            "title": "Invention wave",
-            "body": (
-                "Bayesian binding of status. Unforgeable costliness of CHARGE. "
-                "Joint fulfillment. Requisite variety. Autopoietic closure. Temporal weld."
-            ),
-            "ref": "/.well-known/inventions.json",
-        },
-        {
-            "tag": "Invention",
-            "title": "Moat fingerprint",
-            "body": (
-                "Ninety-plus welded specs. Exochronology. Unlanguage. Superselection. "
-                "Moat SHA-256 — partial clones fail."
-            ),
-            "ref": "/.well-known/moat.json",
-        },
-        {
-            "tag": "Invention",
-            "title": "Xenohardware",
-            "body": (
-                "Not a dashboard. A chassis: exclusive door, CHARGE port, vacuum seals, "
-                "stranger antenna. Soft-yes is an illegal opcode. Ours."
-            ),
-            "ref": "/.well-known/xenohardware.json",
-        },
-        {
-            "tag": "Invention",
-            "title": "Exo-chassis",
-            "body": (
-                "Not Earth-side. UTC is an adapter. LIVE cannot be superposed. "
-                "The mouth does not speak USD. Present at the port."
-            ),
-            "ref": "/.well-known/exochronology.json",
-        },
-        {
-            "tag": "Post-trade",
-            "title": "Distribution stack",
-            "body": (
-                "DTCC peers reference PFMI manifests. We filter gross before the net. "
-                "Instruction finality at the hop. Register tiers down the stack."
-            ),
-            "ref": "/.well-known/distribution.json",
-        },
-    ]
+    """Three pillars — door, CHARGE, distribution. Depth lives in catalog + moat."""
+    try:
+        from gate import public_face as public_face_mod
+    except ImportError:
+        import public_face as public_face_mod  # type: ignore[no-redef]
+    return public_face_mod.page_cards()

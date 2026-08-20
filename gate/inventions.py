@@ -273,6 +273,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         ],
         "earth_side": False,
         "live": link("inventions.json"),
+        "public_face": link("public-face.json"),
         "positioning": link("positioning.json"),
         "their_production": False,
     }

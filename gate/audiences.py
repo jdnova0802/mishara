@@ -65,6 +65,21 @@ PLATES: dict[str, dict] = {
         "proof": "Fail-closed hop on their write. Stranger verify. No PII.",
         "tags": ["payout", "withdraw", "bind", "bps", "floor"],
     },
+    "charge": {
+        "emoji": "⚡",
+        "title": "CHARGE",
+        "headline": "DEAD→LIVE only via unforgeable CHARGE",
+        "subhead": "Regime change is costly — UW soft-yes, admin toggles, and dashboard LIVE flips do not resurrect.",
+        "pain": "Your stack has ten ways to pretend LIVE without a witness that spans the regime change.",
+        "offer": "Costliness ladder · license fuse · CHARGE-only resurrection on the engine",
+        "price": "CHARGE packs from $500",
+        "cta_label": "Costliness spec",
+        "cta_href": "/.well-known/costliness.json",
+        "secondary_label": "License fuse",
+        "secondary_href": "/.well-known/license-fuse.json",
+        "proof": "UW approve without CHARGE does not resurrect — forgeable substitutes rejected",
+        "tags": ["charge", "dead", "live", "resurrection", "regime"],
+    },
     "post_trade": {
         "emoji": "🏛️",
         "title": "Post-trade & FMI",
@@ -264,8 +279,8 @@ def plate_list() -> list[dict]:
 
 
 def core_gtm_plates() -> list[dict]:
-    """High-intent ICPs for immediate GTM focus."""
-    slugs = ("operators", "carriers", "compliance")
+    """Public face ICPs — door, CHARGE, distribution."""
+    slugs = ("operators", "charge", "post_trade")
     out = []
     for slug in slugs:
         p = PLATES.get(slug)

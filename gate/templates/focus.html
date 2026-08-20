@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}GTM Focus{% endblock %}
 {% block meta %}
-<meta name="description" content="Three ICPs only: Operators, Carriers/PAS, and Compliance. One CTA and one proof path per buyer.">
+<meta name="description" content="Three faces on the hull: exclusive door, CHARGE port, distribution stack. One CTA per pillar.">
 {% endblock %}
 {% block content %}
 <section class="hero container" style="padding-bottom: 1.5rem;">
-  <p class="audience-tag">GTM focus</p>
-  <h1>Three buyers. One quarter.</h1>
-  <p class="hero-sub">No buffet motion. We close with Operators, Carriers/PAS, and Compliance. Each gets one CTA and one proof path.</p>
+  <p class="audience-tag">Public face</p>
+  <h1>Three faces. One hull.</h1>
+  <p class="hero-sub">Door + CHARGE + distribution stack. Everything else is moat — 105 specs behind inventions.json and the fingerprint.</p>
 </section>
 
 <section class="container-wide section" style="padding-top: 0;">
@@ -31,9 +31,9 @@
   <div class="card">
     <h2>Outbound copy (paste)</h2>
     <pre>{{ public_url }}/for/operators
-{{ public_url }}/for/carriers
-{{ public_url }}/for/compliance</pre>
-    <p style="color: var(--muted); margin-top: 0.75rem;">If a lead is not one of these three, route to <a href="{{ url_for('start_hub') }}">/start</a> and do not let them hijack the quarter.</p>
+{{ public_url }}/for/charge
+{{ public_url }}/for/post-trade</pre>
+    <p style="color: var(--muted); margin-top: 0.75rem;">Catalog depth: <a href="{{ public_url }}/.well-known/public-face.json">public-face.json</a> · <a href="{{ public_url }}/.well-known/moat.json">moat fingerprint</a>. Other ICPs live at <a href="{{ url_for('start_hub') }}">/start</a>.</p>
   </div>
 </section>
 {% endblock %}
