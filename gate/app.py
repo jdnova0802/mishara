@@ -100,6 +100,21 @@ except ImportError:
     import action_os as action_os_mod
 
 try:
+    from gate import scorecard as scorecard_mod
+except ImportError:
+    import scorecard as scorecard_mod
+
+try:
+    from gate import production_skin as production_skin_mod
+except ImportError:
+    import production_skin as production_skin_mod
+
+try:
+    from gate import proof_suite as proof_suite_mod
+except ImportError:
+    import proof_suite as proof_suite_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -1216,6 +1231,10 @@ def well_known_gate():
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "action_os": f"{advertised_url()}/.well-known/action-os.json",
             "action_os_page": f"{advertised_url()}/action-os",
+            "scorecard": f"{advertised_url()}/.well-known/scorecard.json",
+            "scorecard_page": f"{advertised_url()}/scorecard",
+            "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
+            "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1328,6 +1347,39 @@ def well_known_positioning():
 @app.route("/.well-known/action-os.json")
 def well_known_action_os():
     return jsonify(action_os_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/scorecard.json")
+def well_known_scorecard():
+    return jsonify(scorecard_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/production-skin.json")
+def well_known_production_skin():
+    return jsonify(production_skin_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/proof-suite.json")
+def well_known_proof_suite():
+    return jsonify(proof_suite_mod.manifest(advertised_url()))
+
+
+@app.route("/scorecard")
+def scorecard_page():
+    m = scorecard_mod.manifest(advertised_url())
+    return render_template("scorecard.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/production-skin")
+def production_skin_page():
+    m = production_skin_mod.manifest(advertised_url())
+    return render_template("production_skin.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/proof")
+def proof_page():
+    m = proof_suite_mod.manifest(advertised_url())
+    return render_template("proof.html", manifest=m, public_url=advertised_url())
 
 
 @app.route("/action-os")

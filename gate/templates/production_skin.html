@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Production skin{% endblock %}
+{% block meta %}
+<meta name="description" content="Honesty skin. their_production: {{ manifest.their_production }}. What ships vs what is claimed.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Honesty · weld gate</p>
+  <h1>Production skin</h1>
+  <p class="audience-sub">{{ manifest.canonical }}</p>
+  <p style="margin: 1rem 0;">their_production: <strong>{{ manifest.their_production }}</strong>
+    · force_production_weld: <strong>{{ manifest.force_production_weld }}</strong></p>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Shipped now</h3>
+      <ul class="check-list">
+        {% for line in manifest.shipped_now %}
+        <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Not yet</h3>
+      <ul class="check-list">
+        {% for line in manifest.not_yet %}
+        <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_production_skin') }}" class="btn btn-ghost btn-sm">production-skin.json</a>
+    <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Scorecard</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Weld</a>
+  </div>
+</div>
+{% endblock %}

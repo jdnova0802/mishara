@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Scorecard · flawless{% endblock %}
+{% block meta %}
+<meta name="description" content="Nisaba family scorecard. Honest gaps. Real market bites. Scarcity is the DENY. their_production: {{ manifest.their_production }}">
+{% endblock %}
+{% block content %}
+<div class="top-banner">
+  <span><strong>Flawless = honest.</strong> Never inflate without a weld. Scarcity is the DENY.</span>
+  <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Formula →</a>
+</div>
+
+<section class="hero container">
+  <p class="audience-tag">Nisaba family · Gate lead</p>
+  <h1>{{ manifest.overall }} <span style="color: var(--muted); font-size: 0.55em;">/ 10 Gate</span></h1>
+  <p class="hero-sub">{{ manifest.formula }}</p>
+  <p class="hero-sub" style="margin-top: 0.5rem;">
+    Concept {{ manifest.overall_concept }} · Proof {{ manifest.overall_proof }} · Nature {{ manifest.overall_nature }}
+    · Family {{ manifest.family_overall }} · Ceiling {{ manifest.pre_rev_ceiling }}
+    {% if not manifest.their_production %}· Lift on weld +{{ manifest.lift_when_production_welded }}{% endif %}
+  </p>
+  <p style="margin-top: 0.75rem;">their_production: <strong>{{ manifest.their_production }}</strong>
+    · proof {{ manifest.proof_pass_count }}/{{ manifest.proof_total }}
+    · all_pass {{ manifest.proof_all_pass }}</p>
+  <div class="hero-actions">
+    <a href="{{ url_for('well_known_scorecard') }}" class="btn btn-primary">scorecard.json</a>
+    <a href="{{ url_for('production_skin_page') }}" class="btn btn-accent-outline">Production skin</a>
+    <a href="{{ url_for('proof_page') }}" class="btn btn-ghost">Proof suite</a>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Flawless means</h2>
+    <ul class="check-list">
+      {% for line in manifest.flawless_means %}
+      <li>{{ line }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="grid-2">
+    <div class="card">
+      <p class="audience-tag">Weakest voice</p>
+      <h3>{{ manifest.weakest_voice.name }} · {{ manifest.weakest_voice.voice }}</h3>
+      <p style="color: var(--muted);">{{ manifest.weakest_voice.fix }}</p>
+    </div>
+    <div class="card">
+      <p class="audience-tag">Strongest market bite</p>
+      <h3>{{ manifest.strongest_market_bite.name }} · {{ manifest.strongest_market_bite.market_bite }}</h3>
+      <p style="color: var(--muted);">{{ manifest.strongest_market_bite.problem }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="container-wide section">
+  <h2 style="margin-bottom: 1rem;">Family — each bites a real market</h2>
+  {% for p in manifest.family %}
+  <div class="card" style="margin-bottom: 1rem;">
+    <p class="audience-tag">{{ p.role }} · overall {{ p.overall }} · voice {{ p.dimensions.voice }} · bite {{ p.dimensions.market_bite }}</p>
+    <h3>{{ p.name }} — {{ p.voice_line }}</h3>
+    <p><strong>Question:</strong> {{ p.question }}</p>
+    <p style="color: var(--muted); margin-top: 0.5rem;"><strong>Market:</strong> {{ p.market_problem }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Buyer:</strong> {{ p.buyer }}</p>
+    <p style="margin-top: 0.5rem;">Concept {{ p.overall_concept }} · Proof {{ p.overall_proof }} · Nature {{ p.overall_nature }}</p>
+    {% if p.gaps_honest %}
+    <ul class="check-list" style="margin-top: 0.75rem;">
+      {% for g in p.gaps_honest %}
+      <li>{{ g }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if p.url %}
+    <a href="{{ p.url }}" class="btn btn-ghost btn-sm" style="margin-top: 0.75rem;">Open →</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+
+<section class="container-wide section">
+  <h2 style="margin-bottom: 1rem;">Gate dimensions</h2>
+  <div class="grid-2">
+    {% for dim, score in manifest.dimensions.items() %}
+    <div class="card">
+      <p class="audience-tag">{{ dim.replace('_', ' ') }}</p>
+      <h3>{{ score }} <span style="color: var(--muted); font-size: 0.85rem;">/ {{ manifest.pre_rev_max[dim] }} · gap {{ manifest.gaps[dim] }}</span></h3>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

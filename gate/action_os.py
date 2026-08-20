@@ -207,6 +207,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "We serve everybody. Fail closed. CHARGE only. Stranger verify."
         ),
         "links": {
+            "scorecard": f"{base}/scorecard",
             "register": f"{base}/register",
             "operator": f"{base}/operator",
             "act": f"{base}/v1/act",

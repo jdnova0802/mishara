@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Proof suite{% endblock %}
+{% block meta %}
+<meta name="description" content="Fail-closed invariants. {{ manifest.pass_count }}/{{ manifest.total }} pass. Strangers can re-run.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Invariants · no theater</p>
+  <h1>Proof suite</h1>
+  <p class="audience-sub">{{ manifest.pass_count }}/{{ manifest.total }} pass · all_pass {{ manifest.all_pass }}</p>
+  {% for inv in manifest.invariants %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ inv.id }} · {% if inv.passes %}PASS{% else %}FAIL{% endif %}</p>
+    <h3>{{ inv.claim }}</h3>
+  </div>
+  {% endfor %}
+  <h2 style="margin-top: 1.5rem;">Matrix</h2>
+  {% for row in manifest.matrix %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ row.invariant }}</p>
+    <p><strong>Violates if:</strong> {{ row.violates_if }}</p>
+    <p style="color: var(--muted); margin-top: 0.35rem;">{{ row.test }}</p>
+  </div>
+  {% endfor %}
+  <a href="{{ url_for('well_known_proof_suite') }}" class="btn btn-ghost btn-sm" style="margin-top: 1rem;">proof-suite.json</a>
+  <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Scorecard</a>
+</div>
+{% endblock %}

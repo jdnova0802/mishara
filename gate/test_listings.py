@@ -269,6 +269,9 @@ class FlaskListingTests(unittest.TestCase):
             "/action-os",
             "/focus",
             "/positioning",
+            "/scorecard",
+            "/production-skin",
+            "/proof",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -290,7 +293,16 @@ class FlaskListingTests(unittest.TestCase):
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("formula", gate)
         self.assertIn("action_os", gate)
+        self.assertIn("scorecard", gate)
         self.assertIn("DENY", gate["formula"])
+
+        sc = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertEqual(sc["spec"], "nisaba-scorecard-v1")
+        self.assertEqual(len(sc["family"]), 5)
+        self.assertFalse(sc["their_production"])
+        # Flawless: deployability crushed without weld
+        self.assertLessEqual(sc["gate"]["dimensions"]["deployability"], 6.0)
+        self.assertEqual(sc["weakest_voice"]["id"], "verra")
 
 
 class BoundAnswerTests(unittest.TestCase):
@@ -1425,6 +1437,42 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("Action OS", home)
         self.assertIn("/action-os", home)
         self.assertIn("DENY", home)
+        self.assertIn("/scorecard", home)
+
+        sc = self.client.get("/.well-known/scorecard.json")
+        self.assertEqual(sc.status_code, 200)
+        sc_data = sc.get_json()
+        self.assertEqual(sc_data["spec"], "nisaba-scorecard-v1")
+        self.assertFalse(sc_data["their_production"])
+        self.assertIn("family", sc_data)
+        self.assertEqual(len(sc_data["family"]), 5)
+        self.assertIn("DENY", sc_data["formula"])
+        self.assertLessEqual(sc_data["dimensions"]["deployability"], 6.0)
+        self.assertEqual(sc_data["weakest_voice"]["id"], "verra")
+        ids = {p["id"] for p in sc_data["family"]}
+        self.assertEqual(ids, {"velaru", "erra", "verra", "gate", "mishara"})
+        for p in sc_data["family"]:
+            self.assertTrue(p["market_problem"])
+            self.assertTrue(p["buyer"])
+            self.assertIn("market_bite", p["dimensions"])
+
+        skin = self.client.get("/.well-known/production-skin.json")
+        self.assertEqual(skin.status_code, 200)
+        self.assertFalse(skin.get_json()["their_production"])
+
+        proof = self.client.get("/.well-known/proof-suite.json")
+        self.assertEqual(proof.status_code, 200)
+        proof_data = proof.get_json()
+        self.assertTrue(proof_data["all_pass"])
+        self.assertGreaterEqual(proof_data["pass_count"], 5)
+
+        for path in ("/scorecard", "/production-skin", "/proof"):
+            self.assertEqual(self.client.get(path).status_code, 200, path)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("scorecard", gate)
+        self.assertIn("production_skin", gate)
+        self.assertIn("proof_suite", gate)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
