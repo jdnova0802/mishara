@@ -846,3 +846,97 @@ def list_settlement_windows(limit: int = 20) -> list[dict]:
             (limit,),
         ).fetchall()
     return [dict(r) for r in rows]
+
+
+def _table_cols(conn, name: str) -> set[str]:
+    exists = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name=?",
+        (name,),
+    ).fetchone()
+    if not exists:
+        return set()
+    return {r[1] for r in conn.execute(f"PRAGMA table_info({name})").fetchall()}
+
+
+def _ensure_dogfood_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS dogfood_welds (
+            id TEXT PRIMARY KEY,
+            write_path TEXT NOT NULL,
+            operator TEXT NOT NULL,
+            note TEXT,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def has_dogfood_weld() -> bool:
+    """First-party dogfood weld — never flips their_production."""
+    with db() as conn:
+        _ensure_dogfood_table(conn)
+        row = conn.execute("SELECT COUNT(*) AS n FROM dogfood_welds").fetchone()
+        if row and row["n"] > 0:
+            return True
+        # Legacy production_welds rows marked dogfood=1 count as dogfood only
+        cols = _table_cols(conn, "production_welds")
+        if "dogfood" in cols:
+            d = conn.execute(
+                "SELECT COUNT(*) AS n FROM production_welds WHERE COALESCE(dogfood, 0) = 1"
+            ).fetchone()
+            return bool(d and d["n"] > 0)
+    return False
+
+
+def has_gate_production_weld() -> bool:
+    """Third-party production weld only. Dogfood rows must not flip this."""
+    with db() as conn:
+        cols = _table_cols(conn, "production_welds")
+        if not cols:
+            return False
+        if "dogfood" in cols:
+            row = conn.execute(
+                "SELECT COUNT(*) AS n FROM production_welds WHERE COALESCE(dogfood, 0) = 0"
+            ).fetchone()
+            return bool(row and row["n"] > 0)
+        if "counterparty" in cols:
+            row = conn.execute("SELECT COUNT(*) AS n FROM production_welds").fetchone()
+            return bool(row and row["n"] > 0)
+        # Unknown legacy shape — refuse to claim production
+        return False
+
+
+def record_dogfood_weld(*, write_path: str, operator: str, note: str = "") -> dict:
+    wid = str(uuid.uuid4())
+    ts = datetime.now(timezone.utc).isoformat()
+    path = (write_path or "").strip()
+    op = (operator or "").strip()
+    if not path or not op:
+        raise ValueError("write_path and operator required")
+    with db() as conn:
+        _ensure_dogfood_table(conn)
+        conn.execute(
+            """INSERT INTO dogfood_welds (id, write_path, operator, note, created_at)
+               VALUES (?, ?, ?, ?, ?)""",
+            (wid, path, op, (note or "").strip(), ts),
+        )
+    return {
+        "id": wid,
+        "write_path": path,
+        "operator": op,
+        "note": note,
+        "created_at": ts,
+        "their_production": False,
+    }
+
+
+def latest_dogfood_weld() -> dict | None:
+    with db() as conn:
+        _ensure_dogfood_table(conn)
+        row = conn.execute(
+            """SELECT id, write_path, operator, note, created_at
+               FROM dogfood_welds ORDER BY created_at DESC LIMIT 1"""
+        ).fetchone()
+    return dict(row) if row else None
+

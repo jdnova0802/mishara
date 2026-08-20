@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Pre-rev MAXED.</strong> Every dim at ceiling — only Gate deployability waits on a weld.</span>
+  <span><strong>Pre-rev MAXED.</strong> Gate deploy follows the proof ladder — weld only flips their_production.</span>
   <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Formula →</a>
 </div>
 
@@ -25,7 +25,13 @@
     <a href="{{ url_for('well_known_scorecard') }}" class="btn btn-primary">scorecard.json</a>
     <a href="{{ url_for('production_skin_page') }}" class="btn btn-accent-outline">Production skin</a>
     <a href="{{ url_for('proof_page') }}" class="btn btn-ghost">Proof suite</a>
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-ghost">Runbook</a>
   </div>
+  {% if manifest.proof_readiness %}
+  <p style="margin-top: 0.75rem; color: var(--muted);">
+    Readiness L{{ manifest.proof_readiness.level }} — {{ manifest.proof_readiness.label }}
+  </p>
+  {% endif %}
 </section>
 
 <section class="container section">

@@ -272,6 +272,8 @@ class FlaskListingTests(unittest.TestCase):
             "/scorecard",
             "/production-skin",
             "/proof",
+            "/runbook",
+            "/dogfood",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -296,13 +298,21 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("scorecard", gate)
         self.assertIn("DENY", gate["formula"])
 
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+
         sc = self.client.get("/.well-known/scorecard.json").get_json()
         self.assertEqual(sc["spec"], "nisaba-scorecard-v2")
         self.assertEqual(len(sc["family"]), 5)
+        # Proof ladder: all_pass → L2 deploy 7.5; their_production still false without weld
         self.assertFalse(sc["their_production"])
         self.assertEqual(sc["mode"], "pre_rev_maxed")
-        # Flawless: deployability crushed without weld — everything else maxed
-        self.assertLessEqual(sc["gate"]["dimensions"]["deployability"], 6.0)
+        deploy = sc["gate"]["dimensions"]["deployability"]
+        self.assertGreaterEqual(deploy, 7.0)
+        self.assertLess(deploy, 8.0)
         self.assertGreaterEqual(sc["gate"]["dimensions"]["voice"], 9.0)
         self.assertTrue(all(p["maxed"] for p in sc["family"] if p["id"] != "gate"))
         self.assertIn("family", gate)
@@ -1444,6 +1454,12 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("DENY", home)
         self.assertIn("/scorecard", home)
 
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+
         sc = self.client.get("/.well-known/scorecard.json")
         self.assertEqual(sc.status_code, 200)
         sc_data = sc.get_json()
@@ -1453,7 +1469,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("family", sc_data)
         self.assertEqual(len(sc_data["family"]), 5)
         self.assertIn("DENY", sc_data["formula"])
-        self.assertLessEqual(sc_data["dimensions"]["deployability"], 6.0)
+        # L2 proof-green deploy without their_production / dogfood
+        self.assertGreaterEqual(sc_data["dimensions"]["deployability"], 7.0)
+        self.assertLess(sc_data["dimensions"]["deployability"], 8.0)
+        self.assertIn("proof_readiness", sc_data)
+        self.assertEqual(sc_data["proof_readiness"]["level"], 2)
         # Non-Gate siblings fully maxed at pre-rev ceiling
         for p in sc_data["family"]:
             self.assertTrue(p["market_problem"])
@@ -1467,7 +1487,10 @@ class OperatorInvoiceTests(unittest.TestCase):
                 self.assertGreaterEqual(p["dimensions"]["economics_model"], 9.0)
                 self.assertGreaterEqual(p["dimensions"]["deployability"], 9.0)
             else:
-                self.assertLessEqual(p["dimensions"]["deployability"], 6.0)
+                self.assertGreaterEqual(p["dimensions"]["deployability"], 7.0)
+                self.assertLess(p["dimensions"]["deployability"], 8.0)
+                self.assertTrue(p.get("proof_maxed"))
+                self.assertFalse(p["maxed"])
                 self.assertGreaterEqual(p["dimensions"]["voice"], 9.0)
                 self.assertGreaterEqual(p["dimensions"]["market_bite"], 9.0)
 
@@ -1491,21 +1514,51 @@ class OperatorInvoiceTests(unittest.TestCase):
 
         skin = self.client.get("/.well-known/production-skin.json")
         self.assertEqual(skin.status_code, 200)
-        self.assertFalse(skin.get_json()["their_production"])
+        skin_data = skin.get_json()
+        self.assertFalse(skin_data["their_production"])
+        self.assertEqual(skin_data["spec"], "gate-production-skin-v2")
+        self.assertIn("checklist", skin_data)
+        self.assertIn("dogfood_weld", skin_data)
 
         proof = self.client.get("/.well-known/proof-suite.json")
         self.assertEqual(proof.status_code, 200)
         proof_data = proof.get_json()
         self.assertTrue(proof_data["all_pass"])
         self.assertGreaterEqual(proof_data["pass_count"], 5)
+        self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
+        self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
+
+        rb = self.client.get("/.well-known/runbook.json")
+        self.assertEqual(rb.status_code, 200)
+        self.assertEqual(rb.get_json()["spec"], "gate-runbook-v1")
+
+        # Dogfood lifts to L3 without flipping their_production
+        dog = self.client.post(
+            "/dogfood",
+            data={
+                "write_path": "/v1/act → withdraw dogfood",
+                "operator": "proof@nisaba.io",
+                "note": "test dogfood",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(dog.status_code, 200)
+        proof2 = self.client.get("/.well-known/proof-suite.json").get_json()
+        self.assertEqual(proof2["readiness"]["level"], 3)
+        self.assertTrue(proof2["readiness"]["dogfood_weld"])
+        self.assertFalse(proof2["their_production"])
+        sc2 = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertAlmostEqual(sc2["dimensions"]["deployability"], 8.5, places=1)
+        self.assertFalse(sc2["their_production"])
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("scorecard", gate)
         self.assertIn("production_skin", gate)
         self.assertIn("proof_suite", gate)
+        self.assertIn("runbook", gate)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")

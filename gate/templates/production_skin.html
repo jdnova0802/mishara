@@ -1,15 +1,34 @@
 {% extends "base.html" %}
 {% block title %}Production skin{% endblock %}
 {% block meta %}
-<meta name="description" content="Honesty skin. their_production: {{ manifest.their_production }}. What ships vs what is claimed.">
+<meta name="description" content="Honesty skin. their_production: {{ manifest.their_production }}. Readiness L{{ manifest.readiness.level if manifest.readiness else '?' }}. What ships vs what is claimed.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Honesty · weld gate</p>
+  <p class="audience-tag">Honesty · weld gate · readiness</p>
   <h1>Production skin</h1>
   <p class="audience-sub">{{ manifest.canonical }}</p>
-  <p style="margin: 1rem 0;">their_production: <strong>{{ manifest.their_production }}</strong>
-    · force_production_weld: <strong>{{ manifest.force_production_weld }}</strong></p>
+  <p style="margin: 1rem 0;">
+    their_production: <strong>{{ manifest.their_production }}</strong>
+    · dogfood_weld: <strong>{{ manifest.dogfood_weld }}</strong>
+    · force_production_weld: <strong>{{ manifest.force_production_weld }}</strong>
+  </p>
+  {% if manifest.readiness %}
+  <p style="margin-bottom: 1rem;">
+    Readiness <strong>L{{ manifest.readiness.level }}</strong> — {{ manifest.readiness.label }}
+    · checklist {{ manifest.checklist_pass }}/{{ manifest.checklist_total }}
+  </p>
+  {% endif %}
+  {% if manifest.checklist %}
+  <div class="card" style="margin-bottom: 1.25rem;">
+    <h3>Readiness checklist</h3>
+    <ul class="check-list">
+      {% for c in manifest.checklist %}
+      <li>{% if c.passes %}PASS{% else %}HOLD{% endif %} — {{ c.label }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
   <div class="grid-2">
     <div class="card">
       <h3>Shipped now</h3>
@@ -30,6 +49,9 @@
   </div>
   <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
     <a href="{{ url_for('well_known_production_skin') }}" class="btn btn-ghost btn-sm">production-skin.json</a>
+    <a href="{{ url_for('proof_page') }}" class="btn btn-ghost btn-sm">Proof</a>
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-accent-outline btn-sm">Runbook</a>
+    <a href="{{ url_for('dogfood_page') }}" class="btn btn-accent-outline btn-sm">Dogfood</a>
     <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Scorecard</a>
     <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Weld</a>
   </div>

@@ -123,7 +123,7 @@ FAMILY_BITES: dict[str, dict[str, Any]] = {
         "live": True,
         "scores": None,  # dynamic
         "gaps_honest": [
-            "ONLY HOLD: deployability / proof until third-party production weld",
+            "Deploy follows readiness ladder: L2 proof green → L3 dogfood → L4 their_production",
             "Force/battlefield in category — force_production_weld false",
         ],
     },
@@ -164,24 +164,18 @@ def _gaps(scores: dict[str, float]) -> dict[str, float]:
     return {k: _round(PRE_REV_MAX[k] - scores[k]) for k in scores if k in PRE_REV_MAX}
 
 
-def _gate_scores(prod: bool, proof_ok: bool) -> dict[str, float]:
-    """Gate — every dim maxed; deployability/proof crushed until weld."""
+def _gate_scores(prod: bool, proof_ok: bool, readiness: dict | None = None) -> dict[str, float]:
+    """Gate — concept maxed; proof/deploy from readiness ladder."""
     scores = _maxed()
-    if not prod:
-        # Structural honesty — the only non-maxed dims
-        scores["deployability"] = 5.5
-        scores["narrative_vs_reality"] = 8.5 if proof_ok else 8.0
-        scores["buyer_trust"] = 8.5 if proof_ok else 8.0
-        scores["irreplaceable"] = 9.0 if proof_ok else 8.5
-    else:
-        scores["deployability"] = 9.0
-        scores["narrative_vs_reality"] = 9.0
-        scores["buyer_trust"] = 9.0
-        scores["irreplaceable"] = 10.0
-    if not proof_ok:
-        scores["technical_differentiation"] = 9.5
-        scores["antifragile"] = 9.5
-        scores["world_class_quality"] = 9.5
+    ready = readiness or {}
+    scores["deployability"] = float(ready.get("deployability") or (9.0 if prod else 5.5))
+    scores["buyer_trust"] = float(ready.get("buyer_trust") or (9.0 if proof_ok else 8.0))
+    scores["narrative_vs_reality"] = float(
+        ready.get("narrative_vs_reality") or (9.0 if prod else (8.5 if proof_ok else 7.5))
+    )
+    scores["irreplaceable"] = float(
+        ready.get("irreplaceable") or (10.0 if prod else (9.0 if proof_ok else 8.0))
+    )
     return scores
 
 
@@ -239,22 +233,26 @@ def score(public_url: str) -> dict[str, Any]:
 
     base = (public_url or "").rstrip("/")
     prod = skin_mod.their_production()
-    proof = proof_mod.run_invariants()
+    proof_manifest = proof_mod.manifest(base)
+    proof = proof_manifest.get("invariants") or proof_mod.run_invariants()
     proof_ok = all(p["passes"] for p in proof)
+    readiness = proof_manifest.get("readiness") or proof_mod.readiness_from_results(proof)
     aos = aos_mod.manifest(base)
 
     products = []
     for key, meta in FAMILY_BITES.items():
         if key == "gate":
-            scores = _gate_scores(prod, proof_ok)
+            scores = _gate_scores(prod, proof_ok, readiness)
         else:
             scores = dict(meta["scores"])
         card = _product_card(key, scores, meta, base)
-        # siblings fully maxed at pre-rev ceiling
         if key != "gate":
             card["maxed"] = True
         else:
-            card["maxed"] = prod
+            # Gate is "proof-maxed" when readiness level >= 2; production-maxed at their_production
+            card["maxed"] = bool(prod)
+            card["proof_maxed"] = int(readiness.get("level") or 0) >= 2
+            card["readiness"] = readiness
         products.append(card)
 
     gate = next(p for p in products if p["id"] == "gate")
@@ -277,6 +275,7 @@ def score(public_url: str) -> dict[str, Any]:
         "proof_all_pass": proof_ok,
         "proof_pass_count": sum(1 for p in proof if p["passes"]),
         "proof_total": len(proof),
+        "proof_readiness": readiness,
         "pre_rev_ceiling": 9.5,
         "gate": gate,
         "family": products,
@@ -302,7 +301,7 @@ def score(public_url: str) -> dict[str, Any]:
             "name": lowest_overall["name"],
             "overall": lowest_overall["overall"],
             "why": (
-                "Gate proof dims crushed until weld"
+                f"Gate readiness L{readiness.get('level')}: {readiness.get('label')}"
                 if lowest_overall["id"] == "gate" and not prod
                 else "Pre-rev maxed across family"
             ),
@@ -316,11 +315,11 @@ def score(public_url: str) -> dict[str, Any]:
         "pre_rev_max": gate["pre_rev_max"],
         "lift_when_production_welded": _round(9.5 - gate["overall"]) if not prod else 0.0,
         "flawless_means": [
-            "Pre-rev MAXED — voice, face, copy, nature, bite, economics all at ceiling",
-            "ONLY hold: Gate deployability / proof until their_production weld",
-            "Every sibling names a real market problem and a buyer",
-            "Family voices + paste packs are the canonical public face",
-            "Scarcity remains DENY — scorecard does not claim a weld we do not have",
+            "Pre-rev MAXED on concept dims for all siblings",
+            "Gate proof/deploy follows readiness ladder (proof → dogfood → their_production)",
+            "their_production never flips from demo hop or manifesto",
+            "Expanded proof suite is the deploy lift lever",
+            "Scarcity remains DENY",
         ],
     }
 

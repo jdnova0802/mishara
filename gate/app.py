@@ -115,6 +115,11 @@ except ImportError:
     import proof_suite as proof_suite_mod
 
 try:
+    from gate import runbook as runbook_mod
+except ImportError:
+    import runbook as runbook_mod
+
+try:
     from gate import family_voices as family_voices_mod
 except ImportError:
     import family_voices as family_voices_mod
@@ -1242,6 +1247,9 @@ def well_known_gate():
             "family_page": f"{advertised_url()}/family",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
+            "runbook": f"{advertised_url()}/.well-known/runbook.json",
+            "runbook_page": f"{advertised_url()}/runbook",
+            "dogfood": f"{advertised_url()}/dogfood",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1428,6 +1436,61 @@ def production_skin_page():
 def proof_page():
     m = proof_suite_mod.manifest(advertised_url())
     return render_template("proof.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/runbook")
+def runbook_page():
+    m = runbook_mod.manifest(advertised_url())
+    return render_template("runbook.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/dogfood", methods=["GET", "POST"])
+def dogfood_page():
+    """First-party dogfood weld record. Does not flip their_production."""
+    error = None
+    recorded = None
+    if request.method == "POST":
+        write_path = (request.form.get("write_path") or "").strip()
+        operator = (request.form.get("operator") or "").strip()
+        note = (request.form.get("note") or "").strip()
+        try:
+            result = production_skin_mod.record_dogfood_weld(
+                write_path=write_path,
+                operator=operator,
+                note=note,
+            )
+            if not result.get("ok"):
+                error = result.get("error") or "Could not record dogfood weld"
+            else:
+                recorded = result.get("weld")
+                flash(
+                    "Dogfood weld recorded. their_production stays false until a third-party weld.",
+                    "success",
+                )
+        except ValueError as exc:
+            error = str(exc)
+        except Exception as exc:  # noqa: BLE001 — surface honestly
+            error = str(exc)
+    m = production_skin_mod.manifest(advertised_url())
+    latest = None
+    try:
+        import db as gate_db
+
+        latest = gate_db.latest_dogfood_weld()
+    except Exception:  # noqa: BLE001
+        latest = None
+    return render_template(
+        "dogfood.html",
+        manifest=m,
+        latest=latest or recorded,
+        error=error,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/runbook.json")
+def well_known_runbook():
+    return jsonify(runbook_mod.manifest(advertised_url()))
 
 
 @app.route("/action-os")
