@@ -1207,6 +1207,11 @@ def well_known_gate():
             "variety": f"{advertised_url()}/.well-known/variety.json",
             "closure": f"{advertised_url()}/.well-known/closure.json",
             "temporal_weld": f"{advertised_url()}/.well-known/temporal-weld.json",
+            "nonrepudiation": f"{advertised_url()}/.well-known/nonrepudiation.json",
+            "regime_function": f"{advertised_url()}/.well-known/regime-function.json",
+            "custody": f"{advertised_url()}/.well-known/custody.json",
+            "option_halt": f"{advertised_url()}/.well-known/option-halt.json",
+            "performative": f"{advertised_url()}/.well-known/performative.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1407,6 +1412,51 @@ def well_known_temporal_weld():
     except ImportError:
         import temporal_weld as temporal_mod
     return jsonify(temporal_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/nonrepudiation.json")
+def well_known_nonrepudiation():
+    try:
+        from gate import nonrepudiation as nr_mod
+    except ImportError:
+        import nonrepudiation as nr_mod
+    return jsonify(nr_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/regime-function.json")
+def well_known_regime_function():
+    try:
+        from gate import regime as regime_mod
+    except ImportError:
+        import regime as regime_mod
+    return jsonify(regime_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/custody.json")
+def well_known_custody():
+    try:
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+    return jsonify(custody_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/option-halt.json")
+def well_known_option_halt():
+    try:
+        from gate import option_halt as option_mod
+    except ImportError:
+        import option_halt as option_mod
+    return jsonify(option_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/performative.json")
+def well_known_performative():
+    try:
+        from gate import performative as performative_mod
+    except ImportError:
+        import performative as performative_mod
+    return jsonify(performative_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/positioning.json")

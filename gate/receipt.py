@@ -256,7 +256,7 @@ def receipt_to_public_payload(
     except ImportError:
         import counterfactual as counterfactual_mod
 
-    payload = counterfactual_mod.attach_to_receipt_payload(payload, receipt_row)
+    payload = counterfactual_mod.attach_to_receipt_payload(payload, receipt_row, public_url)
     if public_url:
         try:
             from gate import inhabitant as inhabitant_mod

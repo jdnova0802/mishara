@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 8)
+        self.assertGreaterEqual(data["count"], 13)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2154,6 +2154,11 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/variety.json",
             "/.well-known/closure.json",
             "/.well-known/temporal-weld.json",
+            "/.well-known/nonrepudiation.json",
+            "/.well-known/regime-function.json",
+            "/.well-known/custody.json",
+            "/.well-known/option-halt.json",
+            "/.well-known/performative.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2161,8 +2166,29 @@ class SettlementEngineTests(unittest.TestCase):
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("inventions", gate)
         self.assertIn("costliness", gate)
+        self.assertIn("performative", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 8)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 13)
+
+        # Wave 3 spot checks
+        import nonrepudiation as nr_mod
+        import regime as regime_mod
+        import option_halt as option_mod
+        import performative as performative_mod
+        import custody as custody_mod
+
+        nr = nr_mod.ladder(decision="HALT", receipt_hash="abc", created_at="t", event_id="e")
+        self.assertGreaterEqual(nr["rungs_reached"], 2)
+        rg = regime_mod.evaluate(fuse_live=True, license_fused=True, license_parent_live=False)
+        self.assertEqual(rg["output"], "HALT")
+        oh = option_mod.value(decision="HALT", acted=False)
+        self.assertTrue(oh["option_kept_alive"])
+        oh2 = option_mod.value(decision="ALLOW", acted=True)
+        self.assertFalse(oh2["option_kept_alive"])
+        pf = performative_mod.illocution(decision="HALT", acted=False, enforced=True)
+        self.assertTrue(pf["felicity_conditions"]["felicitous"])
+        cu = custody_mod.trail(event_id="e", receipt_hash="h", created_at="t", verify_url="https://x")
+        self.assertGreaterEqual(cu["stages_reached"], 3)
 
 
 if __name__ == "__main__":

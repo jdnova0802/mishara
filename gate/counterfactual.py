@@ -92,7 +92,7 @@ def build_claim(
     }
 
 
-def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
+def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None = None) -> dict:
     try:
         from gate import possibility as possibility_mod
     except ImportError:
@@ -133,6 +133,27 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
     payload["fulfillment"] = fulfillment_mod.from_hop(
         hop_for_fulfill, decision=row.get("decision"), acted=row.get("acted")
     )
+    try:
+        from gate import nonrepudiation as nr_mod
+    except ImportError:
+        import nonrepudiation as nr_mod
+    try:
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+    try:
+        from gate import option_halt as option_mod
+    except ImportError:
+        import option_halt as option_mod
+    try:
+        from gate import performative as performative_mod
+    except ImportError:
+        import performative as performative_mod
+
+    payload = nr_mod.attach_to_receipt_payload(payload, row)
+    payload = option_mod.attach_to_receipt_payload(payload, row)
+    payload = performative_mod.attach_to_receipt_payload(payload, row)
+    payload = custody_mod.attach_to_receipt_payload(payload, row, public_url)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None

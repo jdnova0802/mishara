@@ -13,6 +13,36 @@ GATEKEEP = (
     "do not rebrand as generic AI governance or payment philosophy."
 )
 
+# (id, name, spec, one_liner, well-known filename)
+CATALOG = (
+    ("possibility_finality", "Possibility Finality", "gate-possibility-finality-v1",
+     "Possible vs impossible tasks + policy depth + SFD Finality I/II/III", "possibility-finality.json"),
+    ("mouth_constitution", "Mouth Constitution", "gate-mouth-constitution-v1",
+     "Intervention ladder · counts-as · STIT · extinguishment", "mouth-constitution.json"),
+    ("bayesian_binding", "Bayesian Binding of Status", "gate-bayesian-binding-v1",
+     "Policy competition enters epistemic field and constitutes status", "bayesian-binding.json"),
+    ("costliness", "Unforgeable Costliness of CHARGE", "gate-costliness-v1",
+     "Regime change only via costly witnesses — CHARGE, weld, epoch", "costliness.json"),
+    ("fulfillment", "Joint Fulfillment", "gate-fulfillment-v1",
+     "Executable STIT duty / compliance / joint checks on live facts", "fulfillment.json"),
+    ("variety", "Requisite Variety Mouth", "gate-variety-v1",
+     "Ashby attenuator: spend-door variety → {ALLOW,HALT,BLOCK}", "variety.json"),
+    ("closure", "Permission Autopoiesis", "gate-closure-v1",
+     "Operational closure: external soft-yes cannot enter permission network", "closure.json"),
+    ("temporal_weld", "Temporal Weld", "gate-temporal-weld-v1",
+     "Action + evidence consequence welded into one citeable event", "temporal-weld.json"),
+    ("nonrepudiation", "Non-Repudiation Ladder", "gate-nonrepudiation-v1",
+     "NRI/NRO/NRT/NRC for mouth evidence — hash≠authorship honesty", "nonrepudiation.json"),
+    ("regime_function", "Regime Function", "gate-regime-function-v1",
+     "Mouth as published fixed function; CHARGE-only regime change", "regime-function.json"),
+    ("custody", "Custody Chain", "gate-custody-v1",
+     "Identify→hash→sign→chain→publish→verify for hop evidence", "custody.json"),
+    ("option_halt", "Option Value of HALT", "gate-option-halt-v1",
+     "Real-options: HALT preserves wait value; ALLOW kills it", "option-halt.json"),
+    ("performative", "Performative Mouth", "gate-performative-v1",
+     "ALLOW/HALT as status-function declarations — not risk commentary", "performative.json"),
+)
+
 
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
@@ -22,61 +52,13 @@ def manifest(public_url: str) -> dict[str, Any]:
 
     inventions = [
         {
-            "id": "possibility_finality",
-            "name": "Possibility Finality",
-            "spec": "gate-possibility-finality-v1",
-            "one_liner": "Possible vs impossible tasks + policy depth + SFD Finality I/II/III",
-            "href": link("possibility-finality.json"),
-        },
-        {
-            "id": "mouth_constitution",
-            "name": "Mouth Constitution",
-            "spec": "gate-mouth-constitution-v1",
-            "one_liner": "Intervention ladder · counts-as · STIT · extinguishment",
-            "href": link("mouth-constitution.json"),
-        },
-        {
-            "id": "bayesian_binding",
-            "name": "Bayesian Binding of Status",
-            "spec": "gate-bayesian-binding-v1",
-            "one_liner": "Policy competition enters epistemic field and constitutes status",
-            "href": link("bayesian-binding.json"),
-        },
-        {
-            "id": "costliness",
-            "name": "Unforgeable Costliness of CHARGE",
-            "spec": "gate-costliness-v1",
-            "one_liner": "Regime change only via costly witnesses — CHARGE, weld, epoch",
-            "href": link("costliness.json"),
-        },
-        {
-            "id": "fulfillment",
-            "name": "Joint Fulfillment",
-            "spec": "gate-fulfillment-v1",
-            "one_liner": "Executable STIT duty / compliance / joint checks on live facts",
-            "href": link("fulfillment.json"),
-        },
-        {
-            "id": "variety",
-            "name": "Requisite Variety Mouth",
-            "spec": "gate-variety-v1",
-            "one_liner": "Ashby attenuator: spend-door variety → {ALLOW,HALT,BLOCK}",
-            "href": link("variety.json"),
-        },
-        {
-            "id": "closure",
-            "name": "Permission Autopoiesis",
-            "spec": "gate-closure-v1",
-            "one_liner": "Operational closure: external soft-yes cannot enter permission network",
-            "href": link("closure.json"),
-        },
-        {
-            "id": "temporal_weld",
-            "name": "Temporal Weld",
-            "spec": "gate-temporal-weld-v1",
-            "one_liner": "Action + evidence consequence welded into one citeable event",
-            "href": link("temporal-weld.json"),
-        },
+            "id": i[0],
+            "name": i[1],
+            "spec": i[2],
+            "one_liner": i[3],
+            "href": link(i[4]),
+        }
+        for i in CATALOG
     ]
 
     return {
