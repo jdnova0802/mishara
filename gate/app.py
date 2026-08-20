@@ -1283,6 +1283,18 @@ def well_known_gate():
             "residual": f"{advertised_url()}/.well-known/residual.json",
             "knightian": f"{advertised_url()}/.well-known/knightian.json",
             "interlock": f"{advertised_url()}/.well-known/interlock.json",
+            "exochronology": f"{advertised_url()}/.well-known/exochronology.json",
+            "superselection": f"{advertised_url()}/.well-known/superselection.json",
+            "topological_halt": f"{advertised_url()}/.well-known/topological-halt.json",
+            "null_door": f"{advertised_url()}/.well-known/null-door.json",
+            "nonbaryonic": f"{advertised_url()}/.well-known/nonbaryonic.json",
+            "pauli_live": f"{advertised_url()}/.well-known/pauli-live.json",
+            "unlanguage": f"{advertised_url()}/.well-known/unlanguage.json",
+            "exotic_metal": f"{advertised_url()}/.well-known/exotic-metal.json",
+            "false_vacuum": f"{advertised_url()}/.well-known/false-vacuum.json",
+            "xenometric": f"{advertised_url()}/.well-known/xenometric.json",
+            "contactee_ban": f"{advertised_url()}/.well-known/contactee-ban.json",
+            "nonabelian": f"{advertised_url()}/.well-known/nonabelian.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1911,6 +1923,66 @@ def well_known_knightian():
 @app.route("/.well-known/interlock.json")
 def well_known_interlock():
     return _wk_manifest("interlock")
+
+
+@app.route("/.well-known/exochronology.json")
+def well_known_exochronology():
+    return _wk_manifest("exochronology")
+
+
+@app.route("/.well-known/superselection.json")
+def well_known_superselection():
+    return _wk_manifest("superselection")
+
+
+@app.route("/.well-known/topological-halt.json")
+def well_known_topological_halt():
+    return _wk_manifest("topological_halt")
+
+
+@app.route("/.well-known/null-door.json")
+def well_known_null_door():
+    return _wk_manifest("null_door")
+
+
+@app.route("/.well-known/nonbaryonic.json")
+def well_known_nonbaryonic():
+    return _wk_manifest("nonbaryonic")
+
+
+@app.route("/.well-known/pauli-live.json")
+def well_known_pauli_live():
+    return _wk_manifest("pauli_live")
+
+
+@app.route("/.well-known/unlanguage.json")
+def well_known_unlanguage():
+    return _wk_manifest("unlanguage")
+
+
+@app.route("/.well-known/exotic-metal.json")
+def well_known_exotic_metal():
+    return _wk_manifest("exotic_metal")
+
+
+@app.route("/.well-known/false-vacuum.json")
+def well_known_false_vacuum():
+    return _wk_manifest("false_vacuum")
+
+
+@app.route("/.well-known/xenometric.json")
+def well_known_xenometric():
+    return _wk_manifest("xenometric")
+
+
+@app.route("/.well-known/contactee-ban.json")
+def well_known_contactee_ban():
+    return _wk_manifest("contactee")
+
+
+@app.route("/.well-known/nonabelian.json")
+def well_known_nonabelian():
+    return _wk_manifest("nonabelian")
 
 
 @app.route("/.well-known/positioning.json")

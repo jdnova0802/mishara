@@ -238,6 +238,17 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
 
     payload = holo_mod.attach_to_receipt_payload(payload, row)
     payload = ch_mod.attach_to_receipt_payload(payload, row)
+    try:
+        from gate import superselection as super_mod
+    except ImportError:
+        import superselection as super_mod
+    try:
+        from gate import unlanguage as unlang_mod
+    except ImportError:
+        import unlanguage as unlang_mod
+
+    payload = super_mod.attach_to_receipt_payload(payload, row)
+    payload = unlang_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None

@@ -1377,7 +1377,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 10)
+        self.assertEqual(len(cards), 11)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 84)
+        self.assertGreaterEqual(data["count"], 96)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2230,6 +2230,18 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/residual.json",
             "/.well-known/knightian.json",
             "/.well-known/interlock.json",
+            "/.well-known/exochronology.json",
+            "/.well-known/superselection.json",
+            "/.well-known/topological-halt.json",
+            "/.well-known/null-door.json",
+            "/.well-known/nonbaryonic.json",
+            "/.well-known/pauli-live.json",
+            "/.well-known/unlanguage.json",
+            "/.well-known/exotic-metal.json",
+            "/.well-known/false-vacuum.json",
+            "/.well-known/xenometric.json",
+            "/.well-known/contactee-ban.json",
+            "/.well-known/nonabelian.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2253,8 +2265,11 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("holographic", gate)
         self.assertIn("secure_boot", gate)
         self.assertIn("interlock", gate)
+        self.assertIn("exochronology", gate)
+        self.assertIn("unlanguage", gate)
+        self.assertIn("nonabelian", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 84)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 96)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2323,7 +2338,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 84)
+        self.assertEqual(fp["invention_count"], 96)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
@@ -2513,6 +2528,39 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(res_mod.control(holder="admin")["posture"], "misallocated_residual")
         self.assertEqual(kn_mod.face(fake_probability=True, decision="ALLOW")["posture"], "fake_risk")
         self.assertEqual(lock_mod.ladder(rungs_true=5, jumper=True)["posture"], "jumper_illegal")
+
+        # Wave 12 — exo-chassis
+        import exochronology as exo_mod
+        import superselection as sel_mod
+        import topological_halt as top_mod
+        import null_door as null_mod
+        import nonbaryonic as nb_mod
+        import pauli_live as pauli_mod
+        import unlanguage as un_mod
+        import exotic_metal as metal_mod
+        import false_vacuum as fv_mod
+        import xenometric as xm_mod
+        import contactee as ce_mod
+        import nonabelian as na_mod
+
+        self.assertEqual(exo_mod.translate(treating_pas_now_as_native=True)["posture"], "clock_species_error")
+        self.assertEqual(sel_mod.sector(partial_live=True)["posture"], "superselection_violation")
+        self.assertEqual(
+            top_mod.deform(sliding_score_toward_allow=True, decision="ALLOW")["posture"],
+            "illegal_deformation",
+        )
+        self.assertEqual(null_mod.geodesic(spacelike_skip=True)["posture"], "spacelike_illegal")
+        self.assertEqual(
+            nb_mod.couple(dashboard_only=True, spend_happened=True, mouth_on_path=False)["posture"],
+            "dark_halo",
+        )
+        self.assertEqual(pauli_mod.occupy(same_live_cloned=True)["posture"], "exclusion_violation")
+        self.assertEqual(un_mod.utter(english_only=True)["posture"], "translation_without_speech")
+        self.assertEqual(metal_mod.phase(their_production=True, weld_paid=False)["posture"], "false_solid")
+        self.assertEqual(fv_mod.nucleate(cheap_live=True)["posture"], "uncatalyzed_decay")
+        self.assertEqual(xm_mod.measure(unit="risk_percent")["posture"], "earth_unit_rejected")
+        self.assertEqual(ce_mod.present(channel="chat_ask_gate")["posture"], "contactee_illegal")
+        self.assertEqual(na_mod.braid(sequence="bind_then_charge")["posture"], "wrong_order")
 
 
 if __name__ == "__main__":

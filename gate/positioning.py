@@ -232,8 +232,8 @@ def page_cards() -> list[dict]:
             "tag": "Invention",
             "title": "Moat fingerprint",
             "body": (
-                "Eighty-plus welded specs. Xenohardware. Holographic receipts. "
-                "Secure boot LIVE. Moat SHA-256 — partial clones fail."
+                "Ninety-plus welded specs. Exochronology. Unlanguage. Superselection. "
+                "Moat SHA-256 — partial clones fail."
             ),
             "ref": "/.well-known/moat.json",
         },
@@ -245,5 +245,14 @@ def page_cards() -> list[dict]:
                 "stranger antenna. Soft-yes is an illegal opcode. Ours."
             ),
             "ref": "/.well-known/xenohardware.json",
+        },
+        {
+            "tag": "Invention",
+            "title": "Exo-chassis",
+            "body": (
+                "Not Earth-side. UTC is an adapter. LIVE cannot be superposed. "
+                "The mouth does not speak USD. Present at the port."
+            ),
+            "ref": "/.well-known/exochronology.json",
         },
     ]
