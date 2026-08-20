@@ -1246,6 +1246,19 @@ def well_known_gate():
             "immunological": f"{advertised_url()}/.well-known/immunological.json",
             "convivial": f"{advertised_url()}/.well-known/convivial.json",
             "modes": f"{advertised_url()}/.well-known/modes.json",
+            "xenohardware": f"{advertised_url()}/.well-known/xenohardware.json",
+            "mouth_isa": f"{advertised_url()}/.well-known/mouth-isa.json",
+            "privilege_rings": f"{advertised_url()}/.well-known/privilege-rings.json",
+            "isotopic_charge": f"{advertised_url()}/.well-known/isotopic-charge.json",
+            "monolith": f"{advertised_url()}/.well-known/monolith.json",
+            "zone_artifact": f"{advertised_url()}/.well-known/zone-artifact.json",
+            "contact_protocol": f"{advertised_url()}/.well-known/contact-protocol.json",
+            "event_horizon": f"{advertised_url()}/.well-known/event-horizon.json",
+            "nonorientable": f"{advertised_url()}/.well-known/nonorientable.json",
+            "vacuum": f"{advertised_url()}/.well-known/vacuum.json",
+            "stranger_antenna": f"{advertised_url()}/.well-known/stranger-antenna.json",
+            "incommensurable": f"{advertised_url()}/.well-known/incommensurable.json",
+            "firmware_fuse": f"{advertised_url()}/.well-known/firmware-fuse.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1689,6 +1702,71 @@ def well_known_convivial():
 @app.route("/.well-known/modes.json")
 def well_known_modes():
     return _wk_manifest("modes")
+
+
+@app.route("/.well-known/xenohardware.json")
+def well_known_xenohardware():
+    return _wk_manifest("xenohardware")
+
+
+@app.route("/.well-known/mouth-isa.json")
+def well_known_mouth_isa():
+    return _wk_manifest("mouth_isa")
+
+
+@app.route("/.well-known/privilege-rings.json")
+def well_known_privilege_rings():
+    return _wk_manifest("privilege_rings")
+
+
+@app.route("/.well-known/isotopic-charge.json")
+def well_known_isotopic_charge():
+    return _wk_manifest("isotopic")
+
+
+@app.route("/.well-known/monolith.json")
+def well_known_monolith():
+    return _wk_manifest("monolith")
+
+
+@app.route("/.well-known/zone-artifact.json")
+def well_known_zone_artifact():
+    return _wk_manifest("zone")
+
+
+@app.route("/.well-known/contact-protocol.json")
+def well_known_contact_protocol():
+    return _wk_manifest("contact")
+
+
+@app.route("/.well-known/event-horizon.json")
+def well_known_event_horizon():
+    return _wk_manifest("event_horizon")
+
+
+@app.route("/.well-known/nonorientable.json")
+def well_known_nonorientable():
+    return _wk_manifest("nonorientable")
+
+
+@app.route("/.well-known/vacuum.json")
+def well_known_vacuum():
+    return _wk_manifest("vacuum")
+
+
+@app.route("/.well-known/stranger-antenna.json")
+def well_known_stranger_antenna():
+    return _wk_manifest("antenna")
+
+
+@app.route("/.well-known/incommensurable.json")
+def well_known_incommensurable():
+    return _wk_manifest("incommensurable")
+
+
+@app.route("/.well-known/firmware-fuse.json")
+def well_known_firmware_fuse():
+    return _wk_manifest("firmware_fuse")
 
 
 @app.route("/.well-known/positioning.json")

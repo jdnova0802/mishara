@@ -1377,7 +1377,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 9)
+        self.assertEqual(len(cards), 10)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 47)
+        self.assertGreaterEqual(data["count"], 60)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2193,6 +2193,19 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/immunological.json",
             "/.well-known/convivial.json",
             "/.well-known/modes.json",
+            "/.well-known/xenohardware.json",
+            "/.well-known/mouth-isa.json",
+            "/.well-known/privilege-rings.json",
+            "/.well-known/isotopic-charge.json",
+            "/.well-known/monolith.json",
+            "/.well-known/zone-artifact.json",
+            "/.well-known/contact-protocol.json",
+            "/.well-known/event-horizon.json",
+            "/.well-known/nonorientable.json",
+            "/.well-known/vacuum.json",
+            "/.well-known/stranger-antenna.json",
+            "/.well-known/incommensurable.json",
+            "/.well-known/firmware-fuse.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2207,8 +2220,11 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("apophatic", gate)
         self.assertIn("agential_cut", gate)
         self.assertIn("modes", gate)
+        self.assertIn("xenohardware", gate)
+        self.assertIn("mouth_isa", gate)
+        self.assertIn("firmware_fuse", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 47)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 60)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2277,7 +2293,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 47)
+        self.assertEqual(fp["invention_count"], 60)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
@@ -2342,6 +2358,47 @@ class SettlementEngineTests(unittest.TestCase):
             modes_mod.classify(tec_ok=True, law_live=False, claimed_permission=True)["posture"],
             "mode_smuggle",
         )
+
+        # Wave 9 — xenohardware
+        import xenohardware as xeno_mod
+        import mouth_isa as isa_mod
+        import privilege_rings as rings_mod
+        import isotopic as iso_mod
+        import monolith as mono_mod
+        import zone as zone_mod
+        import contact as contact_mod
+        import event_horizon as eh_mod
+        import nonorientable as nori_mod
+        import vacuum as vac_mod
+        import antenna as ant_mod
+        import incommensurable as inc_mod
+        import firmware_fuse as fw_mod
+
+        self.assertEqual(
+            xeno_mod.chassis(exclusive_door=True, charge_port=True)["posture"],
+            "sealed_chassis",
+        )
+        self.assertEqual(isa_mod.decode(opcode="SOFT_YES")["posture"], "illegal_opcode_trap")
+        self.assertEqual(
+            rings_mod.ring(claimed_live=True, from_userspace=True)["posture"],
+            "ring_violation",
+        )
+        self.assertEqual(iso_mod.enrich(feedstock="demo_hop")["posture"], "abundant_isotope")
+        self.assertEqual(mono_mod.face(fauna="admin_live_panel")["posture"], "fauna_overgrowth")
+        self.assertEqual(zone_mod.approach(trying_to_redesign_physics=True)["posture"], "picnic")
+        self.assertEqual(contact_mod.handshake(channel="slack_lgtm")["posture"], "not_contact")
+        self.assertEqual(
+            eh_mod.horizon(decision="ALLOW", acted=True, trying_to_undo=True)["posture"],
+            "inside_horizon",
+        )
+        self.assertEqual(
+            nori_mod.topology(exclusive_door=True, side_doors=2)["posture"],
+            "orientable_leak",
+        )
+        self.assertEqual(vac_mod.integrity(leak="timeout_as_live")["posture"], "vacuum_loss")
+        self.assertEqual(ant_mod.listen(login_walled=True, verify_url="https://x")["posture"], "club_not_antenna")
+        self.assertEqual(inc_mod.translate(gloss="risk_score")["posture"], "false_translation")
+        self.assertEqual(fw_mod.flash(runtime_flag=True)["posture"], "jailbreak_attempt")
 
 
 if __name__ == "__main__":

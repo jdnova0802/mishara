@@ -200,6 +200,22 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
 
     payload = agential_mod.attach_to_receipt_payload(payload, row)
     payload = prehension_mod.attach_to_receipt_payload(payload, row)
+    try:
+        from gate import mouth_isa as isa_mod
+    except ImportError:
+        import mouth_isa as isa_mod
+    try:
+        from gate import event_horizon as horizon_mod
+    except ImportError:
+        import event_horizon as horizon_mod
+    try:
+        from gate import antenna as antenna_mod
+    except ImportError:
+        import antenna as antenna_mod
+
+    payload = isa_mod.attach_to_receipt_payload(payload, row)
+    payload = horizon_mod.attach_to_receipt_payload(payload, row)
+    payload = antenna_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None

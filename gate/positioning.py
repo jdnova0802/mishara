@@ -232,9 +232,18 @@ def page_cards() -> list[dict]:
             "tag": "Invention",
             "title": "Moat fingerprint",
             "body": (
-                "Forty-plus welded specs. Hyperobject spend. Clinamen CHARGE. "
-                "Agential cut. Apophatic LIVE. Moat SHA-256 — partial clones fail."
+                "Sixty welded specs. Xenohardware chassis. Mouth ISA. "
+                "Isotopic CHARGE. Zone artifact. Moat SHA-256 — partial clones fail."
             ),
             "ref": "/.well-known/moat.json",
+        },
+        {
+            "tag": "Invention",
+            "title": "Xenohardware",
+            "body": (
+                "Not a dashboard. A chassis: exclusive door, CHARGE port, vacuum seals, "
+                "stranger antenna. Soft-yes is an illegal opcode. Ours."
+            ),
+            "ref": "/.well-known/xenohardware.json",
         },
     ]
