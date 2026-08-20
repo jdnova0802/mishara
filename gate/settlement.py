@@ -450,6 +450,10 @@ def regulatory_report(window: SettlementWindow) -> dict:
         from gate import possibility as possibility_mod
     except ImportError:
         import possibility as possibility_mod
+    try:
+        from gate import constitution as constitution_mod
+    except ImportError:
+        import constitution as constitution_mod
     moments = possibility_mod.finality_moments(
         window_id=window.id,
         opened_at=window.opened_at,
@@ -457,6 +461,12 @@ def regulatory_report(window: SettlementWindow) -> dict:
         settled_at=window.settled_at,
         finality_hash=window.finality_hash,
         state=window.state,
+    )
+    clear = constitution_mod.extinguishment(
+        window_id=window.id,
+        state=window.state,
+        finality_hash=window.finality_hash,
+        net_positions=window.net_positions,
     )
     return {
         "spec": REPORTING_SPEC,
@@ -466,6 +476,7 @@ def regulatory_report(window: SettlementWindow) -> dict:
         "settled_at": window.settled_at,
         "finality_hash": window.finality_hash,
         "finality_moments": moments,
+        "extinguishment": clear,
         "obligation_count": len(obligations),
         "gross_by_asset_class_cents": by_class,
         "net_positions": window.net_positions,

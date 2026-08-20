@@ -142,6 +142,7 @@ def manifest(public_url: str) -> dict:
             "kappa": f"{base}/.well-known/kappa.json",
             "settlement": f"{base}/.well-known/settlement.json",
             "possibility_finality": f"{base}/.well-known/possibility-finality.json",
+            "mouth_constitution": f"{base}/.well-known/mouth-constitution.json",
             "restraint": f"{base}/.well-known/restraint.json",
             "counterfactual": f"{base}/.well-known/counterfactual-spend.json",
             "verify_engine": "https://velaru.xyz/verify",
@@ -207,5 +208,14 @@ def page_cards() -> list[dict]:
                 "Atom-age visible infrastructure — fail-closed, licensed, no naivety."
             ),
             "ref": "Atom-age civic optimism",
+        },
+        {
+            "tag": "Invention",
+            "title": "Mouth Constitution",
+            "body": (
+                "do(bind) not observe(risk). X counts as permitted spend in C. "
+                "HALT as STIT duty. Clearing extinguishes obligations — then wire. Ours."
+            ),
+            "ref": "Intervention · Counts-As · STIT · Extinguishment",
         },
     ]

@@ -97,6 +97,10 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
         from gate import possibility as possibility_mod
     except ImportError:
         import possibility as possibility_mod
+    try:
+        from gate import constitution as constitution_mod
+    except ImportError:
+        import constitution as constitution_mod
 
     spend = None
     hop = row.get("hop") if isinstance(row.get("hop"), dict) else {}
@@ -108,6 +112,8 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
         job_id=row.get("job_id"),
         selected_spend=spend,
     )
+    # Proprietary Mouth Constitution: intervention ladder + counts-as status.
+    payload = constitution_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
@@ -130,6 +136,8 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
             "reasons": reasons,
         }
     claim["policy_depth"] = payload["policy_depth"]
+    claim["intervention"] = payload.get("intervention")
+    claim["counts_as"] = payload.get("counts_as")
     payload["counterfactual_spend"] = claim
     return payload
 

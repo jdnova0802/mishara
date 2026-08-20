@@ -1377,7 +1377,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 6)
+        self.assertEqual(len(cards), 7)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
@@ -2022,6 +2022,66 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(data["spec"], "gate-possibility-finality-v1")
         self.assertIn("example_halt_depth", data)
         self.assertIn("possibility_finality", self.client.get("/.well-known/gate.json").get_json())
+
+    def test_mouth_constitution_intervention_counts_as_stit_extinguishment(self):
+        import constitution as constitution_mod
+        import settlement as s
+
+        # Intervention ladder: HALT is do(bind) blocked, not mere observation.
+        halt_iv = constitution_mod.intervention_receipt(
+            decision="HALT", acted=False, job_id="pc:MC-1", do_target="bind"
+        )
+        self.assertEqual(halt_iv["spec"], "gate-intervention-v1")
+        self.assertEqual(halt_iv["ladder"][1]["outcome"], "do_blocked")
+        self.assertGreaterEqual(halt_iv["highest_rung_reached"], 2)
+
+        allow_iv = constitution_mod.intervention_receipt(
+            decision="ALLOW", acted=True, job_id="pc:MC-2", do_target="bind"
+        )
+        self.assertEqual(allow_iv["ladder"][1]["outcome"], "do_succeeded")
+
+        # Counts-as: ALLOW+acted constitutes permitted irreversible spend.
+        ca = constitution_mod.counts_as(
+            decision="ALLOW", acted=True, event_id="e1", fuse_id="f1", job_id="pc:MC-3"
+        )
+        self.assertEqual(ca["spec"], "gate-counts-as-v1")
+        self.assertTrue(ca["constituted"])
+        self.assertEqual(ca["Y"], "permitted_irreversible_spend")
+
+        halted = constitution_mod.counts_as(decision="HALT", acted=False, event_id="e2")
+        self.assertEqual(halted["Y"], "halted_irreversible_attempt")
+
+        # STIT duties surface.
+        stit = constitution_mod.stit_surface(decision="HALT", reason="license_fuse_not_live")
+        self.assertEqual(stit["spec"], "gate-stit-v1")
+        self.assertEqual(stit["this_hop"]["status"], "complied_by_restraint")
+        self.assertTrue(any(d["duty_id"].startswith("⊗_mouth") for d in stit["duties"]))
+
+        # Extinguishment on settled window.
+        window = s.open_window()
+        window.obligations = [
+            asdict(s.Obligation(member_id="MC", gross_cents=50_000, direction="pay")),
+        ]
+        s.close_window(window)
+        report = s.regulatory_report(window)
+        self.assertIn("extinguishment", report)
+        self.assertEqual(report["extinguishment"]["spec"], "gate-extinguishment-v1")
+        self.assertTrue(report["extinguishment"]["extinguished"])
+
+        # Restraint inventory carries STIT.
+        rest = self.client.get("/.well-known/restraint.json")
+        self.assertEqual(rest.status_code, 200)
+        self.assertIn("stit", rest.get_json())
+
+        # Well-known + gate.json discovery.
+        r = self.client.get("/.well-known/mouth-constitution.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-mouth-constitution-v1")
+        self.assertIn("example", data)
+        self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("mouth_constitution", gate)
 
 
 if __name__ == "__main__":

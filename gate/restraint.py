@@ -45,6 +45,19 @@ def inventory(public_url: str, *, limit: int = 200) -> dict:
     base = (public_url or "").rstrip("/")
     rows = db.list_restraint_events(limit=limit)
     events = [public_event(row) for row in rows]
+    try:
+        from gate import constitution as constitution_mod
+    except ImportError:
+        import constitution as constitution_mod
+
+    # STIT surface: published nos are duty-fulfillment evidence, not error logs.
+    latest_reason = events[0].get("reason") if events else None
+    latest_decision = events[0].get("decision") if events else "HALT"
+    stit = constitution_mod.stit_surface(
+        decision=latest_decision,
+        reason=latest_reason,
+        public_url=base,
+    )
     return {
         "spec": SPEC,
         "name": "Inventory of nos",
@@ -62,7 +75,9 @@ def inventory(public_url: str, *, limit: int = 200) -> dict:
         "their_production": False,
         "count": len(events),
         "events": events,
+        "stit": stit,
         "license_fuse": f"{base}/.well-known/license-fuse.json",
         "listings": f"{base}/.well-known/listings.json",
         "commit_auth": f"{base}/.well-known/commit-auth.json",
+        "mouth_constitution": f"{base}/.well-known/mouth-constitution.json",
     }

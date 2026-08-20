@@ -242,6 +242,7 @@ def register_snapshot(
             "settlement": f"{public_url}/.well-known/settlement.json",
             "schism": f"{public_url}/.well-known/schism.json",
             "this": f"{public_url}/.well-known/possibility-finality.json",
+            "mouth_constitution": f"{public_url}/.well-known/mouth-constitution.json",
         },
         "their_production": False,
     }

@@ -1199,6 +1199,7 @@ def well_known_gate():
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "possibility_finality": f"{advertised_url()}/.well-known/possibility-finality.json",
+            "mouth_constitution": f"{advertised_url()}/.well-known/mouth-constitution.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1314,6 +1315,22 @@ def well_known_possibility_finality():
     body = possibility_mod.manifest(advertised_url())
     body["example_halt_depth"] = possibility_mod.evaluate_policies(
         decision="HALT", acted=False, job_id="pc:EXAMPLE"
+    )
+    return jsonify(body)
+
+
+@app.route("/.well-known/mouth-constitution.json")
+def well_known_mouth_constitution():
+    try:
+        from gate import constitution as constitution_mod
+    except ImportError:
+        import constitution as constitution_mod
+    body = constitution_mod.manifest(advertised_url())
+    body["example"] = constitution_mod.constitution_snapshot(
+        public_url=advertised_url(),
+        decision="HALT",
+        acted=False,
+        job_id="pc:EXAMPLE",
     )
     return jsonify(body)
 
