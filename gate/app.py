@@ -1259,6 +1259,18 @@ def well_known_gate():
             "stranger_antenna": f"{advertised_url()}/.well-known/stranger-antenna.json",
             "incommensurable": f"{advertised_url()}/.well-known/incommensurable.json",
             "firmware_fuse": f"{advertised_url()}/.well-known/firmware-fuse.json",
+            "no_software": f"{advertised_url()}/.well-known/no-software.json",
+            "galvanic": f"{advertised_url()}/.well-known/galvanic.json",
+            "nmi_halt": f"{advertised_url()}/.well-known/nmi-halt.json",
+            "iommu": f"{advertised_url()}/.well-known/iommu.json",
+            "watchdog": f"{advertised_url()}/.well-known/watchdog.json",
+            "cdc": f"{advertised_url()}/.well-known/cdc.json",
+            "linear_live": f"{advertised_url()}/.well-known/linear-live.json",
+            "posiwid": f"{advertised_url()}/.well-known/posiwid.json",
+            "deviance": f"{advertised_url()}/.well-known/deviance.json",
+            "invented_accident": f"{advertised_url()}/.well-known/invented-accident.json",
+            "pharmakon": f"{advertised_url()}/.well-known/pharmakon.json",
+            "landauer": f"{advertised_url()}/.well-known/landauer.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1767,6 +1779,66 @@ def well_known_incommensurable():
 @app.route("/.well-known/firmware-fuse.json")
 def well_known_firmware_fuse():
     return _wk_manifest("firmware_fuse")
+
+
+@app.route("/.well-known/no-software.json")
+def well_known_no_software():
+    return _wk_manifest("no_software")
+
+
+@app.route("/.well-known/galvanic.json")
+def well_known_galvanic():
+    return _wk_manifest("galvanic")
+
+
+@app.route("/.well-known/nmi-halt.json")
+def well_known_nmi_halt():
+    return _wk_manifest("nmi")
+
+
+@app.route("/.well-known/iommu.json")
+def well_known_iommu():
+    return _wk_manifest("iommu")
+
+
+@app.route("/.well-known/watchdog.json")
+def well_known_watchdog():
+    return _wk_manifest("watchdog")
+
+
+@app.route("/.well-known/cdc.json")
+def well_known_cdc():
+    return _wk_manifest("cdc")
+
+
+@app.route("/.well-known/linear-live.json")
+def well_known_linear_live():
+    return _wk_manifest("linear_live")
+
+
+@app.route("/.well-known/posiwid.json")
+def well_known_posiwid():
+    return _wk_manifest("posiwid")
+
+
+@app.route("/.well-known/deviance.json")
+def well_known_deviance():
+    return _wk_manifest("deviance")
+
+
+@app.route("/.well-known/invented-accident.json")
+def well_known_invented_accident():
+    return _wk_manifest("virilio")
+
+
+@app.route("/.well-known/pharmakon.json")
+def well_known_pharmakon():
+    return _wk_manifest("pharmakon")
+
+
+@app.route("/.well-known/landauer.json")
+def well_known_landauer():
+    return _wk_manifest("landauer")
 
 
 @app.route("/.well-known/positioning.json")

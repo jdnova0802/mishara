@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 60)
+        self.assertGreaterEqual(data["count"], 72)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2206,6 +2206,18 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/stranger-antenna.json",
             "/.well-known/incommensurable.json",
             "/.well-known/firmware-fuse.json",
+            "/.well-known/no-software.json",
+            "/.well-known/galvanic.json",
+            "/.well-known/nmi-halt.json",
+            "/.well-known/iommu.json",
+            "/.well-known/watchdog.json",
+            "/.well-known/cdc.json",
+            "/.well-known/linear-live.json",
+            "/.well-known/posiwid.json",
+            "/.well-known/deviance.json",
+            "/.well-known/invented-accident.json",
+            "/.well-known/pharmakon.json",
+            "/.well-known/landauer.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2223,8 +2235,11 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("xenohardware", gate)
         self.assertIn("mouth_isa", gate)
         self.assertIn("firmware_fuse", gate)
+        self.assertIn("no_software", gate)
+        self.assertIn("landauer", gate)
+        self.assertIn("nmi_halt", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 60)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 72)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2293,7 +2308,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 60)
+        self.assertEqual(fp["invention_count"], 72)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
@@ -2399,6 +2414,54 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(ant_mod.listen(login_walled=True, verify_url="https://x")["posture"], "club_not_antenna")
         self.assertEqual(inc_mod.translate(gloss="risk_score")["posture"], "false_translation")
         self.assertEqual(fw_mod.flash(runtime_flag=True)["posture"], "jailbreak_attempt")
+
+        # Wave 10
+        import no_software as ns_mod
+        import galvanic as gal_mod
+        import nmi as nmi_mod
+        import iommu as iommu_mod
+        import watchdog as wd_mod
+        import cdc as cdc_mod
+        import linear_live as lin_mod
+        import posiwid as pos_mod
+        import deviance as dev_mod
+        import virilio as vir_mod
+        import pharmakon as pha_mod
+        import landauer as lan_mod
+
+        self.assertEqual(ns_mod.assay(software_live_flag=True)["posture"], "literature_not_physics")
+        self.assertEqual(gal_mod.isolate(pii_on_pas=True)["posture"], "ground_fault")
+        self.assertEqual(
+            nmi_mod.interrupt(source="timeout", masked_by_revenue=True, decision="ALLOW")["posture"],
+            "nmi_masked_illegal",
+        )
+        self.assertEqual(
+            iommu_mod.map_write(via_exclusive_door=False, claimed_live=True, device="side_api")["posture"],
+            "iommu_fault",
+        )
+        self.assertEqual(
+            wd_mod.pet(their_production=True, exclusive_door_honored=False)["posture"],
+            "bite",
+        )
+        self.assertEqual(cdc_mod.sync(pas_ok=True, weld_epoch_ok=False)["posture"], "metastable_cdc")
+        self.assertEqual(
+            lin_mod.consume(reuse_prior_live=True, new_hop=True)["posture"],
+            "nonlinear_copy",
+        )
+        self.assertEqual(pos_mod.purpose(can_halt=False, always_allow=True)["posture"], "purpose_is_skip_clear")
+        self.assertEqual(
+            dev_mod.denormalize(familiar_soft_yes=True, decision="HALT")["posture"],
+            "denormalized",
+        )
+        self.assertEqual(
+            vir_mod.contemporaneous(pas_automation=True, mouth_on_path=False)["posture"],
+            "ship_without_brake",
+        )
+        self.assertEqual(pha_mod.dose(automation=True, mouth=False)["posture"], "undosed_poison")
+        self.assertEqual(
+            lan_mod.erase(destroying_halt_option=True, cheap_badge=True)["posture"],
+            "below_landauer",
+        )
 
 
 if __name__ == "__main__":

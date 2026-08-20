@@ -216,6 +216,17 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
     payload = isa_mod.attach_to_receipt_payload(payload, row)
     payload = horizon_mod.attach_to_receipt_payload(payload, row)
     payload = antenna_mod.attach_to_receipt_payload(payload, row)
+    try:
+        from gate import nmi as nmi_mod
+    except ImportError:
+        import nmi as nmi_mod
+    try:
+        from gate import landauer as landauer_mod
+    except ImportError:
+        import landauer as landauer_mod
+
+    payload = nmi_mod.attach_to_receipt_payload(payload, row)
+    payload = landauer_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
