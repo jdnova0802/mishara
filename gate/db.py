@@ -877,16 +877,7 @@ def has_dogfood_weld() -> bool:
     with db() as conn:
         _ensure_dogfood_table(conn)
         row = conn.execute("SELECT COUNT(*) AS n FROM dogfood_welds").fetchone()
-        if row and row["n"] > 0:
-            return True
-        # Legacy production_welds rows marked dogfood=1 count as dogfood only
-        cols = _table_cols(conn, "production_welds")
-        if "dogfood" in cols:
-            d = conn.execute(
-                "SELECT COUNT(*) AS n FROM production_welds WHERE COALESCE(dogfood, 0) = 1"
-            ).fetchone()
-            return bool(d and d["n"] > 0)
-    return False
+    return bool(row and row["n"] > 0)
 
 
 def has_gate_production_weld() -> bool:
@@ -896,6 +887,7 @@ def has_gate_production_weld() -> bool:
         if not cols:
             return False
         if "dogfood" in cols:
+            # Legacy table: only non-dogfood rows count as their_production
             row = conn.execute(
                 "SELECT COUNT(*) AS n FROM production_welds WHERE COALESCE(dogfood, 0) = 0"
             ).fetchone()
