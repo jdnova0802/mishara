@@ -228,4 +228,13 @@ def page_cards() -> list[dict]:
             ),
             "ref": "/.well-known/inventions.json",
         },
+        {
+            "tag": "Invention",
+            "title": "Moat fingerprint",
+            "body": (
+                "Thirty-plus welded specs. Hyperobject spend. Via negativa. Clinamen CHARGE. "
+                "Apophatic LIVE. Parasite filter. SHA-256 of the catalog — partial clones fail."
+            ),
+            "ref": "/.well-known/moat.json",
+        },
     ]

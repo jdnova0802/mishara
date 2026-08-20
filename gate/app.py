@@ -1217,6 +1217,24 @@ def well_known_gate():
             "proof_restraint": f"{advertised_url()}/.well-known/proof-restraint.json",
             "enabling": f"{advertised_url()}/.well-known/enabling.json",
             "capability": f"{advertised_url()}/.well-known/capability.json",
+            "hyperobject": f"{advertised_url()}/.well-known/hyperobject.json",
+            "via_negativa": f"{advertised_url()}/.well-known/via-negativa.json",
+            "costly_signal": f"{advertised_url()}/.well-known/costly-signal.json",
+            "jevons": f"{advertised_url()}/.well-known/jevons.json",
+            "goodhart": f"{advertised_url()}/.well-known/goodhart.json",
+            "clinamen": f"{advertised_url()}/.well-known/clinamen.json",
+            "moat": f"{advertised_url()}/.well-known/moat.json",
+            "complementarity": f"{advertised_url()}/.well-known/complementarity.json",
+            "adversarial": f"{advertised_url()}/.well-known/adversarial.json",
+            "irreversibility_horizon": f"{advertised_url()}/.well-known/irreversibility-horizon.json",
+            "semiotics": f"{advertised_url()}/.well-known/semiotics.json",
+            "antifragile_halt": f"{advertised_url()}/.well-known/antifragile-halt.json",
+            "recursive_mouth": f"{advertised_url()}/.well-known/recursive-mouth.json",
+            "category_mouth": f"{advertised_url()}/.well-known/category-mouth.json",
+            "negative_capability": f"{advertised_url()}/.well-known/negative-capability.json",
+            "parasite": f"{advertised_url()}/.well-known/parasite.json",
+            "apophatic": f"{advertised_url()}/.well-known/apophatic.json",
+            "exergy": f"{advertised_url()}/.well-known/exergy.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1507,6 +1525,104 @@ def well_known_capability():
     except ImportError:
         import capability as capability_mod
     return jsonify(capability_mod.manifest(advertised_url()))
+
+
+def _wk_manifest(module_name: str):
+    try:
+        mod = __import__(f"gate.{module_name}", fromlist=["manifest"])
+    except ImportError:
+        mod = __import__(module_name)
+    return jsonify(mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/hyperobject.json")
+def well_known_hyperobject():
+    return _wk_manifest("hyperobject")
+
+
+@app.route("/.well-known/via-negativa.json")
+def well_known_via_negativa():
+    return _wk_manifest("via_negativa")
+
+
+@app.route("/.well-known/costly-signal.json")
+def well_known_costly_signal():
+    return _wk_manifest("costly_signal")
+
+
+@app.route("/.well-known/jevons.json")
+def well_known_jevons():
+    return _wk_manifest("jevons")
+
+
+@app.route("/.well-known/goodhart.json")
+def well_known_goodhart():
+    return _wk_manifest("goodhart")
+
+
+@app.route("/.well-known/clinamen.json")
+def well_known_clinamen():
+    return _wk_manifest("clinamen")
+
+
+@app.route("/.well-known/moat.json")
+def well_known_moat():
+    return _wk_manifest("moat")
+
+
+@app.route("/.well-known/complementarity.json")
+def well_known_complementarity():
+    return _wk_manifest("complementarity")
+
+
+@app.route("/.well-known/adversarial.json")
+def well_known_adversarial():
+    return _wk_manifest("adversarial")
+
+
+@app.route("/.well-known/irreversibility-horizon.json")
+def well_known_irreversibility_horizon():
+    return _wk_manifest("irreversibility")
+
+
+@app.route("/.well-known/semiotics.json")
+def well_known_semiotics():
+    return _wk_manifest("semiotics")
+
+
+@app.route("/.well-known/antifragile-halt.json")
+def well_known_antifragile_halt():
+    return _wk_manifest("antifragile")
+
+
+@app.route("/.well-known/recursive-mouth.json")
+def well_known_recursive_mouth():
+    return _wk_manifest("recursive")
+
+
+@app.route("/.well-known/category-mouth.json")
+def well_known_category_mouth():
+    return _wk_manifest("category_mouth")
+
+
+@app.route("/.well-known/negative-capability.json")
+def well_known_negative_capability():
+    return _wk_manifest("negative_capability")
+
+
+@app.route("/.well-known/parasite.json")
+def well_known_parasite():
+    return _wk_manifest("parasite")
+
+
+@app.route("/.well-known/apophatic.json")
+def well_known_apophatic():
+    return _wk_manifest("apophatic")
+
+
+@app.route("/.well-known/exergy.json")
+def well_known_exergy():
+    return _wk_manifest("exergy")
 
 
 @app.route("/.well-known/positioning.json")

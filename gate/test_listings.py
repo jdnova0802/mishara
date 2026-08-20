@@ -1377,7 +1377,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 8)
+        self.assertEqual(len(cards), 9)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 18)
+        self.assertGreaterEqual(data["count"], 36)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2164,6 +2164,24 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/proof-restraint.json",
             "/.well-known/enabling.json",
             "/.well-known/capability.json",
+            "/.well-known/hyperobject.json",
+            "/.well-known/via-negativa.json",
+            "/.well-known/costly-signal.json",
+            "/.well-known/jevons.json",
+            "/.well-known/goodhart.json",
+            "/.well-known/clinamen.json",
+            "/.well-known/moat.json",
+            "/.well-known/complementarity.json",
+            "/.well-known/adversarial.json",
+            "/.well-known/irreversibility-horizon.json",
+            "/.well-known/semiotics.json",
+            "/.well-known/antifragile-halt.json",
+            "/.well-known/recursive-mouth.json",
+            "/.well-known/category-mouth.json",
+            "/.well-known/negative-capability.json",
+            "/.well-known/parasite.json",
+            "/.well-known/apophatic.json",
+            "/.well-known/exergy.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2173,8 +2191,11 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("costliness", gate)
         self.assertIn("performative", gate)
         self.assertIn("schelling", gate)
+        self.assertIn("moat", gate)
+        self.assertIn("clinamen", gate)
+        self.assertIn("apophatic", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 18)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 36)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2214,6 +2235,47 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertFalse(cap["converted_to_permitted_spend"])
         pr = self.client.get("/.well-known/proof-restraint.json")
         self.assertEqual(pr.get_json()["spec"], "gate-proof-restraint-v1")
+
+        # Wave 5–7 — uncopyable stack
+        import hyperobject as hyperobject_mod
+        import via_negativa as via_mod
+        import costly_signal as signal_mod
+        import jevons as jevons_mod
+        import goodhart as goodhart_mod
+        import clinamen as clinamen_mod
+        import moat as moat_mod
+        import complementarity as comp_mod
+        import negative_capability as nc_mod
+        import parasite as parasite_mod
+        import apophatic as apo_mod
+        import exergy as exergy_mod
+
+        ho = hyperobject_mod.map_hop(decision="HALT", acted=False)
+        self.assertEqual(ho["spec"], "gate-hyperobject-v1")
+        self.assertIn("averted", ho["claim"])
+        vn = via_mod.prescribe(added_control="risk_score")
+        self.assertIn("subtract", vn["verdict"])
+        sig = signal_mod.signal(weld_paid=False, their_production=True)
+        self.assertEqual(sig["grade"], "forged_signal_asymmetric")
+        jv = jevons_mod.rebound(automation_efficiency="high", mouth_present=False)
+        self.assertEqual(jv["posture"], "jevons_uncontrolled")
+        gh = goodhart_mod.police(proposed_target="maximize_halt_count")
+        self.assertEqual(gh["verdict"], "reject_goodhart_hack")
+        cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
+        self.assertEqual(cl["posture"], "clinamen_fired")
+        fp = moat_mod.fingerprint("http://x")
+        self.assertEqual(fp["invention_count"], 36)
+        self.assertEqual(len(fp["fingerprint_sha256"]), 64)
+        cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
+        self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
+        nc = nc_mod.composure(decision="HALT", soft_yes_pressure=True)
+        self.assertEqual(nc["posture"], "negative_capability_held")
+        par = parasite_mod.filter_path(operation="uw_approve_without_charge")
+        self.assertEqual(par["verdict"], "exclude_from_decision_network")
+        apo = apo_mod.speak(claim="live", charge_id=None)
+        self.assertEqual(apo["verdict"], "apophatic_refusal")
+        ex = exergy_mod.rank(act="ai_governance_pdf")
+        self.assertEqual(ex["exergy"], "waste")
 
 
 if __name__ == "__main__":

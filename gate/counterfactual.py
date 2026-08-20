@@ -154,6 +154,41 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
     payload = option_mod.attach_to_receipt_payload(payload, row)
     payload = performative_mod.attach_to_receipt_payload(payload, row)
     payload = custody_mod.attach_to_receipt_payload(payload, row, public_url)
+    try:
+        from gate import hyperobject as hyperobject_mod
+    except ImportError:
+        import hyperobject as hyperobject_mod
+    try:
+        from gate import complementarity as complementarity_mod
+    except ImportError:
+        import complementarity as complementarity_mod
+    try:
+        from gate import irreversibility as irreversibility_mod
+    except ImportError:
+        import irreversibility as irreversibility_mod
+    try:
+        from gate import semiotics as semiotics_mod
+    except ImportError:
+        import semiotics as semiotics_mod
+    try:
+        from gate import antifragile as antifragile_mod
+    except ImportError:
+        import antifragile as antifragile_mod
+
+    payload = hyperobject_mod.attach_to_receipt_payload(payload, row)
+    # status-shaped attachments use decision as mouth status when present
+    status_row = {
+        **row,
+        "status": (
+            "CHARGE"
+            if str(row.get("decision") or "").upper() == "ALLOW" and row.get("acted")
+            else str(row.get("decision") or "").upper()
+        ),
+    }
+    payload["complementarity"] = complementarity_mod.attach_to_receipt_payload(status_row)
+    payload["irreversibility_horizon"] = irreversibility_mod.attach_to_receipt_payload(status_row)
+    payload["semiotics"] = semiotics_mod.attach_to_receipt_payload(status_row)
+    payload["antifragile_halt"] = antifragile_mod.attach_to_receipt_payload(status_row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
