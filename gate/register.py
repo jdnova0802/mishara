@@ -23,15 +23,17 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "contact": contact_email,
         "what": "The mouth civilization uses so irreversible spend cannot bypass permission.",
         "action_os_thesis": (
-            "Nisaba Action OS — we serve everybody (economies, politicians, companies, "
-            "any entity on the write). Controversy is nature on the act."
+            "Own permission on irreversible acts for any power that needs it — "
+            "scarcity is the DENY. We serve everybody (economies, politicians, companies, "
+            "force-class authority, any entity). Controversy is nature on the act."
         ),
         "civilization": {
             "asset": "default on irreversible spend — globally, across licensed rails",
             "not": "a money hoard without a mouth; not SaaS; not a calculator",
             "reward": "GP register: management on mouths + bps + carry on cleared flow",
             "keep": "Nisaba retains the mouth — do not dilute the GP early",
-            "serve": "everybody — economies · politicians · companies · any entity",
+            "serve": "everybody — economies · politicians · companies · force · any entity",
+            "scarcity": "DENY/DEAD that holds",
         },
         "not": [
             "SaaS",

@@ -239,6 +239,8 @@ class FlaskListingTests(unittest.TestCase):
 
     def test_nav_and_clickable_pages_are_not_broken(self):
         home = self.client.get("/").get_data(as_text=True)
+        self.assertIn("href=\"/action-os\"", home)
+        self.assertIn(">Action OS</a>", home)
         self.assertIn("href=\"/scanner\"", home)
         self.assertIn(">Scanner</a>", home)
         self.assertIn("href=\"/uplink\"", home)
@@ -264,6 +266,9 @@ class FlaskListingTests(unittest.TestCase):
             "/operator",
             "/bind-room",
             "/for/operators",
+            "/action-os",
+            "/focus",
+            "/positioning",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -273,6 +278,19 @@ class FlaskListingTests(unittest.TestCase):
         consumers = self.client.get("/for/consumers").get_data(as_text=True)
         self.assertNotIn("Open Mishara", consumers)
         self.assertIn("Open Gate", consumers)
+
+        aos = self.client.get("/.well-known/action-os.json").get_json()
+        self.assertEqual(aos["spec"], "nisaba-action-os-v2")
+        self.assertIn("DENY", aos["formula"])
+        self.assertTrue(aos["category_includes_force"])
+        self.assertFalse(aos["force_production_weld"])
+        self.assertFalse(aos["their_production"])
+        self.assertIn("playbook", aos)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("formula", gate)
+        self.assertIn("action_os", gate)
+        self.assertIn("DENY", gate["formula"])
 
 
 class BoundAnswerTests(unittest.TestCase):
@@ -1383,8 +1401,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         aos = self.client.get("/.well-known/action-os.json")
         self.assertEqual(aos.status_code, 200)
         aos_data = aos.get_json()
-        self.assertEqual(aos_data["spec"], "nisaba-action-os-v1")
+        self.assertEqual(aos_data["spec"], "nisaba-action-os-v2")
         self.assertIn("everybody", aos_data["thesis"].lower())
+        self.assertIn("DENY", aos_data["formula"])
+        self.assertTrue(aos_data["category_includes_force"])
+        self.assertFalse(aos_data["force_production_weld"])
         self.assertFalse(aos_data["their_production"])
 
         aos_page = self.client.get("/action-os")
@@ -1393,13 +1414,17 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("Action OS", aos_body)
         self.assertIn("We serve everybody", aos_body)
         self.assertIn("Palantir", aos_body)
+        self.assertIn("DENY", aos_body)
+        self.assertIn("force_production_weld", aos_body)
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("action_os", gate)
+        self.assertIn("formula", gate)
 
         home = self.client.get("/").get_data(as_text=True)
         self.assertIn("Action OS", home)
         self.assertIn("/action-os", home)
+        self.assertIn("DENY", home)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")

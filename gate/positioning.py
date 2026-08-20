@@ -13,15 +13,16 @@ SPEC = "gate-positioning-v1"
 # ---------------------------------------------------------------------------
 
 FOCUS_PLAIN = (
-    "Nisaba is the Action OS. Palantir integrates data; we sit on irreversible action. "
-    "We serve everybody — economies, politicians, companies, any entity on the write. "
-    "Controversy is nature when DENY/DEAD is real. Integrity: CHARGE-only, stranger verify, "
-    "one door, fail-closed. Gate is the commercial mouth; Erra/Velaru/Verra/Mishara are the stack."
+    "Formula: own permission on irreversible acts for any power that needs it — "
+    "scarcity is the DENY, not the narrative. Nisaba is the Action OS. "
+    "Palantir integrates data; we sit on the act. We serve everybody. "
+    "Integrity: CHARGE-only, stranger verify, one door, fail-closed. "
+    "Force is in category; not a claimed weld. Gate is the commercial mouth."
 )
 
 FOCUS_FOR = [
-    "Everybody who moves irreversible authority (economies · politicians · companies · any entity)",
-    "Operators (weld the production door and start management)",
+    "Everybody who moves irreversible authority (economies · politicians · companies · force · any entity)",
+    "Operators (weld the production door and start management) — this quarter's money path",
     "Carriers & implementors (wire one scanner + one protocol face)",
     "Auditors & risk (verify LIVE/DEAD decisions + evidence proofs)",
 ]
@@ -135,8 +136,8 @@ def manifest(public_url: str) -> dict:
             "atom_age_civic_optimism": ATOM_AGE_CIVIC_OPTIMISM,
         },
         "one_line": (
-            "Action OS for irreversible authority — we serve everybody. "
-            "Default before the act; CHARGE-only LIVE; stranger verify without naivety."
+            "Own permission on irreversible acts for any power that needs it — "
+            "scarcity is the DENY, not the narrative."
         ),
         "links": {
             "action_os": f"{base}/.well-known/action-os.json",
@@ -158,13 +159,13 @@ def page_cards() -> list[dict]:
     return [
         {
             "tag": "Nature",
-            "title": "Action OS — we serve everybody",
+            "title": "Action OS — DENY is the scarcity",
             "body": (
-                "Economies, politicians, companies, any entity on the write. "
-                "Palantir integrates data; Nisaba governs irreversible action. "
-                "Controversy is nature — DENY is a real event."
+                "Own permission for any power that needs the door. "
+                "Economies, politicians, companies, force-class authority — serve everybody. "
+                "Palantir integrates data; Nisaba governs the act. Narrative without DENY is SaaS."
             ),
-            "ref": "Nisaba Action OS",
+            "ref": "Nisaba Action OS formula",
         },
         {
             "tag": "Ops",

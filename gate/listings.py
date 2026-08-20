@@ -234,7 +234,10 @@ def mcp_discovery(public_url: str) -> dict:
     return {
         "mcpVersion": "2025-03-26",
         "name": "gate-api",
-        "description": "Fuse hop before commit. Fail closed on timeout. CHARGE-only resurrection.",
+        "description": (
+            "Nisaba Action OS mouth. Fuse hop before commit. "
+            "Scarcity is the DENY. Fail closed. CHARGE-only resurrection."
+        ),
         "server": public_url,
         "endpoint": f"{public_url}/mcp",
         "transport": "streamable-http",
@@ -293,7 +296,10 @@ def x402_catalog(public_url: str) -> dict:
     return {
         "x402Version": 2,
         "name": "Gate API",
-        "description": "Metered fuse hop. HTTP 402 on hop limit (Stripe). Agents: discover here, not Google.",
+        "description": (
+            "Nisaba Action OS. Metered fuse hop. Scarcity is the DENY. "
+            "HTTP 402 on hop limit (Stripe). Agents: discover here, not Google."
+        ),
         "baseUrl": public_url,
         "payment": {
             "scheme": "stripe",

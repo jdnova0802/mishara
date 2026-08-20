@@ -4,10 +4,14 @@
 <meta name="description" content="Weld one production write + management leg. {{ weld_price }} + {{ floor_price }} per mouth. Then 10 bps + carry on cleared flow.">
 {% endblock %}
 {% block content %}
+<div class="top-banner">
+  <span><strong>Action OS weld.</strong> One irreversible write for whoever owns the path. Scarcity is the DENY.</span>
+  <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Formula →</a>
+</div>
 <div class="container section">
-  <p class="audience-tag">Checkout · whale path</p>
+  <p class="audience-tag">Checkout · whale path · Action OS</p>
   <h1>Weld + management. Then flow.</h1>
-  <p class="audience-sub">One irreversible write — withdraw or bind-only. <strong>{{ weld_price }}</strong> to weld. <strong>{{ floor_price }}</strong> per mouth per month (management leg). Then <strong>10 bps</strong> on cleared + <strong>+5 bps</strong> above $500M/mo hurdle. Licensed operators only. No weld without management.</p>
+  <p class="audience-sub">One irreversible write — withdraw or bind-only. <strong>{{ weld_price }}</strong> to weld. <strong>{{ floor_price }}</strong> per mouth per month (management leg). Then <strong>10 bps</strong> on cleared + <strong>+5 bps</strong> above $500M/mo hurdle. Licensed operators only. No weld without management. We serve everybody who needs a door — this checkout is how the mouth becomes real.</p>
   <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }}/mo per mouth</span></div>
 
   <div class="card" style="margin: 1.25rem 0;">
@@ -15,6 +19,7 @@
     <p style="color: var(--muted); margin-bottom: 0.75rem;">Counsel and ops can verify the system before checkout — no login.</p>
     <p style="font-size: 0.9rem;">
       <a href="{{ url_for('register_page') }}">κ register</a> ·
+      <a href="{{ url_for('action_os_page') }}">Action OS</a> ·
       <a href="{{ url_for('well_known_kappa') }}">kappa.json</a> ·
       <a href="{{ url_for('well_known_schism') }}">schism.json</a> ·
       <a href="https://velaru.xyz/verify">stranger verify</a> ·

@@ -1164,7 +1164,15 @@ def well_known_gate():
     return jsonify(
         {
             "name": "Gate API",
-            "description": "Can this agent still act right now? Metered fuse hop.",
+            "description": (
+                "Nisaba Action OS commercial mouth. "
+                "Own permission on irreversible acts — scarcity is the DENY. "
+                "Metered fuse hop. Serve everybody; CHARGE-only LIVE."
+            ),
+            "formula": (
+                "Own permission on irreversible acts for any power that needs it — "
+                "and make your scarcity the DENY, not the narrative."
+            ),
             "version": "1.0.0",
             "openapi": f"{advertised_url()}/openapi.json",
             "signup": f"{advertised_url()}/signup",

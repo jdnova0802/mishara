@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Gate{% endblock %} — Default before the irreversible act</title>
+  <title>{% block title %}Gate{% endblock %} — Action OS · DENY is the scarcity</title>
   {% block meta %}
-  <meta name="description" content="Production mouth on irreversible spend. Weld one write. κ register. 10 bps on cleared flow. Not SaaS — infrastructure.">
+  <meta name="description" content="Nisaba Action OS. Own permission on irreversible acts for any power that needs it. Scarcity is the DENY. Weld one write. 10 bps on cleared flow.">
   {% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Gate API",
+    "name": "Gate — Nisaba Action OS",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web",
-    "description": "Default before the irreversible act. Production mouth, weld checkout, κ register, stranger verify via Velaru.",
+    "description": "Action OS: permission on irreversible acts for any power that needs it. Scarcity is the DENY. CHARGE-only. Stranger verify.",
     "url": "{{ gate_public_url }}",
     "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
     "provider": {"@type": "Organization", "name": "Nisaba LLC"}
@@ -27,7 +27,8 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate<span>API</span></a>
       <div class="nav-links">
-        <a href="{{ url_for('register_page') }}" class="nav-install">Register</a>
+        <a href="{{ url_for('action_os_page') }}" class="nav-install">Action OS</a>
+        <a href="{{ url_for('register_page') }}">Register</a>
         <a href="{{ url_for('operator_page') }}">Weld</a>
         <a href="{{ url_for('focus_hub') }}">Focus</a>
         <a href="{{ url_for('stack_page') }}">Stack</a>
@@ -60,7 +61,8 @@
 
   <footer>
     <div class="container">
-      Gate · production mouth ·
+      Nisaba Action OS · scarcity is the DENY ·
+      <a href="{{ url_for('action_os_page') }}">Action OS</a> ·
       <a href="{{ url_for('stack_page') }}">Stack map</a> ·
       <a href="{{ url_for('register_page') }}">Register</a> ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·

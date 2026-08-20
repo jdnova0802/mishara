@@ -1,5 +1,9 @@
 """Nisaba Action OS — company nature, not homepage theater.
 
+Formula:
+  Own permission on irreversible acts for any power that needs it —
+  and make your scarcity the DENY, not the narrative.
+
 Palantir integrates data so institutions can know faster.
 Nisaba sits on irreversible action: should this act run?
 
@@ -7,20 +11,28 @@ We serve everybody — economies, politicians, companies, any entity
 whose write moves capital, coverage, or force. Controversy is nature
 when DENY/DEAD is a real event. Integrity is CHARGE-only, stranger
 verify, one door, fail-closed — not buyer purity theater.
+
+Force / battlefield authority is in the category. It is not a claimed
+production weld until someone pays for that door.
 """
 from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Any
 
-SPEC = "nisaba-action-os-v1"
+SPEC = "nisaba-action-os-v2"
 INVENTOR = "Nisaba LLC"
+
+FORMULA = (
+    "Own permission on irreversible acts for any power that needs it — "
+    "and make your scarcity the DENY, not the narrative."
+)
 
 THESIS = (
     "We serve everybody. Economies, politicians, companies — any entity "
     "that moves irreversible authority. Controversial or not: that is nature "
     "when you sit on the act. Palantir made knowing cheaper. Nisaba is the "
-    "Action OS — governable irreversible action."
+    "Action OS — governable irreversible action. Scarcity is the DENY."
 )
 
 EQUIVALENT = {
@@ -33,6 +45,7 @@ EQUIVALENT = {
         "job": "Action OS",
         "bite": "fail-closed mouth before wire, bind, payout, force",
         "controversy": "DENY/DEAD is a political–economic event for whoever we serve",
+        "scarcity": "the halt — not the story about the halt",
     },
 }
 
@@ -51,6 +64,14 @@ SERVE = (
         "id": "companies",
         "who": "Companies · carriers · platforms · operators",
         "act": "One welded door on licensed payout or bind-only — register on cleared flow",
+    },
+    {
+        "id": "force",
+        "who": "Force · defense · public-safety irreversible release",
+        "act": (
+            "Same mouth class: does the irreversible release complete? "
+            "In category under serve-everybody. Not a claimed production weld today."
+        ),
     },
     {
         "id": "any_entity",
@@ -97,6 +118,7 @@ NATURE = (
     "Controversy is structural — not dark copy, not founder cosplay.",
     "Hands dirty = welded on their irreversible path. Hands clean = CHARGE-only LIVE.",
     "We do not refuse the category. We refuse soft-yes resurrection and forged LIVE.",
+    "Scarcity is DENY/DEAD that holds — narrative without a halt is SaaS.",
 )
 
 INTEGRITY = (
@@ -105,6 +127,7 @@ INTEGRITY = (
     "One exclusive door per weld — no bypass UI / renewal / second write",
     "Fail closed on DEAD / timeout / 5xx — never treat UNREACHABLE as LIVE",
     "their_production stays false until a real production weld exists",
+    "Force/battlefield doors stay unclaimed until welded — category ≠ costume",
 )
 
 NOT = (
@@ -113,6 +136,8 @@ NOT = (
     "AI governance inventory that never sits on the write",
     "Serving only 'ethical' buyers while soft-yesing the rest",
     "Action OS marketing with no ACT/HOLD · ALLOW/BLOCK · /v1/act behavior",
+    "Battlefield marketing without a force-path weld",
+    "Scarcity as storytelling — DENY that does not hold",
 )
 
 OPERATIONAL = (
@@ -123,6 +148,16 @@ OPERATIONAL = (
     {"surface": "/register", "why": "10 bps + management — infrastructure fees, not SaaS seats"},
     {"surface": "/operator", "why": "Weld checkout — human commits before production mouth"},
     {"surface": "https://velaru.xyz/verify", "why": "Stranger proof — neither party forges alone"},
+)
+
+PLAYBOOK = (
+    "Sit on irreversible acts, not content or dashboards",
+    "Serve any power that needs the door — without letting them forge LIVE",
+    "Be Action OS (permission on the act), not data-integration cosplay",
+    "One welded door beats a SKU buffet — expand mouths after the first cannot be bypassed",
+    "Make absence audible — receipts for what did not happen, stranger verify, public nos",
+    "Sell to owners of the write — operators, treasuries, carriers, states — not vibe buyers",
+    "Let DENY do the talking — nature over narrative",
 )
 
 
@@ -143,13 +178,18 @@ def manifest(public_url: str) -> dict[str, Any]:
         "name": "Nisaba Action OS",
         "inventor": INVENTOR,
         "evaluated_at": _now(),
+        "formula": FORMULA,
         "thesis": THESIS,
+        "scarcity": "DENY/DEAD that holds — not the narrative about the product",
         "equivalent": EQUIVALENT,
         "serve": list(SERVE),
         "family": family,
         "nature": list(NATURE),
         "integrity": list(INTEGRITY),
         "not": list(NOT),
+        "playbook": list(PLAYBOOK),
+        "category_includes_force": True,
+        "force_production_weld": False,
         "operational": [
             {
                 **op,
@@ -161,18 +201,16 @@ def manifest(public_url: str) -> dict[str, Any]:
             }
             for op in OPERATIONAL
         ],
-        "one_liner": (
-            "Palantir integrates data. Nisaba is the Action OS. "
-            "We serve everybody — controversy is nature on the irreversible act."
-        ),
+        "one_liner": FORMULA,
         "ads": (
-            "We serve economies, politicians, companies — any entity on the write. "
-            "Fail closed. CHARGE only. Stranger verify."
+            "Own the door on irreversible acts. Scarcity is the DENY. "
+            "We serve everybody. Fail closed. CHARGE only. Stranger verify."
         ),
         "links": {
             "register": f"{base}/register",
             "operator": f"{base}/operator",
             "act": f"{base}/v1/act",
+            "demo_hop": f"{base}/demo/hop",
             "gate": f"{base}/.well-known/gate.json",
             "positioning": f"{base}/.well-known/positioning.json",
             "erra": "https://velaru.xyz/erra",

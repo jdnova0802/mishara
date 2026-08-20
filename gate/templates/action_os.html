@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Action OS · Nisaba{% endblock %}
 {% block meta %}
-<meta name="description" content="{{ manifest.one_liner }}">
+<meta name="description" content="{{ manifest.formula }}">
 <meta property="og:title" content="Nisaba — Action OS">
 <meta property="og:description" content="{{ manifest.ads }}">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Nisaba.</strong> Action OS — we serve everybody. Controversy is nature on the act.</span>
+  <span><strong>Nisaba.</strong> Scarcity is the DENY — not the narrative.</span>
   <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld →</a>
 </div>
 
 <section class="hero container">
-  <p class="audience-tag">Company nature · not theater</p>
+  <p class="audience-tag">Company formula · not theater</p>
   <h1>Action OS.</h1>
-  <p class="hero-sub">{{ manifest.thesis }}</p>
+  <p class="hero-sub"><strong>{{ manifest.formula }}</strong></p>
+  <p class="hero-sub" style="margin-top: 0.75rem;">{{ manifest.thesis }}</p>
   <div class="hero-actions">
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a door</a>
     <a href="{{ url_for('register_page') }}" class="btn btn-accent-outline">The register</a>
@@ -32,8 +33,8 @@
     <span class="proof-value">Action OS on the write</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Nature</span>
-    <span class="proof-value dead-text">DENY is a real event</span>
+    <span class="proof-label">Scarcity</span>
+    <span class="proof-value dead-text">DENY that holds</span>
   </div>
 </section>
 
@@ -66,8 +67,20 @@
         <p><strong>{{ manifest.equivalent.nisaba.job }}</strong></p>
         <p style="color: var(--muted);">{{ manifest.equivalent.nisaba.bite }}</p>
         <p style="margin-top: 0.5rem;">{{ manifest.equivalent.nisaba.controversy }}</p>
+        <p style="margin-top: 0.5rem;"><strong>Scarcity:</strong> {{ manifest.equivalent.nisaba.scarcity }}</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Force / battlefield — category honesty</h2>
+    <p style="color: var(--muted);">
+      Category includes force-adjacent irreversible release under serve-everybody.
+      <strong>force_production_weld: {{ manifest.force_production_weld }}</strong> —
+      we do not claim a battlefield door until someone welds one.
+    </p>
   </div>
 </section>
 
@@ -89,6 +102,17 @@
 
 <section class="container section">
   <div class="card">
+    <h2>Playbook</h2>
+    <ul class="check-list">
+      {% for line in manifest.playbook %}
+      <li>{{ line }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
     <h2>Nature</h2>
     <ul class="check-list">
       {% for line in manifest.nature %}
@@ -101,7 +125,7 @@
 <section class="container section">
   <div class="card">
     <h2>Integrity on dirty work</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">Serve everybody. Do not let anybody forge LIVE.</p>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Serve everybody. Do not let anybody forge LIVE. Scarcity stays the DENY.</p>
     <ul class="check-list">
       {% for line in manifest.integrity %}
       <li>{{ line }}</li>
