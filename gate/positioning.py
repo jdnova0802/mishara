@@ -255,4 +255,13 @@ def page_cards() -> list[dict]:
             ),
             "ref": "/.well-known/exochronology.json",
         },
+        {
+            "tag": "Post-trade",
+            "title": "Distribution stack",
+            "body": (
+                "DTCC peers reference PFMI manifests. We filter gross before the net. "
+                "Instruction finality at the hop. Register tiers down the stack."
+            ),
+            "ref": "/.well-known/distribution.json",
+        },
     ]

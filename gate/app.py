@@ -1295,6 +1295,15 @@ def well_known_gate():
             "xenometric": f"{advertised_url()}/.well-known/xenometric.json",
             "contactee_ban": f"{advertised_url()}/.well-known/contactee-ban.json",
             "nonabelian": f"{advertised_url()}/.well-known/nonabelian.json",
+            "post_trade_distribution": f"{advertised_url()}/.well-known/distribution.json",
+            "instruction_finality": f"{advertised_url()}/.well-known/instruction-finality.json",
+            "pre_net_clearance": f"{advertised_url()}/.well-known/pre-net-clearance.json",
+            "dvp_mouth": f"{advertised_url()}/.well-known/dvp-mouth.json",
+            "ssi_preauth": f"{advertised_url()}/.well-known/ssi-preauth.json",
+            "t1_compression": f"{advertised_url()}/.well-known/t1-compression.json",
+            "fmi_p17": f"{advertised_url()}/.well-known/fmi-p17.json",
+            "stack_propagation": f"{advertised_url()}/.well-known/stack-propagation.json",
+            "iso_surface": f"{advertised_url()}/.well-known/iso-surface.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1983,6 +1992,51 @@ def well_known_contactee_ban():
 @app.route("/.well-known/nonabelian.json")
 def well_known_nonabelian():
     return _wk_manifest("nonabelian")
+
+
+@app.route("/.well-known/distribution.json")
+def well_known_distribution():
+    return _wk_manifest("distribution")
+
+
+@app.route("/.well-known/instruction-finality.json")
+def well_known_instruction_finality():
+    return _wk_manifest("instruction_finality")
+
+
+@app.route("/.well-known/pre-net-clearance.json")
+def well_known_pre_net_clearance():
+    return _wk_manifest("pre_net")
+
+
+@app.route("/.well-known/dvp-mouth.json")
+def well_known_dvp_mouth():
+    return _wk_manifest("dvp_mouth")
+
+
+@app.route("/.well-known/ssi-preauth.json")
+def well_known_ssi_preauth():
+    return _wk_manifest("ssi_preauth")
+
+
+@app.route("/.well-known/t1-compression.json")
+def well_known_t1_compression():
+    return _wk_manifest("t1_compression")
+
+
+@app.route("/.well-known/fmi-p17.json")
+def well_known_fmi_p17():
+    return _wk_manifest("fmi_p17")
+
+
+@app.route("/.well-known/stack-propagation.json")
+def well_known_stack_propagation():
+    return _wk_manifest("stack_propagation")
+
+
+@app.route("/.well-known/iso-surface.json")
+def well_known_iso_surface():
+    return _wk_manifest("iso_surface")
 
 
 @app.route("/.well-known/positioning.json")

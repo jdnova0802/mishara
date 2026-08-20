@@ -1377,7 +1377,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 11)
+        self.assertEqual(len(cards), 12)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 96)
+        self.assertGreaterEqual(data["count"], 105)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2242,6 +2242,15 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/xenometric.json",
             "/.well-known/contactee-ban.json",
             "/.well-known/nonabelian.json",
+            "/.well-known/distribution.json",
+            "/.well-known/instruction-finality.json",
+            "/.well-known/pre-net-clearance.json",
+            "/.well-known/dvp-mouth.json",
+            "/.well-known/ssi-preauth.json",
+            "/.well-known/t1-compression.json",
+            "/.well-known/fmi-p17.json",
+            "/.well-known/stack-propagation.json",
+            "/.well-known/iso-surface.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2268,8 +2277,11 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("exochronology", gate)
         self.assertIn("unlanguage", gate)
         self.assertIn("nonabelian", gate)
+        self.assertIn("post_trade_distribution", gate)
+        self.assertIn("instruction_finality", gate)
+        self.assertIn("pre_net_clearance", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 96)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 105)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2338,7 +2350,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 96)
+        self.assertEqual(fp["invention_count"], 105)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
@@ -2561,6 +2573,44 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(xm_mod.measure(unit="risk_percent")["posture"], "earth_unit_rejected")
         self.assertEqual(ce_mod.present(channel="chat_ask_gate")["posture"], "contactee_illegal")
         self.assertEqual(na_mod.braid(sequence="bind_then_charge")["posture"], "wrong_order")
+
+        # Wave 13 — post-trade distribution
+        import distribution as dist_mod
+        import instruction_finality as if_mod
+        import pre_net as pn_mod
+        import dvp_mouth as dvp_mod
+        import ssi_preauth as ssi_mod
+        import t1_compression as t1_mod
+        import fmi_p17 as p17_mod
+        import stack_propagation as sp_mod
+        import iso_surface as iso_mod
+
+        stack = dist_mod.stack("http://x")
+        self.assertEqual(stack["spec"], "gate-distribution-v1")
+        self.assertEqual(len(stack["tiers"]), 4)
+        self.assertIn("dtcc_peer_alignment", stack)
+        self.assertEqual(
+            if_mod.moments(decision="ALLOW", acted=True, exclusive_door=True)["claim"],
+            "instruction_finality_ii_irrevocable_on_hop",
+        )
+        self.assertEqual(
+            pn_mod.admit(mouth_cleared=False, entered_settlement_window=True)["posture"],
+            "gross_contamination",
+        )
+        self.assertEqual(
+            dvp_mod.link(permission_live=False, spend_acted=True, decision="ALLOW")["posture"],
+            "payment_without_delivery",
+        )
+        self.assertEqual(ssi_mod.path(ticket_ok=False)["posture"], "unauthenticated_path")
+        self.assertEqual(t1_mod.budget(manual_exception_path=True)["posture"], "clock_eaten")
+        self.assertEqual(p17_mod.evidence(quarterly_pdf_only=True)["posture"], "attestation_without_ops_evidence")
+        self.assertEqual(sp_mod.propagate(tier=3, welded=True)["posture"], "register_bps")
+        self.assertEqual(iso_mod.surface(pdf_only=True)["posture"], "human_only")
+
+        reg = self.client.get("/.well-known/register.json").get_json()
+        self.assertIn("distribution", reg)
+        pt = self.client.get("/for/post_trade")
+        self.assertEqual(pt.status_code, 200)
 
 
 if __name__ == "__main__":

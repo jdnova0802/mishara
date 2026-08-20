@@ -246,9 +246,19 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
         from gate import unlanguage as unlang_mod
     except ImportError:
         import unlanguage as unlang_mod
+    try:
+        from gate import instruction_finality as if_mod
+    except ImportError:
+        import instruction_finality as if_mod
+    try:
+        from gate import fmi_p17 as p17_mod
+    except ImportError:
+        import fmi_p17 as p17_mod
 
     payload = super_mod.attach_to_receipt_payload(payload, row)
     payload = unlang_mod.attach_to_receipt_payload(payload, row)
+    payload = if_mod.attach_to_receipt_payload(payload, row)
+    payload = p17_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None

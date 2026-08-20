@@ -537,4 +537,5 @@ def spec(public_url: str) -> dict:
         "fail_closed": True,
         "their_production": False,
         "url": f"{public_url}/.well-known/settlement.json",
+        "distribution": f"{public_url}/.well-known/distribution.json",
     }

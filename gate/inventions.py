@@ -215,6 +215,25 @@ CATALOG = (
      "No dialogical interior — present at the port or do not contact", "contactee-ban.json"),
     ("nonabelian", "Non-Abelian Hop", "gate-nonabelian-v1",
      "CHARGE and hop do not commute — Earth APIs treat verbs as a bag", "nonabelian.json"),
+    # Wave 13 — post-trade distribution: DTCC peers reference, base pays bps
+    ("post_trade_distribution", "Post-Trade Distribution Stack", "gate-distribution-v1",
+     "Apex cites PFMI manifests; operators pay bps — register tier propagation", "distribution.json"),
+    ("instruction_finality", "Instruction Finality", "gate-instruction-finality-v1",
+     "Irrevocable instruction moment at hop — before CSD finality III", "instruction-finality.json"),
+    ("pre_net_clearance", "Pre-Net Clearance", "gate-pre-net-v1",
+     "Gross passes mouth before CNS nets — netting is not a filter", "pre-net-clearance.json"),
+    ("dvp_mouth", "DvP Mouth", "gate-dvp-v1",
+     "PFMI P12: permission and spend legs settle together or abort", "dvp-mouth.json"),
+    ("ssi_preauth", "SSI Pre-Auth Path", "gate-ssi-preauth-v1",
+     "Welded path auth at hop — same pain class as stale SSI, not ALERT clone", "ssi-preauth.json"),
+    ("t1_compression", "T+1 Compression", "gate-t1-compression-v1",
+     "Remove exception cycles from same-day clock — not faster fraud", "t1-compression.json"),
+    ("fmi_p17", "FMI P17 Receipt", "gate-fmi-p17-v1",
+     "Operational risk evidence at decision — not quarterly PDF", "fmi-p17.json"),
+    ("stack_propagation", "Stack Propagation", "gate-stack-propagation-v1",
+     "Doctrine at apex · obligation at base · register economics in between", "stack-propagation.json"),
+    ("iso_surface", "ISO Surface", "gate-iso-surface-v1",
+     "Well-known JSON as ISO-20022 instinct on mouth semantics", "iso-surface.json"),
 )
 
 
