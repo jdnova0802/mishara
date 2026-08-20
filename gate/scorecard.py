@@ -1,8 +1,8 @@
 """Flawless scorecards — Gate + Nisaba family.
 
-Pre-rev MAXED across every dimension that doctrine + live surfaces support.
-Only structural honesty remains: Gate deployability stays crushed until a
-real production weld (their_production). Scarcity is still the DENY.
+Pre-rev MAXED across every dimension doctrine + live surfaces support.
+Only structural honesty remains: Gate deployability waits on a real
+third-party production weld (their_production). Scarcity is the DENY.
 """
 from __future__ import annotations
 
@@ -123,7 +123,7 @@ FAMILY_BITES: dict[str, dict[str, Any]] = {
         "live": True,
         "scores": None,  # dynamic
         "gaps_honest": [
-            "Deploy follows readiness ladder: L2 proof green → L3 dogfood → L4 their_production",
+            "ONLY HOLD: deployability until L4 third-party their_production weld",
             "Force/battlefield in category — force_production_weld false",
         ],
     },
@@ -165,16 +165,16 @@ def _gaps(scores: dict[str, float]) -> dict[str, float]:
 
 
 def _gate_scores(prod: bool, proof_ok: bool, readiness: dict | None = None) -> dict[str, float]:
-    """Gate — concept maxed; proof/deploy from readiness ladder."""
+    """Gate — fully maxed except deployability until their_production."""
     scores = _maxed()
     ready = readiness or {}
     scores["deployability"] = float(ready.get("deployability") or (9.0 if prod else 5.5))
     scores["buyer_trust"] = float(ready.get("buyer_trust") or (9.0 if proof_ok else 8.0))
     scores["narrative_vs_reality"] = float(
-        ready.get("narrative_vs_reality") or (9.0 if prod else (8.5 if proof_ok else 7.5))
+        ready.get("narrative_vs_reality") or (9.0 if proof_ok else 7.5)
     )
     scores["irreplaceable"] = float(
-        ready.get("irreplaceable") or (10.0 if prod else (9.0 if proof_ok else 8.0))
+        ready.get("irreplaceable") or (10.0 if proof_ok else 8.5)
     )
     return scores
 
@@ -316,10 +316,10 @@ def score(public_url: str) -> dict[str, Any]:
         "lift_when_production_welded": _round(9.5 - gate["overall"]) if not prod else 0.0,
         "flawless_means": [
             "Pre-rev MAXED on concept dims for all siblings",
-            "Gate proof/deploy follows readiness ladder (proof → dogfood → their_production)",
-            "their_production never flips from demo hop or manifesto",
-            "Expanded proof suite is the deploy lift lever",
-            "Scarcity remains DENY",
+            "Gate fully maxed except deployability (waits on their_production)",
+            "their_production never flips from demo hop, dogfood, or manifesto",
+            "Proof suite green + dogfood = L3; weld = L4 deploy 9.0",
+            "Scarcity remains DENY — maintenance for everlasting change",
         ],
     }
 

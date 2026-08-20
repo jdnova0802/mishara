@@ -352,6 +352,7 @@ def readiness_from_results(results: list[dict[str, Any]]) -> dict[str, Any]:
     else:
         level, deploy, label = 0, 5.0, "proof red — fix invariants"
 
+    # Concept/trust max at green proof. Only deploy waits on their_production.
     return {
         "level": level,
         "label": label,
@@ -363,8 +364,8 @@ def readiness_from_results(results: list[dict[str, Any]]) -> dict[str, Any]:
         "their_production": prod,
         "deployability": deploy,
         "buyer_trust": 9.0 if all_pass else (8.0 if ratio >= 0.8 else 7.0),
-        "narrative_vs_reality": 9.0 if prod else (8.5 if all_pass else 7.5),
-        "irreplaceable": 10.0 if prod else (9.5 if dogfood and all_pass else (9.0 if all_pass else 8.0)),
+        "narrative_vs_reality": 9.0 if all_pass else (7.5 if ratio >= 0.8 else 6.5),
+        "irreplaceable": 10.0 if all_pass else (8.5 if ratio >= 0.8 else 7.5),
     }
 
 
