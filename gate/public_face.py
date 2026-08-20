@@ -71,14 +71,24 @@ def manifest(public_url: str) -> dict[str, Any]:
         "catalog": {
             "inventions": _link(base, "inventions.json") if base else None,
             "moat": _link(base, "moat.json") if base else None,
+            "production_skin": _link(base, "production-skin.json") if base else None,
+            "scorecard": _link(base, "scorecard.json") if base else None,
             "claim": "Partial clones fail fingerprint. Full clone still lacks weld skin.",
         },
         "depth": {
             "positioning": _link(base, "positioning.json") if base else None,
             "mouth_constitution": _link(base, "mouth-constitution.json") if base else None,
         },
-        "their_production": False,
+        "their_production": _their_production(),
     }
+
+
+def _their_production() -> bool:
+    try:
+        from gate import production_skin as skin_mod
+    except ImportError:
+        import production_skin as skin_mod  # type: ignore[no-redef]
+    return skin_mod.their_production()
 
 
 def catalog_discovery(public_url: str) -> dict[str, str]:
@@ -115,6 +125,10 @@ def gate_catalog_block(public_url: str) -> dict[str, Any]:
         "fingerprint_short": fp["fingerprint_short"],
         "discovery": catalog_discovery(base),
         "note": "105 specs welded. Public face is door + CHARGE + distribution only.",
+        "production_skin": f"{base}/.well-known/production-skin.json",
+        "scorecard": f"{base}/.well-known/scorecard.json",
+        "runbook": f"{base}/.well-known/runbook.json",
+        "proof_suite": f"{base}/.well-known/proof-suite.json",
     }
 
 

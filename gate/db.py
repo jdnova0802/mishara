@@ -199,6 +199,17 @@ def init_db():
                 PRIMARY KEY (scope, idempotency_key)
             );
             CREATE INDEX IF NOT EXISTS idx_idempotency_scope_key ON idempotency_keys(scope, idempotency_key);
+
+            CREATE TABLE IF NOT EXISTS production_welds (
+                id TEXT PRIMARY KEY,
+                email TEXT NOT NULL,
+                write_kind TEXT NOT NULL,
+                stripe_session_id TEXT,
+                fuse_id TEXT NOT NULL DEFAULT 'gate_production',
+                dogfood INTEGER NOT NULL DEFAULT 1,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_production_welds_fuse ON production_welds(fuse_id);
             """
         )
 
@@ -846,3 +857,50 @@ def list_settlement_windows(limit: int = 20) -> list[dict]:
             (limit,),
         ).fetchall()
     return [dict(r) for r in rows]
+
+
+def record_production_weld(
+    *,
+    email: str,
+    write_kind: str,
+    stripe_session_id: str | None = None,
+    fuse_id: str = "gate_production",
+    dogfood: bool = True,
+) -> str:
+    weld_id = str(uuid.uuid4())
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO production_welds
+               (id, email, write_kind, stripe_session_id, fuse_id, dogfood, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (
+                weld_id,
+                email.strip().lower(),
+                write_kind,
+                stripe_session_id,
+                fuse_id,
+                1 if dogfood else 0,
+                utc_now(),
+            ),
+        )
+    return weld_id
+
+
+def has_gate_production_weld() -> bool:
+    with db() as conn:
+        row = conn.execute(
+            """SELECT COUNT(*) AS n FROM production_welds
+               WHERE fuse_id = 'gate_production' AND dogfood = 1"""
+        ).fetchone()
+    return bool(row and row["n"] > 0)
+
+
+def latest_production_weld() -> dict | None:
+    with db() as conn:
+        row = conn.execute(
+            """SELECT id, email, write_kind, stripe_session_id, fuse_id, dogfood, created_at
+               FROM production_welds
+               WHERE fuse_id = 'gate_production'
+               ORDER BY created_at DESC LIMIT 1"""
+        ).fetchone()
+    return dict(row) if row else None

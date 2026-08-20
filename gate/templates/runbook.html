@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}48hr runbook{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Deploy · replay</p>
+  <h1>48hr reference weld</h1>
+  <p class="audience-sub">{{ manifest.claim }}</p>
+  {% for s in steps %}
+  <div class="card" style="margin-top: 1rem;">
+    <p class="audience-tag">{{ s.hour }}</p>
+    <h3>{{ s.title }}</h3>
+    <ul class="check-list">
+      {% for a in s.actions %}
+      <li><code>{{ a }}</code></li>
+      {% endfor %}
+    </ul>
+    <p><strong>Done when:</strong> {{ s.done_when }}</p>
+  </div>
+  {% endfor %}
+  <a href="{{ url_for('well_known_runbook') }}" class="btn btn-ghost btn-sm">runbook.json</a>
+</div>
+{% endblock %}

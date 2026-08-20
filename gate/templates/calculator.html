@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Register calculator{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Economics</p>
+  <h1>Register calculator</h1>
+  <p class="audience-sub">{{ manifest.formula }}</p>
+  {% for ex in examples %}
+  <div class="card" style="margin-top: 1rem;">
+    <h3>{{ ex.label }}</h3>
+    <p>Weld ${{ "%.0f"|format(ex.weld_usd) }} · Mgmt ${{ "%.0f"|format(ex.management_usd) }} · Flow ({{ ex.bps }} bps) ${{ "%.0f"|format(ex.flow_bps_usd) }}</p>
+    <p><strong>Total:</strong> ${{ "%.0f"|format(ex.total_usd) }}</p>
+  </div>
+  {% endfor %}
+  <a href="{{ url_for('well_known_register_calculator') }}" class="btn btn-ghost btn-sm">register-calculator.json</a>
+</div>
+{% endblock %}

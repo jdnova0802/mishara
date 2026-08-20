@@ -1403,6 +1403,56 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("/for/charge", body)
         self.assertIn("/for/post-trade", body)
 
+    def test_scorecard_and_proof_stack(self):
+        for path in (
+            "/.well-known/production-skin.json",
+            "/.well-known/proof-suite.json",
+            "/.well-known/runbook.json",
+            "/.well-known/scorecard.json",
+            "/.well-known/spec-classification.json",
+            "/.well-known/pfmi-one-pager.json",
+            "/.well-known/controls-map.json",
+            "/.well-known/outbound-templates.json",
+            "/.well-known/register-calculator.json",
+            "/.well-known/sandbox-pas.json",
+        ):
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+
+        proof = self.client.get("/.well-known/proof-suite.json").get_json()
+        self.assertTrue(proof["all_pass"])
+
+        score = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertIn("dimensions", score)
+        self.assertGreaterEqual(score["overall"], 7.0)
+
+        skin = self.client.get("/.well-known/production-skin.json").get_json()
+        self.assertEqual(len(skin["pillars"]), 3)
+
+        spec = self.client.get("/.well-known/spec-classification.json").get_json()
+        self.assertEqual(spec["total"], 105)
+
+        page = self.client.get("/scorecard")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn("/ 10 overall", page.get_data(as_text=True))
+
+        saved = gate_app.OPS_TOKEN
+        gate_app.OPS_TOKEN = "test-ops-token"
+        try:
+            r = self.client.post(
+                "/ops/dogfood-weld",
+                json={"email": "ops@nisaba.io", "write": "bind_only"},
+                headers={"X-Ops-Token": "test-ops-token"},
+            )
+            self.assertEqual(r.status_code, 200)
+            self.assertTrue(r.get_json()["their_production"])
+        finally:
+            gate_app.OPS_TOKEN = saved
+
+        score2 = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertGreaterEqual(score2["dimensions"]["deployability"], 8.5)
+        self.assertTrue(score2["their_production"])
+
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
 

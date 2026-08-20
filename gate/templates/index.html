@@ -80,6 +80,21 @@
 
 <section class="container section paths-grid">
   <div class="card path-card featured-path">
+    <h3>Scorecard</h3>
+    <p>Live product scorecard — proof vs pre-rev max. Production skin + runbook.</p>
+    <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Open scorecard</a>
+  </div>
+  <div class="card path-card">
+    <h3>48hr runbook</h3>
+    <p>Replay weld → verify → CHARGE → distribution cite without revenue.</p>
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-ghost btn-sm">Runbook</a>
+  </div>
+  <div class="card path-card">
+    <h3>Register calculator</h3>
+    <p>Mouths × cleared × bps — touch the economics.</p>
+    <a href="{{ url_for('calculator_page') }}" class="btn btn-ghost btn-sm">Calculator</a>
+  </div>
+  <div class="card path-card featured-path">
     <h3>The register</h3>
     <p>Infrastructure face. Mouth + scale + weld. Not SaaS tiers.</p>
     <a href="{{ url_for('register_page') }}" class="btn btn-primary btn-sm">Open register</a>

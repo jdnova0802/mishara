@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Production skin{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Proof · what ships</p>
+  <h1>Production skin</h1>
+  <p class="audience-sub">Three pillars → routes, modules, receipt fields. {{ manifest.classification_summary.shipped + manifest.classification_summary.get('shipped+receipt', 0) }} specs shipped; rest is moat.</p>
+  <p><strong>their_production:</strong> {{ manifest.their_production }}</p>
+  {% for p in pillars %}
+  <div class="card" style="margin-top: 1rem;">
+    <h3>{{ p.name }}</h3>
+    <p style="color: var(--muted);">{{ p.canonical }}</p>
+    <p><strong>Proof:</strong> {{ p.proof }}</p>
+    <p><strong>Modules:</strong> {{ p.modules | join(', ') }}</p>
+  </div>
+  {% endfor %}
+  <div class="hero-actions" style="margin-top: 1.5rem;">
+    <a href="{{ url_for('well_known_production_skin') }}" class="btn btn-ghost btn-sm">production-skin.json</a>
+    <a href="{{ url_for('well_known_spec_classification') }}" class="btn btn-ghost btn-sm">spec-classification.json</a>
+    <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Scorecard</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Scorecard{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Product scorecard</p>
+  <h1>{{ manifest.overall }} / 10 overall</h1>
+  <p>Concept {{ manifest.overall_concept }} · Proof {{ manifest.overall_proof }} · Pre-rev ceiling {{ manifest.pre_rev_ceiling }}</p>
+  <div class="grid-2" style="margin-top: 1.5rem;">
+    {% for dim, score in manifest.dimensions.items() %}
+    <div class="card">
+      <p class="audience-tag">{{ dim.replace('_', ' ') }}</p>
+      <h3>{{ score }} <span style="color: var(--muted); font-size: 0.9rem;">/ {{ manifest.pre_rev_max[dim] }} max · gap {{ manifest.gaps[dim] }}</span></h3>
+    </div>
+    {% endfor %}
+  </div>
+  <p style="margin-top: 1rem;">their_production: <strong>{{ manifest.their_production }}</strong></p>
+  <a href="{{ url_for('well_known_scorecard') }}" class="btn btn-ghost btn-sm">scorecard.json</a>
+  <a href="{{ url_for('production_skin_page') }}" class="btn btn-primary btn-sm">Production skin</a>
+</div>
+{% endblock %}

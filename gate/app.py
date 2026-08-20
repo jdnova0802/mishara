@@ -100,6 +100,51 @@ except ImportError:
     import public_face as public_face_mod
 
 try:
+    from gate import production_skin as production_skin_mod
+except ImportError:
+    import production_skin as production_skin_mod
+
+try:
+    from gate import proof_suite as proof_suite_mod
+except ImportError:
+    import proof_suite as proof_suite_mod
+
+try:
+    from gate import runbook as runbook_mod
+except ImportError:
+    import runbook as runbook_mod
+
+try:
+    from gate import pfmi_one_pager as pfmi_mod
+except ImportError:
+    import pfmi_one_pager as pfmi_mod
+
+try:
+    from gate import controls_map as controls_map_mod
+except ImportError:
+    import controls_map as controls_map_mod
+
+try:
+    from gate import outbound_templates as outbound_mod
+except ImportError:
+    import outbound_templates as outbound_mod
+
+try:
+    from gate import register_calculator as calc_mod
+except ImportError:
+    import register_calculator as calc_mod
+
+try:
+    from gate import scorecard as scorecard_mod
+except ImportError:
+    import scorecard as scorecard_mod
+
+try:
+    from gate import sandbox_pas as sandbox_pas_mod
+except ImportError:
+    import sandbox_pas as sandbox_pas_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -979,6 +1024,59 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
     )
 
 
+def _maybe_record_production_weld(email: str, write_kind: str, session_id: str | None) -> None:
+    """Dogfood weld — excludes test fixtures (@example.test)."""
+    if not write_kind or email.strip().lower().endswith("@example.test"):
+        return
+    db.record_production_weld(
+        email=email,
+        write_kind=write_kind,
+        stripe_session_id=session_id,
+    )
+
+
+@app.route("/sandbox/pas/bind-check", methods=["POST"])
+def sandbox_pas_bind_check():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body, blocked, code = _pas_incoming()
+    if blocked:
+        return blocked, code
+    data, status, extra = velaru_fuse("POST", "/pas/v1/bind-check/demo", json=body)
+    if isinstance(data, dict):
+        data["sandbox"] = True
+        data["runbook"] = f"{advertised_url()}/.well-known/runbook.json"
+        bound.attach(data, status, demo=True)
+    return data, status, extra
+
+
+@app.route("/ops/dogfood-weld", methods=["POST"])
+def ops_dogfood_weld():
+    token = request.args.get("token") or request.headers.get("X-Ops-Token", "")
+    if not OPS_TOKEN or token != OPS_TOKEN:
+        return jsonify({"error": "unauthorized"}), 401
+    body = request.get_json(silent=True) or {}
+    email = (body.get("email") or "ops@nisaba.io").strip()
+    write_kind = (body.get("write") or "bind_only").strip()
+    if write_kind not in OPERATOR_WRITES:
+        return jsonify({"error": "write must be withdraw or bind_only"}), 400
+    weld_id = db.record_production_weld(
+        email=email,
+        write_kind=write_kind,
+        stripe_session_id=f"ops_{uuid.uuid4().hex}",
+    )
+    return jsonify(
+        {
+            "ok": True,
+            "weld_id": weld_id,
+            "their_production": production_skin_mod.their_production(),
+            "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
+            "scorecard": f"{advertised_url()}/.well-known/scorecard.json",
+        }
+    )
+
+
 @app.route("/demo/pas/bind-check", methods=["POST"])
 def demo_pas_bind_check():
     _, err = _demo_gate()
@@ -1210,6 +1308,11 @@ def well_known_gate():
         "mouth_constitution": f"{pub}/.well-known/mouth-constitution.json",
         "settlement": f"{pub}/.well-known/settlement.json",
         "positioning": f"{pub}/.well-known/positioning.json",
+        "production_skin": f"{pub}/.well-known/production-skin.json",
+        "scorecard": f"{pub}/.well-known/scorecard.json",
+        "runbook": f"{pub}/.well-known/runbook.json",
+        "proof_suite": f"{pub}/.well-known/proof-suite.json",
+        "sandbox_pas": f"{pub}/sandbox/pas/bind-check",
         "evidence_head": f"{pub}/.well-known/evidence-head.json",
         "receipt": f"{pub}/.well-known/receipt/{{event_id}}.json",
         "receipt_inclusion_proof": f"{pub}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1951,7 +2054,103 @@ def well_known_positioning():
 
 @app.route("/.well-known/public-face.json")
 def well_known_public_face():
-    return jsonify(public_face_mod.manifest(advertised_url()))
+    m = public_face_mod.manifest(advertised_url())
+    m["their_production"] = production_skin_mod.their_production()
+    return jsonify(m)
+
+
+@app.route("/.well-known/production-skin.json")
+def well_known_production_skin():
+    return jsonify(production_skin_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/spec-classification.json")
+def well_known_spec_classification():
+    return jsonify(production_skin_mod.spec_classification(advertised_url()))
+
+
+@app.route("/.well-known/proof-suite.json")
+def well_known_proof_suite():
+    return jsonify(proof_suite_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/runbook.json")
+def well_known_runbook():
+    return jsonify(runbook_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/pfmi-one-pager.json")
+def well_known_pfmi_one_pager():
+    return jsonify(pfmi_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/controls-map.json")
+def well_known_controls_map():
+    return jsonify(controls_map_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/outbound-templates.json")
+def well_known_outbound_templates():
+    return jsonify(outbound_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/register-calculator.json")
+def well_known_register_calculator():
+    mouths = request.args.get("mouths", type=int)
+    cleared = request.args.get("cleared_usd", type=float)
+    months = request.args.get("months", type=int)
+    base = calc_mod.manifest(advertised_url())
+    if mouths is not None or cleared is not None or months is not None:
+        base["computed"] = calc_mod.compute(
+            mouths=mouths or 1,
+            cleared_usd=cleared if cleared is not None else 10_000_000.0,
+            months=months or 12,
+        )
+    return jsonify(base)
+
+
+@app.route("/.well-known/scorecard.json")
+def well_known_scorecard():
+    return jsonify(scorecard_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/sandbox-pas.json")
+def well_known_sandbox_pas():
+    return jsonify(sandbox_pas_mod.manifest(advertised_url()))
+
+
+@app.route("/production-skin")
+def production_skin_page():
+    m = production_skin_mod.manifest(advertised_url())
+    return render_template(
+        "production_skin.html",
+        manifest=m,
+        pillars=m.get("pillars") or [],
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/runbook")
+def runbook_page():
+    m = runbook_mod.manifest(advertised_url())
+    return render_template("runbook.html", manifest=m, steps=m.get("steps") or [], public_url=advertised_url())
+
+
+@app.route("/calculator")
+def calculator_page():
+    m = calc_mod.manifest(advertised_url())
+    return render_template(
+        "calculator.html",
+        manifest=m,
+        examples=m.get("examples") or [],
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/scorecard")
+def scorecard_page():
+    m = scorecard_mod.manifest(advertised_url())
+    return render_template("scorecard.html", manifest=m, public_url=advertised_url())
 
 
 @app.route("/positioning")
@@ -2765,6 +2964,7 @@ def operator_checkout():
         fake_session = f"dev_{uuid.uuid4().hex}"
         install_order_id = db.create_install_order(email, fake_session, amount, product=product)
         db.mark_install_paid(fake_session)
+        _maybe_record_production_weld(email, write_kind, fake_session)
         notify.money(
             "Operator booked (dev)",
             f"{email} {product} write={write_kind} {WELD_PRICE_LABEL} + {FLOOR_PRICE_LABEL} management",
@@ -2963,6 +3163,8 @@ def billing_webhook():
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
             write_kind = (sess.get("metadata") or {}).get("write") or ""
+            if write_kind:
+                _maybe_record_production_weld(str(email or ""), write_kind, sess["id"])
             notify.money(
                 "CASH — Operator weld",
                 f"{WELD_PRICE_LABEL}"
