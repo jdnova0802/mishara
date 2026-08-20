@@ -1271,6 +1271,18 @@ def well_known_gate():
             "invented_accident": f"{advertised_url()}/.well-known/invented-accident.json",
             "pharmakon": f"{advertised_url()}/.well-known/pharmakon.json",
             "landauer": f"{advertised_url()}/.well-known/landauer.json",
+            "holographic": f"{advertised_url()}/.well-known/holographic.json",
+            "cosmotechnics": f"{advertised_url()}/.well-known/cosmotechnics.json",
+            "irreducibility": f"{advertised_url()}/.well-known/irreducibility.json",
+            "secure_boot": f"{advertised_url()}/.well-known/secure-boot.json",
+            "curry_howard": f"{advertised_url()}/.well-known/curry-howard.json",
+            "cap_spend": f"{advertised_url()}/.well-known/cap-spend.json",
+            "arrow": f"{advertised_url()}/.well-known/arrow.json",
+            "stack_layer": f"{advertised_url()}/.well-known/stack-layer.json",
+            "hro": f"{advertised_url()}/.well-known/hro.json",
+            "residual": f"{advertised_url()}/.well-known/residual.json",
+            "knightian": f"{advertised_url()}/.well-known/knightian.json",
+            "interlock": f"{advertised_url()}/.well-known/interlock.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1839,6 +1851,66 @@ def well_known_pharmakon():
 @app.route("/.well-known/landauer.json")
 def well_known_landauer():
     return _wk_manifest("landauer")
+
+
+@app.route("/.well-known/holographic.json")
+def well_known_holographic():
+    return _wk_manifest("holographic")
+
+
+@app.route("/.well-known/cosmotechnics.json")
+def well_known_cosmotechnics():
+    return _wk_manifest("cosmotechnics")
+
+
+@app.route("/.well-known/irreducibility.json")
+def well_known_irreducibility():
+    return _wk_manifest("irreducibility")
+
+
+@app.route("/.well-known/secure-boot.json")
+def well_known_secure_boot():
+    return _wk_manifest("secure_boot")
+
+
+@app.route("/.well-known/curry-howard.json")
+def well_known_curry_howard():
+    return _wk_manifest("curry_howard")
+
+
+@app.route("/.well-known/cap-spend.json")
+def well_known_cap_spend():
+    return _wk_manifest("cap_spend")
+
+
+@app.route("/.well-known/arrow.json")
+def well_known_arrow():
+    return _wk_manifest("arrow")
+
+
+@app.route("/.well-known/stack-layer.json")
+def well_known_stack_layer():
+    return _wk_manifest("stack_layer")
+
+
+@app.route("/.well-known/hro.json")
+def well_known_hro():
+    return _wk_manifest("hro")
+
+
+@app.route("/.well-known/residual.json")
+def well_known_residual():
+    return _wk_manifest("residual")
+
+
+@app.route("/.well-known/knightian.json")
+def well_known_knightian():
+    return _wk_manifest("knightian")
+
+
+@app.route("/.well-known/interlock.json")
+def well_known_interlock():
+    return _wk_manifest("interlock")
 
 
 @app.route("/.well-known/positioning.json")

@@ -232,8 +232,8 @@ def page_cards() -> list[dict]:
             "tag": "Invention",
             "title": "Moat fingerprint",
             "body": (
-                "Seventy-plus welded specs. Xenohardware chassis. Mouth ISA. "
-                "Landauer CHARGE. NMI HALT. Moat SHA-256 — partial clones fail."
+                "Eighty-plus welded specs. Xenohardware. Holographic receipts. "
+                "Secure boot LIVE. Moat SHA-256 — partial clones fail."
             ),
             "ref": "/.well-known/moat.json",
         },

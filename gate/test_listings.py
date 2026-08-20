@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 72)
+        self.assertGreaterEqual(data["count"], 84)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2218,6 +2218,18 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/invented-accident.json",
             "/.well-known/pharmakon.json",
             "/.well-known/landauer.json",
+            "/.well-known/holographic.json",
+            "/.well-known/cosmotechnics.json",
+            "/.well-known/irreducibility.json",
+            "/.well-known/secure-boot.json",
+            "/.well-known/curry-howard.json",
+            "/.well-known/cap-spend.json",
+            "/.well-known/arrow.json",
+            "/.well-known/stack-layer.json",
+            "/.well-known/hro.json",
+            "/.well-known/residual.json",
+            "/.well-known/knightian.json",
+            "/.well-known/interlock.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2238,8 +2250,11 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("no_software", gate)
         self.assertIn("landauer", gate)
         self.assertIn("nmi_halt", gate)
+        self.assertIn("holographic", gate)
+        self.assertIn("secure_boot", gate)
+        self.assertIn("interlock", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 72)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 84)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2308,7 +2323,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 72)
+        self.assertEqual(fp["invention_count"], 84)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
@@ -2462,6 +2477,42 @@ class SettlementEngineTests(unittest.TestCase):
             lan_mod.erase(destroying_halt_option=True, cheap_badge=True)["posture"],
             "below_landauer",
         )
+
+        # Wave 11
+        import holographic as holo_mod
+        import cosmotechnics as cosmo_mod
+        import irreducibility as irr_mod
+        import secure_boot as boot_mod
+        import curry_howard as ch_mod
+        import cap_spend as cap_mod
+        import arrow as arrow_mod
+        import stack_layer as stack_mod
+        import hro as hro_mod
+        import residual as res_mod
+        import knightian as kn_mod
+        import interlock as lock_mod
+
+        self.assertEqual(
+            holo_mod.encode(verify_url=None, boundary_fetchable=False)["posture"],
+            "bulk_without_boundary",
+        )
+        self.assertEqual(cosmo_mod.situate(generic_ai_governance=True)["posture"], "generic_tech")
+        self.assertEqual(irr_mod.run(predicted_live=True, shortcut="llm")["posture"], "false_reduction")
+        self.assertEqual(boot_mod.boot(unsigned_live=True, prod=True)["posture"], "insecure_boot")
+        self.assertEqual(ch_mod.inhabit(decision="HALT", receipt_hash="abc")["posture"], "proof_of_no")
+        self.assertEqual(
+            cap_mod.pick(partitioned=True, allow_on_timeout=True, decision="ALLOW")["posture"],
+            "ap_inconsistent",
+        )
+        self.assertEqual(
+            arrow_mod.aggregate(ballots=["uw_approve", "ai_badge"])["posture"],
+            "impossible_social_choice",
+        )
+        self.assertEqual(stack_mod.route(skip_mouth=True)["posture"], "illegal_route")
+        self.assertEqual(hro_mod.posture_of(hide_halts=True)["posture"], "anti_hro")
+        self.assertEqual(res_mod.control(holder="admin")["posture"], "misallocated_residual")
+        self.assertEqual(kn_mod.face(fake_probability=True, decision="ALLOW")["posture"], "fake_risk")
+        self.assertEqual(lock_mod.ladder(rungs_true=5, jumper=True)["posture"], "jumper_illegal")
 
 
 if __name__ == "__main__":

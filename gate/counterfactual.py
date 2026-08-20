@@ -227,6 +227,17 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
 
     payload = nmi_mod.attach_to_receipt_payload(payload, row)
     payload = landauer_mod.attach_to_receipt_payload(payload, row)
+    try:
+        from gate import holographic as holo_mod
+    except ImportError:
+        import holographic as holo_mod
+    try:
+        from gate import curry_howard as ch_mod
+    except ImportError:
+        import curry_howard as ch_mod
+
+    payload = holo_mod.attach_to_receipt_payload(payload, row)
+    payload = ch_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
