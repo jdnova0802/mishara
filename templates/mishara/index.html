@@ -3,32 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mishara — Your AI Rights. Documented. Verified. Yours.</title>
-<meta name="description" content="The first place to go when an AI decision harmed you. Get a cryptographic receipt, understand your rights, and join others holding platforms accountable.">
+<title>Mishara — When an AI decision already hurt you</title>
+<meta name="description" content="Was a person harmed? Cryptographic receipt, FCRA/ECOA rights path, demand letter. Powered by Velaru. Not Action OS — the human door.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FAFAF8;--surface:#FFFFFF;--primary:#0D7377;--primary-dark:#095456;
-  --accent:#F4A261;--text:#1A1A2E;--muted:#5C5C72;--border:#E8E6E1;
-  --shadow:0 4px 24px rgba(26,26,46,0.08);--radius:16px;
+  --bg:#F7F3EC;--surface:#FFFCFA;--primary:#0B5F63;--primary-dark:#084548;
+  --accent:#C45C26;--text:#1C1917;--muted:#57534E;--border:#E7E0D5;
+  --shadow:0 4px 24px rgba(28,25,23,0.08);--radius:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:16px;}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(800px 420px at 10% -10%,rgba(11,95,99,0.08),transparent 55%),radial-gradient(700px 400px at 100% 0%,rgba(196,92,38,0.07),transparent 50%),var(--bg);}
 a{color:var(--primary);text-decoration:none;}
 a:hover{text-decoration:underline;}
-header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+header{background:rgba(255,252,250,0.92);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
 .header-inner{max-width:720px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-.logo{font-weight:700;font-size:1.25rem;letter-spacing:0.08em;color:var(--primary);}
+.logo{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.35rem;letter-spacing:0.04em;color:var(--primary);}
 .tagline{font-size:0.7rem;color:var(--muted);margin-top:2px;}
 nav{display:flex;gap:16px;font-size:0.875rem;font-weight:500;}
 nav a{color:var(--muted);}
 nav a:hover{color:var(--primary);}
 main{max-width:720px;margin:0 auto;padding:24px 20px 80px;}
 .hero{padding:32px 0 24px;}
-.hero h1{font-size:clamp(1.75rem,5vw,2.25rem);font-weight:700;line-height:1.25;margin-bottom:16px;color:var(--text);}
+.hero h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.85rem,5vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:16px;color:var(--text);}
 .hero p{font-size:1.05rem;color:var(--muted);max-width:640px;}
+.hero-note{margin-top:12px;font-size:0.9rem;color:var(--muted);padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,252,250,0.8);}
 .section{margin-top:32px;}
 .section-label{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);margin-bottom:12px;}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);}
@@ -39,8 +41,8 @@ textarea::placeholder,input::placeholder{color:#999;}
 .harm-grid{display:grid;grid-template-columns:1fr;gap:10px;}
 @media(min-width:480px){.harm-grid{grid-template-columns:1fr 1fr;}}
 .harm-card{border:2px solid var(--border);border-radius:14px;padding:16px;cursor:pointer;transition:border-color 0.2s,background 0.2s;background:var(--surface);}
-.harm-card:hover{border-color:var(--primary);background:rgba(13,115,119,0.04);}
-.harm-card.selected{border-color:var(--primary);background:rgba(13,115,119,0.08);box-shadow:0 0 0 1px var(--primary);}
+.harm-card:hover{border-color:var(--primary);background:rgba(11,95,99,0.04);}
+.harm-card.selected{border-color:var(--primary);background:rgba(11,95,99,0.08);box-shadow:0 0 0 1px var(--primary);}
 .harm-card .emoji{font-size:1.5rem;margin-bottom:6px;}
 .harm-card .title{font-weight:600;font-size:0.95rem;margin-bottom:4px;}
 .harm-card .hint{font-size:0.8rem;color:var(--muted);line-height:1.4;}
@@ -49,7 +51,7 @@ textarea::placeholder,input::placeholder{color:#999;}
 .btn-primary{background:var(--primary);color:#fff;}
 .btn-primary:hover:not(:disabled){background:var(--primary-dark);}
 .btn-secondary{background:transparent;border:2px solid var(--border);color:var(--text);margin-top:10px;}
-.btn-gold{background:var(--accent);color:var(--text);}
+.btn-gold{background:var(--accent);color:#fff;}
 .step-indicator{display:flex;gap:8px;margin-bottom:24px;}
 .step-dot{flex:1;height:4px;border-radius:2px;background:var(--border);}
 .step-dot.active{background:var(--primary);}
@@ -73,12 +75,12 @@ textarea::placeholder,input::placeholder{color:#999;}
 .receipt-section h3{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin-bottom:10px;}
 .receipt-section p,.receipt-section li{font-size:0.9rem;color:var(--text);}
 .receipt-section ul{padding-left:18px;margin-top:8px;}
-.mono{font-family:'JetBrains Mono',monospace;font-size:0.8rem;}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;}
 .actions-grid{display:grid;gap:10px;margin-top:20px;}
 @media(min-width:480px){.actions-grid{grid-template-columns:1fr 1fr;}}
 .pattern-banner{margin-top:20px;padding:16px;border-radius:12px;font-size:0.9rem;}
-.pattern-banner.building{background:rgba(13,115,119,0.08);border:1px solid rgba(13,115,119,0.2);color:var(--primary);}
-.pattern-banner.class_action{background:rgba(244,162,97,0.15);border:1px solid var(--accent);color:#8B4513;}
+.pattern-banner.building{background:rgba(11,95,99,0.08);border:1px solid rgba(11,95,99,0.2);color:var(--primary);}
+.pattern-banner.class_action{background:rgba(196,92,38,0.12);border:1px solid var(--accent);color:#7C2D12;}
 .pattern-banner.systemic{background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.3);color:#991B1B;}
 .path-card{border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:16px;background:var(--surface);}
 .path-card h4{font-size:1rem;margin-bottom:8px;color:var(--primary);}
@@ -89,7 +91,7 @@ textarea::placeholder,input::placeholder{color:#999;}
 .email-row input{flex:1;min-width:180px;margin-bottom:0;}
 .email-row button{width:auto;padding:14px 20px;}
 #how-it-works,#about-section{margin-top:48px;padding-top:32px;border-top:1px solid var(--border);}
-#how-it-works h2,#about-section h2{font-size:1.35rem;margin-bottom:16px;}
+#how-it-works h2,#about-section h2{font-family:'Fraunces',Georgia,serif;font-size:1.35rem;margin-bottom:16px;}
 #how-it-works ol{padding-left:20px;color:var(--muted);}
 #how-it-works li{margin-bottom:12px;}
 footer{text-align:center;padding:40px 20px 60px;color:var(--muted);font-size:0.8rem;line-height:1.8;border-top:1px solid var(--border);margin-top:48px;}
@@ -109,7 +111,7 @@ footer strong{color:var(--text);}
   <div class="header-inner">
     <div>
       <div class="logo">MISHARA</div>
-      <div class="tagline">Your AI Rights. Documented. Verified. Yours.</div>
+      <div class="tagline">When the act already hurt someone</div>
     </div>
     <nav>
       <a href="#how-it-works">How it works</a>
@@ -121,8 +123,9 @@ footer strong{color:var(--text);}
 
 <main>
   <section class="hero" id="start">
-    <h1>An AI made a decision about you.<br>You deserve proof of what happened.</h1>
-    <p>Mishara gives you a cryptographic receipt of every AI decision that affected your life — independently verifiable, legally meaningful, yours to keep.</p>
+    <h1>Was a person harmed?</h1>
+    <p>When an AI decision already hurt you — hiring, housing, credit, insurance — get a Velaru-signed receipt, plain-English rights (FCRA / ECOA / hiring tools), and a demand letter. Independently verifiable. Yours to keep.</p>
+    <p class="hero-note">Not the Action OS. Not a compliance dashboard. The human door after the irreversible denial — powered by Velaru proof, never a forge-alone platform form.</p>
   </section>
 
   <div class="step-indicator" id="step-indicator">
@@ -211,22 +214,22 @@ footer strong{color:var(--text);}
   <section id="how-it-works">
     <h2>How it works</h2>
     <ol>
-      <li><strong>Receipt</strong> — Describe what happened. Mishara calls Velaru's independent audit API to classify and cryptographically sign your record.</li>
-      <li><strong>Action</strong> — Get plain-English rights guidance, a demand letter template, and links to advocacy organizations.</li>
-      <li><strong>Pattern</strong> — Anonymous reports aggregate by platform. When enough people report similar harm, Mishara flags class-action and regulatory potential.</li>
+      <li><strong>Receipt</strong> — Describe the denial. Mishara calls Velaru to classify and cryptographically sign an independent record a stranger can verify.</li>
+      <li><strong>Action</strong> — Plain-English rights (FCRA adverse action, ECOA specific reasons, hiring-tool notice gaps) + demand letter.</li>
+      <li><strong>Pattern</strong> — Anonymous aggregation by platform. Systemic harm becomes visible without handing the platform your forge-alone form.</li>
     </ol>
   </section>
 
   <section id="about-section">
     <h2>About Mishara</h2>
-    <p style="color:var(--muted);">Mishara means justice in Akkadian — protection of the weak from the powerful. We believe everyone harmed by an AI decision deserves proof, not platitudes.</p>
+    <p style="color:var(--muted);">Mishara means justice in Akkadian — protection of the weak from the powerful. NYC Local Law 144 and EU AI Act logging create duties for employers and platforms; individuals still leave without a stranger-held receipt. That gap is this door. Not Gate. Not Erra. The human path after the irreversible no.</p>
   </section>
 </main>
 
 <footer>
-  <p><strong>Mishara</strong> is powered by <a href="{{ velaru_base }}" target="_blank" rel="noopener">Velaru</a> (Nisaba LLC) — the only AI audit record no one controls.</p>
-  <p>Patent #64/124,027 · <a href="https://velaru.xyz" target="_blank" rel="noopener">velaru.xyz</a></p>
-  <p><em>Mishara means justice in Akkadian — protection of the weak from the powerful.</em></p>
+  <p><strong>Mishara</strong> — when the act already hurt someone. Powered by <a href="{{ velaru_base }}" target="_blank" rel="noopener">Velaru</a> (Nisaba LLC).</p>
+  <p>Patent #64/124,027 · <a href="https://velaru.xyz" target="_blank" rel="noopener">velaru.xyz</a> · <a href="https://gate.velaru.xyz/family/mishara" target="_blank" rel="noopener">Family voice</a></p>
+  <p><em>Reflect the engine. Keep the human door.</em></p>
 </footer>
 
 <div class="modal hidden" id="letter-modal">

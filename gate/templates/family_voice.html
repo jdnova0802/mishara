@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}{{ voice.name }} voice{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ voice.voice_line }}. {{ voice.one_liner_ads }}">
+{% endblock %}
+{% block content %}
+<div class="top-banner">
+  <span><strong>{{ voice.name }}.</strong> {{ voice.voice_line }}</span>
+  <a href="{{ url_for('family_hub') }}" class="btn btn-ghost btn-sm">Family →</a>
+</div>
+
+<section class="hero container">
+  <p class="audience-tag">{{ voice.role }} · research voice</p>
+  <h1>{{ voice.question }}</h1>
+  <p class="hero-sub">{{ voice.one_liner_ads }}</p>
+  <p class="hero-sub" style="margin-top: 0.75rem;">{{ voice.market_problem }}</p>
+  <div class="hero-actions">
+    <a href="{{ url_for('family_paste', slug=voice.id) }}" class="btn btn-primary">Paste pack .txt</a>
+    {% if voice.url %}<a href="{{ voice.url }}" class="btn btn-accent-outline">Live site →</a>{% endif %}
+    <a href="{{ url_for('well_known_family_voice', slug=voice.id) }}" class="btn btn-ghost">{{ voice.id }}.json</a>
+  </div>
+</section>
+
+<section class="container proof-strip">
+  <div class="proof-item">
+    <span class="proof-label">Buyer</span>
+    <span class="proof-value">{{ voice.buyer }}</span>
+  </div>
+  <div class="proof-item">
+    <span class="proof-label">Scarcity</span>
+    <span class="proof-value dead-text">{{ voice.scarcity }}</span>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Enemy</h2>
+    <ul class="check-list">
+      {% for e in voice.enemy %}
+      <li>{{ e }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% if voice.paste_hero %}
+<section class="container section">
+  <div class="card">
+    <h2>Paste hero</h2>
+    <pre style="white-space: pre-wrap;">{{ voice.paste_hero }}</pre>
+    {% if voice.paste_nav %}<p style="margin-top: 0.75rem;"><strong>Nav:</strong> {{ voice.paste_nav }}</p>{% endif %}
+    {% if voice.paste_not %}<p style="margin-top: 0.5rem; color: var(--muted);">{{ voice.paste_not }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}
+
+<section class="container section">
+  <div class="card">
+    <h2>Citations — real market</h2>
+    <ul class="check-list">
+      {% for c in voice.citations %}
+      <li><strong>{{ c.title }}</strong> — {{ c.why }}{% if c.url %} · <a href="{{ c.url }}">link</a>{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="grid-2">
+    <div class="card">
+      <h3>Shipped</h3>
+      <ul class="check-list">
+        {% for s in voice.shipped %}
+        <li>{{ s }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Gaps</h3>
+      <ul class="check-list">
+        {% for g in voice.gaps or [] %}
+        <li>{{ g }}</li>
+        {% else %}
+        <li>See scorecard for live gaps</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Engine (reflect)</h2>
+    <ul class="check-list">
+      {% for line in voice.engine.inherits %}
+      <li>{{ line }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Family voices{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="top-banner">
+  <span><strong>Nisaba family.</strong> Reflect Velaru as engine. Own gravity. Bite real markets.</span>
+  <a href="{{ url_for('scorecard_page') }}" class="btn btn-ghost btn-sm">Scorecard →</a>
+</div>
+
+<section class="hero container">
+  <p class="audience-tag">Research pass · voices</p>
+  <h1>Five doors. One engine.</h1>
+  <p class="hero-sub">{{ manifest.thesis }}</p>
+  <div class="hero-actions">
+    <a href="{{ url_for('well_known_family_voices') }}" class="btn btn-primary">family.json</a>
+    <a href="{{ url_for('action_os_page') }}" class="btn btn-accent-outline">Action OS</a>
+    <a href="{{ url_for('scorecard_page') }}" class="btn btn-ghost">Scorecard</a>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Engine — reflect, don't clone</h2>
+    <p class="audience-tag">{{ manifest.engine.name }} · {{ manifest.engine.role }}</p>
+    <ul class="check-list">
+      {% for line in manifest.engine.inherits %}
+      <li>{{ line }}</li>
+      {% endfor %}
+    </ul>
+    <p style="margin-top: 0.75rem; color: var(--muted);"><strong>Not cloned:</strong>
+      {{ manifest.engine.not_cloned | join(' · ') }}</p>
+  </div>
+</section>
+
+<section class="container-wide section">
+  <h2 style="margin-bottom: 1rem;">Voices</h2>
+  {% for v in manifest.family %}
+  <div class="card" style="margin-bottom: 1rem;">
+    <p class="audience-tag">{{ v.role }} · {{ v.question }}</p>
+    <h3>{{ v.name }} — {{ v.voice_line }}</h3>
+    <p style="color: var(--muted); margin-top: 0.5rem;"><strong>Market:</strong> {{ v.market_problem }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Buyer:</strong> {{ v.buyer }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Scarcity:</strong> {{ v.scarcity }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Ads:</strong> {{ v.one_liner_ads }}</p>
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 0.75rem;">
+      <a href="{{ url_for('family_voice_page', slug=v.id) }}" class="btn btn-primary btn-sm">Open voice</a>
+      <a href="{{ url_for('family_paste', slug=v.id) }}" class="btn btn-ghost btn-sm">Paste pack</a>
+      {% if v.url %}<a href="{{ v.url }}" class="btn btn-ghost btn-sm">Live →</a>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Fix order</h2>
+    <p style="color: var(--muted);">{{ manifest.weakest_voice_fix.action }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Priority:</strong> {{ manifest.weakest_voice_fix.priority | join(' → ') }}</p>
+  </div>
+</section>
+{% endblock %}

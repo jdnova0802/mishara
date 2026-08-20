@@ -303,6 +303,9 @@ class FlaskListingTests(unittest.TestCase):
         # Flawless: deployability crushed without weld
         self.assertLessEqual(sc["gate"]["dimensions"]["deployability"], 6.0)
         self.assertEqual(sc["weakest_voice"]["id"], "verra")
+        self.assertIn("family", gate)
+        self.assertEqual(self.client.get("/family").status_code, 200)
+        self.assertIn("/family", self.client.get("/").get_data(as_text=True))
 
 
 class BoundAnswerTests(unittest.TestCase):
@@ -1455,6 +1458,24 @@ class OperatorInvoiceTests(unittest.TestCase):
             self.assertTrue(p["market_problem"])
             self.assertTrue(p["buyer"])
             self.assertIn("market_bite", p["dimensions"])
+
+        fam = self.client.get("/.well-known/family.json")
+        self.assertEqual(fam.status_code, 200)
+        fam_data = fam.get_json()
+        self.assertEqual(fam_data["spec"], "nisaba-family-voices-v1")
+        self.assertEqual(len(fam_data["family"]), 5)
+        erra = self.client.get("/.well-known/family/erra.json").get_json()
+        self.assertIn("EIOPA", erra["market_problem"])
+        self.assertTrue(erra["citations"])
+        verra = self.client.get("/.well-known/family/verra.json").get_json()
+        self.assertIn("bind-only", verra["market_problem"])
+        mish = self.client.get("/.well-known/family/mishara.json").get_json()
+        self.assertIn("FCRA", mish["market_problem"])
+        paste = self.client.get("/family/erra/paste.txt")
+        self.assertEqual(paste.status_code, 200)
+        self.assertIn("Should we act?", paste.get_data(as_text=True))
+        self.assertEqual(self.client.get("/family").status_code, 200)
+        self.assertEqual(self.client.get("/family/verra").status_code, 200)
 
         skin = self.client.get("/.well-known/production-skin.json")
         self.assertEqual(skin.status_code, 200)

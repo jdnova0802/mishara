@@ -115,6 +115,11 @@ except ImportError:
     import proof_suite as proof_suite_mod
 
 try:
+    from gate import family_voices as family_voices_mod
+except ImportError:
+    import family_voices as family_voices_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -1233,6 +1238,8 @@ def well_known_gate():
             "action_os_page": f"{advertised_url()}/action-os",
             "scorecard": f"{advertised_url()}/.well-known/scorecard.json",
             "scorecard_page": f"{advertised_url()}/scorecard",
+            "family": f"{advertised_url()}/.well-known/family.json",
+            "family_page": f"{advertised_url()}/family",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
@@ -1362,6 +1369,47 @@ def well_known_production_skin():
 @app.route("/.well-known/proof-suite.json")
 def well_known_proof_suite():
     return jsonify(proof_suite_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/family.json")
+def well_known_family_voices():
+    return jsonify(family_voices_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/family/<slug>.json")
+def well_known_family_voice(slug: str):
+    if slug not in family_voices_mod.VOICES:
+        abort(404)
+    return jsonify(family_voices_mod.voice(slug, advertised_url()))
+
+
+@app.route("/family")
+def family_hub():
+    m = family_voices_mod.manifest(advertised_url())
+    return render_template("family.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/family/<slug>")
+def family_voice_page(slug: str):
+    if slug not in family_voices_mod.VOICES:
+        abort(404)
+    return render_template(
+        "family_voice.html",
+        voice=family_voices_mod.voice(slug, advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/family/<slug>/paste.txt")
+def family_paste(slug: str):
+    if slug not in family_voices_mod.VOICES:
+        abort(404)
+    body = family_voices_mod.paste_pack(slug)
+    return Response(
+        body,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Cache-Control": "public, max-age=300"},
+    )
 
 
 @app.route("/scorecard")
