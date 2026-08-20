@@ -1198,6 +1198,7 @@ def well_known_gate():
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
+            "possibility_finality": f"{advertised_url()}/.well-known/possibility-finality.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1301,6 +1302,20 @@ def well_known_schism():
     except ImportError:
         import kappa as kappa_mod
     return jsonify(kappa_mod.schism_manifest(advertised_url()))
+
+
+@app.route("/.well-known/possibility-finality.json")
+def well_known_possibility_finality():
+    try:
+        from gate import possibility as possibility_mod
+    except ImportError:
+        import possibility as possibility_mod
+    # Manifest + illustrative HALT depth (live register is per-receipt / per-window).
+    body = possibility_mod.manifest(advertised_url())
+    body["example_halt_depth"] = possibility_mod.evaluate_policies(
+        decision="HALT", acted=False, job_id="pc:EXAMPLE"
+    )
+    return jsonify(body)
 
 
 @app.route("/.well-known/positioning.json")

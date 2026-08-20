@@ -446,6 +446,18 @@ def regulatory_report(window: SettlementWindow) -> dict:
     for ob in obligations:
         by_class[ob.asset_class] = by_class.get(ob.asset_class, 0) + ob.gross_cents
 
+    try:
+        from gate import possibility as possibility_mod
+    except ImportError:
+        import possibility as possibility_mod
+    moments = possibility_mod.finality_moments(
+        window_id=window.id,
+        opened_at=window.opened_at,
+        cutoff_at=window.cutoff_at,
+        settled_at=window.settled_at,
+        finality_hash=window.finality_hash,
+        state=window.state,
+    )
     return {
         "spec": REPORTING_SPEC,
         "window_id": window.id,
@@ -453,6 +465,7 @@ def regulatory_report(window: SettlementWindow) -> dict:
         "opened_at": window.opened_at,
         "settled_at": window.settled_at,
         "finality_hash": window.finality_hash,
+        "finality_moments": moments,
         "obligation_count": len(obligations),
         "gross_by_asset_class_cents": by_class,
         "net_positions": window.net_positions,

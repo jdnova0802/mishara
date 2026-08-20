@@ -1984,6 +1984,45 @@ class SettlementEngineTests(unittest.TestCase):
         gate = self.client.get("/.well-known/gate.json")
         self.assertIn("kappa_register", gate.get_json())
 
+    def test_possibility_finality_policy_depth_and_moments(self):
+        import possibility as possibility_mod
+        import settlement as s
+
+        halt = possibility_mod.evaluate_policies(decision="HALT", acted=False, job_id="pc:PF-1")
+        self.assertEqual(halt["spec"], "gate-policy-depth-v1")
+        self.assertIsNone(halt["selected"])
+        self.assertGreaterEqual(halt["policy_depth"], 3)
+        self.assertTrue(any(p["reason"] == "mouth_forbade_or_halted" for p in halt["not_selected"]))
+
+        allow = possibility_mod.evaluate_policies(
+            decision="ALLOW", acted=True, job_id="pc:PF-2", selected_spend="bind"
+        )
+        self.assertIsNotNone(allow["selected"])
+        self.assertEqual(allow["selected"]["spend_kind"], "bind")
+        self.assertTrue(
+            any(p["reason"] == "impossible_on_this_scanner" for p in allow["not_selected"])
+        )
+
+        window = s.open_window()
+        window.obligations = [
+            asdict(s.Obligation(member_id="PF", gross_cents=10_000, direction="pay")),
+        ]
+        s.close_window(window)
+        report = s.regulatory_report(window)
+        self.assertIn("finality_moments", report)
+        moments = report["finality_moments"]
+        self.assertEqual(moments["spec"], "gate-finality-moments-v1")
+        self.assertTrue(moments["moments"]["I_entry"]["reached"])
+        self.assertTrue(moments["moments"]["III_binding"]["reached"])
+        self.assertEqual(moments["moments"]["III_binding"]["finality_hash"], window.finality_hash)
+
+        r = self.client.get("/.well-known/possibility-finality.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-possibility-finality-v1")
+        self.assertIn("example_halt_depth", data)
+        self.assertIn("possibility_finality", self.client.get("/.well-known/gate.json").get_json())
+
 
 if __name__ == "__main__":
     unittest.main()

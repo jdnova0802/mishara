@@ -93,6 +93,22 @@ def build_claim(
 
 
 def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
+    try:
+        from gate import possibility as possibility_mod
+    except ImportError:
+        import possibility as possibility_mod
+
+    spend = None
+    hop = row.get("hop") if isinstance(row.get("hop"), dict) else {}
+    if isinstance(hop.get("spend_write"), dict):
+        spend = hop["spend_write"].get("spend_kind")
+    payload["policy_depth"] = possibility_mod.evaluate_policies(
+        decision=row.get("decision"),
+        acted=row.get("acted"),
+        job_id=row.get("job_id"),
+        selected_spend=spend,
+    )
+
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
         return payload
@@ -105,7 +121,6 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
         created_at=row.get("created_at"),
         receipt_hash=row.get("receipt_hash"),
     )
-    hop = row.get("hop") if isinstance(row.get("hop"), dict) else {}
     reasons = hop.get("constraint_reasons") or hop.get("mga_reasons")
     if reasons:
         claim["types"] = ["INACTION", "PATH", "CONSTRAINT"]
@@ -114,6 +129,7 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
             "claim": "authority_boundary_was_not_crossed_because_bind_was_blocked",
             "reasons": reasons,
         }
+    claim["policy_depth"] = payload["policy_depth"]
     payload["counterfactual_spend"] = claim
     return payload
 

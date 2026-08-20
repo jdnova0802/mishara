@@ -141,6 +141,7 @@ def manifest(public_url: str) -> dict:
             "register": f"{base}/.well-known/register.json",
             "kappa": f"{base}/.well-known/kappa.json",
             "settlement": f"{base}/.well-known/settlement.json",
+            "possibility_finality": f"{base}/.well-known/possibility-finality.json",
             "restraint": f"{base}/.well-known/restraint.json",
             "counterfactual": f"{base}/.well-known/counterfactual-spend.json",
             "verify_engine": "https://velaru.xyz/verify",
