@@ -45,14 +45,15 @@
         <input type="text" id="note" name="note" placeholder="what cleared, where">
       </div>
       <button type="submit" class="btn btn-primary">Record dogfood weld</button>
-      <p class="fine-print">First-party only. Third-party production weld still requires operator checkout + GATE_PRODUCTION_WELDED / production_welds without dogfood.</p>
+      <p class="fine-print">First-party only. Third-party production weld: <a href="{{ url_for('production_weld_page') }}">/production-weld</a> with explicit confirm.</p>
     </form>
   </div>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
     <a href="{{ url_for('runbook_page') }}" class="btn btn-ghost btn-sm">Runbook</a>
     <a href="{{ url_for('proof_page') }}" class="btn btn-ghost btn-sm">Proof</a>
-    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Third-party weld</a>
+    <a href="{{ url_for('production_weld_page') }}" class="btn btn-accent-outline btn-sm">Third-party weld</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Operator checkout</a>
   </div>
 </div>
 {% endblock %}

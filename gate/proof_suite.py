@@ -249,6 +249,21 @@ def run_invariants() -> list[dict[str, Any]]:
         {"deploy_max": getattr(scorecard_mod, "PRE_REV_MAX", {}).get("deployability")},
     )
 
+    # --- Dogfood ≠ production (API shape) ---
+    no_confirm = skin_mod.record_production_weld(
+        write_path="/v1/act",
+        counterparty="counterparty@example.com",
+        confirm=False,
+    )
+    add(
+        "dogfood_is_not_production",
+        "Production weld API requires confirm; dogfood path cannot silently flip production",
+        no_confirm.get("ok") is False
+        and callable(getattr(skin_mod, "record_dogfood_weld", None))
+        and "confirm" in (no_confirm.get("error") or "").lower(),
+        no_confirm,
+    )
+
     return results
 
 
@@ -288,6 +303,11 @@ def invariant_matrix() -> list[dict[str, str]]:
             "invariant": "their_production honesty",
             "violates_if": "demo hop flips production skin",
             "test": "production_skin.their_production + readiness ladder",
+        },
+        {
+            "invariant": "Dogfood is not production",
+            "violates_if": "dogfood_weld alone sets their_production true",
+            "test": "record_dogfood_weld + their_production false",
         },
         {
             "invariant": "Stranger verify on hop",

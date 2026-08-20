@@ -1250,6 +1250,7 @@ def well_known_gate():
             "runbook": f"{advertised_url()}/.well-known/runbook.json",
             "runbook_page": f"{advertised_url()}/runbook",
             "dogfood": f"{advertised_url()}/dogfood",
+            "production_weld": f"{advertised_url()}/production-weld",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1481,6 +1482,72 @@ def dogfood_page():
         latest = None
     return render_template(
         "dogfood.html",
+        manifest=m,
+        latest=latest or recorded,
+        error=error,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/production-weld", methods=["GET", "POST"])
+def production_weld_page():
+    """Explicit third-party production weld. Never auto from demo/dev checkout."""
+    error = None
+    recorded = None
+    if request.method == "POST":
+        write_path = (request.form.get("write_path") or "").strip()
+        counterparty = (request.form.get("counterparty") or "").strip()
+        note = (request.form.get("note") or "").strip()
+        confirm = (request.form.get("confirm") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
+        # Refuse recording a first-party email as "third-party" theater
+        first_party = {
+            CONTACT_EMAIL.lower(),
+            "hello@velaru.xyz",
+            "hello@nisaba.io",
+            "nisaba",
+        }
+        if counterparty.lower() in first_party or counterparty.lower().endswith("@nisaba.io"):
+            # Allow nisaba only if they confirm it's on a customer write path
+            if "their" not in note.lower() and "customer" not in note.lower() and "third" not in note.lower():
+                error = (
+                    "First-party counterparty needs note naming the customer write "
+                    "(their/customer/third). Prefer dogfood for Nisaba-only welds."
+                )
+        if not error:
+            try:
+                result = production_skin_mod.record_production_weld(
+                    write_path=write_path,
+                    counterparty=counterparty,
+                    note=note,
+                    confirm=confirm,
+                )
+                if not result.get("ok"):
+                    error = result.get("error") or "Could not record production weld"
+                else:
+                    recorded = result.get("weld")
+                    flash(
+                        "Third-party production weld recorded. their_production is now true.",
+                        "success",
+                    )
+            except ValueError as exc:
+                error = str(exc)
+            except Exception as exc:  # noqa: BLE001
+                error = str(exc)
+    m = production_skin_mod.manifest(advertised_url())
+    latest = None
+    try:
+        import db as gate_db
+
+        latest = gate_db.latest_production_weld()
+    except Exception:  # noqa: BLE001
+        latest = None
+    return render_template(
+        "production_weld.html",
         manifest=m,
         latest=latest or recorded,
         error=error,

@@ -41,8 +41,14 @@ STEPS = (
     {
         "hour": "32–48",
         "title": "Operator checkout / their write",
-        "do": "Weld one licensed payout or bind-only write; then GATE_PRODUCTION_WELDED",
+        "do": "Weld one licensed payout or bind-only write on their system",
         "path": "/operator",
+    },
+    {
+        "hour": "48",
+        "title": "Record their_production",
+        "do": "POST /production-weld with confirm — only after their write cleared",
+        "path": "/production-weld",
     },
 )
 

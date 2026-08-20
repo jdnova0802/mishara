@@ -872,6 +872,21 @@ def _ensure_dogfood_table(conn) -> None:
     )
 
 
+def _ensure_third_party_welds(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS third_party_welds (
+            id TEXT PRIMARY KEY,
+            write_path TEXT NOT NULL,
+            counterparty TEXT NOT NULL,
+            note TEXT,
+            stripe_session_id TEXT,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
 def has_dogfood_weld() -> bool:
     """First-party dogfood weld — never flips their_production."""
     with db() as conn:
@@ -883,20 +898,21 @@ def has_dogfood_weld() -> bool:
 def has_gate_production_weld() -> bool:
     """Third-party production weld only. Dogfood rows must not flip this."""
     with db() as conn:
+        _ensure_third_party_welds(conn)
+        row = conn.execute("SELECT COUNT(*) AS n FROM third_party_welds").fetchone()
+        if row and row["n"] > 0:
+            return True
+        # Legacy production_welds: only non-dogfood rows
         cols = _table_cols(conn, "production_welds")
-        if not cols:
-            return False
         if "dogfood" in cols:
-            # Legacy table: only non-dogfood rows count as their_production
-            row = conn.execute(
+            legacy = conn.execute(
                 "SELECT COUNT(*) AS n FROM production_welds WHERE COALESCE(dogfood, 0) = 0"
             ).fetchone()
-            return bool(row and row["n"] > 0)
-        if "counterparty" in cols:
-            row = conn.execute("SELECT COUNT(*) AS n FROM production_welds").fetchone()
-            return bool(row and row["n"] > 0)
-        # Unknown legacy shape — refuse to claim production
-        return False
+            return bool(legacy and legacy["n"] > 0)
+        if cols and "counterparty" in cols:
+            legacy = conn.execute("SELECT COUNT(*) AS n FROM production_welds").fetchone()
+            return bool(legacy and legacy["n"] > 0)
+    return False
 
 
 def record_dogfood_weld(*, write_path: str, operator: str, note: str = "") -> dict:
@@ -923,12 +939,56 @@ def record_dogfood_weld(*, write_path: str, operator: str, note: str = "") -> di
     }
 
 
+def record_production_weld(
+    *,
+    write_path: str,
+    counterparty: str,
+    note: str = "",
+    stripe_session_id: str | None = None,
+) -> dict:
+    """Record a third-party production weld. Flips their_production via has_gate_production_weld."""
+    wid = str(uuid.uuid4())
+    ts = datetime.now(timezone.utc).isoformat()
+    path = (write_path or "").strip()
+    party = (counterparty or "").strip()
+    if not path or not party:
+        raise ValueError("write_path and counterparty required")
+    with db() as conn:
+        _ensure_third_party_welds(conn)
+        conn.execute(
+            """INSERT INTO third_party_welds
+               (id, write_path, counterparty, note, stripe_session_id, created_at)
+               VALUES (?, ?, ?, ?, ?, ?)""",
+            (wid, path, party, (note or "").strip(), (stripe_session_id or "").strip() or None, ts),
+        )
+    return {
+        "id": wid,
+        "write_path": path,
+        "counterparty": party,
+        "note": note,
+        "stripe_session_id": stripe_session_id,
+        "created_at": ts,
+        "their_production": True,
+        "dogfood": False,
+    }
+
+
 def latest_dogfood_weld() -> dict | None:
     with db() as conn:
         _ensure_dogfood_table(conn)
         row = conn.execute(
             """SELECT id, write_path, operator, note, created_at
                FROM dogfood_welds ORDER BY created_at DESC LIMIT 1"""
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def latest_production_weld() -> dict | None:
+    with db() as conn:
+        _ensure_third_party_welds(conn)
+        row = conn.execute(
+            """SELECT id, write_path, counterparty, note, stripe_session_id, created_at
+               FROM third_party_welds ORDER BY created_at DESC LIMIT 1"""
         ).fetchone()
     return dict(row) if row else None
 

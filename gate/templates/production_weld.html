@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Production weld{% endblock %}
+{% block meta %}
+<meta name="description" content="Record a third-party production weld. Flips their_production. Not dogfood. Not demo.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Third-party only · L4 · honesty hold</p>
+  <h1>Production weld</h1>
+  <p class="audience-sub">Record when <strong>someone else's</strong> irreversible write is welded through Gate. This flips <code>their_production</code>. Dev checkout and demo hops do not.</p>
+  <p style="margin: 0.75rem 0;">
+    Current their_production: <strong>{{ manifest.their_production }}</strong>
+    · dogfood: <strong>{{ manifest.dogfood_weld }}</strong>
+    {% if manifest.readiness %}· readiness L{{ manifest.readiness.level }}{% endif %}
+  </p>
+
+  {% if error %}
+  <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  {% if latest %}
+  <div class="card" style="margin: 1rem 0;">
+    <p class="audience-tag">Latest production weld</p>
+    <h3>{{ latest.write_path }}</h3>
+    <p style="color: var(--muted);">{{ latest.counterparty }} · {{ latest.created_at }}</p>
+    {% if latest.note %}<p style="margin-top: 0.35rem;">{{ latest.note }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="card install-checkout-card">
+    <h2>Record third-party weld</h2>
+    <form method="post" action="{{ url_for('production_weld_page') }}" class="install-form">
+      <div class="form-group">
+        <label for="write_path">Their write path</label>
+        <input type="text" id="write_path" name="write_path" required
+               placeholder="POST /job/v1/jobs/{id}/bind-only — their PAS" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="counterparty">Counterparty</label>
+        <input type="email" id="counterparty" name="counterparty" required
+               placeholder="ops@their-company.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="note">Note</label>
+        <input type="text" id="note" name="note" required
+               placeholder="Customer / third-party write that cleared">
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="confirm" value="1" required>
+          I confirm this is a real third-party irreversible write — not demo, not dogfood, not DEV checkout
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Record production weld (L4)</button>
+      <p class="fine-print">Prefer <a href="{{ url_for('dogfood_page') }}">dogfood</a> for first-party. Prefer <a href="{{ url_for('operator_page') }}">operator checkout</a> to sell the weld before recording.</p>
+    </form>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-ghost btn-sm">Runbook</a>
+    <a href="{{ url_for('dogfood_page') }}" class="btn btn-ghost btn-sm">Dogfood</a>
+    <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Scorecard</a>
+  </div>
+</div>
+{% endblock %}

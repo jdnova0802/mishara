@@ -274,6 +274,7 @@ class FlaskListingTests(unittest.TestCase):
             "/proof",
             "/runbook",
             "/dogfood",
+            "/production-weld",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -302,7 +303,9 @@ class FlaskListingTests(unittest.TestCase):
 
         with gate_db.db() as conn:
             gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
             conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
 
         sc = self.client.get("/.well-known/scorecard.json").get_json()
         self.assertEqual(sc["spec"], "nisaba-scorecard-v2")
@@ -1458,7 +1461,9 @@ class OperatorInvoiceTests(unittest.TestCase):
 
         with gate_db.db() as conn:
             gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
             conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
 
         sc = self.client.get("/.well-known/scorecard.json")
         self.assertEqual(sc.status_code, 200)
@@ -1528,7 +1533,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -1554,11 +1559,44 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertAlmostEqual(sc2["dimensions"]["deployability"], 8.5, places=1)
         self.assertFalse(sc2["their_production"])
 
+        # Production weld without confirm must not flip
+        refuse = self.client.post(
+            "/production-weld",
+            data={
+                "write_path": "POST /job/v1/jobs/x/bind-only",
+                "counterparty": "ops@carrier.example",
+                "note": "their customer bind write",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(refuse.status_code, 200)
+        self.assertFalse(self.client.get("/.well-known/production-skin.json").get_json()["their_production"])
+
+        # Confirmed third-party weld → L4
+        prod = self.client.post(
+            "/production-weld",
+            data={
+                "write_path": "POST /job/v1/jobs/x/bind-only",
+                "counterparty": "ops@carrier.example",
+                "note": "their customer bind write cleared",
+                "confirm": "1",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(prod.status_code, 200)
+        proof3 = self.client.get("/.well-known/proof-suite.json").get_json()
+        self.assertEqual(proof3["readiness"]["level"], 4)
+        self.assertTrue(proof3["their_production"])
+        sc3 = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertAlmostEqual(sc3["dimensions"]["deployability"], 9.0, places=1)
+        self.assertTrue(sc3["their_production"])
+
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("scorecard", gate)
         self.assertIn("production_skin", gate)
         self.assertIn("proof_suite", gate)
         self.assertIn("runbook", gate)
+        self.assertIn("production_weld", gate)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")

@@ -77,6 +77,37 @@ def record_dogfood_weld(
     return {"ok": True, "dogfood": True, "their_production": False, "weld": row}
 
 
+def record_production_weld(
+    *,
+    write_path: str,
+    counterparty: str,
+    note: str = "",
+    stripe_session_id: str | None = None,
+    confirm: bool = False,
+) -> dict[str, Any]:
+    """Record third-party production weld. Requires explicit confirm=True."""
+    if not confirm:
+        return {
+            "ok": False,
+            "error": "confirm=True required — their_production only for a real third-party write",
+            "their_production": their_production(),
+        }
+    try:
+        from gate import db as gate_db
+    except ImportError:
+        import db as gate_db  # type: ignore[no-redef]
+    fn = getattr(gate_db, "record_production_weld", None)
+    if not callable(fn):
+        return {"ok": False, "error": "db.record_production_weld unavailable"}
+    row = fn(
+        write_path=write_path,
+        counterparty=counterparty,
+        note=note,
+        stripe_session_id=stripe_session_id,
+    )
+    return {"ok": True, "dogfood": False, "their_production": True, "weld": row}
+
+
 def checklist_status(proof: dict[str, Any] | None = None) -> list[dict[str, Any]]:
     """Auto-evaluate readiness checklist from a proof suite manifest."""
     proof = proof or {}
@@ -154,6 +185,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "register": f"{base}/register",
             "operator": f"{base}/operator",
             "dogfood": f"{base}/dogfood",
+            "production_weld": f"{base}/production-weld",
         },
         "page": f"{base}/production-skin",
         "gatekeep": "Proof lifts deploy. Weld flips production. Ours.",
