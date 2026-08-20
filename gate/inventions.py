@@ -41,6 +41,16 @@ CATALOG = (
      "Real-options: HALT preserves wait value; ALLOW kills it", "option-halt.json"),
     ("performative", "Performative Mouth", "gate-performative-v1",
      "ALLOW/HALT as status-function declarations — not risk commentary", "performative.json"),
+    ("schelling", "Schelling Default", "gate-schelling-v1",
+     "Clear-before-wire as focal point; weld makes commitment credible", "schelling.json"),
+    ("skin", "Skin in the Weld", "gate-skin-v1",
+     "Taleb symmetry: weld + Gate capital + mutualized fund", "skin.json"),
+    ("proof_restraint", "Proof of Restraint", "gate-proof-restraint-v1",
+     "PoR-inverse: Merkle-style commitment to published nos", "proof-restraint.json"),
+    ("enabling", "Enabling Grip", "gate-enabling-v1",
+     "License parent as enabling device; release → children cannot spend", "enabling.json"),
+    ("capability", "Capability Conversion", "gate-capability-v1",
+     "Ticket is resource; conversion factors decide real freedom to spend", "capability.json"),
 )
 
 

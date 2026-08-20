@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 13)
+        self.assertGreaterEqual(data["count"], 18)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2159,6 +2159,11 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/custody.json",
             "/.well-known/option-halt.json",
             "/.well-known/performative.json",
+            "/.well-known/schelling.json",
+            "/.well-known/skin.json",
+            "/.well-known/proof-restraint.json",
+            "/.well-known/enabling.json",
+            "/.well-known/capability.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2167,8 +2172,9 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("inventions", gate)
         self.assertIn("costliness", gate)
         self.assertIn("performative", gate)
+        self.assertIn("schelling", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 13)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 18)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2189,6 +2195,25 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertTrue(pf["felicity_conditions"]["felicitous"])
         cu = custody_mod.trail(event_id="e", receipt_hash="h", created_at="t", verify_url="https://x")
         self.assertGreaterEqual(cu["stages_reached"], 3)
+
+        # Wave 4
+        import schelling as schelling_mod
+        import skin as skin_mod
+        import enabling as enabling_mod
+        import capability as capability_mod
+
+        sc = schelling_mod.coordinate(exclusive_door=True, welded=True)
+        self.assertEqual(sc["posture"], "credible_focal")
+        sk = skin_mod.symmetry(weld_paid=False, their_production=True)
+        self.assertTrue(sk["assay"]["asymmetric"])
+        en = enabling_mod.grip(parent_state="DEAD", outstanding_tickets=1, fused=True)
+        self.assertFalse(en["enable_spend_path"])
+        cap = capability_mod.convert(
+            has_ticket=True, fuse_live=True, license_fused=True, license_parent_live=False
+        )
+        self.assertFalse(cap["converted_to_permitted_spend"])
+        pr = self.client.get("/.well-known/proof-restraint.json")
+        self.assertEqual(pr.get_json()["spec"], "gate-proof-restraint-v1")
 
 
 if __name__ == "__main__":

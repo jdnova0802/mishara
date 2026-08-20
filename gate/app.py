@@ -1212,6 +1212,11 @@ def well_known_gate():
             "custody": f"{advertised_url()}/.well-known/custody.json",
             "option_halt": f"{advertised_url()}/.well-known/option-halt.json",
             "performative": f"{advertised_url()}/.well-known/performative.json",
+            "schelling": f"{advertised_url()}/.well-known/schelling.json",
+            "skin": f"{advertised_url()}/.well-known/skin.json",
+            "proof_restraint": f"{advertised_url()}/.well-known/proof-restraint.json",
+            "enabling": f"{advertised_url()}/.well-known/enabling.json",
+            "capability": f"{advertised_url()}/.well-known/capability.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1457,6 +1462,51 @@ def well_known_performative():
     except ImportError:
         import performative as performative_mod
     return jsonify(performative_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/schelling.json")
+def well_known_schelling():
+    try:
+        from gate import schelling as schelling_mod
+    except ImportError:
+        import schelling as schelling_mod
+    return jsonify(schelling_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/skin.json")
+def well_known_skin():
+    try:
+        from gate import skin as skin_mod
+    except ImportError:
+        import skin as skin_mod
+    return jsonify(skin_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/proof-restraint.json")
+def well_known_proof_restraint():
+    try:
+        from gate import proof_restraint as pr_mod
+    except ImportError:
+        import proof_restraint as pr_mod
+    return jsonify(pr_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/enabling.json")
+def well_known_enabling():
+    try:
+        from gate import enabling as enabling_mod
+    except ImportError:
+        import enabling as enabling_mod
+    return jsonify(enabling_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/capability.json")
+def well_known_capability():
+    try:
+        from gate import capability as capability_mod
+    except ImportError:
+        import capability as capability_mod
+    return jsonify(capability_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/positioning.json")
