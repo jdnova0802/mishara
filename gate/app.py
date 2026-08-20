@@ -1235,6 +1235,17 @@ def well_known_gate():
             "parasite": f"{advertised_url()}/.well-known/parasite.json",
             "apophatic": f"{advertised_url()}/.well-known/apophatic.json",
             "exergy": f"{advertised_url()}/.well-known/exergy.json",
+            "metastable": f"{advertised_url()}/.well-known/metastable.json",
+            "sovereign_exception": f"{advertised_url()}/.well-known/sovereign-exception.json",
+            "double_bind": f"{advertised_url()}/.well-known/double-bind.json",
+            "agential_cut": f"{advertised_url()}/.well-known/agential-cut.json",
+            "mimetic": f"{advertised_url()}/.well-known/mimetic.json",
+            "counterproductivity": f"{advertised_url()}/.well-known/counterproductivity.json",
+            "technique_limit": f"{advertised_url()}/.well-known/technique-limit.json",
+            "prehension": f"{advertised_url()}/.well-known/prehension.json",
+            "immunological": f"{advertised_url()}/.well-known/immunological.json",
+            "convivial": f"{advertised_url()}/.well-known/convivial.json",
+            "modes": f"{advertised_url()}/.well-known/modes.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1623,6 +1634,61 @@ def well_known_apophatic():
 @app.route("/.well-known/exergy.json")
 def well_known_exergy():
     return _wk_manifest("exergy")
+
+
+@app.route("/.well-known/metastable.json")
+def well_known_metastable():
+    return _wk_manifest("metastable")
+
+
+@app.route("/.well-known/sovereign-exception.json")
+def well_known_sovereign_exception():
+    return _wk_manifest("sovereign_exception")
+
+
+@app.route("/.well-known/double-bind.json")
+def well_known_double_bind():
+    return _wk_manifest("double_bind")
+
+
+@app.route("/.well-known/agential-cut.json")
+def well_known_agential_cut():
+    return _wk_manifest("agential_cut")
+
+
+@app.route("/.well-known/mimetic.json")
+def well_known_mimetic():
+    return _wk_manifest("mimetic")
+
+
+@app.route("/.well-known/counterproductivity.json")
+def well_known_counterproductivity():
+    return _wk_manifest("counterproductivity")
+
+
+@app.route("/.well-known/technique-limit.json")
+def well_known_technique_limit():
+    return _wk_manifest("technique_limit")
+
+
+@app.route("/.well-known/prehension.json")
+def well_known_prehension():
+    return _wk_manifest("prehension")
+
+
+@app.route("/.well-known/immunological.json")
+def well_known_immunological():
+    return _wk_manifest("immunological")
+
+
+@app.route("/.well-known/convivial.json")
+def well_known_convivial():
+    return _wk_manifest("convivial")
+
+
+@app.route("/.well-known/modes.json")
+def well_known_modes():
+    return _wk_manifest("modes")
 
 
 @app.route("/.well-known/positioning.json")

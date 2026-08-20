@@ -2144,7 +2144,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 36)
+        self.assertGreaterEqual(data["count"], 47)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2182,6 +2182,17 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/parasite.json",
             "/.well-known/apophatic.json",
             "/.well-known/exergy.json",
+            "/.well-known/metastable.json",
+            "/.well-known/sovereign-exception.json",
+            "/.well-known/double-bind.json",
+            "/.well-known/agential-cut.json",
+            "/.well-known/mimetic.json",
+            "/.well-known/counterproductivity.json",
+            "/.well-known/technique-limit.json",
+            "/.well-known/prehension.json",
+            "/.well-known/immunological.json",
+            "/.well-known/convivial.json",
+            "/.well-known/modes.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2194,8 +2205,10 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("moat", gate)
         self.assertIn("clinamen", gate)
         self.assertIn("apophatic", gate)
+        self.assertIn("agential_cut", gate)
+        self.assertIn("modes", gate)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 36)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 47)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2264,7 +2277,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 36)
+        self.assertEqual(fp["invention_count"], 47)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")
@@ -2276,6 +2289,59 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(apo["verdict"], "apophatic_refusal")
         ex = exergy_mod.rank(act="ai_governance_pdf")
         self.assertEqual(ex["exergy"], "waste")
+
+        # Wave 8
+        import metastable as meta_mod
+        import sovereign_exception as sov_mod
+        import double_bind as bind_mod
+        import agential_cut as cut_mod
+        import mimetic as mim_mod
+        import counterproductivity as cp_mod
+        import technique_limit as tl_mod
+        import prehension as pre_mod
+        import immunological as imm_mod
+        import convivial as conv_mod
+        import modes as modes_mod
+
+        self.assertEqual(meta_mod.assay(soft_yes=True)["phase"], "false_individuation")
+        self.assertEqual(sov_mod.decide(path="admin_live_toggle")["verdict"], "usurpation")
+        self.assertEqual(
+            bind_mod.dissolve(
+                fail_closed_said=True, never_block_revenue_said=True, exclusive_door=False
+            )["posture"],
+            "double_bind_active",
+        )
+        self.assertEqual(
+            cut_mod.cut(decision="ALLOW", acted=True, charge_id="chg_1")["posture"],
+            "cut_enacted_live",
+        )
+        self.assertEqual(
+            mim_mod.break_race(peers_soft_yes=True, exclusive_door=False, welded=False)["posture"],
+            "mimetic_soft_yes_race",
+        )
+        self.assertEqual(
+            cp_mod.threshold(control_count=12, mouth_present=False)["posture"],
+            "counterproductive",
+        )
+        self.assertEqual(
+            tl_mod.limit(automation_autonomous=True, mouth_can_halt=False)["posture"],
+            "technique_unbounded",
+        )
+        self.assertGreaterEqual(
+            pre_mod.prehend({"id": "e", "decision": "HALT", "receipt_hash": "h", "verify_url": "u", "job_id": "j"})[
+                "prehension_intensity"
+            ],
+            4,
+        )
+        self.assertEqual(
+            imm_mod.sphere(welded=False, their_production=True)["posture"],
+            "autoimmune",
+        )
+        self.assertEqual(conv_mod.assay(opaque_score_permission=True)["posture"], "anti_convivial")
+        self.assertEqual(
+            modes_mod.classify(tec_ok=True, law_live=False, claimed_permission=True)["posture"],
+            "mode_smuggle",
+        )
 
 
 if __name__ == "__main__":

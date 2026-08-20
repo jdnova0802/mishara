@@ -189,6 +189,17 @@ def attach_to_receipt_payload(payload: dict, row: dict, public_url: str | None =
     payload["irreversibility_horizon"] = irreversibility_mod.attach_to_receipt_payload(status_row)
     payload["semiotics"] = semiotics_mod.attach_to_receipt_payload(status_row)
     payload["antifragile_halt"] = antifragile_mod.attach_to_receipt_payload(status_row)
+    try:
+        from gate import agential_cut as agential_mod
+    except ImportError:
+        import agential_cut as agential_mod
+    try:
+        from gate import prehension as prehension_mod
+    except ImportError:
+        import prehension as prehension_mod
+
+    payload = agential_mod.attach_to_receipt_payload(payload, row)
+    payload = prehension_mod.attach_to_receipt_payload(payload, row)
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None

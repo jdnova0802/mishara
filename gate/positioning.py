@@ -232,8 +232,8 @@ def page_cards() -> list[dict]:
             "tag": "Invention",
             "title": "Moat fingerprint",
             "body": (
-                "Thirty-plus welded specs. Hyperobject spend. Via negativa. Clinamen CHARGE. "
-                "Apophatic LIVE. Parasite filter. SHA-256 of the catalog — partial clones fail."
+                "Forty-plus welded specs. Hyperobject spend. Clinamen CHARGE. "
+                "Agential cut. Apophatic LIVE. Moat SHA-256 — partial clones fail."
             ),
             "ref": "/.well-known/moat.json",
         },
