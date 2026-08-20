@@ -1377,7 +1377,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 7)
+        self.assertEqual(len(cards), 8)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
@@ -2082,6 +2082,87 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("mouth_constitution", gate)
+
+    def test_invention_wave_bayesian_costliness_fulfillment_variety_closure_weld(self):
+        import bayesian_binding as bayesian_mod
+        import costliness as costliness_mod
+        import fulfillment as fulfillment_mod
+        import variety as variety_mod
+        import closure as closure_mod
+        import temporal_weld as temporal_mod
+        import inventions as inventions_mod
+
+        bb = bayesian_mod.bind_status(decision="ALLOW", acted=True, job_id="pc:INV-1", selected_spend="bind")
+        self.assertEqual(bb["spec"], "gate-bayesian-binding-v1")
+        self.assertIsNotNone(bb["bound_into_field"])
+        self.assertEqual(bb["status"]["Y"], "permitted_irreversible_spend")
+
+        costly_ok = costliness_mod.assay(transition="charge", charge_id="chg_1")
+        self.assertTrue(costly_ok["passes"])
+        costly_bad = costliness_mod.assay(transition="charge", charge_id=None)
+        self.assertFalse(costly_bad["passes"])
+
+        ful = fulfillment_mod.evaluate(
+            fuse_live=True,
+            license_fused=True,
+            license_parent_live=False,
+            decision="HALT",
+            acted=False,
+        )
+        self.assertEqual(ful["spec"], "gate-fulfillment-v1")
+        self.assertGreaterEqual(ful["duty_checking"]["count"], 1)
+        self.assertEqual(ful["compliance_checking"]["status"], "compliant")
+        self.assertTrue(ful["joint_fulfillment"]["possible"])
+
+        breach = fulfillment_mod.evaluate(
+            fuse_live=False, decision="ALLOW", acted=True
+        )
+        self.assertEqual(breach["compliance_checking"]["status"], "breach")
+
+        var = variety_mod.attenuate(
+            disturbance="cloud_api_bind_only", decision="HALT", doors_honored=2, doors_total=2
+        )
+        self.assertTrue(var["controlled"])
+        self.assertEqual(var["outcome_variety"], 1)
+
+        clo = closure_mod.classify_operation("uw_approve_without_charge")
+        self.assertFalse(clo["enters_decision_network"])
+        clo_ok = closure_mod.classify_operation("license_parent_charge")
+        self.assertTrue(clo_ok["enters_decision_network"])
+
+        tw = temporal_mod.weld(
+            decision="HALT",
+            acted=False,
+            event_id="e1",
+            receipt_hash="abc",
+            verify_url="https://velaru.xyz/verify",
+        )
+        self.assertTrue(tw["welded"])
+
+        # Well-known index + discovery
+        idx = self.client.get("/.well-known/inventions.json")
+        self.assertEqual(idx.status_code, 200)
+        data = idx.get_json()
+        self.assertEqual(data["spec"], "gate-inventions-v1")
+        self.assertGreaterEqual(data["count"], 8)
+        self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
+
+        for path in (
+            "/.well-known/bayesian-binding.json",
+            "/.well-known/costliness.json",
+            "/.well-known/fulfillment.json",
+            "/.well-known/variety.json",
+            "/.well-known/closure.json",
+            "/.well-known/temporal-weld.json",
+        ):
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("inventions", gate)
+        self.assertIn("costliness", gate)
+        # Index helper
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 8)
 
 
 if __name__ == "__main__":

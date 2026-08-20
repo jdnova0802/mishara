@@ -1200,6 +1200,13 @@ def well_known_gate():
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "possibility_finality": f"{advertised_url()}/.well-known/possibility-finality.json",
             "mouth_constitution": f"{advertised_url()}/.well-known/mouth-constitution.json",
+            "inventions": f"{advertised_url()}/.well-known/inventions.json",
+            "bayesian_binding": f"{advertised_url()}/.well-known/bayesian-binding.json",
+            "costliness": f"{advertised_url()}/.well-known/costliness.json",
+            "fulfillment": f"{advertised_url()}/.well-known/fulfillment.json",
+            "variety": f"{advertised_url()}/.well-known/variety.json",
+            "closure": f"{advertised_url()}/.well-known/closure.json",
+            "temporal_weld": f"{advertised_url()}/.well-known/temporal-weld.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
@@ -1333,6 +1340,73 @@ def well_known_mouth_constitution():
         job_id="pc:EXAMPLE",
     )
     return jsonify(body)
+
+
+@app.route("/.well-known/inventions.json")
+def well_known_inventions():
+    try:
+        from gate import inventions as inventions_mod
+    except ImportError:
+        import inventions as inventions_mod
+    return jsonify(inventions_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bayesian-binding.json")
+def well_known_bayesian_binding():
+    try:
+        from gate import bayesian_binding as bayesian_mod
+    except ImportError:
+        import bayesian_binding as bayesian_mod
+    body = bayesian_mod.manifest(advertised_url())
+    body["example"] = bayesian_mod.bind_status(
+        decision="HALT", acted=False, job_id="pc:EXAMPLE"
+    )
+    return jsonify(body)
+
+
+@app.route("/.well-known/costliness.json")
+def well_known_costliness():
+    try:
+        from gate import costliness as costliness_mod
+    except ImportError:
+        import costliness as costliness_mod
+    return jsonify(costliness_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/fulfillment.json")
+def well_known_fulfillment():
+    try:
+        from gate import fulfillment as fulfillment_mod
+    except ImportError:
+        import fulfillment as fulfillment_mod
+    return jsonify(fulfillment_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/variety.json")
+def well_known_variety():
+    try:
+        from gate import variety as variety_mod
+    except ImportError:
+        import variety as variety_mod
+    return jsonify(variety_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/closure.json")
+def well_known_closure():
+    try:
+        from gate import closure as closure_mod
+    except ImportError:
+        import closure as closure_mod
+    return jsonify(closure_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/temporal-weld.json")
+def well_known_temporal_weld():
+    try:
+        from gate import temporal_weld as temporal_mod
+    except ImportError:
+        import temporal_weld as temporal_mod
+    return jsonify(temporal_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/positioning.json")

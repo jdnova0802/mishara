@@ -114,6 +114,25 @@ def attach_to_receipt_payload(payload: dict, row: dict) -> dict:
     )
     # Proprietary Mouth Constitution: intervention ladder + counts-as status.
     payload = constitution_mod.attach_to_receipt_payload(payload, row)
+    try:
+        from gate import bayesian_binding as bayesian_mod
+    except ImportError:
+        import bayesian_binding as bayesian_mod
+    try:
+        from gate import temporal_weld as temporal_mod
+    except ImportError:
+        import temporal_weld as temporal_mod
+    try:
+        from gate import fulfillment as fulfillment_mod
+    except ImportError:
+        import fulfillment as fulfillment_mod
+
+    payload = bayesian_mod.attach_to_receipt_payload(payload, row)
+    payload = temporal_mod.attach_to_receipt_payload(payload, row)
+    hop_for_fulfill = row.get("hop") if isinstance(row.get("hop"), dict) else {}
+    payload["fulfillment"] = fulfillment_mod.from_hop(
+        hop_for_fulfill, decision=row.get("decision"), acted=row.get("acted")
+    )
 
     if not is_counterfactual(decision=row.get("decision"), acted=row.get("acted")):
         payload["counterfactual_spend"] = None
