@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Hardest bites{% endblock %}
+{% block meta %}
+<meta name="description" content="Twelve civilizational irreversibility problems. Gate mouths each before soft-yes costumes ship.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Civilizational · pre-emptive</p>
+  <h1>Hardest bites on the globe</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  {% for b in bites %}
+  <div class="card" style="margin-top: 1rem;">
+    <p class="audience-tag">#{{ b.rank }} · {{ b.hardness }} · {{ b.scale }}</p>
+    <h3>{{ b.name }}</h3>
+    <p style="color: var(--muted);">{{ b.why_hard }}</p>
+    <p><strong>Market:</strong> {{ b.market_status }}</p>
+    <p><strong>Gate bite:</strong> {{ b.gate_claim }}</p>
+    {% if b.solution_href %}
+    <a href="{{ b.solution_href }}" class="btn btn-ghost btn-sm">{{ b.gate_bite }} →</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+  <a href="{{ url_for('well_known_hardest') }}" class="btn btn-ghost btn-sm" style="margin-top: 1rem;">hardest.json</a>
+</div>
+{% endblock %}

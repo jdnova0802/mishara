@@ -51,8 +51,8 @@ def run_invariants() -> list[dict[str, Any]]:
     results.append(
         {
             "id": "moat_fingerprint",
-            "claim": "Catalog fingerprint is stable SHA-256 over 105 specs",
-            "passes": len(fp.get("fingerprint_sha256") or "") == 64 and fp.get("invention_count") == 105,
+            "claim": "Catalog fingerprint is stable SHA-256 over full invention set",
+            "passes": len(fp.get("fingerprint_sha256") or "") == 64 and int(fp.get("invention_count") or 0) >= 105,
             "evidence": {
                 "count": fp.get("invention_count"),
                 "short": fp.get("fingerprint_short"),

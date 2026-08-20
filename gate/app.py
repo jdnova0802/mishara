@@ -2047,6 +2047,71 @@ def well_known_iso_surface():
     return _wk_manifest("iso_surface")
 
 
+@app.route("/.well-known/hardest.json")
+def well_known_hardest():
+    return _wk_manifest("hardest")
+
+
+@app.route("/.well-known/pvp-mouth.json")
+def well_known_pvp_mouth():
+    return _wk_manifest("pvp_mouth")
+
+
+@app.route("/.well-known/legal-finality.json")
+def well_known_legal_finality():
+    return _wk_manifest("legal_finality")
+
+
+@app.route("/.well-known/fednow-mouth.json")
+def well_known_fednow_mouth():
+    return _wk_manifest("fednow_mouth")
+
+
+@app.route("/.well-known/pal-charge.json")
+def well_known_pal_charge():
+    return _wk_manifest("pal_charge")
+
+
+@app.route("/.well-known/self-expansion-ban.json")
+def well_known_self_expansion_ban():
+    return _wk_manifest("self_expansion_ban")
+
+
+@app.route("/.well-known/all-doors.json")
+def well_known_all_doors():
+    return _wk_manifest("all_doors")
+
+
+@app.route("/.well-known/decision-energy.json")
+def well_known_decision_energy():
+    return _wk_manifest("decision_energy")
+
+
+@app.route("/.well-known/always-never.json")
+def well_known_always_never():
+    return _wk_manifest("always_never")
+
+
+@app.route("/.well-known/t0-honesty.json")
+def well_known_t0_honesty():
+    return _wk_manifest("t0_honesty")
+
+
+@app.route("/hardest")
+def hardest_page():
+    try:
+        from gate import hardest as hardest_mod
+    except ImportError:
+        import hardest as hardest_mod
+    m = hardest_mod.manifest(advertised_url())
+    return render_template(
+        "hardest.html",
+        manifest=m,
+        bites=m.get("bites") or [],
+        public_url=advertised_url(),
+    )
+
+
 @app.route("/.well-known/positioning.json")
 def well_known_positioning():
     return jsonify(positioning_mod.manifest(advertised_url()))

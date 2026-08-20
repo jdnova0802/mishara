@@ -1430,7 +1430,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(len(skin["pillars"]), 3)
 
         spec = self.client.get("/.well-known/spec-classification.json").get_json()
-        self.assertEqual(spec["total"], 105)
+        self.assertEqual(spec["total"], 115)
 
         page = self.client.get("/scorecard")
         self.assertEqual(page.status_code, 200)
@@ -1452,6 +1452,39 @@ class OperatorInvoiceTests(unittest.TestCase):
         score2 = self.client.get("/.well-known/scorecard.json").get_json()
         self.assertGreaterEqual(score2["dimensions"]["deployability"], 8.5)
         self.assertTrue(score2["their_production"])
+
+    def test_hardest_bites_catalog(self):
+        r = self.client.get("/.well-known/hardest.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "gate-hardest-bites-v1")
+        self.assertEqual(data["count"], 12)
+        ids = {b["id"] for b in data["bites"]}
+        self.assertIn("herstatt_fx", ids)
+        self.assertIn("instant_rail_irrevocability", ids)
+        page = self.client.get("/hardest")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn("Herstatt", page.get_data(as_text=True))
+
+        import pvp_mouth as pvp
+        import legal_finality as lf
+        import fednow_mouth as fn
+        import pal_charge as pal
+        import self_expansion_ban as seb
+        import all_doors as ad
+        import decision_energy as de
+        import always_never as an
+        import t0_honesty as t0
+
+        self.assertFalse(pvp.link_legs(pay_leg_cleared=True, receive_leg_armed=False)["allow_release"])
+        self.assertFalse(lf.stamp(technical_live=True, claims_legal_finality=True)["passes"])
+        self.assertFalse(fn.pre_release(rail="fednow", hop_permit=False)["allow_release"])
+        self.assertFalse(pal.arm(ability_present=True, authority_charge=True, same_identity=True)["armed"])
+        self.assertFalse(seb.police(self_issued_live=True)["passes"])
+        self.assertFalse(ad.weld(doors_honored=["cloud_api_bind_only"])["passes"])
+        self.assertFalse(de.bound(soft_score_live=True)["passes"])
+        self.assertFalse(an.assay(timeout_as_live=True)["passes"])
+        self.assertFalse(t0.mode(claims_replace_net=True)["passes"])
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
@@ -2201,7 +2234,7 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(idx.status_code, 200)
         data = idx.get_json()
         self.assertEqual(data["spec"], "gate-inventions-v1")
-        self.assertGreaterEqual(data["count"], 105)
+        self.assertGreaterEqual(data["count"], 115)
         self.assertEqual(data["inventor"], "Nisaba LLC / Gate")
 
         for path in (
@@ -2308,6 +2341,16 @@ class SettlementEngineTests(unittest.TestCase):
             "/.well-known/fmi-p17.json",
             "/.well-known/stack-propagation.json",
             "/.well-known/iso-surface.json",
+            "/.well-known/hardest.json",
+            "/.well-known/pvp-mouth.json",
+            "/.well-known/legal-finality.json",
+            "/.well-known/fednow-mouth.json",
+            "/.well-known/pal-charge.json",
+            "/.well-known/self-expansion-ban.json",
+            "/.well-known/all-doors.json",
+            "/.well-known/decision-energy.json",
+            "/.well-known/always-never.json",
+            "/.well-known/t0-honesty.json",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -2341,9 +2384,9 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertIn("post_trade_distribution", gate["catalog"]["discovery"])
         self.assertIn("instruction_finality", gate["catalog"]["discovery"])
         self.assertIn("pre_net_clearance", gate["catalog"]["discovery"])
-        self.assertEqual(gate["catalog"]["count"], 105)
+        self.assertEqual(gate["catalog"]["count"], 115)
         # Index helper
-        self.assertEqual(inventions_mod.manifest("http://x")["count"], 105)
+        self.assertEqual(inventions_mod.manifest("http://x")["count"], 115)
 
         # Wave 3 spot checks
         import nonrepudiation as nr_mod
@@ -2412,7 +2455,7 @@ class SettlementEngineTests(unittest.TestCase):
         cl = clinamen_mod.swerve(charge_id="chg_1", prior_halt=True)
         self.assertEqual(cl["posture"], "clinamen_fired")
         fp = moat_mod.fingerprint("http://x")
-        self.assertEqual(fp["invention_count"], 105)
+        self.assertEqual(fp["invention_count"], 115)
         self.assertEqual(len(fp["fingerprint_sha256"]), 64)
         cm = comp_mod.attach_to_receipt_payload({"status": "CHARGE"})
         self.assertEqual(cm["conjugate_destroyed"], "HALT_optionality")

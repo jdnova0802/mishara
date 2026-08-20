@@ -1,7 +1,7 @@
 """Public face — three pillars. Everything else is moat.
 
 Door + CHARGE + distribution stack. The hull is monolith-shaped;
-the catalog (105 specs) lives behind inventions.json + moat fingerprint.
+the catalog lives behind inventions.json + moat fingerprint.
 """
 from __future__ import annotations
 
@@ -124,7 +124,7 @@ def gate_catalog_block(public_url: str) -> dict[str, Any]:
         "count": inv["count"],
         "fingerprint_short": fp["fingerprint_short"],
         "discovery": catalog_discovery(base),
-        "note": "105 specs welded. Public face is door + CHARGE + distribution only.",
+        "note": "Full catalog welded. Public face is door + CHARGE + distribution only.",
         "production_skin": f"{base}/.well-known/production-skin.json",
         "scorecard": f"{base}/.well-known/scorecard.json",
         "runbook": f"{base}/.well-known/runbook.json",

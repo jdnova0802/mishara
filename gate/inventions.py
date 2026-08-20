@@ -234,6 +234,27 @@ CATALOG = (
      "Doctrine at apex · obligation at base · register economics in between", "stack-propagation.json"),
     ("iso_surface", "ISO Surface", "gate-iso-surface-v1",
      "Well-known JSON as ISO-20022 instinct on mouth semantics", "iso-surface.json"),
+    # Wave 14 — hardest bites on the globe
+    ("hardest_bites", "Hardest Bites Catalog", "gate-hardest-bites-v1",
+     "Twelve civilizational irreversibility problems + Gate solutions", "hardest.json"),
+    ("pvp_mouth", "PvP Mouth", "gate-pvp-mouth-v1",
+     "Herstatt bite — no solo FX pay-away; legs linked", "pvp-mouth.json"),
+    ("legal_finality", "Legal Finality Stamp", "gate-legal-finality-v1",
+     "Technical LIVE ≠ legal irrevocability — reject court cosplay", "legal-finality.json"),
+    ("fednow_mouth", "FedNow Mouth", "gate-fednow-mouth-v1",
+     "Pre-release mouth on irrevocable instant rails", "fednow-mouth.json"),
+    ("pal_charge", "PAL CHARGE", "gate-pal-charge-v1",
+     "Two-key LIVE — ability ≠ authority; CHARGE is second key", "pal-charge.json"),
+    ("self_expansion_ban", "Self-Expansion Ban", "gate-self-expansion-ban-v1",
+     "Agents cannot widen their own LIVE — ring 0 is CHARGE", "self-expansion-ban.json"),
+    ("all_doors", "All Doors", "gate-all-doors-v1",
+     "API + UI + renewal — partial weld is skip-clear", "all-doors.json"),
+    ("decision_energy", "Decision Energy Bound", "gate-decision-energy-v1",
+     "Finite irreversible alphabet bounds decision density", "decision-energy.json"),
+    ("always_never", "Always/Never", "gate-always-never-v1",
+     "Feaver property — CHARGE always; soft-yes/timeout never LIVE", "always-never.json"),
+    ("t0_honesty", "T+0 Honesty", "gate-t0-honesty-v1",
+     "Atomic and netted modes — never pretend to replace the CCP", "t0-honesty.json"),
 )
 
 
