@@ -1377,7 +1377,29 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("positioning", reg)
 
         cards = positioning_mod.page_cards()
-        self.assertEqual(len(cards), 6)
+        self.assertEqual(len(cards), 7)
+        self.assertEqual(cards[0]["tag"], "Nature")
+
+        aos = self.client.get("/.well-known/action-os.json")
+        self.assertEqual(aos.status_code, 200)
+        aos_data = aos.get_json()
+        self.assertEqual(aos_data["spec"], "nisaba-action-os-v1")
+        self.assertIn("everybody", aos_data["thesis"].lower())
+        self.assertFalse(aos_data["their_production"])
+
+        aos_page = self.client.get("/action-os")
+        self.assertEqual(aos_page.status_code, 200)
+        aos_body = aos_page.get_data(as_text=True)
+        self.assertIn("Action OS", aos_body)
+        self.assertIn("We serve everybody", aos_body)
+        self.assertIn("Palantir", aos_body)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("action_os", gate)
+
+        home = self.client.get("/").get_data(as_text=True)
+        self.assertIn("Action OS", home)
+        self.assertIn("/action-os", home)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")

@@ -95,6 +95,11 @@ except ImportError:
     import positioning as positioning_mod
 
 try:
+    from gate import action_os as action_os_mod
+except ImportError:
+    import action_os as action_os_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -1201,6 +1206,8 @@ def well_known_gate():
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
+            "action_os": f"{advertised_url()}/.well-known/action-os.json",
+            "action_os_page": f"{advertised_url()}/action-os",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1308,6 +1315,22 @@ def well_known_schism():
 @app.route("/.well-known/positioning.json")
 def well_known_positioning():
     return jsonify(positioning_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/action-os.json")
+def well_known_action_os():
+    return jsonify(action_os_mod.manifest(advertised_url()))
+
+
+@app.route("/action-os")
+def action_os_page():
+    m = action_os_mod.manifest(advertised_url())
+    return render_template(
+        "action_os.html",
+        manifest=m,
+        blocks=action_os_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/positioning")

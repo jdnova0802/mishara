@@ -22,11 +22,16 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "operator": "Nisaba LLC",
         "contact": contact_email,
         "what": "The mouth civilization uses so irreversible spend cannot bypass permission.",
+        "action_os_thesis": (
+            "Nisaba Action OS — we serve everybody (economies, politicians, companies, "
+            "any entity on the write). Controversy is nature on the act."
+        ),
         "civilization": {
             "asset": "default on irreversible spend — globally, across licensed rails",
             "not": "a money hoard without a mouth; not SaaS; not a calculator",
             "reward": "GP register: management on mouths + bps + carry on cleared flow",
             "keep": "Nisaba retains the mouth — do not dilute the GP early",
+            "serve": "everybody — economies · politicians · companies · any entity",
         },
         "not": [
             "SaaS",
@@ -69,5 +74,6 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "page": f"{base}/register",
         "operator_contract": f"{base}/.well-known/operator.json",
         "positioning": f"{base}/.well-known/positioning.json",
+        "action_os": f"{base}/.well-known/action-os.json",
         "engine": "https://velaru.xyz",
     }

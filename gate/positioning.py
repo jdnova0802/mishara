@@ -13,26 +13,25 @@ SPEC = "gate-positioning-v1"
 # ---------------------------------------------------------------------------
 
 FOCUS_PLAIN = (
-    "Gate is fail-closed infrastructure for irreversible spend. "
-    "It publishes verifiable receipts (what happened + what didn't), "
-    "runs settlement with finality hashes, and exposes a κ (Kappa) restraint register "
-    "so partners can cite the operational reality instead of trusting vibes."
+    "Nisaba is the Action OS. Palantir integrates data; we sit on irreversible action. "
+    "We serve everybody — economies, politicians, companies, any entity on the write. "
+    "Controversy is nature when DENY/DEAD is real. Integrity: CHARGE-only, stranger verify, "
+    "one door, fail-closed. Gate is the commercial mouth; Erra/Velaru/Verra/Mishara are the stack."
 )
 
 FOCUS_FOR = [
+    "Everybody who moves irreversible authority (economies · politicians · companies · any entity)",
     "Operators (weld the production door and start management)",
     "Carriers & implementors (wire one scanner + one protocol face)",
     "Auditors & risk (verify LIVE/DEAD decisions + evidence proofs)",
-    "Engineers (see shipped invariants: spend protocol, receipts, settlement windows)",
 ]
 
 NEXT_STEPS = [
-    {"label": "Weld + management", "endpoint": "operator_page", "style": "btn-primary"},
+    {"label": "Action OS doctrine", "endpoint": "action_os_page", "style": "btn-primary"},
+    {"label": "Weld + management", "endpoint": "operator_page", "style": "btn-accent-outline"},
     {"label": "Read the register fees", "endpoint": "register_page", "style": "btn-ghost"},
-    {"label": "Implement the scanner", "endpoint": "scanner_page", "style": "btn-ghost"},
     {"label": "GTM focus hub", "endpoint": "focus_hub", "style": "btn-ghost"},
-    {"label": "Stack map", "endpoint": "stack_page", "style": "btn-ghost"},
-    {"label": "Machine-readable positioning.json", "endpoint": "well_known_positioning", "style": "btn-ghost"},
+    {"label": "Machine-readable action-os.json", "endpoint": "well_known_action_os", "style": "btn-ghost"},
 ]
 
 # ---------------------------------------------------------------------------
@@ -136,10 +135,12 @@ def manifest(public_url: str) -> dict:
             "atom_age_civic_optimism": ATOM_AGE_CIVIC_OPTIMISM,
         },
         "one_line": (
-            "Default before the irreversible act — wire, bind, withdraw, list. "
-            "Cybernetic ops room without theater; maintenance over hype; public verify without naivety."
+            "Action OS for irreversible authority — we serve everybody. "
+            "Default before the act; CHARGE-only LIVE; stranger verify without naivety."
         ),
         "links": {
+            "action_os": f"{base}/.well-known/action-os.json",
+            "action_os_page": f"{base}/action-os",
             "register": f"{base}/.well-known/register.json",
             "kappa": f"{base}/.well-known/kappa.json",
             "settlement": f"{base}/.well-known/settlement.json",
@@ -155,6 +156,16 @@ def manifest(public_url: str) -> dict:
 def page_cards() -> list[dict]:
     """Short cards for HTML surfaces — title, tag, body."""
     return [
+        {
+            "tag": "Nature",
+            "title": "Action OS — we serve everybody",
+            "body": (
+                "Economies, politicians, companies, any entity on the write. "
+                "Palantir integrates data; Nisaba governs irreversible action. "
+                "Controversy is nature — DENY is a real event."
+            ),
+            "ref": "Nisaba Action OS",
+        },
         {
             "tag": "Ops",
             "title": "Cybersyn without the wallpaper",
