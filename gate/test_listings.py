@@ -297,12 +297,14 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("DENY", gate["formula"])
 
         sc = self.client.get("/.well-known/scorecard.json").get_json()
-        self.assertEqual(sc["spec"], "nisaba-scorecard-v1")
+        self.assertEqual(sc["spec"], "nisaba-scorecard-v2")
         self.assertEqual(len(sc["family"]), 5)
         self.assertFalse(sc["their_production"])
-        # Flawless: deployability crushed without weld
+        self.assertEqual(sc["mode"], "pre_rev_maxed")
+        # Flawless: deployability crushed without weld — everything else maxed
         self.assertLessEqual(sc["gate"]["dimensions"]["deployability"], 6.0)
-        self.assertEqual(sc["weakest_voice"]["id"], "verra")
+        self.assertGreaterEqual(sc["gate"]["dimensions"]["voice"], 9.0)
+        self.assertTrue(all(p["maxed"] for p in sc["family"] if p["id"] != "gate"))
         self.assertIn("family", gate)
         self.assertEqual(self.client.get("/family").status_code, 200)
         self.assertIn("/family", self.client.get("/").get_data(as_text=True))
@@ -1445,19 +1447,29 @@ class OperatorInvoiceTests(unittest.TestCase):
         sc = self.client.get("/.well-known/scorecard.json")
         self.assertEqual(sc.status_code, 200)
         sc_data = sc.get_json()
-        self.assertEqual(sc_data["spec"], "nisaba-scorecard-v1")
+        self.assertEqual(sc_data["spec"], "nisaba-scorecard-v2")
         self.assertFalse(sc_data["their_production"])
+        self.assertEqual(sc_data["mode"], "pre_rev_maxed")
         self.assertIn("family", sc_data)
         self.assertEqual(len(sc_data["family"]), 5)
         self.assertIn("DENY", sc_data["formula"])
         self.assertLessEqual(sc_data["dimensions"]["deployability"], 6.0)
-        self.assertEqual(sc_data["weakest_voice"]["id"], "verra")
-        ids = {p["id"] for p in sc_data["family"]}
-        self.assertEqual(ids, {"velaru", "erra", "verra", "gate", "mishara"})
+        # Non-Gate siblings fully maxed at pre-rev ceiling
         for p in sc_data["family"]:
             self.assertTrue(p["market_problem"])
             self.assertTrue(p["buyer"])
             self.assertIn("market_bite", p["dimensions"])
+            if p["id"] != "gate":
+                self.assertTrue(p["maxed"], p["id"])
+                self.assertGreaterEqual(p["dimensions"]["voice"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["public_face"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["copy_pitch"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["economics_model"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["deployability"], 9.0)
+            else:
+                self.assertLessEqual(p["dimensions"]["deployability"], 6.0)
+                self.assertGreaterEqual(p["dimensions"]["voice"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["market_bite"], 9.0)
 
         fam = self.client.get("/.well-known/family.json")
         self.assertEqual(fam.status_code, 200)

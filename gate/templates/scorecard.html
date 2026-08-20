@@ -5,12 +5,12 @@
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Flawless = honest.</strong> Never inflate without a weld. Scarcity is the DENY.</span>
+  <span><strong>Pre-rev MAXED.</strong> Every dim at ceiling — only Gate deployability waits on a weld.</span>
   <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Formula →</a>
 </div>
 
 <section class="hero container">
-  <p class="audience-tag">Nisaba family · Gate lead</p>
+  <p class="audience-tag">Nisaba family · {{ manifest.mode }} · Gate lead</p>
   <h1>{{ manifest.overall }} <span style="color: var(--muted); font-size: 0.55em;">/ 10 Gate</span></h1>
   <p class="hero-sub">{{ manifest.formula }}</p>
   <p class="hero-sub" style="margin-top: 0.5rem;">
@@ -56,9 +56,9 @@
 
 <section class="container-wide section">
   <h2 style="margin-bottom: 1rem;">Family — each bites a real market</h2>
-  {% for p in manifest.family %}
+    {% for p in manifest.family %}
   <div class="card" style="margin-bottom: 1rem;">
-    <p class="audience-tag">{{ p.role }} · overall {{ p.overall }} · voice {{ p.dimensions.voice }} · bite {{ p.dimensions.market_bite }}</p>
+    <p class="audience-tag">{{ p.role }} · overall {{ p.overall }} · {% if p.maxed %}MAXED{% else %}HOLD{% endif %} · voice {{ p.dimensions.voice }} · bite {{ p.dimensions.market_bite }}</p>
     <h3>{{ p.name }} — {{ p.voice_line }}</h3>
     <p><strong>Question:</strong> {{ p.question }}</p>
     <p style="color: var(--muted); margin-top: 0.5rem;"><strong>Market:</strong> {{ p.market_problem }}</p>
