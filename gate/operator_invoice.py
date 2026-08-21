@@ -285,7 +285,7 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "register_fees": {
             "spec": REGISTER_FEES_SPEC,
             "fund_analog": {
-                "management": f"{FLOOR_PRICE_LABEL} per welded write + {FLOOR_PRICE_LABEL} per LIVE license parent / mo",
+                "management": f"{FLOOR_PRICE_LABEL} per welded write + {FLOOR_PRICE_LABEL} per LIVE license parent",
                 "flow": f"{BPS} bps on cleared + {BPS_CARRY} bps on cleared above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo",
                 "per_hop": f"${HOP_CENTS / 100:.2f}/hop when hops win the flow leg",
             },
@@ -320,7 +320,7 @@ def manifest(public_url: str, contact_email: str) -> dict:
                 "amount_cents": FLOOR_PRICE_CENTS,
                 "kind": "monthly",
                 "unit": "per welded write + per LIVE license parent",
-                "deliverable": "management leg — rent on the mouth. Not the civilizational prize.",
+                "deliverable": "management leg — rent per welded path and active parent license",
             },
             "extra_write": {
                 "label": WELD_PRICE_LABEL,
@@ -340,41 +340,52 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "year": year_scale(),
         },
         "writes": list(WRITES.values()),
+        "first_weld": {
+            "id": "withdraw_payout_clear",
+            "write": "withdraw",
+            "label": "Withdraw / payout — clear before wire",
+            "why": "Named commercial driver edge. Prove fail-closed halt before expanding write coverage.",
+            "next_after_prove": "grid_shed_reconnect",
+        },
+        "ads_floor": {
+            "privacy": f"{public_url}/privacy",
+            "terms": f"{public_url}/terms",
+            "their_production": False,
+            "claim": "Checkout starts delivery — not a third-party production claim until recorded L4 weld.",
+        },
         "contract_json": f"{public_url}/.well-known/operator.json",
         "register_json": f"{public_url}/.well-known/register.json",
     }
 
 
 def render_one_pager(public_url: str, contact_email: str) -> str:
-    """Forwardable whale path summary — paste into email or counsel packet."""
+    """Forwardable operator clearance summary for counsel / ops."""
     base = (public_url or "").rstrip("/")
-    return f"""GATE OPERATOR — ONE-PAGER (paste-forward)
-=====================================
+    return f"""GATE — OPERATOR CLEARANCE ONE-PAGER
+================================
 Nisaba LLC · {contact_email} · {base}
 
-THESIS
-  Default before the irreversible act — wire, bind, withdraw, list.
-  Not SaaS. Production mouth + GP-style register on cleared flow.
+WHAT IT IS
+  Clearance before irreversible withdraw, payout, or bind.
+  Fail closed under uncertainty. Independent verify. Licensed operators only.
 
-STACK (one company, three doors)
-  Velaru  → proof + stranger verify + $49 instant   https://velaru.xyz/instant
-  Gate    → production weld + κ register (this doc)  {base}/operator
-  Mishara → consumer harm only (not operator)        https://mishara.app
-
-WHALE CHECKOUT (live Stripe)
-  Weld:       {WELD_PRICE_LABEL} one-time — one production write (48hr)
-  Management: {FLOOR_PRICE_LABEL} per welded write + per LIVE license parent / mo
-  Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo hurdle
+CHECKOUT
+  Weld:       {WELD_PRICE_LABEL} one-time — one irreversible write (48hr delivery)
+  Management: {FLOOR_PRICE_LABEL} per welded path + per active parent license
+  Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo
   Checkout:   {base}/operator
+  Honesty:    their_production stays false until a recorded third-party production weld
 
-PROOF CHAIN (no login)
-  Register:   {base}/register
-  Manifests:  {base}/.well-known/kappa.json · schism.json · operator.json
-  Verify:     https://velaru.xyz/verify
-  Processor:  https://velaru.xyz/legal/processor-one-pager.txt
+PROOF
+  Fees:    {base}/register
+  Specs:   {base}/.well-known/operator.json · register.json · legal.json
+  Legal:   {base}/privacy · {base}/terms
+  Verify:  https://velaru.xyz/verify
 
 REFUSE
-  Unlicensed gambling · second write in same weld · PII on hop · seat-pricing story
+  Unlicensed gambling · second write in same weld · PII on hop · forged production claims
 
 Not legal advice. Licensed operators only.
 """
+
+

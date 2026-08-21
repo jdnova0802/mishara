@@ -1,39 +1,39 @@
 {% extends "base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% block title %}Drill desk{% endblock %}
 {% block content %}
 <div class="container section">
-  <h1>Dashboard</h1>
-  <p style="color: var(--muted);">{{ account.email }} · plan: <strong>{{ account.plan }}</strong></p>
+  <p class="audience-tag">Drills only · not production</p>
+  <h1>Drill desk</h1>
+  <p style="color: var(--muted);">{{ account.email }} · hop budget: <strong>{{ account.plan }}</strong> · production money lives on <a href="{{ url_for('operator_page') }}">/operator</a>.</p>
 
   {% if new_key %}
   <div class="card" style="border-color: var(--accent); margin-top: 1.5rem;">
-    <h2>Your new API key — copy now</h2>
-    <p>This key will not be shown again.</p>
+    <h2>New drill credential — copy now</h2>
+    <p>Shown once. For integration drills only. Not a welded door.</p>
     <div class="key-box" id="api-key">{{ new_key }}</div>
     <button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('api-key').textContent)">Copy</button>
   </div>
   {% endif %}
 
   <div class="card" style="margin-top: 1.5rem;">
-    <h2>Usage — {{ usage.period }}</h2>
+    <h2>Drill hop budget — {{ usage.period }}</h2>
     <p>{{ usage.hops | int }} / {{ usage.hop_limit | int }} hops used</p>
     <div class="usage-bar">
       {% set pct = (usage.hops * 100 / usage.hop_limit) if usage.hop_limit else 0 %}
       <div class="usage-bar-fill" style="width: {{ pct if pct < 100 else 100 }}%;"></div>
     </div>
-    <p style="font-size: 0.85rem; color: var(--muted);">{{ usage.remaining_hops }} hops remaining</p>
-    {% if account.plan == 'free' %}
-      <form action="{{ url_for('billing_checkout') }}" method="post" style="margin-top: 1rem;">
-        <button type="submit" class="btn btn-primary btn-sm">Upgrade to Pro — {{ pro_price }}</button>
-      </form>
-    {% endif %}
+    <p style="font-size: 0.85rem; color: var(--muted);">{{ usage.remaining_hops }} hops left · fuse budget for drills, not a Free/Pro ladder</p>
+    <p style="margin-top: 1rem;">
+      <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld production door</a>
+      <a href="{{ url_for('pricing') }}" class="btn btn-ghost btn-sm">Economics</a>
+    </p>
     {% if dev_mode %}
-      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted);">Dev mode: checkout upgrades instantly without Stripe.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted);">Dev mode on.</p>
     {% endif %}
   </div>
 
   <div class="card">
-    <h2>API keys</h2>
+    <h2>Drill credentials</h2>
     <table>
       <thead>
         <tr><th>Prefix</th><th>Label</th><th>Created</th></tr>
@@ -46,21 +46,21 @@
           <td>{{ key.created_at[:10] }}</td>
         </tr>
         {% else %}
-        <tr><td colspan="3">No keys yet.</td></tr>
+        <tr><td colspan="3">No credentials yet.</td></tr>
         {% endfor %}
       </tbody>
     </table>
     <form action="{{ url_for('create_key') }}" method="post" style="margin-top: 1rem;">
       <div class="form-group">
-        <label for="label">New key label</label>
-        <input type="text" id="label" name="label" value="production" maxlength="64">
+        <label for="label">Label</label>
+        <input type="text" id="label" name="label" value="drill" maxlength="64">
       </div>
-      <button type="submit" class="btn btn-ghost btn-sm">Create new key</button>
+      <button type="submit" class="btn btn-ghost btn-sm">Mint credential</button>
     </form>
   </div>
 
   <div class="card">
-    <h2>Quick test</h2>
+    <h2>Quick drill</h2>
     <pre>export GATE_KEY="gate_sk_live_…"
 curl -s "{{ request.url_root.rstrip('/') }}/v1/me" -H "Authorization: Bearer $GATE_KEY"</pre>
   </div>

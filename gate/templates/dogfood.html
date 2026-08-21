@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Dogfood weld{% endblock %}
+{% block meta %}
+<meta name="description" content="First-party dogfood weld. Lifts readiness. Does not flip their_production.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">First-party only · honesty hold</p>
+  <h1>Dogfood weld</h1>
+  <p class="audience-sub">Record a first-party write path you actually welded. This lifts deploy toward L3. It does <strong>not</strong> set their_production.</p>
+  <p style="margin: 0.75rem 0;">
+    Current dogfood: <strong>{{ manifest.dogfood_weld }}</strong>
+    · their_production: <strong>{{ manifest.their_production }}</strong>
+    {% if manifest.readiness %}· readiness L{{ manifest.readiness.level }}{% endif %}
+  </p>
+
+  {% if error %}
+  <div class="flash error">{{ error }}</div>
+  {% endif %}
+
+  {% if latest %}
+  <div class="card" style="margin: 1rem 0;">
+    <p class="audience-tag">Latest dogfood</p>
+    <h3>{{ latest.write_path }}</h3>
+    <p style="color: var(--muted);">{{ latest.operator }} · {{ latest.created_at }}</p>
+    {% if latest.note %}<p style="margin-top: 0.35rem;">{{ latest.note }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="card install-checkout-card">
+    <h2>Record dogfood</h2>
+    <form method="post" action="{{ url_for('dogfood_page') }}" class="install-form">
+      <div class="form-group">
+        <label for="ops_token">Ops token</label>
+        <input type="password" id="ops_token" name="ops_token" autocomplete="off"
+               placeholder="Required — not a public form">
+      </div>
+      <div class="form-group">
+        <label for="write_path">Write path welded</label>
+        <input type="text" id="write_path" name="write_path" required
+               placeholder="/v1/act → withdraw or bind-only" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="operator">Operator</label>
+        <input type="text" id="operator" name="operator" required
+               placeholder="you@nisaba.io" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="note">Note (optional)</label>
+        <input type="text" id="note" name="note" placeholder="what cleared, where">
+      </div>
+      <button type="submit" class="btn btn-primary">Record dogfood weld</button>
+      <p class="fine-print">First-party only. Third-party production weld: <a href="{{ url_for('production_weld_page') }}">/production-weld</a> with explicit confirm.</p>
+    </form>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-ghost btn-sm">Runbook</a>
+    <a href="{{ url_for('proof_page') }}" class="btn btn-ghost btn-sm">Proof</a>
+    <a href="{{ url_for('production_weld_page') }}" class="btn btn-accent-outline btn-sm">Third-party weld</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Operator checkout</a>
+  </div>
+</div>
+{% endblock %}

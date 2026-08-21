@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Science → clearance{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.motive }} {{ manifest.formula }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">PRI · tech frontiers · contribute to Tier S</p>
+  <h1>Science → clearance</h1>
+  <p class="audience-sub">{{ manifest.motive }}</p>
+  <p style="margin: 1rem 0;"><strong>{{ manifest.formula }}</strong></p>
+  <p style="color: var(--muted);">{{ manifest.tech_thesis }}</p>
+  <p>own_tier_s: <strong>{{ manifest.own_tier_s }}</strong>
+    · force_production_weld: <strong>{{ manifest.force_production_weld }}</strong>
+    · their_production: <strong>{{ manifest.their_production }}</strong></p>
+
+  <div class="card" style="margin-top: 1.25rem;">
+    <p class="audience-tag">First weld · named</p>
+    <h2>{{ manifest.first_weld.label }}</h2>
+    <p>{{ manifest.first_weld.why }}</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--muted);">
+      write: <code>{{ manifest.first_weld.write }}</code> ·
+      path: <code>{{ manifest.first_weld.example_path }}</code> ·
+      next: <code>{{ manifest.first_weld.next_after_prove }}</code>
+    </p>
+    <p style="margin-top: 0.75rem;">
+      <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Open payout weld</a>
+    </p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">Laws from science</h2>
+  {% for s in manifest.science %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ s.id }}</p>
+    <h3>{{ s.name }}</h3>
+    <p style="color: var(--muted);">{{ s.claim }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Gate:</strong> {{ s.gate_law }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Tech frontiers → clearance</h2>
+  {% for t in manifest.tech %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ t.id }} · own {{ t.own }}</p>
+    <h3>{{ t.name }}</h3>
+    <p style="color: var(--muted);">{{ t.frontier }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Clearance:</strong> {{ t.gate_mouth }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">{{ t.contribute }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Tier S — contribute, don’t own</h2>
+  {% for t in manifest.tier_s %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">priority {{ t.priority }} · own {{ t.own }}</p>
+    <h3>{{ t.name }}</h3>
+    <p>{{ t.contribute }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Ladder</h2>
+  {% for step in manifest.contribute_ladder %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">Step {{ step.step }} · {{ step.tier }}</p>
+    <h3>{{ step.title }}</h3>
+    <p>{{ step.do }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Distribution</h2>
+  <ul class="check-list">
+    {% for d in manifest.distribution %}
+    <li><strong>{{ d.rule }}</strong> — {{ d.detail }}</li>
+    {% endfor %}
+  </ul>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_science_pri') }}" class="btn btn-ghost btn-sm">science-pri.json</a>
+    <a href="{{ url_for('privacy_page') }}" class="btn btn-ghost btn-sm">Privacy</a>
+    <a href="{{ url_for('terms_page') }}" class="btn btn-ghost btn-sm">Terms</a>
+    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Action OS</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld payout door</a>
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-accent-outline btn-sm">Runbook</a>
+  </div>
+</div>
+{% endblock %}

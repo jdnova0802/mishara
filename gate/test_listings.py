@@ -239,15 +239,21 @@ class FlaskListingTests(unittest.TestCase):
 
     def test_nav_and_clickable_pages_are_not_broken(self):
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("href=\"/action-os\"", home)
-        self.assertIn(">Action OS</a>", home)
-        self.assertIn("href=\"/scanner\"", home)
-        self.assertIn(">Scanner</a>", home)
-        self.assertIn("href=\"/uplink\"", home)
-        self.assertIn(">Uplink</a>", home)
-        self.assertIn("href=\"/operator\"", home)
-        self.assertIn(">Register</a>", home)
-        self.assertIn(">Weld</a>", home)
+        chrome = home.split("<footer>", 1)[0]
+        self.assertIn('href="/operator"', chrome)
+        self.assertIn(">Weld</a>", chrome)
+        self.assertIn('href="/register"', chrome)
+        self.assertIn(">Fees</a>", chrome)
+        self.assertIn(">Pricing</a>", chrome)
+        # Buyer chrome only — no doctrine / family / lab in nav or footer
+        self.assertNotIn(">Action OS</a>", chrome)
+        self.assertNotIn(">Scanner</a>", chrome)
+        self.assertNotIn(">Uplink</a>", chrome)
+        self.assertIn('href="/trust"', home)
+        # Spec / Reference / Family stay off buyer chrome
+        self.assertNotIn('href="/action-os"', home)
+        self.assertNotIn('href="/science"', home)
+        self.assertNotIn('href="/family"', home)
         for path in (
             "/",
             "/start",
@@ -264,20 +270,26 @@ class FlaskListingTests(unittest.TestCase):
             "/install",
             "/register",
             "/operator",
+            "/privacy",
+            "/terms",
             "/bind-room",
             "/for/operators",
             "/action-os",
+            "/science",
             "/focus",
             "/positioning",
             "/scorecard",
             "/production-skin",
             "/proof",
+            "/runbook",
+            "/dogfood",
+            "/production-weld",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
         carriers = self.client.get("/for/carriers").get_data(as_text=True)
-        self.assertNotIn("href=\"/v1/pas/policycenter/pre-bind\"", carriers)
-        self.assertIn("href=\"/operator\"", carriers)
+        self.assertNotIn('href="/v1/pas/policycenter/pre-bind"', carriers)
+        self.assertIn('href="/operator"', carriers)
         consumers = self.client.get("/for/consumers").get_data(as_text=True)
         self.assertNotIn("Open Mishara", consumers)
         self.assertIn("Open Gate", consumers)
@@ -296,13 +308,28 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("scorecard", gate)
         self.assertIn("DENY", gate["formula"])
 
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
+
         sc = self.client.get("/.well-known/scorecard.json").get_json()
-        self.assertEqual(sc["spec"], "nisaba-scorecard-v1")
+        self.assertEqual(sc["spec"], "nisaba-scorecard-v2")
         self.assertEqual(len(sc["family"]), 5)
+        # Proof ladder: all_pass → L2 deploy 7.5; their_production still false without weld
         self.assertFalse(sc["their_production"])
-        # Flawless: deployability crushed without weld
-        self.assertLessEqual(sc["gate"]["dimensions"]["deployability"], 6.0)
-        self.assertEqual(sc["weakest_voice"]["id"], "verra")
+        self.assertEqual(sc["mode"], "pre_rev_maxed")
+        deploy = sc["gate"]["dimensions"]["deployability"]
+        self.assertGreaterEqual(deploy, 7.0)
+        self.assertLess(deploy, 8.0)
+        self.assertGreaterEqual(sc["gate"]["dimensions"]["voice"], 9.0)
+        self.assertTrue(all(p["maxed"] for p in sc["family"] if p["id"] != "gate"))
+        self.assertIn("family", gate)
+        self.assertEqual(self.client.get("/family").status_code, 200)
+        self.assertNotIn("/family", self.client.get("/").get_data(as_text=True))
 
 
 class BoundAnswerTests(unittest.TestCase):
@@ -1365,9 +1392,12 @@ class OperatorInvoiceTests(unittest.TestCase):
         page = self.client.get("/register")
         self.assertEqual(page.status_code, 200)
         body = page.get_data(as_text=True)
-        self.assertIn("Not SaaS", body)
-        self.assertIn("mouth", body.lower())
+        self.assertIn("Fee schedule", body)
+        self.assertIn("cleared flow", body.lower())
         self.assertIn("$1,000,000,000", body)
+        self.assertNotIn("scarcity is the DENY", body)
+        self.assertNotIn("Anthropophagy", body)
+        self.assertNotIn("Cybersyn", body)
         spec = self.client.get("/.well-known/register.json")
         self.assertEqual(spec.status_code, 200)
         data = spec.get_json()
@@ -1389,9 +1419,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         page = self.client.get("/positioning")
         self.assertEqual(page.status_code, 200)
         body = page.get_data(as_text=True)
-        self.assertIn("Cybersyn", body)
-        self.assertIn("Anthropophagy", body)
-        self.assertIn("Maintenance futurism", body)
+        self.assertIn("noindex", body)
+        self.assertIn("Buyer facts", body)
+        self.assertIn("their_production", body)
+        self.assertNotIn("Cybersyn", body)
+        self.assertNotIn("Anthropophagy", body)
 
         spec = self.client.get("/.well-known/positioning.json")
         self.assertEqual(spec.status_code, 200)
@@ -1423,63 +1455,330 @@ class OperatorInvoiceTests(unittest.TestCase):
         aos_page = self.client.get("/action-os")
         self.assertEqual(aos_page.status_code, 200)
         aos_body = aos_page.get_data(as_text=True)
-        self.assertIn("Action OS", aos_body)
-        self.assertIn("We serve everybody", aos_body)
-        self.assertIn("Palantir", aos_body)
-        self.assertIn("DENY", aos_body)
-        self.assertIn("force_production_weld", aos_body)
+        self.assertIn("Clearance before irreversible write", aos_body)
+        self.assertIn("Weld a path", aos_body)
+        self.assertIn("noindex", aos_body)
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("action_os", gate)
         self.assertIn("formula", gate)
 
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("Action OS", home)
-        self.assertIn("/action-os", home)
-        self.assertIn("DENY", home)
-        self.assertIn("/scorecard", home)
+        self.assertNotIn("/action-os", home)
+        self.assertNotIn(">Action OS</a>", home)
+        self.assertNotIn("scarcity is the DENY", home)
+        self.assertIn("If money is about to leave", home)
+        self.assertNotIn("/science", home)
+        self.assertIn("/trust", home)
+        self.assertIn("Parent revoked", home)
+        self.assertIn("their_production", home)
+
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
 
         sc = self.client.get("/.well-known/scorecard.json")
         self.assertEqual(sc.status_code, 200)
         sc_data = sc.get_json()
-        self.assertEqual(sc_data["spec"], "nisaba-scorecard-v1")
+        self.assertEqual(sc_data["spec"], "nisaba-scorecard-v2")
         self.assertFalse(sc_data["their_production"])
+        self.assertEqual(sc_data["mode"], "pre_rev_maxed")
         self.assertIn("family", sc_data)
         self.assertEqual(len(sc_data["family"]), 5)
         self.assertIn("DENY", sc_data["formula"])
-        self.assertLessEqual(sc_data["dimensions"]["deployability"], 6.0)
-        self.assertEqual(sc_data["weakest_voice"]["id"], "verra")
-        ids = {p["id"] for p in sc_data["family"]}
-        self.assertEqual(ids, {"velaru", "erra", "verra", "gate", "mishara"})
+        # L2 proof-green deploy without their_production / dogfood
+        self.assertGreaterEqual(sc_data["dimensions"]["deployability"], 7.0)
+        self.assertLess(sc_data["dimensions"]["deployability"], 8.0)
+        self.assertIn("proof_readiness", sc_data)
+        self.assertEqual(sc_data["proof_readiness"]["level"], 2)
+        # Non-Gate siblings fully maxed at pre-rev ceiling
         for p in sc_data["family"]:
             self.assertTrue(p["market_problem"])
             self.assertTrue(p["buyer"])
             self.assertIn("market_bite", p["dimensions"])
+            if p["id"] != "gate":
+                self.assertTrue(p["maxed"], p["id"])
+                self.assertGreaterEqual(p["dimensions"]["voice"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["public_face"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["copy_pitch"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["economics_model"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["deployability"], 9.0)
+            else:
+                self.assertGreaterEqual(p["dimensions"]["deployability"], 7.0)
+                self.assertLess(p["dimensions"]["deployability"], 8.0)
+                self.assertTrue(p.get("proof_maxed"))
+                self.assertFalse(p["maxed"])
+                self.assertGreaterEqual(p["dimensions"]["voice"], 9.0)
+                self.assertGreaterEqual(p["dimensions"]["market_bite"], 9.0)
+
+        fam = self.client.get("/.well-known/family.json")
+        self.assertEqual(fam.status_code, 200)
+        fam_data = fam.get_json()
+        self.assertEqual(fam_data["spec"], "nisaba-family-voices-v1")
+        self.assertEqual(len(fam_data["family"]), 5)
+        erra = self.client.get("/.well-known/family/erra.json").get_json()
+        self.assertIn("EIOPA", erra["market_problem"])
+        self.assertTrue(erra["citations"])
+        verra = self.client.get("/.well-known/family/verra.json").get_json()
+        self.assertIn("bind-only", verra["market_problem"])
+        mish = self.client.get("/.well-known/family/mishara.json").get_json()
+        self.assertIn("FCRA", mish["market_problem"])
+        paste = self.client.get("/family/erra/paste.txt")
+        self.assertEqual(paste.status_code, 200)
+        self.assertIn("Should we act?", paste.get_data(as_text=True))
+        self.assertEqual(self.client.get("/family").status_code, 200)
+        self.assertEqual(self.client.get("/family/verra").status_code, 200)
 
         skin = self.client.get("/.well-known/production-skin.json")
         self.assertEqual(skin.status_code, 200)
-        self.assertFalse(skin.get_json()["their_production"])
+        skin_data = skin.get_json()
+        self.assertFalse(skin_data["their_production"])
+        self.assertEqual(skin_data["spec"], "gate-production-skin-v2")
+        self.assertIn("checklist", skin_data)
+        self.assertIn("dogfood_weld", skin_data)
 
         proof = self.client.get("/.well-known/proof-suite.json")
         self.assertEqual(proof.status_code, 200)
         proof_data = proof.get_json()
         self.assertTrue(proof_data["all_pass"])
         self.assertGreaterEqual(proof_data["pass_count"], 5)
+        self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
+        self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
+
+        rb = self.client.get("/.well-known/runbook.json")
+        self.assertEqual(rb.status_code, 200)
+        self.assertEqual(rb.get_json()["spec"], "gate-runbook-v1")
+
+        sci = self.client.get("/.well-known/science-pri.json")
+        self.assertEqual(sci.status_code, 200)
+        sci_data = sci.get_json()
+        self.assertEqual(sci_data["spec"], "nisaba-science-pri-v1")
+        self.assertFalse(sci_data["own_tier_s"])
+        self.assertFalse(sci_data["force_production_weld"])
+        self.assertIn("Contribute massively", sci_data["motive"])
+        self.assertGreaterEqual(len(sci_data["science"]), 4)
+        self.assertGreaterEqual(len(sci_data["tech"]), 5)
+        self.assertEqual(sci_data["first_weld"]["write"], "withdraw")
+        self.assertIn("can and may", sci_data["tech_thesis"])
+        tech_ids = {t["id"] for t in sci_data["tech"]}
+        self.assertTrue(
+            {"agent_control", "grid_forming", "leo_mesh", "tee_mpc_hsm", "pd_kinetic"}.issubset(tech_ids)
+        )
+        self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
+
+        legal = self.client.get("/.well-known/legal.json")
+        self.assertEqual(legal.status_code, 200)
+        legal_data = legal.get_json()
+        self.assertEqual(legal_data["spec"], "gate-legal-stubs-v1")
+        self.assertTrue(legal_data["ads_floor"]["pixels"]["default_off"])
+        self.assertIn("/privacy", legal_data["privacy"]["url"])
+        self.assertIn("/terms", legal_data["terms"]["url"])
+        privacy_html = self.client.get("/privacy").get_data(as_text=True)
+        self.assertIn("What we collect", privacy_html)
+        terms_html = self.client.get("/terms").get_data(as_text=True)
+        self.assertIn("their_production", terms_html)
+        op_html = self.client.get("/operator").get_data(as_text=True)
+        self.assertIn("their_production: false", op_html)
+        self.assertIn("First weld", op_html)
+        self.assertIn("href=\"/privacy\"", op_html)
+        self.assertIn("href=\"/terms\"", op_html)
+        op_json = self.client.get("/.well-known/operator.json").get_json()
+        self.assertEqual(op_json["first_weld"]["write"], "withdraw")
+        self.assertFalse(op_json["ads_floor"]["their_production"])
+
+        # Dogfood lifts to L3 without flipping their_production
+        dog = self.client.post(
+            "/dogfood",
+            data={
+                "write_path": "/v1/act → withdraw dogfood",
+                "operator": "proof@nisaba.io",
+                "note": "test dogfood",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(dog.status_code, 200)
+        proof2 = self.client.get("/.well-known/proof-suite.json").get_json()
+        self.assertEqual(proof2["readiness"]["level"], 3)
+        self.assertTrue(proof2["readiness"]["dogfood_weld"])
+        self.assertFalse(proof2["their_production"])
+        sc2 = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertAlmostEqual(sc2["dimensions"]["deployability"], 8.5, places=1)
+        self.assertFalse(sc2["their_production"])
+
+        # Production weld without confirm must not flip
+        refuse = self.client.post(
+            "/production-weld",
+            data={
+                "write_path": "POST /job/v1/jobs/x/bind-only",
+                "counterparty": "ops@carrier.example",
+                "note": "their customer bind write",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(refuse.status_code, 200)
+        self.assertFalse(self.client.get("/.well-known/production-skin.json").get_json()["their_production"])
+
+        # Confirmed third-party weld → L4
+        prod = self.client.post(
+            "/production-weld",
+            data={
+                "write_path": "POST /job/v1/jobs/x/bind-only",
+                "counterparty": "ops@carrier.example",
+                "note": "their customer bind write cleared",
+                "confirm": "1",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(prod.status_code, 200)
+        proof3 = self.client.get("/.well-known/proof-suite.json").get_json()
+        self.assertEqual(proof3["readiness"]["level"], 4)
+        self.assertTrue(proof3["their_production"])
+        sc3 = self.client.get("/.well-known/scorecard.json").get_json()
+        self.assertAlmostEqual(sc3["dimensions"]["deployability"], 9.0, places=1)
+        self.assertTrue(sc3["their_production"])
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("scorecard", gate)
         self.assertIn("production_skin", gate)
         self.assertIn("proof_suite", gate)
+        self.assertIn("runbook", gate)
+        self.assertIn("production_weld", gate)
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Not SaaS", body)
+        self.assertIn("Weld a path", body)
         self.assertIn("/register", body)
+        self.assertIn("Fee schedule", body)
+        self.assertNotIn("scarcity is the DENY", body)
+        self.assertNotIn("Weld a door", body)
+        self.assertNotIn("Own the DENY", body)
+
+    def test_no_momo_and_archive_buried(self):
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
+
+        op = self.client.get("/operator").get_data(as_text=True)
+        self.assertNotIn("/mo/mo", op)
+        self.assertIn("their_production: false", op)
+        for path in ("/this", "/bound", "/positioning", "/scanner", "/science", "/dogfood"):
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+            blob = r.headers.get("X-Robots-Tag", "") + r.get_data(as_text=True)
+            self.assertIn("noindex", blob, path)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /this", robots)
+        self.assertIn("Disallow: /production-weld", robots)
+        import app as gate_app
+
+        prev, prev_tok = gate_app.GATE_DEV_MODE, gate_app.OPS_TOKEN
+        try:
+            gate_app.GATE_DEV_MODE = False
+            gate_app.OPS_TOKEN = "secret-ops"
+            refuse = self.client.post(
+                "/production-weld",
+                data={
+                    "write_path": "POST /v1/payouts/x/release",
+                    "counterparty": "ops@carrier.example",
+                    "note": "their customer payout",
+                    "confirm": "1",
+                },
+                follow_redirects=True,
+            )
+            self.assertEqual(refuse.status_code, 200)
+            self.assertIn("Ops token required", refuse.get_data(as_text=True))
+            self.assertFalse(
+                self.client.get("/.well-known/production-skin.json").get_json()["their_production"]
+            )
+        finally:
+            gate_app.GATE_DEV_MODE = prev
+            gate_app.OPS_TOKEN = prev_tok
+
+    def test_zero_saas_stench_on_money_surfaces(self):
+        """Public money face must not smell like Free/Pro seat SaaS or API basement."""
+        banned = (
+            "Get API key",
+            "Get free API",
+            "free API key",
+            "no API key",
+            "Sign up → Pro",
+            "Upgrade to Pro",
+            "Cancel anytime",
+            "Free tier",
+            "1,000 hops / month",
+            "1,000,000 hops",
+            "Lab docs",
+            "Lab login",
+            "Lab account",
+            "Open lab account",
+            "Weld a door",
+            "Mouth economics",
+            "scarcity is the DENY",
+            "Own the DENY",
+            "DEAD kills",
+            "Anthropophagy",
+            "Cybersyn",
+        )
+        for path in ("/", "/pricing", "/operator", "/register", "/trust"):
+            body = self.client.get(path).get_data(as_text=True)
+            for phrase in banned:
+                self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
+        home = self.client.get("/").get_data(as_text=True)
+        self.assertIn("If money is about to leave and should not", home)
+        self.assertIn("Weld a path", home)
+        chrome = home.split("<footer>", 1)[0]
+        for phrase in (
+            "Lab docs",
+            "Lab login",
+            "Lab account",
+            "Get API key",
+            "no API key",
+            "free API key",
+            "Action OS",
+        ):
+            self.assertNotIn(phrase, chrome, f"chrome still shows {phrase}")
+        # Lean chrome: doctrine links are footer-only
+        self.assertNotIn(">Family</a>", chrome)
+        self.assertNotIn(">Stack</a>", chrome)
+        self.assertNotIn(">Status</a>", chrome)
+        self.assertNotIn(">Bind Room</a>", chrome)
+        pricing = self.client.get("/pricing").get_data(as_text=True)
+        self.assertIn("Weld", pricing)
+        self.assertIn("bps", pricing.lower())
+        self.assertNotIn(">Free</h3>", pricing)
+        self.assertNotIn(">Pro</h3>", pricing)
+        self.assertNotIn("Open lab account", pricing)
+        self.assertNotIn("Lab hop docs", pricing)
+        self.assertNotIn("Get API key", home)
+        opp = self.client.get("/.well-known/opportunities.json")
+        if opp.status_code == 200:
+            self.assertTrue(opp.get_json().get("not_saas"))
+        import audiences as audiences_mod
+
+        for plate in audiences_mod.plate_list():
+            blob = " ".join(
+                str(plate.get(k, ""))
+                for k in ("offer", "price", "cta_label", "subhead", "headline")
+            )
+            self.assertNotRegex(blob, r"(?i)get (free )?api key")
+            self.assertNotRegex(blob, r"(?i)free tier")
+            self.assertNotRegex(blob, r"(?i)\$99\s*/\s*mo")
+            self.assertNotIn("scarcity is the DENY", blob)
+            self.assertNotIn("Own the DENY", blob)
+            self.assertNotIn("Weld a door", blob)
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db

@@ -1,13 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Proof suite{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block meta %}
-<meta name="description" content="Fail-closed invariants. {{ manifest.pass_count }}/{{ manifest.total }} pass. Strangers can re-run.">
+<meta name="description" content="Internal proof suite.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Invariants · no theater</p>
+  <p class="audience-tag">Internal invariants · readiness ladder</p>
   <h1>Proof suite</h1>
   <p class="audience-sub">{{ manifest.pass_count }}/{{ manifest.total }} pass · all_pass {{ manifest.all_pass }}</p>
+  <p style="margin: 0.75rem 0;">
+    Readiness <strong>L{{ manifest.readiness.level }}</strong> — {{ manifest.readiness.label }}
+    · deploy {{ manifest.readiness.deployability }}
+    · dogfood {{ manifest.readiness.dogfood_weld }}
+    · their_production {{ manifest.readiness.their_production }}
+  </p>
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 1rem;">
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-primary btn-sm">48hr runbook</a>
+    <a href="{{ url_for('dogfood_page') }}" class="btn btn-accent-outline btn-sm">Dogfood weld</a>
+    <a href="{{ url_for('production_skin_page') }}" class="btn btn-ghost btn-sm">Production skin</a>
+  </div>
   {% for inv in manifest.invariants %}
   <div class="card" style="margin-top: 0.75rem;">
     <p class="audience-tag">{{ inv.id }} · {% if inv.passes %}PASS{% else %}FAIL{% endif %}</p>

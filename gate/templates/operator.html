@@ -1,31 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Weld the door{% endblock %}
+{% block title %}Clearance weld{% endblock %}
 {% block meta %}
-<meta name="description" content="Weld one production write + management leg. {{ weld_price }} + {{ floor_price }} per mouth. Then 10 bps + carry on cleared flow.">
+<meta name="description" content="Weld one withdraw/payout or bind path. {{ weld_price }} + {{ floor_price }} management + 10 bps. their_production false until third-party production weld. Licensed only.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Action OS weld.</strong> One irreversible write for whoever owns the path. Scarcity is the DENY.</span>
-  <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Formula →</a>
+  <span>Default path: payout clear-before-wire. <strong>their_production: false</strong> until a recorded third-party production weld.</span>
+  <a href="{{ url_for('pricing') }}" class="btn btn-ghost btn-sm">Pricing →</a>
 </div>
 <div class="container section">
-  <p class="audience-tag">Checkout · whale path · Action OS</p>
-  <h1>Weld + management. Then flow.</h1>
-  <p class="audience-sub">One irreversible write — withdraw or bind-only. <strong>{{ weld_price }}</strong> to weld. <strong>{{ floor_price }}</strong> per mouth per month (management leg). Then <strong>10 bps</strong> on cleared + <strong>+5 bps</strong> above $500M/mo hurdle. Licensed operators only. No weld without management. We serve everybody who needs a door — this checkout is how the mouth becomes real.</p>
-  <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }}/mo per mouth</span></div>
+  <p class="audience-tag">Checkout · licensed operators</p>
+  <h1>Weld one clearance path</h1>
+  <p class="audience-sub">If money is about to leave and should not, this path blocks it. Default write: <strong>withdraw / payout clear</strong> (or bind-only). <strong>{{ weld_price }}</strong> weld. <strong>{{ floor_price }}</strong> management per path. Then <strong>10 bps</strong> on cleared flow (+5 bps above $500M/mo). Parent license revoked blocks child spend. Licensed operators only. Checkout starts delivery — it does not claim third-party production status.</p>
+  <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }} management per path</span></div>
 
   <div class="card" style="margin: 1.25rem 0;">
-    <h2>Proof chain (forward internally)</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">Counsel and ops can verify the system before checkout — no login.</p>
+    <h2>First weld</h2>
+    <p style="color: var(--muted); margin-bottom: 0.5rem;">{{ first_weld.why }}</p>
+    <p style="font-size: 0.9rem;">write: <code>{{ first_weld.write }}</code> · next after proof: <code>{{ first_weld.next_after_prove }}</code></p>
+  </div>
+
+  <div class="card" style="margin: 1.25rem 0;">
+    <h2>Documents</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Counsel and ops can review before checkout.</p>
     <p style="font-size: 0.9rem;">
-      <a href="{{ url_for('register_page') }}">κ register</a> ·
-      <a href="{{ url_for('action_os_page') }}">Action OS</a> ·
-      <a href="{{ url_for('well_known_kappa') }}">kappa.json</a> ·
-      <a href="{{ url_for('well_known_schism') }}">schism.json</a> ·
-      <a href="https://velaru.xyz/verify">stranger verify</a> ·
-      <a href="{{ url_for('index') }}#demo-hop-btn">live hop demo</a> ·
-      <a href="/export/operator-one-pager.txt">one-pager paste</a> ·
-      <a href="https://velaru.xyz/legal/processor-one-pager.txt">processor embed</a>
+      <a href="{{ url_for('register_page') }}">Fee schedule</a> ·
+      <a href="{{ url_for('well_known_kappa') }}">restraint inventory (kappa.json)</a> ·
+      <a href="{{ url_for('well_known_schism') }}">settlement schedule (schism.json)</a> ·
+      <a href="https://velaru.xyz/verify">Verify</a> ·
+      <a href="{{ url_for('privacy_page') }}">Privacy</a> ·
+      <a href="{{ url_for('terms_page') }}">Terms</a>
     </p>
   </div>
 
@@ -33,34 +37,32 @@
     <div class="card">
       <h3>Weld</h3>
       <ul class="check-list">
-        <li>One production path, fail-closed</li>
-        <li>Ticket married to that write</li>
-        <li>Parent license fuse available</li>
-        <li>48hr delivery</li>
+        <li>One irreversible write path</li>
+        <li>Fail closed if uncertain</li>
+        <li>Ticket bound to that write</li>
+        <li>48hr delivery window</li>
       </ul>
     </div>
     <div class="card">
       <h3>Management</h3>
       <ul class="check-list">
-        <li>{{ floor_price }} / welded write / mo</li>
-        <li>{{ floor_price }} / LIVE parent / mo</li>
-        <li>Fund 2%-analog — rent the mouth</li>
+        <li>{{ floor_price }} per welded path</li>
+        <li>{{ floor_price }} per active parent license</li>
         <li>Required at checkout</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Flow register</h3>
+      <h3>Flow fees</h3>
       <ul class="check-list">
         <li>10 bps cleared</li>
         <li>+5 bps above $500M/mo</li>
-        <li>$0.10/hop if hops win</li>
-        <li>Stacks with management</li>
+        <li>$0.10/hop if hops bill</li>
       </ul>
     </div>
   </div>
 
   <div class="card install-checkout-card">
-    <h2>Pay → mouth goes live</h2>
+    <h2>Pay to start delivery</h2>
     {% if stripe_operator %}
     <form method="post" action="{{ url_for('operator_checkout') }}" class="install-form">
       <input type="hidden" name="include_floor" value="1">
@@ -69,19 +71,27 @@
         <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
       </div>
       <div class="form-group">
-        <label for="write">The one write</label>
+        <label for="write">Write path</label>
         <select id="write" name="write" required>
-          <option value="withdraw">Withdraw / payout — clear before wire</option>
-          <option value="bind_only">Bind-only — policy becomes Bound</option>
+          <option value="withdraw" selected>Withdraw / payout — clear before wire</option>
+          <option value="bind_only">Bind-only</option>
         </select>
       </div>
       <button type="submit" class="btn btn-primary btn-lg">Pay {{ weld_price }} + start {{ floor_price }} management</button>
-      <p class="fine-print">Non-refundable weld. Management is monthly until cancelled. Unlicensed gambling = void. One write. fuse_id + job_id only — no PII. <a href="{{ url_for('register_page') }}">The register</a> · <a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="https://velaru.xyz/instant">Velaru proof sandbox</a></p>
+      <p class="fine-print">Non-refundable weld. Management monthly until cancelled. Unlicensed gambling voids the path. One write. Identifiers only — no PII on the hop. their_production stays false until third-party production weld. <a href="{{ url_for('privacy_page') }}">Privacy</a> · <a href="{{ url_for('terms_page') }}">Terms</a></p>
     </form>
     {% else %}
-    <p>Checkout is not wired yet. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld%20%2B%20management">{{ contact_email }}</a> — weld + management, which write.</p>
-    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Gate%20weld%20%2B%20management">Email weld + management</a>
+    <p>Checkout not configured. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld">{{ contact_email }}</a> — weld + management, which write (default: payout clear).</p>
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Gate%20weld">Email weld request</a>
     {% endif %}
   </div>
 </div>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var write = params.get("write");
+  var sel = document.getElementById("write");
+  if (sel && (write === "withdraw" || write === "bind_only")) sel.value = write;
+})();
+</script>
 {% endblock %}

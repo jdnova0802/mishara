@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}48hr runbook{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }} Proof → dogfood → their_production.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Production path · 48hr · no theater</p>
+  <h1>48hr runbook</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="margin: 0.75rem 0;">
+    Proof {{ manifest.proof.pass_count }}/{{ manifest.proof.total }}
+    · all_pass {{ manifest.proof.all_pass }}
+    · dogfood {{ manifest.skin.dogfood_weld }}
+    · their_production {{ manifest.skin.their_production }}
+  </p>
+  {% for s in manifest.steps %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">Hour {{ s.hour }}</p>
+    <h3>{{ s.title }}</h3>
+    <p style="color: var(--muted); margin-top: 0.35rem;">{{ s.do }}</p>
+    <a href="{{ s.href }}" class="btn btn-ghost btn-sm" style="margin-top: 0.5rem;">Open →</a>
+  </div>
+  {% endfor %}
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_runbook') }}" class="btn btn-ghost btn-sm">runbook.json</a>
+    <a href="{{ url_for('proof_page') }}" class="btn btn-primary btn-sm">Proof suite</a>
+    <a href="{{ url_for('dogfood_page') }}" class="btn btn-accent-outline btn-sm">Dogfood</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,42 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Stack map{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,follow">{% endblock %}
 {% block meta %}
-<meta name="description" content="One stack, three doors. Gate production mouth. Velaru proof + verify. Mishara consumer only. Default before the irreversible act.">
+<meta name="description" content="Gate clearance weld. Velaru independent verify. Same fee schedule.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Nisaba LLC · one stack</p>
+  <p class="audience-tag">Nisaba LLC · stack</p>
   <h1>Stack map</h1>
-  <p class="audience-sub"><strong>One thesis:</strong> default before the irreversible act — wire, bind, withdraw, list. <strong>One stack, three doors.</strong> Gate is production. Velaru is proof. Mishara is consumer harm only.</p>
+  <p class="audience-sub">Clearance before the irreversible write. Gate welds the path. Velaru proves the receipt. Fees: weld + management + bps on cleared flow.</p>
 
   <div class="grid-3" style="margin-top: 2rem;">
     <div class="card">
-      <h3>Velaru · proof</h3>
-      <p style="color: var(--muted);">Stranger verify · instant $49 · payout gate · MCP fuse · operator clauses. Sandbox before production weld.</p>
-      <a class="btn btn-ghost" href="https://velaru.xyz/instant" target="_blank" rel="noopener">velaru.xyz/instant →</a>
+      <h3>Velaru · verify</h3>
+      <p style="color: var(--muted);">Independent verify · signed receipts · no login.</p>
+      <a class="btn btn-ghost" href="https://velaru.xyz/verify" target="_blank" rel="noopener">velaru.xyz/verify →</a>
     </div>
     <div class="card featured-path">
-      <h3>Gate · production</h3>
-      <p style="color: var(--muted);">Weld one write · {{ weld_price }} + {{ floor_price }} management · κ register · 10 bps on cleared flow.</p>
+      <h3>Gate · production clearance</h3>
+      <p style="color: var(--muted);">Weld one write · {{ weld_price }} + {{ floor_price }} management · 10 bps on cleared flow.</p>
       <a class="btn btn-primary" href="{{ url_for('operator_page') }}">Weld →</a>
     </div>
     <div class="card">
-      <h3>Mishara · consumer</h3>
-      <p style="color: var(--muted);">AI harm receipts for individuals. Not operator infrastructure. Not this checkout.</p>
-      <a class="btn btn-ghost" href="https://mishara.app/" target="_blank" rel="noopener">mishara.app →</a>
+      <h3>Fee schedule</h3>
+      <p style="color: var(--muted);">Weld + path management + bps. Licensed operators.</p>
+      <a class="btn btn-ghost" href="{{ url_for('register_page') }}">Fees →</a>
     </div>
   </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2>GTM this week</h2>
-    <p style="color: var(--muted);">One civilization per email — not all three doors. Operator payout: Velaru <a href="https://velaru.xyz/gaming">/gaming</a>. Production: Gate <a href="{{ url_for('operator_page') }}">/operator</a>. Proof: Velaru <a href="https://velaru.xyz/instant">/instant</a>.</p>
-  </div>
-
-  <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted);">
-    <a href="{{ url_for('register_page') }}">κ register</a> ·
-    <a href="{{ url_for('positioning_page') }}">Positioning</a> ·
-    <a href="https://velaru.xyz/verify">Stranger verify</a> ·
-    <a href="{{ url_for('well_known_gate') }}">gate.json</a>
-  </p>
 </div>
 {% endblock %}

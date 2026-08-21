@@ -1,55 +1,27 @@
 {% extends "base.html" %}
-{% block title %}Positioning{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Internal positioning notes{% endblock %}
 {% block meta %}
-<meta name="description" content="Gate positioning: cybernetic ops, maintenance futurism, intergenerational mouth, post-bind possibility, anthropophagy, public verify.">
+<meta name="description" content="Internal notes. Buyer surface is Weld / Fees / Trust.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Brand · deploy-facing</p>
-  <h1>Borrowed lenses. Operational meaning.</h1>
-  <p class="audience-sub">{{ headline }}</p>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2 style="margin-bottom: 0.5rem;">In plain terms</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">{{ focus_plain }}</p>
-    <div class="grid-2">
-      <div>
-        <p class="audience-tag" style="margin-bottom: 0.5rem;">For</p>
-        <ul class="check-list">
-          {% for person in focus_for %}
-          <li>{{ person }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div>
-        <p class="audience-tag" style="margin-bottom: 0.5rem;">Next steps</p>
-        <div class="hero-actions" style="justify-content: flex-start; flex-wrap: wrap; gap: 0.5rem;">
-          {% for step in next_steps %}
-          <a href="{{ url_for(step.endpoint) }}" class="btn {{ step.style }} btn-sm">{{ step.label }}</a>
-          {% endfor %}
-        </div>
-      </div>
+  <p class="audience-tag">Internal · archive</p>
+  <h1>Positioning notes</h1>
+  <p class="audience-sub">Internal reference only. Public door: clearance before withdraw, payout, or bind.</p>
+  <div class="card" style="margin-top: 1.25rem;">
+    <h2>Buyer facts</h2>
+    <ul class="check-list">
+      <li>Fail closed under uncertainty</li>
+      <li>Parent license revoked blocks child spend</li>
+      <li>Independent verify — no login</li>
+      <li><code>their_production: false</code> until third-party production weld</li>
+      <li>Fees: weld + path management + bps on cleared flow</li>
+    </ul>
+    <div class="hero-actions" style="justify-content:flex-start;margin-top:1rem;">
+      <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld</a>
+      <a href="{{ url_for('trust') }}" class="btn btn-ghost btn-sm">Trust</a>
     </div>
-  </div>
-
-  <div class="grid-3" style="margin-top: 2rem;">
-    {% for card in cards %}
-    <div class="card">
-      <p class="audience-tag" style="margin-bottom: 0.5rem;">{{ card.tag }} · {{ card.ref }}</p>
-      <h3>{{ card.title }}</h3>
-      <p style="color: var(--muted);">{{ card.body }}</p>
-    </div>
-    {% endfor %}
-  </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2>Machine-readable</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">Full positioning manifest for agents, partners, and future you.</p>
-    <a href="{{ url_for('well_known_positioning') }}" class="btn btn-ghost btn-sm">positioning.json</a>
-    <a href="{{ url_for('action_os_page') }}" class="btn btn-primary btn-sm">Action OS</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-accent-outline btn-sm">The register</a>
-    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld →</a>
-    <a href="{{ url_for('focus_hub') }}" class="btn btn-ghost btn-sm">GTM focus</a>
   </div>
 </div>
 {% endblock %}

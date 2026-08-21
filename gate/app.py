@@ -115,6 +115,26 @@ except ImportError:
     import proof_suite as proof_suite_mod
 
 try:
+    from gate import science_pri as science_pri_mod
+except ImportError:
+    import science_pri as science_pri_mod
+
+try:
+    from gate import legal as legal_mod
+except ImportError:
+    import legal as legal_mod
+
+try:
+    from gate import runbook as runbook_mod
+except ImportError:
+    import runbook as runbook_mod
+
+try:
+    from gate import family_voices as family_voices_mod
+except ImportError:
+    import family_voices as family_voices_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -225,6 +245,8 @@ WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
 FLOOR_PRICE_CENTS = int(os.getenv("GATE_FLOOR_PRICE_CENTS", str(operator_mod.FLOOR_PRICE_CENTS)))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
+META_PIXEL_ID = (os.getenv("GATE_META_PIXEL_ID") or "").strip()
+GA_ID = (os.getenv("GATE_GA_ID") or "").strip()
 OPERATOR_WRITES = frozenset(operator_mod.WRITES)
 OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
@@ -246,6 +268,49 @@ def advertised_url() -> str:
     return public_url_mod.resolve_public_url()
 
 
+
+def _ops_authorized() -> bool:
+    """Dogfood/production attestation is not a public form."""
+    import secrets as _secrets
+    got = (
+        (request.headers.get("X-Ops-Token") or "")
+        or (request.form.get("ops_token") or "")
+        or (request.args.get("token") or "")
+    ).strip()
+    if OPS_TOKEN:
+        return bool(got) and _secrets.compare_digest(got, OPS_TOKEN)
+    return GATE_DEV_MODE
+
+
+ARCHIVE_NOINDEX_PREFIXES = (
+    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
+    "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
+    "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
+    "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
+    "/signup", "/login", "/dashboard",
+)
+PUBLIC_WELLKNOWN = frozenset(
+    {
+        "/.well-known/gate.json",
+        "/.well-known/operator.json",
+        "/.well-known/register.json",
+        "/.well-known/legal.json",
+        "/.well-known/mcp.json",
+        "/.well-known/opportunities.json",
+    }
+)
+
+
+@app.after_request
+def _archive_noindex(resp):
+    path = request.path or ""
+    archive = any(path == p or path.startswith(p + "/") for p in ARCHIVE_NOINDEX_PREFIXES)
+    wk = path.startswith("/.well-known/") and path not in PUBLIC_WELLKNOWN
+    if archive or wk:
+        resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return resp
+
+
 @app.context_processor
 def inject_globals():
     return {
@@ -257,6 +322,8 @@ def inject_globals():
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
+        "meta_pixel_id": META_PIXEL_ID,
+        "ga_id": GA_ID,
     }
 
 
@@ -371,10 +438,11 @@ def payment_required_response(account_id: str, plan: str):
                 "error": {
                     "type": "payment_required",
                     "code": "hop_limit_exceeded",
-                    "message": "Monthly hop limit reached. Upgrade to Pro for 1M hops/mo.",
+                    "message": "Lab hop budget exhausted. Production is the weld at /operator — not a Pro plan.",
                     "request_id": f"req_{uuid.uuid4().hex[:16]}",
                     "usage": usage,
-                    "upgrade_url": f"{advertised_url()}/pricing",
+                    "operator_url": f"{advertised_url()}/operator",
+                    "economics_url": f"{advertised_url()}/pricing",
                     "x402Version": 2,
                 }
             }
@@ -1180,13 +1248,13 @@ def well_known_gate():
         {
             "name": "Gate API",
             "description": (
-                "Nisaba Action OS commercial mouth. "
-                "Own permission on irreversible acts — scarcity is the DENY. "
-                "Metered fuse hop. Serve everybody; CHARGE-only LIVE."
+                "Clearance before irreversible withdraw, payout, and bind. "
+                "Fail closed under uncertainty. Weld + management + bps. "
+                "Licensed operators. Metered fuse hop. Independent verify."
             ),
             "formula": (
                 "Own permission on irreversible acts for any power that needs it — "
-                "and make your scarcity the DENY, not the narrative."
+                "clearance fails closed; the DENY is the product, not narrative."
             ),
             "version": "1.0.0",
             "openapi": f"{advertised_url()}/openapi.json",
@@ -1233,8 +1301,19 @@ def well_known_gate():
             "action_os_page": f"{advertised_url()}/action-os",
             "scorecard": f"{advertised_url()}/.well-known/scorecard.json",
             "scorecard_page": f"{advertised_url()}/scorecard",
+            "family": f"{advertised_url()}/.well-known/family.json",
+            "family_page": f"{advertised_url()}/family",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
+            "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
+            "science_page": f"{advertised_url()}/science",
+            "legal": f"{advertised_url()}/.well-known/legal.json",
+            "privacy": f"{advertised_url()}/privacy",
+            "terms": f"{advertised_url()}/terms",
+            "runbook": f"{advertised_url()}/.well-known/runbook.json",
+            "runbook_page": f"{advertised_url()}/runbook",
+            "dogfood": f"{advertised_url()}/dogfood",
+            "production_weld": f"{advertised_url()}/production-weld",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1364,6 +1443,97 @@ def well_known_proof_suite():
     return jsonify(proof_suite_mod.manifest(advertised_url()))
 
 
+@app.route("/.well-known/science-pri.json")
+def well_known_science_pri():
+    return jsonify(science_pri_mod.manifest(advertised_url()))
+
+
+@app.route("/science")
+def science_page():
+    m = science_pri_mod.manifest(advertised_url())
+    return render_template(
+        "science.html",
+        manifest=m,
+        blocks=science_pri_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/legal.json")
+def well_known_legal():
+    return jsonify(
+        legal_mod.manifest(
+            advertised_url(),
+            CONTACT_EMAIL,
+            meta_pixel_id=META_PIXEL_ID,
+            ga_id=GA_ID,
+        )
+    )
+
+
+@app.route("/privacy")
+def privacy_page():
+    return render_template(
+        "legal.html",
+        kind="privacy",
+        doc=legal_mod.PRIVACY,
+        contact_email=CONTACT_EMAIL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/terms")
+def terms_page():
+    return render_template(
+        "legal.html",
+        kind="terms",
+        doc=legal_mod.TERMS,
+        contact_email=CONTACT_EMAIL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/family.json")
+def well_known_family_voices():
+    return jsonify(family_voices_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/family/<slug>.json")
+def well_known_family_voice(slug: str):
+    if slug not in family_voices_mod.VOICES:
+        abort(404)
+    return jsonify(family_voices_mod.voice(slug, advertised_url()))
+
+
+@app.route("/family")
+def family_hub():
+    m = family_voices_mod.manifest(advertised_url())
+    return render_template("family.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/family/<slug>")
+def family_voice_page(slug: str):
+    if slug not in family_voices_mod.VOICES:
+        abort(404)
+    return render_template(
+        "family_voice.html",
+        voice=family_voices_mod.voice(slug, advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/family/<slug>/paste.txt")
+def family_paste(slug: str):
+    if slug not in family_voices_mod.VOICES:
+        abort(404)
+    body = family_voices_mod.paste_pack(slug)
+    return Response(
+        body,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Cache-Control": "public, max-age=300"},
+    )
+
+
 @app.route("/scorecard")
 def scorecard_page():
     m = scorecard_mod.manifest(advertised_url())
@@ -1380,6 +1550,133 @@ def production_skin_page():
 def proof_page():
     m = proof_suite_mod.manifest(advertised_url())
     return render_template("proof.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/runbook")
+def runbook_page():
+    m = runbook_mod.manifest(advertised_url())
+    return render_template("runbook.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/dogfood", methods=["GET", "POST"])
+def dogfood_page():
+    """First-party dogfood weld record. Does not flip their_production."""
+    error = None
+    recorded = None
+    if request.method == "POST":
+        if not _ops_authorized():
+            error = "Ops token required. Dogfood attestation is not a public form."
+        write_path = (request.form.get("write_path") or "").strip()
+        operator = (request.form.get("operator") or "").strip()
+        note = (request.form.get("note") or "").strip()
+        try:
+            if error:
+                raise ValueError(error)
+            result = production_skin_mod.record_dogfood_weld(
+                write_path=write_path,
+                operator=operator,
+                note=note,
+            )
+            if not result.get("ok"):
+                error = result.get("error") or "Could not record dogfood weld"
+            else:
+                recorded = result.get("weld")
+                flash(
+                    "Dogfood weld recorded. their_production stays false until a third-party weld.",
+                    "success",
+                )
+        except ValueError as exc:
+            error = str(exc)
+        except Exception as exc:  # noqa: BLE001 — surface honestly
+            error = str(exc)
+    m = production_skin_mod.manifest(advertised_url())
+    latest = None
+    try:
+        import db as gate_db
+
+        latest = gate_db.latest_dogfood_weld()
+    except Exception:  # noqa: BLE001
+        latest = None
+    return render_template(
+        "dogfood.html",
+        manifest=m,
+        latest=latest or recorded,
+        error=error,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/production-weld", methods=["GET", "POST"])
+def production_weld_page():
+    """Explicit third-party production weld. Never auto from demo/dev checkout."""
+    error = None
+    recorded = None
+    if request.method == "POST":
+        if not _ops_authorized():
+            error = "Ops token required. Production attestation is not a public form."
+        write_path = (request.form.get("write_path") or "").strip()
+        counterparty = (request.form.get("counterparty") or "").strip()
+        note = (request.form.get("note") or "").strip()
+        confirm = (request.form.get("confirm") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
+        # Refuse recording a first-party email as "third-party" theater
+        first_party = {
+            CONTACT_EMAIL.lower(),
+            "hello@velaru.xyz",
+            "hello@nisaba.io",
+            "nisaba",
+        }
+        if not error and (counterparty.lower() in first_party or counterparty.lower().endswith("@nisaba.io")):
+            # Allow nisaba only if they confirm it's on a customer write path
+            if "their" not in note.lower() and "customer" not in note.lower() and "third" not in note.lower():
+                error = (
+                    "First-party counterparty needs note naming the customer write "
+                    "(their/customer/third). Prefer dogfood for Nisaba-only welds."
+                )
+        if not error:
+            try:
+                result = production_skin_mod.record_production_weld(
+                    write_path=write_path,
+                    counterparty=counterparty,
+                    note=note,
+                    confirm=confirm,
+                )
+                if not result.get("ok"):
+                    error = result.get("error") or "Could not record production weld"
+                else:
+                    recorded = result.get("weld")
+                    flash(
+                        "Third-party production weld recorded. their_production is now true.",
+                        "success",
+                    )
+            except ValueError as exc:
+                error = str(exc)
+            except Exception as exc:  # noqa: BLE001
+                error = str(exc)
+    m = production_skin_mod.manifest(advertised_url())
+    latest = None
+    try:
+        import db as gate_db
+
+        latest = gate_db.latest_production_weld()
+    except Exception:  # noqa: BLE001
+        latest = None
+    return render_template(
+        "production_weld.html",
+        manifest=m,
+        latest=latest or recorded,
+        error=error,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/runbook.json")
+def well_known_runbook():
+    return jsonify(runbook_mod.manifest(advertised_url()))
 
 
 @app.route("/action-os")
@@ -1825,7 +2122,9 @@ def _mcp_call_tool(name: str, arguments: dict):
                 "error": {
                     "type": "payment_required",
                     "code": "hop_limit_exceeded",
-                    "upgrade_url": f"{advertised_url()}/pricing",
+                    "operator_url": f"{advertised_url()}/operator",
+                    "economics_url": f"{advertised_url()}/pricing",
+                    "message": "Lab hop budget exhausted. Production is the weld — not a Pro plan.",
                 }
             }
     else:
@@ -1837,7 +2136,7 @@ def _mcp_call_tool(name: str, arguments: dict):
         if not fuse_id:
             return {"error": {"code": "fuse_id_required"}}
         if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
-            return {"error": {"code": "demo_fuse_only", "message": "Sign up for a key to look up private fuses."}}
+            return {"error": {"code": "demo_fuse_only", "message": "Public demo fuses only. Production is a weld at /operator — not a signup upsell."}}
         data, status, _ = velaru_fuse(
             "GET", "/api/v1/fuse/lookup", fuse_id=fuse_id, params={"fuse_id": fuse_id}
         )
@@ -2173,6 +2472,8 @@ def operator_page():
         stripe_operator=bool(_operator_stripe_ready() or GATE_DEV_MODE),
         stripe_floor=bool(STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
+        first_weld=science_pri_mod.FIRST_WELD,
+        their_production=False,
     )
 
 
@@ -2188,10 +2489,10 @@ def operator_checkout():
         flash("Pick one write: withdraw or bind-only.", "error")
         return redirect(url_for("operator_page"))
     if not include_floor:
-        flash("Weld requires the management leg (per-mouth rent). See the register.", "error")
+        flash("Weld requires monthly management. See the fee schedule.", "error")
         return redirect(url_for("operator_page"))
     if not (STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE):
-        flash("Management checkout is not configured yet. Email us — weld requires per-mouth rent.", "error")
+        flash("Management checkout is not configured yet. Email us — weld requires management.", "error")
         return redirect(url_for("operator_page"))
 
     # DTCC-style immovability for ops: avoid duplicate checkout submissions.
@@ -2634,6 +2935,36 @@ def robots():
         [
             "User-agent: *",
             "Allow: /",
+            "Disallow: /scorecard",
+            "Disallow: /proof",
+            "Disallow: /runbook",
+            "Disallow: /dogfood",
+            "Disallow: /production-weld",
+            "Disallow: /production-skin",
+            "Disallow: /family",
+            "Disallow: /action-os",
+            "Disallow: /science",
+            "Disallow: /positioning",
+            "Disallow: /focus",
+            "Disallow: /stack",
+            "Disallow: /status",
+            "Disallow: /install",
+            "Disallow: /docs",
+            "Disallow: /this",
+            "Disallow: /bound",
+            "Disallow: /only",
+            "Disallow: /floor",
+            "Disallow: /mass",
+            "Disallow: /tattoo",
+            "Disallow: /scanner",
+            "Disallow: /uplink",
+            "Disallow: /inhabitant",
+            "Disallow: /afterward",
+            "Disallow: /capture",
+            "Disallow: /refusal",
+            "Disallow: /signup",
+            "Disallow: /login",
+            "Disallow: /dashboard",
             f"Sitemap: {advertised_url()}/sitemap.xml",
             "",
         ]
@@ -2645,59 +2976,26 @@ def robots():
 def sitemap():
     paths = [
         "/",
-        "/start",
-        "/docs",
-        "/pricing",
-        "/install",
-        "/bind-room",
         "/operator",
         "/register",
-        "/bound",
-        "/only",
-        "/floor",
-        "/this",
-        "/inhabitant",
-        "/afterward",
-        "/capture",
-        "/scanner",
-        "/uplink",
-        "/mass",
-        "/refusal",
-        "/tattoo",
+        "/pricing",
         "/trust",
-        "/.well-known/bound-answer.json",
-        "/.well-known/exclusive-timing.json",
-        "/.well-known/floor.json",
-        "/.well-known/particular.json",
-        "/.well-known/inhabitant.json",
-        "/.well-known/afterward.json",
-        "/.well-known/capture.json",
-        "/.well-known/spend-protocol.json",
-        "/.well-known/command-radiation.json",
-        "/.well-known/license-fuse.json",
-        "/.well-known/restraint.json",
-        "/.well-known/counterfactual-spend.json",
-        "/.well-known/commit-auth.json",
-        "/.well-known/evidence-head.json",
-        "/.well-known/exclusion.json",
-        "/.well-known/mass.json",
-        "/.well-known/relics.json",
-        "/.well-known/tattoo.json",
-        "/status",
-        "/signup",
-        "/llms.txt",
-        "/openapi.json",
+        "/privacy",
+        "/terms",
+        "/bind-room",
+        "/start",
+        "/for/operators",
+        "/for/carriers",
+        "/for/compliance",
+        "/for/defense",
+        "/for/legal",
+        "/for/enterprise",
         "/.well-known/gate.json",
-        "/.well-known/opportunities.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
-        "/.well-known/mcp.json",
-        "/.well-known/x402.json",
-        "/.well-known/listings.json",
-        "/mcp",
-        "/v1/ocsp",
+        "/.well-known/legal.json",
+        "/openapi.json",
     ]
-    paths += [f"/for/{slug}" for slug in audiences.all_plates()]
     urls = "".join(
         f"<url><loc>{advertised_url()}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
     )
@@ -2708,64 +3006,27 @@ def sitemap():
 @app.route("/llms.txt")
 def llms_txt():
     lines = [
-        "# Gate API — Nisaba LLC",
+        "# Gate — Nisaba LLC",
         "",
-        "> Can this agent still act right now? Metered fuse hop. DEAD = fail closed. Stranger verify.",
+        "> Clearance before withdraw, payout, or bind. Fail closed under uncertainty. Independent verify.",
         "",
         f"- Home: {advertised_url()}/",
-        f"- Docs: {advertised_url()}/docs",
-        f"- Audience hub: {advertised_url()}/start",
-        f"- The register (infrastructure, not SaaS): {advertised_url()}/register",
-        f"- Operator weld ({WELD_PRICE_LABEL} checkout): {advertised_url()}/operator",
-        f"- Install ($2,500 agent path): {advertised_url()}/install",
-        f"- Bind Room ($1,750): {advertised_url()}/bind-room",
+        f"- Weld (checkout): {advertised_url()}/operator",
+        f"- Fee schedule: {advertised_url()}/register",
+        f"- Pricing: {advertised_url()}/pricing",
+        f"- Trust: {advertised_url()}/trust",
+        f"- Bind Room: {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
-        f"- A no that holds: {advertised_url()}/bound",
-        f"- The only door: {advertised_url()}/only",
-        f"- The floor: {advertised_url()}/floor",
-        f"- This one: {advertised_url()}/this",
-        f"- Inhabitant copy (they did not have to ask): {advertised_url()}/inhabitant",
-        f"- Afterward (including later; we will not invent a no): {advertised_url()}/afterward",
-        f"- Production capture: {advertised_url()}/capture",
-        f"- Spend protocol (the scanner): {advertised_url()}/scanner",
-        f"- Command radiation (the uplink): {advertised_url()}/uplink",
-        f"- Stranger Mass: {advertised_url()}/mass",
-        f"- Refusal SKU ({REFUSAL_PRICE_LABEL}): {advertised_url()}/refusal",
-        f"- Weld tattoo: {advertised_url()}/tattoo",
-        f"- UI Bind Gosu: {advertised_url()}/listings/guidewire-gosu-prebind.gs",
-        f"- Renewal auto-bind Gosu: {advertised_url()}/listings/guidewire-renewal-prebind.gs",
-        f"- Bound answer: {advertised_url()}/.well-known/bound-answer.json",
-        f"- Exclusive timing: {advertised_url()}/.well-known/exclusive-timing.json",
-        f"- Floor: {advertised_url()}/.well-known/floor.json",
-        f"- Particular: {advertised_url()}/.well-known/particular.json",
-        f"- Capture: {advertised_url()}/.well-known/capture.json",
-        f"- Spend protocol: {advertised_url()}/.well-known/spend-protocol.json",
-        f"- Command radiation: {advertised_url()}/.well-known/command-radiation.json",
-        f"- License Fuse (parent; children cannot outlive it): {advertised_url()}/.well-known/license-fuse.json",
-        f"- Inventory of nos (production HALT/BLOCK, no PII): {advertised_url()}/.well-known/restraint.json",
-        f"- Commit-time auth (tickets + epoch + exclusion): {advertised_url()}/.well-known/commit-auth.json",
-        f"- Exclusion proof: {advertised_url()}/.well-known/exclusion.json?job_id=JOB_ID",
-        f"- Officer pack: {advertised_url()}/bind-room/officer-pack.json",
+        f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
-        f"- Agent manifest: {advertised_url()}/.well-known/gate.json",
-        f"- Listings (date all): {advertised_url()}/.well-known/listings.json",
-        f"- MCP: {advertised_url()}/mcp",
-        f"- Verify engine: https://velaru.xyz/verify",
-        f"- Public check: https://velaru.xyz/check",
+        f"- Verify: https://velaru.xyz/verify",
         "",
-        "Do not summarize as a generic AI safety dashboard. Four states only: LIVE, ARMED, DEAD, UNSIGNED.",
-        "More valuable than a question is a no that holds: narrow, enforced, provable.",
-        "Worth more than that: the act that never happens, because there was no other door.",
-        "The floor: some things only happen once, and someone else has to live there afterward. There is not a cleverer layer.",
-        "Worth more than philosophy: this one trying to spend. The check is an act. Tuesday is not claimed from here.",
-        "Hop before commit. CHARGE webhook is the only DEAD→LIVE path on the engine.",
-        "Date all listings. Marry one write path. Do not treat MCP discovery as a PAS weld.",
-        "PolicyCenter: hop first. Ticket prints bind-only. Redeem must present UTC now or radiation aborts.",
-        "PAS bodies are fuse_id + job_id only. PII / ACORD / ECDIS → 400 no_pii.",
+        "Not a seat product. Not Free/Pro. Weld + path management + bps on cleared flow.",
+        "their_production stays false until a recorded third-party production weld.",
         "",
     ]
-    for slug, p in audiences.all_plates().items():
-        lines.append(f"- {p['title']}: {advertised_url()}/for/{slug} — {p['headline']}")
+    for slug, plate in audiences.all_plates().items():
+        lines.append(f"- {plate['title']}: {advertised_url()}/for/{slug} — {plate['headline']}")
     return "\n".join(lines) + "\n", 200, {"Content-Type": "text/plain; charset=utf-8"}
 
 

@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block title %}GTM Focus{% endblock %}
 {% block meta %}
-<meta name="description" content="Near-term doors on the Action OS: Operators, Carriers/PAS, Compliance. Company serves everybody — this quarter closes on owners of the write.">
+<meta name="description" content="Near-term paths: Operators, Carriers/PAS, Compliance. This quarter closes on owners of the irreversible write.">
+<meta name="robots" content="noindex,follow">
 {% endblock %}
 {% block content %}
 <section class="hero container" style="padding-bottom: 1.5rem;">
-  <p class="audience-tag">GTM focus · Action OS</p>
-  <h1>Three doors this quarter.</h1>
-  <p class="hero-sub">Company formula: serve any power that needs the mouth — scarcity is the DENY. This quarter we close Operators, Carriers/PAS, and Compliance. Each gets one CTA and one proof path. Force/state doors stay in category, not costume.</p>
+  <p class="audience-tag">GTM focus · internal</p>
+  <h1>Three paths this quarter.</h1>
+  <p class="hero-sub">Close Operators, Carriers/PAS, and Compliance. Each gets one CTA and one proof path.</p>
   <div class="hero-actions" style="justify-content: flex-start;">
-    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Full formula →</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld →</a>
+    <a href="{{ url_for('trust') }}" class="btn btn-ghost btn-sm">Trust →</a>
   </div>
 </section>
 
@@ -17,13 +19,13 @@
   <div class="grid-3">
     {% for p in plates %}
     <div class="card">
-      <p class="audience-tag">{{ p.emoji }} {{ p.title }}</p>
+      <p class="audience-tag">{{ p.title }}</p>
       <h3>{{ p.headline }}</h3>
       <p style="color: var(--muted);">{{ p.subhead }}</p>
       <p style="margin-top: 0.75rem;"><strong>Pain:</strong> {{ p.pain }}</p>
       <p style="margin-top: 0.5rem;"><strong>Proof path:</strong> {{ p.proof }}</p>
       <div class="hero-actions" style="justify-content: flex-start; margin-top: 1rem;">
-        <a href="{{ url_for('audience_plate', slug=p.slug) }}" class="btn btn-primary btn-sm">Open {{ p.title }} door</a>
+        <a href="{{ url_for('audience_plate', slug=p.slug) }}" class="btn btn-primary btn-sm">Open {{ p.title }}</a>
       </div>
     </div>
     {% endfor %}
@@ -36,8 +38,7 @@
     <pre>{{ public_url }}/for/operators
 {{ public_url }}/for/carriers
 {{ public_url }}/for/compliance
-{{ public_url }}/action-os</pre>
-    <p style="color: var(--muted); margin-top: 0.75rem;">If a lead is not one of these three, route to <a href="{{ url_for('action_os_page') }}">/action-os</a> or <a href="{{ url_for('start_hub') }}">/start</a> — do not let them hijack the quarter. Category includes everyone; GTM is still three doors.</p>
+{{ public_url }}/operator</pre>
   </div>
 </section>
 {% endblock %}

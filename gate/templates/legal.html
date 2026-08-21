@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ doc.title }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ doc.summary }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Legal stub · not counsel opinion · {{ doc.status }}</p>
+  <h1>{{ doc.title }}</h1>
+  <p class="audience-sub">{{ doc.summary }}</p>
+  {% if doc.not_counsel %}
+  <p style="margin-top: 0.75rem; color: var(--muted); font-size: 0.9rem;">
+    Stub for ads-ready honesty. Not legal advice. Counsel replaces this before scale campaigns.
+  </p>
+  {% endif %}
+
+  {% if kind == 'privacy' %}
+  <h2 style="margin-top: 1.5rem;">What we collect</h2>
+  <ul class="check-list">
+    {% for item in doc.collects %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  <h2 style="margin-top: 1.5rem;">What we don’t</h2>
+  <ul class="check-list">
+    {% for item in doc.does_not %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  <h2 style="margin-top: 1.5rem;">Retention</h2>
+  <p>{{ doc.retention }}</p>
+  {% else %}
+  <h2 style="margin-top: 1.5rem;">Rules</h2>
+  <ul class="check-list">
+    {% for item in doc.rules %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <p style="margin-top: 1.25rem;">Contact: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1rem;">
+    <a href="{{ url_for('well_known_legal') }}" class="btn btn-ghost btn-sm">legal.json</a>
+    {% if kind == 'privacy' %}
+    <a href="{{ url_for('terms_page') }}" class="btn btn-ghost btn-sm">Terms</a>
+    {% else %}
+    <a href="{{ url_for('privacy_page') }}" class="btn btn-ghost btn-sm">Privacy</a>
+    {% endif %}
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Operator weld</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Choose your path{% endblock %}
 {% block meta %}
-<meta name="description" content="15 optimized entry points — operators, developers, legal, carriers, boards, enterprise, and more. One proof engine.">
+<meta name="description" content="Entry points for operators, carriers, compliance, legal, and enterprise. Same clearance. Same verify.">
 {% endblock %}
 {% block content %}
 <section class="hero container" style="padding-bottom: 2rem;">
-  <p class="audience-tag">Action OS · every buyer door</p>
-  <h1>One mouth. Every power gets a door.</h1>
-  <p class="hero-sub">Nisaba serves everybody — pick the plate that matches who you're talking to. Same DENY. Same verify. Zero museum navigation.</p>
+  <p class="audience-tag">Audience paths</p>
+  <h1>Pick the path that matches who you are talking to.</h1>
+  <p class="hero-sub">Same clearance. Same independent verify. One plate per buyer type.</p>
   <div class="hero-actions" style="justify-content: flex-start;">
-    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Company formula →</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path →</a>
+    <a href="{{ url_for('trust') }}" class="btn btn-ghost btn-sm">Trust →</a>
   </div>
 </section>
 
@@ -17,7 +18,6 @@
   <div class="plate-grid">
     {% for p in plates %}
     <a href="{{ url_for('audience_plate', slug=p.slug) }}" class="card plate-card">
-      <span class="plate-emoji">{{ p.emoji }}</span>
       <h3>{{ p.title }}</h3>
       <p class="plate-headline">{{ p.headline }}</p>
       <p class="plate-price">{{ p.price }}</p>
@@ -30,11 +30,11 @@
 <section class="container section">
   <div class="card">
     <h2>For outbound</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Paste the path that matches the human. Each URL is a full landing — not a section on a buffet page.</p>
-    <pre>{{ public_url }}/start
-{{ public_url }}/for/legal
+    <p style="color: var(--muted); margin-bottom: 1rem;">Paste the path that matches the human. Each URL is a full landing.</p>
+    <pre>{{ public_url }}/for/operators
 {{ public_url }}/for/carriers
-{{ public_url }}/for/startups
+{{ public_url }}/for/compliance
+{{ public_url }}/operator
 {{ public_url }}/.well-known/opportunities.json</pre>
   </div>
 </section>

@@ -1,13 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Documentation{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Drill protocol{% endblock %}
 {% block content %}
 <div class="container section">
-  <h1>Gate API docs</h1>
-  <p style="color: var(--muted); margin-bottom: 2rem;">Metered proxy to the Velaru fuse engine. All requests require <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>.</p>
+  <p class="audience-tag">Internal drills · money path is the weld</p>
+  <h1>Drill protocol</h1>
+  <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Buyers:</strong> go to <a href="{{ url_for('operator_page') }}">weld</a>. This page is only for engineers running integration drills. A hop credential is not a production door.</p>
+  <p style="color: var(--muted); margin-bottom: 2rem;">Drill requests may use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. Public demo hops need none.</p>
 
   <div class="card">
-    <h2>Authentication</h2>
-    <p>Create an account → dashboard → copy your API key. Keys are shown once.</p>
+    <h2>Drill credentials</h2>
+    <p>Open a <a href="{{ url_for('signup') }}">drill desk</a> → mint a credential once. It is not a welded production door.</p>
     <pre>Authorization: Bearer gate_sk_live_xxxxxxxx</pre>
   </div>
 
@@ -102,15 +105,16 @@
   </div>
 
   <div class="card">
-    <h2>402 Payment Required</h2>
-    <p>When monthly hop limit is exceeded:</p>
+    <h2>402 hop budget exhausted</h2>
+    <p>Lab hop budget is a fuse meter for drills. When exhausted, weld production or ask ops to extend the drill budget:</p>
     <pre>{
   "error": {
     "type": "payment_required",
     "code": "hop_limit_exceeded",
-    "message": "Monthly hop limit reached...",
-    "usage": { "hops": 1000, "hop_limit": 1000, "plan": "free" },
-    "upgrade_url": "{{ public_url }}/pricing"
+    "message": "Lab hop budget exhausted. Production is the weld — not a Pro plan.",
+    "usage": { "hops": 1000, "hop_limit": 1000, "plan": "lab" },
+    "operator_url": "{{ public_url }}/operator",
+    "economics_url": "{{ public_url }}/pricing"
   }
 }</pre>
   </div>
@@ -172,11 +176,6 @@ curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
   <div class="card">
     <h2>PAS applications (paperwork, not a weld)</h2>
     <p><a href="{{ public_url }}/listings/guidewire-partnerconnect.json">Guidewire PartnerConnect packet</a> · <a href="{{ public_url }}/listings/duckcreek-partner.json">Duck Creek partner packet</a> · <a href="{{ public_url }}/listings/control-not-model.json">control, not a model</a>. UI Bind: <a href="{{ public_url }}/listings/guidewire-gosu-prebind.gs">Gosu checking set</a>. Midnight renewal: <a href="{{ public_url }}/listings/guidewire-renewal-prebind.gs">RenewalWF step</a>. Date both PAS packets. Marry one production bind path.</p>
-  </div>
-
-  <div class="card">
-    <h2>Bound answer</h2>
-    <p>Question is talk. Bound answer is a fact. Exclusive door is control. The floor is unrepeatable. Worth more than philosophy is <em>this one</em> trying to spend — <a href="{{ public_url }}/this">/this</a>. Pages: <a href="{{ public_url }}/bound">/bound</a> · <a href="{{ public_url }}/only">/only</a> · <a href="{{ public_url }}/floor">/floor</a>. Scanner: <a href="{{ public_url }}/scanner">/scanner</a> · <a href="{{ public_url }}/.well-known/spend-protocol.json">spend-protocol.json</a>. Uplink: <a href="{{ public_url }}/uplink">/uplink</a> · <a href="{{ public_url }}/.well-known/command-radiation.json">command-radiation.json</a>. Capture: <a href="{{ public_url }}/capture">/capture</a>.</p>
   </div>
 
   <div class="card">

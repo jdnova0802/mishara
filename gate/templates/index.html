@@ -1,130 +1,68 @@
 {% extends "base.html" %}
-{% block title %}Action OS · the mouth{% endblock %}
+{% block title %}Clearance before payout{% endblock %}
 {% block meta %}
-<meta name="description" content="Nisaba Action OS. Own permission on irreversible acts for any power that needs it. Scarcity is the DENY. 10 bps on cleared flow.">
-<meta property="og:title" content="Gate — Nisaba Action OS">
-<meta property="og:description" content="Serve everybody on the write. DENY that holds. CHARGE-only. Stranger verify. Not SaaS.">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Gate clears withdraw, payout, and bind before execution. Fail closed under uncertainty. Parent license revoked blocks child spend. Licensed operators only.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Action OS.</strong> Own permission on irreversible acts. Scarcity is the DENY — not the narrative.</span>
-  <a href="{{ url_for('action_os_page') }}" class="btn btn-primary btn-sm">Formula →</a>
-</div>
-<div class="top-banner subtle-banner">
-  <span><strong>We serve everybody</strong> — economies, politicians, companies, any entity on the write. Force is in category; not a claimed weld.</span>
-  <a href="{{ url_for('register_page') }}" class="btn btn-ghost btn-sm">Register →</a>
-</div>
-<div class="top-banner subtle-banner">
-  <span><strong>Default before wire, bind, withdraw, list.</strong> Proof sandbox → <a href="https://velaru.xyz/instant">Velaru instant</a> · Production → weld below</span>
-  <a href="{{ url_for('stack_page') }}" class="btn btn-ghost btn-sm">Stack map →</a>
-</div>
-<div class="top-banner subtle-banner">
-  <span>Demo hop below · Agent toy path {{ install_price }} · Production = weld one door</span>
-  <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld {{ weld_price }} →</a>
+  <span>Clearance before withdraw, payout, or bind. If uncertain, the write does not run.</span>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld {{ weld_price }} →</a>
 </div>
 
 <section class="hero container">
-  <div class="states">
-    <span class="state live">LIVE</span>
-    <span class="state armed">ARMED</span>
-    <span class="state dead">DEAD</span>
-    <span class="state unsigned">UNSIGNED</span>
-  </div>
-  <h1>The mouth. Scarcity is the DENY.</h1>
-  <p class="hero-sub">Irreversible acts do not complete unless this layer says yes — withdraw, bind-only, licensed payout, any welded write. Parent DEAD kills children. CHARGE is the only resurrection. Stranger verify. We serve everybody who needs that door. The register is 10 bps of what clears.</p>
+  <h1>Gate</h1>
+  <p class="hero-sub">If money is about to leave and should not, the write does not run. Gate sits on the irreversible edge — withdraw, payout clear, or bind — and fails closed under uncertainty. Independent verification. No login required to check a receipt.</p>
   <div class="hero-actions">
-    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a door · {{ weld_price }}</a>
-    <a href="{{ url_for('action_os_page') }}" class="btn btn-accent-outline">Action OS formula</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">The register</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path · {{ weld_price }}</a>
+    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule</a>
   </div>
 </section>
 
-<section class="container proof-strip">
-  <div class="proof-item">
-    <span class="proof-label">Mouth</span>
-    <span class="proof-value">No bypass on the write</span>
+<section class="container section" style="padding-top: 0;">
+  <div class="card" style="border-left: 3px solid var(--text, #111);">
+    <h2 style="margin-bottom: 0.75rem;">What this is</h2>
+    <ul class="check-list">
+      <li><strong>Clears:</strong> withdraw · payout · bind — named writes only</li>
+      <li><strong>Fail closed:</strong> uncertain, timeout, or unreachable → write does not run</li>
+      <li><strong>Parent revoked → child spend blocked</strong> — child paths cannot outlive the parent license</li>
+      <li><strong>Independent verify:</strong> stranger opens the receipt with no login</li>
+      <li><strong><code>their_production: false</code></strong> until a recorded third-party production weld — drills are not production</li>
+      <li><strong>Fees:</strong> weld + monthly path management + 10 bps of cleared flow</li>
+    </ul>
   </div>
-  <div class="proof-item">
-    <span class="proof-label">Parent</span>
-    <span class="proof-value dead-text">DEAD kills children</span>
-  </div>
-  <div class="proof-item">
-    <span class="proof-label">Prove</span>
-    <span class="proof-value"><a href="https://velaru.xyz/verify">stranger verify</a></span>
+</section>
+
+<section class="container-wide section">
+  <div class="grid-3">
+    <div class="card">
+      <h3>One write</h3>
+      <p>Withdraw / payout clear, or bind-only. One irreversible edge per weld. No bypass on that write.</p>
+    </div>
+    <div class="card">
+      <h3>Status</h3>
+      <p><code>their_production</code> stays false until third-party production weld. Checkout starts delivery — it does not claim production.</p>
+    </div>
+    <div class="card">
+      <h3>Fees</h3>
+      <p>{{ floor_price }} management per welded path + 10 bps of cleared flow. Quiet path still pays management.</p>
+    </div>
   </div>
 </section>
 
 <section class="container section">
   <div class="card demo-card">
-    <h2>Live proof — no API key</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Hop the public drill fuse. Production is not this button — it is a welded door with the register running on cleared flow.</p>
-    <button type="button" id="demo-hop-btn" class="btn btn-primary">Run live hop</button>
-    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify proof →</a>
-    <pre id="demo-output" class="demo-output">Click to run live hop on fuse_velaru_drill</pre>
+    <h2>Public demo (lab fuse)</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Lab fuse only. Production is a paid weld on the operator’s own payout or bind path.</p>
+    <button type="button" id="demo-hop-btn" class="btn btn-ghost">Run demo hop</button>
+    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
+    <pre id="demo-output" class="demo-output">Demo is optional. The product is the weld.</pre>
   </div>
 </section>
 <script src="{{ url_for('static', filename='demo.js') }}"></script>
 
-<section class="container-wide section">
-  <div class="grid-3">
-    <div class="card">
-      <h3>Permission</h3>
-      <p>License parent, bind ticket, spend fingerprint. Children cannot outlive the parent. Not a dashboard score.</p>
-    </div>
-    <div class="card">
-      <h3>One door</h3>
-      <p>One irreversible write per weld. bind-and-issue and issue are not granted. Fail closed on DEAD.</p>
-    </div>
-    <div class="card">
-      <h3>Register</h3>
-      <p>10 bps of cleared flow. {{ floor_price }} quiet minimum on one door — not the civilizational prize.</p>
-    </div>
-  </div>
-</section>
-
-<section class="container section paths-grid">
-  <div class="card path-card featured-path">
-    <h3>Scorecard</h3>
-    <p>Flawless = honest. Family bites + Gate dims. their_production never faked.</p>
-    <a href="{{ url_for('scorecard_page') }}" class="btn btn-primary btn-sm">Open scorecard</a>
-  </div>
-  <div class="card path-card featured-path">
-    <h3>Action OS</h3>
-    <p>Own permission for any power that needs it. Scarcity is the DENY. Palantir integrates data — we govern the act.</p>
-    <a href="{{ url_for('action_os_page') }}" class="btn btn-primary btn-sm">Open Action OS</a>
-  </div>
-  <div class="card path-card featured-path">
-    <h3>The register</h3>
-    <p>Infrastructure face. Mouth + scale + weld. Not SaaS tiers.</p>
-    <a href="{{ url_for('register_page') }}" class="btn btn-primary btn-sm">Open register</a>
-  </div>
-  <div class="card path-card">
-    <h3>Weld</h3>
-    <p>{{ weld_price }} · one production write · licensed payout or bind-only.</p>
-    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Pay the weld</a>
-  </div>
-  <div class="card path-card">
-    <h3>Positioning</h3>
-    <p>Cybersyn ops, maintenance futurism, anthropophagy — borrowed lenses, shipped as manifests.</p>
-    <a href="{{ url_for('positioning_page') }}" class="btn btn-ghost btn-sm">Why this form</a>
-  </div>
-  <div class="card path-card">
-    <h3>Implement</h3>
-    <p>Scanner, uplink, spend protocol. For engineers wiring the mouth.</p>
-    <a href="{{ url_for('scanner_page') }}" class="btn btn-ghost btn-sm">Scanner</a>
-    <a href="{{ url_for('uplink_page') }}" class="btn btn-ghost btn-sm">Uplink</a>
-  </div>
-  <div class="card path-card">
-    <h3>Agent toy</h3>
-    <p>{{ install_price }} install · free API key · not the money path.</p>
-    <a href="{{ url_for('install') }}" class="btn btn-ghost btn-sm">Install</a>
-  </div>
-</section>
-
 <section class="container section" style="text-align: center; padding-bottom: 3rem;">
-  <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba Action OS · Engine: Velaru · Patent #64/124,027</p>
-  <a href="{{ url_for('action_os_page') }}" class="btn btn-primary">Action OS</a>
-  <a href="{{ url_for('register_page') }}" class="btn btn-ghost">The register</a>
+  <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · licensed operators</p>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
+  <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
 </section>
 {% endblock %}
