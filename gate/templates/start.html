@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Choose your path{% endblock %}
 {% block meta %}
-<meta name="description" content="15 optimized entry points — operators, developers, legal, carriers, boards, enterprise, and more. One proof engine.">
+<meta name="description" content="Entry points for operators, developers, legal, carriers, boards, enterprise, and more. Same clearance. Same verify.">
 {% endblock %}
 {% block content %}
 <section class="hero container" style="padding-bottom: 2rem;">
-  <p class="audience-tag">Action OS · every buyer door</p>
-  <h1>One mouth. Every power gets a door.</h1>
-  <p class="hero-sub">Nisaba serves everybody — pick the plate that matches who you're talking to. Same DENY. Same verify. Zero museum navigation.</p>
+  <p class="audience-tag">Audience paths</p>
+  <h1>Pick the path that matches who you are talking to.</h1>
+  <p class="hero-sub">Same clearance. Same independent verify. One plate per buyer type — not a buffet page.</p>
   <div class="hero-actions" style="justify-content: flex-start;">
-    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Company formula →</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path →</a>
+    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Spec →</a>
   </div>
 </section>
 

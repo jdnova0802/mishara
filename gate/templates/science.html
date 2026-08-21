@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Science → mouth{% endblock %}
+{% block title %}Science → clearance{% endblock %}
 {% block meta %}
 <meta name="description" content="{{ manifest.motive }} {{ manifest.formula }}">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">PRI · tech frontiers · contribute to Tier S</p>
-  <h1>Science → mouth</h1>
+  <h1>Science → clearance</h1>
   <p class="audience-sub">{{ manifest.motive }}</p>
   <p style="margin: 1rem 0;"><strong>{{ manifest.formula }}</strong></p>
   <p style="color: var(--muted);">{{ manifest.tech_thesis }}</p>
@@ -38,13 +38,13 @@
   </div>
   {% endfor %}
 
-  <h2 style="margin-top: 1.5rem;">Tech frontiers → mouth</h2>
+  <h2 style="margin-top: 1.5rem;">Tech frontiers → clearance</h2>
   {% for t in manifest.tech %}
   <div class="card" style="margin-top: 0.75rem;">
     <p class="audience-tag">{{ t.id }} · own {{ t.own }}</p>
     <h3>{{ t.name }}</h3>
     <p style="color: var(--muted);">{{ t.frontier }}</p>
-    <p style="margin-top: 0.5rem;"><strong>Mouth:</strong> {{ t.gate_mouth }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Clearance:</strong> {{ t.gate_mouth }}</p>
     <p style="margin-top: 0.35rem; font-size: 0.9rem;">{{ t.contribute }}</p>
   </div>
   {% endfor %}

@@ -1,7 +1,7 @@
-"""Science + tech → Gate mouth — PRI, frontiers, named first weld.
+"""Science + tech → Gate clearance — PRI, frontiers, named first weld.
 
-Motive: contribute massively to Tier-S continuity *with* coordinators —
-collaborate as the clearance mouth, never replace state monopolies.
+Motive: contribute to Tier-S continuity with coordinators —
+clearance path under their stacks, never replace state monopolies.
 """
 from __future__ import annotations
 
@@ -34,8 +34,8 @@ FIRST_WELD = {
     "write": "withdraw",
     "label": "Withdraw / payout — clear before wire",
     "why": (
-        "Fastest serious commercial driver edge: irreversible money leave. "
-        "Prove DENY holds on one payout path before asking utilities or programs."
+        "First commercial path: irreversible money leave. "
+        "Prove fail-closed clearance on one payout path before grid or programs."
     ),
     "example_path": "POST /v1/payouts/{id}/release",
     "checkout": "/operator?write=withdraw",

@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Gate{% endblock %} — Action OS · DENY is the scarcity</title>
+  <title>{% block title %}Gate{% endblock %} — clearance before irreversible payout</title>
   {% block meta %}
-  <meta name="description" content="Gate clears irreversible money moves — payout, withdraw, bind — or they do not fire. Weld one door. Not SaaS.">
+  <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.">
   {% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% if meta_pixel_id %}
-  <!-- Meta pixel stub: only loads when GATE_META_PIXEL_ID is set -->
   <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -20,7 +19,6 @@
   </script>
   {% endif %}
   {% if ga_id %}
-  <!-- GA stub: only loads when GATE_GA_ID is set -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
   gtag('js',new Date());gtag('config','{{ ga_id }}');</script>
@@ -31,7 +29,7 @@
     "@type": "Organization",
     "name": "Nisaba LLC",
     "url": "{{ gate_public_url }}",
-    "description": "Permission mouth on irreversible money moves. Weld + register — not seats.",
+    "description": "Clearance before irreversible payout, withdraw, and bind. Weld + register fees. Not seats.",
     "brand": {"@type": "Brand", "name": "Gate"}
   }
   </script>
@@ -42,13 +40,12 @@
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
         <a href="{{ url_for('operator_page') }}">Weld</a>
-        <a href="{{ url_for('register_page') }}">Register</a>
-        <a href="{{ url_for('pricing') }}">Economics</a>
-        <a href="{{ url_for('action_os_page') }}">Action OS</a>
+        <a href="{{ url_for('register_page') }}">Fees</a>
+        <a href="{{ url_for('pricing') }}">Pricing</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
         {% endif %}
-        <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a door</a>
+        <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path</a>
       </div>
     </div>
   </nav>
@@ -67,20 +64,16 @@
 
   <footer>
     <div class="container">
-      Nisaba · Gate clears the irreversible write, or it does not fire ·
+      Nisaba LLC · clearance before irreversible write ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
-      <a href="{{ url_for('register_page') }}">Register</a> ·
-      <a href="{{ url_for('pricing') }}">Economics</a> ·
-      <a href="{{ url_for('science_page') }}">Science</a> ·
+      <a href="{{ url_for('register_page') }}">Fees</a> ·
+      <a href="{{ url_for('pricing') }}">Pricing</a> ·
+      <a href="{{ url_for('action_os_page') }}">Spec</a> ·
+      <a href="{{ url_for('science_page') }}">Reference</a> ·
       <a href="{{ url_for('family_hub') }}">Family</a> ·
-      <a href="{{ url_for('stack_page') }}">Stack</a> ·
-      <a href="{{ url_for('scorecard_page') }}">Scorecard</a> ·
-      <a href="{{ url_for('scanner_page') }}">Scanner</a> ·
-      <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
-      <a href="{{ url_for('status_page') }}">Status</a> ·
-      <a href="https://velaru.xyz/verify">Verify</a> ·
       <a href="{{ url_for('privacy_page') }}">Privacy</a> ·
-      <a href="{{ url_for('terms_page') }}">Terms</a>
+      <a href="{{ url_for('terms_page') }}">Terms</a> ·
+      <a href="https://velaru.xyz/verify">Verify</a>
       {% if session.get('account_id') %}
         · <a href="{{ url_for('dashboard') }}">Drill desk</a>
       {% endif %}

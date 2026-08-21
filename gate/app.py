@@ -1205,13 +1205,13 @@ def well_known_gate():
         {
             "name": "Gate API",
             "description": (
-                "Nisaba Action OS commercial mouth. "
-                "Own permission on irreversible acts — scarcity is the DENY. "
-                "Metered fuse hop. Serve everybody; CHARGE-only LIVE."
+                "Clearance before irreversible withdraw, payout, and bind. "
+                "Fail closed under uncertainty. Weld + management + bps. "
+                "Licensed operators. Metered fuse hop. Independent verify."
             ),
             "formula": (
                 "Own permission on irreversible acts for any power that needs it — "
-                "and make your scarcity the DENY, not the narrative."
+                "clearance fails closed; the DENY is the product, not narrative."
             ),
             "version": "1.0.0",
             "openapi": f"{advertised_url()}/openapi.json",
@@ -2440,10 +2440,10 @@ def operator_checkout():
         flash("Pick one write: withdraw or bind-only.", "error")
         return redirect(url_for("operator_page"))
     if not include_floor:
-        flash("Weld requires the management leg (per-mouth rent). See the register.", "error")
+        flash("Weld requires monthly management. See the fee schedule.", "error")
         return redirect(url_for("operator_page"))
     if not (STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE):
-        flash("Management checkout is not configured yet. Email us — weld requires per-mouth rent.", "error")
+        flash("Management checkout is not configured yet. Email us — weld requires management.", "error")
         return redirect(url_for("operator_page"))
 
     # DTCC-style immovability for ops: avoid duplicate checkout submissions.

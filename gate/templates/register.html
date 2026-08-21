@@ -1,65 +1,62 @@
 {% extends "base.html" %}
-{% block title %}The register{% endblock %}
+{% block title %}Fee schedule{% endblock %}
 {% block meta %}
-<meta name="description" content="Fund-style register on infrastructure. Management per mouth + 10 bps + carry. Civilization default. Not SaaS.">
+<meta name="description" content="Gate fee schedule: weld, monthly management per path, 10 bps on cleared flow. Licensed operators only.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Infrastructure · GP register</p>
-  <h1>Real to civilization. Paid like a GP.</h1>
-  <p class="audience-sub">The <strong>mouth</strong> is default on irreversible spend — withdraw, bind-only, licensed payout. Parent dies, children cannot spend. That is the asset civilization keeps. Nisaba is the <strong>Action OS</strong>: own permission for any power that needs it — scarcity is the DENY. We serve everybody. The <strong>register</strong> is how the GP is rewarded: management rent on each mouth + 10 bps on cleared flow + carry above hurdle. Not SaaS. Not a hoard without a function.</p>
+  <p class="audience-tag">Fee schedule · licensed operators</p>
+  <h1>Fees</h1>
+  <p class="audience-sub">Clearance before irreversible withdraw, payout, or bind. One welded path per write. Revoked parent license blocks child spend. Fees: weld + monthly management + 10 bps of cleared flow. Not seat licenses.</p>
 
   <div class="card" style="margin-top: 1.25rem;">
-    <h2 style="margin-bottom: 0.5rem;">What Gate is (in one minute)</h2>
+    <h2 style="margin-bottom: 0.5rem;">What you pay for</h2>
     <ul class="check-list">
-      <li><strong>Fail-closed door</strong> on irreversible writes (one married write; no bypass).</li>
-      <li><strong>Receipts you can verify</strong> so “what happened” and “what didn’t” are auditable.</li>
-      <li><strong>Settlement finality</strong> (windows + hashes) so ops can close risk.</li>
-      <li><strong>Serve everybody</strong> — Action OS nature, not buyer-purity theater.</li>
+      <li><strong>Clearance</strong> on one irreversible write — fail closed if uncertain.</li>
+      <li><strong>Independent verify</strong> for clearance receipts.</li>
+      <li><strong>Management</strong> while the path stays active.</li>
+      <li><strong>Flow fees</strong> on what clears through the path.</li>
     </ul>
     <div class="hero-actions" style="justify-content: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
       <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld + start management →</a>
-      <a href="{{ url_for('action_os_page') }}" class="btn btn-accent-outline btn-sm">Action OS</a>
-      <a href="{{ url_for('scanner_page') }}" class="btn btn-ghost btn-sm">Implement scanner</a>
-      <a href="https://velaru.xyz/instant" class="btn btn-ghost btn-sm">Velaru proof sandbox</a>
-      <a href="{{ url_for('positioning_page') }}" class="btn btn-ghost btn-sm">Why this story</a>
+      <a href="{{ url_for('pricing') }}" class="btn btn-ghost btn-sm">Pricing</a>
+      <a href="https://velaru.xyz/verify" class="btn btn-ghost btn-sm">Verify</a>
     </div>
   </div>
 
   <div class="grid-3" style="margin-top: 2rem;">
     <div class="card">
-      <h3>Mouth (asset)</h3>
+      <h3>Path</h3>
       <ul class="check-list">
-        <li>Global default = only door on the write</li>
-        <li>License parent — children cannot outlive it</li>
-        <li>Ticket + fingerprint — no bypass</li>
-        <li>Public inventory of nos</li>
-        <li>Stranger verify — infrastructure, not dashboard</li>
+        <li>One irreversible write per weld</li>
+        <li>Parent license blocks child spend when revoked</li>
+        <li>No bypass on the write</li>
+        <li>Independent verify</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Management (2%-analog)</h3>
+      <h3>Management</h3>
       <ul class="check-list">
-        <li>{{ floor_price }} per welded write</li>
-        <li>{{ floor_price }} per LIVE license parent</li>
-        <li>Extra socket = another weld + another mouth</li>
-        <li>Checkout requires management — no weld-only toy</li>
+        <li>{{ floor_price }} per welded path / mo</li>
+        <li>{{ floor_price }} per active parent license / mo</li>
+        <li>Extra write = another weld + management</li>
+        <li>Required at checkout</li>
       </ul>
     </div>
     <div class="card">
-      <h3>Flow (carry-analog)</h3>
+      <h3>Flow</h3>
       <ul class="check-list">
         <li>10 bps on cleared flow</li>
-        <li>+5 bps on cleared above $500M/mo hurdle</li>
-        <li>$0.10/hop when hops win the flow leg</li>
-        <li>Both legs stack at scale — like 2 and 20</li>
+        <li>+5 bps above $500M/mo</li>
+        <li>$0.10/hop when hops bill</li>
+        <li>Stacks with management</li>
       </ul>
     </div>
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">
-    <h2>GP register potential (illustrative)</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">Not a forecast. If monthly cleared hits the band, annual flow register + management on many mouths. This is the trajectory — not one {{ floor_price }} line.</p>
+    <h2>Illustrative flow fees</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Not a forecast. Annual flow fee at 10 bps if monthly cleared hits the band, plus management on active paths.</p>
     <pre>Flow leg (10 bps + carry above $500M/mo)
 
 $100M / yr cleared   →  $100,000
@@ -68,34 +65,18 @@ $10B                 →  $10,000,000
 $100B                →  $100,000,000
 $1T                  →  $1,000,000,000
 
-+ management: (welded writes + LIVE parents) × {{ floor_price }}
-  100 writes + 500 parents  →  $3,000,000/mo management alone
-  Same mouths + $1B/mo flow →  $1M flow + $3M mgmt that month</pre>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="{{ url_for('well_known_register') }}">register.json</a> · <a href="https://velaru.xyz/instant">Velaru proof sandbox ($49)</a></p>
++ management: (welded paths + active parent licenses) × {{ floor_price }}
+  100 paths + 500 parents  →  $3,000,000/mo management
+  Same paths + $1B/mo flow →  $1M flow + $3M management that month</pre>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="{{ url_for('well_known_register') }}">register.json</a></p>
   </div>
 
   <div class="card install-checkout-card" style="margin-top: 1.5rem;">
-    <h2>Weld one door + start management</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">{{ weld_price }} weld · {{ floor_price }} per mouth · 48hr · licensed only. Then flow register runs on what clears.</p>
+    <h2>Weld one path + start management</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">{{ weld_price }} weld · {{ floor_price }} management per path · 48hr delivery · licensed only.</p>
     <div class="hero-actions" style="justify-content: flex-start;">
       <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-lg">Weld + management →</a>
       <a href="{{ url_for('well_known_register') }}" class="btn btn-ghost">register.json</a>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <p class="audience-tag">Positioning</p>
-    <h2 style="margin-bottom: 0.5rem;">Why this form</h2>
-    <ul class="check-list">
-      <li><strong>Cybersyn, operationally:</strong> public manifests are the ops room (κ, settlement, restraint).</li>
-      <li><strong>Maintenance futurism:</strong> evidence and finality over launch-day theater.</li>
-      <li><strong>Anthropophagy:</strong> digest incumbent rails, do not clone US SaaS patterns.</li>
-    </ul>
-    <div class="hero-actions" style="justify-content: flex-start; margin-top: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
-      <a href="{{ url_for('positioning_page') }}" class="btn btn-ghost btn-sm">Full positioning</a>
-      <a href="{{ url_for('well_known_positioning') }}" class="btn btn-ghost btn-sm">positioning.json</a>
-      <a href="{{ url_for('focus_hub') }}" class="btn btn-ghost btn-sm">GTM focus</a>
-      <a href="{{ url_for('stack_page') }}" class="btn btn-ghost btn-sm">Stack map</a>
     </div>
   </div>
 </div>

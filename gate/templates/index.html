@@ -1,54 +1,45 @@
 {% extends "base.html" %}
-{% block title %}Gate · clear before it fires{% endblock %}
+{% block title %}Clearance before payout{% endblock %}
 {% block meta %}
-<meta name="description" content="Gate clears irreversible money moves — payout, withdraw, bind — or they do not fire. Weld one door. Not SaaS.">
-<meta property="og:title" content="Gate — clear before it fires">
-<meta property="og:description" content="If money is about to leave and should not, Gate says no — and holds. Weld one door. Not seats.">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Gate clears withdraw, payout, and bind before execution. Fail closed under uncertainty. Weld one path. Licensed operators only.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Clear before it fires.</strong> Payout, withdraw, bind — Gate says yes or the write does not run.</span>
+  <span>Clearance before withdraw, payout, or bind. If uncertain, the write does not run.</span>
   <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld {{ weld_price }} →</a>
 </div>
 
 <section class="hero container">
-  <div class="states">
-    <span class="state live">LIVE</span>
-    <span class="state armed">ARMED</span>
-    <span class="state dead">DEAD</span>
-    <span class="state unsigned">UNSIGNED</span>
-  </div>
   <h1>Gate</h1>
-  <p class="hero-sub"><strong>If money is about to leave and should not, Gate says no — and holds.</strong> One welded door on an irreversible write. Parent DEAD kills children. CHARGE is the only revive. Stranger can verify. Paid as weld + management + 10 bps of what clears.</p>
+  <p class="hero-sub">If money is about to leave and should not, Gate blocks the write. One welded path on withdraw, payout clear, or bind-only. Independent verification available. Fees: weld + monthly management + 10 bps of cleared flow.</p>
   <div class="hero-actions">
-    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a door · {{ weld_price }}</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">How the register pays</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path · {{ weld_price }}</a>
+    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule</a>
   </div>
 </section>
 
 <section class="container proof-strip">
   <div class="proof-item">
-    <span class="proof-label">Door</span>
+    <span class="proof-label">Path</span>
     <span class="proof-value">No bypass on the write</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Parent</span>
-    <span class="proof-value dead-text">DEAD kills children</span>
+    <span class="proof-label">Parent license</span>
+    <span class="proof-value">Revoked parent blocks child spend</span>
   </div>
   <div class="proof-item">
-    <span class="proof-label">Prove</span>
-    <span class="proof-value"><a href="https://velaru.xyz/verify">stranger verify</a></span>
+    <span class="proof-label">Proof</span>
+    <span class="proof-value"><a href="https://velaru.xyz/verify">Independent verify</a></span>
   </div>
 </section>
 
 <section class="container section">
   <div class="card demo-card">
-    <h2>Watch a DENY hold</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Public drill on a demo fuse. Production is a paid weld on <em>their</em> payout path — not this button.</p>
-    <button type="button" id="demo-hop-btn" class="btn btn-primary">Run live hop</button>
-    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify proof →</a>
-    <pre id="demo-output" class="demo-output">Click to run live hop on fuse_velaru_drill</pre>
+    <h2>Demo clearance</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Public demo fuse only. Production requires a paid weld on the operator’s own payout or bind path.</p>
+    <button type="button" id="demo-hop-btn" class="btn btn-primary">Run demo</button>
+    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
+    <pre id="demo-output" class="demo-output">Click to run demo clearance</pre>
   </div>
 </section>
 <script src="{{ url_for('static', filename='demo.js') }}"></script>
@@ -57,23 +48,22 @@
   <div class="grid-3">
     <div class="card">
       <h3>One write</h3>
-      <p>Withdraw / payout clear, or bind-only. One irreversible edge per weld. Fail closed.</p>
+      <p>Withdraw / payout clear, or bind-only. One irreversible edge per weld. Fail closed if uncertain.</p>
     </div>
     <div class="card">
-      <h3>Honest status</h3>
-      <p><code>their_production</code> stays false until a recorded third-party L4 weld. Dogfood is not production.</p>
+      <h3>Status</h3>
+      <p><code>their_production</code> remains false until a recorded third-party production weld. Internal drills are not production.</p>
     </div>
     <div class="card">
-      <h3>Register</h3>
-      <p>{{ floor_price }} management per mouth + 10 bps of cleared flow. Not seats.</p>
+      <h3>Fees</h3>
+      <p>{{ floor_price }} management per welded path + 10 bps of cleared flow. Not seat licenses.</p>
     </div>
   </div>
 </section>
 
 <section class="container section" style="text-align: center; padding-bottom: 3rem;">
-  <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba · Action OS · scarcity is the DENY · not SaaS</p>
-  <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a door</a>
-  <a href="{{ url_for('pricing') }}" class="btn btn-ghost">Economics</a>
-  <a href="{{ url_for('science_page') }}" class="btn btn-ghost">Science</a>
+  <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · licensed operators</p>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
+  <a href="{{ url_for('pricing') }}" class="btn btn-ghost">Pricing</a>
 </section>
 {% endblock %}

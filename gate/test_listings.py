@@ -240,16 +240,17 @@ class FlaskListingTests(unittest.TestCase):
     def test_nav_and_clickable_pages_are_not_broken(self):
         home = self.client.get("/").get_data(as_text=True)
         chrome = home.split("<footer>", 1)[0]
-        self.assertIn('href="/action-os"', chrome)
-        self.assertIn(">Action OS</a>", chrome)
         self.assertIn('href="/operator"', chrome)
-        self.assertIn(">Register</a>", chrome)
         self.assertIn(">Weld</a>", chrome)
-        # Lean chrome: Scanner / Uplink are not nav clutter; still reachable
+        self.assertIn('href="/register"', chrome)
+        self.assertIn(">Fees</a>", chrome)
+        self.assertIn(">Pricing</a>", chrome)
+        # Lean chrome: doctrine / lab clutter buried; Spec+Reference in footer only
+        self.assertNotIn(">Action OS</a>", chrome)
         self.assertNotIn(">Scanner</a>", chrome)
         self.assertNotIn(">Uplink</a>", chrome)
-        self.assertIn('href="/scanner"', home)  # footer
-        self.assertIn('href="/scorecard"', home)  # footer
+        self.assertIn('href="/action-os"', home)  # footer Spec
+        self.assertIn('href="/science"', home)  # footer Reference
         for path in (
             "/",
             "/start",
@@ -1388,9 +1389,12 @@ class OperatorInvoiceTests(unittest.TestCase):
         page = self.client.get("/register")
         self.assertEqual(page.status_code, 200)
         body = page.get_data(as_text=True)
-        self.assertIn("Not SaaS", body)
-        self.assertIn("mouth", body.lower())
+        self.assertIn("Fee schedule", body)
+        self.assertIn("cleared flow", body.lower())
         self.assertIn("$1,000,000,000", body)
+        self.assertNotIn("scarcity is the DENY", body)
+        self.assertNotIn("Anthropophagy", body)
+        self.assertNotIn("Cybersyn", body)
         spec = self.client.get("/.well-known/register.json")
         self.assertEqual(spec.status_code, 200)
         data = spec.get_json()
@@ -1457,10 +1461,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("formula", gate)
 
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("Action OS", home)
-        self.assertIn("/action-os", home)
-        self.assertIn("DENY", home)
-        self.assertIn("/scorecard", home)
+        self.assertIn("/action-os", home)  # footer Spec only
+        self.assertNotIn(">Action OS</a>", home.split("<footer>", 1)[0])
+        self.assertNotIn("scarcity is the DENY", home)
+        self.assertIn("If money is about to leave", home)
+        self.assertIn("/science", home)  # footer Reference
 
         import db as gate_db
 
@@ -1644,8 +1649,12 @@ class OperatorInvoiceTests(unittest.TestCase):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Not SaaS", body)
+        self.assertIn("Weld a path", body)
         self.assertIn("/register", body)
+        self.assertIn("Fee schedule", body)
+        self.assertNotIn("scarcity is the DENY", body)
+        self.assertNotIn("Weld a door", body)
+        self.assertNotIn("Own the DENY", body)
 
     def test_zero_saas_stench_on_money_surfaces(self):
         """Public money face must not smell like Free/Pro seat SaaS or API basement."""
@@ -1664,14 +1673,21 @@ class OperatorInvoiceTests(unittest.TestCase):
             "Lab login",
             "Lab account",
             "Open lab account",
+            "Weld a door",
+            "Mouth economics",
+            "scarcity is the DENY",
+            "Own the DENY",
+            "DEAD kills",
+            "Anthropophagy",
+            "Cybersyn",
         )
         for path in ("/", "/pricing", "/operator", "/register", "/trust"):
             body = self.client.get(path).get_data(as_text=True)
             for phrase in banned:
-                self.assertNotIn(phrase, body, f"{path} still has SaaS phrase: {phrase}")
+                self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
         home = self.client.get("/").get_data(as_text=True)
         self.assertIn("If money is about to leave and should not", home)
-        self.assertIn("Weld a door", home)
+        self.assertIn("Weld a path", home)
         chrome = home.split("<footer>", 1)[0]
         for phrase in (
             "Lab docs",
@@ -1680,6 +1696,7 @@ class OperatorInvoiceTests(unittest.TestCase):
             "Get API key",
             "no API key",
             "free API key",
+            "Action OS",
         ):
             self.assertNotIn(phrase, chrome, f"chrome still shows {phrase}")
         # Lean chrome: doctrine links are footer-only
@@ -1688,8 +1705,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn(">Status</a>", chrome)
         self.assertNotIn(">Bind Room</a>", chrome)
         pricing = self.client.get("/pricing").get_data(as_text=True)
-        self.assertIn("Not SaaS", pricing)
         self.assertIn("Weld", pricing)
+        self.assertIn("bps", pricing.lower())
         self.assertNotIn(">Free</h3>", pricing)
         self.assertNotIn(">Pro</h3>", pricing)
         self.assertNotIn("Open lab account", pricing)
@@ -1708,6 +1725,9 @@ class OperatorInvoiceTests(unittest.TestCase):
             self.assertNotRegex(blob, r"(?i)get (free )?api key")
             self.assertNotRegex(blob, r"(?i)free tier")
             self.assertNotRegex(blob, r"(?i)\$99\s*/\s*mo")
+            self.assertNotIn("scarcity is the DENY", blob)
+            self.assertNotIn("Own the DENY", blob)
+            self.assertNotIn("Weld a door", blob)
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
