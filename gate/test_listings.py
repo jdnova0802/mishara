@@ -239,15 +239,17 @@ class FlaskListingTests(unittest.TestCase):
 
     def test_nav_and_clickable_pages_are_not_broken(self):
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("href=\"/action-os\"", home)
-        self.assertIn(">Action OS</a>", home)
-        self.assertIn("href=\"/scanner\"", home)
-        self.assertIn(">Scanner</a>", home)
-        self.assertIn("href=\"/uplink\"", home)
-        self.assertIn(">Uplink</a>", home)
-        self.assertIn("href=\"/operator\"", home)
-        self.assertIn(">Register</a>", home)
-        self.assertIn(">Weld</a>", home)
+        chrome = home.split("<footer>", 1)[0]
+        self.assertIn('href="/action-os"', chrome)
+        self.assertIn(">Action OS</a>", chrome)
+        self.assertIn('href="/operator"', chrome)
+        self.assertIn(">Register</a>", chrome)
+        self.assertIn(">Weld</a>", chrome)
+        # Lean chrome: Scanner / Uplink are not nav clutter; still reachable
+        self.assertNotIn(">Scanner</a>", chrome)
+        self.assertNotIn(">Uplink</a>", chrome)
+        self.assertIn('href="/scanner"', home)  # footer
+        self.assertIn('href="/scorecard"', home)  # footer
         for path in (
             "/",
             "/start",
@@ -282,8 +284,8 @@ class FlaskListingTests(unittest.TestCase):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
         carriers = self.client.get("/for/carriers").get_data(as_text=True)
-        self.assertNotIn("href=\"/v1/pas/policycenter/pre-bind\"", carriers)
-        self.assertIn("href=\"/operator\"", carriers)
+        self.assertNotIn('href="/v1/pas/policycenter/pre-bind"', carriers)
+        self.assertIn('href="/operator"', carriers)
         consumers = self.client.get("/for/consumers").get_data(as_text=True)
         self.assertNotIn("Open Mishara", consumers)
         self.assertIn("Open Gate", consumers)
@@ -1646,29 +1648,53 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("/register", body)
 
     def test_zero_saas_stench_on_money_surfaces(self):
-        """Public money face must not smell like Free/Pro seat SaaS."""
+        """Public money face must not smell like Free/Pro seat SaaS or API basement."""
         banned = (
             "Get API key",
             "Get free API",
+            "free API key",
+            "no API key",
             "Sign up → Pro",
             "Upgrade to Pro",
             "Cancel anytime",
             "Free tier",
             "1,000 hops / month",
             "1,000,000 hops",
+            "Lab docs",
+            "Lab login",
+            "Lab account",
+            "Open lab account",
         )
-        for path in ("/", "/pricing", "/operator", "/register", "/docs", "/trust"):
+        for path in ("/", "/pricing", "/operator", "/register", "/trust"):
             body = self.client.get(path).get_data(as_text=True)
             for phrase in banned:
                 self.assertNotIn(phrase, body, f"{path} still has SaaS phrase: {phrase}")
+        home = self.client.get("/").get_data(as_text=True)
+        self.assertIn("If money is about to leave and should not", home)
+        self.assertIn("Weld a door", home)
+        chrome = home.split("<footer>", 1)[0]
+        for phrase in (
+            "Lab docs",
+            "Lab login",
+            "Lab account",
+            "Get API key",
+            "no API key",
+            "free API key",
+        ):
+            self.assertNotIn(phrase, chrome, f"chrome still shows {phrase}")
+        # Lean chrome: doctrine links are footer-only
+        self.assertNotIn(">Family</a>", chrome)
+        self.assertNotIn(">Stack</a>", chrome)
+        self.assertNotIn(">Status</a>", chrome)
+        self.assertNotIn(">Bind Room</a>", chrome)
         pricing = self.client.get("/pricing").get_data(as_text=True)
         self.assertIn("Not SaaS", pricing)
         self.assertIn("Weld", pricing)
         self.assertNotIn(">Free</h3>", pricing)
         self.assertNotIn(">Pro</h3>", pricing)
-        nav = self.client.get("/").get_data(as_text=True)
-        self.assertIn("Weld a door", nav)
-        self.assertNotIn("Get API key", nav)
+        self.assertNotIn("Open lab account", pricing)
+        self.assertNotIn("Lab hop docs", pricing)
+        self.assertNotIn("Get API key", home)
         opp = self.client.get("/.well-known/opportunities.json")
         if opp.status_code == 200:
             self.assertTrue(opp.get_json().get("not_saas"))

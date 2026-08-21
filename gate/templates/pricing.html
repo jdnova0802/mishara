@@ -1,73 +1,54 @@
 {% extends "base.html" %}
-{% block title %}Mouth economics{% endblock %}
+{% block title %}Economics{% endblock %}
 {% block meta %}
-<meta name="description" content="Not SaaS. Weld one irreversible write. Management rent per mouth + 10 bps on cleared flow. Lab hops are drills — not Free/Pro.">
+<meta name="description" content="Not SaaS. Weld one irreversible write. Management rent per mouth + 10 bps on cleared flow.">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Not SaaS · no seats · no Free/Pro ladder</p>
-  <h1 style="text-align: center;">Mouth economics</h1>
+  <h1 style="text-align: center;">Economics</h1>
   <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
-    Production money is the <strong>weld</strong> and the <strong>register</strong>.
-    Lab hops exist for drills. They are not a subscription story.
+    You pay to <strong>weld one irreversible door</strong>, then rent + bps while it clears money.
+    That is the whole product.
   </p>
 
   <div class="card" style="margin-bottom: 1.5rem;">
     <p class="audience-tag">Production · licensed operators</p>
     <h2>Operator weld — {{ weld_price }}</h2>
-    <p>One irreversible write (withdraw / payout clear, or bind-only) fail-closed in 48hr. Then <strong>10 bps of what clears</strong> through that door. Quiet mouth still pays <strong>{{ floor_price }}</strong> management. Extra write = another {{ weld_price }}. No seats. No soft-yes under panic.</p>
+    <p>One irreversible write (withdraw / payout clear, or bind-only) fail-closed in 48hr. Then <strong>10 bps of what clears</strong> through that door. Quiet mouth still pays <strong>{{ floor_price }}</strong> management. Extra write = another {{ weld_price }}.</p>
     <ul class="check-list" style="margin: 0.75rem 0;">
       <li>their_production stays false until a recorded third-party L4 weld</li>
       <li>DENY under uncertainty is the product</li>
       <li>Unlicensed gambling voids the path</li>
     </ul>
     <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Pay the weld</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">κ register →</a></p>
+    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Register →</a></p>
   </div>
 
   <div class="grid-2" style="margin-bottom: 1.5rem;">
     <div class="card">
-      <h3>Management leg</h3>
-      <p>{{ floor_price }} per welded write + {{ floor_price }} per LIVE license parent / mo. Fund-style rent on the mouth — not a seat SKU.</p>
+      <h3>Management</h3>
+      <p>{{ floor_price }} per welded write + {{ floor_price }} per LIVE license parent / mo. Rent on the mouth.</p>
     </div>
     <div class="card">
-      <h3>Flow register</h3>
-      <p>10 bps on cleared + carry above hurdle. Toll on sorting LIVE/DENY. Stacks with management. Not “upgrade for more hops.”</p>
+      <h3>Flow</h3>
+      <p>10 bps on cleared + carry above hurdle. Toll on LIVE/DENY. Stacks with management.</p>
     </div>
   </div>
 
   <div class="card" style="margin-bottom: 1.5rem;">
     <h2>Bind Room — {{ bind_room_price }}</h2>
-    <p>Officer-signed SERFF-shaped pack + ticket schema. Examiners take titles on duties — not a fuse hash cosplay. Weld into their PolicyCenter / MGA pen is the production act.</p>
+    <p>Officer-signed SERFF-shaped pack + ticket schema. Examiners take titles on duties. Weld into their pen is the production act.</p>
     <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
   </div>
 
-  <div class="card" style="margin-bottom: 1.5rem;">
-    <h2>Agent fuse wiring — {{ install_price }}</h2>
-    <p>One-time lab path: wire a pre-exec fuse on one agent surface. Useful for drills. <strong>Not</strong> a production mouth and not a Pro plan. Production = weld.</p>
-    <p style="margin-top: 0.75rem;">
-      {% if install_slots > 0 %}
-      <a href="{{ url_for('install') }}" class="btn btn-ghost">Book agent wiring</a>
-      {% else %}
-      <a href="mailto:{{ contact_email }}?subject=Gate%20agent%20wiring%20waitlist" class="btn btn-ghost">Waitlist agent wiring</a>
-      {% endif %}
-    </p>
-  </div>
-
-  <div class="card" style="opacity: 0.92;">
-    <p class="audience-tag">Lab only · footnote</p>
-    <h2>Drill access</h2>
-    <p>Builders who need hop receipts for integration drills can open a <strong>lab account</strong>. Metered hops are a fuse budget for experiments — not Free/Pro tiers, not the civilizational product, not what ads should sell.</p>
-    <p style="margin-top: 0.75rem;">
-      <a href="{{ url_for('signup') }}" class="btn btn-ghost btn-sm">Open lab account</a>
-      <a href="{{ url_for('docs') }}" class="btn btn-ghost btn-sm">Lab hop docs</a>
-      <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Production is the weld</a>
-    </p>
-  </div>
-
   <div class="card" style="margin-top: 1.5rem;">
-    <h2>Programs / infra mouths</h2>
-    <p>Grid shed-reconnect, wholesale finality, defense release mouths — collaborate under coordinators. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>. We do not sell Tier-S ownership cosplay.</p>
+    <h2>Programs</h2>
+    <p>Grid shed-reconnect, wholesale finality, defense release — under coordinators. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>. We do not sell Tier-S ownership cosplay.</p>
   </div>
+
+  <p class="fine-print" style="margin-top: 2rem; text-align: center; color: var(--muted);">
+    Integration drills are not sold here. Production money is the weld.
+  </p>
 </div>
 {% endblock %}

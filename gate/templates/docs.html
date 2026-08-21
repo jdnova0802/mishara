@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Documentation{% endblock %}
+{% block title %}Drill protocol{% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Lab hops · production is the weld</p>
-  <h1>Lab docs</h1>
-  <p style="color: var(--muted); margin-bottom: 1rem;">Gate is the <strong>mouth</strong> on irreversible writes — DENY that holds, CHARGE-only revive, stranger verify. <strong>Production money = <a href="{{ url_for('operator_page') }}">weld</a> + <a href="{{ url_for('register_page') }}">register</a></strong>. This page is the lab hop surface for drills. Not Free/Pro. Not seats.</p>
-  <p style="color: var(--muted); margin-bottom: 2rem;">Lab requests use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. Public demo hops need no key.</p>
+  <p class="audience-tag">Internal drills · money path is the weld</p>
+  <h1>Drill protocol</h1>
+  <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Buyers:</strong> go to <a href="{{ url_for('operator_page') }}">weld</a>. This page is only for engineers running integration drills. Not Free/Pro. Not seats. A hop credential is not a production door.</p>
+  <p style="color: var(--muted); margin-bottom: 2rem;">Drill requests may use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. Public demo hops need none.</p>
 
   <div class="card">
-    <h2>Lab auth (drills)</h2>
-    <p>Open a <a href="{{ url_for('signup') }}">lab account</a> → mint a key on the lab account page. Keys are shown once. A key is not a welded production door.</p>
+    <h2>Drill credentials</h2>
+    <p>Open a <a href="{{ url_for('signup') }}">drill desk</a> → mint a credential once. It is not a welded production door.</p>
     <pre>Authorization: Bearer gate_sk_live_xxxxxxxx</pre>
   </div>
 

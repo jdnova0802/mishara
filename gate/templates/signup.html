@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Lab account{% endblock %}
+{% block title %}Drill desk{% endblock %}
 {% block content %}
 <div class="container section" style="max-width: 420px;">
-  <p class="audience-tag">Lab · not SaaS · not production</p>
-  <h1>Open a lab account</h1>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Drill-hop budget for integration tests. Production is a <a href="{{ url_for('operator_page') }}">welded door</a> — not this form.</p>
+  <p class="audience-tag">Drills only · not the product</p>
+  <h1>Drill desk</h1>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">For engineers wiring integration tests. If you need a production mouth, <a href="{{ url_for('operator_page') }}">weld a door</a>.</p>
   <form method="post">
     <div class="form-group">
       <label for="email">Email</label>
@@ -14,9 +14,9 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required minlength="8" autocomplete="new-password">
     </div>
-    <button type="submit" class="btn btn-primary" style="width: 100%;">Create lab account</button>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">Open drill desk</button>
   </form>
-  <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">Already have a lab account? <a href="{{ url_for('login') }}">Lab login</a></p>
-  <p style="margin-top: 0.75rem; font-size: 0.85rem;"><a href="{{ url_for('pricing') }}">Mouth economics</a> · <a href="{{ url_for('operator_page') }}">Weld</a></p>
+  <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">Already have a desk? <a href="{{ url_for('login') }}">Sign in</a></p>
+  <p style="margin-top: 0.75rem; font-size: 0.85rem;"><a href="{{ url_for('operator_page') }}">Weld a door</a> · <a href="{{ url_for('pricing') }}">Economics</a></p>
 </div>
 {% endblock %}
