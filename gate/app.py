@@ -395,10 +395,11 @@ def payment_required_response(account_id: str, plan: str):
                 "error": {
                     "type": "payment_required",
                     "code": "hop_limit_exceeded",
-                    "message": "Monthly hop limit reached. Upgrade to Pro for 1M hops/mo.",
+                    "message": "Lab hop budget exhausted. Production is the weld at /operator — not a Pro plan.",
                     "request_id": f"req_{uuid.uuid4().hex[:16]}",
                     "usage": usage,
-                    "upgrade_url": f"{advertised_url()}/pricing",
+                    "operator_url": f"{advertised_url()}/operator",
+                    "economics_url": f"{advertised_url()}/pricing",
                     "x402Version": 2,
                 }
             }
@@ -2072,7 +2073,9 @@ def _mcp_call_tool(name: str, arguments: dict):
                 "error": {
                     "type": "payment_required",
                     "code": "hop_limit_exceeded",
-                    "upgrade_url": f"{advertised_url()}/pricing",
+                    "operator_url": f"{advertised_url()}/operator",
+                    "economics_url": f"{advertised_url()}/pricing",
+                    "message": "Lab hop budget exhausted. Production is the weld — not a Pro plan.",
                 }
             }
     else:
@@ -2084,7 +2087,7 @@ def _mcp_call_tool(name: str, arguments: dict):
         if not fuse_id:
             return {"error": {"code": "fuse_id_required"}}
         if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
-            return {"error": {"code": "demo_fuse_only", "message": "Sign up for a key to look up private fuses."}}
+            return {"error": {"code": "demo_fuse_only", "message": "Public demo fuses only. Production is a weld at /operator — not a signup upsell."}}
         data, status, _ = velaru_fuse(
             "GET", "/api/v1/fuse/lookup", fuse_id=fuse_id, params={"fuse_id": fuse_id}
         )

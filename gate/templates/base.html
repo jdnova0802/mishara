@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Gate{% endblock %} — Action OS · DENY is the scarcity</title>
   {% block meta %}
-  <meta name="description" content="Nisaba Action OS. Own permission on irreversible acts for any power that needs it. Scarcity is the DENY. Weld one write. 10 bps on cleared flow.">
+  <meta name="description" content="Nisaba Action OS. Own permission on irreversible acts for any power that needs it. Scarcity is the DENY. Weld one write. 10 bps on cleared flow. Not SaaS.">
   {% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% if meta_pixel_id %}
@@ -28,39 +28,35 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Gate — Nisaba Action OS",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
-    "description": "Action OS: permission on irreversible acts for any power that needs it. Scarcity is the DENY. CHARGE-only. Stranger verify.",
+    "@type": "Organization",
+    "name": "Nisaba LLC",
     "url": "{{ gate_public_url }}",
-    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
-    "provider": {"@type": "Organization", "name": "Nisaba LLC"}
+    "description": "Action OS: permission mouth on irreversible acts. Scarcity is the DENY. Weld + register — not seats, not Free/Pro.",
+    "brand": {"@type": "Brand", "name": "Gate"}
   }
   </script>
 </head>
 <body>
   <nav>
     <div class="inner">
-      <a href="{{ url_for('index') }}" class="logo">Gate<span>API</span></a>
+      <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
         <a href="{{ url_for('action_os_page') }}" class="nav-install">Action OS</a>
         <a href="{{ url_for('family_hub') }}">Family</a>
-        <a href="{{ url_for('scorecard_page') }}">Scorecard</a>
         <a href="{{ url_for('register_page') }}">Register</a>
         <a href="{{ url_for('operator_page') }}">Weld</a>
-        <a href="{{ url_for('focus_hub') }}">Focus</a>
+        <a href="{{ url_for('pricing') }}">Economics</a>
+        <a href="{{ url_for('science_page') }}">Science</a>
         <a href="{{ url_for('stack_page') }}">Stack</a>
-        <a href="{{ url_for('docs') }}">Docs</a>
+        <a href="{{ url_for('docs') }}">Lab docs</a>
         <a href="{{ url_for('bind_room') }}">Bind Room</a>
-        <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('status_page') }}">Status</a>
         {% if session.get('account_id') %}
-          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('dashboard') }}">Lab account</a>
           <a href="{{ url_for('logout') }}">Log out</a>
         {% else %}
-          <a href="{{ url_for('login') }}">Log in</a>
-          <a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Get API key</a>
+          <a href="{{ url_for('login') }}">Lab login</a>
+          <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a door</a>
         {% endif %}
       </div>
     </div>
@@ -80,11 +76,12 @@
 
   <footer>
     <div class="container">
-      Nisaba Action OS · scarcity is the DENY ·
+      Nisaba Action OS · scarcity is the DENY · not SaaS ·
       <a href="{{ url_for('action_os_page') }}">Action OS</a> ·
       <a href="{{ url_for('stack_page') }}">Stack map</a> ·
       <a href="{{ url_for('register_page') }}">Register</a> ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
+      <a href="{{ url_for('pricing') }}">Economics</a> ·
       <a href="https://velaru.xyz/instant">Velaru proof</a> ·
       <a href="https://velaru.xyz/verify">Verify</a> ·
       <a href="https://velaru.xyz/legal/processor-one-pager.txt">Processor embed</a> ·

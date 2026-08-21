@@ -128,11 +128,11 @@ Would love feedback from anyone wiring pre-exec gates into agent loops.
 
 ## Product Hunt one-liner
 
-Gate API — metered "can this agent still act?" fuse hop for AI agents. Free tier + Stripe Pro.
+Gate — Action OS mouth on irreversible writes. DENY that holds. Weld + register (10 bps). Not SaaS. Not Free/Pro.
 
 ## Twitter/X
 
-Shipped Gate API: self-serve metered wrapper on Velaru fuse hop. 1k free hops/mo, $99 Pro. No more infinite public labor. Docs + 3 curls → [YOUR_URL]
+Shipped Gate as the mouth, not a seat product: weld one irreversible write, management rent, 10 bps on cleared flow. Lab hops are drills. their_production stays false until L4. Docs → [YOUR_URL]/operator
 
 ---
 
@@ -140,8 +140,9 @@ Shipped Gate API: self-serve metered wrapper on Velaru fuse hop. 1k free hops/mo
 
 | Milestone | What it takes |
 |-----------|---------------|
-| First $ | Week 2–4 post-launch if HN/listings hit |
-| $1K MRR | ~10 Pro subs or mix of usage |
+| First $ | One paid weld (operator checkout) |
+| Register scale | Cleared flow through welded mouths |
+| Lab hops | Footnote — drills, not the money story |
 | $10K MRR | ~100 Pro subs + dev word-of-mouth |
 | Quit day job | $10K+ stable MRR for 3+ months (your expenses vary) |
 

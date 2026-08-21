@@ -2,12 +2,14 @@
 {% block title %}Documentation{% endblock %}
 {% block content %}
 <div class="container section">
-  <h1>Gate API docs</h1>
-  <p style="color: var(--muted); margin-bottom: 2rem;">Metered proxy to the Velaru fuse engine. All requests require <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>.</p>
+  <p class="audience-tag">Lab hops · production is the weld</p>
+  <h1>Lab docs</h1>
+  <p style="color: var(--muted); margin-bottom: 1rem;">Gate is the <strong>mouth</strong> on irreversible writes — DENY that holds, CHARGE-only revive, stranger verify. <strong>Production money = <a href="{{ url_for('operator_page') }}">weld</a> + <a href="{{ url_for('register_page') }}">register</a></strong>. This page is the lab hop surface for drills. Not Free/Pro. Not seats.</p>
+  <p style="color: var(--muted); margin-bottom: 2rem;">Lab requests use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. Public demo hops need no key.</p>
 
   <div class="card">
-    <h2>Authentication</h2>
-    <p>Create an account → dashboard → copy your API key. Keys are shown once.</p>
+    <h2>Lab auth (drills)</h2>
+    <p>Open a <a href="{{ url_for('signup') }}">lab account</a> → mint a key on the lab account page. Keys are shown once. A key is not a welded production door.</p>
     <pre>Authorization: Bearer gate_sk_live_xxxxxxxx</pre>
   </div>
 
@@ -102,15 +104,16 @@
   </div>
 
   <div class="card">
-    <h2>402 Payment Required</h2>
-    <p>When monthly hop limit is exceeded:</p>
+    <h2>402 hop budget exhausted</h2>
+    <p>Lab hop budget is a fuse meter for drills — not a SaaS upgrade funnel. When exhausted, weld production or ask ops to extend the drill budget:</p>
     <pre>{
   "error": {
     "type": "payment_required",
     "code": "hop_limit_exceeded",
-    "message": "Monthly hop limit reached...",
-    "usage": { "hops": 1000, "hop_limit": 1000, "plan": "free" },
-    "upgrade_url": "{{ public_url }}/pricing"
+    "message": "Lab hop budget exhausted. Production is the weld — not a Pro plan.",
+    "usage": { "hops": 1000, "hop_limit": 1000, "plan": "lab" },
+    "operator_url": "{{ public_url }}/operator",
+    "economics_url": "{{ public_url }}/pricing"
   }
 }</pre>
   </div>

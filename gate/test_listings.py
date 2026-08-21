@@ -1645,6 +1645,44 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("Not SaaS", body)
         self.assertIn("/register", body)
 
+    def test_zero_saas_stench_on_money_surfaces(self):
+        """Public money face must not smell like Free/Pro seat SaaS."""
+        banned = (
+            "Get API key",
+            "Get free API",
+            "Sign up → Pro",
+            "Upgrade to Pro",
+            "Cancel anytime",
+            "Free tier",
+            "1,000 hops / month",
+            "1,000,000 hops",
+        )
+        for path in ("/", "/pricing", "/operator", "/register", "/docs", "/trust"):
+            body = self.client.get(path).get_data(as_text=True)
+            for phrase in banned:
+                self.assertNotIn(phrase, body, f"{path} still has SaaS phrase: {phrase}")
+        pricing = self.client.get("/pricing").get_data(as_text=True)
+        self.assertIn("Not SaaS", pricing)
+        self.assertIn("Weld", pricing)
+        self.assertNotIn(">Free</h3>", pricing)
+        self.assertNotIn(">Pro</h3>", pricing)
+        nav = self.client.get("/").get_data(as_text=True)
+        self.assertIn("Weld a door", nav)
+        self.assertNotIn("Get API key", nav)
+        opp = self.client.get("/.well-known/opportunities.json")
+        if opp.status_code == 200:
+            self.assertTrue(opp.get_json().get("not_saas"))
+        import audiences as audiences_mod
+
+        for plate in audiences_mod.plate_list():
+            blob = " ".join(
+                str(plate.get(k, ""))
+                for k in ("offer", "price", "cta_label", "subhead", "headline")
+            )
+            self.assertNotRegex(blob, r"(?i)get (free )?api key")
+            self.assertNotRegex(blob, r"(?i)free tier")
+            self.assertNotRegex(blob, r"(?i)\$99\s*/\s*mo")
+
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
 
