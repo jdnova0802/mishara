@@ -1,9 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Action OS · Nisaba{% endblock %}
+{% block title %}Company reference{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block meta %}
-<meta name="description" content="{{ manifest.formula }}">
-<meta property="og:title" content="Nisaba — Action OS">
-<meta property="og:description" content="{{ manifest.ads }}">
+<meta name="description" content="Company reference. Clearance before irreversible write. Fail closed.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
@@ -12,8 +11,8 @@
 </div>
 
 <section class="hero container">
-  <p class="audience-tag">Company spec · reference</p>
-  <h1>Action OS.</h1>
+  <p class="audience-tag">Company reference · archive</p>
+  <h1>Reference</h1>
   <p class="hero-sub"><strong>{{ manifest.formula }}</strong></p>
   <p class="hero-sub" style="margin-top: 0.75rem;">{{ manifest.thesis }}</p>
   <div class="hero-actions">
@@ -25,78 +24,29 @@
 
 <section class="container proof-strip">
   <div class="proof-item">
-    <span class="proof-label">Them</span>
-    <span class="proof-value">Data integration</span>
-  </div>
-  <div class="proof-item">
-    <span class="proof-label">Us</span>
-    <span class="proof-value">Clearance on the write</span>
+    <span class="proof-label">Clears</span>
+    <span class="proof-value">Withdraw · payout · bind</span>
   </div>
   <div class="proof-item">
     <span class="proof-label">Default</span>
     <span class="proof-value dead-text">Fail closed</span>
   </div>
-</section>
-
-<section class="container-wide section">
-  <h2 style="margin-bottom: 1rem;">We serve everybody</h2>
-  <div class="grid-2">
-    {% for b in blocks %}
-    <div class="card">
-      <p class="audience-tag">{{ b.tag }}</p>
-      <h3>{{ b.title }}</h3>
-      <p style="color: var(--muted);">{{ b.body }}</p>
-    </div>
-    {% endfor %}
+  <div class="proof-item">
+    <span class="proof-label">Proof</span>
+    <span class="proof-value">Independent verify</span>
   </div>
 </section>
 
 <section class="container section">
   <div class="card">
-    <h2>Equivalent — dirty hands, same class</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Not cosplay. Same willingness to sit inside hard institutional loops — different job.</p>
-    <div class="grid-2">
-      <div>
-        <p class="audience-tag">Palantir</p>
-        <p><strong>{{ manifest.equivalent.palantir.job }}</strong></p>
-        <p style="color: var(--muted);">{{ manifest.equivalent.palantir.bite }}</p>
-        <p style="margin-top: 0.5rem;">{{ manifest.equivalent.palantir.controversy }}</p>
-      </div>
-      <div>
-        <p class="audience-tag">Nisaba</p>
-        <p><strong>{{ manifest.equivalent.nisaba.job }}</strong></p>
-        <p style="color: var(--muted);">{{ manifest.equivalent.nisaba.bite }}</p>
-        <p style="margin-top: 0.5rem;">{{ manifest.equivalent.nisaba.controversy }}</p>
-        <p style="margin-top: 0.5rem;"><strong>Default:</strong> {{ manifest.equivalent.nisaba.scarcity }}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="container section">
-  <div class="card">
-    <h2>Force / battlefield — category honesty</h2>
-    <p style="color: var(--muted);">
-      Category includes force-adjacent irreversible release under serve-everybody.
-      <strong>force_production_weld: {{ manifest.force_production_weld }}</strong> —
-      we do not claim a battlefield door until someone welds one.
-    </p>
-  </div>
-</section>
-
-<section class="container section">
-  <h2 style="margin-bottom: 1rem;">Family — one Action OS stack</h2>
-  <div class="grid-3">
-    {% for f in manifest.family %}
-    <div class="card">
-      <p class="audience-tag">{{ f.rail }}</p>
-      <h3>{{ f.name }}</h3>
-      <p style="color: var(--muted);">{{ f.question }}</p>
-      {% if f.url %}
-      <a href="{{ f.url }}" class="btn btn-ghost btn-sm" style="margin-top: 0.75rem;">Open →</a>
-      {% endif %}
-    </div>
-    {% endfor %}
+    <h2>What operators buy</h2>
+    <ul class="check-list">
+      <li>One welded path on an irreversible write</li>
+      <li>Fail closed under uncertainty</li>
+      <li>Parent license revoked → child spend blocked</li>
+      <li>their_production false until third-party production weld</li>
+      <li>Fees: weld + path management + bps — not seats</li>
+    </ul>
   </div>
 </section>
 
@@ -111,57 +61,8 @@
   </div>
 </section>
 
-<section class="container section">
-  <div class="card">
-    <h2>Nature</h2>
-    <ul class="check-list">
-      {% for line in manifest.nature %}
-      <li>{{ line }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-</section>
-
-<section class="container section">
-  <div class="card">
-    <h2>Integrity on dirty work</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">Serve everybody. Do not let anybody forge LIVE. Clearance fails closed.</p>
-    <ul class="check-list">
-      {% for line in manifest.integrity %}
-      <li>{{ line }}</li>
-      {% endfor %}
-    </ul>
-  </div>
-</section>
-
-<section class="container section">
-  <h2 style="margin-bottom: 1rem;">Operational — already shipped</h2>
-  <div class="grid-2">
-    {% for op in manifest.operational %}
-    <div class="card">
-      <p class="audience-tag">{{ op.surface }}</p>
-      <p>{{ op.why }}</p>
-      {% if op.href %}
-      <a href="{{ op.href }}" class="btn btn-ghost btn-sm" style="margin-top: 0.5rem;">Surface</a>
-      {% endif %}
-    </div>
-    {% endfor %}
-  </div>
-</section>
-
-<section class="container section">
-  <div class="card">
-    <h2>Not this</h2>
-    <ul class="check-list">
-      {% for line in manifest.not %}
-      <li>{{ line }}</li>
-      {% endfor %}
-    </ul>
-    <div class="hero-actions" style="justify-content: flex-start; margin-top: 1rem;">
-      <a href="{{ url_for('well_known_action_os') }}" class="btn btn-ghost btn-sm">action-os.json</a>
-      <a href="{{ url_for('register_page') }}" class="btn btn-primary btn-sm">Register</a>
-      <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline btn-sm">Weld</a>
-    </div>
-  </div>
+<section class="container section" style="text-align:center; padding-bottom: 3rem;">
+  <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
+  <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
 </section>
 {% endblock %}

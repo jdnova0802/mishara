@@ -1,35 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Status{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,follow">{% endblock %}
 {% block content %}
 <div class="container section">
-  <h1>Gate API status</h1>
-  <p style="color: var(--muted); margin-bottom: 2rem;">Live operational metrics — updated on page load.</p>
+  <h1>Gate status</h1>
+  <p style="color: var(--muted); margin-bottom: 2rem;">Engine reachability — updated on page load.</p>
 
   <div class="status-grid">
     <div class="card status-card {{ 'ok' if velaru_ok else 'down' }}">
       <h3>Velaru engine</h3>
-      <p class="status-big">{{ 'Operational' if velaru_ok else 'Unreachable' }}</p>
+      <p class="status-big">{{ 'Reachable' if velaru_ok else 'Unreachable' }}</p>
       <p class="status-meta">{{ velaru_base }}</p>
     </div>
     <div class="card status-card {{ 'ok' if public_url.startswith('https://') else 'down' }}">
-      <h3>Gate API</h3>
+      <h3>Gate edge</h3>
       <p class="status-big">{{ 'Public' if public_url.startswith('https://') else 'LOCAL' }}</p>
       <p class="status-meta">{{ public_url }}</p>
     </div>
     <div class="card status-card">
       <h3>Hops this month</h3>
       <p class="status-big">{{ hops_month }}</p>
-      <p class="status-meta">metered API calls</p>
-    </div>
-    <div class="card status-card">
-      <h3>Developers</h3>
-      <p class="status-big">{{ accounts }}</p>
-      <p class="status-meta">registered accounts</p>
-    </div>
-    <div class="card status-card">
-      <h3>Installs booked</h3>
-      <p class="status-big">{{ installs_month }}</p>
-      <p class="status-meta">{{ install_slots }} slots remaining</p>
+      <p class="status-meta">metered hops</p>
     </div>
   </div>
 
@@ -41,5 +32,6 @@
   {% endif %}
 
   <p style="margin-top: 1.5rem;"><a href="{{ url_for('health') }}">JSON health</a> · <a href="{{ url_for('openapi') }}">openapi.json</a> · <a href="/.well-known/gate.json">.well-known/gate.json</a></p>
+  <p style="margin-top: 1rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path</a></p>
 </div>
 {% endblock %}

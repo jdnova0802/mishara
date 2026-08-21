@@ -1,13 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Agent fuse wiring{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,follow">{% endblock %}
 {% block content %}
 <div class="container section">
   <div class="install-hero">
-    {% if install_slots > 0 %}
-      <span class="slot-badge">{{ install_slots }} slot{{ 's' if install_slots != 1 else '' }} left this month</span>
-    {% else %}
-      <span class="slot-badge sold-out">Sold out — waitlist only</span>
-    {% endif %}
     <p class="audience-tag">Drill path · not production</p>
     <h1>48hr agent fuse wiring</h1>
     <p class="install-lead">One pre-exec fuse on one agent surface. Fail closed if clearance fails. Every hop includes an independent verify receipt. This is a drill path. Production clearance is a <a href="{{ url_for('operator_page') }}">weld</a>.</p>
@@ -46,11 +42,11 @@
   </div>
 
   <div class="card install-checkout-card">
-    <h2>Book a slot</h2>
+    <h2>Book wiring</h2>
     {% if sold_out %}
-      <p>All wiring slots are booked for this month. Email <a href="mailto:{{ contact_email }}?subject=Gate%20agent%20wiring%20waitlist">{{ contact_email }}</a>.</p>
+      <p>Wiring capacity is full this month. Email <a href="mailto:{{ contact_email }}?subject=Gate%20agent%20wiring%20waitlist">{{ contact_email }}</a>.</p>
     {% else %}
-      <p>Pay → email within 2 hours → clock starts. No sales call. Drill path only — not a seat license.</p>
+      <p>Pay → email within 2 hours → clock starts. Drill path only — not a seat license.</p>
       <form method="post" action="{{ url_for('install_checkout') }}" class="install-form">
         <div class="form-group">
           <label for="email">Work email</label>
@@ -67,7 +63,6 @@
     <p>Irreversible write clearance = operator weld + fee schedule. Lab keys and hop meters are drills.</p>
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path</a>
     <a href="{{ url_for('pricing') }}" class="btn btn-ghost btn-sm">Pricing</a>
-    <a href="{{ url_for('docs') }}" class="btn btn-ghost btn-sm">Hop docs</a>
   </div>
 </div>
 {% endblock %}

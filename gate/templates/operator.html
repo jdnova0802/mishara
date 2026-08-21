@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Weld{% endblock %}
+{% block title %}Clearance weld{% endblock %}
 {% block meta %}
 <meta name="description" content="Weld one withdraw/payout or bind path. {{ weld_price }} + {{ floor_price }}/mo + 10 bps. their_production false until third-party production weld. Licensed only.">
 {% endblock %}
@@ -10,8 +10,8 @@
 </div>
 <div class="container section">
   <p class="audience-tag">Checkout · licensed operators</p>
-  <h1>Weld one path</h1>
-  <p class="audience-sub">If money is about to leave and should not, this path blocks it. Default write: <strong>withdraw / payout clear</strong> (or bind-only). <strong>{{ weld_price }}</strong> weld. <strong>{{ floor_price }}</strong> monthly management per path. Then <strong>10 bps</strong> on cleared flow (+5 bps above $500M/mo). Licensed operators only. Checkout starts delivery — it does not claim third-party production status.</p>
+  <h1>Weld one clearance path</h1>
+  <p class="audience-sub">If money is about to leave and should not, this path blocks it. Default write: <strong>withdraw / payout clear</strong> (or bind-only). <strong>{{ weld_price }}</strong> weld. <strong>{{ floor_price }}</strong> monthly management per path. Then <strong>10 bps</strong> on cleared flow (+5 bps above $500M/mo). Parent license revoked blocks child spend. Licensed operators only. Checkout starts delivery — it does not claim third-party production status.</p>
   <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }}/mo per path</span></div>
 
   <div class="card" style="margin: 1.25rem 0;">
@@ -25,8 +25,8 @@
     <p style="color: var(--muted); margin-bottom: 0.75rem;">Counsel and ops can review before checkout.</p>
     <p style="font-size: 0.9rem;">
       <a href="{{ url_for('register_page') }}">Fee schedule</a> ·
-      <a href="{{ url_for('well_known_kappa') }}">kappa.json</a> ·
-      <a href="{{ url_for('well_known_schism') }}">schism.json</a> ·
+      <a href="{{ url_for('well_known_kappa') }}">restraint inventory (kappa.json)</a> ·
+      <a href="{{ url_for('well_known_schism') }}">settlement schedule (schism.json)</a> ·
       <a href="https://velaru.xyz/verify">Verify</a> ·
       <a href="{{ url_for('privacy_page') }}">Privacy</a> ·
       <a href="{{ url_for('terms_page') }}">Terms</a>

@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Proof suite{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block meta %}
-<meta name="description" content="Fail-closed invariants. {{ manifest.pass_count }}/{{ manifest.total }} pass. Readiness L{{ manifest.readiness.level }}. Strangers can re-run.">
+<meta name="description" content="Internal proof suite.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Invariants · readiness ladder · no theater</p>
+  <p class="audience-tag">Internal invariants · readiness ladder</p>
   <h1>Proof suite</h1>
   <p class="audience-sub">{{ manifest.pass_count }}/{{ manifest.total }} pass · all_pass {{ manifest.all_pass }}</p>
   <p style="margin: 0.75rem 0;">

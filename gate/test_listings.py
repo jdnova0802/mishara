@@ -245,12 +245,15 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn('href="/register"', chrome)
         self.assertIn(">Fees</a>", chrome)
         self.assertIn(">Pricing</a>", chrome)
-        # Lean chrome: doctrine / lab clutter buried; Spec+Reference in footer only
+        # Buyer chrome only — no doctrine / family / lab in nav or footer
         self.assertNotIn(">Action OS</a>", chrome)
         self.assertNotIn(">Scanner</a>", chrome)
         self.assertNotIn(">Uplink</a>", chrome)
-        self.assertIn('href="/action-os"', home)  # footer Spec
-        self.assertIn('href="/science"', home)  # footer Reference
+        self.assertIn('href="/trust"', home)
+        # Spec / Reference / Family stay off buyer chrome
+        self.assertNotIn('href="/action-os"', home)
+        self.assertNotIn('href="/science"', home)
+        self.assertNotIn('href="/family"', home)
         for path in (
             "/",
             "/start",
@@ -326,7 +329,7 @@ class FlaskListingTests(unittest.TestCase):
         self.assertTrue(all(p["maxed"] for p in sc["family"] if p["id"] != "gate"))
         self.assertIn("family", gate)
         self.assertEqual(self.client.get("/family").status_code, 200)
-        self.assertIn("/family", self.client.get("/").get_data(as_text=True))
+        self.assertNotIn("/family", self.client.get("/").get_data(as_text=True))
 
 
 class BoundAnswerTests(unittest.TestCase):
@@ -1450,22 +1453,23 @@ class OperatorInvoiceTests(unittest.TestCase):
         aos_page = self.client.get("/action-os")
         self.assertEqual(aos_page.status_code, 200)
         aos_body = aos_page.get_data(as_text=True)
-        self.assertIn("Action OS", aos_body)
-        self.assertIn("We serve everybody", aos_body)
-        self.assertIn("Palantir", aos_body)
-        self.assertIn("DENY", aos_body)
-        self.assertIn("force_production_weld", aos_body)
+        self.assertIn("Clearance before irreversible write", aos_body)
+        self.assertIn("Weld a path", aos_body)
+        self.assertIn("noindex", aos_body)
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("action_os", gate)
         self.assertIn("formula", gate)
 
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("/action-os", home)  # footer Spec only
-        self.assertNotIn(">Action OS</a>", home.split("<footer>", 1)[0])
+        self.assertNotIn("/action-os", home)
+        self.assertNotIn(">Action OS</a>", home)
         self.assertNotIn("scarcity is the DENY", home)
         self.assertIn("If money is about to leave", home)
-        self.assertIn("/science", home)  # footer Reference
+        self.assertNotIn("/science", home)
+        self.assertIn("/trust", home)
+        self.assertIn("Parent revoked", home)
+        self.assertIn("their_production", home)
 
         import db as gate_db
 

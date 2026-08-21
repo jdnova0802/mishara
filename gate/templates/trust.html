@@ -1,52 +1,46 @@
 {% extends "base.html" %}
-{% block title %}Trust & proof{% endblock %}
+{% block title %}Trust & limits{% endblock %}
+{% block meta %}
+<meta name="description" content="What Gate proves on withdraw, payout, and bind — fail closed, parent license death, independent verify. What we do not claim.">
+{% endblock %}
 {% block content %}
 <div class="container section">
-  <h1>Trust & proof</h1>
-  <p style="color: var(--muted); max-width: 640px; margin-bottom: 2rem;">What Gate proves, how it proves it, and what we explicitly do not claim.</p>
+  <h1>Trust & limits</h1>
+  <p style="color: var(--muted); max-width: 640px; margin-bottom: 2rem;">What Gate proves on irreversible writes, how a stranger checks it, and what we explicitly do not claim.</p>
 
   <div class="card">
-    <h2>The question is cheap</h2>
-    <p><strong>Can this agent still act right now?</strong></p>
-    <p style="color: var(--muted); margin-top: 0.5rem;">Four answers only: LIVE · ARMED · DEAD · UNSIGNED. Not a safety score. More valuable than the question is a <a href="{{ url_for('bound_page') }}">no that holds</a>.</p>
+    <h2>The question</h2>
+    <p><strong>Can this withdraw, payout, or bind still execute right now?</strong></p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">Clearance is binary under uncertainty: if the hop cannot prove allow, the write does not run. Timeout and unreachable are halt — never allow.</p>
   </div>
 
   <div class="card">
-    <h2>The bound answer</h2>
+    <h2>What holds</h2>
     <ul class="check-list">
-      <li>Narrow — yes or no, not a score</li>
-      <li>Enforced — DEAD cannot act; timeout is halt, never LIVE</li>
-      <li>Provable — a stranger opens the receipt with no login</li>
+      <li>Fail closed — uncertain / timeout / unreachable → no write</li>
+      <li>Parent license revoked → child spend blocked</li>
+      <li>Independent verify — stranger opens the receipt with no login</li>
+      <li><code>their_production: false</code> until a recorded third-party production weld</li>
     </ul>
-    <p style="color: var(--muted); margin-top: 0.75rem;">A DEAD hop that still lets bind-and-issue fire is a no that leaked.</p>
-  </div>
-
-  <div class="card">
-    <h2>The flow</h2>
-    <pre class="flow-diagram">question → four states → hop that fails closed → verify
-   ↓
-Lookup → LIVE|ARMED|DEAD|UNSIGNED
-Hop    → DEAD → verdict:false + restraint receipt
-Prove  → stranger verify at {{ velaru_base }}/verify (free, no login)</pre>
   </div>
 
   <div class="card">
     <h2>What we prove</h2>
     <ul class="check-list">
-      <li>Signed public fuse existence at hop time</li>
-      <li>Fail-closed behavior when fuse is DEAD</li>
-      <li>Hash-chained receipts strangers can verify</li>
-      <li>Metered access — no infinite free labor</li>
+      <li>Signed clearance state at hop time</li>
+      <li>Fail-closed behavior when clearance is denied or unreachable</li>
+      <li>Hash-chained receipts a stranger can verify</li>
+      <li>No bypass on the welded write path</li>
     </ul>
   </div>
 
   <div class="card">
     <h2>What we do not claim</h2>
     <ul class="check-list muted-list">
-      <li>We do not prove model truth or complete logs</li>
-      <li>UNSIGNED is not a legality or safety score</li>
-      <li>We are not resurrecting fuses from UI — CHARGE webhook only on Velaru</li>
-      <li>Gate is the meter + identity layer; Velaru is the proof engine</li>
+      <li>We do not prove model truth or complete application logs</li>
+      <li>We are not a seat license or Free/Pro API product</li>
+      <li>Checkout does not equal third-party production status</li>
+      <li>Gate is the clearance meter + weld; Velaru is the proof engine</li>
     </ul>
   </div>
 

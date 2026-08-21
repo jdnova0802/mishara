@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Scorecard · flawless{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block meta %}
-<meta name="description" content="Nisaba family scorecard. Honest gaps. Real market bites. Scarcity is the DENY. their_production: {{ manifest.their_production }}">
+<meta name="description" content="Internal scorecard. Not a buyer surface.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Pre-rev MAXED.</strong> Gate fully maxed except deploy — L4 weld flips their_production.</span>
-  <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Formula →</a>
+  <span>Internal readiness record. Buyer surface is Weld / Fees / Trust.</span>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld →</a>
 </div>
 
 <section class="hero container">

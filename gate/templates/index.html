@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Clearance before payout{% endblock %}
 {% block meta %}
-<meta name="description" content="Gate clears withdraw, payout, and bind before execution. Fail closed under uncertainty. Weld one path. Licensed operators only.">
+<meta name="description" content="Gate clears withdraw, payout, and bind before execution. Fail closed under uncertainty. Parent license revoked blocks child spend. Licensed operators only.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
@@ -11,59 +11,58 @@
 
 <section class="hero container">
   <h1>Gate</h1>
-  <p class="hero-sub">If money is about to leave and should not, Gate blocks the write. One welded path on withdraw, payout clear, or bind-only. Independent verification available. Fees: weld + monthly management + 10 bps of cleared flow.</p>
+  <p class="hero-sub">If money is about to leave and should not, the write does not run. Gate sits on the irreversible edge — withdraw, payout clear, or bind — and fails closed under uncertainty. Independent verification. No login required to check a receipt.</p>
   <div class="hero-actions">
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path · {{ weld_price }}</a>
     <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule</a>
   </div>
 </section>
 
-<section class="container proof-strip">
-  <div class="proof-item">
-    <span class="proof-label">Path</span>
-    <span class="proof-value">No bypass on the write</span>
-  </div>
-  <div class="proof-item">
-    <span class="proof-label">Parent license</span>
-    <span class="proof-value">Revoked parent blocks child spend</span>
-  </div>
-  <div class="proof-item">
-    <span class="proof-label">Proof</span>
-    <span class="proof-value"><a href="https://velaru.xyz/verify">Independent verify</a></span>
-  </div>
-</section>
-
-<section class="container section">
-  <div class="card demo-card">
-    <h2>Demo clearance</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Public demo fuse only. Production requires a paid weld on the operator’s own payout or bind path.</p>
-    <button type="button" id="demo-hop-btn" class="btn btn-primary">Run demo</button>
-    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
-    <pre id="demo-output" class="demo-output">Click to run demo clearance</pre>
+<section class="container section" style="padding-top: 0;">
+  <div class="card" style="border-left: 3px solid var(--text, #111);">
+    <h2 style="margin-bottom: 0.75rem;">What this is</h2>
+    <ul class="check-list">
+      <li><strong>Clears:</strong> withdraw · payout · bind — named writes only</li>
+      <li><strong>Fail closed:</strong> uncertain, timeout, or unreachable → write does not run</li>
+      <li><strong>Parent revoked → child spend blocked</strong> — child paths cannot outlive the parent license</li>
+      <li><strong>Independent verify:</strong> stranger opens the receipt with no login</li>
+      <li><strong><code>their_production: false</code></strong> until a recorded third-party production weld — drills are not production</li>
+      <li><strong>Fees:</strong> weld + monthly path management + 10 bps of cleared flow — not seats</li>
+    </ul>
   </div>
 </section>
-<script src="{{ url_for('static', filename='demo.js') }}"></script>
 
 <section class="container-wide section">
   <div class="grid-3">
     <div class="card">
       <h3>One write</h3>
-      <p>Withdraw / payout clear, or bind-only. One irreversible edge per weld. Fail closed if uncertain.</p>
+      <p>Withdraw / payout clear, or bind-only. One irreversible edge per weld. No bypass on that write.</p>
     </div>
     <div class="card">
       <h3>Status</h3>
-      <p><code>their_production</code> remains false until a recorded third-party production weld. Internal drills are not production.</p>
+      <p><code>their_production</code> stays false until third-party production weld. Checkout starts delivery — it does not claim production.</p>
     </div>
     <div class="card">
       <h3>Fees</h3>
-      <p>{{ floor_price }} management per welded path + 10 bps of cleared flow. Not seat licenses.</p>
+      <p>{{ floor_price }} management per welded path + 10 bps of cleared flow. Quiet path still pays management.</p>
     </div>
   </div>
 </section>
 
+<section class="container section">
+  <div class="card demo-card">
+    <h2>Public demo (lab fuse)</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Lab fuse only. Production is a paid weld on the operator’s own payout or bind path.</p>
+    <button type="button" id="demo-hop-btn" class="btn btn-ghost">Run demo hop</button>
+    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
+    <pre id="demo-output" class="demo-output">Demo is optional. The product is the weld.</pre>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='demo.js') }}"></script>
+
 <section class="container section" style="text-align: center; padding-bottom: 3rem;">
   <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · licensed operators</p>
   <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
-  <a href="{{ url_for('pricing') }}" class="btn btn-ghost">Pricing</a>
+  <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
 </section>
 {% endblock %}

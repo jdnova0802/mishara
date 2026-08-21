@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 {% block title %}Family voices{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block meta %}
-<meta name="description" content="{{ manifest.thesis }}">
+<meta name="description" content="Internal family research notes. Not a buyer surface.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
-  <span><strong>Nisaba family.</strong> Reflect Velaru as engine. Own gravity. Bite real markets.</span>
-  <a href="{{ url_for('scorecard_page') }}" class="btn btn-ghost btn-sm">Scorecard →</a>
+  <span>Internal research notes. Public door: Weld / Fees / Trust.</span>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld →</a>
 </div>
 
 <section class="hero container">
-  <p class="audience-tag">Research pass · voices</p>
-  <h1>Five doors. One engine.</h1>
+  <p class="audience-tag">Internal · research</p>
+  <h1>Family notes</h1>
   <p class="hero-sub">{{ manifest.thesis }}</p>
   <div class="hero-actions">
     <a href="{{ url_for('well_known_family_voices') }}" class="btn btn-primary">family.json</a>

@@ -7,6 +7,7 @@
   {% block meta %}
   <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.">
   {% endblock %}
+  {% block robots %}{% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% if meta_pixel_id %}
   <script>
@@ -42,6 +43,7 @@
         <a href="{{ url_for('operator_page') }}">Weld</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
+        <a href="{{ url_for('trust') }}">Trust</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
         {% endif %}
@@ -68,9 +70,7 @@
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
       <a href="{{ url_for('register_page') }}">Fees</a> ·
       <a href="{{ url_for('pricing') }}">Pricing</a> ·
-      <a href="{{ url_for('action_os_page') }}">Spec</a> ·
-      <a href="{{ url_for('science_page') }}">Reference</a> ·
-      <a href="{{ url_for('family_hub') }}">Family</a> ·
+      <a href="{{ url_for('trust') }}">Trust</a> ·
       <a href="{{ url_for('privacy_page') }}">Privacy</a> ·
       <a href="{{ url_for('terms_page') }}">Terms</a> ·
       <a href="https://velaru.xyz/verify">Verify</a>
