@@ -154,6 +154,8 @@ def main() -> None:
         "STRIPE_WELD_PRICE_ID",
         "STRIPE_FLOOR_PRICE_ID",
         "GATE_NOTIFY_WEBHOOK",
+        "GATE_GA_ID",
+        "GATE_META_PIXEL_ID",
     ):
         v = (os.getenv(k) or "").strip()
         if v:

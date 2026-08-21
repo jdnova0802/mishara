@@ -56,3 +56,7 @@ services:
         value: "2"
       - key: GATE_CONTACT_EMAIL
         value: hello@velaru.xyz
+      - key: GATE_GA_ID
+        sync: false
+      - key: GATE_META_PIXEL_ID
+        sync: false
