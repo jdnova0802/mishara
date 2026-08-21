@@ -264,6 +264,8 @@ class FlaskListingTests(unittest.TestCase):
             "/install",
             "/register",
             "/operator",
+            "/privacy",
+            "/terms",
             "/bind-room",
             "/for/operators",
             "/action-os",
@@ -1549,7 +1551,34 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertFalse(sci_data["force_production_weld"])
         self.assertIn("Contribute massively", sci_data["motive"])
         self.assertGreaterEqual(len(sci_data["science"]), 4)
+        self.assertGreaterEqual(len(sci_data["tech"]), 5)
+        self.assertEqual(sci_data["first_weld"]["write"], "withdraw")
+        self.assertIn("can and may", sci_data["tech_thesis"])
+        tech_ids = {t["id"] for t in sci_data["tech"]}
+        self.assertTrue(
+            {"agent_control", "grid_forming", "leo_mesh", "tee_mpc_hsm", "pd_kinetic"}.issubset(tech_ids)
+        )
         self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
+
+        legal = self.client.get("/.well-known/legal.json")
+        self.assertEqual(legal.status_code, 200)
+        legal_data = legal.get_json()
+        self.assertEqual(legal_data["spec"], "gate-legal-stubs-v1")
+        self.assertTrue(legal_data["ads_floor"]["pixels"]["default_off"])
+        self.assertIn("/privacy", legal_data["privacy"]["url"])
+        self.assertIn("/terms", legal_data["terms"]["url"])
+        privacy_html = self.client.get("/privacy").get_data(as_text=True)
+        self.assertIn("What we collect", privacy_html)
+        terms_html = self.client.get("/terms").get_data(as_text=True)
+        self.assertIn("their_production", terms_html)
+        op_html = self.client.get("/operator").get_data(as_text=True)
+        self.assertIn("their_production: false", op_html)
+        self.assertIn("First weld", op_html)
+        self.assertIn("href=\"/privacy\"", op_html)
+        self.assertIn("href=\"/terms\"", op_html)
+        op_json = self.client.get("/.well-known/operator.json").get_json()
+        self.assertEqual(op_json["first_weld"]["write"], "withdraw")
+        self.assertFalse(op_json["ads_floor"]["their_production"])
 
         # Dogfood lifts to L3 without flipping their_production
         dog = self.client.post(

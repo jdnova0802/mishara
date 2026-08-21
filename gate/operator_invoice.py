@@ -340,6 +340,19 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "year": year_scale(),
         },
         "writes": list(WRITES.values()),
+        "first_weld": {
+            "id": "withdraw_payout_clear",
+            "write": "withdraw",
+            "label": "Withdraw / payout — clear before wire",
+            "why": "Named commercial driver edge. Prove DENY before grid or programs.",
+            "next_after_prove": "grid_shed_reconnect",
+        },
+        "ads_floor": {
+            "privacy": f"{public_url}/privacy",
+            "terms": f"{public_url}/terms",
+            "their_production": False,
+            "claim": "Checkout starts mouth delivery — not a stranger-facing production claim until L4.",
+        },
         "contract_json": f"{public_url}/.well-known/operator.json",
         "register_json": f"{public_url}/.well-known/register.json",
     }
@@ -354,27 +367,30 @@ Nisaba LLC · {contact_email} · {base}
 
 THESIS
   Default before the irreversible act — wire, bind, withdraw, list.
-  Not SaaS. Production mouth + GP-style register on cleared flow.
+  Not SaaS. Mouth + GP-style register on cleared flow.
+  First named weld: withdraw/payout clear-before-wire. their_production false until L4.
 
 STACK (one company, three doors)
   Velaru  → proof + stranger verify + $49 instant   https://velaru.xyz/instant
-  Gate    → production weld + κ register (this doc)  {base}/operator
+  Gate    → irreversible write weld + κ register     {base}/operator
   Mishara → consumer harm only (not operator)        https://mishara.app
 
-WHALE CHECKOUT (live Stripe)
-  Weld:       {WELD_PRICE_LABEL} one-time — one production write (48hr)
+WHALE CHECKOUT
+  Weld:       {WELD_PRICE_LABEL} one-time — one irreversible write (48hr delivery)
   Management: {FLOOR_PRICE_LABEL} per welded write + per LIVE license parent / mo
   Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo hurdle
   Checkout:   {base}/operator
+  Honesty:    dogfood ≠ production; their_production stays false until third-party L4 weld
 
 PROOF CHAIN (no login)
   Register:   {base}/register
   Manifests:  {base}/.well-known/kappa.json · schism.json · operator.json
+  Legal stub: {base}/privacy · {base}/terms · {base}/.well-known/legal.json
   Verify:     https://velaru.xyz/verify
   Processor:  https://velaru.xyz/legal/processor-one-pager.txt
 
 REFUSE
-  Unlicensed gambling · second write in same weld · PII on hop · seat-pricing story
+  Unlicensed gambling · second write in same weld · PII on hop · seat-pricing story · fake production claims
 
 Not legal advice. Licensed operators only.
 """

@@ -1,4 +1,4 @@
-"""Science → Gate mouth — PRI, fail-closed, thermo intervention, driver nodes.
+"""Science + tech → Gate mouth — PRI, frontiers, named first weld.
 
 Motive: contribute massively to Tier-S continuity *with* coordinators —
 collaborate as the clearance mouth, never replace state monopolies.
@@ -21,6 +21,31 @@ FORMULA = (
     "Inhibit unjustified irreversible acts (PRI) — fail-closed — "
     "as a driver-node mouth on the act graph, not a hub dashboard."
 )
+
+# Capability tech is exploding; scarce layer is non-bypassable LIVE/DENY.
+TECH_THESIS = (
+    "Frontiers multiply what systems *can* do. Gate owns the mouth between "
+    "can and may — contribute under each stack; do not own their guns."
+)
+
+# Named first commercial driver — strategy lock for the night
+FIRST_WELD = {
+    "id": "withdraw_payout_clear",
+    "write": "withdraw",
+    "label": "Withdraw / payout — clear before wire",
+    "why": (
+        "Fastest serious commercial driver edge: irreversible money leave. "
+        "Prove DENY holds on one payout path before asking utilities or programs."
+    ),
+    "example_path": "POST /v1/payouts/{id}/release",
+    "checkout": "/operator?write=withdraw",
+    "next_after_prove": "grid_shed_reconnect",
+    "not": [
+        "grid blackstart (step 2 / Tier-S-adjacent)",
+        "milcomms release mouth (ladder step 4)",
+        "nuclear C2 (state only)",
+    ],
+}
 
 
 def _now() -> str:
@@ -164,8 +189,11 @@ TIER_S = (
 CONTRIBUTE_LADDER = (
     {
         "step": 1,
-        "title": "Commercial driver weld",
-        "do": "Weld Gate as PRI on one irreversible money/bind write. Prove DENY holds.",
+        "title": "Commercial driver weld — payout clear",
+        "do": (
+            "Weld Gate as PRI on withdraw/payout clear-before-wire. "
+            "Prove DENY holds. This is the named first edge."
+        ),
         "tier": "foundation",
     },
     {
@@ -188,6 +216,79 @@ CONTRIBUTE_LADDER = (
     },
 )
 
+TECH = (
+    {
+        "id": "agent_control",
+        "name": "AI agent control planes / MCP firewalls",
+        "frontier": (
+            "Agents invoke tools at machine speed. Signed decision certs and "
+            "tool firewalls are rising — still often bypassable soft policy."
+        ),
+        "gate_mouth": (
+            "LIVE/DENY on irreversible agent writes (spend, bind, release). "
+            "MCP fuse is the hop; Gate is the mouth. Soft prompt policy ≠ DENY."
+        ),
+        "own": False,
+        "contribute": "Clearance mouth under operator tool graphs — not the model vendor.",
+    },
+    {
+        "id": "grid_forming",
+        "name": "Grid-forming inverters + smart breakers",
+        "frontier": (
+            "GFM + autonomous blackstart hardware can reclose power without a "
+            "human on every breaker — capability ahead of justified commit."
+        ),
+        "gate_mouth": (
+            "PRI on shed/reconnect authorization edges. Hardware can; mouth may. "
+            "Best near-term Tier-S-adjacent favor after commercial payout prove."
+        ),
+        "own": False,
+        "contribute": "Under utilities ISO/RTO — never own the grid.",
+    },
+    {
+        "id": "leo_mesh",
+        "name": "Military LEO mesh / Space Data Network class",
+        "frontier": (
+            "Hardened LEO meshes and SDN-class programs multiply link + C2 restore "
+            "options. Bandwidth is not authorization physics."
+        ),
+        "gate_mouth": (
+            "Optional later: fail-closed clearance on irreversible link/priority/"
+            "release ops under program offices — they keep the constellation."
+        ),
+        "own": False,
+        "contribute": "Auth layer under milcomms programs — not Starshield replacement.",
+    },
+    {
+        "id": "tee_mpc_hsm",
+        "name": "TEE + MPC + HSM post-quantum custody",
+        "frontier": (
+            "Enclaves, MPC, and PQ HSM harden *who can sign*. Still need a mouth "
+            "for *whether the irreversible act may fire*."
+        ),
+        "gate_mouth": (
+            "Custody proves keys; Gate proves LIVE. Quorum + CHARGE + stranger "
+            "receipt — soft HSM policy alone is not PRI."
+        ),
+        "own": False,
+        "contribute": "Mouth beside custody stacks — not a competing vault product.",
+    },
+    {
+        "id": "pd_kinetic",
+        "name": "Planetary-defense kinetic GNC (DART lineage)",
+        "frontier": (
+            "Kinetic commit is one-shot irreversible. Guidance tech improves; "
+            "unjustified commit remains civilization-scale PRI."
+        ),
+        "gate_mouth": (
+            "Conceptual only: inhibit unjustified irreversible commit under "
+            "state/program authority. Never private PD command."
+        ),
+        "own": False,
+        "contribute": "Doctrine alignment / tiny component someday — state owns the shot.",
+    },
+)
+
 DISTRIBUTION = (
     {
         "rule": "Sell PRI to coordinators",
@@ -196,6 +297,13 @@ DISTRIBUTION = (
     {
         "rule": "Land on the weld",
         "detail": "/operator — one door. Fail-closed story. No Tier-S ownership cosplay in ads.",
+    },
+    {
+        "rule": "First weld is payout clear",
+        "detail": (
+            "Named edge: withdraw/payout clear-before-wire. Prove DENY. "
+            "Grid shed/reconnect is next, not first."
+        ),
     },
     {
         "rule": "Find driver edges, not hubs",
@@ -209,6 +317,10 @@ DISTRIBUTION = (
         "rule": "Contribute path explicit",
         "detail": "Copy and contracts say collaborate with state/monopoly holders; mouth only.",
     },
+    {
+        "rule": "Ads floor before spend",
+        "detail": "/privacy + /terms stubs live; their_production false on creative; pixels off by default.",
+    },
 )
 
 
@@ -221,7 +333,10 @@ def manifest(public_url: str) -> dict[str, Any]:
         "evaluated_at": _now(),
         "motive": MOTIVE,
         "formula": FORMULA,
+        "tech_thesis": TECH_THESIS,
         "science": list(SCIENCE),
+        "tech": list(TECH),
+        "first_weld": dict(FIRST_WELD),
         "tier_s": list(TIER_S),
         "contribute_ladder": list(CONTRIBUTE_LADDER),
         "distribution": list(DISTRIBUTION),
@@ -237,15 +352,27 @@ def manifest(public_url: str) -> dict[str, Any]:
             "proof": f"{base}/.well-known/proof-suite.json",
             "operator": f"{base}/operator",
             "runbook": f"{base}/runbook",
+            "privacy": f"{base}/privacy",
+            "terms": f"{base}/terms",
             "page": f"{base}/science",
         },
         "page": f"{base}/science",
-        "gatekeep": "Science applied. Mouth only. Contribute to S. Ours.",
+        "gatekeep": "Science + tech applied. Mouth only. First weld = payout clear. Contribute to S.",
     }
 
 
 def page_blocks() -> list[dict[str, Any]]:
-    return [
+    blocks = [
         {"tag": "Science", "title": s["name"], "body": s["gate_law"], "id": s["id"]}
         for s in SCIENCE
     ]
+    blocks.extend(
+        {
+            "tag": "Tech",
+            "title": t["name"],
+            "body": t["gate_mouth"],
+            "id": t["id"],
+        }
+        for t in TECH
+    )
+    return blocks

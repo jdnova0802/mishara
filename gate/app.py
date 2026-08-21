@@ -120,6 +120,11 @@ except ImportError:
     import science_pri as science_pri_mod
 
 try:
+    from gate import legal as legal_mod
+except ImportError:
+    import legal as legal_mod
+
+try:
     from gate import runbook as runbook_mod
 except ImportError:
     import runbook as runbook_mod
@@ -240,6 +245,8 @@ WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
 FLOOR_PRICE_CENTS = int(os.getenv("GATE_FLOOR_PRICE_CENTS", str(operator_mod.FLOOR_PRICE_CENTS)))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
+META_PIXEL_ID = (os.getenv("GATE_META_PIXEL_ID") or "").strip()
+GA_ID = (os.getenv("GATE_GA_ID") or "").strip()
 OPERATOR_WRITES = frozenset(operator_mod.WRITES)
 OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
@@ -272,6 +279,8 @@ def inject_globals():
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
+        "meta_pixel_id": META_PIXEL_ID,
+        "ga_id": GA_ID,
     }
 
 
@@ -1254,6 +1263,9 @@ def well_known_gate():
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
             "science_page": f"{advertised_url()}/science",
+            "legal": f"{advertised_url()}/.well-known/legal.json",
+            "privacy": f"{advertised_url()}/privacy",
+            "terms": f"{advertised_url()}/terms",
             "runbook": f"{advertised_url()}/.well-known/runbook.json",
             "runbook_page": f"{advertised_url()}/runbook",
             "dogfood": f"{advertised_url()}/dogfood",
@@ -1399,6 +1411,40 @@ def science_page():
         "science.html",
         manifest=m,
         blocks=science_pri_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/legal.json")
+def well_known_legal():
+    return jsonify(
+        legal_mod.manifest(
+            advertised_url(),
+            CONTACT_EMAIL,
+            meta_pixel_id=META_PIXEL_ID,
+            ga_id=GA_ID,
+        )
+    )
+
+
+@app.route("/privacy")
+def privacy_page():
+    return render_template(
+        "legal.html",
+        kind="privacy",
+        doc=legal_mod.PRIVACY,
+        contact_email=CONTACT_EMAIL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/terms")
+def terms_page():
+    return render_template(
+        "legal.html",
+        kind="terms",
+        doc=legal_mod.TERMS,
+        contact_email=CONTACT_EMAIL,
         public_url=advertised_url(),
     )
 
@@ -2374,6 +2420,8 @@ def operator_page():
         stripe_operator=bool(_operator_stripe_ready() or GATE_DEV_MODE),
         stripe_floor=bool(STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
+        first_weld=science_pri_mod.FIRST_WELD,
+        their_production=False,
     )
 
 
@@ -2852,6 +2900,9 @@ def sitemap():
         "/install",
         "/bind-room",
         "/operator",
+        "/privacy",
+        "/terms",
+        "/science",
         "/register",
         "/bound",
         "/only",
@@ -2892,6 +2943,8 @@ def sitemap():
         "/.well-known/opportunities.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
+        "/.well-known/science-pri.json",
+        "/.well-known/legal.json",
         "/.well-known/mcp.json",
         "/.well-known/x402.json",
         "/.well-known/listings.json",
