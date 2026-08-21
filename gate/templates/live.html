@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+{% block title %}Live clearance clock{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Live — clearance clock on irreversible writes. Path · state · authority · proof. Fail closed. Not a SaaS status page.">
+<meta http-equiv="refresh" content="30">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --live-ink: #060708;
+    --live-panel: #0c0e12;
+    --live-line: #1c222c;
+    --live-fog: #8a93a3;
+    --live-paper: #e7e2d6;
+    --live-amber: #e0b34a;
+    --live-halt: #e85d4c;
+    --live-hold: #4ade80;
+    --live-serif: "Fraunces", "Times New Roman", serif;
+    --live-mono: "IBM Plex Mono", "SF Mono", monospace;
+  }
+  .live-desk {
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #1a160c55, transparent 55%),
+      linear-gradient(180deg, #0a0b0f 0%, var(--live-ink) 40%, #050607 100%);
+    min-height: 80vh;
+    padding: 0 0 4rem;
+    margin: -2rem 0 0;
+    border-top: 1px solid var(--live-line);
+  }
+  .live-shell { max-width: 1080px; margin: 0 auto; padding: 2rem 1.25rem 0; }
+  .live-mast {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1rem; flex-wrap: wrap; margin-bottom: 1.75rem;
+  }
+  .live-brand {
+    font-family: var(--live-serif);
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--live-paper);
+    line-height: 1;
+  }
+  .live-brand em {
+    font-style: normal; color: var(--live-amber); font-weight: 500;
+  }
+  .live-utc {
+    font-family: var(--live-mono); font-size: 0.78rem; color: var(--live-fog);
+    letter-spacing: 0.04em;
+  }
+  .live-utc .tick {
+    display: inline-block; width: 0.45rem; height: 0.45rem; border-radius: 50%;
+    background: var(--live-amber); margin-right: 0.45rem;
+    animation: live-pulse 1.6s ease-in-out infinite;
+    vertical-align: middle;
+  }
+  @keyframes live-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 #e0b34a66; }
+    50% { opacity: 0.45; box-shadow: 0 0 0 6px #e0b34a00; }
+  }
+  .live-question {
+    font-family: var(--live-serif);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: var(--live-paper);
+    max-width: 28ch;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    animation: live-fade 0.7s ease-out;
+  }
+  .live-sub {
+    font-family: var(--live-mono); font-size: 0.8rem; color: var(--live-fog);
+    max-width: 62ch; margin-bottom: 2rem; line-height: 1.55;
+  }
+  @keyframes live-fade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  .live-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--live-line); margin-bottom: 2rem;
+    background: var(--live-panel);
+  }
+  .live-strip > div {
+    padding: 0.9rem 1rem; border-right: 1px solid var(--live-line);
+  }
+  .live-strip > div:last-child { border-right: none; }
+  .live-strip .k {
+    font-family: var(--live-mono); font-size: 0.65rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--live-fog); margin-bottom: 0.35rem;
+  }
+  .live-strip .v {
+    font-family: var(--live-mono); font-size: 0.95rem; color: var(--live-paper);
+  }
+  .live-strip .v.halt { color: var(--live-halt); }
+  .live-strip .v.ok { color: var(--live-hold); }
+  .live-strip .v.warn { color: var(--live-amber); }
+  .live-section-h {
+    font-family: var(--live-mono); font-size: 0.68rem; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--live-amber); margin: 0 0 0.75rem;
+  }
+  .live-track {
+    border: 1px solid var(--live-line); background: var(--live-panel);
+    margin-bottom: 0.65rem; padding: 1rem 1.1rem;
+    animation: live-fade 0.55s ease-out both;
+  }
+  .live-track:nth-child(2) { animation-delay: 0.05s; }
+  .live-track:nth-child(3) { animation-delay: 0.1s; }
+  .live-track-top {
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 0.55rem;
+  }
+  .live-path {
+    font-family: var(--live-mono); font-size: 0.86rem; color: var(--live-paper);
+    word-break: break-all;
+  }
+  .live-state {
+    font-family: var(--live-mono); font-size: 0.72rem; letter-spacing: 0.08em;
+    padding: 0.2rem 0.5rem; border: 1px solid var(--live-line); color: var(--live-fog);
+  }
+  .live-state.HALTED, .live-state.BYPASS { border-color: #e85d4c55; color: var(--live-halt); }
+  .live-state.EXCLUSIVE, .live-state.SPENT { border-color: #4ade8055; color: var(--live-hold); }
+  .live-state.WELDED, .live-state.ATTESTED { border-color: #e0b34a55; color: var(--live-amber); }
+  .live-meta {
+    font-family: var(--live-mono); font-size: 0.72rem; color: var(--live-fog);
+    display: flex; flex-wrap: wrap; gap: 0.85rem;
+  }
+  .live-meta a { color: var(--live-amber); }
+  .live-empty {
+    font-family: var(--live-mono); font-size: 0.85rem; color: var(--live-fog);
+    border: 1px dashed var(--live-line); padding: 1.25rem; margin-bottom: 1.5rem;
+  }
+  .live-alarm {
+    border-color: #e85d4c66; background: #1a0c0c;
+  }
+  .live-foot {
+    margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--live-line);
+    font-family: var(--live-mono); font-size: 0.72rem; color: var(--live-fog);
+    display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;
+  }
+  .live-foot a { color: var(--live-paper); }
+  @media (max-width: 720px) {
+    .live-strip { grid-template-columns: 1fr 1fr; }
+    .live-strip > div:nth-child(2) { border-right: none; }
+    .live-strip > div:nth-child(1),
+    .live-strip > div:nth-child(2) { border-bottom: 1px solid var(--live-line); }
+  }
+</style>
+
+<div class="live-desk">
+  <div class="live-shell">
+    <div class="live-mast">
+      <div class="live-brand">Gate <em>Live</em></div>
+      <div class="live-utc"><span class="tick" aria-hidden="true"></span>UTC {{ desk.evaluated_at }} · refresh 30s</div>
+    </div>
+
+    <h1 class="live-question">{{ desk.question }}</h1>
+    <p class="live-sub">
+      Clearance clock on irreversible writes — path, state, authority, proof.
+      Fail closed under uncertainty. Not a status badge. Not seats. Civilizational meter.
+    </p>
+
+    <div class="live-strip" aria-label="Desk pulse">
+      <div>
+        <div class="k">Production</div>
+        <div class="v {% if desk.their_production %}ok{% else %}warn{% endif %}">
+          {% if desk.their_production %}TRUE{% else %}FALSE{% endif %}
+        </div>
+      </div>
+      <div>
+        <div class="k">Canary alarms</div>
+        <div class="v {% if desk.canaries.open_alarms %}halt{% else %}ok{% endif %}">
+          {{ desk.canaries.open_alarms }}
+        </div>
+      </div>
+      <div>
+        <div class="k">Last decision</div>
+        <div class="v {% if desk.pulse and (desk.pulse.decision or '')|upper in ['HALT','BLOCK'] %}halt{% elif desk.pulse %}ok{% endif %}">
+          {{ desk.pulse.decision if desk.pulse else "—" }}
+        </div>
+      </div>
+      <div>
+        <div class="k">Machine</div>
+        <div class="v"><a href="{{ desk.links.json }}" style="color:inherit">live.json</a></div>
+      </div>
+    </div>
+
+    {% if desk.pulse %}
+    <p class="live-section-h">Pulse · last clearance event</p>
+    <div class="live-track">
+      <div class="live-track-top">
+        <div class="live-path">{{ desk.pulse.fuse_id }} · {{ desk.pulse.job_id or "—" }}</div>
+        <span class="live-state {{ desk.pulse.decision }}">{{ desk.pulse.decision }}</span>
+      </div>
+      <div class="live-meta">
+        <span>{{ desk.pulse.clock }}</span>
+        {% if desk.pulse.verify_url %}<a href="{{ desk.pulse.verify_url }}" rel="noopener" target="_blank">verify</a>{% endif %}
+        {% if desk.pulse.receipt %}<a href="{{ desk.pulse.receipt }}">receipt</a>{% endif %}
+        <span>acted={{ desk.pulse.acted }}</span>
+      </div>
+    </div>
+    {% endif %}
+
+    <p class="live-section-h">Paths · welded writes</p>
+    {% if desk.paths %}
+      {% for p in desk.paths %}
+      <div class="live-track">
+        <div class="live-track-top">
+          <div class="live-path">{{ p.write_path }}</div>
+          <span class="live-state {{ p.state }}">{{ p.state }}</span>
+        </div>
+        <div class="live-meta">
+          <span>{{ p.kind }}</span>
+          {% if p.counterparty %}<span>{{ p.counterparty }}</span>{% endif %}
+          {% if p.door_kind %}<span>{{ p.door_kind }}</span>{% endif %}
+          {% if p.clock %}<span>{{ p.clock }}</span>{% endif %}
+          {% if p.verify_url %}<a href="{{ p.verify_url }}" rel="noopener" target="_blank">verify</a>{% endif %}
+          {% if p.receipt %}<a href="{{ p.receipt }}">receipt</a>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="live-empty">
+        No exclusive production path on the desk yet.
+        <a href="{{ url_for('operator_page') }}">Weld</a> a write — then attest the exclusive door.
+        Until then <code>their_production</code> stays false.
+      </div>
+    {% endif %}
+
+    <p class="live-section-h">Authority · license parents</p>
+    {% if desk.authorities %}
+      {% for a in desk.authorities %}
+      <div class="live-track">
+        <div class="live-track-top">
+          <div class="live-path">{{ a.license_id }}</div>
+          <span class="live-state {{ a.state }}">{{ a.state }}</span>
+        </div>
+        <div class="live-meta">
+          <span>children cannot outlive parent</span>
+          <span>{{ a.updated_at }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="live-empty">No license parents stored. Parent death is how child spend dies.</div>
+    {% endif %}
+
+    <p class="live-section-h">Canaries · bypass layer</p>
+    {% if desk.canaries.recent %}
+      {% for c in desk.canaries.recent %}
+      <div class="live-track {% if c.bypass_suspected %}live-alarm{% endif %}">
+        <div class="live-track-top">
+          <div class="live-path">{{ c.write_path }}</div>
+          <span class="live-state {% if c.bypass_suspected %}BYPASS{% else %}ATTESTED{% endif %}">
+            {% if c.bypass_suspected %}BYPASS{% else %}REPORT{% endif %}
+          </span>
+        </div>
+        <div class="live-meta">
+          <span>{{ c.reporter }}</span>
+          {% if c.job_id %}<span>{{ c.job_id }}</span>{% endif %}
+          <span>{{ c.created_at }}</span>
+          {% if c.killed_parent %}<span>parent DEAD</span>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="live-empty">
+        No bypass canaries recorded.
+        Ops: <code>POST /v1/canary/bypass</code> with confirm when a welded write may have skipped the door.
+      </div>
+    {% endif %}
+
+    <div class="live-foot">
+      <span>Nisaba LLC · {{ desk.spec }} · fail closed</span>
+      <span>
+        <a href="{{ desk.links.json }}">live.json</a> ·
+        <a href="{{ desk.links.canary }}">canary.json</a> ·
+        <a href="{{ url_for('trust') }}">Trust</a> ·
+        <a href="{{ url_for('operator_page') }}">Weld</a>
+      </span>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  // Soft live pulse: re-fetch machine desk without full reload when visible.
+  var url = {{ desk.links.json|tojson }};
+  function beat() {
+    if (document.hidden) return;
+    fetch(url, { headers: { Accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.evaluated_at) return;
+        var el = document.querySelector(".live-utc");
+        if (el) {
+          el.innerHTML = '<span class="tick" aria-hidden="true"></span>UTC ' + d.evaluated_at + " · live.json";
+        }
+      })
+      .catch(function () {});
+  }
+  setInterval(beat, 15000);
+})();
+</script>
+{% endblock %}

@@ -245,6 +245,8 @@ class FlaskListingTests(unittest.TestCase):
         chrome = home.split("<footer>", 1)[0]
         self.assertIn('href="/operator"', chrome)
         self.assertIn(">Weld</a>", chrome)
+        self.assertIn('href="/live"', chrome)
+        self.assertIn(">Live</a>", chrome)
         self.assertIn('href="/register"', chrome)
         self.assertIn(">Fees</a>", chrome)
         self.assertIn(">Pricing</a>", chrome)
@@ -273,6 +275,7 @@ class FlaskListingTests(unittest.TestCase):
             "/install",
             "/register",
             "/operator",
+            "/live",
             "/privacy",
             "/terms",
             "/bind-room",
@@ -2542,6 +2545,93 @@ class ArchitectureHardTests(unittest.TestCase):
                 os.environ["GATE_RECEIPT_PRIVATE_KEY"] = priv
             if pub:
                 os.environ["GATE_RECEIPT_PUBLIC_KEY"] = pub
+
+
+class LiveDeskTests(unittest.TestCase):
+    """Civilizational clearance clock + bypass canaries."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_live_json_and_page(self):
+        j = self.client.get("/.well-known/live.json")
+        self.assertEqual(j.status_code, 200)
+        data = j.get_json()
+        self.assertEqual(data["spec"], "gate-live-desk-v1")
+        self.assertIn("Can this irreversible write still execute right now?", data["question"])
+        self.assertIn("SaaS status page", data["not"])
+        self.assertFalse(data["their_production"])
+        page = self.client.get("/live")
+        self.assertEqual(page.status_code, 200)
+        body = page.get_data(as_text=True)
+        self.assertIn("Gate", body)
+        self.assertIn("Live", body)
+        self.assertIn("Can this irreversible write still execute right now?", body)
+        self.assertNotIn("Get API key", body)
+        self.assertNotIn("Free tier", body)
+        self.assertIn("Fraunces", body)
+
+    def test_canary_bypass_requires_ops_and_confirm(self):
+        import db as gate_db
+
+        gate_app.GATE_DEV_MODE = True
+        refuse = self.client.post(
+            "/v1/canary/bypass",
+            json={
+                "write_path": "POST /v1/payouts/x/release",
+                "job_id": f"pc:CANARY-{uuid.uuid4().hex[:8]}",
+                "reporter": "ops@carrier.example",
+            },
+        )
+        self.assertEqual(refuse.status_code, 400)
+        self.assertFalse(refuse.get_json()["ok"])
+
+        job = f"pc:CANARY-{uuid.uuid4().hex[:8]}"
+        ok = self.client.post(
+            "/v1/canary/bypass",
+            json={
+                "write_path": "POST /v1/payouts/x/release",
+                "job_id": job,
+                "reporter": "ops@carrier.example",
+                "note": "shadow rail suspected",
+                "confirm": True,
+            },
+        )
+        self.assertEqual(ok.status_code, 200)
+        body = ok.get_json()
+        self.assertTrue(body["ok"])
+        self.assertTrue(body["evaluation"]["bypass_suspected"])
+        self.assertEqual(body["severity"], "BYPASS")
+
+        live = self.client.get("/.well-known/live.json").get_json()
+        self.assertGreaterEqual(live["canaries"]["open_alarms"], 1)
+
+        canary = self.client.get("/.well-known/canary.json").get_json()
+        self.assertEqual(canary["spec"], "gate-bypass-canary-v1")
+        self.assertGreaterEqual(canary["open_alarms"], 1)
+
+        # Parent kill path
+        lid = f"lic:CANARY-{uuid.uuid4().hex[:8]}"
+        gate_db.upsert_license_parent(license_id=lid, state="LIVE", charge_id="chg_seed")
+        killed = self.client.post(
+            "/v1/canary/bypass",
+            json={
+                "write_path": "POST /job/v1/jobs/x/bind-only",
+                "job_id": f"pc:KILL-{uuid.uuid4().hex[:8]}",
+                "reporter": "ops@carrier.example",
+                "license_id": lid,
+                "kill_parent": True,
+                "confirm": True,
+            },
+        )
+        self.assertEqual(killed.status_code, 200)
+        self.assertEqual(killed.get_json()["parent"]["state"], "DEAD")
 
 
 if __name__ == "__main__":
