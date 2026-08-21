@@ -267,6 +267,7 @@ class FlaskListingTests(unittest.TestCase):
             "/bind-room",
             "/for/operators",
             "/action-os",
+            "/science",
             "/focus",
             "/positioning",
             "/scorecard",
@@ -1533,12 +1534,22 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
         self.assertEqual(rb.status_code, 200)
         self.assertEqual(rb.get_json()["spec"], "gate-runbook-v1")
+
+        sci = self.client.get("/.well-known/science-pri.json")
+        self.assertEqual(sci.status_code, 200)
+        sci_data = sci.get_json()
+        self.assertEqual(sci_data["spec"], "nisaba-science-pri-v1")
+        self.assertFalse(sci_data["own_tier_s"])
+        self.assertFalse(sci_data["force_production_weld"])
+        self.assertIn("Contribute massively", sci_data["motive"])
+        self.assertGreaterEqual(len(sci_data["science"]), 4)
+        self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
 
         # Dogfood lifts to L3 without flipping their_production
         dog = self.client.post(

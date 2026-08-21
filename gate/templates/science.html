@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Science → mouth{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.motive }} {{ manifest.formula }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">PRI · fail-closed · contribute to Tier S</p>
+  <h1>Science → mouth</h1>
+  <p class="audience-sub">{{ manifest.motive }}</p>
+  <p style="margin: 1rem 0;"><strong>{{ manifest.formula }}</strong></p>
+  <p>own_tier_s: <strong>{{ manifest.own_tier_s }}</strong>
+    · force_production_weld: <strong>{{ manifest.force_production_weld }}</strong>
+    · their_production: <strong>{{ manifest.their_production }}</strong></p>
+
+  <h2 style="margin-top: 1.5rem;">Laws from science</h2>
+  {% for s in manifest.science %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ s.id }}</p>
+    <h3>{{ s.name }}</h3>
+    <p style="color: var(--muted);">{{ s.claim }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Gate:</strong> {{ s.gate_law }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Tier S — contribute, don’t own</h2>
+  {% for t in manifest.tier_s %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">priority {{ t.priority }} · own {{ t.own }}</p>
+    <h3>{{ t.name }}</h3>
+    <p>{{ t.contribute }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Ladder</h2>
+  {% for step in manifest.contribute_ladder %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">Step {{ step.step }} · {{ step.tier }}</p>
+    <h3>{{ step.title }}</h3>
+    <p>{{ step.do }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Distribution</h2>
+  <ul class="check-list">
+    {% for d in manifest.distribution %}
+    <li><strong>{{ d.rule }}</strong> — {{ d.detail }}</li>
+    {% endfor %}
+  </ul>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_science_pri') }}" class="btn btn-ghost btn-sm">science-pri.json</a>
+    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost btn-sm">Action OS</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a door</a>
+    <a href="{{ url_for('runbook_page') }}" class="btn btn-accent-outline btn-sm">Runbook</a>
+  </div>
+</div>
+{% endblock %}

@@ -115,6 +115,11 @@ except ImportError:
     import proof_suite as proof_suite_mod
 
 try:
+    from gate import science_pri as science_pri_mod
+except ImportError:
+    import science_pri as science_pri_mod
+
+try:
     from gate import runbook as runbook_mod
 except ImportError:
     import runbook as runbook_mod
@@ -1247,6 +1252,8 @@ def well_known_gate():
             "family_page": f"{advertised_url()}/family",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
+            "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
+            "science_page": f"{advertised_url()}/science",
             "runbook": f"{advertised_url()}/.well-known/runbook.json",
             "runbook_page": f"{advertised_url()}/runbook",
             "dogfood": f"{advertised_url()}/dogfood",
@@ -1378,6 +1385,22 @@ def well_known_production_skin():
 @app.route("/.well-known/proof-suite.json")
 def well_known_proof_suite():
     return jsonify(proof_suite_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/science-pri.json")
+def well_known_science_pri():
+    return jsonify(science_pri_mod.manifest(advertised_url()))
+
+
+@app.route("/science")
+def science_page():
+    m = science_pri_mod.manifest(advertised_url())
+    return render_template(
+        "science.html",
+        manifest=m,
+        blocks=science_pri_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/.well-known/family.json")

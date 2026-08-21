@@ -210,6 +210,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "scorecard": f"{base}/scorecard",
             "register": f"{base}/register",
             "operator": f"{base}/operator",
+            "science": f"{base}/science",
+            "science_pri": f"{base}/.well-known/science-pri.json",
             "act": f"{base}/v1/act",
             "demo_hop": f"{base}/demo/hop",
             "gate": f"{base}/.well-known/gate.json",
