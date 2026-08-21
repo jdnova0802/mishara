@@ -130,6 +130,16 @@ except ImportError:
     import runbook as runbook_mod
 
 try:
+    from gate import live as live_mod
+except ImportError:
+    import live as live_mod
+
+try:
+    from gate import canary as canary_mod
+except ImportError:
+    import canary as canary_mod
+
+try:
     from gate import family_voices as family_voices_mod
 except ImportError:
     import family_voices as family_voices_mod
@@ -297,6 +307,8 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/legal.json",
         "/.well-known/mcp.json",
         "/.well-known/opportunities.json",
+        "/.well-known/live.json",
+        "/.well-known/canary.json",
     }
 )
 
@@ -1339,6 +1351,10 @@ def well_known_gate():
             "runbook_page": f"{advertised_url()}/runbook",
             "dogfood": f"{advertised_url()}/dogfood",
             "production_weld": f"{advertised_url()}/production-weld",
+            "live": f"{advertised_url()}/live",
+            "live_json": f"{advertised_url()}/.well-known/live.json",
+            "canary": f"{advertised_url()}/.well-known/canary.json",
+            "canary_report": f"{advertised_url()}/v1/canary/bypass",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1515,6 +1531,40 @@ def well_known_action_os():
 @app.route("/.well-known/scorecard.json")
 def well_known_scorecard():
     return jsonify(scorecard_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/live.json")
+def well_known_live():
+    return jsonify(live_mod.desk(advertised_url()))
+
+
+@app.route("/.well-known/canary.json")
+def well_known_canary():
+    return jsonify(canary_mod.manifest(advertised_url()))
+
+
+@app.route("/live")
+def live_page():
+    desk = live_mod.desk(advertised_url())
+    return render_template("live.html", desk=desk, public_url=advertised_url())
+
+
+@app.route("/v1/canary/bypass", methods=["POST"])
+def canary_bypass_report():
+    if not _ops_authorized():
+        return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
+    body = request.get_json(silent=True) or {}
+    result = canary_mod.report(
+        write_path=(body.get("write_path") or "").strip(),
+        job_id=(body.get("job_id") or "").strip() or None,
+        reporter=(body.get("reporter") or "").strip(),
+        note=(body.get("note") or "").strip(),
+        license_id=(body.get("license_id") or "").strip() or None,
+        kill_parent=bool(body.get("kill_parent")),
+        confirm=bool(body.get("confirm")),
+    )
+    code = 200 if result.get("ok") else 400
+    return jsonify(result), code
 
 
 @app.route("/.well-known/production-skin.json")
@@ -3075,6 +3125,7 @@ def sitemap():
     paths = [
         "/",
         "/operator",
+        "/live",
         "/register",
         "/pricing",
         "/trust",
@@ -3091,6 +3142,7 @@ def sitemap():
         "/.well-known/gate.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
+        "/.well-known/live.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]

@@ -526,6 +526,119 @@ def latest_bind_event_for_job(job_id: str) -> dict | None:
     return item
 
 
+def latest_bind_event_any() -> dict | None:
+    import json
+
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM bind_events ORDER BY created_at DESC, id DESC LIMIT 1"
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    if item.get("hop_json"):
+        try:
+            item["hop"] = json.loads(item["hop_json"])
+        except ValueError:
+            item["hop"] = None
+    item.pop("hop_json", None)
+    if item.get("acted") is not None:
+        item["acted"] = bool(item["acted"])
+    return item
+
+
+def list_license_parents(limit: int = 50) -> list:
+    cap = max(1, min(int(limit or 50), 200))
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT license_id, state, charge_id, updated_at, created_at
+               FROM license_parents
+               ORDER BY updated_at DESC LIMIT ?""",
+            (cap,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def _ensure_bypass_canaries(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS bypass_canaries (
+            id TEXT PRIMARY KEY,
+            write_path TEXT NOT NULL,
+            job_id TEXT,
+            reporter TEXT NOT NULL,
+            note TEXT,
+            license_id TEXT,
+            bypass_suspected INTEGER NOT NULL DEFAULT 0,
+            killed_parent INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def record_bypass_canary(
+    *,
+    write_path: str,
+    job_id: str | None,
+    reporter: str,
+    note: str = "",
+    license_id: str | None = None,
+    bypass_suspected: bool = False,
+    killed_parent: bool = False,
+) -> dict:
+    cid = str(uuid.uuid4())
+    ts = utc_now()
+    with db() as conn:
+        _ensure_bypass_canaries(conn)
+        conn.execute(
+            """INSERT INTO bypass_canaries
+               (id, write_path, job_id, reporter, note, license_id,
+                bypass_suspected, killed_parent, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                cid,
+                (write_path or "").strip(),
+                (job_id or "").strip() or None,
+                (reporter or "").strip(),
+                (note or "").strip(),
+                (license_id or "").strip() or None,
+                1 if bypass_suspected else 0,
+                1 if killed_parent else 0,
+                ts,
+            ),
+        )
+    return {
+        "id": cid,
+        "write_path": write_path,
+        "job_id": job_id,
+        "reporter": reporter,
+        "note": note,
+        "license_id": license_id,
+        "bypass_suspected": bool(bypass_suspected),
+        "killed_parent": bool(killed_parent),
+        "created_at": ts,
+    }
+
+
+def list_bypass_canaries(limit: int = 25) -> list:
+    cap = max(1, min(int(limit or 25), 200))
+    with db() as conn:
+        _ensure_bypass_canaries(conn)
+        rows = conn.execute(
+            """SELECT * FROM bypass_canaries
+               ORDER BY created_at DESC LIMIT ?""",
+            (cap,),
+        ).fetchall()
+    out = []
+    for r in rows:
+        item = dict(r)
+        item["bypass_suspected"] = bool(item.get("bypass_suspected"))
+        item["killed_parent"] = bool(item.get("killed_parent"))
+        out.append(item)
+    return out
+
+
 def insert_bind_ticket(
     *,
     ticket_id: str,
