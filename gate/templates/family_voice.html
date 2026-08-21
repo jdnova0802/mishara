@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}{{ voice.name }} voice{% endblock %}
 {% block meta %}
 <meta name="description" content="{{ voice.voice_line }}. {{ voice.one_liner_ads }}">

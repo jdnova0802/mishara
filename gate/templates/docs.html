@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}Drill protocol{% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Internal drills · money path is the weld</p>
   <h1>Drill protocol</h1>
-  <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Buyers:</strong> go to <a href="{{ url_for('operator_page') }}">weld</a>. This page is only for engineers running integration drills. Not Free/Pro. Not seats. A hop credential is not a production door.</p>
+  <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Buyers:</strong> go to <a href="{{ url_for('operator_page') }}">weld</a>. This page is only for engineers running integration drills. A hop credential is not a production door.</p>
   <p style="color: var(--muted); margin-bottom: 2rem;">Drill requests may use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. Public demo hops need none.</p>
 
   <div class="card">
@@ -105,7 +106,7 @@
 
   <div class="card">
     <h2>402 hop budget exhausted</h2>
-    <p>Lab hop budget is a fuse meter for drills — not a SaaS upgrade funnel. When exhausted, weld production or ask ops to extend the drill budget:</p>
+    <p>Lab hop budget is a fuse meter for drills. When exhausted, weld production or ask ops to extend the drill budget:</p>
     <pre>{
   "error": {
     "type": "payment_required",

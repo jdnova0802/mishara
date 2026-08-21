@@ -268,6 +268,49 @@ def advertised_url() -> str:
     return public_url_mod.resolve_public_url()
 
 
+
+def _ops_authorized() -> bool:
+    """Dogfood/production attestation is not a public form."""
+    import secrets as _secrets
+    got = (
+        (request.headers.get("X-Ops-Token") or "")
+        or (request.form.get("ops_token") or "")
+        or (request.args.get("token") or "")
+    ).strip()
+    if OPS_TOKEN:
+        return bool(got) and _secrets.compare_digest(got, OPS_TOKEN)
+    return GATE_DEV_MODE
+
+
+ARCHIVE_NOINDEX_PREFIXES = (
+    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
+    "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
+    "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
+    "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
+    "/signup", "/login", "/dashboard",
+)
+PUBLIC_WELLKNOWN = frozenset(
+    {
+        "/.well-known/gate.json",
+        "/.well-known/operator.json",
+        "/.well-known/register.json",
+        "/.well-known/legal.json",
+        "/.well-known/mcp.json",
+        "/.well-known/opportunities.json",
+    }
+)
+
+
+@app.after_request
+def _archive_noindex(resp):
+    path = request.path or ""
+    archive = any(path == p or path.startswith(p + "/") for p in ARCHIVE_NOINDEX_PREFIXES)
+    wk = path.startswith("/.well-known/") and path not in PUBLIC_WELLKNOWN
+    if archive or wk:
+        resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return resp
+
+
 @app.context_processor
 def inject_globals():
     return {
@@ -1521,10 +1564,14 @@ def dogfood_page():
     error = None
     recorded = None
     if request.method == "POST":
+        if not _ops_authorized():
+            error = "Ops token required. Dogfood attestation is not a public form."
         write_path = (request.form.get("write_path") or "").strip()
         operator = (request.form.get("operator") or "").strip()
         note = (request.form.get("note") or "").strip()
         try:
+            if error:
+                raise ValueError(error)
             result = production_skin_mod.record_dogfood_weld(
                 write_path=write_path,
                 operator=operator,
@@ -1565,6 +1612,8 @@ def production_weld_page():
     error = None
     recorded = None
     if request.method == "POST":
+        if not _ops_authorized():
+            error = "Ops token required. Production attestation is not a public form."
         write_path = (request.form.get("write_path") or "").strip()
         counterparty = (request.form.get("counterparty") or "").strip()
         note = (request.form.get("note") or "").strip()
@@ -1581,7 +1630,7 @@ def production_weld_page():
             "hello@nisaba.io",
             "nisaba",
         }
-        if counterparty.lower() in first_party or counterparty.lower().endswith("@nisaba.io"):
+        if not error and (counterparty.lower() in first_party or counterparty.lower().endswith("@nisaba.io")):
             # Allow nisaba only if they confirm it's on a customer write path
             if "their" not in note.lower() and "customer" not in note.lower() and "third" not in note.lower():
                 error = (
@@ -2901,6 +2950,21 @@ def robots():
             "Disallow: /status",
             "Disallow: /install",
             "Disallow: /docs",
+            "Disallow: /this",
+            "Disallow: /bound",
+            "Disallow: /only",
+            "Disallow: /floor",
+            "Disallow: /mass",
+            "Disallow: /tattoo",
+            "Disallow: /scanner",
+            "Disallow: /uplink",
+            "Disallow: /inhabitant",
+            "Disallow: /afterward",
+            "Disallow: /capture",
+            "Disallow: /refusal",
+            "Disallow: /signup",
+            "Disallow: /login",
+            "Disallow: /dashboard",
             f"Sitemap: {advertised_url()}/sitemap.xml",
             "",
         ]

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}Production skin{% endblock %}
 {% block meta %}
 <meta name="description" content="Honesty skin. their_production: {{ manifest.their_production }}. Readiness L{{ manifest.readiness.level if manifest.readiness else '?' }}. What ships vs what is claimed.">

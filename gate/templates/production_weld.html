@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}Production weld{% endblock %}
 {% block meta %}
 <meta name="description" content="Record a third-party production weld. Flips their_production. Not dogfood. Not demo.">
@@ -30,6 +31,11 @@
   <div class="card install-checkout-card">
     <h2>Record third-party weld</h2>
     <form method="post" action="{{ url_for('production_weld_page') }}" class="install-form">
+      <div class="form-group">
+        <label for="ops_token">Ops token</label>
+        <input type="password" id="ops_token" name="ops_token" autocomplete="off"
+               placeholder="Required — not a public form">
+      </div>
       <div class="form-group">
         <label for="write_path">Their write path</label>
         <input type="text" id="write_path" name="write_path" required

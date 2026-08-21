@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Clearance weld{% endblock %}
 {% block meta %}
-<meta name="description" content="Weld one withdraw/payout or bind path. {{ weld_price }} + {{ floor_price }}/mo + 10 bps. their_production false until third-party production weld. Licensed only.">
+<meta name="description" content="Weld one withdraw/payout or bind path. {{ weld_price }} + {{ floor_price }} management + 10 bps. their_production false until third-party production weld. Licensed only.">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
@@ -11,8 +11,8 @@
 <div class="container section">
   <p class="audience-tag">Checkout · licensed operators</p>
   <h1>Weld one clearance path</h1>
-  <p class="audience-sub">If money is about to leave and should not, this path blocks it. Default write: <strong>withdraw / payout clear</strong> (or bind-only). <strong>{{ weld_price }}</strong> weld. <strong>{{ floor_price }}</strong> monthly management per path. Then <strong>10 bps</strong> on cleared flow (+5 bps above $500M/mo). Parent license revoked blocks child spend. Licensed operators only. Checkout starts delivery — it does not claim third-party production status.</p>
-  <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }}/mo per path</span></div>
+  <p class="audience-sub">If money is about to leave and should not, this path blocks it. Default write: <strong>withdraw / payout clear</strong> (or bind-only). <strong>{{ weld_price }}</strong> weld. <strong>{{ floor_price }}</strong> management per path. Then <strong>10 bps</strong> on cleared flow (+5 bps above $500M/mo). Parent license revoked blocks child spend. Licensed operators only. Checkout starts delivery — it does not claim third-party production status.</p>
+  <div class="install-price">{{ weld_price }} <span>+ {{ floor_price }} management per path</span></div>
 
   <div class="card" style="margin: 1.25rem 0;">
     <h2>First weld</h2>
@@ -46,8 +46,8 @@
     <div class="card">
       <h3>Management</h3>
       <ul class="check-list">
-        <li>{{ floor_price }} / welded path / mo</li>
-        <li>{{ floor_price }} / active parent license / mo</li>
+        <li>{{ floor_price }} per welded path</li>
+        <li>{{ floor_price }} per active parent license</li>
         <li>Required at checkout</li>
       </ul>
     </div>

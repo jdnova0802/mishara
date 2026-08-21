@@ -1419,9 +1419,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         page = self.client.get("/positioning")
         self.assertEqual(page.status_code, 200)
         body = page.get_data(as_text=True)
-        self.assertIn("Cybersyn", body)
-        self.assertIn("Anthropophagy", body)
-        self.assertIn("Maintenance futurism", body)
+        self.assertIn("noindex", body)
+        self.assertIn("Buyer facts", body)
+        self.assertIn("their_production", body)
+        self.assertNotIn("Cybersyn", body)
+        self.assertNotIn("Anthropophagy", body)
 
         spec = self.client.get("/.well-known/positioning.json")
         self.assertEqual(spec.status_code, 200)
@@ -1659,6 +1661,51 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn("scarcity is the DENY", body)
         self.assertNotIn("Weld a door", body)
         self.assertNotIn("Own the DENY", body)
+
+    def test_no_momo_and_archive_buried(self):
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
+
+        op = self.client.get("/operator").get_data(as_text=True)
+        self.assertNotIn("/mo/mo", op)
+        self.assertIn("their_production: false", op)
+        for path in ("/this", "/bound", "/positioning", "/scanner", "/science", "/dogfood"):
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+            blob = r.headers.get("X-Robots-Tag", "") + r.get_data(as_text=True)
+            self.assertIn("noindex", blob, path)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /this", robots)
+        self.assertIn("Disallow: /production-weld", robots)
+        import app as gate_app
+
+        prev, prev_tok = gate_app.GATE_DEV_MODE, gate_app.OPS_TOKEN
+        try:
+            gate_app.GATE_DEV_MODE = False
+            gate_app.OPS_TOKEN = "secret-ops"
+            refuse = self.client.post(
+                "/production-weld",
+                data={
+                    "write_path": "POST /v1/payouts/x/release",
+                    "counterparty": "ops@carrier.example",
+                    "note": "their customer payout",
+                    "confirm": "1",
+                },
+                follow_redirects=True,
+            )
+            self.assertEqual(refuse.status_code, 200)
+            self.assertIn("Ops token required", refuse.get_data(as_text=True))
+            self.assertFalse(
+                self.client.get("/.well-known/production-skin.json").get_json()["their_production"]
+            )
+        finally:
+            gate_app.GATE_DEV_MODE = prev
+            gate_app.OPS_TOKEN = prev_tok
 
     def test_zero_saas_stench_on_money_surfaces(self):
         """Public money face must not smell like Free/Pro seat SaaS or API basement."""
