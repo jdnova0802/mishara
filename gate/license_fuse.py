@@ -111,19 +111,27 @@ def require_live(license_id: str | None) -> dict:
 
 
 def charge(*, license_id: str | None, charge_id: str | None) -> dict:
-    """The only path UNSIGNED/DEAD → LIVE. charge_id required. Not admin CHARGE."""
+    """The only path UNSIGNED/DEAD → LIVE. Verified charge authority required."""
+    try:
+        from gate import charge_authority as charge_mod
+    except ImportError:
+        import charge_authority as charge_mod
+
     lid = normalize_id(license_id)
-    cid = epoch_mod.normalize_charge_id(charge_id)
+    cid = charge_mod.normalize(charge_id)
     if not lid:
         return {"ok": False, "halt": True, "reason": REASON_REQUIRED, "state": None}
-    if not cid:
+    auth = charge_mod.verify(charge_id=cid, purpose="license", subject=lid)
+    if not auth.get("ok"):
         return {
             "ok": False,
             "halt": True,
-            "reason": REASON_CHARGE_REQUIRED,
+            "reason": auth.get("reason") or REASON_CHARGE_REQUIRED,
             "state": (snapshot(lid).get("stored") or "UNSIGNED"),
             "license_id": lid,
+            "charge_authority": auth,
         }
+    charge_mod.consume(charge_id=cid, purpose="license", subject=lid)
     db.upsert_license_parent(license_id=lid, state="LIVE", charge_id=cid)
     return {
         "ok": True,
@@ -132,6 +140,7 @@ def charge(*, license_id: str | None, charge_id: str | None) -> dict:
         "state": "LIVE",
         "stored": "LIVE",
         "charge_id": cid,
+        "charge_authority": auth.get("authority"),
         "spec": SPEC,
         "resurrection": "CHARGE only",
     }

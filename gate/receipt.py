@@ -135,6 +135,11 @@ def build_canonical_receipt(
     }
 
 
+def signing_required() -> bool:
+    """Outside GATE_DEV_MODE, unsigned receipts are a halt — not evidence custody."""
+    return os.getenv("GATE_DEV_MODE", "").strip().lower() not in ("1", "true", "yes", "on")
+
+
 def issue_receipt(
     *,
     event_id: str,
@@ -154,7 +159,8 @@ def issue_receipt(
         "receipt_signature": <base64> | None,
         "receipt_public_key_fingerprint": <hex str> | None,
         "prev_receipt_hash": ...
-        "canonical_receipt_json": <string>,   (optional; omit for DB)
+        "canonical_receipt_json": <string>,
+        "unsigned_halt": True  # when signing required and keys missing
       }
     """
     canonical = build_canonical_receipt(
@@ -171,13 +177,17 @@ def issue_receipt(
     canonical_json = _canonical_json(canonical)
     receipt_hash = compute_receipt_hash(canonical_json)
     sig = sign_receipt_hash(receipt_hash)
-    return {
+    out = {
         "receipt_hash": receipt_hash,
         "receipt_signature": sig,
         "receipt_public_key_fingerprint": receipt_public_key_fingerprint(),
         "prev_receipt_hash": prev_receipt_hash,
         "canonical_receipt_json": canonical_json,
     }
+    if signing_required() and not sig:
+        out["unsigned_halt"] = True
+    return out
+
 
 
 def receipt_to_public_payload(

@@ -1,19 +1,11 @@
 """Epoch lock — monotonic accountability invariant on one job.
 
 A HALT/BLOCK for job_id is a committed non-spend. The next hop cannot
-reinterpret that job as ALLOW unless the request carries a charge_id.
+reinterpret that job as ALLOW unless the request carries verified charge
+authority (see charge_authority.py).
 
 This is not admin CHARGE (that stays on Velaru). This is Gate refusing
 the fraud of regime change without a named epoch transition.
-
-Lineage:
-- MA-Commit (2026) — permission that justified an action must not shrink
-- Monotonic Accountability Invariant (2026) — epoch transitions not subject
-  to MA-Commit introduce safety violations at epoch boundaries
-- Closure theorem — the unique admissible transition is itself an irreversible
-  commit with a witness spanning old and new regimes (here: charge_id)
-
-UW approve without CHARGE does not resurrect. That is now enforced, not printed.
 """
 from __future__ import annotations
 
@@ -22,18 +14,20 @@ try:
 except ImportError:
     import db
 
+try:
+    from gate import charge_authority as charge_mod
+except ImportError:
+    import charge_authority as charge_mod
+
 SPEC = "gate-epoch-v1"
 
 
 def normalize_charge_id(raw) -> str | None:
-    if raw is None:
-        return None
-    s = str(raw).strip()[:128]
-    return s or None
+    return charge_mod.normalize(raw)
 
 
 def apply(*, job_id: str | None, hop: dict, charge_id: str | None) -> tuple[dict, dict]:
-    """If the latest decision for this job is HALT/BLOCK, REQUIRE charge_id to ALLOW."""
+    """If the latest decision for this job is HALT/BLOCK, REQUIRE verified charge_id to ALLOW."""
     hop_d = dict(hop) if isinstance(hop, dict) else {}
     jid = (job_id or "").strip()
     cid = normalize_charge_id(charge_id)
@@ -43,7 +37,7 @@ def apply(*, job_id: str | None, hop: dict, charge_id: str | None) -> tuple[dict
         "charge_id": cid,
         "prior_event_id": None,
         "prior_decision": None,
-        "rule": "Latest HALT/BLOCK for this job_id stays HALT until charge_id is presented.",
+        "rule": "Latest HALT/BLOCK for this job_id stays HALT until verified charge authority is presented.",
     }
     if not jid:
         return hop_d, meta
@@ -56,10 +50,22 @@ def apply(*, job_id: str | None, hop: dict, charge_id: str | None) -> tuple[dict
     if prior_decision not in ("HALT", "BLOCK"):
         return hop_d, meta
     if cid:
-        meta["locked"] = False
-        meta["regime_change"] = "charge_id_presented"
-        hop_d["charge_id"] = cid
+        auth = charge_mod.verify(charge_id=cid, purpose="epoch", subject=jid)
+        meta["charge_authority"] = auth
+        if auth.get("ok"):
+            charge_mod.consume(charge_id=cid, purpose="epoch", subject=jid)
+            meta["locked"] = False
+            meta["regime_change"] = "charge_authority_accepted"
+            hop_d["charge_id"] = cid
+            hop_d["prior_event_id"] = prior.get("id")
+            return hop_d, meta
+        hop_d["halt"] = True
+        hop_d["verdict"] = False
+        hop_d["epoch_lock"] = True
+        hop_d["epoch_reason"] = auth.get("reason") or "charge_authority_invalid"
         hop_d["prior_event_id"] = prior.get("id")
+        meta["locked"] = True
+        meta["reason"] = hop_d["epoch_reason"]
         return hop_d, meta
     hop_d["halt"] = True
     hop_d["verdict"] = False
