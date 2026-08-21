@@ -256,7 +256,8 @@ FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE
 FLOOR_PRICE_CENTS = int(os.getenv("GATE_FLOOR_PRICE_CENTS", str(operator_mod.FLOOR_PRICE_CENTS)))
 CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
 META_PIXEL_ID = (os.getenv("GATE_META_PIXEL_ID") or "").strip()
-GA_ID = (os.getenv("GATE_GA_ID") or "").strip()
+# Google Ads / gtag id. Public in page source. Env overrides; default ships Ads tag.
+GA_ID = (os.getenv("GATE_GA_ID") or "AW-18402962939").strip()
 OPERATOR_WRITES = frozenset(operator_mod.WRITES)
 OCSP_TIMEOUT = float(os.getenv("GATE_OCSP_TIMEOUT", "5"))
 
