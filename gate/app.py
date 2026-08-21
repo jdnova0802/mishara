@@ -756,13 +756,22 @@ def _demo_gate():
 
 
 def run_welded_act(fuse_id: str, action: str):
+    """Clearance permit only. Gate never executes the irreversible write here.
+
+    `acted` means clearance would allow the exclusive door to proceed — not that
+    money left or a bind committed. `write_executed` is always false from Gate.
+    """
     hop, status, extra = velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id})
     extra = dict(extra or {})
     extra["X-Gate-Closed-World"] = "1"
+    extra["X-Gate-Write-Executed"] = "0"
 
     if status >= 500 or (isinstance(hop, dict) and hop.get("halt")):
         if isinstance(hop, dict):
             hop["acted"] = False
+            hop["write_executed"] = False
+            hop["side_effect"] = False
+            hop["clearance_only"] = True
             hop["action"] = action
             hop["welded"] = True
             hop["closed_world"] = True
@@ -771,19 +780,25 @@ def run_welded_act(fuse_id: str, action: str):
 
     allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
     result = {
-        "spec": "gate-welded-act-v1",
+        "spec": "gate-welded-act-v2",
         "welded": True,
         "closed_world": True,
+        "clearance_only": True,
+        "side_effect": False,
+        "write_executed": False,
         "action": action,
         "acted": allowed,
+        "clearance_allows": allowed,
         "halt": not allowed,
         "fuse_id": fuse_id,
         "hop": hop,
         "message": (
-            "Act allowed — hop LIVE/verdict true. This endpoint is the only act path."
+            "Clearance permit — hop LIVE/verdict true. Gate did not execute the write. "
+            "Exclusive door (worker/Gosu) must enforce; bypass is out of protocol."
             if allowed
-            else "Act refused — DEAD or verdict false. No side door."
+            else "Clearance refuse — DEAD or verdict false. No side door. write_executed=false."
         ),
+        "their_production": False,
     }
     extra["X-Gate-Acted"] = "1" if allowed else "0"
     bound.attach(result, 200, closed_world=True)
@@ -872,7 +887,9 @@ def _finalize_spend_plan(
         plan["reason"] = cp.get("reason") or counterpart_mod.REASON_REQUIRED
     parent = license_fuse_mod.presented(license_id)
     plan["license_fuse"] = license_fuse_mod.snapshot(parent.get("license_id"))
-    if acted and not parent.get("ok"):
+    # License parent halt always wins as the named reason when fused+not LIVE,
+    # even if epoch already halted — otherwise reason goes missing on polluted jobs.
+    if parent.get("fused") and not parent.get("ok"):
         acted = False
         decision = "HALT"
         plan["allow_bind"] = False
@@ -880,6 +897,14 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = parent.get("reason") or license_fuse_mod.REASON_NOT_LIVE
+    elif epoch_meta and epoch_meta.get("locked"):
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["reason"] = plan.get("reason") or epoch_meta.get("reason") or "prior_halt_requires_charge"
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -1362,6 +1387,65 @@ def well_known_register():
     return jsonify(register_mod.manifest(advertised_url(), CONTACT_EMAIL))
 
 
+@app.route("/.well-known/charge-authority.json")
+def well_known_charge_authority():
+    try:
+        from gate import charge_authority as charge_mod
+    except ImportError:
+        import charge_authority as charge_mod
+
+    return jsonify(
+        {
+            "spec": charge_mod.SPEC,
+            "name": "CHARGE authority",
+            "accepted": [
+                "GATE_DEV_MODE chg_* drill tokens",
+                "sig:{nonce}:{hmac} bound to purpose|subject|nonce",
+                "paid install/operator checkout session id",
+                "Stripe PaymentIntent pi_* with status=succeeded",
+            ],
+            "replay": "each charge_id consumed at most once",
+            "license_charge": f"{advertised_url()}/v1/pas/licenses/{{license_id}}/charge",
+            "their_production": False,
+        }
+    )
+
+
+@app.route("/v1/register/cleared", methods=["POST"])
+def register_cleared_flow():
+    """Ops-only: record cleared cents against a paid weld/checkout (fee ledger)."""
+    if not _ops_authorized():
+        return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
+    body = request.get_json(silent=True) or {}
+    try:
+        entry = db.record_cleared_flow(
+            cleared_cents=int(body.get("cleared_cents") or 0),
+            hop_count=int(body.get("hop_count") or 0),
+            weld_order_id=(body.get("weld_order_id") or "").strip() or None,
+            install_session_id=(body.get("install_session_id") or body.get("session_id") or "").strip()
+            or None,
+            note=(body.get("note") or "").strip(),
+        )
+    except ValueError as exc:
+        return jsonify({"ok": False, "error": {"code": "invalid", "message": str(exc)}}), 400
+    totals = db.cleared_flow_totals()
+    return jsonify({"ok": True, "entry": entry, "totals": totals, "their_production": False})
+
+
+@app.route("/.well-known/cleared-flow.json")
+def well_known_cleared_flow():
+    totals = db.cleared_flow_totals()
+    return jsonify(
+        {
+            "spec": "gate-cleared-flow-v1",
+            "totals": totals,
+            "post": f"{advertised_url()}/v1/register/cleared",
+            "note": "Ledger of cleared flow for fee register — not a production claim.",
+            "their_production": False,
+        }
+    )
+
+
 @app.route("/.well-known/settlement.json")
 def well_known_settlement():
     try:
@@ -1617,7 +1701,16 @@ def production_weld_page():
         write_path = (request.form.get("write_path") or "").strip()
         counterparty = (request.form.get("counterparty") or "").strip()
         note = (request.form.get("note") or "").strip()
+        exclusive_door_url = (request.form.get("exclusive_door_url") or "").strip()
+        door_kind = (request.form.get("door_kind") or "").strip()
+        worker_fingerprint = (request.form.get("worker_fingerprint") or "").strip()
         confirm = (request.form.get("confirm") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
+        exclusivity_confirm = (request.form.get("exclusivity_confirm") or "").strip().lower() in (
             "1",
             "true",
             "yes",
@@ -1637,6 +1730,8 @@ def production_weld_page():
                     "First-party counterparty needs note naming the customer write "
                     "(their/customer/third). Prefer dogfood for Nisaba-only welds."
                 )
+        if not error and not exclusivity_confirm:
+            error = "Exclusivity confirm required — attest the exclusive door is the only mouth."
         if not error:
             try:
                 result = production_skin_mod.record_production_weld(
@@ -1644,13 +1739,16 @@ def production_weld_page():
                     counterparty=counterparty,
                     note=note,
                     confirm=confirm,
+                    exclusive_door_url=exclusive_door_url,
+                    door_kind=door_kind,
+                    worker_fingerprint=worker_fingerprint or None,
                 )
                 if not result.get("ok"):
                     error = result.get("error") or "Could not record production weld"
                 else:
                     recorded = result.get("weld")
                     flash(
-                        "Third-party production weld recorded. their_production is now true.",
+                        "Third-party production weld recorded with exclusivity attestation. their_production is now true.",
                         "success",
                     )
             except ValueError as exc:

@@ -6,6 +6,7 @@ import os
 import sys
 import tempfile
 import unittest
+import uuid
 import base64
 from dataclasses import asdict
 from datetime import datetime, timedelta, timezone
@@ -236,6 +237,8 @@ class FlaskListingTests(unittest.TestCase):
         inner = json.loads(text)
         self.assertIn("acted", inner)
         self.assertIsInstance(inner["acted"], bool)
+        self.assertFalse(inner.get("write_executed", True))
+        self.assertTrue(inner.get("clearance_only") or inner.get("acted") is not None)
 
     def test_nav_and_clickable_pages_are_not_broken(self):
         home = self.client.get("/").get_data(as_text=True)
@@ -1069,12 +1072,13 @@ class BindRoomFlaskTests(unittest.TestCase):
             "state": "LIVE",
             "verify_url": "https://velaru.xyz/verify?r=not-printed",
         }
+        job = f"pc:SCAN-BAI-{uuid.uuid4().hex[:8]}"
         with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
             r = self.client.post(
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:SCAN-BAI-NOW",
+                    "job_id": job,
                     "action": "bind-and-issue",
                 },
             )
@@ -1180,10 +1184,11 @@ class BindRoomFlaskTests(unittest.TestCase):
             "state": "LIVE",
             "verify_url": "https://velaru.xyz/verify?r=epoch-live",
         }
+        job = f"pc:EPOCH-{uuid.uuid4().hex[:8]}"
         with mock.patch.object(gate_app, "velaru_fuse", return_value=(dead, 200, {})):
             r1 = self.client.post(
                 "/demo/pas/policycenter/pre-bind",
-                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:EPOCH-1"},
+                json={"fuse_id": "fuse_velaru_drill", "job_id": job},
             )
         self.assertEqual(r1.status_code, 200)
         self.assertFalse(r1.get_json()["allow_bind"])
@@ -1191,7 +1196,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
             r2 = self.client.post(
                 "/demo/pas/policycenter/pre-bind",
-                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:EPOCH-1"},
+                json={"fuse_id": "fuse_velaru_drill", "job_id": job},
             )
         self.assertEqual(r2.status_code, 200)
         locked = r2.get_json()
@@ -1204,8 +1209,8 @@ class BindRoomFlaskTests(unittest.TestCase):
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:EPOCH-1",
-                    "charge_id": "chg_test_epoch",
+                    "job_id": job,
+                    "charge_id": f"chg_test_epoch_{uuid.uuid4().hex[:8]}",
                 },
             )
         self.assertEqual(r3.status_code, 200)
@@ -1619,13 +1624,31 @@ class OperatorInvoiceTests(unittest.TestCase):
                 "write_path": "POST /job/v1/jobs/x/bind-only",
                 "counterparty": "ops@carrier.example",
                 "note": "their customer bind write",
+                "exclusive_door_url": "https://carrier.example/gate-worker",
+                "door_kind": "cloudflare_worker",
+                "exclusivity_confirm": "1",
             },
             follow_redirects=True,
         )
         self.assertEqual(refuse.status_code, 200)
         self.assertFalse(self.client.get("/.well-known/production-skin.json").get_json()["their_production"])
 
-        # Confirmed third-party weld → L4
+        # Confirmed third-party weld without exclusivity door must not flip
+        no_door = self.client.post(
+            "/production-weld",
+            data={
+                "write_path": "POST /job/v1/jobs/x/bind-only",
+                "counterparty": "ops@carrier.example",
+                "note": "their customer bind write cleared",
+                "confirm": "1",
+                "exclusivity_confirm": "1",
+            },
+            follow_redirects=True,
+        )
+        self.assertEqual(no_door.status_code, 200)
+        self.assertFalse(self.client.get("/.well-known/production-skin.json").get_json()["their_production"])
+
+        # Confirmed third-party weld + exclusivity → L4
         prod = self.client.post(
             "/production-weld",
             data={
@@ -1633,6 +1656,10 @@ class OperatorInvoiceTests(unittest.TestCase):
                 "counterparty": "ops@carrier.example",
                 "note": "their customer bind write cleared",
                 "confirm": "1",
+                "exclusivity_confirm": "1",
+                "exclusive_door_url": "https://carrier.example/gate-worker",
+                "door_kind": "cloudflare_worker",
+                "worker_fingerprint": "wrangler-deploy-test",
             },
             follow_redirects=True,
         )
@@ -1851,13 +1878,15 @@ class LicenseFuseTests(unittest.TestCase):
         }
 
     def test_unsigned_parent_prints_no_ticket(self):
+        lid = f"lic:CO-UNSIGNED-{uuid.uuid4().hex[:8]}"
+        job = f"pc:FUSE-UNSIGNED-{uuid.uuid4().hex[:8]}"
         with mock.patch.object(gate_app, "velaru_fuse", return_value=(self._live("unsigned"), 200, {})):
             r = self.client.post(
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:FUSE-UNSIGNED-1",
-                    "license_id": "lic:CO-UNSIGNED-1",
+                    "job_id": job,
+                    "license_id": lid,
                 },
             )
         self.assertEqual(r.status_code, 200)
@@ -1869,14 +1898,15 @@ class LicenseFuseTests(unittest.TestCase):
         self.assertEqual(body["license_fuse"]["stored"], "UNSIGNED")
 
     def test_charge_only_live_then_children_die_with_parent(self):
-        lid = "lic:CO-PARENT-1"
+        lid = f"lic:CO-PARENT-{uuid.uuid4().hex[:8]}"
+        job = f"pc:FUSE-PARENT-{uuid.uuid4().hex[:8]}"
         missing = self.client.post(f"/demo/pas/licenses/{lid}/charge", json={})
         self.assertEqual(missing.status_code, 403)
         self.assertEqual(missing.get_json()["reason"], "charge_id_required")
 
         charged = self.client.post(
             f"/demo/pas/licenses/{lid}/charge",
-            json={"charge_id": "chg_parent_1"},
+            json={"charge_id": f"chg_parent_{uuid.uuid4().hex[:8]}"},
         )
         self.assertEqual(charged.status_code, 200)
         self.assertEqual(charged.get_json()["state"], "LIVE")
@@ -1886,7 +1916,7 @@ class LicenseFuseTests(unittest.TestCase):
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:FUSE-PARENT-1",
+                    "job_id": job,
                     "license_id": lid,
                 },
             )
@@ -1909,9 +1939,9 @@ class LicenseFuseTests(unittest.TestCase):
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
-                "job_id": "pc:FUSE-PARENT-1",
+                "job_id": job,
                 "method": "POST",
-                "path": "/job/v1/jobs/pc:FUSE-PARENT-1/bind-only",
+                "path": f"/job/v1/jobs/{job}/bind-only",
                 "license_id": lid,
                 "now": _now(),
             },
@@ -1923,7 +1953,7 @@ class LicenseFuseTests(unittest.TestCase):
 
         resurrected = self.client.post(
             f"/demo/pas/licenses/{lid}/charge",
-            json={"charge_id": "chg_parent_2"},
+            json={"charge_id": f"chg_parent_{uuid.uuid4().hex[:8]}"},
         )
         self.assertEqual(resurrected.status_code, 200)
         self.assertEqual(resurrected.get_json()["state"], "LIVE")
@@ -1933,9 +1963,9 @@ class LicenseFuseTests(unittest.TestCase):
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
-                "job_id": "pc:FUSE-PARENT-1",
+                "job_id": job,
                 "method": "POST",
-                "path": "/job/v1/jobs/pc:FUSE-PARENT-1/bind-only",
+                "path": f"/job/v1/jobs/{job}/bind-only",
                 "license_id": lid,
                 "now": _now(),
             },
@@ -1944,12 +1974,14 @@ class LicenseFuseTests(unittest.TestCase):
         self.assertTrue(ok.get_json()["ok"])
 
     def test_counterpart_fingerprint_is_optional_and_fail_closed(self):
+        job_partial = f"pc:FUSE-CP-PARTIAL-{uuid.uuid4().hex[:8]}"
+        job_ok = f"pc:FUSE-CP-OK-{uuid.uuid4().hex[:8]}"
         with mock.patch.object(gate_app, "velaru_fuse", return_value=(self._live("cp-partial"), 200, {})):
             partial = self.client.post(
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:FUSE-CP-PARTIAL",
+                    "job_id": job_partial,
                     "counterpart_kind": "payout_rail",
                 },
             )
@@ -1963,7 +1995,7 @@ class LicenseFuseTests(unittest.TestCase):
                 "/demo/pas/policycenter/pre-bind",
                 json={
                     "fuse_id": "fuse_velaru_drill",
-                    "job_id": "pc:FUSE-CP-1",
+                    "job_id": job_ok,
                     "counterpart_id": "rail:ACH-9",
                     "counterpart_kind": "payout_rail",
                 },
@@ -1978,9 +2010,9 @@ class LicenseFuseTests(unittest.TestCase):
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
-                "job_id": "pc:FUSE-CP-1",
+                "job_id": job_ok,
                 "method": "POST",
-                "path": "/job/v1/jobs/pc:FUSE-CP-1/bind-only",
+                "path": f"/job/v1/jobs/{job_ok}/bind-only",
                 "now": _now(),
             },
         )
@@ -1992,9 +2024,9 @@ class LicenseFuseTests(unittest.TestCase):
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
-                "job_id": "pc:FUSE-CP-1",
+                "job_id": job_ok,
                 "method": "POST",
-                "path": "/job/v1/jobs/pc:FUSE-CP-1/bind-only",
+                "path": f"/job/v1/jobs/{job_ok}/bind-only",
                 "counterpart_id": "rail:WIRE-0",
                 "counterpart_kind": "payout_rail",
                 "now": _now(),
@@ -2008,9 +2040,9 @@ class LicenseFuseTests(unittest.TestCase):
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
-                "job_id": "pc:FUSE-CP-1",
+                "job_id": job_ok,
                 "method": "POST",
-                "path": "/job/v1/jobs/pc:FUSE-CP-1/bind-only",
+                "path": f"/job/v1/jobs/{job_ok}/bind-only",
                 "counterpart_id": "rail:ACH-9",
                 "counterpart_kind": "payout_rail",
                 "now": _now(),
@@ -2367,6 +2399,149 @@ class SettlementEngineTests(unittest.TestCase):
 
         gate = self.client.get("/.well-known/gate.json")
         self.assertIn("kappa_register", gate.get_json())
+
+
+class ArchitectureHardTests(unittest.TestCase):
+    """Control-plane locks for exclusive door, charge authority, act honesty, ledger, receipts."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_welded_act_never_executes_write(self):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=act",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/act",
+                json={"fuse_id": "fuse_velaru_drill", "action": "payout"},
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["acted"])
+        self.assertFalse(body["write_executed"])
+        self.assertTrue(body["clearance_only"])
+        self.assertFalse(body["side_effect"])
+        self.assertEqual(r.headers.get("X-Gate-Write-Executed"), "0")
+
+    def test_charge_rejects_freeform_outside_dev(self):
+        import license_fuse as lf
+
+        prev = os.environ.get("GATE_DEV_MODE")
+        try:
+            os.environ["GATE_DEV_MODE"] = "0"
+            bad = lf.charge(license_id="lic:HARD-1", charge_id="chg_should_fail")
+            self.assertFalse(bad["ok"])
+            self.assertEqual(bad["reason"], "charge_authority_invalid")
+        finally:
+            if prev is None:
+                os.environ.pop("GATE_DEV_MODE", None)
+            else:
+                os.environ["GATE_DEV_MODE"] = prev
+
+    def test_charge_hmac_and_replay(self):
+        import charge_authority as ca
+        import license_fuse as lf
+
+        token = ca.mint_hmac(purpose="license", subject="lic:HARD-HMAC")
+        self.assertTrue(token and token.startswith("sig:"))
+        ok = lf.charge(license_id="lic:HARD-HMAC", charge_id=token)
+        self.assertTrue(ok["ok"])
+        self.assertEqual(ok["charge_authority"], "hmac_sig")
+        replay = lf.charge(license_id="lic:HARD-HMAC", charge_id=token)
+        self.assertFalse(replay["ok"])
+        self.assertEqual(replay["reason"], "charge_authority_replay")
+
+    def test_production_requires_exclusive_door(self):
+        import production_skin as skin
+
+        refuse = skin.record_production_weld(
+            write_path="POST /v1/payouts/x/release",
+            counterparty="ops@carrier.example",
+            note="their customer",
+            confirm=True,
+        )
+        self.assertFalse(refuse["ok"])
+        self.assertIn("exclusive_door", (refuse.get("error") or "").lower())
+
+        ok = skin.record_production_weld(
+            write_path="POST /v1/payouts/x/release",
+            counterparty="ops@carrier.example",
+            note="their customer",
+            confirm=True,
+            exclusive_door_url="https://carrier.example/worker",
+            door_kind="cloudflare_worker",
+        )
+        self.assertTrue(ok["ok"])
+        self.assertTrue(ok["their_production"])
+        self.assertTrue(skin.their_production())
+
+    def test_checkout_creates_weld_order_and_cleared_ledger(self):
+        import db as gate_db
+
+        r = self.client.post(
+            "/operator/checkout",
+            data={"email": "ops@example.test", "write": "withdraw", "include_floor": "1"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+        # Dev checkout marks paid → weld_orders row
+        with gate_db.db() as conn:
+            gate_db._ensure_weld_orders_table(conn)
+            n = conn.execute("SELECT COUNT(*) AS n FROM weld_orders").fetchone()["n"]
+        self.assertGreaterEqual(n, 1)
+        # Cleared flow requires ops; in GATE_DEV_MODE empty token is authorized
+        cleared = self.client.post(
+            "/v1/register/cleared",
+            json={"cleared_cents": 12_000_000, "hop_count": 3, "install_session_id": "missing"},
+        )
+        # missing session still records if weld_order_id/session provided — session optional with note
+        # Our API requires one of the ids; "missing" is fine as opaque id
+        self.assertEqual(cleared.status_code, 200)
+        self.assertTrue(cleared.get_json()["ok"])
+        totals = self.client.get("/.well-known/cleared-flow.json").get_json()["totals"]
+        self.assertGreaterEqual(totals["cleared_cents"], 12_000_000)
+
+    def test_receipt_unsigned_halts_outside_dev(self):
+        import receipt as receipt_mod
+
+        prev = os.environ.get("GATE_DEV_MODE")
+        priv = os.environ.get("GATE_RECEIPT_PRIVATE_KEY")
+        pub = os.environ.get("GATE_RECEIPT_PUBLIC_KEY")
+        try:
+            os.environ["GATE_DEV_MODE"] = "0"
+            os.environ.pop("GATE_RECEIPT_PRIVATE_KEY", None)
+            os.environ.pop("GATE_RECEIPT_PUBLIC_KEY", None)
+            out = receipt_mod.issue_receipt(
+                event_id="e1",
+                fuse_id="fuse_x",
+                job_id="j1",
+                decision="HALT",
+                acted=False,
+                verify_url=None,
+                created_at="2026-01-01T00:00:00+00:00",
+                hop={},
+                prev_receipt_hash=None,
+            )
+            self.assertTrue(out.get("unsigned_halt"))
+        finally:
+            if prev is None:
+                os.environ.pop("GATE_DEV_MODE", None)
+            else:
+                os.environ["GATE_DEV_MODE"] = prev
+            if priv:
+                os.environ["GATE_RECEIPT_PRIVATE_KEY"] = priv
+            if pub:
+                os.environ["GATE_RECEIPT_PUBLIC_KEY"] = pub
 
 
 if __name__ == "__main__":

@@ -419,6 +419,10 @@ def record_bind_event(
             hop=hop,
             prev_receipt_hash=prev_receipt_hash,
         )
+        if receipt_issue.get("unsigned_halt"):
+            raise RuntimeError(
+                "receipt_unsigned_halt: GATE_RECEIPT_PRIVATE_KEY required outside GATE_DEV_MODE"
+            )
 
         conn.execute(
             """INSERT INTO bind_events
@@ -734,6 +738,175 @@ def mark_install_paid(stripe_session_id: str):
             "UPDATE install_orders SET status = 'paid' WHERE stripe_session_id = ?",
             (stripe_session_id,),
         )
+    # Close checkout → delivery ledger loop (not production claim).
+    ensure_weld_order_from_session(stripe_session_id)
+
+
+def _ensure_charge_authority_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS charge_authority_used (
+            charge_id TEXT PRIMARY KEY,
+            purpose TEXT NOT NULL,
+            subject TEXT,
+            consumed_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def charge_authority_consumed(charge_id: str) -> bool:
+    cid = (charge_id or "").strip()
+    if not cid:
+        return False
+    with db() as conn:
+        _ensure_charge_authority_table(conn)
+        row = conn.execute(
+            "SELECT 1 FROM charge_authority_used WHERE charge_id = ?", (cid,)
+        ).fetchone()
+    return bool(row)
+
+
+def consume_charge_authority(*, charge_id: str, purpose: str, subject: str = "") -> None:
+    cid = (charge_id or "").strip()
+    if not cid:
+        raise ValueError("charge_id required")
+    with db() as conn:
+        _ensure_charge_authority_table(conn)
+        conn.execute(
+            """INSERT INTO charge_authority_used (charge_id, purpose, subject, consumed_at)
+               VALUES (?, ?, ?, ?)""",
+            (cid, (purpose or "").strip()[:64], (subject or "").strip()[:128], utc_now()),
+        )
+
+
+def _ensure_cleared_flow_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS cleared_flow_ledger (
+            id TEXT PRIMARY KEY,
+            weld_order_id TEXT,
+            install_session_id TEXT,
+            cleared_cents INTEGER NOT NULL,
+            hop_count INTEGER NOT NULL DEFAULT 0,
+            note TEXT,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def _ensure_weld_orders_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS weld_orders (
+            id TEXT PRIMARY KEY,
+            install_order_id TEXT,
+            stripe_session_id TEXT NOT NULL UNIQUE,
+            email TEXT NOT NULL,
+            write_kind TEXT,
+            amount_cents INTEGER NOT NULL,
+            status TEXT NOT NULL,
+            their_production INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def ensure_weld_order_from_session(stripe_session_id: str) -> dict | None:
+    """Link a paid install/operator checkout to a weld_orders delivery row."""
+    sid = (stripe_session_id or "").strip()
+    if not sid:
+        return None
+    order = get_install_order_by_session(sid)
+    if not order:
+        return None
+    order = dict(order)
+    if (order.get("status") or "") != "paid":
+        return None
+    with db() as conn:
+        _ensure_weld_orders_table(conn)
+        existing = conn.execute(
+            "SELECT * FROM weld_orders WHERE stripe_session_id = ?", (sid,)
+        ).fetchone()
+        if existing:
+            return dict(existing)
+        wid = str(uuid.uuid4())
+        conn.execute(
+            """INSERT INTO weld_orders
+               (id, install_order_id, stripe_session_id, email, write_kind, amount_cents,
+                status, their_production, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, 'paid_delivery', 0, ?)""",
+            (
+                wid,
+                order["id"],
+                sid,
+                order["email"],
+                None,
+                int(order["amount_cents"] or 0),
+                utc_now(),
+            ),
+        )
+        row = conn.execute("SELECT * FROM weld_orders WHERE id = ?", (wid,)).fetchone()
+    return dict(row) if row else None
+
+
+def record_cleared_flow(
+    *,
+    cleared_cents: int,
+    hop_count: int = 0,
+    weld_order_id: str | None = None,
+    install_session_id: str | None = None,
+    note: str = "",
+) -> dict:
+    cents = int(cleared_cents or 0)
+    hops = max(0, int(hop_count or 0))
+    if cents < 0:
+        raise ValueError("cleared_cents must be >= 0")
+    if not weld_order_id and not install_session_id:
+        raise ValueError("weld_order_id or install_session_id required")
+    eid = str(uuid.uuid4())
+    with db() as conn:
+        _ensure_cleared_flow_table(conn)
+        conn.execute(
+            """INSERT INTO cleared_flow_ledger
+               (id, weld_order_id, install_session_id, cleared_cents, hop_count, note, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+            (
+                eid,
+                (weld_order_id or "").strip() or None,
+                (install_session_id or "").strip() or None,
+                cents,
+                hops,
+                (note or "").strip()[:500],
+                utc_now(),
+            ),
+        )
+    return {
+        "id": eid,
+        "cleared_cents": cents,
+        "hop_count": hops,
+        "weld_order_id": weld_order_id,
+        "install_session_id": install_session_id,
+        "their_production": False,
+    }
+
+
+def cleared_flow_totals() -> dict:
+    with db() as conn:
+        _ensure_cleared_flow_table(conn)
+        row = conn.execute(
+            """SELECT COALESCE(SUM(cleared_cents), 0) AS cents,
+                      COALESCE(SUM(hop_count), 0) AS hops,
+                      COUNT(*) AS n
+               FROM cleared_flow_ledger"""
+        ).fetchone()
+    return {
+        "cleared_cents": int(row["cents"] if row else 0),
+        "hop_count": int(row["hops"] if row else 0),
+        "entries": int(row["n"] if row else 0),
+    }
 
 
 def get_install_order_by_session(stripe_session_id: str):
@@ -881,10 +1054,23 @@ def _ensure_third_party_welds(conn) -> None:
             counterparty TEXT NOT NULL,
             note TEXT,
             stripe_session_id TEXT,
+            exclusive_door_url TEXT,
+            door_kind TEXT,
+            worker_fingerprint TEXT,
+            exclusivity_attested INTEGER NOT NULL DEFAULT 0,
             created_at TEXT NOT NULL
         )
         """
     )
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(third_party_welds)").fetchall()}
+    for col, decl in (
+        ("exclusive_door_url", "TEXT"),
+        ("door_kind", "TEXT"),
+        ("worker_fingerprint", "TEXT"),
+        ("exclusivity_attested", "INTEGER NOT NULL DEFAULT 0"),
+    ):
+        if col not in cols:
+            conn.execute(f"ALTER TABLE third_party_welds ADD COLUMN {col} {decl}")
 
 
 def has_dogfood_weld() -> bool:
@@ -896,23 +1082,16 @@ def has_dogfood_weld() -> bool:
 
 
 def has_gate_production_weld() -> bool:
-    """Third-party production weld only. Dogfood rows must not flip this."""
+    """Third-party production weld with exclusivity attestation only."""
     with db() as conn:
         _ensure_third_party_welds(conn)
-        row = conn.execute("SELECT COUNT(*) AS n FROM third_party_welds").fetchone()
-        if row and row["n"] > 0:
-            return True
-        # Legacy production_welds: only non-dogfood rows
-        cols = _table_cols(conn, "production_welds")
-        if "dogfood" in cols:
-            legacy = conn.execute(
-                "SELECT COUNT(*) AS n FROM production_welds WHERE COALESCE(dogfood, 0) = 0"
-            ).fetchone()
-            return bool(legacy and legacy["n"] > 0)
-        if cols and "counterparty" in cols:
-            legacy = conn.execute("SELECT COUNT(*) AS n FROM production_welds").fetchone()
-            return bool(legacy and legacy["n"] > 0)
-    return False
+        row = conn.execute(
+            """SELECT COUNT(*) AS n FROM third_party_welds
+               WHERE COALESCE(exclusivity_attested, 0) = 1
+                 AND exclusive_door_url IS NOT NULL
+                 AND TRIM(exclusive_door_url) != ''"""
+        ).fetchone()
+    return bool(row and row["n"] > 0)
 
 
 def record_dogfood_weld(*, write_path: str, operator: str, note: str = "") -> dict:
@@ -945,21 +1124,47 @@ def record_production_weld(
     counterparty: str,
     note: str = "",
     stripe_session_id: str | None = None,
+    exclusive_door_url: str | None = None,
+    door_kind: str | None = None,
+    worker_fingerprint: str | None = None,
 ) -> dict:
-    """Record a third-party production weld. Flips their_production via has_gate_production_weld."""
+    """Record a third-party production weld. Requires exclusivity attestation fields."""
     wid = str(uuid.uuid4())
     ts = datetime.now(timezone.utc).isoformat()
     path = (write_path or "").strip()
     party = (counterparty or "").strip()
+    door = (exclusive_door_url or "").strip()
+    kind = (door_kind or "").strip().lower()
+    fingerprint = (worker_fingerprint or "").strip()[:128]
     if not path or not party:
         raise ValueError("write_path and counterparty required")
+    if not door:
+        raise ValueError("exclusive_door_url required — the only mouth on their irreversible write")
+    low = door.lower()
+    if low.startswith("http://localhost") or "127.0.0.1" in low or "0.0.0.0" in low:
+        raise ValueError("exclusive_door_url must not be localhost")
+    if not low.startswith("https://"):
+        raise ValueError("exclusive_door_url must be https")
+    if kind not in ("cloudflare_worker", "gosu", "inline_proxy", "other"):
+        raise ValueError("door_kind must be cloudflare_worker|gosu|inline_proxy|other")
     with db() as conn:
         _ensure_third_party_welds(conn)
         conn.execute(
             """INSERT INTO third_party_welds
-               (id, write_path, counterparty, note, stripe_session_id, created_at)
-               VALUES (?, ?, ?, ?, ?, ?)""",
-            (wid, path, party, (note or "").strip(), (stripe_session_id or "").strip() or None, ts),
+               (id, write_path, counterparty, note, stripe_session_id,
+                exclusive_door_url, door_kind, worker_fingerprint, exclusivity_attested, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?)""",
+            (
+                wid,
+                path,
+                party,
+                (note or "").strip(),
+                (stripe_session_id or "").strip() or None,
+                door,
+                kind,
+                fingerprint or None,
+                ts,
+            ),
         )
     return {
         "id": wid,
@@ -967,6 +1172,10 @@ def record_production_weld(
         "counterparty": party,
         "note": note,
         "stripe_session_id": stripe_session_id,
+        "exclusive_door_url": door,
+        "door_kind": kind,
+        "worker_fingerprint": fingerprint or None,
+        "exclusivity_attested": True,
         "created_at": ts,
         "their_production": True,
         "dogfood": False,
@@ -987,7 +1196,9 @@ def latest_production_weld() -> dict | None:
     with db() as conn:
         _ensure_third_party_welds(conn)
         row = conn.execute(
-            """SELECT id, write_path, counterparty, note, stripe_session_id, created_at
+            """SELECT id, write_path, counterparty, note, stripe_session_id,
+                      exclusive_door_url, door_kind, worker_fingerprint,
+                      exclusivity_attested, created_at
                FROM third_party_welds ORDER BY created_at DESC LIMIT 1"""
         ).fetchone()
     return dict(row) if row else None

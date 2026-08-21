@@ -2,6 +2,9 @@
  * Closed-world edge: hop before origin. If halt/DEAD, do not fetch.
  * Cloudflare Worker — weld this in front of any origin you refuse to side-door.
  *
+ * Gate /v1/act is clearance_only: acted=true means permit, write_executed is always
+ * false from Gate. This worker is the exclusive door that may fetch(request).
+ *
  * wrangler secret put GATE_KEY
  * [vars] GATE_URL must be the LIVE https origin — never localhost.
  * Halt JSON always includes verify_url and inhabitant_url so the inhabitant
@@ -58,6 +61,12 @@ export default {
     if (!hop.ok || body.halt || body.acted === false) {
       return haltResponse(body, env, null, hop.status === 503 ? 503 : 403);
     }
-    return fetch(request);
+    // Clearance permit only — Gate did not execute the write. This worker is the door.
+    const res = await fetch(request);
+    const headers = new Headers(res.headers);
+    headers.set("x-gate-welded", "1");
+    headers.set("x-gate-write-executed", "1");
+    headers.set("x-gate-clearance-allows", "1");
+    return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
   },
 };

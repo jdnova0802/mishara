@@ -2,13 +2,13 @@
 {% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}Production weld{% endblock %}
 {% block meta %}
-<meta name="description" content="Record a third-party production weld. Flips their_production. Not dogfood. Not demo.">
+<meta name="description" content="Record a third-party production weld with exclusive-door attestation. Flips their_production.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Third-party only · L4 · honesty hold</p>
+  <p class="audience-tag">Third-party only · L4 · exclusivity required</p>
   <h1>Production weld</h1>
-  <p class="audience-sub">Record when <strong>someone else's</strong> irreversible write is welded through Gate. This flips <code>their_production</code>. Dev checkout and demo hops do not.</p>
+  <p class="audience-sub">Record when <strong>someone else's</strong> irreversible write is welded through Gate <strong>and</strong> an exclusive door is the only mouth. Checkout and demo hops do not flip <code>their_production</code>.</p>
   <p style="margin: 0.75rem 0;">
     Current their_production: <strong>{{ manifest.their_production }}</strong>
     · dogfood: <strong>{{ manifest.dogfood_weld }}</strong>
@@ -24,6 +24,7 @@
     <p class="audience-tag">Latest production weld</p>
     <h3>{{ latest.write_path }}</h3>
     <p style="color: var(--muted);">{{ latest.counterparty }} · {{ latest.created_at }}</p>
+    {% if latest.exclusive_door_url %}<p style="margin-top: 0.35rem;"><code>{{ latest.door_kind }}</code> · {{ latest.exclusive_door_url }}</p>{% endif %}
     {% if latest.note %}<p style="margin-top: 0.35rem;">{{ latest.note }}</p>{% endif %}
   </div>
   {% endif %}
@@ -47,14 +48,39 @@
                placeholder="ops@their-company.com" autocomplete="email">
       </div>
       <div class="form-group">
+        <label for="exclusive_door_url">Exclusive door URL (https)</label>
+        <input type="url" id="exclusive_door_url" name="exclusive_door_url" required
+               placeholder="https://their-origin.example — worker/Gosu mouth" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label for="door_kind">Door kind</label>
+        <select id="door_kind" name="door_kind" required>
+          <option value="cloudflare_worker" selected>cloudflare_worker</option>
+          <option value="gosu">gosu</option>
+          <option value="inline_proxy">inline_proxy</option>
+          <option value="other">other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="worker_fingerprint">Worker / door fingerprint (optional)</label>
+        <input type="text" id="worker_fingerprint" name="worker_fingerprint"
+               placeholder="sha256… or wrangler deploy id" autocomplete="off">
+      </div>
+      <div class="form-group">
         <label for="note">Note</label>
         <input type="text" id="note" name="note" required
-               placeholder="Customer / third-party write that cleared">
+               placeholder="Customer / third-party write that cleared" autocomplete="off">
       </div>
       <div class="form-group">
         <label>
           <input type="checkbox" name="confirm" value="1" required>
           I confirm this is a real third-party irreversible write — not demo, not dogfood, not DEV checkout
+        </label>
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="exclusivity_confirm" value="1" required>
+          I attest the exclusive door above is the only mouth on that write — bypass is blocked or costlier than going through Gate
         </label>
       </div>
       <button type="submit" class="btn btn-primary">Record production weld (L4)</button>

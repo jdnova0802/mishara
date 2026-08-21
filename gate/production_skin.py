@@ -34,9 +34,20 @@ def _now() -> str:
 
 
 def their_production() -> bool:
-    """True only when a real production weld is acknowledged."""
+    """True only when a real exclusive third-party production weld is recorded.
+
+    GATE_PRODUCTION_WELDED alone is insufficient — also requires
+    GATE_PRODUCTION_EXCLUSIVE=1 (ops honesty for emergency env flips) OR a DB
+    row with exclusivity_attested + exclusive_door_url.
+    """
     flag = os.getenv("GATE_PRODUCTION_WELDED", "").strip().lower()
-    if flag in ("1", "true", "yes", "on"):
+    exclusive_env = os.getenv("GATE_PRODUCTION_EXCLUSIVE", "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+    if flag in ("1", "true", "yes", "on") and exclusive_env:
         return True
     try:
         from gate import db as gate_db
@@ -84,8 +95,11 @@ def record_production_weld(
     note: str = "",
     stripe_session_id: str | None = None,
     confirm: bool = False,
+    exclusive_door_url: str | None = None,
+    door_kind: str | None = None,
+    worker_fingerprint: str | None = None,
 ) -> dict[str, Any]:
-    """Record third-party production weld. Requires explicit confirm=True."""
+    """Record third-party production weld. Requires confirm + exclusivity attestation."""
     if not confirm:
         return {
             "ok": False,
@@ -99,12 +113,18 @@ def record_production_weld(
     fn = getattr(gate_db, "record_production_weld", None)
     if not callable(fn):
         return {"ok": False, "error": "db.record_production_weld unavailable"}
-    row = fn(
-        write_path=write_path,
-        counterparty=counterparty,
-        note=note,
-        stripe_session_id=stripe_session_id,
-    )
+    try:
+        row = fn(
+            write_path=write_path,
+            counterparty=counterparty,
+            note=note,
+            stripe_session_id=stripe_session_id,
+            exclusive_door_url=exclusive_door_url,
+            door_kind=door_kind,
+            worker_fingerprint=worker_fingerprint,
+        )
+    except ValueError as exc:
+        return {"ok": False, "error": str(exc), "their_production": their_production()}
     return {"ok": True, "dogfood": False, "their_production": True, "weld": row}
 
 
