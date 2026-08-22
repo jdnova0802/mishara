@@ -2732,5 +2732,41 @@ class PrefinalityTests(FlaskListingTests):
         self.assertTrue(any("/v1/prefinality/evaluate" in (u or "") for u in resources))
 
 
+    def test_x402_fanout_lists_prefinality(self):
+        r = self.client.get("/.well-known/x402")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body.get("version"), 1)
+        resources = body.get("resources") or []
+        self.assertTrue(any("prefinality/evaluate" in u for u in resources))
+
+    def test_prefinality_evaluate_402_when_payto_configured(self):
+        payto = "0x00000000000000000000000000000000000000aa"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                with mock.patch.object(
+                    gate_app.x402_challenge_mod,
+                    "payment_required_response",
+                    wraps=gate_app.x402_challenge_mod.payment_required_response,
+                ):
+                    r = self.client.post(
+                        "/v1/prefinality/evaluate",
+                        json={
+                            "rail": "x402",
+                            "transfer": {
+                                "amount": "0.002",
+                                "currency": "USDC",
+                                "counterparty": "0x0000000000000000000000000000000000000001",
+                            },
+                        },
+                    )
+        self.assertEqual(r.status_code, 402)
+        data = r.get_json()
+        self.assertEqual(data.get("x402Version"), 2)
+        accepts = data.get("accepts") or []
+        self.assertTrue(accepts)
+        self.assertEqual(accepts[0].get("payTo"), payto)
+
+
 if __name__ == "__main__":
     unittest.main()

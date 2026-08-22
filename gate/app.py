@@ -220,6 +220,11 @@ except ImportError:
     import rtp_adapter as rtp_adapter_mod
 
 try:
+    from gate import x402_challenge as x402_challenge_mod
+except ImportError:
+    import x402_challenge as x402_challenge_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -1402,6 +1407,11 @@ def well_known_x402():
     return jsonify(listings_mod.x402_catalog(advertised_url()))
 
 
+@app.route("/.well-known/x402")
+def well_known_x402_fanout():
+    return jsonify(x402_challenge_mod.well_known_fanout(advertised_url()))
+
+
 @app.route("/.well-known/listings.json")
 def well_known_listings():
     return jsonify(listings_mod.listings_manifest(advertised_url(), CONTACT_EMAIL))
@@ -2173,16 +2183,67 @@ def demo_prefinality_evaluate():
 
 
 @app.route("/v1/prefinality/evaluate", methods=["POST"])
-@metered_api
 def prefinality_evaluate():
     body = request.get_json(silent=True) or {}
     blocked = fields.pii_error(body)
     if blocked:
         return blocked, 400
-    data = run_prefinality_evaluate(body, account_id=getattr(g, "account_id", None))
-    status = 200 if data.get("decision") == "GO" else 403 if data.get("decision") == "NO_GO" else 409
-    bound.attach(data, status)
-    return jsonify(data), status
+
+    row = authenticate_api_key()
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        usage = db.get_usage(g.account_id)
+        if usage["hops"] >= db.hop_limit(g.plan):
+            return payment_required_response(g.account_id, g.plan)
+        data = run_prefinality_evaluate(body, account_id=g.account_id)
+        status = 200 if data.get("decision") == "GO" else 403 if data.get("decision") == "NO_GO" else 409
+        bound.attach(data, status)
+        if 200 <= status < 300:
+            updated = db.increment_usage(g.account_id, "hops")
+            extra = {
+                "X-Gate-Usage-Hops": str(updated["hops"]),
+                "X-Gate-Usage-Limit": str(db.hop_limit(g.plan)),
+                "X-Gate-Plan": g.plan,
+            }
+            return jsonify(data), status, extra
+        return jsonify(data), status
+
+    if x402_challenge_mod.payment_header_present(request.headers):
+        data = run_prefinality_evaluate(body, account_id=None)
+        data["x402"] = {"paid": True, "note": "Payment header accepted; facilitator verify is phase 2."}
+        status = 200 if data.get("decision") == "GO" else 403 if data.get("decision") == "NO_GO" else 409
+        bound.attach(data, status)
+        return jsonify(data), status
+
+    if x402_challenge_mod.payto_configured():
+        return x402_challenge_mod.payment_required_response(
+            resource_url=f"{advertised_url()}/v1/prefinality/evaluate",
+            description=(
+                "Pre-finality GO/NO-GO before irreversible commit. "
+                "Returns signed Ed25519 JWT receipt bound to transfer fingerprint. "
+                "Fail closed on routing anomaly, injection destination, amount cap."
+            ),
+        )
+
+    return (
+        jsonify(
+            {
+                "error": {
+                    "type": "authentication_error",
+                    "code": "payment_or_api_key_required",
+                    "message": (
+                        "Provide Gate API key (Bearer gate_sk_live_...) or pay via x402. "
+                        "Free demo: POST /demo/prefinality/evaluate"
+                    ),
+                    "demo_url": f"{advertised_url()}/demo/prefinality/evaluate",
+                    "request_id": f"req_{uuid.uuid4().hex[:16]}",
+                }
+            }
+        ),
+        401,
+    )
 
 
 @app.route("/v1/prefinality/verify", methods=["POST"])
@@ -3319,6 +3380,10 @@ def openapi():
                 "contact": {"email": CONTACT_EMAIL, "url": advertised_url()},
             },
             "servers": [{"url": advertised_url(), "description": "Gate API"}],
+            "x-discovery": {
+                "ownershipProofs": [x402_challenge_mod.payto()] if x402_challenge_mod.payto() else [],
+                "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
+            },
             "components": {
                 "securitySchemes": {
                     "BearerAuth": {
@@ -3375,7 +3440,47 @@ def openapi():
                 "/v1/prefinality/evaluate": {
                     "post": {
                         "summary": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
-                        "security": [{"BearerAuth": []}],
+                        "description": (
+                            "Rail-agnostic clearance before irreversible commit. "
+                            "Pay $0.002 USDC on Base via x402, or use Gate API key."
+                        ),
+                        "x-payment-info": {
+                            "protocols": ["x402"],
+                            "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
+                        },
+                        "requestBody": {
+                            "required": True,
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "required": ["rail", "transfer"],
+                                        "properties": {
+                                            "rail": {"type": "string", "enum": ["x402", "rtp"]},
+                                            "transfer": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "amount": {"type": "string"},
+                                                    "currency": {"type": "string"},
+                                                    "counterparty": {"type": "string"},
+                                                    "routing_number": {"type": "string"},
+                                                    "account_number": {"type": "string"},
+                                                },
+                                            },
+                                            "mandate": {"type": "object"},
+                                            "context": {"type": "object"},
+                                        },
+                                    }
+                                }
+                            },
+                        },
+                        "responses": {
+                            "200": {"description": "GO + signed receipt JWT"},
+                            "402": {"description": "x402 USDC payment required on Base"},
+                            "403": {"description": "NO_GO — fail closed"},
+                            "409": {"description": "HOLD — human review"},
+                            "401": {"description": "API key or x402 payment required"},
+                        },
                     }
                 },
                 "/v1/prefinality/verify": {"post": {"summary": "Verify pre-finality receipt JWT", "security": []}},

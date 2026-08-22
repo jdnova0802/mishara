@@ -36,8 +36,10 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "x402": {
                 "status": "listing",
                 "catalog": f"{public_url}/.well-known/x402.json",
+                "fanout": f"{public_url}/.well-known/x402",
                 "prefinality": f"{public_url}/.well-known/prefinality.json",
-                "note": "Prefinality evaluate + x402 rail hook. Lab hop quota via Stripe.",
+                "x402scan_register": "https://www.x402scan.com/resources/register",
+                "note": "Submit origin URL on x402scan. Set GATE_X402_PAYTO on Render for paid evaluate probe.",
             },
             "guidewire": {
                 "status": "application",
