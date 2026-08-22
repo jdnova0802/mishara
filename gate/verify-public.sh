@@ -107,6 +107,7 @@ check demo_mga POST 200 \
 
 check prefinality_wk GET 200 "$URL/.well-known/prefinality.json"
 check prefinality_jwks GET 200 "$URL/.well-known/prefinality-jwks.json"
+check x402_fanout GET 200 "$URL/.well-known/x402"
 check prefinality_sdk GET 200 "$URL/sdk/prefinality/wrap.mjs"
 
 check demo_prefinality POST 200 \
