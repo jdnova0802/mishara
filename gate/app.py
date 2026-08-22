@@ -225,6 +225,11 @@ except ImportError:
     import x402_challenge as x402_challenge_mod
 
 try:
+    from gate import x402_audit as x402_audit_mod
+except ImportError:
+    import x402_audit as x402_audit_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -2244,6 +2249,80 @@ def prefinality_evaluate():
             }
         ),
         401,
+    )
+
+
+@app.route("/api/x402/audit", methods=["GET"])
+def x402_audit_free():
+    """Free x402 endpoint probe — agents discover via Bazaar; no email, no account."""
+    url = (request.args.get("url") or request.args.get("endpoint") or "").strip()
+    if not url:
+        return (
+            jsonify(
+                {
+                    "spec": x402_audit_mod.SPEC,
+                    "error": "missing_url",
+                    "message": "GET /api/x402/audit?url=https://your-origin/path",
+                    "example": f"{advertised_url()}/api/x402/audit?url=https://gate.velaru.xyz/v1/prefinality/evaluate",
+                }
+            ),
+            400,
+        )
+    result = x402_audit_mod.audit_endpoint(url)
+    return jsonify(result), 200
+
+
+@app.route("/api/x402/wire", methods=["GET"])
+def x402_wire_paid():
+    """Paid deploy bundle — $497 USDC via x402. Instant JSON delivery."""
+    domain = (request.args.get("domain") or request.args.get("origin") or "").strip()
+    email = (request.args.get("email") or request.args.get("contact") or "").strip()
+    audit_url = (request.args.get("audit_url") or request.args.get("url") or "").strip() or None
+    if not domain or not email:
+        return (
+            jsonify(
+                {
+                    "spec": x402_audit_mod.WIRE_SPEC,
+                    "error": "missing_params",
+                    "message": "GET /api/x402/wire?domain=example.com&email=you@example.com",
+                    "price_usd": x402_audit_mod.wire_price_label(),
+                }
+            ),
+            400,
+        )
+
+    resource = f"{advertised_url()}/api/x402/wire"
+    if x402_challenge_mod.payment_header_present(request.headers):
+        bundle = x402_audit_mod.wire_bundle(
+            domain=domain,
+            email=email,
+            public_url=advertised_url(),
+            audit_url=audit_url,
+        )
+        return jsonify(bundle), 200
+
+    if x402_challenge_mod.payto_configured():
+        return x402_challenge_mod.payment_required_response(
+            resource_url=resource,
+            description=(
+                "x402 payment gate install bundle: Cloudflare worker, wrangler, openapi pattern, "
+                "bazaar listing checklist. Instant delivery after USDC pay."
+            ),
+            amount_atomic_override=x402_audit_mod.wire_amount_atomic(),
+            bazaar_method="GET",
+        )
+
+    return (
+        jsonify(
+            {
+                "error": {
+                    "type": "configuration_error",
+                    "message": "Wire checkout requires GATE_X402_PAYTO on production.",
+                    "install_fallback": f"{advertised_url()}/install",
+                }
+            }
+        ),
+        503,
     )
 
 

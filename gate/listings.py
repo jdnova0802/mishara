@@ -297,12 +297,14 @@ def x402_catalog(public_url: str) -> dict:
     act = f"{public_url}/v1/act"
     bind = f"{public_url}/v1/pas/bind-check"
     prefinal = f"{public_url}/v1/prefinality/evaluate"
+    audit_free = f"{public_url}/api/x402/audit"
+    wire_paid = f"{public_url}/api/x402/wire"
     return {
         "x402Version": 2,
         "name": "Gate API",
         "description": (
             "Pre-finality clearance before irreversible commit. x402 + RTP/FedNow rails. "
-            "Metered fuse hop. Fail closed."
+            "Free endpoint audit. Paid wire bundle."
         ),
         "baseUrl": public_url,
         "payment": {
@@ -312,6 +314,45 @@ def x402_catalog(public_url: str) -> dict:
         },
         "prefinality": f"{public_url}/.well-known/prefinality.json",
         "resources": [
+            {
+                "resource": audit_free,
+                "type": "http",
+                "x402Version": 2,
+                "description": "FREE — audit any x402 URL (grade, payTo, 402 envelope)",
+                "extensions": {
+                    "bazaar": {
+                        "info": {
+                            "input": {
+                                "type": "http",
+                                "method": "GET",
+                                "queryParams": {"url": "https://example.com/paid-endpoint"},
+                            },
+                            "output": {"type": "json", "example": {"grade": "B", "score": 75, "ok": True}},
+                        }
+                    }
+                },
+            },
+            {
+                "resource": wire_paid,
+                "type": "http",
+                "x402Version": 2,
+                "description": "PAID $497 — instant x402 wire bundle (worker + checklist + bazaar steps)",
+                "extensions": {
+                    "bazaar": {
+                        "info": {
+                            "input": {
+                                "type": "http",
+                                "method": "GET",
+                                "queryParams": {
+                                    "domain": "example.com",
+                                    "email": "owner@example.com",
+                                },
+                            },
+                            "output": {"type": "json", "example": {"paid": True, "bundle_id": "abc123"}},
+                        }
+                    }
+                },
+            },
             {
                 "resource": prefinal,
                 "type": "http",
