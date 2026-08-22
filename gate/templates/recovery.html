@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Recovery pack{% endblock %}
+{% block meta %}
+<meta name="description" content="RTP and FedNow fraud recovery: camt.056 evidence pack. {{ pack.offer.fee_range }} contingency. $0 upfront.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Post-loss · camt.056 · contingency only</p>
+  <h1>{{ pack.headline }}</h1>
+  <p class="audience-sub">{{ pack.one_liner }}</p>
+  <div class="install-price">{{ pack.offer.fee_range }} <span>contingency · {{ pack.offer.upfront }} upfront</span></div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin: 1.25rem 0 2rem;">
+    <a class="btn btn-primary btn-lg" href="mailto:{{ pack.contact }}?subject={{ pack.intake.subject | urlencode }}">Start intake</a>
+    <a class="btn btn-ghost" href="{{ url_for('export_recovery_one_pager') }}">Download .txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('recovery_pack_json') }}">pack.json</a>
+    <a class="btn btn-ghost" href="{{ url_for('bind_weld_offer_page') }}">Prevention: bind weld</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>The gap</h3>
+      <ul class="check-list">
+        <li>{{ pack.problem.irrevocable }}</li>
+        <li>{{ pack.problem.us_gap }}</li>
+        <li>{{ pack.problem.mechanism }}</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>We deliver</h3>
+      <ul class="check-list">
+        {% for item in pack.offer.deliverables %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Partner with</h3>
+      <ul class="check-list">
+        {% for item in pack.partner_with %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Reason codes</h2>
+    <table style="width: 100%; font-size: 0.9rem;">
+      <thead>
+        <tr style="text-align: left;"><th>Code</th><th>Rail</th><th>Meaning</th></tr>
+      </thead>
+      <tbody>
+        {% for rc in pack.reason_codes %}
+        <tr><td><code>{{ rc.code }}</code></td><td>{{ rc.rail }}</td><td>{{ rc.meaning }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Intake</h2>
+    <p>Email <a href="mailto:{{ pack.contact }}?subject={{ pack.intake.subject | urlencode }}">{{ pack.contact }}</a> with:</p>
+    <ul class="check-list">
+      {% for field in pack.intake.fields %}
+      <li><code>{{ field }}</code></li>
+      {% endfor %}
+    </ul>
+    <p class="fine-print">{{ pack.legal_note }}</p>
+    <p style="margin-top: 0.75rem; color: var(--muted);">Prevention (separate): <a href="{{ pack.prefinality_link.prevention }}">operator weld</a> · {{ pack.prefinality_link.evaluate }}</p>
+  </div>
+</div>
+{% endblock %}
