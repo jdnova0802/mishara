@@ -3371,6 +3371,21 @@ def llms_txt():
 
 @app.route("/openapi.json")
 def openapi():
+    try:
+        from gate import openapi_discovery as openapi_discovery_mod
+    except ImportError:
+        import openapi_discovery as openapi_discovery_mod
+    return jsonify(
+        openapi_discovery_mod.spec(
+            advertised_url(),
+            contact_email=CONTACT_EMAIL,
+            payto=x402_challenge_mod.payto(),
+        )
+    )
+
+
+@app.route("/openapi.full.json")
+def openapi_full():
     return jsonify(
         {
             "openapi": "3.1.0",
