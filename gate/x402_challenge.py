@@ -132,8 +132,6 @@ def well_known_fanout(public_url: str) -> dict:
     base = (public_url or "").rstrip("/")
     resources = [
         f"{base}/v1/prefinality/evaluate",
-        f"{base}/demo/prefinality/evaluate",
-        f"{base}/mcp",
     ]
     out: dict[str, Any] = {"version": 1, "resources": resources}
     pt = payto()
