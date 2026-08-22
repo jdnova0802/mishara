@@ -157,7 +157,11 @@ def audit_endpoint(url: str, *, timeout: float = 12.0) -> dict:
 
     return {
         "spec": SPEC,
-        "ok": probe_status == 402 and bool(pay_to) and _EVM_RE.match(str(pay_to or "")),
+        "ok": (
+            probe_status == 402
+            and bool(pay_to)
+            and bool(_EVM_RE.match(str(pay_to or "")))
+        ),
         "url": target,
         "reachable": reachable,
         "http_status": probe_status,
