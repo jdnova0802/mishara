@@ -528,6 +528,14 @@ class FieldAndWeldTests(unittest.TestCase):
         self.assertIn("5.A.1", ids)
         self.assertIn("5.A.13", ids)
 
+    def test_full_map_nine_doors(self):
+        m = bind_room.full_map("https://example.test", "hello@velaru.xyz")
+        self.assertEqual(m["spec"], "gate-bind-room-full-map-v1")
+        self.assertEqual(len(m["doors"]), 9)
+        self.assertEqual(m["doors"][0]["status"], "marry_first")
+        self.assertIn("weld one", m["followup_blurb"].lower())
+        self.assertIn("/bind-room/full-map", m["cta"]["page"])
+
 
 class BindRoomFlaskTests(unittest.TestCase):
     @classmethod
@@ -590,6 +598,17 @@ class BindRoomFlaskTests(unittest.TestCase):
         ids = [s["id"] for s in r.get_json()["sections"]]
         self.assertIn("5.A.2", ids)
 
+    def test_full_map_route(self):
+        r = self.client.get("/bind-room/full-map.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(len(data["doors"]), 9)
+        self.assertEqual(data["doors"][0]["door"], "Cloud API bind-only")
+        r2 = self.client.get("/bind-room/full-map")
+        self.assertEqual(r2.status_code, 200)
+        self.assertIn(b"Nine doors", r2.data)
+        self.assertIn(b"Follow-up paste", r2.data)
+
     def test_control_not_model_listing(self):
         r = self.client.get("/listings/control-not-model.json")
         self.assertEqual(r.status_code, 200)
@@ -601,6 +620,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/bind-room")
         self.assertEqual(r.status_code, 200)
         self.assertIn(b"Officer pack", r.data)
+        self.assertIn(b"full map", r.data)
 
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")
