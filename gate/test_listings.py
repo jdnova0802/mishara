@@ -2788,6 +2788,7 @@ class X402AuditWireTests(unittest.TestCase):
         body = r.get_json()
         self.assertEqual(body.get("spec"), "gate-x402-audit-v1")
         self.assertIn("score", body)
+        self.assertIsInstance(body.get("ok"), bool)
 
     def test_wire_requires_domain_email(self):
         r = self.client.get("/api/x402/wire")
