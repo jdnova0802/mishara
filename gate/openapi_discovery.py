@@ -69,5 +69,42 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
                     "responses": {"200": {"description": "Evaluate result"}},
                 }
             },
+            "/api/x402/wire": {
+                "get": {
+                    "summary": "Paid x402 deploy wire bundle ($497 USDC)",
+                    "description": (
+                        "Instant delivery after USDC pay: Cloudflare worker, wrangler, "
+                        "openapi pattern, bazaar listing checklist."
+                    ),
+                    "x-payment-info": {
+                        "protocols": ["x402"],
+                        "price": {"mode": "fixed", "currency": "USDC", "amount": "497.00"},
+                    },
+                    "parameters": [
+                        {
+                            "name": "domain",
+                            "in": "query",
+                            "required": True,
+                            "schema": {"type": "string"},
+                        },
+                        {
+                            "name": "email",
+                            "in": "query",
+                            "required": True,
+                            "schema": {"type": "string", "format": "email"},
+                        },
+                        {
+                            "name": "audit_url",
+                            "in": "query",
+                            "required": False,
+                            "schema": {"type": "string", "format": "uri"},
+                        },
+                    ],
+                    "responses": {
+                        "200": {"description": "Paid wire bundle JSON"},
+                        "402": {"description": "x402 USDC payment required on Base"},
+                    },
+                }
+            },
         },
     }
