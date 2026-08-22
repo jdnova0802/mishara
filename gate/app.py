@@ -635,6 +635,7 @@ def health():
         "mass": f"{pub}/mass",
         "refusal": f"{pub}/refusal",
         "tattoo": f"{pub}/tattoo",
+        "x402": x402_challenge_mod.payto_debug(),
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:

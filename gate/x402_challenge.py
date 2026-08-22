@@ -14,10 +14,21 @@ DEFAULT_AMOUNT_ATOMIC = "2000"  # $0.002 USDC (6 decimals)
 
 
 def payto() -> str | None:
-    raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip()
+    raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip().strip('"').strip("'")
     if raw.startswith("0x") and len(raw) == 42:
         return raw
     return None
+
+
+def payto_debug() -> dict:
+    raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip()
+    configured = payto() is not None
+    return {
+        "configured": configured,
+        "env_set": bool(raw),
+        "env_len": len(raw),
+        "valid_len": len(raw.strip('"').strip("'")) == 42 if raw else False,
+    }
 
 
 def amount_atomic() -> str:
