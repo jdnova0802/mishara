@@ -105,6 +105,15 @@ check demo_mga POST 200 \
   -H "Content-Type: application/json" \
   -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000}'
 
+check prefinality_wk GET 200 "$URL/.well-known/prefinality.json"
+check prefinality_jwks GET 200 "$URL/.well-known/prefinality-jwks.json"
+check prefinality_sdk GET 200 "$URL/sdk/prefinality/wrap.mjs"
+
+check demo_prefinality POST 200 \
+  -X POST "$URL/demo/prefinality/evaluate" \
+  -H "Content-Type: application/json" \
+  -d '{"rail":"x402","transfer":{"amount":"0.002","currency":"USDC","counterparty":"0x0000000000000000000000000000000000000001"},"mandate":{"agent_id":"verify-public","max_amount":"1.00"}}'
+
 check no_pii POST 400 \
   -X POST "$URL/demo/pas/policycenter/pre-bind" \
   -H "Content-Type: application/json" \

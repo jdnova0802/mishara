@@ -36,7 +36,8 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "x402": {
                 "status": "listing",
                 "catalog": f"{public_url}/.well-known/x402.json",
-                "note": "HTTP 402 on hop limit → Stripe /pricing. Not a crypto product.",
+                "prefinality": f"{public_url}/.well-known/prefinality.json",
+                "note": "Prefinality evaluate + x402 rail hook. Lab hop quota via Stripe.",
             },
             "guidewire": {
                 "status": "application",
@@ -293,20 +294,47 @@ def x402_catalog(public_url: str) -> dict:
     hop = f"{public_url}/v1/fuse/hop"
     act = f"{public_url}/v1/act"
     bind = f"{public_url}/v1/pas/bind-check"
+    prefinal = f"{public_url}/v1/prefinality/evaluate"
     return {
         "x402Version": 2,
         "name": "Gate API",
         "description": (
-            "Nisaba Action OS. Metered fuse hop. Scarcity is the DENY. "
-            "HTTP 402 on hop limit (Stripe). Agents: discover here, not Google."
+            "Pre-finality clearance before irreversible commit. x402 + RTP/FedNow rails. "
+            "Metered fuse hop. Fail closed."
         ),
         "baseUrl": public_url,
         "payment": {
             "scheme": "stripe",
             "upgrade_url": f"{public_url}/pricing",
-            "note": "402 means hop quota, not USDC. Do not list a fake payTo address.",
+            "note": "Lab hop quota via Stripe. Prefinality evaluate accepts x402 rail fingerprinting; USDC sign gate is the evaluate receipt.",
         },
+        "prefinality": f"{public_url}/.well-known/prefinality.json",
         "resources": [
+            {
+                "resource": prefinal,
+                "type": "http",
+                "x402Version": 2,
+                "description": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
+                "extensions": {
+                    "bazaar": {
+                        "info": {
+                            "input": {
+                                "type": "http",
+                                "method": "POST",
+                                "bodyExample": {
+                                    "rail": "x402",
+                                    "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": "0x0000000000000000000000000000000000000001"},
+                                    "mandate": {"agent_id": "researcher-01", "max_amount": "1.00"},
+                                },
+                            },
+                            "output": {
+                                "type": "json",
+                                "example": {"decision": "GO", "receipt": "eyJ...", "halt": False},
+                            },
+                        }
+                    }
+                },
+            },
             {
                 "resource": hop,
                 "type": "http",

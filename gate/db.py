@@ -855,6 +855,87 @@ def mark_install_paid(stripe_session_id: str):
     ensure_weld_order_from_session(stripe_session_id)
 
 
+def _ensure_prefinality_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS prefinality_evaluations (
+            id TEXT PRIMARY KEY,
+            account_id TEXT,
+            rail TEXT NOT NULL,
+            decision TEXT NOT NULL,
+            fingerprint TEXT NOT NULL,
+            agent_id TEXT,
+            signals_json TEXT,
+            receipt_jwt TEXT,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_prefinality_created ON prefinality_evaluations(created_at DESC)"
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_prefinality_agent ON prefinality_evaluations(agent_id, created_at DESC)"
+    )
+
+
+def record_prefinality_evaluation(
+    *,
+    evaluation_id: str,
+    account_id: str | None,
+    rail: str,
+    decision: str,
+    fingerprint: str,
+    agent_id: str | None,
+    signals: list,
+    receipt_jwt: str | None,
+    created_at: str,
+) -> None:
+    import json
+
+    with db() as conn:
+        _ensure_prefinality_table(conn)
+        conn.execute(
+            """INSERT INTO prefinality_evaluations
+               (id, account_id, rail, decision, fingerprint, agent_id, signals_json, receipt_jwt, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                evaluation_id,
+                account_id,
+                rail,
+                decision.upper(),
+                fingerprint,
+                agent_id,
+                json.dumps(signals or []),
+                receipt_jwt,
+                created_at,
+            ),
+        )
+
+
+def get_prefinality_evaluation(evaluation_id: str) -> dict | None:
+    import json
+
+    eid = (evaluation_id or "").strip()
+    if not eid:
+        return None
+    with db() as conn:
+        _ensure_prefinality_table(conn)
+        row = conn.execute(
+            "SELECT * FROM prefinality_evaluations WHERE id = ?", (eid,)
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    if item.get("signals_json"):
+        try:
+            item["signals"] = json.loads(item["signals_json"])
+        except ValueError:
+            item["signals"] = []
+    item.pop("signals_json", None)
+    return item
+
+
 def _ensure_charge_authority_table(conn) -> None:
     conn.execute(
         """

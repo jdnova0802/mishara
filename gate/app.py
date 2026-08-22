@@ -210,6 +210,16 @@ except ImportError:
     import restraint as restraint_mod
 
 try:
+    from gate import prefinality as prefinality_mod
+except ImportError:
+    import prefinality as prefinality_mod
+
+try:
+    from gate import rtp_adapter as rtp_adapter_mod
+except ImportError:
+    import rtp_adapter as rtp_adapter_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -1364,6 +1374,9 @@ def well_known_gate():
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
             "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
             "restraint": f"{advertised_url()}/.well-known/restraint.json",
+            "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
+            "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
+            "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2115,6 +2128,106 @@ def well_known_restraint():
     return jsonify(restraint_mod.inventory(advertised_url()))
 
 
+@app.route("/.well-known/prefinality.json")
+def well_known_prefinality():
+    spec = prefinality_mod.manifest(advertised_url())
+    spec["rtp_adapter"] = rtp_adapter_mod.spec(advertised_url())
+    return jsonify(spec)
+
+
+@app.route("/.well-known/prefinality-jwks.json")
+def well_known_prefinality_jwks():
+    return jsonify(prefinality_mod.jwks())
+
+
+def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
+    data, status, _ = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
+    )
+    if not isinstance(data, dict):
+        return {"halt": True, "state": "UNREACHABLE", "verdict": False}
+    data["http_status"] = status
+    return data
+
+
+def run_prefinality_evaluate(body: dict, *, account_id: str | None = None) -> dict:
+    return prefinality_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        account_id=account_id,
+        public_url=advertised_url(),
+        fuse_hop=_prefinality_fuse_hop,
+    )
+
+
+@app.route("/demo/prefinality/evaluate", methods=["POST"])
+def demo_prefinality_evaluate():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    data = run_prefinality_evaluate(body, account_id=None)
+    data["demo"] = True
+    data["signup_url"] = f"{advertised_url()}/signup"
+    bound.attach(data, 200, demo=True)
+    return jsonify(data), 200
+
+
+@app.route("/v1/prefinality/evaluate", methods=["POST"])
+@metered_api
+def prefinality_evaluate():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    data = run_prefinality_evaluate(body, account_id=getattr(g, "account_id", None))
+    status = 200 if data.get("decision") == "GO" else 403 if data.get("decision") == "NO_GO" else 409
+    bound.attach(data, status)
+    return jsonify(data), status
+
+
+@app.route("/v1/prefinality/verify", methods=["POST"])
+def prefinality_verify():
+    body = request.get_json(silent=True) or {}
+    receipt = (body.get("receipt") or body.get("receipt_jwt") or "").strip()
+    transfer = body.get("transfer") if isinstance(body.get("transfer"), dict) else None
+    rail = (body.get("rail") or "").strip().lower()
+    expected_fp = None
+    if transfer and rail in prefinality_mod.RAILS:
+        expected_fp = prefinality_mod.transfer_fingerprint(rail=rail, transfer=transfer)
+    elif body.get("fingerprint"):
+        expected_fp = str(body.get("fingerprint")).strip()
+    verified = prefinality_mod.verify_receipt_jwt(receipt, expected_fingerprint=expected_fp or None)
+    out = {
+        "spec": prefinality_mod.SPEC,
+        "valid": verified.get("valid"),
+        "decision": verified.get("decision"),
+        "reason": verified.get("reason"),
+        "fingerprint_expected": expected_fp,
+        "payload": verified.get("payload"),
+    }
+    return jsonify(out), 200 if verified.get("valid") else 400
+
+
+@app.route("/v1/prefinality/rtp/gate", methods=["POST"])
+def prefinality_rtp_gate():
+    body = request.get_json(silent=True) or {}
+    receipt = (body.get("receipt") or body.get("receipt_jwt") or "").strip()
+    order = body.get("payment_order") if isinstance(body.get("payment_order"), dict) else {}
+    if not receipt:
+        return jsonify({"error": {"code": "receipt_required", "message": "receipt JWT required"}}), 400
+    data = rtp_adapter_mod.gate_payment_order(receipt_jwt=receipt, payment_order=order)
+    return jsonify(data), 200 if data.get("allow") else 403
+
+
+@app.route("/sdk/prefinality/wrap.mjs")
+def sdk_prefinality_wrap():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sdk", "prefinality", "wrap.mjs")
+    if not os.path.isfile(path):
+        abort(404)
+    with open(path, "r", encoding="utf-8") as fh:
+        return Response(fh.read(), mimetype="text/javascript")
+
+
 @app.route("/scanner")
 def scanner_page():
     return render_template(
@@ -2368,6 +2481,19 @@ def _mcp_call_tool(name: str, arguments: dict):
         data, status, _ = run_mga_authority(args, account_id=row["account_id"] if keyed else None)
         if isinstance(data, dict):
             data["http_status"] = status
+        if keyed:
+            db.increment_usage(row["account_id"], "hops")
+        return data
+    if name == "prefinality_evaluate":
+        blocked = fields.pii_error(arguments)
+        if blocked:
+            return blocked
+        args = arguments if isinstance(arguments, dict) else {}
+        data = run_prefinality_evaluate(args, account_id=row["account_id"] if keyed else None)
+        if not keyed:
+            data["demo"] = True
+            bound.attach(data, 200, demo=True)
+        data["http_status"] = 200 if data.get("decision") == "GO" else 403
         if keyed:
             db.increment_usage(row["account_id"], "hops")
         return data
@@ -3246,6 +3372,19 @@ def openapi():
                 },
                 "/v1/act": {"post": {"summary": "Welded closed-world act — hop first, DEAD never acts", "security": [{"BearerAuth": []}]}},
                 "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo. fuse_id + job ids only.", "security": [{"BearerAuth": []}]}},
+                "/v1/prefinality/evaluate": {
+                    "post": {
+                        "summary": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
+                "/v1/prefinality/verify": {"post": {"summary": "Verify pre-finality receipt JWT", "security": []}},
+                "/v1/prefinality/rtp/gate": {
+                    "post": {"summary": "RTP adapter — verify receipt matches payment_order before PSP create", "security": [{"BearerAuth": []}]}
+                },
+                "/demo/prefinality/evaluate": {"post": {"summary": "Public pre-finality demo (no key)", "security": []}},
+                "/.well-known/prefinality.json": {"get": {"summary": "Pre-finality manifest (x402 + rtp rails)"}},
+                "/.well-known/prefinality-jwks.json": {"get": {"summary": "Ed25519 JWKS for receipt verification"}},
                 "/v1/pas/policycenter/pre-bind": {
                     "post": {
                         "summary": "Hop then PolicyCenter next step: bind-only ticket, or raise Manual UW issue. bind-and-issue is not granted.",

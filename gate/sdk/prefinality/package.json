@@ -1,0 +1,15 @@
+{
+  "name": "@gate/prefinality",
+  "version": "0.1.0",
+  "description": "Pre-finality GO/NO-GO gate before x402 wallet sign or RTP payment_order",
+  "type": "module",
+  "main": "wrap.mjs",
+  "exports": {
+    ".": "./wrap.mjs"
+  },
+  "files": ["wrap.mjs", "README.md"],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  }
+}

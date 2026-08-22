@@ -78,6 +78,33 @@ TOOLS = [
             "required": ["fuse_id"],
         },
     },
+    {
+        "name": "prefinality_evaluate",
+        "description": (
+            "Pre-finality GO/NO-GO before irreversible commit. "
+            "Rails: x402 (before wallet sign) or rtp (before FedNow/RTP payment_order). "
+            "Returns signed JWT receipt. Fail closed."
+        ),
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "rail": {"type": "string", "enum": ["x402", "rtp"], "description": "Settlement rail"},
+                "transfer": {
+                    "type": "object",
+                    "description": "amount, currency, counterparty (0x for x402; routing+account or external_account_id for rtp)",
+                },
+                "mandate": {
+                    "type": "object",
+                    "description": "agent_id, max_amount, expected_payto, fuse_id, review_ceiling",
+                },
+                "context": {
+                    "type": "object",
+                    "description": "resource_url, untrusted_text, intended",
+                },
+            },
+            "required": ["rail", "transfer"],
+        },
+    },
 ]
 
 

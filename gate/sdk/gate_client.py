@@ -77,6 +77,19 @@ class GateClient:
             json={"fuse_id": fuse_id, "job_id": job_id, **extra},
         )
 
+    def prefinality_evaluate(self, **body) -> dict[str, Any]:
+        return self._request("POST", "/v1/prefinality/evaluate", json=body)
+
+    def prefinality_verify(self, **body) -> dict[str, Any]:
+        return self._request("POST", "/v1/prefinality/verify", json=body)
+
+    def prefinality_rtp_gate(self, receipt: str, payment_order: dict) -> dict[str, Any]:
+        return self._request(
+            "POST",
+            "/v1/prefinality/rtp/gate",
+            json={"receipt": receipt, "payment_order": payment_order},
+        )
+
     def redeem_bind_ticket(
         self,
         ticket_id: str,

@@ -2634,5 +2634,103 @@ class LiveDeskTests(unittest.TestCase):
         self.assertEqual(killed.get_json()["parent"]["state"], "DEAD")
 
 
+class PrefinalityTests(FlaskListingTests):
+    PAYTO = "0x0000000000000000000000000000000000000001"
+
+    def test_manifest_and_jwks(self):
+        m = self.client.get("/.well-known/prefinality.json")
+        self.assertEqual(m.status_code, 200)
+        body = m.get_json()
+        self.assertEqual(body["spec"], "gate-prefinality-v1")
+        self.assertIn("x402", [r["id"] for r in body["rails"]])
+        self.assertIn("rtp", [r["id"] for r in body["rails"]])
+        jwks = self.client.get("/.well-known/prefinality-jwks.json")
+        self.assertEqual(jwks.status_code, 200)
+        self.assertTrue(jwks.get_json().get("keys"))
+
+    def test_demo_x402_go_and_verify(self):
+        r = self.client.post(
+            "/demo/prefinality/evaluate",
+            json={
+                "rail": "x402",
+                "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": self.PAYTO},
+                "mandate": {"agent_id": "test-agent", "max_amount": "1.00"},
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["decision"], "GO")
+        self.assertTrue(data.get("receipt"))
+        self.assertFalse(data.get("halt"))
+        v = self.client.post(
+            "/v1/prefinality/verify",
+            json={
+                "receipt": data["receipt"],
+                "rail": "x402",
+                "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": self.PAYTO},
+            },
+        )
+        self.assertEqual(v.status_code, 200)
+        self.assertTrue(v.get_json().get("valid"))
+
+    def test_routing_anomaly_blocks(self):
+        r = self.client.post(
+            "/demo/prefinality/evaluate",
+            json={
+                "rail": "x402",
+                "transfer": {"amount": "0.50", "currency": "USDC", "counterparty": self.PAYTO},
+                "mandate": {
+                    "agent_id": "test-agent",
+                    "expected_payto": "0x0000000000000000000000000000000000000002",
+                },
+            },
+        )
+        data = r.get_json()
+        self.assertEqual(data["decision"], "NO_GO")
+        self.assertIn("routing_anomaly", data.get("signals", []))
+
+    def test_rtp_evaluate_and_gate(self):
+        r = self.client.post(
+            "/demo/prefinality/evaluate",
+            json={
+                "rail": "rtp",
+                "transfer": {
+                    "amount": "100.00",
+                    "currency": "USD",
+                    "routing_number": "021000021",
+                    "account_number": "123456789",
+                },
+                "mandate": {"agent_id": "treasury-bot", "max_amount": "500.00"},
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["decision"], "GO")
+        receipt = data["receipt"]
+        gate = self.client.post(
+            "/v1/prefinality/rtp/gate",
+            json={
+                "receipt": receipt,
+                "payment_order": {
+                    "type": "rtp",
+                    "amount": 10000,
+                    "currency": "USD",
+                    "routing_number": "021000021",
+                    "account_number": "123456789",
+                },
+            },
+        )
+        self.assertEqual(gate.status_code, 200)
+        self.assertTrue(gate.get_json().get("allow"))
+
+    def test_x402_catalog_lists_prefinality(self):
+        cat = self.client.get("/.well-known/x402.json")
+        self.assertEqual(cat.status_code, 200)
+        body = cat.get_json()
+        self.assertIn("prefinality", body)
+        resources = [x.get("resource") for x in body.get("resources", [])]
+        self.assertTrue(any("/v1/prefinality/evaluate" in (u or "") for u in resources))
+
+
 if __name__ == "__main__":
     unittest.main()
