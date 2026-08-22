@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Free x402 endpoint audit{% endblock %}
+{% block meta %}
+<meta name="description" content="Free x402 endpoint audit. Grade any HTTP 402 pay envelope — payTo, amount, network. Paid $497 wire bundle if you want it deployed tonight.">
+<meta property="og:title" content="Gate — Free x402 endpoint audit">
+<meta property="og:description" content="Paste any x402 endpoint URL. Get a grade in seconds. No account.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Inbound · no account</p>
+  <h1>Free x402 endpoint audit</h1>
+  <p class="audience-sub">Paste any HTTPS endpoint that should return HTTP 402 with a pay challenge. We probe it and grade the envelope — payTo, amount, network, optional Payment-Required header.</p>
+
+  <div class="card install-checkout-card">
+    <form method="get" action="{{ url_for('audit_page') }}" class="install-form">
+      <div class="form-group">
+        <label for="url">Endpoint URL</label>
+        <input type="url" id="url" name="url" required placeholder="https://your-origin.com/api/paid-route" value="{{ target_url or '' }}" autocomplete="url">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Run audit</button>
+      <p class="fine-print">Try ours: <a href="{{ url_for('audit_page', url=public_url + '/v1/prefinality/evaluate') }}">pre-finality evaluate</a></p>
+    </form>
+  </div>
+
+  {% if result %}
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Grade {{ result.grade }} · score {{ result.score }}/100</h2>
+    {% if result.ok %}
+      <p style="color: var(--accent, #3dffa8);">Valid x402 challenge detected.</p>
+    {% else %}
+      <p style="color: var(--warn, #ffb347);">Needs work — see findings below.</p>
+    {% endif %}
+    <ul class="check-list" style="margin-top: 1rem;">
+      <li>URL: <code class="inline">{{ result.url }}</code></li>
+      <li>HTTP status: {{ result.http_status or '—' }}</li>
+      <li>payTo: <code class="inline">{{ result.pay_to or '—' }}</code></li>
+      <li>amount: {{ result.amount_atomic or '—' }}</li>
+      <li>network: {{ result.network or '—' }}</li>
+    </ul>
+    {% if result.findings %}
+    <h3 style="margin-top: 1.25rem;">Findings</h3>
+    <ul class="check-list muted-list">
+      {% for f in result.findings %}
+      <li><code class="inline">{{ f.code }}</code> — {{ f.detail }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+      <a href="{{ url_for('x402_wire_paid') }}?domain={{ wire_domain }}&amp;email=you@example.com&amp;audit_url={{ result.url | urlencode }}" class="btn btn-primary">$497 wire bundle</a>
+      <a href="{{ public_url }}/install" class="btn btn-ghost">$2,500 install sprint</a>
+    </div>
+    <details style="margin-top: 1rem;">
+      <summary>Raw JSON</summary>
+      <pre style="margin-top: 0.75rem; overflow-x: auto;">{{ result_json }}</pre>
+    </details>
+  </div>
+  {% elif target_url %}
+  <div class="card" style="margin-top: 1.5rem;">
+    <p>Could not audit <code class="inline">{{ target_url }}</code>. Check the URL and try again.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

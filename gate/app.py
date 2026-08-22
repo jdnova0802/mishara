@@ -2252,18 +2252,44 @@ def prefinality_evaluate():
     )
 
 
+@app.route("/audit")
+def audit_page():
+    """Human-friendly x402 audit — paste a URL, get a grade."""
+    target = (request.args.get("url") or request.args.get("endpoint") or "").strip()
+    result = x402_audit_mod.audit_endpoint(target) if target else None
+    wire_domain = ""
+    if result and result.get("url"):
+        try:
+            from urllib.parse import urlparse
+
+            wire_domain = urlparse(str(result["url"])).netloc or ""
+        except Exception:
+            wire_domain = ""
+    return render_template(
+        "audit.html",
+        public_url=advertised_url(),
+        target_url=target or None,
+        result=result,
+        result_json=json.dumps(result, indent=2) if result else "",
+        wire_domain=wire_domain,
+    )
+
+
 @app.route("/api/x402/audit", methods=["GET"])
 def x402_audit_free():
     """Free x402 endpoint probe — agents discover via Bazaar; no email, no account."""
     url = (request.args.get("url") or request.args.get("endpoint") or "").strip()
     if not url:
+        if "text/html" in (request.headers.get("Accept") or ""):
+            return redirect(url_for("audit_page"))
         return (
             jsonify(
                 {
                     "spec": x402_audit_mod.SPEC,
                     "error": "missing_url",
                     "message": "GET /api/x402/audit?url=https://your-origin/path",
-                    "example": f"{advertised_url()}/api/x402/audit?url=https://gate.velaru.xyz/v1/prefinality/evaluate",
+                    "example": f"{advertised_url()}/audit?url={advertised_url()}/v1/prefinality/evaluate",
+                    "human_url": f"{advertised_url()}/audit",
                 }
             ),
             400,
@@ -3400,6 +3426,7 @@ def sitemap():
         "/privacy",
         "/terms",
         "/bind-room",
+        "/audit",
         "/start",
         "/for/operators",
         "/for/carriers",

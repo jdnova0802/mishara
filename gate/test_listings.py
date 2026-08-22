@@ -2775,6 +2775,26 @@ class X402AuditWireTests(unittest.TestCase):
         gate_app.app.config["TESTING"] = True
         cls.client = gate_app.app.test_client()
 
+    def test_audit_page_renders(self):
+        r = self.client.get("/audit")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("x402 endpoint audit", body)
+
+    def test_audit_page_with_url(self):
+        r = self.client.get(
+            "/audit",
+            query_string={"url": "http://localhost/v1/prefinality/evaluate"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Grade", body)
+
+    def test_audit_api_redirects_browsers_without_url(self):
+        r = self.client.get("/api/x402/audit", headers={"Accept": "text/html"})
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("/audit", r.headers.get("Location", ""))
+
     def test_audit_requires_url(self):
         r = self.client.get("/api/x402/audit")
         self.assertEqual(r.status_code, 400)
@@ -2826,6 +2846,7 @@ class X402AuditWireTests(unittest.TestCase):
         resources = body.get("resources") or []
         self.assertTrue(any("/api/x402/wire" in u for u in resources))
         free = body.get("free_resources") or []
+        self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
 
 
