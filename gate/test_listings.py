@@ -2768,5 +2768,65 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(accepts[0].get("payTo"), payto)
 
 
+class X402AuditWireTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_audit_requires_url(self):
+        r = self.client.get("/api/x402/audit")
+        self.assertEqual(r.status_code, 400)
+
+    def test_audit_free_local_evaluate(self):
+        r = self.client.get(
+            "/api/x402/audit",
+            query_string={"url": "http://localhost/v1/prefinality/evaluate"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body.get("spec"), "gate-x402-audit-v1")
+        self.assertIn("score", body)
+
+    def test_wire_requires_domain_email(self):
+        r = self.client.get("/api/x402/wire")
+        self.assertEqual(r.status_code, 400)
+
+    def test_wire_402_when_payto_configured(self):
+        payto = "0x00000000000000000000000000000000000000bb"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                r = self.client.get(
+                    "/api/x402/wire",
+                    query_string={"domain": "example.com", "email": "a@example.com"},
+                )
+        self.assertEqual(r.status_code, 402)
+        data = r.get_json()
+        accepts = data.get("accepts") or []
+        self.assertEqual(accepts[0].get("amount"), "497000000")
+
+    def test_wire_delivers_bundle_on_payment_header(self):
+        with mock.patch.object(gate_app.x402_challenge_mod, "payment_header_present", return_value=True):
+            r = self.client.get(
+                "/api/x402/wire",
+                query_string={"domain": "example.com", "email": "a@example.com"},
+                headers={"X-Payment": "test"},
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body.get("paid"))
+        self.assertIn("deploy_checklist", body)
+        self.assertIn("bundle_id", body)
+
+    def test_x402_fanout_lists_audit_and_wire(self):
+        r = self.client.get("/.well-known/x402")
+        body = r.get_json()
+        resources = body.get("resources") or []
+        self.assertTrue(any("/api/x402/wire" in u for u in resources))
+        free = body.get("free_resources") or []
+        self.assertTrue(any("/api/x402/audit" in u for u in free))
+
+
 if __name__ == "__main__":
     unittest.main()

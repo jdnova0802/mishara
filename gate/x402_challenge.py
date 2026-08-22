@@ -55,7 +55,7 @@ def payment_header_present(headers) -> bool:
     return False
 
 
-def _bazaar_info(*, method: str = "POST") -> dict:
+def _bazaar_info(*, method: str = "POST") -> dict:  # noqa: ARG001 — method reserved for GET wire routes
     return {
         "input": {
             "type": "http",
@@ -85,10 +85,17 @@ def _bazaar_info(*, method: str = "POST") -> dict:
     }
 
 
-def challenge_payload(*, resource_url: str, description: str) -> dict[str, Any]:
+def challenge_payload(
+    *,
+    resource_url: str,
+    description: str,
+    amount_atomic_override: str | None = None,
+    bazaar_method: str = "POST",
+) -> dict[str, Any]:
     pt = payto()
     if not pt:
         raise RuntimeError("GATE_X402_PAYTO not configured")
+    amt = (amount_atomic_override or amount_atomic()).strip()
     return {
         "x402Version": 2,
         "error": "Payment required",
@@ -101,21 +108,32 @@ def challenge_payload(*, resource_url: str, description: str) -> dict[str, Any]:
             {
                 "scheme": "exact",
                 "network": NETWORK_BASE,
-                "amount": amount_atomic(),
+                "amount": amt,
                 "asset": USDC_BASE,
                 "payTo": pt,
                 "maxTimeoutSeconds": 300,
                 "extra": {"name": "USD Coin", "version": "2"},
             }
         ],
-        "extensions": {"bazaar": {"info": _bazaar_info()}},
+        "extensions": {"bazaar": {"info": _bazaar_info(method=bazaar_method)}},
     }
 
 
-def payment_required_response(*, resource_url: str, description: str):
+def payment_required_response(
+    *,
+    resource_url: str,
+    description: str,
+    amount_atomic_override: str | None = None,
+    bazaar_method: str = "POST",
+):
     from flask import jsonify
 
-    payload = challenge_payload(resource_url=resource_url, description=description)
+    payload = challenge_payload(
+        resource_url=resource_url,
+        description=description,
+        amount_atomic_override=amount_atomic_override,
+        bazaar_method=bazaar_method,
+    )
     encoded = base64.b64encode(json.dumps(payload, separators=(",", ":")).encode("utf-8")).decode("ascii")
     return (
         jsonify(payload),
@@ -132,14 +150,16 @@ def well_known_fanout(public_url: str) -> dict:
     base = (public_url or "").rstrip("/")
     resources = [
         f"{base}/v1/prefinality/evaluate",
+        f"{base}/api/x402/wire",
     ]
     out: dict[str, Any] = {"version": 1, "resources": resources}
     pt = payto()
     if pt:
         out["ownershipProofs"] = [pt]
+    out["free_resources"] = [f"{base}/api/x402/audit"]
     out["instructions"] = (
-        "Prefinality clearance before irreversible commit. "
-        "Paid evaluate via x402 USDC on Base when GATE_X402_PAYTO is configured; "
-        "free demo at /demo/prefinality/evaluate."
+        "Free: GET /api/x402/audit?url=... — probe any x402 endpoint. "
+        "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
+        "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
     )
     return out
