@@ -1394,6 +1394,31 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(listing.status_code, 200)
         self.assertEqual(listing.get_json()["spec"], "gate-operator-invoice-v1")
 
+    def test_bind_weld_offer_and_recovery_pages(self):
+        offer_page = self.client.get("/offer/bind-weld")
+        self.assertEqual(offer_page.status_code, 200)
+        offer_body = offer_page.get_data(as_text=True)
+        self.assertIn("Bind cannot complete", offer_body)
+        self.assertIn("48 hours", offer_body)
+        offer_json = self.client.get("/.well-known/bind-weld-offer.json").get_json()
+        self.assertEqual(offer_json["spec"], "gate-bind-weld-offer-v1")
+        self.assertIn("economics", offer_json)
+        offer_txt = self.client.get("/export/bind-weld-one-pager.txt")
+        self.assertEqual(offer_txt.status_code, 200)
+        self.assertIn(b"BIND WELD ONE-PAGER", offer_txt.data)
+        recovery_page = self.client.get("/recovery")
+        self.assertEqual(recovery_page.status_code, 200)
+        self.assertIn(b"camt.056", recovery_page.data)
+        pack_json = self.client.get("/recovery/pack.json").get_json()
+        self.assertEqual(pack_json["spec"], "gate-recovery-pack-v1")
+        self.assertEqual(pack_json["offer"]["upfront"], "$0")
+        recovery_txt = self.client.get("/export/recovery-one-pager.txt")
+        self.assertEqual(recovery_txt.status_code, 200)
+        self.assertIn(b"RECOVERY PACK", recovery_txt.data)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("bind_weld_offer", gate)
+        self.assertIn("recovery_pack", gate)
+
     def test_register_page_and_manifest(self):
         import register as register_mod
 

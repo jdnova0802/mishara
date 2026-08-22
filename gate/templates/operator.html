@@ -21,6 +21,15 @@
   </div>
 
   <div class="card" style="margin: 1.25rem 0;">
+    <h2>Bind-only path</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">MGAs and insurtech: one-page offer for PolicyCenter bind-only as the only door.</p>
+    <p style="font-size: 0.9rem;">
+      <a href="{{ url_for('bind_weld_offer_page') }}">Bind weld offer</a> ·
+      <a href="{{ url_for('export_bind_weld_one_pager') }}">Forward .txt to CUO</a>
+    </p>
+  </div>
+
+  <div class="card" style="margin: 1.25rem 0;">
     <h2>Documents</h2>
     <p style="color: var(--muted); margin-bottom: 0.75rem;">Counsel and ops can review before checkout.</p>
     <p style="font-size: 0.9rem;">
@@ -78,7 +87,7 @@
         </select>
       </div>
       <button type="submit" class="btn btn-primary btn-lg">Pay {{ weld_price }} + start {{ floor_price }} management</button>
-      <p class="fine-print">Non-refundable weld. Management monthly until cancelled. Unlicensed gambling voids the path. One write. Identifiers only — no PII on the hop. their_production stays false until third-party production weld. <a href="{{ url_for('privacy_page') }}">Privacy</a> · <a href="{{ url_for('terms_page') }}">Terms</a></p>
+      <p class="fine-print">Non-refundable weld. Management monthly until cancelled. Unlicensed gambling voids the path. One write. Identifiers only — no PII on the hop. their_production stays false until third-party production weld. Post-loss RTP recovery: <a href="{{ url_for('recovery_page') }}">camt.056 pack</a>. <a href="{{ url_for('privacy_page') }}">Privacy</a> · <a href="{{ url_for('terms_page') }}">Terms</a></p>
     </form>
     {% else %}
     <p>Checkout not configured. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld">{{ contact_email }}</a> — weld + management, which write (default: payout clear).</p>

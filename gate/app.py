@@ -80,6 +80,16 @@ except ImportError:
     import bind_room as bind_room_mod
 
 try:
+    from gate import weld_offer as weld_offer_mod
+except ImportError:
+    import weld_offer as weld_offer_mod
+
+try:
+    from gate import recovery_pack as recovery_pack_mod
+except ImportError:
+    import recovery_pack as recovery_pack_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -1320,6 +1330,8 @@ def well_known_gate():
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
+            "bind_weld_offer": f"{advertised_url()}/offer/bind-weld",
+            "recovery_pack": f"{advertised_url()}/recovery",
             "operator": f"{advertised_url()}/operator",
             "register": f"{advertised_url()}/register",
             "register_manifest": f"{advertised_url()}/.well-known/register.json",
@@ -1904,6 +1916,64 @@ def stack_page():
 @app.route("/export/operator-one-pager.txt")
 def export_operator_one_pager():
     body = operator_mod.render_one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8", headers={"Cache-Control": "public, max-age=300"})
+
+
+@app.route("/offer/bind-weld")
+def bind_weld_offer_page():
+    offer = weld_offer_mod.offer(
+        advertised_url(),
+        CONTACT_EMAIL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        install_price=INSTALL_PRICE_LABEL,
+    )
+    return render_template(
+        "weld_offer.html",
+        offer=offer,
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/.well-known/bind-weld-offer.json")
+def bind_weld_offer_json():
+    return jsonify(
+        weld_offer_mod.offer(
+            advertised_url(),
+            CONTACT_EMAIL,
+            bind_room_price=BIND_ROOM_PRICE_LABEL,
+            install_price=INSTALL_PRICE_LABEL,
+        )
+    )
+
+
+@app.route("/export/bind-weld-one-pager.txt")
+def export_bind_weld_one_pager():
+    body = weld_offer_mod.render_one_pager(
+        advertised_url(),
+        CONTACT_EMAIL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        install_price=INSTALL_PRICE_LABEL,
+    )
+    return Response(body, mimetype="text/plain; charset=utf-8", headers={"Cache-Control": "public, max-age=300"})
+
+
+@app.route("/recovery")
+def recovery_page():
+    return render_template(
+        "recovery.html",
+        pack=recovery_pack_mod.pack(advertised_url(), CONTACT_EMAIL),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/recovery/pack.json")
+def recovery_pack_json():
+    return jsonify(recovery_pack_mod.pack(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/export/recovery-one-pager.txt")
+def export_recovery_one_pager():
+    body = recovery_pack_mod.render_one_pager(advertised_url(), CONTACT_EMAIL)
     return Response(body, mimetype="text/plain; charset=utf-8", headers={"Cache-Control": "public, max-age=300"})
 
 
@@ -2823,6 +2893,7 @@ def bind_room():
         public_url=advertised_url(),
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
     )
