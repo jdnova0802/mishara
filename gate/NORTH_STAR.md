@@ -634,6 +634,89 @@ Open research into the world as it is — not sci-fi. Each row is a **live gap**
 > The alarming part is that **can is ahead of may** — on rocks, on the thermostat, in orbit, in open weights, and in agent tool calls — **right now**.  
 > Gate is the industrial stack that closes that gap under flags — starting at a bind desk in Toledo.
 
+### Deep dive (self-chosen lanes)
+
+Picked for density of **may-gap signal**, not novelty cosplay. Stack what holds.
+
+#### 1. Open Agent Passport — Gate’s nearest cousin (interesting)
+
+| Fact | Gate reading |
+|------|--------------|
+| Agents today have credentials but often **no permission slip** before irreversible tool calls | Same wound as soft PAS bind — identity ≠ may |
+| OAP / pre-action auth: **blocking hook before the tool**, declarative policy, signed decision, **fail-closed** if evaluator can’t decide | This is Bind Room grammar on agent media: mouth → LIVE/DENY → receipt |
+| Adversarial tests: soft/permissive policy ≈ social-engineered; restrictive pre-action policy ≈ **0%** tool-bypass under bounty conditions (published OAP eval claims) | Soft may fails under charisma/injection; hardware-or-framework mouth holds |
+| Spec aims framework-agnostic (LangChain, CrewAI, Cursor hooks, etc.) | Standards play — BGP-of-may for agents; Gate’s bet is **cross-media** + **forge**, not only agent SaaS |
+
+**Steal grammar, not brand.** Pre-action authorization is proof the market is rediscovering Gate’s before-phase. Gate’s differentiation: same mouth across bind / grid / kinetic / care / orbit — and welded into the machine at forge time.
+
+#### 2. Perimeter / Dead Hand — fail-deadly anti-pattern (alarming)
+
+| Fact | Gate reading |
+|------|--------------|
+| Soviet/Russian Perimeter (“Dead Hand”): crisis-activated, sensor-conditioned retaliatory path if leadership is gone | Classic **fail-deadly**: absence of human ⇒ force may proceed |
+| Accounts differ on full auto vs semi-auto with human in the bunker; strategic purpose = guarantee second strike under decapitation | Deterrence logic ≠ Gate logic. Gate’s civil stack: **loss of contact ⇒ DENY** (except sovereign C2 we never own) |
+| Western commentary treats even semi-auto fail-deadly as crisis-unstable | Gate names the anti-pattern explicitly: Perimeter inverted. Panic + silence must not mint LIVE |
+
+**Never productize nuclear C2.** Use Perimeter only as **named anti-pattern** in doctrine — the thing Gate’s during-phase and async may-budget are built to refuse in non-sovereign systems.
+
+#### 3. Digital twin → SCADA write path (alarming + product-adjacent)
+
+| Fact | Gate reading |
+|------|--------------|
+| Twins marketed as optimize/control; secure architectures push **data diodes** — twin may **read**, must not freely **write** PLCs | Mirror-world DENY: sim that can actuate needs forge-grade may |
+| Active threat intel (e.g. CISA on exposed Siemens S7): unauthorized **writes** to data blocks / config are the high-undo edge | OT security is already hunting the hard write — Gate names it as **mouth**, not only IDS |
+| Patents / designs for “secure write” macros: only pre-approved command classes reach the PLC | Permission BOM + inhibit graph at the plant floor — early forge customer shape |
+| Deceptive twin sabotage: fake physics model, correct I/O signatures, delayed safety response | Sight without mouth + forged twin = Filter mode inside the factory |
+
+**Near-term weld path:** after bind foothold → industrial “secure write” / twin actuation clearance under coordinator policy. Same grammar as agent pre-action auth, different medium.
+
+#### 4. Cybersyn algedonic Opsroom — historical mouth (interesting)
+
+| Fact | Gate reading |
+|------|--------------|
+| Stafford Beer / Project Cybersyn (Chile): Cyberstride exception filtration; **algedonic** (pain/pleasure) escalate if local autonomy fails past agreed timeout | During-phase + recursive escalate — local mouth holds; unresolved ⇒ higher recursion LIVE request |
+| Opsroom: real-time exception theater, not vanity dashboard | Coordinator ops surface for irreversible edges only |
+| Autonomy preserved until intervention rules forfeit it | Anti-charisma + scoped principal: soft “I’m the boss” doesn’t skip the timer |
+
+**Steal grammar:** algedonic bus as mountain SKU — already named in prior stack; research confirms the ancestry is operational, not aesthetic.
+
+#### 5. Dual-use bio / GOF oversight churn (alarming)
+
+| Fact | Gate reading |
+|------|--------------|
+| US DURC/PEPP 2024 policy was set to take effect ~May 2025; EO 14292 (May 2025) blocked/replaced path; dangerous GOF federally paused pending rewrite | Even the **policy mouth** for biological hard writes is unstable |
+| Longstanding gap: federally funded paths more governed than private; EO explicitly flags **non-federally funded** dangerous GOF as a tracking/governance problem | Biological medium already in ontology — state-fenced; research confirms **who may** is contested and incomplete |
+| Nucleic acid synthesis screening called out as needed in non-federal settings | Forge-adjacent: synthesis as birth of can — needs may at the printer, not only at the grant desk |
+
+**Posture:** extreme care, state-fenced, never Gate-as-sovereign. Capture = prove that containment LIVE and DENY paths exist; do not cosplay CDC.
+
+#### 6. Active debris removal — consent before capture (interesting + alarming)
+
+| Fact | Gate reading |
+|------|--------------|
+| OST Art. VIII: state of registry keeps jurisdiction/control; unilateral capture/removal without consent ≈ internationally wrongful | Orbital **may** is already law — but fragmented, consent-heavy, slow |
+| ADR/OOS industry: tech is ahead of clean multi-party LIVE; national licenses (e.g. NZ operational policy) demand owner + registry consent + liability chain | Same shape as bind desk: hard act (grab/deorbit) needs pre-clear + receipt |
+| Liability Convention fault on-orbit is messy with multi-launching-state remediation | Prove after + genealogy of may matter when something goes wrong |
+
+**Gate reading:** debris remediation is not “space janitor SaaS.” It is **irreversible orbital write** under multi-principal consent — clearance bus + stranger receipt + may-genealogy for the tug.
+
+#### Deep-dive synthesis
+
+| Lane | Closest Gate surface | Horizon |
+|------|----------------------|---------|
+| OAP / agent pre-action | Mouth before tool; fail-closed; signed receipt | **Near** — commercial grammar cousin |
+| Twin → PLC write | Mirror DENY; secure-write macros; forge at plant | **Next** after bind |
+| Cybersyn algedonic | During escalate; ops room of may | Doctrine + later ops SKU |
+| Perimeter | Named anti-pattern: silence ≠ LIVE | Hygiene forever |
+| Dual-use bio | Sacred/biological medium; policy mouth churn | State-fenced, careful |
+| ADR consent | Orbital may-bus; multi-principal LIVE | Later / program |
+
+#### Deep-dive one-liner
+
+> The world is already building **mouths** (OAP), **ops rooms** (Cybersyn ancestry), and **consent buses** (ADR licenses) — in silos.  
+> It is also shipping **fail-deadly myths** (Perimeter), **twin writes** into plants, **open-weight genesis**, and **bio policy churn**.  
+> Gate’s research bet: one grammar across those silos — forge + mouth + prove — under flags, starting where undo-cost already has a price tag.
+
 ---
 
 ## Subject stack (what makes the star heavier)
@@ -651,6 +734,7 @@ Open research into the world as it is — not sci-fi. Each row is a **live gap**
 11. **Lexicon farther than futuristic** — every soft sci-fi word remapped as commit surface or Filter mode  
 12. **Hard frontiers** — inflation, dark energy, curvature, entanglement, non-locality, void DENY, post-human principal  
 13. **Live research signals** — planetary defense without MAOG, SRM grey zone, Kessler governance, open-weights genesis, agent pre-action auth, rights of nature  
+14. **Deep-dive cousins & anti-patterns** — OAP mouth, twin→PLC secure-write, Cybersyn algedonic, Perimeter fail-deadly, DURC churn, ADR consent bus  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
 The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
