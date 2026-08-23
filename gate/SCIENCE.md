@@ -1,5 +1,8 @@
 # Science + tech → Gate mouth (PRI)
 
+**Gate** = **Governed Act Termination Engine** (backronym / footnote).  
+Brand word stays **Gate**. Do not lead CUO cold email with the expansion.
+
 **Motive:** Contribute massively to Tier-S continuity **with** global coordinators.  
 Collaborate as the clearance mouth. **Do not own** C2, nukes, grid, or link monopolies.
 

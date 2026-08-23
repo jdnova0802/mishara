@@ -527,6 +527,8 @@ class FieldAndWeldTests(unittest.TestCase):
         self.assertIn("5.A.2", ids)
         self.assertIn("5.A.1", ids)
         self.assertIn("5.A.13", ids)
+        self.assertEqual(pack["gate"]["expansion"], "Governed Act Termination Engine")
+        self.assertIn("footnote only", pack["gate"]["footnote"].lower())
 
 
 class BindRoomFlaskTests(unittest.TestCase):
@@ -1571,6 +1573,10 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertFalse(sci_data["own_tier_s"])
         self.assertFalse(sci_data["force_production_weld"])
         self.assertIn("Contribute massively", sci_data["motive"])
+        self.assertEqual(
+            sci_data["backronym"]["expansion"], "Governed Act Termination Engine"
+        )
+        self.assertEqual(sci_data["backronym"]["word"], "Gate")
         self.assertGreaterEqual(len(sci_data["science"]), 4)
         self.assertGreaterEqual(len(sci_data["tech"]), 5)
         self.assertEqual(sci_data["first_weld"]["write"], "withdraw")

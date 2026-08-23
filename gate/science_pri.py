@@ -11,6 +11,27 @@ from typing import Any
 SPEC = "nisaba-science-pri-v1"
 INVENTOR = "Nisaba LLC / Gate"
 
+# Brand word stays "Gate". Expansion is footnote / science lock — not homepage hero.
+BACKRONYM = {
+    "word": "Gate",
+    "expansion": "Governed Act Termination Engine",
+    "letters": {
+        "G": "Governed",
+        "A": "Act",
+        "T": "Termination",
+        "E": "Engine",
+    },
+    "means": (
+        "Fail-closed LIVE/DENY mouth on irreversible acts — "
+        "termination is the product when unjustified."
+    ),
+    "not": [
+        "Graphic Access Tabular Entry (unrelated auth product)",
+        "Governed Agent Trust Environment (different AI control-plane framework)",
+    ],
+    "use": "science + Bind Room footnote; do not lead CUO cold email with the expansion",
+}
+
 # Contribution altitude — not ownership
 MOTIVE = (
     "Contribute massively to Tier-S continuity as a favor to global coordinators. "
@@ -334,6 +355,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         "motive": MOTIVE,
         "formula": FORMULA,
         "tech_thesis": TECH_THESIS,
+        "backronym": dict(BACKRONYM),
         "science": list(SCIENCE),
         "tech": list(TECH),
         "first_weld": dict(FIRST_WELD),
