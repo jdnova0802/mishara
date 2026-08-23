@@ -594,21 +594,63 @@ Hard science leaves language behind. Gate still needs a **formal posture** — u
 
 > Warp is fiction until it isn’t. Inflation, dark energy, curvature, entanglement, the void, post-human mind — **those are real floors**. Gate maps **may** on every floor it can measure, and **DENY** on every floor it cannot.
 
+### Research signals (interesting · alarming · real)
+
+Open research into the world as it is — not sci-fi. Each row is a **live gap** Gate’s grammar was built to name. Still mountain doctrine; still not September outbound.
+
+#### Alarming (can without may — already here)
+
+| Signal | What’s true now | Gate reading |
+|--------|-----------------|--------------|
+| **Planetary defense: DART without MAOG** | Kinetic deflection **can** is proved (DART). IAWN warns; SMPAG advises. The proposed **Mission Authorization and Oversight Group (MAOG)** was never stood up — nations called it premature. SMPAG explicitly **does not decide**. | Civilization can move a rock. Civilization has **no default multi-sovereign LIVE** for who may. Classic **can without may** at planetary scale. |
+| **Solar geoengineering entering startup phase** | SRM sits in a regulatory grey zone; CBD “moratorium” is non-binding in practice; startups and outdoor research funding are normalizing deployment-adjacent work **without** a singular international LIVE authority. | Planetary thermostat write with **fragmented may**. Geoengineering LIVE row is not future fiction — the mouth is late. |
+| **Orbital traffic: Kessler as governance failure** | STM is widely assessed as a **governance** problem, not a sensor problem. Informal who-maneuvers; no binding conjunction LIVE; cyber on the command link can look like aggression. ~86% of cataloged-object collision pairs are currently un-maneuverable. | Δv without clearance bus = Filter mode. Debris cascade is **prove asymmetry** + **silent fail-open** in orbit. |
+| **Open-weights as irreversible genesis** | Once weights ship, they cannot be withdrawn; safeguards strip; copies run beyond monitoring (UK AISI, NTIA-class analyses, 2026 open-weight risk literature). Cyber capability gap closed-to-open measured in **months**, not decades. | Digital Pandora is **shipping now**. Demiurge watch / open-weights genesis is an **active** Filter edge, not a TED slide. |
+| **Agents: passwords, no permission slips** | Tool-using agents execute irreversible calls (wire, shell, delete, send) with alignment + post-hoc audit — not deterministic pre-action authorization. Research (e.g. Open Agent Passport / runtime PEP designs) shows soft policy fails under social engineering; **blocking hooks before the tool** hold. | This is Bind Room’s cousin: **mouth before the act**. Pre-action authorization = Gate grammar on agent media. |
+| **LAWS / MHC still soft at the edge** | “Meaningful human control” and “appropriate judgment” are contested; comms-denied environments pressure **local soft-yes**; ICRC stresses cancel/suspend mid-attack. Fail-closed mid-mission inhibit is not universal product. | During-phase scarce. Loss of link must not become LIVE (Perimeter anti-pattern). Anti-charisma + async may-budget apply to autonomy. |
+
+#### Interesting (the world is already inventing pieces of Gate)
+
+| Signal | What’s true now | Gate reading |
+|--------|-----------------|--------------|
+| **Rights of nature / river personhood** | Whanganui (Te Awa Tupua), Atrato, Ecuador’s constitutional nature rights, guardian/co-governance boards — ecosystems as legal subjects with standing via guardians. | **Biosphere as principal** is not poetry — it is statute and case law in multiple jurisdictions. Gate formalizes guardian seats on high-undo LIVE. |
+| **Pre-action authorization research** | Deterministic intercepts before tool execution; signed audit; fail-closed when policy unresolved; “Senate” / quorum settlement for governed acts. | Academic/industry rediscovering **mouth + prove**. Gate’s bet: unify that grammar across media and into the **forge**, not only agent frameworks. |
+| **Planetary defense exercises** | PDC / SMPAG tabletop with decision-makers; nuclear vs kinetic options debated under time pressure. | Ops room of may — Cybersyn-class exception theater for civilization-scale edges. Receipt + counterfactual prove are the missing SKUs in the room. |
+| **Insurance already prices irreversible slips** | Bind, cyber, aviation, space liability — underwriters live on undo-cost even when they don’t name it. | Bind Room = Filter-insurance lab. The foothold is not a demotion of the mountain; it is the **first metrology site**. |
+| **ENMOD / hostile environment modification** | Treaty exists for hostile env-mod; almost never enforced; SRM sits awkwardly beside it. | Taboo classes without a **mouth** become paper. Gate’s job is compile taboo → inhibit graph under coordinators. |
+
+#### Research posture (how Gate uses this)
+
+| Do | Don’t |
+|----|-------|
+| Treat these as **evidence the gap is real** | Lead CUO email with DART / SRM / Kessler |
+| Prefer sources that separate **can** from **who may** | Cosplay UN Security Council or private Omega |
+| Steal **grammar** (pre-action auth, guardianship, advisory≠LIVE) | Steal **brand** of primes or labs |
+| Update this table as the world moves | Confuse research stack with paid foothold |
+
+#### Research one-liner
+
+> The alarming part is not that Lockheed can deflect an asteroid.  
+> The alarming part is that **can is ahead of may** — on rocks, on the thermostat, in orbit, in open weights, and in agent tool calls — **right now**.  
+> Gate is the industrial stack that closes that gap under flags — starting at a bind desk in Toledo.
+
 ---
 
 ## Subject stack (what makes the star heavier)
 
-1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology, Kardashev scaling  
-2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological principals, succession  
+1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology, Kardashev scaling, GR/quantum floors  
+2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological / post-human principals, succession  
 3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest, forge-of-forges  
 4. **Standards power** — own the grammar (BGP-of-may), metrology institute, not only a SaaS SKU  
 5. **Incentives** — mechanism design so bypass is irrational; anti-charisma under panic  
 6. **Industrial genealogy** — serial may-lineage, decommission of authority, forgery detection  
-7. **Deep-time / latency** — light-delay clearance, async may-budget, relativistic principal sync, reboot kits  
+7. **Deep-time / latency** — light-delay clearance, async may-budget, relativistic principal sync, reboot kits, horizon receipts  
 8. **Noosphere hygiene** — attention→act bridge, open-weights genesis, epistemic forgeries, speech-act LIVE  
 9. **Recursive / meta** — mouth-of-mouths, may for may-makers, anti-demiurge covenant, singularity brake  
 10. **Sacred & municipal** — body/land/germline/stellar tiers; city and care as early mass forge sites  
 11. **Lexicon farther than futuristic** — every soft sci-fi word remapped as commit surface or Filter mode  
+12. **Hard frontiers** — inflation, dark energy, curvature, entanglement, non-locality, void DENY, post-human principal  
+13. **Live research signals** — planetary defense without MAOG, SRM grey zone, Kessler governance, open-weights genesis, agent pre-action auth, rights of nature  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
 The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
@@ -655,6 +697,10 @@ This file cares about: the mountain after the foothold.
 | Admiral spoofed at light-delay | Comms security | Enemy may-forgery + anti-charisma gap |
 | OR infusion “just a pump” | Clinical device | Sacred media without dose LIVE |
 | City floodgate auto-open | Smart infrastructure | Municipal irreversible without mouth |
+| Asteroid deflection “ready” | Planetary defense | Can without multi-sovereign LIVE (no MAOG) |
+| SRM outdoor “research” | Climate intervention | Planetary write in governance grey zone |
+| Conjunction “we’ll figure it out” | Space traffic | Δv without binding clearance bus |
+| Agent tool call “just aligned” | AI safety | Irreversible act without pre-action mouth |
 
 Same missing layer. Unification is the product.
 
