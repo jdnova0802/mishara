@@ -726,13 +726,15 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 
 ### Foothill inventions (Bind Room → first forge)
 
-| Invention | What it is | Time / role | First customer |
-|-----------|------------|-------------|----------------|
-| **Throat** | Fail-closed wedge on the bind edge — no PAS stick without cleared LIVE or proved DENY | Before + during | MGA / PAS desk |
-| **Cold Weld** | Stranger-verifiable commission ritual — genesis receipt before first irreversible bind in production | Before | Carrier + MGA weld |
-| **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | CUO audit pack |
-| **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Compliance + SI |
-| **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Officer pack |
+| Invention | What it is | Time / role | Status |
+|-----------|------------|-------------|--------|
+| **Throat** | Fail-closed wedge on the bind edge — no PAS stick without cleared LIVE or proved DENY | Before + during | **Shipped seed** — `gate/throat.py`, `/.well-known/throat.json`, `POST /demo/pas/throat` |
+| **Cold Weld** | Stranger-verifiable commission ritual — genesis receipt before first irreversible bind in production | Before | Spec'd |
+| **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | **Shipped seed** — `gate/ghost_bind.py`, `/.well-known/ghost-bind.json`, `POST /demo/pas/ghost-bind` |
+| **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Spec'd (Bind Room verify_url is the foothill form) |
+| **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Spec'd |
+
+**Pair rule:** Throat is the mouth. Ghost Bind is the haunt-check. Both weld into `_finalize_spend_plan` — CHOKE cannot soft-allow; haunt stamps the plan for CUO drills.
 
 ### Mouth inventions (runtime — the director layer)
 
@@ -821,6 +823,19 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 | **Bind Room Core** | Throat · Ghost Bind · Receipt Stone · Cold Weld | Paid weld: halt bad bind + stranger prove — **director seed** |
 | **Agent Mouth Kit** | Tool Throat · Silence Gate · Restraint Ledger | Pre-action auth + fail-closed + prove — Bind Room grammar on tools |
 | **Plant Sheath Starter** | Mirror Seal · Secure Write Macro · Deny Path Prover | Twin can’t write plant without forge may — OT foothill after bind |
+
+### Wicked edges (Filter killers — named to remember)
+
+| Invention | What it kills | How |
+|-----------|---------------|-----|
+| **Perjury Trap** | Forged oath / forged LIVE | Oath-grade before + cryptographic perjury = detectable forged receipt |
+| **Scapegoat Breaker** | Responsibility laundering | Quorum LIVE cannot dump undo-cost on a disposable principal |
+| **Replication Leash** | Gray-goo / probe runaway | Birth certificate for replication — gen-N may lineage |
+| **Attention Guillotine** | Meme → riot → wire | Own only the hard write; algedonic at narrative pressure |
+| **Perimeter Inverter** | Fail-deadly silence | Silence Gate everywhere non-sovereign |
+| **Demiurge Watch** | Unauthorized world-write | Open-weights / mint / publish as genesis with prove-of-non-release |
+| **Ghost Hunter** | Authority after scrap | Funeral Bit + Counterfeit Tongue at e-waste |
+| **Charisma Killer** | Boss said yes | Charisma Nullifier — hardware over voice |
 
 ### Invention one-liner
 

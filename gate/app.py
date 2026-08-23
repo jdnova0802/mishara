@@ -205,6 +205,16 @@ except ImportError:
     import license_fuse as license_fuse_mod
 
 try:
+    from gate import throat as throat_mod
+except ImportError:
+    import throat as throat_mod
+
+try:
+    from gate import ghost_bind as ghost_bind_mod
+except ImportError:
+    import ghost_bind as ghost_bind_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -939,6 +949,21 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = plan.get("reason") or epoch_meta.get("reason") or "prior_halt_requires_charge"
+    # Throat before the irreversible edge is recorded — CHOKE cannot soft-allow.
+    plan["decision"] = decision
+    plan["acted"] = acted
+    throat_mod.attach(plan, hop=hop_d if isinstance(hop_d, dict) else None)
+    if plan.get("throat", {}).get("state") == throat_mod.CHOKE:
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["decision"] = "HALT"
+        plan["acted"] = False
+        plan["reason"] = plan.get("reason") or (plan["throat"].get("reasons") or ["throat_choke"])[0]
+    ghost_bind_mod.attach_haunt(plan)
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -983,6 +1008,8 @@ def _finalize_spend_plan(
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
+    extra["X-Gate-Throat"] = (plan.get("throat") or {}).get("state") or ""
+    extra["X-Gate-Ghost-Bind"] = (plan.get("ghost_bind") or {}).get("verdict") or ""
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1353,6 +1380,8 @@ def well_known_gate():
             "x402": f"{advertised_url()}/.well-known/x402.json",
             "listings": f"{advertised_url()}/.well-known/listings.json",
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
+            "throat": f"{advertised_url()}/.well-known/throat.json",
+            "ghost_bind": f"{advertised_url()}/.well-known/ghost-bind.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
@@ -2849,6 +2878,7 @@ def bind_room():
         public_url=advertised_url(),
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
     )
@@ -2857,6 +2887,72 @@ def bind_room():
 @app.route("/bind-room/officer-pack.json")
 def bind_room_officer_pack():
     return jsonify(bind_room_mod.officer_pack(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/bind-room/throat.json")
+def bind_room_throat():
+    return jsonify(throat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ghost-bind.json")
+def bind_room_ghost_bind():
+    return jsonify(ghost_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/throat.json")
+def well_known_throat():
+    return jsonify(throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ghost-bind.json")
+def well_known_ghost_bind():
+    return jsonify(ghost_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/pas/throat", methods=["POST"])
+def demo_pas_throat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = throat_mod.evaluate(
+        decision=body.get("decision"),
+        acted=body.get("acted"),
+        halt=body.get("halt"),
+        allow_bind=body.get("allow_bind"),
+        verify_url=body.get("verify_url"),
+        hop=body.get("hop") if isinstance(body.get("hop"), dict) else None,
+        soft_pas=body.get("soft_pas"),
+        timeout=body.get("timeout"),
+        sight_only=body.get("sight_only"),
+    )
+    result["demo"] = True
+    result["ghost_bind"] = f"{advertised_url()}/demo/pas/ghost-bind"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/ghost-bind", methods=["POST"])
+def demo_pas_ghost_bind():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = ghost_bind_mod.scan(scenario)
+    report["demo"] = True
+    report["throat"] = f"{advertised_url()}/demo/pas/throat"
+    return jsonify(report)
+
+
+@app.route("/demo/pas/ghost-bind/drills")
+def demo_pas_ghost_bind_drills():
+    report = ghost_bind_mod.run_drills()
+    report["demo"] = True
+    return jsonify(report)
 
 
 @app.route("/bind-room/appendix.schema.json")

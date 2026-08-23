@@ -41,9 +41,38 @@
     </div>
   </div>
 
+  <div class="grid-2" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Throat <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Fail-closed wedge on the bind edge. No PAS stick without cleared LIVE or proved DENY. Ambiguity, timeout, soft PAS → <strong>CHOKE</strong>.</p>
+      <p style="margin-top: 0.75rem;">
+        <a href="{{ url_for('bind_room_throat') }}">throat.json</a> ·
+        <a href="{{ url_for('well_known_throat') }}">.well-known</a>
+      </p>
+    </div>
+    <div class="card">
+      <h3>Ghost Bind <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Detector for would-stick-without-may. Haunts soft PAS, timeout-as-LIVE, UW-as-CHARGE, boss-said-yes — before money moves.</p>
+      <p style="margin-top: 0.75rem;">
+        <a href="{{ url_for('bind_room_ghost_bind') }}">ghost-bind.json</a> ·
+        <a href="{{ url_for('demo_pas_ghost_bind_drills') }}">drills</a>
+      </p>
+    </div>
+  </div>
+
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Public proof (no key, no PII)</h2>
     <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/throat" \
+  -H "Content-Type: application/json" \
+  -d '{"timeout":true,"decision":"ALLOW"}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/ghost-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"soft_pas":true,"would_bind":true}'
+
+curl -s "{{ public_url }}/demo/pas/ghost-bind/drills"
 
 curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
   -H "Content-Type: application/json" \
