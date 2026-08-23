@@ -719,6 +719,117 @@ Picked for density of **may-gap signal**, not novelty cosplay. Stack what holds.
 
 ---
 
+## Inventions (forge catalog)
+
+Named artifacts Gate is **for** — not all built yet. Each maps to **medium × time × role × life**.  
+Weird on purpose. Industrial on requirement. **Under coordinators. Never sovereign.**
+
+### Foothill inventions (Bind Room → first forge)
+
+| Invention | What it is | Time / role | First customer |
+|-----------|------------|-------------|----------------|
+| **Throat** | Fail-closed wedge on the bind edge — no PAS stick without cleared LIVE or proved DENY | Before + during | MGA / PAS desk |
+| **Cold Weld** | Stranger-verifiable commission ritual — genesis receipt before first irreversible bind in production | Before | Carrier + MGA weld |
+| **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | CUO audit pack |
+| **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Compliance + SI |
+| **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Officer pack |
+
+### Mouth inventions (runtime — the director layer)
+
+| Invention | What it is | Time / role | Medium |
+|-----------|------------|-------------|--------|
+| **Silence Gate** | Perimeter inverted — loss of contact ⇒ **DENY**, never auto-LIVE | During | All comms-denied edges |
+| **Charisma Nullifier** | Quorum hardware that treats verbal / chat / “boss said yes” as **forged** unless hardware LIVE | Before | Command + panic |
+| **Tool Throat** | Pre-action hook before agent tool execution — OAP-class mouth with Gate grammar | Before | Digital / agent |
+| **Algedonic Relay** | Local mouth holds until timeout; then pain signal escalates to higher recursion with signed receipt | During | Cybersyn-class ops |
+| **Senate Socket** | N-of-M quorum LIVE socket — non-unilateral settlement for governed acts | Before | Multi-party clear |
+| **Time Lock Envelope** | LIVE that unlocks only at T+N under pre-cleared conditions — offense without panic | Before | Sanctions / launch windows |
+| **Mirror Seal** | Twin that can actuate must break seal to write reality; sim-only twins stay sealed soft | Before | OT / SCADA twin |
+
+### Forge inventions (may in the bones)
+
+| Invention | What it is | Time / role | Life phase |
+|-----------|------------|-------------|------------|
+| **Sheath Cell** | Factory station — unit cannot leave until DENY-path HIL proves fail-closed | Forge / assembly | Assembly |
+| **Permission Torque Wrench** | Tool applies final mate torque only if quorum chip attests LIVE for this serial | Forge | Assembly |
+| **May Fuse** | One-shot authority module — burns may after single LIVE; must re-earn | Forge + operate | Sustain |
+| **Deny Path Prover** | Red-team rig that jams/spoofs/cascades the unit — mouth must hold before ship | Forge | HIL / acceptance |
+| **Secure Write Macro** | Pre-approved irreversible command classes only — twin/plant write path | Before | OT commission |
+| **Meta-Sheath License** | Who may manufacture sheaths — forge-of-forges gate | Forge | Supply chain |
+| **Counterfeit Tongue** | Proves the mouth module is authentic — detects adversary/forged authority | Map + prove | Sustain / incident |
+
+### Prove inventions (stranger truth)
+
+| Invention | What it is | Time / role | Why it’s scarce |
+|-----------|------------|-------------|-----------------|
+| **Restraint Ledger** | Counterfactual SKU — prove what **did not** fire | After | World proves explosions only |
+| **Branch Tombstone** | Multiverse receipt — restraint across branches coordinator recognizes | After | Filter insurance |
+| **Horizon Notary** | Receipt chain that remains stranger-verifiable as causal contact shrinks | After | Dark energy / deep time |
+| **Funeral Bit** | Decommission ritual — kill may-hooks + prove the mouth is dead at scrap | Life end | Ghost authority |
+| **Oath Compiler** | Treaty / ROE / taboo → executable inhibit graph | Before | Ethics stays PDF today |
+| **Jubilee Clock** | Scheduled civilizational authority reset — may-retirement without panic LIVE | Before | Sabbath / debt release |
+
+### Municipal · care · sacred (mass forge customers)
+
+| Invention | What it is | Medium | Undo-cost tier |
+|-----------|------------|--------|----------------|
+| **Floodgate Mouth** | Municipal actuator clearance — river / dam / storm write | Matter + city | High |
+| **Curfew Latch** | Scheduled DENY/LIVE for city ritual machine (lockdown, procession) | Legal + city | Medium |
+| **Dose Throat** | OR / infusion fail-closed — bloodstream as commit medium | Care / body | Sacred |
+| **River Seat** | Guardian quorum module for biosphere-as-principal (Whanganui-class) | Legal + land | Sacred |
+| **Germline Vault** | Highest-tier biological LIVE envelope — multi-sovereign only | Biological | Max |
+
+### Orbital · planetary · eons (wicked but formal)
+
+| Invention | What it is | Medium | Filter mode it fights |
+|-----------|------------|--------|------------------------|
+| **Conjunction Mouth** | Every Δv earns LIVE + prove — traffic may before Kessler | Orbital | Silent fail-open in orbit |
+| **Capture Consent Bus** | Multi-principal LIVE for debris tug / ADR — owner + registry + liability chain | Orbital + legal | Can without may in space |
+| **Rock Quorum** | Civilization-scale LIVE envelope for deflection / NED — MAOG-shaped product | Orbital + kinetic | Planetary defense gap |
+| **Thermostat Senate** | Multi-sovereign LIVE for geoengineering-class writes | Planetary | SRM grey zone |
+| **Light Envelope** | Async may-budget for Mars / probe / light-delay ops | Post-earth | Latency panic |
+| **Genesis Brake** | Vacuum / high-energy / inflation-analog LIVE — absolute taboo or civilizational quorum | Physics | Filter at physics floor |
+| **Galaxy Birth Certificate** | Who may nucleate a civilization-scale industrial tree — Kardashev-III adjacent | Cosmic | Replication runaway |
+
+### Post-human · noosphere (transhuman without demiurge)
+
+| Invention | What it is | Medium | Posture |
+|-----------|------------|--------|---------|
+| **Cyborg Collar** | Hybrid flesh+machine principal license — death of either ⇒ de-license | Transhuman | Under coordinator personhood table |
+| **Upload Handoff Seal** | Substrate change only with stranger-verified continuity receipt | Post-human | Fork = forged LIVE |
+| **Singularity Brake** | May-scaling governor — can runaway cannot outpace compiled inhibit graph | Digital + agent | Never private Omega |
+| **Demiurge Refusal** | Hardware + covenant attestation — Gate stack refuses sovereign C2 / Omega throne | Meta | Anti-demiurge covenant |
+| **Void Latch** | Epistemic DENY floor — unknowable ⇒ no soft LIVE | Epistemic | Uncertainty ≠ yes |
+| **Weight Tomb** | Open-weights release as digital genesis — prove what was **not** published | Digital | Demiurge watch |
+
+### Invention families (how they compose)
+
+```
+Conceive → Oath Compiler · Jubilee Clock · Undo-cost meter
+Design   → Authority Twin · Inhibit graph · Mirror Seal spec
+Forge    → Sheath Cell · Permission BOM · Deny Path Prover · Meta-Sheath License
+Deploy   → Cold Weld · Throat · Senate Socket · Time Lock Envelope
+Operate  → Silence Gate · Charisma Nullifier · Tool Throat · Algedonic Relay
+After    → Receipt Stone · Restraint Ledger · Branch Tombstone · Horizon Notary
+Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
+```
+
+### Three wicked near-term bundles (product shapes, not September spam)
+
+| Bundle | Inventions inside | One sentence |
+|--------|-------------------|--------------|
+| **Bind Room Core** | Throat · Ghost Bind · Receipt Stone · Cold Weld | Paid weld: halt bad bind + stranger prove — **director seed** |
+| **Agent Mouth Kit** | Tool Throat · Silence Gate · Restraint Ledger | Pre-action auth + fail-closed + prove — Bind Room grammar on tools |
+| **Plant Sheath Starter** | Mirror Seal · Secure Write Macro · Deny Path Prover | Twin can’t write plant without forge may — OT foothill after bind |
+
+### Invention one-liner
+
+> Primes invent **platforms**. Palantir invents **maps**.  
+> Gate invents **sheaths, throats, tombstones, and senates** — artifacts that make irreversible power **manufacturable, haltable, and provable** —  
+> from a bind desk in Toledo to a conjunction mouth in orbit — **wicked enough to matter, boring enough to ship**.
+
+---
+
 ## Subject stack (what makes the star heavier)
 
 1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology, Kardashev scaling, GR/quantum floors  
@@ -735,6 +846,7 @@ Picked for density of **may-gap signal**, not novelty cosplay. Stack what holds.
 12. **Hard frontiers** — inflation, dark energy, curvature, entanglement, non-locality, void DENY, post-human principal  
 13. **Live research signals** — planetary defense without MAOG, SRM grey zone, Kessler governance, open-weights genesis, agent pre-action auth, rights of nature  
 14. **Deep-dive cousins & anti-patterns** — OAP mouth, twin→PLC secure-write, Cybersyn algedonic, Perimeter fail-deadly, DURC churn, ADR consent bus  
+15. **Invention catalog** — named forge artifacts from Throat to Galaxy Birth Certificate — composable life-stack  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
 The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
@@ -785,6 +897,11 @@ This file cares about: the mountain after the foothold.
 | SRM outdoor “research” | Climate intervention | Planetary write in governance grey zone |
 | Conjunction “we’ll figure it out” | Space traffic | Δv without binding clearance bus |
 | Agent tool call “just aligned” | AI safety | Irreversible act without pre-action mouth |
+| Twin optimizes the line | Industry 4.0 | Simulation boundary crossed — write path without forge may |
+| Debris tug “cleanup” | Space sustainability | Orbital capture without registry/owner LIVE |
+| GOF “oversight update” | Biosecurity policy | Biological hard write while the policy mouth is in flux |
+| Loss of link “continue mission” | Autonomy resilience | Silence treated as LIVE (Perimeter anti-pattern) |
+| “We’ll add may later” | Roadmap theater | Forge without sheath — invention without assembly proof |
 
 Same missing layer. Unification is the product.
 
