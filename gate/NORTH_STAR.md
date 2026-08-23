@@ -765,10 +765,12 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 | **Throat** | Fail-closed wedge on the bind edge — no PAS stick without cleared LIVE or proved DENY | Before + during | **Shipped seed** — `gate/throat.py`, `/.well-known/throat.json`, `POST /demo/pas/throat` |
 | **Cold Weld** | Stranger-verifiable commission ritual — genesis receipt before first irreversible bind in production | Before | Spec'd |
 | **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | **Shipped seed** — `gate/ghost_bind.py`, `/.well-known/ghost-bind.json`, `POST /demo/pas/ghost-bind` |
+| **Stick Meter** | Scores commit-mass of bind/payout/sanction writes before the mouth — light / heavy / sacred | Before | **Shipped seed** — `gate/stick_meter.py`, `/.well-known/stick-meter.json`, `POST /demo/pas/stick-meter` |
+| **Charge Bride** | Only CHARGE resurrects DEAD — UW approve / chat yes is forged | Before | **Shipped seed** — `gate/charge_bride.py`, `/.well-known/charge-bride.json`, `POST /demo/pas/charge-bride` |
 | **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Spec'd (Bind Room verify_url is the foothill form) |
 | **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Spec'd |
 
-**Pair rule:** Throat is the mouth. Ghost Bind is the haunt-check. Both weld into `_finalize_spend_plan` — CHOKE cannot soft-allow; haunt stamps the plan for CUO drills.
+**Pair rule:** Throat is the mouth. Ghost Bind is the haunt-check. Stick Meter scores mass. Charge Bride forges soft-yes resurrection. All weld into `_finalize_spend_plan` — CHOKE and FORGED cannot soft-allow; haunt + score stamp the plan for CUO drills.
 
 ### Applicable now (next welds — 2026 gravity you can sell)
 
@@ -776,8 +778,6 @@ These are **not eons cosplay**. They sit on Bind Room / agent / plant edges you 
 
 | Invention | What it is | Why it sells now | First wedge |
 |-----------|------------|------------------|-------------|
-| **Stick Meter** | Scores mass of a commercial write (bind, payout, sanction flag) before the mouth | CUOs already feel “this one’s heavy” — no number | Bind Room scoreboard |
-| **Charge Bride** | Only CHARGE resurrects DEAD — UW approve / chat yes is forged | Kills the #1 soft-bypass in PAS | Pre-bind weld |
 | **Hop Tattoo** | Every pre-bind hop burns a stranger verify_url into the job | Examiner can open the no without trusting the carrier | Officer appendix |
 | **Soft-Yes Snare** | Red-team pack: timeout→LIVE, dashboard→LIVE, boss→LIVE — all must CHOKE | Turns Ghost Bind into a paid drill | CUO workshop |
 | **Ticket Fuse** | Bind ticket dies with parent license; children cannot outlive the mouth | License-fuse already in code — productize the story | MGA pen |

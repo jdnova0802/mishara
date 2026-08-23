@@ -10,7 +10,7 @@ SECTION_5 = [
     ("5.A.1", "Governing principles", "ECDIS/algorithms designed and monitored to prevent unfair discrimination."),
     ("5.A.2", "Roles and responsibilities", "FILL: title of the person who can stop bind-and-issue when the fuse is DEAD."),
     ("5.A.3", "Inventory and versioning", "List agent/bind automations. Gate is a control plane, not a rating model."),
-    ("5.A.4", "Testing / validation", "DEAD drill: POST /demo/pas/bind-check → BLOCK + verify_url. Throat CHOKE + Ghost Bind drills: /demo/pas/throat, /demo/pas/ghost-bind/drills."),
+    ("5.A.4", "Testing / validation", "DEAD drill: POST /demo/pas/bind-check → BLOCK + verify_url. Throat CHOKE + Ghost Bind drills: /demo/pas/throat, /demo/pas/ghost-bind/drills. Stick Meter scoreboard + Charge Bride forged-resurrection drills."),
     ("5.A.5", "Deployment / use controls", "PolicyCenter: hop before POST /job/v1/jobs/{id}/bind-and-issue."),
     ("5.A.6", "Ongoing monitoring", "Appendix B: bind events with verify permalinks. Timeout = HALT, never LIVE."),
     ("5.A.7", "Consumer complaints", "Use existing grievance procedures. Verify link is the independent proof."),
@@ -57,7 +57,9 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
         "inventions": {
             "throat": f"{public_url}/bind-room/throat.json",
             "ghost_bind": f"{public_url}/bind-room/ghost-bind.json",
-            "pair": "Throat is the mouth. Ghost Bind is the haunt-check. Both ship as Bind Room seed.",
+            "stick_meter": f"{public_url}/bind-room/stick-meter.json",
+            "charge_bride": f"{public_url}/bind-room/charge-bride.json",
+            "pair": "Throat is the mouth. Ghost Bind is the haunt-check. Stick Meter scores mass. Charge Bride forges soft-yes resurrect. All ship as Bind Room seed.",
         },
     }
 

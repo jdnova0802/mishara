@@ -215,6 +215,16 @@ except ImportError:
     import ghost_bind as ghost_bind_mod
 
 try:
+    from gate import stick_meter as stick_meter_mod
+except ImportError:
+    import stick_meter as stick_meter_mod
+
+try:
+    from gate import charge_bride as charge_bride_mod
+except ImportError:
+    import charge_bride as charge_bride_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -949,6 +959,26 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = plan.get("reason") or epoch_meta.get("reason") or "prior_halt_requires_charge"
+    plan["epoch"] = epoch_meta or {}
+    plan["charge_id"] = epoch_mod.normalize_charge_id(charge_id)
+    # Charge Bride before Throat — forged UW/chat/boss resurrection never soft-allows.
+    charge_bride_mod.attach(
+        plan,
+        charge_id=charge_id,
+        epoch_meta=epoch_meta,
+        hop=hop_d if isinstance(hop_d, dict) else None,
+        job_id=jid,
+    )
+    if plan.get("charge_bride", {}).get("verdict") == charge_bride_mod.VERDICT_FORGED:
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["decision"] = "HALT"
+        plan["acted"] = False
+        plan["reason"] = plan.get("reason") or plan["charge_bride"].get("reason") or "forged_resurrection"
     # Throat before the irreversible edge is recorded — CHOKE cannot soft-allow.
     plan["decision"] = decision
     plan["acted"] = acted
@@ -964,6 +994,7 @@ def _finalize_spend_plan(
         plan["acted"] = False
         plan["reason"] = plan.get("reason") or (plan["throat"].get("reasons") or ["throat_choke"])[0]
     ghost_bind_mod.attach_haunt(plan)
+    stick_meter_mod.attach(plan, spend_write=spend_write)
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -1010,6 +1041,9 @@ def _finalize_spend_plan(
     plan["inhabitant_url"] = letter["page"]
     extra["X-Gate-Throat"] = (plan.get("throat") or {}).get("state") or ""
     extra["X-Gate-Ghost-Bind"] = (plan.get("ghost_bind") or {}).get("verdict") or ""
+    extra["X-Gate-Stick-Meter"] = str((plan.get("stick_meter") or {}).get("score") or "")
+    extra["X-Gate-Mass-Class"] = (plan.get("stick_meter") or {}).get("mass_class") or ""
+    extra["X-Gate-Charge-Bride"] = (plan.get("charge_bride") or {}).get("verdict") or ""
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1028,6 +1062,28 @@ def _num(value):
         return None
 
 
+def _stamp_invention_context(plan: dict, body: dict | None) -> None:
+    """Copy PAS control signals onto the plan for Stick Meter + Charge Bride."""
+    if not isinstance(body, dict):
+        return
+    for key in (
+        "uw_approved",
+        "chat_yes",
+        "boss_said_yes",
+        "sanction_flag",
+        "write_kind",
+        "premium",
+        "authority_limit",
+        "fuse_state",
+    ):
+        if key in body and body.get(key) is not None:
+            plan[key] = body[key]
+    if "premium" in body:
+        plan["premium"] = _num(body.get("premium"))
+    if "authority_limit" in body:
+        plan["authority_limit"] = _num(body.get("authority_limit"))
+
+
 def run_policycenter_pre_bind(body: dict, account_id=None):
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     job_id = (str(body.get("job_id") or "")).strip()
@@ -1041,6 +1097,7 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
     )
     plan = weld.policycenter_plan(job_id, hop_d, status, body.get("issue_type"))
     plan["fuse_id"] = fuse_id
+    _stamp_invention_context(plan, body)
     spend_write = spend_protocol_mod.intended_policycenter(
         job_id=job_id,
         action=body.get("action"),
@@ -1095,6 +1152,7 @@ def run_mga_authority(body: dict, account_id=None):
     )
     plan["fuse_id"] = fuse_id
     plan["job_id"] = job_id or None
+    _stamp_invention_context(plan, body)
     if plan.get("reasons"):
         hop_d["constraint_reasons"] = plan["reasons"]
     spend_write = spend_protocol_mod.intended_mga(job_id=job_id)
@@ -1129,6 +1187,7 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
     )
     plan = weld.duckcreek_plan(job_id, hop_d, status)
     plan["fuse_id"] = fuse_id
+    _stamp_invention_context(plan, body)
     spend_write = spend_protocol_mod.intended_duckcreek(job_id=job_id)
     decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
     return _finalize_spend_plan(
@@ -1382,6 +1441,8 @@ def well_known_gate():
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
             "throat": f"{advertised_url()}/.well-known/throat.json",
             "ghost_bind": f"{advertised_url()}/.well-known/ghost-bind.json",
+            "stick_meter": f"{advertised_url()}/.well-known/stick-meter.json",
+            "charge_bride": f"{advertised_url()}/.well-known/charge-bride.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
@@ -2899,6 +2960,16 @@ def bind_room_ghost_bind():
     return jsonify(ghost_bind_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/stick-meter.json")
+def bind_room_stick_meter():
+    return jsonify(stick_meter_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/charge-bride.json")
+def bind_room_charge_bride():
+    return jsonify(charge_bride_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/throat.json")
 def well_known_throat():
     return jsonify(throat_mod.manifest(advertised_url()))
@@ -2907,6 +2978,16 @@ def well_known_throat():
 @app.route("/.well-known/ghost-bind.json")
 def well_known_ghost_bind():
     return jsonify(ghost_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/stick-meter.json")
+def well_known_stick_meter():
+    return jsonify(stick_meter_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/charge-bride.json")
+def well_known_charge_bride():
+    return jsonify(charge_bride_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/throat", methods=["POST"])
@@ -2951,6 +3032,67 @@ def demo_pas_ghost_bind():
 @app.route("/demo/pas/ghost-bind/drills")
 def demo_pas_ghost_bind_drills():
     report = ghost_bind_mod.run_drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/stick-meter", methods=["POST"])
+def demo_pas_stick_meter():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = stick_meter_mod.score(
+        write_kind=body.get("write_kind"),
+        spend_write=body.get("spend_write") if isinstance(body.get("spend_write"), dict) else None,
+        premium=_num(body.get("premium")),
+        authority_limit=_num(body.get("authority_limit")),
+        sanction_flag=body.get("sanction_flag"),
+        fuse_state=body.get("fuse_state"),
+        license_state=body.get("license_state"),
+        epoch_locked=body.get("epoch_locked"),
+        would_bind=body.get("would_bind"),
+        acted=body.get("acted"),
+    )
+    result["demo"] = True
+    result["charge_bride"] = f"{advertised_url()}/demo/pas/charge-bride"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/charge-bride", methods=["POST"])
+def demo_pas_charge_bride():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    hop = body.get("hop") if isinstance(body.get("hop"), dict) else None
+    result = charge_bride_mod.evaluate(
+        charge_id=body.get("charge_id"),
+        uw_approved=body.get("uw_approved"),
+        chat_yes=body.get("chat_yes"),
+        boss_said_yes=body.get("boss_said_yes"),
+        admin_resurrect=body.get("admin_resurrect"),
+        fuse_state=body.get("fuse_state"),
+        license_state=body.get("license_state"),
+        epoch_locked=body.get("epoch_locked"),
+        prior_decision=body.get("prior_decision"),
+        would_proceed=body.get("would_proceed"),
+        purpose=body.get("purpose") or "epoch",
+        subject=body.get("subject"),
+        hop=hop,
+    )
+    result["demo"] = True
+    result["stick_meter"] = f"{advertised_url()}/demo/pas/stick-meter"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/charge-bride/drills")
+def demo_pas_charge_bride_drills():
+    report = charge_bride_mod.run_drills()
     report["demo"] = True
     return jsonify(report)
 

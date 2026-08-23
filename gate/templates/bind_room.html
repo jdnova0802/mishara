@@ -60,6 +60,25 @@
     </div>
   </div>
 
+  <div class="grid-2" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Stick Meter <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Scores commit-mass of bind/payout/sanction writes (0–100) before the mouth. Labels <strong>light / heavy / sacred</strong> — CUO scoreboard, not cosplay.</p>
+      <p style="margin-top: 0.75rem;">
+        <a href="{{ url_for('bind_room_stick_meter') }}">stick-meter.json</a> ·
+        <a href="{{ url_for('well_known_stick_meter') }}">.well-known</a>
+      </p>
+    </div>
+    <div class="card">
+      <h3>Charge Bride <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Only CHARGE resurrects DEAD. UW approve, chat yes, boss said yes → <strong>FORGED</strong>. Pre-bind weld on the #1 PAS soft-bypass.</p>
+      <p style="margin-top: 0.75rem;">
+        <a href="{{ url_for('bind_room_charge_bride') }}">charge-bride.json</a> ·
+        <a href="{{ url_for('demo_pas_charge_bride_drills') }}">drills</a>
+      </p>
+    </div>
+  </div>
+
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Public proof (no key, no PII)</h2>
     <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'
@@ -73,6 +92,16 @@ curl -s -X POST "{{ public_url }}/demo/pas/ghost-bind" \
   -d '{"soft_pas":true,"would_bind":true}'
 
 curl -s "{{ public_url }}/demo/pas/ghost-bind/drills"
+
+curl -s -X POST "{{ public_url }}/demo/pas/stick-meter" \
+  -H "Content-Type: application/json" \
+  -d '{"premium":60000,"authority_limit":50000,"would_bind":true}'
+
+curl -s -X POST "{{ public_url }}/demo/pas/charge-bride" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_state":"DEAD","uw_approved":true,"would_proceed":true}'
+
+curl -s "{{ public_url }}/demo/pas/charge-bride/drills"
 
 curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
   -H "Content-Type: application/json" \
