@@ -27,6 +27,14 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
     return {
         "spec": "gate-bind-room-officer-pack-v1",
         "price": "$1,750",
+        "gate": {
+            "word": "Gate",
+            "expansion": "Governed Act Termination Engine",
+            "footnote": (
+                "Gate = Governed Act Termination Engine — fail-closed mouth on irreversible "
+                "bind/issue. Control plane, not a rating model. Expansion is footnote only."
+            ),
+        },
         "filing": "Colorado Regulation 10-1-1 Section 6 — SERFF Annual Report, ≤10 pages, officer attestation",
         "not_the_filing": "Appendix B (verify permalinks) is on-request, not the SERFF body.",
         "also_maps": [
@@ -53,6 +61,7 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "Do not lead with FRE 707 to a CUO.",
             "Do not sell model inventory (Monitaur's pile).",
             "Do not put PII on Gate.",
+            "Do not lead cold outbound with the Gate expansion — word first, footnote second.",
         ],
     }
 
