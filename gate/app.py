@@ -250,6 +250,56 @@ except ImportError:
     import ticket_fuse_pack as ticket_fuse_pack_mod
 
 try:
+    from gate import payout_throat as payout_throat_mod
+except ImportError:
+    import payout_throat as payout_throat_mod
+
+try:
+    from gate import twin_diode as twin_diode_mod
+except ImportError:
+    import twin_diode as twin_diode_mod
+
+try:
+    from gate import agent_passport_weld as agent_passport_weld_mod
+except ImportError:
+    import agent_passport_weld as agent_passport_weld_mod
+
+try:
+    from gate import bypass_canary as bypass_canary_mod
+except ImportError:
+    import bypass_canary as bypass_canary_mod
+
+try:
+    from gate import restraint_invoice as restraint_invoice_mod
+except ImportError:
+    import restraint_invoice as restraint_invoice_mod
+
+try:
+    from gate import desk_quorum_fob as desk_quorum_fob_mod
+except ImportError:
+    import desk_quorum_fob as desk_quorum_fob_mod
+
+try:
+    from gate import panic_latch as panic_latch_mod
+except ImportError:
+    import panic_latch as panic_latch_mod
+
+try:
+    from gate import receipt_mirror as receipt_mirror_mod
+except ImportError:
+    import receipt_mirror as receipt_mirror_mod
+
+try:
+    from gate import deadman_echo as deadman_echo_mod
+except ImportError:
+    import deadman_echo as deadman_echo_mod
+
+try:
+    from gate import witness_seat as witness_seat_mod
+except ImportError:
+    import witness_seat as witness_seat_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1023,6 +1073,13 @@ def _finalize_spend_plan(
     mass_tag_mod.attach(plan)
     issue_bind_splitter_mod.attach(plan, issue_type=plan.get("issue_type"))
     ticket_fuse_pack_mod.attach(plan, public_url=advertised_url())
+    payout_throat_mod.attach(plan, spend_write=spend_write)
+    twin_diode_mod.attach(plan)
+    agent_passport_weld_mod.attach(plan)
+    desk_quorum_fob_mod.attach(plan)
+    panic_latch_mod.attach(plan)
+    deadman_echo_mod.attach(plan)
+    witness_seat_mod.attach(plan)
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -1072,6 +1129,12 @@ def _finalize_spend_plan(
         fuse_id=fuse_id,
         hop=hop_d if isinstance(hop_d, dict) else None,
     )
+    plan["event_id"] = event_id
+    plan["acted"] = acted
+    plan["decision"] = decision
+    bypass_canary_mod.attach(plan)
+    restraint_invoice_mod.attach(plan, public_url=advertised_url())
+    receipt_mirror_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1082,6 +1145,9 @@ def _finalize_spend_plan(
     extra["X-Gate-Charge-Bride"] = (plan.get("charge_bride") or {}).get("verdict") or ""
     extra["X-Gate-Mass-Tag"] = (plan.get("mass_tag") or {}).get("tag") or ""
     extra["X-Gate-Hop-Tattoo"] = (plan.get("hop_tattoo") or {}).get("tattoo_hash") or ""
+    extra["X-Gate-Payout-Throat"] = (plan.get("payout_throat") or {}).get("state") or ""
+    extra["X-Gate-Panic-Latch"] = (plan.get("panic_latch") or {}).get("verdict") or ""
+    extra["X-Gate-Desk-Quorum"] = (plan.get("desk_quorum_fob") or {}).get("verdict") or ""
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1487,6 +1553,16 @@ def well_known_gate():
             "mass_tag": f"{advertised_url()}/.well-known/mass-tag.json",
             "issue_bind_splitter": f"{advertised_url()}/.well-known/issue-bind-splitter.json",
             "ticket_fuse_pack": f"{advertised_url()}/.well-known/ticket-fuse-pack.json",
+            "payout_throat": f"{advertised_url()}/.well-known/payout-throat.json",
+            "twin_diode": f"{advertised_url()}/.well-known/twin-diode.json",
+            "agent_passport_weld": f"{advertised_url()}/.well-known/agent-passport-weld.json",
+            "bypass_canary": f"{advertised_url()}/.well-known/bypass-canary.json",
+            "restraint_invoice": f"{advertised_url()}/.well-known/restraint-invoice.json",
+            "desk_quorum_fob": f"{advertised_url()}/.well-known/desk-quorum-fob.json",
+            "panic_latch": f"{advertised_url()}/.well-known/panic-latch.json",
+            "receipt_mirror": f"{advertised_url()}/.well-known/receipt-mirror.json",
+            "deadman_echo": f"{advertised_url()}/.well-known/deadman-echo.json",
+            "witness_seat": f"{advertised_url()}/.well-known/witness-seat.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
@@ -3039,6 +3115,56 @@ def bind_room_ticket_fuse_pack():
     return jsonify(ticket_fuse_pack_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/payout-throat.json")
+def bind_room_payout_throat():
+    return jsonify(payout_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/twin-diode.json")
+def bind_room_twin_diode():
+    return jsonify(twin_diode_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/agent-passport-weld.json")
+def bind_room_agent_passport_weld():
+    return jsonify(agent_passport_weld_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/bypass-canary.json")
+def bind_room_bypass_canary():
+    return jsonify(bypass_canary_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/restraint-invoice.json")
+def bind_room_restraint_invoice():
+    return jsonify(restraint_invoice_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/desk-quorum-fob.json")
+def bind_room_desk_quorum_fob():
+    return jsonify(desk_quorum_fob_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/panic-latch.json")
+def bind_room_panic_latch():
+    return jsonify(panic_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/receipt-mirror.json")
+def bind_room_receipt_mirror():
+    return jsonify(receipt_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/deadman-echo.json")
+def bind_room_deadman_echo():
+    return jsonify(deadman_echo_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/witness-seat.json")
+def bind_room_witness_seat():
+    return jsonify(witness_seat_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/throat.json")
 def well_known_throat():
     return jsonify(throat_mod.manifest(advertised_url()))
@@ -3082,6 +3208,56 @@ def well_known_issue_bind_splitter():
 @app.route("/.well-known/ticket-fuse-pack.json")
 def well_known_ticket_fuse_pack():
     return jsonify(ticket_fuse_pack_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/payout-throat.json")
+def well_known_payout_throat():
+    return jsonify(payout_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/twin-diode.json")
+def well_known_twin_diode():
+    return jsonify(twin_diode_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/agent-passport-weld.json")
+def well_known_agent_passport_weld():
+    return jsonify(agent_passport_weld_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bypass-canary.json")
+def well_known_bypass_canary():
+    return jsonify(bypass_canary_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/restraint-invoice.json")
+def well_known_restraint_invoice():
+    return jsonify(restraint_invoice_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/desk-quorum-fob.json")
+def well_known_desk_quorum_fob():
+    return jsonify(desk_quorum_fob_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/panic-latch.json")
+def well_known_panic_latch():
+    return jsonify(panic_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/receipt-mirror.json")
+def well_known_receipt_mirror():
+    return jsonify(receipt_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/deadman-echo.json")
+def well_known_deadman_echo():
+    return jsonify(deadman_echo_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/witness-seat.json")
+def well_known_witness_seat():
+    return jsonify(witness_seat_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/throat", methods=["POST"])
@@ -3266,6 +3442,234 @@ def demo_pas_ticket_fuse_pack():
         return err
     license_id = (request.args.get("license_id") or "").strip() or None
     result = ticket_fuse_pack_mod.pack(license_id=license_id, public_url=advertised_url())
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/payout-throat", methods=["POST"])
+def demo_pas_payout_throat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = payout_throat_mod.evaluate(
+        decision=body.get("decision"),
+        acted=body.get("acted"),
+        halt=body.get("halt"),
+        allow_payout=body.get("allow_payout"),
+        verify_url=body.get("verify_url"),
+        soft_pas=body.get("soft_pas"),
+        timeout=body.get("timeout"),
+        sight_only=body.get("sight_only"),
+        boss_said_yes=body.get("boss_said_yes"),
+        write_kind=body.get("write_kind") or "payout",
+        spend_write=body.get("spend_write") if isinstance(body.get("spend_write"), dict) else None,
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/twin-diode", methods=["POST"])
+def demo_pas_twin_diode():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = twin_diode_mod.evaluate(
+        direction=body.get("direction"),
+        secure_write_macro=body.get("secure_write_macro"),
+        live_cleared=body.get("live_cleared"),
+        decision=body.get("decision"),
+        sim_only=body.get("sim_only"),
+        would_actuate=body.get("would_actuate"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/agent-passport-weld", methods=["POST"])
+def demo_pas_agent_passport_weld():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = agent_passport_weld_mod.evaluate(
+        tool_class=body.get("tool_class"),
+        agent_id=body.get("agent_id"),
+        passport=body.get("passport"),
+        subject=body.get("subject"),
+        decision=body.get("decision"),
+        soft_yes=body.get("soft_yes"),
+        password_as_auth=body.get("password_as_auth"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/agent-passport-weld/mint", methods=["POST"])
+def demo_pas_agent_passport_mint():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = agent_passport_weld_mod.mint_passport(
+        agent_id=str(body.get("agent_id") or "agent_demo"),
+        tool_class=str(body.get("tool_class") or "wire"),
+        subject=body.get("subject"),
+        ttl_seconds=int(body.get("ttl_seconds") or 300),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/bypass-canary", methods=["POST"])
+def demo_pas_bypass_canary():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = bypass_canary_mod.probe(
+        write_path=str(body.get("write_path") or "POST /bind-only"),
+        job_id=body.get("job_id"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/bypass-canary/drills")
+def demo_pas_bypass_canary_drills():
+    report = bypass_canary_mod.drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/restraint-invoice", methods=["POST"])
+def demo_pas_restraint_invoice():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = restraint_invoice_mod.draft(
+        job_id=body.get("job_id"),
+        fuse_id=body.get("fuse_id"),
+        decision=body.get("decision") or "HALT",
+        acted=body.get("acted"),
+        verify_url=body.get("verify_url"),
+        event_id=body.get("event_id"),
+        public_url=advertised_url(),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/desk-quorum-fob", methods=["POST"])
+def demo_pas_desk_quorum_fob():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = desk_quorum_fob_mod.evaluate(
+        mass_class=body.get("mass_class"),
+        score=body.get("score"),
+        uw_approvals=body.get("uw_approvals"),
+        charge_present=body.get("charge_present"),
+        required_n=body.get("required_n"),
+        fob_tokens=body.get("fob_tokens") if isinstance(body.get("fob_tokens"), list) else None,
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/panic-latch", methods=["POST"])
+def demo_pas_panic_latch():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = panic_latch_mod.evaluate(
+        incident_declared=body.get("incident_declared"),
+        panic_mode=body.get("panic_mode"),
+        would_commit=body.get("would_commit"),
+        escalated=body.get("escalated"),
+        mass_class=body.get("mass_class"),
+        boss_said_yes=body.get("boss_said_yes"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/receipt-mirror", methods=["POST"])
+def demo_pas_receipt_mirror():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = receipt_mirror_mod.mirror(
+        event_id=body.get("event_id"),
+        job_id=body.get("job_id"),
+        decision=body.get("decision"),
+        acted=body.get("acted"),
+        verify_url=body.get("verify_url"),
+        receipt_hash=body.get("receipt_hash"),
+        public_url=advertised_url(),
+        carrier_ref=body.get("carrier_ref"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/deadman-echo", methods=["POST"])
+def demo_pas_deadman_echo():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = deadman_echo_mod.evaluate(
+        last_live_at=body.get("last_live_at"),
+        now=body.get("now"),
+        ttl_seconds=body.get("ttl_seconds"),
+        chain_step=body.get("chain_step"),
+        re_live_presented=body.get("re_live_presented"),
+        soft_continue=body.get("soft_continue"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/witness-seat", methods=["POST"])
+def demo_pas_witness_seat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = witness_seat_mod.evaluate(
+        role=body.get("role"),
+        would_live=body.get("would_live"),
+        verify_only=body.get("verify_only"),
+        verify_url=body.get("verify_url"),
+    )
     result["demo"] = True
     return jsonify(result)
 

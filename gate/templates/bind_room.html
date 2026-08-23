@@ -116,6 +116,68 @@
     </div>
   </div>
 
+  <div class="grid-2" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Payout Throat <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Same fail-closed mouth on money-leave. Soft-yes never wires.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_payout_throat') }}">payout-throat.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Twin Diode <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Twin may read plant; write needs Secure Write Macro + LIVE.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_twin_diode') }}">twin-diode.json</a></p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Agent Passport Weld <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Signed pre-action passport on irreversible tools. Password ≠ permission slip.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_agent_passport_weld') }}">agent-passport-weld.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Bypass Canary <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
+      <p>Alarm when bind/write is reachable without a Gate hop. Never clearance.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_bypass_canary') }}">bypass-canary.json</a> · <a href="{{ url_for('demo_pas_bypass_canary_drills') }}">drills</a></p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Restraint Invoice</h3>
+      <p>Billable stranger prove of what did <strong>not</strong> bind/pay/fire.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_restraint_invoice') }}">restraint-invoice.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Desk Quorum Fob</h3>
+      <p>N-of-M for heavy/sacred binds — sacred also needs CHARGE.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_desk_quorum_fob') }}">desk-quorum-fob.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Panic Latch</h3>
+      <p>Declared incident → escalate or DENY. Boss-yes under panic is forged.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_panic_latch') }}">panic-latch.json</a></p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Receipt Mirror</h3>
+      <p>Public receipt + private carrier mirror — stranger vs club, no PII.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_receipt_mirror') }}">receipt-mirror.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Deadman Echo</h3>
+      <p>Long agent chains: periodic re-LIVE or CHOKE.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_deadman_echo') }}">deadman-echo.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Witness Seat</h3>
+      <p>Examiner role — verify yes, LIVE never.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_witness_seat') }}">witness-seat.json</a></p>
+    </div>
+  </div>
+
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Public proof (no key, no PII)</h2>
     <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'

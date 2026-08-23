@@ -775,26 +775,26 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 | **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Spec'd (Bind Room verify_url is the foothill form) |
 | **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Spec'd |
 
-**Pair rule:** Nine shipped seeds weld into `_finalize_spend_plan` — CHOKE, FORGED, and soft-yes snares cannot soft-allow; tattoo + mass tag stamp every hop for CUO drills and officer appendix.
+**Pair rule:** Nineteen shipped seeds weld into `_finalize_spend_plan` — CHOKE, FORGED, soft-yes snares, panic, quorum-short, twin-block, and passport-missing cannot soft-allow; tattoo + mass tag + receipt mirror stamp every hop.
 
-### Applicable now (next welds — 2026 gravity you can sell)
+### Applicable now (sold / next welds — 2026)
 
-These are **not eons cosplay**. They sit on Bind Room / agent / plant edges you can name to a CUO or SI without sounding like Mars.
+Remaining mountain-only items stay out of the pitch until plant/agent production welds land. Shipped applicable-now seeds:
 
-| Invention | What it is | Why it sells now | First wedge |
-|-----------|------------|------------------|-------------|
-| **Payout Throat** | Same mouth on money-leave (release before wire) | SCIENCE first weld — second commercial edge after bind | Operator / withdraw |
-| **Twin Diode** | Digital twin may read plant; write path requires Secure Write Macro + LIVE | OT buyers fear twin→PLC; diode is the pitch | Plant Sheath Starter |
-| **Agent Passport Weld** | Tool Throat + signed pre-action auth (OAP cousin) on irreversible tool classes | Agents shipping now with passwords, no permission slips | Agent Mouth Kit |
-| **Bypass Canary** | Alarm when bind/write path is reachable without Gate hop | Proves they didn’t go around you | Production capture |
-| **Restraint Invoice** | Billable SKU: stranger prove of what did **not** bind / pay / fire | Insurance language for counterfactual | After-action pack |
-| **Desk Quorum Fob** | Physical or soft N-of-M for high-mass binds (two UW + charge) | Senate Socket for the bind desk | High-limit MGA |
-| **Panic Latch** | During declared incident: all new hard commits escalate or DENY | Anti-charisma under catastrophe | Carrier ops room |
-| **Issue≠Bind Splitter** | Forces PAS to separate QuoteRelease / Issue from bind-and-issue | QuoteRelease mistaken for bind stop is a real haunt | PolicyCenter weld |
-| **Receipt Mirror** | Public /.well-known receipt + private carrier mirror — stranger vs club | Prove without leaking PII | Compliance |
-| **Mass Tag** | Labels a job/tool/write with commit-mass class (light / heavy / sacred) before mouth | Makes Stick Meter actionable in UW UI | Bind Room + Agent Kit |
-| **Deadman Echo** | During long tool/agent chains: periodic re-LIVE or CHOKE | Stops “authorized at t0, wrong at t5” | Agent Mouth Kit |
-| **Witness Seat** | Read-only stranger principal that can verify but never LIVE | Examiner / regulator as first-class role | Officer pack |
+| Invention | Status |
+|-----------|--------|
+| **Payout Throat** | **Shipped seed** — `gate/payout_throat.py`, `POST /demo/pas/payout-throat` |
+| **Twin Diode** | **Shipped seed** — `gate/twin_diode.py`, `POST /demo/pas/twin-diode` |
+| **Agent Passport Weld** | **Shipped seed** — `gate/agent_passport_weld.py`, mint + evaluate demos |
+| **Bypass Canary** | **Shipped seed** — `gate/bypass_canary.py` over `canary.py` |
+| **Restraint Invoice** | **Shipped seed** — `gate/restraint_invoice.py` over counterfactual |
+| **Desk Quorum Fob** | **Shipped seed** — `gate/desk_quorum_fob.py` |
+| **Panic Latch** | **Shipped seed** — `gate/panic_latch.py` |
+| **Receipt Mirror** | **Shipped seed** — `gate/receipt_mirror.py` |
+| **Deadman Echo** | **Shipped seed** — `gate/deadman_echo.py` |
+| **Witness Seat** | **Shipped seed** — `gate/witness_seat.py` |
+
+**Still mountain (not this year's demo unless plant/agent weld):** Cold Weld commission ritual, Bind Genealogy, Silence Gate hardware, Senate Socket hardware, Time Lock Envelope, forge sheath cell, Heat-Death Ledger, xeno tables.
 
 **Now-rule:** If you can’t demo it on a bind, payout, agent tool, or PLC write path this year, it stays in the mountain — not the pitch.
 
@@ -922,10 +922,9 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 
 | Applicable rn | Deeper future |
 |---------------|---------------|
-| Hop Tattoo · Soft-Yes Snare · Mass Tag · Issue≠Bind Splitter · Ticket Fuse | Payout Throat · Twin Diode · Agent Passport Weld |
-| Ticket Fuse · Payout Throat · Bypass Canary | Cascade Cap · Consent Lattice · Kardashev Sheath |
-| Twin Diode · Agent Passport Weld · Desk Quorum Fob | Sacred Tier Pack · Xeno Principal Table · Heat-Death Ledger |
-| Panic Latch · Issue≠Bind Splitter · Restraint Invoice | Filter Actuary · Proof of Restraint Bond · Post-Filter Charter |
+| Payout Throat · Twin Diode · Agent Passport Weld · Bypass Canary | Cascade Cap · Consent Lattice · Kardashev Sheath |
+| Restraint Invoice · Desk Quorum Fob · Panic Latch · Receipt Mirror | Filter Actuary · Proof of Restraint Bond |
+| Deadman Echo · Witness Seat | Sacred Tier Pack · Xeno Principal Table · Heat-Death Ledger |
 
 ### Wicked edges (Filter killers — named to remember)
 

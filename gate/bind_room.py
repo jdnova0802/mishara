@@ -64,7 +64,17 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "mass_tag": f"{public_url}/bind-room/mass-tag.json",
             "issue_bind_splitter": f"{public_url}/bind-room/issue-bind-splitter.json",
             "ticket_fuse_pack": f"{public_url}/bind-room/ticket-fuse-pack.json",
-            "pair": "Nine shipped Bind Room seeds — mouth, haunt, mass, resurrect, tattoo, snare, tag, splitter, fuse.",
+            "payout_throat": f"{public_url}/bind-room/payout-throat.json",
+            "twin_diode": f"{public_url}/bind-room/twin-diode.json",
+            "agent_passport_weld": f"{public_url}/bind-room/agent-passport-weld.json",
+            "bypass_canary": f"{public_url}/bind-room/bypass-canary.json",
+            "restraint_invoice": f"{public_url}/bind-room/restraint-invoice.json",
+            "desk_quorum_fob": f"{public_url}/bind-room/desk-quorum-fob.json",
+            "panic_latch": f"{public_url}/bind-room/panic-latch.json",
+            "receipt_mirror": f"{public_url}/bind-room/receipt-mirror.json",
+            "deadman_echo": f"{public_url}/bind-room/deadman-echo.json",
+            "witness_seat": f"{public_url}/bind-room/witness-seat.json",
+            "pair": "Nineteen shipped Bind Room seeds — full applicable-now foothill stack on the bind edge.",
         },
     }
 
