@@ -59,6 +59,8 @@ That unification gap is the company.
 | Quantum | Measure/collapse, one-shot key consume |
 | Biological | Release / replicate (state-fenced, extreme care) |
 | Legal / identity | License, sanction, status that won’t un-write cleanly |
+| Geometry / GR | Irreversible Δv, capture, horizon-crossing in curved spacetime |
+| Epistemic / void | Acts claimed beyond measurable physics — default DENY |
 
 **Undo-cost** (thermo + legal + blast radius) ranks what must pass the mouth.
 
@@ -462,6 +464,64 @@ Gate does not sell the vibe. Gate maps each word onto **medium × time × role �
 > Transhuman · post-earth · otherworldly · intergalactic · eons-ahead · singularity · cyborg · multiverse · hyperspace · quantum · avant-garde · visionary · other-dimensional · cosmic —  
 > **not brand adjectives**. Each is a **commit surface** or a **Filter mode** Gate is built to map, clear, inhibit, prove, and forge — under flags that outlive founders.
 
+### Scientific frontiers (hard science → may)
+
+Not warp-drive cosplay. Actual astrophysics and quantum behavior remapped as **irreversible-act grammar**.  
+Primes map sensors and platforms into these regimes. **Nobody maps may.**
+
+#### Real cosmology
+
+| Frontier | Physics signal | Gate formalization |
+|----------|----------------|-------------------|
+| **Cosmic inflation** | Early exponential expansion; initial conditions locked in | Genesis-class LIVE — acts that set irreversible initial conditions of a domain (lab analog: vacuum / high-energy experiments); civilizational quorum or absolute DENY |
+| **Dark energy / accelerated expansion** | Late-time cosmic acceleration; horizon structure | Horizon-aware prove — receipt chains that remain stranger-verifiable as causal contact shrinks; deep-time genealogy that survives horizon loss |
+| **Spacetime curvature** | Gravity as geometry; GR commits (orbits, lensing, black holes) | Geometry as medium — irreversible Δv / capture / horizon-crossing ranked by undo-cost in curved spacetime, not flat Euclidean ops manuals |
+| **No fictional warp** | Reject FTL marketing as product | If topology change or exotic matter ever becomes engineering: sacred / vacuum-tier LIVE — until then Gate refuses soft “warp” as a may surface |
+
+#### Inflationary multiverse (math, not sci-fi parallel)
+
+| Frontier | Physics signal | Gate formalization |
+|----------|----------------|-------------------|
+| **Bubble universes** | Eternal inflation → causally disconnected pocket domains | Domain birth certificate — who may nucleate / risk a new vacuum or pocket (lab-scale analogs); prove what domain-risk was **not** taken |
+| **Measure problem** | How to count / weight observers across bubbles | Undo-cost metrology must not pretend infinite copies soft-justify local fail-open — **local mouth still DENY-defaults** |
+| **Counterfactual branches** | Many-worlds / inflationary forks as formal possibility | Multiverse receipt SKU — stranger proof of restraint across the branch set the coordinator recognizes (their physics + their law) |
+
+#### Quantum weirdness (subatomic behavior that breaks intuition)
+
+| Frontier | Physics signal | Gate formalization |
+|----------|----------------|-------------------|
+| **Entanglement** | Non-separable joint state; correlations without classical signal | Entangled act-graph — clearing one irreversible edge may co-constrain another; forge must model **joint may**, not only local |
+| **Non-locality** | Bell-type correlations; no FTL signaling but no classical story | Non-local prove — receipts that verify joint outcomes without requiring a classical narrative; DENY if the mouth assumes classical locality only |
+| **Measurement / collapse** | Irreversible record of an outcome | Already quantum medium: measure = hard write; before LIVE, during-inhibit of measurement chain, after stranger receipt of which outcome was allowed |
+| **One-shot key / quantum consume** | State destroyed by use | Consume-once may — LIVE that cannot silently re-fire the same quantum resource |
+
+### Philosophical / conceptual shifts (void → post-human)
+
+Hard science leaves language behind. Gate still needs a **formal posture** — under coordinators, never private godhood.
+
+#### The unknowable void
+
+| Shift | Signal | Gate formalization |
+|-------|--------|-------------------|
+| **Outside space/time** | Contemplating a true “outside” where definitions of nothing break | Epistemic DENY floor — where physics + language cannot certify an act, **uncertainty ≠ soft LIVE**; absolute DENY or civilizational ordeal-grade evidence |
+| **Language failure** | Human words stop mapping the territory | Ontology hygiene — refuse to mint may on metaphors (warp, void, infinity) until there is a measurable irreversible edge |
+| **Nothingness vs DENY** | “Nothing happened” is not the same as “proved restraint” | Counterfactual prove still required inside the knowable; beyond the knowable, default DENY + refusal to cosplay certainty |
+
+#### Post-humanism and consciousness
+
+| Shift | Signal | Gate formalization |
+|-------|--------|-------------------|
+| **Stripped of biology** | Sentience without flesh | Substrate-independent principal — may attaches to licensed principal, not to carbon; upload/hive/AI under coordinator personhood table |
+| **Stripped of physical form** | Mind as pattern / process | Continuity escrow + succession will — may survives substrate change only with stranger-verified handoff; fork = forged LIVE |
+| **Consciousness as disputed** | No consensus on what counts as a subject | Gate does **not** decide personhood — enforces the coordinator’s principal table; disputed minds get **scoped** or **DENY**, never silent full may |
+| **Post-human Filter** | Infinite can in non-biological minds | Singularity brake + agent principal license + anti-demiurge — post-human ≠ above the flag |
+
+#### Frontiers one-liner
+
+> Inflation · dark energy · curvature · bubble multiverse · entanglement · non-locality · the void · post-human mind —  
+> **not décor**. They are the physics and philosophy floors of undo-cost.  
+> Gate’s job is the same at every floor: **map, clear, inhibit, prove, forge** — and **DENY when the floor is unknowable**.
+
 ### More god-products (stack)
 
 | SKU (concept) | What it is |
@@ -484,6 +544,12 @@ Gate does not sell the vibe. Gate maps each word onto **medium × time × role �
 | **Hyperspace budget** | Async may envelope for non-classical latency |
 | **Post-earth mouth** | Off-world commission + light-delay DENY default |
 | **Cosmic metrology** | Undo-cost + Filter scores at planetary → stellar → galactic tier |
+| **Geometry mouth** | Curved-spacetime / GR-aware irreversible clearance |
+| **Horizon receipt** | Prove that survives causal-horizon / deep-time contact loss |
+| **Entanglement graph** | Joint may across non-separable act edges |
+| **Non-local prove** | Receipts for Bell-class joint outcomes without classical story |
+| **Void DENY** | Epistemic floor — unknowable ⇒ no soft LIVE |
+| **Post-human principal** | Substrate-independent license under coordinator personhood law |
 
 ### Competitive whitespace (visceral)
 
@@ -503,15 +569,20 @@ Gate does not sell the vibe. Gate maps each word onto **medium × time × role �
 | Singularity hype | **Singularity brake** — may that scales with can, never private Omega |
 | Cyborg product demos | **Cyborg license** — hybrid principal, death ⇒ de-license |
 | Multiverse as metaphor | **Multiverse receipt** — prove the branch that did **not** fire |
+| Warp / FTL marketing | Refusal until measurable edge; then vacuum-tier LIVE |
+| Quantum kits / sensors | **Entanglement graph + measure LIVE** — weirdness as medium, not brochure |
+| Cosmology as TED talk | **Geometry mouth + horizon receipt** — GR and inflation as undo-cost floors |
+| Post-human thought pieces | **Post-human principal + void DENY** — mind without flesh still under flag |
 
 ### Eons one-liner
 
 > Primes forge **what can fire**. Anduril multiplies **what can swarm**. Palantir maps **what might matter**.  
 > Gate forges **what may fire, when, under whom, with proof that restraint held** —  
 > transhuman to post-earth, quantum to cosmic, singularity-braked, cyborg-licensed, multiverse-proved —  
+> inflation-aware, curvature-ranked, entanglement-joint, void-DENY at the epistemic floor, post-human under coordinator law —  
 > in flesh, silicon, cities, hospitals, grids, orbits, light-minutes, stellar writes, and civilization reboots —  
 > recursive on the mouth itself, scaled to Kardashev undo-cost, forged against every Filter mode —  
-> **farther than futuristic, beyond every session, eons adjacent, never eons sovereign.**
+> **hard science not décor, farther than futuristic, beyond every session, eons adjacent, never eons sovereign.**
 
 ### Sharpest cut (repeatable)
 
@@ -520,6 +591,8 @@ Gate does not sell the vibe. Gate maps each word onto **medium × time × role �
 > designed in, assembled, enforced live, proved after — under the flag, never as the flag.
 
 > “Futuristic” is marketing. **Transhuman · intergalactic · eons-ahead · singularity · cosmic** are **media and Filter modes**. Gate is the industrial grammar that makes them restrainable.
+
+> Warp is fiction until it isn’t. Inflation, dark energy, curvature, entanglement, the void, post-human mind — **those are real floors**. Gate maps **may** on every floor it can measure, and **DENY** on every floor it cannot.
 
 ---
 
@@ -533,8 +606,9 @@ Gate does not sell the vibe. Gate maps each word onto **medium × time × role �
 6. **Industrial genealogy** — serial may-lineage, decommission of authority, forgery detection  
 7. **Deep-time / latency** — light-delay clearance, async may-budget, relativistic principal sync, reboot kits  
 8. **Noosphere hygiene** — attention→act bridge, open-weights genesis, epistemic forgeries, speech-act LIVE  
-9. **Recursive / meta** — mouth-of-mouths, may for may-makers, anti-demiurge covenant  
+9. **Recursive / meta** — mouth-of-mouths, may for may-makers, anti-demiurge covenant, singularity brake  
 10. **Sacred & municipal** — body/land/germline/stellar tiers; city and care as early mass forge sites  
+11. **Lexicon farther than futuristic** — every soft sci-fi word remapped as commit surface or Filter mode  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
 The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
