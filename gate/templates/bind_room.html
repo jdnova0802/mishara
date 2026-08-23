@@ -178,6 +178,27 @@
     </div>
   </div>
 
+  <div class="grid-3" style="margin-top: 1.5rem;">
+    <div class="card">
+      <h3>Pardon Sunset <span style="color: var(--muted); font-weight: 400;">Moral Throat</span></h3>
+      <p>Hard Mercy — scarred, co-signed, sunsetting. Forever pardon is aristocracy.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_pardon_sunset') }}">pardon-sunset.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Watchman Fuse <span style="color: var(--muted); font-weight: 400;">Moral Throat</span></h3>
+      <p>Duty-class deadman. Silence past SLA → <strong>DERELICT</strong>. Coward's CHOKE is kin.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_watchman_fuse') }}">watchman-fuse.json</a></p>
+    </div>
+    <div class="card">
+      <h3>Indulgence Trap <span style="color: var(--muted); font-weight: 400;">Moral Throat</span></h3>
+      <p>Paid / favor / prestige mercy is forged. Anti-charisma metallurgy.</p>
+      <p style="margin-top: 0.75rem;">
+        <a href="{{ url_for('bind_room_indulgence_trap') }}">indulgence-trap.json</a> ·
+        <a href="{{ url_for('demo_pas_indulgence_trap_drills') }}">drills</a>
+      </p>
+    </div>
+  </div>
+
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Public proof (no key, no PII)</h2>
     <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'

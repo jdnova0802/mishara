@@ -300,6 +300,21 @@ except ImportError:
     import witness_seat as witness_seat_mod
 
 try:
+    from gate import pardon_sunset as pardon_sunset_mod
+except ImportError:
+    import pardon_sunset as pardon_sunset_mod
+
+try:
+    from gate import watchman_fuse as watchman_fuse_mod
+except ImportError:
+    import watchman_fuse as watchman_fuse_mod
+
+try:
+    from gate import indulgence_trap as indulgence_trap_mod
+except ImportError:
+    import indulgence_trap as indulgence_trap_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1080,6 +1095,9 @@ def _finalize_spend_plan(
     panic_latch_mod.attach(plan)
     deadman_echo_mod.attach(plan)
     witness_seat_mod.attach(plan)
+    indulgence_trap_mod.attach(plan)
+    pardon_sunset_mod.attach(plan)
+    watchman_fuse_mod.attach(plan)
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -1563,6 +1581,10 @@ def well_known_gate():
             "receipt_mirror": f"{advertised_url()}/.well-known/receipt-mirror.json",
             "deadman_echo": f"{advertised_url()}/.well-known/deadman-echo.json",
             "witness_seat": f"{advertised_url()}/.well-known/witness-seat.json",
+            "pardon_sunset": f"{advertised_url()}/.well-known/pardon-sunset.json",
+            "watchman_fuse": f"{advertised_url()}/.well-known/watchman-fuse.json",
+            "indulgence_trap": f"{advertised_url()}/.well-known/indulgence-trap.json",
+            "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
@@ -3165,6 +3187,42 @@ def bind_room_witness_seat():
     return jsonify(witness_seat_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/pardon-sunset.json")
+def bind_room_pardon_sunset():
+    return jsonify(pardon_sunset_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/watchman-fuse.json")
+def bind_room_watchman_fuse():
+    return jsonify(watchman_fuse_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/indulgence-trap.json")
+def bind_room_indulgence_trap():
+    return jsonify(indulgence_trap_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/temporal-sheath.json")
+def well_known_temporal_sheath():
+    return jsonify(
+        {
+            "spec": "gate-temporal-sheath-v1",
+            "invention": "Temporal Sheath",
+            "doc": "gate/TEMPORAL_SHEATH.md",
+            "one_liner": "Time is part of the mouth — when force may exist, expire, or be required.",
+            "foothills": [
+                "pardon-sunset",
+                "watchman-fuse",
+                "indulgence-trap",
+                "deadman-echo",
+                "panic-latch",
+            ],
+            "bind_room": f"{advertised_url()}/bind-room",
+            "north_star": "gate/NORTH_STAR.md#moral-throat",
+        }
+    )
+
+
 @app.route("/.well-known/throat.json")
 def well_known_throat():
     return jsonify(throat_mod.manifest(advertised_url()))
@@ -3258,6 +3316,21 @@ def well_known_deadman_echo():
 @app.route("/.well-known/witness-seat.json")
 def well_known_witness_seat():
     return jsonify(witness_seat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/pardon-sunset.json")
+def well_known_pardon_sunset():
+    return jsonify(pardon_sunset_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/watchman-fuse.json")
+def well_known_watchman_fuse():
+    return jsonify(watchman_fuse_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/indulgence-trap.json")
+def well_known_indulgence_trap():
+    return jsonify(indulgence_trap_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/throat", methods=["POST"])
@@ -3672,6 +3745,82 @@ def demo_pas_witness_seat():
     )
     result["demo"] = True
     return jsonify(result)
+
+
+@app.route("/demo/pas/pardon-sunset", methods=["POST"])
+def demo_pas_pardon_sunset():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = pardon_sunset_mod.evaluate(
+        against_score=body.get("against_score", True),
+        grantor_id=body.get("grantor_id"),
+        subject_id=body.get("subject_id"),
+        cosigner_id=body.get("cosigner_id"),
+        sunset_at=body.get("sunset_at"),
+        ttl_seconds=body.get("ttl_seconds"),
+        now=body.get("now"),
+        scar=body.get("scar"),
+        paid=body.get("paid"),
+        relationship_path=body.get("relationship_path"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/watchman-fuse", methods=["POST"])
+def demo_pas_watchman_fuse():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = watchman_fuse_mod.evaluate(
+        duty_class=body.get("duty_class", True),
+        duty_sla_seconds=body.get("duty_sla_seconds"),
+        armed_at=body.get("armed_at"),
+        last_pulse_at=body.get("last_pulse_at"),
+        now=body.get("now"),
+        clear_required=body.get("clear_required"),
+        choked=body.get("choked"),
+        acted=body.get("acted"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/indulgence-trap", methods=["POST"])
+def demo_pas_indulgence_trap():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = indulgence_trap_mod.evaluate(
+        mercy_attempt=body.get("mercy_attempt", True),
+        paid=body.get("paid"),
+        relationship_path=body.get("relationship_path"),
+        self_pardon=body.get("self_pardon"),
+        letterhead_only=body.get("letterhead_only"),
+        emoji_quorum=body.get("emoji_quorum"),
+        panic_favor=body.get("panic_favor"),
+        scar=body.get("scar"),
+        has_sunset=body.get("has_sunset"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/indulgence-trap/drills")
+def demo_pas_indulgence_trap_drills():
+    report = indulgence_trap_mod.drills()
+    report["demo"] = True
+    return jsonify(report)
 
 
 @app.route("/bind-room/appendix.schema.json")

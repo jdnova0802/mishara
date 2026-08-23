@@ -74,7 +74,11 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "receipt_mirror": f"{public_url}/bind-room/receipt-mirror.json",
             "deadman_echo": f"{public_url}/bind-room/deadman-echo.json",
             "witness_seat": f"{public_url}/bind-room/witness-seat.json",
-            "pair": "Nineteen shipped Bind Room seeds — full applicable-now foothill stack on the bind edge.",
+            "pardon_sunset": f"{public_url}/bind-room/pardon-sunset.json",
+            "watchman_fuse": f"{public_url}/bind-room/watchman-fuse.json",
+            "indulgence_trap": f"{public_url}/bind-room/indulgence-trap.json",
+            "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
+            "pair": "Moral Throat seeds — mouth, haunt, mass, mercy-sunset, watchman duty, indulgence traps. Soft≠soft-yes.",
         },
     }
 

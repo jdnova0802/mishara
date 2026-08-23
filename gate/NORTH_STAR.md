@@ -775,7 +775,30 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 | **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Spec'd (Bind Room verify_url is the foothill form) |
 | **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Spec'd |
 
-**Pair rule:** Nineteen shipped seeds weld into `_finalize_spend_plan` — CHOKE, FORGED, soft-yes snares, panic, quorum-short, twin-block, and passport-missing cannot soft-allow; tattoo + mass tag + receipt mirror stamp every hop.
+**Pair rule:** Twenty-two shipped seeds weld into `_finalize_spend_plan` — CHOKE, FORGED, soft-yes snares, panic, quorum-short, twin-block, passport-missing, forged mercy, and dereliction cannot soft-allow; tattoo + mass tag + receipt mirror stamp every hop.
+
+### Moral Throat (mouth doctrine — deeper than product)
+
+Gate is not “a product.” It is a **mouth under coordinators**: legitimacy of collapse for irreversible writes.
+
+**Lock lines:**
+- Soft yes is forged.
+- Mercy is real only scarred, co-signed, and sunsetting.
+- Silence can be dereliction.
+- Shared fate cannot be solo-authored.
+- Time is part of the mouth (`gate/TEMPORAL_SHEATH.md`).
+- Strangers verify; clubs do not mint reality alone.
+
+**States:** OPEN · CLOSED · CHOKE · MERCY · DERELICT · HOLD · EXILE · SCHISM · BRAID · NULL
+
+**Four axes (leave none out):**
+1. **Cold** — metallurgy / desk / fail-closed  
+2. **Weird** — entanglement / Fate Clock / may thermodynamics  
+3. **Mean** — anti-charisma / exile / indulgence traps  
+4. **Soft** — care / witness / hospitality to unbound verifiers (Witness Seat, Receipt Mirror, braid without humiliation) — soft ≠ soft-yes
+
+**Lead metaphor:** commit · mass · sheath · gravity · legitimacy of collapse  
+**Not lead:** irreversibility-as-brand (physics footnote only)
 
 ### Applicable now (sold / next welds — 2026)
 
@@ -793,8 +816,13 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Receipt Mirror** | **Shipped seed** — `gate/receipt_mirror.py` |
 | **Deadman Echo** | **Shipped seed** — `gate/deadman_echo.py` |
 | **Witness Seat** | **Shipped seed** — `gate/witness_seat.py` |
+| **Pardon Sunset** | **Shipped seed** — `gate/pardon_sunset.py` — Hard Mercy scarred + co-signed + sunsetting |
+| **Watchman Fuse** | **Shipped seed** — `gate/watchman_fuse.py` — duty SLA silence → DERELICT |
+| **Indulgence Trap** | **Shipped seed** — `gate/indulgence_trap.py` — paid/favor/prestige mercy forged |
 
-**Still mountain (not this year's demo unless plant/agent weld):** Cold Weld commission ritual, Bind Genealogy, Silence Gate hardware, Senate Socket hardware, Time Lock Envelope, forge sheath cell, Heat-Death Ledger, xeno tables.
+**Temporal Sheath:** `gate/TEMPORAL_SHEATH.md` — time ontology for the mouth (COOL / SUNSET / DEADMAN / DUTY / …).
+
+**Still mountain (not this year's demo unless plant/agent weld):** Cold Weld commission ritual, Bind Genealogy, Silence Gate hardware, Senate Socket hardware, Time Lock Envelope, forge sheath cell, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity, Sabbath Latch, May Quarantine, Antimay.
 
 **Now-rule:** If you can’t demo it on a bind, payout, agent tool, or PLC write path this year, it stays in the mountain — not the pitch.
 
