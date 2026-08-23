@@ -289,6 +289,11 @@ Named failure modes. Each is a **product category** over time, not vibes.
 | **Attention→violence** | Narrative pressure → riot → fire/wire/bind | Own only the hard write; escalate when feed hits an edge |
 | **Forge without sheath** | Primes ship swords; lock is afterthought | Sheath designed in, assembled, HIL-proved |
 | **Prove asymmetry** | World proves explosions; never restraint | Counterfactual receipts as civilizational SKU |
+| **Charisma override** | Soft verbal LIVE under panic / cult / war | Quorum hardware; anti-charisma protocol |
+| **Twin actuation** | Sim that writes reality without forge may | Mirror-world DENY — soft twin stays soft |
+| **Authority counterfeit** | Fake sheath / forged command across lag | May-genealogy + forgery detector |
+| **Collapse amnesia** | After ruin, may reconstitutes as whoever has guns | Reboot kit + stranger continuity of receipts |
+| **Recursive capture** | Mouth-makers above the law | May for may-makers; Gate de-licensable under flag |
 
 ### Exotic / planetary / climate media (beyond the classic nine)
 
@@ -348,6 +353,80 @@ Not September SKUs. **Mountain SKUs** — so the north star has teeth.
 | **Principal license** | Scoped may for human / agent / hive / biosphere | Regulators, carriers, post-biological orgs |
 | **Filter metrology** | Undo-cost + Filter-mode scoring | Standards bodies, NIST-of-irreversibility |
 
+### Stack beyond every prior session (fold 1–10 + go further)
+
+These were open brainstorms. They are now **doctrine**. Still under coordinators.
+
+#### War · city · inheritance · charisma · time
+
+| Capture | Signal | Gate formalization |
+|---------|--------|-------------------|
+| **War as may-graph** | Escalation ladders as soft doctrine | ROE compiled to **inhibit graph**; every rung = irreversible edge with stranger prove |
+| **City as forge customer** | Elevators, floodgates, traffic kills, robot patrol, curfew actuators | Municipal may before Mars — mass-market forge customer; city = ritual machine at scale |
+| **Inheritance of may** | Founder / admiral / CEO dies mid-sequence | Wills for authority — succession LIVE; dead principal cannot soft-extend |
+| **Anti-charisma protocol** | Panic, cult, wartime “boss said yes” | Soft verbal LIVE is **forged** unless quorum hardware holds |
+| **Time-locked offense** | Invasion clocks, sanction clocks, launch windows | LIVE that unlocks only at T+N under pre-cleared conditions — offense-enable without panic |
+| **Mirror-world DENY** | Digital twin that can *actuate* reality | Twin-with-write needs forge-grade may; sim-only stays soft — most twin vendors never draw the line |
+| **Sacred media tier** | Body · land · germline · stellar | Undo-cost so high only multi-sovereign LIVE exists (Dreamtime + blood & soil + stellar) |
+| **Insurance as Filter hedge** | Underwriters already price irreversible slips | Bind Room = first **Filter-insurance lab** — not a pivot; the foothold *is* the grammar |
+| **Civilization reboot kit** | Collapse → who reconstitutes may without the old keys | Ark + Jubilee + seed vault as one product — may reconstituted under surviving coordinators |
+| **Enemy may-forgery** | Adversary ships counterfeit permission modules | May-genealogy proves the mouth is real — counterfeit **authority**, not only counterfeit parts |
+
+#### Beyond sessions — civilizational / recursive / substrate
+
+| Capture | Signal | Gate formalization |
+|---------|--------|-------------------|
+| **Recursive mouth** | Who clears the clearer? | Mouth-of-mouths under coordinators; Gate itself is a principal that can be de-licensed |
+| **Forge of forges** | Who may manufacture may-modules? | Meta-permission BOM — sheath factories need LIVE to ship sheaths |
+| **Kardashev may-scaling** | Type I → II → III energy = Type I → II → III undo-cost | Filter metrology scales with energy; stellar LIVE before galactic LIVE |
+| **Vacuum / physics experiment LIVE** | Collider / vacuum metastability scare as max Filter | Absolute taboo class or civilizational quorum — prove what was **not** risked |
+| **Post-scarcity still needs may** | Unlimited can ≠ unlimited may | Irreversible edges survive abundance (death, identity, stellar writes, replication) |
+| **Sleeping / dreaming principal** | Unconscious human still “authorized” | Clinical / sleep state ⇒ may suspends; soft yes from a sleeping principal is forged |
+| **Birth as principal genesis** | New human / agent enters the may-graph | License mint at birth/commission — no silent inherit of parent may |
+| **Merger / divorce of may** | Corps, alliances, hive splits | Principal fission/fusion protocol — one may-line or explicit fork with receipts |
+| **Speech-act as hard write** | Vow, sentence, declaration that binds | Legal medium: some speech *is* LIVE; most speech is soft — Gate at the binding edge |
+| **Education of may** | How children / agents learn irreversible authority | Training wheels DENY; graduate to scoped LIVE — same grammar as agent principal license |
+| **Last LIVE of a dying civ** | Final irreversible act before extinction | Civilization reboot kit + stranger receipts for whoever comes next (Fedorov debt) |
+| **Beyond-Filter hygiene** | Survive the Filter → still need may | Survival ≠ godhood; post-Filter still under coordinators, still never sovereign |
+| **Acausal / precommit LIVE** | Decision theory: act because future-you would | Time-locked + precommit receipts — not soft prophecy; hardware-enforced envelope |
+| **Consciousness-class principal** | Disputed personhood (upload, animal, AI, hive) | Personhood is coordinator law; Gate enforces **their** principal table — never invents one |
+| **Black-hole / info limit of prove** | Physics caps what can be stranger-verified | Prove has a physics floor; beyond it, DENY by default (uncertainty ≠ soft yes) |
+| **Galaxy-seed may** | Who may light another star’s industrial tree | Kardashev-III adjacent: birth certificate for a **civilization**, not a probe |
+| **Cultural may evolution** | Norms of LIVE change across centuries / species | Jubilee + scheduled re-clear of civilizational taboos — may is not frozen dogma |
+| **Enemy charisma at light-delay** | Spoofed “admiral said LIVE” across minutes of lag | Anti-charisma + async may-budget + may-genealogy — forged command is the default threat |
+| **Hospital / care as forge site** | OR, ICU, infusion — body writes at industrial scale | Care medium: dose LIVE + prove; hospitals as early sacred-media customers |
+| **School / prison / border as may sites** | Status writes that won’t un-write cleanly | Legal identity medium — license, sanction, confine as irreversible edges |
+
+#### Beyond every product category (meta-mountain)
+
+When every SKU above exists, the remaining scarce layers:
+
+| Meta-layer | Job |
+|------------|-----|
+| **Grammar hegemony** | BGP-of-may becomes default like TCP — primes speak Gate without buying “Gate the company” |
+| **Metrology institute** | NIST-of-irreversibility — undo-cost units, Filter-mode scores, stranger-receipt standards |
+| **Inter-coordinator constitution** | Treaties that compile to inhibit graphs — law as code that **halts** |
+| **Anti-demiurge covenant** | Binding refusal: Gate (and peers) never take sovereign C2 / private Omega |
+| **Genealogy of civilizations** | Receipt chains spanning extinctions and reboots — ancestor debt across deep time |
+| **May for the may-makers** | Recursive license — builders of mouths are the highest-undo principals under flags |
+
+### More god-products (stack)
+
+| SKU (concept) | What it is |
+|---------------|------------|
+| **Inhibit graph** | Compiled ROE / escalation ladder that runs |
+| **Succession will** | Inheritance of may on principal death |
+| **Time-lock LIVE** | Envelope that unlocks only at T+N |
+| **Forgery detector** | Prove the mouth is authentic, not adversary sheath |
+| **Reboot kit** | Reconstitute may after collapse |
+| **Sacred tier pack** | Body / land / germline / stellar quorum modules |
+| **Municipal mouth** | City actuator clearance as mass SKU |
+| **Care mouth** | Hospital / dose / OR fail-closed stack |
+| **Speech-act bridge** | Binding vow / sentence → LIVE (legal medium) |
+| **Meta-sheath** | License to manufacture sheaths |
+| **Kardashev meter** | Undo-cost scaled to energy class |
+| **Beyond-Filter charter** | Post-survival may doctrine under coordinators |
+
 ### Competitive whitespace (visceral)
 
 | They own | Gate owns when the mountain is real |
@@ -358,29 +437,42 @@ Not September SKUs. **Mountain SKUs** — so the north star has teeth.
 | Platforms that last 40 years | **Whether** may is still legitimate in year 40 — and dead at scrap |
 | Classified after-action | **Public-grade** prove of LIVE **and** DENY |
 | ROE as PDF | ROE as **compiled inhibit graph** in the bones |
+| Twin that simulates | Twin that **cannot** write reality without forge-grade may |
+| Charismatic command | Quorum hardware that **ignores** soft “boss said yes” |
+| Collapse narratives | **Reboot kit** — may reconstituted with stranger continuity |
+| Counterfeit parts scare | Counterfeit **authority** detection via may-genealogy |
 
 ### Eons one-liner
 
-> Primes forge **what can fire**. Palantir maps **what might matter**.  
+> Primes forge **what can fire**. Anduril multiplies **what can swarm**. Palantir maps **what might matter**.  
 > Gate forges **what may fire, when, under whom, with proof that restraint held** —  
-> in flesh, in silicon, on the grid, in orbit, across light-minutes, under flags that outlive any founder —  
-> **eons adjacent, never eons sovereign.**
+> in flesh, silicon, cities, hospitals, grids, orbits, light-minutes, stellar writes, and civilization reboots —  
+> recursive on the mouth itself, scaled to Kardashev undo-cost, forged against every Filter mode —  
+> **beyond every session, eons adjacent, never eons sovereign.**
+
+### Sharpest cut (repeatable)
+
+> Lockheed sells **the sword**. Anduril sells **the swarm**. Palantir sells **the map**.  
+> Gate sells **the lock on the sword, the leash on the swarm, and the proof that the map never became an unauthorized shot** —  
+> designed in, assembled, enforced live, proved after — under the flag, never as the flag.
 
 ---
 
 ## Subject stack (what makes the star heavier)
 
-1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology  
-2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological principals  
-3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest  
-4. **Standards power** — own the grammar (BGP-of-may), not only a SaaS SKU  
-5. **Incentives** — mechanism design so bypass is irrational  
-6. **Industrial genealogy** — serial may-lineage, decommission of authority  
-7. **Deep-time / latency** — light-delay clearance, async may-budget, relativistic principal sync  
-8. **Noosphere hygiene** — attention→act bridge, open-weights genesis, epistemic forgeries  
+1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology, Kardashev scaling  
+2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological principals, succession  
+3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest, forge-of-forges  
+4. **Standards power** — own the grammar (BGP-of-may), metrology institute, not only a SaaS SKU  
+5. **Incentives** — mechanism design so bypass is irrational; anti-charisma under panic  
+6. **Industrial genealogy** — serial may-lineage, decommission of authority, forgery detection  
+7. **Deep-time / latency** — light-delay clearance, async may-budget, relativistic principal sync, reboot kits  
+8. **Noosphere hygiene** — attention→act bridge, open-weights genesis, epistemic forgeries, speech-act LIVE  
+9. **Recursive / meta** — mouth-of-mouths, may for may-makers, anti-demiurge covenant  
+10. **Sacred & municipal** — body/land/germline/stellar tiers; city and care as early mass forge sites  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
-The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure.
+The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
 
 ---
 
@@ -395,6 +487,7 @@ The ceiling is **forge + mouth + prove** — then Filter metrology as civilizati
 | **Forge scale** | Engineering houses, assembly cells, HIL labs, permission-BOM supply — **core business** |
 | **Eventually** | Full life: conceive→scrap; physical + cyber + digital; before/during/after |
 | **Eons** | Transhuman media + deep-time / interstellar may — same grammar, latency and undo-cost at max |
+| **Beyond Filter** | Grammar hegemony + metrology institute + reboot kits + Kardashev may — still under coordinators |
 | **Never** | Above a nation; private nukes; own C2 as sovereign; private demiurge or post-national throne |
 
 September cares about: reply → meeting → paid artifact.  
@@ -418,6 +511,11 @@ This file cares about: the mountain after the foothold.
 | Model open-weights dump | AI release | Digital genesis without demiurge watch |
 | Swarm OTA mid-mission | Autonomy update | Replication / escalate can without re-clear |
 | “The dashboard said green” | Decision support | Sight treated as mouth |
+| “Boss said go” under panic | Command culture | Soft charisma treated as LIVE |
+| Twin drives the plant | Digital twin | Simulation boundary crossed without forge may |
+| Admiral spoofed at light-delay | Comms security | Enemy may-forgery + anti-charisma gap |
+| OR infusion “just a pump” | Clinical device | Sacred media without dose LIVE |
+| City floodgate auto-open | Smart infrastructure | Municipal irreversible without mouth |
 
 Same missing layer. Unification is the product.
 
@@ -459,12 +557,13 @@ Still under the crown. Still not the crown.
 
 ## Refuse list (north star hygiene)
 
-- Lead cold outbound with this document or “civilizational” language  
+- Lead cold outbound with this document or “civilizational” / “eons” / “beyond every session” language  
 - Cosplay Tier-S or factory empire before one paid commercial DENY  
 - Widen to nine industries while Bind Room is unproven  
 - Claim ownership of guns, grid, or nuclear C2  
 - Confuse **adjacent** with **above**  
 - Treat manufacturing as “optional later” in doctrine — **it is core**; only the **timing** is sequenced  
+- Confuse **mapping the mountain** with **shipping the foothold** — September still scores reply → meeting → paid artifact  
 
 ---
 
@@ -478,4 +577,4 @@ Still under the crown. Still not the crown.
 
 ## Lock line (repeatable)
 
-**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Adjacent to S. Never sovereign.**
+**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Beyond every session. Adjacent to S. Never sovereign.**
