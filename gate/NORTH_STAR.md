@@ -198,6 +198,90 @@ Still **under coordinators** — never private godhood.
 
 ---
 
+## Eons horizon (transhuman · intergalactic · unmapped by primes)
+
+This is the **eons-ahead** layer — not marketing, not September outbound.  
+Still **formally mappable** to medium × time × role × life.  
+Still **under coordinators** — never private demiurge, never post-national throne.
+
+### What the primes map (and where they stop)
+
+| Firm | They map | They stop at |
+|------|----------|--------------|
+| **Lockheed / Raytheon** | Can in air · land · sea · space · cyber — platforms, sensors, effectors, sustainment | May as **product property**; stranger prove; permission genealogy across life |
+| **Anduril** | Autonomy mesh, lattice C2, attritable mass — **can at the edge** | Unified fail-closed may-grammar; forge-time DENY proof; counterfactual restraint receipts |
+| **Palantir** | Ontology, fusion, decision **support** — see everything, suggest action | **LIVE at the irreversible edge**; during-inhibit; may welded into silicon and steel |
+| **Nobody (yet)** | Medium × time × role × **life** as one industrial stack | Conceive → scrap with **may in the bones** + runtime mouth + prove-after as **default grammar** |
+
+Primes multiply **hands**. Palantir multiplies **sight**.  
+Gate’s eons bet: multiply **legitimate restraint** as an industrial product — across substrates, centuries, and eventually light-minutes.
+
+### Transhuman commit surfaces (body and mind as media)
+
+| Capture | Signal | Gate formalization |
+|---------|--------|-------------------|
+| **Neural write interface** | BCI / implant as new irreversible edge | Body-as-medium: dose-tier undo-cost; scoped LIVE per electrode class; forge-time fail-closed |
+| **Cognitive augmentation may** | Enhanced human as new principal class | Hybrid principal license — human + tool chain share quorum LIVE; death of either ⇒ de-license |
+| **Memory edit / erase** | Landauer meets identity | Irreversible info destruction ranked; prove what was **never** written to long-term store |
+| **Upload continuity escrow** | Substrate change without principal death | Principal persistence protocol — may survives body swap only with stranger-verified handoff receipt |
+| **Collective cognition quorum** | Hive decision as single act | N-of-M LIVE across linked minds/agents; excommunication of one node kills group may |
+| **Germline / somatic genesis** | Self-modification as civilizational fork | Highest undo-cost biological tier; multi-sovereign LIVE; prove **restraint** (what edits did not ship) |
+| **Longevity stack** | Deferred death ≠ deferred may | Principal alive ⇒ may scoped; clinical death ⇒ instant de-license (extends cryonic escrow) |
+| **Enhancement arms race** | Can in cortex outruns policy | Same Filter logic at neural speed — **during-inhibit** before augmented act commits |
+
+Transhuman is not “beyond Gate.” It is **new media** in the same grammar.
+
+### Deep time · interstellar · post-planetary
+
+| Capture | Signal | Gate formalization |
+|---------|--------|-------------------|
+| **Light-delay clearance** | Mars · belt · Oort · nearest star — minutes to years RTT | Async quorum LIVE: pre-authorized may-budget + algedonic escalate; **loss of link ⇒ DENY** (Perimeter inverted) |
+| **Von Neumann probe may** | Self-replicating explorer with local actuators | Birth certificate for autonomy — factory DENY gate on replication; prove each gen’s may lineage |
+| **Stellar engineering LIVE** | Star lifting · Dyson-class — max undo-cost | Civilization-tier before; irreversible on stellar timescales; liability spans eons |
+| **Terraforming commit** | Planetary-scale atmosphere / biome write | Multi-century prove-after; scheduled Jubilee resets; ancestor receipts to future biosphere |
+| **Interstellar treaty bus** | No world-court at 4 ly | Same clearance grammar as Bind Room — scaled to **light-cone latency** and allied coordinators |
+| **Relativistic principal drift** | Crew ages slower; may policy ages on Earth | Time-dilated principal sync — may expires in ship-frame vs home-frame; forged LIVE detection |
+| **Archive civilization** | Sub-light seed mission as debt to future | Seed vault LIVE (extends Svalbard); may activates only on **arrival conditions**, not launch panic |
+| **Debris / Kessler as Filter mode** | Orbital may failure at scale | Planetary defense row extends to **traffic may** — every Δv earns conjunction LIVE + prove |
+| **Multi-species coordinator** | First contact as principal-class problem | Xenology as **authority design** — not weapon first; scoped LIVE for irreversible cross-species acts |
+| **Heat-death ledger** | Ultimate thermodynamic cap on undo | Undo-cost metrology anchored in physics — ranks acts even when law is silent |
+
+Intergalactic is not sci-fi cosplay. It is **the same mouth** with **latency and undo-cost turned up**.
+
+### Post-biological principals (agents that outlive flesh)
+
+| Role | Eons job |
+|------|----------|
+| **Machine principal** | Agent with scoped may — licensed like MGA, not API-keyed |
+| **Institutional principal** | Nation · carrier · program as long-lived actor — may succession on charter change |
+| **Ancestor principal** | Dead but obligated — Fedorov debt; funeral decommission extends to **centuries of receipt** |
+| **Successor principal** | Cryonic / upload / clone ambiguity — **one** may-line; fork = forged LIVE |
+| **Probe principal** | Autonomous at 0.01 c — may-budget decays; replication requires quorum at home |
+
+No private Omega. Coordinators remain coordinators — even when the coordinator is a **constellation of post-human and post-biological actors**.
+
+### Eons industrial life (forge at civilization scale)
+
+| Life phase | Eons extension |
+|------------|----------------|
+| **Conceive** | Undo-cost ranked against **Filter** and **stellar** tiers — not quarterly OKR |
+| **Design** | Digital twin includes **authority twin** — may-graph beside physics-graph |
+| **Forge** | Permission BOM in every critical module — Earth factory or orbital cell |
+| **Deploy** | Commission at distance — stranger genesis receipt before first irreversible act |
+| **Operate** | Before / during / after across **light delay** — async inhibit, not silent fail-open |
+| **Sustain** | OTA re-clearance when **can** expands — same rule as bind desk, scaled to probe |
+| **Decommission** | Retire may across millennia — ghost authority in deep-space firmware is **the** failure mode |
+| **Genealogy** | Serial may-lineage from Toledo cell to **serial on another star** — one grammar |
+
+### Eons one-liner
+
+> Primes forge **what can fire**. Palantir maps **what might matter**.  
+> Gate forges **what may fire, when, under whom, with proof that restraint held** —  
+> in flesh, in silicon, on the grid, in orbit, across light-minutes, under flags that outlive any founder —  
+> **eons adjacent, never eons sovereign.**
+
+---
+
 ## Subject stack (what makes the star heavier)
 
 1. **Irreversibility science** — thermo, info, causality, undo-cost  
@@ -222,7 +306,8 @@ The ceiling is **forge + mouth + prove**.
 | **Later** | Program / gov / defense **digital–cyber** clearance under contract |
 | **Forge scale** | Engineering houses, assembly cells, HIL labs, permission-BOM supply — **core business** |
 | **Eventually** | Full life: conceive→scrap; physical + cyber + digital; before/during/after |
-| **Never** | Above a nation; private nukes; own C2 as sovereign |
+| **Eons** | Transhuman media + deep-time / interstellar may — same grammar, latency and undo-cost at max |
+| **Never** | Above a nation; private nukes; own C2 as sovereign; private demiurge or post-national throne |
 
 September cares about: reply → meeting → paid artifact.  
 This file cares about: the mountain after the foothold.
@@ -248,6 +333,15 @@ Same missing layer. Unification is the product.
 
 ## Vs primes / platforms (full stack)
 
+| Dimension | Lockheed · Raytheon | Anduril | Palantir | Gate north star |
+|-----------|---------------------|---------|----------|-----------------|
+| **Core bet** | **Can** — platforms, effectors | **Can at the edge** — autonomy mesh | **See** — ontology, fusion | **May + prove + forge** — permission industrial stack |
+| **Factory** | Jets, missiles, buses | Attritable mass, sensors | — (software-first) | **May in the machine**; assembly proves DENY path |
+| **Runtime** | Platform operates | Lattice clears targets | Suggests; human or system acts | **Mouth** at irreversible edge — LIVE / DENY / inhibit |
+| **After-action** | Classified logs, program review | Mission telemetry | Audit trails in platform | **Stranger-grade receipt** as product |
+| **Horizon** | Program of record | Near-peer attrition | Enterprise + gov data | **Medium × time × role × life** — including eons layer |
+| **Endgame** | Arsenal adjacency | Defense-tech platform | Decision OS | **Default industrial control plane** under coordinators |
+
 | Dimension | Classic prime (Lockheed-class) | Gate north star |
 |-----------|--------------------------------|-----------------|
 | **Core** | **Can** — platforms, sensors, weapons, sustainment | **May + prove + forge** — permission industrial stack |
@@ -265,8 +359,8 @@ Same missing layer. Unification is the product.
 | **Power type** | Industrial capability | Legitimacy / restrainability of irreversible acts |
 | **What ripping you out costs** | Re-compete a platform | **Redesign the product’s bones + lose prove** |
 
-Lockheed forges **swords**.  
-Gate forges **sheaths that can lock**, runs the **lock at runtime**, and issues the **receipt**.  
+Lockheed forges **swords**. Anduril multiplies **eyes that shoot**. Palantir multiplies **sight before the shot**.  
+Gate forges **sheaths that lock**, runs the **lock at runtime**, issues the **receipt**, and maps the **eons layer** none of them unify.  
 Still under the crown. Still not the crown.
 
 ---
