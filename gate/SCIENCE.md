@@ -1,5 +1,7 @@
 # Science + tech → Gate mouth (PRI)
 
+**Long-term mountain (not outbound copy):** see `NORTH_STAR.md`.
+
 **Motive:** Contribute massively to Tier-S continuity **with** global coordinators.  
 Collaborate as the clearance mouth. **Do not own** C2, nukes, grid, or link monopolies.
 
