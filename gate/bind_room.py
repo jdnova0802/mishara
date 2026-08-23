@@ -59,7 +59,12 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "ghost_bind": f"{public_url}/bind-room/ghost-bind.json",
             "stick_meter": f"{public_url}/bind-room/stick-meter.json",
             "charge_bride": f"{public_url}/bind-room/charge-bride.json",
-            "pair": "Throat is the mouth. Ghost Bind is the haunt-check. Stick Meter scores mass. Charge Bride forges soft-yes resurrect. All ship as Bind Room seed.",
+            "hop_tattoo": f"{public_url}/bind-room/hop-tattoo.json",
+            "soft_yes_snare": f"{public_url}/bind-room/soft-yes-snare.json",
+            "mass_tag": f"{public_url}/bind-room/mass-tag.json",
+            "issue_bind_splitter": f"{public_url}/bind-room/issue-bind-splitter.json",
+            "ticket_fuse_pack": f"{public_url}/bind-room/ticket-fuse-pack.json",
+            "pair": "Nine shipped Bind Room seeds — mouth, haunt, mass, resurrect, tattoo, snare, tag, splitter, fuse.",
         },
     }
 

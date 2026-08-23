@@ -26,6 +26,7 @@ REASON_SOFT_CONFIG = "soft_pas_without_mouth"
 REASON_AMBIGUOUS = "ambiguous_without_receipt"
 REASON_ACTED_WITHOUT_LIVE = "acted_without_live"
 REASON_SIGHT_AS_MOUTH = "sight_treated_as_mouth"
+REASON_CHARISMA = "boss_said_yes_without_quorum"
 
 
 def _norm(decision: str | None) -> str:
@@ -39,6 +40,7 @@ def evaluate(
     halt: bool | None = None,
     allow_bind: bool | None = None,
     verify_url: str | None = None,
+    boss_said_yes: bool | None = None,
     hop: dict | None = None,
     soft_pas: bool | None = None,
     timeout: bool | None = None,
@@ -84,6 +86,14 @@ def evaluate(
             decision=d or None,
             verify_url=verify,
             detail="Dashboard green is sight, not mouth.",
+        )
+    if boss_said_yes or hop.get("boss_said_yes") or hop.get("charisma_live"):
+        return _result(
+            CHOKE,
+            reasons=[REASON_CHARISMA],
+            decision=d or None,
+            verify_url=verify,
+            detail="Boss said yes is forged — charisma is not LIVE.",
         )
     if not d and allow is None and not halted:
         return _result(
@@ -170,6 +180,7 @@ def attach(plan: dict, *, hop: dict | None = None) -> dict:
         soft_pas=plan.get("soft_pas"),
         timeout=plan.get("timeout"),
         sight_only=plan.get("sight_only"),
+        boss_said_yes=plan.get("boss_said_yes"),
     )
     plan["throat"] = throat
     if throat["state"] == CHOKE:

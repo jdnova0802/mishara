@@ -225,6 +225,31 @@ except ImportError:
     import charge_bride as charge_bride_mod
 
 try:
+    from gate import hop_tattoo as hop_tattoo_mod
+except ImportError:
+    import hop_tattoo as hop_tattoo_mod
+
+try:
+    from gate import soft_yes_snare as soft_yes_snare_mod
+except ImportError:
+    import soft_yes_snare as soft_yes_snare_mod
+
+try:
+    from gate import mass_tag as mass_tag_mod
+except ImportError:
+    import mass_tag as mass_tag_mod
+
+try:
+    from gate import issue_bind_splitter as issue_bind_splitter_mod
+except ImportError:
+    import issue_bind_splitter as issue_bind_splitter_mod
+
+try:
+    from gate import ticket_fuse_pack as ticket_fuse_pack_mod
+except ImportError:
+    import ticket_fuse_pack as ticket_fuse_pack_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -995,6 +1020,9 @@ def _finalize_spend_plan(
         plan["reason"] = plan.get("reason") or (plan["throat"].get("reasons") or ["throat_choke"])[0]
     ghost_bind_mod.attach_haunt(plan)
     stick_meter_mod.attach(plan, spend_write=spend_write)
+    mass_tag_mod.attach(plan)
+    issue_bind_splitter_mod.attach(plan, issue_type=plan.get("issue_type"))
+    ticket_fuse_pack_mod.attach(plan, public_url=advertised_url())
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -1036,6 +1064,14 @@ def _finalize_spend_plan(
         "spec_url": f"{advertised_url()}/.well-known/spend-protocol.json",
     }
     plan["event_id"] = event_id
+    hop_tattoo_mod.attach(
+        plan,
+        job_id=jid,
+        verify_url=_verify_from(hop_d) or plan.get("verify_url"),
+        event_id=event_id,
+        fuse_id=fuse_id,
+        hop=hop_d if isinstance(hop_d, dict) else None,
+    )
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1044,6 +1080,8 @@ def _finalize_spend_plan(
     extra["X-Gate-Stick-Meter"] = str((plan.get("stick_meter") or {}).get("score") or "")
     extra["X-Gate-Mass-Class"] = (plan.get("stick_meter") or {}).get("mass_class") or ""
     extra["X-Gate-Charge-Bride"] = (plan.get("charge_bride") or {}).get("verdict") or ""
+    extra["X-Gate-Mass-Tag"] = (plan.get("mass_tag") or {}).get("tag") or ""
+    extra["X-Gate-Hop-Tattoo"] = (plan.get("hop_tattoo") or {}).get("tattoo_hash") or ""
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1097,6 +1135,7 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
     )
     plan = weld.policycenter_plan(job_id, hop_d, status, body.get("issue_type"))
     plan["fuse_id"] = fuse_id
+    plan["issue_type"] = body.get("issue_type")
     _stamp_invention_context(plan, body)
     spend_write = spend_protocol_mod.intended_policycenter(
         job_id=job_id,
@@ -1443,6 +1482,11 @@ def well_known_gate():
             "ghost_bind": f"{advertised_url()}/.well-known/ghost-bind.json",
             "stick_meter": f"{advertised_url()}/.well-known/stick-meter.json",
             "charge_bride": f"{advertised_url()}/.well-known/charge-bride.json",
+            "hop_tattoo": f"{advertised_url()}/.well-known/hop-tattoo.json",
+            "soft_yes_snare": f"{advertised_url()}/.well-known/soft-yes-snare.json",
+            "mass_tag": f"{advertised_url()}/.well-known/mass-tag.json",
+            "issue_bind_splitter": f"{advertised_url()}/.well-known/issue-bind-splitter.json",
+            "ticket_fuse_pack": f"{advertised_url()}/.well-known/ticket-fuse-pack.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
@@ -2970,6 +3014,31 @@ def bind_room_charge_bride():
     return jsonify(charge_bride_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/hop-tattoo.json")
+def bind_room_hop_tattoo():
+    return jsonify(hop_tattoo_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/soft-yes-snare.json")
+def bind_room_soft_yes_snare():
+    return jsonify(soft_yes_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/mass-tag.json")
+def bind_room_mass_tag():
+    return jsonify(mass_tag_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/issue-bind-splitter.json")
+def bind_room_issue_bind_splitter():
+    return jsonify(issue_bind_splitter_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ticket-fuse-pack.json")
+def bind_room_ticket_fuse_pack():
+    return jsonify(ticket_fuse_pack_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/throat.json")
 def well_known_throat():
     return jsonify(throat_mod.manifest(advertised_url()))
@@ -2990,6 +3059,31 @@ def well_known_charge_bride():
     return jsonify(charge_bride_mod.manifest(advertised_url()))
 
 
+@app.route("/.well-known/hop-tattoo.json")
+def well_known_hop_tattoo():
+    return jsonify(hop_tattoo_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/soft-yes-snare.json")
+def well_known_soft_yes_snare():
+    return jsonify(soft_yes_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mass-tag.json")
+def well_known_mass_tag():
+    return jsonify(mass_tag_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/issue-bind-splitter.json")
+def well_known_issue_bind_splitter():
+    return jsonify(issue_bind_splitter_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ticket-fuse-pack.json")
+def well_known_ticket_fuse_pack():
+    return jsonify(ticket_fuse_pack_mod.manifest(advertised_url()))
+
+
 @app.route("/demo/pas/throat", methods=["POST"])
 def demo_pas_throat():
     _, err = _demo_gate()
@@ -3008,6 +3102,7 @@ def demo_pas_throat():
         soft_pas=body.get("soft_pas"),
         timeout=body.get("timeout"),
         sight_only=body.get("sight_only"),
+        boss_said_yes=body.get("boss_said_yes"),
     )
     result["demo"] = True
     result["ghost_bind"] = f"{advertised_url()}/demo/pas/ghost-bind"
@@ -3095,6 +3190,84 @@ def demo_pas_charge_bride_drills():
     report = charge_bride_mod.run_drills()
     report["demo"] = True
     return jsonify(report)
+
+
+@app.route("/demo/pas/hop-tattoo", methods=["POST"])
+def demo_pas_hop_tattoo():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = hop_tattoo_mod.burn(
+        job_id=body.get("job_id"),
+        verify_url=body.get("verify_url"),
+        event_id=body.get("event_id"),
+        fuse_id=body.get("fuse_id"),
+        decision=body.get("decision"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/hop-tattoo/<job_id>")
+def demo_pas_hop_tattoo_lookup(job_id: str):
+    _, err = _demo_gate()
+    if err:
+        return err
+    result = hop_tattoo_mod.lookup(job_id)
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/soft-yes-snare", methods=["POST"])
+def demo_pas_soft_yes_snare():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    result = soft_yes_snare_mod.evaluate_scenario(scenario)
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/soft-yes-snare/drills")
+def demo_pas_soft_yes_snare_drills():
+    report = soft_yes_snare_mod.run_drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/issue-bind-splitter", methods=["POST"])
+def demo_pas_issue_bind_splitter():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = issue_bind_splitter_mod.evaluate(
+        issue_type=body.get("issue_type"),
+        blocking_point=body.get("blocking_point"),
+        bind_path=body.get("bind_path"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/ticket-fuse-pack")
+def demo_pas_ticket_fuse_pack():
+    _, err = _demo_gate()
+    if err:
+        return err
+    license_id = (request.args.get("license_id") or "").strip() or None
+    result = ticket_fuse_pack_mod.pack(license_id=license_id, public_url=advertised_url())
+    result["demo"] = True
+    return jsonify(result)
 
 
 @app.route("/bind-room/appendix.schema.json")

@@ -38,6 +38,11 @@ class ThroatTests(unittest.TestCase):
         r = throat_mod.evaluate(sight_only=True, decision="ALLOW")
         self.assertEqual(r["state"], throat_mod.CHOKE)
 
+    def test_choke_on_boss(self):
+        r = throat_mod.evaluate(boss_said_yes=True, decision="ALLOW", allow_bind=True)
+        self.assertEqual(r["state"], throat_mod.CHOKE)
+        self.assertIn(throat_mod.REASON_CHARISMA, r["reasons"])
+
     def test_choke_missing_decision(self):
         r = throat_mod.evaluate()
         self.assertEqual(r["state"], throat_mod.CHOKE)

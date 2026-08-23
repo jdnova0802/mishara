@@ -767,10 +767,15 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 | **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | **Shipped seed** — `gate/ghost_bind.py`, `/.well-known/ghost-bind.json`, `POST /demo/pas/ghost-bind` |
 | **Stick Meter** | Scores commit-mass of bind/payout/sanction writes before the mouth — light / heavy / sacred | Before | **Shipped seed** — `gate/stick_meter.py`, `/.well-known/stick-meter.json`, `POST /demo/pas/stick-meter` |
 | **Charge Bride** | Only CHARGE resurrects DEAD — UW approve / chat yes is forged | Before | **Shipped seed** — `gate/charge_bride.py`, `/.well-known/charge-bride.json`, `POST /demo/pas/charge-bride` |
+| **Hop Tattoo** | Every pre-bind hop burns a stranger verify_url into the job | Before | **Shipped seed** — `gate/hop_tattoo.py`, `/.well-known/hop-tattoo.json`, `GET /demo/pas/hop-tattoo/{job_id}` |
+| **Soft-Yes Snare** | Red-team pack — timeout/dashboard/boss→LIVE must CHOKE or haunt | Before | **Shipped seed** — `gate/soft_yes_snare.py`, `GET /demo/pas/soft-yes-snare/drills` |
+| **Mass Tag** | Stick Meter score → light / heavy / sacred UW tag | Before | **Shipped seed** — `gate/mass_tag.py`, `/.well-known/mass-tag.json` |
+| **Issue≠Bind Splitter** | QuoteRelease is not a bind stop — PolicyCenter leak detector | Before | **Shipped seed** — `gate/issue_bind_splitter.py`, `POST /demo/pas/issue-bind-splitter` |
+| **Ticket Fuse** | Bind ticket dies with parent license — MGA pen story | Before | **Shipped seed** — `gate/ticket_fuse_pack.py`, `GET /demo/pas/ticket-fuse-pack` |
 | **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Spec'd (Bind Room verify_url is the foothill form) |
 | **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Spec'd |
 
-**Pair rule:** Throat is the mouth. Ghost Bind is the haunt-check. Stick Meter scores mass. Charge Bride forges soft-yes resurrection. All weld into `_finalize_spend_plan` — CHOKE and FORGED cannot soft-allow; haunt + score stamp the plan for CUO drills.
+**Pair rule:** Nine shipped seeds weld into `_finalize_spend_plan` — CHOKE, FORGED, and soft-yes snares cannot soft-allow; tattoo + mass tag stamp every hop for CUO drills and officer appendix.
 
 ### Applicable now (next welds — 2026 gravity you can sell)
 
@@ -778,9 +783,6 @@ These are **not eons cosplay**. They sit on Bind Room / agent / plant edges you 
 
 | Invention | What it is | Why it sells now | First wedge |
 |-----------|------------|------------------|-------------|
-| **Hop Tattoo** | Every pre-bind hop burns a stranger verify_url into the job | Examiner can open the no without trusting the carrier | Officer appendix |
-| **Soft-Yes Snare** | Red-team pack: timeout→LIVE, dashboard→LIVE, boss→LIVE — all must CHOKE | Turns Ghost Bind into a paid drill | CUO workshop |
-| **Ticket Fuse** | Bind ticket dies with parent license; children cannot outlive the mouth | License-fuse already in code — productize the story | MGA pen |
 | **Payout Throat** | Same mouth on money-leave (release before wire) | SCIENCE first weld — second commercial edge after bind | Operator / withdraw |
 | **Twin Diode** | Digital twin may read plant; write path requires Secure Write Macro + LIVE | OT buyers fear twin→PLC; diode is the pitch | Plant Sheath Starter |
 | **Agent Passport Weld** | Tool Throat + signed pre-action auth (OAP cousin) on irreversible tool classes | Agents shipping now with passwords, no permission slips | Agent Mouth Kit |
@@ -920,7 +922,7 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 
 | Applicable rn | Deeper future |
 |---------------|---------------|
-| Stick Meter · Charge Bride · Hop Tattoo · Soft-Yes Snare | Mass Standard · Sheath Exchange · ROE Runtime |
+| Hop Tattoo · Soft-Yes Snare · Mass Tag · Issue≠Bind Splitter · Ticket Fuse | Payout Throat · Twin Diode · Agent Passport Weld |
 | Ticket Fuse · Payout Throat · Bypass Canary | Cascade Cap · Consent Lattice · Kardashev Sheath |
 | Twin Diode · Agent Passport Weld · Desk Quorum Fob | Sacred Tier Pack · Xeno Principal Table · Heat-Death Ledger |
 | Panic Latch · Issue≠Bind Splitter · Restraint Invoice | Filter Actuary · Proof of Restraint Bond · Post-Filter Charter |
