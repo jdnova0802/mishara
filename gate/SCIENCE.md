@@ -2,12 +2,16 @@
 
 **Long-term mountain (not outbound copy):** see `NORTH_STAR.md`.
 
+**Doctrine lead vs physics:** `NORTH_STAR.md` leads with **commit · mass · sheath · gravity** (legitimacy of force).  
+This file keeps the **physics names**: irreversibility, undo-cost, PRI. Same stack — different register.
+
 **Motive:** Contribute massively to Tier-S continuity **with** global coordinators.  
 Collaborate as the clearance mouth. **Do not own** C2, nukes, grid, or link monopolies.
 
-**Formula:** Inhibit unjustified irreversible acts (PRI) — fail-closed — as a **driver-node mouth** on the act graph, not a hub dashboard.
+**Formula:** Inhibit unjustified hard commits / irreversible acts (PRI) — fail-closed — as a **driver-node mouth** on the act graph, not a hub dashboard.  
+In gravity language: sheath unjustified force; authorize justified force; stranger-prove either way.
 
-**Tech thesis:** Frontiers multiply what systems *can* do. Gate owns the mouth between **can** and **may** — contribute under each stack; do not own their guns.
+**Tech thesis:** Frontiers multiply what systems *can* do. Gate owns the mouth between **can** and **may** — the gravity well where force sticks — contribute under each stack; do not own their guns.
 
 ## First weld (named)
 

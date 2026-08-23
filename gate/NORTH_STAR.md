@@ -10,19 +10,48 @@ Bind Room / MGA outbound is the **first foothold**. Do not put this document in 
 
 ---
 
+## Lead metaphor (gravity, not hall monitor)
+
+**Irreversibility** is the physics footnote — thermo, causality, blast radius. Correct. Necessary.  
+As a *brand feeling* it can sound like detention: soft DENY, adult supervision, compliance energy.
+
+Gate’s lead metaphor is **gravity**:
+
+| Soft word (hall monitor) | Force word (gravity) |
+|--------------------------|----------------------|
+| Irreversibility | **Hard commit** — the write that remakes the world |
+| Undo-cost | **Mass** — how hard reality pulls back once the act lands |
+| DENY | **Sheath** — the lock on the sword |
+| LIVE | **Authorization of force** — under *their* ROE / policy |
+| Prove | **Receipt of power** — what fired *and* what was held |
+| May | **Legitimacy of force** — who may make history stick |
+
+Lockheed’s gravity is **can**. Anduril’s is **can at the edge**. Palantir’s is **sight**.  
+Gate’s gravity is the **well where force becomes real** — when an act stops being a suggestion and starts being history — **forged, mouthed, sheathed, proved**.
+
+Hall monitor = *you’re not allowed.*  
+Gate = *this is where power enters the world — and the sheath that can lock it.*
+
+**Physics stays.** PRI / fail-closed / stranger receipt stay in `SCIENCE.md`.  
+**Outbound and doctrine lead** with commit · mass · sheath · gravity · legitimacy of force.
+
+---
+
 ## One sentence
 
-> Become the **default irreversible-act industrial stack** for legitimate coordinators —  
+> Become the **default hard-commit industrial stack** for legitimate coordinators —  
 > not only the runtime mouth, but the **forge**: design, engineering, assembly, test, and field sustainment of systems whose **may is welded into the artifact** —  
-> the shared nervous system for **may** across media —  
-> **before, during, and after** every high-undo-cost act —  
-> **mapped, cleared, inhibited, proved, and manufactured** —  
+> the shared gravity well for **legitimacy of force** across media —  
+> **before, during, and after** every high-mass act —  
+> **mapped, cleared, sheathed, proved, and manufactured** —  
 > so nations can project force and restrain force without trusting a silent fail-open —  
 > **under** the flag, never instead of it.
 
 Shorter:
 
-> We don’t rule nations. We **build and run** the layer that makes irreversible power **legible and restrainable**.
+> We don’t rule nations. We **build and run** the layer where power **sticks** — legible, sheathed, and proveable.
+
+Physics footnote: “sticks” = high undo-cost / irreversible under thermo + law + blast radius (`SCIENCE.md`).
 
 ---
 
@@ -35,12 +64,13 @@ Primes multiply **can** in factories. Nobody unifies **may in the factory + may 
 The god wound:
 
 > Hands ship faster than permission that holds when the link lies, the human sleeps, or the cascade starts —  
-> and permission, when it exists, is a **software afterthought**, not a **manufactured property**.
+> and permission, when it exists, is a **software afterthought**, not a **manufactured property of the machine**.
 
 Local switches exist (banks, ROE, relays, PAS rules, device “safety”).  
-**Nobody in history has unified** high-undo-cost **may + prove** as one grammar across domains **and** embodied it through the full product life (design → machine → field → scrap).
+**Nobody in history has unified** high-mass **may + prove** as one grammar across domains **and** embodied it through the full product life (design → machine → field → scrap).
 
-That unification gap is the company.
+That unification gap is the company.  
+Not a hall monitor for bad writes — a **gravity well for force that sticks**.
 
 ---
 
@@ -48,8 +78,8 @@ That unification gap is the company.
 
 ### 1. Medium (where the act lives)
 
-| Medium | Example irreversible edge |
-|--------|---------------------------|
+| Medium | Example hard-commit edge |
+|--------|--------------------------|
 | Digital | Bind, settle, sign, mint, open-weights publish |
 | Cyber | Destructive or cascading network acts |
 | Energy | Shed, trip, reconnect, pulsed dump |
@@ -59,10 +89,11 @@ That unification gap is the company.
 | Quantum | Measure/collapse, one-shot key consume |
 | Biological | Release / replicate (state-fenced, extreme care) |
 | Legal / identity | License, sanction, status that won’t un-write cleanly |
-| Geometry / GR | Irreversible Δv, capture, horizon-crossing in curved spacetime |
+| Geometry / GR | Hard-commit Δv, capture, horizon-crossing in curved spacetime |
 | Epistemic / void | Acts claimed beyond measurable physics — default DENY |
 
-**Undo-cost** (thermo + legal + blast radius) ranks what must pass the mouth.
+**Mass of the act** (thermo + legal + blast radius) ranks what must pass the mouth.  
+Physics name for mass: **undo-cost / irreversibility** — see `SCIENCE.md`. Not the lead vibe.
 
 ### 2. Time
 
@@ -78,11 +109,11 @@ Most vendors only ship a weak **before**. **During** and **prove-after** are the
 
 | Role | Job |
 |------|-----|
-| Map | Act graph, driver edges, undo-cost |
+| Map | Act graph, driver edges, **mass** of the act |
 | Coordinate | Levers across desks / agents / allies |
-| Clear | LIVE only if justified + quorum policy |
-| Inhibit | Fail-closed halt that holds |
-| Prove | Receipt outside the actor’s trust boundary |
+| Clear | LIVE only if justified + quorum policy — **authorization of force** |
+| Inhibit / sheath | Fail-closed halt that holds — the **lock on the sword** |
+| Prove | Receipt of power outside the actor’s trust boundary |
 | **Forge** | Design / engineer / assemble / test so may is a **property of the machine** |
 
 ### 4. Life (product dimensions — not optional)
@@ -91,8 +122,8 @@ Manufacturing is **core**, not a later checkbox. Gate’s end-state is **industr
 
 | Life phase | What Gate captures | Why it’s rare |
 |------------|-------------------|---------------|
-| **Conceive / requirements** | Undo-cost + may-hooks as first-class requirements | Specs list “safety”; almost never “stranger-prove DENY path” |
-| **Design / MBSE** | Act-graph in the digital twin; every irreversible function tagged | Twins model physics; rarely model **authority** |
+| **Conceive / requirements** | Mass of the act + may-hooks as first-class requirements | Specs list “safety”; almost never “stranger-prove DENY path” |
+| **Design / MBSE** | Act-graph in the digital twin; every hard-commit function tagged | Twins model physics; rarely model **authority** |
 | **Engineering / firmware** | Fail-closed mouth in silicon/firmware before ship | Safety PLCs exist; unified may-grammar across media doesn’t |
 | **Supply chain** | Critical parts only mate if clearance module attests | BOM security ≠ permission ontology |
 | **Assembly / integration** | Factory station won’t close the unit without DENY-path proof | Line tests function; rarely tests **illegitimate act impossible** |
@@ -114,11 +145,14 @@ Long-term Gate is **both, mandatory**. SaaS foothold funds the forge; the forge 
 
 | Mode | Meaning |
 |------|---------|
-| **Defensive** | DENY / halt unjustified irreversible acts |
-| **Offensive** | Hard LIVE so authorized power can proceed under *their* ROE / policy |
+| **Defensive** | Sheath / DENY — halt unjustified hard commits |
+| **Offensive** | Hard LIVE — authorized force proceeds under *their* ROE / policy |
 
 Not an offensive contractor (we don’t own the trigger or the arsenal).  
-Offense-**enable** and defense-**halt** under the violence monopoly — Lockheed-shaped **adjacency**, mouth-**and-forge**-shaped **product**.
+Offense-**enable** and defense-**sheath** under the violence monopoly — Lockheed-shaped **adjacency**, mouth-**and-forge**-shaped **product**.
+
+This is why “irreversibility” alone undersells: Gate is not only the stop.  
+Gate is the **gravity well** — force that may stick, force that must lock, receipt either way.
 
 Nuclear football / sovereign C2: **state only**. We may be a tiny component under them someday — never the sovereign.
 
@@ -130,7 +164,7 @@ These are **formally applicable** — eerie because they sit under every product
 
 | Layer | What it is | Why mankind hasn’t done it |
 |-------|------------|----------------------------|
-| **Undo-cost metrology** | A measurable “how expensive to reverse” score per edge | No NIST-of-irreversibility |
+| **Mass metrology** | A measurable “how hard reality pulls back” score per edge (physics: undo-cost / irreversibility) | No NIST-of-commit-mass |
 | **Authority digital thread** | PLM field for *who may* alongside torque and tolerance | PLM tracks geometry, not legitimacy |
 | **Permission BOM** | Bill of materials for may-hooks, quorum chips, attest modules | BOMs list steel; not **deny paths** |
 | **Factory DENY gate** | Unit cannot leave the cell unless fail-closed path proves | Factories test “works”; not “can’t silently murder” |
@@ -840,14 +874,15 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 ### Invention one-liner
 
 > Primes invent **platforms**. Palantir invents **maps**.  
-> Gate invents **sheaths, throats, tombstones, and senates** — artifacts that make irreversible power **manufacturable, haltable, and provable** —  
-> from a bind desk in Toledo to a conjunction mouth in orbit — **wicked enough to matter, boring enough to ship**.
+> Gate invents **sheaths, throats, tombstones, and senates** — artifacts that make force that sticks **manufacturable, lockable, and proveable** —  
+> from a bind desk in Toledo to a conjunction mouth in orbit — **wicked enough to matter, boring enough to ship**.  
+> Not a hall monitor. A **gravity well**.
 
 ---
 
 ## Subject stack (what makes the star heavier)
 
-1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology, Kardashev scaling, GR/quantum floors  
+1. **Mass / commit science** — thermo, info, causality, undo-cost (physics name for mass), Filter metrology, Kardashev scaling, GR/quantum floors  
 2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological / post-human principals, succession  
 3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest, forge-of-forges  
 4. **Standards power** — own the grammar (BGP-of-may), metrology institute, not only a SaaS SKU  
@@ -860,11 +895,12 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 11. **Lexicon farther than futuristic** — every soft sci-fi word remapped as commit surface or Filter mode  
 12. **Hard frontiers** — inflation, dark energy, curvature, entanglement, non-locality, void DENY, post-human principal  
 13. **Live research signals** — planetary defense without MAOG, SRM grey zone, Kessler governance, open-weights genesis, agent pre-action auth, rights of nature  
-14. **Deep-dive cousins & anti-patterns** — OAP mouth, twin→PLC secure-write, Cybersyn algedonic, Perimeter fail-deadly, DURC churn, ADR consent bus  
-15. **Invention catalog** — named forge artifacts from Throat to Galaxy Birth Certificate — composable life-stack  
+14. **Gravity doctrine** — commit · mass · sheath · receipt of power — irreversibility stays the physics footnote  
+15. **Deep-dive cousins & anti-patterns** — OAP mouth, twin→PLC secure-write, Cybersyn algedonic, Perimeter fail-deadly, DURC churn, ADR consent bus  
+16. **Invention catalog** — named forge artifacts from Throat to Galaxy Birth Certificate — composable life-stack  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
-The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
+The ceiling is **forge + mouth + prove** — the gravity well where force sticks — then mass metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
 
 ---
 
@@ -926,32 +962,32 @@ Same missing layer. Unification is the product.
 
 | Dimension | Lockheed · Raytheon | Anduril | Palantir | Gate north star |
 |-----------|---------------------|---------|----------|-----------------|
-| **Core bet** | **Can** — platforms, effectors | **Can at the edge** — autonomy mesh | **See** — ontology, fusion | **May + prove + forge** — permission industrial stack |
+| **Core bet** | **Can** — platforms, effectors | **Can at the edge** — autonomy mesh | **See** — ontology, fusion | **May + prove + forge** — gravity well for force that sticks |
 | **Factory** | Jets, missiles, buses | Attritable mass, sensors | — (software-first) | **May in the machine**; assembly proves DENY path |
-| **Runtime** | Platform operates | Lattice clears targets | Suggests; human or system acts | **Mouth** at irreversible edge — LIVE / DENY / inhibit |
-| **After-action** | Classified logs, program review | Mission telemetry | Audit trails in platform | **Stranger-grade receipt** as product |
+| **Runtime** | Platform operates | Lattice clears targets | Suggests; human or system acts | **Mouth** at the hard-commit edge — LIVE / sheath / inhibit |
+| **After-action** | Classified logs, program review | Mission telemetry | Audit trails in platform | **Receipt of power** as product |
 | **Horizon** | Program of record | Near-peer attrition | Enterprise + gov data | **Medium × time × role × life** — including eons layer |
-| **Endgame** | Arsenal adjacency | Defense-tech platform | Decision OS | **Default industrial control plane** under coordinators |
+| **Endgame** | Arsenal adjacency | Defense-tech platform | Decision OS | **Default gravity well for force that sticks** under coordinators |
 
 | Dimension | Classic prime (Lockheed-class) | Gate north star |
 |-----------|--------------------------------|-----------------|
-| **Core** | **Can** — platforms, sensors, weapons, sustainment | **May + prove + forge** — permission industrial stack |
-| **Homepage media** | Air · Land · Sea · Space · Cyber | Same media **as commit surfaces**; grammar is medium × time × role × **life** |
-| **Factory** | Build jets, missiles, buses | Build / integrate **may into machines**; assembly proves DENY path |
-| **Engineering** | Performance, survivability, cost | Undo-cost, fail-closed, quorum LIVE, attest |
-| **Software** | Mission systems, C2 *components* | Control plane for irreversible edges (not owning sovereign C2) |
-| **Runtime** | Platform operates | Mouth clears / inhibits / proves acts the platform (or bind desk) would stick |
-| **After-action** | Classified logs, program review | Stranger-grade receipt as product |
+| **Core** | **Can** — platforms, sensors, weapons, sustainment | **May + prove + forge** — legitimacy-of-force industrial stack |
+| **Homepage media** | Air · Land · Sea · Space · Cyber | Same media **as hard-commit surfaces**; grammar is medium × time × role × **life** |
+| **Factory** | Build jets, missiles, buses | Build / integrate **may into machines**; assembly proves sheath path |
+| **Engineering** | Performance, survivability, cost | Mass of the act, fail-closed, quorum LIVE, attest |
+| **Software** | Mission systems, C2 *components* | Control plane for hard commits (not owning sovereign C2) |
+| **Runtime** | Platform operates | Mouth clears / sheathes / proves acts the platform (or bind desk) would stick |
+| **After-action** | Classified logs, program review | Receipt of power as product |
 | **Trigger** | State | State |
 | **Offense** | Supply offensive **kit** | Enable authorized LIVE under their ROE |
-| **Defense** | Supply defensive **kit** | Halt unjustified irreversible acts |
-| **Standards** | Mil-spec, platform standards | **Metrology of may** / irreversible-act grammar |
-| **Endgame** | Arsenal adjacency | **Default industrial control plane** under coordinators |
-| **Power type** | Industrial capability | Legitimacy / restrainability of irreversible acts |
+| **Defense** | Supply defensive **kit** | Sheath unjustified hard commits |
+| **Standards** | Mil-spec, platform standards | **Metrology of may** / mass-of-act grammar |
+| **Endgame** | Arsenal adjacency | **Default gravity well** under coordinators |
+| **Power type** | Industrial capability | Legitimacy / sheathability of force that sticks |
 | **What ripping you out costs** | Re-compete a platform | **Redesign the product’s bones + lose prove** |
 
 Lockheed forges **swords**. Anduril multiplies **eyes that shoot**. Palantir multiplies **sight before the shot**.  
-Gate forges **sheaths that lock**, runs the **lock at runtime**, issues the **receipt**, and maps the **eons layer** none of them unify.  
+Gate forges **sheaths that lock**, runs the **lock at runtime**, issues the **receipt of power**, and owns the **gravity** none of them unify.  
 Still under the crown. Still not the crown.
 
 ---
@@ -959,12 +995,14 @@ Still under the crown. Still not the crown.
 ## Refuse list (north star hygiene)
 
 - Lead cold outbound with this document or “civilizational” / “eons” / “beyond every session” language  
+- Lead with **irreversibility** as the brand feeling — that’s the physics footnote; lead with **commit / mass / sheath / gravity**  
 - Cosplay Tier-S or factory empire before one paid commercial DENY  
 - Widen to nine industries while Bind Room is unproven  
 - Claim ownership of guns, grid, or nuclear C2  
 - Confuse **adjacent** with **above**  
 - Treat manufacturing as “optional later” in doctrine — **it is core**; only the **timing** is sequenced  
 - Confuse **mapping the mountain** with **shipping the foothold** — September still scores reply → meeting → paid artifact  
+- Sound like a hall monitor — Gate is the gravity well where force sticks, not detention 
 
 ---
 
@@ -978,4 +1016,6 @@ Still under the crown. Still not the crown.
 
 ## Lock line (repeatable)
 
-**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Farther than futuristic. Beyond every session. Adjacent to S. Never sovereign.**
+**Favor to coordinators. Mouth and forge. Commit · mass · sheath · gravity. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Farther than futuristic. Beyond every session. Adjacent to S. Never sovereign.**
+
+Physics footnote (not the vibe): irreversibility / undo-cost / PRI — `SCIENCE.md`.
