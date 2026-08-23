@@ -12,31 +12,33 @@ Bind Room / MGA outbound is the **first foothold**. Do not put this document in 
 
 ## One sentence
 
-> Become the **default irreversible-act control plane** for legitimate coordinators —  
+> Become the **default irreversible-act industrial stack** for legitimate coordinators —  
+> not only the runtime mouth, but the **forge**: design, engineering, assembly, test, and field sustainment of systems whose **may is welded into the artifact** —  
 > the shared nervous system for **may** across media —  
 > **before, during, and after** every high-undo-cost act —  
-> **mapped, cleared, inhibited, and proved** —  
-> **designed into artifacts and enforced at runtime** —  
+> **mapped, cleared, inhibited, proved, and manufactured** —  
 > so nations can project force and restrain force without trusting a silent fail-open —  
 > **under** the flag, never instead of it.
 
 Shorter:
 
-> We don’t rule nations. We make irreversible power **legible and restrainable**.
+> We don’t rule nations. We **build and run** the layer that makes irreversible power **legible and restrainable**.
 
 ---
 
 ## What problem this is (civilizational)
 
 Frontiers multiply what systems **can** do (agents, autonomy, actuators, burns, wires, binds).  
-Institutions are late on **may**.
+Institutions are late on **may**.  
+Primes multiply **can** in factories. Nobody unifies **may in the factory + may at runtime + prove after**.
 
 The god wound:
 
-> Hands ship faster than permission that holds when the link lies, the human sleeps, or the cascade starts.
+> Hands ship faster than permission that holds when the link lies, the human sleeps, or the cascade starts —  
+> and permission, when it exists, is a **software afterthought**, not a **manufactured property**.
 
 Local switches exist (banks, ROE, relays, PAS rules, device “safety”).  
-**Nobody has unified** high-undo-cost **may + prove** as one grammar across domains.
+**Nobody in history has unified** high-undo-cost **may + prove** as one grammar across domains **and** embodied it through the full product life (design → machine → field → scrap).
 
 That unification gap is the company.
 
@@ -79,11 +81,30 @@ Most vendors only ship a weak **before**. **During** and **prove-after** are the
 | Clear | LIVE only if justified + quorum policy |
 | Inhibit | Fail-closed halt that holds |
 | Prove | Receipt outside the actor’s trust boundary |
+| **Forge** | Design / engineer / assemble / test so may is a **property of the machine** |
+
+### 4. Life (product dimensions — not optional)
+
+Manufacturing is **core**, not a later checkbox. Gate’s end-state is **industrial**, not SaaS-only.
+
+| Life phase | What Gate captures | Why it’s rare |
+|------------|-------------------|---------------|
+| **Conceive / requirements** | Undo-cost + may-hooks as first-class requirements | Specs list “safety”; almost never “stranger-prove DENY path” |
+| **Design / MBSE** | Act-graph in the digital twin; every irreversible function tagged | Twins model physics; rarely model **authority** |
+| **Engineering / firmware** | Fail-closed mouth in silicon/firmware before ship | Safety PLCs exist; unified may-grammar across media doesn’t |
+| **Supply chain** | Critical parts only mate if clearance module attests | BOM security ≠ permission ontology |
+| **Assembly / integration** | Factory station won’t close the unit without DENY-path proof | Line tests function; rarely tests **illegitimate act impossible** |
+| **Acceptance / HIL** | Hardware-in-loop red-team: jam, spoof, cascade — mouth must hold | OT&E exists for primes; not sold as civilizational product |
+| **Deploy / commission** | Weld into their stack with receipt genesis | Installers turn it on; don’t mint legitimacy |
+| **Operate (runtime)** | Before / during / after on live acts | Director mode — today’s Bind Room seed |
+| **Sustain / update** | Field update that adds capability needs LIVE path + receipt | OTAs add can; rarely re-clear may |
+| **Incident / after-action** | Stranger-verify what was allowed | Logs are private; receipts are public-grade |
+| **Decommission / scrap** | Kill may-hooks; prove the mouth is dead | E-waste doesn’t retire **authority** |
+| **Genealogy / twin of twins** | Provenance of which mouth shipped in which serial | Serial numbers track parts; not **permission lineage** |
 
 **Director** = runtime mouth on the act.  
-**Manufacturing / engineering** = may designed into the artifact (PLM, firmware, HIL, factory test gates) so ripping the mouth out means redesigning the product.
-
-Long-term Gate aims at **both**: permission on the act **and** in the bones.
+**Forge** = may in the bones.  
+Long-term Gate is **both, mandatory**. SaaS foothold funds the forge; the forge is the empire.
 
 ---
 
@@ -95,9 +116,38 @@ Long-term Gate aims at **both**: permission on the act **and** in the bones.
 | **Offensive** | Hard LIVE so authorized power can proceed under *their* ROE / policy |
 
 Not an offensive contractor (we don’t own the trigger or the arsenal).  
-Offense-**enable** and defense-**halt** under the violence monopoly — Lockheed-shaped **adjacency**, mouth-shaped **product**.
+Offense-**enable** and defense-**halt** under the violence monopoly — Lockheed-shaped **adjacency**, mouth-**and-forge**-shaped **product**.
 
 Nuclear football / sovereign C2: **state only**. We may be a tiny component under them someday — never the sovereign.
+
+---
+
+## Capture layers nobody has unified (weird, boring, godly)
+
+These are **formally applicable** — eerie because they sit under every product and no firm owns the stack.
+
+| Layer | What it is | Why mankind hasn’t done it |
+|-------|------------|----------------------------|
+| **Undo-cost metrology** | A measurable “how expensive to reverse” score per edge | No NIST-of-irreversibility |
+| **Authority digital thread** | PLM field for *who may* alongside torque and tolerance | PLM tracks geometry, not legitimacy |
+| **Permission BOM** | Bill of materials for may-hooks, quorum chips, attest modules | BOMs list steel; not **deny paths** |
+| **Factory DENY gate** | Unit cannot leave the cell unless fail-closed path proves | Factories test “works”; not “can’t silently murder” |
+| **Serial may-genealogy** | Chain of custody for the mouth inside each serial number | Counterfeit parts scare people; **counterfeit permission** doesn’t yet |
+| **Update re-clearance** | OTA that expands can must re-earn LIVE | Updates are CVEs + features; not **new irreversible surface** |
+| **During-flight inhibit standard** | Mid-act halt grammar across pumps, burns, agents, trips | Each industry invents a deadman in isolation |
+| **Stranger receipt as SKU** | After-action anyone can open without trusting the operator | Audits are club goods; you want **public goods of proof** |
+| **Quorum LIVE hardware** | Multi-party clear baked into the box | Soft policy in software gets bypassed under panic |
+| **Counterfactual prove** | Prove what *did not* fire | World proves explosions; rarely proves **restraint** |
+| **Agent principal license** | Non-human actors get scoped may like producers | Agents get API keys; not **licensed irreversible authority** |
+| **Inter-coordinator clearance bus** | Allies / carriers / ISO / programs speak one LIVE/DENY | Every silo has a different “approval” |
+| **Decommission of may** | Ritual + proof that authority is retired with the machine | We scrap metal; **ghost authority** lingers in firmware |
+| **Simulation of unjustified paths** | Red-team the product’s own DENY before it ships | Marketing demos happy path |
+| **Ethics as constraint compiler** | ROE/policy → enforceable inhibit graph | Ethics stays in PDFs |
+| **Care / dose / body writes** | Bloodstream and tissue as commit media (state-fenced) | Called “device security”; is **civilizational commit** |
+| **City actuator may** | Signals, gates, elevators, robots — municipal irreversible | Smart city = sensors; rarely **permission** |
+| **Attention→act bridge** | Only when narrative triggers a hard write | Don’t own feeds; own the **moment feed becomes bind/fire/wire** |
+
+Any one row is a company. **Unifying them under one grammar** is the north star.
 
 ---
 
@@ -105,11 +155,13 @@ Nuclear football / sovereign C2: **state only**. We may be a tiny component unde
 
 1. **Irreversibility science** — thermo, info, causality, undo-cost  
 2. **Authority design** — law, ROE, principal–agent, quorum LIVE  
-3. **Embodiment** — control theory, STAMP/STPA, mfg/MBSE, crypto attest  
+3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest  
 4. **Standards power** — own the grammar (BGP-of-may), not only a SaaS SKU  
 5. **Incentives** — mechanism design so bypass is irrational  
+6. **Industrial genealogy** — serial may-lineage, decommission of authority  
 
-Insurance bind is the first **laboratory**, not the ceiling.
+Insurance bind is the first **laboratory**, not the ceiling.  
+The ceiling is **forge + mouth + prove**.
 
 ---
 
@@ -117,11 +169,12 @@ Insurance bind is the first **laboratory**, not the ceiling.
 
 | Horizon | Weld |
 |---------|------|
-| **Now** | US MGA / PAS **bind-only** halt + stranger verify (Bind Room) |
+| **Now** | US MGA / PAS **bind-only** halt + stranger verify (Bind Room) — **director seed** |
 | **Next** | Same mouth on more commercial irreversible writes (payout clear, etc.) |
-| **Then** | Grid-adjacent / infra high-undo-cost edges |
+| **Then** | Grid-adjacent / infra high-undo-cost edges; first **designed-in** embeds |
 | **Later** | Program / gov / defense **digital–cyber** clearance under contract |
-| **Eventually** | Physical + cyber + digital levers; designed-in may; before/during/after |
+| **Forge scale** | Engineering houses, assembly cells, HIL labs, permission-BOM supply — **core business** |
+| **Eventually** | Full life: conceive→scrap; physical + cyber + digital; before/during/after |
 | **Never** | Above a nation; private nukes; own C2 as sovereign |
 
 September cares about: reply → meeting → paid artifact.  
@@ -139,31 +192,46 @@ This file cares about: the mountain after the foothold.
 | Unscreened orbital burn | Flight dynamics | Δv without conjunction LIVE |
 | Dose write on the LAN | Device security | Bloodstream as commit medium |
 | Bind-only slip | PAS config | Soft may on a hard write |
+| OTA adds capability silently | Product update | New irreversible surface without re-clear |
+| Scrapped system still “armed” in firmware | E-waste | Authority not decommissioned |
 
 Same missing layer. Unification is the product.
 
 ---
 
-## Vs primes / platforms
+## Vs primes / platforms (full stack)
 
-| | Classic prime (e.g. Lockheed-class) | Gate north star |
-|--|-------------------------------------|-----------------|
-| Core | **Can** (platforms, sustainment) | **May + prove** (and later may-in-the-artifact) |
-| Trigger | State | State |
-| Power | Industrial capability | Legitimacy / restrainability of irreversible acts |
-| Endgame | Arsenal adjacency | **Default control plane** under coordinators |
+| Dimension | Classic prime (Lockheed-class) | Gate north star |
+|-----------|--------------------------------|-----------------|
+| **Core** | **Can** — platforms, sensors, weapons, sustainment | **May + prove + forge** — permission industrial stack |
+| **Homepage media** | Air · Land · Sea · Space · Cyber | Same media **as commit surfaces**; grammar is medium × time × role × **life** |
+| **Factory** | Build jets, missiles, buses | Build / integrate **may into machines**; assembly proves DENY path |
+| **Engineering** | Performance, survivability, cost | Undo-cost, fail-closed, quorum LIVE, attest |
+| **Software** | Mission systems, C2 *components* | Control plane for irreversible edges (not owning sovereign C2) |
+| **Runtime** | Platform operates | Mouth clears / inhibits / proves acts the platform (or bind desk) would stick |
+| **After-action** | Classified logs, program review | Stranger-grade receipt as product |
+| **Trigger** | State | State |
+| **Offense** | Supply offensive **kit** | Enable authorized LIVE under their ROE |
+| **Defense** | Supply defensive **kit** | Halt unjustified irreversible acts |
+| **Standards** | Mil-spec, platform standards | **Metrology of may** / irreversible-act grammar |
+| **Endgame** | Arsenal adjacency | **Default industrial control plane** under coordinators |
+| **Power type** | Industrial capability | Legitimacy / restrainability of irreversible acts |
+| **What ripping you out costs** | Re-compete a platform | **Redesign the product’s bones + lose prove** |
 
-If Gate ever participates in manufacturing engineering, it is still **serve**: make restrainable power buildable — not seize the throne.
+Lockheed forges **swords**.  
+Gate forges **sheaths that can lock**, runs the **lock at runtime**, and issues the **receipt**.  
+Still under the crown. Still not the crown.
 
 ---
 
 ## Refuse list (north star hygiene)
 
 - Lead cold outbound with this document or “civilizational” language  
-- Cosplay Tier-S before one paid commercial DENY  
+- Cosplay Tier-S or factory empire before one paid commercial DENY  
 - Widen to nine industries while Bind Room is unproven  
 - Claim ownership of guns, grid, or nuclear C2  
-- Confuse **adjacent** with **above**
+- Confuse **adjacent** with **above**  
+- Treat manufacturing as “optional later” in doctrine — **it is core**; only the **timing** is sequenced  
 
 ---
 
@@ -177,4 +245,4 @@ If Gate ever participates in manufacturing engineering, it is still **serve**: m
 
 ## Lock line (repeatable)
 
-**Favor to coordinators. Mouth only. Medium × time × role. Designed in and enforced live. Adjacent to S. Never sovereign.**
+**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Adjacent to S. Never sovereign.**
