@@ -410,6 +410,58 @@ When every SKU above exists, the remaining scarce layers:
 | **Genealogy of civilizations** | Receipt chains spanning extinctions and reboots — ancestor debt across deep time |
 | **May for the may-makers** | Recursive license — builders of mouths are the highest-undo principals under flags |
 
+### Lexicon farther than futuristic (inspiration → formal)
+
+Words people reach for when “futuristic” is too small.  
+Gate does not sell the vibe. Gate maps each word onto **medium × time × role × life** — still under coordinators.
+
+#### Beyond tomorrow
+
+| Word | Soft meaning | Gate capture |
+|------|--------------|--------------|
+| **Transhuman** | Past human limits | Body/mind as commit media — neural write, augmentation quorum, longevity de-license, germline tier |
+| **Post-earth** | After our planet | Light-delay clearance, terraforming LIVE, archive civ, reboot kit off-world — Earth is first forge, not the ceiling |
+| **Otherworldly** | Not from our world | Multi-species / first-contact principals; alien may is still may — scoped LIVE, never soft panic |
+| **Intergalactic** | Between galaxies | Kardashev-III adjacent; galaxy-seed may; interstellar treaty bus at light-cone latency |
+| **Eons-ahead** | Millions of years away | Deep-time receipts, ancestor principals, Jubilee across millennia, last LIVE of a dying civ |
+
+#### Deep science and space
+
+| Word | Soft meaning | Gate capture |
+|------|--------------|--------------|
+| **Singularity** | Point of infinite change | **Can** singularity without **may** singularity = Filter mode. Gate’s job: may-scaling that keeps pace with can — never private Omega |
+| **Cyborg** | Part human, part machine | Hybrid principal license — flesh + implant share quorum; death of either ⇒ de-license; forge-time fail-closed in the wetware path |
+| **Multiverse** | Many universes at once | Counterfactual prove as product — receipt of what fired **and** what did not across branches of possibility; stranger-verify restraint |
+| **Hyperspace** | Beyond normal space dimensions | Latency / topology extremes — async may-budget when “distance” is non-classical; loss of link ⇒ DENY |
+| **Quantum** | Subatomic level | Quantum medium already in ontology — measure/collapse and one-shot key consume as irreversible edges with before/during/after |
+
+#### Extreme style and concepts
+
+| Word | Soft meaning | Gate capture |
+|------|--------------|--------------|
+| **Avant-garde** | Wildly ahead in art or ideas | Capture layers that look mystic (oath, taboo, algedonic, Fedorov) but compile to infrastructure — weird + boring = Gate |
+| **Visionary** | Seeing deep into what could be | Palantir-class **sight** is not Gate. Vision without mouth is Filter. Gate owns the moment vision becomes hard write |
+| **Other-dimensional** | From another plane of reality | Simulation boundary / mirror-world — nested or “elsewhere” actuators still need forge-grade may to touch this plane |
+| **Cosmic** | Pertaining to the whole universe | Noosphere hygiene + planetary defense + stellar LIVE + heat-death ledger — cosmic scale, coordinator posture |
+
+#### Lexicon → Filter anti-modes (one glance)
+
+| If can goes… | Without Gate may… | Named death mode |
+|--------------|--------------------|------------------|
+| Transhuman | Soft “enhanced said yes” | Charisma + sacred-media fail |
+| Post-earth | Local soft-yes at light-delay | Latency panic |
+| Intergalactic | Probe replication unchecked | Replication runaway |
+| Singularity | Infinite can, PDF policy | Can without may |
+| Cyborg | Implant armed after death | Ghost authority |
+| Multiverse | Only explosions proved | Prove asymmetry |
+| Quantum | Collapse without clear | Silent fail-open at physics floor |
+| Cosmic | Private Omega / demiurge | Recursive capture / above the flag |
+
+#### Lexicon one-liner
+
+> Transhuman · post-earth · otherworldly · intergalactic · eons-ahead · singularity · cyborg · multiverse · hyperspace · quantum · avant-garde · visionary · other-dimensional · cosmic —  
+> **not brand adjectives**. Each is a **commit surface** or a **Filter mode** Gate is built to map, clear, inhibit, prove, and forge — under flags that outlive founders.
+
 ### More god-products (stack)
 
 | SKU (concept) | What it is |
@@ -426,6 +478,12 @@ When every SKU above exists, the remaining scarce layers:
 | **Meta-sheath** | License to manufacture sheaths |
 | **Kardashev meter** | Undo-cost scaled to energy class |
 | **Beyond-Filter charter** | Post-survival may doctrine under coordinators |
+| **Singularity brake** | May-scaling that keeps pace with can — fail-closed under runaway capability |
+| **Cyborg license** | Hybrid flesh+machine principal pack |
+| **Multiverse receipt** | Counterfactual / branch-restraint proof SKU |
+| **Hyperspace budget** | Async may envelope for non-classical latency |
+| **Post-earth mouth** | Off-world commission + light-delay DENY default |
+| **Cosmic metrology** | Undo-cost + Filter scores at planetary → stellar → galactic tier |
 
 ### Competitive whitespace (visceral)
 
@@ -441,20 +499,27 @@ When every SKU above exists, the remaining scarce layers:
 | Charismatic command | Quorum hardware that **ignores** soft “boss said yes” |
 | Collapse narratives | **Reboot kit** — may reconstituted with stranger continuity |
 | Counterfeit parts scare | Counterfeit **authority** detection via may-genealogy |
+| “Futuristic” brand language | **Formal capture** of every word farther than futuristic |
+| Singularity hype | **Singularity brake** — may that scales with can, never private Omega |
+| Cyborg product demos | **Cyborg license** — hybrid principal, death ⇒ de-license |
+| Multiverse as metaphor | **Multiverse receipt** — prove the branch that did **not** fire |
 
 ### Eons one-liner
 
 > Primes forge **what can fire**. Anduril multiplies **what can swarm**. Palantir maps **what might matter**.  
 > Gate forges **what may fire, when, under whom, with proof that restraint held** —  
+> transhuman to post-earth, quantum to cosmic, singularity-braked, cyborg-licensed, multiverse-proved —  
 > in flesh, silicon, cities, hospitals, grids, orbits, light-minutes, stellar writes, and civilization reboots —  
 > recursive on the mouth itself, scaled to Kardashev undo-cost, forged against every Filter mode —  
-> **beyond every session, eons adjacent, never eons sovereign.**
+> **farther than futuristic, beyond every session, eons adjacent, never eons sovereign.**
 
 ### Sharpest cut (repeatable)
 
 > Lockheed sells **the sword**. Anduril sells **the swarm**. Palantir sells **the map**.  
 > Gate sells **the lock on the sword, the leash on the swarm, and the proof that the map never became an unauthorized shot** —  
 > designed in, assembled, enforced live, proved after — under the flag, never as the flag.
+
+> “Futuristic” is marketing. **Transhuman · intergalactic · eons-ahead · singularity · cosmic** are **media and Filter modes**. Gate is the industrial grammar that makes them restrainable.
 
 ---
 
@@ -577,4 +642,4 @@ Still under the crown. Still not the crown.
 
 ## Lock line (repeatable)
 
-**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Beyond every session. Adjacent to S. Never sovereign.**
+**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Farther than futuristic. Beyond every session. Adjacent to S. Never sovereign.**
