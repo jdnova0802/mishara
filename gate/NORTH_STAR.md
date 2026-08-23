@@ -770,6 +770,32 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 
 **Pair rule:** Throat is the mouth. Ghost Bind is the haunt-check. Both weld into `_finalize_spend_plan` — CHOKE cannot soft-allow; haunt stamps the plan for CUO drills.
 
+### Applicable now (next welds — 2026 gravity you can sell)
+
+These are **not eons cosplay**. They sit on Bind Room / agent / plant edges you can name to a CUO or SI without sounding like Mars.
+
+| Invention | What it is | Why it sells now | First wedge |
+|-----------|------------|------------------|-------------|
+| **Stick Meter** | Scores mass of a commercial write (bind, payout, sanction flag) before the mouth | CUOs already feel “this one’s heavy” — no number | Bind Room scoreboard |
+| **Charge Bride** | Only CHARGE resurrects DEAD — UW approve / chat yes is forged | Kills the #1 soft-bypass in PAS | Pre-bind weld |
+| **Hop Tattoo** | Every pre-bind hop burns a stranger verify_url into the job | Examiner can open the no without trusting the carrier | Officer appendix |
+| **Soft-Yes Snare** | Red-team pack: timeout→LIVE, dashboard→LIVE, boss→LIVE — all must CHOKE | Turns Ghost Bind into a paid drill | CUO workshop |
+| **Ticket Fuse** | Bind ticket dies with parent license; children cannot outlive the mouth | License-fuse already in code — productize the story | MGA pen |
+| **Payout Throat** | Same mouth on money-leave (release before wire) | SCIENCE first weld — second commercial edge after bind | Operator / withdraw |
+| **Twin Diode** | Digital twin may read plant; write path requires Secure Write Macro + LIVE | OT buyers fear twin→PLC; diode is the pitch | Plant Sheath Starter |
+| **Agent Passport Weld** | Tool Throat + signed pre-action auth (OAP cousin) on irreversible tool classes | Agents shipping now with passwords, no permission slips | Agent Mouth Kit |
+| **Bypass Canary** | Alarm when bind/write path is reachable without Gate hop | Proves they didn’t go around you | Production capture |
+| **Restraint Invoice** | Billable SKU: stranger prove of what did **not** bind / pay / fire | Insurance language for counterfactual | After-action pack |
+| **Desk Quorum Fob** | Physical or soft N-of-M for high-mass binds (two UW + charge) | Senate Socket for the bind desk | High-limit MGA |
+| **Panic Latch** | During declared incident: all new hard commits escalate or DENY | Anti-charisma under catastrophe | Carrier ops room |
+| **Issue≠Bind Splitter** | Forces PAS to separate QuoteRelease / Issue from bind-and-issue | QuoteRelease mistaken for bind stop is a real haunt | PolicyCenter weld |
+| **Receipt Mirror** | Public /.well-known receipt + private carrier mirror — stranger vs club | Prove without leaking PII | Compliance |
+| **Mass Tag** | Labels a job/tool/write with commit-mass class (light / heavy / sacred) before mouth | Makes Stick Meter actionable in UW UI | Bind Room + Agent Kit |
+| **Deadman Echo** | During long tool/agent chains: periodic re-LIVE or CHOKE | Stops “authorized at t0, wrong at t5” | Agent Mouth Kit |
+| **Witness Seat** | Read-only stranger principal that can verify but never LIVE | Examiner / regulator as first-class role | Officer pack |
+
+**Now-rule:** If you can’t demo it on a bind, payout, agent tool, or PLC write path this year, it stays in the mountain — not the pitch.
+
 ### Mouth inventions (runtime — the director layer)
 
 | Invention | What it is | Time / role | Medium |
@@ -838,6 +864,37 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 | **Void Latch** | Epistemic DENY floor — unknowable ⇒ no soft LIVE | Epistemic | Uncertainty ≠ yes |
 | **Weight Tomb** | Open-weights release as digital genesis — prove what was **not** published | Digital | Demiurge watch |
 
+### Further future (deeper gravity — after the foothold earns it)
+
+Eons-adjacent. Still formal. Still under coordinators. **Not September outbound.**
+
+| Invention | What it is | Horizon | Gravity |
+|-----------|------------|---------|---------|
+| **Mass Standard** | NIST-class unit for commit-mass (undo-cost turned into a standard) | Standards power | Makes “heavy act” measurable like voltage |
+| **Sheath Exchange** | Market / clearinghouse where sheaths, LIVE budgets, and restraint receipts trade under flags | Industrial | Turns may into infrastructure finance |
+| **ROE Runtime** | Compile rules of engagement → inhibit graph that runs on the weapon bus (state-owned trigger) | Defense adjacency | Soft ROE → hard sheath |
+| **Cascade Cap** | During-inhibit that bounds blast radius across coupled grids / swarms / markets | Infra + cyber | Stops local stick → systemic collapse |
+| **Successor Will** | Inheritance of may on principal death mid-sequence — admiral/CEO/agent dies, LIVE doesn’t soft-extend | Authority design | Kills ghost command |
+| **Latency Budget** | Pre-cleared may envelope for light-delay / contested EM — silence ⇒ DENY | Orbital / contested | Perimeter inverted as product |
+| **Consent Lattice** | Multi-sovereign LIVE mesh for ADR, deflection, SRM, pandemic dual-use | Planetary | MAOG-shaped bus as SKU |
+| **Sacred Tier Pack** | Body / land / germline / stellar as max-mass media with multi-sovereign only LIVE | Sacred | Dreamtime + blood & soil + stellar |
+| **Filter Actuary** | Prices Filter modes (silent fail-open, can-without-may, sight-without-mouth) as insurance | Finance | Bind Room grown into civilization hedge |
+| **Authority Twin** | Digital twin field for *who may* beside physics — actuates only through sheath | Forge + OT | Mirror Seal’s grown sibling |
+| **Replication Census** | Every copy of an agent / probe / assembler gets a birth certificate + may lineage | Agents + space | Replication Leash industrialised |
+| **Charisma Faraday** | Ops room / vehicle / plant floor that electromagnetically or cryptographically nulls soft command | Command | Charisma Killer as architecture |
+| **Proof of Restraint Bond** | Sovereign / corporate bond that pays if stranger prove shows unjustified LIVE | Diplomacy + capital | Restraint Ledger becomes money |
+| **Jubilee Grid** | Scheduled authority reset across a city’s actuators — may-retirement as civic ritual | Municipal | Curfew Latch at civilization scale |
+| **Noosphere Firewall** | Attention→act bridge only — meme pressure algedonic-escalates at hard write | Narrative | Attention Guillotine as ISP/platform weld |
+| **Post-Filter Charter** | May doctrine for civs that survive the Filter — still under coordinators, never private Omega | Beyond Filter | Survival ≠ godhood |
+| **Kardashev Sheath** | Undo-cost / LIVE tier scaled to energy class (I → II → III) | Stellar | Thermostat Senate’s parent |
+| **Acausal Escrow** | Time-locked LIVE for precommit / decision-theory envelopes — hardware, not prophecy | Deep theory | Time Lock Envelope gone weird |
+| **Xeno Principal Table** | First-contact authority design — scoped LIVE for irreversible cross-species acts | Otherworldly | Coordinator law, not gun first |
+| **Heat-Death Ledger** | Ultimate mass ranking when law is silent — Landauer / thermo floor | Cosmic | Mass Standard at the end of time |
+| **World-Write Census** | Catalog of every hard-commit surface a civ ships — medium × mass × mouth | Civilizational map | Makes the ontology a living inventory |
+| **Sheath of Sheaths** | Meta-LIVE to alter the inhibit graph itself — mouth-of-mouths as hardware | Recursive | May for may-makers |
+| **Ancestor Receipt Vault** | Multi-century stranger prove store — Fedorov debt operationalized | Deep time | Horizon Notary’s archive |
+| **Biosphere Quorum Chip** | Hardware seat for river/forest/ocean principal on high-mass LIVE | Sacred + forge | River Seat in silicon |
+
 ### Invention families (how they compose)
 
 ```
@@ -854,9 +911,19 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 
 | Bundle | Inventions inside | One sentence |
 |--------|-------------------|--------------|
-| **Bind Room Core** | Throat · Ghost Bind · Receipt Stone · Cold Weld | Paid weld: halt bad bind + stranger prove — **director seed** |
-| **Agent Mouth Kit** | Tool Throat · Silence Gate · Restraint Ledger | Pre-action auth + fail-closed + prove — Bind Room grammar on tools |
-| **Plant Sheath Starter** | Mirror Seal · Secure Write Macro · Deny Path Prover | Twin can’t write plant without forge may — OT foothill after bind |
+| **Bind Room Core** | Throat · Ghost Bind · Receipt Stone · Cold Weld · Stick Meter · Charge Bride | Paid weld: halt bad bind + stranger prove — **director seed** |
+| **Agent Mouth Kit** | Tool Throat · Silence Gate · Restraint Ledger · Agent Passport Weld | Pre-action auth + fail-closed + prove — Bind Room grammar on tools |
+| **Plant Sheath Starter** | Mirror Seal · Secure Write Macro · Deny Path Prover · Twin Diode | Twin can’t write plant without forge may — OT foothill after bind |
+| **CUO Drill Pack** | Soft-Yes Snare · Ghost Bind drills · Hop Tattoo · Restraint Invoice | Paid workshop: prove their PAS would soft-stick — then sell the throat |
+
+### Now vs later (one glance)
+
+| Applicable rn | Deeper future |
+|---------------|---------------|
+| Stick Meter · Charge Bride · Hop Tattoo · Soft-Yes Snare | Mass Standard · Sheath Exchange · ROE Runtime |
+| Ticket Fuse · Payout Throat · Bypass Canary | Cascade Cap · Consent Lattice · Kardashev Sheath |
+| Twin Diode · Agent Passport Weld · Desk Quorum Fob | Sacred Tier Pack · Xeno Principal Table · Heat-Death Ledger |
+| Panic Latch · Issue≠Bind Splitter · Restraint Invoice | Filter Actuary · Proof of Restraint Bond · Post-Filter Charter |
 
 ### Wicked edges (Filter killers — named to remember)
 
@@ -909,7 +976,7 @@ The ceiling is **forge + mouth + prove** — the gravity well where force sticks
 | Horizon | Weld |
 |---------|------|
 | **Now** | US MGA / PAS **bind-only** halt + stranger verify (Bind Room) — **director seed** |
-| **Next** | Same mouth on more commercial irreversible writes (payout clear, etc.) |
+| **Next** | Same mouth on more commercial hard commits (payout clear, etc.) |
 | **Then** | Grid-adjacent / infra high-undo-cost edges; first **designed-in** embeds |
 | **Later** | Program / gov / defense **digital–cyber** clearance under contract |
 | **Forge scale** | Engineering houses, assembly cells, HIL labs, permission-BOM supply — **core business** |
