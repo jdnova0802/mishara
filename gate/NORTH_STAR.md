@@ -151,6 +151,53 @@ Any one row is a company. **Unifying them under one grammar** is the north star.
 
 ---
 
+## Avant-garde / cosmic capture (ancient → far future)
+
+Weird on purpose. Still **formally mappable** to medium × time × role × life.  
+Still **under coordinators** — never private godhood.
+
+### Weird + boring (ritual / law / ops that look mystic but are infrastructure)
+
+| Capture | Ancestry / signal | Gate formalization |
+|---------|-------------------|-------------------|
+| **Oath as LIVE** | Ancient Near East treaties: gods witness the promise when no world-court exists | Cryptographic + institutional oath → scoped LIVE; perjury = forged receipt |
+| **Self-curse / ordeal** | Conditional divine punishment; ordeal as last epistemic resort under uncertainty | Fail-closed under unknown: DENY unless ordeal-grade evidence; **uncertainty ≠ soft yes** |
+| **Taboo** | Cultural absolute DENY on named irreversible acts | Named edge classes that cannot take LIVE without civilizational quorum |
+| **Sabbath / Jubilee** | Scheduled halt of economic write; periodic debt release | Calendar DENY windows; scheduled **authority reset** (may-retirement ritual) |
+| **Excommunication** | Kill a principal’s may without killing the body | Principal de-license; agent/key/org loses irreversible authority |
+| **Funeral / ancestor rite** | Decommission the person-as-agent; duty to the dead | Decommission of may + **obligation receipts** to prior principals (Fedorov-adjacent) |
+| **Museum-as-lab** | Fedorov: archive is not nostalgia — it’s the workshop of return | Evidence vaults + reconstitution protocols; prove lineage of acts across generations |
+| **Algedonic escalate** | Stafford Beer / Cybersyn: pain signal rises only when local autonomy fails past timeout | During-phase: local mouth holds; **algedonic LIVE request** to higher recursion if unresolved |
+| **Ops room of may** | Cybersyn Opsroom — real-time exception theater | Coordinator ops surface for irreversible edges only (not vanity dashboards) |
+
+### Weird + exciting (cosmic / sci-fi / civilizational scare)
+
+| Capture | Ancestry / signal | Gate formalization |
+|---------|-------------------|-------------------|
+| **Common Task mouth** | Fedorov’s Common Task — technology aimed at intergenerational duty, not consumption | Product doctrine: irreversible tech owes **debt to future + past principals**; may ranked by that debt |
+| **Noosphere hygiene** | Vernadsky / Teilhard — mind as planetary geological force | Gate as **permission hygiene for the noosphere**: thought→tool→irreversible write must cross may |
+| **Great Filter hypothesis** | Civilizations die when can outruns may | Explicit mission: delay/deny Filter modes (silent fail-open at scale) |
+| **Planetary defense LIVE** | 2024 YR4 scare; SMPAG; kinetic / NED deflection — no binding global “who may deflect” | Civilization-scale before: multi-sovereign quorum LIVE on rock-move; prove after; liability-aware |
+| **Perimeter anti-pattern** | Dead Hand: automatic force if contact lost | Gate inverts: **loss of contact ⇒ DENY**, never auto-LIVE (except state-owned sovereign exceptions we never own) |
+| **Prometheus / Pandora** | Unauthorized can; irreversible open | Myth as threat model: forge without mouth; open without prove |
+| **Demiurge watch** | Unauthorized world-write | Unauthorized create/mint/open-weights publish as high-undo-cost digital genesis |
+| **Seed vault / ark LIVE** | Svalbard-class: life deferred under lock | Long-horizon DENY with scheduled civilizational LIVE conditions |
+| **Cryonic / revival escrow** | Deferred body write; Fedorov literalism | Escrowed may for future principals — legal+technical time-capsule clearance |
+| **Digital necromancy DENY** | Deadbots speaking as the dead | Principal death ⇒ may dies; deepfake-as-person is forged LIVE |
+| **Heat-death accounting** | Landauer: erasure costs; ultimate thermodynamic undo limit | Undo-cost metrology grounded in physics, not vibes |
+| **Omega hygiene (not Omega throne)** | Teilhard’s convergence — without Gate becoming god | Serve noosphere coordination; **refuse** private Omega / private C2 |
+| **Attention apocalypse bridge** | Meme → riot → bind/fire/wire | Own only the **hard write**; algedonic escalate when narrative pressure hits an irreversible edge |
+| **City as ritual machine** | Processions, lockdowns, curfews = scheduled may | Municipal actuators + civil ritual calendars as first-class DENY/LIVE schedules |
+| **Blood & soil commits** | Infusion / organ / gene write; land irrevocable title | Body and land as sacred media — highest undo-cost tier, state-fenced |
+
+### Cosmic one-liner
+
+> If the noosphere is Earth’s new geological force, Gate is the **fault line that only slips when legitimacy says so** —  
+> oath-grade before, algedonic during, ancestor-grade after, forge-grade in the bones —  
+> under nations, against the Filter, never as demiurge.
+
+---
+
 ## Subject stack (what makes the star heavier)
 
 1. **Irreversibility science** — thermo, info, causality, undo-cost  
