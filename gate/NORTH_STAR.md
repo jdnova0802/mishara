@@ -273,6 +273,92 @@ No private Omega. Coordinators remain coordinators — even when the coordinator
 | **Decommission** | Retire may across millennia — ghost authority in deep-space firmware is **the** failure mode |
 | **Genealogy** | Serial may-lineage from Toledo cell to **serial on another star** — one grammar |
 
+### Filter taxonomy (why civilizations die — Gate’s anti-modes)
+
+Named failure modes. Each is a **product category** over time, not vibes.
+
+| Filter mode | Failure pattern | Gate counter |
+|-------------|-----------------|--------------|
+| **Silent fail-open** | Link dies / human sleeps → act proceeds | Loss of contact ⇒ **DENY** |
+| **Can without may** | Factory ships capability; policy is PDF | Forge-time permission BOM + DENY-path proof |
+| **Sight without mouth** | Perfect awareness, soft “approve” | LIVE at the irreversible edge only |
+| **Escalation ladder slip** | Local act → cascade → war | Undo-cost ranks + during-inhibit + algedonic escalate |
+| **Replication runaway** | Nanotech / probes / agents copy may | Birth certificate + gen-N may lineage; replication needs quorum |
+| **Ghost authority** | Scrapped / dead / forked principal still armed | Decommission of may as ritual + proof |
+| **Latency panic** | Light-delay → local commander soft-yes | Pre-budget may + async DENY default |
+| **Attention→violence** | Narrative pressure → riot → fire/wire/bind | Own only the hard write; escalate when feed hits an edge |
+| **Forge without sheath** | Primes ship swords; lock is afterthought | Sheath designed in, assembled, HIL-proved |
+| **Prove asymmetry** | World proves explosions; never restraint | Counterfactual receipts as civilizational SKU |
+
+### Exotic / planetary / climate media (beyond the classic nine)
+
+| Capture | Signal | Gate formalization |
+|---------|--------|-------------------|
+| **Geoengineering LIVE** | SAI, marine cloud brightening, ocean alkalinity — planetary thermostat | Multi-sovereign before; century-scale prove-after; Jubilee halt windows |
+| **Antimatter / exotic propellant** | Max energy density = max undo-cost | Dose-tier for exotic matter; factory DENY on unauthorized synthesize/release |
+| **Gray-goo / molecular assembler** | Local can → planetary can | Replication may-budget; kill-switch is **during**, not after |
+| **Climate tipping write** | Irreversible ice / AMOC / permafrost commit | Treat tipping edges as nuclear-adjacent undo-cost; prove what was **not** triggered |
+| **Weather weapon DENY** | Directed weather as kinetic-adjacent | Named taboo class; civilizational quorum or absolute DENY |
+| **Biosphere as principal** | Rights of rivers / forests / oceans (legal experiments already exist) | Non-human principal license — biosphere quorum seats on high-undo LIVE |
+| **Pandemic release / dual-use** | Gain-of-function as forge without mouth | State-fenced biological medium; stranger prove of **containment LIVE** |
+| **Cryosphere / deep-earth write** | Permafrost thaw engineering; borehole / geothermal cascade | Matter medium at planetary scale; during-inhibit on cascade |
+
+### Epistemic · narrative · economic irreversible
+
+| Capture | Signal | Gate formalization |
+|---------|--------|-------------------|
+| **Deepfake as forged LIVE** | Dead / living principal speaks without license | Principal death or non-consent ⇒ may dies; speech-as-person is forged authority |
+| **Prediction market → actuator** | Market resolves → auto-fire / auto-bind | Market may not own the mouth; only **cleared** bridge to hard write |
+| **Central bank irreversible** | Rate / CBDC / sanction as civilizational write | Legal-medium: stranger receipt on sovereign economic LIVE (under flag) |
+| **Open-weights genesis** | Model release = digital Pandora | Demiurge watch: publish as high-undo digital genesis; prove what was **not** released |
+| **Attention exchange → commit** | Ad / meme markets that tip into riot or wire | Attention apocalypse bridge — Gate at the hard write only |
+| **Insurance as proto-may** | Bind is already an irreversible economic act | Bind Room = first lab of the eons grammar (not a pivot away from it) |
+| **Truth oracle abuse** | “The model said LIVE” as fake quorum | Oracles are **evidence**, never principals — cannot alone mint LIVE |
+| **Simulation boundary** | Nested worlds / digital twin that *actuates* | Twin that can write reality needs forge-grade may; sim-only stays soft |
+
+### Mythic / civilizational scare (more ancestry → formal)
+
+| Capture | Ancestry / signal | Gate formalization |
+|---------|-------------------|-------------------|
+| **Golem / cherem** | Created servant; ban as absolute | Agent principal + named absolute DENY classes |
+| **Flood / ark** | Civilizational reset; selective save | Seed vault LIVE; scheduled authority reset vs panic LIVE |
+| **Tower of Babel** | Unified can without shared may → shatter | Inter-coordinator clearance bus or civilization fragments |
+| **Judgment day ledger** | Final accounting of acts | Stranger receipts as secular eschatology — prove across generations |
+| **Sacrifice / scapegoat** | One pays so many may act | Quorum LIVE must not launder responsibility onto a disposable principal |
+| **Prometheus bound** | Can punished after open | Forge without mouth = threat model; prove-after is not enough — need before |
+| **Karma as receipt chain** | Act debt follows the principal | May-genealogy + obligation receipts (Fedorov debt made operational) |
+| **Dreamtime / law of country** | Land holds law older than the state | Land as sacred medium; highest undo-cost; coordinator must inherit, not invent |
+
+### Named god-products (what Gate sells when the mountain is real)
+
+Not September SKUs. **Mountain SKUs** — so the north star has teeth.
+
+| SKU (concept) | What it is | Who buys eventually |
+|---------------|------------|---------------------|
+| **Mouth** | Runtime LIVE / DENY / inhibit | Desks, programs, fleets, cities |
+| **Sheath** | Fail-closed hardware module | OEMs, primes as component, not competitor |
+| **Permission BOM** | May-hooks as line items | Engineering houses, suppliers |
+| **Authority twin** | Digital twin field for *who may* | MBSE / PLM vendors + programs |
+| **Receipt** | Stranger-verifiable after-action | Courts, allies, insurers, publics |
+| **Counterfactual** | Proof of restraint | Diplomacy, compliance, Filter insurance |
+| **May-genealogy** | Serial lineage of the mouth | Sustainment, scrap yards, auditors |
+| **Decommission rite** | Kill may + prove dead | E-waste, end-of-life programs, funerals of machines |
+| **Algedonic bus** | Escalation when local mouth times out | Ops rooms, Cybersyn-class coordinators |
+| **Async may-budget** | Pre-cleared envelope for light-delay | Mars ops, probes, contested EM |
+| **Principal license** | Scoped may for human / agent / hive / biosphere | Regulators, carriers, post-biological orgs |
+| **Filter metrology** | Undo-cost + Filter-mode scoring | Standards bodies, NIST-of-irreversibility |
+
+### Competitive whitespace (visceral)
+
+| They own | Gate owns when the mountain is real |
+|----------|-------------------------------------|
+| Missiles that fly | **Whether** the missile may leave the rail — and the receipt |
+| Drones that swarm | **Whether** the swarm may replicate / escalate mid-mission |
+| Dashboards that see | **Whether** the seen thing may become a hard write |
+| Platforms that last 40 years | **Whether** may is still legitimate in year 40 — and dead at scrap |
+| Classified after-action | **Public-grade** prove of LIVE **and** DENY |
+| ROE as PDF | ROE as **compiled inhibit graph** in the bones |
+
 ### Eons one-liner
 
 > Primes forge **what can fire**. Palantir maps **what might matter**.  
@@ -284,15 +370,17 @@ No private Omega. Coordinators remain coordinators — even when the coordinator
 
 ## Subject stack (what makes the star heavier)
 
-1. **Irreversibility science** — thermo, info, causality, undo-cost  
-2. **Authority design** — law, ROE, principal–agent, quorum LIVE  
+1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology  
+2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological principals  
 3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest  
 4. **Standards power** — own the grammar (BGP-of-may), not only a SaaS SKU  
 5. **Incentives** — mechanism design so bypass is irrational  
 6. **Industrial genealogy** — serial may-lineage, decommission of authority  
+7. **Deep-time / latency** — light-delay clearance, async may-budget, relativistic principal sync  
+8. **Noosphere hygiene** — attention→act bridge, open-weights genesis, epistemic forgeries  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
-The ceiling is **forge + mouth + prove**.
+The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure.
 
 ---
 
@@ -326,6 +414,10 @@ This file cares about: the mountain after the foothold.
 | Bind-only slip | PAS config | Soft may on a hard write |
 | OTA adds capability silently | Product update | New irreversible surface without re-clear |
 | Scrapped system still “armed” in firmware | E-waste | Authority not decommissioned |
+| Geoengineering soft “pilot” | Climate tech | Planetary write without multi-sovereign LIVE |
+| Model open-weights dump | AI release | Digital genesis without demiurge watch |
+| Swarm OTA mid-mission | Autonomy update | Replication / escalate can without re-clear |
+| “The dashboard said green” | Decision support | Sight treated as mouth |
 
 Same missing layer. Unification is the product.
 
