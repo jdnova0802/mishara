@@ -84,11 +84,13 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "mouth_density": f"{public_url}/bind-room/mouth-density.json",
             "foothill_max": f"{public_url}/bind-room/foothill-max.json",
             "mandate_layer": f"{public_url}/bind-room/mandate-layer.json",
+            "bone_law": f"{public_url}/bind-room/bone-law.json",
+            "invisible_scale": f"{public_url}/bind-room/invisible-scale.json",
             "mouth_ceiling": f"{public_url}/.well-known/mouth-ceiling.json",
             "nisaba_stack": f"{public_url}/.well-known/nisaba-stack.json",
             "larp_gap_pack": f"{public_url}/.well-known/larp-gap-pack.json",
             "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
-            "pair": "CEILING+STACK — L2 foothill maxed (stop inventing throats until paid weld); L3 Mandate claimed ahead of time.",
+            "pair": "INVISIBLE DIET — Bone Law (10) → Act Serial (0). Chicken broccoli rice of unskippable boredom.",
         },
     }
 
