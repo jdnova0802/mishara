@@ -20,6 +20,8 @@
     {% else %}
     <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
     {% endif %}
+    <a class="btn btn-ghost" href="{{ public_url }}/demo/pas/policycenter/pre-bind">Live PC demo</a>
+    <a class="btn btn-ghost" href="{{ public_url }}/demo/pas/duckcreek/pre-bind">Live DC demo</a>
     <a class="btn btn-ghost" href="{{ url_for('operator_page') }}">Operator weld {{ weld_price }}</a>
   </div>
 

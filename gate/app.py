@@ -1398,14 +1398,21 @@ def demo_pas_bind_check():
     return data, status, extra
 
 
-@app.route("/demo/pas/policycenter/pre-bind", methods=["POST"])
+_DEMO_PC_PRE_BIND = {"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO"}
+_DEMO_DC_PRE_BIND = {"fuse_id": "fuse_velaru_drill", "job_id": "dc:DEMO"}
+
+
+@app.route("/demo/pas/policycenter/pre-bind", methods=["GET", "POST"])
 def demo_pc_pre_bind():
     _, err = _demo_gate()
     if err:
         return err
-    body, blocked, code = _pas_incoming()
-    if blocked:
-        return blocked, code
+    if request.method == "GET":
+        body = dict(_DEMO_PC_PRE_BIND)
+    else:
+        body, blocked, code = _pas_incoming()
+        if blocked:
+            return blocked, code
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return {"error": {"code": "demo_fuse_only"}}, 400
@@ -1413,6 +1420,8 @@ def demo_pc_pre_bind():
     data, status, extra = run_policycenter_pre_bind(body)
     if isinstance(data, dict):
         data["demo"] = True
+        data["autorun"] = request.method == "GET"
+        data["bind_room"] = f"{advertised_url()}/bind-room"
         bound.attach(data, status, demo=True)
     return data, status, extra
 
@@ -1540,14 +1549,17 @@ def demo_mga_authority():
     return data, status, extra
 
 
-@app.route("/demo/pas/duckcreek/pre-bind", methods=["POST"])
+@app.route("/demo/pas/duckcreek/pre-bind", methods=["GET", "POST"])
 def demo_dc_pre_bind():
     _, err = _demo_gate()
     if err:
         return err
-    body, blocked, code = _pas_incoming()
-    if blocked:
-        return blocked, code
+    if request.method == "GET":
+        body = dict(_DEMO_DC_PRE_BIND)
+    else:
+        body, blocked, code = _pas_incoming()
+        if blocked:
+            return blocked, code
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return {"error": {"code": "demo_fuse_only"}}, 400
@@ -1555,6 +1567,8 @@ def demo_dc_pre_bind():
     data, status, extra = run_duckcreek_pre_bind(body)
     if isinstance(data, dict):
         data["demo"] = True
+        data["autorun"] = request.method == "GET"
+        data["bind_room"] = f"{advertised_url()}/bind-room"
         bound.attach(data, status, demo=True)
     return data, status, extra
 
