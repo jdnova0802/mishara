@@ -3,6 +3,8 @@
 **Status:** formal doctrine. **Not MGA outbound.**  
 **Under coordinators. Never private Omega. Never throne.**
 
+**Related:** `CRUCIAL_ROLES.md` · `BONE_LAW.md` · `INVISIBLE_SCALE.md`
+
 ---
 
 ## Formal designation
