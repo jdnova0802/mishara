@@ -10,19 +10,48 @@ Bind Room / MGA outbound is the **first foothold**. Do not put this document in 
 
 ---
 
+## Lead metaphor (gravity, not hall monitor)
+
+**Irreversibility** is the physics footnote — thermo, causality, blast radius. Correct. Necessary.  
+As a *brand feeling* it can sound like detention: soft DENY, adult supervision, compliance energy.
+
+Gate’s lead metaphor is **gravity**:
+
+| Soft word (hall monitor) | Force word (gravity) |
+|--------------------------|----------------------|
+| Irreversibility | **Hard commit** — the write that remakes the world |
+| Undo-cost | **Mass** — how hard reality pulls back once the act lands |
+| DENY | **Sheath** — the lock on the sword |
+| LIVE | **Authorization of force** — under *their* ROE / policy |
+| Prove | **Receipt of power** — what fired *and* what was held |
+| May | **Legitimacy of force** — who may make history stick |
+
+Lockheed’s gravity is **can**. Anduril’s is **can at the edge**. Palantir’s is **sight**.  
+Gate’s gravity is the **well where force becomes real** — when an act stops being a suggestion and starts being history — **forged, mouthed, sheathed, proved**.
+
+Hall monitor = *you’re not allowed.*  
+Gate = *this is where power enters the world — and the sheath that can lock it.*
+
+**Physics stays.** PRI / fail-closed / stranger receipt stay in `SCIENCE.md`.  
+**Outbound and doctrine lead** with commit · mass · sheath · gravity · legitimacy of force.
+
+---
+
 ## One sentence
 
-> Become the **default irreversible-act industrial stack** for legitimate coordinators —  
+> Become the **default hard-commit industrial stack** for legitimate coordinators —  
 > not only the runtime mouth, but the **forge**: design, engineering, assembly, test, and field sustainment of systems whose **may is welded into the artifact** —  
-> the shared nervous system for **may** across media —  
-> **before, during, and after** every high-undo-cost act —  
-> **mapped, cleared, inhibited, proved, and manufactured** —  
+> the shared gravity well for **legitimacy of force** across media —  
+> **before, during, and after** every high-mass act —  
+> **mapped, cleared, sheathed, proved, and manufactured** —  
 > so nations can project force and restrain force without trusting a silent fail-open —  
 > **under** the flag, never instead of it.
 
 Shorter:
 
-> We don’t rule nations. We **build and run** the layer that makes irreversible power **legible and restrainable**.
+> We don’t rule nations. We **build and run** the layer where power **sticks** — legible, sheathed, and proveable.
+
+Physics footnote: “sticks” = high undo-cost / irreversible under thermo + law + blast radius (`SCIENCE.md`).
 
 ---
 
@@ -35,12 +64,13 @@ Primes multiply **can** in factories. Nobody unifies **may in the factory + may 
 The god wound:
 
 > Hands ship faster than permission that holds when the link lies, the human sleeps, or the cascade starts —  
-> and permission, when it exists, is a **software afterthought**, not a **manufactured property**.
+> and permission, when it exists, is a **software afterthought**, not a **manufactured property of the machine**.
 
 Local switches exist (banks, ROE, relays, PAS rules, device “safety”).  
-**Nobody in history has unified** high-undo-cost **may + prove** as one grammar across domains **and** embodied it through the full product life (design → machine → field → scrap).
+**Nobody in history has unified** high-mass **may + prove** as one grammar across domains **and** embodied it through the full product life (design → machine → field → scrap).
 
-That unification gap is the company.
+That unification gap is the company.  
+Not a hall monitor for bad writes — a **gravity well for force that sticks**.
 
 ---
 
@@ -48,8 +78,8 @@ That unification gap is the company.
 
 ### 1. Medium (where the act lives)
 
-| Medium | Example irreversible edge |
-|--------|---------------------------|
+| Medium | Example hard-commit edge |
+|--------|--------------------------|
 | Digital | Bind, settle, sign, mint, open-weights publish |
 | Cyber | Destructive or cascading network acts |
 | Energy | Shed, trip, reconnect, pulsed dump |
@@ -59,10 +89,11 @@ That unification gap is the company.
 | Quantum | Measure/collapse, one-shot key consume |
 | Biological | Release / replicate (state-fenced, extreme care) |
 | Legal / identity | License, sanction, status that won’t un-write cleanly |
-| Geometry / GR | Irreversible Δv, capture, horizon-crossing in curved spacetime |
+| Geometry / GR | Hard-commit Δv, capture, horizon-crossing in curved spacetime |
 | Epistemic / void | Acts claimed beyond measurable physics — default DENY |
 
-**Undo-cost** (thermo + legal + blast radius) ranks what must pass the mouth.
+**Mass of the act** (thermo + legal + blast radius) ranks what must pass the mouth.  
+Physics name for mass: **undo-cost / irreversibility** — see `SCIENCE.md`. Not the lead vibe.
 
 ### 2. Time
 
@@ -78,11 +109,11 @@ Most vendors only ship a weak **before**. **During** and **prove-after** are the
 
 | Role | Job |
 |------|-----|
-| Map | Act graph, driver edges, undo-cost |
+| Map | Act graph, driver edges, **mass** of the act |
 | Coordinate | Levers across desks / agents / allies |
-| Clear | LIVE only if justified + quorum policy |
-| Inhibit | Fail-closed halt that holds |
-| Prove | Receipt outside the actor’s trust boundary |
+| Clear | LIVE only if justified + quorum policy — **authorization of force** |
+| Inhibit / sheath | Fail-closed halt that holds — the **lock on the sword** |
+| Prove | Receipt of power outside the actor’s trust boundary |
 | **Forge** | Design / engineer / assemble / test so may is a **property of the machine** |
 
 ### 4. Life (product dimensions — not optional)
@@ -91,8 +122,8 @@ Manufacturing is **core**, not a later checkbox. Gate’s end-state is **industr
 
 | Life phase | What Gate captures | Why it’s rare |
 |------------|-------------------|---------------|
-| **Conceive / requirements** | Undo-cost + may-hooks as first-class requirements | Specs list “safety”; almost never “stranger-prove DENY path” |
-| **Design / MBSE** | Act-graph in the digital twin; every irreversible function tagged | Twins model physics; rarely model **authority** |
+| **Conceive / requirements** | Mass of the act + may-hooks as first-class requirements | Specs list “safety”; almost never “stranger-prove DENY path” |
+| **Design / MBSE** | Act-graph in the digital twin; every hard-commit function tagged | Twins model physics; rarely model **authority** |
 | **Engineering / firmware** | Fail-closed mouth in silicon/firmware before ship | Safety PLCs exist; unified may-grammar across media doesn’t |
 | **Supply chain** | Critical parts only mate if clearance module attests | BOM security ≠ permission ontology |
 | **Assembly / integration** | Factory station won’t close the unit without DENY-path proof | Line tests function; rarely tests **illegitimate act impossible** |
@@ -114,11 +145,14 @@ Long-term Gate is **both, mandatory**. SaaS foothold funds the forge; the forge 
 
 | Mode | Meaning |
 |------|---------|
-| **Defensive** | DENY / halt unjustified irreversible acts |
-| **Offensive** | Hard LIVE so authorized power can proceed under *their* ROE / policy |
+| **Defensive** | Sheath / DENY — halt unjustified hard commits |
+| **Offensive** | Hard LIVE — authorized force proceeds under *their* ROE / policy |
 
 Not an offensive contractor (we don’t own the trigger or the arsenal).  
-Offense-**enable** and defense-**halt** under the violence monopoly — Lockheed-shaped **adjacency**, mouth-**and-forge**-shaped **product**.
+Offense-**enable** and defense-**sheath** under the violence monopoly — Lockheed-shaped **adjacency**, mouth-**and-forge**-shaped **product**.
+
+This is why “irreversibility” alone undersells: Gate is not only the stop.  
+Gate is the **gravity well** — force that may stick, force that must lock, receipt either way.
 
 Nuclear football / sovereign C2: **state only**. We may be a tiny component under them someday — never the sovereign.
 
@@ -130,7 +164,7 @@ These are **formally applicable** — eerie because they sit under every product
 
 | Layer | What it is | Why mankind hasn’t done it |
 |-------|------------|----------------------------|
-| **Undo-cost metrology** | A measurable “how expensive to reverse” score per edge | No NIST-of-irreversibility |
+| **Mass metrology** | A measurable “how hard reality pulls back” score per edge (physics: undo-cost / irreversibility) | No NIST-of-commit-mass |
 | **Authority digital thread** | PLM field for *who may* alongside torque and tolerance | PLM tracks geometry, not legitimacy |
 | **Permission BOM** | Bill of materials for may-hooks, quorum chips, attest modules | BOMs list steel; not **deny paths** |
 | **Factory DENY gate** | Unit cannot leave the cell unless fail-closed path proves | Factories test “works”; not “can’t silently murder” |
@@ -726,13 +760,126 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 
 ### Foothill inventions (Bind Room → first forge)
 
-| Invention | What it is | Time / role | First customer |
-|-----------|------------|-------------|----------------|
-| **Throat** | Fail-closed wedge on the bind edge — no PAS stick without cleared LIVE or proved DENY | Before + during | MGA / PAS desk |
-| **Cold Weld** | Stranger-verifiable commission ritual — genesis receipt before first irreversible bind in production | Before | Carrier + MGA weld |
-| **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | CUO audit pack |
-| **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Compliance + SI |
-| **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Officer pack |
+| Invention | What it is | Time / role | Status |
+|-----------|------------|-------------|--------|
+| **Throat** | Fail-closed wedge on the bind edge — no PAS stick without cleared LIVE or proved DENY | Before + during | **Shipped seed** — `gate/throat.py`, `/.well-known/throat.json`, `POST /demo/pas/throat` |
+| **Cold Weld** | Stranger-verifiable commission ritual — genesis receipt before first irreversible bind in production | Before | Spec'd |
+| **Ghost Bind** | Detector for “would stick without may” — surfaces soft PAS as hard failure before money moves | Before | **Shipped seed** — `gate/ghost_bind.py`, `/.well-known/ghost-bind.json`, `POST /demo/pas/ghost-bind` |
+| **Stick Meter** | Scores commit-mass of bind/payout/sanction writes before the mouth — light / heavy / sacred | Before | **Shipped seed** — `gate/stick_meter.py`, `/.well-known/stick-meter.json`, `POST /demo/pas/stick-meter` |
+| **Charge Bride** | Only CHARGE resurrects DEAD — UW approve / chat yes is forged | Before | **Shipped seed** — `gate/charge_bride.py`, `/.well-known/charge-bride.json`, `POST /demo/pas/charge-bride` |
+| **Hop Tattoo** | Every pre-bind hop burns a stranger verify_url into the job | Before | **Shipped seed** — `gate/hop_tattoo.py`, `/.well-known/hop-tattoo.json`, `GET /demo/pas/hop-tattoo/{job_id}` |
+| **Soft-Yes Snare** | Red-team pack — timeout/dashboard/boss→LIVE must CHOKE or haunt | Before | **Shipped seed** — `gate/soft_yes_snare.py`, `GET /demo/pas/soft-yes-snare/drills` |
+| **Mass Tag** | Stick Meter score → light / heavy / sacred UW tag | Before | **Shipped seed** — `gate/mass_tag.py`, `/.well-known/mass-tag.json` |
+| **Issue≠Bind Splitter** | QuoteRelease is not a bind stop — PolicyCenter leak detector | Before | **Shipped seed** — `gate/issue_bind_splitter.py`, `POST /demo/pas/issue-bind-splitter` |
+| **Ticket Fuse** | Bind ticket dies with parent license — MGA pen story | Before | **Shipped seed** — `gate/ticket_fuse_pack.py`, `GET /demo/pas/ticket-fuse-pack` |
+| **Receipt Stone** | Immutable stranger receipt anchor for a desk/program — outside operator trust boundary | After | Spec'd (Bind Room verify_url is the foothill form) |
+| **Bind Genealogy** | Serial lineage of which throat shipped on which program — may-genealogy seed | Life / genealogy | Spec'd |
+
+**Pair rule:** Twenty-two shipped seeds weld into `_finalize_spend_plan` — CHOKE, FORGED, soft-yes snares, panic, quorum-short, twin-block, passport-missing, forged mercy, and dereliction cannot soft-allow; tattoo + mass tag + receipt mirror stamp every hop.
+
+### Moral Throat (mouth doctrine — deeper than product)
+
+Gate is not “a product.” It is a **mouth under coordinators**: legitimacy of collapse for irreversible writes.
+
+**Lock lines:**
+- Soft yes is forged.
+- Mercy is real only scarred, co-signed, and sunsetting.
+- Silence can be dereliction.
+- Shared fate cannot be solo-authored.
+- Time is part of the mouth (`gate/TEMPORAL_SHEATH.md`).
+- Strangers verify; clubs do not mint reality alone.
+
+**States:** OPEN · CLOSED · CHOKE · MERCY · DERELICT · HOLD · EXILE · SCHISM · BRAID · NULL
+
+**Four axes (leave none out):**
+1. **Cold** — metallurgy / desk / fail-closed  
+2. **Weird** — entanglement / Fate Clock / may thermodynamics  
+3. **Mean** — anti-charisma / exile / indulgence traps  
+4. **Soft** — care / witness / hospitality to unbound verifiers (Witness Seat, Receipt Mirror, braid without humiliation) — soft ≠ soft-yes
+
+**Lead metaphor:** commit · mass · sheath · gravity · legitimacy of collapse  
+**Not lead:** irreversibility-as-brand (physics footnote only)
+
+### Applicable now (sold / next welds — 2026)
+
+Remaining mountain-only items stay out of the pitch until plant/agent production welds land. Shipped applicable-now seeds:
+
+| Invention | Status |
+|-----------|--------|
+| **Payout Throat** | **Shipped seed** — `gate/payout_throat.py`, `POST /demo/pas/payout-throat` |
+| **Twin Diode** | **Shipped seed** — `gate/twin_diode.py`, `POST /demo/pas/twin-diode` |
+| **Agent Passport Weld** | **Shipped seed** — `gate/agent_passport_weld.py`, mint + evaluate demos |
+| **Bypass Canary** | **Shipped seed** — `gate/bypass_canary.py` over `canary.py` |
+| **Restraint Invoice** | **Shipped seed** — `gate/restraint_invoice.py` over counterfactual |
+| **Desk Quorum Fob** | **Shipped seed** — `gate/desk_quorum_fob.py` |
+| **Panic Latch** | **Shipped seed** — `gate/panic_latch.py` |
+| **Receipt Mirror** | **Shipped seed** — `gate/receipt_mirror.py` |
+| **Deadman Echo** | **Shipped seed** — `gate/deadman_echo.py` |
+| **Witness Seat** | **Shipped seed** — `gate/witness_seat.py` |
+| **Pardon Sunset** | **Shipped seed** — `gate/pardon_sunset.py` — Hard Mercy scarred + co-signed + sunsetting |
+| **Watchman Fuse** | **Shipped seed** — `gate/watchman_fuse.py` — duty SLA silence → DERELICT |
+| **Indulgence Trap** | **Shipped seed** — `gate/indulgence_trap.py` — paid/favor/prestige mercy forged |
+| **Bind Path Compiler** | **Shipped seed** — `gate/bind_path_compiler.py` — procedure graph + repair packet (not thumbs) |
+| **Gate-O / Gate-D Skins** | **Shipped seed** — `gate/gate_od_skins.py` — civil / defensive / offensive mass tables + LARP gap pack |
+| **Restraint Unit (ρ)** | **Shipped seed** — `gate/restraint_unit.py` — atomic unit of proved non-fire (κ=ratio, ρ=quantity) |
+| **Oath Compiler** | **Shipped seed** — `gate/oath_compiler.py` — ROE/oath clauses → executable inhibit graph |
+| **Mouth Density Pack** | **Shipped seed** — `gate/mouth_density.py` — eight densifiers (below) |
+| **Foothill Max Pack** | **Shipped seed** — `gate/foothill_max.py` — twelve remaining demoable seeds (below) |
+| **Mouth Ceiling** | **Doctrine lock** — `gate/MOUTH_CEILING.md` — software-era L2 max; stop inventing throats until paid weld |
+| **Nisaba Stack / Mandate (L3)** | **Ahead-of-time layer** — `gate/NISABA_STACK.md` + `gate/mandate_layer.py` — meta-sheath · ρ clearing · principal continuity · mouth registry |
+
+**Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** — claim Mandate *now* so post-may rivals climb us.
+
+**Mandate Layer pillars (L3):**
+
+| Pillar | Job |
+|--------|-----|
+| **Meta-Sheath License** | Who may mint / ship mouths — forge-of-forges |
+| **Restraint Clearing** | ρ settles as clearing mass across desks/windows |
+| **Principal Continuity** | Stranger handoff or may-hooks die (anti–ghost may) |
+| **Mouth Registry** | Attested directory — serial, semver, funeral state |
+
+**Mouth Density Pack (mountain → foothill):**
+
+| Invention | Job |
+|-----------|-----|
+| **Stale LIVE Rejector** | Age > τ ⇒ forged if worn as fresh |
+| **Cool-Off Shim** | Heavy/sacred HOLD(τ) before LIVE eligible |
+| **Silence Gate** | Loss of contact ⇒ DENY (anti-Perimeter, software) |
+| **Algedonic Relay** | Local hold past τ ⇒ signed escalate packet |
+| **May Budget** | N sacred LIVEs / window; exhaust ⇒ DENY |
+| **Funeral Bit** | Decommission may-hooks; prove mouth dead |
+| **Bind Genealogy** | Serial lineage stamp per hop |
+| **Cold Weld** | Genesis receipt before first production irreversible |
+
+**Foothill Max Pack (completes demoable cells):**
+
+| Invention | Job |
+|-----------|-----|
+| **Tool Throat** | Irreversible agent tool pre-hook |
+| **Time Lock Envelope** | LIVE only inside/after declared window |
+| **Charisma Nullifier** | Boss/chat/synthetic/emoji yes ⇒ forged |
+| **Sabbath Latch** | Calendar DENY window |
+| **May Quarantine** | Principal/edge cannot receive LIVE |
+| **Branch Tombstone** | Restraint receipt across declared branches |
+| **Secure Write Macro** | Only pre-approved irreversible command classes |
+| **Dose Throat** | Body/infusion sacred medium mouth |
+| **Jubilee Clock** | Scheduled may-retirement |
+| **Antimay Detector** | Fake sheath / spoofed LIVE / genealogy break |
+| **Senate Socket Soft** | N-of-M software quorum (hardware stays mountain) |
+| **Receipt Stone** | Immutable stranger receipt anchor |
+
+**Temporal Sheath:** `gate/TEMPORAL_SHEATH.md` — time ontology for the mouth (COOL / SUNSET / DEADMAN / DUTY / …).
+
+**Civilizational foothills (2026):** ρ + Oath Compiler + density(8) + foothill_max(12) + C/D/O dialects.
+
+**Force skins note:** Gate-D / Gate-O are dialects of the same mouth (may · sheath · prove) on protective vs initiatory commit surfaces — not weapons, not C2, not a fifth LARP prime. Keep force language out of MGA/CUO outbound; civil costume stays Gate-C.
+
+**Still mountain (hardware / eons only):** Silence Gate *hardware*, Senate Socket *metal*, forge sheath cell + Deny Path HIL, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity markets.
+
+**Stop-rule:** Doctrine + foothill software are at ceiling. **Do not invent further until a paid weld hangs on the mouth.**
+
+**Now-rule:** If you can’t demo it on a bind, payout, agent tool, or PLC write path this year, it stays in the mountain — not the pitch.
 
 ### Mouth inventions (runtime — the director layer)
 
@@ -802,6 +949,37 @@ Weird on purpose. Industrial on requirement. **Under coordinators. Never soverei
 | **Void Latch** | Epistemic DENY floor — unknowable ⇒ no soft LIVE | Epistemic | Uncertainty ≠ yes |
 | **Weight Tomb** | Open-weights release as digital genesis — prove what was **not** published | Digital | Demiurge watch |
 
+### Further future (deeper gravity — after the foothold earns it)
+
+Eons-adjacent. Still formal. Still under coordinators. **Not September outbound.**
+
+| Invention | What it is | Horizon | Gravity |
+|-----------|------------|---------|---------|
+| **Mass Standard** | NIST-class unit for commit-mass (undo-cost turned into a standard) | Standards power | Makes “heavy act” measurable like voltage |
+| **Sheath Exchange** | Market / clearinghouse where sheaths, LIVE budgets, and restraint receipts trade under flags | Industrial | Turns may into infrastructure finance |
+| **ROE Runtime** | Compile rules of engagement → inhibit graph that runs on the weapon bus (state-owned trigger) | Defense adjacency | Soft ROE → hard sheath |
+| **Cascade Cap** | During-inhibit that bounds blast radius across coupled grids / swarms / markets | Infra + cyber | Stops local stick → systemic collapse |
+| **Successor Will** | Inheritance of may on principal death mid-sequence — admiral/CEO/agent dies, LIVE doesn’t soft-extend | Authority design | Kills ghost command |
+| **Latency Budget** | Pre-cleared may envelope for light-delay / contested EM — silence ⇒ DENY | Orbital / contested | Perimeter inverted as product |
+| **Consent Lattice** | Multi-sovereign LIVE mesh for ADR, deflection, SRM, pandemic dual-use | Planetary | MAOG-shaped bus as SKU |
+| **Sacred Tier Pack** | Body / land / germline / stellar as max-mass media with multi-sovereign only LIVE | Sacred | Dreamtime + blood & soil + stellar |
+| **Filter Actuary** | Prices Filter modes (silent fail-open, can-without-may, sight-without-mouth) as insurance | Finance | Bind Room grown into civilization hedge |
+| **Authority Twin** | Digital twin field for *who may* beside physics — actuates only through sheath | Forge + OT | Mirror Seal’s grown sibling |
+| **Replication Census** | Every copy of an agent / probe / assembler gets a birth certificate + may lineage | Agents + space | Replication Leash industrialised |
+| **Charisma Faraday** | Ops room / vehicle / plant floor that electromagnetically or cryptographically nulls soft command | Command | Charisma Killer as architecture |
+| **Proof of Restraint Bond** | Sovereign / corporate bond that pays if stranger prove shows unjustified LIVE | Diplomacy + capital | Restraint Ledger becomes money |
+| **Jubilee Grid** | Scheduled authority reset across a city’s actuators — may-retirement as civic ritual | Municipal | Curfew Latch at civilization scale |
+| **Noosphere Firewall** | Attention→act bridge only — meme pressure algedonic-escalates at hard write | Narrative | Attention Guillotine as ISP/platform weld |
+| **Post-Filter Charter** | May doctrine for civs that survive the Filter — still under coordinators, never private Omega | Beyond Filter | Survival ≠ godhood |
+| **Kardashev Sheath** | Undo-cost / LIVE tier scaled to energy class (I → II → III) | Stellar | Thermostat Senate’s parent |
+| **Acausal Escrow** | Time-locked LIVE for precommit / decision-theory envelopes — hardware, not prophecy | Deep theory | Time Lock Envelope gone weird |
+| **Xeno Principal Table** | First-contact authority design — scoped LIVE for irreversible cross-species acts | Otherworldly | Coordinator law, not gun first |
+| **Heat-Death Ledger** | Ultimate mass ranking when law is silent — Landauer / thermo floor | Cosmic | Mass Standard at the end of time |
+| **World-Write Census** | Catalog of every hard-commit surface a civ ships — medium × mass × mouth | Civilizational map | Makes the ontology a living inventory |
+| **Sheath of Sheaths** | Meta-LIVE to alter the inhibit graph itself — mouth-of-mouths as hardware | Recursive | May for may-makers |
+| **Ancestor Receipt Vault** | Multi-century stranger prove store — Fedorov debt operationalized | Deep time | Horizon Notary’s archive |
+| **Biosphere Quorum Chip** | Hardware seat for river/forest/ocean principal on high-mass LIVE | Sacred + forge | River Seat in silicon |
+
 ### Invention families (how they compose)
 
 ```
@@ -818,21 +996,44 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 
 | Bundle | Inventions inside | One sentence |
 |--------|-------------------|--------------|
-| **Bind Room Core** | Throat · Ghost Bind · Receipt Stone · Cold Weld | Paid weld: halt bad bind + stranger prove — **director seed** |
-| **Agent Mouth Kit** | Tool Throat · Silence Gate · Restraint Ledger | Pre-action auth + fail-closed + prove — Bind Room grammar on tools |
-| **Plant Sheath Starter** | Mirror Seal · Secure Write Macro · Deny Path Prover | Twin can’t write plant without forge may — OT foothill after bind |
+| **Bind Room Core** | Throat · Ghost Bind · Receipt Stone · Cold Weld · Stick Meter · Charge Bride | Paid weld: halt bad bind + stranger prove — **director seed** |
+| **Agent Mouth Kit** | Tool Throat · Silence Gate · Restraint Ledger · Agent Passport Weld | Pre-action auth + fail-closed + prove — Bind Room grammar on tools |
+| **Plant Sheath Starter** | Mirror Seal · Secure Write Macro · Deny Path Prover · Twin Diode | Twin can’t write plant without forge may — OT foothill after bind |
+| **CUO Drill Pack** | Soft-Yes Snare · Ghost Bind drills · Hop Tattoo · Restraint Invoice | Paid workshop: prove their PAS would soft-stick — then sell the throat |
+
+### Now vs later (one glance)
+
+| Applicable rn | Deeper future |
+|---------------|---------------|
+| Payout Throat · Twin Diode · Agent Passport Weld · Bypass Canary | Cascade Cap · Consent Lattice · Kardashev Sheath |
+| Restraint Invoice · Desk Quorum Fob · Panic Latch · Receipt Mirror | Filter Actuary · Proof of Restraint Bond |
+| Deadman Echo · Witness Seat | Sacred Tier Pack · Xeno Principal Table · Heat-Death Ledger |
+
+### Wicked edges (Filter killers — named to remember)
+
+| Invention | What it kills | How |
+|-----------|---------------|-----|
+| **Perjury Trap** | Forged oath / forged LIVE | Oath-grade before + cryptographic perjury = detectable forged receipt |
+| **Scapegoat Breaker** | Responsibility laundering | Quorum LIVE cannot dump undo-cost on a disposable principal |
+| **Replication Leash** | Gray-goo / probe runaway | Birth certificate for replication — gen-N may lineage |
+| **Attention Guillotine** | Meme → riot → wire | Own only the hard write; algedonic at narrative pressure |
+| **Perimeter Inverter** | Fail-deadly silence | Silence Gate everywhere non-sovereign |
+| **Demiurge Watch** | Unauthorized world-write | Open-weights / mint / publish as genesis with prove-of-non-release |
+| **Ghost Hunter** | Authority after scrap | Funeral Bit + Counterfeit Tongue at e-waste |
+| **Charisma Killer** | Boss said yes | Charisma Nullifier — hardware over voice |
 
 ### Invention one-liner
 
 > Primes invent **platforms**. Palantir invents **maps**.  
-> Gate invents **sheaths, throats, tombstones, and senates** — artifacts that make irreversible power **manufacturable, haltable, and provable** —  
-> from a bind desk in Toledo to a conjunction mouth in orbit — **wicked enough to matter, boring enough to ship**.
+> Gate invents **sheaths, throats, tombstones, and senates** — artifacts that make force that sticks **manufacturable, lockable, and proveable** —  
+> from a bind desk in Toledo to a conjunction mouth in orbit — **wicked enough to matter, boring enough to ship**.  
+> Not a hall monitor. A **gravity well**.
 
 ---
 
 ## Subject stack (what makes the star heavier)
 
-1. **Irreversibility science** — thermo, info, causality, undo-cost, Filter metrology, Kardashev scaling, GR/quantum floors  
+1. **Mass / commit science** — thermo, info, causality, undo-cost (physics name for mass), Filter metrology, Kardashev scaling, GR/quantum floors  
 2. **Authority design** — law, ROE, principal–agent, quorum LIVE, non-human / post-biological / post-human principals, succession  
 3. **Embodiment / forge** — control theory, STAMP/STPA, MBSE, assembly, HIL, crypto attest, forge-of-forges  
 4. **Standards power** — own the grammar (BGP-of-may), metrology institute, not only a SaaS SKU  
@@ -845,11 +1046,12 @@ Scrap    → Funeral Bit · Counterfeit Tongue audit · Bind Genealogy close-out
 11. **Lexicon farther than futuristic** — every soft sci-fi word remapped as commit surface or Filter mode  
 12. **Hard frontiers** — inflation, dark energy, curvature, entanglement, non-locality, void DENY, post-human principal  
 13. **Live research signals** — planetary defense without MAOG, SRM grey zone, Kessler governance, open-weights genesis, agent pre-action auth, rights of nature  
-14. **Deep-dive cousins & anti-patterns** — OAP mouth, twin→PLC secure-write, Cybersyn algedonic, Perimeter fail-deadly, DURC churn, ADR consent bus  
-15. **Invention catalog** — named forge artifacts from Throat to Galaxy Birth Certificate — composable life-stack  
+14. **Gravity doctrine** — commit · mass · sheath · receipt of power — irreversibility stays the physics footnote  
+15. **Deep-dive cousins & anti-patterns** — OAP mouth, twin→PLC secure-write, Cybersyn algedonic, Perimeter fail-deadly, DURC churn, ADR consent bus  
+16. **Invention catalog** — named forge artifacts from Throat to Galaxy Birth Certificate — composable life-stack  
 
 Insurance bind is the first **laboratory**, not the ceiling.  
-The ceiling is **forge + mouth + prove** — then Filter metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
+The ceiling is **forge + mouth + prove** — the gravity well where force sticks — then mass metrology as civilization infrastructure — then **grammar hegemony** beyond any one firm.
 
 ---
 
@@ -858,7 +1060,7 @@ The ceiling is **forge + mouth + prove** — then Filter metrology as civilizati
 | Horizon | Weld |
 |---------|------|
 | **Now** | US MGA / PAS **bind-only** halt + stranger verify (Bind Room) — **director seed** |
-| **Next** | Same mouth on more commercial irreversible writes (payout clear, etc.) |
+| **Next** | Same mouth on more commercial hard commits (payout clear, etc.) |
 | **Then** | Grid-adjacent / infra high-undo-cost edges; first **designed-in** embeds |
 | **Later** | Program / gov / defense **digital–cyber** clearance under contract |
 | **Forge scale** | Engineering houses, assembly cells, HIL labs, permission-BOM supply — **core business** |
@@ -911,32 +1113,32 @@ Same missing layer. Unification is the product.
 
 | Dimension | Lockheed · Raytheon | Anduril | Palantir | Gate north star |
 |-----------|---------------------|---------|----------|-----------------|
-| **Core bet** | **Can** — platforms, effectors | **Can at the edge** — autonomy mesh | **See** — ontology, fusion | **May + prove + forge** — permission industrial stack |
+| **Core bet** | **Can** — platforms, effectors | **Can at the edge** — autonomy mesh | **See** — ontology, fusion | **May + prove + forge** — gravity well for force that sticks |
 | **Factory** | Jets, missiles, buses | Attritable mass, sensors | — (software-first) | **May in the machine**; assembly proves DENY path |
-| **Runtime** | Platform operates | Lattice clears targets | Suggests; human or system acts | **Mouth** at irreversible edge — LIVE / DENY / inhibit |
-| **After-action** | Classified logs, program review | Mission telemetry | Audit trails in platform | **Stranger-grade receipt** as product |
+| **Runtime** | Platform operates | Lattice clears targets | Suggests; human or system acts | **Mouth** at the hard-commit edge — LIVE / sheath / inhibit |
+| **After-action** | Classified logs, program review | Mission telemetry | Audit trails in platform | **Receipt of power** as product |
 | **Horizon** | Program of record | Near-peer attrition | Enterprise + gov data | **Medium × time × role × life** — including eons layer |
-| **Endgame** | Arsenal adjacency | Defense-tech platform | Decision OS | **Default industrial control plane** under coordinators |
+| **Endgame** | Arsenal adjacency | Defense-tech platform | Decision OS | **Default gravity well for force that sticks** under coordinators |
 
 | Dimension | Classic prime (Lockheed-class) | Gate north star |
 |-----------|--------------------------------|-----------------|
-| **Core** | **Can** — platforms, sensors, weapons, sustainment | **May + prove + forge** — permission industrial stack |
-| **Homepage media** | Air · Land · Sea · Space · Cyber | Same media **as commit surfaces**; grammar is medium × time × role × **life** |
-| **Factory** | Build jets, missiles, buses | Build / integrate **may into machines**; assembly proves DENY path |
-| **Engineering** | Performance, survivability, cost | Undo-cost, fail-closed, quorum LIVE, attest |
-| **Software** | Mission systems, C2 *components* | Control plane for irreversible edges (not owning sovereign C2) |
-| **Runtime** | Platform operates | Mouth clears / inhibits / proves acts the platform (or bind desk) would stick |
-| **After-action** | Classified logs, program review | Stranger-grade receipt as product |
+| **Core** | **Can** — platforms, sensors, weapons, sustainment | **May + prove + forge** — legitimacy-of-force industrial stack |
+| **Homepage media** | Air · Land · Sea · Space · Cyber | Same media **as hard-commit surfaces**; grammar is medium × time × role × **life** |
+| **Factory** | Build jets, missiles, buses | Build / integrate **may into machines**; assembly proves sheath path |
+| **Engineering** | Performance, survivability, cost | Mass of the act, fail-closed, quorum LIVE, attest |
+| **Software** | Mission systems, C2 *components* | Control plane for hard commits (not owning sovereign C2) |
+| **Runtime** | Platform operates | Mouth clears / sheathes / proves acts the platform (or bind desk) would stick |
+| **After-action** | Classified logs, program review | Receipt of power as product |
 | **Trigger** | State | State |
 | **Offense** | Supply offensive **kit** | Enable authorized LIVE under their ROE |
-| **Defense** | Supply defensive **kit** | Halt unjustified irreversible acts |
-| **Standards** | Mil-spec, platform standards | **Metrology of may** / irreversible-act grammar |
-| **Endgame** | Arsenal adjacency | **Default industrial control plane** under coordinators |
-| **Power type** | Industrial capability | Legitimacy / restrainability of irreversible acts |
+| **Defense** | Supply defensive **kit** | Sheath unjustified hard commits |
+| **Standards** | Mil-spec, platform standards | **Metrology of may** / mass-of-act grammar |
+| **Endgame** | Arsenal adjacency | **Default gravity well** under coordinators |
+| **Power type** | Industrial capability | Legitimacy / sheathability of force that sticks |
 | **What ripping you out costs** | Re-compete a platform | **Redesign the product’s bones + lose prove** |
 
 Lockheed forges **swords**. Anduril multiplies **eyes that shoot**. Palantir multiplies **sight before the shot**.  
-Gate forges **sheaths that lock**, runs the **lock at runtime**, issues the **receipt**, and maps the **eons layer** none of them unify.  
+Gate forges **sheaths that lock**, runs the **lock at runtime**, issues the **receipt of power**, and owns the **gravity** none of them unify.  
 Still under the crown. Still not the crown.
 
 ---
@@ -944,12 +1146,14 @@ Still under the crown. Still not the crown.
 ## Refuse list (north star hygiene)
 
 - Lead cold outbound with this document or “civilizational” / “eons” / “beyond every session” language  
+- Lead with **irreversibility** as the brand feeling — that’s the physics footnote; lead with **commit / mass / sheath / gravity**  
 - Cosplay Tier-S or factory empire before one paid commercial DENY  
 - Widen to nine industries while Bind Room is unproven  
 - Claim ownership of guns, grid, or nuclear C2  
 - Confuse **adjacent** with **above**  
 - Treat manufacturing as “optional later” in doctrine — **it is core**; only the **timing** is sequenced  
 - Confuse **mapping the mountain** with **shipping the foothold** — September still scores reply → meeting → paid artifact  
+- Sound like a hall monitor — Gate is the gravity well where force sticks, not detention 
 
 ---
 
@@ -963,4 +1167,6 @@ Still under the crown. Still not the crown.
 
 ## Lock line (repeatable)
 
-**Favor to coordinators. Mouth and forge. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Farther than futuristic. Beyond every session. Adjacent to S. Never sovereign.**
+**Favor to coordinators. Mouth and forge. Commit · mass · sheath · gravity. Medium × time × role × life. Designed in, assembled, enforced live, proved after. Farther than futuristic. Beyond every session. Adjacent to S. Never sovereign.**
+
+Physics footnote (not the vibe): irreversibility / undo-cost / PRI — `SCIENCE.md`.

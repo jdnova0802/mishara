@@ -1,0 +1,179 @@
+PAS GHOST DRILL — OUTBOUND PASTE PACK (Aug 2026)
+=================================================
+Live Gate: https://gate.velaru.xyz
+Drill page (public curls on-page): https://gate.velaru.xyz/bind-room
+Officer pack (GC/compliance forward): https://gate.velaru.xyz/bind-room/officer-pack.json
+Run full drill locally: ./gate/drill-pas-ghost.sh https://gate.velaru.xyz
+
+No API key. No PII. Stranger verify only. Demo receipts — not production weld.
+
+
+THE ONE-LINER (internal)
+==========================
+Soft PAS said go. Dashboard green. Boss said yes. Throat CHOKED. Ghost Bind caught the haunt.
+Curl it yourself — no login.
+
+
+60-SECOND PROOF (paste in terminal — bash/mac/linux/WSL)
+=========================================================
+curl -sS https://gate.velaru.xyz/.well-known/throat.json | python3 -m json.tool
+
+curl -sS -X POST https://gate.velaru.xyz/demo/pas/soft-yes-snare \
+  -H "Content-Type: application/json" \
+  -d '{"scenario":{"soft_pas":true,"decision":"ALLOW","allow_bind":true,"would_bind":true}}'
+
+curl -sS https://gate.velaru.xyz/demo/pas/soft-yes-snare/drills
+
+Expect: throat_state CHOKE · ghost_verdict HAUNTED_CRITICAL · drills all_ok true
+
+
+WINDOWS (PowerShell — you)
+===========================
+python -c "import urllib.request,json; print(json.dumps(json.load(urllib.request.urlopen('https://gate.velaru.xyz/.well-known/throat.json')), indent=2))"
+
+python -c "import urllib.request,json; req=urllib.request.Request('https://gate.velaru.xyz/demo/pas/soft-yes-snare', data=b'{\"scenario\":{\"soft_pas\":true,\"decision\":\"ALLOW\",\"allow_bind\":true,\"would_bind\":true}}', headers={'Content-Type':'application/json'}, method='POST'); print(json.dumps(json.load(urllib.request.urlopen(req)), indent=2))"
+
+
+WHAT THEY SEE (hero scenario — soft PAS)
+=========================================
+POST /demo/pas/soft-yes-snare →
+  throat_state:      CHOKE
+  throat_reasons:    ["soft_pas_without_mouth"]
+  ghost_verdict:     HAUNTED_CRITICAL
+  snared:            true
+  detail:            Soft-yes must CHOKE or HAUNT — never LIVE on the irreversible edge.
+
+Throat alone (POST /demo/pas/throat, same payload):
+  state:             CHOKE
+  may_proceed:       false
+  fail_closed:       true
+  detail:            Soft PAS without mouth — Throat refuses silent stick.
+
+
+THREE-ACT STORY (for a live call or email P.S.)
+================================================
+1. Soft PAS path — POST soft-yes-snare with soft_pas:true → CHOKE + HAUNTED_CRITICAL
+2. Timeout-as-LIVE — same endpoint, timeout:true → CHOKE (classic silent fail-open)
+3. UW approve on DEAD — POST /demo/pas/charge-bride fuse_state DEAD + uw_approved → FORGED
+   (UW approve is not CHARGE — resurrection without may)
+
+
+================================================================================
+LINKEDIN DM — THOMAS / DTCC-CLASS / COMPLIANCE (short)
+================================================================================
+Thomas — public drill, no deck:
+
+Your PAS stack can soft-allow a bind when the hop lies or the mouth is missing. We fail-closed on the edge — CHOKE, not silent LIVE.
+
+Stranger verify (no login):
+https://gate.velaru.xyz/bind-room
+
+One curl — soft PAS scenario, throat CHOKE + ghost HAUNTED_CRITICAL:
+POST https://gate.velaru.xyz/demo/pas/soft-yes-snare
+{"scenario":{"soft_pas":true,"decision":"ALLOW","allow_bind":true,"would_bind":true}}
+
+Officer pack for your compliance side:
+https://gate.velaru.xyz/bind-room/officer-pack.json
+
+Posture: under coordinators, never sovereign. Infrastructure adapter — not competing depository.
+
+
+================================================================================
+LINKEDIN DM — ALAN / GAMING / PAYOUT OPS (short)
+================================================================================
+Alan — same mouth grammar on bind and payout:
+
+We ship fail-closed on irreversible hops — bind edge today, payout throat on the same OPEN/CLOSED/CHOKE semantics.
+
+Public proof (no key):
+https://gate.velaru.xyz/.well-known/throat.json
+https://gate.velaru.xyz/.well-known/payout-throat.json
+
+Drill — soft path that would stick without may:
+https://gate.velaru.xyz/bind-room
+
+If useful: 15 min on where Stake/EasyGo treats dashboard-green or timeout as LIVE on withdraw.
+
+
+================================================================================
+EMAIL — CARRIER / PAS / MGA (medium)
+================================================================================
+Subject: Public drill — PAS would have stuck; Throat CHOKED (verify, no login)
+
+[Name] —
+
+Most bind stacks fail open on ambiguity: timeout → LIVE, dashboard green → LIVE, soft PAS → stick.
+
+Gate is the mouth on the irreversible write only — fail-closed under coordinators, not a replacement PAS.
+
+Public drill (no API key, no PII):
+
+  Bind Room:     https://gate.velaru.xyz/bind-room
+  Officer pack:  https://gate.velaru.xyz/bind-room/officer-pack.json
+  Throat spec:   https://gate.velaru.xyz/.well-known/throat.json
+
+Hero scenario — soft PAS would stick:
+  curl -sS -X POST https://gate.velaru.xyz/demo/pas/soft-yes-snare \
+    -H "Content-Type: application/json" \
+    -d '{"scenario":{"soft_pas":true,"decision":"ALLOW","allow_bind":true,"would_bind":true}}'
+
+Expect throat_state CHOKE and ghost_verdict HAUNTED_CRITICAL.
+
+Full red-team pack (6 scenarios, all must snare):
+  curl -sS https://gate.velaru.xyz/demo/pas/soft-yes-snare/drills
+
+We collaborate as an infrastructure adapter — receipt rail underneath, stranger verify on DENY and on choke.
+
+Worth 20 minutes on your pre-bind hop this quarter?
+
+— Demond
+Nisaba LLC / Gate
+hello@velaru.xyz
+
+
+================================================================================
+EMAIL — GC / LEGAL (forwardable)
+================================================================================
+Subject: Bind Room officer pack — stranger verify on fail-closed bind edge
+
+Forward to compliance without a vendor login:
+
+https://gate.velaru.xyz/bind-room/officer-pack.json
+
+Posture line in manifest: under coordinators, never sovereign.
+
+Demonstrates CHOKE on soft PAS / timeout / charisma paths before money moves — audit/drill only, does not mint LIVE in demo mode.
+
+Receipt mirror + witness seat (verify yes, LIVE never) linked from the same Bind Room page.
+
+
+================================================================================
+FOLLOW-UP BUMP (7–10 days, if silent)
+================================================================================
+Subject: Re: public bind drill — still curlable
+
+Quick bump — drill still live at https://gate.velaru.xyz/bind-room
+
+One line proof: soft PAS → CHOKE. Full pack: /demo/pas/soft-yes-snare/drills
+
+Happy to delete thread if not relevant.
+
+
+================================================================================
+DO NOT SAY
+================================================================================
+- Replace DTCC / SWIFT / PAS
+- Production weld / their_production true (until real coordinator weld)
+- We own Tier S / sovereign mouth
+- TAM / monopoly framing
+
+
+================================================================================
+AFTER YES REPLY
+================================================================================
+Operator weld:  https://gate.velaru.xyz/operator
+Carriers plate: https://gate.velaru.xyz/for/carriers
+Compliance:     https://gate.velaru.xyz/for/compliance
+Legal:          https://gate.velaru.xyz/for/legal
+
+Stripe links: see sales/outbound-paste-send.txt (paste on yes only)
