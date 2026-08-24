@@ -824,6 +824,8 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Restraint Unit (ρ)** | **Shipped seed** — `gate/restraint_unit.py` — atomic unit of proved non-fire (κ=ratio, ρ=quantity) |
 | **Oath Compiler** | **Shipped seed** — `gate/oath_compiler.py` — ROE/oath clauses → executable inhibit graph |
 | **Mouth Density Pack** | **Shipped seed** — `gate/mouth_density.py` — eight densifiers (below) |
+| **Foothill Max Pack** | **Shipped seed** — `gate/foothill_max.py` — twelve remaining demoable seeds (below) |
+| **Mouth Ceiling** | **Doctrine lock** — `gate/MOUTH_CEILING.md` — software-era max; stop inventing until paid weld |
 
 **Mouth Density Pack (mountain → foothill):**
 
@@ -838,13 +840,32 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Bind Genealogy** | Serial lineage stamp per hop |
 | **Cold Weld** | Genesis receipt before first production irreversible |
 
+**Foothill Max Pack (completes demoable cells):**
+
+| Invention | Job |
+|-----------|-----|
+| **Tool Throat** | Irreversible agent tool pre-hook |
+| **Time Lock Envelope** | LIVE only inside/after declared window |
+| **Charisma Nullifier** | Boss/chat/synthetic/emoji yes ⇒ forged |
+| **Sabbath Latch** | Calendar DENY window |
+| **May Quarantine** | Principal/edge cannot receive LIVE |
+| **Branch Tombstone** | Restraint receipt across declared branches |
+| **Secure Write Macro** | Only pre-approved irreversible command classes |
+| **Dose Throat** | Body/infusion sacred medium mouth |
+| **Jubilee Clock** | Scheduled may-retirement |
+| **Antimay Detector** | Fake sheath / spoofed LIVE / genealogy break |
+| **Senate Socket Soft** | N-of-M software quorum (hardware stays mountain) |
+| **Receipt Stone** | Immutable stranger receipt anchor |
+
 **Temporal Sheath:** `gate/TEMPORAL_SHEATH.md` — time ontology for the mouth (COOL / SUNSET / DEADMAN / DUTY / …).
 
-**Civilizational foothills (2026):** Unit of restraint (ρ) + ROE that compiles (Oath Compiler) + mouth densifiers (freshness · time · link · escalate · scarcity · death · lineage · genesis).
+**Civilizational foothills (2026):** ρ + Oath Compiler + density(8) + foothill_max(12) + C/D/O dialects.
 
 **Force skins note:** Gate-D / Gate-O are dialects of the same mouth (may · sheath · prove) on protective vs initiatory commit surfaces — not weapons, not C2, not a fifth LARP prime. Keep force language out of MGA/CUO outbound; civil costume stays Gate-C.
 
-**Still mountain (hardware / eons):** Silence Gate *hardware*, Senate Socket hardware, forge sheath cell, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity, Sabbath Latch (calendar product), May Quarantine, Antimay.
+**Still mountain (hardware / eons only):** Silence Gate *hardware*, Senate Socket *metal*, forge sheath cell + Deny Path HIL, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity markets.
+
+**Stop-rule:** Doctrine + foothill software are at ceiling. **Do not invent further until a paid weld hangs on the mouth.**
 
 **Now-rule:** If you can’t demo it on a bind, payout, agent tool, or PLC write path this year, it stays in the mountain — not the pitch.
 

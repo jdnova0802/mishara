@@ -340,6 +340,11 @@ except ImportError:
     import mouth_density as mouth_density_mod
 
 try:
+    from gate import foothill_max as foothill_max_mod
+except ImportError:
+    import foothill_max as foothill_max_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1183,6 +1188,7 @@ def _finalize_spend_plan(
     restraint_unit_mod.attach(plan, public_url=advertised_url())
     oath_compiler_mod.attach(plan, public_url=advertised_url())
     mouth_density_mod.attach(plan, public_url=advertised_url())
+    foothill_max_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1201,6 +1207,7 @@ def _finalize_spend_plan(
     extra["X-Gate-Rho"] = str((plan.get("restraint_unit") or {}).get("rho_mass") or "")
     extra["X-Gate-Oath"] = "1" if (plan.get("oath_compiler") or {}).get("executable") else "0"
     extra["X-Gate-Mouth-Density"] = str((plan.get("mouth_density") or {}).get("active_count") or "")
+    extra["X-Gate-Foothill-Max"] = str((plan.get("foothill_max") or {}).get("active_count") or "")
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1626,6 +1633,8 @@ def well_known_gate():
             "restraint_unit_ledger": f"{advertised_url()}/.well-known/restraint-unit-ledger.json",
             "oath_compiler": f"{advertised_url()}/.well-known/oath-compiler.json",
             "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
+            "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
+            "mouth_ceiling": f"{advertised_url()}/.well-known/mouth-ceiling.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
@@ -1634,6 +1643,18 @@ def well_known_gate():
             "funeral_bit": f"{advertised_url()}/.well-known/funeral-bit.json",
             "bind_genealogy": f"{advertised_url()}/.well-known/bind-genealogy.json",
             "cold_weld": f"{advertised_url()}/.well-known/cold-weld.json",
+            "tool_throat": f"{advertised_url()}/.well-known/tool-throat.json",
+            "time_lock": f"{advertised_url()}/.well-known/time-lock.json",
+            "charisma_nullifier": f"{advertised_url()}/.well-known/charisma-nullifier.json",
+            "sabbath_latch": f"{advertised_url()}/.well-known/sabbath-latch.json",
+            "may_quarantine": f"{advertised_url()}/.well-known/may-quarantine.json",
+            "branch_tombstone": f"{advertised_url()}/.well-known/branch-tombstone.json",
+            "secure_write_macro": f"{advertised_url()}/.well-known/secure-write-macro.json",
+            "dose_throat": f"{advertised_url()}/.well-known/dose-throat.json",
+            "jubilee_clock": f"{advertised_url()}/.well-known/jubilee-clock.json",
+            "antimay": f"{advertised_url()}/.well-known/antimay.json",
+            "senate_socket_soft": f"{advertised_url()}/.well-known/senate-socket-soft.json",
+            "receipt_stone": f"{advertised_url()}/.well-known/receipt-stone.json",
             "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
@@ -1832,6 +1853,27 @@ def well_known_mouth_density():
     return jsonify(mouth_density_mod.manifest(advertised_url()))
 
 
+@app.route("/.well-known/foothill-max.json")
+def well_known_foothill_max():
+    return jsonify(foothill_max_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mouth-ceiling.json")
+def well_known_mouth_ceiling():
+    return jsonify(
+        {
+            "spec": "gate-mouth-ceiling-v1",
+            "doc": "gate/MOUTH_CEILING.md",
+            "invention": "Mouth Ceiling",
+            "one_liner": "Doctrine max for software-era Gate — stop inventing until paid weld.",
+            "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
+            "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
+            "north_star": "gate/NORTH_STAR.md",
+            "posture": "Under coordinators. Never sovereign.",
+        }
+    )
+
+
 @app.route("/.well-known/stale-live.json")
 @app.route("/.well-known/cool-off.json")
 @app.route("/.well-known/silence-gate.json")
@@ -1843,6 +1885,23 @@ def well_known_mouth_density():
 def well_known_mouth_density_one():
     slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
     return jsonify(mouth_density_mod.manifest_one(advertised_url(), slug))
+
+
+@app.route("/.well-known/tool-throat.json")
+@app.route("/.well-known/time-lock.json")
+@app.route("/.well-known/charisma-nullifier.json")
+@app.route("/.well-known/sabbath-latch.json")
+@app.route("/.well-known/may-quarantine.json")
+@app.route("/.well-known/branch-tombstone.json")
+@app.route("/.well-known/secure-write-macro.json")
+@app.route("/.well-known/dose-throat.json")
+@app.route("/.well-known/jubilee-clock.json")
+@app.route("/.well-known/antimay.json")
+@app.route("/.well-known/senate-socket-soft.json")
+@app.route("/.well-known/receipt-stone.json")
+def well_known_foothill_max_one():
+    slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
+    return jsonify(foothill_max_mod.manifest_one(advertised_url(), slug))
 
 
 @app.route("/.well-known/kappa.json")
@@ -3313,6 +3372,11 @@ def bind_room_mouth_density():
     return jsonify(mouth_density_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/foothill-max.json")
+def bind_room_foothill_max():
+    return jsonify(foothill_max_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -4071,6 +4135,30 @@ def demo_pas_mouth_density():
         result = plan.get("mouth_density") or {}
     result["demo"] = True
     result["catalog"] = mouth_density_mod.manifest(advertised_url())
+    return jsonify(result)
+
+
+@app.route("/demo/pas/foothill-max", methods=["POST"])
+def demo_pas_foothill_max():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    name = body.get("invention") or body.get("name")
+    if name:
+        kwargs = {k: v for k, v in body.items() if k not in ("invention", "name", "demo")}
+        result = foothill_max_mod.evaluate(str(name), **kwargs)
+    else:
+        plan = dict(body)
+        if isinstance(body.get("plan"), dict):
+            plan = dict(body["plan"])
+        foothill_max_mod.attach(plan, public_url=advertised_url())
+        result = plan.get("foothill_max") or {}
+    result["demo"] = True
+    result["catalog"] = foothill_max_mod.manifest(advertised_url())
+    result["ceiling"] = f"{advertised_url()}/.well-known/mouth-ceiling.json"
     return jsonify(result)
 
 
