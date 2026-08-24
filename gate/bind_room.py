@@ -81,9 +81,10 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "gate_od_skins": f"{public_url}/bind-room/gate-od-skins.json",
             "restraint_unit": f"{public_url}/bind-room/restraint-unit.json",
             "oath_compiler": f"{public_url}/bind-room/oath-compiler.json",
+            "mouth_density": f"{public_url}/bind-room/mouth-density.json",
             "larp_gap_pack": f"{public_url}/.well-known/larp-gap-pack.json",
             "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
-            "pair": "Action OS foothill — ρ restraint unit + Oath Compiler; Bind Path + Gate-C/D/O; Moral Throat on finalize.",
+            "pair": "Mouth max — density pack (8) + ρ + Oath + path + C/D/O; Moral Throat on finalize.",
         },
     }
 

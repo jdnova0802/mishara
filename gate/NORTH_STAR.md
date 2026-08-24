@@ -823,14 +823,28 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Gate-O / Gate-D Skins** | **Shipped seed** — `gate/gate_od_skins.py` — civil / defensive / offensive mass tables + LARP gap pack |
 | **Restraint Unit (ρ)** | **Shipped seed** — `gate/restraint_unit.py` — atomic unit of proved non-fire (κ=ratio, ρ=quantity) |
 | **Oath Compiler** | **Shipped seed** — `gate/oath_compiler.py` — ROE/oath clauses → executable inhibit graph |
+| **Mouth Density Pack** | **Shipped seed** — `gate/mouth_density.py` — eight densifiers (below) |
+
+**Mouth Density Pack (mountain → foothill):**
+
+| Invention | Job |
+|-----------|-----|
+| **Stale LIVE Rejector** | Age > τ ⇒ forged if worn as fresh |
+| **Cool-Off Shim** | Heavy/sacred HOLD(τ) before LIVE eligible |
+| **Silence Gate** | Loss of contact ⇒ DENY (anti-Perimeter, software) |
+| **Algedonic Relay** | Local hold past τ ⇒ signed escalate packet |
+| **May Budget** | N sacred LIVEs / window; exhaust ⇒ DENY |
+| **Funeral Bit** | Decommission may-hooks; prove mouth dead |
+| **Bind Genealogy** | Serial lineage stamp per hop |
+| **Cold Weld** | Genesis receipt before first production irreversible |
 
 **Temporal Sheath:** `gate/TEMPORAL_SHEATH.md` — time ontology for the mouth (COOL / SUNSET / DEADMAN / DUTY / …).
 
-**Civilizational foothills (2026):** Unit of restraint (ρ) + ROE that compiles (Oath Compiler). Ethics-as-PDF ends where the inhibit graph begins.
+**Civilizational foothills (2026):** Unit of restraint (ρ) + ROE that compiles (Oath Compiler) + mouth densifiers (freshness · time · link · escalate · scarcity · death · lineage · genesis).
 
 **Force skins note:** Gate-D / Gate-O are dialects of the same mouth (may · sheath · prove) on protective vs initiatory commit surfaces — not weapons, not C2, not a fifth LARP prime. Keep force language out of MGA/CUO outbound; civil costume stays Gate-C.
 
-**Still mountain (not this year's demo unless plant/agent weld):** Cold Weld commission ritual, Bind Genealogy, Silence Gate hardware, Senate Socket hardware, Time Lock Envelope, forge sheath cell, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity, Sabbath Latch, May Quarantine, Antimay.
+**Still mountain (hardware / eons):** Silence Gate *hardware*, Senate Socket hardware, forge sheath cell, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity, Sabbath Latch (calendar product), May Quarantine, Antimay.
 
 **Now-rule:** If you can’t demo it on a bind, payout, agent tool, or PLC write path this year, it stays in the mountain — not the pitch.
 

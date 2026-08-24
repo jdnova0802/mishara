@@ -335,6 +335,11 @@ except ImportError:
     import oath_compiler as oath_compiler_mod
 
 try:
+    from gate import mouth_density as mouth_density_mod
+except ImportError:
+    import mouth_density as mouth_density_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1177,6 +1182,7 @@ def _finalize_spend_plan(
     gate_od_skins_mod.attach(plan, public_url=advertised_url())
     restraint_unit_mod.attach(plan, public_url=advertised_url())
     oath_compiler_mod.attach(plan, public_url=advertised_url())
+    mouth_density_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1194,6 +1200,7 @@ def _finalize_spend_plan(
     extra["X-Gate-OD-Skin"] = (plan.get("gate_od_skins") or {}).get("skin") or ""
     extra["X-Gate-Rho"] = str((plan.get("restraint_unit") or {}).get("rho_mass") or "")
     extra["X-Gate-Oath"] = "1" if (plan.get("oath_compiler") or {}).get("executable") else "0"
+    extra["X-Gate-Mouth-Density"] = str((plan.get("mouth_density") or {}).get("active_count") or "")
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1618,6 +1625,15 @@ def well_known_gate():
             "restraint_unit": f"{advertised_url()}/.well-known/restraint-unit.json",
             "restraint_unit_ledger": f"{advertised_url()}/.well-known/restraint-unit-ledger.json",
             "oath_compiler": f"{advertised_url()}/.well-known/oath-compiler.json",
+            "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
+            "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
+            "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
+            "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
+            "algedonic_relay": f"{advertised_url()}/.well-known/algedonic-relay.json",
+            "may_budget": f"{advertised_url()}/.well-known/may-budget.json",
+            "funeral_bit": f"{advertised_url()}/.well-known/funeral-bit.json",
+            "bind_genealogy": f"{advertised_url()}/.well-known/bind-genealogy.json",
+            "cold_weld": f"{advertised_url()}/.well-known/cold-weld.json",
             "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
@@ -1809,6 +1825,24 @@ def well_known_restraint_unit_ledger():
 @app.route("/.well-known/oath-compiler.json")
 def well_known_oath_compiler():
     return jsonify(oath_compiler_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mouth-density.json")
+def well_known_mouth_density():
+    return jsonify(mouth_density_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/stale-live.json")
+@app.route("/.well-known/cool-off.json")
+@app.route("/.well-known/silence-gate.json")
+@app.route("/.well-known/algedonic-relay.json")
+@app.route("/.well-known/may-budget.json")
+@app.route("/.well-known/funeral-bit.json")
+@app.route("/.well-known/bind-genealogy.json")
+@app.route("/.well-known/cold-weld.json")
+def well_known_mouth_density_one():
+    slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
+    return jsonify(mouth_density_mod.manifest_one(advertised_url(), slug))
 
 
 @app.route("/.well-known/kappa.json")
@@ -3274,6 +3308,11 @@ def bind_room_oath_compiler():
     return jsonify(oath_compiler_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/mouth-density.json")
+def bind_room_mouth_density():
+    return jsonify(mouth_density_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -4009,6 +4048,29 @@ def demo_pas_oath_compiler():
     plan = body.get("plan") if isinstance(body.get("plan"), dict) else body
     result["evaluation"] = oath_compiler_mod.evaluate_against_plan(result, plan)
     result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/mouth-density", methods=["POST"])
+def demo_pas_mouth_density():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    name = body.get("invention") or body.get("name")
+    if name:
+        kwargs = {k: v for k, v in body.items() if k not in ("invention", "name", "demo")}
+        result = mouth_density_mod.evaluate(str(name), **kwargs)
+    else:
+        plan = dict(body)
+        if isinstance(body.get("plan"), dict):
+            plan = dict(body["plan"])
+        mouth_density_mod.attach(plan, public_url=advertised_url())
+        result = plan.get("mouth_density") or {}
+    result["demo"] = True
+    result["catalog"] = mouth_density_mod.manifest(advertised_url())
     return jsonify(result)
 
 
