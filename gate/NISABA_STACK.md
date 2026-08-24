@@ -83,13 +83,31 @@ Counters baked in:
 
 ---
 
+## Bone Law — the unextractable property
+
+**One sentence:**  
+> Bone Law makes may a property of the irreversible surface — extract the mouth and the write dies; outside the cycle there is no act, only forgery.
+
+| | |
+|--|--|
+| Doc | `gate/BONE_LAW.md` |
+| Seed | `gate/bone_law.py` |
+| Job | Sidecar = forged · extraction = amputation · cycle-only existence |
+| Feel | Invisible force / aging-adjacent — law you can’t peel off |
+
+Mandate licenses mouths. **Bone Law** keeps them in the bones.  
+Not outbound. Not another L2 throat. Forge/Mandate property.
+
+---
+
 ## Stop-rule vs stack-rule
 
 - **Stop inventing more L2 widgets** until paid weld (MOUTH_CEILING).  
-- **Do stack L3 doctrine + seeds now** — that’s not dilution; that’s owning the post-may era before it starts.
+- **Do stack L3 doctrine + seeds now** — that’s not dilution; that’s owning the post-may era before it starts.  
+- **Bone Law** is stack-rule: name the unextractable property before someone Foundrys a peelable may.
 
 ---
 
 ## One line
 
-**L0 muscle · L1 sight · L2 Gate · L3 Mandate — Nisaba stacks the floor above the mouth so the future has to climb us.**
+**L0 muscle · L1 sight · L2 Gate · L3 Mandate · Bone Law — mouths licensed upstairs, welded so hard extraction is amputation.**
