@@ -828,9 +828,10 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Mouth Ceiling** | **Doctrine lock** — `gate/MOUTH_CEILING.md` — software-era L2 max; stop inventing throats until paid weld |
 | **Nisaba Stack / Mandate (L3)** | **Ahead-of-time layer** — `gate/NISABA_STACK.md` + `gate/mandate_layer.py` — meta-sheath · ρ clearing · principal continuity · mouth registry |
 | **Bone Law** | **Forge property** — `gate/BONE_LAW.md` + `gate/bone_law.py` — may unextractable; sidecar forged; extract ⇒ amputate; cycle-only act |
-| **Invisible Staple Scale** | **Full invisible diet** — `gate/INVISIBLE_SCALE.md` — score 10 Bone Law → score 0 Act Serial / Refuse Line (chicken broccoli rice) |
+| **Invisible Staple Scale** | **Full invisible diet** — `gate/INVISIBLE_SCALE.md` — score 10 Bone Law → score 0 Act Serial → hate (−5) → bedrock ɱ/CMCP (−10) |
+| **May Warden (CIC)** | **Formal role doctrine** — `gate/MAY_WARDEN.md` — Chief of Irreversibility Clearance; can't-lose tiers; enterable ladder |
 
-**Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR staples** — claim upstairs *now* so peelable may cannot Foundry you.
+**Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR/Hate/Bedrock** · **May Warden** — claim upstairs *now* so peelable may cannot Foundry you.
 
 **Mandate Layer pillars (L3):**
 
