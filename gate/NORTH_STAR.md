@@ -819,8 +819,12 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Pardon Sunset** | **Shipped seed** — `gate/pardon_sunset.py` — Hard Mercy scarred + co-signed + sunsetting |
 | **Watchman Fuse** | **Shipped seed** — `gate/watchman_fuse.py` — duty SLA silence → DERELICT |
 | **Indulgence Trap** | **Shipped seed** — `gate/indulgence_trap.py` — paid/favor/prestige mercy forged |
+| **Bind Path Compiler** | **Shipped seed** — `gate/bind_path_compiler.py` — procedure graph + repair packet (not thumbs) |
+| **Gate-O / Gate-D Skins** | **Shipped seed** — `gate/gate_od_skins.py` — civil / defensive / offensive mass tables + LARP gap pack |
 
 **Temporal Sheath:** `gate/TEMPORAL_SHEATH.md` — time ontology for the mouth (COOL / SUNSET / DEADMAN / DUTY / …).
+
+**Force skins note:** Gate-D / Gate-O are dialects of the same mouth (may · sheath · prove) on protective vs initiatory commit surfaces — not weapons, not C2, not a fifth LARP prime. Keep force language out of MGA/CUO outbound; civil costume stays Gate-C.
 
 **Still mountain (not this year's demo unless plant/agent weld):** Cold Weld commission ritual, Bind Genealogy, Silence Gate hardware, Senate Socket hardware, Time Lock Envelope, forge sheath cell, Heat-Death Ledger, xeno tables, Fate Clock full object, Restraint Liquidity, Sabbath Latch, May Quarantine, Antimay.
 

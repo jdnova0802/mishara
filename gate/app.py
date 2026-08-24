@@ -320,6 +320,11 @@ except ImportError:
     import bind_path_compiler as bind_path_compiler_mod
 
 try:
+    from gate import gate_od_skins as gate_od_skins_mod
+except ImportError:
+    import gate_od_skins as gate_od_skins_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1159,6 +1164,7 @@ def _finalize_spend_plan(
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
     bind_path_compiler_mod.attach(plan, public_url=advertised_url(), job_id=jid)
+    gate_od_skins_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1173,6 +1179,7 @@ def _finalize_spend_plan(
     extra["X-Gate-Panic-Latch"] = (plan.get("panic_latch") or {}).get("verdict") or ""
     extra["X-Gate-Desk-Quorum"] = (plan.get("desk_quorum_fob") or {}).get("verdict") or ""
     extra["X-Gate-Bind-Path"] = (plan.get("bind_path_compiler") or {}).get("path_state") or ""
+    extra["X-Gate-OD-Skin"] = (plan.get("gate_od_skins") or {}).get("skin") or ""
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1592,6 +1599,8 @@ def well_known_gate():
             "watchman_fuse": f"{advertised_url()}/.well-known/watchman-fuse.json",
             "indulgence_trap": f"{advertised_url()}/.well-known/indulgence-trap.json",
             "bind_path_compiler": f"{advertised_url()}/.well-known/bind-path-compiler.json",
+            "gate_od_skins": f"{advertised_url()}/.well-known/gate-od-skins.json",
+            "larp_gap_pack": f"{advertised_url()}/.well-known/larp-gap-pack.json",
             "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
@@ -3215,6 +3224,11 @@ def bind_room_bind_path_compiler():
     return jsonify(bind_path_compiler_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/gate-od-skins.json")
+def bind_room_gate_od_skins():
+    return jsonify(gate_od_skins_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -3349,6 +3363,16 @@ def well_known_indulgence_trap():
 @app.route("/.well-known/bind-path-compiler.json")
 def well_known_bind_path_compiler():
     return jsonify(bind_path_compiler_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/gate-od-skins.json")
+def well_known_gate_od_skins():
+    return jsonify(gate_od_skins_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/larp-gap-pack.json")
+def well_known_larp_gap_pack():
+    return jsonify(gate_od_skins_mod.larp_gap_pack(advertised_url()))
 
 
 @app.route("/demo/pas/throat", methods=["POST"])
@@ -3869,6 +3893,33 @@ def demo_pas_bind_path_compiler():
         job_id=plan.get("job_id"),
     )
     result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/gate-od-skins", methods=["POST"])
+def demo_pas_gate_od_skins():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = gate_od_skins_mod.classify(
+        skin=body.get("skin") or body.get("gate_skin"),
+        edge_id=body.get("edge_id") or body.get("commit_surface"),
+        stick_score=body.get("stick_score"),
+        stick_mass_class=body.get("stick_mass_class") or body.get("mass_class"),
+        panic=body.get("panic") or body.get("panic_mode"),
+        boss_said_go=body.get("boss_said_go") or body.get("boss_said_yes"),
+        loss_of_link=body.get("loss_of_link") or body.get("link_lost"),
+    )
+    result["demo"] = True
+    result["profiles"] = {
+        "gate_c": gate_od_skins_mod.skin_profile("gate_c"),
+        "gate_d": gate_od_skins_mod.skin_profile("gate_d"),
+        "gate_o": gate_od_skins_mod.skin_profile("gate_o"),
+    }
+    result["larp_gap_pack"] = f"{advertised_url()}/.well-known/larp-gap-pack.json"
     return jsonify(result)
 
 

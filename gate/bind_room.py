@@ -78,8 +78,10 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "watchman_fuse": f"{public_url}/bind-room/watchman-fuse.json",
             "indulgence_trap": f"{public_url}/bind-room/indulgence-trap.json",
             "bind_path_compiler": f"{public_url}/bind-room/bind-path-compiler.json",
+            "gate_od_skins": f"{public_url}/bind-room/gate-od-skins.json",
+            "larp_gap_pack": f"{public_url}/.well-known/larp-gap-pack.json",
             "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
-            "pair": "Action OS foothill — Bind Path Compiler compiles procedure; Moral Throat seeds weld on finalize.",
+            "pair": "Action OS foothill — Bind Path Compiler + Gate-C/D/O skins; Moral Throat seeds weld on finalize.",
         },
     }
 
