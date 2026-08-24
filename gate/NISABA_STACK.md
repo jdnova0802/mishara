@@ -96,7 +96,8 @@ Counters baked in:
 | Feel | Invisible force / aging-adjacent — law you can’t peel off |
 
 Mandate licenses mouths. **Bone Law** keeps them in the bones.  
-Not outbound. Not another L2 throat. Forge/Mandate property.
+**Invisible Staple Scale** (`INVISIBLE_SCALE.md`) is the full diet — score 10 quiet terror down to score 0 Act Serial / Refuse Line (chicken broccoli rice).  
+Not outbound. Not another L2 throat pack. Forge/Mandate metrology.
 
 ---
 
@@ -104,10 +105,11 @@ Not outbound. Not another L2 throat. Forge/Mandate property.
 
 - **Stop inventing more L2 widgets** until paid weld (MOUTH_CEILING).  
 - **Do stack L3 doctrine + seeds now** — that’s not dilution; that’s owning the post-may era before it starts.  
-- **Bone Law** is stack-rule: name the unextractable property before someone Foundrys a peelable may.
+- **Bone Law** is stack-rule: name the unextractable property before someone Foundrys a peelable may.  
+- **Invisible Staple Scale** is stack-rule: own CBR (0–3) *and* DFWM (8–10) — full invisible diet.
 
 ---
 
 ## One line
 
-**L0 muscle · L1 sight · L2 Gate · L3 Mandate · Bone Law — mouths licensed upstairs, welded so hard extraction is amputation.**
+**L0 muscle · L1 sight · L2 Gate · L3 Mandate · Bone Law · Invisible Staples — mouths licensed upstairs, welded in bones, fed on chicken broccoli rice so loud empires digest us.**

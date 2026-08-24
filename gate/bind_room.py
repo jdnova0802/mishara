@@ -85,11 +85,12 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "foothill_max": f"{public_url}/bind-room/foothill-max.json",
             "mandate_layer": f"{public_url}/bind-room/mandate-layer.json",
             "bone_law": f"{public_url}/bind-room/bone-law.json",
+            "invisible_scale": f"{public_url}/bind-room/invisible-scale.json",
             "mouth_ceiling": f"{public_url}/.well-known/mouth-ceiling.json",
             "nisaba_stack": f"{public_url}/.well-known/nisaba-stack.json",
             "larp_gap_pack": f"{public_url}/.well-known/larp-gap-pack.json",
             "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
-            "pair": "BONE LAW — may unextractable; sidecar forged; extract ⇒ amputate. Invisible-force cool.",
+            "pair": "INVISIBLE DIET — Bone Law (10) → Act Serial (0). Chicken broccoli rice of unskippable boredom.",
         },
     }
 
