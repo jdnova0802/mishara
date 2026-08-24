@@ -12,10 +12,16 @@ except ImportError:
 class InvisibleScaleTests(unittest.TestCase):
     def test_manifest_full_diet(self):
         m = inv.manifest("https://gate.example")
-        self.assertEqual(len(m["staples"]), 35)
+        self.assertEqual(len(m["staples"]), 44)
         self.assertEqual(m["counts"]["cbr"], 8)
         self.assertEqual(m["counts"]["hate"], 15)
+        self.assertEqual(m["counts"]["bedrock"], 9)
         self.assertTrue(m["not_outbound"])
+
+    def test_bedrock_unit(self):
+        u = next(s for s in inv.STAPLES if s["slug"] == "may_unit_of_account")
+        self.assertEqual(u["score"], -10)
+        self.assertEqual(u["zone"], "bedrock")
 
     def test_hate_unpaid(self):
         r = inv.evaluate_hate(

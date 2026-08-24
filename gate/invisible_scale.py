@@ -11,13 +11,85 @@ SPEC = "gate-invisible-staple-scale-v1"
 INVENTION = "Invisible Staple Scale"
 FAMILY = "forge_mandate_metrology"
 POSTURE = (
-    "Full diet of invisible power: DFWM quiet terror → CBR staples → hate rent. "
-    "Chicken broccoli rice builds the body; hate ticks print cosmic money. "
+    "Full diet: DFWM → steak → CBR → hate rent → bedrock reserve (ɱ, CMCP). "
+    "More fees don't beat hate; unit-of-account + central counterparty do. "
     "Under coordinators. Never private Omega."
 )
 
-# score 10 = coolest still-invisible · 0 = CBR · negative = hate rent
+# score 10 = coolest invisible · 0 = CBR · −5..−1 = hate · −10..−6 = bedrock
 STAPLES: tuple[dict[str, Any], ...] = (
+    {
+        "slug": "may_unit_of_account",
+        "title": "May Unit of Account (ɱ)",
+        "score": -10,
+        "zone": "bedrock",
+        "job": "Shared unit every clearance/rent/tick prices in — money-of-may.",
+        "money": "unit_of_account",
+    },
+    {
+        "slug": "central_may_counterparty",
+        "title": "Central May Counterparty",
+        "score": -9,
+        "zone": "bedrock",
+        "job": "Novate/net irreversible clears through one dull house — DTCC of may.",
+        "money": "clearing_house",
+    },
+    {
+        "slug": "interchange_spread",
+        "title": "Interchange Spread",
+        "score": -9,
+        "zone": "bedrock",
+        "job": "Cross-mouth/cross-desk LIVE takes an automatic spread — Visa of clearance.",
+        "money": "interchange",
+    },
+    {
+        "slug": "mouth_rating_oracle",
+        "title": "Mouth Rating Oracle",
+        "score": -8,
+        "zone": "bedrock",
+        "job": "Hated stranger grade of mouth reliability desks price against.",
+        "money": "rating_rent",
+    },
+    {
+        "slug": "choice_of_flag_latch",
+        "title": "Choice-of-Flag Latch",
+        "score": -8,
+        "zone": "bedrock",
+        "job": "Which coordinator's Bone Law governs the act — choice of law for may.",
+        "money": "jurisdiction",
+    },
+    {
+        "slug": "escheat_hook",
+        "title": "Escheat Hook",
+        "score": -7,
+        "zone": "bedrock",
+        "job": "Abandoned/unrenewed may reverts to coordinator — no zombie mouths.",
+        "money": "reversion",
+    },
+    {
+        "slug": "reserve_prove_float",
+        "title": "Reserve Prove Float",
+        "score": -7,
+        "zone": "bedrock",
+        "job": "Mandatory stranger-verify capacity like bank reserves — run on prove ⇒ derelict.",
+        "money": "reserve_requirement",
+    },
+    {
+        "slug": "negative_space_deed",
+        "title": "Negative Space Deed",
+        "score": -6,
+        "zone": "bedrock",
+        "job": "Title to a category of refusal — property rights in non-fire.",
+        "money": "refusal_title",
+    },
+    {
+        "slug": "prescription_clock",
+        "title": "Prescription Clock",
+        "score": -6,
+        "zone": "bedrock",
+        "job": "Uncleared/unproved LIVE ages out by statute — soft may turns to dust.",
+        "money": "limitations",
+    },
     {
         "slug": "desk_rent",
         "title": "Desk Rent",
@@ -296,6 +368,8 @@ STAPLES: tuple[dict[str, Any], ...] = (
 
 
 def zone_for(score: int) -> str:
+    if score <= -6:
+        return "bedrock"
     if score < 0:
         return "hate"
     if score <= 3:
@@ -487,7 +561,13 @@ def attach(plan: dict, *, public_url: str = "") -> dict:
 
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
-    by_zone: dict[str, list] = {"hate": [], "cbr": [], "steak": [], "dfwm": []}
+    by_zone: dict[str, list] = {
+        "bedrock": [],
+        "hate": [],
+        "cbr": [],
+        "steak": [],
+        "dfwm": [],
+    }
     for s in STAPLES:
         by_zone.setdefault(s["zone"], []).append(s)
     return {
@@ -495,11 +575,11 @@ def manifest(public_url: str) -> dict[str, Any]:
         "invention": INVENTION,
         "family": FAMILY,
         "one_liner": (
-            "Invisible Staple Scale — Bone Law (10) → Act Serial (0) → hate rent (−5). "
-            "Chicken broccoli rice + despised civilization tolls."
+            "Invisible Staple Scale — Bone Law (10) → CBR (0) → hate (−5) → bedrock ɱ/CMCP (−10)."
         ),
         "zones": {
-            "hate": "hate rent — scores −5→−1 — despised meters that print cosmic money",
+            "bedrock": "reserve layer — scores −10→−6 — unit of account, CCP, interchange; blows fee spam out",
+            "hate": "hate rent — scores −5→−1 — despised meters that print money",
             "cbr": "chicken broccoli rice — scores 0–3 — existence staples",
             "steak": "quiet steak — scores 4–7 — working invisible machinery",
             "dfwm": "don't-fuck-with-me invisible — scores 8–10 — bone / sheath / lattice",

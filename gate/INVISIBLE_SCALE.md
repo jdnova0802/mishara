@@ -53,14 +53,72 @@ Stack-rule: name the invisible diet before someone Foundrys peelable may.
 | **-5** | **Archive Dust Fee** | Storage invoice | Ancestor receipts cost dust to keep existing |
 | **-5** | **Minimum Mass Floor** | Toll even for small μ | Below threshold still pays minimum meter |
 | **-5** | **PII Absence Affidavit** | Sworn nothing | Paid sworn “we sent no PII” or forged path |
+| **-6** | **Negative Space Deed** | Title to refusal | Own the right to deny a *category* of writes |
+| **-6** | **Prescription Clock** | Statute of limitations | Uncleared / unproved LIVE ages out — dust |
+| **-7** | **Escheat Hook** | Abandoned may reverts | Unused mouths revert to coordinator |
+| **-7** | **Reserve Prove Float** | Mandatory inventory | Desks must hold stranger-verify capacity like bank reserves |
+| **-8** | **Choice-of-Flag Latch** | Choice of law | Which coordinator’s Bone Law governs the act |
+| **-8** | **Mouth Rating Oracle** | Moody’s of throats | Hated grade of mouth reliability strangers price against |
+| **-9** | **Interchange Spread** | Visa of clearance | Cross-mouth / cross-desk LIVE takes an automatic spread |
+| **-9** | **Central May Counterparty** | CCP for hard writes | Net and guarantee irreversible clears through one dull house |
+| **-10** | **May Unit of Account (ɱ)** | The dollar of permission | Everything metered in one shared may-mass unit — weather |
 
-**Hate zone (subzero):** scores **-5 → -1** — despised, metered, cosmic money if you become weather.  
-**Chicken broccoli rice zone:** scores **0–3**.  
-**Quiet steak zone:** **4–7**.  
-**Invisible don’t-fuck-with-me zone:** **8–10**.
+**Bedrock (sub-hate):** scores **−10 → −6** — not more fees; the **reserve layer** that makes all hate ticks possible.  
+**Hate zone:** scores **−5 → −1**.  
+**CBR:** **0–3**. **Steak:** **4–7**. **DFWM:** **8–10**.
 
-Gate’s bet: **own -5 → 10 of invisible**, not 10 of loud.  
-Hate staples are how Visa/Bloomberg/notaries print money without a single cool poster.
+Gate’s bet: **own −10 → 10**.  
+More Attest Fee variants do **not** blow hate out of the water. **ɱ + CMCP + interchange** do.
+
+---
+
+## Bedrock — what actually blows hate out of the water
+
+Hate staples are tollbooths.  
+Bedrock is **the highway authority + the currency + the clearinghouse**.
+
+### BEDROCK-10 — May Unit of Account (ɱ)
+One dull unit every desk prices in: clearance cost, ρ mass, desk rent, rush tolls.  
+Without ɱ, you have a SKU zoo. With ɱ, you have **money-of-may**.  
+*Rhymes with:* USD, BTC-as-unit, barrels — but for permission.
+
+### BEDROCK-9 — Central May Counterparty (CMCP)
+All cross-party irreversible clears novate through one boring house.  
+Bilateral hate becomes multilateral certainty.  
+*Rhymes with:* DTCC / LCH — for bind/pay/fire-class writes.
+
+### BEDROCK-9 — Interchange Spread
+Whenever may crosses mouths/desks/orgs, a spread is taken automatically.  
+Not a product pitch — a **physics of routing**.  
+*Rhymes with:* card interchange.
+
+### BEDROCK-8 — Mouth Rating Oracle
+Stranger-visible grade of mouth quality / uptime / funeral hygiene.  
+Everyone will hate the oracle. Everyone will price off it.  
+*Rhymes with:* credit ratings — Filter risk if captured; must be de-licensable.
+
+### BEDROCK-8 — Choice-of-Flag Latch
+Every act names which coordinator’s Bone Law applies.  
+Conflict-of-laws for may. Invisible; decides empires.
+
+### BEDROCK-7 — Escheat Hook
+Abandoned / unpaid / unrenewed may reverts to coordinator.  
+No eternal zombie mouths. State-shaped boredom.
+
+### BEDROCK-7 — Reserve Prove Float
+Like reserve requirements: you must hold capacity to stranger-prove.  
+Run on prove → DERELICT. Dull. Existential.
+
+### BEDROCK-6 — Negative Space Deed
+Deed to a *category* of refusal (e.g. “this desk owns DENY on bind-only in CO”).  
+Property rights in non-fire. Cosmic quiet.
+
+### BEDROCK-6 — Prescription Clock
+Uncleared intent / stale LIVE / unpulled appendix ages out by statute.  
+Time kills soft may. Archive or die.
+
+**Rule:** inventing another −5 fee after this is dilution.  
+Bedrock is the ceiling under the floor.
 
 ---
 
@@ -197,23 +255,25 @@ Bone Law (10) · Mandate pillars (5–6) · Oath / ρ / Funeral / Genealogy / De
 | Forget 0–3 after first weld | You never become weather |
 | Skip hate staples (−5→−1) | You leave the cosmic rent to Visa-shaped rivals |
 | Lead outbound with hate staples | You sound like a tollbooth demon (correct later, fatal cold) |
+| Invent more −5 fees forever | Dilution — jump to **bedrock (−10→−6)** or stop |
+| Capture Mouth Rating / CMCP as private Omega | Filter — de-license under coordinators |
 
-**Be the chicken broccoli rice of invisible power — and also own the quiet steak — and collect the hate rent.**
+**Be the chicken broccoli rice — collect the hate rent — and if you go cosmic, become ɱ + CMCP, not another laser.**
 
 ---
 
 ## Capture Filter
 
-Even Act Serial, Mass Number, Desk Rent, and Attest Fee Tick under private Omega = Filter.  
+Even Act Serial, Mass Number, Desk Rent, Attest Fee Tick, **ɱ**, and **CMCP** under private Omega = Filter.  
 Staples must be:
 - stranger-checkable where prove matters  
 - de-licensable under coordinators  
 - funeral-capable  
 - never the sole key to civilization’s boring facts  
-- hate rent still under flags (no private tax on existence)
+- hate rent and bedrock still under flags (no private tax on existence)
 
 ---
 
 ## One line
 
-**Invisible Staple Scale — from Bone Law (10) through Act Serial (0) into hate rent (−5); Gate eats the full diet of unskippable boredom and bills the ticks.**
+**Invisible Staple Scale — Bone Law (10) → CBR (0) → hate (−5) → bedrock ɱ/CMCP (−10); full diet of unskippable boredom, rent, and reserve.**
