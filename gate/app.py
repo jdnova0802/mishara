@@ -360,6 +360,11 @@ except ImportError:
     import invisible_scale as invisible_scale_mod
 
 try:
+    from gate import crucial_roles as crucial_roles_mod
+except ImportError:
+    import crucial_roles as crucial_roles_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1660,6 +1665,7 @@ def well_known_gate():
             "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
             "bone_law": f"{advertised_url()}/.well-known/bone-law.json",
             "invisible_scale": f"{advertised_url()}/.well-known/invisible-scale.json",
+            "crucial_roles": f"{advertised_url()}/.well-known/crucial-roles.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
@@ -1920,6 +1926,11 @@ def well_known_bone_law():
 @app.route("/.well-known/invisible-scale.json")
 def well_known_invisible_scale():
     return jsonify(invisible_scale_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/crucial-roles.json")
+def well_known_crucial_roles():
+    return jsonify(crucial_roles_mod.crucial_roles_manifest())
 
 
 @app.route("/.well-known/stale-live.json")
@@ -3440,6 +3451,11 @@ def bind_room_invisible_scale():
     return jsonify(invisible_scale_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/crucial-roles.json")
+def bind_room_crucial_roles():
+    return jsonify(crucial_roles_mod.crucial_roles_manifest())
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -4299,6 +4315,42 @@ def demo_pas_invisible_scale():
         result = invisible_scale_mod.evaluate_staple(**kwargs)
     result["demo"] = True
     result["catalog"] = invisible_scale_mod.manifest(advertised_url())
+    return jsonify(result)
+
+
+@app.route("/demo/pas/crucial-roles", methods=["POST"])
+def demo_pas_crucial_roles():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    role_id = body.get("role_id") or body.get("id")
+    tier = body.get("tier")
+    result: dict = {"demo": True, "catalog": crucial_roles_mod.crucial_roles_manifest()}
+    if role_id:
+        role = crucial_roles_mod.get_role(str(role_id))
+        if role is None:
+            return jsonify({"error": "unknown role_id", "role_id": role_id, **result}), 404
+        result["role"] = {
+            "id": role.id,
+            "title": role.title,
+            "tier": role.tier.value,
+            "scope": role.scope,
+            "loss_mode": role.loss_mode,
+            "cant_lose_because": role.cant_lose_because,
+            "formal_duties": list(role.formal_duties),
+            "load_bearing_for_cic": role.load_bearing_for_cic,
+        }
+    elif tier:
+        try:
+            tier_enum = crucial_roles_mod.RoleTier(str(tier).upper())
+        except ValueError:
+            return jsonify({"error": "unknown tier", "tier": tier, **result}), 400
+        roles = crucial_roles_mod.roles_by_tier(tier_enum)
+        result["tier"] = tier_enum.value
+        result["roles"] = [{"id": r.id, "title": r.title} for r in roles]
     return jsonify(result)
 
 
