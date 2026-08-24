@@ -79,9 +79,11 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "indulgence_trap": f"{public_url}/bind-room/indulgence-trap.json",
             "bind_path_compiler": f"{public_url}/bind-room/bind-path-compiler.json",
             "gate_od_skins": f"{public_url}/bind-room/gate-od-skins.json",
+            "restraint_unit": f"{public_url}/bind-room/restraint-unit.json",
+            "oath_compiler": f"{public_url}/bind-room/oath-compiler.json",
             "larp_gap_pack": f"{public_url}/.well-known/larp-gap-pack.json",
             "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
-            "pair": "Action OS foothill — Bind Path Compiler + Gate-C/D/O skins; Moral Throat seeds weld on finalize.",
+            "pair": "Action OS foothill — ρ restraint unit + Oath Compiler; Bind Path + Gate-C/D/O; Moral Throat on finalize.",
         },
     }
 

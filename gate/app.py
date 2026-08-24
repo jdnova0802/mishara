@@ -325,6 +325,16 @@ except ImportError:
     import gate_od_skins as gate_od_skins_mod
 
 try:
+    from gate import restraint_unit as restraint_unit_mod
+except ImportError:
+    import restraint_unit as restraint_unit_mod
+
+try:
+    from gate import oath_compiler as oath_compiler_mod
+except ImportError:
+    import oath_compiler as oath_compiler_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1165,6 +1175,8 @@ def _finalize_spend_plan(
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
     bind_path_compiler_mod.attach(plan, public_url=advertised_url(), job_id=jid)
     gate_od_skins_mod.attach(plan, public_url=advertised_url())
+    restraint_unit_mod.attach(plan, public_url=advertised_url())
+    oath_compiler_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1180,6 +1192,8 @@ def _finalize_spend_plan(
     extra["X-Gate-Desk-Quorum"] = (plan.get("desk_quorum_fob") or {}).get("verdict") or ""
     extra["X-Gate-Bind-Path"] = (plan.get("bind_path_compiler") or {}).get("path_state") or ""
     extra["X-Gate-OD-Skin"] = (plan.get("gate_od_skins") or {}).get("skin") or ""
+    extra["X-Gate-Rho"] = str((plan.get("restraint_unit") or {}).get("rho_mass") or "")
+    extra["X-Gate-Oath"] = "1" if (plan.get("oath_compiler") or {}).get("executable") else "0"
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1601,6 +1615,9 @@ def well_known_gate():
             "bind_path_compiler": f"{advertised_url()}/.well-known/bind-path-compiler.json",
             "gate_od_skins": f"{advertised_url()}/.well-known/gate-od-skins.json",
             "larp_gap_pack": f"{advertised_url()}/.well-known/larp-gap-pack.json",
+            "restraint_unit": f"{advertised_url()}/.well-known/restraint-unit.json",
+            "restraint_unit_ledger": f"{advertised_url()}/.well-known/restraint-unit-ledger.json",
+            "oath_compiler": f"{advertised_url()}/.well-known/oath-compiler.json",
             "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
@@ -1774,6 +1791,24 @@ def well_known_settlement_windows():
             "windows": gate_db.list_settlement_windows(limit=20),
         }
     )
+
+
+@app.route("/.well-known/restraint-unit.json")
+def well_known_restraint_unit():
+    return jsonify(restraint_unit_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/restraint-unit-ledger.json")
+def well_known_restraint_unit_ledger():
+    import db as gate_db
+
+    events = gate_db.list_bind_events_chronological(limit=10000)
+    return jsonify(restraint_unit_mod.ledger(events))
+
+
+@app.route("/.well-known/oath-compiler.json")
+def well_known_oath_compiler():
+    return jsonify(oath_compiler_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/kappa.json")
@@ -3229,6 +3264,16 @@ def bind_room_gate_od_skins():
     return jsonify(gate_od_skins_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/restraint-unit.json")
+def bind_room_restraint_unit():
+    return jsonify(restraint_unit_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/oath-compiler.json")
+def bind_room_oath_compiler():
+    return jsonify(oath_compiler_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -3920,6 +3965,50 @@ def demo_pas_gate_od_skins():
         "gate_o": gate_od_skins_mod.skin_profile("gate_o"),
     }
     result["larp_gap_pack"] = f"{advertised_url()}/.well-known/larp-gap-pack.json"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/restraint-unit", methods=["POST"])
+def demo_pas_restraint_unit():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    if isinstance(body.get("events"), list):
+        result = restraint_unit_mod.ledger(body["events"])
+    else:
+        result = restraint_unit_mod.mint(
+            decision=body.get("decision"),
+            acted=body.get("acted"),
+            mass_class=body.get("mass_class"),
+            stick_score=body.get("stick_score") or body.get("score"),
+            event_id=body.get("event_id"),
+            job_id=body.get("job_id"),
+            verify_url=body.get("verify_url"),
+            edge_id=body.get("edge_id"),
+            skin=body.get("skin"),
+        )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/oath-compiler", methods=["POST"])
+def demo_pas_oath_compiler():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    if isinstance(body.get("clauses"), list):
+        result = oath_compiler_mod.compile_clauses(body["clauses"])
+    else:
+        result = oath_compiler_mod.compile_preset(body.get("preset") or "pas_bind")
+    plan = body.get("plan") if isinstance(body.get("plan"), dict) else body
+    result["evaluation"] = oath_compiler_mod.evaluate_against_plan(result, plan)
+    result["demo"] = True
     return jsonify(result)
 
 

@@ -821,8 +821,12 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Indulgence Trap** | **Shipped seed** — `gate/indulgence_trap.py` — paid/favor/prestige mercy forged |
 | **Bind Path Compiler** | **Shipped seed** — `gate/bind_path_compiler.py` — procedure graph + repair packet (not thumbs) |
 | **Gate-O / Gate-D Skins** | **Shipped seed** — `gate/gate_od_skins.py` — civil / defensive / offensive mass tables + LARP gap pack |
+| **Restraint Unit (ρ)** | **Shipped seed** — `gate/restraint_unit.py` — atomic unit of proved non-fire (κ=ratio, ρ=quantity) |
+| **Oath Compiler** | **Shipped seed** — `gate/oath_compiler.py` — ROE/oath clauses → executable inhibit graph |
 
 **Temporal Sheath:** `gate/TEMPORAL_SHEATH.md` — time ontology for the mouth (COOL / SUNSET / DEADMAN / DUTY / …).
+
+**Civilizational foothills (2026):** Unit of restraint (ρ) + ROE that compiles (Oath Compiler). Ethics-as-PDF ends where the inhibit graph begins.
 
 **Force skins note:** Gate-D / Gate-O are dialects of the same mouth (may · sheath · prove) on protective vs initiatory commit surfaces — not weapons, not C2, not a fifth LARP prime. Keep force language out of MGA/CUO outbound; civil costume stays Gate-C.
 
