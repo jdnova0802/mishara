@@ -345,6 +345,11 @@ except ImportError:
     import foothill_max as foothill_max_mod
 
 try:
+    from gate import mandate_layer as mandate_layer_mod
+except ImportError:
+    import mandate_layer as mandate_layer_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1189,6 +1194,7 @@ def _finalize_spend_plan(
     oath_compiler_mod.attach(plan, public_url=advertised_url())
     mouth_density_mod.attach(plan, public_url=advertised_url())
     foothill_max_mod.attach(plan, public_url=advertised_url())
+    mandate_layer_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1208,6 +1214,7 @@ def _finalize_spend_plan(
     extra["X-Gate-Oath"] = "1" if (plan.get("oath_compiler") or {}).get("executable") else "0"
     extra["X-Gate-Mouth-Density"] = str((plan.get("mouth_density") or {}).get("active_count") or "")
     extra["X-Gate-Foothill-Max"] = str((plan.get("foothill_max") or {}).get("active_count") or "")
+    extra["X-Gate-Mandate"] = str((plan.get("mandate_layer") or {}).get("active_count") or "")
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1635,6 +1642,8 @@ def well_known_gate():
             "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
             "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
             "mouth_ceiling": f"{advertised_url()}/.well-known/mouth-ceiling.json",
+            "mandate_layer": f"{advertised_url()}/.well-known/mandate-layer.json",
+            "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
@@ -1865,13 +1874,25 @@ def well_known_mouth_ceiling():
             "spec": "gate-mouth-ceiling-v1",
             "doc": "gate/MOUTH_CEILING.md",
             "invention": "Mouth Ceiling",
-            "one_liner": "Doctrine max for software-era Gate — stop inventing until paid weld.",
+            "one_liner": "Doctrine max for software-era Gate — stop inventing L2 until paid weld.",
             "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
             "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
+            "mandate_layer": f"{advertised_url()}/.well-known/mandate-layer.json",
+            "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
             "north_star": "gate/NORTH_STAR.md",
             "posture": "Under coordinators. Never sovereign.",
         }
     )
+
+
+@app.route("/.well-known/mandate-layer.json")
+def well_known_mandate_layer():
+    return jsonify(mandate_layer_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/nisaba-stack.json")
+def well_known_nisaba_stack():
+    return jsonify(mandate_layer_mod.stack_manifest(advertised_url()))
 
 
 @app.route("/.well-known/stale-live.json")
@@ -3377,6 +3398,11 @@ def bind_room_foothill_max():
     return jsonify(foothill_max_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/mandate-layer.json")
+def bind_room_mandate_layer():
+    return jsonify(mandate_layer_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -4159,6 +4185,34 @@ def demo_pas_foothill_max():
     result["demo"] = True
     result["catalog"] = foothill_max_mod.manifest(advertised_url())
     result["ceiling"] = f"{advertised_url()}/.well-known/mouth-ceiling.json"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/mandate-layer", methods=["POST"])
+def demo_pas_mandate_layer():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    name = body.get("pillar") or body.get("invention") or body.get("name")
+    if name:
+        kwargs = {
+            k: v
+            for k, v in body.items()
+            if k not in ("pillar", "invention", "name", "demo", "plan")
+        }
+        result = mandate_layer_mod.evaluate(str(name), **kwargs)
+    else:
+        plan = dict(body)
+        if isinstance(body.get("plan"), dict):
+            plan = dict(body["plan"])
+        mandate_layer_mod.attach(plan, public_url=advertised_url())
+        result = plan.get("mandate_layer") or {}
+    result["demo"] = True
+    result["catalog"] = mandate_layer_mod.manifest(advertised_url())
+    result["stack"] = mandate_layer_mod.stack_manifest(advertised_url())
     return jsonify(result)
 
 

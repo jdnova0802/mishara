@@ -155,4 +155,6 @@ Without self-sheath, “max doctrine” collapses into cosplay demiurge.
 | Company max | **Blocked on paid weld** |
 | Civilization max | **Blocked on adoption + forge** |
 
-When foothill_max + this ceiling ship: **stop inventing until something paid hangs on the mouth.**
+When foothill_max + this ceiling ship: **stop inventing L2 throats until something paid hangs on the mouth.**
+
+**Exception (stack-rule, not dilution):** claim **L3 Mandate** now — meta-sheath · ρ clearing · principal continuity · mouth registry. See `NISABA_STACK.md`. Ahead-of-time upstairs ≠ more L2 widgets.

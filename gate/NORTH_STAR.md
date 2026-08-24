@@ -825,7 +825,19 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Oath Compiler** | **Shipped seed** — `gate/oath_compiler.py` — ROE/oath clauses → executable inhibit graph |
 | **Mouth Density Pack** | **Shipped seed** — `gate/mouth_density.py` — eight densifiers (below) |
 | **Foothill Max Pack** | **Shipped seed** — `gate/foothill_max.py` — twelve remaining demoable seeds (below) |
-| **Mouth Ceiling** | **Doctrine lock** — `gate/MOUTH_CEILING.md` — software-era max; stop inventing until paid weld |
+| **Mouth Ceiling** | **Doctrine lock** — `gate/MOUTH_CEILING.md` — software-era L2 max; stop inventing throats until paid weld |
+| **Nisaba Stack / Mandate (L3)** | **Ahead-of-time layer** — `gate/NISABA_STACK.md` + `gate/mandate_layer.py` — meta-sheath · ρ clearing · principal continuity · mouth registry |
+
+**Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** — claim Mandate *now* so post-may rivals climb us.
+
+**Mandate Layer pillars (L3):**
+
+| Pillar | Job |
+|--------|-----|
+| **Meta-Sheath License** | Who may mint / ship mouths — forge-of-forges |
+| **Restraint Clearing** | ρ settles as clearing mass across desks/windows |
+| **Principal Continuity** | Stranger handoff or may-hooks die (anti–ghost may) |
+| **Mouth Registry** | Attested directory — serial, semver, funeral state |
 
 **Mouth Density Pack (mountain → foothill):**
 
