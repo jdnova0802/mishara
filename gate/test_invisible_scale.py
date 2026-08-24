@@ -12,9 +12,31 @@ except ImportError:
 class InvisibleScaleTests(unittest.TestCase):
     def test_manifest_full_diet(self):
         m = inv.manifest("https://gate.example")
-        self.assertEqual(len(m["staples"]), 20)
+        self.assertEqual(len(m["staples"]), 35)
         self.assertEqual(m["counts"]["cbr"], 8)
+        self.assertEqual(m["counts"]["hate"], 15)
         self.assertTrue(m["not_outbound"])
+
+    def test_hate_unpaid(self):
+        r = inv.evaluate_hate(
+            would_irreversible_write=True,
+            desk_rent_current=False,
+        )
+        self.assertEqual(r["verdict"], "HATE_UNPAID")
+        self.assertIn("desk_rent", r["blockers"])
+
+    def test_staple_with_hate(self):
+        r = inv.evaluate_staple(
+            would_irreversible_write=True,
+            act_serial="act_1",
+            who_field="desk-a",
+            when_stamp="2026-08-24T00:00:00Z",
+            mass_number=3,
+            verify_stub="https://v/1",
+            hate_check=True,
+            desk_rent_current=False,
+        )
+        self.assertEqual(r["verdict"], "HATE_UNPAID")
 
     def test_staple_starved(self):
         r = inv.evaluate_staple(would_irreversible_write=True)

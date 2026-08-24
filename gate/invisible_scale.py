@@ -11,12 +11,133 @@ SPEC = "gate-invisible-staple-scale-v1"
 INVENTION = "Invisible Staple Scale"
 FAMILY = "forge_mandate_metrology"
 POSTURE = (
-    "Full diet of invisible power: cool quiet terror down to paperwork that bores the dead. "
-    "Chicken broccoli rice builds the body. Under coordinators. Never private Omega."
+    "Full diet of invisible power: DFWM quiet terror → CBR staples → hate rent. "
+    "Chicken broccoli rice builds the body; hate ticks print cosmic money. "
+    "Under coordinators. Never private Omega."
 )
 
-# score 0 = blandest staple · 10 = coolest still-invisible
+# score 10 = coolest still-invisible · 0 = CBR · negative = hate rent
 STAPLES: tuple[dict[str, Any], ...] = (
+    {
+        "slug": "desk_rent",
+        "title": "Desk Rent",
+        "score": -5,
+        "zone": "hate",
+        "job": "Monthly floor per welded mouth/desk — Bloomberg-seat energy. Forever rent.",
+        "money": "floor_subscription",
+    },
+    {
+        "slug": "archive_dust_fee",
+        "title": "Archive Dust Fee",
+        "score": -5,
+        "zone": "hate",
+        "job": "Ancestor receipts cost dust to keep existing. Delete = lose history-power.",
+        "money": "storage_meter",
+    },
+    {
+        "slug": "minimum_mass_floor",
+        "title": "Minimum Mass Floor",
+        "score": -5,
+        "zone": "hate",
+        "job": "Tiny μ still pays minimum meter. No free irreversible dust.",
+        "money": "minimum_toll",
+    },
+    {
+        "slug": "pii_absence_affidavit",
+        "title": "PII Absence Affidavit",
+        "score": -5,
+        "zone": "hate",
+        "job": "Paid sworn 'no PII on the rail' — lawsuit-shaped boredom.",
+        "money": "affidavit_fee",
+    },
+    {
+        "slug": "notary_seat",
+        "title": "Notary Seat",
+        "score": -4,
+        "zone": "hate",
+        "job": "Stranger co-sign required or verify stub is fanfic. Stamp costs.",
+        "money": "notary_fee",
+    },
+    {
+        "slug": "counterparty_confirm_tick",
+        "title": "Counterparty Confirm Tick",
+        "score": -4,
+        "zone": "hate",
+        "job": "Other desk must dull-confirm before LIVE. Two hates, one act.",
+        "money": "dual_confirm_tick",
+    },
+    {
+        "slug": "quorum_noshow_bond",
+        "title": "Quorum No-Show Bond",
+        "score": -4,
+        "zone": "hate",
+        "job": "Empty senate chair ⇒ forfeit bond + HALT. Governance as bail.",
+        "money": "bond_forfeit",
+    },
+    {
+        "slug": "batch_cutoff",
+        "title": "Batch Cutoff",
+        "score": -3,
+        "zone": "hate",
+        "job": "Miss settlement cutoff → wait or rush-toll. Fedwire energy.",
+        "money": "rush_lane",
+    },
+    {
+        "slug": "holiday_freeze_calendar",
+        "title": "Holiday Freeze Calendar",
+        "score": -3,
+        "zone": "hate",
+        "job": "Dull civic calendar freezes may; thaw = fee.",
+        "money": "thaw_fee",
+    },
+    {
+        "slug": "clearing_window_toll",
+        "title": "Clearing Window Toll",
+        "score": -3,
+        "zone": "hate",
+        "job": "ρ/restraint clears only in rented windows. Miss → mass sits.",
+        "money": "window_rent",
+    },
+    {
+        "slug": "renewal_bit",
+        "title": "Renewal Bit",
+        "score": -2,
+        "zone": "hate",
+        "job": "May expires; re-attest or AMPUTATED. License-plate sticker for mouths.",
+        "money": "renewal",
+    },
+    {
+        "slug": "semver_tax",
+        "title": "Semver Tax",
+        "score": -2,
+        "zone": "hate",
+        "job": "Mouth upgrade requires paid re-bond. Versioning as tollbooth.",
+        "money": "upgrade_fee",
+    },
+    {
+        "slug": "officer_annual_reattest",
+        "title": "Officer Annual Re-attest",
+        "score": -2,
+        "zone": "hate",
+        "job": "Title Seat resigns boredom yearly or derelict + invoice.",
+        "money": "annual_attest",
+    },
+    {
+        "slug": "attest_fee_tick",
+        "title": "Attest Fee Tick",
+        "score": -1,
+        "zone": "hate",
+        "job": "Every LIVE/DENY/CHOKE/refusal prove burns a payable tick.",
+        "money": "per_hop_bps",
+    },
+    {
+        "slug": "appendix_pull_charge",
+        "title": "Appendix Pull Charge",
+        "score": -1,
+        "zone": "hate",
+        "job": "Examiner pulls stranger appendix → invoice. Certified-copy energy.",
+        "money": "pull_fee",
+    },
     {
         "slug": "act_serial",
         "title": "Act Serial",
@@ -175,11 +296,55 @@ STAPLES: tuple[dict[str, Any], ...] = (
 
 
 def zone_for(score: int) -> str:
+    if score < 0:
+        return "hate"
     if score <= 3:
         return "cbr"
     if score <= 7:
         return "steak"
     return "dfwm"
+
+
+def evaluate_hate(
+    *,
+    desk_rent_current: bool | None = None,
+    renewal_live: bool | None = None,
+    batch_cutoff_missed: bool | None = None,
+    rush_toll_paid: bool | None = None,
+    notary_seated: bool | None = None,
+    would_irreversible_write: bool | None = None,
+) -> dict[str, Any]:
+    """Hate-staple gates — unpaid rent/renewal/cutoff/notary starve the write."""
+    blockers = []
+    if would_irreversible_write and desk_rent_current is False:
+        blockers.append("desk_rent")
+    if would_irreversible_write and renewal_live is False:
+        blockers.append("renewal_bit")
+    if would_irreversible_write and batch_cutoff_missed and not rush_toll_paid:
+        blockers.append("batch_cutoff")
+    if would_irreversible_write and notary_seated is False:
+        blockers.append("notary_seat")
+    if blockers:
+        return {
+            "spec": "gate-hate-staple-check-v1",
+            "invention": "Hate Staple Check",
+            "verdict": "HATE_UNPAID",
+            "may_proceed": False,
+            "blockers": blockers,
+            "detail": (
+                "Irreversible write without hate staples paid/seated — "
+                "Desk Rent · Renewal · Cutoff/Rush · Notary. Cosmic dull money."
+            ),
+            "rule": "Hate staples are civilization rent. Unpaid ⇒ no act.",
+        }
+    return {
+        "spec": "gate-hate-staple-check-v1",
+        "invention": "Hate Staple Check",
+        "verdict": "HATE_CURRENT",
+        "may_proceed": True,
+        "blockers": [],
+        "detail": "Hate staples current — rent collected, write may exist.",
+    }
 
 
 def evaluate_staple(
@@ -191,8 +356,14 @@ def evaluate_staple(
     mass_number: float | int | None = None,
     verify_stub: str | None = None,
     would_irreversible_write: bool | None = None,
+    desk_rent_current: bool | None = None,
+    renewal_live: bool | None = None,
+    batch_cutoff_missed: bool | None = None,
+    rush_toll_paid: bool | None = None,
+    notary_seated: bool | None = None,
+    hate_check: bool | None = None,
 ) -> dict[str, Any]:
-    """CBR existence checks — blank staples forge the write."""
+    """CBR existence checks — blank staples forge the write. Optional hate rent."""
     missing = []
     if would_irreversible_write:
         if not (act_serial or "").strip():
@@ -206,6 +377,20 @@ def evaluate_staple(
         if not (verify_stub or "").strip():
             missing.append("verify_stub")
 
+    hate = None
+    if hate_check or any(
+        x is not None
+        for x in (desk_rent_current, renewal_live, batch_cutoff_missed, notary_seated)
+    ):
+        hate = evaluate_hate(
+            desk_rent_current=desk_rent_current,
+            renewal_live=renewal_live,
+            batch_cutoff_missed=batch_cutoff_missed,
+            rush_toll_paid=rush_toll_paid,
+            notary_seated=notary_seated,
+            would_irreversible_write=would_irreversible_write,
+        )
+
     if missing and would_irreversible_write:
         return {
             "spec": "gate-cbr-staple-check-v1",
@@ -213,11 +398,24 @@ def evaluate_staple(
             "verdict": "STAPLE_STARVED",
             "may_proceed": False,
             "missing": missing,
+            "hate": hate,
             "detail": (
                 "Irreversible write without chicken-broccoli-rice staples — "
                 "ghost act. Fill Act Serial · Who-Field · When-Stamp · Mass Number · Verify Stub."
             ),
             "rule": "CBR zone is existence condition, not paperwork theater.",
+            "slug": slug,
+        }
+    if hate and hate.get("may_proceed") is False:
+        return {
+            "spec": "gate-cbr-staple-check-v1",
+            "invention": "CBR Staple Check",
+            "verdict": "HATE_UNPAID",
+            "may_proceed": False,
+            "missing": [],
+            "hate": hate,
+            "detail": hate.get("detail"),
+            "rule": "Hate staples are civilization rent. Unpaid ⇒ no act.",
             "slug": slug,
         }
     return {
@@ -226,6 +424,7 @@ def evaluate_staple(
         "verdict": "STAPLE_FED",
         "may_proceed": True,
         "missing": [],
+        "hate": hate,
         "detail": "Invisible staples present — write may exist inside the diet.",
         "act_serial": act_serial,
         "who_field": who_field,
@@ -237,11 +436,12 @@ def evaluate_staple(
 
 
 def attach(plan: dict, *, public_url: str = "") -> dict:
-    """Starve soft irreversible plans that lack CBR staples when explicitly checked."""
+    """Starve soft irreversible plans that lack CBR/hate staples when checked."""
     if not (
         plan.get("cbr_check")
         or plan.get("staple_check")
         or plan.get("invisible_scale_check")
+        or plan.get("hate_check")
     ):
         return plan
     base = (public_url or "").rstrip("/")
@@ -263,6 +463,12 @@ def attach(plan: dict, *, public_url: str = "") -> dict:
             or plan.get("would_bind")
             or plan.get("acted")
         ),
+        desk_rent_current=plan.get("desk_rent_current"),
+        renewal_live=plan.get("renewal_live"),
+        batch_cutoff_missed=plan.get("batch_cutoff_missed"),
+        rush_toll_paid=plan.get("rush_toll_paid"),
+        notary_seated=plan.get("notary_seated"),
+        hate_check=bool(plan.get("hate_check")),
     )
     if base:
         result["well_known"] = f"{base}/.well-known/invisible-scale.json"
@@ -275,24 +481,25 @@ def attach(plan: dict, *, public_url: str = "") -> dict:
         plan["halt"] = True
         if not plan.get("decision") or plan.get("decision") in ("ALLOW", "LIVE"):
             plan["decision"] = "HALT"
-        plan["reason"] = plan.get("reason") or "invisible_scale:STAPLE_STARVED"
+        plan["reason"] = plan.get("reason") or f"invisible_scale:{result.get('verdict')}"
     return plan
 
 
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
-    by_zone = {"cbr": [], "steak": [], "dfwm": []}
+    by_zone: dict[str, list] = {"hate": [], "cbr": [], "steak": [], "dfwm": []}
     for s in STAPLES:
-        by_zone[s["zone"]].append(s)
+        by_zone.setdefault(s["zone"], []).append(s)
     return {
         "spec": SPEC,
         "invention": INVENTION,
         "family": FAMILY,
         "one_liner": (
-            "Invisible Staple Scale — full diet from Bone Law (10) to Act Serial (0). "
-            "Chicken broccoli rice of unskippable boredom."
+            "Invisible Staple Scale — Bone Law (10) → Act Serial (0) → hate rent (−5). "
+            "Chicken broccoli rice + despised civilization tolls."
         ),
         "zones": {
+            "hate": "hate rent — scores −5→−1 — despised meters that print cosmic money",
             "cbr": "chicken broccoli rice — scores 0–3 — existence staples",
             "steak": "quiet steak — scores 4–7 — working invisible machinery",
             "dfwm": "don't-fuck-with-me invisible — scores 8–10 — bone / sheath / lattice",

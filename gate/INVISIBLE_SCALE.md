@@ -38,16 +38,111 @@ Stack-rule: name the invisible diet before someone Foundrys peelable may.
 | **1** | **Verify Stub** | Ugly URL | The whole product is a boring permalink |
 | **0** | **Act Serial** | Just a number | Every irreversible write earns an unromantic ID |
 | **0** | **Refuse Line** | Line item of non-event | What did *not* bind/pay/fire — as accounting |
+| **-1** | **Attest Fee Tick** | Meter click | Every LIVE/prove/refusal burns a payable tick |
+| **-1** | **Appendix Pull Charge** | Examiner invoice | They ask for appendix → you pay the rail |
+| **-2** | **Renewal Bit** | License plate sticker | May expires; re-attest or AMPUTATED |
+| **-2** | **Semver Tax** | Version fee | Mouth upgrade requires paid re-bond |
+| **-2** | **Officer Annual Re-attest** | Yearly form | Title Seat must resign boredom on a calendar |
+| **-3** | **Batch Cutoff** | 4pm wire window | Miss cutoff → wait or rush-toll |
+| **-3** | **Holiday Freeze Calendar** | Bank-holiday energy | Writes frozen on dull dates; thaw = fee |
+| **-3** | **Clearing Window Toll** | Settlement slot rent | ρ / restraint only clears in paid windows |
+| **-4** | **Notary Seat** | Stamp + fee | Stranger co-sign required or write is club fiction |
+| **-4** | **Counterparty Confirm Tick** | Other desk must click | Dual dull-confirm before LIVE |
+| **-4** | **Quorum No-Show Bond** | Empty chair fine | Senate seat missing ⇒ forfeit + HALT |
+| **-5** | **Desk Rent** | Bloomberg seat energy | Per welded mouth / desk / month — floor forever |
+| **-5** | **Archive Dust Fee** | Storage invoice | Ancestor receipts cost dust to keep existing |
+| **-5** | **Minimum Mass Floor** | Toll even for small μ | Below threshold still pays minimum meter |
+| **-5** | **PII Absence Affidavit** | Sworn nothing | Paid sworn “we sent no PII” or forged path |
 
+**Hate zone (subzero):** scores **-5 → -1** — despised, metered, cosmic money if you become weather.  
 **Chicken broccoli rice zone:** scores **0–3**.  
 **Quiet steak zone:** **4–7**.  
 **Invisible don’t-fuck-with-me zone:** **8–10**.
 
-Gate’s bet: **own 0–10 of invisible**, not 10 of loud.
+Gate’s bet: **own -5 → 10 of invisible**, not 10 of loud.  
+Hate staples are how Visa/Bloomberg/notaries print money without a single cool poster.
 
 ---
 
-## New named staples (invented here)
+## Hate staples (worse than CBR — invented for cosmic dull money)
+
+### HATE-1 — Attest Fee Tick
+Every clearance event (LIVE, DENY, CHOKE, refusal prove) burns a tick.  
+People will hate it. People already pay interchange for less.  
+*Money shape:* bps + per-hop (already rhymes with operator invoice).
+
+### HATE-1 — Appendix Pull Charge
+Examiner/counsel pulls stranger appendix → invoice the desk.  
+Proof-as-a-service, billed like certified copies.
+
+### HATE-2 — Renewal Bit
+Bone bond / mouth license expires. No romance — sticker on the may.  
+Lapse ⇒ AMPUTATED until paid re-attest.
+
+### HATE-2 — Semver Tax
+Ship mouth v1.1? Pay to re-bond. Versioning as tollbooth.
+
+### HATE-2 — Officer Annual Re-attest
+Title Seat must re-sign yearly (SERFF/NAIC-shaped boredom).  
+Miss it ⇒ Watchman/Derelict adjacent + invoice.
+
+### HATE-3 — Batch Cutoff
+Irreversible writes only settle in batches. Miss 16:00 → tomorrow.  
+Rush lane = hate fee. (Fedwire energy.)
+
+### HATE-3 — Holiday Freeze Calendar
+Dull civic calendar freezes may. Thaw request = fee.  
+Sabbath’s evil twin that accounting loves.
+
+### HATE-3 — Clearing Window Toll
+Restraint/ρ clearing only inside rented windows.  
+Miss window → mass sits unpaid (Bloomberg terminal of non-fire).
+
+### HATE-4 — Notary Seat
+Stranger co-sign seat required. Stamp costs.  
+Without it, verify stub is fanfic.
+
+### HATE-4 — Counterparty Confirm Tick
+Other desk must dull-confirm. Two hates, one LIVE.
+
+### HATE-4 — Quorum No-Show Bond
+Empty senate chair forfeits bond + HALT.  
+Governance as bail.
+
+### HATE-5 — Desk Rent
+Monthly floor per welded path / desk / mouth.  
+The $5k/mo energy named as staple. Cosmic if mouths proliferate.
+
+### HATE-5 — Archive Dust Fee
+Keeping prove-after alive costs dust. Delete = lose ancestor power.  
+Pay to remain historical.
+
+### HATE-5 — Minimum Mass Floor
+Tiny acts still pay minimum μ meter.  
+No free irreversible dust.
+
+### HATE-5 — PII Absence Affidavit
+Sworn boring oath: no PII on the rail.  
+Hate paperwork; lawsuit-shaped money.
+
+---
+
+## Why hate staples print “cosmic money”
+
+| Loud SKU | Hate staple cousin | Why hate wins |
+|----------|-------------------|---------------|
+| Cool demo | Attest Fee Tick | Recurring on every act |
+| One-time install | Desk Rent + Renewal Bit | Forever floor |
+| Hero laser | Batch Cutoff + Holiday Freeze | Control time = control tolls |
+| Brand love | Notary Seat + Appendix Pull | Mandatory for the act to *count* |
+
+Visa didn’t win by being loved.  
+Bloomberg didn’t win by being fun.  
+**Hate + unskippable + metered = civilization rent.**
+
+---
+
+## New named staples (CBR — invented earlier)
 
 ### CBR-0 — Act Serial
 Every irreversible write gets a dull unique serial. No story. No brand.  
@@ -100,22 +195,25 @@ Bone Law (10) · Mandate pillars (5–6) · Oath / ρ / Funeral / Genealogy / De
 | Skip CBR staples | Rivals peel your may off as sidecar |
 | Lead outbound with 8–10 | YC flags you; CUO deletes you |
 | Forget 0–3 after first weld | You never become weather |
+| Skip hate staples (−5→−1) | You leave the cosmic rent to Visa-shaped rivals |
+| Lead outbound with hate staples | You sound like a tollbooth demon (correct later, fatal cold) |
 
-**Be the chicken broccoli rice of invisible power — and also own the quiet steak.**
+**Be the chicken broccoli rice of invisible power — and also own the quiet steak — and collect the hate rent.**
 
 ---
 
 ## Capture Filter
 
-Even Act Serial and Mass Number under private Omega = Filter.  
+Even Act Serial, Mass Number, Desk Rent, and Attest Fee Tick under private Omega = Filter.  
 Staples must be:
 - stranger-checkable where prove matters  
 - de-licensable under coordinators  
 - funeral-capable  
 - never the sole key to civilization’s boring facts  
+- hate rent still under flags (no private tax on existence)
 
 ---
 
 ## One line
 
-**Invisible Staple Scale — from Bone Law to Act Serial; Gate eats the full diet of unskippable boredom so loud empires have to digest us.**
+**Invisible Staple Scale — from Bone Law (10) through Act Serial (0) into hate rent (−5); Gate eats the full diet of unskippable boredom and bills the ticks.**
