@@ -77,8 +77,9 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "pardon_sunset": f"{public_url}/bind-room/pardon-sunset.json",
             "watchman_fuse": f"{public_url}/bind-room/watchman-fuse.json",
             "indulgence_trap": f"{public_url}/bind-room/indulgence-trap.json",
+            "bind_path_compiler": f"{public_url}/bind-room/bind-path-compiler.json",
             "temporal_sheath": f"{public_url}/.well-known/temporal-sheath.json",
-            "pair": "Moral Throat seeds — mouth, haunt, mass, mercy-sunset, watchman duty, indulgence traps. Soft≠soft-yes.",
+            "pair": "Action OS foothill — Bind Path Compiler compiles procedure; Moral Throat seeds weld on finalize.",
         },
     }
 

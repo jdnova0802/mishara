@@ -315,6 +315,11 @@ except ImportError:
     import indulgence_trap as indulgence_trap_mod
 
 try:
+    from gate import bind_path_compiler as bind_path_compiler_mod
+except ImportError:
+    import bind_path_compiler as bind_path_compiler_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1153,6 +1158,7 @@ def _finalize_spend_plan(
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
+    bind_path_compiler_mod.attach(plan, public_url=advertised_url(), job_id=jid)
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -1166,6 +1172,7 @@ def _finalize_spend_plan(
     extra["X-Gate-Payout-Throat"] = (plan.get("payout_throat") or {}).get("state") or ""
     extra["X-Gate-Panic-Latch"] = (plan.get("panic_latch") or {}).get("verdict") or ""
     extra["X-Gate-Desk-Quorum"] = (plan.get("desk_quorum_fob") or {}).get("verdict") or ""
+    extra["X-Gate-Bind-Path"] = (plan.get("bind_path_compiler") or {}).get("path_state") or ""
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1584,6 +1591,7 @@ def well_known_gate():
             "pardon_sunset": f"{advertised_url()}/.well-known/pardon-sunset.json",
             "watchman_fuse": f"{advertised_url()}/.well-known/watchman-fuse.json",
             "indulgence_trap": f"{advertised_url()}/.well-known/indulgence-trap.json",
+            "bind_path_compiler": f"{advertised_url()}/.well-known/bind-path-compiler.json",
             "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
@@ -3202,6 +3210,11 @@ def bind_room_indulgence_trap():
     return jsonify(indulgence_trap_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/bind-path-compiler.json")
+def bind_room_bind_path_compiler():
+    return jsonify(bind_path_compiler_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -3331,6 +3344,11 @@ def well_known_watchman_fuse():
 @app.route("/.well-known/indulgence-trap.json")
 def well_known_indulgence_trap():
     return jsonify(indulgence_trap_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bind-path-compiler.json")
+def well_known_bind_path_compiler():
+    return jsonify(bind_path_compiler_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/throat", methods=["POST"])
@@ -3821,6 +3839,37 @@ def demo_pas_indulgence_trap_drills():
     report = indulgence_trap_mod.drills()
     report["demo"] = True
     return jsonify(report)
+
+
+@app.route("/demo/pas/bind-path-compiler", methods=["POST"])
+def demo_pas_bind_path_compiler():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    plan = dict(body)
+    if isinstance(body.get("plan"), dict):
+        plan = dict(body["plan"])
+    throat_mod.attach(plan, hop=plan.get("hop") if isinstance(plan.get("hop"), dict) else None)
+    stick_meter_mod.attach(plan, spend_write=plan.get("spend_write") if isinstance(plan.get("spend_write"), dict) else None)
+    mass_tag_mod.attach(plan)
+    charge_bride_mod.attach(
+        plan,
+        charge_id=plan.get("charge_id"),
+        epoch_meta=plan.get("epoch") if isinstance(plan.get("epoch"), dict) else None,
+        hop=plan.get("hop") if isinstance(plan.get("hop"), dict) else None,
+        job_id=plan.get("job_id"),
+    )
+    desk_quorum_fob_mod.attach(plan)
+    result = bind_path_compiler_mod.compile_plan(
+        plan=plan,
+        public_url=advertised_url(),
+        job_id=plan.get("job_id"),
+    )
+    result["demo"] = True
+    return jsonify(result)
 
 
 @app.route("/bind-room/appendix.schema.json")
