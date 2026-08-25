@@ -833,7 +833,8 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Crucial Roles** | **Formal taxonomy** — `gate/CRUCIAL_ROLES.md` + `gate/crucial_roles.py` — Can't Lose This Guy tiers S/A/B/C; CIC apex; Bind Room foothill |
 | **Civ Maintenance (L4)** | **Market inventions** — `gate/CIV_MAINTENANCE.md` — Teeth Latch · Reality Root · Loss Deed · Telos · Catechism · Attested Exit · Joule Hostage · Unborn Seat · Domination Facing · Name Death |
 | **Living Continuity** | **Nuts pack** — `gate/CONTINUITY_LIVE.md` — Obey Bit · Dual-State · Presence Proof · Voice≠May · Access Tomb · Tacit Capture · Agent Succession · Continuity Clock · Rival-Root · Substrate Migration |
-| **Gate Anatomy** | **Faceless body** — `gate/GATE_ANATOMY.md` — Mouth·Sheath·Bone·Tooth·Stone·Blood·Gut·Heart·Cord·Ear·Marrow·Immune·Liver·Womb·Lattice·Breath; **Eye/Hand = protection only**; **no Face**; never Lockheed |
+| **Gate Anatomy** | **Faceless body** — `gate/GATE_ANATOMY.md` — Mouth·Sheath·Bone·Tooth·Stone·Blood·Gut·Heart·Cord·Ear·Marrow·Immune·Liver·Womb·Lattice·Breath; **Eye/Hand = P1/P2/P3 protection only**; **no Face**; never Lockheed |
+| **Reality Contract** | **Earn or stop** — `gate/REALITY_CONTRACT.md` — Gates 0–5; Breath first; Greenland after Lattice; fantasy flags; weekly ritual |
 
 **Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR/Hate/Bedrock** · **May Warden** — claim upstairs *now* so peelable may cannot Foundry you.
 
