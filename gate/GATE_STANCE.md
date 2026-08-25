@@ -9,7 +9,7 @@
 
 ## One paragraph (what you want)
 
-Gate is **not a company story**. It is a **planetary (then multi-world) clearance rail** — court/congress-flexible, **rent-only**, never sold. It maintains **order of irreversible commits** across entities (firms, nonprofits, flags, markets) so that whatever services Gate provides become the **board-game rules** those entities must pass through for those writes to **count**. Quiet, not FBI-loud. Appointed toward, not chasing. Protected enough to survive. Faceless as grammar; institutional surface only. Outlive civilizations; coordinate as far as markets go — Earth, Mars, further — without becoming any flag’s property.
+Gate is **not a company story**. It is a **final-boss clearance rail** — court/congress-flexible, **rent-only**, **priceless as ownership** (throat never for sale), never sold. It **appoints / routes** irreversible commits so entities (firms, nonprofits, flags, markets, militaries) pass Gate’s board rules for those writes to **count**. Quiet, not FBI-loud. Appointed toward, not chasing. **Internal + external protection** so the rail isn’t smashable. Faceless as grammar; institutional surface only. **S-tier civilization weather.** Ally posture: **Swiss-class neutrality / clearing tradition** — never a US bureau cosplay. Outlive civilizations; coordinate Earth → Mars → further. **Nothing sits above the final-boss rail** — not flags, not militaries, not Swiss partners, not CIC, not you.
 
 ---
 
@@ -17,14 +17,17 @@ Gate is **not a company story**. It is a **planetary (then multi-world) clearanc
 
 | Question | Stance |
 |----------|--------|
-| Federation or rail? | **Rail** — flexible courts/congress at planetary scale |
-| Sell vs rent? | **Rent only. Nothing for sale** (no throat, no forever key, no override ownership) |
+| Federation or rail? | **Final-boss rail** — flexible courts/congress at planetary scale |
+| Sell vs rent? | **Rent only. Throat priceless / not for sale** |
 | Friends / morality theater? | **Not for friends.** Process + charter. DENY when charter says DENY |
 | Pressure style? | **Not bureau bully.** Bind like a court: skip Gate ⇒ act doesn’t count |
 | Face? | **Institutional face** (appointable seats). Not private toy. Not founder-LIVE |
-| Protection? | **Internal + external protect** (Necessity Hands/Eyes). Not offense police |
-| Ambition ceiling? | **Outlive civilizations; multi-world coordinate** — board rules for entities that write irreversibly |
-| Foothill costume? | Still boring AI governance + commit control until Breath exists |
+| Protection? | **Internal + external forces** (Necessity Hands/Eyes + counsel/daylight). Not offense police |
+| Militaries? | **Work with them as renters** — desks, μ, prove. Never military-owned throat |
+| Alliance posture | **Swiss-class** — neutrality / clearing gravity; not American property |
+| Above the rail? | **NEVER.** No entity above final-boss rails |
+| Ambition ceiling? | **S-tier** — outlive civilizations; multi-world coordinate |
+| Foothill costume? | Boring AI governance + commit control until Breath exists |
 
 ---
 
