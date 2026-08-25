@@ -831,6 +831,7 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Invisible Staple Scale** | **Full invisible diet** — `gate/INVISIBLE_SCALE.md` — score 10 Bone Law → score 0 Act Serial → hate (−5) → bedrock ɱ/CMCP (−10) |
 | **May Warden (CIC)** | **Formal role doctrine** — `gate/MAY_WARDEN.md` — Chief of Irreversibility Clearance; dream seat; enterable ladder |
 | **Crucial Roles** | **Formal taxonomy** — `gate/CRUCIAL_ROLES.md` + `gate/crucial_roles.py` — Can't Lose This Guy tiers S/A/B/C; CIC apex; Bind Room foothill |
+| **Civ Maintenance (L4)** | **Market inventions** — `gate/CIV_MAINTENANCE.md` — Teeth Latch · Reality Root · Loss Deed · Telos · Catechism · Attested Exit · Joule Hostage · Unborn Seat · Domination Facing · Name Death |
 
 **Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR/Hate/Bedrock** · **May Warden** — claim upstairs *now* so peelable may cannot Foundry you.
 

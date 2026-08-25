@@ -365,6 +365,11 @@ except ImportError:
     import crucial_roles as crucial_roles_mod
 
 try:
+    from gate import civ_maintenance as civ_maintenance_mod
+except ImportError:
+    import civ_maintenance as civ_maintenance_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1666,6 +1671,7 @@ def well_known_gate():
             "bone_law": f"{advertised_url()}/.well-known/bone-law.json",
             "invisible_scale": f"{advertised_url()}/.well-known/invisible-scale.json",
             "crucial_roles": f"{advertised_url()}/.well-known/crucial-roles.json",
+            "civ_maintenance": f"{advertised_url()}/.well-known/civ-maintenance.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
@@ -1931,6 +1937,11 @@ def well_known_invisible_scale():
 @app.route("/.well-known/crucial-roles.json")
 def well_known_crucial_roles():
     return jsonify(crucial_roles_mod.crucial_roles_manifest())
+
+
+@app.route("/.well-known/civ-maintenance.json")
+def well_known_civ_maintenance():
+    return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
 
 
 @app.route("/.well-known/stale-live.json")
@@ -3454,6 +3465,11 @@ def bind_room_invisible_scale():
 @app.route("/bind-room/crucial-roles.json")
 def bind_room_crucial_roles():
     return jsonify(crucial_roles_mod.crucial_roles_manifest())
+
+
+@app.route("/bind-room/civ-maintenance.json")
+def bind_room_civ_maintenance():
+    return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
 
 
 @app.route("/.well-known/temporal-sheath.json")
