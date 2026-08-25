@@ -375,6 +375,11 @@ except ImportError:
     import continuity_live as continuity_live_mod
 
 try:
+    from gate import gate_anatomy as gate_anatomy_mod
+except ImportError:
+    import gate_anatomy as gate_anatomy_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1678,6 +1683,7 @@ def well_known_gate():
             "crucial_roles": f"{advertised_url()}/.well-known/crucial-roles.json",
             "civ_maintenance": f"{advertised_url()}/.well-known/civ-maintenance.json",
             "continuity_live": f"{advertised_url()}/.well-known/continuity-live.json",
+            "gate_anatomy": f"{advertised_url()}/.well-known/gate-anatomy.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
