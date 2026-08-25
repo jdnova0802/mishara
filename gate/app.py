@@ -370,6 +370,11 @@ except ImportError:
     import civ_maintenance as civ_maintenance_mod
 
 try:
+    from gate import continuity_live as continuity_live_mod
+except ImportError:
+    import continuity_live as continuity_live_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -1672,6 +1677,7 @@ def well_known_gate():
             "invisible_scale": f"{advertised_url()}/.well-known/invisible-scale.json",
             "crucial_roles": f"{advertised_url()}/.well-known/crucial-roles.json",
             "civ_maintenance": f"{advertised_url()}/.well-known/civ-maintenance.json",
+            "continuity_live": f"{advertised_url()}/.well-known/continuity-live.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
@@ -1942,6 +1948,11 @@ def well_known_crucial_roles():
 @app.route("/.well-known/civ-maintenance.json")
 def well_known_civ_maintenance():
     return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
+
+
+@app.route("/.well-known/continuity-live.json")
+def well_known_continuity_live():
+    return jsonify(continuity_live_mod.continuity_live_manifest(advertised_url()))
 
 
 @app.route("/.well-known/stale-live.json")

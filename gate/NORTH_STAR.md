@@ -832,6 +832,7 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **May Warden (CIC)** | **Formal role doctrine** — `gate/MAY_WARDEN.md` — Chief of Irreversibility Clearance; dream seat; enterable ladder |
 | **Crucial Roles** | **Formal taxonomy** — `gate/CRUCIAL_ROLES.md` + `gate/crucial_roles.py` — Can't Lose This Guy tiers S/A/B/C; CIC apex; Bind Room foothill |
 | **Civ Maintenance (L4)** | **Market inventions** — `gate/CIV_MAINTENANCE.md` — Teeth Latch · Reality Root · Loss Deed · Telos · Catechism · Attested Exit · Joule Hostage · Unborn Seat · Domination Facing · Name Death |
+| **Living Continuity** | **Nuts pack** — `gate/CONTINUITY_LIVE.md` — Obey Bit · Dual-State · Presence Proof · Voice≠May · Access Tomb · Tacit Capture · Agent Succession · Continuity Clock · Rival-Root · Substrate Migration |
 
 **Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR/Hate/Bedrock** · **May Warden** — claim upstairs *now* so peelable may cannot Foundry you.
 
