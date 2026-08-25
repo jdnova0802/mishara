@@ -9,7 +9,7 @@
 
 ## One paragraph (what you want)
 
-Gate is **not a company story**. It is a **final-boss clearance rail** — court/congress-flexible, **rent-only**, **priceless as ownership** (throat never for sale), never sold. It **appoints / routes** irreversible commits so entities (firms, nonprofits, flags, markets, militaries) pass Gate’s board rules for those writes to **count**. Quiet, not FBI-loud. Appointed toward, not chasing. **Internal + external protection** so the rail isn’t smashable. Faceless as grammar; institutional surface only. **S-tier civilization weather.** Ally posture: **Swiss-class neutrality / clearing tradition** — never a US bureau cosplay. Outlive civilizations; coordinate Earth → Mars → further. **Nothing sits above the final-boss rail** — not flags, not militaries, not Swiss partners, not CIC, not you.
+Gate is **not a company story**. It is a **final-boss clearance rail** — court/congress-flexible, **rent-only**, **priceless as ownership** (throat never for sale), never sold. It **appoints / routes** irreversible commits so entities (firms, nonprofits, flags, markets, militaries) pass Gate’s board rules for those writes to **count**. Quiet, not FBI-loud or TikTok-loud. Appointed toward, not chasing. **Internal + external protection** so the rail isn’t smashable. **Has an Appointer Face** — the public surface of a final-boss rail — not a clout Face, not a person sitting above may. **S-tier civilization weather.** Ally posture: **Swiss-class neutrality / clearing tradition** — never a US bureau cosplay. Outlive civilizations; coordinate Earth → Mars → further. **Nothing sits above the final-boss rail** — not flags, not militaries, not Swiss partners, not CIC costume, not you.
 
 ---
 
@@ -28,6 +28,21 @@ Gate is **not a company story**. It is a **final-boss clearance rail** — court
 | Above the rail? | **NEVER.** No entity above final-boss rails |
 | Ambition ceiling? | **S-tier** — outlive civilizations; multi-world coordinate |
 | Foothill costume? | Boring AI governance + commit control until Breath exists |
+
+---
+
+## Face (clarified)
+
+Gate **can have a face.** It should.
+
+| Face type | Verdict |
+|-----------|---------|
+| **Appointer Face** — court/rail public surface; appointable; performs like an institution people get routed to | **LIVE** |
+| **Clout Face** — TikTok, founder myth as product, vibe LIVE | **DENY** |
+| **Person above may** — your mouth outranks Gate’s mouth | **DENY** |
+
+**Perform how an appointer performs:** gravity, charter, receipts, dull permanence — not content theater.  
+**Formal:** `Appointer Face ≠ throne. Clout Face ≠ rail.`
 
 ---
 
@@ -99,4 +114,4 @@ Claim “never heard before” for the *combo*, not for “rules everyone obeys.
 
 ## One line
 
-**Gate = rent-only final-boss may rail — Swiss-class appointed weather, military-compatible as customer not owner, internally/externally protected, S-tier civilization coordinate; nothing and nobody above the rail — ever.**
+**Gate = rent-only final-boss may rail with an Appointer Face — Swiss-class appointed weather, military-compatible as customer not owner, protected in/out, S-tier coordinate; never TikTok Face; never anyone above the rail.**
