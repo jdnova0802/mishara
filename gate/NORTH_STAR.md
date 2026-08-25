@@ -5,8 +5,33 @@
 **Posture:** Tier-S **adjacent**. Never above a government or nation. Protect and serve under coordinators.
 
 This file is the **mountain**.  
+`GATE_STANCE.md` is the **locked political shape**.  
+`REALITY_CONTRACT.md` is the **earn-or-stop ladder**.  
 `SCIENCE.md` is the **physics + PRI lock**.  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
+
+---
+
+## North Star (locked)
+
+> **Gate is the rent-only final-boss may rail** — the court-shaped board rules  
+> that irreversible writes must pass so they **count** —  
+> appointed toward across entities and worlds,  
+> Swiss-class dull permanence, military-compatible as customer not owner,  
+> Appointer Face allowed, TikTok Face denied,  
+> **nothing and nobody above the rail** —  
+> outliving civilizations; coordinating Earth → Mars → further.
+
+**Shorter:**
+
+> We don’t become a nation, a bureau, or a unicorn brand.  
+> We become the **final-boss rail** where hard commits get may, sheath, and prove —  
+> rent-only, priceless as ownership, owned by none.
+
+**Role that carries it:** Chief of Irreversibility Clearance (CIC) / May Warden — performed as **Appointer**, never as throne.  
+**Evac priority:** Continuity mass from that mouth (~#12–25), never above lungs.  
+**Foothill costume:** AI governance + commit control until Breath exists.  
+**Proof it isn’t fantasy:** Settlement Dependency (Breath Meter) — strangers who can’t settle without Gate.
 
 ---
 
