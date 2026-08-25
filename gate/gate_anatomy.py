@@ -8,9 +8,9 @@ from __future__ import annotations
 from typing import Any
 
 THESIS = (
-    "Gate is a faceless body of may — Mouth decides; Eyes and Hands exist only "
-    "to protect clearance integrity; never warlord can, never sight empire, "
-    "never a face above the mouth."
+    "Gate is a faceless body of may — Mouth decides; Eyes and Hands are real "
+    "classical/advanced/cosmic protection hardware for the rail; never warlord "
+    "offense OEM; never a face above the mouth."
 )
 
 ORGANS_CORE: tuple[str, ...] = (
@@ -38,26 +38,41 @@ ORGANS_FORBIDDEN: tuple[str, ...] = ("face",)
 
 PROTECTION_DEAL = {
     "eye": {
-        "job": "Protective sense — authenticity / presence / bypass detection",
-        "may_inform": ["mouth", "ear", "immune", "tooth"],
+        "job": "Real protective sense — see threats to Gate organs + sacred channels",
+        "tiers": {
+            "classical": "tamper / CCTV / door / RF / seals on mouth facilities",
+            "advanced": "deepfake / liveness / intrusion / Bone peel alarms",
+            "cosmic": "lattice integrity / ark vault / planetary-bus authenticity Eyes",
+        },
+        "may_inform": ["mouth", "ear", "immune", "hand"],
         "never": [
-            "battlefield fusion product",
-            "mass surveillance SKU",
+            "battlefield ISR product",
+            "civilian panopticon SKU",
             "Eye output equals LIVE",
-            "Eye authorizes offensive can",
+            "Eye soft-authorizes offensive can",
         ],
-        "formal": "Eye output never equals LIVE. Eye used to authorize offensive can ⇒ Filter.",
+        "formal": (
+            "Eye output never equals LIVE. Classical/advanced/cosmic Eye hardware "
+            "allowed for Gate protection. Eye used to authorize offensive can ⇒ Filter."
+        ),
     },
     "hand": {
-        "job": "Protective act — enforce DENY / amputate forged path",
-        "requires": "Mouth DENY or CHOKE first",
+        "job": "Real protective act — stop ruin of Gate + enforce DENY",
+        "tiers": {
+            "classical": "locks / kill-power / seals / door hard-DENY / cut forged paths",
+            "advanced": "sheath tripwires / key tomb / agent amputation / quarantine",
+            "cosmic": "lattice amputation / ark deadman / planetary-bus inhibit Hands",
+        },
+        "requires": "Mouth DENY/CHOKE or pre-scoped Emergency May Charter",
         "never": [
-            "missiles / guns / platforms / OEM muscle",
-            "Lockheed path",
-            "offensive force projection",
+            "offensive weapons product line / Lockheed path",
+            "conquest / force projection unrelated to protecting may",
             "Hand moves without Mouth",
         ],
-        "formal": "Hand never moves without Mouth. Hand as offensive L0 product ⇒ Filter.",
+        "formal": (
+            "Hand never moves without Mouth. Classical/advanced/cosmic Hand hardware "
+            "allowed to defend Gate and enforce DENY. Offensive L0 product line ⇒ Filter."
+        ),
     },
 }
 
@@ -88,8 +103,9 @@ def gate_anatomy_manifest(public_url: str | None = None) -> dict[str, Any]:
         "protection_flow": list(PROTECTION_FLOW),
         "forbidden_flow": list(FORBIDDEN_FLOW),
         "lockheed_rule": (
-            "Hands/Eyes are protection-only under Mouth + Lattice + coordinators. "
-            "Offensive can or sight-empire product = Filter."
+            "Classical/advanced/cosmic Eyes+Hands ARE allowed to protect Gate organs "
+            "and enforce DENY. Offensive weapons product line / conquest can = Filter. "
+            "Protection ≠ disabled feature."
         ),
         "spec": "gate/GATE_ANATOMY.md",
         "outbound_lock": (

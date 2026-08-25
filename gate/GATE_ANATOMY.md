@@ -12,10 +12,12 @@
 Gate is not a mouth with a logo.  
 Gate is a **body of may** — organs that make irreversible acts count, halt, and prove —  
 with **no face** (no corporate cosplay above the mouth)  
-and **Hands / Eyes only as protection**, never as warlord can or sight-empire.
+and **Hands / Eyes as real protection hardware** (classical → advanced → cosmic),  
+never as warlord offense OEM.
 
 > Nobody is above may — not BlackRock, not Nisaba, not CIC, not you.  
-> Hands and Eyes exist so DENY and Prove have teeth and nerves — not so Gate builds missiles or dashboards-as-product.
+> The world is brutal. Gate gets Eyes that see attacks and Hands that stop ruin.  
+> Filter = selling conquest. Not Filter = defending the rail.
 
 ---
 
@@ -59,90 +61,94 @@ The firm may bill. The firm may not sit above the mouth.
 
 ---
 
-## Eyes — protective sense only
+## Eyes — protective sense (REAL hardware, not a checkbox)
 
-**What Eyes are:**  
-Sensors and protocols that protect the mouth’s integrity — so LIVE/DENY is not fooled.
+**Not scared of Eyes. Scared of Eyes that become a sight empire or soft-LIVE for offense.**
 
-**Protection deal (LIVE only for):**
-- deepfake / likeness / false-order detection on sacred channels  
-- Presence Proof / liveness of Continuity seats  
-- bypass / soft-path / Ghost-May anomaly detection  
-- stranger-verify assist (Ear + Eye)  
-- Bone Law peel / sidecar extraction alarms  
+Eyes are **actual sensors** — classical → advanced → cosmic-class — whose job is to **see threats to Gate** (mouth cells, sheath, bone surfaces, stone roots, Continuity seats, lattice nodes). Brutal world: people will try to smash, spoof, peel, or forge the rail. Eyes exist so that isn’t free.
 
-**What Eyes are NOT:**
-- Palantir-class battlefield fusion as Gate’s product  
-- mass surveillance SKU  
-- “AI saw threat ⇒ soft LIVE to shoot”  
-- L1 sight empire
+### Tiers (all allowed under protection deal)
 
-**Formal:**  
-`Eye output never equals LIVE.`  
-`Eye may only inform Mouth, Ear, Immune, Tooth.`  
-`Eye used to authorize offensive can ⇒ Filter.`
+| Tier | Eye hardware (examples) | Job |
+|------|-------------------------|-----|
+| **Classical** | Tamper switches, CCTV on mouth racks, badge/door sense, RF sniff on commit lanes, seal cameras | See burglary / spoof / physical breach |
+| **Advanced** | Deepfake/liveness detectors, anomaly models on order channels, intrusion detection on sheath APIs, peel/sidecar alarms (Bone Law) | See forgery / Ghost-May / soft-path |
+| **Cosmic** | Light-delay presence nets, multi-flag lattice integrity senses, seed/ark vault sensors, deflection-bus authenticity Eyes | See attacks on planetary / ark-class mouths |
 
-**SKU costume (later):** “commit-path authenticity sensing” / “clearance integrity monitor.”
+**Rules that stay:**
+- `Eye output never equals LIVE` — Eyes inform Mouth / Ear / Immune / Hand  
+- Eyes may watch **Gate integrity + sacred commit channels**  
+- Eyes may **not** be sold as general battlefield ISR or civilian panopticon SKU  
+- Eye used to soft-authorize **offensive** can (strike first / conquer) ⇒ Filter  
+
+**SKU costume:** clearance integrity sensing · mouth-facility protection optics · order-channel authenticity Eyes.
 
 ---
 
-## Hands — protective act only
+## Hands — protective act (REAL effectors, not a disabled feature)
 
-**What Hands are:**  
-Effectors that make DENY real — so bypass hurts and forged paths die.
+**Not scared of Hands. Scared of Hands that become Lockheed.**
 
-**Protection deal (LIVE only after Mouth DENY / CHOKE):**
-- amputate write path / kill switch on forged mouth  
-- during-inhibit hardware or API sheath (Sheath + Hand)  
-- desk / key / agent Funeral enforcement (with Liver)  
-- quarantine of runaway replication under census  
-- consequence bond execution (Tooth + Hand) under coordinators  
+Hands are **actual effectors** — classical → advanced → cosmic-class — whose job is to **stop someone unnecessarily ruining Gate** or running a forged write when Mouth said DENY. If DENY is only a PDF, the brutal world laughs. Hands make DENY expensive.
 
-**What Hands are NOT:**
-- missiles, guns, platforms, OEM muscle  
-- Lockheed / Anduril / “we build the can”  
-- offensive force projection  
-- warlord enforcement outside Mouth + Lattice + coordinators  
+### Tiers (all allowed under protection deal)
 
-**Formal:**  
-`Hand never moves without Mouth.`  
-`Hand never initiates sacred can — only protects may.`  
-`Hand as offensive L0 product ⇒ Filter (Lockheed path).`
+| Tier | Hand hardware (examples) | Job |
+|------|--------------------------|-----|
+| **Classical** | Cage locks, kill-power on compromised racks, Faraday/seal interlocks, door hard-DENY, cut forged cable paths, safe-room for Continuity seats | Stop smash / theft / physical ruin of mouth hardware |
+| **Advanced** | API/hardware sheath tripwires, key destruction / Access Tomb triggers, agent amputation, network quarantine, consequence-bond robots that only fire post-DENY | Stop cyber peel / ghost agent / soft bypass |
+| **Cosmic** | Lattice-wide forged-mouth amputation, ark/seed vault deadman Hands, planetary-bus inhibit Hands under multi-flag Consent | Stop civilization-scale forgery / runaway copy |
 
-**SKU costume (later):** “fail-closed commit amputation” / “DENY enforcement actuator.”
+**Rules that stay:**
+- `Hand never moves without Mouth` (or pre-scoped Emergency May Charter)  
+- Hands **defend Gate organs + enforce DENY** — including physical force **on attackers of Gate** and **on forged paths**  
+- Hands are **not** an offensive weapons product line (no “Gate missiles for export”)  
+- Hand used for conquest / offense unrelated to protecting may ⇒ Filter (Lockheed path)  
+
+**Yes, that includes classical batons-and-locks energy, advanced tripwire/amputation energy, and cosmic deadman/lattice Hands — all protection-scoped.**
+
+**SKU costume:** mouth-facility protective systems · DENY enforcement actuators · Continuity hard-protect · lattice amputation Hands.
 
 ---
 
-## Protection deal (the only Hands/Eyes contract)
+## Protection deal (Hands / Eyes contract)
 
 ```
-threat to may integrity
-  → Eye senses (authenticity / bypass / presence)
-  → Ear challenges
-  → Mouth LIVE/DENY/CHOKE
-  → if DENY/CHOKE: Hand enforces (amputate / sheath / funeral)
+someone tries to ruin / forge / peel Gate
+  → Eye senses (classical / advanced / cosmic tier as needed)
+  → Ear challenges if channel spoof
+  → Mouth LIVE/DENY/CHOKE (or Emergency Charter)
+  → Hand enforces (lock / kill-power / amputate / quarantine / vault deadman)
   → Stone proves
   → Immune / Liver clean capture
 ```
 
-**Never:**
+**Allowed:** protect the rail like the world is ruthless — because it is.  
+**Forbidden:**
 ```
-Eye sees enemy → Hand shoots
+Eye sees geopolitical enemy → Hand launches offensive can
 ```
-That is Lockheed with a poetry layer. Gate refuses it.
+That is warlord OEM. Gate refuses **that** — not protection.
+
+**Plain English:**  
+We **will** have classical, advanced, and cosmic-like Eye and Hand hardware.  
+We **won’t** become Lockheed.  
+Protection of Gate ≠ disabled feature. Protection of Gate = the point of Hands/Eyes.
 
 ---
 
 ## Why Hands and Eyes exist at all
 
-Mouth without Eye gets deepfaked.  
-Mouth without Hand gets ignored (DENY as blog post).  
+Mouth without Eye gets deepfaked and the rack gets smashed blind.  
+Mouth without Hand gets ignored — DENY as blog post — or hardware ruined for free.
 
-Protection organs make may **honest** and **costly to forge** —  
-not make Gate a defense prime.
+Protection organs make may **honest** and **costly to attack** —  
+classical locks and cameras, advanced tripwires and amputation, cosmic lattice/ark Hands and Eyes.
 
-**Still true:** L0 can (ships, interceptors, plants) stays outside.  
-Gate may **clear** or **DENY** their irreversible writes; Gate does not **become** them.
+**Still true:** Gate does not become a general defense prime.  
+**Also true:** Gate **does** field real protective can on its own organs.  
+Clearing someone else’s interceptor ≠ manufacturing a Gate missile catalog.  
+Defending a mouth cell with Hand hardware ≠ Lockheed.
 
 ---
 
@@ -164,11 +170,11 @@ Gate may **clear** or **DENY** their irreversible writes; Gate does not **become
 ## Enterable path
 
 ```
-Mouth + Stone + Sheath          (now — Bind Room)
-  → Tooth + Ear                 (DENY costs; challenge inbound)
-  → Eye (protect authenticity)  (deepfake / presence)
-  → Hand (protect DENY)         (amputate forged path only)
-  → Blood + Gut + Marrow        (weather)
+Mouth + Stone + Sheath                    (now — Bind Room)
+  → Tooth + Ear                           (DENY costs; challenge inbound)
+  → Eye classical → advanced → cosmic     (see smash / spoof / lattice attack)
+  → Hand classical → advanced → cosmic    (stop ruin / enforce DENY / ark deadman)
+  → Blood + Gut + Marrow                  (weather)
   → still no Face
 ```
 
@@ -183,4 +189,4 @@ Do **not** lead with Hands, Eyes, anatomy, Lockheed contrast, or “we protect E
 
 ## Document one line
 
-**Gate is a faceless body of may — Mouth decides; Eyes and Hands exist only to protect clearance integrity; never warlord can, never sight empire, never a face above the mouth.**
+**Gate is a faceless body of may — Mouth decides; classical/advanced/cosmic Eyes and Hands are real protection hardware for the rail; never warlord offense OEM; never a face above the mouth.**
