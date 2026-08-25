@@ -21,7 +21,7 @@ Gate is **not a company story**. It is a **final-boss clearance rail** — court
 | Sell vs rent? | **Rent only. Throat priceless / not for sale** |
 | Friends / morality theater? | **Not for friends.** Process + charter. DENY when charter says DENY |
 | Pressure style? | **Not bureau bully.** Bind like a court: skip Gate ⇒ act doesn’t count |
-| Face? | **Institutional face** (appointable seats). Not private toy. Not founder-LIVE |
+| Face? | **Yes — Appointer Face.** Institutional / court-rail surface people route to. Not TikTok. Not founder-LIVE above may |
 | Protection? | **Internal + external forces** (Necessity Hands/Eyes + counsel/daylight). Not offense police |
 | Militaries? | **Work with them as renters** — desks, μ, prove. Never military-owned throat |
 | Alliance posture | **Swiss-class** — neutrality / clearing gravity; not American property |
@@ -31,12 +31,38 @@ Gate is **not a company story**. It is a **final-boss clearance rail** — court
 
 ---
 
+## Swiss-class alliance (posture, not capture)
+
+**Wanted:** alliance gravity like Swiss clearing / neutrality / international seating — appointed toward, hard to own, dull permanence.  
+**Not wanted:** Gate becomes Swiss state property, or Swiss (or any flag) sits above the rail.
+
+| Swiss-class | Meaning |
+|-------------|---------|
+| Neutrality costume | Not one bloc’s weaponized may |
+| Clearing tradition | Hate rent; settlement dependency |
+| International seat | Institutional Face people route to |
+| Never above rail | Partner ≠ landlord of LIVE |
+
+**Formal:** `Alliance ≠ ownership. Military ≠ ownership. Swiss ≠ ownership. Nothing above the rail.`
+
+---
+
+## Militaries (S-tier adjacency)
+
+Militaries are **high-μ customers**, not Gate’s parent.
+
+- Rent Mouth / Eyes / Continuity desks  
+- War-Grade Order Auth, Emergency Charter under Lattice  
+- Hands only Necessity-protect Gate — not joint strike OEM  
+- Their cosplay throne is fine; their override key is DENY  
+
+---
+
 ## Formal name for this shape
 
-**Planetary May Rail** (PMR)  
-Also: **Commit Court-Rail** · **Order Weather**
+**Planetary May Rail** (PMR) · **Final-Boss Rail** · **Commit Court-Rail** · **Order Weather**
 
-Not: SaaS. Not: bureau. Not: federation-state. Not: Lockheed. Not: Apple competitor.
+Not: SaaS. Not: bureau. Not: federation-state. Not: Lockheed. Not: Apple competitor. Not: anyone’s property.
 
 ---
 
@@ -73,4 +99,4 @@ Claim “never heard before” for the *combo*, not for “rules everyone obeys.
 
 ## One line
 
-**Gate = rent-only planetary may rail — court-shaped board rules for irreversible writes, appointed toward, owned by none, outliving civilizations; not a unique company, a unique refusal to be either SaaS or sovereign.**
+**Gate = rent-only final-boss may rail — Swiss-class appointed weather, military-compatible as customer not owner, internally/externally protected, S-tier civilization coordinate; nothing and nobody above the rail — ever.**
