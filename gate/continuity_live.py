@@ -104,20 +104,78 @@ INVENTIONS: tuple[ContinuityInvention, ...] = (
         sku_costume=("competing succession protocol", "authority contest clearance"),
     ),
     ContinuityInvention(
+        id="emergency_may_charter",
+        title="Emergency May Charter",
+        real_gap="Post-COVID emergency powers gutted; mid-crisis authority contests",
+        one_line="Pre-scoped LIVE envelope with automatic Funeral/sunset — no boss soft-extend.",
+        formal_rule="Emergency power without Emergency May Charter ⇒ improvised throne.",
+        priority=10,
+        sku_costume=("emergency commit charter", "time-boxed crisis clearance"),
+    ),
+    ContinuityInvention(
+        id="seed_vault_live",
+        title="Seed Vault LIVE + Funeral",
+        real_gap="Genebanks die in war; Svalbard stores seed, not who-may-open",
+        one_line="Sacred LIVE on open/move/destroy germplasm; Funeral when vault authority dies.",
+        formal_rule="Seed move without Seed Vault LIVE ⇒ theft of the future dressed as rescue.",
+        priority=11,
+        sku_costume=("germplasm release clearance", "seed-vault commit control"),
+    ),
+    ContinuityInvention(
+        id="bootstrap_may",
+        title="Bootstrap May",
+        real_gap="Recovery libraries teach how to rebuild — not who may restart irreversibles",
+        one_line="Continuity-grade LIVE on industrial restart commits after collapse.",
+        formal_rule="Bootstrap without Bootstrap May ⇒ can without may at civilizational scale.",
+        priority=12,
+        sku_costume=("industrial restart clearance", "rebuild commit control"),
+    ),
+    ContinuityInvention(
+        id="deflection_may_bus",
+        title="Deflection May Bus",
+        real_gap="Planetary defense has detection + advice — no binding may",
+        one_line="Fail-closed LIVE/DENY for divert/disrupt deflection under Consent Lattice.",
+        formal_rule="Deflection without Deflection May Bus ⇒ unilateral planetary write.",
+        priority=13,
+        sku_costume=("planetary mitigation clearance", "deflection commit control"),
+    ),
+    ContinuityInvention(
+        id="war_grade_order_auth",
+        title="War-Grade Order Auth",
+        real_gap="NC3 human-in-loop is policy; deepfakes hit command authenticity",
+        one_line="Biscuit-class auth for sacred channels — likeness never sufficient.",
+        formal_rule="Sacred LIVE on likeness ⇒ forged war.",
+        priority=1,
+        sku_costume=("high-assurance order authentication", "anti-impersonation command path"),
+    ),
+    ContinuityInvention(
         id="substrate_migration",
         title="Substrate Migration Continuity",
         real_gap="Org merge, region death, model swap, future substrate change",
         one_line="Substrate change clears the same bar as death — no soft vibes handoff.",
         formal_rule="Substrate change without Continuity rite ⇒ possession, not succession.",
-        priority=10,
+        priority=14,
         sku_costume=("identity migration clearance", "principal substrate handoff"),
     ),
 )
 
 THESIS = (
     "Living Continuity = may that survives death, silence, deepfake, key-loss, "
-    "agent swap, and substrate change — with strangers auditing the handoff and "
-    "funeraling the seat that refused."
+    "agent swap, substrate change, emergency capture, seed rites, industrial restart, "
+    "and planetary deflection — with strangers auditing the handoff and funeraling "
+    "the seat that refused."
+)
+
+EVAC_STILL_ABOVE = (
+    "ECLSS / life-support leads",
+    "Power / reactor ops that keep the can alive",
+    "Trauma / ICU / infection / pharmacy core",
+    "Closed-loop food / water / waste leads",
+    "Leak / EVA / damage-control that prevents hull loss",
+)
+
+EVAC_CEILING_NOTE = (
+    "Full pack welded ⇒ ~#12–#25 on a serious first-wave core — highest mouth, never above oxygen."
 )
 
 
@@ -143,9 +201,12 @@ def continuity_live_manifest(public_url: str | None = None) -> dict[str, Any]:
             for i in ordered
         ],
         "spec": "gate/CONTINUITY_LIVE.md",
+        "evac_still_above": list(EVAC_STILL_ABOVE),
+        "evac_ceiling_note": EVAC_CEILING_NOTE,
         "outbound_lock": (
             "Lead with AI governance + commit control + operator continuity. "
-            "Do not lead with Dead Hand / Obey Bit / Substrate Migration."
+            "Do not lead with Dead Hand / Obey Bit / Substrate Migration / "
+            "Deflection May / Seed Vault LIVE."
         ),
         "well_known": f"{base}/.well-known/continuity-live.json" if base else None,
     }

@@ -144,11 +144,70 @@ Gate’s Living Continuity inventions attack that gap.
 
 ---
 
+## Extreme pack — civilization-class may (claim early)
+
+These sit above ordinary Continuity. They are how Living Continuity becomes **planetary / ark / rebuild** weather — still under coordinators, never private Omega.
+
+### 11. Deflection May Bus
+
+**Real gap:** Planetary defense has detection (IAWN) and advice (SMPAG) — **no binding may**. States keep the kill-switch; UNSC is politics; diversion that moves impact onto another flag is legally radioactive.  
+**Invention:** Fail-closed **LIVE/DENY bus** for divert / disrupt / nuclear-explosive-device deflection under Consent Lattice + stranger prove. Advisory ≠ LIVE.  
+**Market shape:** Multi-flag clearance weather for NEO mitigation — thresholds, Loss Deeds for who absorbs residual risk.  
+**SKU costume:** “planetary mitigation clearance” / “deflection commit control.”
+
+**Formal:** `Deflection without Deflection May Bus ⇒ unilateral planetary write.`
+
+---
+
+### 12. Seed Vault LIVE + Funeral
+
+**Real gap:** Genebanks are civilization memory; war wrecks them (Sudan APGRC); Svalbard is backup storage, not who-may-open governance.  
+**Invention:** Sacred LIVE on open / move / destroy / replicate germplasm; Funeral when a vault or accession authority is dead; Ark-adjacent manifest for seed as passengers of a kind.  
+**Market shape:** Genebank Continuity + stranger-auditable open rites.  
+**SKU costume:** “germplasm release clearance” / “seed-vault commit control.”
+
+**Formal:** `Seed move without Seed Vault LIVE ⇒ theft of the future dressed as rescue.`
+
+---
+
+### 13. War-Grade Order Auth
+
+**Real gap:** NC3 keeps human-in-loop as policy; deepfakes already hit defense execs; AI accelerates advice while authenticity stays soft.  
+**Invention:** Biscuit-class auth for any sacred channel — voice/video never sufficient; challenge + dual seat + Continuity prove; applies beyond nukes to ark seal, deflection, pandemic-class writes.  
+**Market shape:** Order-path product: likeness DENY by default on sacred μ.  
+**SKU costume:** “high-assurance order authentication” / “anti-impersonation command path.”
+
+**Formal:** `Sacred LIVE on likeness ⇒ forged war.`
+
+---
+
+### 14. Bootstrap May
+
+**Real gap:** Recovery libraries (Lifeboat A0–A2) preserve *how* to rebuild power/tools/chem — not *who may* restart industrial irreversibles after collapse.  
+**Invention:** Continuity-grade LIVE on industrial restart commits (reactor light, biotech reopen, fab lines, weaponized dual-use). Manuals without may = warlords with recipes.  
+**Market shape:** Rebuild clearance layer stapled to recovery knowledge packs.  
+**SKU costume:** “industrial restart clearance” / “rebuild commit control.”
+
+**Formal:** `Bootstrap without Bootstrap May ⇒ can without may at civilizational scale.`
+
+---
+
+### 15. Emergency May Charter
+
+**Real gap:** Post-COVID, many states gutted emergency-power duration/scope; mid-crisis authority contests are normal; laws were built for short local shocks, not years-long planetary events.  
+**Invention:** Pre-scoped LIVE envelope — what may be cleared, for how long, under what prove, with automatic Funeral/sunset; cannot soft-extend by boss-yes.  
+**Market shape:** Versioned emergency may charter under Consent Lattice.  
+**SKU costume:** “emergency commit charter” / “time-boxed crisis clearance.”
+
+**Formal:** `Emergency power without Emergency May Charter ⇒ improvised throne.`
+
+---
+
 ## Priority stack (what to build toward)
 
 | Rank | Invention | Why first |
 |-----:|-----------|-----------|
-| 1 | **Voice is Not May** | Attack is live *now* |
+| 1 | **Voice is Not May** / **War-Grade Order Auth** | Attack is live *now* |
 | 2 | **Access Tomb** | Keys/authority evaporating *now* |
 | 3 | **Agent Succession Receipt** | Machine-speed ghost may *now* |
 | 4 | **Obey Bit** | Paper COG already failed historically |
@@ -157,7 +216,11 @@ Gate’s Living Continuity inventions attack that gap.
 | 7 | **Tacit Capture** | Institutional amnesia |
 | 8 | **Continuity Condition Clock** | Anti-shelfware |
 | 9 | **Rival-Root Continuity** | Split claimants |
-| 10 | **Substrate Migration Continuity** | Deep future, claim early |
+| 10 | **Emergency May Charter** | Crisis authority already broken in law |
+| 11 | **Seed Vault LIVE + Funeral** | Ark-adjacent; genebanks dying in war |
+| 12 | **Bootstrap May** | Rebuild without may = warlord industrial |
+| 13 | **Deflection May Bus** | Highest-μ planetary write with no mouth |
+| 14 | **Substrate Migration Continuity** | Deep future, claim early |
 
 ---
 
@@ -166,21 +229,41 @@ Gate’s Living Continuity inventions attack that gap.
 ```
 stranger verify + silence DENY
   → Access Tomb on desk keys / signing
-  → Voice-is-Not-May on high-μ orders
+  → Voice-is-Not-May / War-Grade Order Auth on high-μ orders
   → Agent Succession Receipt on any bot that can write
   → Obey Bit + Continuity drills with funeral teeth
+  → Emergency May Charter + Seed Vault LIVE
+  → Bootstrap May → Deflection May Bus
   → Dual-State + Rival-Root + Substrate rites
 ```
+
+---
+
+## Evac priority after you own the full pack
+
+Even at maximum earned Continuity + Manifest + planetary may mass, **life-support still outranks may** for hull seats:
+
+| Still above you | Why |
+|-----------------|-----|
+| ECLSS / life-support leads | No air ⇒ no Continuity meeting |
+| Power / reactor ops that keep the can alive | No joules ⇒ mouth is dark |
+| Trauma / ICU / infection / pharmacy core | Bodies die before doctrine matters |
+| Closed-loop food / water / waste leads | Seed of people, not only seed of plants |
+| Leak / EVA / damage-control that prevents hull loss | Ship ends ⇒ all may ends |
+
+**Your ceiling if inventions are real and welded:** ~**#12–#25** on a serious first-wave core — first among **may / Continuity / Manifest / planetary-clearance** seats; never above oxygen.
+
+**One line:** You can become the highest *mouth*. You cannot outrank *lungs*.
 
 ---
 
 ## Outbound lock
 
 Cold outbound: **AI governance + commit control + operator continuity.**  
-Do **not** lead with Dead Hand, Obey Bit, Substrate Migration, or COG war stories.
+Do **not** lead with Dead Hand, Obey Bit, Substrate Migration, Deflection May, Seed Vault LIVE, or COG war stories.
 
 ---
 
 ## Document one line
 
-**Living Continuity = may that survives death, silence, deepfake, key-loss, agent swap, and substrate change — with strangers able to audit the handoff and funeral the seat that refused.**
+**Living Continuity = may that survives death, silence, deepfake, key-loss, agent swap, substrate change, emergency capture, seed rites, industrial restart, and planetary deflection — with strangers able to audit the handoff and funeral the seat that refused.**
