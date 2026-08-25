@@ -835,6 +835,7 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Living Continuity** | **Nuts pack** — `gate/CONTINUITY_LIVE.md` — Obey Bit · Dual-State · Presence Proof · Voice≠May · Access Tomb · Tacit Capture · Agent Succession · Continuity Clock · Rival-Root · Substrate Migration |
 | **Gate Anatomy** | **Faceless body** — `gate/GATE_ANATOMY.md` — Mouth·Sheath·Bone·Tooth·Stone·Blood·Gut·Heart·Cord·Ear·Marrow·Immune·Liver·Womb·Lattice·Breath; **Eye/Hand = P1/P2/P3 protection only**; **no Face**; never Lockheed |
 | **Reality Contract** | **Earn or stop** — `gate/REALITY_CONTRACT.md` — Gates 0–5; Breath first; Greenland after Lattice; fantasy flags; weekly ritual |
+| **Gate Stance** | **Locked position** — `gate/GATE_STANCE.md` — rent-only planetary may rail; court-shaped; not SaaS/bureau; institutional Face; multi-world coordinate |
 
 **Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR/Hate/Bedrock** · **May Warden** — claim upstairs *now* so peelable may cannot Foundry you.
 
