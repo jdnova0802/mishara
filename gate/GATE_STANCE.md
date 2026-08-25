@@ -21,7 +21,7 @@ Gate is **not a company story**. It is a **final-boss clearance rail** — court
 | Sell vs rent? | **Rent only. Throat priceless / not for sale** |
 | Friends / morality theater? | **Not for friends.** Process + charter. DENY when charter says DENY |
 | Pressure style? | **Not bureau bully.** Bind like a court: skip Gate ⇒ act doesn’t count |
-| Face? | **Yes — Appointer Face.** Institutional / court-rail surface people route to. Not TikTok. Not founder-LIVE above may |
+| Face? | **You can have a face. Gate can have a face.** Appointer/institutional = LIVE. TikTok clout = DENY. Your mouth above Gate = DENY |
 | Protection? | **Internal + external forces** (Necessity Hands/Eyes + counsel/daylight). Not offense police |
 | Militaries? | **Work with them as renters** — desks, μ, prove. Never military-owned throat |
 | Alliance posture | **Swiss-class** — neutrality / clearing gravity; not American property |
@@ -33,16 +33,19 @@ Gate is **not a company story**. It is a **final-boss clearance rail** — court
 
 ## Face (clarified)
 
-Gate **can have a face.** It should.
+**You can have a face.** Gate can have a face. That’s not the problem.
 
 | Face type | Verdict |
 |-----------|---------|
-| **Appointer Face** — court/rail public surface; appointable; performs like an institution people get routed to | **LIVE** |
-| **Clout Face** — TikTok, founder myth as product, vibe LIVE | **DENY** |
-| **Person above may** — your mouth outranks Gate’s mouth | **DENY** |
+| **Your Appointer Face** — you are publicly known as the one who built/routes the rail; perform like an appointer (gravity, charter, receipts) | **LIVE** |
+| **Gate’s Institutional Face** — seats/office people get appointed toward | **LIVE** |
+| **Clout Face** — TikTok theater, vibe LIVE, founder myth as product | **DENY** |
+| **Throne Face** — your personal say outranks Gate DENY | **DENY** |
 
-**Perform how an appointer performs:** gravity, charter, receipts, dull permanence — not content theater.  
-**Formal:** `Appointer Face ≠ throne. Clout Face ≠ rail.`
+**Split forever:**  
+`Visible ≠ sovereign.`  
+You can be seen. You cannot sit above the rail.  
+Perform how an appointer performs — not how an influencer performs.
 
 ---
 
@@ -114,4 +117,4 @@ Claim “never heard before” for the *combo*, not for “rules everyone obeys.
 
 ## One line
 
-**Gate = rent-only final-boss may rail with an Appointer Face — Swiss-class appointed weather, military-compatible as customer not owner, protected in/out, S-tier coordinate; never TikTok Face; never anyone above the rail.**
+**Gate = rent-only final-boss may rail — you may wear an Appointer Face; Gate may wear an institutional Face; never TikTok clout; never anyone (including you) above the rail.**

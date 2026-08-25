@@ -64,17 +64,18 @@ Gate = *this is where power enters the world — and the sheath that can lock it
 
 ## One sentence
 
-> Become the **default hard-commit industrial stack** for legitimate coordinators —  
+> Become the **default final-boss may rail** for irreversible writes —  
+> rent-only, court-shaped, Swiss-class appointed weather —  
 > not only the runtime mouth, but the **forge**: design, engineering, assembly, test, and field sustainment of systems whose **may is welded into the artifact** —  
 > the shared gravity well for **legitimacy of force** across media —  
 > **before, during, and after** every high-mass act —  
 > **mapped, cleared, sheathed, proved, and manufactured** —  
-> so nations can project force and restrain force without trusting a silent fail-open —  
-> **under** the flag, never instead of it.
+> so entities can project force and restrain force without trusting a silent fail-open —  
+> **under** coordinators and Lattice, never instead of them, never as anyone’s property.
 
 Shorter:
 
-> We don’t rule nations. We **build and run** the layer where power **sticks** — legible, sheathed, and proveable.
+> We don’t rule nations. We **are the rail** where power **sticks** — legible, sheathed, proveable, rent-only, unownable.
 
 Physics footnote: “sticks” = high undo-cost / irreversible under thermo + law + blast radius (`SCIENCE.md`).
 
