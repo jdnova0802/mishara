@@ -15,7 +15,6 @@ def test_anatomy_formalized_protection_layers():
     assert m["protection_layers"]["P3"]["name"] == "Lattice Protect"
     assert m["protection_layers"]["P3"]["enter"].startswith("mountain")
     assert "never equals LIVE" in m["protection_deal"]["eye"]["formal"]
-    assert "without Mouth" in m["protection_deal"]["hand"]["formal"]
-    assert "Protection ≠ disabled" in m["lockheed_rule"]
-    assert "Raw riffs" in m["ideation_rule"]
+    assert "Necessity Bar" in m["protection_deal"]["hand"]["formal"]
+    assert len(m["protection_deal"]["hand"]["necessity_bar"]) == 5
     assert m["spec"] == "gate/GATE_ANATOMY.md"

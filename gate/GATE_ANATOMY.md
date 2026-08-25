@@ -106,8 +106,24 @@ Effectors that **stop ruin of Gate** and **make DENY expensive**.
 | **P2 Channel Hand** | Sheath tripwires, Access Tomb key-kill, agent amputation, quarantine, post-DENY consequence actuators | Stop cyber peel / ghost agent / soft bypass |
 | **P3 Lattice Hand** | Lattice forged-mouth amputation, ark/seed deadman, planetary-bus inhibit under Consent | Stop civilization-scale forgery / runaway copy |
 
-**Hard yes:** force on attackers of Gate and on forged paths after Mouth DENY.  
+**Hard yes:** force on attackers of Gate and on forged paths after Mouth DENY — **only if necessary**.  
 **Hard no:** offensive weapons catalog / conquest OEM ⇒ Filter.
+
+### Hand Necessity Bar (locked)
+
+Hand does not move because someone is angry, famous, funded, or scared.  
+Hand moves only when **all** hold:
+
+| Test | Meaning |
+|------|---------|
+| **Integrity threat** | Clear attack on Gate organs, sacred channel, or forged write path |
+| **Mouth first** | DENY / CHOKE / Emergency Charter already LIVE |
+| **Least Hand** | Smallest P-layer that stops the threat (P1 before P2 before P3) |
+| **Prove after** | Stone receipt of why Hand moved; stranger-auditable |
+| **Funeral if abuse** | Hand used for theater, revenge, or offense ⇒ seat Funeral + Filter |
+
+**Formal:** `Hand without Necessity Bar ⇒ warlord drift.`  
+**Plain:** defensive, reluctant, evidenced — not eager arsenal energy.
 
 ---
 

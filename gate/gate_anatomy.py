@@ -71,9 +71,18 @@ PROTECTION_DEAL = {
         "layers": PROTECTION_LAYERS,
         "requires": "Mouth DENY/CHOKE or pre-scoped Emergency May Charter",
         "formal": (
-            "Hand never moves without Mouth. P1/P2/P3 Hand hardware allowed to "
-            "defend Gate and enforce DENY. Offensive L0 product line ⇒ Filter."
+            "Hand never moves without Mouth. Hand never moves without Necessity Bar "
+            "(integrity threat · least Hand · prove after · funeral if abuse). "
+            "P1/P2/P3 Hand hardware allowed to defend Gate and enforce DENY. "
+            "Offensive L0 product line ⇒ Filter."
         ),
+        "necessity_bar": [
+            "integrity threat to Gate organs / sacred channel / forged path",
+            "Mouth DENY/CHOKE or Emergency Charter first",
+            "least P-layer that stops the threat",
+            "Stone prove after",
+            "Funeral if abuse",
+        ],
     },
 }
 
