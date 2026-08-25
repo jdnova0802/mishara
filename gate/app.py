@@ -1961,6 +1961,11 @@ def well_known_continuity_live():
     return jsonify(continuity_live_mod.continuity_live_manifest(advertised_url()))
 
 
+@app.route("/.well-known/gate-anatomy.json")
+def well_known_gate_anatomy():
+    return jsonify(gate_anatomy_mod.gate_anatomy_manifest(advertised_url()))
+
+
 @app.route("/.well-known/stale-live.json")
 @app.route("/.well-known/cool-off.json")
 @app.route("/.well-known/silence-gate.json")
