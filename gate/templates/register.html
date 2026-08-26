@@ -56,18 +56,13 @@
 
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Illustrative flow fees</h2>
-    <p style="color: var(--muted); margin-bottom: 0.75rem;">Not a forecast. Annual flow fee at 10 bps if monthly cleared hits the band, plus management on active paths.</p>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Not a forecast. Example annual flow fee at 10 bps, plus management on active paths.</p>
     <pre>Flow leg (10 bps + carry above $500M/mo)
 
 $100M / yr cleared   →  $100,000
-$1B                  →  $1,000,000
-$10B                 →  $10,000,000
-$100B                →  $100,000,000
-$1T                  →  $1,000,000,000
+$1B / yr cleared     →  $1,000,000
 
-+ management: (welded paths + active parent licenses) × {{ floor_price }}
-  100 paths + 500 parents  →  $3,000,000/mo management
-  Same paths + $1B/mo flow →  $1M flow + $3M management that month</pre>
++ management: (welded paths + active parent licenses) × {{ floor_price }}</pre>
     <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_operator') }}">operator.json</a> · <a href="{{ url_for('well_known_register') }}">register.json</a></p>
   </div>
 

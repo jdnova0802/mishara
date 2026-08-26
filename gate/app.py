@@ -3613,6 +3613,15 @@ def well_known_throat():
     return jsonify(throat_mod.manifest(advertised_url()))
 
 
+@app.route("/.well-known/bind-clearance.json")
+def well_known_bind_clearance():
+    """Compliance-friendly alias for throat manifest (same fail-closed bind-edge spec)."""
+    manifest = throat_mod.manifest(advertised_url())
+    manifest["public_name"] = "Bind clearance spec"
+    manifest["compliance_curl"] = f"{advertised_url()}/.well-known/bind-clearance.json"
+    return jsonify(manifest)
+
+
 @app.route("/.well-known/ghost-bind.json")
 def well_known_ghost_bind():
     return jsonify(ghost_bind_mod.manifest(advertised_url()))

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Gate{% endblock %} — clearance before irreversible payout</title>
   {% block meta %}
-  <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.">
+  <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Bind Room officer pack first. Licensed operators only.">
   {% endblock %}
   {% block robots %}{% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -30,7 +30,7 @@
     "@type": "Organization",
     "name": "Nisaba LLC",
     "url": "{{ gate_public_url }}",
-    "description": "Clearance before irreversible payout, withdraw, and bind. Weld + path management + bps on cleared flow.",
+    "description": "Clearance before irreversible payout, withdraw, and bind. Bind Room first; production weld after.",
     "brand": {"@type": "Brand", "name": "Gate"}
   }
   </script>
@@ -40,7 +40,7 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
-        <a href="{{ url_for('operator_page') }}">Weld</a>
+        <a href="{{ url_for('bind_room') }}">Bind Room</a>
         <a href="{{ url_for('live_page') }}">Live</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
@@ -48,7 +48,7 @@
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
         {% endif %}
-        <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path</a>
+        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book Bind Room</a>
       </div>
     </div>
   </nav>
@@ -68,7 +68,7 @@
   <footer>
     <div class="container">
       Nisaba LLC · clearance before irreversible write ·
-      <a href="{{ url_for('operator_page') }}">Weld</a> ·
+      <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
       <a href="{{ url_for('live_page') }}">Live</a> ·
       <a href="{{ url_for('register_page') }}">Fees</a> ·
       <a href="{{ url_for('pricing') }}">Pricing</a> ·

@@ -9,7 +9,7 @@
   <h1>We block the bind when it should not issue.</h1>
   <p class="audience-sub">Soft PAS, timeout-as-yes, dashboard green, boss said yes — if clearance is not real, <strong>bind-and-issue does not run</strong>. Fail closed. Stranger can verify the receipt. You call that stop a <em>weld</em> once it sits on your write path.</p>
   <div class="install-price">{{ bind_room_price }} <span>Bind Room officer pack · pay now</span></div>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">This pack is the exam-ready narrative + schemas. Production block on <em>their</em> PolicyCenter / PAS path is the separate operator weld ({{ weld_price }} + {{ floor_price }}/mo + 10 bps) — quote after Bind Room, not checkout theater.</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">This pack is the exam-ready narrative + schemas. Production block on <em>their</em> PolicyCenter / PAS path is the separate operator weld ({{ weld_price }} + {{ floor_price }} + 10 bps) — quote after Bind Room, not checkout theater.</p>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
     {% if stripe_bind_room %}
@@ -46,19 +46,19 @@
       <h3>What buyers need to know</h3>
       <p><strong>Soft yes does not bind.</strong> Timeout, dashboard green, or boss-said-yes without real clearance → stop. Fail closed. Receipt a stranger can open.</p>
       <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('well_known_throat') }}">throat</a> ·
+        <a href="{{ url_for('well_known_bind_clearance') }}">bind clearance spec</a> ·
         <a href="{{ url_for('demo_pas_soft_yes_snare_drills') }}">soft-yes drills</a> ·
         <a href="{{ url_for('demo_pas_ghost_bind_drills') }}">ghost-bind drills</a>
       </p>
     </div>
     <div class="card">
       <h3>60s proof (no key, no PII)</h3>
-      <pre style="font-size: 0.75rem; overflow: auto;">curl -sS {{ public_url }}/.well-known/throat.json | python3 -m json.tool
+      <pre style="font-size: 0.75rem; overflow: auto;">curl -sS {{ public_url }}/.well-known/bind-clearance.json | python3 -m json.tool
 
 curl -sS -X POST {{ public_url }}/demo/pas/soft-yes-snare \
   -H "Content-Type: application/json" \
   -d '{"scenario":{"soft_pas":true,"decision":"ALLOW","allow_bind":true,"would_bind":true}}'</pre>
-      <p style="margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem;">Expect CHOKE / haunted — never silent LIVE.</p>
+      <p style="margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem;"><strong>Pass:</strong> the bind is refused (fail-closed), not silently approved. JSON may say <code>CHOKE</code> or <code>HAUNTED_CRITICAL</code> — both mean the stick did not proceed.</p>
     </div>
   </div>
 
@@ -67,7 +67,7 @@ curl -sS -X POST {{ public_url }}/demo/pas/soft-yes-snare \
     <ol>
       <li><strong>Free drill</strong> — curls above</li>
       <li><strong>Bind Room {{ bind_room_price }}</strong> — officer pack (this page)</li>
-      <li><strong>Production weld {{ weld_price }}</strong> — block bind/payout on their live path (+ {{ floor_price }}/mo + 10 bps)</li>
+      <li><strong>Production weld {{ weld_price }}</strong> — block bind/payout on their live path (+ {{ floor_price }} + 10 bps)</li>
     </ol>
     <p style="margin-top: 0.75rem; color: var(--muted);">Who buys first: bind-path owner with a live job API this quarter (MGA / PolicyCenter), else CUO / compliance owner. Listings never win a slot.</p>
   </div>
@@ -76,7 +76,7 @@ curl -sS -X POST {{ public_url }}/demo/pas/soft-yes-snare \
     <summary style="cursor: pointer;">Lab seeds (not the buy path — expand only if you want the ontology)</summary>
     <p style="margin: 0.75rem 0;">Internal grammar for welds after Gate 1. Buyers do not need this to pay Bind Room.</p>
     <p style="font-size: 0.9rem;">
-      <a href="{{ url_for('bind_room_throat') }}">throat</a> ·
+      <a href="{{ url_for('well_known_bind_clearance') }}">bind-clearance</a> ·
       <a href="{{ url_for('bind_room_ghost_bind') }}">ghost-bind</a> ·
       <a href="{{ url_for('bind_room_stick_meter') }}">stick-meter</a> ·
       <a href="{{ url_for('bind_room_charge_bride') }}">charge-bride</a> ·
