@@ -145,6 +145,8 @@ Miss the band twice → downscope identity to **commit-control vendor** until pr
 4. What sell motion ships this week?  
 5. Did anyone sit above may?
 
+**Executable checklist:** `REALITY_CONTRACT_30DAY.md` — S/A-tier tasks mapped to all eight asset classes (financial, real, business, human, tangible, intellectual, contingent, liabilities).
+
 ---
 
 ## Signature block
