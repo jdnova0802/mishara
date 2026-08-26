@@ -6,15 +6,15 @@
 {% block content %}
 <div class="top-banner">
   <span>Clearance before withdraw, payout, or bind. If uncertain, the write does not run.</span>
-  <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld {{ weld_price }} →</a>
+  <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Bind Room {{ bind_room_price }} →</a>
 </div>
 
 <section class="hero container">
   <h1>Gate</h1>
-  <p class="hero-sub">If money is about to leave and should not, the write does not run. Gate sits on the irreversible edge — withdraw, payout clear, or bind — and fails closed under uncertainty. Independent verification. No login required to check a receipt.</p>
+  <p class="hero-sub">If money is about to leave and should not, the write does not run. Same for a bind that should not issue. Fail closed under uncertainty. Stranger verifies the receipt — no login. <code>their_production: false</code> until a real third-party production cutover.</p>
   <div class="hero-actions">
-    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path · {{ weld_price }}</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Start: Bind Room {{ bind_room_price }}</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost">Production weld {{ weld_price }}</a>
   </div>
 </section>
 

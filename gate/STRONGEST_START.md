@@ -14,6 +14,8 @@
 
 **Hard bans (14 days):** new doctrine files · second vertical · free “strategy calls” · soft LIVE · resending the same MGA blast already sent · building features nobody paid for.
 
+**Site rules (Claude critique):** `SITE_SURFACE.md` — buyer English first · three-step ladder · no stale drill dates · lab seeds collapsed off the buy path.
+
 ---
 
 ## The strongest-start thesis

@@ -3319,6 +3319,7 @@ def bind_room():
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         weld_price=WELD_PRICE_LABEL,
+        floor_price=FLOOR_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
     )
