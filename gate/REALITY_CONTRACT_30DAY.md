@@ -2,7 +2,8 @@
 
 **Status:** operating checklist — not doctrine.  
 **Purpose:** Move asset classes in parallel while earning **Gate 1**.  
-**Review:** same 30-day cycle as `REALITY_CONTRACT.md`. Miss S-tier twice ⇒ fantasy flag.
+**Review:** same 30-day cycle as `REALITY_CONTRACT.md`. Miss S-tier twice ⇒ fantasy flag.  
+**Wealth push:** `WEALTH_SCOREBOARD.md` — earlier · higher · liquid cash, not paper only.
 
 **Current Gate:** 0 (circle if changed: 0 / 1 / 2 / 3 / 4 / 5)  
 **Cycle start:** __________ **Cycle end:** __________  
