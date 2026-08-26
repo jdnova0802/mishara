@@ -110,3 +110,132 @@ Others eat. You eat. Mouth stays. **Not a dragon pile.**
 ## One line
 
 **Earlier millionaire · higher mark · cash you can move — via prepaid floors, monthly bps, distributions, and tiny non-may secondaries — never via selling the throat.**
+
+---
+
+## Workaround ladder — push until the wall
+
+Stack **down the list**. Each row is a real accelerant. When every **Allowed** row is on and numbers still don’t move, you’re at physics — not “more doctrine.”
+
+### Tier A — Cash timing (use first)
+
+| # | Workaround | What it does | Limit |
+|---|------------|--------------|-------|
+| A1 | Infra list price + no custom soft | Pulls cash forward | Need buyers |
+| A2 | Prepaid 12–36 mo floors (≤10% discount) | Company cash now | Customer cash-rich only |
+| A3 | Invoice 10 bps **monthly** + late fee | Stops paper bps | Need measurable cleared flow |
+| A4 | Dual SKU: Officer pack volume + weld | Many small checks while hunting whales | Don’t dilute vertical |
+| A5 | Milestone bonuses in MSA (“go-live”, “2nd desk”) | Front-loads cash | One-time |
+| A6 | Net-15 + autopay; kill Net-90 | Faster cash conversion | Discipline |
+
+### Tier B — Volume without selling may
+
+| # | Workaround | What it does | Limit |
+|---|------------|--------------|-------|
+| B1 | Rev-share distributors / SIs | Their sales force → your meter | Margin share; seal stays yours |
+| B2 | Architecture license (time-boxed) | Upfront + royalty | No may / no override in license |
+| B3 | White-label **verify** only | Surface area; you own root | Brand control |
+| B4 | Vertical exclusivity premium (12–24 mo) | Fat prepaid for “only door” | One vertical at a time |
+| B5 | Attach to existing PAS / payout rail | Inherit their flow | Procurement slow |
+| B6 | Meter **API attest** separate from clearance bps | Second cash register | Don’t fork grammar |
+
+### Tier C — Personal liquidity (equity stays mostly yours)
+
+| # | Workaround | What it does | Limit |
+|---|------------|--------------|-------|
+| C1 | Distribution policy (30% owner FCF) | Recurring liquid to you | Needs FCF |
+| C2 | Market+ salary as soon as ARR allows | Steady liquid | Tax / optics |
+| C3 | Non-may secondary 2–8% of *your* shares | Step-change liquid | Dilutes you slightly; **no override** |
+| C4 | Structured secondary program (annual window) | Predictable liquidity | Needs mark + buyers |
+| C5 | Preferred raise: cash in co., **founder keep may veto / golden throat share** | Growth cash | Dilution; legal precision |
+| C6 | Revenue-based financing / debt vs contracted ARR | Liquid without equity | Debt risk; only vs hard receivables |
+
+### Tier D — Max-stack (only after A–C are live)
+
+| # | Workaround | What it does | Limit |
+|---|------------|--------------|-------|
+| D1 | Multi-desk in **one** vertical until default | Exponential cleared flow | Concentration |
+| D2 | Standard / IVO / GAAIA echo → procurement checkbox | Pull demand to you | Politics; slow |
+| D3 | Strategic corp license (bank / carrier / hyperscaler) **economics-only** | Huge prepaid + volume commit | They will ask for may — **refuse** |
+| D4 | Buy a tiny distribution channel (acqui-hire book of installs) | Pay once for flow access | Integration tax |
+| D5 | SPV per mega-customer; you GP economics + seal | Isolates risk; cash via fees | Complexity |
+| D6 | Patent license to **non-overlapping** field | Extra royalty stream | Only if claims support |
+
+### Tier Z — Not workarounds (wall / disqualify)
+
+| Fake move | Why it dies |
+|-----------|-------------|
+| Sell throat / override for hefty wire | Rich + finished |
+| Soft LIVE for logo ARR | Mouth dies |
+| Fake cleared-flow metrics | Diligence kills mark |
+| 40 products / 15 verticals | No Breath |
+| Face/clout as primary P&L | Wrong machine |
+| “More mountain docs” to feel richer | Lag widens |
+| Treasury gambling (crypto) as plan | Not a toll |
+| Claiming $1B NW on $100M cleared | Math fraud |
+
+---
+
+## Max-stack simulation (every Allowed workaround on)
+
+Same throat rules. **All of A–D stacked.** This is the ceiling of honest push — not a promise.
+
+| Age | Liquid (you) | Total NW | Stack notes |
+|-----|--------------|----------|-------------|
+| 22 | $50–150k | $0.2–0.8M | A1–A4 + Gate 1 |
+| 23 | **$0.5–1.5M** | **$2–5M** | Prepaids + distributions start |
+| 24 | **$3–8M** | **$15–40M** | B1–B4 + C1–C3 (first tiny secondary) |
+| 25 | **$15–40M** | **$80–180M** | $10B+/yr cleared; bps violent |
+| 26 | **$40–100M** | **$200–400M** | Structured secondary window |
+| 27 | **$80–200M** | **$400–800M** | Corp economics-only license possible |
+| 28 | **$150–350M** | **$0.8–1.5B** | Default-in-vertical territory |
+| 29 | **$250–500M** | **$1.2–2.5B** | River + mark |
+| **30** | **$400–800M+** | **$2–4B+** | Max honest stack; throat intact |
+
+*Vs prior scoreboard: roughly **~2× liquid** and **~2× total** at 30 — only if distributors, prepays, secondaries, and cleared flow all fire. No Tier Z.*
+
+### Cleared-flow implied at max stack (30)
+
+| Cleared / yr | 10 bps | Role |
+|--------------|--------|------|
+| **$200–400B** | $200–400M | Company print |
+| + floors / licenses / prepaid | | Extra cash / mark support |
+
+If you can’t see a path to **hundreds of B$ cleared** through *somebody’s* irreversible writes in-domain, max-stack **total** compresses — liquid can still be strong on floors/licenses; nine-figure *liquid* needs the river or large secondaries on a real mark.
+
+---
+
+## When there are no more workarounds
+
+You are **done pushing mechanisms** when:
+
+1. Every **Tier A–D** item is either **live** or **rejected with a written reason**  
+2. Pricing is infra-grade; prepays offered; bps invoiced; distributions running  
+3. Distributors exist; exclusivity priced; architecture license exists  
+4. Secondary policy exists; you still own may  
+5. One vertical is deep  
+
+Then the only remaining variable is **Breath × cleared volume × time**.  
+
+**More brainstorming past that = fake workarounds.**  
+Execute the stack or change vertical — don’t invent Tier Z.
+
+---
+
+## Exhaustion checklist
+
+| Tier | All tried / live / explicitly killed? | Date |
+|------|----------------------------------------|------|
+| A Cash timing | ☐ | |
+| B Volume w/o may | ☐ | |
+| C Personal liquidity | ☐ | |
+| D Max-stack | ☐ | |
+| Z rejected (never use) | ☐ | |
+
+**After all ☐:** stop hunting loopholes. **Only ship Breath.**
+
+---
+
+## One line (wall)
+
+**Stack every honest lever until the list is empty — then the only workaround left is desks clearing through your mouth; anything past that is selling may or lying.**
