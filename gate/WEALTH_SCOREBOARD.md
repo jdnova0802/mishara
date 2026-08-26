@@ -2,7 +2,7 @@
 
 **Status:** operating scoreboard — not prophecy.  
 **Purpose:** Push personal assets **earlier**, **higher**, and **more cash** than paper marks alone.  
-**Companion:** `REALITY_CONTRACT.md` · `REALITY_CONTRACT_30DAY.md`  
+**Companion:** `REALITY_CONTRACT.md` · `REALITY_CONTRACT_30DAY.md` · **`WEALTH_PLAN.md`** (year-by-year execution)  
 **Hard rule:** high NW **without selling the throat**. Override / soft LIVE for a fat wire = disqualify.
 
 **Owner equity assumption:** keep **~70–80%** through 30 unless a non-may deal clearly raises *liquid* + mark.

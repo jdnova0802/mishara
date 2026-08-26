@@ -146,7 +146,8 @@ Miss the band twice → downscope identity to **commit-control vendor** until pr
 5. Did anyone sit above may?
 
 **Executable checklist:** `REALITY_CONTRACT_30DAY.md` — S/A-tier tasks mapped to all eight asset classes (financial, real, business, human, tangible, intellectual, contingent, liabilities).  
-**Wealth push:** `WEALTH_SCOREBOARD.md` — earlier / higher / **liquid** (distributions + prepaid floors + non-may secondaries; never sell the throat).
+**Wealth push:** `WEALTH_SCOREBOARD.md` — earlier / higher / **liquid**.  
+**Execution plan:** `WEALTH_PLAN.md` — all asset-class workarounds + age 22→30 checkpoints (locked table).
 
 ---
 
