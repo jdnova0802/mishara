@@ -180,19 +180,27 @@ Stack **down the list**. Each row is a real accelerant. When every **Allowed** r
 
 Same throat rules. **All of A–D stacked.** This is the ceiling of honest push — not a promise.
 
-| Age | Liquid (you) | Total NW | Stack notes |
-|-----|--------------|----------|-------------|
-| 22 | $50–150k | $0.2–0.8M | A1–A4 + Gate 1 |
-| 23 | **$0.5–1.5M** | **$2–5M** | Prepaids + distributions start |
-| 24 | **$3–8M** | **$15–40M** | B1–B4 + C1–C3 (first tiny secondary) |
-| 25 | **$15–40M** | **$80–180M** | $10B+/yr cleared; bps violent |
-| 26 | **$40–100M** | **$200–400M** | Structured secondary window |
-| 27 | **$80–200M** | **$400–800M** | Corp economics-only license possible |
-| 28 | **$150–350M** | **$0.8–1.5B** | Default-in-vertical territory |
-| 29 | **$250–500M** | **$1.2–2.5B** | River + mark |
-| **30** | **$400–800M+** | **$2–4B+** | Max honest stack; throat intact |
+### LOCKED TARGET TABLE — plan against this
 
-*Vs prior scoreboard: roughly **~2× liquid** and **~2× total** at 30 — only if distributors, prepays, secondaries, and cleared flow all fire. No Tier Z.*
+**Status: LOCKED for planning (Aug 26, 2026).**  
+Demond · b. Jun 5, 2004 · age 22 → 30. Throat intact. Others paid via distribution policy.  
+Do not soft-revise downward to cope. Miss → change execution, not the ambition bar.
+
+| Age | Birthday span | **Liquid (you)** | **Total NW** | Cleared / yr (approx) | Stack notes |
+|-----|---------------|------------------|--------------|------------------------|-------------|
+| **22** | ’26–’27 | **$50–150k** | **$0.2–0.8M** | $0–0.05B | A1–A4 + Gate 1 |
+| **23** | ’27–’28 | **$0.5–1.5M** | **$2–5M** | $0.2–1B | Prepaids + distributions start |
+| **24** | ’28–’29 | **$3–8M** | **$15–40M** | $2–5B | B1–B4 + C1–C3 (first tiny secondary) |
+| **25** | ’29–’30 | **$15–40M** | **$80–180M** | $10–25B | Bps violent |
+| **26** | ’30–’31 | **$40–100M** | **$200–400M** | $30–60B | Structured secondary window |
+| **27** | ’31–’32 | **$80–200M** | **$400–800M** | $60–120B | Corp economics-only license possible |
+| **28** | ’32–’33 | **$150–350M** | **$0.8–1.5B** | $100–200B | Default-in-vertical territory |
+| **29** | ’33–’34 | **$250–500M** | **$1.2–2.5B** | $150–300B | River + mark |
+| **30** | **Jun 5, 2034** | **$400–800M+** | **$2–4B+** | **$200–400B** | Max honest stack; throat intact |
+
+*At 30: ~$200–400B cleared → ~$200–400M/yr at 10 bps (+ floors/licenses). No Tier Z.*
+
+**Next:** year-by-year execution plan to hit this table (when you say go).
 
 ### Cleared-flow implied at max stack (30)
 
