@@ -133,13 +133,10 @@ Throat sale · override · soft LIVE for logos · fake cleared flow · clout as 
 **One stranger pays. One stranger proves. Patent clock safe. Cash machine SKUs live.**  
 No new mountain. Vertical lock = one lane.
 
-### Pick vertical (this week)
-Choose **one** for the whole age-22 year:
-1. **PAS / MGA bind** (Bind Room → weld), or  
-2. **Payout / withdraw clearance**, or  
-3. **IVO / audit attest rail**  
-
-Write it here: _______________
+### Vertical LOCKED for strongest start
+**PAS / MGA bind** (Bind Room → officer pack → weld).  
+Payout / IVO = parked until Gate 1 cash clears.  
+**Playbook:** `STRONGEST_START.md` (Days 0–14).
 
 ### Q1 — Aug 26 → Nov 5, 2026 (Foundation + Gate 1 hunt)
 
@@ -297,10 +294,12 @@ Write it here: _______________
 
 ## This week (start now)
 
-1. **Lock vertical** (one box above).  
-2. **L1–L6** on `WEALTH_SCOREBOARD.md` (pricing, prepaid, distribution draft, Gate 1, accounts, secondary sentence).  
-3. **S1–S4** patent/TM clock on `REALITY_CONTRACT_30DAY.md`.  
-4. **Rate card** for paid briefings — human capital cash.  
+Execute **`STRONGEST_START.md`** — not a menu:
+
+1. Vertical = **PAS/MGA** (locked).  
+2. Day 0 checklist (URLs, one-pager, rate card, Stripe, patent calendar).  
+3. **10 touches/day · 1 live drill/day · ask $1,750 Bind Room.**  
+4. Patent/TM only in gaps (S1–S4).  
 5. **No new doctrine** until stranger pay.
 
 ---
