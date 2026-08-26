@@ -794,6 +794,14 @@ def health():
     https_ok = public_url_mod.public_ok(pub)
     db_path = os.getenv("GATE_DB_PATH", "./gate.db")
     ephemeral_db = public_url_mod.db_path_is_ephemeral(db_path)
+    try:
+        from gate import ops_guards as ops_guards_mod
+    except ImportError:
+        import ops_guards as ops_guards_mod
+
+    guards = ops_guards_mod.snapshot(
+        include_live=os.getenv("GATE_OPS_LIVE_SMOKE", "").lower() in ("1", "true", "yes")
+    )
     payload = {
         "status": "ok",
         "service": "gate-api",
@@ -821,6 +829,18 @@ def health():
         "refusal": f"{pub}/refusal",
         "tattoo": f"{pub}/tattoo",
         "x402": x402_challenge_mod.payto_debug(),
+        "guards": {
+            "overall": guards.get("overall"),
+            "patent": guards["guards"].get("patent"),
+            "stripe": guards["guards"].get("stripe"),
+            "gate1": guards["guards"].get("gate1"),
+            "buyer_lint": {
+                "level": guards["guards"].get("buyer_lint", {}).get("level"),
+                "message": guards["guards"].get("buyer_lint", {}).get("message"),
+            },
+            "last_proved": guards["guards"].get("last_proved"),
+            "live_smoke": guards["guards"].get("live_smoke"),
+        },
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -829,6 +849,10 @@ def health():
         payload["status"] = "not_public"
         payload["message"] = "GATE_PUBLIC_URL is still local/http. Set https origin or rely on RENDER_EXTERNAL_URL."
         return jsonify(payload), 503
+    if guards.get("overall") == "fail" and not GATE_DEV_MODE:
+        payload["status"] = "degraded"
+        payload["message"] = "ops guards failing (patent/stripe/live smoke) — see guards"
+        return jsonify(payload), 200
     payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
     return jsonify(payload)
 
@@ -1691,6 +1715,8 @@ def well_known_gate():
             "gate_anatomy": f"{advertised_url()}/.well-known/gate-anatomy.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
             "promo_clock": f"{advertised_url()}/.well-known/promo-clock.json",
+            "ops_guards": f"{advertised_url()}/.well-known/ops-guards.json",
+            "gate1": f"{advertised_url()}/.well-known/gate1.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
             "algedonic_relay": f"{advertised_url()}/.well-known/algedonic-relay.json",
@@ -1988,13 +2014,59 @@ def well_known_mouth_density_one():
 @app.route("/.well-known/promo-clock.json")
 def well_known_promo_clock():
     """Fail-closed marketing dates. Cousin of stale LIVE — for site surfaces."""
+    next_at = os.getenv("GATE_PROMO_NEXT_AT") or None
+    last_proved = os.getenv("GATE_PROMO_LAST_PROVED_AT") or None
+    label = os.getenv("GATE_PROMO_LABEL") or None
+    href = os.getenv("GATE_PROMO_HREF") or None
+    if not last_proved:
+        try:
+            from gate import ops_guards as ops_guards_mod
+        except ImportError:
+            import ops_guards as ops_guards_mod
+
+        auto = ops_guards_mod.last_proved_from_db() or {}
+        last_proved = auto.get("last_proved_at") or last_proved
+        label = label or auto.get("label")
+        href = href or auto.get("href")
     return jsonify(
         promo_clock_mod.manifest(
             advertised_url(),
-            next_at=os.getenv("GATE_PROMO_NEXT_AT") or None,
-            last_proved_at=os.getenv("GATE_PROMO_LAST_PROVED_AT") or None,
-            label=os.getenv("GATE_PROMO_LABEL") or None,
-            href=os.getenv("GATE_PROMO_HREF") or None,
+            next_at=next_at,
+            last_proved_at=last_proved,
+            label=label,
+            href=href,
+        )
+    )
+
+
+@app.route("/.well-known/gate1.json")
+def well_known_gate1():
+    """Gate 1 counter — stranger paid? Foothill only."""
+    try:
+        from gate import ops_guards as ops_guards_mod
+    except ImportError:
+        import ops_guards as ops_guards_mod
+
+    g1 = ops_guards_mod.gate1_status()
+    return jsonify(
+        {
+            "spec": "gate-gate1-v1",
+            "public_url": advertised_url(),
+            **g1,
+        }
+    )
+
+
+@app.route("/.well-known/ops-guards.json")
+def well_known_ops_guards():
+    try:
+        from gate import ops_guards as ops_guards_mod
+    except ImportError:
+        import ops_guards as ops_guards_mod
+
+    return jsonify(
+        ops_guards_mod.snapshot(
+            include_live=os.getenv("GATE_OPS_LIVE_SMOKE", "").lower() in ("1", "true", "yes")
         )
     )
 
