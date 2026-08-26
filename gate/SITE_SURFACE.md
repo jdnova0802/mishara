@@ -45,6 +45,7 @@ Everything else = lab / `.well-known` / details fold — not nav, not hero.
 ## Ops hygiene
 
 - **No stale “next drill” dates** — use live “last proved” / relative freshness or remove.  
+- **Promo Clock (shipped):** `promo_clock.py` · `/.well-known/promo-clock.json` · `/static/promo-clock.js` — past `next_at` fails closed (flip to last proved or hide). Wire Check’s `#drill-bar` with `data-promo-clock` + script (see `PROMO_CLOCK.md`).  
 - **One door in outbound** — `gate.velaru.xyz/bind-room` (strongest start).  
 - **Don’t lead with $25k** until $1,750 has a path.  
 - Check / Doors / Trust (if separate hosts): same ladder, same English, same no-dead-clock rule.

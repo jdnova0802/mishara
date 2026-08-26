@@ -340,6 +340,11 @@ except ImportError:
     import mouth_density as mouth_density_mod
 
 try:
+    from gate import promo_clock as promo_clock_mod
+except ImportError:
+    import promo_clock as promo_clock_mod
+
+try:
     from gate import foothill_max as foothill_max_mod
 except ImportError:
     import foothill_max as foothill_max_mod
@@ -1685,6 +1690,7 @@ def well_known_gate():
             "continuity_live": f"{advertised_url()}/.well-known/continuity-live.json",
             "gate_anatomy": f"{advertised_url()}/.well-known/gate-anatomy.json",
             "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
+            "promo_clock": f"{advertised_url()}/.well-known/promo-clock.json",
             "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
             "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
             "algedonic_relay": f"{advertised_url()}/.well-known/algedonic-relay.json",
@@ -1977,6 +1983,20 @@ def well_known_gate_anatomy():
 def well_known_mouth_density_one():
     slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
     return jsonify(mouth_density_mod.manifest_one(advertised_url(), slug))
+
+
+@app.route("/.well-known/promo-clock.json")
+def well_known_promo_clock():
+    """Fail-closed marketing dates. Cousin of stale LIVE — for site surfaces."""
+    return jsonify(
+        promo_clock_mod.manifest(
+            advertised_url(),
+            next_at=os.getenv("GATE_PROMO_NEXT_AT") or None,
+            last_proved_at=os.getenv("GATE_PROMO_LAST_PROVED_AT") or None,
+            label=os.getenv("GATE_PROMO_LABEL") or None,
+            href=os.getenv("GATE_PROMO_HREF") or None,
+        )
+    )
 
 
 @app.route("/.well-known/tool-throat.json")
