@@ -146,7 +146,7 @@ def manifest(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Spend exclusion proof",
-        "greater_than_ed25519": (
+        "authorization_vs_attestation": (
             "A signature on a HALT says we said no. An exclusion proof says "
             "no spend leaf for this job exists in the append-only map."
         ),

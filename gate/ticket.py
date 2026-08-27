@@ -337,7 +337,7 @@ def manifest(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Bind ticket",
-        "greater_than_ed25519": (
+        "authorization_vs_attestation": (
             "Signatures prove a hop occurred. Tickets prove the hop is still "
             "allowed to spend, right now, once, for this job and this write."
         ),

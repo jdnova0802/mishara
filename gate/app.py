@@ -2659,7 +2659,7 @@ def well_known_commit_auth():
     return jsonify(
         {
             "spec": "gate-commit-auth-v1",
-            "greater_than_ed25519": (
+            "authorization_vs_attestation": (
                 "Signatures prove a hop occurred. Tickets, epoch lock, and exclusion "
                 "prove the hop cannot spend stale, cannot resurrect without CHARGE, "
                 "and that this job has no spend leaf."

@@ -56,3 +56,9 @@ Everything else = lab / `.well-known` / details fold — not nav, not hero.
 ## One line
 
 **Keep the honesty primitive. Collapse the museum. Sell the block in their words. Three prices. One vertical until Breath.**
+
+## Commit-auth sentence (front-page candidate)
+
+> Signatures prove a hop occurred. Tickets prove the hop is still allowed to spend, right now, once, for this job and this write.
+
+Not "greater than Ed25519" — Ed25519 is ink; tickets are authorization. See `COMMIT_AUTH.md` (Claude pressure tests).
