@@ -69,6 +69,6 @@ Not "greater than Ed25519" — Ed25519 is ink; tickets are authorization. See `C
 
 **Outbound:** Lead with the moment — *what can't run once the ticket's gone* / *the withdraw that didn't run, and the ticket that's already burned* — not the crowded AI governance category.
 
-**Discovery:** Commercial = `/.well-known/gate.json`. Museum = `/.well-known/lab.json`. Claim grades = `/.well-known/claim-grades.json`. Don't put Bone Law next to commit-auth diligence.
+**Discovery:** Commercial = `/.well-known/gate.json` (no `lab.json` hop). Claim grades = `/.well-known/claim-grades.json`. Museum = `/.well-known/lab.json` — public but **not linked from commercial routes**. Officer pack lists PAS seeds only — not Bone Law / Mandate.
 
 **Repo note:** GitHub is `mishara`; product is Gate — rename is ops, not invention.

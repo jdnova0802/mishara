@@ -38,10 +38,12 @@ Until then the flag stays false on purpose — pre-third-party-weld, not “nobo
 
 | Surface | URL | For |
 |---------|-----|-----|
-| Commercial | `/.well-known/gate.json` | Carrier engineer diligence |
-| Claim grades | `/.well-known/claim-grades.json` | This document as JSON |
-| Lab museum | `/.well-known/lab.json` | Frozen seed/doctrine catalog — not the diligence first stop |
+| Commercial | `/.well-known/gate.json` | Carrier engineer diligence — **no link to lab** |
+| Claim grades | `/.well-known/claim-grades.json` | This document as JSON — **no link to lab** |
 | Commit auth | `/.well-known/commit-auth.json` | Ticket / epoch / exclusion grades |
+| Lab museum | `/.well-known/lab.json` | Frozen seed/doctrine catalog — public but **not linked from commercial** |
+
+Curious engineer finding a research namespace ≠ Bone Law adjacent to commit-auth. Keep it one-way: lab may point at commercial; commercial never points at lab.
 
 ## Repo note (operational)
 

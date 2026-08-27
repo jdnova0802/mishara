@@ -1659,7 +1659,6 @@ def well_known_gate():
             "their_production": False,
             "their_production_unlock": unlock,
             "claim_grades": f"{base}/.well-known/claim-grades.json",
-            "lab_catalog": f"{base}/.well-known/lab.json",
             "openapi": f"{base}/openapi.json",
             "signup": f"{base}/signup",
             "install": f"{base}/install",
@@ -1859,7 +1858,6 @@ def well_known_claim_grades():
                 "the withdraw that didn't run, and the ticket that's already burned."
             ),
             "commercial": f"{base}/.well-known/gate.json",
-            "lab": f"{base}/.well-known/lab.json",
             "commit_auth": f"{base}/.well-known/commit-auth.json",
         }
     )

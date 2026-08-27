@@ -312,16 +312,19 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("formula", gate)
         self.assertIn("commit_auth", gate)
         self.assertIn("claim_grades", gate)
-        self.assertIn("lab_catalog", gate)
+        self.assertNotIn("lab_catalog", gate)
+        self.assertNotIn("lab", gate)
         self.assertNotIn("bone_law", gate)
         self.assertIn("DENY", gate["formula"])
         self.assertIn("their_production_unlock", gate)
         lab = self.client.get("/.well-known/lab.json").get_json()
         self.assertIn("action_os", lab["links"])
         self.assertIn("scorecard", lab["links"])
+        self.assertTrue(str(lab.get("commercial_discovery") or "").endswith("/.well-known/gate.json"))
         grades = self.client.get("/.well-known/claim-grades.json").get_json()
         self.assertEqual(grades["spec"], "gate-claim-grades-v1")
         self.assertIn("refused", grades["grades"])
+        self.assertNotIn("lab", grades)
 
         import db as gate_db
 
