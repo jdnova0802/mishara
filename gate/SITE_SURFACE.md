@@ -61,4 +61,10 @@ Everything else = lab / `.well-known` / details fold — not nav, not hero.
 
 > Signatures prove a hop occurred. Tickets prove the hop is still allowed to spend, right now, once, for this job and this write.
 
-Not "greater than Ed25519" — Ed25519 is ink; tickets are authorization. See `COMMIT_AUTH.md` (Claude pressure tests).
+Not "greater than Ed25519" — Ed25519 is ink; tickets are authorization. See `COMMIT_AUTH.md`.
+
+**Claim grades:** Bind Ticket + epoch lock = stranger-grade today. Exclusion = **map honesty today, not stranger-grade absence** — keep off buyer pages until TSA/root anchored.
+
+**Single-use (verbatim):** Burn on success only, failed redeem retryable, post-burn fail re-issues from fresh LIVE.
+
+**Outbound:** Lead the subject line with the moment — *what can't run once the ticket's gone* — not the crowded "AI governance" category. Costume still AI governance + commit control.

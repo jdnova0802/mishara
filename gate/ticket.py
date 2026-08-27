@@ -344,6 +344,11 @@ def manifest(public_url: str) -> dict:
         "ttl_seconds": ttl_seconds(),
         "stale_hop_cannot_spend": True,
         "single_use": True,
+        "claim_grade": "stranger",
+        "burn_on_success_only": (
+            "Burn on success only, failed redeem retryable, "
+            "post-burn fail re-issues from fresh LIVE."
+        ),
         "spend_fingerprint_required": True,
         "married_write": spend_protocol.PATH_TEMPLATE,
         "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",

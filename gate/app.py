@@ -2660,15 +2660,17 @@ def well_known_commit_auth():
         {
             "spec": "gate-commit-auth-v1",
             "authorization_vs_attestation": (
-                "Signatures prove a hop occurred. Tickets, epoch lock, and exclusion "
-                "prove the hop cannot spend stale, cannot resurrect without CHARGE, "
-                "and that this job has no spend leaf."
+                "Signatures prove a hop occurred. Tickets prove the hop is still "
+                "allowed to spend, right now, once, for this job and this write. "
+                "Epoch lock: HALT sticks until a real CHARGE — no admin resurrect."
             ),
+            "stranger_grade": ["bind_ticket", "epoch", "command_radiation", "spend_protocol"],
             "bind_ticket": ticket_mod.manifest(advertised_url()),
             "spend_protocol": spend_protocol_mod.spec(advertised_url()),
             "command_radiation": command_radiation_mod.spec(advertised_url()),
             "epoch": {
                 "spec": "gate-epoch-v1",
+                "claim_grade": "stranger",
                 "rule": "Latest HALT/BLOCK for a job_id stays HALT until charge_id is presented.",
                 "not_admin_charge": True,
             },
