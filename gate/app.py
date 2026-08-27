@@ -503,6 +503,8 @@ ARCHIVE_NOINDEX_PREFIXES = (
 PUBLIC_WELLKNOWN = frozenset(
     {
         "/.well-known/gate.json",
+        "/.well-known/claim-grades.json",
+        "/.well-known/commit-auth.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
         "/.well-known/legal.json",
@@ -1624,9 +1626,22 @@ def demo_dc_pre_bind():
 
 @app.route("/.well-known/gate.json")
 def well_known_gate():
+    """Commercial discovery only — diligence surface for carrier engineers.
+
+    Doctrine / seed museum lives at /.well-known/lab.json so commit-auth
+    diligence does not spill into Moral Throat / Bone Law / Reality Contract.
+    """
+    base = advertised_url()
+    unlock = (
+        "Flips true only after a recorded third-party production weld "
+        "(exclusivity attestation on /production-weld). "
+        "Dogfood / drills / Bind Room checkout do not flip it."
+    )
     return jsonify(
         {
             "name": "Gate API",
+            "product": "Gate",
+            "operator": "Nisaba LLC",
             "description": (
                 "Clearance before irreversible withdraw, payout, and bind. "
                 "Fail closed under uncertainty. Weld + management + bps. "
@@ -1637,152 +1652,215 @@ def well_known_gate():
                 "clearance fails closed; the DENY is the product, not narrative."
             ),
             "version": "1.0.0",
-            "openapi": f"{advertised_url()}/openapi.json",
-            "signup": f"{advertised_url()}/signup",
-            "install": f"{advertised_url()}/install",
-            "bind_room": f"{advertised_url()}/bind-room",
-            "operator": f"{advertised_url()}/operator",
-            "register": f"{advertised_url()}/register",
-            "register_manifest": f"{advertised_url()}/.well-known/register.json",
-            "operator_invoice": f"{advertised_url()}/.well-known/operator.json",
-            "bound": f"{advertised_url()}/bound",
-            "only": f"{advertised_url()}/only",
-            "floor": f"{advertised_url()}/floor",
-            "this": f"{advertised_url()}/this",
-            "capture": f"{advertised_url()}/capture",
-            "scanner": f"{advertised_url()}/scanner",
-            "uplink": f"{advertised_url()}/uplink",
-            "inhabitant": f"{advertised_url()}/inhabitant",
-            "afterward": f"{advertised_url()}/afterward",
-            "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
-            "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
-            "stakes": f"{advertised_url()}/.well-known/floor.json",
-            "particular": f"{advertised_url()}/.well-known/particular.json",
-            "inhabitant_manifest": f"{advertised_url()}/.well-known/inhabitant.json",
-            "afterward_manifest": f"{advertised_url()}/.well-known/afterward.json",
+            "outbound_lead": (
+                "What can't run once the ticket's gone — "
+                "the withdraw that didn't run, and the ticket that's already burned."
+            ),
+            "their_production": False,
+            "their_production_unlock": unlock,
+            "claim_grades": f"{base}/.well-known/claim-grades.json",
+            "lab_catalog": f"{base}/.well-known/lab.json",
+            "openapi": f"{base}/openapi.json",
+            "signup": f"{base}/signup",
+            "install": f"{base}/install",
+            "bind_room": f"{base}/bind-room",
+            "operator_page": f"{base}/operator",
+            "register": f"{base}/register",
+            "register_manifest": f"{base}/.well-known/register.json",
+            "operator_invoice": f"{base}/.well-known/operator.json",
+            "pricing": f"{base}/pricing",
             "verify_engine": "https://velaru.xyz/verify",
-            "demo_hop": f"{advertised_url()}/demo/hop",
-            "demo_act": f"{advertised_url()}/demo/act",
-            "demo_pas": f"{advertised_url()}/demo/pas/bind-check",
-            "ocsp": f"{advertised_url()}/v1/fuse/lookup",
-            "act": f"{advertised_url()}/v1/act",
-            "pas_bind": f"{advertised_url()}/v1/pas/bind-check",
-            "policycenter_pre_bind": f"{advertised_url()}/v1/pas/policycenter/pre-bind",
-            "mga_authority": f"{advertised_url()}/v1/pas/mga-authority",
-            "mcp": f"{advertised_url()}/mcp",
-            "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
-            "x402": f"{advertised_url()}/.well-known/x402.json",
-            "listings": f"{advertised_url()}/.well-known/listings.json",
-            "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
-            "throat": f"{advertised_url()}/.well-known/throat.json",
-            "ghost_bind": f"{advertised_url()}/.well-known/ghost-bind.json",
-            "stick_meter": f"{advertised_url()}/.well-known/stick-meter.json",
-            "charge_bride": f"{advertised_url()}/.well-known/charge-bride.json",
-            "hop_tattoo": f"{advertised_url()}/.well-known/hop-tattoo.json",
-            "soft_yes_snare": f"{advertised_url()}/.well-known/soft-yes-snare.json",
-            "mass_tag": f"{advertised_url()}/.well-known/mass-tag.json",
-            "issue_bind_splitter": f"{advertised_url()}/.well-known/issue-bind-splitter.json",
-            "ticket_fuse_pack": f"{advertised_url()}/.well-known/ticket-fuse-pack.json",
-            "payout_throat": f"{advertised_url()}/.well-known/payout-throat.json",
-            "twin_diode": f"{advertised_url()}/.well-known/twin-diode.json",
-            "agent_passport_weld": f"{advertised_url()}/.well-known/agent-passport-weld.json",
-            "bypass_canary": f"{advertised_url()}/.well-known/bypass-canary.json",
-            "restraint_invoice": f"{advertised_url()}/.well-known/restraint-invoice.json",
-            "desk_quorum_fob": f"{advertised_url()}/.well-known/desk-quorum-fob.json",
-            "panic_latch": f"{advertised_url()}/.well-known/panic-latch.json",
-            "receipt_mirror": f"{advertised_url()}/.well-known/receipt-mirror.json",
-            "deadman_echo": f"{advertised_url()}/.well-known/deadman-echo.json",
-            "witness_seat": f"{advertised_url()}/.well-known/witness-seat.json",
-            "pardon_sunset": f"{advertised_url()}/.well-known/pardon-sunset.json",
-            "watchman_fuse": f"{advertised_url()}/.well-known/watchman-fuse.json",
-            "indulgence_trap": f"{advertised_url()}/.well-known/indulgence-trap.json",
-            "bind_path_compiler": f"{advertised_url()}/.well-known/bind-path-compiler.json",
-            "gate_od_skins": f"{advertised_url()}/.well-known/gate-od-skins.json",
-            "larp_gap_pack": f"{advertised_url()}/.well-known/larp-gap-pack.json",
-            "restraint_unit": f"{advertised_url()}/.well-known/restraint-unit.json",
-            "restraint_unit_ledger": f"{advertised_url()}/.well-known/restraint-unit-ledger.json",
-            "oath_compiler": f"{advertised_url()}/.well-known/oath-compiler.json",
-            "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
-            "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
-            "mouth_ceiling": f"{advertised_url()}/.well-known/mouth-ceiling.json",
-            "mandate_layer": f"{advertised_url()}/.well-known/mandate-layer.json",
-            "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
-            "bone_law": f"{advertised_url()}/.well-known/bone-law.json",
-            "invisible_scale": f"{advertised_url()}/.well-known/invisible-scale.json",
-            "crucial_roles": f"{advertised_url()}/.well-known/crucial-roles.json",
-            "civ_maintenance": f"{advertised_url()}/.well-known/civ-maintenance.json",
-            "continuity_live": f"{advertised_url()}/.well-known/continuity-live.json",
-            "gate_anatomy": f"{advertised_url()}/.well-known/gate-anatomy.json",
-            "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
-            "promo_clock": f"{advertised_url()}/.well-known/promo-clock.json",
-            "ops_guards": f"{advertised_url()}/.well-known/ops-guards.json",
-            "gate1": f"{advertised_url()}/.well-known/gate1.json",
-            "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
-            "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
-            "algedonic_relay": f"{advertised_url()}/.well-known/algedonic-relay.json",
-            "may_budget": f"{advertised_url()}/.well-known/may-budget.json",
-            "funeral_bit": f"{advertised_url()}/.well-known/funeral-bit.json",
-            "bind_genealogy": f"{advertised_url()}/.well-known/bind-genealogy.json",
-            "cold_weld": f"{advertised_url()}/.well-known/cold-weld.json",
-            "tool_throat": f"{advertised_url()}/.well-known/tool-throat.json",
-            "time_lock": f"{advertised_url()}/.well-known/time-lock.json",
-            "charisma_nullifier": f"{advertised_url()}/.well-known/charisma-nullifier.json",
-            "sabbath_latch": f"{advertised_url()}/.well-known/sabbath-latch.json",
-            "may_quarantine": f"{advertised_url()}/.well-known/may-quarantine.json",
-            "branch_tombstone": f"{advertised_url()}/.well-known/branch-tombstone.json",
-            "secure_write_macro": f"{advertised_url()}/.well-known/secure-write-macro.json",
-            "dose_throat": f"{advertised_url()}/.well-known/dose-throat.json",
-            "jubilee_clock": f"{advertised_url()}/.well-known/jubilee-clock.json",
-            "antimay": f"{advertised_url()}/.well-known/antimay.json",
-            "senate_socket_soft": f"{advertised_url()}/.well-known/senate-socket-soft.json",
-            "receipt_stone": f"{advertised_url()}/.well-known/receipt-stone.json",
-            "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
-            "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
-            "schism": f"{advertised_url()}/.well-known/schism.json",
-            "positioning": f"{advertised_url()}/.well-known/positioning.json",
-            "action_os": f"{advertised_url()}/.well-known/action-os.json",
-            "action_os_page": f"{advertised_url()}/action-os",
-            "scorecard": f"{advertised_url()}/.well-known/scorecard.json",
-            "scorecard_page": f"{advertised_url()}/scorecard",
-            "family": f"{advertised_url()}/.well-known/family.json",
-            "family_page": f"{advertised_url()}/family",
-            "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
-            "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
-            "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
-            "science_page": f"{advertised_url()}/science",
-            "legal": f"{advertised_url()}/.well-known/legal.json",
-            "privacy": f"{advertised_url()}/privacy",
-            "terms": f"{advertised_url()}/terms",
-            "runbook": f"{advertised_url()}/.well-known/runbook.json",
-            "runbook_page": f"{advertised_url()}/runbook",
-            "dogfood": f"{advertised_url()}/dogfood",
-            "production_weld": f"{advertised_url()}/production-weld",
-            "live": f"{advertised_url()}/live",
-            "live_json": f"{advertised_url()}/.well-known/live.json",
-            "canary": f"{advertised_url()}/.well-known/canary.json",
-            "canary_report": f"{advertised_url()}/v1/canary/bypass",
-            "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
-            "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
-            "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
-            "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
-            "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
-            "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
-            "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
-            "restraint": f"{advertised_url()}/.well-known/restraint.json",
-            "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
-            "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
-            "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
-            "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
-            "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
-            "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
+            "demo_hop": f"{base}/demo/hop",
+            "demo_act": f"{base}/demo/act",
+            "demo_pas": f"{base}/demo/pas/bind-check",
+            "ocsp": f"{base}/v1/fuse/lookup",
+            "act": f"{base}/v1/act",
+            "pas_bind": f"{base}/v1/pas/bind-check",
+            "policycenter_pre_bind": f"{base}/v1/pas/policycenter/pre-bind",
+            "mga_authority": f"{base}/v1/pas/mga-authority",
+            "bind_ticket_redeem": f"{base}/v1/pas/bind-ticket/redeem",
+            "mcp": f"{base}/mcp",
+            "mcp_discovery": f"{base}/.well-known/mcp.json",
+            "x402": f"{base}/.well-known/x402.json",
+            "listings": f"{base}/.well-known/listings.json",
+            "commit_auth": f"{base}/.well-known/commit-auth.json",
+            "spend_protocol": f"{base}/.well-known/spend-protocol.json",
+            "command_radiation": f"{base}/.well-known/command-radiation.json",
+            "license_fuse": f"{base}/.well-known/license-fuse.json",
+            "exclusion": f"{base}/.well-known/exclusion.json?job_id={{job_id}}",
+            "promo_clock": f"{base}/.well-known/promo-clock.json",
+            "ops_guards": f"{base}/.well-known/ops-guards.json",
+            "gate1": f"{base}/.well-known/gate1.json",
+            "legal": f"{base}/.well-known/legal.json",
+            "privacy": f"{base}/privacy",
+            "terms": f"{base}/terms",
+            "production_weld": f"{base}/production-weld",
+            "dogfood": f"{base}/dogfood",
             "fail_closed": "Timeout or 5xx → HTTP 503 halt. Never treat UNREACHABLE as LIVE.",
             "charge": "DEAD→LIVE only via Velaru CHARGE webhook.",
+            "patent": "64/124,027",
+            "operator": "Nisaba LLC",
             "sdk": {
                 "python": "from gate.sdk import GateClient",
                 "pip": "pip install -r requirements.txt  # sdk in-repo",
             },
-            "patent": "64/124,027",
-            "operator": "Nisaba LLC",
+        }
+    )
+
+
+@app.route("/.well-known/lab.json")
+def well_known_lab():
+    """Seed / doctrine museum catalog — not the commercial diligence surface.
+
+    Engineers verifying commit-auth should stay on /.well-known/gate.json +
+    commit-auth.json. This file is the frozen foothill inventory under Mouth Ceiling.
+    """
+    base = advertised_url()
+    return jsonify(
+        {
+            "spec": "gate-lab-catalog-v1",
+            "name": "Gate lab catalog",
+            "commercial_discovery": f"{base}/.well-known/gate.json",
+            "claim_grades": f"{base}/.well-known/claim-grades.json",
+            "mouth_ceiling": "Frozen inventory — no new L2 seeds until paid stranger artifact (Gate 1).",
+            "their_production": False,
+            "their_production_unlock": (
+                "Flips true only after a recorded third-party production weld "
+                "(exclusivity attestation). Dogfood / drills do not flip it."
+            ),
+            "links": {
+                "throat": f"{base}/.well-known/throat.json",
+                "ghost_bind": f"{base}/.well-known/ghost-bind.json",
+                "stick_meter": f"{base}/.well-known/stick-meter.json",
+                "charge_bride": f"{base}/.well-known/charge-bride.json",
+                "hop_tattoo": f"{base}/.well-known/hop-tattoo.json",
+                "soft_yes_snare": f"{base}/.well-known/soft-yes-snare.json",
+                "mass_tag": f"{base}/.well-known/mass-tag.json",
+                "issue_bind_splitter": f"{base}/.well-known/issue-bind-splitter.json",
+                "ticket_fuse_pack": f"{base}/.well-known/ticket-fuse-pack.json",
+                "payout_throat": f"{base}/.well-known/payout-throat.json",
+                "twin_diode": f"{base}/.well-known/twin-diode.json",
+                "agent_passport_weld": f"{base}/.well-known/agent-passport-weld.json",
+                "bypass_canary": f"{base}/.well-known/bypass-canary.json",
+                "restraint_invoice": f"{base}/.well-known/restraint-invoice.json",
+                "desk_quorum_fob": f"{base}/.well-known/desk-quorum-fob.json",
+                "panic_latch": f"{base}/.well-known/panic-latch.json",
+                "receipt_mirror": f"{base}/.well-known/receipt-mirror.json",
+                "deadman_echo": f"{base}/.well-known/deadman-echo.json",
+                "witness_seat": f"{base}/.well-known/witness-seat.json",
+                "pardon_sunset": f"{base}/.well-known/pardon-sunset.json",
+                "watchman_fuse": f"{base}/.well-known/watchman-fuse.json",
+                "indulgence_trap": f"{base}/.well-known/indulgence-trap.json",
+                "bind_path_compiler": f"{base}/.well-known/bind-path-compiler.json",
+                "gate_od_skins": f"{base}/.well-known/gate-od-skins.json",
+                "larp_gap_pack": f"{base}/.well-known/larp-gap-pack.json",
+                "restraint_unit": f"{base}/.well-known/restraint-unit.json",
+                "oath_compiler": f"{base}/.well-known/oath-compiler.json",
+                "mouth_density": f"{base}/.well-known/mouth-density.json",
+                "foothill_max": f"{base}/.well-known/foothill-max.json",
+                "mouth_ceiling": f"{base}/.well-known/mouth-ceiling.json",
+                "mandate_layer": f"{base}/.well-known/mandate-layer.json",
+                "nisaba_stack": f"{base}/.well-known/nisaba-stack.json",
+                "bone_law": f"{base}/.well-known/bone-law.json",
+                "invisible_scale": f"{base}/.well-known/invisible-scale.json",
+                "crucial_roles": f"{base}/.well-known/crucial-roles.json",
+                "civ_maintenance": f"{base}/.well-known/civ-maintenance.json",
+                "continuity_live": f"{base}/.well-known/continuity-live.json",
+                "gate_anatomy": f"{base}/.well-known/gate-anatomy.json",
+                "stale_live": f"{base}/.well-known/stale-live.json",
+                "cool_off": f"{base}/.well-known/cool-off.json",
+                "silence_gate": f"{base}/.well-known/silence-gate.json",
+                "algedonic_relay": f"{base}/.well-known/algedonic-relay.json",
+                "may_budget": f"{base}/.well-known/may-budget.json",
+                "funeral_bit": f"{base}/.well-known/funeral-bit.json",
+                "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
+                "cold_weld": f"{base}/.well-known/cold-weld.json",
+                "tool_throat": f"{base}/.well-known/tool-throat.json",
+                "time_lock": f"{base}/.well-known/time-lock.json",
+                "charisma_nullifier": f"{base}/.well-known/charisma-nullifier.json",
+                "sabbath_latch": f"{base}/.well-known/sabbath-latch.json",
+                "may_quarantine": f"{base}/.well-known/may-quarantine.json",
+                "branch_tombstone": f"{base}/.well-known/branch-tombstone.json",
+                "secure_write_macro": f"{base}/.well-known/secure-write-macro.json",
+                "dose_throat": f"{base}/.well-known/dose-throat.json",
+                "jubilee_clock": f"{base}/.well-known/jubilee-clock.json",
+                "antimay": f"{base}/.well-known/antimay.json",
+                "senate_socket_soft": f"{base}/.well-known/senate-socket-soft.json",
+                "receipt_stone": f"{base}/.well-known/receipt-stone.json",
+                "temporal_sheath": f"{base}/.well-known/temporal-sheath.json",
+                "kappa_register": f"{base}/.well-known/kappa.json",
+                "schism": f"{base}/.well-known/schism.json",
+                "counterfactual_spend": f"{base}/.well-known/counterfactual-spend.json",
+                "bound_answer": f"{base}/.well-known/bound-answer.json",
+                "exclusive_timing": f"{base}/.well-known/exclusive-timing.json",
+                "floor": f"{base}/.well-known/floor.json",
+                "particular": f"{base}/.well-known/particular.json",
+                "inhabitant": f"{base}/.well-known/inhabitant.json",
+                "afterward": f"{base}/.well-known/afterward.json",
+                "restraint": f"{base}/.well-known/restraint.json",
+                "prefinality": f"{base}/.well-known/prefinality.json",
+                "action_os": f"{base}/.well-known/action-os.json",
+                "scorecard": f"{base}/.well-known/scorecard.json",
+                "positioning": f"{base}/.well-known/positioning.json",
+                "production_skin": f"{base}/.well-known/production-skin.json",
+                "proof_suite": f"{base}/.well-known/proof-suite.json",
+                "science_pri": f"{base}/.well-known/science-pri.json",
+                "family": f"{base}/.well-known/family.json",
+                "runbook": f"{base}/.well-known/runbook.json",
+                "live": f"{base}/.well-known/live.json",
+                "canary": f"{base}/.well-known/canary.json",
+                "evidence_head": f"{base}/.well-known/evidence-head.json",
+            },
+        }
+    )
+
+
+@app.route("/.well-known/claim-grades.json")
+def well_known_claim_grades():
+    """Public diligence: what we claim vs refuse. Competitive honesty asset."""
+    base = advertised_url()
+    return jsonify(
+        {
+            "spec": "gate-claim-grades-v1",
+            "doc": f"{base}/.well-known/claim-grades.json",
+            "their_production": False,
+            "their_production_unlock": (
+                "Flips true only after a recorded third-party production weld "
+                "with exclusivity attestation (/production-weld). "
+                "Dogfood, Bind Room checkout, and drills do not flip it."
+            ),
+            "grades": {
+                "stranger": {
+                    "meaning": "Shape a stranger can exercise / verify today without trusting our narration.",
+                    "includes": ["bind_ticket", "epoch_lock", "command_radiation", "spend_protocol", "ed25519_receipts"],
+                },
+                "map_honesty": {
+                    "meaning": "True inside Gate's map; not stranger-grade global absence until TSA/root anchored.",
+                    "includes": ["exclusion"],
+                    "verbatim": "Map honesty today, not stranger-grade absence.",
+                },
+                "refused": {
+                    "meaning": "We will not claim these.",
+                    "includes": [
+                        "their_production without third-party weld",
+                        "exclusion as stranger-grade absence before TSA/root",
+                        "new L2 mountain until paid stranger artifact",
+                        "admin CHARGE / soft LIVE resurrect",
+                        "CIC mythology in outbound",
+                    ],
+                },
+            },
+            "burn_policy": (
+                "Burn on success only, failed redeem retryable, "
+                "post-burn fail re-issues from fresh LIVE."
+            ),
+            "outbound_lead": (
+                "What can't run once the ticket's gone — "
+                "the withdraw that didn't run, and the ticket that's already burned."
+            ),
+            "commercial": f"{base}/.well-known/gate.json",
+            "lab": f"{base}/.well-known/lab.json",
+            "commit_auth": f"{base}/.well-known/commit-auth.json",
         }
     )
 
@@ -1790,6 +1868,7 @@ def well_known_gate():
 @app.route("/.well-known/mcp.json")
 def well_known_mcp():
     return jsonify(listings_mod.mcp_discovery(advertised_url()))
+
 
 
 @app.route("/.well-known/x402.json")
@@ -2681,6 +2760,12 @@ def well_known_commit_auth():
             "ttl_seconds": ticket_mod.ttl_seconds(),
             "stale_hop_cannot_spend": True,
             "their_production": False,
+            "their_production_unlock": (
+                "Flips true only after a recorded third-party production weld "
+                "with exclusivity attestation (/production-weld). "
+                "Dogfood, Bind Room checkout, and drills do not flip it."
+            ),
+            "claim_grades": f"{advertised_url()}/.well-known/claim-grades.json",
         }
     )
 

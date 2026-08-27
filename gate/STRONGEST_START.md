@@ -14,9 +14,9 @@
 
 **Hard bans (14 days):** new doctrine files · second vertical · free “strategy calls” · soft LIVE · resending the same MGA blast already sent · building features nobody paid for.
 
-**Outbound lead:** commit control / the moment — *what can't run once the ticket's gone* — not the crowded “AI governance” category. Costume still AI governance + commit control.
+**Outbound lead:** *What can't run once the ticket's gone* — the withdraw that didn't run, and the ticket that's already burned. Not “AI governance platform.” Costume still AI governance + commit control.
 
-**Site rules (Claude critique):** `SITE_SURFACE.md` — buyer English first · three-step ladder · no stale drill dates · lab seeds collapsed off the buy path. Exclusion = map honesty (not stranger-grade) until TSA — keep off buyer pages.
+**Site rules (Claude critique):** `SITE_SURFACE.md` — buyer English first · three-step ladder · no stale drill dates · lab seeds collapsed off the buy path. Exclusion = map honesty (not stranger-grade) until TSA — keep off buyer pages. Commercial discovery = `/.well-known/gate.json`; museum = `/.well-known/lab.json`.
 
 ---
 

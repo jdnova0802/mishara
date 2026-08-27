@@ -358,4 +358,8 @@ def manifest(public_url: str) -> dict:
         "redeem": f"{public_url}/v1/pas/bind-ticket/redeem",
         "demo_redeem": f"{public_url}/demo/pas/bind-ticket/redeem",
         "their_production": False,
+        "their_production_unlock": (
+            "Flips true only after a recorded third-party production weld "
+            "with exclusivity attestation. Dogfood / drills do not flip it."
+        ),
     }

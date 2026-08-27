@@ -168,4 +168,8 @@ def manifest(public_url: str) -> dict:
             "RFC 9162 Certificate Transparency (inclusion + consistency)",
         ],
         "their_production": False,
+        "their_production_unlock": (
+            "Flips true only after a recorded third-party production weld "
+            "with exclusivity attestation. Dogfood / drills do not flip it."
+        ),
     }

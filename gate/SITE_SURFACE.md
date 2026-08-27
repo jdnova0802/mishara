@@ -67,4 +67,8 @@ Not "greater than Ed25519" — Ed25519 is ink; tickets are authorization. See `C
 
 **Single-use (verbatim):** Burn on success only, failed redeem retryable, post-burn fail re-issues from fresh LIVE.
 
-**Outbound:** Lead the subject line with the moment — *what can't run once the ticket's gone* — not the crowded "AI governance" category. Costume still AI governance + commit control.
+**Outbound:** Lead with the moment — *what can't run once the ticket's gone* / *the withdraw that didn't run, and the ticket that's already burned* — not the crowded AI governance category.
+
+**Discovery:** Commercial = `/.well-known/gate.json`. Museum = `/.well-known/lab.json`. Claim grades = `/.well-known/claim-grades.json`. Don't put Bone Law next to commit-auth diligence.
+
+**Repo note:** GitHub is `mishara`; product is Gate — rename is ops, not invention.

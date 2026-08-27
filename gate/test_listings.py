@@ -310,9 +310,18 @@ class FlaskListingTests(unittest.TestCase):
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("formula", gate)
-        self.assertIn("action_os", gate)
-        self.assertIn("scorecard", gate)
+        self.assertIn("commit_auth", gate)
+        self.assertIn("claim_grades", gate)
+        self.assertIn("lab_catalog", gate)
+        self.assertNotIn("bone_law", gate)
         self.assertIn("DENY", gate["formula"])
+        self.assertIn("their_production_unlock", gate)
+        lab = self.client.get("/.well-known/lab.json").get_json()
+        self.assertIn("action_os", lab["links"])
+        self.assertIn("scorecard", lab["links"])
+        grades = self.client.get("/.well-known/claim-grades.json").get_json()
+        self.assertEqual(grades["spec"], "gate-claim-grades-v1")
+        self.assertIn("refused", grades["grades"])
 
         import db as gate_db
 
@@ -1468,8 +1477,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("noindex", aos_body)
 
         gate = self.client.get("/.well-known/gate.json").get_json()
-        self.assertIn("action_os", gate)
+        self.assertIn("commit_auth", gate)
         self.assertIn("formula", gate)
+        self.assertNotIn("action_os", gate)
+        lab = self.client.get("/.well-known/lab.json").get_json()
+        self.assertIn("action_os", lab["links"])
 
         home = self.client.get("/").get_data(as_text=True)
         self.assertNotIn("/action-os", home)
@@ -1579,7 +1591,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertTrue(
             {"agent_control", "grid_forming", "leo_mesh", "tee_mpc_hsm", "pd_kinetic"}.issubset(tech_ids)
         )
-        self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
+        self.assertIn("science_pri", self.client.get("/.well-known/lab.json").get_json()["links"])
 
         legal = self.client.get("/.well-known/legal.json")
         self.assertEqual(legal.status_code, 200)
@@ -1675,19 +1687,22 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertTrue(sc3["their_production"])
 
         gate = self.client.get("/.well-known/gate.json").get_json()
-        self.assertIn("scorecard", gate)
-        self.assertIn("production_skin", gate)
-        self.assertIn("proof_suite", gate)
-        self.assertIn("runbook", gate)
         self.assertIn("production_weld", gate)
+        self.assertIn("commit_auth", gate)
+        self.assertNotIn("scorecard", gate)
+        lab = self.client.get("/.well-known/lab.json").get_json()
+        self.assertIn("scorecard", lab["links"])
+        self.assertIn("production_skin", lab["links"])
+        self.assertIn("proof_suite", lab["links"])
+        self.assertIn("runbook", lab["links"])
 
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Weld a path", body)
-        self.assertIn("/register", body)
-        self.assertIn("Fee schedule", body)
+        self.assertIn("Bind Room", body)
+        self.assertIn("/bind-room", body)
+        self.assertIn("third-party production weld", body)
         self.assertNotIn("scarcity is the DENY", body)
         self.assertNotIn("Weld a door", body)
         self.assertNotIn("Own the DENY", body)
@@ -2400,8 +2415,8 @@ class SettlementEngineTests(unittest.TestCase):
         self.assertEqual(r2.status_code, 200)
         self.assertEqual(r2.get_json()["spec"], "gate-schism-v1")
 
-        gate = self.client.get("/.well-known/gate.json")
-        self.assertIn("kappa_register", gate.get_json())
+        lab = self.client.get("/.well-known/lab.json")
+        self.assertIn("kappa_register", lab.get_json()["links"])
 
 
 class ArchitectureHardTests(unittest.TestCase):
