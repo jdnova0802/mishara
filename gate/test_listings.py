@@ -1275,6 +1275,8 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(body["pitch_order"][0], "epoch_lock")
         self.assertIn("single-use", body["parakhin_response"]["our_answer"].lower())
         self.assertEqual(body["ietf_posture"]["pick"], "extend")
+        self.assertEqual(body["ietf_posture"]["extends"], "draft-marques-asqav-compliance-receipts")
+        self.assertEqual(body["redeem_availability"]["pick"], "fail_closed")
 
     def test_constraint_counterfactual_on_mga_block(self):
         live = {"ok": True, "verdict": True, "state": "LIVE"}

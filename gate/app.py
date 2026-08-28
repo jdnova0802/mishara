@@ -2771,6 +2771,16 @@ def well_known_commit_auth():
                 ),
                 "doc": "gate/COMMIT_AUTH.md",
             },
+            "redeem_availability": {
+                "revocation_at": "server_redeem",
+                "pick": "fail_closed",
+                "redeem_down": "bind_blocked_no_offline_grant",
+                "ticket_consumed_on_failure": False,
+                "ops_tradeoff": "Gate/redeem outage stops real binds until service returns; no fail-open bypass.",
+                "spec": "gate-spend-protocol-v1",
+                "fail_closed_field": "redeem.fail_closed",
+                "doc": "gate/COMMIT_AUTH.md#redeem-endpoint-availability-second-engineer-question",
+            },
             "competitive_posture": {
                 "survey_date": "2026-08-28",
                 "survives": [
@@ -2795,15 +2805,21 @@ def well_known_commit_auth():
                     "insurance_bind_surface",
                     "byok_twin",
                 ],
+                "patent_lane": ["epoch_lock", "commit_time_single_use_bind"],
+                "gtm_lane": ["insurance_bind_moment", "carrier_vertical"],
             },
             "ietf_posture": {
                 "pick": "extend",
+                "extends": "draft-marques-asqav-compliance-receipts",
+                "extends_version_at_survey": "07",
                 "drafts": [
                     "draft-farley-acta-signed-receipts",
                     "draft-marques-asqav-compliance-receipts",
                     "draft-chueayen-attestation-receipts",
                     "draft-klrc-aiagent-auth",
                 ],
+                "shipped_spec": "gate-commit-auth-v1",
+                "planned_draft": "draft-velaru-gate-bind-commit-profile",
                 "add": [
                     "epoch_lock",
                     "bind_ticket_commit_semantics",

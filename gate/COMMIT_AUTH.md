@@ -60,6 +60,27 @@ JSON key: `authorization_vs_attestation` (was `greater_than_ed25519` — renamed
 
 ---
 
+## Redeem endpoint availability (second engineer question)
+
+**Server redeem is revocation.** If redeem is unreachable, there is no offline bind grant — the ticket is not a bearer credential the PAS can spend locally.
+
+**Our pick: fail-closed.** Already wired:
+
+| Condition | Behavior | Ticket consumed? |
+|-----------|----------|------------------|
+| Redeem HTTP error / timeout / partition | Bind **blocked** (403 from scanner; 503 if upstream hop unreachable) | **No** — consume is atomic server-side only on success |
+| Redeem returns `halt` / validation fail | Bind blocked; `radiation_abort` on clock/skew/mismatch | **No** |
+| Redeem returns `ok` | Bind may proceed (scanner forwards) | **Yes** — single-use burn |
+
+**Ops tradeoff (say it out loud):** Gate or redeem outage **stops real binds** until service returns. We do **not** fail-open (no “LIVE hop = bind anyway”). Epoch lock has **no hole** through redeem bypass on the bind path — there is no cached offline YES.
+
+**Implementor contract:** `gate-spend-protocol-v1` → `redeem.fail_closed: true`. Cloudflare worker: redeem failure → `haltResponse` (403); hop 503 → 503. See `cloudflare-worker-bind.js`.
+
+**Verbatim for engineers:**  
+> Revocation lives at redeem. Redeem down means bind down — by design. Retry when Gate is back; ticket stays valid until TTL if not yet consumed.
+
+---
+
 ## IBCT / Biscuit / macaroons / UCAN — what's actually novel
 
 **Overlap (do not claim alone):**
@@ -68,12 +89,15 @@ JSON key: `authorization_vs_attestation` (was `greater_than_ed25519` — renamed
 - Spend / request fingerprint (macaroons, Biscuit caveats)
 - Append-only provenance chain (IBCT, UCAN)
 
-**Gate novelty (pitch + patent):**
-1. **Epoch lock** — job HALT/BLOCK sticks until **Velaru CHARGE**; `not_admin_charge: true` — operator cannot quietly resurrect
-2. **Commit-time authorization** — LIVE hop ≠ bind grant; grant is **redeem-at-commit** with married write
-3. **Insurance bind surface** — PAS/PolicyCenter pre-bind, BlocksBind UW, no PII, `their_production` honesty
-4. **BYOK twin** — Velaru cannot forge alone; same trust class as epoch (we can't undo alone either)
-5. **Burn policy (verbatim)** — burn on success only; failed redeem retryable; post-burn fail re-issue from fresh LIVE
+| Piece | Patent lane | GTM lane |
+|-------|-------------|----------|
+| **Epoch lock** — HALT until Velaru CHARGE; `not_admin_charge: true` | **Primary claim candidate** — non-resurrecting operator HALT | Pitch lead |
+| **Commit-time authorization** — LIVE hop ≠ bind grant; redeem-at-commit + married write | **Secondary claim** — single-use commit authorization at bind | Pitch #2 (ticket vs signature) |
+| **Insurance bind surface** — PAS/PolicyCenter, BlocksBind UW, NAIC/Exhibit D | Prior art on tokens; **not patentable alone** | Vertical moat — carrier bind choke |
+| **BYOK twin** — Velaru cannot forge alone | Supporting (dual-control) | Pitch #3 |
+| **Burn policy (verbatim)** — burn on success only; failed redeem retryable | Supporting detail | Ops honesty |
+
+**Do not patent the vertical.** Patent the **epoch lock** and **commit-time single-use bind authorization**; sell the **carrier bind moment**.
 
 IBCT wins benchmarks on **MCP delegation mesh**. Gate wins on **carrier bind choke + non-resurrecting HALT**.
 
@@ -95,7 +119,23 @@ IBCT wins benchmarks on **MCP delegation mesh**. Gate wins on **carrier bind cho
 
 Drafts named in survey: `draft-farley-acta-signed-receipts`, `draft-marques-asqav-compliance-receipts`, `draft-chueayen-attestation-receipts`, `draft-klrc-aiagent-auth`; NIST AI Agent Standards Initiative (Feb 2026); NCCoE identity/auth concept paper.
 
-**Our pick:** **Extend** — signed receipt + timestamp where applicable (RFC 3161 earn-keep); **add** epoch lock + bind-ticket commit semantics + insurance bind profile. We are **not** claiming to own the receipt draft; we **are** claiming the **non-resurrecting HALT** and **bind path**.
+**Named extension target:** `draft-marques-asqav-compliance-receipts` (**v07** at survey) — closest compliance-receipts profile to our lane (structured compliance artifact, not raw hop log).
+
+**What we extend (not replace):**
+- ASQAV compliance-receipt envelope where a bind decision receipt applies
+- **Add:** `gate-epoch-v1` non-resurrecting HALT semantics
+- **Add:** `gate-commit-auth-v1` bind-ticket redeem-at-commit + spend-protocol married write
+- **Add:** insurance bind profile (PAS/PolicyCenter bind-only; refusal of bind-and-issue/issue)
+
+**Artifacts:**
+| Now (shipped) | Next (post–Gate 1) |
+|---------------|-------------------|
+| `gate-commit-auth-v1` cites ASQAV as upstream profile; `/.well-known/commit-auth.json` | Individual draft **`draft-velaru-gate-bind-commit-profile`** referencing ASQAV + epoch lock extensions |
+| RFC 3161 timestamping earn-keep on exclusion (when TSA lands) | Contribute bind-commit profile to ASQAV WG or ACTA signed-receipts chain |
+
+**Stance without artifact is not enough.** GAAIA letter worked because it was a **record**. IETF posture works when **`gate-commit-auth-v1` names ASQAV** and the bind-commit profile draft is filed — not when we only say "extend."
+
+**We are not** claiming to own the compliance-receipts draft. **We are** claiming the **non-resurrecting HALT** and **bind-path commit semantics** as extensions atop it.
 
 ---
 
