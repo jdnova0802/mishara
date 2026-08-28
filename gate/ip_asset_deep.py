@@ -567,7 +567,11 @@ _REAL_EPOCH_PATENT = {
     "title": "Non-resurrecting halt / epoch lock bind system",
     "operator": "Nisaba LLC",
     "url": "https://www.uspto.gov/patents/search",
-    "note": "Formalized as licensable IP asset; parent-child cascade owned by license_fuse module.",
+    "term_sheet_skeleton": "gate/PATENT_LICENSE_TERM_SHEET.md",
+    "note": (
+        "Formalized as licensable IP asset; parent-child cascade owned by license_fuse module. "
+        "Field-limited license skeleton: PATENT_LICENSE_TERM_SHEET.md."
+    ),
 }
 
 

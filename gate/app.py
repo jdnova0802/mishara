@@ -3039,6 +3039,13 @@ def well_known_commit_auth():
                 "shipped_civilizational_deep_aug28": list(civilizational_deep_mod.SLUGS),
                 "shipped_ip_asset_deep_aug28": list(ip_asset_deep_mod.SLUGS),
             },
+            "patent_licensing": {
+                "provisional": "64/124,027",
+                "term_sheet_skeleton": "gate/PATENT_LICENSE_TERM_SHEET.md",
+                "well_known_asset": f"{advertised_url()}/.well-known/epoch-lock-patent-asset.json",
+                "claims": ["epoch_lock", "commit_time_single_use_bind"],
+                "status": "draft_skeleton_counsel_review",
+            },
             "ietf_posture": {
                 "pick": "extend",
                 "extends": "draft-marques-asqav-compliance-receipts",

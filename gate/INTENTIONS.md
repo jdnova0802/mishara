@@ -113,6 +113,8 @@ Recurring-income asset class — Disney/ARM/Jordan/Bowie-grade IP formalized on 
 
 Attach: `ip_asset_deep.attach(plan)` → `plan["ip_asset_deep"]` + ghost/dilution/copyleft blocker lists.
 
+**Licensing:** field-limited patent term sheet skeleton → `PATENT_LICENSE_TERM_SHEET.md` (64/124,027 · epoch lock + commit-time bind · no-may carve-out · license fuse cascade).
+
 ---
 
 ## Shipped batch 2 — institutional twist (Aug 28)
