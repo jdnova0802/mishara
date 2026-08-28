@@ -1,16 +1,25 @@
 # Patent Counsel Brief — Non-Provisional Conversion (Narrow)
 
-**Status:** **THE WHOLE WEEK** — Aug 28, 2026. Nothing outranks this until quotes are in writing.  
+**Status:** **COUNSEL WEEK = Mon Sep 1 – Fri Sep 4, 2026** (written Fri Aug 28).  
 **Purpose:** What to send a patent attorney — and **what not to send**.  
 **Not for licensing diligence.** For **64/124,027 non-provisional conversion quote only.**
 
 ---
 
-## This week only
+## Calendar (next week)
+
+| Day | Date | Do |
+|-----|------|----|
+| **Fri** | Aug 28 | Optional: shortlist 3 firms + draft email. **Do not** expect replies today. |
+| **Mon** | Sep 1 | Send quote request to firm A + B (+ C). Subject line below. Attach **only** two claims + prior-art table. |
+| **Tue** | Sep 2 | Follow-up if no ack. Confirm micro-entity ask. Calendar provisional → non-provisional deadline (S1). |
+| **Wed** | Sep 3 | Chase outstanding. First written quote in → log S2 / I2. |
+| **Thu–Fri** | Sep 4 | Target: **2–3 quotes in writing**. Compare flat fee + gov fees + draft date. S2 done or escalate. |
+| **Week of Sep 7** | — | Pick counsel · start conversion · **then** Gate 1 outbound may resume |
 
 | Priority | Item | Status |
 |----------|------|--------|
-| **1** | **2–3 counsel quotes in writing** (flat-fee conversion ask) | ☐ |
+| **1** | **2–3 counsel quotes in writing by Fri Sep 4** (flat-fee conversion ask) | ☐ |
 | **2** | Confirm micro-entity eligibility + USPTO fee tier | ☐ |
 | **3** | Calendar non-provisional deadline from provisional filing date | ☐ |
 | **—** | Gate 1 outbound | **WAIT** until quotes landed |

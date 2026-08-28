@@ -12,11 +12,13 @@
 
 ---
 
-## Priority order (Aug 28 — outranks list below)
+## Priority order (counsel week = Mon Sep 1 – Fri Sep 4, 2026)
 
-1. **S2 — Non-provisional counsel quote THIS WEEK.** **The whole week.** Gate 1 outbound **waits** until 2–3 quotes are in writing. Use `PATENT_COUNSEL_BRIEF.md` only — **do not** attach 112 modules or exhibit stack. Ask **flat-fee conversion** + **micro-entity** fee tier. Miss deadline ⇒ patent → **$0** ⇒ term sheet, exhibits, ceiling ladder zero.  
+*Written Fri Aug 28 — firm outreach is next business week, not Friday afternoon.*
+
+1. **S2 — Non-provisional counsel quotes next week (Sep 1–4).** **The whole work week.** Gate 1 outbound **waits** until 2–3 quotes are in writing. Use `PATENT_COUNSEL_BRIEF.md` only — **do not** attach 112 modules or exhibit stack. Ask **flat-fee conversion** + **micro-entity** fee tier. Miss non-provisional deadline ⇒ patent → **$0** ⇒ term sheet, exhibits, ceiling ladder zero.  
 2. **Entity fix** — Nisaba LLC is **Wyoming**, not Delaware — grep licensing docs if unsure.  
-3. **Gate 1** — stranger paid + proved — **after** counsel quotes landed.  
+3. **Gate 1** — stranger paid + proved — **after** counsel quotes landed (week of Sep 7+ if quotes done).  
 4. **Wealth apparatus frozen** — no edits until Gate 1 (`WEALTH_APPARATUS_FREEZE.md`).  
 5. **Mouth Ceiling enforced** — `python3 -m gate.mouth_ceiling_guard` fails on new L2 modules.  
 6. **Counsel conversation frozen** — narrow two-claim brief only (`PATENT_COUNSEL_BRIEF.md` § Do NOT send).
@@ -39,7 +41,7 @@
 | # | Task | Due | Done |
 |---|------|-----|------|
 | S1 | Confirm provisional **#64/124,027** filing date + **non-provisional deadline** on calendar | Day 3 | ☐ |
-| S2 | **2–3 patent counsel quotes in writing** — flat-fee non-provisional conversion + micro-entity ask (`PATENT_COUNSEL_BRIEF.md`) | Day 7 | ☐ |
+| S2 | **2–3 patent counsel quotes in writing** — flat-fee non-provisional conversion + micro-entity ask (`PATENT_COUNSEL_BRIEF.md`) | **Fri Sep 4** | ☐ |
 | S3 | IP ledger row: patent #, filing date, deadline, GAAIA submit date (2026-07-27), CT anchor gist URL | Day 3 | ☐ |
 | S4 | File **intent-to-use** trademark for **Velaru** (USPTO TEAS) | Day 14 | ☐ |
 
