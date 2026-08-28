@@ -124,7 +124,7 @@ DTCC contingent-service concept applied to **comms handoff**, not ledger.
 | Seat | Role |
 |------|------|
 | **Members** | OEMs, integrators, gateway operators — capital, fees, scheme votes |
-| **Observers** | States / coordinators — visibility, exercise invoke, **no throne** |
+| **Observers** | States / coordinators — visibility, exercise invoke, **no throne** — **anti-cult legibility**, not co-rule |
 | **CHC operator** | Nisaba OpCo class — runs clearing, meter, registry; IP in HoldCo |
 | **Pact enforcement** | **Legal** (scheme rules, NDAs) + **economic** (core routes through bind) |
 

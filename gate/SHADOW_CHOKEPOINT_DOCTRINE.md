@@ -54,6 +54,8 @@ Everything below serves this table. Insurance PAS / form edition = **digital foo
 
 **Posture vs state:** **Federation / planetary marketplace** — **member OEMs at the table**, **states as observers** (coordinate, not appoint throne); **defense / classified adjacency accepted** when it accelerates emergency embed (`NORTH_STAR.md` military-compatible-as-customer stands).
 
+**Why observers (owner rationale):** not to **take** sovereignty — to **avoid cult optics**. A private circle clearing crisis handoffs with zero public legibility reads like shadow capture. Observers = **legibility + coordination hook**, not throne. The scheme stays **boring infrastructure**, not a weird world-taking pact.
+
 **Pact enforcement:** **Legal + economic** — scheme law **and** routing dependency. No whistleblower culture; breaking pact costs **core**, not embarrassment.
 
 ---
