@@ -308,6 +308,9 @@ def pack_manifest(public_url: str) -> dict[str, Any]:
             {"id": "exhibit_redacted", "path": "gate/PATENT_LICENSE_EXHIBIT_REDACTED.md", "role": "sendable_one_pagers"},
             {"id": "event_potential", "path": "gate/PATENT_LICENSE_EVENT_POTENTIAL.md", "role": "qic_model"},
             {"id": "ceiling_ladder", "path": "gate/IP_ASSET_CEILING.md", "role": "upside_ladder_doc"},
+            {"id": "distribution_policy", "path": "gate/DISTRIBUTION_POLICY.md", "role": "owner_liquid_policy"},
+            {"id": "ip_ownership_checklist", "path": "gate/IP_OWNERSHIP_CHECKLIST.md", "role": "pre_distribution_gate"},
+            {"id": "pilot_contract_stub", "path": "gate/PILOT_CONTRACT_STUB.md", "role": "no_ip_assign_template"},
         ],
         "exhibits": {
             "A": "claim_chart_epoch_lock_commit_time",
@@ -331,6 +334,7 @@ def pack_manifest(public_url: str) -> dict[str, Any]:
             "epoch_lock_patent_asset": f"{base}/.well-known/epoch-lock-patent-asset.json",
             "ceiling_ladder": f"{base}/.well-known/ip-asset-ceiling-ladder.json",
             "commit_auth": f"{base}/.well-known/commit-auth.json",
+            "owner_guardrails": f"{base}/.well-known/owner-guardrails.json",
         },
         "formal_modules": {
             "epoch_lock_patent_asset": {

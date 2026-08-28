@@ -520,6 +520,11 @@ except ImportError:
     import licensing_pack as licensing_pack_mod
 
 try:
+    from gate import owner_guardrails as owner_guardrails_mod
+except ImportError:
+    import owner_guardrails as owner_guardrails_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1964,6 +1969,7 @@ def well_known_lab():
                 "ip_asset_ceiling_ladder": f"{base}/.well-known/ip-asset-ceiling-ladder.json",
                 "licensing_pack": f"{base}/.well-known/licensing-pack.json",
                 "licensed_field": f"{base}/.well-known/licensed-field.json",
+                "owner_guardrails": f"{base}/.well-known/owner-guardrails.json",
                 "may_budget": f"{base}/.well-known/may-budget.json",
                 "funeral_bit": f"{base}/.well-known/funeral-bit.json",
                 "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
@@ -6549,6 +6555,11 @@ def _register_ip_asset_ceiling_routes() -> None:
 
 
 _register_ip_asset_ceiling_routes()
+
+
+@app.route("/.well-known/owner-guardrails.json")
+def well_known_owner_guardrails():
+    return jsonify(owner_guardrails_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/licensed-field.json")

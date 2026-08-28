@@ -86,7 +86,7 @@
 
 | # | Task | Due | Done |
 |---|------|-----|------|
-| A6 | **Contract template v1:** Name Death, no override key, floor/royalty on cleared flow, term not forever-exclusive | Day 14 | ☐ |
+| A6 | **Contract template v1:** `PILOT_CONTRACT_STUB.md` — Name Death, no override, **no IP assign**, floor/bps | Day 14 | ☐ |
 | A7 | **Vertical lock:** only two URLs in outbound for 30 days (e.g. `/bind-room` + `/for/carriers`) | Day 1 | ☐ |
 | A8 | Reply discipline: every MGA/CUO/compliance touch **same day** (log count: __/30 days) | Ongoing | ☐ |
 | A9 | One near-miss logged if no close: who, objection, next action | Day 30 | ☐ |
@@ -119,7 +119,7 @@
 |---|------|-----|------|
 | A16 | Domains ledger: velaru.xyz, gate.velaru.xyz, mishara — registrar, renew dates | Day 7 | ☐ |
 | A17 | Velaru verify + CT anchor publicly reachable (curl check) | Day 7 | ☐ |
-| A18 | No IP assignment to pilot customers — confirm in template (A6) | Day 14 | ☐ |
+| A18 | No IP assignment to pilot customers — **§4 in `PILOT_CONTRACT_STUB.md`** | Day 14 | ☐ |
 
 ---
 
