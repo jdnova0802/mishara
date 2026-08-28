@@ -2737,10 +2737,79 @@ def well_known_commit_auth():
         {
             "spec": "gate-commit-auth-v1",
             "authorization_vs_attestation": (
+                "Epoch lock: HALT sticks until a real CHARGE — no admin resurrect. "
                 "Signatures prove a hop occurred. Tickets prove the hop is still "
-                "allowed to spend, right now, once, for this job and this write. "
-                "Epoch lock: HALT sticks until a real CHARGE — no admin resurrect."
+                "allowed to spend, right now, once, for this job and this write."
             ),
+            "pitch_order": [
+                "epoch_lock",
+                "ticket_vs_signature",
+                "byok_stranger_verify",
+                "insurance_bind_moment",
+            ],
+            "do_not_lead": [
+                "pre_execution_proof",
+                "fre_902_hero",
+                "generic_ai_governance",
+            ],
+            "parakhin_response": {
+                "citation": "arXiv:2603.09875 (Mar 2026)",
+                "their_claim": (
+                    "TTL lease revocation at agent velocity v exposes O(v·TTL) "
+                    "unauthorized ops; execution-count budgets (RCC) cap at D≤n."
+                ),
+                "our_answer": (
+                    "Bind Ticket is single-use commit authorization, not a reusable "
+                    "TTL lease. TTL bounds freshness (museum timer); revocation is "
+                    "atomic consume + spend fingerprint + epoch HALT + license fuse. "
+                    "Parakhin applies to high-velocity reusable agent credentials — "
+                    "not the carrier bind path. Successful unauthorized bind ≤1 per ticket."
+                ),
+                "honest_gap": (
+                    "Failed redeem attempts may retry inside TTL; not a successful bind. "
+                    "Multi-spend agent fleets would need RCC — not shipped (Mouth Ceiling)."
+                ),
+                "doc": "gate/COMMIT_AUTH.md",
+            },
+            "competitive_posture": {
+                "survey_date": "2026-08-28",
+                "survives": [
+                    "epoch_lock_non_resurrecting_halt",
+                    "insurance_bind_path_naic_exhibit_d",
+                    "gaaia_letter_federal_record_2026-07-27",
+                ],
+                "contested_not_lead": [
+                    "pre_execution_proof",
+                    "non_execution_proof",
+                    "fre_902_receipts",
+                ],
+                "prior_art_named": [
+                    "Authproof Cloud",
+                    "Proof-Carrying Agent Actions (arXiv:2606.04104)",
+                    "CertNode",
+                    "IBCT / Prakash (arXiv:2603.24775)",
+                ],
+                "novelty_vs_ibct": [
+                    "epoch_lock",
+                    "commit_time_redeem_at_bind",
+                    "insurance_bind_surface",
+                    "byok_twin",
+                ],
+            },
+            "ietf_posture": {
+                "pick": "extend",
+                "drafts": [
+                    "draft-farley-acta-signed-receipts",
+                    "draft-marques-asqav-compliance-receipts",
+                    "draft-chueayen-attestation-receipts",
+                    "draft-klrc-aiagent-auth",
+                ],
+                "add": [
+                    "epoch_lock",
+                    "bind_ticket_commit_semantics",
+                    "insurance_bind_profile",
+                ],
+            },
             "stranger_grade": ["bind_ticket", "epoch", "command_radiation", "spend_protocol"],
             "bind_ticket": ticket_mod.manifest(advertised_url()),
             "spend_protocol": spend_protocol_mod.spec(advertised_url()),

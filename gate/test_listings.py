@@ -1270,7 +1270,11 @@ class BindRoomFlaskTests(unittest.TestCase):
 
         r3 = self.client.get("/.well-known/commit-auth.json")
         self.assertEqual(r3.status_code, 200)
-        self.assertTrue(r3.get_json()["stale_hop_cannot_spend"])
+        body = r3.get_json()
+        self.assertTrue(body["stale_hop_cannot_spend"])
+        self.assertEqual(body["pitch_order"][0], "epoch_lock")
+        self.assertIn("single-use", body["parakhin_response"]["our_answer"].lower())
+        self.assertEqual(body["ietf_posture"]["pick"], "extend")
 
     def test_constraint_counterfactual_on_mga_block(self):
         live = {"ok": True, "verdict": True, "state": "LIVE"}
