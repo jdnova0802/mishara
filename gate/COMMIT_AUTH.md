@@ -81,6 +81,30 @@ JSON key: `authorization_vs_attestation` (was `greater_than_ed25519` — renamed
 
 ---
 
+## Availability posture (third engineer question — Stavan / renewal day)
+
+Fail-closed makes **our uptime your bind uptime.** Say the ops cost in the same breath as the security win.
+
+**Today (honest):**
+| Topic | Posture |
+|-------|---------|
+| **Topology** | Single region (Render); persistent disk `/var/data/gate.db` |
+| **SLA** | **No five-nines claim today** — best-effort with `/health` fail-closed if misconfigured |
+| **Gate down** | Bind **blocked**; redeem unreachable; tickets **not** consumed; carrier retries when Gate returns |
+| **3am renewal batch** | Same rule — no silent bypass. Coordinate maintenance windows; queue retries after restore |
+| **Manual override** | **No admin resurrect.** Epoch HALT lifts only on real Velaru **CHARGE** webhook — not ops console, not UW chat yes |
+| **Partition** | Scanner/worker treats redeem failure as halt (403/503); PAS cannot spend ticket locally |
+
+**Roadmap (post–Gate 1 / production weld — name it, don't hedge):**
+1. **Cold Standby Mirror** — read-only witness: proves last HALT + epoch state during outage; **cannot mint LIVE** (availability without fail-open hole)
+2. **Multi-region redeem** — active/passive or regional failover; RPO/RTO in weld contract
+3. **Bind Weather** — carrier-facing public dashboard: uptime, redeem latency, HALT depth, maintenance windows
+
+**Verbatim for Stavan:**  
+> Single region today, fail-closed by design — your bind stops when we stop, and we don't pretend otherwise. There is no override that breaks epoch lock; CHARGE-only resurrection. Roadmap is cold standby witness plus multi-region in the production weld, with maintenance windows on renewal batches. We'd rather lose a night of binds than mint a ghost bind.
+
+---
+
 ## IBCT / Biscuit / macaroons / UCAN — what's actually novel
 
 **Overlap (do not claim alone):**

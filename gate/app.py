@@ -375,6 +375,11 @@ except ImportError:
     import civ_maintenance as civ_maintenance_mod
 
 try:
+    from gate import intentions as intentions_mod
+except ImportError:
+    import intentions as intentions_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1764,6 +1769,7 @@ def well_known_lab():
                 "invisible_scale": f"{base}/.well-known/invisible-scale.json",
                 "crucial_roles": f"{base}/.well-known/crucial-roles.json",
                 "civ_maintenance": f"{base}/.well-known/civ-maintenance.json",
+                "intentions": f"{base}/.well-known/intentions.json",
                 "continuity_live": f"{base}/.well-known/continuity-live.json",
                 "gate_anatomy": f"{base}/.well-known/gate-anatomy.json",
                 "stale_live": f"{base}/.well-known/stale-live.json",
@@ -2063,6 +2069,11 @@ def well_known_crucial_roles():
 @app.route("/.well-known/civ-maintenance.json")
 def well_known_civ_maintenance():
     return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
+
+
+@app.route("/.well-known/intentions.json")
+def well_known_intentions():
+    return jsonify(intentions_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/continuity-live.json")
@@ -2780,6 +2791,26 @@ def well_known_commit_auth():
                 "spec": "gate-spend-protocol-v1",
                 "fail_closed_field": "redeem.fail_closed",
                 "doc": "gate/COMMIT_AUTH.md#redeem-endpoint-availability-second-engineer-question",
+            },
+            "availability_posture": {
+                "third_engineer_question": True,
+                "topology": "single_region_render",
+                "sla_today": "best_effort_no_five_nines_claim",
+                "gate_down": "bind_blocked_tickets_not_consumed",
+                "manual_override": "none_epoch_lifts_on_velaru_charge_only",
+                "renewal_day": "same_fail_closed_coordinate_maintenance_windows",
+                "roadmap": [
+                    "cold_standby_mirror",
+                    "multi_region_redeem",
+                    "bind_weather_dashboard",
+                ],
+                "verbatim_stavan": (
+                    "Single region today, fail-closed by design — bind stops when we stop. "
+                    "No override breaks epoch lock; CHARGE-only resurrection. "
+                    "Roadmap: cold standby witness + multi-region in production weld."
+                ),
+                "intentions": f"{advertised_url()}/.well-known/intentions.json",
+                "doc": "gate/COMMIT_AUTH.md#availability-posture-third-engineer-question--stavan--renewal-day",
             },
             "competitive_posture": {
                 "survey_date": "2026-08-28",

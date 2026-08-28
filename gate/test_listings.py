@@ -1277,6 +1277,10 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(body["ietf_posture"]["pick"], "extend")
         self.assertEqual(body["ietf_posture"]["extends"], "draft-marques-asqav-compliance-receipts")
         self.assertEqual(body["redeem_availability"]["pick"], "fail_closed")
+        self.assertIn("single region", body["availability_posture"]["verbatim_stavan"].lower())
+        r4 = self.client.get("/.well-known/intentions.json")
+        self.assertEqual(r4.status_code, 200)
+        self.assertEqual(r4.get_json()["spec"], "gate-intentions-v1")
 
     def test_constraint_counterfactual_on_mga_block(self):
         live = {"ok": True, "verdict": True, "state": "LIVE"}
