@@ -2,7 +2,7 @@
 
 **Status:** owner steering — settled Aug 28, 2026; **identity frozen** same session (evac comms choke). Not marketing. Not a product roadmap.  
 **Purpose:** Name the **end-state identity** Nisaba is building toward — quiet, load-bearing, planetary rent — so altitude choices, entity design, and Gate 1 sequence stay aligned.  
-**Companion:** `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md`
+**Companion:** `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md` · `EVAC_COMMS_HANDOFF_SPEC.md`
 
 ---
 
