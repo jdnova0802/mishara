@@ -1,6 +1,6 @@
 # Intentions — post-survey invention catalog (Aug 28)
 
-**Status:** 56 invention modules **shipped** (24 prior + 32 civilizational-deep). Remaining intentions = mountain / post-weld.  
+**Status:** 88 invention modules **shipped** (56 prior + 32 IP asset deep). Remaining intentions = mountain / post-weld.  
 **Not MGA outbound lead.** Bind Room leads epoch lock + bind moment; these are league-of-one artifacts.
 
 **Context:** Competitive survey showed the commit-auth lane is crowded (Authproof, IBCT, CertNode, PCAA, Parakhin). We are **not** as alone on receipts and capability tokens as we assumed. These intentions target **cells still empty** — epoch lock, carrier bind choke, fail-closed availability honesty, restraint-as-SKU.
@@ -90,6 +90,28 @@ Wired on HALT paths: all ten attach in `_finalize_spend_plan`.
 | artemis_accords_bind_weld | Artemis Accords Bind Weld | Artemis Accords |
 
 All attach via `civilizational_deep.attach(plan)` → `plan["civilizational_deep"]`.
+
+---
+
+## Shipped batch 5 — IP asset deep (Aug 28)
+
+**32 IP-S+ inventions** in `ip_asset_deep.py`. Catalog: `/.well-known/ip-asset-deep.json`
+
+Recurring-income asset class — Disney/ARM/Jordan/Bowie-grade IP formalized on bind path:
+
+| Category | Slugs |
+|----------|-------|
+| **Copyright × trademark** | steamboat_willie_split, mickey_trademark_moat, sonny_bono_extension, public_domain_recombine |
+| **Dual-stream royalty** | arm_dual_stream, qualcomm_asp_royalty, jordan_brand_unit_royalty, mechanical_royalty_stream |
+| **Securitization / catalog** | bowie_bond_securitization, hipgnosis_catalog_annuity, cross_collateral_ip_basket |
+| **Patent / SEP** | frand_sep_choke, mpeg_patent_pool_toll, epoch_lock_patent_asset, open_invention_network_shield |
+| **Media / franchise** | disney_vault_window, marvel_cross_license_lattice, character_sequel_option, taylor_masters_rerecord |
+| **Deal mechanics** | merchandising_mg_overage, royalty_audit_clawback, ip_escrow_mna_latch, sync_license_moment |
+| **Risk / contamination** | copyleft_contamination_snare, lanham_dilution_snare, trade_secret_dtsa_vault |
+| **Rights layers** | work_for_hire_ownership, right_of_publicity_likeness, sag_residual_choke, creative_commons_tier_ladder |
+| **Filing epoch** | wipo_pct_epoch, uspto_provisional_ladder |
+
+Attach: `ip_asset_deep.attach(plan)` → `plan["ip_asset_deep"]` + ghost/dilution/copyleft blocker lists.
 
 ---
 

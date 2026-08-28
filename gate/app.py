@@ -505,6 +505,11 @@ except ImportError:
     import civilizational_deep as civilizational_deep_mod
 
 try:
+    from gate import ip_asset_deep as ip_asset_deep_mod
+except ImportError:
+    import ip_asset_deep as ip_asset_deep_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1393,6 +1398,7 @@ def _finalize_spend_plan(
     sophon_lock_mod.attach(plan)
     who_shadow_bind_report_mod.attach(plan)
     civilizational_deep_mod.attach(plan)
+    ip_asset_deep_mod.attach(plan)
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
@@ -1942,6 +1948,7 @@ def well_known_lab():
                 "sophon_lock": f"{base}/.well-known/sophon-lock.json",
                 "who_shadow_bind_report": f"{base}/.well-known/who-shadow-bind-report.json",
                 "civilizational_deep": f"{base}/.well-known/civilizational-deep.json",
+                "ip_asset_deep": f"{base}/.well-known/ip-asset-deep.json",
                 "may_budget": f"{base}/.well-known/may-budget.json",
                 "funeral_bit": f"{base}/.well-known/funeral-bit.json",
                 "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
@@ -3030,6 +3037,7 @@ def well_known_commit_auth():
                     "who_shadow_bind_report",
                 ],
                 "shipped_civilizational_deep_aug28": list(civilizational_deep_mod.SLUGS),
+                "shipped_ip_asset_deep_aug28": list(ip_asset_deep_mod.SLUGS),
             },
             "ietf_posture": {
                 "pick": "extend",
@@ -6396,6 +6404,55 @@ def _register_civilizational_deep_routes() -> None:
 
 
 _register_civilizational_deep_routes()
+
+
+@app.route("/.well-known/ip-asset-deep.json")
+def well_known_ip_asset_deep_catalog():
+    return jsonify(ip_asset_deep_mod.catalog_manifest(advertised_url()))
+
+
+def _register_ip_asset_deep_routes() -> None:
+    for _slug in ip_asset_deep_mod.SLUGS:
+        _kebab = ip_asset_deep_mod.slug_to_kebab(_slug)
+
+        def _make_well_known(slug: str = _slug):
+            def _handler():
+                return jsonify(ip_asset_deep_mod.manifest(advertised_url(), slug))
+
+            return _handler
+
+        def _make_demo(slug: str = _slug):
+            def _handler():
+                _, err = _demo_gate()
+                if err:
+                    return err
+                body = request.get_json(silent=True) or {}
+                payload = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+                report = ip_asset_deep_mod.evaluate_slug(slug, **(payload if isinstance(payload, dict) else {}))
+                report["demo"] = True
+                return jsonify(report)
+
+            return _handler
+
+        app.add_url_rule(
+            f"/.well-known/{_kebab}.json",
+            f"well_known_ip_asset_{_slug}",
+            _make_well_known(),
+        )
+        app.add_url_rule(
+            f"/demo/pas/{_kebab}",
+            f"demo_pas_ip_asset_{_slug}",
+            _make_demo(),
+            methods=["POST"],
+        )
+        app.add_url_rule(
+            f"/bind-room/{_kebab}.json",
+            f"bind_room_ip_asset_{_slug}",
+            _make_well_known(),
+        )
+
+
+_register_ip_asset_deep_routes()
 
 
 if __name__ == "__main__":

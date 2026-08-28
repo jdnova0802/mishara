@@ -77,8 +77,8 @@ def _out(slug: str, invention: str, real: dict[str, Any], verdict: str, **extra:
 _REAL_STEAMBOAT = {
     "institution": "Steamboat Willie (1928) — US public domain Jan 1 2024",
     "copyright_pd": "2024-01-01 — Mickey Mouse film entered US public domain",
-    "trademark_moat": "Disney retains active Mickey Mouse trademark registrations",
-    "url": "https://www.copyright.gov/publicdomain/2024/",
+    "trademark_moat": "Disney retains Mickey trademark — e.g. animation studio title card US Reg. 6,846,660",
+    "url": "https://web.law.duke.edu/cspd/mickey/",
 }
 
 
@@ -216,10 +216,11 @@ def _eval_sonny_bono_extension(**kwargs: Any) -> dict[str, Any]:
 
 
 _REAL_BOWIE = {
-    "institution": "Bowie Bonds (1997) — securitized music royalty stream",
-    "deal": "$55M issue · 7.9% coupon · 29 albums / 287 songs collateral",
-    "underwriter": "Prudential Insurance · pulled from market 2007",
-    "url": "https://www.sec.gov/Archives/edgar/data/1045520/000104552098000001/0001045520-98-000001.txt",
+    "institution": "David Bowie / Pullman — first IP royalty securitization (1997)",
+    "issue": "$55 million asset-backed securities on 287 songs / 25 albums",
+    "coupon": "7.9% fixed, 10-year maturity, Moody's A3",
+    "buyer": "Prudential Insurance Company of America",
+    "url": "https://www.nytimes.com/2016/01/12/business/dealbook/how-david-bowie-changed-wall-street.html",
 }
 
 
