@@ -165,6 +165,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "licensed_field_value": "gate/LICENSED_FIELD_VALUE.md",
             "wealth_apparatus_freeze": "gate/WEALTH_APPARATUS_FREEZE.md",
             "mouth_ceiling": "gate/MOUTH_CEILING.md",
+            "business_categories": "gate/BUSINESS_CATEGORIES.md",
             "licensing_pack": f"{base}/.well-known/licensing-pack.json",
             "wire_calculator": f"{base}/.well-known/personal-wire-calculator.json",
         },

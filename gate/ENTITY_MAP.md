@@ -2,7 +2,7 @@
 
 **Status:** formal operating stub — **not tax or legal advice.** Counsel + CPA before first paid license or distribution.  
 **Purpose:** Separate **IP ownership**, **operations**, and **personal liquidity** so recurring royalties flow correctly and the throat stays in HoldCo.  
-**Companion:** `IP_OWNERSHIP_CHECKLIST.md` · `DISTRIBUTION_POLICY.md` · `PERSONAL_LIQUIDITY_STUB.md` · `/.well-known/owner-guardrails.json`
+**Companion:** `IP_OWNERSHIP_CHECKLIST.md` · `DISTRIBUTION_POLICY.md` · `PERSONAL_LIQUIDITY_STUB.md` · `BUSINESS_CATEGORIES.md` · `/.well-known/owner-guardrails.json`
 
 ---
 
