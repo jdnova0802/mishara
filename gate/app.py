@@ -3042,8 +3042,16 @@ def well_known_commit_auth():
             "patent_licensing": {
                 "provisional": "64/124,027",
                 "term_sheet_skeleton": "gate/PATENT_LICENSE_TERM_SHEET.md",
+                "exhibit_redacted": "gate/PATENT_LICENSE_EXHIBIT_REDACTED.md",
+                "event_potential_model": "gate/PATENT_LICENSE_EVENT_POTENTIAL.md",
                 "well_known_asset": f"{advertised_url()}/.well-known/epoch-lock-patent-asset.json",
                 "claims": ["epoch_lock", "commit_time_single_use_bind"],
+                "meter": {
+                    "qic": "qualified_irreversible_commit",
+                    "caq": "contracted_annual_qic",
+                    "laq": "licensed_actual_annual_qic",
+                    "billable": "max(MAR, LAQ × per_QIC_rate)",
+                },
                 "status": "draft_skeleton_counsel_review",
             },
             "ietf_posture": {
