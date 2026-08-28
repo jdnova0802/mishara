@@ -1,6 +1,6 @@
 # Intentions — post-survey invention catalog (Aug 28)
 
-**Status:** 24 invention modules **shipped** (competitive + institutional + S-tier). Remaining intentions = mountain / post-weld.  
+**Status:** 56 invention modules **shipped** (24 prior + 32 civilizational-deep). Remaining intentions = mountain / post-weld.  
 **Not MGA outbound lead.** Bind Room leads epoch lock + bind moment; these are league-of-one artifacts.
 
 **Context:** Competitive survey showed the commit-auth lane is crowded (Authproof, IBCT, CertNode, PCAA, Parakhin). We are **not** as alone on receipts and capability tokens as we assumed. These intentions target **cells still empty** — epoch lock, carrier bind choke, fail-closed availability honesty, restraint-as-SKU.
@@ -47,6 +47,49 @@ Wired on HALT paths: cemetery + refuse ledger + override packet + black box epoc
 | **WHO Shadow Bind Report** | WHO Pandemic Agreement / INB monitoring gap | `who_shadow_bind_report.py` |
 
 Wired on HALT paths: all ten attach in `_finalize_spend_plan`.
+
+---
+
+## Shipped batch 4 — civilizational deep (Aug 28)
+
+**32 S+ inventions** in `civilizational_deep.py` registry. Catalog: `/.well-known/civilizational-deep.json`
+
+| Slug | Invention | Source |
+|------|-----------|--------|
+| voyager_golden_bind | Voyager Golden Bind | NASA Golden Record + Aug 2026 Big Bang fix |
+| asilomar_bind_moratorium | Asilomar Bind Moratorium | 1975 DNA moratorium |
+| pal_limited_try | PAL Limited Try | Permissive Action Link |
+| eu_ai50_transparency_latch | EU AI50 Transparency Latch | EU AI Act Art 50 + Omnibus 2026/1744 |
+| landauer_halt_erasure | Landauer HALT Erasure | Landauer principle |
+| fermi_bind_silence | Fermi Bind Silence | Fermi paradox |
+| kardashev_may_tier | Kardashev May Tier | Kardashev scale |
+| outer_space_bind_treaty | Outer Space Bind Treaty | OST 1967 |
+| montreal_phasedown_ghost | Montreal Phasedown Ghost | Montreal Protocol |
+| rosetta_stranger_decode | Rosetta Stranger Decode | Long Now Rosetta Project |
+| cern_beam_abort_throat | CERN Beam Abort Throat | LHC interlock |
+| schrodinger_redeem_collapse | Schrödinger Redeem Collapse | Quantum superposition analog |
+| byzantine_bind_quorum | Byzantine Bind Quorum | Byzantine generals |
+| cap_partition_deny | CAP Partition Deny | CAP theorem |
+| y2k_epoch_rollover | Y2K Epoch Rollover | Y2K |
+| unix_2038_time_sheath | Unix 2038 Time Sheath | Year 2038 problem |
+| nuremberg_superior_orders | Nuremberg Superior Orders | Nuremberg principles |
+| geneva_proportional_mouth | Geneva Proportional Mouth | Geneva Conventions |
+| antarctica_dmz_bind | Antarctica DMZ Bind | Antarctica Treaty |
+| paris_may_budget | Paris May Budget | Paris Agreement |
+| meti_broadcast_restraint | METI Broadcast Restraint | METI restraint |
+| apollo_abort_bind | Apollo Abort Bind | Apollo abort modes |
+| fukushima_scram_latch | Fukushima SCRAM Latch | Nuclear SCRAM |
+| bekenstein_information_bound | Bekenstein Information Bound | Bekenstein bound |
+| maxwell_demon_entropy_tax | Maxwell Demon Entropy Tax | Maxwell's demon |
+| pascal_wager_quorum | Pascal Wager Quorum | Pascal's wager |
+| rawls_veil_fairness | Rawls Veil Fairness | Veil of ignorance |
+| theseus_epoch_identity | Theseus Epoch Identity | Ship of Theseus |
+| omega_convergence_receipt | Omega Convergence Receipt | Omega Point |
+| von_neumann_replication_gate | Von Neumann Replication Gate | Self-replicating probes |
+| drake_detectability_index | Drake Detectability Index | Drake equation |
+| artemis_accords_bind_weld | Artemis Accords Bind Weld | Artemis Accords |
+
+All attach via `civilizational_deep.attach(plan)` → `plan["civilizational_deep"]`.
 
 ---
 

@@ -88,6 +88,7 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "psychohistory_seldon_line": f"{public_url}/.well-known/psychohistory-seldon-line.json",
             "sophon_lock": f"{public_url}/.well-known/sophon-lock.json",
             "who_shadow_bind_report": f"{public_url}/.well-known/who-shadow-bind-report.json",
+            "civilizational_deep": f"{public_url}/.well-known/civilizational-deep.json",
         },
     }
 
