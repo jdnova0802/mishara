@@ -90,6 +90,8 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "who_shadow_bind_report": f"{public_url}/.well-known/who-shadow-bind-report.json",
             "civilizational_deep": f"{public_url}/.well-known/civilizational-deep.json",
             "ip_asset_deep": f"{public_url}/.well-known/ip-asset-deep.json",
+            "ip_asset_ceiling": f"{public_url}/.well-known/ip-asset-ceiling.json",
+            "ip_asset_ceiling_ladder": f"{public_url}/.well-known/ip-asset-ceiling-ladder.json",
         },
     }
 

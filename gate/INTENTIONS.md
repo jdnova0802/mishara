@@ -1,6 +1,6 @@
 # Intentions — post-survey invention catalog (Aug 28)
 
-**Status:** 88 invention modules **shipped** (56 prior + 32 IP asset deep). Remaining intentions = mountain / post-weld.  
+**Status:** 112 invention modules **shipped** (88 prior + 24 IP asset ceiling experimental). Remaining intentions = mountain / post-weld.  
 **Not MGA outbound lead.** Bind Room leads epoch lock + bind moment; these are league-of-one artifacts.
 
 **Context:** Competitive survey showed the commit-auth lane is crowded (Authproof, IBCT, CertNode, PCAA, Parakhin). We are **not** as alone on receipts and capability tokens as we assumed. These intentions target **cells still empty** — epoch lock, carrier bind choke, fail-closed availability honesty, restraint-as-SKU.
@@ -114,6 +114,25 @@ Recurring-income asset class — Disney/ARM/Jordan/Bowie-grade IP formalized on 
 Attach: `ip_asset_deep.attach(plan)` → `plan["ip_asset_deep"]` + ghost/dilution/copyleft blocker lists.
 
 **Licensing:** field-limited patent term sheet skeleton → `PATENT_LICENSE_TERM_SHEET.md` (64/124,027 · epoch lock + commit-time bind · no-may carve-out · license fuse cascade). Redacted sendables → `PATENT_LICENSE_EXHIBIT_REDACTED.md` (PAS OEM + MGA). QIC / CAQ / LAQ revenue model → `PATENT_LICENSE_EVENT_POTENTIAL.md`.
+
+---
+
+## Shipped batch 6 — IP asset ceiling (Aug 28)
+
+**24 IP-X experimental inventions** in `ip_asset_ceiling.py`. Catalog: `/.well-known/ip-asset-ceiling.json` · Upside ladder: `/.well-known/ip-asset-ceiling-ladder.json` · Doc: `IP_ASSET_CEILING.md`
+
+| Category | Slugs |
+|----------|-------|
+| **Missing toll booths (M1→M2)** | gate_conformant_mark, premium_bps_meter, agent_runtime_field_license, patent_pool_operator_toll, ietf_profile_spec_asset, fuse_registry_meter_saas, naic_adoption_latch |
+| **Interchange / platform** | visa_interchange_commit_analog, swift_iso20022_message_toll, stripe_connect_platform_cut, trillion_qic_step_ladder |
+| **Regulatory / settlement fields** | eu_ai_act_essential_pack, fedwire_oc6_finality_fee, bis_agora_atomic_toll |
+| **Agent-speed mesh** | mcp_mesh_commit_meter, agent_fleet_rcc_bundle, edge_worker_bind_surcharge |
+| **Balance-sheet / data** | securitized_royalty_spv_live, forward_royalty_catalog_sale, ip_receipt_index_fund, stranger_grade_benchmark_feed, rfc3161_timestamp_toll, cross_border_pct_cascade |
+| **Civilizational guard** | planetary_quorum_license |
+
+Attach: `ip_asset_ceiling.attach(plan)` → `plan["ip_asset_ceiling"]` + optional `ip_asset_ceiling_illustrative_stack_usd`.
+
+**Stack total:** 112 invention modules (88 + 24 ceiling).
 
 ---
 
