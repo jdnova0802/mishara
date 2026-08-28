@@ -95,6 +95,7 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "licensing_pack": f"{public_url}/.well-known/licensing-pack.json",
             "licensed_field": f"{public_url}/.well-known/licensed-field.json",
             "owner_guardrails": f"{public_url}/.well-known/owner-guardrails.json",
+            "personal_wire_calculator": f"{public_url}/.well-known/personal-wire-calculator.json",
         },
     }
 

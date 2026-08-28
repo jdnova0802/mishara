@@ -2,7 +2,7 @@
 
 **Status:** pre-deal / pre-distribution gate — check boxes when **verified**, not when planned.  
 **Purpose:** Confirm recurring royalties flow to **you via Nisaba**, not to customers, partners, or loose structure.  
-**Well-known:** `/.well-known/owner-guardrails.json`
+**Well-known:** `/.well-known/owner-guardrails.json` · **Entity map:** `ENTITY_MAP.md`
 
 ---
 
@@ -15,6 +15,7 @@
 | O3 | **You** hold majority economic interest (target ≥70% until deliberate dilution) | ☐ | Cap table |
 | O4 | **Ops bank ≠ owner personal bank** — separate accounts | ☐ | Bank statements |
 | O5 | **Distribution policy** adopted (`DISTRIBUTION_POLICY.md`) | ☐ | Member resolution or written adoption |
+| O6 | **Entity map** reviewed — HoldCo / OpCo / personal layers (`ENTITY_MAP.md`) | ☐ | Counsel note or unified-entity memo |
 
 ---
 

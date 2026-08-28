@@ -6557,6 +6557,31 @@ def _register_ip_asset_ceiling_routes() -> None:
 _register_ip_asset_ceiling_routes()
 
 
+@app.route("/.well-known/personal-wire-calculator.json")
+def well_known_personal_wire_calculator():
+    return jsonify(owner_guardrails_mod.wire_calculator_manifest(advertised_url()))
+
+
+@app.route("/demo/pas/personal-wire-calculator", methods=["POST"])
+def demo_pas_personal_wire_calculator():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    payload = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    if not isinstance(payload, dict):
+        payload = {}
+    report = owner_guardrails_mod.compute_personal_wire(
+        company_gross_annual_usd=payload.get("company_gross_annual_usd", 0),
+        opex_annual_usd=payload.get("opex_annual_usd", 0),
+        salary_annual_usd=payload.get("salary_annual_usd", 0),
+        reserve_funded=bool(payload.get("reserve_funded")),
+        owner_ownership_pct=float(payload.get("owner_ownership_pct", 1.0)),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
 @app.route("/.well-known/owner-guardrails.json")
 def well_known_owner_guardrails():
     return jsonify(owner_guardrails_mod.manifest(advertised_url()))

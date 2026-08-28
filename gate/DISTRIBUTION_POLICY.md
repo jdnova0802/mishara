@@ -2,7 +2,7 @@
 
 **Status:** formal operating policy — **not tax or legal advice.** Counsel and CPA review before first distribution.  
 **Purpose:** Convert company recurring (license royalties, floors, bps, welds) to **owner liquid** without selling the throat.  
-**Companion:** `WEALTH_SCOREBOARD.md` · `IP_OWNERSHIP_CHECKLIST.md` · `/.well-known/owner-guardrails.json`
+**Companion:** `WEALTH_SCOREBOARD.md` · `ENTITY_MAP.md` · `PERSONAL_LIQUIDITY_STUB.md` · `IP_OWNERSHIP_CHECKLIST.md` · `/.well-known/owner-guardrails.json`
 
 ---
 

@@ -309,6 +309,8 @@ def pack_manifest(public_url: str) -> dict[str, Any]:
             {"id": "event_potential", "path": "gate/PATENT_LICENSE_EVENT_POTENTIAL.md", "role": "qic_model"},
             {"id": "ceiling_ladder", "path": "gate/IP_ASSET_CEILING.md", "role": "upside_ladder_doc"},
             {"id": "distribution_policy", "path": "gate/DISTRIBUTION_POLICY.md", "role": "owner_liquid_policy"},
+            {"id": "entity_map", "path": "gate/ENTITY_MAP.md", "role": "holdco_opco_personal_layers"},
+            {"id": "personal_liquidity_stub", "path": "gate/PERSONAL_LIQUIDITY_STUB.md", "role": "post_distribution_personal_layer"},
             {"id": "ip_ownership_checklist", "path": "gate/IP_OWNERSHIP_CHECKLIST.md", "role": "pre_distribution_gate"},
             {"id": "pilot_contract_stub", "path": "gate/PILOT_CONTRACT_STUB.md", "role": "no_ip_assign_template"},
         ],
