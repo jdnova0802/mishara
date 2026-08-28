@@ -10,7 +10,7 @@
 
 | # | Item | Done | Evidence |
 |---|------|------|----------|
-| O1 | **Nisaba LLC** (Delaware) is Licensor of record on patent licenses | ☐ | Term sheet · `licensing-pack.json` |
+| O1 | **Nisaba LLC** (Wyoming) is Licensor of record on patent licenses | ☐ | Term sheet · `licensing-pack.json` |
 | O2 | **Member cap table** documented (name, %, voting, economic) | ☐ | Operating agreement / cap table |
 | O3 | **You** hold majority economic interest (target ≥70% until deliberate dilution) | ☐ | Cap table |
 | O4 | **Ops bank ≠ owner personal bank** — separate accounts | ☐ | Bank statements |

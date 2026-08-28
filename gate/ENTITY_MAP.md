@@ -18,7 +18,7 @@ The 50–800 recurring-income cohort runs **layered entities**, not one checking
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  IP HoldCo — Nisaba LLC (Delaware)                          │
+│  IP HoldCo — Nisaba LLC (Wyoming)                           │
 │  · US Provisional 64/124,027 + continuations              │
 │  · Velaru / Gate Conformant™ marks (as filed)               │
 │  · Patent license grants · Exhibit B field definitions      │

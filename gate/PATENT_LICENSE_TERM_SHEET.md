@@ -1,7 +1,7 @@
 # Field-Limited Patent License — Term Sheet Skeleton
 
 **Status:** draft skeleton for counsel review — **not legal advice**, not a binding offer.  
-**Licensor (fill):** Nisaba LLC · Delaware · `[ADDRESS]`  
+**Licensor (fill):** Nisaba LLC · Wyoming · `[ADDRESS]`  
 **Patent:** US Provisional **64/124,027** (convert to non-provisional before signature — see §2)  
 **Product spec:** `gate-commit-auth-v1` · `/.well-known/commit-auth.json`  
 **Related:** `COMMIT_AUTH.md` · `license_fuse.py` · `override_impossibility.py` · `licensing_pack.py` · `/.well-known/licensing-pack.json`
@@ -280,7 +280,7 @@ Minimum implementation requirements for **patent exhaustion defense avoided / br
 
 | Term | Fill |
 |------|------|
-| **Governing law** | `[Delaware / New York]` |
+| **Governing law** | `[Wyoming / New York]` |
 | **Dispute** | `[Arbitration AAA / state courts]` |
 | **Assignment** | Licensor may assign with patent; Licensee needs consent |
 | **Export / compliance** | Licensee complies with US export and sanctions |

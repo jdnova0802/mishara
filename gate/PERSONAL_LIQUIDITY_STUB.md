@@ -1,6 +1,6 @@
 # Personal Liquidity Stub — Post-Distribution Layer
 
-**Status:** formal operating stub — **not tax, estate, or legal advice.** CPA + estate counsel before executing.  
+**Status:** formal operating stub — **FROZEN until Gate 1** (`WEALTH_APPARATUS_FREEZE.md`).  
 **Purpose:** What happens **after** `DISTRIBUTION_POLICY.md` sends 30% of excess FCF to you — the layer the 50–800 club runs **below** the operating company.  
 **Companion:** `ENTITY_MAP.md` · `DISTRIBUTION_POLICY.md` · `/.well-known/personal-wire-calculator.json`
 

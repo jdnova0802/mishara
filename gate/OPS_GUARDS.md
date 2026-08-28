@@ -13,6 +13,7 @@ python3 -m gate.ops_guards --live   # + curl prod HTML for stale copy
 | **stripe** | Bind Room price ID present |
 | **buyer_lint** | Local templates: Bind Room lead, no “Two artifacts” |
 | **gate1** | Paid stranger artifact count |
+| **mouth_ceiling** | No new L2 invention modules until Gate 1 (`mouth_ceiling_freeze.json`) |
 | **last_proved** | Feeds Promo Clock from latest bind event |
 | **live_smoke** | Prod HTML ≠ stale hero / Aug 18 drill (`--live` or `GATE_OPS_LIVE_SMOKE=1`) |
 

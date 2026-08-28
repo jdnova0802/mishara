@@ -986,6 +986,7 @@ def health():
             "patent": guards["guards"].get("patent"),
             "stripe": guards["guards"].get("stripe"),
             "gate1": guards["guards"].get("gate1"),
+            "mouth_ceiling": guards["guards"].get("mouth_ceiling"),
             "buyer_lint": {
                 "level": guards["guards"].get("buyer_lint", {}).get("level"),
                 "message": guards["guards"].get("buyer_lint", {}).get("message"),

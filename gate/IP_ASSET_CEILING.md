@@ -1,6 +1,6 @@
 # IP Asset Ceiling — Experimental Upside Ladder
 
-**Status:** inventive model + **24 IP-X modules** in `ip_asset_ceiling.py` — not a forecast.  
+**Status:** inventive model + **24 IP-X modules** — **FROZEN until Gate 1** (`WEALTH_APPARATUS_FREEZE.md`). Not a forecast.  
 **Catalog:** `/.well-known/ip-asset-ceiling.json` · **Ladder:** `/.well-known/ip-asset-ceiling-ladder.json`  
 **Stack total:** 112 invention modules (88 prior + 24 ceiling)
 

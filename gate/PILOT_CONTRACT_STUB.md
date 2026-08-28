@@ -8,7 +8,7 @@
 
 ## 1. Parties
 
-- **Licensor / Operator:** Nisaba LLC, Delaware (`Gate` product)  
+- **Licensor / Operator:** Nisaba LLC, Wyoming (`Gate` product)  
 - **Customer:** `[LEGAL NAME]` · `[JURISDICTION]`
 
 ---
@@ -80,7 +80,7 @@
 
 ## 9. Governing law · assignment
 
-- `[Delaware]`  
+- `[Wyoming]`  
 - Customer **may not** assign without Licensor consent. Licensor **may** assign with patent / business sale.
 
 ---

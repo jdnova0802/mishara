@@ -290,11 +290,18 @@ def gate1_status() -> dict[str, Any]:
 
 
 def snapshot(include_live: bool = False) -> dict[str, Any]:
+    try:
+        from gate.mouth_ceiling_guard import mouth_ceiling_check
+    except ImportError:
+        from mouth_ceiling_guard import mouth_ceiling_check
+
+    gate1 = gate1_status()
     parts: dict[str, Any] = {
         "patent": patent_alarm(),
         "stripe": stripe_sku_health(),
         "buyer_lint": buyer_surface_lint(),
-        "gate1": gate1_status(),
+        "gate1": gate1,
+        "mouth_ceiling": mouth_ceiling_check(gate1_met=bool(gate1.get("gate1_met"))),
         "last_proved": last_proved_from_db(),
     }
     if include_live or os.getenv("GATE_OPS_LIVE_SMOKE", "").lower() in ("1", "true", "yes"):

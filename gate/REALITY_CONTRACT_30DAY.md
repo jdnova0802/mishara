@@ -12,12 +12,22 @@
 
 ---
 
+## Priority order (Aug 28 — outranks list below)
+
+1. **S2 — Non-provisional counsel quote THIS WEEK.** Only hard deadline in the company. Miss it ⇒ patent → **$0** ⇒ term sheet, all eleven exhibits, ceiling ladder zero simultaneously.  
+2. **Entity fix** — Nisaba LLC is **Wyoming**, not Delaware — grep licensing docs if unsure.  
+3. **Gate 1 only** — stranger paid + proved. Licensed field = **$0 licensable** until then (`LICENSED_FIELD_VALUE.md`).  
+4. **Wealth apparatus frozen** — no edits until Gate 1 (`WEALTH_APPARATUS_FREEZE.md`).  
+5. **Mouth Ceiling enforced** — `python3 -m gate.mouth_ceiling_guard` fails on new L2 modules.
+
+---
+
 ## How to use this
 
 1. **S-tier first** every week — patent clock, stranger revenue, GAAIA echo.  
 2. Check boxes when **done**, not when planned.  
 3. **Weekly ritual** (15 min, Sunday or Monday): scoreboard at bottom + `REALITY_CONTRACT.md` questions.  
-4. **Mouth Ceiling:** no new anatomy/mountain docs until a paid artifact clears this cycle.
+4. **Mouth Ceiling:** enforced via `mouth_ceiling_guard` — no new L2 modules until Gate 1.
 
 ---
 
@@ -28,11 +38,11 @@
 | # | Task | Due | Done |
 |---|------|-----|------|
 | S1 | Confirm provisional **#64/124,027** filing date + **non-provisional deadline** on calendar | Day 3 | ☐ |
-| S2 | Get quote from patent counsel OR file pro se budget ($) written down | Day 7 | ☐ |
+| S2 | **Patent counsel quote in writing** OR pro se budget ($) — **THIS WEEK, Day 3 max** | Day 3 | ☐ |
 | S3 | IP ledger row: patent #, filing date, deadline, GAAIA submit date (2026-07-27), CT anchor gist URL | Day 3 | ☐ |
 | S4 | File **intent-to-use** trademark for **Velaru** (USPTO TEAS) | Day 14 | ☐ |
 
-**Kill:** non-provisional deadline passes unconverted ⇒ patent asset → $0.
+**Kill:** non-provisional deadline passes unconverted ⇒ patent asset → **$0** ⇒ licensing pack, exhibits, and ceiling ladder worthless by our own contract.
 
 ---
 

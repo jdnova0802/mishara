@@ -8,6 +8,7 @@ from typing import Any
 
 SPEC = "gate-owner-guardrails-v1"
 OPERATOR = "Nisaba LLC"
+FORMATION_STATE = "Wyoming"
 PATENT_ID = "64/124,027"
 
 IP_NON_ASSIGN_ONE_LINER = (
@@ -149,7 +150,7 @@ def manifest(public_url: str) -> dict[str, Any]:
     return {
         "spec": SPEC,
         "operator": OPERATOR,
-        "patent": PATENT_ID,
+        "formation_state": FORMATION_STATE,
         "status": "formal_operating_stubs_counsel_review",
         "not_legal_advice": True,
         "royalty_waterfall": ROYALTY_WATERFALL,
@@ -160,8 +161,17 @@ def manifest(public_url: str) -> dict[str, Any]:
             "personal_liquidity_stub": "gate/PERSONAL_LIQUIDITY_STUB.md",
             "ip_ownership_checklist": "gate/IP_OWNERSHIP_CHECKLIST.md",
             "pilot_contract_stub": "gate/PILOT_CONTRACT_STUB.md",
+            "licensed_field_value": "gate/LICENSED_FIELD_VALUE.md",
+            "wealth_apparatus_freeze": "gate/WEALTH_APPARATUS_FREEZE.md",
+            "mouth_ceiling": "gate/MOUTH_CEILING.md",
             "licensing_pack": f"{base}/.well-known/licensing-pack.json",
             "wire_calculator": f"{base}/.well-known/personal-wire-calculator.json",
+        },
+        "gate1_work_order": {
+            "licensed_field_value": "gate/LICENSED_FIELD_VALUE.md",
+            "wealth_frozen_until_gate1": "gate/WEALTH_APPARATUS_FREEZE.md",
+            "mouth_ceiling_enforced": "gate/mouth_ceiling_guard.py",
+            "only_work_until_gate1": "non_provisional_quote_and_stranger_paid_proved",
         },
         "pilot_guardrails": {
             "ip_non_assign_one_liner": IP_NON_ASSIGN_ONE_LINER,

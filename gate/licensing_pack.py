@@ -20,6 +20,7 @@ LICENSED_FIELD_SPEC = "gate-licensed-field-v1"
 
 PATENT_ID = "64/124,027"
 OPERATOR = "Nisaba LLC"
+FORMATION_STATE = "Wyoming"
 COMMIT_AUTH_SPEC = "gate-commit-auth-v1"
 
 # Default Licensed Field (Exhibit B) — platform primitive; insurance is carve-in Field A.
@@ -293,7 +294,7 @@ def pack_manifest(public_url: str) -> dict[str, Any]:
         "status": "formal_draft_counsel_review",
         "patent": PATENT_ID,
         "operator": OPERATOR,
-        "commit_auth_spec": COMMIT_AUTH_SPEC,
+        "formation_state": FORMATION_STATE,
         "licensed_field_default": DEFAULT_LICENSED_FIELD,
         "gtm_foothill": GTM_FOOTHILL,
         "claims_licensed_default": ["epoch_lock", "commit_time_single_use_bind"],
@@ -312,6 +313,9 @@ def pack_manifest(public_url: str) -> dict[str, Any]:
             {"id": "entity_map", "path": "gate/ENTITY_MAP.md", "role": "holdco_opco_personal_layers"},
             {"id": "personal_liquidity_stub", "path": "gate/PERSONAL_LIQUIDITY_STUB.md", "role": "post_distribution_personal_layer"},
             {"id": "ip_ownership_checklist", "path": "gate/IP_OWNERSHIP_CHECKLIST.md", "role": "pre_distribution_gate"},
+            {"id": "licensed_field_value", "path": "gate/LICENSED_FIELD_VALUE.md", "role": "pre_gate1_value_answer"},
+            {"id": "wealth_apparatus_freeze", "path": "gate/WEALTH_APPARATUS_FREEZE.md", "role": "gate1_work_order"},
+            {"id": "mouth_ceiling", "path": "gate/MOUTH_CEILING.md", "role": "l2_module_freeze_enforced"},
             {"id": "pilot_contract_stub", "path": "gate/PILOT_CONTRACT_STUB.md", "role": "no_ip_assign_template"},
         ],
         "exhibits": {
