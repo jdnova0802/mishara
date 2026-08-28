@@ -8,6 +8,7 @@ This file is the **mountain**.
 `GATE_STANCE.md` is the **locked political shape**.  
 `REALITY_CONTRACT.md` is the **earn-or-stop ladder**.  
 `SCIENCE.md` is the **physics + PRI lock**.  
+`BUSINESS_CATEGORIES.md` is the **altitude map** (what sits above / beside / below infra; where Nisaba sits).  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
 
 ---
