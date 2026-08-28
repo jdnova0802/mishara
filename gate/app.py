@@ -1963,6 +1963,7 @@ def well_known_lab():
                 "ip_asset_ceiling": f"{base}/.well-known/ip-asset-ceiling.json",
                 "ip_asset_ceiling_ladder": f"{base}/.well-known/ip-asset-ceiling-ladder.json",
                 "licensing_pack": f"{base}/.well-known/licensing-pack.json",
+                "licensed_field": f"{base}/.well-known/licensed-field.json",
                 "may_budget": f"{base}/.well-known/may-budget.json",
                 "funeral_bit": f"{base}/.well-known/funeral-bit.json",
                 "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
@@ -3057,8 +3058,11 @@ def well_known_commit_auth():
             "patent_licensing": {
                 "provisional": "64/124,027",
                 "status": "formal_draft_counsel_review",
+                "licensed_field_default": "platform_delegated_write",
+                "gtm_foothill": "insurance_bind_moment_pas_mga",
                 "well_known_pack": f"{advertised_url()}/.well-known/licensing-pack.json",
                 "exhibits": {
+                    "B_licensed_field": f"{advertised_url()}/.well-known/licensed-field.json",
                     "I_premium_bps": f"{advertised_url()}/.well-known/premium-bps-schedule.json",
                     "J_conformant_mark": f"{advertised_url()}/.well-known/gate-conformant-mark-spec.json",
                     "K_qic_meter": f"{advertised_url()}/.well-known/qic-meter.json",
@@ -6545,6 +6549,11 @@ def _register_ip_asset_ceiling_routes() -> None:
 
 
 _register_ip_asset_ceiling_routes()
+
+
+@app.route("/.well-known/licensed-field.json")
+def well_known_licensed_field():
+    return jsonify(licensing_pack_mod.licensed_field_manifest(advertised_url()))
 
 
 @app.route("/.well-known/licensing-pack.json")

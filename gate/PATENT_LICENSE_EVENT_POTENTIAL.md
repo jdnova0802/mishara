@@ -43,9 +43,9 @@ annual_patent_cash ≈ platform_fee + max(MAR, LAQ × rate) + upfront_amortizati
 | Renewal / remarket binds / yr | ~200M+ | Most PIF renews; not all paths are "bind" writes |
 | **Full US bind-path QIC ceiling** | **~100–300M / yr** | If every stick used epoch lock + commit-time redeem |
 
-**Gate Licensed Field today:** PAS/MGA **bind-and-issue** + **renewal batch bind** — not whole P&C (no payment rails, no generic IAM).
+**Gate Licensed Field (formal default):** irreversible **delegated-write** control planes across verticals — see `/.well-known/licensed-field.json`. Insurance PAS/MGA is **Field A carve-in** and current **GTM foothill**, not the patent default.
 
-**Realistic penetration:** patent license follows **conformance adoption**, not total market. Year 1–3 target is **thousands to low millions** of LAQ, not hundreds of millions.
+**Realistic penetration:** patent license follows **conformance adoption** per Licensed Field, not total market in any one vertical. Year 1–3 target is **thousands to low millions** of LAQ, not hundreds of millions.
 
 ---
 

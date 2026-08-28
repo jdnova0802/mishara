@@ -22,8 +22,18 @@ class LicensingPackTests(unittest.TestCase):
         body = r.get_json()
         self.assertEqual(body["spec"], "gate-licensing-pack-v1")
         self.assertEqual(body["patent"], "64/124,027")
+        self.assertEqual(body["licensed_field_default"], "platform_delegated_write")
         self.assertIn("I", body["exhibits"])
         self.assertIn("premium_bps_meter", body["formal_modules"])
+
+    def test_licensed_field_exhibit_b_default_platform(self):
+        r = self.client.get("/.well-known/licensed-field.json")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body["spec"], "gate-licensed-field-v1")
+        self.assertEqual(body["default"], "platform_delegated_write")
+        self.assertTrue(body["fields"]["platform_delegated_write"]["default"])
+        self.assertTrue(body["fields"]["insurance_pas_mga"]["carve_in"])
 
     def test_premium_bps_schedule_exhibit_i(self):
         r = self.client.get("/.well-known/premium-bps-schedule.json")
@@ -31,7 +41,8 @@ class LicensingPackTests(unittest.TestCase):
         body = r.get_json()
         self.assertEqual(body["spec"], "gate-premium-bps-schedule-v1")
         self.assertEqual(body["exhibit"], "I")
-        self.assertIn("formula", body)
+        self.assertEqual(body["licensed_field_default"], "platform_delegated_write")
+        self.assertIn("formula", body["meters"]["cleared_flow_bps"])
 
     def test_gate_conformant_mark_spec_exhibit_j(self):
         r = self.client.get("/.well-known/gate-conformant-mark-spec.json")
@@ -53,6 +64,7 @@ class LicensingPackTests(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         pl = r.get_json()["patent_licensing"]
         self.assertEqual(pl["status"], "formal_draft_counsel_review")
+        self.assertEqual(pl["licensed_field_default"], "platform_delegated_write")
         self.assertIn("licensing-pack.json", pl["well_known_pack"])
 
 

@@ -113,7 +113,7 @@ Recurring-income asset class — Disney/ARM/Jordan/Bowie-grade IP formalized on 
 
 Attach: `ip_asset_deep.attach(plan)` → `plan["ip_asset_deep"]` + ghost/dilution/copyleft blocker lists.
 
-**Licensing (formal pack):** canonical index → `/.well-known/licensing-pack.json` · `licensing_pack.py` · Exhibits I–K well-known · term sheet `PATENT_LICENSE_TERM_SHEET.md` · sendables `PATENT_LICENSE_EXHIBIT_REDACTED.md` · QIC model `PATENT_LICENSE_EVENT_POTENTIAL.md` · upside ladder `IP_ASSET_CEILING.md`
+**Licensing (formal pack):** canonical index → `/.well-known/licensing-pack.json` · **default Licensed Field B (platform)** → `/.well-known/licensed-field.json` · Exhibits I–K · GTM foothill = insurance PAS/MGA only · term sheet + sendables + models as before
 
 ---
 

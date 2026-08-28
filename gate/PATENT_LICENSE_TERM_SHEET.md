@@ -16,7 +16,7 @@ This skeleton maps **patent lane** claims from `COMMIT_AUTH.md`:
 |--------------|-------------|-------------------------------|
 | **Epoch lock** — non-resurrecting HALT until verified CHARGE; `not_admin_charge` | **Primary** | Yes |
 | **Commit-time authorization** — single-use redeem at bind; LIVE hop ≠ bind grant | **Secondary** | Yes |
-| Insurance bind surface / NAIC vertical / PAS product names | GTM only | **No** (field carve-out) |
+| Insurance bind surface / NAIC / PAS product names | GTM foothill only | **No** (unless Field A carved into Exhibit B) |
 | BYOK twin / dual-control | Supporting | Optional exhibit |
 | 88 invention module names / civilizational + IP catalog positioning | Positioning | **No** (112 modules — names not licensed) |
 
@@ -59,15 +59,23 @@ Excludes: generic TTL tokens, reusable JWT/Biscuit delegation, FRE-only receipts
 
 ## 3. Licensed field (Exhibit B — field definition)
 
+**Canonical spec:** `/.well-known/licensed-field.json` · `gate-licensed-field-v1`
+
+**3.0 Default (template)**
+
+Unless Exhibit B amendment narrows further, the default **Licensed Field** is **Option B (platform)** — irreversible **delegated-write** control planes across verticals. Insurance PAS/MGA (Option A) is a **field carve-in**, not the default grant. PAS/MGA is the current **GTM foothill** only (`STRONGEST_START` vertical lock).
+
 **3.1 Licensed Field (grant)**
 
 Use of Licensed Patents **only** within:
 
-> `[CHOOSE ONE OR NARROW COMBO]`
+> **Default — Option B (platform):** irreversible **delegated write** control planes where a third party can verify epoch HALT + stranger-grade receipt without admin resurrect — including without limitation: agent tool commits, payout/withdraw clearance, enterprise org-root spend, defense release, hiring decision stick, and (when carved in) insurance bind paths.
 >
-> - **Option A (insurance):** policy administration systems (PAS) **bind-and-issue** and **renewal batch bind** paths for P&C or MGA carriers in `[LIST STATES / COUNTRIES]`
-> - **Option B (platform):** irreversible **delegated write** control planes for enterprise software where a third party can verify HALT + receipt without admin resurrect
-> - **Option C (field-limited OEM):** `[LICENSEE PRODUCT LINE]` embedded in `[CUSTOMER SEGMENT]` only
+> **Option A (insurance carve-in):** policy administration systems (PAS) **bind-and-issue** and **renewal batch bind** for P&C or MGA carriers in `[LIST STATES / COUNTRIES]` — **subset of Option B**
+>
+> **Option C (field-limited OEM):** `[LICENSEE PRODUCT LINE]` embedded in `[CUSTOMER SEGMENT]` only
+
+**Audience plates** (`/for/<slug>` — developers, agents, operators, carriers, defense, etc.) are **GTM surfaces**, not separate patent fields unless named in Exhibit B.
 
 **3.2 Excluded fields (reservation of rights)**
 
@@ -285,14 +293,14 @@ Minimum implementation requirements for **patent exhaustion defense avoided / br
 | Exhibit | Contents |
 |---------|----------|
 | **A** | Claim chart (epoch lock + commit-time only) |
-| **B** | Licensed Field + exclusions |
+| **B** | Licensed Field + exclusions — `/.well-known/licensed-field.json` (default Option B platform) |
 | **C** | Conformance spec (`commit-auth`, spend-protocol, override packet) |
 | **D** | Source/SDK deliverables (if Tier 2) |
 | **E** | Trademark guidelines (if any) |
 | **F** | Sublicense template (license fuse cascade) |
 | **G** | Fee schedule (upfront + MAR + per-QIC) — see also `PATENT_LICENSE_EXHIBIT_REDACTED.md` |
 | **H** | FRAND letter (if standards path) |
-| **I** | Premium basis-points schedule — `/.well-known/premium-bps-schedule.json` |
+| **I** | Premium / cleared-flow bps schedule — `/.well-known/premium-bps-schedule.json` |
 | **J** | Gate Conformant™ mark spec — `/.well-known/gate-conformant-mark-spec.json` |
 | **K** | QIC meter definitions — `/.well-known/qic-meter.json` |
 
