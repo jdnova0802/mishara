@@ -78,7 +78,7 @@ Everything below serves this table. Insurance PAS / form edition = **digital foo
 
 **Proud receipt:** **name on a protocol spec** (or equivalent production cite) that strangers use in live routing.
 
-**First “getting somewhere” receipt (regional, not local):** **evac comms handoff bind** on owned/controlled nodes — e.g. a **region on notice** (Midwest-scale routing authority), not a city pilot. Local proofs are insufficient; regional invoke = early validation.
+**First “getting somewhere” receipt (regional, not local):** **evac comms handoff bind** on owned/controlled nodes — **multi-state / regional routing authority** (any geography; e.g. a FEMA region, theater, or multi-state corridor — **not** a named locale lock), not a city pilot. Local proofs are insufficient; regional invoke = early validation.
 
 **Sequence note:** Gate foothill (insurance/digital bind) → latch/spec cite → **regional evac comms invoke** = identity proof. Matter/manufacturing extension **after** evac comms choke proves — same grammar, next medium.
 
