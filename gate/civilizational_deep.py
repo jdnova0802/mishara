@@ -75,10 +75,9 @@ def _out(slug: str, invention: str, real: dict[str, Any], verdict: str, **extra:
 
 _REAL_VOYAGER = {
     "institution": "NASA Voyager Interstellar Mission — Golden Record",
-    "artifact": "Voyager Golden Record — billion-year cultural receipt on both probes",
-    "voyager1_distance_au": "~163 AU (Aug 2026)",
-    "power_fix": "Aug 2026 Big Bang power subsystem fix — restored science telemetry after voltage sag",
-    "url": "https://voyager.jpl.nasa.gov/golden-record/",
+    "artifact": "Gold-plated copper phonograph record — engineered ~billion-year survival",
+    "voyager2_fix": "July 2026 Big Bang power swap — extended science instruments ~1 year (NASA JPL)",
+    "url": "https://science.nasa.gov/blogs/voyager/2026/08/04/nasa-engineers-help-prolong-voyager-2s-science-mission/",
 }
 
 
@@ -137,8 +136,9 @@ def _eval_asilomar_bind_moratorium(**kwargs: Any) -> dict[str, Any]:
 
 _REAL_PAL = {
     "institution": "US Permissive Action Link (PAL) — nuclear weapon use control",
-    "property": "Cryptographic lockout; limited try before lockout",
-    "url": "https://www.energy.gov/nnsa/permissive-action-link",
+    "property": "Limited-try feature — circuits self-destruct after too many wrong codes",
+    "two_person_rule": "Dual-key / dual-safe Minuteman launch control",
+    "url": "https://en.wikipedia.org/wiki/Permissive_action_link",
 }
 
 
@@ -159,10 +159,11 @@ def _eval_pal_limited_try(**kwargs: Any) -> dict[str, Any]:
 
 
 _REAL_EU_AI50 = {
-    "institution": "EU AI Act — Article 50 transparency obligations",
-    "enforceable": "2026-08-02 (GPAI transparency / deepfake marking)",
-    "omnibus_deferral": "High-risk GPAI systemic obligations deferred to 2027-12-02 via Digital Omnibus",
-    "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "institution": "EU AI Act — Regulation (EU) 2024/1689 as amended by Digital Omnibus (EU) 2026/1744",
+    "article_50_enforceable": "2026-08-02 (transparency / synthetic content marking)",
+    "annex_iii_high_risk_deferred": "2027-12-02 (was 2026-08-02)",
+    "annex_i_embedded_deferred": "2028-08-02",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32026R1744",
 }
 
 
