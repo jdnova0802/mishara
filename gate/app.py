@@ -515,6 +515,11 @@ except ImportError:
     import ip_asset_ceiling as ip_asset_ceiling_mod
 
 try:
+    from gate import licensing_pack as licensing_pack_mod
+except ImportError:
+    import licensing_pack as licensing_pack_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1957,6 +1962,7 @@ def well_known_lab():
                 "ip_asset_deep": f"{base}/.well-known/ip-asset-deep.json",
                 "ip_asset_ceiling": f"{base}/.well-known/ip-asset-ceiling.json",
                 "ip_asset_ceiling_ladder": f"{base}/.well-known/ip-asset-ceiling-ladder.json",
+                "licensing_pack": f"{base}/.well-known/licensing-pack.json",
                 "may_budget": f"{base}/.well-known/may-budget.json",
                 "funeral_bit": f"{base}/.well-known/funeral-bit.json",
                 "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
@@ -3050,6 +3056,13 @@ def well_known_commit_auth():
             },
             "patent_licensing": {
                 "provisional": "64/124,027",
+                "status": "formal_draft_counsel_review",
+                "well_known_pack": f"{advertised_url()}/.well-known/licensing-pack.json",
+                "exhibits": {
+                    "I_premium_bps": f"{advertised_url()}/.well-known/premium-bps-schedule.json",
+                    "J_conformant_mark": f"{advertised_url()}/.well-known/gate-conformant-mark-spec.json",
+                    "K_qic_meter": f"{advertised_url()}/.well-known/qic-meter.json",
+                },
                 "term_sheet_skeleton": "gate/PATENT_LICENSE_TERM_SHEET.md",
                 "exhibit_redacted": "gate/PATENT_LICENSE_EXHIBIT_REDACTED.md",
                 "event_potential_model": "gate/PATENT_LICENSE_EVENT_POTENTIAL.md",
@@ -3063,7 +3076,6 @@ def well_known_commit_auth():
                     "laq": "licensed_actual_annual_qic",
                     "billable": "max(MAR, LAQ × per_QIC_rate)",
                 },
-                "status": "draft_skeleton_counsel_review",
             },
             "ietf_posture": {
                 "pick": "extend",
@@ -6533,6 +6545,26 @@ def _register_ip_asset_ceiling_routes() -> None:
 
 
 _register_ip_asset_ceiling_routes()
+
+
+@app.route("/.well-known/licensing-pack.json")
+def well_known_licensing_pack():
+    return jsonify(licensing_pack_mod.pack_manifest(advertised_url()))
+
+
+@app.route("/.well-known/premium-bps-schedule.json")
+def well_known_premium_bps_schedule():
+    return jsonify(licensing_pack_mod.premium_bps_schedule_manifest(advertised_url()))
+
+
+@app.route("/.well-known/gate-conformant-mark-spec.json")
+def well_known_gate_conformant_mark_spec():
+    return jsonify(licensing_pack_mod.gate_conformant_mark_spec_manifest(advertised_url()))
+
+
+@app.route("/.well-known/qic-meter.json")
+def well_known_qic_meter():
+    return jsonify(licensing_pack_mod.qic_meter_manifest(advertised_url()))
 
 
 if __name__ == "__main__":

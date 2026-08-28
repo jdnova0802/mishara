@@ -4,7 +4,7 @@
 **Licensor (fill):** Nisaba LLC · Delaware · `[ADDRESS]`  
 **Patent:** US Provisional **64/124,027** (convert to non-provisional before signature — see §2)  
 **Product spec:** `gate-commit-auth-v1` · `/.well-known/commit-auth.json`  
-**Related:** `COMMIT_AUTH.md` · `license_fuse.py` · `override_impossibility.py` · `ip_asset_deep.py` (`epoch_lock_patent_asset`)
+**Related:** `COMMIT_AUTH.md` · `license_fuse.py` · `override_impossibility.py` · `licensing_pack.py` · `/.well-known/licensing-pack.json`
 
 ---
 
@@ -18,7 +18,7 @@ This skeleton maps **patent lane** claims from `COMMIT_AUTH.md`:
 | **Commit-time authorization** — single-use redeem at bind; LIVE hop ≠ bind grant | **Secondary** | Yes |
 | Insurance bind surface / NAIC vertical / PAS product names | GTM only | **No** (field carve-out) |
 | BYOK twin / dual-control | Supporting | Optional exhibit |
-| 88 invention module names / civilizational IP batch | Positioning | **No** |
+| 88 invention module names / civilizational + IP catalog positioning | Positioning | **No** (112 modules — names not licensed) |
 
 **Do not** grant trademark, copyright, or **may authority** (CHARGE / epoch resurrection) in a patent license. Those stay in separate weld / operator agreements.
 
@@ -290,8 +290,13 @@ Minimum implementation requirements for **patent exhaustion defense avoided / br
 | **D** | Source/SDK deliverables (if Tier 2) |
 | **E** | Trademark guidelines (if any) |
 | **F** | Sublicense template (license fuse cascade) |
-| **G** | Fee schedule (upfront + MAR + per-QIC) |
+| **G** | Fee schedule (upfront + MAR + per-QIC) — see also `PATENT_LICENSE_EXHIBIT_REDACTED.md` |
 | **H** | FRAND letter (if standards path) |
+| **I** | Premium basis-points schedule — `/.well-known/premium-bps-schedule.json` |
+| **J** | Gate Conformant™ mark spec — `/.well-known/gate-conformant-mark-spec.json` |
+| **K** | QIC meter definitions — `/.well-known/qic-meter.json` |
+
+**Pack index:** `/.well-known/licensing-pack.json` (canonical entry point)
 
 ---
 

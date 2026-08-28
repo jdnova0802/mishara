@@ -2,7 +2,7 @@
 
 **Status:** draft for external diligence — **remove § internal anchors before sending.**  
 **Patent:** US Provisional 64/124,027 · **Licensor:** Nisaba LLC  
-**Full skeleton:** `PATENT_LICENSE_TERM_SHEET.md` · **Spec:** `gate-commit-auth-v1`
+**Full skeleton:** `PATENT_LICENSE_TERM_SHEET.md` · **Pack index:** `/.well-known/licensing-pack.json` · **Spec:** `gate-commit-auth-v1`
 
 ---
 
@@ -30,7 +30,9 @@
 
 **Illustrative annual royalty at CAQ** (not a quote): 50M QIC × $0.25 = **$12.5M/yr** variable → bill **`max(MAR, variable)`**.
 
-**Stranger verify (no pricing):** `/.well-known/epoch-lock-patent-asset.json` · conformance spec URL only.
+**Stranger verify (no pricing):** `/.well-known/licensing-pack.json` · `/.well-known/epoch-lock-patent-asset.json`
+
+**Formal schedules:** Exhibit I `/.well-known/premium-bps-schedule.json` · Exhibit K `/.well-known/qic-meter.json`
 
 ---
 
@@ -59,6 +61,8 @@
 **Growth path:** at 500k QIC × $0.50 = **$250k/yr** before platform fee; at 2M QIC × $0.35 = **$700k/yr**.
 
 **Condition precedent:** non-provisional filed before `[DATE]` (see term sheet §2.2).
+
+**Formal schedules:** Exhibit I (premium bps) · Exhibit J (conformant mark) · Exhibit K (QIC meter) — via `/.well-known/licensing-pack.json`
 
 ---
 

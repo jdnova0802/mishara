@@ -132,7 +132,7 @@ _REAL_NAIC_LATCH = {
     "institution": "NAIC AIS Evaluation Tool — Exhibit D adoption path (12-state pilot 2026)",
     "analog": "Regulatory latch forces conformant bind on audited models",
     "url": "https://content.naic.org/",
-    "note": "Adoption driver for premium bps + QIC volume — not royalty by itself.",
+    "note": "Regulatory latch multiplies LAQ; implementation sibling exhibit_d_snare.py — do not duplicate evaluator.",
 }
 
 _REAL_VISA = {

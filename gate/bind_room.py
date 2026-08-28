@@ -92,6 +92,7 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "ip_asset_deep": f"{public_url}/.well-known/ip-asset-deep.json",
             "ip_asset_ceiling": f"{public_url}/.well-known/ip-asset-ceiling.json",
             "ip_asset_ceiling_ladder": f"{public_url}/.well-known/ip-asset-ceiling-ladder.json",
+            "licensing_pack": f"{public_url}/.well-known/licensing-pack.json",
         },
     }
 
