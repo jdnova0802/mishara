@@ -415,6 +415,41 @@ except ImportError:
     import bind_weather as bind_weather_mod
 
 try:
+    from gate import exhibit_d_snare as exhibit_d_snare_mod
+except ImportError:
+    import exhibit_d_snare as exhibit_d_snare_mod
+
+try:
+    from gate import protracted_outage_order as protracted_outage_order_mod
+except ImportError:
+    import protracted_outage_order as protracted_outage_order_mod
+
+try:
+    from gate import black_box_epoch as black_box_epoch_mod
+except ImportError:
+    import black_box_epoch as black_box_epoch_mod
+
+try:
+    from gate import mariana_pause_latch as mariana_pause_latch_mod
+except ImportError:
+    import mariana_pause_latch as mariana_pause_latch_mod
+
+try:
+    from gate import nss_finality_stamp as nss_finality_stamp_mod
+except ImportError:
+    import nss_finality_stamp as nss_finality_stamp_mod
+
+try:
+    from gate import agora_atomic_bind as agora_atomic_bind_mod
+except ImportError:
+    import agora_atomic_bind as agora_atomic_bind_mod
+
+try:
+    from gate import ambest_shutdown_seat as ambest_shutdown_seat_mod
+except ImportError:
+    import ambest_shutdown_seat as ambest_shutdown_seat_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1289,6 +1324,9 @@ def _finalize_spend_plan(
     halt_cemetery_mod.attach(plan, row=row, epoch=epoch_meta)
     refuse_ledger_mod.attach(plan, row=row, premium=_num(plan.get("premium")))
     override_impossibility_mod.attach(plan)
+    black_box_epoch_mod.attach(plan)
+    nss_finality_stamp_mod.attach(plan)
+    agora_atomic_bind_mod.attach(plan)
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
@@ -1815,6 +1853,13 @@ def well_known_lab():
                 "refuse_ledger": f"{base}/.well-known/refuse-ledger.json",
                 "override_impossibility": f"{base}/.well-known/override-impossibility.json",
                 "bind_weather": f"{base}/.well-known/bind-weather.json",
+                "exhibit_d_snare": f"{base}/.well-known/exhibit-d-snare.json",
+                "protracted_outage_order": f"{base}/.well-known/protracted-outage-order.json",
+                "black_box_epoch": f"{base}/.well-known/black-box-epoch.json",
+                "mariana_pause_latch": f"{base}/.well-known/mariana-pause-latch.json",
+                "nss_finality_stamp": f"{base}/.well-known/nss-finality-stamp.json",
+                "agora_atomic_bind": f"{base}/.well-known/agora-atomic-bind.json",
+                "ambest_shutdown_seat": f"{base}/.well-known/ambest-shutdown-seat.json",
                 "continuity_live": f"{base}/.well-known/continuity-live.json",
                 "gate_anatomy": f"{base}/.well-known/gate-anatomy.json",
                 "stale_live": f"{base}/.well-known/stale-live.json",
@@ -2891,6 +2936,13 @@ def well_known_commit_auth():
                     "refuse_ledger",
                     "override_impossibility",
                     "bind_weather",
+                    "exhibit_d_snare",
+                    "protracted_outage_order",
+                    "black_box_epoch",
+                    "mariana_pause_latch",
+                    "nss_finality_stamp",
+                    "agora_atomic_bind",
+                    "ambest_shutdown_seat",
                 ],
             },
             "ietf_posture": {
@@ -3877,6 +3929,41 @@ def bind_room_bind_weather():
     return jsonify(bind_weather_mod.manifest(advertised_url()))
 
 
+@app.route("/bind-room/exhibit-d-snare.json")
+def bind_room_exhibit_d_snare():
+    return jsonify(exhibit_d_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/protracted-outage-order.json")
+def bind_room_protracted_outage_order():
+    return jsonify(protracted_outage_order_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/black-box-epoch.json")
+def bind_room_black_box_epoch():
+    return jsonify(black_box_epoch_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/mariana-pause-latch.json")
+def bind_room_mariana_pause_latch():
+    return jsonify(mariana_pause_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/nss-finality-stamp.json")
+def bind_room_nss_finality_stamp():
+    return jsonify(nss_finality_stamp_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/agora-atomic-bind.json")
+def bind_room_agora_atomic_bind():
+    return jsonify(agora_atomic_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ambest-shutdown-seat.json")
+def bind_room_ambest_shutdown_seat():
+    return jsonify(ambest_shutdown_seat_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -4198,6 +4285,179 @@ def well_known_override_impossibility():
 @app.route("/.well-known/bind-weather.json")
 def well_known_bind_weather():
     return jsonify(bind_weather_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/pas/exhibit-d-snare", methods=["POST"])
+def demo_pas_exhibit_d_snare():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = exhibit_d_snare_mod.scan(scenario)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/exhibit-d-compile", methods=["POST"])
+def demo_pas_exhibit_d_compile():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = exhibit_d_snare_mod.compile_exhibits(plan=body if isinstance(body, dict) else {})
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/protracted-outage-order", methods=["POST"])
+def demo_pas_protracted_outage_order():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = protracted_outage_order_mod.evaluate(
+        protracted_outage=body.get("protracted_outage"),
+        critical_bind_order=body.get("critical_bind_order"),
+        oral_confirm=body.get("oral_confirm"),
+        master_account_lagged=body.get("master_account_lagged"),
+        fail_open_requested=body.get("fail_open_requested"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/black-box-epoch/deposit", methods=["POST"])
+def demo_pas_black_box_epoch_deposit():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = black_box_epoch_mod.deposit(
+        depositor_id=body.get("depositor_id"),
+        job_id=body.get("job_id"),
+        halt_receipt=body.get("halt_receipt") if isinstance(body.get("halt_receipt"), dict) else None,
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/black-box-epoch/withdraw", methods=["POST"])
+def demo_pas_black_box_epoch_withdraw():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = black_box_epoch_mod.withdrawal_request(
+        depositor_id=body.get("depositor_id"),
+        charge_id=body.get("charge_id"),
+        impostor_admin=body.get("impostor_admin"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/mariana-pause-latch", methods=["POST"])
+def demo_pas_mariana_pause_latch():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = mariana_pause_latch_mod.evaluate(
+        paused=body.get("paused"),
+        pause_authority=body.get("pause_authority"),
+        charge_id=body.get("charge_id"),
+        self_unpause_attempt=body.get("self_unpause_attempt"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/nss-finality-stamp", methods=["POST"])
+def demo_pas_nss_finality_stamp():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = nss_finality_stamp_mod.stamp(
+        job_id=body.get("job_id"),
+        bind_consumed=body.get("bind_consumed"),
+        master_account_posted=body.get("master_account_posted"),
+        hop_live_only=body.get("hop_live_only"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/agora-atomic-bind", methods=["POST"])
+def demo_pas_agora_atomic_bind():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = agora_atomic_bind_mod.evaluate(
+        epoch_clear=body.get("epoch_clear"),
+        ticket_redeemed=body.get("ticket_redeemed"),
+        fingerprint_match=body.get("fingerprint_match"),
+        premium_ok=body.get("premium_ok"),
+        license_live=body.get("license_live"),
+        partial_bind_attempt=body.get("partial_bind_attempt"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/ambest-shutdown-seat", methods=["POST"])
+def demo_pas_ambest_shutdown_seat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = ambest_shutdown_seat_mod.evaluate(
+        agent_can_self_stop=body.get("agent_can_self_stop"),
+        shutdown_outside_loop=body.get("shutdown_outside_loop"),
+        charge_id=body.get("charge_id"),
+        reconstructable=body.get("reconstructable"),
+        tested_shutdown=body.get("tested_shutdown"),
+        procedural_review_only=body.get("procedural_review_only"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/.well-known/exhibit-d-snare.json")
+def well_known_exhibit_d_snare():
+    return jsonify(exhibit_d_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/protracted-outage-order.json")
+def well_known_protracted_outage_order():
+    return jsonify(protracted_outage_order_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/black-box-epoch.json")
+def well_known_black_box_epoch():
+    return jsonify(black_box_epoch_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mariana-pause-latch.json")
+def well_known_mariana_pause_latch():
+    return jsonify(mariana_pause_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/nss-finality-stamp.json")
+def well_known_nss_finality_stamp():
+    return jsonify(nss_finality_stamp_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/agora-atomic-bind.json")
+def well_known_agora_atomic_bind():
+    return jsonify(agora_atomic_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ambest-shutdown-seat.json")
+def well_known_ambest_shutdown_seat():
+    return jsonify(ambest_shutdown_seat_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/stick-meter", methods=["POST"])

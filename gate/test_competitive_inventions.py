@@ -68,5 +68,52 @@ class CompetitiveInventionTests(unittest.TestCase):
         self.assertEqual(r.get_json()["verdict"], "HAUNTED")
 
 
+class InstitutionalTwistTests(unittest.TestCase):
+    def setUp(self):
+        gate_app.app.config["TESTING"] = True
+        self.client = gate_app.app.test_client()
+
+    def test_institutional_manifests(self):
+        specs = {
+            "/.well-known/exhibit-d-snare.json": "gate-exhibit-d-snare-v1",
+            "/.well-known/protracted-outage-order.json": "gate-protracted-outage-order-v1",
+            "/.well-known/black-box-epoch.json": "gate-black-box-epoch-v1",
+            "/.well-known/mariana-pause-latch.json": "gate-mariana-pause-latch-v1",
+            "/.well-known/nss-finality-stamp.json": "gate-nss-finality-stamp-v1",
+            "/.well-known/agora-atomic-bind.json": "gate-agora-atomic-bind-v1",
+            "/.well-known/ambest-shutdown-seat.json": "gate-ambest-shutdown-seat-v1",
+        }
+        for path, spec in specs.items():
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+            body = r.get_json()
+            self.assertEqual(body["spec"], spec, path)
+            self.assertIn("real_institution", body)
+
+    def test_black_box_rejects_admin(self):
+        r = self.client.post(
+            "/demo/pas/black-box-epoch/withdraw",
+            json={"impostor_admin": True},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["verdict"], "DENIED")
+
+    def test_mariana_pause_no_self_unpause(self):
+        r = self.client.post(
+            "/demo/pas/mariana-pause-latch",
+            json={"paused": True, "self_unpause_attempt": True},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["verdict"], "PAUSE_STICKS")
+
+    def test_exhibit_d_haunts_empty_program(self):
+        r = self.client.post(
+            "/demo/pas/exhibit-d-snare",
+            json={"ais_program_claimed": True},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["verdict"], "EXAMINER_HAUNTED")
+
+
 if __name__ == "__main__":
     unittest.main()

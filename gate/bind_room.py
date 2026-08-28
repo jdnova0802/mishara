@@ -74,6 +74,10 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "refuse_ledger": f"{public_url}/.well-known/refuse-ledger.json",
             "override_impossibility": f"{public_url}/.well-known/override-impossibility.json",
             "bind_weather": f"{public_url}/.well-known/bind-weather.json",
+            "exhibit_d_snare": f"{public_url}/.well-known/exhibit-d-snare.json",
+            "black_box_epoch": f"{public_url}/.well-known/black-box-epoch.json",
+            "mariana_pause_latch": f"{public_url}/.well-known/mariana-pause-latch.json",
+            "ambest_shutdown_seat": f"{public_url}/.well-known/ambest-shutdown-seat.json",
         },
     }
 

@@ -29,7 +29,21 @@ Patent the HALT. Sell the bind moment. **Invent the weather** around both.
 | **Override Impossibility Packet** | `override_impossibility.py` | `/.well-known/override-impossibility.json` |
 | **Bind Weather** | `bind_weather.py` | `/.well-known/bind-weather.json` |
 
-Wired on HALT paths: cemetery + refuse ledger + override packet stamp `_finalize_spend_plan`.
+Wired on HALT paths: cemetery + refuse ledger + override packet + black box epoch + nss finality + agora atomic.
+
+---
+
+## Shipped batch 2 — institutional twist (Aug 28)
+
+| Invention | Real institution | Module |
+|-----------|------------------|--------|
+| **Exhibit D Snare** | NAIC AIS Evaluation Tool (12-state pilot → Nov 2026 adoption) | `exhibit_d_snare.py` |
+| **Protracted Outage Order** | Fedwire OC6 Critical Payment Order (Jan 2026) | `protracted_outage_order.py` |
+| **Black Box Epoch** | Svalbard Seed Vault black-box regime | `black_box_epoch.py` |
+| **Mariana Pause Latch** | BIS Project Mariana Requirement T3 | `mariana_pause_latch.py` |
+| **NSS Finality Stamp** | DTCC FICC + Fed NSS finality point | `nss_finality_stamp.py` |
+| **Agorá Atomic Bind** | BIS Project Agorá atomic settlement | `agora_atomic_bind.py` |
+| **AM Best Shutdown Seat** | AM Best NAIC Summer 2026 agentic governance | `ambest_shutdown_seat.py` |
 
 ---
 
