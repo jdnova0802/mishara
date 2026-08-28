@@ -20,6 +20,9 @@ REAL = {
     "institution": "International Atomic Energy Agency",
     "concept": "State-Level Concept — Acquisition Path Analysis (APA)",
     "focus": "Rank undeclared material routes; holistic safeguards conclusions",
+    "procedure_finalized": "2024",
+    "states_with_sla_methodology": 59,
+    "source": "Safeguards Implementation Report 2025",
     "url": "https://www.iaea.org/topics/nuclear-verification-and-security",
 }
 

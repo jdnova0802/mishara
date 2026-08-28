@@ -18,7 +18,8 @@ FAMILY = "s-tier"
 REAL = {
     "institution": "Long Now Foundation — 10,000-Year Clock",
     "site": "West Texas mountain (Clock of the Long Now)",
-    "property": "Century chimes never repeat in 10,000-year cycle",
+    "property": "Progressive chime algorithm — millions of unique sequences, no repeat in cycle",
+    "installation_phase": "2026 (drive weight, winder, main gearing installed underground)",
     "url": "https://longnow.org/clock/",
 }
 

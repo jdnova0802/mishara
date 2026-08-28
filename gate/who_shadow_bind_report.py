@@ -16,10 +16,11 @@ TIER = "S"
 FAMILY = "s-tier"
 
 REAL = {
-    "institution": "WHO Pandemic Agreement / Intergovernmental Negotiating Body",
-    "concept": "Independent monitoring + shadow reporting when official counts lag",
-    "gap": "Treaty monitoring for health; no analog for irreversible bind path",
-    "url": "https://www.who.int/news/item/01-06-2024-who-member-states-agree-to-continue-negotiations",
+    "institution": "WHO Pandemic Agreement — IGWG on PABS Annex",
+    "agreement_adopted": "WHA May 2025 (resolution WHA78.1)",
+    "concept": "Independent monitoring advocated; PABS annex negotiations continue through 2026",
+    "gap": "No independent bind-path monitor — shadow report fills analog for irreversible writes",
+    "url": "https://www.who.int/news/item/20-07-2026-who-member-states-continue-negotiations-on-the-pathogen-access-and-benefit-sharing-annex",
 }
 
 

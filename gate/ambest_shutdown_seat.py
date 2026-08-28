@@ -18,6 +18,7 @@ FAMILY = "institutional-twist"
 REAL = {
     "institution": "AM Best + NAIC Summer National Meeting 2026",
     "speaker": "Edin Imsirovic, Director AM Best",
+    "presentation": "Aug 13 2026, Columbus OH — BDAI Working Group",
     "requirement": "reconstruct action, stop system, return to safe state",
     "outside_loop": "shutdown authority must not live inside agent reasoning",
     "competitor_cosplay": "AI Governance Institute agent kill switch scopes",

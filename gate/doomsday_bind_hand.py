@@ -18,7 +18,9 @@ FAMILY = "s-tier"
 REAL = {
     "institution": "Bulletin of the Atomic Scientists",
     "clock_2026": "85 seconds to midnight",
-    "board": "Science and Security Board + Nobel sponsor board",
+    "set_date": "2026-01-27",
+    "prior_2025_seconds": 89,
+    "board": "Science and Security Board + Board of Sponsors (8 Nobel laureates)",
     "url": "https://thebulletin.org/doomsday-clock/2026-statement/",
 }
 

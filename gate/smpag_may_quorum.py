@@ -18,10 +18,12 @@ FAMILY = "s-tier"
 
 REAL = {
     "institution": "UN SMPAG — UNOOSA / COPUOS",
-    "chair": "ESA (2026)",
+    "chair": "ESA (2026–2027)",
+    "chairperson": "Detlef Koschny (on behalf of ESA)",
+    "members": "20 members, 7 observers (Feb 2026)",
     "threshold": ">1% impact probability + >50m → SMPAG active monitoring",
     "binding": False,
-    "exercise": "IAA Planetary Defense Conference 2027 Montreal",
+    "exercise": "IAA Planetary Defense Conference 2027 Montreal (3–7 May 2027)",
     "url": "https://www.unoosa.org/oosa/en/ourwork/topics/neos/smpag.html",
 }
 

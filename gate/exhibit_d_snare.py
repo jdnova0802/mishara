@@ -16,10 +16,10 @@ FAMILY = "institutional-twist"
 
 REAL = {
     "institution": "NAIC Big Data and Artificial Intelligence (H) Working Group",
-    "instrument": "AI Systems Evaluation Tool",
+    "instrument": "AI Risk Evaluation Supplement (formerly AI Systems Evaluation Tool)",
     "pilot": "March–September 2026, 12 states",
-    "adoption_target": "November 2026 Fall National Meeting",
-    "exhibits": ["A_inventory", "B_governance", "C_high_risk", "D_data_integrity"],
+    "adoption_target": "November 2026 Fall National Meeting (v7.0)",
+    "exhibits": ["A_inventory", "B_governance", "C_high_risk", "D_model_data"],
     "url": "https://content.naic.org/industry/artificial-intelligence",
 }
 

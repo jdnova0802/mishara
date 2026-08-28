@@ -19,6 +19,7 @@ REAL = {
     "institution": "Bank for International Settlements",
     "project": "Project Mariana — wholesale CBDC AMM",
     "requirement": "T3 — central bank may pause wCBDC transactions",
+    "requirement_alias": "C.3 (final report numbering)",
     "gap_they_leave": "Pauser can unpause — operator-resurrectable",
     "url": "https://www.bis.org/publ/othp_mariana.pdf",
 }
