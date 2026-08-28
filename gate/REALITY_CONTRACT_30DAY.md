@@ -14,11 +14,12 @@
 
 ## Priority order (Aug 28 — outranks list below)
 
-1. **S2 — Non-provisional counsel quote THIS WEEK.** Only hard deadline in the company. Miss it ⇒ patent → **$0** ⇒ term sheet, all eleven exhibits, ceiling ladder zero simultaneously.  
+1. **S2 — Non-provisional counsel quote THIS WEEK.** **The whole week.** Gate 1 outbound **waits** until 2–3 quotes are in writing. Use `PATENT_COUNSEL_BRIEF.md` only — **do not** attach 112 modules or exhibit stack. Ask **flat-fee conversion** + **micro-entity** fee tier. Miss deadline ⇒ patent → **$0** ⇒ term sheet, exhibits, ceiling ladder zero.  
 2. **Entity fix** — Nisaba LLC is **Wyoming**, not Delaware — grep licensing docs if unsure.  
-3. **Gate 1 only** — stranger paid + proved. Licensed field = **$0 licensable** until then (`LICENSED_FIELD_VALUE.md`).  
+3. **Gate 1** — stranger paid + proved — **after** counsel quotes landed.  
 4. **Wealth apparatus frozen** — no edits until Gate 1 (`WEALTH_APPARATUS_FREEZE.md`).  
-5. **Mouth Ceiling enforced** — `python3 -m gate.mouth_ceiling_guard` fails on new L2 modules.
+5. **Mouth Ceiling enforced** — `python3 -m gate.mouth_ceiling_guard` fails on new L2 modules.  
+6. **Counsel conversation frozen** — narrow two-claim brief only (`PATENT_COUNSEL_BRIEF.md` § Do NOT send).
 
 ---
 
@@ -38,7 +39,7 @@
 | # | Task | Due | Done |
 |---|------|-----|------|
 | S1 | Confirm provisional **#64/124,027** filing date + **non-provisional deadline** on calendar | Day 3 | ☐ |
-| S2 | **Patent counsel quote in writing** OR pro se budget ($) — **THIS WEEK, Day 3 max** | Day 3 | ☐ |
+| S2 | **2–3 patent counsel quotes in writing** — flat-fee non-provisional conversion + micro-entity ask (`PATENT_COUNSEL_BRIEF.md`) | Day 7 | ☐ |
 | S3 | IP ledger row: patent #, filing date, deadline, GAAIA submit date (2026-07-27), CT anchor gist URL | Day 3 | ☐ |
 | S4 | File **intent-to-use** trademark for **Velaru** (USPTO TEAS) | Day 14 | ☐ |
 
@@ -50,7 +51,7 @@
 
 | # | Task | Due | Done |
 |---|------|-----|------|
-| S5 | **Stranger paid:** Bind Room $1,750 OR install $2,500 OR equal from non-friend | Day 30 | ☐ |
+| S5 | **Stranger paid:** Bind Room $1,750 OR install $2,500 OR equal from non-friend — **after S2 quotes landed** | Day 30 | ☐ |
 | S6 | **Stranger prove:** third party opens `velaru.xyz/verify` (or Gate receipt) without you narrating | Day 30 | ☐ |
 | S7 | One-line proof logged: who paid, SKU, date, receipt URL/hash | Day 30 | ☐ |
 

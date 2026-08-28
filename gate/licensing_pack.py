@@ -313,6 +313,7 @@ def pack_manifest(public_url: str) -> dict[str, Any]:
             {"id": "entity_map", "path": "gate/ENTITY_MAP.md", "role": "holdco_opco_personal_layers"},
             {"id": "personal_liquidity_stub", "path": "gate/PERSONAL_LIQUIDITY_STUB.md", "role": "post_distribution_personal_layer"},
             {"id": "ip_ownership_checklist", "path": "gate/IP_OWNERSHIP_CHECKLIST.md", "role": "pre_distribution_gate"},
+            {"id": "patent_counsel_brief", "path": "gate/PATENT_COUNSEL_BRIEF.md", "role": "non_provisional_quote_narrow_only"},
             {"id": "licensed_field_value", "path": "gate/LICENSED_FIELD_VALUE.md", "role": "pre_gate1_value_answer"},
             {"id": "wealth_apparatus_freeze", "path": "gate/WEALTH_APPARATUS_FREEZE.md", "role": "gate1_work_order"},
             {"id": "mouth_ceiling", "path": "gate/MOUTH_CEILING.md", "role": "l2_module_freeze_enforced"},

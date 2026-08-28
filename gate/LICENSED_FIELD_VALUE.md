@@ -30,8 +30,8 @@ The term sheet, eleven exhibits, ceiling ladder, and 112 invention modules are *
 
 ## What creates value (ordered)
 
-1. **Non-provisional counsel quote this week** — patent clock; outranks everything  
-2. **Gate 1** — stranger paid Bind Room ($1,750) or equal + stranger proved without narration  
+1. **Non-provisional counsel quote this week** — **whole week**; Gate 1 outbound waits; use `PATENT_COUNSEL_BRIEF.md` (two claims + prior-art diff only — **not** 112 modules)  
+2. **Gate 1** — stranger paid Bind Room ($1,750) or equal + stranger proved without narration — **after quotes in writing**  
 3. **First field-limited paid license** — MAR + bps + auditable LAQ on one licensee  
 4. **Everything else** — deferred by definition until 1–3 progress  
 
@@ -42,8 +42,8 @@ The term sheet, eleven exhibits, ceiling ladder, and 112 invention modules are *
 > **If the licensed field is worth nothing until use is paid and proved, Gate 1 is the only work item.**
 
 Allowed until Gate 1:
-- Non-provisional quote / filing path  
-- Outbound PAS/MGA with `PILOT_CONTRACT_STUB.md` (no IP assign)  
+- Non-provisional quote / filing path — **`PATENT_COUNSEL_BRIEF.md` only to counsel**  
+- Outbound PAS/MGA with `PILOT_CONTRACT_STUB.md` — **after counsel quotes landed**  
 - Buyer copy, deploy, Stripe SKU, ops guards  
 - Entity fixes (Wyoming), checklist verification  
 - Bug fixes on existing shipped surface  

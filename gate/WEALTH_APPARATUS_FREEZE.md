@@ -23,12 +23,20 @@
 
 ## Still allowed (Gate 1 path)
 
-- `REALITY_CONTRACT_30DAY.md` execution  
-- `PILOT_CONTRACT_STUB.md` on outbound  
+- `REALITY_CONTRACT_30DAY.md` execution — **counsel quotes first this week**  
+- `PATENT_COUNSEL_BRIEF.md` — narrow attorney packet (two claims + prior-art diff)  
 - `IP_OWNERSHIP_CHECKLIST.md` **verification** (not new policy)  
 - Wyoming entity correction on licensing docs  
-- Non-provisional counsel quote / filing  
+- Non-provisional counsel quote / filing — **do not attach licensing pack or 112 modules**  
 - Ops guards, buyer lint, deploy, Stripe  
+
+## Counsel conversation freeze
+
+Same discipline as `mouth_ceiling_freeze.json`: **definite baseline.**
+
+**Do not send counsel:** 112-module inventory, civilizational/IP/ceiling catalogs, full term sheet + Exhibits A–K, ceiling ladder, QIC revenue model.
+
+**Do send:** provisional 64/124,027, two claim families, prior-art diff table in `PATENT_COUNSEL_BRIEF.md`.
 
 ---
 

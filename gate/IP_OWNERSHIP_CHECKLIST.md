@@ -24,7 +24,7 @@
 | # | Item | Done | Evidence |
 |---|------|------|----------|
 | I1 | US Provisional **64/124,027** filing date on calendar | ☐ | USPTO receipt |
-| I2 | **Non-provisional deadline** on calendar with counsel quote or pro se budget | ☐ | Calendar · counsel email |
+| I2 | **Non-provisional deadline** on calendar with **2–3 counsel quotes** or pro se budget | ☐ | Calendar · `PATENT_COUNSEL_BRIEF.md` · counsel emails |
 | I3 | Patent **assigned to Nisaba LLC** (or filed in Nisaba name) | ☐ | Assignment / filing record |
 | I4 | **Velaru** intent-to-use trademark filed or scheduled (S4) | ☐ | USPTO TEAS |
 | I5 | IP ledger row: patent #, dates, GAAIA 2026-07-27, CT anchor | ☐ | Ledger / spreadsheet |

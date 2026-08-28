@@ -161,6 +161,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "personal_liquidity_stub": "gate/PERSONAL_LIQUIDITY_STUB.md",
             "ip_ownership_checklist": "gate/IP_OWNERSHIP_CHECKLIST.md",
             "pilot_contract_stub": "gate/PILOT_CONTRACT_STUB.md",
+            "patent_counsel_brief": "gate/PATENT_COUNSEL_BRIEF.md",
             "licensed_field_value": "gate/LICENSED_FIELD_VALUE.md",
             "wealth_apparatus_freeze": "gate/WEALTH_APPARATUS_FREEZE.md",
             "mouth_ceiling": "gate/MOUTH_CEILING.md",
@@ -169,9 +170,17 @@ def manifest(public_url: str) -> dict[str, Any]:
         },
         "gate1_work_order": {
             "licensed_field_value": "gate/LICENSED_FIELD_VALUE.md",
+            "patent_counsel_brief": "gate/PATENT_COUNSEL_BRIEF.md",
             "wealth_frozen_until_gate1": "gate/WEALTH_APPARATUS_FREEZE.md",
             "mouth_ceiling_enforced": "gate/mouth_ceiling_guard.py",
-            "only_work_until_gate1": "non_provisional_quote_and_stranger_paid_proved",
+            "only_work_until_gate1": "non_provisional_quote_then_stranger_paid_proved",
+            "counsel_week": "gate/PATENT_COUNSEL_BRIEF.md",
+            "counsel_do_not_attach": [
+                "112_invention_modules",
+                "exhibits_a_through_k",
+                "ip_asset_ceiling_ladder",
+                "licensing_revenue_models",
+            ],
         },
         "pilot_guardrails": {
             "ip_non_assign_one_liner": IP_NON_ASSIGN_ONE_LINER,
