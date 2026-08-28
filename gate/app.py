@@ -450,6 +450,56 @@ except ImportError:
     import ambest_shutdown_seat as ambest_shutdown_seat_mod
 
 try:
+    from gate import algedonic_relay as algedonic_relay_mod
+except ImportError:
+    import algedonic_relay as algedonic_relay_mod
+
+try:
+    from gate import smpag_may_quorum as smpag_may_quorum_mod
+except ImportError:
+    import smpag_may_quorum as smpag_may_quorum_mod
+
+try:
+    from gate import iaea_acquisition_path as iaea_acquisition_path_mod
+except ImportError:
+    import iaea_acquisition_path as iaea_acquisition_path_mod
+
+try:
+    from gate import doomsday_bind_hand as doomsday_bind_hand_mod
+except ImportError:
+    import doomsday_bind_hand as doomsday_bind_hand_mod
+
+try:
+    from gate import long_now_chime as long_now_chime_mod
+except ImportError:
+    import long_now_chime as long_now_chime_mod
+
+try:
+    from gate import dark_forest_restraint as dark_forest_restraint_mod
+except ImportError:
+    import dark_forest_restraint as dark_forest_restraint_mod
+
+try:
+    from gate import great_filter_gate as great_filter_gate_mod
+except ImportError:
+    import great_filter_gate as great_filter_gate_mod
+
+try:
+    from gate import psychohistory_seldon_line as psychohistory_seldon_line_mod
+except ImportError:
+    import psychohistory_seldon_line as psychohistory_seldon_line_mod
+
+try:
+    from gate import sophon_lock as sophon_lock_mod
+except ImportError:
+    import sophon_lock as sophon_lock_mod
+
+try:
+    from gate import who_shadow_bind_report as who_shadow_bind_report_mod
+except ImportError:
+    import who_shadow_bind_report as who_shadow_bind_report_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1327,6 +1377,16 @@ def _finalize_spend_plan(
     black_box_epoch_mod.attach(plan)
     nss_finality_stamp_mod.attach(plan)
     agora_atomic_bind_mod.attach(plan)
+    algedonic_relay_mod.attach(plan)
+    smpag_may_quorum_mod.attach(plan)
+    iaea_acquisition_path_mod.attach(plan)
+    doomsday_bind_hand_mod.attach(plan)
+    long_now_chime_mod.attach(plan)
+    dark_forest_restraint_mod.attach(plan)
+    great_filter_gate_mod.attach(plan)
+    psychohistory_seldon_line_mod.attach(plan)
+    sophon_lock_mod.attach(plan)
+    who_shadow_bind_report_mod.attach(plan)
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
@@ -1866,6 +1926,15 @@ def well_known_lab():
                 "cool_off": f"{base}/.well-known/cool-off.json",
                 "silence_gate": f"{base}/.well-known/silence-gate.json",
                 "algedonic_relay": f"{base}/.well-known/algedonic-relay.json",
+                "smpag_may_quorum": f"{base}/.well-known/smpag-may-quorum.json",
+                "iaea_acquisition_path": f"{base}/.well-known/iaea-acquisition-path.json",
+                "doomsday_bind_hand": f"{base}/.well-known/doomsday-bind-hand.json",
+                "long_now_chime": f"{base}/.well-known/long-now-chime.json",
+                "dark_forest_restraint": f"{base}/.well-known/dark-forest-restraint.json",
+                "great_filter_gate": f"{base}/.well-known/great-filter-gate.json",
+                "psychohistory_seldon_line": f"{base}/.well-known/psychohistory-seldon-line.json",
+                "sophon_lock": f"{base}/.well-known/sophon-lock.json",
+                "who_shadow_bind_report": f"{base}/.well-known/who-shadow-bind-report.json",
                 "may_budget": f"{base}/.well-known/may-budget.json",
                 "funeral_bit": f"{base}/.well-known/funeral-bit.json",
                 "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
@@ -2179,7 +2248,6 @@ def well_known_gate_anatomy():
 @app.route("/.well-known/stale-live.json")
 @app.route("/.well-known/cool-off.json")
 @app.route("/.well-known/silence-gate.json")
-@app.route("/.well-known/algedonic-relay.json")
 @app.route("/.well-known/may-budget.json")
 @app.route("/.well-known/funeral-bit.json")
 @app.route("/.well-known/bind-genealogy.json")
@@ -2943,6 +3011,16 @@ def well_known_commit_auth():
                     "nss_finality_stamp",
                     "agora_atomic_bind",
                     "ambest_shutdown_seat",
+                    "algedonic_relay",
+                    "smpag_may_quorum",
+                    "iaea_acquisition_path",
+                    "doomsday_bind_hand",
+                    "long_now_chime",
+                    "dark_forest_restraint",
+                    "great_filter_gate",
+                    "psychohistory_seldon_line",
+                    "sophon_lock",
+                    "who_shadow_bind_report",
                 ],
             },
             "ietf_posture": {
@@ -4458,6 +4536,263 @@ def well_known_agora_atomic_bind():
 @app.route("/.well-known/ambest-shutdown-seat.json")
 def well_known_ambest_shutdown_seat():
     return jsonify(ambest_shutdown_seat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/algedonic-relay.json")
+def well_known_algedonic_relay():
+    return jsonify(algedonic_relay_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/smpag-may-quorum.json")
+def well_known_smpag_may_quorum():
+    return jsonify(smpag_may_quorum_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/iaea-acquisition-path.json")
+def well_known_iaea_acquisition_path():
+    return jsonify(iaea_acquisition_path_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/doomsday-bind-hand.json")
+def well_known_doomsday_bind_hand():
+    return jsonify(doomsday_bind_hand_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/long-now-chime.json")
+def well_known_long_now_chime():
+    return jsonify(long_now_chime_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/dark-forest-restraint.json")
+def well_known_dark_forest_restraint():
+    return jsonify(dark_forest_restraint_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/great-filter-gate.json")
+def well_known_great_filter_gate():
+    return jsonify(great_filter_gate_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/psychohistory-seldon-line.json")
+def well_known_psychohistory_seldon_line():
+    return jsonify(psychohistory_seldon_line_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/sophon-lock.json")
+def well_known_sophon_lock():
+    return jsonify(sophon_lock_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/who-shadow-bind-report.json")
+def well_known_who_shadow_bind_report():
+    return jsonify(who_shadow_bind_report_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/pas/algedonic-relay", methods=["POST"])
+def demo_pas_algedonic_relay():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = algedonic_relay_mod.evaluate(
+        elapse_seconds=body.get("elapse_seconds"),
+        age_seconds=body.get("age_seconds"),
+        resolved=body.get("resolved"),
+        recursion_level=body.get("recursion_level"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/smpag-may-quorum", methods=["POST"])
+def demo_pas_smpag_may_quorum():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = smpag_may_quorum_mod.evaluate(
+        mass_class=body.get("mass_class"),
+        quorum_present=body.get("quorum_present"),
+        agencies=body.get("agencies") if isinstance(body.get("agencies"), list) else None,
+        single_desk_strike=body.get("single_desk_strike"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/iaea-acquisition-path", methods=["POST"])
+def demo_pas_iaea_acquisition_path():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = iaea_acquisition_path_mod.analyze(scenario=scenario)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/doomsday-bind-hand", methods=["POST"])
+def demo_pas_doomsday_bind_hand():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = doomsday_bind_hand_mod.hand(
+        ghost_events=body.get("ghost_events"),
+        sacred_bind_without_quorum=body.get("sacred_bind_without_quorum"),
+        epoch_bypass_attempts=body.get("epoch_bypass_attempts"),
+        restraint_proved=body.get("restraint_proved"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/long-now-chime", methods=["POST"])
+def demo_pas_long_now_chime():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = long_now_chime_mod.chime(
+        epoch_seq=body.get("epoch_seq"),
+        job_id=body.get("job_id"),
+        prior_chime=body.get("prior_chime"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/dark-forest-restraint", methods=["POST"])
+def demo_pas_dark_forest_restraint():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = dark_forest_restraint_mod.evaluate(
+        broadcast_bind_intent=body.get("broadcast_bind_intent"),
+        server_redeem_proved=body.get("server_redeem_proved"),
+        stranger_verify_url=body.get("stranger_verify_url"),
+        premium_leaked=body.get("premium_leaked"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/great-filter-gate", methods=["POST"])
+def demo_pas_great_filter_gate():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = great_filter_gate_mod.filter_step(
+        epoch_locked=body.get("epoch_locked"),
+        stranger_verify=body.get("stranger_verify"),
+        quorum_met=body.get("quorum_met"),
+        ghost_bind=body.get("ghost_bind"),
+        acted_without_may=body.get("acted_without_may"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/psychohistory-seldon-line", methods=["POST"])
+def demo_pas_psychohistory_seldon_line():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = psychohistory_seldon_line_mod.seldon_line(
+        halt_rate_7d=body.get("halt_rate_7d"),
+        ghost_density=body.get("ghost_density"),
+        renewal_window_hours=body.get("renewal_window_hours"),
+        published=body.get("published"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/sophon-lock", methods=["POST"])
+def demo_pas_sophon_lock():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = sophon_lock_mod.lock_status(
+        client_proof_only=body.get("client_proof_only"),
+        server_redeem_ok=body.get("server_redeem_ok"),
+        epoch_consumed=body.get("epoch_consumed"),
+        offline_bearer=body.get("offline_bearer"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/who-shadow-bind-report", methods=["POST"])
+def demo_pas_who_shadow_bind_report():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = who_shadow_bind_report_mod.shadow_report(
+        internal_dashboard_green=body.get("internal_dashboard_green"),
+        halt_depth=body.get("halt_depth"),
+        ghost_events=body.get("ghost_events"),
+        stranger_verify_count=body.get("stranger_verify_count"),
+        published=body.get("published"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/bind-room/algedonic-relay.json")
+def bind_room_algedonic_relay():
+    return jsonify(algedonic_relay_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/smpag-may-quorum.json")
+def bind_room_smpag_may_quorum():
+    return jsonify(smpag_may_quorum_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/iaea-acquisition-path.json")
+def bind_room_iaea_acquisition_path():
+    return jsonify(iaea_acquisition_path_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/doomsday-bind-hand.json")
+def bind_room_doomsday_bind_hand():
+    return jsonify(doomsday_bind_hand_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/long-now-chime.json")
+def bind_room_long_now_chime():
+    return jsonify(long_now_chime_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/dark-forest-restraint.json")
+def bind_room_dark_forest_restraint():
+    return jsonify(dark_forest_restraint_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/great-filter-gate.json")
+def bind_room_great_filter_gate():
+    return jsonify(great_filter_gate_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/psychohistory-seldon-line.json")
+def bind_room_psychohistory_seldon_line():
+    return jsonify(psychohistory_seldon_line_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/sophon-lock.json")
+def bind_room_sophon_lock():
+    return jsonify(sophon_lock_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/who-shadow-bind-report.json")
+def bind_room_who_shadow_bind_report():
+    return jsonify(who_shadow_bind_report_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/stick-meter", methods=["POST"])

@@ -115,5 +115,64 @@ class InstitutionalTwistTests(unittest.TestCase):
         self.assertEqual(r.get_json()["verdict"], "EXAMINER_HAUNTED")
 
 
+class STierInventionTests(unittest.TestCase):
+    def setUp(self):
+        gate_app.app.config["TESTING"] = True
+        self.client = gate_app.app.test_client()
+
+    def test_s_tier_manifests(self):
+        specs = {
+            "/.well-known/algedonic-relay.json": "gate-algedonic-relay-v1",
+            "/.well-known/smpag-may-quorum.json": "gate-smpag-may-quorum-v1",
+            "/.well-known/iaea-acquisition-path.json": "gate-iaea-acquisition-path-v1",
+            "/.well-known/doomsday-bind-hand.json": "gate-doomsday-bind-hand-v1",
+            "/.well-known/long-now-chime.json": "gate-long-now-chime-v1",
+            "/.well-known/dark-forest-restraint.json": "gate-dark-forest-restraint-v1",
+            "/.well-known/great-filter-gate.json": "gate-great-filter-gate-v1",
+            "/.well-known/psychohistory-seldon-line.json": "gate-psychohistory-seldon-line-v1",
+            "/.well-known/sophon-lock.json": "gate-sophon-lock-v1",
+            "/.well-known/who-shadow-bind-report.json": "gate-who-shadow-bind-report-v1",
+        }
+        for path, spec in specs.items():
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+            body = r.get_json()
+            self.assertEqual(body["spec"], spec, path)
+            self.assertEqual(body["tier"], "S", path)
+
+    def test_sophon_lock_rejects_client_theater(self):
+        r = self.client.post(
+            "/demo/pas/sophon-lock",
+            json={"client_proof_only": True, "server_redeem_ok": False},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["verdict"], "PROTON_LOCK")
+
+    def test_smpag_quorum_missing_on_sacred(self):
+        r = self.client.post(
+            "/demo/pas/smpag-may-quorum",
+            json={"mass_class": "sacred", "single_desk_strike": True},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["verdict"], "SMPAG_QUORUM_MISSING")
+
+    def test_dark_forest_broadcast_choke(self):
+        r = self.client.post(
+            "/demo/pas/dark-forest-restraint",
+            json={"broadcast_bind_intent": True, "server_redeem_proved": False},
+        )
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["verdict"], "DARK_FOREST_BROADCAST")
+
+    def test_doomsday_hand_moves_on_ghost(self):
+        r = self.client.post(
+            "/demo/pas/doomsday-bind-hand",
+            json={"ghost_events": 3, "restraint_proved": 0},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertLess(body["bind_hand_seconds_to_midnight"], body["baseline_2026_seconds"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -31,6 +31,23 @@ Patent the HALT. Sell the bind moment. **Invent the weather** around both.
 
 Wired on HALT paths: cemetery + refuse ledger + override packet + black box epoch + nss finality + agora atomic.
 
+## Shipped batch 3 — S-tier civilizational (Aug 28)
+
+| Invention | Real / fiction source | Module |
+|-----------|----------------------|--------|
+| **Algedonic Relay** | Project Cybersyn — Stafford Beer (1971–73) | `algedonic_relay.py` |
+| **SMPAG May Quorum** | UN Space Mission Planning Advisory Group | `smpag_may_quorum.py` |
+| **IAEA Acquisition Path** | IAEA State-Level Concept / APA | `iaea_acquisition_path.py` |
+| **Doomsday Bind Hand** | Bulletin of the Atomic Scientists (85s, 2026) | `doomsday_bind_hand.py` |
+| **Long Now Chime** | Long Now Foundation 10,000-Year Clock | `long_now_chime.py` |
+| **Dark Forest Restraint** | Liu Cixin *Dark Forest* (formalized) | `dark_forest_restraint.py` |
+| **Great Filter Gate** | Great Filter hypothesis (Hanson/Bostrom) | `great_filter_gate.py` |
+| **Psychohistory Seldon Line** | Asimov *Foundation* + econophysics | `psychohistory_seldon_line.py` |
+| **Sophon Lock** | Liu Cixin *Three-Body Problem* | `sophon_lock.py` |
+| **WHO Shadow Bind Report** | WHO Pandemic Agreement / INB monitoring gap | `who_shadow_bind_report.py` |
+
+Wired on HALT paths: all ten attach in `_finalize_spend_plan`.
+
 ---
 
 ## Shipped batch 2 — institutional twist (Aug 28)

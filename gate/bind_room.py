@@ -78,6 +78,16 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "black_box_epoch": f"{public_url}/.well-known/black-box-epoch.json",
             "mariana_pause_latch": f"{public_url}/.well-known/mariana-pause-latch.json",
             "ambest_shutdown_seat": f"{public_url}/.well-known/ambest-shutdown-seat.json",
+            "algedonic_relay": f"{public_url}/.well-known/algedonic-relay.json",
+            "smpag_may_quorum": f"{public_url}/.well-known/smpag-may-quorum.json",
+            "iaea_acquisition_path": f"{public_url}/.well-known/iaea-acquisition-path.json",
+            "doomsday_bind_hand": f"{public_url}/.well-known/doomsday-bind-hand.json",
+            "long_now_chime": f"{public_url}/.well-known/long-now-chime.json",
+            "dark_forest_restraint": f"{public_url}/.well-known/dark-forest-restraint.json",
+            "great_filter_gate": f"{public_url}/.well-known/great-filter-gate.json",
+            "psychohistory_seldon_line": f"{public_url}/.well-known/psychohistory-seldon-line.json",
+            "sophon_lock": f"{public_url}/.well-known/sophon-lock.json",
+            "who_shadow_bind_report": f"{public_url}/.well-known/who-shadow-bind-report.json",
         },
     }
 
