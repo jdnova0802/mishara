@@ -67,6 +67,13 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "ticket_fuse_pack": f"{public_url}/bind-room/ticket-fuse-pack.json",
             "commit_auth": f"{public_url}/.well-known/commit-auth.json",
             "claim_grades": f"{public_url}/.well-known/claim-grades.json",
+            "halt_cemetery": f"{public_url}/.well-known/halt-cemetery.json",
+            "cold_standby_mirror": f"{public_url}/.well-known/cold-standby-mirror.json",
+            "renewal_day_throat": f"{public_url}/.well-known/renewal-day-throat.json",
+            "ghost_renewal_snare": f"{public_url}/.well-known/ghost-renewal-snare.json",
+            "refuse_ledger": f"{public_url}/.well-known/refuse-ledger.json",
+            "override_impossibility": f"{public_url}/.well-known/override-impossibility.json",
+            "bind_weather": f"{public_url}/.well-known/bind-weather.json",
         },
     }
 

@@ -124,8 +124,8 @@ def manifest(public_url: str) -> dict[str, Any]:
     return {
         "spec": "gate-intentions-v1",
         "name": "Post-survey invention intentions",
-        "status": "doctrine_only",
-        "mouth_ceiling": "No L2 modules until Gate 1 paid stranger artifact.",
+        "status": "competitive_response_shipped",
+        "mouth_ceiling": "Aug 28 survey exception — seven modules shipped; no further L2 until Gate 1.",
         "survey_date": "2026-08-28",
         "thesis": (
             "Crowded on proof. Empty on non-resurrecting HALT at bind + "

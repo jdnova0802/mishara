@@ -380,6 +380,41 @@ except ImportError:
     import intentions as intentions_mod
 
 try:
+    from gate import halt_cemetery as halt_cemetery_mod
+except ImportError:
+    import halt_cemetery as halt_cemetery_mod
+
+try:
+    from gate import cold_standby_mirror as cold_standby_mirror_mod
+except ImportError:
+    import cold_standby_mirror as cold_standby_mirror_mod
+
+try:
+    from gate import renewal_day_throat as renewal_day_throat_mod
+except ImportError:
+    import renewal_day_throat as renewal_day_throat_mod
+
+try:
+    from gate import ghost_renewal_snare as ghost_renewal_snare_mod
+except ImportError:
+    import ghost_renewal_snare as ghost_renewal_snare_mod
+
+try:
+    from gate import refuse_ledger as refuse_ledger_mod
+except ImportError:
+    import refuse_ledger as refuse_ledger_mod
+
+try:
+    from gate import override_impossibility as override_impossibility_mod
+except ImportError:
+    import override_impossibility as override_impossibility_mod
+
+try:
+    from gate import bind_weather as bind_weather_mod
+except ImportError:
+    import bind_weather as bind_weather_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -1251,6 +1286,9 @@ def _finalize_spend_plan(
     plan["event_id"] = event_id
     plan["acted"] = acted
     plan["decision"] = decision
+    halt_cemetery_mod.attach(plan, row=row, epoch=epoch_meta)
+    refuse_ledger_mod.attach(plan, row=row, premium=_num(plan.get("premium")))
+    override_impossibility_mod.attach(plan)
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
@@ -1770,6 +1808,13 @@ def well_known_lab():
                 "crucial_roles": f"{base}/.well-known/crucial-roles.json",
                 "civ_maintenance": f"{base}/.well-known/civ-maintenance.json",
                 "intentions": f"{base}/.well-known/intentions.json",
+                "halt_cemetery": f"{base}/.well-known/halt-cemetery.json",
+                "cold_standby_mirror": f"{base}/.well-known/cold-standby-mirror.json",
+                "renewal_day_throat": f"{base}/.well-known/renewal-day-throat.json",
+                "ghost_renewal_snare": f"{base}/.well-known/ghost-renewal-snare.json",
+                "refuse_ledger": f"{base}/.well-known/refuse-ledger.json",
+                "override_impossibility": f"{base}/.well-known/override-impossibility.json",
+                "bind_weather": f"{base}/.well-known/bind-weather.json",
                 "continuity_live": f"{base}/.well-known/continuity-live.json",
                 "gate_anatomy": f"{base}/.well-known/gate-anatomy.json",
                 "stale_live": f"{base}/.well-known/stale-live.json",
@@ -2838,6 +2883,15 @@ def well_known_commit_auth():
                 ],
                 "patent_lane": ["epoch_lock", "commit_time_single_use_bind"],
                 "gtm_lane": ["insurance_bind_moment", "carrier_vertical"],
+                "shipped_inventions_aug28": [
+                    "halt_cemetery",
+                    "cold_standby_mirror",
+                    "renewal_day_throat",
+                    "ghost_renewal_snare",
+                    "refuse_ledger",
+                    "override_impossibility",
+                    "bind_weather",
+                ],
             },
             "ietf_posture": {
                 "pick": "extend",
@@ -3788,6 +3842,41 @@ def bind_room_civ_maintenance():
     return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
 
 
+@app.route("/bind-room/halt-cemetery.json")
+def bind_room_halt_cemetery():
+    return jsonify(halt_cemetery_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/cold-standby-mirror.json")
+def bind_room_cold_standby_mirror():
+    return jsonify(cold_standby_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/renewal-day-throat.json")
+def bind_room_renewal_day_throat():
+    return jsonify(renewal_day_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ghost-renewal-snare.json")
+def bind_room_ghost_renewal_snare():
+    return jsonify(ghost_renewal_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/refuse-ledger.json")
+def bind_room_refuse_ledger():
+    return jsonify(refuse_ledger_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/override-impossibility.json")
+def bind_room_override_impossibility():
+    return jsonify(override_impossibility_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/bind-weather.json")
+def bind_room_bind_weather():
+    return jsonify(bind_weather_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -3988,6 +4077,127 @@ def demo_pas_ghost_bind_drills():
     report = ghost_bind_mod.run_drills()
     report["demo"] = True
     return jsonify(report)
+
+
+@app.route("/demo/pas/halt-cemetery")
+def demo_pas_halt_cemetery():
+    _, err = _demo_gate()
+    if err:
+        return err
+    job_id = request.args.get("job_id")
+    report = halt_cemetery_mod.list_stones(job_id=job_id)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/cold-standby-mirror")
+def demo_pas_cold_standby_mirror():
+    _, err = _demo_gate()
+    if err:
+        return err
+    job_id = request.args.get("job_id")
+    outage = request.args.get("outage") in ("1", "true", "yes")
+    report = cold_standby_mirror_mod.witness(job_id=job_id, outage_simulated=outage)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/renewal-day-throat", methods=["POST"])
+def demo_pas_renewal_day_throat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    sticks = body.get("sticks") if isinstance(body.get("sticks"), list) else None
+    if sticks is None and isinstance(body, dict) and body.get("job_id"):
+        sticks = [body]
+    report = renewal_day_throat_mod.evaluate_batch(
+        sticks,
+        now=body.get("now"),
+        window_hour=int(body.get("window_hour") or 3),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/ghost-renewal-snare", methods=["POST"])
+def demo_pas_ghost_renewal_snare():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = ghost_renewal_snare_mod.scan(scenario)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/refuse-ledger")
+def demo_pas_refuse_ledger():
+    _, err = _demo_gate()
+    if err:
+        return err
+    limit = request.args.get("limit", 50)
+    report = refuse_ledger_mod.ledger(limit=int(limit) if str(limit).isdigit() else 50)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/override-impossibility")
+def demo_pas_override_impossibility():
+    _, err = _demo_gate()
+    if err:
+        return err
+    job_id = request.args.get("job_id")
+    locked = request.args.get("epoch_locked") in ("1", "true", "yes")
+    report = override_impossibility_mod.packet(job_id=job_id, epoch_locked=locked or None)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/bind-weather")
+def demo_pas_bind_weather():
+    _, err = _demo_gate()
+    if err:
+        return err
+    report = bind_weather_mod.report()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/.well-known/halt-cemetery.json")
+def well_known_halt_cemetery():
+    return jsonify(halt_cemetery_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/cold-standby-mirror.json")
+def well_known_cold_standby_mirror():
+    return jsonify(cold_standby_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/renewal-day-throat.json")
+def well_known_renewal_day_throat():
+    return jsonify(renewal_day_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ghost-renewal-snare.json")
+def well_known_ghost_renewal_snare():
+    return jsonify(ghost_renewal_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/refuse-ledger.json")
+def well_known_refuse_ledger():
+    return jsonify(refuse_ledger_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/override-impossibility.json")
+def well_known_override_impossibility():
+    return jsonify(override_impossibility_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bind-weather.json")
+def well_known_bind_weather():
+    return jsonify(bind_weather_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/stick-meter", methods=["POST"])

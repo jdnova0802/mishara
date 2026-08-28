@@ -1,8 +1,7 @@
 # Intentions — post-survey invention catalog (Aug 28)
 
-**Status:** doctrine + naming only. **Not shipped.** **Not MGA outbound.**  
-**Mouth Ceiling:** no new L2 demo modules until Gate 1 — these are **intentions**, not foothill spam.  
-**Trigger to implement:** stranger paid Bind Room + production weld contract names which cell ships first.
+**Status:** seven competitive-response modules **shipped** (see below). Remaining intentions = mountain / post-weld.  
+**Not MGA outbound lead.** Bind Room leads epoch lock + bind moment; these are league-of-one artifacts.
 
 **Context:** Competitive survey showed the commit-auth lane is crowded (Authproof, IBCT, CertNode, PCAA, Parakhin). We are **not** as alone on receipts and capability tokens as we assumed. These intentions target **cells still empty** — epoch lock, carrier bind choke, fail-closed availability honesty, restraint-as-SKU.
 
@@ -18,7 +17,21 @@ Patent the HALT. Sell the bind moment. **Invent the weather** around both.
 
 ---
 
-## The twelve intentions (competitive-aware)
+## Shipped (Aug 28 competitive response)
+
+| Invention | Module | Well-known |
+|-----------|--------|------------|
+| **HALT Cemetery** | `halt_cemetery.py` | `/.well-known/halt-cemetery.json` |
+| **Cold Standby Mirror** | `cold_standby_mirror.py` | `/.well-known/cold-standby-mirror.json` |
+| **Renewal Day Throat** | `renewal_day_throat.py` | `/.well-known/renewal-day-throat.json` |
+| **Ghost Renewal Snare** | `ghost_renewal_snare.py` | `/.well-known/ghost-renewal-snare.json` |
+| **Refuse Ledger (ρ bind)** | `refuse_ledger.py` | `/.well-known/refuse-ledger.json` |
+| **Override Impossibility Packet** | `override_impossibility.py` | `/.well-known/override-impossibility.json` |
+| **Bind Weather** | `bind_weather.py` | `/.well-known/bind-weather.json` |
+
+Wired on HALT paths: cemetery + refuse ledger + override packet stamp `_finalize_spend_plan`.
+
+---
 
 ### 1. Cold Standby Mirror
 

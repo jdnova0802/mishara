@@ -166,8 +166,8 @@ When foothill_max + this ceiling ship: **stop inventing L2 throats until somethi
 The ceiling was real; **enforcement lagged**. Shipping C/D/E packs under a “foothill exemption” while saying stop inventing was a category cheat.
 
 **Rule from this line forward:**
-- Existing seed inventory is **frozen** (see `/.well-known/lab.json`).
-- **No new L2 invention modules** until Gate 1: stranger paid Bind Room (or equal) + stranger prove.
+- Existing seed inventory is **frozen** unless **competitive-response** invention (Aug 28 survey) — see shipped modules: HALT Cemetery, Cold Standby Mirror, Renewal Day Throat, Ghost Renewal Snare, Refuse Ledger, Override Impossibility Packet, Bind Weather.
+- **No other new L2 invention modules** until Gate 1: stranger paid Bind Room (or equal) + stranger prove.
 - Reclassifying mountain as foothill does **not** count as obedience.
 - Allowed under ceiling: buyer copy, deploy, Stripe/SKU, claim-grade honesty, Promo Clock / Ops Guards, sell motion.
 
