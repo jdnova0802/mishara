@@ -1,6 +1,6 @@
 # Shadow Chokepoint Doctrine
 
-**Status:** owner steering — settled Aug 28, 2026. Not marketing. Not a product roadmap.  
+**Status:** owner steering — settled Aug 28, 2026; **civilizational anchor refined** same session. Not marketing. Not a product roadmap.  
 **Purpose:** Name the **end-state identity** Nisaba is building toward — quiet, load-bearing, planetary rent — so altitude choices, entity design, and Gate 1 sequence stay aligned.  
 **Companion:** `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md`
 
@@ -8,7 +8,7 @@
 
 ## One sentence
 
-> **Quiet planetary bind on necessity — embedded partner circle, not public myth; rent the load-bearing layers; sell consumer ceiling and anything that cannot scale planetary.**
+> **One planetary chokepoint — grammar plus physical embed — anchoring crisis handoffs so the landing is softer; rent everything load-bearing; insider myth only.**
 
 ---
 
@@ -23,7 +23,11 @@
 | Shadow chokepoint dynasty | Media / narrative as a primary game |
 | Max **durability** | Max spectacle |
 
-**Closest rhymes (shape, not copy):** TSMC embed · DTCC/SWIFT adjacency · Bechtel emergency load-bearing · Berkshire entity depth · old Rothschild **network** adjacency — **not** Elon spectacle, **not** Oprah sociology, **not** mayor cosplay.
+**Closest rhymes (shape, not copy):** **DTCC** (primary north-star comp) · Iridium/Equinix handoff adjacency · Bechtel emergency embed · ARM latch · Berkshire entity depth — **not** Cargill (food/ag expropriation shape — avoid), **not** Elon spectacle, **not** Oprah sociology.
+
+**Success sentence (owner lock):** *“I’ll know I’ve become what I meant when I’m a civilizational need.”*
+
+**Visibility:** **Insider myth** — TikTok/stranger fame is optional garnish, not the game. Regulatory/critical-infra visibility is **welcome** if it comes with protection; performative jackass visibility is **banned**. Greatest fear: **staying unknown forever** — unknown to the public is fine; unknown to **load-bearing insiders** means the choke never latched.
 
 ---
 
@@ -32,6 +36,12 @@
 **Target chair:** chief / director / **funder** — allocate into chokepoints; stop being the permanent operator throat once embed proves.
 
 **Circle:** **network of embedded partners** (OEM, counsel, ops, integrators) whose production routes through the bind grammar — not family cult, not performative allies. Partners chosen for **embed depth**, not vibes.
+
+**Circle size:** whatever yields **max durability + max force** — not headcount vanity. Target shape: **civilizational pact** (SWIFT/DTCC member gravity), **no whistleblowers**, durable across **multi-planetary** horizon if the grammar travels.
+
+**Deterrence mechanism:** if the circle is crossed, **whatever the target’s core is** stops routing — production, capital, comms handoff, bind path — not social media shame.
+
+**Posture vs state:** **Federation / planetary marketplace** neutrality — not US throne, not nation cosplay; **defense / classified adjacency accepted** when it accelerates emergency embed (`NORTH_STAR.md` military-compatible-as-customer stands).
 
 ---
 
@@ -47,9 +57,15 @@
 
 **Expand through the middle:** deepen infra (pin, registry, meter, OEM demand) — do **not** climb to nation, land baron, or political theater.
 
+**Chokepoint count:** **one planetary choke** — grammar + physical assets on the same bind — not a thinned portfolio of unrelated pins. Depth over sprawl.
+
+**Grammar + physical:** own the **bind grammar** and, where civilization requires it, the **physical asset** the grammar runs on (handoff nodes, comms path, production line segment) — customization on owned physical; combo is the civilizational move.
+
 **Permission to open table #2:** integrator / OEM **can’t ship without you** — not revenue vanity, not followers.
 
 **Proud receipt:** **name on a protocol spec** (or equivalent production cite) that strangers use in live routing.
+
+**First “getting somewhere” receipt (regional, not local):** **evac / crisis comms handoff bind** — e.g. a **region on notice** (Midwest-scale routing authority), not a city pilot. Local proofs are insufficient; regional invoke = early validation.
 
 ---
 
@@ -70,21 +86,28 @@ Gate foothill = **digital + legal/identity** bind (insurance PAS / form edition 
 
 ## 5. Sell vs rent (owner rule)
 
-**Keep / rent (never sell the chokepoint):**
+**S-tier civilizational emergency need → never sell, only rent** (DTCC class — keep the toll road forever).
+
+**Below S-tier → rent the chokepoint; sell only** consumer skins, obvious-ceiling OpCos, or units where the bind has **migrated elsewhere** and the asset is no longer load-bearing.
+
+**Keep / rent (never sell if load-bearing):**
 
 - Protocol spec + latch grammar
 - Registry / edition pin of record
 - Meter on cleared flow (bps, MAR, QIC)
-- IP that enables **planetary embed**
+- IP + physical embed that enables **planetary / regional crisis invoke**
+- Anything on the **S-tier civilizational emergency** list once classified as such
 
 **Sell / divest (no romance):**
 
 - **Consumer-level** skins (#8 product, #9 service as primary identity)
 - Obvious **limited ceiling** businesses
+- OpCos where chokepoint **no longer lives** after migration
 - Anything that **cannot operate planetary** in ~20 years
 - Performative or attention-economy adjacency
+- **Cargill-shaped** food/ag empire as identity (expropriation-heavy — not this life)
 
-**Berkshire logic:** sell the cigar butt; **keep the toll road.** Anti-exiting the bind — not anti-exit entirely.
+**Berkshire logic:** sell the cigar butt; **never sell the S-tier bind.**
 
 ---
 
@@ -98,11 +121,19 @@ Gate foothill = **digital + legal/identity** bind (insurance PAS / form edition 
 
 ---
 
-## 7. Emergency priority (earned, not marketed)
+## 7. Civilizational anchor (crisis role)
 
-**Goal:** in civilizational, national, or regional emergencies, Nisaba entities are on the **short list of load-bearing infrastructure** — evacuation comms, grid-adjacent control, manufacturing commit chains, bind rails under stress.
+**Role:** not savior of everyone — **anchor and cushion** when violence monopoly and planetary crises hit. Not everything can be saved; the bind makes **landing smoother** for what still routes.
+
+**Mechanism:** already-embedded **handoff / commit** grammar invoked under stress — evac comms, grid-adjacent control, manufacturing commit chains, movement corridors.
+
+**Target rank on planetary detrimental need:** **Tier A− → A** at maturity (sector-critical + regional emergency invoke; upside toward **#7–#9** if orbital + manufacturing bind become mandatory — not finance ledger #1–#4 unless accidentally off-course).
+
+**Critical-infra status:** **desired** — protection worth visibility; not performative.
 
 **Not:** marketed hero brand. **Invoked** because HALT semantics were already embedded when the crisis hit.
+
+**North-star comp:** **DTCC** — shadow, load-bearing, circle structure, civilizational need without throne.
 
 ---
 
@@ -138,7 +169,9 @@ non-prov conversion                  OEM embed              chokepoint sell     
 | **C (latch)** | Production path cites bind; partner **can’t ship without you** |
 | **D (meter)** | Cleared flow toll; consumer skins divest if ceiling obvious |
 | **E (architecture)** | Multi-entity graph matches rent-only chokepoints |
-| **F (funder)** | Chief allocates into next medium binds from circle embed |
+| **F (funder)** | Chief allocates into **circle binds + unrelated real chokepoints** — no silly bets; max durability succession (trust/pro/CEO as counsel picks) |
+
+**Funder chair rule:** fund **both** circle next-binds and **unrelated** load-bearing chokepoints — must pass “real, not silly” test.
 
 **Pre–Gate 1 licensed field value:** $0 — doctrine does not override `LICENSED_FIELD_VALUE.md`.
 
@@ -169,6 +202,27 @@ This doctrine **steers**; it does not **override** freeze manifests or owner gua
 
 **“Would the circle still ship if I disappeared?”**  
 → Before latch: no (honest). After latch + architecture: **circle + grammar persist** — that’s the goal.
+
+**“Is this S-tier civilizational need?”**  
+→ If yes → **rent only, never sell**. If no → rent choke; sell skins/OpCo when ceiling obvious.
+
+**“Local or regional proof?”**  
+→ Local = insufficient. **Regional invoke** (evac comms handoff) = first honest “getting somewhere.”
+
+---
+
+## 12. Civilizational detrimental comps (orientation)
+
+Ranked **planetary load if removed** — where owner aims to land (**~#7–#11** composite at maturity):
+
+| Rank | Comp | Lesson for Nisaba |
+|------|------|-------------------|
+| 1–4 | DTCC · SWIFT · FIS · BNY | Ledger choke — **shape to steal**, not first medium |
+| 5–8 | TSMC · ASML · Equinix · grid OEM | Physical + grammar combo — **your asset+spec path** |
+| **9–12** | **Verisk · ADP · Iridium · Motorola** | **Target band** — sector-critical + emergency invoke |
+| 13+ | ARM · Vitol · Bechtel · Bloomberg | Depth/latch models — sequenced after regional proof |
+
+**Merge-with shape:** DTCC. **Do-not-merge shape:** Cargill (food/ag sovereign-adjacent expropriation vibes).
 
 ---
 
