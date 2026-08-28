@@ -52,9 +52,11 @@ Everything below serves this table. Insurance PAS / form edition = **digital foo
 
 **Deterrence mechanism:** if the circle is crossed, **whatever the target’s core is** stops routing — production, capital, comms handoff, bind path — not social media shame.
 
-**Posture vs state:** **Federation / planetary marketplace** — **member OEMs at the table**, **states as observers** (coordinate, not appoint throne); **defense / classified adjacency accepted** when it accelerates emergency embed (`NORTH_STAR.md` military-compatible-as-customer stands).
+**Posture vs state:** **Federation / planetary marketplace** — **member OEMs at the table**, **states as involved observers** (see the work, participate in exercises and coordination — **no throne**); **defense / classified adjacency accepted** when it accelerates emergency embed (`NORTH_STAR.md` military-compatible-as-customer stands).
 
-**Why observers (owner rationale):** not to **take** sovereignty — to **avoid cult optics**. A private circle clearing crisis handoffs with zero public legibility reads like shadow capture. Observers = **legibility + coordination hook**, not throne. The scheme stays **boring infrastructure**, not a weird world-taking pact.
+**Why observers (owner rationale):** not to **take** sovereignty — to **avoid cult optics** while staying **genuinely open**. Observers **see what we’re doing and are involved in it** — rent, collaborate, regional exercises, tombstone visibility — not a passive PR window. Private circle with zero legibility reads like shadow capture; **involved observers + rent/collaborate posture** reads like infrastructure. Still **no throne** — they don’t own the bind.
+
+**Collaboration default:** **extremely open to rent and collaborate** on the grammar, nodes, scheme seats, and field licenses. **Will not sell** anything at **planetary scale** or with **planetary-scale potential** — S-tier and sniff-test assets stay **rent-only** in HoldCo.
 
 **Pact enforcement:** **Legal + economic** — scheme law **and** routing dependency. No whistleblower culture; breaking pact costs **core**, not embarrassment.
 
