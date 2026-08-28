@@ -3053,6 +3053,8 @@ def well_known_commit_auth():
                 "term_sheet_skeleton": "gate/PATENT_LICENSE_TERM_SHEET.md",
                 "exhibit_redacted": "gate/PATENT_LICENSE_EXHIBIT_REDACTED.md",
                 "event_potential_model": "gate/PATENT_LICENSE_EVENT_POTENTIAL.md",
+                "ceiling_ladder": "gate/IP_ASSET_CEILING.md",
+                "well_known_ceiling_ladder": f"{advertised_url()}/.well-known/ip-asset-ceiling-ladder.json",
                 "well_known_asset": f"{advertised_url()}/.well-known/epoch-lock-patent-asset.json",
                 "claims": ["epoch_lock", "commit_time_single_use_bind"],
                 "meter": {
