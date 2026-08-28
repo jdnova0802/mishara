@@ -1,6 +1,6 @@
 # Intentions — post-survey invention catalog (Aug 28)
 
-**Status:** seven competitive-response modules **shipped** (see below). Remaining intentions = mountain / post-weld.  
+**Status:** 24 invention modules **shipped** (competitive + institutional + S-tier). Remaining intentions = mountain / post-weld.  
 **Not MGA outbound lead.** Bind Room leads epoch lock + bind moment; these are league-of-one artifacts.
 
 **Context:** Competitive survey showed the commit-auth lane is crowded (Authproof, IBCT, CertNode, PCAA, Parakhin). We are **not** as alone on receipts and capability tokens as we assumed. These intentions target **cells still empty** — epoch lock, carrier bind choke, fail-closed availability honesty, restraint-as-SKU.
