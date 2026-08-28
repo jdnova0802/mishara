@@ -2,7 +2,7 @@
 
 **Status:** orientation map — not a product roadmap, not a new invention batch.  
 **Purpose:** Name the **categories next to and above infrastructure**, where the Nisaba family sits, and which massive categories would strengthen it.  
-**Companion:** `ENTITY_MAP.md` · `NORTH_STAR.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md`  
+**Companion:** `ENTITY_MAP.md` · `NORTH_STAR.md` · `SHADOW_CHOKEPOINT_DOCTRINE.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md`  
 **Freeze note:** This file is a **map**. It does not expand wealth apparatus, ceiling ladders, or L2 modules. Counsel week + Gate 1 still outrank editing this.
 
 ---
