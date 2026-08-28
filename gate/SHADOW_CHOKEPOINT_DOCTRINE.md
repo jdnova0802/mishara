@@ -8,9 +8,20 @@
 
 ## One sentence
 
-> **One planetary chokepoint — grammar plus physical embed — anchoring crisis handoffs so the landing is softer; rent everything load-bearing; insider myth only.**
+> **Evac comms — one planetary choke: grammar plus satellite/handoff nodes, federation circle, insider myth; rent everything S-tier; anchor the crisis landing.**
 
 ---
+
+## 0. Identity freeze (do not re-litigate until Gate 1)
+
+| Lock | Owner answer |
+|------|--------------|
+| **One choke (name)** | **Evac comms** — commit-at-handoff on crisis communications routing |
+| **Federation table** | **Both** — member OEMs/integrators **and** states as **observers** (not throne) |
+| **Physical first** | **Satellite / handoff nodes** — grammar runs on owned or controlled handoff physical |
+| **Circle pact enforcement** | **Both** — **legal lock** (agreements, NDAs, scheme rules) **and** **economic lock** (core routes through bind; cross = core stops) |
+
+Everything below serves this table. Insurance PAS / form edition = **digital foothill** toward latch, not the ceiling choke.
 
 ## 1. End-state identity (owner lock)
 
@@ -41,7 +52,9 @@
 
 **Deterrence mechanism:** if the circle is crossed, **whatever the target’s core is** stops routing — production, capital, comms handoff, bind path — not social media shame.
 
-**Posture vs state:** **Federation / planetary marketplace** neutrality — not US throne, not nation cosplay; **defense / classified adjacency accepted** when it accelerates emergency embed (`NORTH_STAR.md` military-compatible-as-customer stands).
+**Posture vs state:** **Federation / planetary marketplace** — **member OEMs at the table**, **states as observers** (coordinate, not appoint throne); **defense / classified adjacency accepted** when it accelerates emergency embed (`NORTH_STAR.md` military-compatible-as-customer stands).
+
+**Pact enforcement:** **Legal + economic** — scheme law **and** routing dependency. No whistleblower culture; breaking pact costs **core**, not embarrassment.
 
 ---
 
@@ -57,15 +70,17 @@
 
 **Expand through the middle:** deepen infra (pin, registry, meter, OEM demand) — do **not** climb to nation, land baron, or political theater.
 
-**Chokepoint count:** **one planetary choke** — grammar + physical assets on the same bind — not a thinned portfolio of unrelated pins. Depth over sprawl.
+**Chokepoint count:** **one planetary choke — evac comms** — grammar + **satellite/handoff nodes** on the same bind — not a thinned portfolio of unrelated pins. Depth over sprawl.
 
-**Grammar + physical:** own the **bind grammar** and, where civilization requires it, the **physical asset** the grammar runs on (handoff nodes, comms path, production line segment) — customization on owned physical; combo is the civilizational move.
+**Grammar + physical:** own the **evac comms bind grammar** on **satellite/handoff nodes** (and ground segment as handoff requires) — customization on owned physical; combo is the civilizational move. Grammar-only on others’ hardware is **interim**, not end state.
 
 **Permission to open table #2:** integrator / OEM **can’t ship without you** — not revenue vanity, not followers.
 
 **Proud receipt:** **name on a protocol spec** (or equivalent production cite) that strangers use in live routing.
 
-**First “getting somewhere” receipt (regional, not local):** **evac / crisis comms handoff bind** — e.g. a **region on notice** (Midwest-scale routing authority), not a city pilot. Local proofs are insufficient; regional invoke = early validation.
+**First “getting somewhere” receipt (regional, not local):** **evac comms handoff bind** on owned/controlled nodes — e.g. a **region on notice** (Midwest-scale routing authority), not a city pilot. Local proofs are insufficient; regional invoke = early validation.
+
+**Sequence note:** Gate foothill (insurance/digital bind) → latch/spec cite → **regional evac comms invoke** = identity proof. Matter/manufacturing extension **after** evac comms choke proves — same grammar, next medium.
 
 ---
 
