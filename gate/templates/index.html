@@ -6,15 +6,15 @@
 {% block content %}
 <div class="top-banner">
   <span>Clearance before withdraw, payout, or bind. If uncertain, the write does not run.</span>
-  <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld {{ weld_price }} →</a>
+  <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Bind Room {{ bind_room_price }} →</a>
 </div>
 
 <section class="hero container">
   <h1>Gate</h1>
-  <p class="hero-sub">If money is about to leave and should not, the write does not run. Gate sits on the irreversible edge — withdraw, payout clear, or bind — and fails closed under uncertainty. Independent verification. No login required to check a receipt.</p>
+  <p class="hero-sub">If money is about to leave and should not, the write does not run. Same for a bind that should not issue. Fail closed under uncertainty. Stranger verifies the receipt — no login. <code>their_production: false</code> until a recorded third-party production weld (exclusivity attestation) — drills do not flip it.</p>
   <div class="hero-actions">
-    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path · {{ weld_price }}</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Start: Bind Room {{ bind_room_price }}</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost">Production weld {{ weld_price }}</a>
   </div>
 </section>
 
@@ -26,7 +26,7 @@
       <li><strong>Fail closed:</strong> uncertain, timeout, or unreachable → write does not run</li>
       <li><strong>Parent revoked → child spend blocked</strong> — child paths cannot outlive the parent license</li>
       <li><strong>Independent verify:</strong> stranger opens the receipt with no login</li>
-      <li><strong><code>their_production: false</code></strong> until a recorded third-party production weld — drills are not production</li>
+      <li><strong><code>their_production: false</code></strong> until a recorded third-party production weld with exclusivity attestation — drills / dogfood / Bind Room checkout do not flip it</li>
       <li><strong>Fees:</strong> weld + monthly path management + 10 bps of cleared flow</li>
     </ul>
   </div>
@@ -62,7 +62,7 @@
 
 <section class="container section" style="text-align: center; padding-bottom: 3rem;">
   <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · licensed operators</p>
-  <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
+  <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Book Bind Room {{ bind_room_price }}</a>
   <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
 </section>
 {% endblock %}

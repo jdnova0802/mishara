@@ -158,3 +158,17 @@ Without self-sheath, “max doctrine” collapses into cosplay demiurge.
 When foothill_max + this ceiling ship: **stop inventing L2 throats until something paid hangs on the mouth.**
 
 **Exception (stack-rule, not dilution):** claim **L3 Mandate** now — meta-sheath · ρ clearing · principal continuity · mouth registry. See `NISABA_STACK.md`. Ahead-of-time upstairs ≠ more L2 widgets.
+
+---
+
+## Enforcement (2026-08-27 — Claude called it; we agree)
+
+The ceiling was real; **enforcement lagged**. Shipping C/D/E packs under a “foothill exemption” while saying stop inventing was a category cheat.
+
+**Rule from this line forward:**
+- Existing seed inventory is **frozen** unless **competitive-response** or **institutional-twist** invention (Aug 28+) — see shipped modules under `/.well-known/lab.json`.
+- **No other new L2 invention modules** until Gate 1: stranger paid Bind Room (or equal) + stranger prove.
+- Reclassifying mountain as foothill does **not** count as obedience.
+- Allowed under ceiling: buyer copy, deploy, Stripe/SKU, claim-grade honesty, Promo Clock / Ops Guards, sell motion.
+
+A ceiling with a category exemption isn’t a ceiling. This one is enforced now.

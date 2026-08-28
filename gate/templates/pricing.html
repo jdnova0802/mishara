@@ -5,45 +5,38 @@
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Licensed operators</p>
+  <p class="audience-tag">One ladder · PAS / payout clearance</p>
   <h1 style="text-align: center;">Pricing</h1>
   <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
-    Pay to weld one irreversible path, then monthly management plus bps on cleared flow.
+    Three steps. Same primitive. Buy in order — don’t shop eight doors.
   </p>
 
+  <div class="card" style="margin-bottom: 1.5rem; border-left: 3px solid var(--text, #111);">
+    <p class="audience-tag">Step 1 · first check</p>
+    <h2>Bind Room — {{ bind_room_price }}</h2>
+    <p><strong>We show (and document) that soft clearance cannot bind.</strong> Officer pack + schemas examiners can take. Pay now. Production cutover is Step 2.</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Pay Bind Room</a>
+    <a href="{{ url_for('demo_pas_soft_yes_snare_drills') }}" class="btn btn-ghost">Free 60s drill</a></p>
+  </div>
+
   <div class="card" style="margin-bottom: 1.5rem;">
-    <p class="audience-tag">Production path</p>
-    <h2>Operator weld — {{ weld_price }}</h2>
-    <p>One irreversible write (withdraw / payout clear, or bind-only), fail closed, delivered in 48hr. Then <strong>10 bps of what clears</strong>. Quiet path still pays <strong>{{ floor_price }}</strong> management. Extra write = another {{ weld_price }}.</p>
+    <p class="audience-tag">Step 2 · procurement</p>
+    <h2>Production weld — {{ weld_price }}</h2>
+    <p><strong>We block payout or bind on your live path.</strong> One irreversible write, fail closed, 48hr delivery window. Then monthly management + bps. This is a legal/ops decision — request quote / checkout when ready, not impulse buy.</p>
     <ul class="check-list" style="margin: 0.75rem 0;">
-      <li>their_production stays false until a recorded third-party production weld</li>
-      <li>If uncertain, the write does not run</li>
-      <li>Unlicensed gambling voids the path</li>
+      <li>{{ weld_price }} install (one write path)</li>
+      <li>{{ floor_price }} management (quiet path still pays)</li>
+      <li>10 bps on cleared flow (+5 bps above $500M/mo)</li>
+      <li><code>their_production</code> stays false until recorded third-party production weld</li>
     </ul>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Pay the weld</a>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Production weld</a>
     <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule →</a></p>
   </div>
 
-  <div class="grid-2" style="margin-bottom: 1.5rem;">
-    <div class="card">
-      <h3>Management</h3>
-      <p>{{ floor_price }} per welded path + {{ floor_price }} per active parent license.</p>
-    </div>
-    <div class="card">
-      <h3>Flow</h3>
-      <p>10 bps on cleared + carry above hurdle. Stacks with management.</p>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom: 1.5rem;">
-    <h2>Bind Room — {{ bind_room_price }}</h2>
-    <p>Officer pack + ticket schema for bind workflows. Production still requires a weld into the operator’s system.</p>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
-  </div>
-
   <div class="card">
-    <h2>Program embeds</h2>
-    <p>Same fee schedule: weld count + path management + bps on cleared flow. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
+    <p class="audience-tag">Step 3 · scale</p>
+    <h2>More paths / program</h2>
+    <p>Extra irreversible write = another weld. Same management + bps. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a> — no separate toy SKUs.</p>
   </div>
 </div>
 {% endblock %}

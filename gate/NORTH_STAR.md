@@ -5,8 +5,33 @@
 **Posture:** Tier-S **adjacent**. Never above a government or nation. Protect and serve under coordinators.
 
 This file is the **mountain**.  
+`GATE_STANCE.md` is the **locked political shape**.  
+`REALITY_CONTRACT.md` is the **earn-or-stop ladder**.  
 `SCIENCE.md` is the **physics + PRI lock**.  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
+
+---
+
+## North Star (locked)
+
+> **Gate is the rent-only final-boss may rail** — the court-shaped board rules  
+> that irreversible writes must pass so they **count** —  
+> appointed toward across entities and worlds,  
+> Swiss-class dull permanence, military-compatible as customer not owner,  
+> Appointer Face allowed, TikTok Face denied,  
+> **nothing and nobody above the rail** —  
+> outliving civilizations; coordinating Earth → Mars → further.
+
+**Shorter:**
+
+> We don’t become a nation, a bureau, or a unicorn brand.  
+> We become the **final-boss rail** where hard commits get may, sheath, and prove —  
+> rent-only, priceless as ownership, owned by none.
+
+**Role that carries it:** Chief of Irreversibility Clearance (CIC) / May Warden — performed as **Appointer**, never as throne.  
+**Evac priority:** Continuity mass from that mouth (~#12–25), never above lungs.  
+**Foothill costume:** AI governance + commit control until Breath exists.  
+**Proof it isn’t fantasy:** Settlement Dependency (Breath Meter) — strangers who can’t settle without Gate.
 
 ---
 
@@ -39,17 +64,18 @@ Gate = *this is where power enters the world — and the sheath that can lock it
 
 ## One sentence
 
-> Become the **default hard-commit industrial stack** for legitimate coordinators —  
+> Become the **default final-boss may rail** for irreversible writes —  
+> rent-only, court-shaped, Swiss-class appointed weather —  
 > not only the runtime mouth, but the **forge**: design, engineering, assembly, test, and field sustainment of systems whose **may is welded into the artifact** —  
 > the shared gravity well for **legitimacy of force** across media —  
 > **before, during, and after** every high-mass act —  
 > **mapped, cleared, sheathed, proved, and manufactured** —  
-> so nations can project force and restrain force without trusting a silent fail-open —  
-> **under** the flag, never instead of it.
+> so entities can project force and restrain force without trusting a silent fail-open —  
+> **under** coordinators and Lattice, never instead of them, never as anyone’s property.
 
 Shorter:
 
-> We don’t rule nations. We **build and run** the layer where power **sticks** — legible, sheathed, and proveable.
+> We don’t rule nations. We **are the rail** where power **sticks** — legible, sheathed, proveable, rent-only, unownable.
 
 Physics footnote: “sticks” = high undo-cost / irreversible under thermo + law + blast radius (`SCIENCE.md`).
 
@@ -831,6 +857,11 @@ Remaining mountain-only items stay out of the pitch until plant/agent production
 | **Invisible Staple Scale** | **Full invisible diet** — `gate/INVISIBLE_SCALE.md` — score 10 Bone Law → score 0 Act Serial → hate (−5) → bedrock ɱ/CMCP (−10) |
 | **May Warden (CIC)** | **Formal role doctrine** — `gate/MAY_WARDEN.md` — Chief of Irreversibility Clearance; dream seat; enterable ladder |
 | **Crucial Roles** | **Formal taxonomy** — `gate/CRUCIAL_ROLES.md` + `gate/crucial_roles.py` — Can't Lose This Guy tiers S/A/B/C; CIC apex; Bind Room foothill |
+| **Civ Maintenance (L4)** | **Market inventions** — `gate/CIV_MAINTENANCE.md` — Teeth Latch · Reality Root · Loss Deed · Telos · Catechism · Attested Exit · Joule Hostage · Unborn Seat · Domination Facing · Name Death |
+| **Living Continuity** | **Nuts pack** — `gate/CONTINUITY_LIVE.md` — Obey Bit · Dual-State · Presence Proof · Voice≠May · Access Tomb · Tacit Capture · Agent Succession · Continuity Clock · Rival-Root · Substrate Migration |
+| **Gate Anatomy** | **Faceless body** — `gate/GATE_ANATOMY.md` — Mouth·Sheath·Bone·Tooth·Stone·Blood·Gut·Heart·Cord·Ear·Marrow·Immune·Liver·Womb·Lattice·Breath; **Eye/Hand = P1/P2/P3 protection only**; **no Face**; never Lockheed |
+| **Reality Contract** | **Earn or stop** — `gate/REALITY_CONTRACT.md` — Gates 0–5; Breath first; Greenland after Lattice; fantasy flags; weekly ritual |
+| **Gate Stance** | **Locked position** — `gate/GATE_STANCE.md` — rent-only planetary may rail; court-shaped; not SaaS/bureau; institutional Face; multi-world coordinate |
 
 **Stack (own the floor above may):** L0 can (not ours) · L1 sight (not ours) · **L2 Gate may** · **L3 Mandate** · **Bone Law** · **CBR/Hate/Bedrock** · **May Warden** — claim upstairs *now* so peelable may cannot Foundry you.
 

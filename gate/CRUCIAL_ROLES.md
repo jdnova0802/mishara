@@ -14,7 +14,9 @@ Certain functions are not vendor SKUs. They are **constitutive infrastructure**:
 
 This document classifies **crucial roles** by tier — from civilization weather (S) to operational entry (C) — and names the **most vital** function among them.
 
-**Formal dream seat:** Chief of Irreversibility Clearance (CIC) — doctrine shorthand: **May Warden**.
+**Formal dream seat:** Chief of Irreversibility Clearance (CIC) — doctrine shorthand: **May Warden**.  
+**Strictness:** see `MAY_WARDEN.md` — ordeal-grade only; soft CIC = no ark claim; Continuity-class boarding among may seats if ordeal holds; never exclusive over life-support.  
+**Strictness:** see `MAY_WARDEN.md` — ordeal-grade only; soft CIC = no ark claim; Continuity-class boarding among may seats if ordeal holds; never exclusive over life-support.
 
 ---
 

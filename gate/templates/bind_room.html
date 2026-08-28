@@ -1,26 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Bind Room{% endblock %}
+{% block title %}Bind Room — stop ghost binds{% endblock %}
 {% block meta %}
-<meta name="description" content="Officer pack examiners take + PolicyCenter pre-bind weld. $1,750. Control, not a rating model.">
+<meta name="description" content="We block the bind when clearance is soft, timed out, or fake-approved. Officer pack {{ bind_room_price }}. Not a rating model.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Bind Room</p>
-  <h1>Two artifacts. One weld. A no that holds.</h1>
-  <p class="audience-sub">The officer pack is the narrative examiners take. The bound answer is the no on bind-and-issue. On request they take verify permalinks. If the hop is not on <em>their</em> write path, it is still a question.</p>
-  <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Production weld in their house: <a href="{{ url_for('operator_page') }}">operator {{ weld_price }}</a>. Agent path: {{ install_price }} / 48hr. Fuse_id + job_id only. No PII.</p>
+  <p class="audience-tag">PAS / MGA · first door</p>
+  <h1>We block the bind when it should not issue.</h1>
+  <p class="audience-sub">Soft PAS, timeout-as-yes, dashboard green, boss said yes — if clearance is not real, <strong>bind-and-issue does not run</strong>. Fail closed. Stranger can verify the receipt. You call that stop a <em>weld</em> once it sits on your write path.</p>
+  <div class="install-price">{{ bind_room_price }} <span>Bind Room officer pack · pay now</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">This pack is the exam-ready narrative + schemas. Production block on <em>their</em> PolicyCenter / PAS path is the separate operator weld ({{ weld_price }} + {{ floor_price }} + 10 bps) — quote after Bind Room, not checkout theater.</p>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
     {% if stripe_bind_room %}
     <form method="post" action="{{ url_for('bind_room_checkout') }}">
       <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
-      <button type="submit" class="btn btn-primary">Book Bind Room</button>
+      <button type="submit" class="btn btn-primary">Pay Bind Room {{ bind_room_price }}</button>
     </form>
     {% else %}
-    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email to pay {{ bind_room_price }}</a>
     {% endif %}
-    <a class="btn btn-ghost" href="{{ url_for('operator_page') }}">Operator weld {{ weld_price }}</a>
+    <a class="btn btn-ghost" href="{{ url_for('demo_pas_soft_yes_snare_drills') }}">Run free 60s drill</a>
   </div>
 
   <div class="grid-3">
@@ -43,213 +43,47 @@
 
   <div class="grid-2" style="margin-top: 1.5rem;">
     <div class="card">
-      <h3>Throat <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Fail-closed wedge on the bind edge. No PAS stick without cleared LIVE or proved DENY. Ambiguity, timeout, soft PAS → <strong>CHOKE</strong>.</p>
+      <h3>What buyers need to know</h3>
+      <p><strong>Soft yes does not bind.</strong> Timeout, dashboard green, or boss-said-yes without real clearance → stop. Fail closed. Receipt a stranger can open.</p>
       <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_throat') }}">throat.json</a> ·
-        <a href="{{ url_for('well_known_throat') }}">.well-known</a>
+        <a href="{{ url_for('well_known_bind_clearance') }}">bind clearance spec</a> ·
+        <a href="{{ url_for('demo_pas_soft_yes_snare_drills') }}">soft-yes drills</a> ·
+        <a href="{{ url_for('demo_pas_ghost_bind_drills') }}">ghost-bind drills</a>
       </p>
     </div>
     <div class="card">
-      <h3>Ghost Bind <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Detector for would-stick-without-may. Haunts soft PAS, timeout-as-LIVE, UW-as-CHARGE, boss-said-yes — before money moves.</p>
-      <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_ghost_bind') }}">ghost-bind.json</a> ·
-        <a href="{{ url_for('demo_pas_ghost_bind_drills') }}">drills</a>
-      </p>
-    </div>
-  </div>
+      <h3>60s proof (no key, no PII)</h3>
+      <pre style="font-size: 0.75rem; overflow: auto;">curl -sS {{ public_url }}/.well-known/bind-clearance.json | python3 -m json.tool
 
-  <div class="grid-2" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Stick Meter <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Scores commit-mass of bind/payout/sanction writes (0–100) before the mouth. Labels <strong>light / heavy / sacred</strong> — CUO scoreboard, not cosplay.</p>
-      <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_stick_meter') }}">stick-meter.json</a> ·
-        <a href="{{ url_for('well_known_stick_meter') }}">.well-known</a>
-      </p>
-    </div>
-    <div class="card">
-      <h3>Charge Bride <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Only CHARGE resurrects DEAD. UW approve, chat yes, boss said yes → <strong>FORGED</strong>. Pre-bind weld on the #1 PAS soft-bypass.</p>
-      <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_charge_bride') }}">charge-bride.json</a> ·
-        <a href="{{ url_for('demo_pas_charge_bride_drills') }}">drills</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="grid-2" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Hop Tattoo <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Every pre-bind hop burns a stranger <code class="inline">verify_url</code> into the job. Examiner opens the no without trusting the carrier — officer appendix material.</p>
-      <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_hop_tattoo') }}">hop-tattoo.json</a> ·
-        <a href="{{ url_for('well_known_hop_tattoo') }}">.well-known</a>
-      </p>
-    </div>
-    <div class="card">
-      <h3>Soft-Yes Snare <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>CUO red-team pack: timeout→LIVE, dashboard→LIVE, boss→LIVE — all must <strong>CHOKE</strong> or haunt. Paid workshop drill.</p>
-      <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_soft_yes_snare') }}">soft-yes-snare.json</a> ·
-        <a href="{{ url_for('demo_pas_soft_yes_snare_drills') }}">drills</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="grid-3" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Mass Tag <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Stick Meter score → UW-visible <strong>light / heavy / sacred</strong> tag. Sacred mass expects quorum + CHARGE.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_mass_tag') }}">mass-tag.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Issue≠Bind Splitter <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>QuoteRelease is not a bind stop. Names the PolicyCenter leak when issue type blocks quote but not bind.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_issue_bind_splitter') }}">issue-bind-splitter.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Ticket Fuse <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Bind ticket dies with parent license. Children cannot outlive the mouth — MGA pen story, fuse already in code.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_ticket_fuse_pack') }}">ticket-fuse-pack.json</a></p>
-    </div>
-  </div>
-
-  <div class="grid-2" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Payout Throat <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Same fail-closed mouth on money-leave. Soft-yes never wires.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_payout_throat') }}">payout-throat.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Twin Diode <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Twin may read plant; write needs Secure Write Macro + LIVE.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_twin_diode') }}">twin-diode.json</a></p>
-    </div>
-  </div>
-
-  <div class="grid-2" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Agent Passport Weld <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Signed pre-action passport on irreversible tools. Password ≠ permission slip.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_agent_passport_weld') }}">agent-passport-weld.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Bypass Canary <span style="color: var(--muted); font-weight: 400;">shipped seed</span></h3>
-      <p>Alarm when bind/write is reachable without a Gate hop. Never clearance.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_bypass_canary') }}">bypass-canary.json</a> · <a href="{{ url_for('demo_pas_bypass_canary_drills') }}">drills</a></p>
-    </div>
-  </div>
-
-  <div class="grid-3" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Restraint Invoice</h3>
-      <p>Billable stranger prove of what did <strong>not</strong> bind/pay/fire.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_restraint_invoice') }}">restraint-invoice.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Desk Quorum Fob</h3>
-      <p>N-of-M for heavy/sacred binds — sacred also needs CHARGE.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_desk_quorum_fob') }}">desk-quorum-fob.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Panic Latch</h3>
-      <p>Declared incident → escalate or DENY. Boss-yes under panic is forged.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_panic_latch') }}">panic-latch.json</a></p>
-    </div>
-  </div>
-
-  <div class="grid-3" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Receipt Mirror</h3>
-      <p>Public receipt + private carrier mirror — stranger vs club, no PII.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_receipt_mirror') }}">receipt-mirror.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Deadman Echo</h3>
-      <p>Long agent chains: periodic re-LIVE or CHOKE.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_deadman_echo') }}">deadman-echo.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Witness Seat</h3>
-      <p>Examiner role — verify yes, LIVE never.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_witness_seat') }}">witness-seat.json</a></p>
-    </div>
-  </div>
-
-  <div class="grid-3" style="margin-top: 1.5rem;">
-    <div class="card">
-      <h3>Pardon Sunset <span style="color: var(--muted); font-weight: 400;">Moral Throat</span></h3>
-      <p>Hard Mercy — scarred, co-signed, sunsetting. Forever pardon is aristocracy.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_pardon_sunset') }}">pardon-sunset.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Watchman Fuse <span style="color: var(--muted); font-weight: 400;">Moral Throat</span></h3>
-      <p>Duty-class deadman. Silence past SLA → <strong>DERELICT</strong>. Coward's CHOKE is kin.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_watchman_fuse') }}">watchman-fuse.json</a></p>
-    </div>
-    <div class="card">
-      <h3>Indulgence Trap <span style="color: var(--muted); font-weight: 400;">Moral Throat</span></h3>
-      <p>Paid / favor / prestige mercy is forged. Anti-charisma metallurgy.</p>
-      <p style="margin-top: 0.75rem;">
-        <a href="{{ url_for('bind_room_indulgence_trap') }}">indulgence-trap.json</a> ·
-        <a href="{{ url_for('demo_pas_indulgence_trap_drills') }}">drills</a>
-      </p>
+curl -sS -X POST {{ public_url }}/demo/pas/soft-yes-snare \
+  -H "Content-Type: application/json" \
+  -d '{"scenario":{"soft_pas":true,"decision":"ALLOW","allow_bind":true,"would_bind":true}}'</pre>
+      <p style="margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem;"><strong>Pass:</strong> the bind is refused (fail-closed), not silently approved. JSON may say <code>CHOKE</code> or <code>HAUNTED_CRITICAL</code> — both mean the stick did not proceed.</p>
     </div>
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">
-    <h2>Public proof (no key, no PII)</h2>
-    <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/throat" \
-  -H "Content-Type: application/json" \
-  -d '{"timeout":true,"decision":"ALLOW"}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/ghost-bind" \
-  -H "Content-Type: application/json" \
-  -d '{"soft_pas":true,"would_bind":true}'
-
-curl -s "{{ public_url }}/demo/pas/ghost-bind/drills"
-
-curl -s -X POST "{{ public_url }}/demo/pas/stick-meter" \
-  -H "Content-Type: application/json" \
-  -d '{"premium":60000,"authority_limit":50000,"would_bind":true}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/charge-bride" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_state":"DEAD","uw_approved":true,"would_proceed":true}'
-
-curl -s "{{ public_url }}/demo/pas/charge-bride/drills"
-
-curl -s "{{ public_url }}/demo/pas/soft-yes-snare/drills"
-
-curl -s -X POST "{{ public_url }}/demo/pas/issue-bind-splitter" \
-  -H "Content-Type: application/json" \
-  -d '{"issue_type":"UWManagerReviewBlocksQuoteRelease"}'
-
-curl -s "{{ public_url }}/demo/pas/ticket-fuse-pack"
-
-curl -s "{{ public_url }}/demo/pas/hop-tattoo/pc:DEMO"
-
-curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/mga-authority" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000,"line":"GL","state":"CO"}'</pre>
-  </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2>Two yeses — who wins</h2>
+    <h2>Buy ladder</h2>
     <ol>
-      <li>Bind-path owner with a live job API this quarter (MGA pen or PolicyCenter)</li>
-      <li>Else CUO / named Colorado 10-1-1 owner or NAIC pilot domestic</li>
-      <li>Else this pack (cash, not a weld)</li>
-      <li>MCP / listings never win a slot</li>
+      <li><strong>Free drill</strong> — curls above</li>
+      <li><strong>Bind Room {{ bind_room_price }}</strong> — officer pack (this page)</li>
+      <li><strong>Production weld {{ weld_price }}</strong> — block bind/payout on their live path (+ {{ floor_price }} + 10 bps)</li>
     </ol>
+    <p style="margin-top: 0.75rem; color: var(--muted);">Who buys first: bind-path owner with a live job API this quarter (MGA / PolicyCenter), else CUO / compliance owner. Listings never win a slot.</p>
   </div>
+
+  <details style="margin-top: 2rem; color: var(--muted);">
+    <summary style="cursor: pointer;">Lab seeds (not the buy path — expand only if you want the ontology)</summary>
+    <p style="margin: 0.75rem 0;">Internal grammar for welds after Gate 1. Buyers do not need this to pay Bind Room.</p>
+    <p style="font-size: 0.9rem;">
+      <a href="{{ url_for('well_known_bind_clearance') }}">bind-clearance</a> ·
+      <a href="{{ url_for('bind_room_ghost_bind') }}">ghost-bind</a> ·
+      <a href="{{ url_for('bind_room_stick_meter') }}">stick-meter</a> ·
+      <a href="{{ url_for('bind_room_charge_bride') }}">charge-bride</a> ·
+      <a href="{{ url_for('bind_room_hop_tattoo') }}">hop-tattoo</a> ·
+      <a href="{{ url_for('bind_room_soft_yes_snare') }}">soft-yes-snare</a> ·
+      <a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a>
+    </p>
+  </details>
 </div>
 {% endblock %}

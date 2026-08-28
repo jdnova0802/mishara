@@ -71,6 +71,8 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
             "spec": SPEC,
             "job_id": jid,
             "spent": True,
+            "claim_grade": "map_honesty",
+            "stranger_verifiable": False,
             "claim": "redeemed_ticket_leaf_present",
             "leaf_hash": leaves[idx],
             "inclusion": proof,
@@ -99,6 +101,8 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
         "spec": SPEC,
         "job_id": jid,
         "spent": False,
+        "claim_grade": "map_honesty",
+        "stranger_verifiable": False,
         "claim": "no_redeemed_ticket_for_job",
         "neighbors": {"left": left, "right": right},
         "tree_size": len(jobs),
@@ -108,6 +112,7 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
             "verify both neighbor inclusions against tree_head.root_hash."
         ),
         "not_global": "Proves absence within Gate's redeemed-ticket map, not metaphysical non-occurrence.",
+        "map_honesty_today_not_stranger_grade_absence": True,
         "winner": None,
         "crown_the_miss": False,
         "their_production": False,
@@ -146,9 +151,16 @@ def manifest(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Spend exclusion proof",
-        "greater_than_ed25519": (
+        "claim_grade": "map_honesty",
+        "stranger_verifiable": False,
+        "authorization_vs_attestation": (
             "A signature on a HALT says we said no. An exclusion proof says "
-            "no spend leaf for this job exists in the append-only map."
+            "no spend leaf for this job exists in Gate's redeemed-ticket map."
+        ),
+        "map_honesty_today_not_stranger_grade_absence": (
+            "Map honesty today, not stranger-grade absence. "
+            "TSA / RFC 3161 root anchor upgrades the claim; until then do not "
+            "put exclusion in buyer copy as stranger-verifiable."
         ),
         "lookup": f"{public_url}/.well-known/exclusion.json?job_id={{job_id}}",
         "lineage": [
@@ -156,4 +168,8 @@ def manifest(public_url: str) -> dict:
             "RFC 9162 Certificate Transparency (inclusion + consistency)",
         ],
         "their_production": False,
+        "their_production_unlock": (
+            "Flips true only after a recorded third-party production weld "
+            "with exclusivity attestation. Dogfood / drills do not flip it."
+        ),
     }

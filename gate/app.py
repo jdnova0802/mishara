@@ -340,6 +340,11 @@ except ImportError:
     import mouth_density as mouth_density_mod
 
 try:
+    from gate import promo_clock as promo_clock_mod
+except ImportError:
+    import promo_clock as promo_clock_mod
+
+try:
     from gate import foothill_max as foothill_max_mod
 except ImportError:
     import foothill_max as foothill_max_mod
@@ -363,6 +368,146 @@ try:
     from gate import crucial_roles as crucial_roles_mod
 except ImportError:
     import crucial_roles as crucial_roles_mod
+
+try:
+    from gate import civ_maintenance as civ_maintenance_mod
+except ImportError:
+    import civ_maintenance as civ_maintenance_mod
+
+try:
+    from gate import intentions as intentions_mod
+except ImportError:
+    import intentions as intentions_mod
+
+try:
+    from gate import halt_cemetery as halt_cemetery_mod
+except ImportError:
+    import halt_cemetery as halt_cemetery_mod
+
+try:
+    from gate import cold_standby_mirror as cold_standby_mirror_mod
+except ImportError:
+    import cold_standby_mirror as cold_standby_mirror_mod
+
+try:
+    from gate import renewal_day_throat as renewal_day_throat_mod
+except ImportError:
+    import renewal_day_throat as renewal_day_throat_mod
+
+try:
+    from gate import ghost_renewal_snare as ghost_renewal_snare_mod
+except ImportError:
+    import ghost_renewal_snare as ghost_renewal_snare_mod
+
+try:
+    from gate import refuse_ledger as refuse_ledger_mod
+except ImportError:
+    import refuse_ledger as refuse_ledger_mod
+
+try:
+    from gate import override_impossibility as override_impossibility_mod
+except ImportError:
+    import override_impossibility as override_impossibility_mod
+
+try:
+    from gate import bind_weather as bind_weather_mod
+except ImportError:
+    import bind_weather as bind_weather_mod
+
+try:
+    from gate import exhibit_d_snare as exhibit_d_snare_mod
+except ImportError:
+    import exhibit_d_snare as exhibit_d_snare_mod
+
+try:
+    from gate import protracted_outage_order as protracted_outage_order_mod
+except ImportError:
+    import protracted_outage_order as protracted_outage_order_mod
+
+try:
+    from gate import black_box_epoch as black_box_epoch_mod
+except ImportError:
+    import black_box_epoch as black_box_epoch_mod
+
+try:
+    from gate import mariana_pause_latch as mariana_pause_latch_mod
+except ImportError:
+    import mariana_pause_latch as mariana_pause_latch_mod
+
+try:
+    from gate import nss_finality_stamp as nss_finality_stamp_mod
+except ImportError:
+    import nss_finality_stamp as nss_finality_stamp_mod
+
+try:
+    from gate import agora_atomic_bind as agora_atomic_bind_mod
+except ImportError:
+    import agora_atomic_bind as agora_atomic_bind_mod
+
+try:
+    from gate import ambest_shutdown_seat as ambest_shutdown_seat_mod
+except ImportError:
+    import ambest_shutdown_seat as ambest_shutdown_seat_mod
+
+try:
+    from gate import algedonic_relay as algedonic_relay_mod
+except ImportError:
+    import algedonic_relay as algedonic_relay_mod
+
+try:
+    from gate import smpag_may_quorum as smpag_may_quorum_mod
+except ImportError:
+    import smpag_may_quorum as smpag_may_quorum_mod
+
+try:
+    from gate import iaea_acquisition_path as iaea_acquisition_path_mod
+except ImportError:
+    import iaea_acquisition_path as iaea_acquisition_path_mod
+
+try:
+    from gate import doomsday_bind_hand as doomsday_bind_hand_mod
+except ImportError:
+    import doomsday_bind_hand as doomsday_bind_hand_mod
+
+try:
+    from gate import long_now_chime as long_now_chime_mod
+except ImportError:
+    import long_now_chime as long_now_chime_mod
+
+try:
+    from gate import dark_forest_restraint as dark_forest_restraint_mod
+except ImportError:
+    import dark_forest_restraint as dark_forest_restraint_mod
+
+try:
+    from gate import great_filter_gate as great_filter_gate_mod
+except ImportError:
+    import great_filter_gate as great_filter_gate_mod
+
+try:
+    from gate import psychohistory_seldon_line as psychohistory_seldon_line_mod
+except ImportError:
+    import psychohistory_seldon_line as psychohistory_seldon_line_mod
+
+try:
+    from gate import sophon_lock as sophon_lock_mod
+except ImportError:
+    import sophon_lock as sophon_lock_mod
+
+try:
+    from gate import who_shadow_bind_report as who_shadow_bind_report_mod
+except ImportError:
+    import who_shadow_bind_report as who_shadow_bind_report_mod
+
+try:
+    from gate import continuity_live as continuity_live_mod
+except ImportError:
+    import continuity_live as continuity_live_mod
+
+try:
+    from gate import gate_anatomy as gate_anatomy_mod
+except ImportError:
+    import gate_anatomy as gate_anatomy_mod
 
 try:
     from gate import restraint as restraint_mod
@@ -483,6 +628,8 @@ ARCHIVE_NOINDEX_PREFIXES = (
 PUBLIC_WELLKNOWN = frozenset(
     {
         "/.well-known/gate.json",
+        "/.well-known/claim-grades.json",
+        "/.well-known/commit-auth.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
         "/.well-known/legal.json",
@@ -774,6 +921,14 @@ def health():
     https_ok = public_url_mod.public_ok(pub)
     db_path = os.getenv("GATE_DB_PATH", "./gate.db")
     ephemeral_db = public_url_mod.db_path_is_ephemeral(db_path)
+    try:
+        from gate import ops_guards as ops_guards_mod
+    except ImportError:
+        import ops_guards as ops_guards_mod
+
+    guards = ops_guards_mod.snapshot(
+        include_live=os.getenv("GATE_OPS_LIVE_SMOKE", "").lower() in ("1", "true", "yes")
+    )
     payload = {
         "status": "ok",
         "service": "gate-api",
@@ -801,6 +956,18 @@ def health():
         "refusal": f"{pub}/refusal",
         "tattoo": f"{pub}/tattoo",
         "x402": x402_challenge_mod.payto_debug(),
+        "guards": {
+            "overall": guards.get("overall"),
+            "patent": guards["guards"].get("patent"),
+            "stripe": guards["guards"].get("stripe"),
+            "gate1": guards["guards"].get("gate1"),
+            "buyer_lint": {
+                "level": guards["guards"].get("buyer_lint", {}).get("level"),
+                "message": guards["guards"].get("buyer_lint", {}).get("message"),
+            },
+            "last_proved": guards["guards"].get("last_proved"),
+            "live_smoke": guards["guards"].get("live_smoke"),
+        },
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -809,6 +976,10 @@ def health():
         payload["status"] = "not_public"
         payload["message"] = "GATE_PUBLIC_URL is still local/http. Set https origin or rely on RENDER_EXTERNAL_URL."
         return jsonify(payload), 503
+    if guards.get("overall") == "fail" and not GATE_DEV_MODE:
+        payload["status"] = "degraded"
+        payload["message"] = "ops guards failing (patent/stripe/live smoke) — see guards"
+        return jsonify(payload), 200
     payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
     return jsonify(payload)
 
@@ -1200,6 +1371,22 @@ def _finalize_spend_plan(
     plan["event_id"] = event_id
     plan["acted"] = acted
     plan["decision"] = decision
+    halt_cemetery_mod.attach(plan, row=row, epoch=epoch_meta)
+    refuse_ledger_mod.attach(plan, row=row, premium=_num(plan.get("premium")))
+    override_impossibility_mod.attach(plan)
+    black_box_epoch_mod.attach(plan)
+    nss_finality_stamp_mod.attach(plan)
+    agora_atomic_bind_mod.attach(plan)
+    algedonic_relay_mod.attach(plan)
+    smpag_may_quorum_mod.attach(plan)
+    iaea_acquisition_path_mod.attach(plan)
+    doomsday_bind_hand_mod.attach(plan)
+    long_now_chime_mod.attach(plan)
+    dark_forest_restraint_mod.attach(plan)
+    great_filter_gate_mod.attach(plan)
+    psychohistory_seldon_line_mod.attach(plan)
+    sophon_lock_mod.attach(plan)
+    who_shadow_bind_report_mod.attach(plan)
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
@@ -1580,9 +1767,22 @@ def demo_dc_pre_bind():
 
 @app.route("/.well-known/gate.json")
 def well_known_gate():
+    """Commercial discovery only — diligence surface for carrier engineers.
+
+    Doctrine / seed museum lives at /.well-known/lab.json so commit-auth
+    diligence does not spill into Moral Throat / Bone Law / Reality Contract.
+    """
+    base = advertised_url()
+    unlock = (
+        "Flips true only after a recorded third-party production weld "
+        "(exclusivity attestation on /production-weld). "
+        "Dogfood / drills / Bind Room checkout do not flip it."
+    )
     return jsonify(
         {
             "name": "Gate API",
+            "product": "Gate",
+            "operator": "Nisaba LLC",
             "description": (
                 "Clearance before irreversible withdraw, payout, and bind. "
                 "Fail closed under uncertainty. Weld + management + bps. "
@@ -1593,146 +1793,237 @@ def well_known_gate():
                 "clearance fails closed; the DENY is the product, not narrative."
             ),
             "version": "1.0.0",
-            "openapi": f"{advertised_url()}/openapi.json",
-            "signup": f"{advertised_url()}/signup",
-            "install": f"{advertised_url()}/install",
-            "bind_room": f"{advertised_url()}/bind-room",
-            "operator": f"{advertised_url()}/operator",
-            "register": f"{advertised_url()}/register",
-            "register_manifest": f"{advertised_url()}/.well-known/register.json",
-            "operator_invoice": f"{advertised_url()}/.well-known/operator.json",
-            "bound": f"{advertised_url()}/bound",
-            "only": f"{advertised_url()}/only",
-            "floor": f"{advertised_url()}/floor",
-            "this": f"{advertised_url()}/this",
-            "capture": f"{advertised_url()}/capture",
-            "scanner": f"{advertised_url()}/scanner",
-            "uplink": f"{advertised_url()}/uplink",
-            "inhabitant": f"{advertised_url()}/inhabitant",
-            "afterward": f"{advertised_url()}/afterward",
-            "bound_answer": f"{advertised_url()}/.well-known/bound-answer.json",
-            "exclusive_timing": f"{advertised_url()}/.well-known/exclusive-timing.json",
-            "stakes": f"{advertised_url()}/.well-known/floor.json",
-            "particular": f"{advertised_url()}/.well-known/particular.json",
-            "inhabitant_manifest": f"{advertised_url()}/.well-known/inhabitant.json",
-            "afterward_manifest": f"{advertised_url()}/.well-known/afterward.json",
+            "outbound_lead": (
+                "What can't run once the ticket's gone — "
+                "the withdraw that didn't run, and the ticket that's already burned."
+            ),
+            "their_production": False,
+            "their_production_unlock": unlock,
+            "claim_grades": f"{base}/.well-known/claim-grades.json",
+            "openapi": f"{base}/openapi.json",
+            "signup": f"{base}/signup",
+            "install": f"{base}/install",
+            "bind_room": f"{base}/bind-room",
+            "operator_page": f"{base}/operator",
+            "register": f"{base}/register",
+            "register_manifest": f"{base}/.well-known/register.json",
+            "operator_invoice": f"{base}/.well-known/operator.json",
+            "pricing": f"{base}/pricing",
             "verify_engine": "https://velaru.xyz/verify",
-            "demo_hop": f"{advertised_url()}/demo/hop",
-            "demo_act": f"{advertised_url()}/demo/act",
-            "demo_pas": f"{advertised_url()}/demo/pas/bind-check",
-            "ocsp": f"{advertised_url()}/v1/fuse/lookup",
-            "act": f"{advertised_url()}/v1/act",
-            "pas_bind": f"{advertised_url()}/v1/pas/bind-check",
-            "policycenter_pre_bind": f"{advertised_url()}/v1/pas/policycenter/pre-bind",
-            "mga_authority": f"{advertised_url()}/v1/pas/mga-authority",
-            "mcp": f"{advertised_url()}/mcp",
-            "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
-            "x402": f"{advertised_url()}/.well-known/x402.json",
-            "listings": f"{advertised_url()}/.well-known/listings.json",
-            "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
-            "throat": f"{advertised_url()}/.well-known/throat.json",
-            "ghost_bind": f"{advertised_url()}/.well-known/ghost-bind.json",
-            "stick_meter": f"{advertised_url()}/.well-known/stick-meter.json",
-            "charge_bride": f"{advertised_url()}/.well-known/charge-bride.json",
-            "hop_tattoo": f"{advertised_url()}/.well-known/hop-tattoo.json",
-            "soft_yes_snare": f"{advertised_url()}/.well-known/soft-yes-snare.json",
-            "mass_tag": f"{advertised_url()}/.well-known/mass-tag.json",
-            "issue_bind_splitter": f"{advertised_url()}/.well-known/issue-bind-splitter.json",
-            "ticket_fuse_pack": f"{advertised_url()}/.well-known/ticket-fuse-pack.json",
-            "payout_throat": f"{advertised_url()}/.well-known/payout-throat.json",
-            "twin_diode": f"{advertised_url()}/.well-known/twin-diode.json",
-            "agent_passport_weld": f"{advertised_url()}/.well-known/agent-passport-weld.json",
-            "bypass_canary": f"{advertised_url()}/.well-known/bypass-canary.json",
-            "restraint_invoice": f"{advertised_url()}/.well-known/restraint-invoice.json",
-            "desk_quorum_fob": f"{advertised_url()}/.well-known/desk-quorum-fob.json",
-            "panic_latch": f"{advertised_url()}/.well-known/panic-latch.json",
-            "receipt_mirror": f"{advertised_url()}/.well-known/receipt-mirror.json",
-            "deadman_echo": f"{advertised_url()}/.well-known/deadman-echo.json",
-            "witness_seat": f"{advertised_url()}/.well-known/witness-seat.json",
-            "pardon_sunset": f"{advertised_url()}/.well-known/pardon-sunset.json",
-            "watchman_fuse": f"{advertised_url()}/.well-known/watchman-fuse.json",
-            "indulgence_trap": f"{advertised_url()}/.well-known/indulgence-trap.json",
-            "bind_path_compiler": f"{advertised_url()}/.well-known/bind-path-compiler.json",
-            "gate_od_skins": f"{advertised_url()}/.well-known/gate-od-skins.json",
-            "larp_gap_pack": f"{advertised_url()}/.well-known/larp-gap-pack.json",
-            "restraint_unit": f"{advertised_url()}/.well-known/restraint-unit.json",
-            "restraint_unit_ledger": f"{advertised_url()}/.well-known/restraint-unit-ledger.json",
-            "oath_compiler": f"{advertised_url()}/.well-known/oath-compiler.json",
-            "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
-            "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
-            "mouth_ceiling": f"{advertised_url()}/.well-known/mouth-ceiling.json",
-            "mandate_layer": f"{advertised_url()}/.well-known/mandate-layer.json",
-            "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
-            "bone_law": f"{advertised_url()}/.well-known/bone-law.json",
-            "invisible_scale": f"{advertised_url()}/.well-known/invisible-scale.json",
-            "crucial_roles": f"{advertised_url()}/.well-known/crucial-roles.json",
-            "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
-            "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
-            "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
-            "algedonic_relay": f"{advertised_url()}/.well-known/algedonic-relay.json",
-            "may_budget": f"{advertised_url()}/.well-known/may-budget.json",
-            "funeral_bit": f"{advertised_url()}/.well-known/funeral-bit.json",
-            "bind_genealogy": f"{advertised_url()}/.well-known/bind-genealogy.json",
-            "cold_weld": f"{advertised_url()}/.well-known/cold-weld.json",
-            "tool_throat": f"{advertised_url()}/.well-known/tool-throat.json",
-            "time_lock": f"{advertised_url()}/.well-known/time-lock.json",
-            "charisma_nullifier": f"{advertised_url()}/.well-known/charisma-nullifier.json",
-            "sabbath_latch": f"{advertised_url()}/.well-known/sabbath-latch.json",
-            "may_quarantine": f"{advertised_url()}/.well-known/may-quarantine.json",
-            "branch_tombstone": f"{advertised_url()}/.well-known/branch-tombstone.json",
-            "secure_write_macro": f"{advertised_url()}/.well-known/secure-write-macro.json",
-            "dose_throat": f"{advertised_url()}/.well-known/dose-throat.json",
-            "jubilee_clock": f"{advertised_url()}/.well-known/jubilee-clock.json",
-            "antimay": f"{advertised_url()}/.well-known/antimay.json",
-            "senate_socket_soft": f"{advertised_url()}/.well-known/senate-socket-soft.json",
-            "receipt_stone": f"{advertised_url()}/.well-known/receipt-stone.json",
-            "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
-            "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
-            "schism": f"{advertised_url()}/.well-known/schism.json",
-            "positioning": f"{advertised_url()}/.well-known/positioning.json",
-            "action_os": f"{advertised_url()}/.well-known/action-os.json",
-            "action_os_page": f"{advertised_url()}/action-os",
-            "scorecard": f"{advertised_url()}/.well-known/scorecard.json",
-            "scorecard_page": f"{advertised_url()}/scorecard",
-            "family": f"{advertised_url()}/.well-known/family.json",
-            "family_page": f"{advertised_url()}/family",
-            "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
-            "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
-            "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
-            "science_page": f"{advertised_url()}/science",
-            "legal": f"{advertised_url()}/.well-known/legal.json",
-            "privacy": f"{advertised_url()}/privacy",
-            "terms": f"{advertised_url()}/terms",
-            "runbook": f"{advertised_url()}/.well-known/runbook.json",
-            "runbook_page": f"{advertised_url()}/runbook",
-            "dogfood": f"{advertised_url()}/dogfood",
-            "production_weld": f"{advertised_url()}/production-weld",
-            "live": f"{advertised_url()}/live",
-            "live_json": f"{advertised_url()}/.well-known/live.json",
-            "canary": f"{advertised_url()}/.well-known/canary.json",
-            "canary_report": f"{advertised_url()}/v1/canary/bypass",
-            "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
-            "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
-            "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
-            "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
-            "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
-            "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
-            "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
-            "restraint": f"{advertised_url()}/.well-known/restraint.json",
-            "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
-            "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
-            "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
-            "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
-            "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
-            "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
+            "demo_hop": f"{base}/demo/hop",
+            "demo_act": f"{base}/demo/act",
+            "demo_pas": f"{base}/demo/pas/bind-check",
+            "ocsp": f"{base}/v1/fuse/lookup",
+            "act": f"{base}/v1/act",
+            "pas_bind": f"{base}/v1/pas/bind-check",
+            "policycenter_pre_bind": f"{base}/v1/pas/policycenter/pre-bind",
+            "mga_authority": f"{base}/v1/pas/mga-authority",
+            "bind_ticket_redeem": f"{base}/v1/pas/bind-ticket/redeem",
+            "mcp": f"{base}/mcp",
+            "mcp_discovery": f"{base}/.well-known/mcp.json",
+            "x402": f"{base}/.well-known/x402.json",
+            "listings": f"{base}/.well-known/listings.json",
+            "commit_auth": f"{base}/.well-known/commit-auth.json",
+            "spend_protocol": f"{base}/.well-known/spend-protocol.json",
+            "command_radiation": f"{base}/.well-known/command-radiation.json",
+            "license_fuse": f"{base}/.well-known/license-fuse.json",
+            "exclusion": f"{base}/.well-known/exclusion.json?job_id={{job_id}}",
+            "promo_clock": f"{base}/.well-known/promo-clock.json",
+            "ops_guards": f"{base}/.well-known/ops-guards.json",
+            "gate1": f"{base}/.well-known/gate1.json",
+            "legal": f"{base}/.well-known/legal.json",
+            "privacy": f"{base}/privacy",
+            "terms": f"{base}/terms",
+            "production_weld": f"{base}/production-weld",
+            "dogfood": f"{base}/dogfood",
             "fail_closed": "Timeout or 5xx → HTTP 503 halt. Never treat UNREACHABLE as LIVE.",
             "charge": "DEAD→LIVE only via Velaru CHARGE webhook.",
+            "patent": "64/124,027",
+            "operator": "Nisaba LLC",
             "sdk": {
                 "python": "from gate.sdk import GateClient",
                 "pip": "pip install -r requirements.txt  # sdk in-repo",
             },
-            "patent": "64/124,027",
-            "operator": "Nisaba LLC",
+        }
+    )
+
+
+@app.route("/.well-known/lab.json")
+def well_known_lab():
+    """Seed / doctrine museum catalog — not the commercial diligence surface.
+
+    Engineers verifying commit-auth should stay on /.well-known/gate.json +
+    commit-auth.json. This file is the frozen foothill inventory under Mouth Ceiling.
+    """
+    base = advertised_url()
+    return jsonify(
+        {
+            "spec": "gate-lab-catalog-v1",
+            "name": "Gate lab catalog",
+            "commercial_discovery": f"{base}/.well-known/gate.json",
+            "claim_grades": f"{base}/.well-known/claim-grades.json",
+            "mouth_ceiling": "Frozen inventory — no new L2 seeds until paid stranger artifact (Gate 1).",
+            "their_production": False,
+            "their_production_unlock": (
+                "Flips true only after a recorded third-party production weld "
+                "(exclusivity attestation). Dogfood / drills do not flip it."
+            ),
+            "links": {
+                "throat": f"{base}/.well-known/throat.json",
+                "ghost_bind": f"{base}/.well-known/ghost-bind.json",
+                "stick_meter": f"{base}/.well-known/stick-meter.json",
+                "charge_bride": f"{base}/.well-known/charge-bride.json",
+                "hop_tattoo": f"{base}/.well-known/hop-tattoo.json",
+                "soft_yes_snare": f"{base}/.well-known/soft-yes-snare.json",
+                "mass_tag": f"{base}/.well-known/mass-tag.json",
+                "issue_bind_splitter": f"{base}/.well-known/issue-bind-splitter.json",
+                "ticket_fuse_pack": f"{base}/.well-known/ticket-fuse-pack.json",
+                "payout_throat": f"{base}/.well-known/payout-throat.json",
+                "twin_diode": f"{base}/.well-known/twin-diode.json",
+                "agent_passport_weld": f"{base}/.well-known/agent-passport-weld.json",
+                "bypass_canary": f"{base}/.well-known/bypass-canary.json",
+                "restraint_invoice": f"{base}/.well-known/restraint-invoice.json",
+                "desk_quorum_fob": f"{base}/.well-known/desk-quorum-fob.json",
+                "panic_latch": f"{base}/.well-known/panic-latch.json",
+                "receipt_mirror": f"{base}/.well-known/receipt-mirror.json",
+                "deadman_echo": f"{base}/.well-known/deadman-echo.json",
+                "witness_seat": f"{base}/.well-known/witness-seat.json",
+                "pardon_sunset": f"{base}/.well-known/pardon-sunset.json",
+                "watchman_fuse": f"{base}/.well-known/watchman-fuse.json",
+                "indulgence_trap": f"{base}/.well-known/indulgence-trap.json",
+                "bind_path_compiler": f"{base}/.well-known/bind-path-compiler.json",
+                "gate_od_skins": f"{base}/.well-known/gate-od-skins.json",
+                "larp_gap_pack": f"{base}/.well-known/larp-gap-pack.json",
+                "restraint_unit": f"{base}/.well-known/restraint-unit.json",
+                "oath_compiler": f"{base}/.well-known/oath-compiler.json",
+                "mouth_density": f"{base}/.well-known/mouth-density.json",
+                "foothill_max": f"{base}/.well-known/foothill-max.json",
+                "mouth_ceiling": f"{base}/.well-known/mouth-ceiling.json",
+                "mandate_layer": f"{base}/.well-known/mandate-layer.json",
+                "nisaba_stack": f"{base}/.well-known/nisaba-stack.json",
+                "bone_law": f"{base}/.well-known/bone-law.json",
+                "invisible_scale": f"{base}/.well-known/invisible-scale.json",
+                "crucial_roles": f"{base}/.well-known/crucial-roles.json",
+                "civ_maintenance": f"{base}/.well-known/civ-maintenance.json",
+                "intentions": f"{base}/.well-known/intentions.json",
+                "halt_cemetery": f"{base}/.well-known/halt-cemetery.json",
+                "cold_standby_mirror": f"{base}/.well-known/cold-standby-mirror.json",
+                "renewal_day_throat": f"{base}/.well-known/renewal-day-throat.json",
+                "ghost_renewal_snare": f"{base}/.well-known/ghost-renewal-snare.json",
+                "refuse_ledger": f"{base}/.well-known/refuse-ledger.json",
+                "override_impossibility": f"{base}/.well-known/override-impossibility.json",
+                "bind_weather": f"{base}/.well-known/bind-weather.json",
+                "exhibit_d_snare": f"{base}/.well-known/exhibit-d-snare.json",
+                "protracted_outage_order": f"{base}/.well-known/protracted-outage-order.json",
+                "black_box_epoch": f"{base}/.well-known/black-box-epoch.json",
+                "mariana_pause_latch": f"{base}/.well-known/mariana-pause-latch.json",
+                "nss_finality_stamp": f"{base}/.well-known/nss-finality-stamp.json",
+                "agora_atomic_bind": f"{base}/.well-known/agora-atomic-bind.json",
+                "ambest_shutdown_seat": f"{base}/.well-known/ambest-shutdown-seat.json",
+                "continuity_live": f"{base}/.well-known/continuity-live.json",
+                "gate_anatomy": f"{base}/.well-known/gate-anatomy.json",
+                "stale_live": f"{base}/.well-known/stale-live.json",
+                "cool_off": f"{base}/.well-known/cool-off.json",
+                "silence_gate": f"{base}/.well-known/silence-gate.json",
+                "algedonic_relay": f"{base}/.well-known/algedonic-relay.json",
+                "smpag_may_quorum": f"{base}/.well-known/smpag-may-quorum.json",
+                "iaea_acquisition_path": f"{base}/.well-known/iaea-acquisition-path.json",
+                "doomsday_bind_hand": f"{base}/.well-known/doomsday-bind-hand.json",
+                "long_now_chime": f"{base}/.well-known/long-now-chime.json",
+                "dark_forest_restraint": f"{base}/.well-known/dark-forest-restraint.json",
+                "great_filter_gate": f"{base}/.well-known/great-filter-gate.json",
+                "psychohistory_seldon_line": f"{base}/.well-known/psychohistory-seldon-line.json",
+                "sophon_lock": f"{base}/.well-known/sophon-lock.json",
+                "who_shadow_bind_report": f"{base}/.well-known/who-shadow-bind-report.json",
+                "may_budget": f"{base}/.well-known/may-budget.json",
+                "funeral_bit": f"{base}/.well-known/funeral-bit.json",
+                "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
+                "cold_weld": f"{base}/.well-known/cold-weld.json",
+                "tool_throat": f"{base}/.well-known/tool-throat.json",
+                "time_lock": f"{base}/.well-known/time-lock.json",
+                "charisma_nullifier": f"{base}/.well-known/charisma-nullifier.json",
+                "sabbath_latch": f"{base}/.well-known/sabbath-latch.json",
+                "may_quarantine": f"{base}/.well-known/may-quarantine.json",
+                "branch_tombstone": f"{base}/.well-known/branch-tombstone.json",
+                "secure_write_macro": f"{base}/.well-known/secure-write-macro.json",
+                "dose_throat": f"{base}/.well-known/dose-throat.json",
+                "jubilee_clock": f"{base}/.well-known/jubilee-clock.json",
+                "antimay": f"{base}/.well-known/antimay.json",
+                "senate_socket_soft": f"{base}/.well-known/senate-socket-soft.json",
+                "receipt_stone": f"{base}/.well-known/receipt-stone.json",
+                "temporal_sheath": f"{base}/.well-known/temporal-sheath.json",
+                "kappa_register": f"{base}/.well-known/kappa.json",
+                "schism": f"{base}/.well-known/schism.json",
+                "counterfactual_spend": f"{base}/.well-known/counterfactual-spend.json",
+                "bound_answer": f"{base}/.well-known/bound-answer.json",
+                "exclusive_timing": f"{base}/.well-known/exclusive-timing.json",
+                "floor": f"{base}/.well-known/floor.json",
+                "particular": f"{base}/.well-known/particular.json",
+                "inhabitant": f"{base}/.well-known/inhabitant.json",
+                "afterward": f"{base}/.well-known/afterward.json",
+                "restraint": f"{base}/.well-known/restraint.json",
+                "prefinality": f"{base}/.well-known/prefinality.json",
+                "action_os": f"{base}/.well-known/action-os.json",
+                "scorecard": f"{base}/.well-known/scorecard.json",
+                "positioning": f"{base}/.well-known/positioning.json",
+                "production_skin": f"{base}/.well-known/production-skin.json",
+                "proof_suite": f"{base}/.well-known/proof-suite.json",
+                "science_pri": f"{base}/.well-known/science-pri.json",
+                "family": f"{base}/.well-known/family.json",
+                "runbook": f"{base}/.well-known/runbook.json",
+                "live": f"{base}/.well-known/live.json",
+                "canary": f"{base}/.well-known/canary.json",
+                "evidence_head": f"{base}/.well-known/evidence-head.json",
+            },
+        }
+    )
+
+
+@app.route("/.well-known/claim-grades.json")
+def well_known_claim_grades():
+    """Public diligence: what we claim vs refuse. Competitive honesty asset."""
+    base = advertised_url()
+    return jsonify(
+        {
+            "spec": "gate-claim-grades-v1",
+            "doc": f"{base}/.well-known/claim-grades.json",
+            "their_production": False,
+            "their_production_unlock": (
+                "Flips true only after a recorded third-party production weld "
+                "with exclusivity attestation (/production-weld). "
+                "Dogfood, Bind Room checkout, and drills do not flip it."
+            ),
+            "grades": {
+                "stranger": {
+                    "meaning": "Shape a stranger can exercise / verify today without trusting our narration.",
+                    "includes": ["bind_ticket", "epoch_lock", "command_radiation", "spend_protocol", "ed25519_receipts"],
+                },
+                "map_honesty": {
+                    "meaning": "True inside Gate's map; not stranger-grade global absence until TSA/root anchored.",
+                    "includes": ["exclusion"],
+                    "verbatim": "Map honesty today, not stranger-grade absence.",
+                },
+                "refused": {
+                    "meaning": "We will not claim these.",
+                    "includes": [
+                        "their_production without third-party weld",
+                        "exclusion as stranger-grade absence before TSA/root",
+                        "new L2 mountain until paid stranger artifact",
+                        "admin CHARGE / soft LIVE resurrect",
+                        "CIC mythology in outbound",
+                    ],
+                },
+            },
+            "burn_policy": (
+                "Burn on success only, failed redeem retryable, "
+                "post-burn fail re-issues from fresh LIVE."
+            ),
+            "outbound_lead": (
+                "What can't run once the ticket's gone — "
+                "the withdraw that didn't run, and the ticket that's already burned."
+            ),
+            "commercial": f"{base}/.well-known/gate.json",
+            "commit_auth": f"{base}/.well-known/commit-auth.json",
         }
     )
 
@@ -1740,6 +2031,7 @@ def well_known_gate():
 @app.route("/.well-known/mcp.json")
 def well_known_mcp():
     return jsonify(listings_mod.mcp_discovery(advertised_url()))
+
 
 
 @app.route("/.well-known/x402.json")
@@ -1933,10 +2225,29 @@ def well_known_crucial_roles():
     return jsonify(crucial_roles_mod.crucial_roles_manifest())
 
 
+@app.route("/.well-known/civ-maintenance.json")
+def well_known_civ_maintenance():
+    return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
+
+
+@app.route("/.well-known/intentions.json")
+def well_known_intentions():
+    return jsonify(intentions_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/continuity-live.json")
+def well_known_continuity_live():
+    return jsonify(continuity_live_mod.continuity_live_manifest(advertised_url()))
+
+
+@app.route("/.well-known/gate-anatomy.json")
+def well_known_gate_anatomy():
+    return jsonify(gate_anatomy_mod.gate_anatomy_manifest(advertised_url()))
+
+
 @app.route("/.well-known/stale-live.json")
 @app.route("/.well-known/cool-off.json")
 @app.route("/.well-known/silence-gate.json")
-@app.route("/.well-known/algedonic-relay.json")
 @app.route("/.well-known/may-budget.json")
 @app.route("/.well-known/funeral-bit.json")
 @app.route("/.well-known/bind-genealogy.json")
@@ -1944,6 +2255,66 @@ def well_known_crucial_roles():
 def well_known_mouth_density_one():
     slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
     return jsonify(mouth_density_mod.manifest_one(advertised_url(), slug))
+
+
+@app.route("/.well-known/promo-clock.json")
+def well_known_promo_clock():
+    """Fail-closed marketing dates. Cousin of stale LIVE — for site surfaces."""
+    next_at = os.getenv("GATE_PROMO_NEXT_AT") or None
+    last_proved = os.getenv("GATE_PROMO_LAST_PROVED_AT") or None
+    label = os.getenv("GATE_PROMO_LABEL") or None
+    href = os.getenv("GATE_PROMO_HREF") or None
+    if not last_proved:
+        try:
+            from gate import ops_guards as ops_guards_mod
+        except ImportError:
+            import ops_guards as ops_guards_mod
+
+        auto = ops_guards_mod.last_proved_from_db() or {}
+        last_proved = auto.get("last_proved_at") or last_proved
+        label = label or auto.get("label")
+        href = href or auto.get("href")
+    return jsonify(
+        promo_clock_mod.manifest(
+            advertised_url(),
+            next_at=next_at,
+            last_proved_at=last_proved,
+            label=label,
+            href=href,
+        )
+    )
+
+
+@app.route("/.well-known/gate1.json")
+def well_known_gate1():
+    """Gate 1 counter — stranger paid? Foothill only."""
+    try:
+        from gate import ops_guards as ops_guards_mod
+    except ImportError:
+        import ops_guards as ops_guards_mod
+
+    g1 = ops_guards_mod.gate1_status()
+    return jsonify(
+        {
+            "spec": "gate-gate1-v1",
+            "public_url": advertised_url(),
+            **g1,
+        }
+    )
+
+
+@app.route("/.well-known/ops-guards.json")
+def well_known_ops_guards():
+    try:
+        from gate import ops_guards as ops_guards_mod
+    except ImportError:
+        import ops_guards as ops_guards_mod
+
+    return jsonify(
+        ops_guards_mod.snapshot(
+            include_live=os.getenv("GATE_OPS_LIVE_SMOKE", "").lower() in ("1", "true", "yes")
+        )
+    )
 
 
 @app.route("/.well-known/tool-throat.json")
@@ -2534,16 +2905,149 @@ def well_known_commit_auth():
     return jsonify(
         {
             "spec": "gate-commit-auth-v1",
-            "greater_than_ed25519": (
-                "Signatures prove a hop occurred. Tickets, epoch lock, and exclusion "
-                "prove the hop cannot spend stale, cannot resurrect without CHARGE, "
-                "and that this job has no spend leaf."
+            "authorization_vs_attestation": (
+                "Epoch lock: HALT sticks until a real CHARGE — no admin resurrect. "
+                "Signatures prove a hop occurred. Tickets prove the hop is still "
+                "allowed to spend, right now, once, for this job and this write."
             ),
+            "pitch_order": [
+                "epoch_lock",
+                "ticket_vs_signature",
+                "byok_stranger_verify",
+                "insurance_bind_moment",
+            ],
+            "do_not_lead": [
+                "pre_execution_proof",
+                "fre_902_hero",
+                "generic_ai_governance",
+            ],
+            "parakhin_response": {
+                "citation": "arXiv:2603.09875 (Mar 2026)",
+                "their_claim": (
+                    "TTL lease revocation at agent velocity v exposes O(v·TTL) "
+                    "unauthorized ops; execution-count budgets (RCC) cap at D≤n."
+                ),
+                "our_answer": (
+                    "Bind Ticket is single-use commit authorization, not a reusable "
+                    "TTL lease. TTL bounds freshness (museum timer); revocation is "
+                    "atomic consume + spend fingerprint + epoch HALT + license fuse. "
+                    "Parakhin applies to high-velocity reusable agent credentials — "
+                    "not the carrier bind path. Successful unauthorized bind ≤1 per ticket."
+                ),
+                "honest_gap": (
+                    "Failed redeem attempts may retry inside TTL; not a successful bind. "
+                    "Multi-spend agent fleets would need RCC — not shipped (Mouth Ceiling)."
+                ),
+                "doc": "gate/COMMIT_AUTH.md",
+            },
+            "redeem_availability": {
+                "revocation_at": "server_redeem",
+                "pick": "fail_closed",
+                "redeem_down": "bind_blocked_no_offline_grant",
+                "ticket_consumed_on_failure": False,
+                "ops_tradeoff": "Gate/redeem outage stops real binds until service returns; no fail-open bypass.",
+                "spec": "gate-spend-protocol-v1",
+                "fail_closed_field": "redeem.fail_closed",
+                "doc": "gate/COMMIT_AUTH.md#redeem-endpoint-availability-second-engineer-question",
+            },
+            "availability_posture": {
+                "third_engineer_question": True,
+                "topology": "single_region_render",
+                "sla_today": "best_effort_no_five_nines_claim",
+                "gate_down": "bind_blocked_tickets_not_consumed",
+                "manual_override": "none_epoch_lifts_on_velaru_charge_only",
+                "renewal_day": "same_fail_closed_coordinate_maintenance_windows",
+                "roadmap": [
+                    "cold_standby_mirror",
+                    "multi_region_redeem",
+                    "bind_weather_dashboard",
+                ],
+                "verbatim_stavan": (
+                    "Single region today, fail-closed by design — bind stops when we stop. "
+                    "No override breaks epoch lock; CHARGE-only resurrection. "
+                    "Roadmap: cold standby witness + multi-region in production weld."
+                ),
+                "intentions": f"{advertised_url()}/.well-known/intentions.json",
+                "doc": "gate/COMMIT_AUTH.md#availability-posture-third-engineer-question--stavan--renewal-day",
+            },
+            "competitive_posture": {
+                "survey_date": "2026-08-28",
+                "survives": [
+                    "epoch_lock_non_resurrecting_halt",
+                    "insurance_bind_path_naic_exhibit_d",
+                    "gaaia_letter_federal_record_2026-07-27",
+                ],
+                "contested_not_lead": [
+                    "pre_execution_proof",
+                    "non_execution_proof",
+                    "fre_902_receipts",
+                ],
+                "prior_art_named": [
+                    "Authproof Cloud",
+                    "Proof-Carrying Agent Actions (arXiv:2606.04104)",
+                    "CertNode",
+                    "IBCT / Prakash (arXiv:2603.24775)",
+                ],
+                "novelty_vs_ibct": [
+                    "epoch_lock",
+                    "commit_time_redeem_at_bind",
+                    "insurance_bind_surface",
+                    "byok_twin",
+                ],
+                "patent_lane": ["epoch_lock", "commit_time_single_use_bind"],
+                "gtm_lane": ["insurance_bind_moment", "carrier_vertical"],
+                "shipped_inventions_aug28": [
+                    "halt_cemetery",
+                    "cold_standby_mirror",
+                    "renewal_day_throat",
+                    "ghost_renewal_snare",
+                    "refuse_ledger",
+                    "override_impossibility",
+                    "bind_weather",
+                    "exhibit_d_snare",
+                    "protracted_outage_order",
+                    "black_box_epoch",
+                    "mariana_pause_latch",
+                    "nss_finality_stamp",
+                    "agora_atomic_bind",
+                    "ambest_shutdown_seat",
+                    "algedonic_relay",
+                    "smpag_may_quorum",
+                    "iaea_acquisition_path",
+                    "doomsday_bind_hand",
+                    "long_now_chime",
+                    "dark_forest_restraint",
+                    "great_filter_gate",
+                    "psychohistory_seldon_line",
+                    "sophon_lock",
+                    "who_shadow_bind_report",
+                ],
+            },
+            "ietf_posture": {
+                "pick": "extend",
+                "extends": "draft-marques-asqav-compliance-receipts",
+                "extends_version_at_survey": "07",
+                "drafts": [
+                    "draft-farley-acta-signed-receipts",
+                    "draft-marques-asqav-compliance-receipts",
+                    "draft-chueayen-attestation-receipts",
+                    "draft-klrc-aiagent-auth",
+                ],
+                "shipped_spec": "gate-commit-auth-v1",
+                "planned_draft": "draft-velaru-gate-bind-commit-profile",
+                "add": [
+                    "epoch_lock",
+                    "bind_ticket_commit_semantics",
+                    "insurance_bind_profile",
+                ],
+            },
+            "stranger_grade": ["bind_ticket", "epoch", "command_radiation", "spend_protocol"],
             "bind_ticket": ticket_mod.manifest(advertised_url()),
             "spend_protocol": spend_protocol_mod.spec(advertised_url()),
             "command_radiation": command_radiation_mod.spec(advertised_url()),
             "epoch": {
                 "spec": "gate-epoch-v1",
+                "claim_grade": "stranger",
                 "rule": "Latest HALT/BLOCK for a job_id stays HALT until charge_id is presented.",
                 "not_admin_charge": True,
             },
@@ -2554,6 +3058,12 @@ def well_known_commit_auth():
             "ttl_seconds": ticket_mod.ttl_seconds(),
             "stale_hop_cannot_spend": True,
             "their_production": False,
+            "their_production_unlock": (
+                "Flips true only after a recorded third-party production weld "
+                "with exclusivity attestation (/production-weld). "
+                "Dogfood, Bind Room checkout, and drills do not flip it."
+            ),
+            "claim_grades": f"{advertised_url()}/.well-known/claim-grades.json",
         }
     )
 
@@ -3286,6 +3796,7 @@ def bind_room():
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         weld_price=WELD_PRICE_LABEL,
+        floor_price=FLOOR_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
     )
@@ -3456,6 +3967,81 @@ def bind_room_crucial_roles():
     return jsonify(crucial_roles_mod.crucial_roles_manifest())
 
 
+@app.route("/bind-room/civ-maintenance.json")
+def bind_room_civ_maintenance():
+    return jsonify(civ_maintenance_mod.civ_maintenance_manifest(advertised_url()))
+
+
+@app.route("/bind-room/halt-cemetery.json")
+def bind_room_halt_cemetery():
+    return jsonify(halt_cemetery_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/cold-standby-mirror.json")
+def bind_room_cold_standby_mirror():
+    return jsonify(cold_standby_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/renewal-day-throat.json")
+def bind_room_renewal_day_throat():
+    return jsonify(renewal_day_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ghost-renewal-snare.json")
+def bind_room_ghost_renewal_snare():
+    return jsonify(ghost_renewal_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/refuse-ledger.json")
+def bind_room_refuse_ledger():
+    return jsonify(refuse_ledger_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/override-impossibility.json")
+def bind_room_override_impossibility():
+    return jsonify(override_impossibility_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/bind-weather.json")
+def bind_room_bind_weather():
+    return jsonify(bind_weather_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/exhibit-d-snare.json")
+def bind_room_exhibit_d_snare():
+    return jsonify(exhibit_d_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/protracted-outage-order.json")
+def bind_room_protracted_outage_order():
+    return jsonify(protracted_outage_order_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/black-box-epoch.json")
+def bind_room_black_box_epoch():
+    return jsonify(black_box_epoch_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/mariana-pause-latch.json")
+def bind_room_mariana_pause_latch():
+    return jsonify(mariana_pause_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/nss-finality-stamp.json")
+def bind_room_nss_finality_stamp():
+    return jsonify(nss_finality_stamp_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/agora-atomic-bind.json")
+def bind_room_agora_atomic_bind():
+    return jsonify(agora_atomic_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ambest-shutdown-seat.json")
+def bind_room_ambest_shutdown_seat():
+    return jsonify(ambest_shutdown_seat_mod.manifest(advertised_url()))
+
+
 @app.route("/.well-known/temporal-sheath.json")
 def well_known_temporal_sheath():
     return jsonify(
@@ -3480,6 +4066,15 @@ def well_known_temporal_sheath():
 @app.route("/.well-known/throat.json")
 def well_known_throat():
     return jsonify(throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bind-clearance.json")
+def well_known_bind_clearance():
+    """Compliance-friendly alias for throat manifest (same fail-closed bind-edge spec)."""
+    manifest = throat_mod.manifest(advertised_url())
+    manifest["public_name"] = "Bind clearance spec"
+    manifest["compliance_curl"] = f"{advertised_url()}/.well-known/bind-clearance.json"
+    return jsonify(manifest)
 
 
 @app.route("/.well-known/ghost-bind.json")
@@ -3647,6 +4242,557 @@ def demo_pas_ghost_bind_drills():
     report = ghost_bind_mod.run_drills()
     report["demo"] = True
     return jsonify(report)
+
+
+@app.route("/demo/pas/halt-cemetery")
+def demo_pas_halt_cemetery():
+    _, err = _demo_gate()
+    if err:
+        return err
+    job_id = request.args.get("job_id")
+    report = halt_cemetery_mod.list_stones(job_id=job_id)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/cold-standby-mirror")
+def demo_pas_cold_standby_mirror():
+    _, err = _demo_gate()
+    if err:
+        return err
+    job_id = request.args.get("job_id")
+    outage = request.args.get("outage") in ("1", "true", "yes")
+    report = cold_standby_mirror_mod.witness(job_id=job_id, outage_simulated=outage)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/renewal-day-throat", methods=["POST"])
+def demo_pas_renewal_day_throat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    sticks = body.get("sticks") if isinstance(body.get("sticks"), list) else None
+    if sticks is None and isinstance(body, dict) and body.get("job_id"):
+        sticks = [body]
+    report = renewal_day_throat_mod.evaluate_batch(
+        sticks,
+        now=body.get("now"),
+        window_hour=int(body.get("window_hour") or 3),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/ghost-renewal-snare", methods=["POST"])
+def demo_pas_ghost_renewal_snare():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = ghost_renewal_snare_mod.scan(scenario)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/refuse-ledger")
+def demo_pas_refuse_ledger():
+    _, err = _demo_gate()
+    if err:
+        return err
+    limit = request.args.get("limit", 50)
+    report = refuse_ledger_mod.ledger(limit=int(limit) if str(limit).isdigit() else 50)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/override-impossibility")
+def demo_pas_override_impossibility():
+    _, err = _demo_gate()
+    if err:
+        return err
+    job_id = request.args.get("job_id")
+    locked = request.args.get("epoch_locked") in ("1", "true", "yes")
+    report = override_impossibility_mod.packet(job_id=job_id, epoch_locked=locked or None)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/bind-weather")
+def demo_pas_bind_weather():
+    _, err = _demo_gate()
+    if err:
+        return err
+    report = bind_weather_mod.report()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/.well-known/halt-cemetery.json")
+def well_known_halt_cemetery():
+    return jsonify(halt_cemetery_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/cold-standby-mirror.json")
+def well_known_cold_standby_mirror():
+    return jsonify(cold_standby_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/renewal-day-throat.json")
+def well_known_renewal_day_throat():
+    return jsonify(renewal_day_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ghost-renewal-snare.json")
+def well_known_ghost_renewal_snare():
+    return jsonify(ghost_renewal_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/refuse-ledger.json")
+def well_known_refuse_ledger():
+    return jsonify(refuse_ledger_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/override-impossibility.json")
+def well_known_override_impossibility():
+    return jsonify(override_impossibility_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bind-weather.json")
+def well_known_bind_weather():
+    return jsonify(bind_weather_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/pas/exhibit-d-snare", methods=["POST"])
+def demo_pas_exhibit_d_snare():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = exhibit_d_snare_mod.scan(scenario)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/exhibit-d-compile", methods=["POST"])
+def demo_pas_exhibit_d_compile():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = exhibit_d_snare_mod.compile_exhibits(plan=body if isinstance(body, dict) else {})
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/protracted-outage-order", methods=["POST"])
+def demo_pas_protracted_outage_order():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = protracted_outage_order_mod.evaluate(
+        protracted_outage=body.get("protracted_outage"),
+        critical_bind_order=body.get("critical_bind_order"),
+        oral_confirm=body.get("oral_confirm"),
+        master_account_lagged=body.get("master_account_lagged"),
+        fail_open_requested=body.get("fail_open_requested"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/black-box-epoch/deposit", methods=["POST"])
+def demo_pas_black_box_epoch_deposit():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = black_box_epoch_mod.deposit(
+        depositor_id=body.get("depositor_id"),
+        job_id=body.get("job_id"),
+        halt_receipt=body.get("halt_receipt") if isinstance(body.get("halt_receipt"), dict) else None,
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/black-box-epoch/withdraw", methods=["POST"])
+def demo_pas_black_box_epoch_withdraw():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = black_box_epoch_mod.withdrawal_request(
+        depositor_id=body.get("depositor_id"),
+        charge_id=body.get("charge_id"),
+        impostor_admin=body.get("impostor_admin"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/mariana-pause-latch", methods=["POST"])
+def demo_pas_mariana_pause_latch():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = mariana_pause_latch_mod.evaluate(
+        paused=body.get("paused"),
+        pause_authority=body.get("pause_authority"),
+        charge_id=body.get("charge_id"),
+        self_unpause_attempt=body.get("self_unpause_attempt"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/nss-finality-stamp", methods=["POST"])
+def demo_pas_nss_finality_stamp():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = nss_finality_stamp_mod.stamp(
+        job_id=body.get("job_id"),
+        bind_consumed=body.get("bind_consumed"),
+        master_account_posted=body.get("master_account_posted"),
+        hop_live_only=body.get("hop_live_only"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/agora-atomic-bind", methods=["POST"])
+def demo_pas_agora_atomic_bind():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = agora_atomic_bind_mod.evaluate(
+        epoch_clear=body.get("epoch_clear"),
+        ticket_redeemed=body.get("ticket_redeemed"),
+        fingerprint_match=body.get("fingerprint_match"),
+        premium_ok=body.get("premium_ok"),
+        license_live=body.get("license_live"),
+        partial_bind_attempt=body.get("partial_bind_attempt"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/ambest-shutdown-seat", methods=["POST"])
+def demo_pas_ambest_shutdown_seat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = ambest_shutdown_seat_mod.evaluate(
+        agent_can_self_stop=body.get("agent_can_self_stop"),
+        shutdown_outside_loop=body.get("shutdown_outside_loop"),
+        charge_id=body.get("charge_id"),
+        reconstructable=body.get("reconstructable"),
+        tested_shutdown=body.get("tested_shutdown"),
+        procedural_review_only=body.get("procedural_review_only"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/.well-known/exhibit-d-snare.json")
+def well_known_exhibit_d_snare():
+    return jsonify(exhibit_d_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/protracted-outage-order.json")
+def well_known_protracted_outage_order():
+    return jsonify(protracted_outage_order_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/black-box-epoch.json")
+def well_known_black_box_epoch():
+    return jsonify(black_box_epoch_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mariana-pause-latch.json")
+def well_known_mariana_pause_latch():
+    return jsonify(mariana_pause_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/nss-finality-stamp.json")
+def well_known_nss_finality_stamp():
+    return jsonify(nss_finality_stamp_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/agora-atomic-bind.json")
+def well_known_agora_atomic_bind():
+    return jsonify(agora_atomic_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ambest-shutdown-seat.json")
+def well_known_ambest_shutdown_seat():
+    return jsonify(ambest_shutdown_seat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/algedonic-relay.json")
+def well_known_algedonic_relay():
+    return jsonify(algedonic_relay_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/smpag-may-quorum.json")
+def well_known_smpag_may_quorum():
+    return jsonify(smpag_may_quorum_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/iaea-acquisition-path.json")
+def well_known_iaea_acquisition_path():
+    return jsonify(iaea_acquisition_path_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/doomsday-bind-hand.json")
+def well_known_doomsday_bind_hand():
+    return jsonify(doomsday_bind_hand_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/long-now-chime.json")
+def well_known_long_now_chime():
+    return jsonify(long_now_chime_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/dark-forest-restraint.json")
+def well_known_dark_forest_restraint():
+    return jsonify(dark_forest_restraint_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/great-filter-gate.json")
+def well_known_great_filter_gate():
+    return jsonify(great_filter_gate_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/psychohistory-seldon-line.json")
+def well_known_psychohistory_seldon_line():
+    return jsonify(psychohistory_seldon_line_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/sophon-lock.json")
+def well_known_sophon_lock():
+    return jsonify(sophon_lock_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/who-shadow-bind-report.json")
+def well_known_who_shadow_bind_report():
+    return jsonify(who_shadow_bind_report_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/pas/algedonic-relay", methods=["POST"])
+def demo_pas_algedonic_relay():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = algedonic_relay_mod.evaluate(
+        elapse_seconds=body.get("elapse_seconds"),
+        age_seconds=body.get("age_seconds"),
+        resolved=body.get("resolved"),
+        recursion_level=body.get("recursion_level"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/smpag-may-quorum", methods=["POST"])
+def demo_pas_smpag_may_quorum():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = smpag_may_quorum_mod.evaluate(
+        mass_class=body.get("mass_class"),
+        quorum_present=body.get("quorum_present"),
+        agencies=body.get("agencies") if isinstance(body.get("agencies"), list) else None,
+        single_desk_strike=body.get("single_desk_strike"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/iaea-acquisition-path", methods=["POST"])
+def demo_pas_iaea_acquisition_path():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = iaea_acquisition_path_mod.analyze(scenario=scenario)
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/doomsday-bind-hand", methods=["POST"])
+def demo_pas_doomsday_bind_hand():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = doomsday_bind_hand_mod.hand(
+        ghost_events=body.get("ghost_events"),
+        sacred_bind_without_quorum=body.get("sacred_bind_without_quorum"),
+        epoch_bypass_attempts=body.get("epoch_bypass_attempts"),
+        restraint_proved=body.get("restraint_proved"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/long-now-chime", methods=["POST"])
+def demo_pas_long_now_chime():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = long_now_chime_mod.chime(
+        epoch_seq=body.get("epoch_seq"),
+        job_id=body.get("job_id"),
+        prior_chime=body.get("prior_chime"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/dark-forest-restraint", methods=["POST"])
+def demo_pas_dark_forest_restraint():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = dark_forest_restraint_mod.evaluate(
+        broadcast_bind_intent=body.get("broadcast_bind_intent"),
+        server_redeem_proved=body.get("server_redeem_proved"),
+        stranger_verify_url=body.get("stranger_verify_url"),
+        premium_leaked=body.get("premium_leaked"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/great-filter-gate", methods=["POST"])
+def demo_pas_great_filter_gate():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = great_filter_gate_mod.filter_step(
+        epoch_locked=body.get("epoch_locked"),
+        stranger_verify=body.get("stranger_verify"),
+        quorum_met=body.get("quorum_met"),
+        ghost_bind=body.get("ghost_bind"),
+        acted_without_may=body.get("acted_without_may"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/psychohistory-seldon-line", methods=["POST"])
+def demo_pas_psychohistory_seldon_line():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = psychohistory_seldon_line_mod.seldon_line(
+        halt_rate_7d=body.get("halt_rate_7d"),
+        ghost_density=body.get("ghost_density"),
+        renewal_window_hours=body.get("renewal_window_hours"),
+        published=body.get("published"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/sophon-lock", methods=["POST"])
+def demo_pas_sophon_lock():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = sophon_lock_mod.lock_status(
+        client_proof_only=body.get("client_proof_only"),
+        server_redeem_ok=body.get("server_redeem_ok"),
+        epoch_consumed=body.get("epoch_consumed"),
+        offline_bearer=body.get("offline_bearer"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/who-shadow-bind-report", methods=["POST"])
+def demo_pas_who_shadow_bind_report():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    report = who_shadow_bind_report_mod.shadow_report(
+        internal_dashboard_green=body.get("internal_dashboard_green"),
+        halt_depth=body.get("halt_depth"),
+        ghost_events=body.get("ghost_events"),
+        stranger_verify_count=body.get("stranger_verify_count"),
+        published=body.get("published"),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/bind-room/algedonic-relay.json")
+def bind_room_algedonic_relay():
+    return jsonify(algedonic_relay_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/smpag-may-quorum.json")
+def bind_room_smpag_may_quorum():
+    return jsonify(smpag_may_quorum_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/iaea-acquisition-path.json")
+def bind_room_iaea_acquisition_path():
+    return jsonify(iaea_acquisition_path_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/doomsday-bind-hand.json")
+def bind_room_doomsday_bind_hand():
+    return jsonify(doomsday_bind_hand_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/long-now-chime.json")
+def bind_room_long_now_chime():
+    return jsonify(long_now_chime_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/dark-forest-restraint.json")
+def bind_room_dark_forest_restraint():
+    return jsonify(dark_forest_restraint_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/great-filter-gate.json")
+def bind_room_great_filter_gate():
+    return jsonify(great_filter_gate_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/psychohistory-seldon-line.json")
+def bind_room_psychohistory_seldon_line():
+    return jsonify(psychohistory_seldon_line_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/sophon-lock.json")
+def bind_room_sophon_lock():
+    return jsonify(sophon_lock_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/who-shadow-bind-report.json")
+def bind_room_who_shadow_bind_report():
+    return jsonify(who_shadow_bind_report_mod.manifest(advertised_url()))
 
 
 @app.route("/demo/pas/stick-meter", methods=["POST"])

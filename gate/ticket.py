@@ -337,13 +337,18 @@ def manifest(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Bind ticket",
-        "greater_than_ed25519": (
+        "authorization_vs_attestation": (
             "Signatures prove a hop occurred. Tickets prove the hop is still "
             "allowed to spend, right now, once, for this job and this write."
         ),
         "ttl_seconds": ttl_seconds(),
         "stale_hop_cannot_spend": True,
         "single_use": True,
+        "claim_grade": "stranger",
+        "burn_on_success_only": (
+            "Burn on success only, failed redeem retryable, "
+            "post-burn fail re-issues from fresh LIVE."
+        ),
         "spend_fingerprint_required": True,
         "married_write": spend_protocol.PATH_TEMPLATE,
         "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
@@ -353,4 +358,8 @@ def manifest(public_url: str) -> dict:
         "redeem": f"{public_url}/v1/pas/bind-ticket/redeem",
         "demo_redeem": f"{public_url}/demo/pas/bind-ticket/redeem",
         "their_production": False,
+        "their_production_unlock": (
+            "Flips true only after a recorded third-party production weld "
+            "with exclusivity attestation. Dogfood / drills do not flip it."
+        ),
     }

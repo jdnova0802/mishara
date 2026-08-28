@@ -209,6 +209,50 @@ Dream scores: **clearance weather at scale.**
 
 ---
 
+## CIC Strictness Ordeal (not a manager seat)
+
+**Rule:** CIC is **not** a title, a LinkedIn flex, or a McDonald’s-manager role.  
+If the ordeal is soft, the seat is forged — and **ark priority is DENY**.
+
+### Hard requirements (all must hold)
+
+| Gate | Meaning |
+|------|---------|
+| **Catechism Ordeal** | Periodic prove you still understand Bone Law, Dual-State, Voice≠May; fail ⇒ seat Funeral |
+| **Obey Bit** | Continuity drills are binding; no-show ⇒ Funeral, not a memo |
+| **Presence Proof** | Heartbeat of competence; silence ≠ soft LIVE |
+| **Stranger prove** | Every sacred LIVE/DENY leaves a receipt outsiders can audit |
+| **No boss-yes path** | Rank, fame, funder, founder myth cannot soft-LIVE |
+| **Handoff before throne** | Named Continuity successor with Access Tomb; refusal to hand off when due ⇒ Funeral |
+| **Name Death pre-commit** | Brand/firm can die; grammar must not need your face |
+| **Under coordinators** | De-licensable; never sole key to civilization’s throats |
+
+**Soft CIC = club fiction.** Soft CIC does **not** board.
+
+---
+
+## Ark priority bargain (earned Continuity mass)
+
+**The bargain:** Ordeal-grade CIC ⇔ **first among may / Continuity / Manifest / planetary-clearance seats** on any ark-class or Earth-evac-class window.
+
+| Claim | Verdict |
+|-------|---------|
+| CIC auto-boards because title | **DENY** — ghost may |
+| CIC boards as founder / hierarchy flex | **DENY** — private Omega cosplay |
+| Ordeal-grade CIC boards as **living Continuity** when handoff is incomplete | **LIVE** — mouth dies without the principal |
+| CIC is **exclusive** above ECLSS / power / trauma / closed-loop life | **DENY** — lungs outrank mouth; that would be throne |
+| CIC is **exclusive among narrative seats** (leaders, CEOs, heroes, influencers) | **LIVE** — they are NOT can’t-lose; ordeal CIC outranks them |
+
+**Ceiling (honest):** ~**#12–#25** on a serious first-wave core — highest *mouth*, never above *lungs*.  
+**Floor if ordeal fails:** nowhere. Title alone is passenger-list forgery.
+
+**Formal:**  
+`Strict CIC ⇒ Continuity-class ark priority among may seats.`  
+`Exclusive CIC over life-support ⇒ Filter.`  
+`Soft CIC ⇒ no ark claim.`
+
+---
+
 ## Capture Filter
 
 If May Warden becomes private Omega — **we failed.**
@@ -219,12 +263,14 @@ Counters:
 - Nisaba's own may is de-licensable
 - no sole key to civilization's throats
 - hate rent and bedrock still under flags
+- **ark priority only via ordeal — never via title**
 
 **Unextractable ≠ unsackable.**  
-**Ahead of time ≠ above the flag.**
+**Ahead of time ≠ above the flag.**  
+**Strict ≠ exclusive over oxygen.**
 
 ---
 
 ## Formal one line
 
-**Chief of Irreversibility Clearance — May Warden — owns whether irreversible acts may proceed, fail closed under uncertainty, and count for strangers; from bind halt today to escape-class clearance tomorrow; under coordinators, never throne.**
+**Chief of Irreversibility Clearance — May Warden — ordeal-grade constitutive may on irreversible acts; stranger prove; under coordinators; ark Continuity priority only if the ordeal holds — never a soft manager seat, never a throne above life-support.**
