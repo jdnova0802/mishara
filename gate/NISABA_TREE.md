@@ -200,6 +200,7 @@ Deferred (phase F only)
 | Mishara (consumer) | `README_mishara.md` |
 | Pre–Gate 1 value | `LICENSED_FIELD_VALUE.md` |
 | Counsel week | `PATENT_COUNSEL_BRIEF.md` |
+| Contingent capital (grants / PCT / IP alts) | `CONTINGENT_CAPITAL_CRAWL.md` |
 | This tree | `NISABA_TREE.md` |
 
 ---

@@ -52,6 +52,7 @@ More invention docs without Gate 1 do **not** move confidence.
 - No Σ / ∞ liquid cited in weekly ritual without invoiced meter.
 - No fusion / ambient-SC / OSK as *this week’s* Absolute path (real upside, wrong tempo).
 - No S40 crawl expansion until Gate 1 + rank-1 pilot (`LATCH_ORDER_FROM_GAP_CRAWL.md`).
+- Contingent capital over-crawl (`CONTINGENT_CAPITAL_CRAWL.md`) is **designation only** — not a waiver to chase SBIR before counsel quotes / Gate 1 unless the provisional anniversary forces funding math.
 
 ---
 

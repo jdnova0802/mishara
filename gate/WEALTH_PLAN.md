@@ -94,7 +94,10 @@ What we only skimmed:
 | Track GAAIA / IVO / NIST drafts | Optional upside on mandate |
 | SBIR / state / foundation **only if** aligned to shipping weld | Cash without may sale |
 | Prizes / challenge grants | Occasional liquid |
+| **PCT / patent monetization alts / DIU–OTA** | Option value — see over-crawl |
 | **Do not count** inheritance / throne wire / lottery | Fantasy |
+
+**Over-crawl (designation only):** `CONTINGENT_CAPITAL_CRAWL.md` — grants · patent sale/option/aggregator alts · PCT · prizes · standards. Does **not** replace Gate 1 or counsel week.
 
 ### 8. Liabilities (negative assets — invert them)
 | Lever | Effect |

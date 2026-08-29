@@ -69,6 +69,9 @@ THIS MONTH    = counsel quotes → Gate 1 (stranger paid + proved) → then mete
 ### Lawyer / patent counsel
 > “Two narrow claim families: single-use redeem-at-commit, and stranger verification. Flat-fee conversion quotes. Micro-entity if eligible. No lab-module dump.”
 
+### Contingent capital (grants / PCT / IP alts)
+> “Lottery rails only — SBIR, Wyoming match, PCT option, field-license vs sale. Map is `CONTINGENT_CAPITAL_CRAWL.md`. Still: quotes → Gate 1 → convert before chasing awards.”
+
 ### Parent / family
 > “I’m building a company that makes important computer ‘yes’ decisions real and checkable — starting with insurance, aiming at bigger infrastructure later. Wyoming company. Right now I’m getting patent quotes and first paying customers.”
 

@@ -27,6 +27,8 @@
 
 Miss non-provisional deadline ⇒ patent → **$0** ⇒ term sheet + eleven exhibits + ceiling ladder worthless (`REALITY_CONTRACT_30DAY.md`).
 
+**If cash is the blocker after quotes:** see `CONTINGENT_CAPITAL_CRAWL.md` (SBIR / WY match / staged fee / option-to-license — **not** PAE). Ask each firm for an optional **PCT rider** line item on the same quote.
+
 ---
 
 ## Practical notes (ask explicitly)

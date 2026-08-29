@@ -48,6 +48,8 @@ Ladder (evidence only): **B‡ → N‡ → S‡ → Ω → Σ → ∞**
 
 **Gate 1 outbound waits until quotes are in writing.**
 
+**Contingent capital (if conversion cash is the scare):** `CONTINGENT_CAPITAL_CRAWL.md` — SBIR/WY match · PCT · license/sale/option alts. Lottery rails only; still **quotes → Gate 1 → convert first**.
+
 ---
 
 ## Latch order (after Gate 1)
