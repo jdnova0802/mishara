@@ -24,6 +24,7 @@ This file is the **mountain**.
 `ABSOLUTE_S_SWEEP.md` is the **final S-tier crumb sweep** (A1–A12 planetary questions → inventions → apply RN — designation only; stop condition = execute latch).  
 `OWNER_POCKET.md` is the **owner notebook** (internalize in one sitting — entity · aim · September · latch · life · refuses).  
 `NISABA_EXPLAINABLE.md` is the **speakable tree** (self + outside explain cards · altitudes · self-test · copy block).  
+`TRIAD_PHILOSOPHY_CRAWL.md` is the **before/at/real triad upgrades** (illocution · constitutive rules · branching time · contextual prove · continuation dual — designation only).  
 `NISABA_TREE.md` is the **one-page tree** (entity · Gate · foothill · ceiling · phases).  
 `EVAC_COMMS_HANDOFF_SPEC.md` is the **ceiling choke invention sketch** (CHC / Evac Bind Ticket — post–Gate 1, not counsel week).  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
