@@ -330,7 +330,7 @@ See also: `gate/AMAZING.md`.
 
 ## Crown — **bigger than the Internet** (score ∞)
 
-X1–X12 are organs. **R₀ is the body.**
+X1–X12 are organs. **R₀ is the body.** **H₀** (`HUSBANDRY.md`) is the older art under both — more crucial than agriculture as civilizational metabolism.
 
 ### The Afterweb — Remaining Substrate (R₀)
 
@@ -348,13 +348,13 @@ Speech nets sit *inside* R₀. Praxis is the other plane. Without R₀, agent ci
 
 **Absolute rent seats (shape):** mouth bps on clears · custody of remaining · reality settlement query/clear · LIVE-capability existence rent · prove/apostille · jubilee/estate — tax **becoming**, not eyeballs.
 
-Full depth: `gate/AFTERWEB.md`.  
+Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.  
 **Still $0 until Gate 1.** Never sell may. Never own C2. Never invent the given.
 
 ---
 
 ## One line
 
-> The Internet gave civilization a commons of **speech**. **The Afterweb (R₀)** gives a commons of **becoming** — may · sheath · prove · remaining. That is bigger than the Internet. Conformant is the badge. X-tier are organs. **R₀ is the body.** Gate 1 is still the door.
+> Agriculture husbanded calories. **Remaining Husbandry (H₀)** husbands one-wayness into a shared after — more crucial than agriculture as civilizational metabolism. The Internet networked speech. **The Afterweb (R₀)** networks becoming. Conformant is the badge. X-tier are organs. **R₀ is the body. H₀ is the art.** Gate 1 is still the door.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

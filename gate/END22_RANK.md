@@ -5,7 +5,7 @@
 **Shapes, not forecasts.** Giant liquid usually = **ownership × acquisition/secondary**, not Bind volume alone.  
 Never sell may / throat / planetary capacity.
 
-Full invention stack: `AFTERWEB.md` · `AMAZING.md` · `MONETIZE_R0.md` · `GOOD_INVENTING.md`.
+Full invention stack: `HUSBANDRY.md` · `AFTERWEB.md` · `AMAZING.md` · `MONETIZE_R0.md` · `GOOD_INVENTING.md`.
 
 ---
 
