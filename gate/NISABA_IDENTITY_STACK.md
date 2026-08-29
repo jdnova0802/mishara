@@ -3,7 +3,7 @@
 **Status:** Owner identity instrument — settled 29 August 2026. Not marketing material. Not a product roadmap.  
 **Purpose:** State, in formal institutional register, what Nisaba is — tempo, commercial posture, governance face, crisis role, and capital end-state — without reference to third-party inspirations.  
 **Register:** Owner determinations in this file and companion steering documents are recorded in **formal register** only.  
-**Companions:** `SHADOW_CHOKEPOINT_DOCTRINE.md` · `NISABA_TREE.md` · `NORTH_STAR.md` · `EVAC_COMMS_HANDOFF_SPEC.md`
+**Companions:** `SHADOW_CHOKEPOINT_DOCTRINE.md` · `NISABA_TREE.md` · `NORTH_STAR.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `EXTERNAL_S_TIER_INVENTIONS.md`
 
 ---
 

@@ -11,6 +11,7 @@ This file is the **mountain**.
 `BUSINESS_CATEGORIES.md` is the **altitude map** (what sits above / beside / below infra; where Nisaba sits).  
 `SHADOW_CHOKEPOINT_DOCTRINE.md` is the **owner end-state** (quiet planetary bind, partner circle, sell vs rent).  
 `NISABA_IDENTITY_STACK.md` is the **institutional identity** (expeditious clearing; formal interview register).  
+`EXTERNAL_S_TIER_INVENTIONS.md` is the **external world-scale invention designations** (S1–S10 — not L2 waive).  
 `NISABA_TREE.md` is the **one-page tree** (entity · Gate · foothill · ceiling · phases).  
 `EVAC_COMMS_HANDOFF_SPEC.md` is the **ceiling choke invention sketch** (CHC / Evac Bind Ticket — post–Gate 1, not counsel week).  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
