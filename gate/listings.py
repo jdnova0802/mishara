@@ -158,6 +158,15 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "until_gate1_usd": 0,
             "outcome": f"{public_url}/.well-known/conformant-outcome.json",
         },
+        "heavier": {
+            "page": f"{public_url}/heavier",
+            "manifest": f"{public_url}/.well-known/heavier.json",
+            "not_a_sibling": True,
+            "l2_module": False,
+            "family_siblings_remain": 5,
+            "until_gate1_usd": 0,
+            "dunks": "conformant_badge",
+        },
         "license_fuse": {
             "manifest": f"{public_url}/.well-known/license-fuse.json",
             "pas_key": "license_id",

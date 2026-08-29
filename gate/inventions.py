@@ -65,6 +65,24 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "mark on Gate — attaches to Gate + Velaru",
     },
     {
+        "id": "heavier_than_conformant",
+        "subject": "scale",
+        "name": "Heavier than Conformant",
+        "claim": (
+            "The badge is PCI. Hosted redeem, agent employment, illocution, "
+            "closing dependency, CHC — the write cannot exist without you."
+        ),
+        "satoshi": "A free protocol, then a cert culture that still cannot cash the founder.",
+        "heavier": (
+            "Soon is already coded. Medium is latch. Long is the ceiling. "
+            "Conformant becomes the consolation SKU."
+        ),
+        "real": "heavier.py · /heavier · /.well-known/heavier.json",
+        "status": "law",
+        "cash": True,
+        "tree": "attachments on Gate / Velaru / Mishara — not a sibling",
+    },
+    {
         "id": "qic_meter",
         "subject": "meter",
         "name": "Qualified irreversible commit",
@@ -441,6 +459,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "unison": f"{base}/.well-known/unison.json",
             "conformant": f"{base}/.well-known/conformant.json",
             "qic": f"{base}/.well-known/qic.json",
+            "heavier": f"{base}/.well-known/heavier.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",

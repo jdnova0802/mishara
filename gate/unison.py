@@ -461,6 +461,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "inventor": f"{base}/.well-known/inventor.json",
             "conformant": f"{base}/.well-known/conformant.json",
             "qic": f"{base}/.well-known/qic.json",
+            "heavier": f"{base}/.well-known/heavier.json",
         },
         "page": f"{base}/unison",
         "gatekeep": "Unison map. Ours. Not a buyer surface.",

@@ -286,6 +286,27 @@ def run_invariants() -> list[dict[str, Any]]:
         {"mark": conf.get("mark"), "laq": meter.get("laq")},
     )
 
+    try:
+        from gate import heavier as heavier_mod
+    except ImportError:
+        import heavier as heavier_mod  # type: ignore[no-redef]
+
+    heavy = heavier_mod.manifest("https://gate.local")
+    ready = heavy.get("soon_ready") or {}
+    add(
+        "heavier_than_conformant",
+        "Soon/medium/long inventions dunk the Conformant badge without a sixth sibling or new L2",
+        heavy.get("l2_module") is False
+        and heavy.get("family_siblings_remain") == 5
+        and heavy.get("cash_usd") == 0
+        and (heavy.get("counts") or {}).get("soon", 0) >= 4
+        and (heavy.get("counts") or {}).get("medium", 0) >= 4
+        and (heavy.get("counts") or {}).get("long", 0) >= 4
+        and ready.get("hosted_redeem_rail") is True
+        and ready.get("agent_work_permit") is True,
+        {"soon": (heavy.get("counts") or {}).get("soon")},
+    )
+
     # --- Settlement / kappa surfaces exist ---
     try:
         from gate import settlement as settlement_mod

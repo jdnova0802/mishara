@@ -175,6 +175,11 @@ except ImportError:
     import qic as qic_mod
 
 try:
+    from gate import heavier as heavier_mod
+except ImportError:
+    import heavier as heavier_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -346,7 +351,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant",
+    "/unison", "/inventions", "/conformant", "/heavier",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1414,6 +1419,8 @@ def well_known_gate():
             "qic": f"{advertised_url()}/.well-known/qic.json",
             "licensed_field": f"{advertised_url()}/.well-known/licensed-field.json",
             "conformant_outcome": f"{advertised_url()}/.well-known/conformant-outcome.json",
+            "heavier": f"{advertised_url()}/.well-known/heavier.json",
+            "heavier_page": f"{advertised_url()}/heavier",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1749,6 +1756,22 @@ def conformant_page():
 def demo_gate_conformant_mark():
     body = request.get_json(silent=True) or {}
     return jsonify(conformant_mod.evaluate_claim(body))
+
+
+@app.route("/.well-known/heavier.json")
+def well_known_heavier():
+    return jsonify(heavier_mod.manifest(advertised_url()))
+
+
+@app.route("/heavier")
+def heavier_page():
+    m = heavier_mod.manifest(advertised_url())
+    return render_template(
+        "heavier.html",
+        manifest=m,
+        blocks=heavier_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/.well-known/legal.json")
@@ -3517,6 +3540,7 @@ def robots():
             "Disallow: /unison",
             "Disallow: /inventions",
             "Disallow: /conformant",
+            "Disallow: /heavier",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",
