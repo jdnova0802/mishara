@@ -6,6 +6,8 @@
 
 **Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. Keep pushing **only** inventions that score **9 or 10**.
 
+**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U-tier.
+
 ---
 
 ## Scoring rule (hard)
