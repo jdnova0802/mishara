@@ -34,17 +34,54 @@ SATOSHI = {
         "anonymity as capture-resistance",
     ),
     "ceiling": "Money that needs no name. Soft-yes on everything that is not money.",
+    "could_not_cash": True,
     "outscaled_by": (
+        "Gate Conformant™ + QIC is the cash latch — rent the padlock standard, "
+        "meter every real commit, stay on the invoice. Satoshi gave the protocol away. "
         "Named permission outscales bearer cash on irreversible civic writes. "
-        "Public inventor outscales hidden founder when the mouth must be accountable. "
-        "Exclusion outscales inclusion when the prize is the spend that did not happen. "
-        "Silence-as-DEAD outscales longest-chain-as-truth when uncertainty must DENY. "
-        "Inhabitant copy outscales ownerless ledgers — someone has to live there."
+        "Public inventor outscales hidden founder when the mouth must be accountable."
     ),
 }
 
 # subject → surgical invention. status: shipped | law | weld
 INVENTIONS: tuple[dict[str, Any], ...] = (
+    {
+        "id": "gate_conformant",
+        "subject": "standards",
+        "name": "Gate Conformant™",
+        "claim": (
+            "The padlock standard for irreversible digital acts. Institutions rent "
+            "the cert. Ghost Conformant is DENY. Not a sixth sibling."
+        ),
+        "satoshi": "A free protocol the inventor could not cash.",
+        "heavier": (
+            "ARM-shaped rent on the instruction set everyone needs to write "
+            "irreversibly. World-shifting like HTTPS — seatbelts, not a new money. "
+            "You stay on the invoice."
+        ),
+        "real": "conformant.py · /.well-known/conformant.json · /conformant · Exhibit J",
+        "status": "weld",
+        "cash": True,
+        "tree": "mark on Gate — attaches to Gate + Velaru",
+    },
+    {
+        "id": "qic_meter",
+        "subject": "meter",
+        "name": "Qualified irreversible commit",
+        "claim": (
+            "One server-side redeem consume + one irreversible write. "
+            "Billable max(MAR, LAQ × per_QIC) stacked with 10 bps. $0 until Gate 1."
+        ),
+        "satoshi": "Block reward to anonymous miners. Inventor $0.",
+        "heavier": (
+            "The named HoldCo meters every real commit. Redeem already writes the "
+            "spend map. The meter reads that map."
+        ),
+        "real": "qic.py · ticket redeem qic stamp · /.well-known/qic.json",
+        "status": "shipped",
+        "cash": True,
+        "tree": "meter on Gate — stacked with register bps",
+    },
     {
         "id": "public_inventor",
         "subject": "identity",
@@ -374,11 +411,19 @@ def manifest(public_url: str) -> dict[str, Any]:
         "inventor": inventor_mod.stamp(),
         "evaluated_at": _now(),
         "thesis": (
-            "Satoshi invented bearer digital scarcity and hid. "
-            "We invent named digital permission and stand. "
-            "Identity is load-bearing. cleverer_layer is null. "
-            "Gate 1 is stranger paid and proved."
+            "Satoshi gave a protocol away and could not cash. "
+            "We rent the padlock standard — Gate Conformant™ + QIC — "
+            "so irreversible digital acts are receipted and licensed. "
+            "World-shifting like HTTPS. Not a new money. "
+            "Identity stands. Gate 1 is stranger paid and proved."
         ),
+        "cash_latch": {
+            "mark": "Gate Conformant",
+            "meter": "QIC",
+            "page": f"{base}/conformant",
+            "until_gate1_usd": 0,
+            "checkout": f"{base}/operator",
+        },
         "satoshi": SATOSHI,
         "named_may": named_may_mod.spec(base),
         "inventions": [dict(i) for i in INVENTIONS],
@@ -394,6 +439,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "inventor": f"{base}/.well-known/inventor.json",
             "named_may": f"{base}/.well-known/named-may.json",
             "unison": f"{base}/.well-known/unison.json",
+            "conformant": f"{base}/.well-known/conformant.json",
+            "qic": f"{base}/.well-known/qic.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -409,13 +456,21 @@ def page_blocks() -> list[dict[str, Any]]:
             "body": inventor_mod.INVENTOR["rule"],
         },
         {
+            "tag": "Cash latch",
+            "title": "Gate Conformant™ + QIC",
+            "body": (
+                "Rent the padlock. Meter the commit. Stay on the invoice. "
+                "$0 until a stranger pays and proves."
+            ),
+        },
+        {
             "tag": "Inverse",
             "title": "Named may",
             "body": named_may_mod.INVENTION,
         },
         {
             "tag": "Satoshi",
-            "title": "Outscaled",
+            "title": "Could not cash",
             "body": SATOSHI["outscaled_by"],
         },
     ]

@@ -1,12 +1,13 @@
 # Inventions — inventor stands
 
-**Satoshi** invented bearer digital scarcity and hid.  
-**Demond Davis / Nisaba LLC** invents named digital permission and stands.
+**Satoshi** invented bearer digital scarcity, hid, and **could not cash**.  
+**Demond Davis / Nisaba LLC** rents the padlock standard — **Gate Conformant™ + QIC** — and stands.
 
 Identity is load-bearing. `cleverer_layer` is null. Gate 1 is stranger paid and proved. Never sell may.
 
-Machine-readable: `GET /.well-known/inventions.json` · `/.well-known/inventor.json` · `/.well-known/named-may.json`  
-Page: `/inventions` (noindex)
+Cash latch (noindex): `/conformant` · `/.well-known/conformant.json` · `/.well-known/qic.json`  
+Register: `GET /.well-known/inventions.json` · `/.well-known/inventor.json` · `/.well-known/named-may.json`  
+Page: `/inventions` (noindex). Checkout: `/operator`.
 
 ## The dimension shift
 
@@ -18,6 +19,15 @@ Page: `/inventions` (noindex)
 | Longest chain is truth | Silence is DEAD |
 | Ledger of owners | Inhabitant copy — someone lives there |
 | Money as the whole product | Permission on irreversible civic writes |
+| Inventor $0 | Named HoldCo rents Conformant + meters QIC |
+
+## Cash latch (on the tree)
+
+**Gate Conformant™** is a cert / franchise mark on Gate — not a sixth sibling, not a new homepage. Velaru is the verify engine the mark requires. Mishara stays the sellable skin.
+
+**QIC** is one redeem consume + one irreversible write. Bill `max(MAR, LAQ × per_QIC)` stacked with 10 bps. $0 until Gate 1. Ghost Conformant = DENY.
+
+See `CONFORMANT.md`.
 
 ## Named may (real)
 

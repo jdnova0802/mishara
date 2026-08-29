@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Gate Conformant™ — rent the padlock{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Internal · cert mark on Gate · not a sixth sibling</p>
+  <h1>{{ manifest.mark }}™</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p><strong>{{ manifest.inventor.name }}</strong> · {{ manifest.inventor.entity }} · Patent #{{ manifest.inventor.patent }}</p>
+  <p>certified implementers: <strong>{{ manifest.certified_implementers }}</strong>
+    · cash until Gate 1: <strong>${{ manifest.cash_usd }}</strong>
+    · ghost Conformant: <strong>{{ manifest.ghost_conformant }}</strong>
+    · their_production: <strong>{{ manifest.their_production }}</strong>
+    · family siblings: <strong>{{ manifest.tree.family_siblings_remain }}</strong></p>
+
+  <h2 style="margin-top: 1.5rem;">Why this outscales Satoshi — and you can cash</h2>
+  <div class="card">
+    <p><strong>Satoshi:</strong> {{ manifest.vs_satoshi.satoshi }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Here:</strong> {{ manifest.vs_satoshi.here }}</p>
+    <p style="margin-top: 0.5rem;">{{ manifest.vs_satoshi.world_shift }}</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.vs_satoshi.not_threatening }}</p>
+    <p style="margin-top: 0.5rem;">Latch: {{ manifest.vs_satoshi.latch }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">Comp: {{ manifest.vs_satoshi.comp }}</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">On the Nisaba tree — attachment, not a new brand</h2>
+  <div class="card">
+    <p>Holds to <strong>{{ manifest.tree.attaches_to | join(" + ") }}</strong>.
+      Kind: {{ manifest.tree.kind }}.
+      Not a sibling. Not a homepage.</p>
+    <p style="margin-top: 0.5rem;">Voices stay {{ manifest.tree.siblings | join(" · ") }}.</p>
+    <p style="margin-top: 0.35rem;">Velaru: {{ manifest.tree.velaru }}</p>
+    <p style="margin-top: 0.35rem;">Mishara: {{ manifest.tree.mishara }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">Status: {{ manifest.tree.planned }}.</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">Cash path</h2>
+  <div class="card">
+    <p><strong>Now:</strong> {{ manifest.cash_path.now }}</p>
+    <p style="margin-top: 0.35rem;"><strong>Weld:</strong> {{ manifest.cash_path.then }}</p>
+    <p style="margin-top: 0.35rem;"><strong>After Gate 1:</strong> {{ manifest.cash_path.after_gate1 }}</p>
+    <p style="margin-top: 0.35rem;">Until then: ${{ manifest.cash_path.until_gate1_usd }}.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem;">{{ manifest.fees.formula }}
+      · illustrative {{ manifest.fees.illustrative_m1_anchor.implementers }} implementers
+      × ${{ manifest.fees.illustrative_m1_anchor.cert_fee_annual_usd }}
+      = ${{ manifest.fees.illustrative_m1_anchor.annual_usd }} —
+      {{ manifest.fees.illustrative_m1_anchor.disclaimer }}</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">QIC — the event meter</h2>
+  <div class="card">
+    <p>Each redeem that consumes a ticket and writes irreversibly is one qualified irreversible commit.</p>
+    <p style="margin-top: 0.35rem;">Bill: {{ qic.billable_formula }}. Stacked with 10 bps on cleared flow.</p>
+    <p style="margin-top: 0.35rem;">LAQ on this mouth: <strong>{{ qic.laq.count }}</strong>
+      · billable: <strong>${{ qic.billable.billable_usd }}</strong>
+      · {{ qic.billable.reason or "live" }}</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">Requirements (Exhibit J)</h2>
+  <ul class="check-list">
+    {% for r in manifest.requirements %}
+    <li>{{ r }}{% if manifest.engine_requirements[r] %} — engine already speaks this{% else %} — after a licensee attests{% endif %}</li>
+    {% endfor %}
+  </ul>
+  <p style="margin-top: 0.75rem; color: var(--muted);">{{ manifest.mark_note }}</p>
+
+  <h2 style="margin-top: 1.5rem;">Never sell</h2>
+  <ul class="check-list">
+    {% for n in manifest.locks.never_sell %}
+    <li>{{ n }}</li>
+    {% endfor %}
+  </ul>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_conformant') }}" class="btn btn-ghost btn-sm">conformant.json</a>
+    <a href="{{ url_for('well_known_qic') }}" class="btn btn-ghost btn-sm">qic.json</a>
+    <a href="{{ url_for('inventions_page') }}" class="btn btn-ghost btn-sm">Inventions</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Gate 1 — weld</a>
+  </div>
+</div>
+{% endblock %}

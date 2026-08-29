@@ -308,6 +308,10 @@ def redeem(
         counterpart_fingerprint=presented_cp or None,
     )
     if result.get("ok"):
+        try:
+            from gate import qic as qic_mod
+        except ImportError:
+            import qic as qic_mod
         return {
             "ok": True,
             "halt": False,
@@ -324,6 +328,7 @@ def redeem(
             "license_id": issued_lid or None,
             "counterpart_fingerprint": presented_cp or None,
             "command_radiation": clock,
+            "qic": qic_mod.stamp_event(job_id=jid, ticket_id=tid),
         }
     return _halt(
         reason=result.get("reason") or "ticket_invalid",

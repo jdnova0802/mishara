@@ -313,6 +313,11 @@ UNISON_15 = (
         "do": "Hold the intel kit as a 7.5 Erra feed until a stranger pays Gate 1",
         "already_coded": False,
     },
+    {
+        "id": "seat_conformant_qic",
+        "do": "Seat Gate Conformant™ + QIC as the rentable latch on Gate — ARM not Bitcoin",
+        "already_coded": True,
+    },
 )
 
 NOT_UNISON = (
@@ -454,6 +459,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "operator": f"{base}/operator",
             "inventions": f"{base}/.well-known/inventions.json",
             "inventor": f"{base}/.well-known/inventor.json",
+            "conformant": f"{base}/.well-known/conformant.json",
+            "qic": f"{base}/.well-known/qic.json",
         },
         "page": f"{base}/unison",
         "gatekeep": "Unison map. Ours. Not a buyer surface.",

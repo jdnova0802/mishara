@@ -355,6 +355,23 @@ def manifest(public_url: str) -> dict[str, Any]:
         "family": family,
         "organs": organs(base),
         "organs_are_not_siblings": True,
+        "marks": [
+            {
+                "id": "gate_conformant",
+                "name": "Gate Conformant",
+                "role": "cert / franchise mark on Gate",
+                "not_a_sibling": True,
+                "not_a_homepage": True,
+                "attaches_to": ["gate", "velaru"],
+                "sellable": False,
+                "rent": True,
+                "status": "planned_post_stranger_prove",
+                "ghost": "DENY",
+                "page": f"{base}/conformant" if base else "/conformant",
+                "manifest": f"{base}/.well-known/conformant.json" if base else None,
+            }
+        ],
+        "marks_are_not_siblings": True,
         "weakest_voice_fix": {
             "priority": ["verra", "erra", "mishara"],
             "action": "Paste hero/nav/not blocks into sibling deploys; keep Gate as Action OS money door",
@@ -368,6 +385,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "scorecard": f"{base}/.well-known/scorecard.json",
             "action_os": f"{base}/.well-known/action-os.json",
             "unison": f"{base}/.well-known/unison.json",
+            "conformant": f"{base}/.well-known/conformant.json",
             "page": f"{base}/family",
         },
         "page": f"{base}/family",

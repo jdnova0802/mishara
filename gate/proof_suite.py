@@ -258,6 +258,34 @@ def run_invariants() -> list[dict[str, Any]]:
         {"inventor": who.get("name"), "count": len(inv.get("inventions") or [])},
     )
 
+    try:
+        from gate import conformant as conformant_mod
+        from gate import qic as qic_mod
+    except ImportError:
+        import conformant as conformant_mod  # type: ignore[no-redef]
+        import qic as qic_mod  # type: ignore[no-redef]
+
+    conf = conformant_mod.manifest("https://gate.local")
+    ghost = conformant_mod.evaluate_claim({"tests_passed": False})
+    sells = conformant_mod.evaluate_claim(
+        {"tests_passed": True, "requirements": list(conformant_mod.REQUIREMENTS), "sells_may": True}
+    )
+    meter = qic_mod.billable()
+    add(
+        "conformant_qic_cash_latch",
+        "Gate Conformant™ + QIC seated on Gate — not a sixth sibling; ghost DENY; $0 until Gate 1",
+        conf.get("tree", {}).get("not_a_sibling") is True
+        and conf.get("tree", {}).get("family_siblings_remain") == 5
+        and conf.get("ghost_conformant") == "DENY"
+        and conf.get("cash_usd") == 0
+        and ghost.get("reason") == "ghost_conformant"
+        and sells.get("reason") == "never_sell_may"
+        and meter.get("billable_usd") == 0
+        and meter.get("reason") == "gate1_unpaid"
+        and (inv.get("cash_latch") or {}).get("mark") == "Gate Conformant",
+        {"mark": conf.get("mark"), "laq": meter.get("laq")},
+    )
+
     # --- Settlement / kappa surfaces exist ---
     try:
         from gate import settlement as settlement_mod

@@ -7,7 +7,7 @@
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Internal · invention register · inventor stands</p>
-  <h1>Named permission. Public inventor.</h1>
+  <h1>Rent the padlock. Stay on the invoice.</h1>
   <p class="audience-sub">{{ manifest.thesis }}</p>
   <p><strong>{{ manifest.inventor.name }}</strong> · {{ manifest.inventor.entity }} · Patent #{{ manifest.inventor.patent }}</p>
   <p style="color: var(--muted);">{{ manifest.inventor.rule }}</p>
@@ -15,6 +15,14 @@
     · cleverer_layer: <strong>{{ manifest.cleverer_layer }}</strong>
     · their_production: <strong>{{ manifest.their_production }}</strong>
     · shipped {{ manifest.counts.shipped }} · law {{ manifest.counts.law }} · weld {{ manifest.counts.weld }}</p>
+
+  <h2 style="margin-top: 1.5rem;">Cash latch — Gate Conformant™ + QIC</h2>
+  <div class="card">
+    <p><strong>{{ manifest.cash_latch.mark }}</strong> · {{ manifest.cash_latch.meter }}</p>
+    <p style="margin-top: 0.5rem;">{{ manifest.satoshi.outscaled_by }}</p>
+    <p style="margin-top: 0.5rem;">Until Gate 1: ${{ manifest.cash_latch.until_gate1_usd }}. Checkout: /operator.</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">Satoshi's ceiling: {{ manifest.satoshi.ceiling }} He could not cash.</p>
+  </div>
 
   <h2 style="margin-top: 1.5rem;">Why this outscales Satoshi</h2>
   <div class="card">
@@ -54,6 +62,7 @@
     <a href="{{ url_for('well_known_inventions') }}" class="btn btn-ghost btn-sm">inventions.json</a>
     <a href="{{ url_for('well_known_inventor') }}" class="btn btn-ghost btn-sm">inventor.json</a>
     <a href="{{ url_for('well_known_named_may') }}" class="btn btn-ghost btn-sm">named-may.json</a>
+    <a href="{{ url_for('conformant_page') }}" class="btn btn-ghost btn-sm">Conformant + QIC</a>
     <a href="{{ url_for('unison_page') }}" class="btn btn-ghost btn-sm">Unison</a>
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Gate 1 — weld</a>
   </div>

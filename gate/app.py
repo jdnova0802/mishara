@@ -165,6 +165,16 @@ except ImportError:
     import named_may as named_may_mod
 
 try:
+    from gate import conformant as conformant_mod
+except ImportError:
+    import conformant as conformant_mod
+
+try:
+    from gate import qic as qic_mod
+except ImportError:
+    import qic as qic_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -336,7 +346,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions",
+    "/unison", "/inventions", "/conformant",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1399,6 +1409,10 @@ def well_known_gate():
             "inventions_page": f"{advertised_url()}/inventions",
             "inventor": f"{advertised_url()}/.well-known/inventor.json",
             "named_may": f"{advertised_url()}/.well-known/named-may.json",
+            "conformant": f"{advertised_url()}/.well-known/conformant.json",
+            "conformant_page": f"{advertised_url()}/conformant",
+            "qic": f"{advertised_url()}/.well-known/qic.json",
+            "licensed_field": f"{advertised_url()}/.well-known/licensed-field.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1696,6 +1710,39 @@ def inventions_page():
         blocks=inventions_mod.page_blocks(),
         public_url=advertised_url(),
     )
+
+
+@app.route("/.well-known/conformant.json")
+def well_known_conformant():
+    return jsonify(conformant_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/qic.json")
+def well_known_qic():
+    return jsonify(qic_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/licensed-field.json")
+def well_known_licensed_field():
+    return jsonify(conformant_mod.licensed_field_manifest(advertised_url()))
+
+
+@app.route("/conformant")
+def conformant_page():
+    m = conformant_mod.manifest(advertised_url())
+    return render_template(
+        "conformant.html",
+        manifest=m,
+        qic=qic_mod.manifest(advertised_url()),
+        blocks=conformant_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/gate-conformant-mark", methods=["POST"])
+def demo_gate_conformant_mark():
+    body = request.get_json(silent=True) or {}
+    return jsonify(conformant_mod.evaluate_claim(body))
 
 
 @app.route("/.well-known/legal.json")
@@ -3463,6 +3510,7 @@ def robots():
             "Disallow: /science",
             "Disallow: /unison",
             "Disallow: /inventions",
+            "Disallow: /conformant",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

@@ -125,6 +125,10 @@ class ManifestTests(unittest.TestCase):
         self.assertIsNone(m["unison"]["cleverer_layer"])
         self.assertIn("inventions", m)
         self.assertFalse(m["inventions"]["anonymous"])
+        self.assertIn("conformant", m)
+        self.assertTrue(m["conformant"]["not_a_sibling"])
+        self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
+        self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
         self.assertIn("register", m)
@@ -1567,7 +1571,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2908,13 +2912,16 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter"}.issubset(ids)
         )
+        self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
+        self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
         self.assertGreaterEqual(len(data["subjects"]), 12)
         html = self.client.get("/inventions").get_data(as_text=True)
         self.assertIn("Demond Davis", html)
         self.assertIn("Named may", html)
         self.assertIn("Satoshi", html)
+        self.assertIn("Gate Conformant", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -2983,7 +2990,11 @@ class NamedMayAndInventionsTests(unittest.TestCase):
             },
         )
         self.assertEqual(ok.status_code, 200)
-        self.assertTrue(ok.get_json()["radiated"])
+        spent = ok.get_json()
+        self.assertTrue(spent["radiated"])
+        self.assertTrue(spent["qic"]["counted"])
+        self.assertEqual(spent["qic"]["billable_usd"], 0)
+        self.assertEqual(spent["qic"]["reason"], "gate1_unpaid")
 
     def test_bearer_still_redeems_when_unnamed(self):
         import named_may
@@ -3018,6 +3029,94 @@ class UnisonTests(unittest.TestCase):
         self.assertIn("7.5", html)
         self.assertIn("The Unuttered", html)
         self.assertIn("CHARGE outside the actor", html)
+
+
+class ConformantQicTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_mark_is_on_the_tree_not_a_sixth_sibling(self):
+        import conformant
+        import qic
+
+        m = conformant.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-conformant-mark-spec-v1")
+        self.assertEqual(m["mark"], "Gate Conformant")
+        self.assertTrue(m["tree"]["not_a_sibling"])
+        self.assertTrue(m["tree"]["not_a_homepage"])
+        self.assertEqual(m["tree"]["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertFalse(m["their_production"])
+        self.assertEqual(m["ghost_conformant"], "DENY")
+        self.assertEqual(m["licensed_field"]["id"], "option_b_platform")
+        self.assertIn("may", m["licensed_field"]["never_grant"])
+        self.assertTrue(m["engine_ready"])
+        self.assertFalse(m["engine_requirements"]["annual_officer_attestation"])
+
+        meter = qic.billable()
+        self.assertEqual(meter["billable_usd"], 0)
+        self.assertEqual(meter["reason"], "gate1_unpaid")
+        self.assertEqual(meter["formula"], "max(MAR, LAQ × per_QIC_rate)")
+        live = qic.billable(mar_usd=50_000, per_qic_usd=0.10, their_production=True, laq=10)
+        self.assertEqual(live["billable_usd"], 50_000)
+
+    def test_ghost_conformant_and_throat_sale_deny(self):
+        ghost = self.client.post(
+            "/demo/pas/gate-conformant-mark",
+            json={"tests_passed": False},
+        ).get_json()
+        self.assertEqual(ghost["verdict"], "DENY")
+        self.assertEqual(ghost["reason"], "ghost_conformant")
+        self.assertTrue(ghost["ghost_conformant"])
+
+        sells = self.client.post(
+            "/demo/pas/gate-conformant-mark",
+            json={
+                "tests_passed": True,
+                "requirements": list(__import__("conformant").REQUIREMENTS),
+                "sells_may": True,
+            },
+        ).get_json()
+        self.assertEqual(sells["verdict"], "DENY")
+        self.assertEqual(sells["reason"], "never_sell_may")
+
+        hold = self.client.post(
+            "/demo/pas/gate-conformant-mark",
+            json={
+                "tests_passed": True,
+                "requirements": list(__import__("conformant").REQUIREMENTS),
+            },
+        ).get_json()
+        self.assertEqual(hold["verdict"], "HOLD")
+        self.assertFalse(hold["certified"])
+        self.assertEqual(hold["cash_usd"], 0)
+
+    def test_pages_and_well_known(self):
+        conf = self.client.get("/.well-known/conformant.json")
+        self.assertEqual(conf.status_code, 200)
+        self.assertEqual(conf.get_json()["inventor"]["name"], "Demond Davis")
+        qic_j = self.client.get("/.well-known/qic.json")
+        self.assertEqual(qic_j.status_code, 200)
+        self.assertEqual(qic_j.get_json()["billable"]["billable_usd"], 0)
+        field = self.client.get("/.well-known/licensed-field.json")
+        self.assertEqual(field.get_json()["default"], "platform_delegated_write")
+        html = self.client.get("/conformant").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("Gate Conformant", html)
+        self.assertIn("not a new money", html.lower())
+        self.assertIn("Nisaba", html)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("conformant", gate)
+        self.assertIn("qic", gate)
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+        self.assertTrue(fam["marks_are_not_siblings"])
+        self.assertEqual(fam["marks"][0]["id"], "gate_conformant")
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /conformant", robots)
 
 
 if __name__ == "__main__":

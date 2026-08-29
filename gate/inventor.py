@@ -45,5 +45,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         "page": f"{base}/inventions",
         "inventions": f"{base}/.well-known/inventions.json",
         "named_may": f"{base}/.well-known/named-may.json",
+        "conformant": f"{base}/.well-known/conformant.json",
+        "qic": f"{base}/.well-known/qic.json",
         "their_production": False,
     }
