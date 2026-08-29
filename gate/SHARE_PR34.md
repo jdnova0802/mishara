@@ -47,6 +47,7 @@ Paste this to the other agent:
 | `gate/AMAZING.md` | **Above 10s:** Layer-0 · Reality Settlement · singularity choke · jubilee · SI |
 | `gate/AFTERWEB.md` | **Crown ∞:** Afterweb / R₀ — commons of becoming; bigger than the Internet |
 | `gate/MONETIZE_R0.md` | **How to cash R₀** — foothill → latch → rail → Absolute seats |
+| `gate/END22_RANK.md` | **End of age 22 liquid** + top 10 by matter × monetization |
 
 Machine-readable (same branch):  
 `/.well-known/remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`

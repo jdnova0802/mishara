@@ -40,7 +40,9 @@ Primitive always: **may · sheath · prove**.
 | **Rail padlock** | **$2–10B** | Interchange / prefinality / insurability Schelling |
 | **Civilization rent** | **$10B–$100B+** cartoon | Custody + must-mouth + hyperscaler seat (see *Above the rail*) |
 
-Conformant + QIC raise the **latch**. Rail raises the **flow ceiling**. Civilization rent is Absolute’s **stock/mandate** ceiling. None skip Gate 1.
+Conformant + QIC raise the **latch**. Rail raises the **flow ceiling**. Civilization rent / R₀ is Absolute’s **stock/mandate** ceiling. None skip Gate 1.
+
+**With the full stack (R₀ + Amazing + rail) by ~Jun 2027:** fight for **Aim–Fat**; padlock is the stretch; **$10B+ is not end-of-22 liquid** — it is the later ceiling. Ranked matter + monetization: `gate/END22_RANK.md`.
 
 ---
 
