@@ -172,6 +172,8 @@ When agents write faster than humans can gossip-govern, speech-net wealth is the
 Still: **$0 until Gate 1.**  
 Bind Room is a foothill entrance to R₀ — one human-facing seal that an irreversible path had may.
 
+**How to cash it (ladder, buyers, forbidden):** `gate/MONETIZE_R0.md`.
+
 ---
 
 ## What this is not

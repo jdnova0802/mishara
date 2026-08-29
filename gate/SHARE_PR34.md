@@ -9,10 +9,10 @@ Paste this to the other agent:
 
 > Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
 > `gate/SHARE_PR34.md` (this pack)  
-> then `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md`  
+> then `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/MONETIZE_R0.md`  
 > Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash is `/operator`.  
 > **Cash this month:** `CASH_NOW.md` — Bind Room $1,750 as renewal-evidence to AI deployers (not ghosted MGAs). Absolute inventing is museum until Gate 1.  
-> Inventing: **9–10** · Unprecedented · Amazing above-10s · crown **Afterweb / R₀** (bigger than the Internet) in `AFTERWEB.md`.
+> Inventing: **9–10** · Unprecedented · Amazing · crown **Afterweb / R₀**. **How to cash R₀:** `MONETIZE_R0.md`.
 
 ---
 
@@ -46,6 +46,7 @@ Paste this to the other agent:
 | `gate/UNPRECEDENTED.md` | Deep 10s: trinity · anti-act · silence · regret · world-after · cross-substrate |
 | `gate/AMAZING.md` | **Above 10s:** Layer-0 · Reality Settlement · singularity choke · jubilee · SI |
 | `gate/AFTERWEB.md` | **Crown ∞:** Afterweb / R₀ — commons of becoming; bigger than the Internet |
+| `gate/MONETIZE_R0.md` | **How to cash R₀** — foothill → latch → rail → Absolute seats |
 
 Machine-readable (same branch):  
 `/.well-known/remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
