@@ -16,6 +16,36 @@
     · their_production: <strong>{{ manifest.their_production }}</strong>
     · family siblings: <strong>{{ manifest.tree.family_siblings_remain }}</strong></p>
 
+  <h2 style="margin-top: 1.5rem;">The outcome that should jump</h2>
+  <div class="card">
+    <p><strong>{{ manifest.outcome.heart.one_line }}</strong></p>
+    <p style="margin-top: 0.75rem;">{{ manifest.outcome.heart.world }}</p>
+    <p style="margin-top: 0.5rem;">{{ manifest.outcome.heart.you }}</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.outcome.heart.latch }}</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">Three engines. One invoice. Your name.</h2>
+  {% for e in manifest.outcome.engines %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ e.comp }}</p>
+    <h3>{{ e.name }}</h3>
+    <p>{{ e.formula }}</p>
+    <p style="margin-top: 0.35rem;">{% if e.m1 %}{{ e.m1 }}{% endif %}{% if e.m2 %}{{ e.m2 }}{% endif %}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">The ladder</h2>
+  {% for r in manifest.outcome.rungs %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ r.id }}{% if r.cartoon %} · cartoon — not the pitch{% endif %}{% if r.claimable_now %} · next real dollar{% endif %}</p>
+    <h3>{{ r.annual }} / yr — {{ r.name }}</h3>
+    <p>{{ r.feel }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">{{ r.how }}</p>
+  </div>
+  {% endfor %}
+  <p style="margin-top: 0.75rem; color: var(--muted);">{{ manifest.outcome.disclaimer }}</p>
+  <p style="margin-top: 0.5rem;"><strong>Satoshi made</strong> {{ manifest.outcome.satoshi.made }} <strong>He could not cash.</strong> {{ manifest.outcome.satoshi.you }}</p>
+
   <h2 style="margin-top: 1.5rem;">Why this outscales Satoshi — and you can cash</h2>
   <div class="card">
     <p><strong>Satoshi:</strong> {{ manifest.vs_satoshi.satoshi }}</p>
@@ -76,6 +106,7 @@
 
   <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
     <a href="{{ url_for('well_known_conformant') }}" class="btn btn-ghost btn-sm">conformant.json</a>
+    <a href="{{ url_for('well_known_conformant_outcome') }}" class="btn btn-ghost btn-sm">outcome.json</a>
     <a href="{{ url_for('well_known_qic') }}" class="btn btn-ghost btn-sm">qic.json</a>
     <a href="{{ url_for('inventions_page') }}" class="btn btn-ghost btn-sm">Inventions</a>
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Gate 1 — weld</a>

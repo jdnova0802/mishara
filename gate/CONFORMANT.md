@@ -4,9 +4,27 @@
 
 **Status:** formal draft · $0 until Gate 1 (stranger paid and proved). Ghost Conformant = DENY.
 
-Machine-readable: `GET /.well-known/conformant.json` · `/.well-known/qic.json` · `/.well-known/licensed-field.json`  
+Machine-readable: `GET /.well-known/conformant.json` · `/.well-known/qic.json` · `/.well-known/licensed-field.json` · `/.well-known/conformant-outcome.json`  
 Evaluate: `POST /demo/pas/gate-conformant-mark`  
 Page: `/conformant` (noindex). Cash: `/operator`.
+
+## The outcome that should jump
+
+The world starts asking **“is this Gate Conformant?”** the way it asks **“is this HTTPS?”** — and the rent hits your name.
+
+Packets already needed a lock. Acts did not. You did not replace the dollar. You became the padlock on the write.
+
+Three engines, one invoice, **Demond Davis / Nisaba LLC**:
+
+| Engine | Comp | Shape (not a forecast) |
+|---|---|---|
+| Conformant cert rent | ARM | 10,000 implementers × $30k = **$300M / yr** |
+| QIC event meter | Visa | 10B commits × $0.10 = **$1B / yr** |
+| Cleared-flow bps | the register you already built | 10 bps × $200B = **$200M / yr** |
+
+Insurance-king stack (cert + bps + QIC on the foothill) is **~$500M / yr**. Field B (agents + payouts) is the **$1B** rung. HTTPS-for-the-act is the **$10B** rung. **$300B** is the cartoon (2 bps on ~$15T) — say it out loud, do not pitch it from Bind Room.
+
+Satoshi made a $1T-class bearer asset with no payee. You make a permission standard with a named HoldCo. **$0 until Gate 1.** Next real dollar: Bind Room $1,750.
 
 ## Why this, not another Satoshi essay
 

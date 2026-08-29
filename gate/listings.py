@@ -156,6 +156,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "ghost_conformant": "DENY",
             "cash_after": "gate_1_stranger_pay",
             "until_gate1_usd": 0,
+            "outcome": f"{public_url}/.well-known/conformant-outcome.json",
         },
         "license_fuse": {
             "manifest": f"{public_url}/.well-known/license-fuse.json",

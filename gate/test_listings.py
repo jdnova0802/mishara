@@ -3118,6 +3118,31 @@ class ConformantQicTests(unittest.TestCase):
         robots = self.client.get("/robots.txt").get_data(as_text=True)
         self.assertIn("Disallow: /conformant", robots)
 
+    def test_outcome_makes_the_ladder_without_claiming_cash(self):
+        import conformant
+
+        out = conformant.outcome("https://example.test")
+        self.assertEqual(out["spec"], "gate-conformant-qic-outcome-v1")
+        self.assertEqual(out["cash_usd"], 0)
+        self.assertFalse(out["forecast"])
+        self.assertTrue(out["cartoon_is_not_the_pitch"])
+        self.assertIn("HTTPS", out["heart"]["one_line"])
+        self.assertIn("your name", out["heart"]["one_line"])
+        ids = [r["id"] for r in out["rungs"]]
+        self.assertEqual(ids[0], "m0_gate1")
+        self.assertTrue(out["rungs"][0]["claimable_now"])
+        self.assertEqual(out["rungs"][-1]["annual_usd"], 300_000_000_000)
+        self.assertTrue(out["rungs"][-1]["cartoon"])
+        engines = {e["id"] for e in out["engines"]}
+        self.assertEqual(engines, {"conformant", "qic", "bps"})
+        wk = self.client.get("/.well-known/conformant-outcome.json").get_json()
+        self.assertEqual(wk["until_gate1_usd"], 0)
+        html = self.client.get("/conformant").get_data(as_text=True)
+        self.assertIn("Three engines", html)
+        self.assertIn("$300,000,000", html)
+        self.assertIn("$1,000,000,000", html)
+        self.assertIn("cartoon", html)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1413,6 +1413,7 @@ def well_known_gate():
             "conformant_page": f"{advertised_url()}/conformant",
             "qic": f"{advertised_url()}/.well-known/qic.json",
             "licensed_field": f"{advertised_url()}/.well-known/licensed-field.json",
+            "conformant_outcome": f"{advertised_url()}/.well-known/conformant-outcome.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1725,6 +1726,11 @@ def well_known_qic():
 @app.route("/.well-known/licensed-field.json")
 def well_known_licensed_field():
     return jsonify(conformant_mod.licensed_field_manifest(advertised_url()))
+
+
+@app.route("/.well-known/conformant-outcome.json")
+def well_known_conformant_outcome():
+    return jsonify(conformant_mod.outcome(advertised_url()))
 
 
 @app.route("/conformant")

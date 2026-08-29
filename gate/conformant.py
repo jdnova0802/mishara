@@ -102,6 +102,118 @@ CASH_PATH = {
     "checkout": "/operator",
 }
 
+# Illustrative stacked outcome — not a forecast, not a new L2 module.
+# Numbers match the tree's own term sheet / event-potential / Exhibit J religion.
+OUTCOME_SPEC = "gate-conformant-qic-outcome-v1"
+
+HEART = {
+    "one_line": (
+        "The world starts asking “is this Gate Conformant?” the way it asks "
+        "“is this HTTPS?” — and the rent hits your name."
+    ),
+    "world": (
+        "Packets already needed a lock. Acts did not. Bind, payout, agent tool, "
+        "hiring stick — every irreversible digital yes becomes receipted and licensed. "
+        "You did not replace the dollar. You became the padlock on the write."
+    ),
+    "you": (
+        "Three engines, one invoice, Demond Davis / Nisaba LLC: "
+        "Conformant cert rent (ARM), QIC event meter (Visa), cleared-flow bps (the register). "
+        "Satoshi made an asset class worth more than most countries and could not buy coffee. "
+        "You make the padlock class. The wire has a payee."
+    ),
+    "latch": (
+        "Procurement checkbox. Partner production cannot ship without the mark. "
+        "That is the moment the mouth is no longer optional."
+    ),
+}
+
+# annual_usd is shape, not a promise. until_gate1 cash stays $0.
+OUTCOME_RUNGS: tuple[dict[str, Any], ...] = (
+    {
+        "id": "m0_gate1",
+        "name": "Gate 1 — the first stranger",
+        "feel": "Someone who is not you pays. Someone who is not you proves. The machine turns on.",
+        "annual_usd": 1_750,
+        "how": "Bind Room. Then first field license MAR $50,000.",
+        "claimable_now": True,
+        "forecast": False,
+    },
+    {
+        "id": "m0_first_stack",
+        "name": "First stack — proof it rents",
+        "feel": "Five MGAs and one PAS parent. You are no longer a desk. You are a license book.",
+        "annual_usd": 2_500_000,
+        "how": "MAR + early LAQ at blended ~$0.40 / QIC. Tree event-potential Year 1–2.",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m1_conformant",
+        "name": "Conformant franchise — ARM on permission",
+        "feel": "Ten thousand implementers cannot ship without the badge. They pay you to keep it.",
+        "annual_usd": 300_000_000,
+        "how": "10,000 certified implementers × $30,000 cert / yr (Exhibit J).",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m1_bps",
+        "name": "Register on cleared flow — the quiet river",
+        "feel": "You do not take the money. You take ten basis points for letting it leave.",
+        "annual_usd": 200_000_000,
+        "how": "10 bps × $200B cleared through welded mouths (already on /operator).",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m1_qic_insurance",
+        "name": "QIC inside insurance — the foothill meter",
+        "feel": "Every bind that sticks is a counted yes. Renewals multiply it.",
+        "annual_usd": 50_000_000,
+        "how": "Mature Field A book: ~50M LAQ at blended $0.25–$1.00. Category king inside PAS.",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m1_stack",
+        "name": "Insurance-king stack",
+        "feel": "Cert + bps + QIC on one vertical. Half a billion a year without leaving the foothill.",
+        "annual_usd": 500_000_000,
+        "how": "NAIC-shaped latch + ~20% US NPW through conformant bind + cert book.",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m2_field_b",
+        "name": "Field B breakout — agents and payouts",
+        "feel": "The licensed field was never insurance. Insurance was the on-ramp. Agents write all day.",
+        "annual_usd": 1_000_000_000,
+        "how": "10 billion QIC/yr × $0.10 — tool commits, withdraw sticks, org-root spend.",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m3_standard",
+        "name": "The standard — HTTPS for the act",
+        "feel": "The question is no longer whether to use Gate. The question is whether you are allowed to write without it.",
+        "annual_usd": 10_000_000_000,
+        "how": "100B QIC × $0.10, or 1 bp on $1T of commit volume. Needs latch, not outbound.",
+        "claimable_now": False,
+        "forecast": False,
+    },
+    {
+        "id": "m5_cartoon",
+        "name": "Cartoon ceiling — say it out loud",
+        "feel": "Visa-class interchange on planetary commits. Not Bind Room math. Not this year.",
+        "annual_usd": 300_000_000_000,
+        "how": "2 bps on ~$15T global commit/settlement volume. Mandatory civilization unit.",
+        "claimable_now": False,
+        "forecast": False,
+        "cartoon": True,
+    },
+)
+
 TREE_LOCKS = {
     "primitive": ["may", "sheath", "prove"],
     "gate1": "stranger paid and proved",
@@ -217,6 +329,76 @@ def licensed_field_manifest(public_url: str) -> dict[str, Any]:
     }
 
 
+def _usd(n: int) -> str:
+    return f"${int(n):,}"
+
+
+def outcome_rungs() -> list[dict[str, Any]]:
+    rows = []
+    for raw in OUTCOME_RUNGS:
+        row = dict(raw)
+        row["annual"] = _usd(int(row["annual_usd"]))
+        row["disclaimer"] = "Illustrative — not a forecast or offer."
+        rows.append(row)
+    return rows
+
+
+def outcome(public_url: str = "") -> dict[str, Any]:
+    """Heart-jump stacked outcome of Conformant + QIC. $0 cash until Gate 1."""
+    base = _base(public_url)
+    rungs = outcome_rungs()
+    return {
+        "spec": OUTCOME_SPEC,
+        "inventor": inventor_mod.stamp(),
+        "heart": dict(HEART),
+        "engines": [
+            {
+                "id": "conformant",
+                "name": "Cert rent",
+                "comp": "ARM",
+                "formula": "certified_implementers × $30,000",
+                "m1_usd": 300_000_000,
+                "m1": "$300,000,000 / yr",
+            },
+            {
+                "id": "qic",
+                "name": "Event meter",
+                "comp": "Visa",
+                "formula": "max(MAR, LAQ × per_QIC)",
+                "m2_usd": 1_000_000_000,
+                "m2": "$1,000,000,000 / yr at 10B QIC × $0.10",
+            },
+            {
+                "id": "bps",
+                "name": "Cleared-flow register",
+                "comp": "the mouth you already built",
+                "formula": "10 bps (+5 above $500M/mo)",
+                "m1_usd": 200_000_000,
+                "m1": "$200,000,000 / yr at $200B cleared",
+            },
+        ],
+        "rungs": rungs,
+        "satoshi": {
+            "made": "A $1T-class bearer asset with no payee.",
+            "could_not": "Cash. Hide the founder and the money has nowhere to land.",
+            "you": "A permission standard with a named HoldCo. The wire has a name.",
+        },
+        "not_threatening": VS_SATOSHI["not_threatening"],
+        "until_gate1_usd": 0,
+        "cash_usd": 0,
+        "their_production": False,
+        "forecast": False,
+        "cartoon_is_not_the_pitch": True,
+        "next_real_dollar": "Bind Room $1,750 — stranger paid and proved",
+        "checkout": f"{base}/operator" if base else "/operator",
+        "page": f"{base}/conformant" if base else "/conformant",
+        "disclaimer": (
+            "Shape of the stacked machine. Not a forecast, not an offer, "
+            "not a claim that Bind Room produces $300M. Reality pays on latch + volume."
+        ),
+    }
+
+
 def fee_model() -> dict[str, Any]:
     return {
         "formula": "annual_usd = certified_implementers × cert_fee_annual",
@@ -282,9 +464,11 @@ def manifest(public_url: str) -> dict[str, Any]:
         "engine_requirements": engine,
         "engine_ready": all(engine[r] for r in REQUIREMENTS if r != "annual_officer_attestation"),
         "fees": fee_model(),
+        "outcome": outcome(base),
         "evaluate": f"POST {base}/demo/pas/gate-conformant-mark",
         "qic": f"{base}/.well-known/qic.json",
         "licensed_field_url": f"{base}/.well-known/licensed-field.json",
+        "outcome_url": f"{base}/.well-known/conformant-outcome.json",
         "links": {
             "page": f"{base}/conformant",
             "operator": f"{base}/operator",
@@ -294,6 +478,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "commit_auth": f"{base}/.well-known/commit-auth.json",
             "spend_protocol": f"{base}/.well-known/spend-protocol.json",
             "license_fuse": f"{base}/.well-known/license-fuse.json",
+            "outcome": f"{base}/.well-known/conformant-outcome.json",
         },
         "page": f"{base}/conformant",
         "gatekeep": "Conformant mark. Not a buyer chrome plate. Cash is /operator.",
@@ -306,4 +491,5 @@ def page_blocks() -> list[dict[str, Any]]:
         {"tag": "Cash", "title": "You stay on the invoice", "body": VS_SATOSHI["here"]},
         {"tag": "Threat", "title": "Not a new money", "body": VS_SATOSHI["not_threatening"]},
         {"tag": "Lock", "title": "Gate 1", "body": "stranger paid and proved — $0 until then"},
+        {"tag": "Heart", "title": "The outcome", "body": HEART["one_line"]},
     ]
