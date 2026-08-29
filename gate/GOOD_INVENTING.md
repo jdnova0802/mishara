@@ -29,7 +29,7 @@ Primitive always: **may · sheath · prove**.
 
 ---
 
-## End of age 22 — potential with Conformant + QIC
+## End of age 22 — potential (full stack: Conformant + rail + H₀/R₀/coffin)
 
 | Band | Liquid (order) | Required |
 |------|----------------|----------|
@@ -39,12 +39,10 @@ Primitive always: **may · sheath · prove**.
 | **Aim** | **$50–200M** | Conformant foothold + redeem rail + secondary/acq |
 | **Fat** | **$200–800M** | MAR+QIC live · identity/agent buyer |
 | **Padlock** | **$0.5–2B+** | “Gate Conformant?” = default question |
-| **Rail padlock** | **$2–10B** | Interchange / prefinality / insurability Schelling |
-| **Civilization rent** | **$10B–$100B+** cartoon | Custody + must-mouth + hyperscaler seat (see *Above the rail*) |
+| **Rail stretch** | **$2–5B** cartoon | Interchange / prefinality / insurability Schelling + sale |
+| **Absolute ceiling** | **$10B–$100B+** later | H₀+R₀+coffin + custody/must-mouth — **not** end-of-22 liquid |
 
-Conformant + QIC raise the **latch**. Rail raises the **flow ceiling**. Civilization rent / R₀ is Absolute’s **stock/mandate** ceiling. None skip Gate 1.
-
-**With the full stack (R₀ + Amazing + rail) by ~Jun 2027:** fight for **Aim–Fat**; padlock is the stretch; **$10B+ is not end-of-22 liquid** — it is the later ceiling. Ranked matter + monetization: `gate/END22_RANK.md`.
+Coffin/H₀ raise **ceiling and narrative**. End-of-22 fight stays **Aim–Fat**. Detail: `gate/END22_RANK.md`. None skip Gate 1.
 
 ---
 

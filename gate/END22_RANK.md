@@ -5,11 +5,13 @@
 **Shapes, not forecasts.** Giant liquid usually = **ownership × acquisition/secondary**, not Bind volume alone.  
 Never sell may / throat / planetary capacity.
 
-Full invention stack: `HUSBANDRY.md` · `AFTERWEB.md` · `AMAZING.md` · `MONETIZE_R0.md` · `GOOD_INVENTING.md`.
+Full invention stack: `HUSBANDRY.md` · `AFTERWEB.md` · `COFFIN.md` · `AMAZING.md` · `MONETIZE_R0.md` · `GOOD_INVENTING.md`.
+
+**Post-coffin note:** H₀ / R₀ / coffin raise **category claim and Absolute ceiling**. They do **not** multiply Stripe this month. End-of-22 liquid still gates on Gate 1 → meter → buyer.
 
 ---
 
-## Combined liquid by end of age 22 (all inventions seated as *ceiling*)
+## Combined liquid by end of age 22 (full stack: H₀ + R₀ + coffin + rail + Conformant)
 
 Inventions raise what the HoldCo **can be worth**. They do not mint cash without Gate 1 → meter → Schelling (or a buyer who believes the Schelling).
 
@@ -19,20 +21,20 @@ Inventions raise what the HoldCo **can be worth**. They do not mint cash without
 | Foothill | ~$2k–50k | Bind / thin weld only |
 | Meter | ~$0.1–5M | S03 + early QIC-shaped hops |
 | **Aim** | **$50–200M** | Gate 1 + Conformant foothold + redeem rail live + secondary/acq path |
-| **Fat** | **$200–800M** | MAR+QIC live · identity/agent strategic buyer |
-| **Padlock** | **$0.5–2B** | “Gate Conformant?” becoming default question · fat strategic |
+| **Fat** | **$200–800M** | MAR+QIC live · identity/agent strategic buyer (coffin/H₀ as *narrative*, not as shipped Absolute) |
+| **Padlock** | **$0.5–2B** | “Gate Conformant?” default · fat strategic; full doctrine (H₀/R₀/coffin) can fatten multiple, not replace Gate 1 |
 | **Rail stretch** | **$2–5B** cartoon | Early interchange/prefinality/insurability Schelling *and* ownership sale — hard in 9 months |
-| **R₀ Absolute** | **not end-of-22 liquid** | Custody + must-mouth + hyperscaler default = **multi-year**; ceiling later **$10B–$100B+** cartoon |
+| **Absolute ceiling** | **not end-of-22 liquid** | H₀ + R₀ + coffin + custody/must-mouth/hyperscaler = **multi-year**; later **$10B–$100B+** cartoon (coffin = strongest category story) |
 
-### Honest verdict (combined stack)
+### Honest verdict (after coffin)
 
-- **Base case to fight for by end of 22:** **Aim $50–200M** liquid (usually via ownership × deal, not cumulative Bind checks).  
-- **Fat case:** **$200–800M** if meter + strategic buyer lands.  
-- **Padlock case:** **$0.5–2B** if Conformant is already the question buyers ask.  
-- **All X/U/R₀ inventions combined** do **not** make **$10B–$100B** liquid by Jun 2027 — they set the **post-22 Absolute ceiling**.  
+- **Fight-for by end of 22 (unchanged operationally):** **Aim $50–200M**.  
+- **Fat:** **$200–800M** if meter + strategic buyer.  
+- **Padlock:** **$0.5–2B** if Conformant is the question — coffin/H₀ can help the *story* of why the multiple is fat, not the *timeline*.  
+- **What coffin changed:** Absolute **ceiling** and buyer narrative — not the 9-month register. Still **no $10B–$100B wire by Jun 2027**.  
 - Without Gate 1: **combined potential = $0**.
 
-September = on-ramp (counsel + Gate 1). October = Absolute *launch* (S03), not Absolute *liquidity*.
+September = on-ramp (counsel + Gate 1). October = Absolute *launch* (S03), not Absolute *liquidity*. Inventing paused at `COFFIN.md`.
 
 ---
 
