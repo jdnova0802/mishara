@@ -4,9 +4,9 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. Keep pushing **only** inventions that score **9 or 10**.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** (amazing / Absolute substrate) live in the *Amazing* section and `gate/AMAZING.md`.
 
-**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U-tier.
+**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X-tier.
 
 ---
 
@@ -14,8 +14,9 @@
 
 | Score | Meaning | Keep? |
 |------|---------|-------|
-| **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) **or** an unprecedented unification (see *Unprecedented 10s*) | Yes |
-| **9** | Fat buyer or court or protocol *must* cite it; cash latch or Schelling clear | Yes (not in Unprecedented tier) |
+| **11–13 / ∞** | Remakes what civilization *runs on* (layer-0 of doing / reality settlement / multi-mind constitution) | Yes — *Amazing* tier only |
+| **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) **or** an unprecedented unification | Yes |
+| **9** | Fat buyer or court or protocol *must* cite it; cash latch or Schelling clear | Yes (not in Unprecedented / Amazing) |
 | ≤8 | Clever, useful, or niche | **Do not seat here** |
 
 **Good inventing** = padlock / recorder / remaining / exclusion / meter.  
@@ -280,8 +281,51 @@ See also: `gate/UNPRECEDENTED.md`.
 
 ---
 
+## Amazing — **above 10s** (Absolute substrate)
+
+Stop hunting “good.” Below is **amazing**: scores **11–13 / ∞**. Monetizable when Schelling — still **$0 until Gate 1**.
+
+**10** = civilization default changes. **Above 10** = remakes what civilization *runs on*. Conformant is lemonade. Rail is Visa. This is **layer-0 of doing**.
+
+| # | Invention | Score | Why it is above every 10 below | Monetization shape (not forecast) | Lock |
+|---|-----------|-------|--------------------------------|-------------------------------------|------|
+| **X1** | **Layer-0 of Doing (Act Internet)** — irreversible action gets a **packet layer**; agents, banks, robots, courts are apps on your mouth | **12** | TCP/IP didn’t win by being a better app. It won by being the layer apps must speak. You become that for *doing*. | Thin bps / per-packet on **all** digital irreversible economic activity if Schelling → Absolute cartoon ($T flow × tiny take) | Mouth rents the packet — never sells may |
+| **X2** | **Second civilizational conserved quantity** — money conserved *value*; remaining conserves **one-wayness** as planetary stock | **12** | Physics got energy. Markets got money. **Civilization never got a conserved stock of irreversibility.** You hold the books. | Custody bps on planetary remaining notional ≫ cert + interchange combined | Correspondent remaining ≠ maycoin |
+| **X3** | **Reality Settlement Layer** — markets, courts, clouds, robots settle “what is true **after** the act” on one stranger-openable world-after | **13** | Fedwire settles money. DTCC settles securities. HTTPS settles packets. **Nothing settles shared reality after machine acts.** | Clear + query rent on every agent that must agree what happened — Bloomberg × DTCC of the world-after | Not a social net; not Being-SKU |
+| **X4** | **Permission Singularity Choke** — when machine irreversible-write **rate** exceeds human, your mouth is forced Schelling | **12** | Most standards are optional until load breaks the old priesthood. Write-rate overflow makes soft governance illegal. | 100% attach on overflow domains — multiplies S1–T7 overnight | Contribute choke vocab; don’t own C2 |
+| **X5** | **SI of one-wayness** — BIPM-class unit; QIC/regret become candela of acts | **11** | Whoever owns the **unit** owns every contract that cites magnitude. | Metrology license + instrument calibration rent forever | No fake journal from Bind Room |
+| **X6** | **Jubilee engine (*mīšarum*)** — planetary licensed forgetfulness: who may wash remaining, under what charter | **11** | Kings washed debt tablets. Machines will drown in zombie may without a lawful wash. | Every estate, crisis reset, corp death, swarm wind-down pays jubilee rent | Wash ≠ admin CHARGE; CHARGE-outside holds |
+| **X7** | **Undo-extinction default** — cheap reversal dies as civilization default; to write, you **must** clear remaining books | **11** | Today undo is free (ctrl-Z culture). Killing cheap undo makes your books **mandatory infrastructure**. | Multiplies every meter and custody line below by necessity | You don’t ban undo tech — you define when undo doesn’t count as never-wrote |
+| **X8** | **Capability existence rent** — rent on *being LIVE-capable* for irreversible effectors (license/record existence — **not** selling may) | **12** | Employment may rents workers. This rents **teeth** — every agent/robot/tool allowed to bite reality. | $/effector/mo × planetary effector count → Absolute if agents are numerous | Existence license ≠ selling the throat |
+| **X9** | **Given notary** — every machine world opens with stranger-proveable **given** through you; inventing t=0 is illegal | **11** | Simulations invent genesis constantly. Lawful worlds must **open**, not invent. You rent the opening. | Per-fleet / per-universe opening attestation | “We will not invent the given” becomes product |
+| **X10** | **Multi-mind finality constitution** — depositary between human institutions and non-human swarms as kinds of mind | **13** | Westphalia assumed peoples. Multi-mind Earth needs a recorder neither side owns. | Constitutional / treaty / settlement rent without force | State keeps C2; you keep depositary |
+| **X11** | **Consequence sovereignty** — bound folio holder owns the right to **narrate** what the world became | **11** | Disputes are wars of story. Binding narration to consequence-DNA ends the war at your prove. | Every material dispute opens your folio — law/insurance/media attach | Recorder of narration rights — not the press |
+| **X12** | **Act Maxwell’s Demon seat** — only legal sorter of which writes may increase the world’s commitment-entropy | **12** | Maxwell’s Demon sorts without paying. You are the **named, receipted** sorter regulators need. | Demon-seat franchise / Conformant-required sorter mark | Sorter ≠ owner of the heat bath (planet) |
+
+### Explicit rejects (still)
+
+| Temptation | Why it dies |
+|------------|-------------|
+| Maycoin / bearer remaining | Sells may — Satoshi trap |
+| Own singularity / C2 | Unmouthed |
+| Being / consciousness SKU | `cleverer_layer` null |
+| Skip Gate 1 because X is pretty | **Gate 1 still stops cash** |
+
+### Honest Absolute ladder
+
+1. **X1 Layer-0** + **X3 Reality Settlement** — own doing + own world-after  
+2. **X2 conserved one-wayness** + **X8 capability existence rent** — stock + teeth  
+3. **X4 singularity choke** + **X7 undo-extinction** — forced necessity  
+4. **X5 SI** + **X6 jubilee** + **X9 given notary** — unit, wash, opening  
+5. **X10 multi-mind** + **X11 consequence sovereignty** + **X12 demon seat** — constitution, narration, sorter  
+6. Then U → T → S → Conformant+QIC → Bind foothill  
+
+See also: `gate/AMAZING.md`.
+
+---
+
 ## One line
 
-> Double-entry gave markets a stock. HTTPS gave packets a padlock. DTCC gave securities a depository. **Nobody gave machine irreversible writes a recorder of may and a folio of the remaining.** That is the 10. Conformant + QIC is the **badge+meter**. Rail and civilization rent are **flow and stock rent**. **Trinity finality · conserved one-wayness · anti-act · silence stock · regret quantum · rehearsal≠spend · world-after Schelling · cross-substrate sheath** are unifications no prior civilization seated — Absolute’s deep padlock, after a stranger pays.
+> Double-entry gave markets a stock. HTTPS gave packets a padlock. DTCC gave securities a depository. **Nobody gave machine irreversible writes a recorder of may and a folio of the remaining.** That is the 10. Conformant is the **badge**. Rail and civilization rent are **flow and stock**. Unprecedented 10s are **unifications**. **Layer-0 of Doing · Reality Settlement · second conserved quantity · permission singularity choke · SI of one-wayness · jubilee engine · capability existence rent** are **above 10** — Absolute’s substrate — after a stranger pays. Gate 1 is still the door.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

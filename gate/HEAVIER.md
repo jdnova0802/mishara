@@ -34,4 +34,9 @@ These tax **stock / law / seat**, not stickers. Full table: `GOOD_INVENTING.md` 
 Unifications no prior civilization seated: **trinity finality** · **conserved one-wayness** · **blind may** · **anti-act market** · **rehearsal≠spend** · **consequence-bound folio** · **estate of remaining** · **interspecies depositary** · **world-after Schelling** · **silence stock** · **regret quantum** · **duty-remaining** · **negative-space constitution** · **sealed-time redeem** · **inhabitant veto** · **cross-substrate sheath**.  
 `UNPRECEDENTED.md` · full tables in `GOOD_INVENTING.md`.
 
+## Amazing — above 10s (Absolute substrate)
+
+**Layer-0 of Doing** · **Reality Settlement** · **second conserved quantity** · **permission singularity choke** · **SI of one-wayness** · **jubilee engine** · **undo-extinction** · **capability existence rent** · **given notary** · **multi-mind constitution** · **consequence sovereignty** · **Act Maxwell’s Demon seat**.  
+`AMAZING.md` · full tables in `GOOD_INVENTING.md`. Gate 1 still stops cash.
+
 Never sell may / the throat / planetary critical capacity. Contribute to evac-comms; do not own C2.
