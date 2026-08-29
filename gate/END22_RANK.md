@@ -36,6 +36,8 @@ Inventions raise what the HoldCo **can be worth**. They do not mint cash without
 
 September = on-ramp (counsel + Gate 1). October = Absolute *launch* (S03), not Absolute *liquidity*. Inventing paused at `COFFIN.md`.
 
+**Ages 22–30 liquid + NW:** `gate/AGES_22_30.md`.
+
 ---
 
 ## Top 10 inventions by **matter** (civilization weight)
