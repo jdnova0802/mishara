@@ -39,4 +39,9 @@ Unifications no prior civilization seated: **trinity finality** · **conserved o
 **Layer-0 of Doing** · **Reality Settlement** · **second conserved quantity** · **permission singularity choke** · **SI of one-wayness** · **jubilee engine** · **undo-extinction** · **capability existence rent** · **given notary** · **multi-mind constitution** · **consequence sovereignty** · **Act Maxwell’s Demon seat**.  
 `AMAZING.md` · full tables in `GOOD_INVENTING.md`. Gate 1 still stops cash.
 
+## Crown — bigger than the Internet
+
+**The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body.  
+`AFTERWEB.md`. Still $0 until Gate 1.
+
 Never sell may / the throat / planetary critical capacity. Contribute to evac-comms; do not own C2.

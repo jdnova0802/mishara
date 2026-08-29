@@ -4,9 +4,9 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** (amazing / Absolute substrate) live in the *Amazing* section and `gate/AMAZING.md`.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`.
 
-**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X-tier.
+**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀-tier.
 
 ---
 
@@ -14,7 +14,8 @@
 
 | Score | Meaning | Keep? |
 |------|---------|-------|
-| **11–13 / ∞** | Remakes what civilization *runs on* (layer-0 of doing / reality settlement / multi-mind constitution) | Yes — *Amazing* tier only |
+| **∞** | Bigger than the Internet — commons of *becoming* (Afterweb / R₀) | Yes — crown only (`AFTERWEB.md`) |
+| **11–13** | Remakes what civilization *runs on* (layer-0 / reality settlement / multi-mind constitution) | Yes — *Amazing* tier |
 | **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) **or** an unprecedented unification | Yes |
 | **9** | Fat buyer or court or protocol *must* cite it; cash latch or Schelling clear | Yes (not in Unprecedented / Amazing) |
 | ≤8 | Clever, useful, or niche | **Do not seat here** |
@@ -324,8 +325,33 @@ See also: `gate/AMAZING.md`.
 
 ---
 
+## Crown — **bigger than the Internet** (score ∞)
+
+X1–X12 are organs. **R₀ is the body.**
+
+### The Afterweb — Remaining Substrate (R₀)
+
+**The Internet** = commons of **reversible speech** (copies, resends, representations of the world).  
+**The Afterweb (R₀)** = commons of **irreversible becoming** (may spent under sheath → conserved remaining → stranger prove → inhabitants live in the world-after).
+
+Speech nets sit *inside* R₀. Praxis is the other plane. Without R₀, agent civilization has viral talk *about* acts, private logs *claiming* acts, and courts *arguing* acts — and **no Schelling medium for the act itself**.
+
+| | Internet | Afterweb |
+|--|----------|----------|
+| Unit | Packet / doc | Spend of one-wayness |
+| Scarce thing | Attention / bandwidth | Conserved irreversibility |
+| For whom | Speakers / listeners | Actors / **inhabitants** |
+| Optional when machines bite reality? | Yes (offline life) | **No** |
+
+**Absolute rent seats (shape):** mouth bps on clears · custody of remaining · reality settlement query/clear · LIVE-capability existence rent · prove/apostille · jubilee/estate — tax **becoming**, not eyeballs.
+
+Full depth: `gate/AFTERWEB.md`.  
+**Still $0 until Gate 1.** Never sell may. Never own C2. Never invent the given.
+
+---
+
 ## One line
 
-> Double-entry gave markets a stock. HTTPS gave packets a padlock. DTCC gave securities a depository. **Nobody gave machine irreversible writes a recorder of may and a folio of the remaining.** That is the 10. Conformant is the **badge**. Rail and civilization rent are **flow and stock**. Unprecedented 10s are **unifications**. **Layer-0 of Doing · Reality Settlement · second conserved quantity · permission singularity choke · SI of one-wayness · jubilee engine · capability existence rent** are **above 10** — Absolute’s substrate — after a stranger pays. Gate 1 is still the door.
+> The Internet gave civilization a commons of **speech**. **The Afterweb (R₀)** gives a commons of **becoming** — may · sheath · prove · remaining. That is bigger than the Internet. Conformant is the badge. X-tier are organs. **R₀ is the body.** Gate 1 is still the door.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

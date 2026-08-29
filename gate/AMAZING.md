@@ -51,3 +51,13 @@ $1,750 Bind Room                      — Gate 1 foothill
 **Pre-Gate:** name X1/X3/X5 in doctrine only. No fake BIPM. No swarm constitution theater. No maycoin.  
 **Post-Gate:** S03 → Conformant → rail → then chase X.  
 **Never:** sell may · own C2 · become the carrier · invent the given.
+
+---
+
+## Crown above Amazing — bigger than the Internet
+
+X1–X12 are **organs**. The body is **the Afterweb (R₀)** — Remaining Substrate.
+
+The Internet networked **speech**. R₀ networks **becoming**: may spent, remaining conserved, prove open to the stranger, inhabitants in the world-after. Score **∞**. Speech nets sit inside it; they are not replaced.
+
+Full depth: `gate/AFTERWEB.md`.
