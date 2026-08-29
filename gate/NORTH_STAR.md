@@ -17,6 +17,7 @@ This file is the **mountain**.
 `FORBES_TOP10_FACEPALM_INVENTIONS.md` is the **Forbes Real-Time Top 10 map** (one may-at-irreversibility invention per seat — designations only).  
 `WEALTH_SCOREBOARD_MAP_22.md` is the **age 22→30 path map** (Baseline · Notice · Shatter — orientation only; does not replace LOCKED table or lift freeze).  
 `OMEGA_AMBITION_BRIEF.md` is the **Path Ω ceiling map** (planetary rails · FX/CLS/premium/grid — makes Path S look like a foothill; designations only).  
+`EXTREME_S25_INVENTIONS.md` is the **25 S-tier compression inventions + Singularity scoreboard** (B‡→∞ — even baseline makes old Ω look small; designations only).  
 `NISABA_TREE.md` is the **one-page tree** (entity · Gate · foothill · ceiling · phases).  
 `EVAC_COMMS_HANDOFF_SPEC.md` is the **ceiling choke invention sketch** (CHC / Evac Bind Ticket — post–Gate 1, not counsel week).  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
