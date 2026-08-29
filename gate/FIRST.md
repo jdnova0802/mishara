@@ -8,6 +8,8 @@ Nisaba is designated the first depository and recorder of the act. Identity froz
 
 `/first` · `/.well-known/first.json` · `/.well-known/pvp.json`
 
+Bigger than the act: `/remaining` — the world after. The act is the journal. The remaining is the stock.
+
 ## Soon (shipped in this mouth)
 
 - **PvP may** — both throats redeem in one SI second, or neither. Immobilized until then.

@@ -131,6 +131,9 @@ class ManifestTests(unittest.TestCase):
         self.assertFalse(m["heavier"]["l2_module"])
         self.assertIn("first", m)
         self.assertTrue(m["first"]["first_in_history"])
+        self.assertIn("remaining", m)
+        self.assertIsNone(m["remaining"]["cleverer_layer"])
+        self.assertFalse(m["remaining"]["l2_module"])
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1575,7 +1578,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -3313,6 +3316,110 @@ class FirstInHistoryTests(unittest.TestCase):
             json={"job_id": "pc:PVP-A"},
         ).get_json()
         self.assertTrue(spent["act_occurred"])
+
+
+class RemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def _issue(self, job_id, holder_id):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=remaining",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": job_id,
+                    "holder_id": holder_id,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        return r.get_json()["bind_ticket"]
+
+    def test_reshape_and_pages(self):
+        import remaining
+
+        m = remaining.manifest("https://example.test")
+        self.assertEqual(m["reshape"]["headline"], "Bigger than the act is the remaining.")
+        self.assertEqual(m["identity"], "remaining = given − spent one-wayness")
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertFalse(m["l2_module"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertTrue(m["identity_frozen_until_gate1"])
+        self.assertGreaterEqual(m["counts"]["soon"], 5)
+        html = self.client.get("/remaining").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("Bigger than the act is the remaining", html)
+        self.assertIn("Remaining folio", html)
+        self.assertIn("World-budget", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /remaining", robots)
+        who = self.client.get("/.well-known/inventor.json").get_json()
+        self.assertEqual(who["bigger_than_the_act"], "the remaining — the world after")
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+        self.assertIn("remaining", fam["bigger_than_the_act"])
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("remaining", gate)
+
+    def test_folio_given_then_spent(self):
+        empty = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": "pc:REMAIN-NEVER"},
+        ).get_json()
+        self.assertTrue(empty["given"]["absent"])
+        self.assertEqual(empty["remaining"]["one_way_class"], "no_given")
+        self.assertEqual(empty["remaining"]["for"], "inhabitant")
+        self.assertEqual(empty["remaining"]["not_for"], "the actor")
+        self.assertTrue(empty["identity_holds"])
+        self.assertIsNone(empty["cleverer_layer"])
+
+        ticket = self._issue("pc:REMAIN-A", "op:remain")
+        potency = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": "pc:REMAIN-A"},
+        ).get_json()
+        self.assertFalse(potency["given"]["absent"])
+        self.assertGreaterEqual(potency["given"]["tickets_issued"], 1)
+        self.assertEqual(potency["remaining"]["one_way_class"], "potency")
+        self.assertFalse(potency["act"]["occurred"])
+        self.assertTrue(potency["the_act_is_not_the_object"])
+
+        redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:REMAIN-A",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:REMAIN-A/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:remain",
+            },
+        )
+        self.assertEqual(redeem.status_code, 200)
+        stock = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": "pc:REMAIN-A"},
+        ).get_json()
+        self.assertTrue(stock["act"]["occurred"])
+        self.assertEqual(stock["remaining"]["one_way_class"], "spent_one_wayness")
+        self.assertTrue(stock["remaining"]["one_way_spent"])
+        self.assertTrue(stock["identity_holds"])
+        self.assertEqual(
+            stock["remaining"]["tickets_unconsumed"],
+            stock["given"]["tickets_issued"] - stock["act"]["tickets_consumed"],
+        )
 
 
 if __name__ == "__main__":

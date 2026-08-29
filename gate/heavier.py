@@ -521,6 +521,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "outcome": f"{base}/.well-known/conformant-outcome.json",
             "qic": f"{base}/.well-known/qic.json",
             "first": f"{base}/.well-known/first.json",
+            "remaining": f"{base}/.well-known/remaining.json",
             "operator": f"{base}/operator",
             "inventions": f"{base}/.well-known/inventions.json",
         },

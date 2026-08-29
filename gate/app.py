@@ -185,6 +185,11 @@ except ImportError:
     import first as first_mod
 
 try:
+    from gate import remaining as remaining_mod
+except ImportError:
+    import remaining as remaining_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -361,7 +366,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1433,6 +1438,8 @@ def well_known_gate():
             "heavier_page": f"{advertised_url()}/heavier",
             "first": f"{advertised_url()}/.well-known/first.json",
             "first_page": f"{advertised_url()}/first",
+            "remaining": f"{advertised_url()}/.well-known/remaining.json",
+            "remaining_page": f"{advertised_url()}/remaining",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -1848,6 +1855,28 @@ def demo_machine_act_apostille():
 def demo_capability_vital():
     body = request.get_json(silent=True) or {}
     return jsonify(first_mod.death_certificate(body.get("job_id") or ""))
+
+
+@app.route("/.well-known/remaining.json")
+def well_known_remaining():
+    return jsonify(remaining_mod.manifest(advertised_url()))
+
+
+@app.route("/remaining")
+def remaining_page():
+    m = remaining_mod.manifest(advertised_url())
+    return render_template(
+        "remaining.html",
+        manifest=m,
+        blocks=remaining_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/remaining", methods=["POST"])
+def demo_remaining_folio():
+    body = request.get_json(silent=True) or {}
+    return jsonify(remaining_mod.folio(body.get("job_id") or ""))
 
 
 @app.route("/.well-known/legal.json")
@@ -3618,6 +3647,7 @@ def robots():
             "Disallow: /conformant",
             "Disallow: /heavier",
             "Disallow: /first",
+            "Disallow: /remaining",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

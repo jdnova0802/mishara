@@ -39,7 +39,7 @@ Default stays bearer so existing drills do not break. Bearer is the Satoshi-shap
 
 ## Every subject
 
-Identity, money, speech, agents, evidence, time, death, law, inheritance, democracy, settlement, property, force, physics, energy, space, insurance, harm, naming, body, memory, markets, computation, language, congregation, incarnation, knowing, counterpart, ceiling.
+Identity, money, speech, agents, evidence, time, death, law, inheritance, democracy, settlement, property, force, physics, energy, space, insurance, harm, naming, body, memory, markets, computation, language, congregation, incarnation, knowing, counterpart, history, metaphysics, ceiling.
 
 Each row in `inventions.py` has: claim, Satoshi-shaped analog, why heavier, code path, status (shipped / law / weld).
 

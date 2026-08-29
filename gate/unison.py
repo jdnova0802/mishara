@@ -243,6 +243,33 @@ MORE_MASSIVE = (
         "rating": 14.2,
         "unison": True,
     },
+    {
+        "id": "the_remaining",
+        "name": "The remaining",
+        "organ": "the world after",
+        "question": "What is the world after this write — and who has to live there?",
+        "vs": "above the act as object",
+        "why_more": (
+            "The act is a journal line. May and redeem assume a remaining world. "
+            "The given is the opening. The remaining is the stock. "
+            "Inhabitant is who it is for. Floor is that you cannot climb under it. "
+            "We seated the scribe. Nisaba was also the accountant."
+        ),
+        "already_in_doctrine": (
+            "remaining.py — folio identity remaining = given − spent one-wayness. "
+            "Inhabitant /afterward is the letter. Floor is the stop. "
+            "cleverer_layer stays null. Being is not a SKU."
+        ),
+        "ship": "Seat the remaining as designation. Do not add Remaining.app. Do not crown God.",
+        "not": [
+            "a cleverer layer",
+            "a sixth product",
+            "theology as a homepage",
+            "a replacement for /afterward",
+        ],
+        "rating": 14.9,
+        "unison": True,
+    },
 )
 
 # ---------------------------------------------------------------------------
@@ -316,6 +343,11 @@ UNISON_15 = (
     {
         "id": "seat_conformant_qic",
         "do": "Seat Gate Conformant™ + QIC as the rentable latch on Gate — ARM not Bitcoin",
+        "already_coded": True,
+    },
+    {
+        "id": "seat_remaining",
+        "do": "Seat the remaining as bigger than the act — stock, not journal. Not a cleverer layer",
         "already_coded": True,
     },
 )
@@ -462,6 +494,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "conformant": f"{base}/.well-known/conformant.json",
             "qic": f"{base}/.well-known/qic.json",
             "heavier": f"{base}/.well-known/heavier.json",
+            "first": f"{base}/.well-known/first.json",
+            "remaining": f"{base}/.well-known/remaining.json",
         },
         "page": f"{base}/unison",
         "gatekeep": "Unison map. Ours. Not a buyer surface.",

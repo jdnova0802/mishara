@@ -29,6 +29,7 @@ INVENTOR: dict[str, Any] = {
     ),
     "never_sell": ("may", "the throat", "critical planetary capacity"),
     "first_in_history": "depository and recorder of the act",
+    "bigger_than_the_act": "the remaining — the world after",
 }
 
 
@@ -48,5 +49,6 @@ def manifest(public_url: str) -> dict[str, Any]:
         "named_may": f"{base}/.well-known/named-may.json",
         "conformant": f"{base}/.well-known/conformant.json",
         "qic": f"{base}/.well-known/qic.json",
+        "remaining": f"{base}/.well-known/remaining.json",
         "their_production": False,
     }

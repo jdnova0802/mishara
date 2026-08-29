@@ -41,6 +41,7 @@ These are not cleverer *ideas*. They are what May and Redeem already assume.
 3. **CHARGE outside the actor** — Redeem is the actor's verb. If the actor can CHARGE themselves, the no did not sit outside. Quorum + coordinator + stranger. Not admin CHARGE.
 4. **Counterpart radiate** — Both sides redeem in the same now, or neither does. Counterpart today is a fingerprint, not dual redeem.
 5. **Should a throat exist?** — Prior to Erra (*should we act?*) and May (*may this radiate?*). Same register as The Unuttered.
+6. **The remaining** — Bigger than the act. The act is a journal line; the remaining is the world after. `/remaining`. Not a cleverer layer. Being is not a SKU.
 
 ## 15/10 unison (complete the body)
 

@@ -712,6 +712,20 @@ def get_bind_ticket(ticket_id: str) -> dict | None:
     return dict(row) if row else None
 
 
+def tickets_for_job(job_id: str) -> list[dict]:
+    """Issued tickets for one job — opening of the remaining folio."""
+    jid = (job_id or "").strip()
+    if not jid:
+        return []
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM bind_tickets WHERE job_id = ?
+               ORDER BY created_at ASC, id ASC""",
+            (jid,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
 def consume_bind_ticket(
     *,
     ticket_id: str,

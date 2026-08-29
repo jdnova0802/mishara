@@ -355,6 +355,10 @@ def manifest(public_url: str) -> dict[str, Any]:
             "Nisaba is designated the first depository and recorder of the act. "
             "Not a sixth voice. Identity frozen until Gate 1."
         ),
+        "bigger_than_the_act": (
+            "The act is a journal line. Nisaba holds the remaining — "
+            "the world after. Not a sixth voice. cleverer_layer is null."
+        ),
         "engine": ENGINE,
         "family": family,
         "organs": organs(base),
@@ -390,6 +394,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "action_os": f"{base}/.well-known/action-os.json",
             "unison": f"{base}/.well-known/unison.json",
             "conformant": f"{base}/.well-known/conformant.json",
+            "remaining": f"{base}/.well-known/remaining.json",
             "page": f"{base}/family",
         },
         "page": f"{base}/family",

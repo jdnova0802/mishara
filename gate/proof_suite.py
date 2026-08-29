@@ -327,6 +327,26 @@ def run_invariants() -> list[dict[str, Any]]:
         {"headline": (first.get("reshape") or {}).get("headline")},
     )
 
+    try:
+        from gate import remaining as remaining_mod
+    except ImportError:
+        import remaining as remaining_mod  # type: ignore[no-redef]
+
+    rem = remaining_mod.manifest("https://gate.local")
+    add(
+        "remaining_bigger_than_the_act",
+        "Nisaba holds the remaining; cleverer_layer stays null; family stays 5",
+        rem.get("l2_module") is False
+        and rem.get("family_siblings_remain") == 5
+        and rem.get("cash_usd") == 0
+        and rem.get("cleverer_layer") is None
+        and rem.get("identity") == "remaining = given − spent one-wayness"
+        and (rem.get("reshape") or {}).get("headline")
+        == "Bigger than the act is the remaining."
+        and (rem.get("counts") or {}).get("soon", 0) >= 5,
+        {"headline": (rem.get("reshape") or {}).get("headline")},
+    )
+
     # --- Settlement / kappa surfaces exist ---
     try:
         from gate import settlement as settlement_mod

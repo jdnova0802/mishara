@@ -401,6 +401,24 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "status": "law",
     },
     {
+        "id": "the_remaining",
+        "subject": "metaphysics",
+        "name": "The remaining",
+        "claim": (
+            "Bigger than the act is the remaining. The act is a journal line. "
+            "The remaining is the world after. remaining = given − spent one-wayness."
+        ),
+        "satoshi": "A chain of spends. Flow without a balance sheet of the world after.",
+        "heavier": (
+            "Pacioli's other half. Carbon's remaining budget, for writes. "
+            "Nisaba was the accountant, not only the scribe. Being is not a SKU."
+        ),
+        "real": "remaining.py · /remaining · POST /demo/pas/remaining",
+        "status": "shipped",
+        "cash": True,
+        "tree": "designation on Nisaba — not a sibling, not a cleverer layer",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -473,6 +491,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "conformant": f"{base}/.well-known/conformant.json",
             "qic": f"{base}/.well-known/qic.json",
             "heavier": f"{base}/.well-known/heavier.json",
+            "first": f"{base}/.well-known/first.json",
+            "remaining": f"{base}/.well-known/remaining.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",

@@ -178,6 +178,17 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "first_in_history": True,
             "until_gate1_usd": 0,
         },
+        "remaining": {
+            "page": f"{public_url}/remaining",
+            "manifest": f"{public_url}/.well-known/remaining.json",
+            "headline": "Bigger than the act is the remaining.",
+            "identity": "remaining = given − spent one-wayness",
+            "not_a_sibling": True,
+            "l2_module": False,
+            "cleverer_layer": None,
+            "family_siblings_remain": 5,
+            "until_gate1_usd": 0,
+        },
         "license_fuse": {
             "manifest": f"{public_url}/.well-known/license-fuse.json",
             "pas_key": "license_id",

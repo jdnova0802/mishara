@@ -418,6 +418,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "pvp": f"{base}/.well-known/pvp.json",
             "heavier": f"{base}/.well-known/heavier.json",
             "conformant": f"{base}/.well-known/conformant.json",
+            "remaining": f"{base}/.well-known/remaining.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/first",
