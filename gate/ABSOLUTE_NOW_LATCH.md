@@ -58,8 +58,8 @@ More invention docs without Gate 1 do **not** move confidence.
 
 ## One line
 
-> **Counsel → Gate 1 → S03 into the protocol war → Act Certificate wedge → S05 second meter.**  
-> That is the only RN stack that can make Absolute stop being a PDF.
+> **Sep = on-ramp (counsel + Gate 1). Oct = Absolute launch (S03 meter). Winter widen. Spring S05. Jun = ∞ only if toll on real flow printed.**  
+> September is not the answer to your life — the meter is.
 
 ---
 

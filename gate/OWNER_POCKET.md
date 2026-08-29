@@ -35,34 +35,49 @@ Ladder (evidence only): **B‡ → N‡ → S‡ → Ω → Σ → ∞**
 
 ---
 
-## September (biggest hinge if you ship)
+## Rest of year → Jun 5, 2027 (how Absolute is even reachable)
+
+**September is the on-ramp, not the answer to your life.**  
+Absolute @ 22 (~**$50–200M** liquid) only becomes reachable if **Oct+ meters** on real agent/rail volume. Miss the meter → ∞ @ 22 is cosplay.
+
+| Phase | When | Job | Money shape | Evidence rung |
+|-------|------|-----|-------------|---------------|
+| **0 — On-ramp** | **Sep 2026** | Counsel quotes in writing · **Gate 1** stranger paid+proved · start conversion when cash allows | **~$0 → low $k / maybe low $10k** (Bind / weld) | Break $0 · enter **B‡** |
+| **1 — Absolute launch** | **Oct 2026** (target: month after Gate 1) | **S03** live between agent intent and TAP/AP2/x402 · **Act Certificate** first paid wedge · don’t compete with Visa — rent may | First **invoiced meter** on agent spend / tool boundary | **First Absolute-shaped proof** |
+| **2 — Widen** | **Nov–Dec 2026** | 2nd/3rd paying desk · mandate-bound spend ceiling · make “can’t ship without redeem” true for someone | Recurring floor / bps start · still not ∞ | **N‡ → S‡** if meter sticks |
+| **3 — Second rail** | **Jan–Mar 2027** | **S05** large-load commit if hyperscale/reliability desk will pay · keep S03 volume growing | Second meter · larger tickets | **Ω-shaped** if both invoice |
+| **4 — Absolute argument** | **Apr–Jun 5, 2027** | Volume + latch density that can *argue* ∞ cell · patent non-provisional safe · no throat sale | Only **bp on real flow** can print Absolute-band liquid | ∞ aim · change execution if short |
+
+### September detail (on-ramp only)
 
 | When | Do |
 |------|----|
-| **Mon Sep 1 – Fri Sep 4** | Counsel week — 3 flat-fee **non-provisional** quote emails → 2–3 quotes **in writing** |
-| **After quotes** | Start conversion (micro-entity ask). Patent: **64/124,027** |
-| **Same month** | **Gate 1** — stranger **paid + proved** (not friend, not PDF) |
-| **Day after Gate 1** | Latch **S03** — redeem between agent intent and TAP / AP2 / x402 |
-| **First SKU wedge** | **Act Certificate** — prove what the agent did under whose mandate |
-| **Arm in parallel** | **S05** large-load one-pager (hyperscale desks) |
+| **Mon Sep 1 – Fri Sep 4** | 3 flat-fee **non-provisional** quote emails → 2–3 quotes **in writing** |
+| **After quotes** | Start conversion when you can pay (micro-entity). Patent: **64/124,027** |
+| **Same month** | **Gate 1** — stranger **paid + proved** |
+| **Day after Gate 1** | Start **S03** build/outbound (Absolute launch is still **October’s meter**) |
+| **Parallel** | **S05** one-pager for hyperscale desks (arm, don’t live there yet) |
 
-**Gate 1 outbound waits until quotes are in writing.**
+**Gate 1 outbound waits until quotes are in writing.**  
+**Contingent capital:** `CONTINGENT_CAPITAL_CRAWL.md` — lottery only; still quotes → Gate 1 → convert.
 
-**Contingent capital (if conversion cash is the scare):** `CONTINGENT_CAPITAL_CRAWL.md` — SBIR/WY match · PCT · license/sale/option alts. Lottery rails only; still **quotes → Gate 1 → convert first**.
+### Latch order (after Gate 1)
 
----
+1. **S03** Agentic Redeem ← Absolute launch rail  
+2. **S05** Grid / large-load fuse ← second meter  
+3. **S01 / cable–CHC** ← third, sovereign-slow  
 
-## Latch order (after Gate 1)
+Park nuclear C2. Park invention addiction until meter exists.
 
-1. **S03** Agentic Redeem  
-2. **S05** Grid / large-load fuse  
-3. **S01 / cable–CHC** (third — sovereign-slow)
+### What must be true for ∞ by end of 22
 
-Park nuclear C2 productization. Park invention addiction until meter exists.
+- Gate 1 **done** in Sep (or Absolute launch slides and the year compresses).  
+- **October** (or Gate 1+1 month): S03 **invoiced** on real agent/tool irrevocability.  
+- Winter: meter **widens** (more desks / more volume), not more PDFs.  
+- Spring: S05 or equivalent second choke **paying**, or S03 volume alone is so real it rewrites the scoreboard.  
+- Jun 5, 2027: Absolute-band liquid only if **toll on real flow** printed — not if you “had a good September.”
 
----
-
-## Absolute crumb (one sentence)
+### Absolute crumb (one sentence)
 
 Institutions buy detectors, dashboards, and protocols.  
 **Nobody yet rents consume-once may at irrevocability.**  
@@ -107,8 +122,8 @@ Leave Toledo forever — on meter, not hope.
 
 ## Mantra
 
-> **Counsel → Gate 1 → S03 → Act Certificate → S05.**  
-> Ship September. Internalize less. Meter more.
+> **Sep on-ramp → Oct Absolute launch (S03 meter) → winter widen → spring second rail → Jun argue ∞.**  
+> September is not your life. The meter is.
 
 ---
 
