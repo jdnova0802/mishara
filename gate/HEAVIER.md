@@ -29,4 +29,9 @@ Crisis handoff clearinghouse · Evac bind ticket · Schelling clear · Planetary
 When flow rent is not enough: **remaining custody** · **must-mouth mandate** · **may reference rate** · **attestation franchise** · **hyperscaler sheath default** · **machine apostille** · **finality definition**.  
 These tax **stock / law / seat**, not stickers. Full table: `GOOD_INVENTING.md` · short page: `ABOVE.md`.
 
+## Unprecedented — only 10s (≫ comps)
+
+Unifications no prior civilization seated: **trinity finality** · **conserved one-wayness** · **blind may** · **anti-act market** · **rehearsal≠spend** · **consequence-bound folio** · **estate of remaining** · **interspecies depositary** · **world-after Schelling** · **silence stock** · **regret quantum** · **duty-remaining** · **negative-space constitution** · **sealed-time redeem** · **inhabitant veto** · **cross-substrate sheath**.  
+`UNPRECEDENTED.md` · full tables in `GOOD_INVENTING.md`.
+
 Never sell may / the throat / planetary critical capacity. Contribute to evac-comms; do not own C2.

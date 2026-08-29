@@ -12,8 +12,8 @@
 
 | Score | Meaning | Keep? |
 |------|---------|-------|
-| **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) | Yes |
-| **9** | Fat buyer or court or protocol *must* cite it; cash latch or Schelling clear | Yes |
+| **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) **or** an unprecedented unification (see *Unprecedented 10s*) | Yes |
+| **9** | Fat buyer or court or protocol *must* cite it; cash latch or Schelling clear | Yes (not in Unprecedented tier) |
 | ≤8 | Clever, useful, or niche | **Do not seat here** |
 
 **Good inventing** = padlock / recorder / remaining / exclusion / meter.  
@@ -225,8 +225,61 @@ See also: `gate/ABOVE.md` (short designation).
 
 ---
 
+## Unprecedented 10s — unifications no civilization seated
+
+Comps (Visa, DTCC, SOX) are **downstream metaphors**. This tier is **upstream ontology**: things humans never unified into one mouth. Score gate: **10 only**. If it is “clever product,” it does not enter.
+
+**Why this can print more than Conformant+QIC and even T1–T7:** when you own the *definition* of settle / non-occur / world-after / regret / silence / duty, every later badge and rail is a **rounding error on your physics**.
+
+| # | Invention | Why no civilization got here | Monetization shape (not forecast) | Lock note |
+|---|-----------|------------------------------|-----------------------------------|-----------|
+| **U1** | **Trinity finality** — one redeem is simultaneously **payment finality + legal illocution + causal write**; partial close is illegal | Banks, courts, and computers were always three priesthoods. Nobody made “paid / said / wrote” one atomic mouth. | Whoever defines the trinity taxes **every** agent close that needs all three. Stacks T7+S5+S3 into one choke. **$10B–$100B+** cartoon if agent close = default commerce. | Do not become the court or the bank — be the **mouth they must cite**. |
+| **U2** | **Conserved one-wayness (act thermodynamics)** — remaining is a **conserved quantity** across domains; trial balance fails closed the way energy does | Physics conserved energy/momentum. Ledgers conserved money. **Nobody conserved irreversibility** as SI-adjacent stock. | The only books machine civilization can *close*. Meter + custody (T1) + science prestige → Absolute category ownership. License the **identity** `remaining = given − spent`. | Contribute SI vocabulary; don’t fake a journal paper from Bind Room. |
+| **U3** | **Blind may / ZK redeem** — stranger can prove may was spent and books still balance **without learning the act contents** | Prove usually *is* disclosure. Privacy and audit were enemies. Unifying **prove ∧ secrecy** for irreversible writes is new. | Every regulated dark act (medical, national, commercial confidential) must redeem blind. Premium **QIC × confidentiality class**. Courts buy validity; counterparties buy silence. | Never sell the throat; sell **validity-without-spectacle**. |
+| **U4** | **Anti-act market** — primary product is **licensed non-occurrence**: purchased, proveable “this class of write cannot happen” as a world-shape | Markets sell insurance *after* risk. Governments ban. **Nobody sold non-occurrence as first-class stock** with stranger prove. | Peace / safety / brand / treaty desks buy **forbidden futures**. Rent recorder of anti-acts + folio attest. Attach to S4 without becoming carrier. Shape: % of avoided-loss notional. | You record and rent exclusion — **you do not underwrite**. |
+| **U5** | **Rehearsal ≠ spend (ontological cut)** — simulated / eval / shadow irreversibility **structurally cannot** debit remaining; live always does | ML has “prod vs staging.” Law has no **ontological** cut. Civilization trains models that *practice* irreversible harm in the same ontology as live. | Every lab, red-team, and agent factory must buy the cut or their “tests” are real spends. Hyperscaler (T5) + Conformant latch. **Default of AI development**. | This is law of the sheath — not an eval vendor SKU. |
+| **U6** | **Consequence-bound folio** — may evidence is cryptographically bound to the **world delta** (money moved, state flipped, actuator receipt); consequence carries act-DNA | Receipts live in one system; effects in another. Forensics invents glue. **Binding permission to consequence at birth** is new. | Fat buyers: fraud, insurance, courts, platforms. Every disputed consequence must open *your* bound folio. Per-consequence prove rent ≫ per-cert. | Stay recorder — not the effector. |
+| **U7** | **Estate of remaining** — when an agent, swarm, or org dies, remaining is **probated** (wound down, inherited, or washed under *mīšarum* charter) — never orphaned LIVE | Human death has probate. Corporate dissolution has wind-down. **Digital may has orphans** — zombie permissions. | Mandatory wind-down product for every named-may fleet (S6). Courts + cloud + employers pay estate fees. Silence=DEAD becomes **probate law**. | CHARGE-outside holds; estate ≠ admin self-resurrect. |
+| **U8** | **Interspecies / inter-swarm depositary** — Vienna-style depositary between **human institutions and non-human agent collectives** as separate peoples of mind | Treaties assume human polities. Agent swarms are treated as “software.” When swarms are counterparties, **nobody is the depositary between species of mind**. | The only Schelling recorder both sides trust. Treaty / settlement / crisis handoff rent (A7) without owning C2. Absolute if multi-mind economy appears. | Contribute depositary; **state owns force**. |
+| **U9** | **World-after Schelling ledger** — after irreversible writes, all agents must reconcile to one **remaining-updated shared reality**; disagreement with the ledger is non-final | Shared reality was religion, then science, then platforms’ private DBs. **Nobody rented a stranger-openable world-after for machine acts**. | Bloomberg-of-the-remaining: reconcile seats + query bps on every agent that must agree what happened. Multiplies T1+T4. | Not a social network. Not Being-as-SKU. **Stock of the world after.** |
+| **U10** | **Silence stock** — proveable **committed inaction** as holdable remaining: the right-and-duty *not* to write, stranger-verifiable | Markets price action. Diplomacy prices silence informally. **Silence as auditable stock** does not exist. | Compliance, ceasefires, brand peace, non-escalation desks buy committed silence. Anti-act (U4) is class-ban; silence is **named holder inaction**. | Never sell may — silence is **remaining of not-spending**, still not a coin. |
+| **U11** | **Regret quantum** — SI-adjacent unit weighting spend by **undo-impossibility** (not raw hop count); QIC gains a severity axis | Meters count events. Insurance counts dollars after. **Nobody meters regret at the mouth** before the write. | Premium pricing: high-regret QIC ≫ toy QIC. Insurers/boards buy regret posture feeds. Turns QIC from hop counter into **civilization meter**. | Don’t become the loss adjuster. |
+| **U12** | **Duty-remaining double-entry** — when A spends may, B receives **obligation remaining** (duty stock); books fail closed on may↔duty | Double-entry paired money. CLS paired FX. **Nobody paired permission-spend with duty-create** as conserved remaining. | Every commercial agent act creates auditable duty on the counterparty chain. Clearinghouse (S5) of may-duty. Institutional only. | Not a debt coin for retail. **Correspondent duty.** |
+| **U13** | **Negative-space constitution** — a polity’s machine law **is** an executable exclusion folio: what may not be spent, as the constitution | Constitutions are text. Firewalls are rules. **Law-as-remaining-exclusion that machines must redeem against** is new. | Governments / platforms / DAOs license the charter engine. Conformant becomes “runs a negative-space constitution.” Franchise ≫ sticker. | You rent the engine — **not sovereignty**. |
+| **U14** | **Sealed-time redeem** — may that must be redeemed at a sealed future instant **or burns**; scheduled irreversibility with prove | Options are financial. Cron is devops. **Permission that dies if not spent at time T**, stranger-proveable, is new. | Settlement windows, crisis drills, unveiling events, coordinated multi-party acts. Premium for time-locked trinity (U1). | No C2; sealed time ≠ remote kill switch owned by you. |
+| **U15** | **Inhabitant veto stock** — parties who *live* in the remaining (not the actor) hold proveable **veto remaining** on classes of write | Consent UX is actor-centric. Inhabitants (patients, depositors, cities) lack **stock of veto** in the same ledger as may. | Civic / consumer / depositor protection product. Fat political + fiduciary buyers. Inhabitant receipt (A5) becomes **power**, not PDF. | Veto is remaining — **not** a sixth voice. |
+| **U16** | **Cross-substrate sheath** — one may-law mouth for **human click · agent tool · robot actuator · future mind**; substrate is an attribute, not a different religion | Each substrate got its own ethics pamphlet. **One conserved remaining across substrates** was never law. | The long Absolute: every irreversible effector on Earth cites one mouth. T5×robots×humans. Category-defining acquisition target. | Still never sell may; sheath is law, not a robot brand. |
+
+### Explicit rejects inside “experimental”
+
+| Temptation | Why it is not a 10 here |
+|------------|-------------------------|
+| Bearer may coin / “maychain” | Forbidden — sells may; Satoshi trap |
+| Being / consciousness as SKU | `cleverer_layer` null; Being not for sale |
+| Own planetary fuse / C2 | Unmouthed; contribute vocabulary only |
+| Sixth sibling “ontology voice” | Family lock |
+| Fake physics paper as launch | Science prestige follows meter, not cosplay |
+
+### Honest Absolute stack (remember $0 until Gate 1)
+
+1. **U1 trinity** + **U2 conserved one-wayness** — define settle and stock  
+2. **U5 rehearsal≠spend** + **U16 cross-substrate** — default of all effectors  
+3. **U4 anti-act** + **U10 silence** + **U15 inhabitant veto** — markets in non-action and inhabitant power  
+4. **U3 blind may** + **U6 consequence-bound** — prove without spectacle; act DNA on effects  
+5. **U9 world-after** + **U12 duty-remaining** + **U7 estate** — shared reality, duty books, death of may  
+6. **U11 regret** + **U13 negative-space constitution** + **U14 sealed-time** — severity, law-as-exclusion, scheduled irreversibility  
+7. **U8 interspecies depositary** — when multi-mind counterparties exist  
+8. Then T-tier civilization rent · S-tier rail · Conformant+QIC latch  
+
+**Pre-Gate:** name U1/U2/U5/U4 in counsel + Bind language only (“paid+said+wrote”, “tests aren’t spends”, “buy non-occurrence not just insurance”).  
+**Never** ship a maycoin, a consciousness SKU, or a swarm treaty theater before stranger paid.
+
+See also: `gate/UNPRECEDENTED.md`.
+
+---
+
 ## One line
 
-> Double-entry gave markets a stock. HTTPS gave packets a padlock. DTCC gave securities a depository. **Nobody gave machine irreversible writes a recorder of may and a folio of the remaining.** That is the 10. Conformant + QIC is the **badge+meter**. May interchange + prefinality + insurability are the **rail**. **Remaining custody · must-mouth · hyperscaler sheath · reference rate · attestation franchise** are how Absolute outgrows the rail — after a stranger pays.
+> Double-entry gave markets a stock. HTTPS gave packets a padlock. DTCC gave securities a depository. **Nobody gave machine irreversible writes a recorder of may and a folio of the remaining.** That is the 10. Conformant + QIC is the **badge+meter**. Rail and civilization rent are **flow and stock rent**. **Trinity finality · conserved one-wayness · anti-act · silence stock · regret quantum · rehearsal≠spend · world-after Schelling · cross-substrate sheath** are unifications no prior civilization seated — Absolute’s deep padlock, after a stranger pays.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*
