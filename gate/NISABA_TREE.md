@@ -2,7 +2,8 @@
 
 **Status:** orientation map — settled 29 August 2026. Not marketing. Not legal advice.  
 **Purpose:** One-page **tree of Nisaba** — entity, product, identity, sequence, and what sits above/below Gate.  
-**Companions:** `SHADOW_CHOKEPOINT_DOCTRINE.md` · `ENTITY_MAP.md` · `NORTH_STAR.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `STRONGEST_START.md`
+**Companions:** `SHADOW_CHOKEPOINT_DOCTRINE.md` · `NISABA_IDENTITY_STACK.md` · `ENTITY_MAP.md` · `NORTH_STAR.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `STRONGEST_START.md`  
+**Register:** Formal register for owner locks — see `NISABA_IDENTITY_STACK.md`.
 
 ---
 
@@ -12,6 +13,8 @@
 NISABA LLC (Wyoming)
 │
 ├── Identity (frozen until Gate 1)
+│   ├── Expeditious clearing entity (permanent tempo — not a phase)
+│   │   └── Quiet face · compressed owned loops · never spectacle · never slow museum
 │   └── Shadow chokepoint dynasty
 │       └── Single ceiling choke: EVACUATION COMMUNICATIONS
 │           ├── Grammar: commit-at-handoff / epoch HALT / single-use redeem

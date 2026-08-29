@@ -2,13 +2,20 @@
 
 **Status:** Owner steering instrument — settled 28 August 2026; **identity frozen** the same session (evacuation-communications chokepoint). Not marketing material. Not a product roadmap.  
 **Purpose:** Define the **terminal identity** toward which Nisaba is building — quiet, load-bearing, planetary rent — so that altitude decisions, entity design, and the Gate 1 sequence remain aligned.  
-**Companion documents:** `NISABA_TREE.md` · `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md` · `EVAC_COMMS_HANDOFF_SPEC.md`
+**Companion documents:** `NISABA_TREE.md` · `NISABA_IDENTITY_STACK.md` · `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md` · `EVAC_COMMS_HANDOFF_SPEC.md`  
+**Register:** Owner determinations are recorded in **formal register** (`NISABA_IDENTITY_STACK.md` §5).
 
 ---
 
-## Governing statement
+## Governing statements
+
+> **Nisaba is an expeditious clearing entity: it applies compressed tempo to every loop it owns; it seeks DTCC-class gravity on the bind; it maintains a Swiss face and an ARM-class protocol latch; it embeds under crisis when invoked; it rents S-tier load-bearing assets and does not sell them; it is never a spectacle company and never a slow museum.**
 
 > **Evacuation communications constitute one planetary chokepoint: bind grammar together with satellite and handoff nodes; a federated circle; insider-facing reputation; rent on every S-tier asset; and a role as the anchor that softens crisis landings.**
+
+**Shorter identity form:** *Expeditious clearing — quiet face, compressed interior tempo, one planetary choke, rent-only on S-tier.*
+
+Full borrow stack (tempo · shape · face · circle · crisis · capital): `NISABA_IDENTITY_STACK.md`.
 
 ---
 
