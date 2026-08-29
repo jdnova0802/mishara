@@ -12,12 +12,25 @@
 
 ---
 
+## Priority order (counsel week = Mon Sep 1 – Fri Sep 4, 2026)
+
+*Written Fri Aug 28 — firm outreach is next business week, not Friday afternoon.*
+
+1. **S2 — Non-provisional counsel quotes next week (Sep 1–4).** **The whole work week.** Gate 1 outbound **waits** until 2–3 quotes are in writing. Use `PATENT_COUNSEL_BRIEF.md` only — **do not** attach 112 modules or exhibit stack. Ask **flat-fee conversion** + **micro-entity** fee tier. Miss non-provisional deadline ⇒ patent → **$0** ⇒ term sheet, exhibits, ceiling ladder zero.  
+2. **Entity fix** — Nisaba LLC is **Wyoming**, not Delaware — grep licensing docs if unsure.  
+3. **Gate 1** — stranger paid + proved — **after** counsel quotes landed (week of Sep 7+ if quotes done).  
+4. **Wealth apparatus frozen** — no edits until Gate 1 (`WEALTH_APPARATUS_FREEZE.md`).  
+5. **Mouth Ceiling enforced** — `python3 -m gate.mouth_ceiling_guard` fails on new L2 modules.  
+6. **Counsel conversation frozen** — narrow two-claim brief only (`PATENT_COUNSEL_BRIEF.md` § Do NOT send).
+
+---
+
 ## How to use this
 
 1. **S-tier first** every week — patent clock, stranger revenue, GAAIA echo.  
 2. Check boxes when **done**, not when planned.  
 3. **Weekly ritual** (15 min, Sunday or Monday): scoreboard at bottom + `REALITY_CONTRACT.md` questions.  
-4. **Mouth Ceiling:** no new anatomy/mountain docs until a paid artifact clears this cycle.
+4. **Mouth Ceiling:** enforced via `mouth_ceiling_guard` — no new L2 modules until Gate 1.
 
 ---
 
@@ -28,11 +41,11 @@
 | # | Task | Due | Done |
 |---|------|-----|------|
 | S1 | Confirm provisional **#64/124,027** filing date + **non-provisional deadline** on calendar | Day 3 | ☐ |
-| S2 | Get quote from patent counsel OR file pro se budget ($) written down | Day 7 | ☐ |
+| S2 | **2–3 patent counsel quotes in writing** — flat-fee non-provisional conversion + micro-entity ask (`PATENT_COUNSEL_BRIEF.md`) | **Fri Sep 4** | ☐ |
 | S3 | IP ledger row: patent #, filing date, deadline, GAAIA submit date (2026-07-27), CT anchor gist URL | Day 3 | ☐ |
 | S4 | File **intent-to-use** trademark for **Velaru** (USPTO TEAS) | Day 14 | ☐ |
 
-**Kill:** non-provisional deadline passes unconverted ⇒ patent asset → $0.
+**Kill:** non-provisional deadline passes unconverted ⇒ patent asset → **$0** ⇒ licensing pack, exhibits, and ceiling ladder worthless by our own contract.
 
 ---
 
@@ -40,7 +53,7 @@
 
 | # | Task | Due | Done |
 |---|------|-----|------|
-| S5 | **Stranger paid:** Bind Room $1,750 OR install $2,500 OR equal from non-friend | Day 30 | ☐ |
+| S5 | **Stranger paid:** Bind Room $1,750 OR install $2,500 OR equal from non-friend — **after S2 quotes landed** | Day 30 | ☐ |
 | S6 | **Stranger prove:** third party opens `velaru.xyz/verify` (or Gate receipt) without you narrating | Day 30 | ☐ |
 | S7 | One-line proof logged: who paid, SKU, date, receipt URL/hash | Day 30 | ☐ |
 
@@ -86,7 +99,7 @@
 
 | # | Task | Due | Done |
 |---|------|-----|------|
-| A6 | **Contract template v1:** Name Death, no override key, floor/royalty on cleared flow, term not forever-exclusive | Day 14 | ☐ |
+| A6 | **Contract template v1:** `PILOT_CONTRACT_STUB.md` — Name Death, no override, **no IP assign**, floor/bps | Day 14 | ☐ |
 | A7 | **Vertical lock:** only two URLs in outbound for 30 days (e.g. `/bind-room` + `/for/carriers`) | Day 1 | ☐ |
 | A8 | Reply discipline: every MGA/CUO/compliance touch **same day** (log count: __/30 days) | Ongoing | ☐ |
 | A9 | One near-miss logged if no close: who, objection, next action | Day 30 | ☐ |
@@ -119,7 +132,7 @@
 |---|------|-----|------|
 | A16 | Domains ledger: velaru.xyz, gate.velaru.xyz, mishara — registrar, renew dates | Day 7 | ☐ |
 | A17 | Velaru verify + CT anchor publicly reachable (curl check) | Day 7 | ☐ |
-| A18 | No IP assignment to pilot customers — confirm in template (A6) | Day 14 | ☐ |
+| A18 | No IP assignment to pilot customers — **§4 in `PILOT_CONTRACT_STUB.md`** | Day 14 | ☐ |
 
 ---
 

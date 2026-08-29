@@ -89,6 +89,13 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "sophon_lock": f"{public_url}/.well-known/sophon-lock.json",
             "who_shadow_bind_report": f"{public_url}/.well-known/who-shadow-bind-report.json",
             "civilizational_deep": f"{public_url}/.well-known/civilizational-deep.json",
+            "ip_asset_deep": f"{public_url}/.well-known/ip-asset-deep.json",
+            "ip_asset_ceiling": f"{public_url}/.well-known/ip-asset-ceiling.json",
+            "ip_asset_ceiling_ladder": f"{public_url}/.well-known/ip-asset-ceiling-ladder.json",
+            "licensing_pack": f"{public_url}/.well-known/licensing-pack.json",
+            "licensed_field": f"{public_url}/.well-known/licensed-field.json",
+            "owner_guardrails": f"{public_url}/.well-known/owner-guardrails.json",
+            "personal_wire_calculator": f"{public_url}/.well-known/personal-wire-calculator.json",
         },
     }
 

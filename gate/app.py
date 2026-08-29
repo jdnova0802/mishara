@@ -505,6 +505,26 @@ except ImportError:
     import civilizational_deep as civilizational_deep_mod
 
 try:
+    from gate import ip_asset_deep as ip_asset_deep_mod
+except ImportError:
+    import ip_asset_deep as ip_asset_deep_mod
+
+try:
+    from gate import ip_asset_ceiling as ip_asset_ceiling_mod
+except ImportError:
+    import ip_asset_ceiling as ip_asset_ceiling_mod
+
+try:
+    from gate import licensing_pack as licensing_pack_mod
+except ImportError:
+    import licensing_pack as licensing_pack_mod
+
+try:
+    from gate import owner_guardrails as owner_guardrails_mod
+except ImportError:
+    import owner_guardrails as owner_guardrails_mod
+
+try:
     from gate import continuity_live as continuity_live_mod
 except ImportError:
     import continuity_live as continuity_live_mod
@@ -966,6 +986,7 @@ def health():
             "patent": guards["guards"].get("patent"),
             "stripe": guards["guards"].get("stripe"),
             "gate1": guards["guards"].get("gate1"),
+            "mouth_ceiling": guards["guards"].get("mouth_ceiling"),
             "buyer_lint": {
                 "level": guards["guards"].get("buyer_lint", {}).get("level"),
                 "message": guards["guards"].get("buyer_lint", {}).get("message"),
@@ -1393,6 +1414,8 @@ def _finalize_spend_plan(
     sophon_lock_mod.attach(plan)
     who_shadow_bind_report_mod.attach(plan)
     civilizational_deep_mod.attach(plan)
+    ip_asset_deep_mod.attach(plan)
+    ip_asset_ceiling_mod.attach(plan)
     bypass_canary_mod.attach(plan)
     restraint_invoice_mod.attach(plan, public_url=advertised_url())
     receipt_mirror_mod.attach(plan, public_url=advertised_url())
@@ -1942,6 +1965,12 @@ def well_known_lab():
                 "sophon_lock": f"{base}/.well-known/sophon-lock.json",
                 "who_shadow_bind_report": f"{base}/.well-known/who-shadow-bind-report.json",
                 "civilizational_deep": f"{base}/.well-known/civilizational-deep.json",
+                "ip_asset_deep": f"{base}/.well-known/ip-asset-deep.json",
+                "ip_asset_ceiling": f"{base}/.well-known/ip-asset-ceiling.json",
+                "ip_asset_ceiling_ladder": f"{base}/.well-known/ip-asset-ceiling-ladder.json",
+                "licensing_pack": f"{base}/.well-known/licensing-pack.json",
+                "licensed_field": f"{base}/.well-known/licensed-field.json",
+                "owner_guardrails": f"{base}/.well-known/owner-guardrails.json",
                 "may_budget": f"{base}/.well-known/may-budget.json",
                 "funeral_bit": f"{base}/.well-known/funeral-bit.json",
                 "bind_genealogy": f"{base}/.well-known/bind-genealogy.json",
@@ -3030,6 +3059,34 @@ def well_known_commit_auth():
                     "who_shadow_bind_report",
                 ],
                 "shipped_civilizational_deep_aug28": list(civilizational_deep_mod.SLUGS),
+                "shipped_ip_asset_deep_aug28": list(ip_asset_deep_mod.SLUGS),
+                "shipped_ip_asset_ceiling_aug28": list(ip_asset_ceiling_mod.SLUGS),
+            },
+            "patent_licensing": {
+                "provisional": "64/124,027",
+                "status": "formal_draft_counsel_review",
+                "licensed_field_default": "platform_delegated_write",
+                "gtm_foothill": "insurance_bind_moment_pas_mga",
+                "well_known_pack": f"{advertised_url()}/.well-known/licensing-pack.json",
+                "exhibits": {
+                    "B_licensed_field": f"{advertised_url()}/.well-known/licensed-field.json",
+                    "I_premium_bps": f"{advertised_url()}/.well-known/premium-bps-schedule.json",
+                    "J_conformant_mark": f"{advertised_url()}/.well-known/gate-conformant-mark-spec.json",
+                    "K_qic_meter": f"{advertised_url()}/.well-known/qic-meter.json",
+                },
+                "term_sheet_skeleton": "gate/PATENT_LICENSE_TERM_SHEET.md",
+                "exhibit_redacted": "gate/PATENT_LICENSE_EXHIBIT_REDACTED.md",
+                "event_potential_model": "gate/PATENT_LICENSE_EVENT_POTENTIAL.md",
+                "ceiling_ladder": "gate/IP_ASSET_CEILING.md",
+                "well_known_ceiling_ladder": f"{advertised_url()}/.well-known/ip-asset-ceiling-ladder.json",
+                "well_known_asset": f"{advertised_url()}/.well-known/epoch-lock-patent-asset.json",
+                "claims": ["epoch_lock", "commit_time_single_use_bind"],
+                "meter": {
+                    "qic": "qualified_irreversible_commit",
+                    "caq": "contracted_annual_qic",
+                    "laq": "licensed_actual_annual_qic",
+                    "billable": "max(MAR, LAQ × per_QIC_rate)",
+                },
             },
             "ietf_posture": {
                 "pick": "extend",
@@ -6396,6 +6453,164 @@ def _register_civilizational_deep_routes() -> None:
 
 
 _register_civilizational_deep_routes()
+
+
+@app.route("/.well-known/ip-asset-deep.json")
+def well_known_ip_asset_deep_catalog():
+    return jsonify(ip_asset_deep_mod.catalog_manifest(advertised_url()))
+
+
+def _register_ip_asset_deep_routes() -> None:
+    for _slug in ip_asset_deep_mod.SLUGS:
+        _kebab = ip_asset_deep_mod.slug_to_kebab(_slug)
+
+        def _make_well_known(slug: str = _slug):
+            def _handler():
+                return jsonify(ip_asset_deep_mod.manifest(advertised_url(), slug))
+
+            return _handler
+
+        def _make_demo(slug: str = _slug):
+            def _handler():
+                _, err = _demo_gate()
+                if err:
+                    return err
+                body = request.get_json(silent=True) or {}
+                payload = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+                report = ip_asset_deep_mod.evaluate_slug(slug, **(payload if isinstance(payload, dict) else {}))
+                report["demo"] = True
+                return jsonify(report)
+
+            return _handler
+
+        app.add_url_rule(
+            f"/.well-known/{_kebab}.json",
+            f"well_known_ip_asset_{_slug}",
+            _make_well_known(),
+        )
+        app.add_url_rule(
+            f"/demo/pas/{_kebab}",
+            f"demo_pas_ip_asset_{_slug}",
+            _make_demo(),
+            methods=["POST"],
+        )
+        app.add_url_rule(
+            f"/bind-room/{_kebab}.json",
+            f"bind_room_ip_asset_{_slug}",
+            _make_well_known(),
+        )
+
+
+_register_ip_asset_deep_routes()
+
+
+@app.route("/.well-known/ip-asset-ceiling.json")
+def well_known_ip_asset_ceiling_catalog():
+    return jsonify(ip_asset_ceiling_mod.catalog_manifest(advertised_url()))
+
+
+@app.route("/.well-known/ip-asset-ceiling-ladder.json")
+def well_known_ip_asset_ceiling_ladder():
+    return jsonify(ip_asset_ceiling_mod.upside_ladder_manifest(advertised_url()))
+
+
+def _register_ip_asset_ceiling_routes() -> None:
+    for _slug in ip_asset_ceiling_mod.SLUGS:
+        _kebab = ip_asset_ceiling_mod.slug_to_kebab(_slug)
+
+        def _make_well_known(slug: str = _slug):
+            def _handler():
+                return jsonify(ip_asset_ceiling_mod.manifest(advertised_url(), slug))
+
+            return _handler
+
+        def _make_demo(slug: str = _slug):
+            def _handler():
+                _, err = _demo_gate()
+                if err:
+                    return err
+                body = request.get_json(silent=True) or {}
+                payload = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+                report = ip_asset_ceiling_mod.evaluate_slug(slug, **(payload if isinstance(payload, dict) else {}))
+                report["demo"] = True
+                return jsonify(report)
+
+            return _handler
+
+        app.add_url_rule(
+            f"/.well-known/{_kebab}.json",
+            f"well_known_ip_asset_ceiling_{_slug}",
+            _make_well_known(),
+        )
+        app.add_url_rule(
+            f"/demo/pas/{_kebab}",
+            f"demo_pas_ip_asset_ceiling_{_slug}",
+            _make_demo(),
+            methods=["POST"],
+        )
+        app.add_url_rule(
+            f"/bind-room/{_kebab}.json",
+            f"bind_room_ip_asset_ceiling_{_slug}",
+            _make_well_known(),
+        )
+
+
+_register_ip_asset_ceiling_routes()
+
+
+@app.route("/.well-known/personal-wire-calculator.json")
+def well_known_personal_wire_calculator():
+    return jsonify(owner_guardrails_mod.wire_calculator_manifest(advertised_url()))
+
+
+@app.route("/demo/pas/personal-wire-calculator", methods=["POST"])
+def demo_pas_personal_wire_calculator():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    payload = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    if not isinstance(payload, dict):
+        payload = {}
+    report = owner_guardrails_mod.compute_personal_wire(
+        company_gross_annual_usd=payload.get("company_gross_annual_usd", 0),
+        opex_annual_usd=payload.get("opex_annual_usd", 0),
+        salary_annual_usd=payload.get("salary_annual_usd", 0),
+        reserve_funded=bool(payload.get("reserve_funded")),
+        owner_ownership_pct=float(payload.get("owner_ownership_pct", 1.0)),
+    )
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/.well-known/owner-guardrails.json")
+def well_known_owner_guardrails():
+    return jsonify(owner_guardrails_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/licensed-field.json")
+def well_known_licensed_field():
+    return jsonify(licensing_pack_mod.licensed_field_manifest(advertised_url()))
+
+
+@app.route("/.well-known/licensing-pack.json")
+def well_known_licensing_pack():
+    return jsonify(licensing_pack_mod.pack_manifest(advertised_url()))
+
+
+@app.route("/.well-known/premium-bps-schedule.json")
+def well_known_premium_bps_schedule():
+    return jsonify(licensing_pack_mod.premium_bps_schedule_manifest(advertised_url()))
+
+
+@app.route("/.well-known/gate-conformant-mark-spec.json")
+def well_known_gate_conformant_mark_spec():
+    return jsonify(licensing_pack_mod.gate_conformant_mark_spec_manifest(advertised_url()))
+
+
+@app.route("/.well-known/qic-meter.json")
+def well_known_qic_meter():
+    return jsonify(licensing_pack_mod.qic_meter_manifest(advertised_url()))
 
 
 if __name__ == "__main__":

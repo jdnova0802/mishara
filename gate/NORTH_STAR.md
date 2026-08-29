@@ -8,6 +8,26 @@ This file is the **mountain**.
 `GATE_STANCE.md` is the **locked political shape**.  
 `REALITY_CONTRACT.md` is the **earn-or-stop ladder**.  
 `SCIENCE.md` is the **physics + PRI lock**.  
+`BUSINESS_CATEGORIES.md` is the **altitude map** (what sits above / beside / below infra; where Nisaba sits).  
+`SHADOW_CHOKEPOINT_DOCTRINE.md` is the **owner end-state** (quiet planetary bind, partner circle, sell vs rent).  
+`NISABA_IDENTITY_STACK.md` is the **institutional identity** (expeditious clearing; formal interview register).  
+`EXTERNAL_S_TIER_INVENTIONS.md` is the **external world-scale invention designations** (S1–S10 — not L2 waive).  
+`PLANETARY_BREAKTHROUGH_INVENTIONS.md` is the **cross-domain breakthrough set** (notice by 22 → need by 30 — designations only).  
+`FACEPALM_SHOCK_INVENTIONS.md` is the **ops/multiplanetary blind-spot set** (launch · link · lag · actuator — designations only).  
+`FORBES_TOP10_FACEPALM_INVENTIONS.md` is the **Forbes Real-Time Top 10 map** (one may-at-irreversibility invention per seat — designations only).  
+`WEALTH_SCOREBOARD_MAP_22.md` is the **age 22→30 path map** (Baseline · Notice · Shatter — orientation only; does not replace LOCKED table or lift freeze).  
+`OMEGA_AMBITION_BRIEF.md` is the **Path Ω ceiling map** (planetary rails · FX/CLS/premium/grid — makes Path S look like a foothill; designations only).  
+`EXTREME_S25_INVENTIONS.md` is the **25 S-tier compression inventions + Singularity scoreboard** (B‡→∞ — even baseline makes old Ω look small; designations only).  
+`OPERATING_LADDER.md` is the **LOCKED ambition bar** — we **operate on the compression ladder B‡→∞** (old B/N/S map = archive).  
+`LATCH_ORDER_FROM_GAP_CRAWL.md` is the **post–Gate 1 latch order** (agentic → grid → cable/CHC — park list + next crawl lanes; not L2).  
+`ABSOLUTE_NOW_LATCH.md` is the **Absolute apply-RN freeze** (counsel → Gate 1 → S03 into protocol war → Act Certificate → S05 — confidence gates; not L2).  
+`ABSOLUTE_S_SWEEP.md` is the **final S-tier crumb sweep** (A1–A12 planetary questions → inventions → apply RN — designation only; stop condition = execute latch).  
+`OWNER_POCKET.md` is the **owner notebook** (internalize in one sitting — entity · aim · September · latch · life · refuses).  
+`NISABA_EXPLAINABLE.md` is the **speakable tree** (self + outside explain cards · altitudes · self-test · copy block).  
+`TRIAD_PHILOSOPHY_CRAWL.md` is the **before/at/real triad upgrades** (illocution · constitutive rules · branching time · contextual prove · continuation dual — designation only).  
+`NISABA_360_TRIAD_CRAWL.md` is the **full-tree triad stress-test** (every branch × before/at/prove · transform = secondary-rule recognition institution — designation only).  
+`NISABA_TREE.md` is the **one-page tree** (entity · Gate · foothill · ceiling · phases).
+`EVAC_COMMS_HANDOFF_SPEC.md` is the **ceiling choke invention sketch** (CHC / Evac Bind Ticket — post–Gate 1, not counsel week).  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
 
 ---

@@ -1,6 +1,6 @@
 # Intentions — post-survey invention catalog (Aug 28)
 
-**Status:** 56 invention modules **shipped** (24 prior + 32 civilizational-deep). Remaining intentions = mountain / post-weld.  
+**Status:** 112 invention modules **shipped** (88 prior + 24 IP asset ceiling experimental). Remaining intentions = mountain / post-weld.  
 **Not MGA outbound lead.** Bind Room leads epoch lock + bind moment; these are league-of-one artifacts.
 
 **Context:** Competitive survey showed the commit-auth lane is crowded (Authproof, IBCT, CertNode, PCAA, Parakhin). We are **not** as alone on receipts and capability tokens as we assumed. These intentions target **cells still empty** — epoch lock, carrier bind choke, fail-closed availability honesty, restraint-as-SKU.
@@ -90,6 +90,49 @@ Wired on HALT paths: all ten attach in `_finalize_spend_plan`.
 | artemis_accords_bind_weld | Artemis Accords Bind Weld | Artemis Accords |
 
 All attach via `civilizational_deep.attach(plan)` → `plan["civilizational_deep"]`.
+
+---
+
+## Shipped batch 5 — IP asset deep (Aug 28)
+
+**32 IP-S+ inventions** in `ip_asset_deep.py`. Catalog: `/.well-known/ip-asset-deep.json`
+
+Recurring-income asset class — Disney/ARM/Jordan/Bowie-grade IP formalized on bind path:
+
+| Category | Slugs |
+|----------|-------|
+| **Copyright × trademark** | steamboat_willie_split, mickey_trademark_moat, sonny_bono_extension, public_domain_recombine |
+| **Dual-stream royalty** | arm_dual_stream, qualcomm_asp_royalty, jordan_brand_unit_royalty, mechanical_royalty_stream |
+| **Securitization / catalog** | bowie_bond_securitization, hipgnosis_catalog_annuity, cross_collateral_ip_basket |
+| **Patent / SEP** | frand_sep_choke, mpeg_patent_pool_toll, epoch_lock_patent_asset, open_invention_network_shield |
+| **Media / franchise** | disney_vault_window, marvel_cross_license_lattice, character_sequel_option, taylor_masters_rerecord |
+| **Deal mechanics** | merchandising_mg_overage, royalty_audit_clawback, ip_escrow_mna_latch, sync_license_moment |
+| **Risk / contamination** | copyleft_contamination_snare, lanham_dilution_snare, trade_secret_dtsa_vault |
+| **Rights layers** | work_for_hire_ownership, right_of_publicity_likeness, sag_residual_choke, creative_commons_tier_ladder |
+| **Filing epoch** | wipo_pct_epoch, uspto_provisional_ladder |
+
+Attach: `ip_asset_deep.attach(plan)` → `plan["ip_asset_deep"]` + ghost/dilution/copyleft blocker lists.
+
+**Licensing (formal pack):** canonical index → `/.well-known/licensing-pack.json` · **default Licensed Field B (platform)** → `/.well-known/licensed-field.json` · Exhibits I–K · GTM foothill = insurance PAS/MGA only · term sheet + sendables + models as before
+
+---
+
+## Shipped batch 6 — IP asset ceiling (Aug 28)
+
+**24 IP-X experimental inventions** in `ip_asset_ceiling.py`. Catalog: `/.well-known/ip-asset-ceiling.json` · Upside ladder: `/.well-known/ip-asset-ceiling-ladder.json` · Doc: `IP_ASSET_CEILING.md`
+
+| Category | Slugs |
+|----------|-------|
+| **Missing toll booths (M1→M2)** | gate_conformant_mark, premium_bps_meter, agent_runtime_field_license, patent_pool_operator_toll, ietf_profile_spec_asset, fuse_registry_meter_saas, naic_adoption_latch |
+| **Interchange / platform** | visa_interchange_commit_analog, swift_iso20022_message_toll, stripe_connect_platform_cut, trillion_qic_step_ladder |
+| **Regulatory / settlement fields** | eu_ai_act_essential_pack, fedwire_oc6_finality_fee, bis_agora_atomic_toll |
+| **Agent-speed mesh** | mcp_mesh_commit_meter, agent_fleet_rcc_bundle, edge_worker_bind_surcharge |
+| **Balance-sheet / data** | securitized_royalty_spv_live, forward_royalty_catalog_sale, ip_receipt_index_fund, stranger_grade_benchmark_feed, rfc3161_timestamp_toll, cross_border_pct_cascade |
+| **Civilizational guard** | planetary_quorum_license |
+
+Attach: `ip_asset_ceiling.attach(plan)` → `plan["ip_asset_ceiling"]` + optional `ip_asset_ceiling_illustrative_stack_usd`.
+
+**Stack total:** 112 invention modules (88 + 24 ceiling).
 
 ---
 

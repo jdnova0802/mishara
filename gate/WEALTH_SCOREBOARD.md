@@ -92,7 +92,7 @@ Others eat. You eat. Mouth stays. **Not a dragon pile.**
 |---|--------|------|
 | L1 | Publish weld + floor + bps on every commercial path (no custom soft pricing) | ☐ |
 | L2 | Add **prepaid annual floor** option (discount ≤10% for cash-up-front) | ☐ |
-| L3 | Write **distribution policy** (reserve + team + owner split) in one page | ☐ |
+| L3 | Write **distribution policy** — `DISTRIBUTION_POLICY.md` + `/.well-known/owner-guardrails.json` | ☐ |
 | L4 | Gate 1: stranger cash cleared | ☐ |
 | L5 | Personal account: separate **ops vs owner** ; first owner transfer rule defined | ☐ |
 | L6 | One sentence secondary policy: “economics only / no may / max 8%” | ☐ |

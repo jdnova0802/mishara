@@ -161,14 +161,20 @@ When foothill_max + this ceiling ship: **stop inventing L2 throats until somethi
 
 ---
 
-## Enforcement (2026-08-27 — Claude called it; we agree)
+## Enforcement (2026-08-28 — enforced in CI, not prose-only)
 
-The ceiling was real; **enforcement lagged**. Shipping C/D/E packs under a “foothill exemption” while saying stop inventing was a category cheat.
+Batches 4–6 shipped 88 modules while the “no L2 until Gate 1” rule was restated without enforcement. **That ends here.**
 
-**Rule from this line forward:**
-- Existing seed inventory is **frozen** unless **competitive-response** or **institutional-twist** invention (Aug 28+) — see shipped modules under `/.well-known/lab.json`.
-- **No other new L2 invention modules** until Gate 1: stranger paid Bind Room (or equal) + stranger prove.
-- Reclassifying mountain as foothill does **not** count as obedience.
-- Allowed under ceiling: buyer copy, deploy, Stripe/SKU, claim-grade honesty, Promo Clock / Ops Guards, sell motion.
+**Rule:**
+- Existing inventory in `mouth_ceiling_freeze.json` is **frozen**.
+- **No new L2 invention module files** until Gate 1: stranger paid Bind Room (or equal) + stranger prove.
+- Reclassifying mountain as foothill does **not** count.
+- Allowed under ceiling: buyer copy, deploy, Stripe/SKU, entity fixes, non-provisional path, ops guards, sell motion.
 
-A ceiling with a category exemption isn’t a ceiling. This one is enforced now.
+**Mechanism:** `python3 -m gate.mouth_ceiling_guard` (also in `ops_guards` snapshot).  
+**Fails branch** if any `gate/*.py` invention module is not in the freeze manifest.
+
+**Wealth apparatus:** frozen until Gate 1 — see `WEALTH_APPARATUS_FREEZE.md`.  
+**Licensed field value before Gate 1:** see `LICENSED_FIELD_VALUE.md` — **nothing licensable yet**.
+
+A rule restated while broken is worse than no rule. This one is enforced now.
