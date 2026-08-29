@@ -2,7 +2,7 @@
 
 **Status:** Owner steering instrument — settled 28 August 2026; **identity frozen** the same session (evacuation-communications chokepoint). Not marketing material. Not a product roadmap.  
 **Purpose:** Define the **terminal identity** toward which Nisaba is building — quiet, load-bearing, planetary rent — so that altitude decisions, entity design, and the Gate 1 sequence remain aligned.  
-**Companion documents:** `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md` · `EVAC_COMMS_HANDOFF_SPEC.md`
+**Companion documents:** `NISABA_TREE.md` · `NORTH_STAR.md` · `BUSINESS_CATEGORIES.md` · `ENTITY_MAP.md` · `LICENSED_FIELD_VALUE.md` · `STRONGEST_START.md` · `EVAC_COMMS_HANDOFF_SPEC.md`
 
 ---
 
