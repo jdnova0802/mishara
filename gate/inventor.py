@@ -28,6 +28,7 @@ INVENTOR: dict[str, Any] = {
         "We do not hide the inventor so the mouth can be sold later."
     ),
     "never_sell": ("may", "the throat", "critical planetary capacity"),
+    "first_in_history": "depository and recorder of the act",
 }
 
 

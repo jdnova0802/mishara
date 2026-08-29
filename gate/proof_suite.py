@@ -307,6 +307,26 @@ def run_invariants() -> list[dict[str, Any]]:
         {"soon": (heavy.get("counts") or {}).get("soon")},
     )
 
+    try:
+        from gate import first as first_mod
+        from gate import pvp as pvp_mod
+    except ImportError:
+        import first as first_mod  # type: ignore[no-redef]
+        import pvp as pvp_mod  # type: ignore[no-redef]
+
+    first = first_mod.manifest("https://gate.local")
+    add(
+        "first_in_history_depository",
+        "Nisaba designated first recorder of the act; PvP may exists; family stays 5",
+        first.get("l2_module") is False
+        and first.get("family_siblings_remain") == 5
+        and first.get("cash_usd") == 0
+        and (first.get("reshape") or {}).get("headline") == "Humanity recorded the act."
+        and (first.get("counts") or {}).get("soon", 0) >= 5
+        and pvp_mod.SPEC == "gate-pvp-may-v1",
+        {"headline": (first.get("reshape") or {}).get("headline")},
+    )
+
     # --- Settlement / kappa surfaces exist ---
     try:
         from gate import settlement as settlement_mod

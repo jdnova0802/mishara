@@ -129,6 +129,8 @@ class ManifestTests(unittest.TestCase):
         self.assertTrue(m["conformant"]["not_a_sibling"])
         self.assertIn("heavier", m)
         self.assertFalse(m["heavier"]["l2_module"])
+        self.assertIn("first", m)
+        self.assertTrue(m["first"]["first_in_history"])
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1573,7 +1575,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2914,7 +2916,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -3185,6 +3187,132 @@ class ConformantQicTests(unittest.TestCase):
         self.assertIn("heavier", gate)
         fam = self.client.get("/.well-known/family.json").get_json()
         self.assertEqual(len(fam["family"]), 5)
+
+
+class FirstInHistoryTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def _issue(self, job_id, holder_id):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=pvp",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": job_id,
+                    "holder_id": holder_id,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        return r.get_json()["bind_ticket"]
+
+    def test_reshape_and_pages(self):
+        import first
+
+        m = first.manifest("https://example.test")
+        self.assertEqual(m["reshape"]["headline"], "Humanity recorded the act.")
+        self.assertFalse(m["l2_module"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertTrue(m["identity_frozen_until_gate1"])
+        self.assertGreaterEqual(m["counts"]["soon"], 5)
+        html = self.client.get("/first").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("Humanity recorded the act", html)
+        self.assertIn("PvP may", html)
+        self.assertIn("ICAD", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /first", robots)
+        who = self.client.get("/.well-known/inventor.json").get_json()
+        self.assertEqual(who["first_in_history"], "depository and recorder of the act")
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+        self.assertIn("depository", fam["first_in_history"])
+
+    def test_pvp_immobilizes_and_settles_both_or_neither(self):
+        a = self._issue("pc:PVP-A", "op:alpha")
+        b = self._issue("pc:PVP-B", "op:beta")
+        opened = self.client.post(
+            "/demo/pas/pvp/open",
+            json={
+                "side_a_ticket": a["ticket_id"],
+                "side_b_ticket": b["ticket_id"],
+                "side_a_job": "pc:PVP-A",
+                "side_b_job": "pc:PVP-B",
+            },
+        ).get_json()
+        self.assertTrue(opened["ok"])
+        wid = opened["window_id"]
+
+        stolen = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": a["ticket_id"],
+                "token": a["token"],
+                "job_id": "pc:PVP-A",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:PVP-A/bind-only",
+                "spend_fingerprint": a["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:alpha",
+            },
+        )
+        self.assertEqual(stolen.status_code, 403)
+        self.assertEqual(stolen.get_json()["reason"], "pvp_pair_required")
+
+        now = _now()
+        first_leg = self.client.post(
+            "/demo/pas/pvp/offer",
+            json={
+                "window_id": wid,
+                "ticket_id": a["ticket_id"],
+                "token": a["token"],
+                "job_id": "pc:PVP-A",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:PVP-A/bind-only",
+                "now": now,
+                "holder_id": "op:alpha",
+            },
+        ).get_json()
+        self.assertEqual(first_leg["state"], "ARMED")
+        self.assertFalse(first_leg["settled"])
+
+        second = self.client.post(
+            "/demo/pas/pvp/offer",
+            json={
+                "window_id": wid,
+                "ticket_id": b["ticket_id"],
+                "token": b["token"],
+                "job_id": "pc:PVP-B",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:PVP-B/bind-only",
+                "now": now,
+                "holder_id": "op:beta",
+            },
+        ).get_json()
+        self.assertTrue(second["settled"])
+        self.assertEqual(second["state"], "SETTLED")
+        self.assertEqual(len(second["qic"]), 2)
+
+        unused = self.client.post(
+            "/demo/pas/capability-vital",
+            json={"job_id": "pc:NEVER-VITAL"},
+        ).get_json()
+        self.assertTrue(unused["died_unused"])
+        spent = self.client.post(
+            "/demo/pas/apostille",
+            json={"job_id": "pc:PVP-A"},
+        ).get_json()
+        self.assertTrue(spent["act_occurred"])
 
 
 if __name__ == "__main__":

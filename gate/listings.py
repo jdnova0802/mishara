@@ -167,6 +167,17 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "until_gate1_usd": 0,
             "dunks": "conformant_badge",
         },
+        "first": {
+            "page": f"{public_url}/first",
+            "manifest": f"{public_url}/.well-known/first.json",
+            "pvp": f"{public_url}/.well-known/pvp.json",
+            "headline": "Humanity recorded the act.",
+            "not_a_sibling": True,
+            "l2_module": False,
+            "family_siblings_remain": 5,
+            "first_in_history": True,
+            "until_gate1_usd": 0,
+        },
         "license_fuse": {
             "manifest": f"{public_url}/.well-known/license-fuse.json",
             "pas_key": "license_id",

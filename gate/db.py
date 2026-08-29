@@ -125,6 +125,28 @@ def init_db():
 
         conn.executescript(
             """
+            CREATE TABLE IF NOT EXISTS pvp_windows (
+                id TEXT PRIMARY KEY,
+                side_a_ticket TEXT NOT NULL,
+                side_b_ticket TEXT NOT NULL,
+                side_a_job TEXT NOT NULL,
+                side_b_job TEXT NOT NULL,
+                state TEXT NOT NULL,
+                side_a_offered_at TEXT,
+                side_b_offered_at TEXT,
+                side_a_now TEXT,
+                side_b_now TEXT,
+                settled_at TEXT,
+                void_reason TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_pvp_a ON pvp_windows(side_a_ticket);
+            CREATE INDEX IF NOT EXISTS idx_pvp_b ON pvp_windows(side_b_ticket);
+            """
+        )
+
+        conn.executescript(
+            """
             CREATE TABLE IF NOT EXISTS license_parents (
                 license_id TEXT PRIMARY KEY,
                 state TEXT NOT NULL,
@@ -743,6 +765,127 @@ def consume_bind_ticket(
         if cur.rowcount != 1:
             return {"ok": False, "reason": "ticket_replay"}
     return {"ok": True}
+
+
+def pvp_open(
+    *,
+    window_id: str,
+    side_a_ticket: str,
+    side_b_ticket: str,
+    side_a_job: str,
+    side_b_job: str,
+) -> dict:
+    now = utc_now()
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO pvp_windows
+               (id, side_a_ticket, side_b_ticket, side_a_job, side_b_job,
+                state, created_at)
+               VALUES (?, ?, ?, ?, ?, 'OPEN', ?)""",
+            (window_id, side_a_ticket, side_b_ticket, side_a_job, side_b_job, now),
+        )
+    return {"ok": True, "window_id": window_id, "state": "OPEN"}
+
+
+def pvp_get(window_id: str) -> dict | None:
+    wid = (window_id or "").strip()
+    if not wid:
+        return None
+    with db() as conn:
+        row = conn.execute("SELECT * FROM pvp_windows WHERE id = ?", (wid,)).fetchone()
+    return dict(row) if row else None
+
+
+def pvp_lock_for_ticket(ticket_id: str) -> dict | None:
+    tid = (ticket_id or "").strip()
+    if not tid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            """SELECT * FROM pvp_windows
+               WHERE (side_a_ticket = ? OR side_b_ticket = ?)
+                 AND state IN ('OPEN', 'ARMED')
+               ORDER BY created_at DESC LIMIT 1""",
+            (tid, tid),
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def pvp_record_offer(*, window_id: str, side: str, offered_at: str, presented_now: str) -> dict:
+    col_off = "side_a_offered_at" if side == "a" else "side_b_offered_at"
+    col_now = "side_a_now" if side == "a" else "side_b_now"
+    with db() as conn:
+        conn.execute(
+            f"UPDATE pvp_windows SET {col_off} = ?, {col_now} = ?, state = 'ARMED' WHERE id = ? AND state IN ('OPEN', 'ARMED')",
+            (offered_at, presented_now, window_id),
+        )
+        row = conn.execute("SELECT * FROM pvp_windows WHERE id = ?", (window_id,)).fetchone()
+    return dict(row) if row else {}
+
+
+def pvp_settle(
+    *,
+    window_id: str,
+    now: str,
+    a_ticket: str,
+    a_token_hash: str,
+    a_job: str,
+    a_spend: str | None,
+    b_ticket: str,
+    b_token_hash: str,
+    b_job: str,
+    b_spend: str | None,
+) -> dict:
+    """Atomic: both tickets consume or neither does."""
+    with db() as conn:
+        win = conn.execute("SELECT * FROM pvp_windows WHERE id = ?", (window_id,)).fetchone()
+        if not win or win["state"] not in ("OPEN", "ARMED"):
+            return {"ok": False, "reason": "pvp_window_not_open"}
+        for tid, tok, jid, fp in (
+            (a_ticket, a_token_hash, a_job, a_spend),
+            (b_ticket, b_token_hash, b_job, b_spend),
+        ):
+            row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (tid,)).fetchone()
+            if not row:
+                return {"ok": False, "reason": "ticket_not_found"}
+            if row["token_hash"] != tok:
+                return {"ok": False, "reason": "ticket_token_mismatch"}
+            if row["job_id"] != jid:
+                return {"ok": False, "reason": "ticket_job_mismatch"}
+            if row["consumed_at"]:
+                return {"ok": False, "reason": "ticket_replay"}
+            issued_fp = (row["spend_fingerprint"] or "").strip() if "spend_fingerprint" in row.keys() else ""
+            presented_fp = (fp or "").strip()
+            if issued_fp and issued_fp.lower() != presented_fp.lower():
+                return {"ok": False, "reason": "ticket_spend_mismatch"}
+        cur_a = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
+            (now, a_ticket, a_token_hash),
+        )
+        cur_b = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
+            (now, b_ticket, b_token_hash),
+        )
+        if cur_a.rowcount != 1 or cur_b.rowcount != 1:
+            conn.rollback()
+            return {"ok": False, "reason": "pvp_atomic_abort"}
+        conn.execute(
+            """UPDATE pvp_windows SET state = 'SETTLED', settled_at = ? WHERE id = ?""",
+            (now, window_id),
+        )
+    return {"ok": True, "state": "SETTLED"}
+
+
+def pvp_void(*, window_id: str, reason: str) -> dict:
+    with db() as conn:
+        conn.execute(
+            """UPDATE pvp_windows SET state = 'VOID', void_reason = ?
+               WHERE id = ? AND state IN ('OPEN', 'ARMED')""",
+            (reason, window_id),
+        )
+    return {"ok": True, "state": "VOID", "reason": reason}
 
 
 def get_license_parent(license_id: str) -> dict | None:

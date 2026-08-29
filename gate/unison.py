@@ -220,8 +220,8 @@ MORE_MASSIVE = (
             "fingerprint; it does not require the other side to radiate. "
             "Dual redeem: both spend in the same UTC now, or neither does."
         ),
-        "already_in_doctrine": "counterpart.py — fingerprint match, not dual redeem.",
-        "ship": "Optional weld flag. Not a second write. Fail closed if one side silent.",
+        "already_in_doctrine": "pvp.py — both throats in one SI second or neither. Immobilized until then.",
+        "ship": "Shipped. Solo redeem while immobilized is pvp_pair_required.",
         "not": ["a second door", "a second product"],
         "rating": 13.0,
         "unison": True,

@@ -380,12 +380,25 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
     {
         "id": "dual_redeem",
         "subject": "counterpart",
-        "name": "Counterpart radiate",
-        "claim": "Both sides redeem in the same now, or neither does.",
+        "name": "PvP may — permission versus permission",
+        "claim": "Both throats redeem in one SI second, or neither ticket is consumed.",
         "satoshi": "One signature spends. Multisig is optional cash policy.",
-        "heavier": "Civic writes often have two throats (carrier + insured, payer + rail). Fingerprint match is not dual redeem.",
-        "real": "counterpart.py (fingerprint only) — dual redeem not yet law",
-        "status": "weld",
+        "heavier": (
+            "First in history: two permissions, one now, atomic. "
+            "CLS for may. Immobilized until both speak."
+        ),
+        "real": "pvp.py · ticket solo redeem blocks while immobilized",
+        "status": "shipped",
+    },
+    {
+        "id": "first_depository",
+        "subject": "history",
+        "name": "Depository of the act",
+        "claim": "Nisaba is designated the first recorder of the act. Money had a CSD. The act did not.",
+        "satoshi": "A ledger of coins. No recorder of permission.",
+        "heavier": "Headline of the millennium: humanity recorded the act.",
+        "real": "first.py · /first · /.well-known/first.json",
+        "status": "law",
     },
     {
         "id": "evac_comms",

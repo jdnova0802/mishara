@@ -180,6 +180,16 @@ except ImportError:
     import heavier as heavier_mod
 
 try:
+    from gate import first as first_mod
+except ImportError:
+    import first as first_mod
+
+try:
+    from gate import pvp as pvp_mod
+except ImportError:
+    import pvp as pvp_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -351,7 +361,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1421,6 +1431,9 @@ def well_known_gate():
             "conformant_outcome": f"{advertised_url()}/.well-known/conformant-outcome.json",
             "heavier": f"{advertised_url()}/.well-known/heavier.json",
             "heavier_page": f"{advertised_url()}/heavier",
+            "first": f"{advertised_url()}/.well-known/first.json",
+            "first_page": f"{advertised_url()}/first",
+            "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1772,6 +1785,69 @@ def heavier_page():
         blocks=heavier_mod.page_blocks(),
         public_url=advertised_url(),
     )
+
+
+@app.route("/.well-known/first.json")
+def well_known_first():
+    return jsonify(first_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/pvp.json")
+def well_known_pvp():
+    return jsonify(pvp_mod.spec(advertised_url()))
+
+
+@app.route("/first")
+def first_page():
+    m = first_mod.manifest(advertised_url())
+    return render_template(
+        "first.html",
+        manifest=m,
+        blocks=first_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/pvp/open", methods=["POST"])
+def demo_pvp_open():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        pvp_mod.open_window(
+            side_a_ticket=body.get("side_a_ticket") or "",
+            side_b_ticket=body.get("side_b_ticket") or "",
+            side_a_job=body.get("side_a_job") or "",
+            side_b_job=body.get("side_b_job") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/pvp/offer", methods=["POST"])
+def demo_pvp_offer():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        pvp_mod.offer(
+            window_id=body.get("window_id") or "",
+            ticket_id=body.get("ticket_id") or "",
+            token=body.get("token") or "",
+            job_id=body.get("job_id") or "",
+            method=body.get("method"),
+            path=body.get("path"),
+            now=body.get("now"),
+            holder_id=body.get("holder_id"),
+        )
+    )
+
+
+@app.route("/demo/pas/apostille", methods=["POST"])
+def demo_machine_act_apostille():
+    body = request.get_json(silent=True) or {}
+    return jsonify(first_mod.apostille(body.get("job_id") or ""))
+
+
+@app.route("/demo/pas/capability-vital", methods=["POST"])
+def demo_capability_vital():
+    body = request.get_json(silent=True) or {}
+    return jsonify(first_mod.death_certificate(body.get("job_id") or ""))
 
 
 @app.route("/.well-known/legal.json")
@@ -3541,6 +3617,7 @@ def robots():
             "Disallow: /inventions",
             "Disallow: /conformant",
             "Disallow: /heavier",
+            "Disallow: /first",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

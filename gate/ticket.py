@@ -298,6 +298,13 @@ def redeem(
             job_id=jid,
             extra={"named_may": held},
         )
+    if db.pvp_lock_for_ticket(tid):
+        return _halt(
+            reason="pvp_pair_required",
+            ticket_id=tid,
+            job_id=jid,
+            extra={"pvp": "immobilized — both throats must redeem in one now"},
+        )
     token_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
     result = db.consume_bind_ticket(
         ticket_id=tid,

@@ -351,6 +351,10 @@ def manifest(public_url: str) -> dict[str, Any]:
             "Reflect Velaru as the engine. Keep own gravity. "
             "Bite real markets. Twin chrome is not a voice."
         ),
+        "first_in_history": (
+            "Nisaba is designated the first depository and recorder of the act. "
+            "Not a sixth voice. Identity frozen until Gate 1."
+        ),
         "engine": ENGINE,
         "family": family,
         "organs": organs(base),
