@@ -2,7 +2,7 @@
 
 **Status:** orientation map — settled 29 August 2026. Not marketing. Not legal advice.  
 **Purpose:** One-page **tree of Nisaba** — entity, product, identity, sequence, and what sits above/below Gate.  
-**Companions:** `SHADOW_CHOKEPOINT_DOCTRINE.md` · `NISABA_IDENTITY_STACK.md` · `ENTITY_MAP.md` · `NORTH_STAR.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `STRONGEST_START.md`  
+**Companions:** `NISABA_EXPLAINABLE.md` (speakable self+outside) · `SHADOW_CHOKEPOINT_DOCTRINE.md` · `NISABA_IDENTITY_STACK.md` · `ENTITY_MAP.md` · `NORTH_STAR.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `STRONGEST_START.md` · `OWNER_POCKET.md`  
 **Register:** Formal register for owner locks — see `NISABA_IDENTITY_STACK.md`.
 
 ---

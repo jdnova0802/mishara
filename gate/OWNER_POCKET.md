@@ -1,7 +1,8 @@
 # Owner Pocket — Internalize This
 
 **Status:** owner notebook — 29 August 2026. Not outbound. Not L2.  
-**Use:** reread when the doctrine fog hits. One sitting. Then execute.
+**Use:** reread when the doctrine fog hits. One sitting. Then execute.  
+**Whole-tree explain (self + outside):** `NISABA_EXPLAINABLE.md` — memorize that when you need “what am I building?”
 
 ---
 
