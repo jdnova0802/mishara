@@ -145,6 +145,11 @@ except ImportError:
     import family_voices as family_voices_mod
 
 try:
+    from gate import unison as unison_mod
+except ImportError:
+    import unison as unison_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -316,6 +321,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
+    "/unison",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1366,6 +1372,8 @@ def well_known_gate():
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
             "science_page": f"{advertised_url()}/science",
+            "unison": f"{advertised_url()}/.well-known/unison.json",
+            "unison_page": f"{advertised_url()}/unison",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1619,6 +1627,22 @@ def science_page():
         "science.html",
         manifest=m,
         blocks=science_pri_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/unison.json")
+def well_known_unison():
+    return jsonify(unison_mod.manifest(advertised_url()))
+
+
+@app.route("/unison")
+def unison_page():
+    m = unison_mod.manifest(advertised_url())
+    return render_template(
+        "unison.html",
+        manifest=m,
+        blocks=unison_mod.page_blocks(),
         public_url=advertised_url(),
     )
 
@@ -3386,6 +3410,7 @@ def robots():
             "Disallow: /family",
             "Disallow: /action-os",
             "Disallow: /science",
+            "Disallow: /unison",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

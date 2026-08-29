@@ -325,6 +325,20 @@ def voice(slug: str, public_url: str = "") -> dict[str, Any]:
     return out
 
 
+def organs(public_url: str = "") -> list[dict[str, Any]]:
+    """Gate/Nisaba organs — not product siblings. Family length stays 5."""
+    try:
+        from gate import unison as unison_mod
+    except ImportError:
+        import unison as unison_mod
+
+    base = (public_url or "").rstrip("/")
+    rows = unison_mod.organs()
+    for row in rows:
+        row["unison"] = f"{base}/unison" if base else "/unison"
+    return rows
+
+
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
     family = [voice(k, base) for k in ("velaru", "erra", "verra", "gate", "mishara")]
@@ -339,6 +353,8 @@ def manifest(public_url: str) -> dict[str, Any]:
         ),
         "engine": ENGINE,
         "family": family,
+        "organs": organs(base),
+        "organs_are_not_siblings": True,
         "weakest_voice_fix": {
             "priority": ["verra", "erra", "mishara"],
             "action": "Paste hero/nav/not blocks into sibling deploys; keep Gate as Action OS money door",
@@ -351,6 +367,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         "links": {
             "scorecard": f"{base}/.well-known/scorecard.json",
             "action_os": f"{base}/.well-known/action-os.json",
+            "unison": f"{base}/.well-known/unison.json",
             "page": f"{base}/family",
         },
         "page": f"{base}/family",

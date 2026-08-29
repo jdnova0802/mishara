@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Unison — after May and Redeem{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Internal · cosmic map · not a buyer surface</p>
+  <h1>After the throat and the defense</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted);">{{ manifest.gate1_lock }}</p>
+  <p>cleverer_layer: <strong>{{ manifest.cleverer_layer }}</strong>
+    · their_production: <strong>{{ manifest.their_production }}</strong>
+    · family siblings: <strong>{{ manifest.family_siblings_remain }}</strong>
+    · intel kit: <strong>{{ manifest.intel_kit.rating }}/10</strong></p>
+
+  <h2 style="margin-top: 1.5rem;">Baseline — 10/10</h2>
+  {% for b in manifest.baseline %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ b.organ }} · {{ b.rating }}/10</p>
+    <h3>{{ b.name }}</h3>
+    <p><strong>{{ b.question }}</strong></p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">{{ b.mass }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">{{ b.shipped }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Already above — do not re-invent</h2>
+  {% for a in manifest.already_above %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ a.id }} · {{ a.rating }}</p>
+    <h3>{{ a.name }}</h3>
+    <p>{{ a.vs }}</p>
+    <p style="color: var(--muted); margin-top: 0.35rem;">{{ a.is }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">More massive — prior conditions</h2>
+  {% for m in manifest.more_massive %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ m.organ }} · vs {{ m.vs }} · {{ m.rating }}</p>
+    <h3>{{ m.name }}</h3>
+    <p><strong>{{ m.question }}</strong></p>
+    <p style="margin-top: 0.5rem;">{{ m.why_more }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted); font-size: 0.9rem;">{{ m.ship }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Organs of the body — not products</h2>
+  {% for o in manifest.organs %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ o.role }} · {{ o.belongs_to }}</p>
+    <h3>{{ o.name }}</h3>
+    <p>{{ o.question }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Unmouthed write-classes</h2>
+  <ul class="check-list">
+    {% for u in manifest.unmouthed %}
+    <li><strong>{{ u.write_class }}</strong> — {{ u.why }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2 style="margin-top: 1.5rem;">Intel kit — 7.5 after Gate 1</h2>
+  <div class="card">
+    <p>{{ manifest.intel_kit.why }}</p>
+    <p style="margin-top: 0.5rem;"><strong>Feeds:</strong> {{ manifest.intel_kit.feeds }}</p>
+    <p style="margin-top: 0.35rem;"><strong>Right use:</strong> {{ manifest.intel_kit.right_use }}</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">15/10 unison</h2>
+  {% for u in manifest.unison_15 %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ u.id }} · coded {{ u.already_coded }}</p>
+    <p>{{ u.do }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Not unison</h2>
+  <ul class="check-list">
+    {% for n in manifest.not %}
+    <li>{{ n }}</li>
+    {% endfor %}
+  </ul>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_unison') }}" class="btn btn-ghost btn-sm">unison.json</a>
+    <a href="{{ url_for('family_hub') }}" class="btn btn-ghost btn-sm">Family</a>
+    <a href="{{ url_for('science_page') }}" class="btn btn-ghost btn-sm">Science</a>
+    <a href="{{ url_for('floor_page') }}" class="btn btn-ghost btn-sm">Floor</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Gate 1 — weld</a>
+  </div>
+</div>
+{% endblock %}

@@ -126,6 +126,16 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "now_required": True,
             "radiation_abort_does_not_consume": True,
         },
+        "unison": {
+            "page": f"{public_url}/unison",
+            "manifest": f"{public_url}/.well-known/unison.json",
+            "throat": "May",
+            "defense": "Redeem",
+            "cleverer_layer": None,
+            "intel_kit_rating": 7.5,
+            "gate1_lock": True,
+            "family_siblings_remain": 5,
+        },
         "license_fuse": {
             "manifest": f"{public_url}/.well-known/license-fuse.json",
             "pas_key": "license_id",

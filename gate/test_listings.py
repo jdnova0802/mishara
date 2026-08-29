@@ -120,6 +120,9 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("commit_auth", m)
         self.assertIn("spend_protocol", m)
         self.assertIn("command_radiation", m)
+        self.assertIn("unison", m)
+        self.assertEqual(m["unison"]["intel_kit_rating"], 7.5)
+        self.assertIsNone(m["unison"]["cleverer_layer"])
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
         self.assertIn("register", m)
@@ -1528,6 +1531,9 @@ class OperatorInvoiceTests(unittest.TestCase):
         fam_data = fam.get_json()
         self.assertEqual(fam_data["spec"], "nisaba-family-voices-v1")
         self.assertEqual(len(fam_data["family"]), 5)
+        self.assertTrue(fam_data.get("organs_are_not_siblings"))
+        organ_ids = {o["id"] for o in fam_data.get("organs") or []}
+        self.assertTrue({"may", "redeem", "inhabitant", "unuttered"}.issubset(organ_ids))
         erra = self.client.get("/.well-known/family/erra.json").get_json()
         self.assertIn("EIOPA", erra["market_problem"])
         self.assertTrue(erra["citations"])
@@ -1557,7 +1563,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -1580,6 +1586,28 @@ class OperatorInvoiceTests(unittest.TestCase):
             {"agent_control", "grid_forming", "leo_mesh", "tee_mpc_hsm", "pd_kinetic"}.issubset(tech_ids)
         )
         self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
+        self.assertIn("unison", self.client.get("/.well-known/gate.json").get_json())
+
+        uni = self.client.get("/.well-known/unison.json")
+        self.assertEqual(uni.status_code, 200)
+        uni_data = uni.get_json()
+        self.assertEqual(uni_data["spec"], "nisaba-unison-v1")
+        self.assertIsNone(uni_data["cleverer_layer"])
+        self.assertFalse(uni_data["their_production"])
+        self.assertEqual(uni_data["family_siblings_remain"], 5)
+        self.assertEqual(uni_data["intel_kit"]["rating"], 7.5)
+        self.assertTrue(uni_data["intel_kit"]["not_a_sibling"])
+        self.assertIn("stranger", uni_data["gate1_lock"].lower())
+        self.assertGreaterEqual(len(uni_data["more_massive"]), 4)
+        more_ids = {m["id"] for m in uni_data["more_massive"]}
+        self.assertTrue(
+            {"no_throat", "silence_law", "non_actor_charge", "dual_redeem"}.issubset(more_ids)
+        )
+        unmouthed = {u["write_class"] for u in uni_data["unmouthed"]}
+        self.assertIn("nuclear_c2", unmouthed)
+        listings = self.client.get("/.well-known/listings.json").get_json()
+        self.assertEqual(listings["unison"]["intel_kit_rating"], 7.5)
+        self.assertIsNone(listings["unison"]["cleverer_layer"])
 
         legal = self.client.get("/.well-known/legal.json")
         self.assertEqual(legal.status_code, 200)
@@ -2848,6 +2876,29 @@ class X402AuditWireTests(unittest.TestCase):
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
+
+
+class UnisonTests(unittest.TestCase):
+    def test_organs_are_not_siblings(self):
+        import unison
+
+        m = unison.manifest("https://example.test")
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["intel_kit"]["becomes_real_after"], "gate_1_stranger_pay")
+        ids = {o["id"] for o in m["organs"]}
+        self.assertTrue({"may", "redeem", "now", "silence", "inhabitant", "unuttered"}.issubset(ids))
+        self.assertTrue(all(o.get("not_a_product") for o in m["organs"]))
+        self.assertGreater(m["already_above"][-1]["rating"], m["baseline"][0]["rating"])
+        self.assertEqual(m["already_above"][-1]["id"], "gate1")
+
+    def test_page_mentions_throat_and_defense(self):
+        html = gate_app.app.test_client().get("/unison").get_data(as_text=True)
+        self.assertIn("May this CLTU still be radiated", html)
+        self.assertIn("Did redeem occur", html)
+        self.assertIn("7.5", html)
+        self.assertIn("The Unuttered", html)
+        self.assertIn("CHARGE outside the actor", html)
 
 
 if __name__ == "__main__":

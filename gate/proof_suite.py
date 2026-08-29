@@ -206,6 +206,34 @@ def run_invariants() -> list[dict[str, Any]]:
         and all((v.get("citations") or v.get("id") == "gate") for v in fam.get("family") or []),
         {"count": len(fam.get("family") or [])},
     )
+    organ_ids = {o.get("id") for o in (fam.get("organs") or [])}
+    add(
+        "family_organs_seated",
+        "May throat + Redeem defense seated as organs, not siblings",
+        fam.get("organs_are_not_siblings") is True
+        and {"may", "redeem", "inhabitant", "unuttered"}.issubset(organ_ids)
+        and len(fam.get("family") or []) == 5,
+        {"organs": sorted(organ_ids)},
+    )
+
+    try:
+        from gate import unison as unison_mod
+    except ImportError:
+        import unison as unison_mod  # type: ignore[no-redef]
+
+    uni = unison_mod.manifest("https://gate.local")
+    add(
+        "unison_map",
+        "Unison map: cleverer_layer null, intel kit 7.5, Gate 1 lock, no sixth sibling",
+        uni.get("cleverer_layer") is None
+        and uni.get("their_production") is False
+        and uni.get("family_siblings_remain") == 5
+        and (uni.get("intel_kit") or {}).get("rating") == 7.5
+        and (uni.get("intel_kit") or {}).get("not_a_sibling") is True
+        and bool(uni.get("gate1_lock"))
+        and len(uni.get("more_massive") or []) >= 4,
+        {"intel": (uni.get("intel_kit") or {}).get("rating")},
+    )
 
     # --- Settlement / kappa surfaces exist ---
     try:
