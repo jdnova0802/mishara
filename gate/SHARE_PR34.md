@@ -12,7 +12,7 @@ Paste this to the other agent:
 > then `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
 > Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash is `/operator`.  
 > **Cash this month:** `CASH_NOW.md` — Bind Room $1,750 as renewal-evidence to AI deployers (not ghosted MGAs). Absolute inventing is museum until Gate 1.  
-> Inventing: H₀ (>agriculture) · R₀ (>Internet) · **COFFIN** (>writing, printing, sanitation, Haber–Bosch, antibiotics/vaccines, electricity). Then pause inventing. Cash path: `MONETIZE_R0.md` · `END22_RANK.md`.
+> Inventing: H₀ · R₀ · COFFIN (paused). **Tools:** `TOOLS.md` (Sheath/Gatewall/etc — build after Gate 1). Cash path: `MONETIZE_R0.md` · `EXTREME_ODDS.md` · `END22_RANK.md`.
 
 ---
 
@@ -52,6 +52,7 @@ Paste this to the other agent:
 | `gate/END22_RANK.md` | **End of age 22 liquid** + top 10 by matter × monetization |
 | `gate/AGES_22_30.md` | **Ages 22–30** liquid + net worth bands (Aim / Fat / Padlock / Absolute) |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
+| `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
 Machine-readable (same branch):  
 `/.well-known/remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
