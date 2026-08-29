@@ -141,7 +141,8 @@ NISABA LLC (Wyoming)
 │   └── Multi-choke sprawl before latch
 │
 └── North-star comps (shape)
-    ├── Merge-with …… DTCC (clearing gravity) × Iridium (evac/crisis medium)
+    ├── Institutional posture …… expeditious clearing · quiet exterior · rent-only on critical capacity
+    └── Declined ………………… spectacle · throat-sale · sovereign cosplay · extraction identity
     ├── Adjacency …… Equinix · Bechtel · ARM · Berkshire entity depth
     └── Avoid ……… Cargill · spectacle platforms · sociology-led brands
 ```

@@ -9,13 +9,13 @@
 
 ## Governing statements
 
-> **Nisaba is an expeditious clearing entity: it applies compressed tempo to every loop it owns; it seeks DTCC-class gravity on the bind; it maintains a Swiss face and an ARM-class protocol latch; it embeds under crisis when invoked; it rents S-tier load-bearing assets and does not sell them; it is never a spectacle company and never a slow museum.**
+> **Nisaba is an expeditious clearing institution. It minimizes latency in every process it controls. It seeks to become load-bearing on irreversible handoffs so that counterparties cannot complete those handoffs without its bind. It presents quietly, collaborates openly, rents capacity on critical rails, and does not divest assets that are — or may become — planetary in scale. It is not a spectacle enterprise, not a consulting practice, and not a museum of unused invention.**
 
 > **Evacuation communications constitute one planetary chokepoint: bind grammar together with satellite and handoff nodes; a federated circle; insider-facing reputation; rent on every S-tier asset; and a role as the anchor that softens crisis landings.**
 
-**Shorter identity form:** *Expeditious clearing — quiet face, compressed interior tempo, one planetary choke, rent-only on S-tier.*
+**Shorter identity form:** *Expeditious clearing institution — quiet exterior, compressed interior tempo, one planetary choke, rent-only on critical capacity.*
 
-Full borrow stack (tempo · shape · face · circle · crisis · capital): `NISABA_IDENTITY_STACK.md`.
+Full institutional identity (interview register): `NISABA_IDENTITY_STACK.md`.
 
 ---
 
@@ -45,8 +45,6 @@ All subsequent sections implement this table. Insurance PAS and form-edition pin
 | Shadow chokepoint dynasty | Media or narrative as a primary business |
 | Maximum **durability** | Maximum spectacle |
 
-**Comparable institutions (shape, not imitation):** **DTCC** (primary north-star comparator) · Iridium / Equinix handoff adjacency · Bechtel emergency embed · ARM protocol latch · Berkshire entity depth — **not** Cargill (food and agricultural expropriation profile — exclude), **not** spectacle-led platforms, **not** sociology- or media-led institutions.
-
 **Success criterion (owner lock):** *“I will know I have become what I intended when I am a civilizational necessity.”*
 
 **Visibility posture:** **Insider-facing reputation.** Public or social-media fame is optional garnish, not the objective. Regulatory and critical-infrastructure visibility is **acceptable** when accompanied by protection; performative public visibility is **prohibited**. Principal risk: **remaining unknown indefinitely** — obscurity to the general public is acceptable; obscurity to **load-bearing insiders** indicates that the chokepoint never latched.
@@ -59,7 +57,7 @@ All subsequent sections implement this table. Insurance PAS and form-edition pin
 
 **Circle:** a **network of embedded partners** (OEMs, counsel, operations, integrators) whose production routes through the bind grammar — neither a familial cult nor performative allies. Partners are selected for **depth of embed**, not affinity.
 
-**Circle scale:** whatever maximizes **durability and force** — not headcount vanity. Target form: a **civilizational pact** (SWIFT / DTCC member gravity), durable against unauthorized disclosure of scheme internals, and capable of persisting across a **multi-planetary** horizon if the grammar travels.
+**Circle scale:** whatever maximizes **durability and force** — not headcount vanity. Target form: a **civilizational membership scheme**, durable against unauthorized disclosure of scheme internals, and capable of persisting across a **multi-planetary** horizon if the grammar travels.
 
 **Deterrence mechanism:** if the circle is breached, **whatever constitutes the counterparty’s core** ceases to route — production, capital, communications handoff, bind path — not reputational humiliation via public media.
 
@@ -118,7 +116,7 @@ Gate foothill = **digital and legal / identity** bind (insurance PAS / form-edit
 
 ## 5. Sell, rent, and collaborate
 
-**Planetary scale or planetary-scale potential → never sell; only rent and collaborate** (DTCC class — retain the toll road; license fields; do not exit the chokepoint).
+**Planetary scale or planetary-scale potential → never sell; only rent and collaborate** — retain the toll road; license fields; do not exit the chokepoint.
 
 **S-tier civilizational emergency need → never sell; only rent.**
 
@@ -169,13 +167,13 @@ Gate foothill = **digital and legal / identity** bind (insurance PAS / form-edit
 
 **Not:** a marketed hero brand. **Invoked** because HALT semantics were already embedded when the crisis arrived.
 
-**North-star comparator:** **DTCC** — shadow, load-bearing, circle structure, civilizational need without throne.
+**When invoked:** because bind semantics were already embedded when the crisis arrived — not because a hero brand was marketed.
 
 ---
 
 ## 8. Legal entity architecture
 
-**Target:** a **Berkshire-grade entity graph by design** — not paperwork as an afterthought.
+**Target:** a **deliberate multi-entity holding graph** — not paperwork as an afterthought.
 
 | Layer | Function |
 |-------|----------|
@@ -197,7 +195,7 @@ See `ENTITY_MAP.md` for the current three-layer stub. This doctrine supplies the
 NOW              Gate 1              Latch                 Meter              Architecture           Allocator chair
 counsel week  →  stranger paid    →  specification cite →  rent on flow    →  entity graph deep   →  allocate into
 narrow brief     + proved            cannot ship without    no consumer         partner circle         matter → orbital
-non-provisional                      OEM embed              chokepoint sale     Berkshire-grade        → energy → …
+non-provisional                      OEM embed              chokepoint sale     multi-entity graph    → energy → …
 conversion
 ```
 
@@ -252,18 +250,18 @@ This doctrine **steers**; it does not **override** freeze manifests or owner gua
 
 ---
 
-## 12. Civilizational detrimental comparators
+## 12. Civilizational load bands (orientation)
 
-Ranked by **planetary load if removed** — owner target landing band (**approximately #7–#11** composite at maturity):
+Ranked by **planetary detriment if the function fails** — owner target at maturity: **sector-critical plus emergency invoke** (not finance-ledger apex unless diverted).
 
-| Rank | Comparator | Lesson for Nisaba |
-|------|------------|-------------------|
-| 1–4 | DTCC · SWIFT · FIS · BNY | Ledger choke — **shape to adopt**, not first medium |
-| 5–8 | TSMC · ASML · Equinix · grid OEM | Physical plant plus grammar — **asset and specification path** |
-| **9–12** | **Verisk · ADP · Iridium · Motorola** | **Target band** — sector-critical plus emergency invoke |
-| 13+ | ARM · Vitol · Bechtel · Bloomberg | Depth and latch models — sequenced after regional proof |
+| Band | Function class | Nisaba implication |
+|------|----------------|--------------------|
+| Apex ledger | Large-value payment and securities finality | Shape of gravity — not first medium |
+| Physical + grammar | Advanced fabrication, interconnection, grid plant | Asset-plus-specification path after latch |
+| **Target** | **Sector-critical registries, payroll-class rails, crisis satcom, public-safety backbone** | **Regional invoke + production embed** |
+| Depth models | Instruction-set latch, commodity routing, emergency engineering, desk protocol | Sequenced after regional proof |
 
-**Merge-with shape:** DTCC. **Do-not-merge shape:** Cargill (food and agricultural sovereign-adjacent expropriation profile).
+**Declined identity class:** food and agricultural extraction empires as defining shape.
 
 ---
 
