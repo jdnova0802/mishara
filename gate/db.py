@@ -120,6 +120,8 @@ def init_db():
             conn.execute("ALTER TABLE bind_tickets ADD COLUMN license_id TEXT")
         if "counterpart_fingerprint" not in ticket_cols:
             conn.execute("ALTER TABLE bind_tickets ADD COLUMN counterpart_fingerprint TEXT")
+        if "holder_id" not in ticket_cols:
+            conn.execute("ALTER TABLE bind_tickets ADD COLUMN holder_id TEXT")
 
         conn.executescript(
             """
@@ -652,14 +654,15 @@ def insert_bind_ticket(
     spend_fingerprint: str | None = None,
     license_id: str | None = None,
     counterpart_fingerprint: str | None = None,
+    holder_id: str | None = None,
 ) -> None:
     with db() as conn:
         conn.execute(
             """INSERT INTO bind_tickets
                (id, job_id, fuse_id, event_id, receipt_hash, token_hash,
                 not_before, not_after, spend_fingerprint, license_id,
-                counterpart_fingerprint, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                counterpart_fingerprint, holder_id, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 ticket_id,
                 job_id,
@@ -672,6 +675,7 @@ def insert_bind_ticket(
                 spend_fingerprint,
                 license_id,
                 counterpart_fingerprint,
+                holder_id,
                 utc_now(),
             ),
         )

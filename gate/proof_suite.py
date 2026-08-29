@@ -235,6 +235,29 @@ def run_invariants() -> list[dict[str, Any]]:
         {"intel": (uni.get("intel_kit") or {}).get("rating")},
     )
 
+    try:
+        from gate import inventions as inventions_mod
+        from gate import inventor as inventor_mod
+        from gate import named_may as named_may_mod
+    except ImportError:
+        import inventions as inventions_mod  # type: ignore[no-redef]
+        import inventor as inventor_mod  # type: ignore[no-redef]
+        import named_may as named_may_mod  # type: ignore[no-redef]
+
+    inv = inventions_mod.manifest("https://gate.local")
+    who = inventor_mod.stamp()
+    add(
+        "inventor_stands",
+        "Inventor is named — Satoshi inverse. May is not bearer by law.",
+        who.get("anonymous") is False
+        and who.get("satoshi_inverse") is True
+        and bool(who.get("name"))
+        and (inv.get("inventor") or {}).get("name") == who.get("name")
+        and len(inv.get("inventions") or []) >= 12
+        and named_may_mod.classify(holder_id=None).get("bearer") is True,
+        {"inventor": who.get("name"), "count": len(inv.get("inventions") or [])},
+    )
+
     # --- Settlement / kappa surfaces exist ---
     try:
         from gate import settlement as settlement_mod

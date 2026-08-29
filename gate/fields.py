@@ -29,6 +29,7 @@ ALLOWED_PAS_KEYS = frozenset(
         "counterpart_kind",
         "counterpart_path",
         "counterpart_method",
+        "holder_id",
     }
 )
 

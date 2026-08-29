@@ -123,6 +123,8 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("unison", m)
         self.assertEqual(m["unison"]["intel_kit_rating"], 7.5)
         self.assertIsNone(m["unison"]["cleverer_layer"])
+        self.assertIn("inventions", m)
+        self.assertFalse(m["inventions"]["anonymous"])
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
         self.assertIn("register", m)
@@ -285,6 +287,8 @@ class FlaskListingTests(unittest.TestCase):
             "/for/operators",
             "/action-os",
             "/science",
+            "/unison",
+            "/inventions",
             "/focus",
             "/positioning",
             "/scorecard",
@@ -1563,7 +1567,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2881,6 +2885,114 @@ class X402AuditWireTests(unittest.TestCase):
         self.assertTrue(any("/api/x402/audit" in u for u in free))
 
 
+class NamedMayAndInventionsTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_inventor_is_named_not_hidden(self):
+        who = self.client.get("/.well-known/inventor.json").get_json()
+        self.assertFalse(who["anonymous"])
+        self.assertTrue(who["satoshi_inverse"])
+        self.assertEqual(who["name"], "Demond Davis")
+        self.assertEqual(who["entity"], "Nisaba LLC")
+        self.assertIsNone(who["pseudonym"])
+
+    def test_inventions_cover_subjects_and_outscale_satoshi(self):
+        r = self.client.get("/.well-known/inventions.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "nisaba-inventions-v1")
+        self.assertEqual(data["inventor"]["name"], "Demond Davis")
+        ids = {i["id"] for i in data["inventions"]}
+        self.assertTrue(
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant"}.issubset(ids)
+        )
+        self.assertGreaterEqual(len(data["subjects"]), 12)
+        html = self.client.get("/inventions").get_data(as_text=True)
+        self.assertIn("Demond Davis", html)
+        self.assertIn("Named may", html)
+        self.assertIn("Satoshi", html)
+
+    def test_named_may_token_alone_cannot_radiate(self):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=named-may",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:NAMED-MAY-1",
+                    "holder_id": "op:demond-davis",
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        ticket = r.get_json()["bind_ticket"]
+        self.assertTrue(ticket["named_may"])
+        self.assertFalse(ticket["bearer"])
+        self.assertEqual(ticket["holder_id"], "op:demond-davis")
+
+        stolen = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NAMED-MAY-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NAMED-MAY-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+            },
+        )
+        self.assertEqual(stolen.status_code, 403)
+        self.assertEqual(stolen.get_json()["reason"], "named_may_holder_required")
+
+        wrong = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NAMED-MAY-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NAMED-MAY-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:someone-else",
+            },
+        )
+        self.assertEqual(wrong.status_code, 403)
+        self.assertEqual(wrong.get_json()["reason"], "named_may_holder_mismatch")
+
+        ok = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NAMED-MAY-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NAMED-MAY-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:demond-davis",
+            },
+        )
+        self.assertEqual(ok.status_code, 200)
+        self.assertTrue(ok.get_json()["radiated"])
+
+    def test_bearer_still_redeems_when_unnamed(self):
+        import named_may
+
+        self.assertTrue(named_may.classify(holder_id=None)["bearer"])
+        law = named_may.check(issued_holder=None, presented_holder=None)
+        self.assertTrue(law["ok"])
+
+
 class UnisonTests(unittest.TestCase):
     def test_organs_are_not_siblings(self):
         import unison
@@ -2889,6 +3001,8 @@ class UnisonTests(unittest.TestCase):
         self.assertIsNone(m["cleverer_layer"])
         self.assertEqual(m["family_siblings_remain"], 5)
         self.assertEqual(m["intel_kit"]["becomes_real_after"], "gate_1_stranger_pay")
+        self.assertEqual(m["inventor"]["name"], "Demond Davis")
+        self.assertFalse(m["inventor"]["anonymous"])
         self.assertEqual(m["primitive"], ["may", "sheath", "prove"])
         self.assertEqual(m["gate1"], "stranger paid and proved")
         ids = {o["id"] for o in m["organs"]}

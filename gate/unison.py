@@ -14,8 +14,13 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
+try:
+    from gate import inventor as inventor_mod
+except ImportError:
+    import inventor as inventor_mod
+
 SPEC = "nisaba-unison-v1"
-INVENTOR = "Nisaba LLC"
+INVENTOR = inventor_mod.INVENTOR["entity"]
 
 CLEVERER_LAYER = None
 THEIR_PRODUCTION = False
@@ -410,7 +415,7 @@ def manifest(public_url: str) -> dict[str, Any]:
     return {
         "spec": SPEC,
         "name": "Nisaba cosmic unison",
-        "inventor": INVENTOR,
+        "inventor": inventor_mod.stamp(),
         "evaluated_at": _now(),
         "cleverer_layer": CLEVERER_LAYER,
         "their_production": THEIR_PRODUCTION,
@@ -447,6 +452,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "inhabitant": f"{base}/.well-known/inhabitant.json",
             "science": f"{base}/.well-known/science-pri.json",
             "operator": f"{base}/operator",
+            "inventions": f"{base}/.well-known/inventions.json",
+            "inventor": f"{base}/.well-known/inventor.json",
         },
         "page": f"{base}/unison",
         "gatekeep": "Unison map. Ours. Not a buyer surface.",

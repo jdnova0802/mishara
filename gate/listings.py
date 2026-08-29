@@ -136,6 +136,14 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "gate1_lock": True,
             "family_siblings_remain": 5,
         },
+        "inventions": {
+            "page": f"{public_url}/inventions",
+            "manifest": f"{public_url}/.well-known/inventions.json",
+            "inventor": f"{public_url}/.well-known/inventor.json",
+            "named_may": f"{public_url}/.well-known/named-may.json",
+            "anonymous": False,
+            "satoshi_inverse": True,
+        },
         "license_fuse": {
             "manifest": f"{public_url}/.well-known/license-fuse.json",
             "pas_key": "license_id",

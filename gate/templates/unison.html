@@ -9,6 +9,7 @@
   <p class="audience-tag">Internal · cosmic map · not a buyer surface</p>
   <h1>After the throat and the defense</h1>
   <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p><strong>{{ manifest.inventor.name }}</strong> · {{ manifest.inventor.entity }} · Patent #{{ manifest.inventor.patent }}</p>
   <p style="color: var(--muted);">{{ manifest.gate1_lock }}</p>
   <p>primitive: <strong>{{ manifest.primitive | join(' · ') }}</strong>
     · Gate 1: <strong>{{ manifest.gate1 }}</strong>
@@ -93,6 +94,7 @@
     <a href="{{ url_for('family_hub') }}" class="btn btn-ghost btn-sm">Family</a>
     <a href="{{ url_for('science_page') }}" class="btn btn-ghost btn-sm">Science</a>
     <a href="{{ url_for('floor_page') }}" class="btn btn-ghost btn-sm">Floor</a>
+    <a href="{{ url_for('inventions_page') }}" class="btn btn-ghost btn-sm">Inventions</a>
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Gate 1 — weld</a>
   </div>
 </div>

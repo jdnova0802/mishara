@@ -150,6 +150,21 @@ except ImportError:
     import unison as unison_mod
 
 try:
+    from gate import inventions as inventions_mod
+except ImportError:
+    import inventions as inventions_mod
+
+try:
+    from gate import inventor as inventor_mod
+except ImportError:
+    import inventor as inventor_mod
+
+try:
+    from gate import named_may as named_may_mod
+except ImportError:
+    import named_may as named_may_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -321,7 +336,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison",
+    "/unison", "/inventions",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -897,6 +912,7 @@ def _finalize_spend_plan(
     spend_write: dict | None = None,
     license_id: str | None = None,
     counterpart: dict | None = None,
+    holder_id: str | None = None,
 ):
     jid = (job_id or "").strip() or None
     fp = spend_protocol_mod.fingerprint(spend_write)
@@ -970,6 +986,7 @@ def _finalize_spend_plan(
             spend_write=spend_write,
             license_id=parent.get("license_id"),
             counterpart=cp,
+            holder_id=holder_id,
         )
         if ticket_pack:
             plan["bind_ticket"] = ticket_pack["bearer"]
@@ -1048,6 +1065,7 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        holder_id=body.get("holder_id"),
     )
 
 
@@ -1092,6 +1110,7 @@ def run_mga_authority(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        holder_id=body.get("holder_id"),
     )
 
 
@@ -1125,6 +1144,7 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        holder_id=body.get("holder_id"),
     )
 
 
@@ -1182,6 +1202,7 @@ def _redeem_ticket_view(*, demo: bool = False):
         now=str(body.get("now") or ""),
         license_id=str(body.get("license_id") or "") or None,
         counterpart=counterpart_mod.parse(body),
+        holder_id=str(body.get("holder_id") or "") or None,
     )
     if isinstance(result, dict):
         result["demo"] = demo
@@ -1374,6 +1395,10 @@ def well_known_gate():
             "science_page": f"{advertised_url()}/science",
             "unison": f"{advertised_url()}/.well-known/unison.json",
             "unison_page": f"{advertised_url()}/unison",
+            "inventions": f"{advertised_url()}/.well-known/inventions.json",
+            "inventions_page": f"{advertised_url()}/inventions",
+            "inventor": f"{advertised_url()}/.well-known/inventor.json",
+            "named_may": f"{advertised_url()}/.well-known/named-may.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1643,6 +1668,32 @@ def unison_page():
         "unison.html",
         manifest=m,
         blocks=unison_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/inventions.json")
+def well_known_inventions():
+    return jsonify(inventions_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/inventor.json")
+def well_known_inventor():
+    return jsonify(inventor_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/named-may.json")
+def well_known_named_may():
+    return jsonify(named_may_mod.spec(advertised_url()))
+
+
+@app.route("/inventions")
+def inventions_page():
+    m = inventions_mod.manifest(advertised_url())
+    return render_template(
+        "inventions.html",
+        manifest=m,
+        blocks=inventions_mod.page_blocks(),
         public_url=advertised_url(),
     )
 
@@ -3411,6 +3462,7 @@ def robots():
             "Disallow: /action-os",
             "Disallow: /science",
             "Disallow: /unison",
+            "Disallow: /inventions",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",
