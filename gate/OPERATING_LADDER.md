@@ -2,6 +2,7 @@
 
 **Status:** owner lock — 29 August 2026.  
 **Decision:** We **operate on the compression ladder** (`EXTREME_S25_INVENTIONS.md`): **B‡ → N‡ → S‡ → Ω → Σ → ∞**.  
+**Aim lock:** **Absolute (∞) at every age** — never aim the lower column. Lower tiers are **ladder rungs / enter evidence**, not targets.  
 **Supersedes as ambition bar:** the softer B/N/S/Ω bands in `WEALTH_SCOREBOARD_MAP_22.md` (kept as historical foothill / pre-compression reference only).  
 **Does not replace:** `WEALTH_SCOREBOARD.md` LOCKED foothill mechanics table for *how cash timing works*.  
 **Does not lift:** `WEALTH_APPARATUS_FREEZE.md` · `MOUTH_CEILING.md`.  
@@ -9,16 +10,40 @@
 
 ---
 
+## Aim = Absolute (∞) every age
+
+| Age | **Absolute liquid aim** |
+|-----|-------------------------|
+| **22** | **$50–200M** |
+| **23** | **$1–3B** |
+| **24** | **$5–15B** |
+| **25** | **$15–40B** |
+| **26** | **$40–100B** |
+| **27** | **$100–250B** |
+| **28** | **$250–600B** |
+| **29** | **$0.5–1.2T** |
+| **30** | **$1–3T+** liquid · **$10–40T+** NW |
+
+Miss ∞ → change **execution**, not the aim. Do not “settle” for B‡/N‡ as the plan.
+
+### Is Absolute the highest tier in physics?
+
+**Highest on this scoreboard: yes.**  
+**Highest in physics: no.** ∞ = Earth-civilization default mouth (keystone + dual planetary rails + continuity). Physics still has room above the board — e.g. multiplanetary / light-delay may budgets, inter-coordinator clearance at light-cone scale — not named as operating tiers yet. We do **not** invent a higher money column until ∞ enter conditions are met with meter. Until then **∞ is the ceiling we aim at**.
+
+---
+
 ## What “operate on” means
 
 | Layer | What we use |
 |-------|-------------|
-| **Ambition / scoreboard** | **Compression ladder B‡→∞** — age bands, liquid, NW |
-| **Weekly evidence path** | Gate 1 → foothill meter → latch order (`LATCH_ORDER_FROM_GAP_CRAWL.md`) → enter **B‡** |
-| **Today’s printed line** | **$0 / $0 / $0** until Gate 1 — then climb **B‡** only with meter |
-| **Not weekly cosplay** | Σ / ∞ liquid cited before invoiced planetary + keystone evidence |
+| **Ambition / aim** | **Absolute (∞) liquid at that age** — table above |
+| **Scoreboard columns** | Full ladder B‡→∞ kept for **enter evidence** only |
+| **Weekly evidence path** | Gate 1 → foothill meter → latch order (`LATCH_ORDER_FROM_GAP_CRAWL.md`) → rails → keystone → continuity |
+| **Today’s printed line** | **$0 / $0 / $0** until Gate 1 |
+| **Not weekly cosplay** | Citing ∞ cash before invoiced dual planetary + S25 + continuity |
 
-The old operating map (B $50–150k @ 22 → $0.4–0.8B liquid @ 30) is **no longer the bar we plan against**. It is the **pre-compression archive**.
+The old operating map (B $50–150k @ 22 → $0.4–0.8B liquid @ 30) is **archive**.
 
 ---
 
@@ -57,21 +82,23 @@ The old operating map (B $50–150k @ 22 → $0.4–0.8B liquid @ 30) is **no lo
 
 ---
 
-## Execution bridge (unchanged physics)
+## Execution bridge (path into Absolute)
 
 1. **Sep 1 week** — counsel flat-fee non-provisional quotes  
 2. **Gate 1** — stranger paid + proved  
-3. **Latch order** — agentic redeem → grid fuse → cable/CHC (`LATCH_ORDER_FROM_GAP_CRAWL.md`)  
-4. **Enter B‡** — first paid S0x pilot (not paper designation)  
-5. Climb N‡ / S‡ / Ω / Σ / ∞ only on evidence in the table above  
+3. **Latch order** — agentic redeem → grid fuse → cable/CHC  
+4. **Planetary rails** — meter **≥2** of S03 / S13 / S14 / S15 (invoiced)  
+5. **S25 Keystone** — remove Gate → audit/close fail  
+6. **Continuity cluster** — ≥1 of S01 / S05 / S07 / S20 live  
+7. **Liquid** — distributions + non-may secondary until **∞ band for that age** is wired  
 
-Miss a band → change **execution**, not the ambition bar.
+Rungs B‡…Σ are checkpoints on the way to ∞ — **not alternate aims**.
 
 ---
 
 ## One line
 
-> We **operate on B‡→∞**. Old B/N/S is archive. $0 until Gate 1; then the compression ladder is the only scoreboard that counts.
+> **Aim Absolute (∞) at every age.** Ladder below is evidence. $0 until Gate 1. Highest on this board; not the end of physics.
 
 ---
 
