@@ -51,6 +51,7 @@ Paste this to the other agent:
 | `gate/MONETIZE_R0.md` | **How to cash R₀** — foothill → latch → rail → Absolute seats |
 | `gate/END22_RANK.md` | **End of age 22 liquid** + top 10 by matter × monetization |
 | `gate/AGES_22_30.md` | **Ages 22–30** liquid + net worth bands (Aim / Fat / Padlock / Absolute) |
+| `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 
 Machine-readable (same branch):  
 `/.well-known/remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`

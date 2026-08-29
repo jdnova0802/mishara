@@ -75,6 +75,8 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 3. Send **≤10** N1 emails to AI deployers / brokers — Renewal Evidence Bind — then stop and prove.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
+**Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.
+
 ---
 
 ## Honest ranking for personal cash
