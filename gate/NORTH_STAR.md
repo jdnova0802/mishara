@@ -14,6 +14,7 @@ This file is the **mountain**.
 `EXTERNAL_S_TIER_INVENTIONS.md` is the **external world-scale invention designations** (S1–S10 — not L2 waive).  
 `PLANETARY_BREAKTHROUGH_INVENTIONS.md` is the **cross-domain breakthrough set** (notice by 22 → need by 30 — designations only).  
 `FACEPALM_SHOCK_INVENTIONS.md` is the **ops/multiplanetary blind-spot set** (launch · link · lag · actuator — designations only).  
+`FORBES_TOP10_FACEPALM_INVENTIONS.md` is the **Forbes Real-Time Top 10 map** (one may-at-irreversibility invention per seat — designations only).  
 `NISABA_TREE.md` is the **one-page tree** (entity · Gate · foothill · ceiling · phases).  
 `EVAC_COMMS_HANDOFF_SPEC.md` is the **ceiling choke invention sketch** (CHC / Evac Bind Ticket — post–Gate 1, not counsel week).  
 Bind Room / MGA outbound is the **first foothold**. Do not put this document in a cold CUO email.
