@@ -3,7 +3,7 @@
 **Status:** orientation map — 29 August 2026. **Not prophecy. Not a freeze lift.**  
 **Does not replace** the LOCKED table in `WEALTH_SCOREBOARD.md`.  
 **Does not authorize** wealth-apparatus expansion (`WEALTH_APPARATUS_FREEZE.md`).  
-**Companions:** `WEALTH_SCOREBOARD.md` · `EXTERNAL_S_TIER_INVENTIONS.md` · `PLANETARY_BREAKTHROUGH_INVENTIONS.md` · `FORBES_TOP10_FACEPALM_INVENTIONS.md` · `IP_ASSET_CEILING.md`
+**Companions:** `WEALTH_SCOREBOARD.md` · `OMEGA_AMBITION_BRIEF.md` (Path Ω — class above Shatter) · `EXTERNAL_S_TIER_INVENTIONS.md` · `PLANETARY_BREAKTHROUGH_INVENTIONS.md` · `FORBES_TOP10_FACEPALM_INVENTIONS.md` · `IP_ASSET_CEILING.md`
 
 **Owner:** Demond · b. Jun 5, 2004 · age **22** until Jun 5, 2027.  
 **Hard rule:** throat intact. High NW via selling may = disqualify.
