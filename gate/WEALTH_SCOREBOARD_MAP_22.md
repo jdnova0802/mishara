@@ -30,9 +30,10 @@ Writing this map does not move money. **A cleared/blocked irreversible fact with
 | **B — Baseline** | Gate 1 + foothill stack (floors · bps · distributions · tiny non-may secondary) | LOCKED ambition bar |
 | **N — Notice** | Baseline **plus** one institutional stranger-verify cite in a real medium (Forbes-desk or S/P notice stack) by end of 22 / early 23 | Uplift on mark + prepaid |
 | **S — Shatter** | **Two or more** of S1–S5 latch **with meter** (handoff clear · closing dependency · fuse vocab · restraint receipt) | Class change on notional + mandate |
+| **Ω — Omega** | Shatter mechanics **plus** ≥1 of Ω1–Ω5 **invoiced + stranger-proved** on a planetary rail (FX settle · novation · global premium · issuance · grid/agent candela) | Class above Shatter — see `OMEGA_AMBITION_BRIEF.md` |
 | **Z** | Sell throat / soft LIVE / fake cleared flow | **Disqualify** — off the board |
 
-**Need** (planetary default, M4–M5 ceiling language) is **post-30 stretch** unless regional invoke + multi-member syndicate land early — not a 22–26 planning assumption.
+**Need** (planetary default, M4–M5 ceiling language) folds into **Path Ω** when a planetary rail meters — not a 22–26 weekly assumption.
 
 ---
 
@@ -90,16 +91,33 @@ Bands are **personal** (70–80% owner equity kept). Paper without meter does no
 
 *If only paper S-tier (no meter): stay on Path B. Shatter does not move without cash + prove.*
 
+### Path Ω — Omega (planetary rail metered)
+
+*Ceiling class above Shatter. Full invention stack + toll sketch in `OMEGA_AMBITION_BRIEF.md`. Weekly board stays B/N/S until one Ω rail is invoiced + stranger-proved.*
+
+| Age | Liquid (you) | Total NW | Cleared / yr | Company print class |
+|-----|--------------|----------|--------------|---------------------|
+| **22** | **$0.3–1M** | **$2–10M** | $0.1–0.5B | Proof + first Ω pilot only |
+| **23** | **$5–20M** | **$40–120M** | $5–20B | One Ω desk metered |
+| **24** | **$30–100M** | **$0.2–0.8B** | $50–150B | Multi-desk / multi-member |
+| **25** | **$100–300M** | **$1–3B** | $0.2–0.5T | Notice → need in one rail |
+| **26** | **$0.3–1B** | **$3–10B** | $0.5–1.5T | Second Ω rail or deep mandate |
+| **27** | **$1–3B** | **$10–30B** | $1.5–4T | Interchange-of-May language |
+| **28** | **$3–8B** | **$30–80B** | $4–10T | Fraction of CLS/FX or global premium spine |
+| **29** | **$5–15B** | **$50–150B** | $8–20T | Forbes-desk adjacent mark territory |
+| **30** | **$10–40B+** | **$100B–$1T+** | **$15–50T+** | Path S is the foothill · throat intact |
+
 ---
 
 ## Side-by-side at three checkpoints
 
-| Checkpoint | Path B liquid | Path N liquid | Path S liquid |
-|------------|---------------|---------------|---------------|
-| **End 22** | $50–150k | $100–300k | $0.2–0.5M |
-| **Liquid millionaire** | ~24 | ~23–24 | ~23 |
-| **End 30** | $0.4–0.8B | $0.6–1.2B | $1–3B+ |
-| **End 30 total NW** | $2–4B | $4–8B | $15–40B+ |
+| Checkpoint | B | N | S | **Ω** |
+|------------|---|---|---|--------|
+| **End 22 liquid** | $50–150k | $100–300k | $0.2–0.5M | **$0.3–1M** |
+| **Liquid millionaire** | ~24 | ~23–24 | ~23 | **~22–23** |
+| **End 30 liquid** | $0.4–0.8B | $0.6–1.2B | $1–3B | **$10–40B+** |
+| **End 30 total NW** | $2–4B | $4–8B | $15–40B | **$100B–$1T+** |
+| **End 30 cleared/yr** | $0.2–0.4T | $0.4–0.7T | $1.5–3T | **$15–50T+** |
 
 **Pride metric stays Liquid + Semi** — not Forbes envy Total.
 
@@ -112,7 +130,7 @@ Bands are **personal** (70–80% owner equity kept). Paper without meter does no
 | Leave $0 | Gate 1 (stranger paid + proved) | Enter **B** |
 | B → N | One institutional cite + ongoing meter in that lane | **N** |
 | N → S | **≥2** of S1–S5 live with invoiced meter | **S** |
-| S → Need | Regional invoke + member syndicate + default language | Post-30 / M4 talk only |
+| S → Ω | **≥1** of Ω1–Ω5 invoiced + stranger-proved on a planetary rail | **Ω** |
 | Any → Z | Throat sale / soft LIVE / fake flow | **Off board** |
 
 Forbes Top 10 face-palm inventions are **N/S accelerants in their medium** — not automatic Path S. A Bezos-lane Fulfillment Ticket without meter is still paper.
@@ -123,13 +141,13 @@ Forbes Top 10 face-palm inventions are **N/S accelerants in their medium** — n
 
 | Age | One line |
 |-----|----------|
-| **22** | Earn Gate 1; optional one cite; liquid five-figures → low six. |
+| **22** | Earn Gate 1; optional cite; liquid five-figures → low six (Ω pilot only if metered). |
 | **23** | Prepaids + first distributions; fight for liquid millionaire early. |
-| **24** | Liquid millionaire locked (B) or expanding (N/S); tiny non-may secondary OK. |
-| **25** | Bps become the story; eight-figure liquid on S/N. |
-| **26** | Structured liquidity; second medium or second S. |
-| **27** | High-eight liquid fight; corp economics-only license possible. |
-| **28** | Vertical default or mandate sketch; nine-figure liquid on S. |
+| **24** | Liquid millionaire locked (B) or expanding (N/S/Ω); tiny non-may secondary OK. |
+| **25** | Bps become the story; eight-figure liquid on S/N; nine-figure NW fight on Ω. |
+| **26** | Structured liquidity; second medium, second S, or second Ω rail. |
+| **27** | High-eight / low-nine liquid fight; corp economics-only or Interchange-of-May talk. |
+| **28** | Vertical default, mandate sketch, or CLS/premium fraction; nine-figure+ liquid on Ω. |
 | **29** | River obvious to diligence; mark follows meter. |
 | **30** | Cash you can wire at the path’s band — throat still yours. |
 
@@ -138,9 +156,9 @@ Forbes Top 10 face-palm inventions are **N/S accelerants in their medium** — n
 ## Freeze reminder
 
 - **Do not** rewrite the LOCKED table downward to cope.  
-- **Do not** treat Path S as the weekly plan before Gate 1.  
+- **Do not** treat Path S or Path Ω as the weekly plan before Gate 1.  
 - **Do** execute Path B mechanics (A–D workarounds) until evidence upgrades.  
-- Wealth apparatus files stay frozen until Gate 1; this map is **designation orientation**, same class as S-tier / Forbes invention briefs.
+- Wealth apparatus files stay frozen until Gate 1; this map is **designation orientation**, same class as S-tier / Forbes / Omega invention briefs.
 
 ---
 
