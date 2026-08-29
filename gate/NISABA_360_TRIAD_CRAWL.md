@@ -55,7 +55,7 @@ Then ask the fourth: **what secondary rule is missing?** (Hart: recognition · c
 | **T2** | **Split opacity** — operational secrecy (shadow choke) **+** mandatory auditability of the *fact of clearance* (stranger prove) | Resolves shadow-dynasty vs prove contradiction | Either transparent toy or opaque capture narrative |
 | **T3** | **Pardon / selective deviation** as first-class dual to may (clemency literature: safety valve without rewriting the code) | Finality systems without mercy become brittle or captured | Only LIVE/DEAD → injustice → legitimacy death |
 | **T4** | **Non-sovereign federation grammar** (EU-as-federation-without-sovereignty line) for evac ceiling | Ceiling without becoming Schmittian exception-sovereign | Evac CHC read as private state-of-exception |
-| **T5** | **Fiduciary / continuation face** on rent-only (not rentier) | Absolute ambition survives moral/political sniff-test | “Tollbooth on civilization” attack sticks |
+| **T5** | **Fiduciary / trusteeship face** on rent-only (not rentier / improperty) — Sayer–style moral economy + stewardship of load-bearing capacity | Absolute ambition survives moral/political sniff-test; rent justified as care of continuation, not exclusion-for-unearned-toll | “Tollbooth on civilization” / rentier attack sticks |
 
 ### The one-line transform
 
