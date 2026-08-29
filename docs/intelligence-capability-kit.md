@@ -332,7 +332,7 @@ Named QA role, accreditation, enterprise Chainalysis/TRM seats, 24/7 shift roste
 - Second-reader checklist  
 - Named counsel / legal escalation path  
 - Engagement acceptance & decline criteria  
-- Onboarding kit clone of Tier 2 desk in &lt;1 week  
+- Onboarding kit clone of Tier 2 desk in under one week  
 
 ### Desk look at Tier 4
 ```
