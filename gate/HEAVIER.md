@@ -24,4 +24,9 @@ Illocution infrastructure (redeemed may = the act) · Closing dependency · Act 
 
 Crisis handoff clearinghouse · Evac bind ticket · Schelling clear · Planetary fuse vocabulary · May candela · Inhabitant receipt as a civil right.
 
+## Above the rail — civilization rent (≫ Conformant)
+
+When flow rent is not enough: **remaining custody** · **must-mouth mandate** · **may reference rate** · **attestation franchise** · **hyperscaler sheath default** · **machine apostille** · **finality definition**.  
+These tax **stock / law / seat**, not stickers. Full table: `GOOD_INVENTING.md` · short page: `ABOVE.md`.
+
 Never sell may / the throat / planetary critical capacity. Contribute to evac-comms; do not own C2.

@@ -9,9 +9,9 @@ Paste this to the other agent:
 
 > Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
 > `gate/SHARE_PR34.md` (this pack)  
-> then `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md`  
+> then `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md`  
 > Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash is `/operator`.  
-> Good inventing: only **9–10/10** (standard · meter · stock · exclusion). Pre-Gate vs post-Gate split in `GOOD_INVENTING.md`.
+> Good inventing: only **9–10/10** (standard · meter · stock · exclusion). Pre-Gate vs post-Gate; **Above Conformant** (rail) and **Above the rail** (civilization rent) in `GOOD_INVENTING.md` / `ABOVE.md`.
 
 ---
 
@@ -39,6 +39,8 @@ Paste this to the other agent:
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |
+| `gate/GOOD_INVENTING.md` | **9–10 only** hunt · pre/post Gate · rail > badge · **above the rail** |
+| `gate/ABOVE.md` | Civilization rent: custody · mandate · index · hyperscaler · apostille |
 
 Machine-readable (same branch):  
 `/.well-known/remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
