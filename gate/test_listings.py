@@ -2919,7 +2919,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2929,6 +2929,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("Named may", html)
         self.assertIn("Satoshi", html)
         self.assertIn("Gate Conformant", html)
+        self.assertIn("The remaining", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3028,6 +3029,8 @@ class UnisonTests(unittest.TestCase):
         self.assertTrue(all(o.get("not_a_product") for o in m["organs"]))
         self.assertGreater(m["already_above"][-1]["rating"], m["baseline"][0]["rating"])
         self.assertEqual(m["already_above"][-1]["id"], "gate1")
+        more_ids = {x["id"] for x in m["more_massive"]}
+        self.assertIn("the_remaining", more_ids)
 
     def test_page_mentions_throat_and_defense(self):
         html = gate_app.app.test_client().get("/unison").get_data(as_text=True)
@@ -3036,6 +3039,7 @@ class UnisonTests(unittest.TestCase):
         self.assertIn("7.5", html)
         self.assertIn("The Unuttered", html)
         self.assertIn("CHARGE outside the actor", html)
+        self.assertIn("remaining", html.lower())
 
 
 class ConformantQicTests(unittest.TestCase):
@@ -3372,9 +3376,11 @@ class RemainingTests(unittest.TestCase):
         self.assertIn("remaining", gate)
 
     def test_folio_given_then_spent(self):
+        never = f"pc:REMAIN-NEVER-{uuid.uuid4().hex[:10]}"
+        job = f"pc:REMAIN-{uuid.uuid4().hex[:10]}"
         empty = self.client.post(
             "/demo/pas/remaining",
-            json={"job_id": "pc:REMAIN-NEVER"},
+            json={"job_id": never},
         ).get_json()
         self.assertTrue(empty["given"]["absent"])
         self.assertEqual(empty["remaining"]["one_way_class"], "no_given")
@@ -3383,10 +3389,10 @@ class RemainingTests(unittest.TestCase):
         self.assertTrue(empty["identity_holds"])
         self.assertIsNone(empty["cleverer_layer"])
 
-        ticket = self._issue("pc:REMAIN-A", "op:remain")
+        ticket = self._issue(job, "op:remain")
         potency = self.client.post(
             "/demo/pas/remaining",
-            json={"job_id": "pc:REMAIN-A"},
+            json={"job_id": job},
         ).get_json()
         self.assertFalse(potency["given"]["absent"])
         self.assertGreaterEqual(potency["given"]["tickets_issued"], 1)
@@ -3399,9 +3405,9 @@ class RemainingTests(unittest.TestCase):
             json={
                 "ticket_id": ticket["ticket_id"],
                 "token": ticket["token"],
-                "job_id": "pc:REMAIN-A",
+                "job_id": job,
                 "method": "POST",
-                "path": "/job/v1/jobs/pc:REMAIN-A/bind-only",
+                "path": f"/job/v1/jobs/{job}/bind-only",
                 "spend_fingerprint": ticket["spend_fingerprint"],
                 "now": _now(),
                 "holder_id": "op:remain",
@@ -3410,7 +3416,7 @@ class RemainingTests(unittest.TestCase):
         self.assertEqual(redeem.status_code, 200)
         stock = self.client.post(
             "/demo/pas/remaining",
-            json={"job_id": "pc:REMAIN-A"},
+            json={"job_id": job},
         ).get_json()
         self.assertTrue(stock["act"]["occurred"])
         self.assertEqual(stock["remaining"]["one_way_class"], "spent_one_wayness")
