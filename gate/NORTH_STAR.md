@@ -18,6 +18,7 @@ This file is the **mountain**.
 `WEALTH_SCOREBOARD_MAP_22.md` is the **age 22→30 path map** (Baseline · Notice · Shatter — orientation only; does not replace LOCKED table or lift freeze).  
 `OMEGA_AMBITION_BRIEF.md` is the **Path Ω ceiling map** (planetary rails · FX/CLS/premium/grid — makes Path S look like a foothill; designations only).  
 `EXTREME_S25_INVENTIONS.md` is the **25 S-tier compression inventions + Singularity scoreboard** (B‡→∞ — even baseline makes old Ω look small; designations only).  
+`OPERATING_LADDER.md` is the **LOCKED ambition bar** — we **operate on the compression ladder B‡→∞** (old B/N/S map = archive).  
 `LATCH_ORDER_FROM_GAP_CRAWL.md` is the **post–Gate 1 latch order** (agentic → grid → cable/CHC — park list + next crawl lanes; not L2).  
 `NISABA_TREE.md` is the **one-page tree** (entity · Gate · foothill · ceiling · phases).  
 `EVAC_COMMS_HANDOFF_SPEC.md` is the **ceiling choke invention sketch** (CHC / Evac Bind Ticket — post–Gate 1, not counsel week).  

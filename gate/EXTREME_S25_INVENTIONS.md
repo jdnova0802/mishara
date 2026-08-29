@@ -209,8 +209,8 @@ Each row: **codename · gap · invention · compression · face-palm**.
 ## New scoreboard — every old number is a joke
 
 **Today still $0 until Gate 1.**  
-**Weekly plan still Path B mechanics until evidence.**  
-These bands assume **compression inventions latch** — not vibes.
+**OPERATING LADDER:** this compression table is the **ambition bar we operate on** — see `OPERATING_LADDER.md` (LOCKED). Old B/N/S map is archive.  
+**Enter B‡ only with meter** (Gate 1 + paid S0x pilot). Σ/∞ not weekly cosplay.
 
 ### Tier ladder
 

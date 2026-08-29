@@ -1,9 +1,10 @@
 # Wealth Scoreboard Map — Age 22 → 30
 
 **Status:** orientation map — 29 August 2026. **Not prophecy. Not a freeze lift.**  
-**Does not replace** the LOCKED table in `WEALTH_SCOREBOARD.md`.  
+**OPERATING AMBITION BAR:** superseded by `OPERATING_LADDER.md` — we **operate on compression B‡→∞**. This file remains the **pre-compression archive** (old B/N/S/Ω).  
+**Does not replace** the LOCKED mechanics table in `WEALTH_SCOREBOARD.md`.  
 **Does not authorize** wealth-apparatus expansion (`WEALTH_APPARATUS_FREEZE.md`).  
-**Companions:** `WEALTH_SCOREBOARD.md` · `OMEGA_AMBITION_BRIEF.md` (Path Ω) · `EXTREME_S25_INVENTIONS.md` (B‡→∞ Singularity ladder · 25 compression inventions) · `EXTERNAL_S_TIER_INVENTIONS.md` · `PLANETARY_BREAKTHROUGH_INVENTIONS.md` · `FORBES_TOP10_FACEPALM_INVENTIONS.md` · `IP_ASSET_CEILING.md`
+**Companions:** `OPERATING_LADDER.md` · `WEALTH_SCOREBOARD.md` · `OMEGA_AMBITION_BRIEF.md` · `EXTREME_S25_INVENTIONS.md` · `LATCH_ORDER_FROM_GAP_CRAWL.md` · `EXTERNAL_S_TIER_INVENTIONS.md` · `PLANETARY_BREAKTHROUGH_INVENTIONS.md` · `FORBES_TOP10_FACEPALM_INVENTIONS.md` · `IP_ASSET_CEILING.md`
 
 **Owner:** Demond · b. Jun 5, 2004 · age **22** until Jun 5, 2027.  
 **Hard rule:** throat intact. High NW via selling may = disqualify.
