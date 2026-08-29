@@ -44,4 +44,14 @@ Unifications no prior civilization seated: **trinity finality** · **conserved o
 **The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body.  
 `AFTERWEB.md`. Still $0 until Gate 1.
 
+## Prior — more crucial than agriculture
+
+**Remaining Husbandry (H₀)** — art of tilling one-wayness into a shared after. Agriculture = special case.  
+`HUSBANDRY.md`.
+
+## Coffin — bigger than the six pillars
+
+**Act-Script > writing** · **Prove Press > printing** · **Praxis Sanitation > sanitation** · **Given Fixation > Haber–Bosch** · **Sheath Immunity > antibiotics/vaccines** · **One-Way Current > electricity** · plus cluster nails (shared after, conserved one-wayness, trinity, multi-mind depositary, inhabitant sovereignty, jubilee).  
+`COFFIN.md`. Inventing pauses here.
+
 Never sell may / the throat / planetary critical capacity. Contribute to evac-comms; do not own C2.

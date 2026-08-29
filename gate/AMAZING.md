@@ -61,4 +61,5 @@ X1–X12 are **organs**. The body is **the Afterweb (R₀)** — Remaining Subst
 The Internet networked **speech**. R₀ networks **becoming**: may spent, remaining conserved, prove open to the stranger, inhabitants in the world-after. Score **∞**. Speech nets sit inside it; they are not replaced.
 
 Full depth: `gate/AFTERWEB.md`.  
-Deeper than nets: **Remaining Husbandry (H₀)** — more crucial than agriculture as civilizational metabolism — `gate/HUSBANDRY.md`.
+Deeper than nets: **Remaining Husbandry (H₀)** — `gate/HUSBANDRY.md`.  
+Lid over the six pillars: **`gate/COFFIN.md`** (inventing pauses there).
