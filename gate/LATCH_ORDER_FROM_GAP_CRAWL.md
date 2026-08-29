@@ -2,7 +2,7 @@
 
 **Status:** operating orientation — 29 August 2026. **Not outbound. Not L2. Not freeze lift.**  
 **Greenlit:** rank the research finds; arm one page; stop inventing scoreboards.  
-**Companions:** `EXTREME_S25_INVENTIONS.md` · `OMEGA_AMBITION_BRIEF.md` · `EXTERNAL_S_TIER_INVENTIONS.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `WEALTH_SCOREBOARD_MAP_22.md` · `MOUTH_CEILING.md`
+**Companions:** `EXTREME_S25_INVENTIONS.md` · `OMEGA_AMBITION_BRIEF.md` · `EXTERNAL_S_TIER_INVENTIONS.md` · `EVAC_COMMS_HANDOFF_SPEC.md` · `WEALTH_SCOREBOARD_MAP_22.md` · `MOUTH_CEILING.md` · `ABSOLUTE_NOW_LATCH.md` · `ABSOLUTE_S_SWEEP.md`
 
 **Hard gates:** counsel quotes (Sep 1 week) → Gate 1 stranger paid+proved → then this order. Throat intact.
 
