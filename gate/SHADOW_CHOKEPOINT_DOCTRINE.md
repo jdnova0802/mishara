@@ -9,11 +9,11 @@
 
 ## Governing statements
 
-> **Nisaba is an expeditious clearing institution. It minimizes latency in every process it controls. It seeks to become load-bearing on irreversible handoffs so that counterparties cannot complete those handoffs without its bind. It presents quietly, collaborates openly, rents capacity on critical rails, and does not divest assets that are — or may become — planetary in scale. It is not a spectacle enterprise, not a consulting practice, and not a museum of unused invention.**
+> **Nisaba LLC is the holding entity. Its institutional posture — expeditious clearing: minimize owned latency; become load-bearing on irreversible handoffs; quiet presentation; open collaboration; rent critical capacity; never spectacle, consulting-as-core, or unused-invention museum — applies across all Nisaba brands. Gate is the clearance institution and primary commercial rail under that posture.**
 
 > **Evacuation communications constitute one planetary chokepoint: bind grammar together with satellite and handoff nodes; a federated circle; insider-facing reputation; rent on every S-tier asset; and a role as the anchor that softens crisis landings.**
 
-**Shorter identity form:** *Expeditious clearing institution — quiet exterior, compressed interior tempo, one planetary choke, rent-only on critical capacity.*
+**Shorter form:** *Nisaba posture across brands — expeditious clearing; Gate as the institution; one planetary choke; rent-only on critical capacity.*
 
 Full institutional identity (interview register): `NISABA_IDENTITY_STACK.md`.
 

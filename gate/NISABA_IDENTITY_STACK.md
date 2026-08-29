@@ -9,7 +9,7 @@
 
 ## If asked what Nisaba is
 
-> **Nisaba is an expeditious clearing institution. It minimizes latency in every process it controls. It seeks to become load-bearing on irreversible handoffs so that counterparties cannot complete those handoffs without its bind. It presents quietly, collaborates openly, rents capacity on critical rails, and does not divest assets that are — or may become — planetary in scale. It is not a spectacle enterprise, not a consulting practice, and not a museum of unused invention.**
+> **Nisaba LLC is the holding entity. Its institutional posture — expeditious clearing: minimize owned latency; become load-bearing on irreversible handoffs; quiet presentation; open collaboration; rent critical capacity; never spectacle, consulting-as-core, or unused-invention museum — applies across all Nisaba brands. Gate is the clearance institution and primary commercial rail under that posture.**
 
 **Shorter form:**
 
