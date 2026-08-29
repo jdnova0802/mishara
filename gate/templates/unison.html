@@ -10,6 +10,9 @@
   <h1>After the throat and the defense</h1>
   <p class="audience-sub">{{ manifest.thesis }}</p>
   <p style="color: var(--muted);">{{ manifest.gate1_lock }}</p>
+  <p>primitive: <strong>{{ manifest.primitive | join(' · ') }}</strong>
+    · Gate 1: <strong>{{ manifest.gate1 }}</strong>
+    · never sell: <strong>{{ manifest.never_sell | join(' / ') }}</strong></p>
   <p>cleverer_layer: <strong>{{ manifest.cleverer_layer }}</strong>
     · their_production: <strong>{{ manifest.their_production }}</strong>
     · family siblings: <strong>{{ manifest.family_siblings_remain }}</strong>

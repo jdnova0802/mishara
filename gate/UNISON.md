@@ -2,7 +2,9 @@
 
 **Motive:** Name what is even more massive than those two organs, and what sits in 15/10 unison with the family — without inventing a cleverer layer.
 
-**Lock:** `cleverer_layer` is null (`/floor`). `their_production` is false until a stranger pays Gate 1 (`/operator`). Ideas stay museum.
+**Lock:** `cleverer_layer` is null (`/floor`). `their_production` is false until Gate 1: **stranger paid and proved**. Never sell may. Never sell the throat. Lab stays frozen. Ideas stay museum.
+
+**Primitive:** may · sheath · prove. September: counsel quotes → Gate 1 → S03 redeem.
 
 Machine-readable: `GET /.well-known/unison.json` · page: `/unison`
 

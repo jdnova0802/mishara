@@ -21,9 +21,16 @@ CLEVERER_LAYER = None
 THEIR_PRODUCTION = False
 
 GATE1_LOCK = (
-    "Nothing in this map is a family addition until a stranger pays Gate 1 "
-    "(operator weld checkout). Ideas stay museum. their_production stays false."
+    "Nothing in this map is a family addition until Gate 1: stranger paid "
+    "and stranger proved. Lab stays frozen. Ideas stay museum. "
+    "their_production stays false. Never sell may. Never sell the throat."
 )
+
+PRIMITIVE = ("may", "sheath", "prove")
+GATE1_SIX_WORDS = "stranger paid and proved"
+NEVER_SELL = ("may", "the throat", "critical planetary capacity")
+SEPTEMBER = "counsel quotes → Gate 1 → S03 redeem"
+CEILING_CHOKE = "evacuation communications handoff"
 
 # ---------------------------------------------------------------------------
 # Baseline the user already named
@@ -35,7 +42,12 @@ BASELINE = (
         "name": "May",
         "organ": "throat",
         "question": "May this CLTU still be radiated, for this vehicle, in this now?",
-        "mass": "Speech of permission. A command not in the shared now is not a command.",
+        "mass": (
+            "Single-use permission that counts. The throat is the load-bearing "
+            "control point — rent it, never sell it. Speech of permission; "
+            "a command not in the shared now is not a command."
+        ),
+        "primitive": "may",
         "shipped": "gate-command-radiation-v1 · /uplink",
         "seated_in_family_voices": False,
         "rating": 10.0,
@@ -45,7 +57,12 @@ BASELINE = (
         "name": "Redeem",
         "organ": "defense",
         "question": "Did redeem occur for this job, in this now?",
-        "mass": "The only radiate verb. LIVE hop is not spend. Redeem is commit.",
+        "mass": (
+            "Consume may at the irreversible moment. LIVE hop is not spend. "
+            "S03 agentic redeem is the next latch after Gate 1 — same mouth "
+            "as DENY. Redeem is commit."
+        ),
+        "primitive": "redeem-at-commit",
         "shipped": "spend protocol · bind-ticket/redeem · gate-exclusion-v1",
         "seated_in_family_voices": False,
         "rating": 10.0,
@@ -101,10 +118,11 @@ ALREADY_ABOVE = (
         "id": "gate1",
         "name": "Stranger Gate 1",
         "vs": "above every idea in this file, including this file",
-        "is": "an event, not a doctrine. First weld paid by a stranger.",
+        "is": "stranger paid and proved. An event, not a doctrine. Lab frozen until then.",
         "shipped": "/operator — unpaid, so still museum",
         "rating": 15.0,
         "kind": "event",
+        "six_words": GATE1_SIX_WORDS,
     },
 )
 
@@ -400,10 +418,17 @@ def manifest(public_url: str) -> dict[str, Any]:
         "crown_the_miss": False,
         "gate1_lock": GATE1_LOCK,
         "thesis": (
-            "May is the throat. Redeem is the defense. Nothing under the floor "
-            "is cleverer. What is more massive is either already on the climb, "
-            "an event (stranger Gate 1), or a prior condition those organs assume."
+            "May is the throat. Redeem is the defense. Primitive is "
+            "may · sheath · prove. Nothing under the floor is cleverer. "
+            "What is more massive is either already on the climb, "
+            "an event (Gate 1: stranger paid and proved), or a prior "
+            "condition those organs assume. Never sell may."
         ),
+        "primitive": list(PRIMITIVE),
+        "gate1": GATE1_SIX_WORDS,
+        "never_sell": list(NEVER_SELL),
+        "september": SEPTEMBER,
+        "ceiling_choke": CEILING_CHOKE,
         "baseline": [dict(b) for b in BASELINE],
         "already_above": [dict(a) for a in ALREADY_ABOVE],
         "more_massive": [dict(m) for m in MORE_MASSIVE],

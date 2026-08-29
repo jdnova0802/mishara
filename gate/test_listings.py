@@ -1598,6 +1598,9 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(uni_data["intel_kit"]["rating"], 7.5)
         self.assertTrue(uni_data["intel_kit"]["not_a_sibling"])
         self.assertIn("stranger", uni_data["gate1_lock"].lower())
+        self.assertEqual(uni_data["primitive"], ["may", "sheath", "prove"])
+        self.assertEqual(uni_data["gate1"], "stranger paid and proved")
+        self.assertIn("may", uni_data["never_sell"])
         self.assertGreaterEqual(len(uni_data["more_massive"]), 4)
         more_ids = {m["id"] for m in uni_data["more_massive"]}
         self.assertTrue(
@@ -2886,6 +2889,8 @@ class UnisonTests(unittest.TestCase):
         self.assertIsNone(m["cleverer_layer"])
         self.assertEqual(m["family_siblings_remain"], 5)
         self.assertEqual(m["intel_kit"]["becomes_real_after"], "gate_1_stranger_pay")
+        self.assertEqual(m["primitive"], ["may", "sheath", "prove"])
+        self.assertEqual(m["gate1"], "stranger paid and proved")
         ids = {o["id"] for o in m["organs"]}
         self.assertTrue({"may", "redeem", "now", "silence", "inhabitant", "unuttered"}.issubset(ids))
         self.assertTrue(all(o.get("not_a_product") for o in m["organs"]))
