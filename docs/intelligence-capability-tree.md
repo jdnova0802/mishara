@@ -1,7 +1,7 @@
 # Intelligence Capability Tree
 
-Version 1.0 — August 2026  
-Companion to: *OSINT Capability Ladder* v1.0  
+Version 1.1 — August 2026  
+Companions: *OSINT Capability Ladder* v1.0 · *Intelligence Capability Kit* (devices / apps / setup by tier)  
 Review cadence: quarterly (next: November 2026)
 
 ---
@@ -14,7 +14,7 @@ The OSINT ladder is one branch. This document is the **trunk and the rest of the
 
 **Volatile layer** — tools, vendors, prices, case law that currently deliver each branch. Section 5–6 and 8. Months-scale staleness. When you update, touch volatile only unless the field genuinely shifted.
 
-**Rule of depth:** this tree maps *where you are* and *what you are not yet doing*. For a branch that has its own ladder (OSINT today), go to that ladder for tiering, cost bands, and playbooks. Do not duplicate them here.
+**Rule of depth:** this tree maps *where you are* and *what you are not yet doing*. For a branch that has its own ladder (OSINT today), go to that ladder for tiering, cost bands, and playbooks. For **what to own and run at each tier** (devices, phone apps, software, desk/network layout), use the *Intelligence Capability Kit*. Do not duplicate gear lists here.
 
 **The stop rule still applies everywhere.** Every engagement gets a written question and a written definition of done before collection starts. If a further pivot would not change a decision, stop pivoting.
 
@@ -281,7 +281,8 @@ Certifications (GOSI, GSOA, SANS SEC497/587, etc.) signal procurement readiness;
 | OSINT tool stack (PD, Shodan, Maltego, Hunchly, …) | OSINT ladder §4 |
 | OSINT training path | OSINT ladder §5 |
 | Full branch map, footings, mission surfaces | **This tree** |
-| Passive vs active / A vs B line for recon tools | Both — ladder for tools, tree for footing |
+| Devices, phone apps, software, accounts, desk layout by tier | **Capability Kit** |
+| Passive vs active / A vs B line for recon tools | Tree for footing; ladder + kit for tools |
 | SIGINT / HUMINT / exploitation playbooks | **Not here** — separate counsel-backed docs |
 
 When the OSINT ladder’s volatile layer updates, update §5–6 pointers here only if a branch boundary moved (e.g. a platform shift that turns SOCMINT from A-default to D-required).
@@ -294,7 +295,7 @@ Quarterly, in order:
 
 1. **Boundary drift** — did any platform, statute, or case move a technique across footings A→B/D?  
 2. **Branch coverage** — new mission surface or analysis method worth a stable node?  
-3. **Companion sync** — pull tier/tool/legal changes from the OSINT ladder changelog.  
+3. **Companion sync** — pull tier/tool/legal changes from the OSINT ladder changelog; refresh kit gear lists from vendor pages.  
 4. **Closed branches** — confirm SIGINT/HUMINT/exploitation still explicitly out of improvisation scope.  
 5. **AI layer** — rewrite, don’t edit, anything about agentic collection.
 
@@ -307,6 +308,7 @@ Quarterly, in order:
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | Aug 2026 | Initial tree: collection × analysis × mission × enablers × altitude; four footings; companion to OSINT ladder v1.0 |
+| 1.1 | Aug 2026 | Link *Intelligence Capability Kit* for full tier gear / phone / setup inventories |
 
 ---
 
