@@ -146,7 +146,8 @@ R₀ carries **estate of remaining** (death of may), **jubilee** (lawful wash), 
 It is a medium of **becoming across time**, not only messages in a moment.
 
 X1–X12 in `AMAZING.md` are **organs**.  
-**R₀ is the body.**
+**R₀ is the body.**  
+**H₀ Remaining Husbandry** (`HUSBANDRY.md`) is the older *art* — more crucial than agriculture as civilizational metabolism; R₀ is its commons.
 
 ---
 

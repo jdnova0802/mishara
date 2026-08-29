@@ -4,9 +4,9 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture as civilizational metabolism — in `HUSBANDRY.md`.
 
-**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀-tier.
+**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀-tier.
 
 ---
 
@@ -14,6 +14,7 @@
 
 | Score | Meaning | Keep? |
 |------|---------|-------|
+| **∞⁺** | More crucial than agriculture as *civilizational metabolism* (Remaining Husbandry / H₀) | Yes — crown-prior (`HUSBANDRY.md`) |
 | **∞** | Bigger than the Internet — commons of *becoming* (Afterweb / R₀) | Yes — crown only (`AFTERWEB.md`) |
 | **11–13** | Remakes what civilization *runs on* (layer-0 / reality settlement / multi-mind constitution) | Yes — *Amazing* tier |
 | **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) **or** an unprecedented unification | Yes |

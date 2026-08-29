@@ -44,6 +44,7 @@ Rank = how much the world changes if it Schellings — **not** “easiest cash t
 
 | # | Invention | Matter | Monetization potential (shape) | End-22? |
 |---|-----------|--------|----------------------------------|---------|
+| **0** | **Remaining Husbandry / H₀** — second harvest; more crucial than agriculture as civilizational metabolism | **∞⁺** | Tithe on becoming: custody + prove + jubilee + LIVE existence — same Absolute seats as R₀, framed as granary economics | Doctrine now; cash via R₀ seats post Gate 1 |
 | **1** | **Afterweb / R₀** — commons of becoming (body) | **∞** | Thin take on irreversible clears + custody of remaining + existence rent — **$10B–$100B+** category cartoon when Schelling | Ceiling only — not 9-mo liquid |
 | **2** | **Reality Settlement Layer** — shared world-after clear/query | **13** | DTCC×Fedwire×HTTPS energy — clear+query rent on every agent that must agree what happened → **$B–$10B+** | Unlikely full; doctrine + design-partner |
 | **3** | **Multi-mind finality constitution** — depositary between kinds of mind | **13** | Treaty/settlement retainers when swarms are counterparties → Absolute if multi-mind economy appears | Post-22 |
@@ -75,12 +76,12 @@ Rank = how much the world changes if it Schellings — **not** “easiest cash t
 |--------------|------|
 | **Cash before Gate 1** | Bind $1,750 · Refusal $7.5k · weld $25k (`CASH_NOW.md`) |
 | **Liquid by end of 22** | Gate 1 → S03/QIC → Conformant → **#4 Layer-0 / #9 interchange·insurability** → ownership sale |
-| **Absolute ceiling** | **#1 R₀** body · **#2–3** settlement/constitution · **#5–7** custody/mandate/teeth |
+| **Absolute ceiling** | **#0 H₀** art · **#1 R₀** body · **#2–3** settlement/constitution · **#5–7** custody/mandate/teeth |
 
 ---
 
 ## One line
 
-> Combined inventions: **Aim $50–200M · Fat $200–800M · Padlock $0.5–2B** liquid by end of 22 if Gate 1 + latch + buyer — **$0 without Gate 1**. R₀ Absolute **$10B–$100B+** is the multi-year ceiling, not the June 2027 wire. Matter king = **Afterweb**. Money latch = **Conformant+QIC**. Near cash = **Bind**.
+> Combined inventions: **Aim $50–200M · Fat $200–800M · Padlock $0.5–2B** liquid by end of 22 if Gate 1 + latch + buyer — **$0 without Gate 1**. R₀ Absolute **$10B–$100B+** is the multi-year ceiling, not the June 2027 wire. Matter deeper than agriculture = **H₀ Remaining Husbandry**. Matter king of nets = **Afterweb**. Money latch = **Conformant+QIC**. Near cash = **Bind**.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*
