@@ -200,6 +200,11 @@ except ImportError:
     import standing as standing_mod
 
 try:
+    from gate import general as general_mod
+except ImportError:
+    import general as general_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -350,6 +355,8 @@ STANDING_SKU_LABELS = {
     "standing_book": STANDING_BOOK_LABEL,
     "standing_desk": STANDING_DESK_LABEL,
 }
+GENERAL_SEAT_LABEL = os.getenv("GATE_GENERAL_SEAT_LABEL", general_mod.SEAT_LABEL)
+GENERAL_SEAT_CENTS = int(os.getenv("GATE_GENERAL_SEAT_CENTS", str(general_mod.SEAT_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -396,7 +403,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -437,6 +444,7 @@ def inject_globals():
         "standing_write_price": STANDING_WRITE_LABEL,
         "standing_book_price": STANDING_BOOK_LABEL,
         "standing_desk_price": STANDING_DESK_LABEL,
+        "general_seat_price": GENERAL_SEAT_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
@@ -1479,6 +1487,8 @@ def well_known_gate():
             "finished_page": f"{advertised_url()}/finished",
             "standing": f"{advertised_url()}/.well-known/standing.json",
             "standing_page": f"{advertised_url()}/standing",
+            "general": f"{advertised_url()}/.well-known/general.json",
+            "general_page": f"{advertised_url()}/general",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2082,6 +2092,68 @@ def demo_standing_pack():
             advertised_url(),
             CONTACT_EMAIL,
             sku=sku,
+        )
+    )
+
+
+@app.route("/.well-known/general.json")
+def well_known_general():
+    return jsonify(general_mod.manifest(advertised_url()))
+
+
+@app.route("/general")
+def general_page():
+    return render_template(
+        "general.html",
+        manifest=general_mod.manifest(advertised_url()),
+        seat_price=GENERAL_SEAT_LABEL,
+        standing_desk_price=STANDING_DESK_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/general/checkout", methods=["POST"])
+def general_checkout():
+    email = (request.form.get("email") or "").strip()
+    institution = (request.form.get("institution") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("general_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, GENERAL_SEAT_CENTS, product="correspondent_seat")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Correspondent Remaining (dev)",
+            f"{email} {GENERAL_SEAT_LABEL} institution={institution or 'later'}",
+            {"email": email, "institution": institution, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Correspondent Remaining.", "error")
+        return redirect(url_for("general_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[general_mod.stripe_line_item()],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/general?canceled=1",
+        metadata={"product": "correspondent_seat", "contact_email": email, "institution": institution},
+        subscription_data={
+            "metadata": {"product": "correspondent_seat", "contact_email": email, "institution": institution},
+        },
+    )
+    db.create_install_order(email, checkout.id, GENERAL_SEAT_CENTS, product="correspondent_seat")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/correspondent", methods=["POST"])
+def demo_correspondent_books():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        general_mod.correspondent_books(
+            body.get("left_job") or body.get("job_id") or "",
+            body.get("right_job") or "",
         )
     )
 
@@ -3646,6 +3718,15 @@ def billing_webhook():
                 f"{STANDING_SKU_LABELS[product]} from {email} job={job_id or 'later'}",
                 {"email": email, "sku": product, "job_id": job_id, "session": sess["id"]},
             )
+        elif product == "correspondent_seat":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            institution = (sess.get("metadata") or {}).get("institution") or ""
+            notify.money(
+                "CASH — Correspondent Remaining",
+                f"{GENERAL_SEAT_LABEL} from {email} institution={institution or 'later'}",
+                {"email": email, "institution": institution, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3681,6 +3762,13 @@ def billing_webhook():
                 notify.money(
                     "CASH — Standing Remaining (renewal)",
                     f"{STANDING_SKU_LABELS[product]} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product == "correspondent_seat":
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Correspondent Remaining (renewal)",
+                    f"{GENERAL_SEAT_LABEL} from {email}",
                     {"email": email, "sku": product, "invoice": inv.get("id")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
@@ -3898,6 +3986,7 @@ def robots():
             "Disallow: /remaining",
             "Disallow: /finished",
             "Disallow: /standing",
+            "Disallow: /general",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

@@ -32,7 +32,7 @@ Identity: `remaining = given − spent one-wayness`
 
 ## Medium
 
-World-budget of one-wayness · irreversibility taxonomy · trial balance of may · licensed forgetfulness · correspondent remaining
+World-budget of one-wayness · irreversibility taxonomy · trial balance of may · licensed forgetfulness · **correspondent remaining (now seated: `/general`)**
 
 ## Long
 

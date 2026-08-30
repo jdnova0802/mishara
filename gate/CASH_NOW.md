@@ -98,7 +98,8 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 5. **N3 Refusal $7,500** — if a board is already scared  
 6. **Install $2,500** / **N2 broker pack** / **N6 standing book $9,000/mo**  
 7. **Operator $25k + $5k/mo** — only if they will implement a licensed desk  
-8. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
+8. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
+9. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
 
 > Absolute is October’s launch language. **September’s dollar is Bind, Finished, or Standing.**
 

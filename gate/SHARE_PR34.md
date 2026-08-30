@@ -9,10 +9,10 @@ Paste this to the other agent:
 
 > Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
 > `gate/SHARE_PR34.md` (this pack)  
-> then `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
-> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/standing` · `/finished` · `/bind-room` · `/operator`.  
-> **Cash this month:** `STANDING.md` — remaining lease $4,500/mo / $9,000/mo / $25,000/mo (100% Nisaba, no split). `PRINT.md` — Finished Remaining $8,500 one-shot. `CASH_NOW.md` — Bind Room $1,750 highest-probability. Absolute inventing is museum until Gate 1.  
-> Inventing: H₀ · R₀ · COFFIN (paused). **Tools:** `TOOLS.md` (Sheath/Gatewall/etc — build after Gate 1). Cash path: `STANDING.md` · `PRINT.md` · `MONETIZE_R0.md` · `EXTREME_ODDS.md` · `END22_RANK.md`.
+> then `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
+> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/general` · `/standing` · `/finished` · `/bind-room` · `/operator`.  
+> **Cash this month:** Bind $1,750 · Finished $8,500 · Standing lease. **Nine-figure structure:** `GENERAL.md` — money is a special case of remaining; correspondent seat $1,000,000/yr; 100 seats = $100M. Not a September spray.  
+> Inventing: The General contains Satoshi. H₀ · R₀ · COFFIN (paused). **Tools:** `TOOLS.md`. Cash path: `GENERAL.md` · `STANDING.md` · `PRINT.md` · `CASH_NOW.md`.
 
 ---
 
@@ -40,6 +40,7 @@ Paste this to the other agent:
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |
+| `gate/GENERAL.md` | **Contains Satoshi** — money is a special case · correspondent remaining $1M/yr · 100 seats = $100M · `/general` |
 | `gate/STANDING.md` | **Recurring that prints** — remaining lease $4,500/mo · $9,000/mo · $25,000/mo · 100% Nisaba · `/standing` |
 | `gate/PRINT.md` | **Prints this week** — Finished Remaining $8,500 operated folio · broker pack $4,500 · `/finished` |
 | `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 highest-probability · Finished $8,500 highest-ticket · Refusal $7.5k |
@@ -57,7 +58,7 @@ Paste this to the other agent:
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
 Machine-readable (same branch):  
-`/.well-known/standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
+`/.well-known/general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
 
 ---
 

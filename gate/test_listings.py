@@ -145,6 +145,12 @@ class ManifestTests(unittest.TestCase):
         self.assertTrue(m["standing"]["no_split"])
         self.assertEqual(m["standing"]["desk"], "$25,000/mo")
         self.assertEqual(m["standing"]["category"], "remaining_lease")
+        self.assertIn("general", m)
+        self.assertEqual(m["general"]["identity"], "money is a special case of remaining")
+        self.assertEqual(m["general"]["seat"], "$1,000,000/yr")
+        self.assertEqual(m["general"]["n_for_100m"], 100)
+        self.assertTrue(m["general"]["not_a_maycoin"])
+        self.assertTrue(m["general"]["civilizational"])
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1589,7 +1595,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2930,7 +2936,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2943,6 +2949,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("The remaining", html)
         self.assertIn("Finished Remaining", html)
         self.assertIn("Standing Remaining", html)
+        self.assertIn("The General", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3569,6 +3576,65 @@ class StandingRemainingTests(unittest.TestCase):
                 follow_redirects=False,
             )
             self.assertIn(r.status_code, (302, 303), sku)
+
+
+class TheGeneralTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_contains_satoshi_and_prints_structurally(self):
+        import general
+
+        m = general.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-the-general-v1")
+        self.assertEqual(m["identity"], "money is a special case of remaining")
+        self.assertTrue(m["containment"]["satoshi_inverse_is_not_enough"])
+        self.assertTrue(m["not_a_maycoin"])
+        self.assertTrue(m["no_split"])
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["sku"]["label"], "$1,000,000/yr")
+        self.assertEqual(m["sku"]["n_for_nine_figures"], 100)
+        self.assertEqual(m["print"]["easy_nine_figure"]["n_for_100m"], 100)
+        self.assertFalse(m["print"]["easy_nine_figure"]["this_year"])
+        self.assertEqual(m["print"]["easy_nine_figure"]["until_gate1_usd"], 0)
+        ids = {c["id"] for c in m["containment"]["special_cases"]}
+        self.assertTrue({"bitcoin", "double_entry", "carbon", "conformant_qic"}.issubset(ids))
+        item = general.stripe_line_item()
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "year")
+        self.assertEqual(item["price_data"]["unit_amount"], 100_000_000)
+        html = self.client.get("/general").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("special case of remaining", html)
+        self.assertIn("$1,000,000/yr", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /general", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("general", gate)
+
+    def test_correspondent_books_neither_forges_alone(self):
+        left = f"pc:CORR-L-{uuid.uuid4().hex[:10]}"
+        right = f"pc:CORR-R-{uuid.uuid4().hex[:10]}"
+        books = self.client.post(
+            "/demo/pas/correspondent",
+            json={"left_job": left, "right_job": right},
+        ).get_json()
+        self.assertEqual(books["kind"], "correspondent_remaining")
+        self.assertTrue(books["neither_forges_alone"])
+        self.assertTrue(books["not_a_maycoin"])
+        self.assertEqual(books["payee"], "Nisaba LLC")
+        self.assertEqual(books["the_general"], "money is a special case of remaining")
+        self.assertIn("folio", books["left"])
+        self.assertIn("folio", books["right"])
+        email = f"corr-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/general/checkout",
+            data={"email": email, "institution": "Example Re"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
 
 
 if __name__ == "__main__":

@@ -458,6 +458,27 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "remaining lease — cash door, not a sibling, not a /for/ plate",
     },
     {
+        "id": "the_general",
+        "subject": "general",
+        "name": "The General",
+        "claim": (
+            "Satoshi inverted still plays Satoshi's game. The General contains him. "
+            "Money is a special case of remaining. Correspondent remaining is the "
+            "DTCC seat: two books, one remaining, neither forges alone. "
+            "100 seats × $1M/yr = $100M. Not a maycoin."
+        ),
+        "satoshi": "Conserved coins, gave the protocol away, hid, could not cash. The rival is still money.",
+        "heavier": (
+            "More insane than the inverse: Bitcoin is a class, not the game. "
+            "Correspondent remaining was two lines. Now the books exist. "
+            "Nine figures the SWIFT way — institutions, not consumers."
+        ),
+        "real": "general.py · /general · POST /demo/pas/correspondent · $1,000,000/yr seat",
+        "status": "shipped",
+        "cash": True,
+        "tree": "civilizational cash door — contains Satoshi, not a sibling",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -534,6 +555,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "remaining": f"{base}/.well-known/remaining.json",
             "finished": f"{base}/.well-known/finished.json",
             "standing": f"{base}/.well-known/standing.json",
+            "general": f"{base}/.well-known/general.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -547,6 +569,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Civilizational",
+            "title": "The General — money is a special case",
+            "body": (
+                "Contains Satoshi. Correspondent remaining seat $1,000,000/yr. "
+                "100 seats is nine figures. Checkout is /general."
+            ),
         },
         {
             "tag": "Recurring",

@@ -301,8 +301,8 @@ MEDIUM: tuple[dict[str, Any], ...] = (
             "the stock after both have spoken."
         ),
         "dots": "correspondent banking × PvP may × Swiss recusal × Velaru",
-        "real": "designation on pvp settle + remaining folio",
-        "status": "weld",
+        "real": "general.correspondent_books · POST /demo/pas/correspondent · /general",
+        "status": "shipped",
         "not_threatening": "Two books, one remaining. How clearing already works.",
     },
 )
@@ -541,6 +541,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "heavier": f"{base}/.well-known/heavier.json",
             "finished": f"{base}/finished",
             "standing": f"{base}/standing",
+            "general": f"{base}/general",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/remaining",
