@@ -85,6 +85,8 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 | Builder shipping tool-use with irreversible writes (pay, delete, bind, send) | Defense / nuclear / C2 |
 | Warm human who already opened a plate | “Everyone on the opportunities map” |
 
+**Full buyer map:** `gate/BUYERS.md` — A/B this week, C after logos, D cite, E after meter, F never. No `/buyers` page. A name on that file is not permission to email them tomorrow.
+
 ---
 
 ## This week (ops, not inventing)
