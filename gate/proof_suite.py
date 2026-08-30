@@ -340,7 +340,8 @@ def run_invariants() -> list[dict[str, Any]]:
         and rem.get("family_siblings_remain") == 5
         and rem.get("cash_usd") == 0
         and rem.get("cleverer_layer") is None
-        and rem.get("identity") == "remaining = given − spent one-wayness"
+        and rem.get("identity")
+        == "given = spent + remaining + immobilized + W + dead-unused + void"
         and (rem.get("reshape") or {}).get("headline")
         == "Bigger than the act is the remaining."
         and (rem.get("counts") or {}).get("soon", 0) >= 5,

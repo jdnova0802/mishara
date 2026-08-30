@@ -256,7 +256,7 @@ MORE_MASSIVE = (
             "We seated the scribe. Nisaba was also the accountant."
         ),
         "already_in_doctrine": (
-            "remaining.py — folio identity remaining = given − spent one-wayness. "
+            "remaining.py — folio close given = spent + remaining + immobilized + W + dead-unused + void. "
             "Inhabitant /afterward is the letter. Floor is the stop. "
             "cleverer_layer stays null. Being is not a SKU."
         ),

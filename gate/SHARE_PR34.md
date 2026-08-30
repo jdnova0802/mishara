@@ -91,7 +91,7 @@ The act is a journal line. The remaining is the world after.
 
 Nisaba was never only the scribe of the act. She was the accountant of the remaining. `/first` seated the journal. This seats the stock.
 
-`/remaining` · `/.well-known/remaining.json` · `POST /demo/pas/remaining`
+`/remaining` · `/.well-known/remaining.json` · `POST /demo/pas/remaining` · `POST /demo/pas/remaining/wilderness`
 
 Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null. Identity frozen as outbound until Gate 1.
 
@@ -102,18 +102,22 @@ Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null.
 | given | Opening. The world was already there. We will not invent it. |
 | may | Unspent one-wayness |
 | act | Journal line — spending |
-| remaining | The world after — the object |
+| remaining | Not-yet. Waiting to spend. |
+| W | Unused-as-product. Correct next state is still unused. |
 | inhabitant | Who the remaining is for |
 | prove | A stranger can open the stock |
 | floor | The remaining cannot be climbed under |
 
-Identity: `remaining = given − spent one-wayness`
+Identity: `given = spent + remaining + immobilized + W + dead-unused + void`
+
+ω = W / given. Unattested W cannot become remaining. Steward cannot spend W. The Third opens.
 
 ## Soon (shipped in this mouth)
 
-- **Remaining folio** — given / act / remaining for one job
+- **Remaining folio** — given / act / remaining / W for one job
 - **Accounting identity** — the books fail closed
-- **One-way class** — potency / spent / no-given
+- **Wilderness column** — unused-as-product · `POST /demo/pas/remaining/wilderness`
+- **One-way class** — potency / spent / no-given / wilderness
 - **Remaining party** — inhabitant, not the actor
 - **The given as opening** — we will not invent t=0
 

@@ -3426,7 +3426,10 @@ class RemainingTests(unittest.TestCase):
 
         m = remaining.manifest("https://example.test")
         self.assertEqual(m["reshape"]["headline"], "Bigger than the act is the remaining.")
-        self.assertEqual(m["identity"], "remaining = given − spent one-wayness")
+        self.assertEqual(
+            m["identity"],
+            "given = spent + remaining + immobilized + W + dead-unused + void",
+        )
         self.assertIsNone(m["cleverer_layer"])
         self.assertFalse(m["l2_module"])
         self.assertEqual(m["family_siblings_remain"], 5)
@@ -3499,6 +3502,100 @@ class RemainingTests(unittest.TestCase):
             stock["remaining"]["tickets_unconsumed"],
             stock["given"]["tickets_issued"] - stock["act"]["tickets_consumed"],
         )
+        self.assertTrue(stock["close"]["holds"])
+        self.assertEqual(stock["close"]["W"], 0)
+        self.assertEqual(stock["close"]["omega"], 0.0)
+
+    def test_wilderness_column_fail_closed(self):
+        job = f"pc:WILD-{uuid.uuid4().hex[:10]}"
+        ticket = self._issue(job, "op:wild-steward")
+        tid = ticket["ticket_id"]
+        attested = self.client.post(
+            "/demo/pas/remaining/wilderness",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "steward_id": "op:wild-steward",
+            },
+        ).get_json()
+        self.assertTrue(attested["ok"])
+        self.assertEqual(attested["kind"], "wilderness_attested")
+        self.assertEqual(attested["folio"]["close"]["W"], 1)
+        self.assertEqual(attested["folio"]["remaining"]["tickets_unconsumed"], 0)
+        self.assertEqual(attested["folio"]["remaining"]["one_way_class"], "wilderness")
+        self.assertTrue(attested["folio"]["close"]["holds"])
+        self.assertEqual(attested["folio"]["close"]["omega"], 1.0)
+
+        redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": tid,
+                "token": ticket["token"],
+                "job_id": job,
+                "method": "POST",
+                "path": f"/job/v1/jobs/{job}/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:wild-steward",
+            },
+        )
+        self.assertEqual(redeem.status_code, 403)
+        self.assertEqual(redeem.get_json()["reason"], "wilderness_not_ordinary_spend")
+
+        silent = self.client.post(
+            "/demo/pas/remaining/wilderness/reclassify",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-steward",
+                "charge_id": "",
+            },
+        ).get_json()
+        self.assertTrue(silent["halt"])
+        self.assertIn(
+            silent["reason"],
+            (
+                "wilderness_reclassify_needs_charge",
+                "unattested_w_cannot_become_remaining",
+            ),
+        )
+
+        steward_draw = self.client.post(
+            "/demo/pas/remaining/wilderness/draw",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-steward",
+                "charge_id": "chg:wild",
+            },
+        ).get_json()
+        self.assertTrue(steward_draw["halt"])
+
+        opened = self.client.post(
+            "/demo/pas/remaining/wilderness/open",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "third_id": "op:wild-third",
+            },
+        ).get_json()
+        self.assertTrue(opened["ok"])
+        self.assertTrue(opened["third_opens_never_spends"])
+
+        drawn = self.client.post(
+            "/demo/pas/remaining/wilderness/draw",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-third",
+                "charge_id": "chg:wild",
+            },
+        ).get_json()
+        self.assertTrue(drawn["ok"])
+        self.assertEqual(drawn["kind"], "w_draw")
+        self.assertTrue(drawn["folio"]["close"]["holds"])
+        self.assertEqual(drawn["folio"]["close"]["spent"], 1)
+        self.assertEqual(drawn["folio"]["close"]["W"], 0)
 
 
 class FinishedRemainingTests(unittest.TestCase):
@@ -3542,7 +3639,10 @@ class FinishedRemainingTests(unittest.TestCase):
         self.assertEqual(pack["kind"], "finished_remaining_pack")
         self.assertTrue(pack["they_do_not_implement_gate"])
         self.assertEqual(pack["operated_by"], "Nisaba LLC")
-        self.assertEqual(pack["identity"], "remaining = given − spent one-wayness")
+        self.assertEqual(
+            pack["identity"],
+            "given = spent + remaining + immobilized + W + dead-unused + void",
+        )
         self.assertIn("folio", pack)
         self.assertIn("apostille", pack)
         self.assertIn("vital", pack)

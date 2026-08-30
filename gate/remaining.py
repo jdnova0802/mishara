@@ -63,7 +63,8 @@ L2_MODULE = False
 THEIR_PRODUCTION = False
 CLEVERER_LAYER = None
 
-IDENTITY = "remaining = given − spent one-wayness"
+IDENTITY = "given = spent + remaining + immobilized + W + dead-unused + void"
+LEGACY_IDENTITY = "remaining = given − spent one-wayness"
 
 RESHAPE = {
     "headline": "Bigger than the act is the remaining.",
@@ -137,9 +138,10 @@ SOON: tuple[dict[str, Any], ...] = (
             "remaining = given − spent as a civil object that can fail closed."
         ),
         "invention": (
-            "The folio states the identity and whether it holds. If issued "
-            "minus consumed does not equal unconsumed, the remaining is a lie. "
-            "κ already conserves mass. This conserves the stock of one job."
+            "The folio states the close and whether it holds. Unused-as-product "
+            "is W, not leftover remaining. If given does not equal spent + "
+            "remaining + immobilized + W + dead-unused + void, the remaining "
+            "is a lie. Unattested W cannot become remaining."
         ),
         "dots": "Pacioli × κ mouth-invariant × spend map",
         "real": "remaining.folio identity_holds",
@@ -205,6 +207,25 @@ SOON: tuple[dict[str, Any], ...] = (
         "status": "shipped",
         "not_threatening": "Opening balance. We do not sell Being.",
     },
+    {
+        "id": "wilderness_column",
+        "name": "Wilderness column",
+        "horizon": "soon",
+        "first": (
+            "The books treated unused as leftover remaining a CFO can cut, "
+            "or as void that never happened. Unused-as-product had no column."
+        ),
+        "invention": (
+            "W is attested unused whose correct next state is still unused. "
+            "Ordinary redeem of W HALTs. Steward paid for unusedness cannot "
+            "spend it. The Third opens, never spends, unless CHARGE-outside "
+            "for a W-draw or a reclassify. ω = W / given."
+        ),
+        "dots": "unused-as-product × The Third × CHARGE-outside × Roman second mirror",
+        "real": "POST /demo/pas/remaining/wilderness · folio.close",
+        "status": "shipped",
+        "not_threatening": "A column. Not a telescope. Not a journal. Not Being.",
+    },
 )
 
 MEDIUM: tuple[dict[str, Any], ...] = (
@@ -257,13 +278,13 @@ MEDIUM: tuple[dict[str, Any], ...] = (
             "across a mouth."
         ),
         "invention": (
-            "Period close: issued = spent + remaining + immobilized + void. "
-            "If it does not close, the mouth does not speak. κ is the "
-            "coefficient. This is the books."
+            "Period close: given = spent + remaining + immobilized + W + "
+            "dead-unused + void. If it does not close, the mouth does not "
+            "speak. κ is the mouth. W is the warehouse. ω = W / given."
         ),
-        "dots": "κ × Pacioli × ICAD × restraint inventory",
-        "real": "kappa.py + remaining.folio — designation of the close",
-        "status": "weld",
+        "dots": "κ × Pacioli × ICAD × restraint inventory × unused-as-product",
+        "real": "remaining.folio close + wilderness attest / open / draw",
+        "status": "shipped",
         "not_threatening": "Month-end for permission. Controllers already buy this.",
     },
     {
@@ -454,22 +475,86 @@ def _one_way_class(*, issued: int, consumed: int, has_event: bool, spent: bool) 
     return "no_given"
 
 
+def _stock_class(ticket: dict[str, Any]) -> str:
+    return (ticket.get("stock_class") or "remaining").strip() or "remaining"
+
+
+def _halt(reason: str, **extra: Any) -> dict[str, Any]:
+    out = {
+        "ok": False,
+        "halt": True,
+        "reason": reason,
+        "identity": IDENTITY,
+        "unattested_w_cannot_become_remaining": True,
+        "steward_cannot_spend_w": True,
+        "w_draw_is_not_ordinary_spend": True,
+        "third_opens_never_spends": True,
+        "cleverer_layer": CLEVERER_LAYER,
+    }
+    out.update(extra)
+    return out
+
+
+def _columns(tickets: list[dict[str, Any]], job_id: str, now: str) -> dict[str, Any]:
+    immobilized_ids = db_mod.pvp_active_ticket_ids_for_job(job_id) if job_id else set()
+    spent = remaining = immobilized = wilderness = dead_unused = void = 0
+    for t in tickets:
+        consumed = bool(t.get("consumed_at"))
+        klass = _stock_class(t)
+        if consumed:
+            spent += 1
+            continue
+        if klass == "wilderness":
+            wilderness += 1
+            continue
+        if klass == "void":
+            void += 1
+            continue
+        tid = t.get("id") or ""
+        if tid in immobilized_ids:
+            immobilized += 1
+            continue
+        expired = bool(t.get("not_after") and t["not_after"] < now)
+        if expired:
+            dead_unused += 1
+            continue
+        remaining += 1
+    given = len(tickets)
+    close = spent + remaining + immobilized + wilderness + dead_unused + void
+    omega = (wilderness / given) if given else 0.0
+    return {
+        "given": given,
+        "spent": spent,
+        "remaining": remaining,
+        "immobilized": immobilized,
+        "W": wilderness,
+        "dead_unused": dead_unused,
+        "void": void,
+        "close": close,
+        "omega": omega,
+        "holds": given == close,
+    }
+
+
 def folio(job_id: str) -> dict[str, Any]:
     """The remaining of one job — stock, not the apostille of the act."""
     jid = (job_id or "").strip()
     proof = exclusion_mod.prove(jid)
-    spent = bool(proof.get("spent"))
+    spent_act = bool(proof.get("spent"))
     event = db_mod.latest_bind_event_for_job(jid) if jid else None
     tickets = _tickets_for_job(jid)
-    issued = len(tickets)
-    consumed = sum(1 for t in tickets if t.get("consumed_at"))
-    unconsumed = issued - consumed
-    identity_holds = unconsumed == issued - consumed
+    cols = _columns(tickets, jid, _now())
+    issued = cols["given"]
+    consumed = cols["spent"]
+    unconsumed = cols["remaining"]
+    identity_holds = cols["holds"]
     has_event = bool(event)
-    given_absent = (not jid) or (issued == 0 and not has_event and not spent)
+    given_absent = (not jid) or (issued == 0 and not has_event and not spent_act)
     one_way = _one_way_class(
-        issued=issued, consumed=consumed, has_event=has_event, spent=spent
+        issued=issued, consumed=consumed, has_event=has_event, spent=spent_act
     )
+    if cols["W"] and cols["remaining"] == 0 and not spent_act and consumed == 0:
+        one_way = "wilderness"
     letter = None
     if event:
         letter = inhabitant_mod.for_event(event, "")
@@ -478,6 +563,7 @@ def folio(job_id: str) -> dict[str, Any]:
         "kind": "remaining_folio",
         "job_id": jid or None,
         "identity": IDENTITY,
+        "legacy_identity": LEGACY_IDENTITY,
         "identity_holds": identity_holds,
         "the_act_is_not_the_object": True,
         "given": {
@@ -489,7 +575,7 @@ def folio(job_id: str) -> dict[str, Any]:
             "we_will_not_invent_an_opening": True,
         },
         "act": {
-            "occurred": spent,
+            "occurred": spent_act,
             "tickets_consumed": consumed,
             "claim": proof.get("claim"),
             "not_the_object": True,
@@ -497,10 +583,26 @@ def folio(job_id: str) -> dict[str, Any]:
         "remaining": {
             "kind": "stock_after",
             "tickets_unconsumed": unconsumed,
-            "one_way_spent": spent or consumed > 0,
+            "one_way_spent": spent_act or consumed > 0,
             "one_way_class": one_way,
             "for": "inhabitant",
             "not_for": "the actor",
+        },
+        "close": {
+            "spent": cols["spent"],
+            "remaining": cols["remaining"],
+            "immobilized": cols["immobilized"],
+            "W": cols["W"],
+            "dead_unused": cols["dead_unused"],
+            "void": cols["void"],
+            "omega": cols["omega"],
+            "holds": cols["holds"],
+            "law": {
+                "unattested_w_cannot_become_remaining": True,
+                "w_draw_is_not_ordinary_spend": True,
+                "steward_cannot_spend_w": True,
+                "third_opens_never_spends": True,
+            },
         },
         "inhabitant": {
             "audience": inhabitant_mod.AUDIENCE,
@@ -522,7 +624,83 @@ def folio(job_id: str) -> dict[str, Any]:
             "a cleverer layer",
             "Being as a SKU",
             "a sixth sibling",
+            "a new homepage",
         ],
+    }
+
+
+def attest_wilderness(job_id: str, ticket_id: str, steward_id: str) -> dict[str, Any]:
+    result = db_mod.wilderness_attest(
+        job_id=(job_id or "").strip(),
+        ticket_id=(ticket_id or "").strip(),
+        steward_id=(steward_id or "").strip(),
+    )
+    if not result.get("ok"):
+        return _halt(result.get("halt") or "wilderness_attest_failed", **result)
+    pack = folio((job_id or "").strip())
+    return {
+        "ok": True,
+        "kind": "wilderness_attested",
+        "identity": IDENTITY,
+        "attestation": result,
+        "folio": pack,
+        "omega": (pack.get("close") or {}).get("omega"),
+    }
+
+
+def open_wilderness(job_id: str, ticket_id: str, third_id: str) -> dict[str, Any]:
+    result = db_mod.wilderness_open(
+        ticket_id=(ticket_id or "").strip(),
+        third_id=(third_id or "").strip(),
+    )
+    if not result.get("ok"):
+        return _halt(result.get("halt") or "wilderness_open_failed", **result)
+    return {
+        "ok": True,
+        "kind": "wilderness_opened",
+        "identity": IDENTITY,
+        "third_opens_never_spends": True,
+        "attestation": result,
+        "folio": folio((job_id or "").strip()),
+    }
+
+
+def reclassify_wilderness(
+    job_id: str, ticket_id: str, actor_id: str, charge_id: str
+) -> dict[str, Any]:
+    result = db_mod.wilderness_reclassify(
+        ticket_id=(ticket_id or "").strip(),
+        actor_id=(actor_id or "").strip(),
+        charge_id=(charge_id or "").strip(),
+    )
+    if not result.get("ok"):
+        return _halt(result.get("halt") or "unattested_w_cannot_become_remaining", **result)
+    return {
+        "ok": True,
+        "kind": "wilderness_reclassified",
+        "identity": IDENTITY,
+        "attestation": result,
+        "folio": folio((job_id or "").strip()),
+    }
+
+
+def draw_wilderness(
+    job_id: str, ticket_id: str, actor_id: str, charge_id: str
+) -> dict[str, Any]:
+    result = db_mod.wilderness_draw(
+        ticket_id=(ticket_id or "").strip(),
+        actor_id=(actor_id or "").strip(),
+        charge_id=(charge_id or "").strip(),
+    )
+    if not result.get("ok"):
+        return _halt(result.get("halt") or "w_draw_failed", **result)
+    return {
+        "ok": True,
+        "kind": "w_draw",
+        "identity": IDENTITY,
+        "w_draw_is_not_ordinary_spend": True,
+        "attestation": result,
+        "folio": folio((job_id or "").strip()),
     }
 
 
@@ -595,5 +773,13 @@ def page_blocks() -> list[dict[str, Any]]:
         {"tag": "Headline", "title": "The remaining", "body": RESHAPE["headline"]},
         {"tag": "Nisaba", "title": "Accountant", "body": RESHAPE["nisaba"]},
         {"tag": "Identity", "title": "Books", "body": IDENTITY},
+        {
+            "tag": "Wilderness",
+            "title": "W",
+            "body": (
+                "Unused-as-product is a column. Unattested W cannot become "
+                "remaining. The steward cannot spend it. The Third opens."
+            ),
+        },
         {"tag": "Civilization", "title": "Prior", "body": RESHAPE["civilization"]},
     ]

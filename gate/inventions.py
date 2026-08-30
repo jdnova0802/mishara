@@ -426,7 +426,7 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "name": "The remaining",
         "claim": (
             "Bigger than the act is the remaining. The act is a journal line. "
-            "The remaining is the world after. remaining = given − spent one-wayness."
+            "The remaining is the world after. given = spent + remaining + immobilized + W + dead-unused + void."
         ),
         "satoshi": "A chain of spends. Flow without a balance sheet of the world after.",
         "heavier": (

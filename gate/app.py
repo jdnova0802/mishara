@@ -2011,6 +2011,56 @@ def demo_remaining_null():
     return jsonify(remaining_mod.null_result(body.get("job_id") or "", body.get("tried") or ""))
 
 
+@app.route("/demo/pas/remaining/wilderness", methods=["POST"])
+def demo_remaining_wilderness_attest():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.attest_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("steward_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/wilderness/open", methods=["POST"])
+def demo_remaining_wilderness_open():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.open_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("third_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/wilderness/reclassify", methods=["POST"])
+def demo_remaining_wilderness_reclassify():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.reclassify_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("actor_id") or "",
+            body.get("charge_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/wilderness/draw", methods=["POST"])
+def demo_remaining_wilderness_draw():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.draw_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("actor_id") or "",
+            body.get("charge_id") or "",
+        )
+    )
+
+
 @app.route("/.well-known/finished.json")
 def well_known_finished():
     return jsonify(finished_mod.manifest(advertised_url()))

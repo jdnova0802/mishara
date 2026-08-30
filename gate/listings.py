@@ -182,7 +182,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "page": f"{public_url}/remaining",
             "manifest": f"{public_url}/.well-known/remaining.json",
             "headline": "Bigger than the act is the remaining.",
-            "identity": "remaining = given − spent one-wayness",
+            "identity": "given = spent + remaining + immobilized + W + dead-unused + void",
             "not_a_sibling": True,
             "l2_module": False,
             "cleverer_layer": None,
