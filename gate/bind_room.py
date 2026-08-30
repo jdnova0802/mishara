@@ -62,6 +62,11 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
     return {
         "spec": "gate-bind-room-officer-pack-v1",
         "stranger_two": stranger_two(public_url),
+        "bridge": {
+            "page": f"{public_url}/bridge" if public_url else "/bridge",
+            "identity": "forced attach at irreversibility",
+            "not_a_new_sku": True,
+        },
         "price": "$1,750",
         "filing": "Colorado Regulation 10-1-1 Section 6 — SERFF Annual Report, ≤10 pages, officer attestation",
         "not_the_filing": "Appendix B (verify permalinks) is on-request, not the SERFF body.",

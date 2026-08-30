@@ -19,7 +19,8 @@ Inventions raise what the HoldCo **can be worth**. They do not mint cash without
 |------|----------------|--------------------------------|
 | **Miss** | **~$0** | No Gate 1 |
 | Foothill | ~$2k–50k | Bind / thin weld only |
-| Meter | ~$0.1–5M | S03 + early QIC-shaped hops |
+| Meter | ~$0.1–20M | S03 + early QIC / one small–mid desk |
+| **Bridge** | **$5–40M** | Forced attach — one close depends on redeem **before** June (`BRIDGE.md`) |
 | **Aim** | **$50–200M** | Gate 1 + Conformant foothold + redeem rail live + secondary/acq path |
 | **Fat** | **$200–800M** | MAR+QIC live · identity/agent strategic buyer (coffin/H₀ as *narrative*, not as shipped Absolute) |
 | **Padlock** | **$0.5–2B** | “Gate Conformant?” default · fat strategic; full doctrine (H₀/R₀/coffin) can fatten multiple, not replace Gate 1 |
@@ -79,13 +80,13 @@ Rank = how much the world changes if it Schellings — **not** “easiest cash t
 | Optimize for | Pick |
 |--------------|------|
 | **Cash before Gate 1** | Bind $1,750 · Refusal $7.5k · weld $25k (`CASH_NOW.md`) |
-| **Liquid by end of 22** | Gate 1 → S03/QIC → Conformant → **#4 Layer-0 / #9 interchange·insurability** → ownership sale |
+| **Liquid by end of 22** | Gate 1 → S03/QIC → **Bridge (forced attach)** → Conformant → **#4 Layer-0 / #9 interchange·insurability** → ownership sale |
 | **Absolute ceiling** | **#0 H₀** art · **#1 R₀** body · **#2–3** settlement/constitution · **#5–7** custody/mandate/teeth |
 
 ---
 
 ## One line
 
-> Combined inventions: **Aim $50–200M · Fat $200–800M · Padlock $0.5–2B** liquid by end of 22 if Gate 1 + latch + buyer — **$0 without Gate 1**. R₀ Absolute **$10B–$100B+** is the multi-year ceiling, not the June 2027 wire. Matter deeper than agriculture = **H₀ Remaining Husbandry**. Matter king of nets = **Afterweb**. Money latch = **Conformant+QIC**. Near cash = **Bind**.
+> Combined inventions: **Bridge $5–40M before June if a close attaches** · **Aim $50–200M · Fat $200–800M · Padlock $0.5–2B** liquid by end of 22 if Gate 1 + latch + buyer — **$0 without Gate 1**. R₀ Absolute **$10B–$100B+** is the multi-year ceiling, not the June 2027 wire. Gap door = **`/bridge`**. Money latch = **Conformant+QIC**. Near cash = **Bind**.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

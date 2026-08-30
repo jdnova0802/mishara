@@ -388,6 +388,25 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "status": "shipped",
     },
     {
+        "id": "forced_attach_bridge",
+        "subject": "monetization",
+        "name": "Forced attach — meter → Aim bridge",
+        "claim": (
+            "The folio becomes the close. Insurability or hosted redeem plus "
+            "closing dependency. Not a new SKU. Prints before a June sale if "
+            "one throat depends on redeem."
+        ),
+        "satoshi": "A free protocol and a later exchange listing. No attach, no invoice.",
+        "heavier": (
+            "Meter is hops. Aim is a buyer. The unused invention is making one "
+            "close illegal without you — then renting that fact."
+        ),
+        "real": "bridge.py · /bridge · /.well-known/bridge.json · Bind · Standing · Operator",
+        "status": "shipped",
+        "cash": True,
+        "tree": "latch on Gate — S4 / S3 / close, pick one",
+    },
+    {
         "id": "gate1_event",
         "subject": "incarnation",
         "name": "Gate 1 — stranger paid and proved",

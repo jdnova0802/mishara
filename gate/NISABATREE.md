@@ -112,7 +112,7 @@ Gate 1 = **first stranger paid and proved.** Until then, personal cash is these 
 
 **Tuesday sentence:** Bind Room $1,750. Book Bind Room. We will not sell may. We will not build the whole rail on that SKU.
 
-Doors: `/bind-room` · `/standing` · `/finished` · `/refusal` · `/null` · `/estate` · `/discharge` · `/operator` · `/acts`
+Doors: `/bind-room` · `/standing` · `/finished` · `/refusal` · `/null` · `/estate` · `/discharge` · `/operator` · `/acts` · `/bridge` (gap latch — not a new SKU)
 
 ---
 
@@ -125,7 +125,7 @@ Doors: `/bind-room` · `/standing` · `/finished` · `/refusal` · `/null` · `/
 | Being / soul / “cleverer layer” | `cleverer_layer` is **null**. Being is not a SKU. |
 | Fake indexes / MSCI cold pitch from $0 | Cite language is museum until Gate 1 |
 | Sixth sibling / new `/for/` plates | Family lock + mouth ceiling |
-| Absolute / Afterweb / Husbandry / Coffin as a Bind pitch | Pretty metaphysics; $0 without Gate 1 |
+| Absolute / Afterweb / Husbandry / Coffin as a Bind pitch | Pretty metaphysics; $0 without Gate 1. They do not close meter→Aim. Use `/bridge`. |
 
 ---
 

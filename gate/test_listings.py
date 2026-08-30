@@ -129,6 +129,10 @@ class ManifestTests(unittest.TestCase):
         self.assertTrue(m["conformant"]["not_a_sibling"])
         self.assertIn("heavier", m)
         self.assertFalse(m["heavier"]["l2_module"])
+        self.assertIn("bridge", m)
+        self.assertFalse(m["bridge"]["new_sku"])
+        self.assertFalse(m["bridge"]["l2_module"])
+        self.assertEqual(m["bridge"]["bands"]["bridge"], "$5–40M")
         self.assertIn("first", m)
         self.assertTrue(m["first"]["first_in_history"])
         self.assertIn("remaining", m)
@@ -1657,7 +1661,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/bridge", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -3009,7 +3013,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "null_remaining", "estate_of_remaining", "space_academy_remaining", "stranger_two"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "null_remaining", "estate_of_remaining", "space_academy_remaining", "stranger_two", "forced_attach_bridge"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -3324,6 +3328,38 @@ class ConformantQicTests(unittest.TestCase):
         self.assertIn("Disallow: /heavier", robots)
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("heavier", gate)
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+
+    def test_bridge_is_forced_attach_not_a_new_sku(self):
+        import bridge
+
+        m = bridge.manifest("https://example.test")
+        self.assertEqual(m["spec"], "nisaba-bridge-v1")
+        self.assertFalse(m["l2_module"])
+        self.assertFalse(m["new_sku"])
+        self.assertFalse(m["new_price_id"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertTrue(m["pick_one_seat"])
+        self.assertEqual(m["bands"]["bridge"]["liquid"], "$5–40M")
+        self.assertEqual(len(m["seats"]), 3)
+        ids = {s["id"] for s in m["seats"]}
+        self.assertTrue({"s4_insurability", "s3_hosted_redeem", "closing_dependency"}.issubset(ids))
+        self.assertIn("/bind-room", m["cash_doors"]["bind_room"])
+        wk = self.client.get("/.well-known/bridge.json")
+        self.assertEqual(wk.status_code, 200)
+        html = self.client.get("/bridge").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("forced attach", html.lower())
+        self.assertIn("Book Bind Room", html)
+        self.assertNotIn("Pay $", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /bridge", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("bridge", gate)
+        pack = self.client.get("/bind-room/officer-pack.json").get_json()
+        self.assertEqual(pack["bridge"]["identity"], "forced attach at irreversibility")
         fam = self.client.get("/.well-known/family.json").get_json()
         self.assertEqual(len(fam["family"]), 5)
 

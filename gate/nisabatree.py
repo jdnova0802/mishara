@@ -90,10 +90,12 @@ GLOSSARY = (
     ("Conformant", "Badge: this system meets Gate’s lock standard."),
     ("QIC", "Meter unit: one redeem + one irreversible write."),
     ("Bind Room", "$1,750 pack + stranger receipt for underwriters."),
+    ("Bridge", "Forced attach. A close that cannot complete without redeem. Not a new SKU. /bridge"),
     ("Cleverer layer", "Forbidden. Null. Being is not a SKU."),
 )
 
 FIGHT_FOR_22 = {
+    "bridge_liquid": "$5–40M",
     "aim_liquid": "$50–200M",
     "fat_liquid": "$200–800M",
     "padlock": "$0.5–2B",

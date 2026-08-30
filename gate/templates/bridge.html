@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}The Bridge — forced attach{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Gap latch · not a new SKU · noindex</p>
+  <h1>Meter is hops. Aim is a buyer. The bridge is a close that cannot complete without you.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted); max-width: 40rem;">{{ manifest.halt }}</p>
+
+  <div class="grid-3" style="margin: 2rem 0;">
+    {% for seat in manifest.seats %}
+    <div class="card">
+      <p class="audience-tag">{{ seat.id }}</p>
+      <h3>{{ seat.name }}</h3>
+      <p>{{ seat.job }}</p>
+      <p style="color: var(--muted);">{{ seat.pick }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card" style="margin-bottom: 2rem;">
+    <h2>What can print before June</h2>
+    <p>Miss {{ manifest.bands.miss.liquid }} · Meter {{ manifest.bands.meter.liquid }} · <strong>Bridge {{ manifest.bands.bridge.liquid }}</strong> · Aim {{ manifest.bands.aim.liquid }}</p>
+    <p style="color: var(--muted);">{{ manifest.bands.bridge.when }} Afterweb / coffin / Vital do not close this gap.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; flex-wrap: wrap; gap: 0.75rem;">
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Book Bind Room {{ bind_room_price }}</a>
+    <a href="{{ url_for('standing_page') }}" class="btn btn-ghost">Standing {{ standing_write_price }}</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost">Weld {{ weld_price }}</a>
+    <a href="{{ url_for('well_known_bridge') }}" class="btn btn-ghost btn-sm">bridge.json</a>
+  </div>
+</div>
+{% endblock %}

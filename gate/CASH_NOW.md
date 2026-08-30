@@ -110,14 +110,15 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 7. **N8 Null Remaining $4,500** — if they already killed a project (`NULL.md`)  
 8. **N9 Estate $3,500** — if the vendor already dissolved (`ESTATE.md`)  
 9. **Install $2,500** / **N2 broker pack** / **N6 standing book $9,000/mo**  
-10. **Operator $25k + $5k/mo** — only if they will implement a licensed desk  
-11. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
-12. **Commons operator $150,000/yr** — only if a convener with standing is forming a pool (`COMMONS.md`). Seed is Bind/Finished/Standing. Do not sell “join my consortium.”
-13. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
-14. **Priced act rents** — keep-alive **$1,200/mo** · query **$2,000/mo** · silence lease **$1,500/mo** (`ACTS.md` · `/acts`). Thinner than Standing. Not September spray. Not interchange.
-15. **Still-unpaid stack** — scheme assessment · per-clear · S6 employment · custody stock · auth/capture/settle (`FLOWS.md`). Do not sell interchange from Bind.
-16. **The Vital** — Night Law / natal / posology (`VITAL.md`). Life institutions, not interchange. **Museum until Gate 1.** After Gate 1 the first Vital dollar is a night hold you actually operate — not a cartoon.
-17. Everything in `UNPRECEDENTED.md` / `ABOVE.md` / Space Academy — **museum until Gate 1**
+10. **The Bridge `/bridge`** — forced attach (S4 or S3 + close). **Not a new price.** Points at Bind / Standing / Operator. This is how meter becomes pre-June liquid ($5–40M shape) without waiting for a sale.
+11. **Operator $25k + $5k/mo** — only if they will implement a licensed desk  
+12. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
+13. **Commons operator $150,000/yr** — only if a convener with standing is forming a pool (`COMMONS.md`). Seed is Bind/Finished/Standing. Do not sell “join my consortium.”
+14. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
+15. **Priced act rents** — keep-alive **$1,200/mo** · query **$2,000/mo** · silence lease **$1,500/mo** (`ACTS.md` · `/acts`). Thinner than Standing. Not September spray. Not interchange.
+16. **Still-unpaid stack** — scheme assessment · per-clear · S6 employment · custody stock · auth/capture/settle (`FLOWS.md`). Do not sell interchange from Bind.
+17. **The Vital** — Night Law / natal / posology (`VITAL.md`). Life institutions, not interchange. **Museum until Gate 1.** After Gate 1 the first Vital dollar is a night hold you actually operate — not a cartoon.
+18. Everything in `UNPRECEDENTED.md` / `ABOVE.md` / Space Academy — **museum until Gate 1**. `/bridge` is the gap door, not a museum.
 
 > Absolute is October’s launch language. **September’s dollar is Bind, Finished, Standing, Discharge, Estate, or Null.**
 

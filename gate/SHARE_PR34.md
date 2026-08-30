@@ -18,7 +18,7 @@ Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). P
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -29,10 +29,11 @@ LOCKS. Do not violate.
 - No new /for/ plates. No admin CHARGE. No new L2 museum modules
 - First commercial weld: payout/withdraw (/operator). Nuclear C2 / private PD / battlefield = unmouthed (state-only)
 - September: counsel quotes → Gate 1 → S03 redeem
-- Cash doors: /operator · /bind-room · /refusal · /finished · /standing · /discharge · /estate · /null · /acts · /hand · /commons · /general. New pages noindex
+- Cash doors: /operator · /bind-room · /refusal · /finished · /standing · /discharge · /estate · /null · /acts · /hand · /commons · /general. /bridge is the meter→Aim gap latch — not a new SKU, points at Bind/Standing/Operator. New pages noindex
 - Identity frozen as outbound until Gate 1
 - Stripe via price_data (no new Price IDs). GATE_DEV_MODE fake-pays. Do not enable automatic_tax without an active Stripe Tax registration
 - Name-only unless they say ship. Do not seat new $0 museum pages or new checkouts unless they explicitly ask to ship
+- They asked to ship the gap. /bridge is seated. Do not also seat Afterweb/coffin/Vital as cash. Those do not close meter→Aim.
 - Do not: become AIUC · run x402 facilitator · Connect splits · sell a consortium you founded · fake meters/indexes · pitch $300B from Bind · bump the ghosted MGA list
 
 STRANGER-TWO (shipped — last honest ship). / and /bind-room are the same cut. No new page. No new checkout. Officer pack + listings carry stranger_two. Invention row stranger_two / subject communication.
@@ -47,6 +48,7 @@ Halt: We will not sell may. We will not implement the rail on this SKU. If the h
 Cut size: 9 files, 97 in / 103 out (net delete), then a 4-line test fix. The unused remaining of this invention is sending it, not another vein.
 
 ALREADY SEATED THIS MOUTH. Do not re-seat.
+**Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
 
@@ -77,7 +79,7 @@ Not: ghosted MGA list · AI-governance LinkedIn · defense / nuclear / C2.
 NAMED-ONLY. Do not seat as pages.
 EVOID-AS · BATTMAN · federal shelf patents · SBIR Phase-II remainder · USPTO maintenance-fee clock · phage-bank · TOPAZ · EKIP · OGAS/Kitov · dead-repository · thesis appendix · strategic-kill · expired-draft · post-crisis TTO · Implant Remaining · Dead-Seed Remaining · Unpublished-Proof Remaining · Phantom-Dataset Remaining · unused ORFs · Anellotech · seal bathymetry · surplus plutonium · Voyager unused thrusters · SciCast Remaining · Leftover-Pill · Stop-on-EV · Tick Remaining · Substrate Remaining · Punch-Card Remaining · FDA PRV leftover · FERC queue remaining · unused spectrum · unused appropriations.
 
-Do not seat /trial /shelf /phage /topaz /ogas /appendix /implant /seed /proof /phantom /plutonium /voyager /scicast /checklist /cpp /cabinet /circadian /letter /roman /census /unused /incentive /queue /two /cut /inclusion /eligible /haircut /pension /spectrum.
+Do not seat /trial /shelf /phage /topaz /ogas /appendix /implant /seed /proof /phantom /plutonium /voyager /scicast /checklist /cpp /cabinet /circadian /letter /roman /census /unused /incentive /queue /two /cut /inclusion /eligible /haircut /pension /spectrum /annex /fuse. /bridge is already seated.
 
 High-yield leftover *internal* inventions: nah. Communication was the last fat internal one; it shipped as the cut.
 
@@ -138,7 +140,7 @@ PASTE END
 - First commercial weld: payout/withdraw (`/operator`).
 - Nuclear C2 / private PD / battlefield = unmouthed (state-only).
 - September: counsel quotes → Gate 1 → S03 redeem.
-- Cash now: Standing Remaining **$4,500/mo · $9,000/mo · $25,000/mo** (100% you) · Finished Remaining **$8,500** · Null Remaining **$4,500** · Estate of Remaining **$3,500** · Discharge of Record **$1,500** · Bind Room **$1,750** · broker pack **$4,500** · weld **$25k** · floor **$5k/mo** · **10 bps** (+5 above $500M/mo) · $0.10/hop · act rents **$1,200/mo keep-alive · $2,000/mo query · $1,500/mo silence**. Time-source stamp on operated packs — not a `/time` page.
+- Cash now: Standing Remaining **$4,500/mo · $9,000/mo · $25,000/mo** (100% you) · Finished Remaining **$8,500** · Null Remaining **$4,500** · Estate of Remaining **$3,500** · Discharge of Record **$1,500** · Bind Room **$1,750** · broker pack **$4,500** · weld **$25k** · floor **$5k/mo** · **10 bps** (+5 above $500M/mo) · $0.10/hop · act rents **$1,200/mo keep-alive · $2,000/mo query · $1,500/mo silence**. **`/bridge`** = forced attach (no new price). Time-source stamp on operated packs — not a `/time` page.
 
 ---
 
@@ -149,6 +151,7 @@ PASTE END
 | `gate/REMAINING.md` | Bigger than the act: the world after |
 | `gate/FIRST.md` | Depository / recorder of the act + PvP may |
 | `gate/HEAVIER.md` | Inventions that dunk the Conformant badge |
+| `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |

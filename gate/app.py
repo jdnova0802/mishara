@@ -185,6 +185,11 @@ except ImportError:
     import heavier as heavier_mod
 
 try:
+    from gate import bridge as bridge_mod
+except ImportError:
+    import bridge as bridge_mod
+
+try:
     from gate import first as first_mod
 except ImportError:
     import first as first_mod
@@ -465,7 +470,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space",
+    "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/bridge", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1546,6 +1551,8 @@ def well_known_gate():
             "conformant_outcome": f"{advertised_url()}/.well-known/conformant-outcome.json",
             "heavier": f"{advertised_url()}/.well-known/heavier.json",
             "heavier_page": f"{advertised_url()}/heavier",
+            "bridge": f"{advertised_url()}/.well-known/bridge.json",
+            "bridge_page": f"{advertised_url()}/bridge",
             "first": f"{advertised_url()}/.well-known/first.json",
             "first_page": f"{advertised_url()}/first",
             "remaining": f"{advertised_url()}/.well-known/remaining.json",
@@ -1940,6 +1947,22 @@ def heavier_page():
         "heavier.html",
         manifest=m,
         blocks=heavier_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/bridge.json")
+def well_known_bridge():
+    return jsonify(bridge_mod.manifest(advertised_url()))
+
+
+@app.route("/bridge")
+def bridge_page():
+    m = bridge_mod.manifest(advertised_url())
+    return render_template(
+        "bridge.html",
+        manifest=m,
+        blocks=bridge_mod.page_blocks(),
         public_url=advertised_url(),
     )
 
@@ -4726,6 +4749,7 @@ def robots():
             "Disallow: /inventions",
             "Disallow: /conformant",
             "Disallow: /heavier",
+            "Disallow: /bridge",
             "Disallow: /first",
             "Disallow: /remaining",
             "Disallow: /finished",
