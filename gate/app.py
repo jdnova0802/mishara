@@ -195,6 +195,11 @@ except ImportError:
     import finished as finished_mod
 
 try:
+    from gate import standing as standing_mod
+except ImportError:
+    import standing as standing_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -329,6 +334,22 @@ FINISHED_PRICE_LABEL = os.getenv("GATE_FINISHED_PRICE_LABEL", finished_mod.FINIS
 FINISHED_PRICE_CENTS = int(os.getenv("GATE_FINISHED_PRICE_CENTS", str(finished_mod.FINISHED_CENTS)))
 BROKER_PACK_PRICE_LABEL = os.getenv("GATE_BROKER_PACK_PRICE_LABEL", finished_mod.BROKER_LABEL)
 BROKER_PACK_PRICE_CENTS = int(os.getenv("GATE_BROKER_PACK_PRICE_CENTS", str(finished_mod.BROKER_CENTS)))
+STANDING_WRITE_LABEL = os.getenv("GATE_STANDING_WRITE_LABEL", standing_mod.WRITE_LABEL)
+STANDING_WRITE_CENTS = int(os.getenv("GATE_STANDING_WRITE_CENTS", str(standing_mod.WRITE_CENTS)))
+STANDING_BOOK_LABEL = os.getenv("GATE_STANDING_BOOK_LABEL", standing_mod.BOOK_LABEL)
+STANDING_BOOK_CENTS = int(os.getenv("GATE_STANDING_BOOK_CENTS", str(standing_mod.BOOK_CENTS)))
+STANDING_DESK_LABEL = os.getenv("GATE_STANDING_DESK_LABEL", standing_mod.DESK_LABEL)
+STANDING_DESK_CENTS = int(os.getenv("GATE_STANDING_DESK_CENTS", str(standing_mod.DESK_CENTS)))
+STANDING_SKU_CENTS = {
+    "standing_write": STANDING_WRITE_CENTS,
+    "standing_book": STANDING_BOOK_CENTS,
+    "standing_desk": STANDING_DESK_CENTS,
+}
+STANDING_SKU_LABELS = {
+    "standing_write": STANDING_WRITE_LABEL,
+    "standing_book": STANDING_BOOK_LABEL,
+    "standing_desk": STANDING_DESK_LABEL,
+}
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -375,7 +396,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -413,6 +434,9 @@ def inject_globals():
         "refusal_price": REFUSAL_PRICE_LABEL,
         "finished_price": FINISHED_PRICE_LABEL,
         "broker_pack_price": BROKER_PACK_PRICE_LABEL,
+        "standing_write_price": STANDING_WRITE_LABEL,
+        "standing_book_price": STANDING_BOOK_LABEL,
+        "standing_desk_price": STANDING_DESK_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
@@ -1453,6 +1477,8 @@ def well_known_gate():
             "remaining_page": f"{advertised_url()}/remaining",
             "finished": f"{advertised_url()}/.well-known/finished.json",
             "finished_page": f"{advertised_url()}/finished",
+            "standing": f"{advertised_url()}/.well-known/standing.json",
+            "standing_page": f"{advertised_url()}/standing",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -1982,6 +2008,80 @@ def demo_finished_pack():
             body.get("job_id") or "",
             advertised_url(),
             CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/.well-known/standing.json")
+def well_known_standing():
+    return jsonify(standing_mod.manifest(advertised_url()))
+
+
+@app.route("/standing")
+def standing_page():
+    return render_template(
+        "standing.html",
+        manifest=standing_mod.manifest(advertised_url()),
+        finished_price=FINISHED_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/standing/checkout", methods=["POST"])
+def standing_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    sku = (request.form.get("sku") or "standing_write").strip()
+    if sku not in standing_mod.SKUS:
+        flash("Pick a standing SKU.", "error")
+        return redirect(url_for("standing_page"))
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("standing_page"))
+    label = STANDING_SKU_LABELS[sku]
+    cents = STANDING_SKU_CENTS[sku]
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, cents, product=sku)
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Standing Remaining (dev)",
+            f"{email} {label} sku={sku} job={job_id or 'later'}",
+            {"email": email, "sku": sku, "job_id": job_id, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Standing Remaining.", "error")
+        return redirect(url_for("standing_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[standing_mod.stripe_line_item(sku)],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/standing?canceled=1",
+        metadata={"product": sku, "contact_email": email, "job_id": job_id},
+        subscription_data={
+            "metadata": {"product": sku, "contact_email": email, "job_id": job_id},
+        },
+    )
+    db.create_install_order(email, checkout.id, cents, product=sku)
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/standing", methods=["POST"])
+def demo_standing_pack():
+    body = request.get_json(silent=True) or {}
+    sku = (body.get("sku") or "standing_write").strip()
+    if sku not in standing_mod.SKUS:
+        sku = "standing_write"
+    return jsonify(
+        standing_mod.pack(
+            body.get("job_id") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+            sku=sku,
         )
     )
 
@@ -3537,6 +3637,15 @@ def billing_webhook():
                 f"{BROKER_PACK_PRICE_LABEL} from {email}",
                 {"email": email, "session": sess["id"]},
             )
+        elif product in STANDING_SKU_CENTS:
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            notify.money(
+                "CASH — Standing Remaining",
+                f"{STANDING_SKU_LABELS[product]} from {email} job={job_id or 'later'}",
+                {"email": email, "sku": product, "job_id": job_id, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3558,6 +3667,21 @@ def billing_webhook():
                     "CASH — Gate Pro",
                     f"{PRO_PRICE_LABEL} from {acct['email'] if acct else account_id}",
                     {"account_id": account_id, "subscription": sub_id},
+                )
+    elif event["type"] == "invoice.paid":
+        inv = event["data"]["object"]
+        if inv.get("billing_reason") == "subscription_cycle":
+            parent = inv.get("parent") or {}
+            meta = ((parent.get("subscription_details") or {}).get("metadata")) or {}
+            if not meta:
+                meta = (inv.get("subscription_details") or {}).get("metadata") or {}
+            product = meta.get("product") or ""
+            if product in STANDING_SKU_CENTS:
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Standing Remaining (renewal)",
+                    f"{STANDING_SKU_LABELS[product]} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
         sub = event["data"]["object"]
@@ -3773,6 +3897,7 @@ def robots():
             "Disallow: /first",
             "Disallow: /remaining",
             "Disallow: /finished",
+            "Disallow: /standing",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

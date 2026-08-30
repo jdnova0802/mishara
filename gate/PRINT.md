@@ -37,4 +37,7 @@ Remaining folio + machine-act apostille + capability vital + officer pack. Stran
 
 Stripe uses `price_data` — no new Price ID required. Live key → checkout. Dev mode → fake paid order.
 
+**Recurring (new category):** remaining lease — `/standing` · `STANDING.md`.  
+$4,500/mo per write · $9,000/mo book · $25,000/mo desk. 100% Nisaba. A souvenir ages.
+
 Never sell may. Family stays five. Gate 1 = first stranger paid and proved — this purchase counts.

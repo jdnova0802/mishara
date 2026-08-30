@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Standing Remaining — remaining lease{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Recurring · remaining lease · 100% {{ manifest.payee }} · no split</p>
+  <h1>The remaining is a lease. We keep it true.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <p class="audience-tag">per write</p>
+      <h2>{{ manifest.skus.standing_write.label }}</h2>
+      <p>{{ manifest.skus.standing_write.deliverable }}</p>
+      <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.skus.standing_write.stacks }}</p>
+      <form method="post" action="{{ url_for('standing_checkout') }}" style="margin-top: 1rem;">
+        <input type="hidden" name="sku" value="standing_write">
+        <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+        <input type="text" name="job_id" placeholder="job id (or later)" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 12rem;">
+        <button type="submit" class="btn btn-primary">Start {{ manifest.skus.standing_write.label }}</button>
+      </form>
+    </div>
+    <div class="card">
+      <p class="audience-tag">broker book</p>
+      <h2>{{ manifest.skus.standing_book.label }}</h2>
+      <p>{{ manifest.skus.standing_book.deliverable }}</p>
+      <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.skus.standing_book.stacks }}</p>
+      <form method="post" action="{{ url_for('standing_checkout') }}" style="margin-top: 1rem;">
+        <input type="hidden" name="sku" value="standing_book">
+        <input type="email" name="email" placeholder="broker work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+        <button type="submit" class="btn btn-ghost">Start {{ manifest.skus.standing_book.label }}</button>
+      </form>
+    </div>
+    <div class="card">
+      <p class="audience-tag">violent</p>
+      <h2>{{ manifest.skus.standing_desk.label }}</h2>
+      <p>{{ manifest.skus.standing_desk.deliverable }}</p>
+      <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.skus.standing_desk.stacks }}</p>
+      <form method="post" action="{{ url_for('standing_checkout') }}" style="margin-top: 1rem;">
+        <input type="hidden" name="sku" value="standing_desk">
+        <input type="email" name="email" placeholder="GC work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+        <button type="submit" class="btn btn-primary">Start {{ manifest.skus.standing_desk.label }}</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h3>Not a split</h3>
+    <p>Payee is {{ manifest.payee }}. {{ manifest.distribution }}. Not Connect. Not a facilitator. Not a carrier cut. Not Conformant they implement. Not a weld they run.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_standing') }}" class="btn btn-ghost btn-sm">standing.json</a>
+    <a href="{{ url_for('finished_page') }}" class="btn btn-ghost btn-sm">One-shot folio {{ finished_price }}</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-ghost btn-sm">Bind Room {{ bind_room_price }}</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld they run {{ weld_price }}</a>
+  </div>
+</div>
+{% endblock %}

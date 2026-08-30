@@ -57,6 +57,7 @@ No H₀. No coffin. No $100B. No Conformant franchise pitch from Bind.
 |-------|--------------------|
 | One broker: “I’ll Bind three names for $4,500” — checkout `/finished` | They already have trust |
 | One GC with an E&O date: Finished Remaining $8,500 — we operate the write | They will not implement a rail before the binder |
+| Same GC, several writes: Standing desk $25,000/mo — remaining lease, 100% you | Souvenir ages; desk prints every month |
 | One warm forward from counsel / operator / friend into an AI GC | Warm > cold |
 | One builder already on `/for/agents` or install docs | Shortest path to $2,500 if Bind stalls |
 | Public proof clip: 60s “DEAD stops the write + verify link” | Reduces “is this real?” |

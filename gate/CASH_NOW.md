@@ -39,9 +39,12 @@ That purchase **is** Gate 1 if they pay and you prove.
 | **Broker three-pack** | **$4,500** | Specialty broker, three AI names on their book | One checkout; you never cold the insured — `/finished` |
 | **Refusal** | **$7,500** | Board / founder who wants a signed “we will not ship this unbound agent” | Anti-act as product — absence is the deliverable; already `/refusal` |
 | **Finished Remaining** | **$8,500** | GC / founder with an E&O date who will not implement a rail before the binder | We operate one write; they attach the folio — `/finished` |
-| **Operator weld** | **$25,000** + **$5k/mo** | Licensed payout / withdraw desk with a live money-leave path | Only with warm intro; do not cold-spray |
+| **Standing write** | **$4,500/mo** | GC who knows the underwriter asks again | Remaining lease — we operate every month · `/standing` |
+| **Standing book** | **$9,000/mo** | Specialty broker, three names kept live | Book rent · `/standing` |
+| **Standing desk** | **$25,000/mo** | Company with several irreversible writes | Violent recurring · $300k/yr · 100% you · `/standing` |
+| **Operator weld** | **$25,000** + **$5k/mo** | Licensed payout / withdraw desk with a live money-leave path | They implement; only with warm intro |
 
-Cash door: `/finished` · `/operator` · Bind: `/bind-room` · Refusal: `/refusal`.
+Cash door: `/standing` · `/finished` · `/operator` · Bind: `/bind-room` · Refusal: `/refusal`.
 
 **Do not:** bump the archived MGA list · pitch $300B cartoon · sell may · run x402 facilitator · become AIUC · invent a sixth plate to “explain” the sale.
 
@@ -56,9 +59,10 @@ These are offer-shapes on **existing** SKUs. Score = commercial 10 for *this mon
 | **N1** | **Renewal Evidence Bind** — same Bind Room, mouthed as “packet your E&O underwriter / broker can open after CG 40 47” | P2 / S4 · `/bind-room` $1,750 | Coverage gap is **live 2026**; buyers are the *insureds*, not carriers you already burned |
 | **N2** | **Broker three-pack** — one broker pays **$4,500** for three Bind Rooms for three AI names on their book | Bind Room ×3 · `/finished` | Broker already has the relationship; you never cold the insured; **checkout is live** |
 | **N3** | **Board Refusal** — `/refusal` $7,500 as signed non-occurrence for a named agent they kill or won’t ship | U4 anti-act · silence | Boards buy CYA; deliverable is absence; checkout exists |
-| **N5** | **Finished Remaining** — you operate may / remaining / apostille / inhabitant for **one write**; they attach the folio | `/finished` **$8,500** | Highest ticket that can still close this month. They do not implement Gate. Padlocks/meters/books do not print this week. **This does.** |
+| **N5** | **Finished Remaining** — you operate may / remaining / apostille / inhabitant for **one write**; they attach the folio | `/finished` **$8,500** | Highest one-shot ticket that can still close this month. They do not implement Gate. |
+| **N6** | **Standing Remaining** — remaining lease. Souvenir ages. Live stock is rent. 100% you. | `/standing` **$4,500/mo** · **$9,000/mo** · **$25,000/mo** | First recurring that prints **without a weld**. Desk = $300k/yr per company. No split. |
 
-Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25k` weld. Not a spray list.
+Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25k` weld + $5k/mo they implement. Not a spray list.
 
 ---
 
@@ -87,14 +91,15 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 ## Honest ranking for personal cash
 
-1. **N1 Bind $1,750** — highest *probability* dollar  
-2. **N5 Finished Remaining $8,500** — highest *ticket* that can still close this month (`PRINT.md`)  
-3. **N3 Refusal $7,500** — if a board is already scared  
-4. **Install $2,500** — if a builder is shipping this sprint  
-5. **N2 broker pack $4,500** — if one broker bites (checkout on `/finished`)  
-6. **Operator $25k** — only warm payout desk  
-7. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
+1. **N1 Bind $1,750** — highest *probability* Gate 1  
+2. **N6 Standing write $4,500/mo** — first yes that keeps printing (`STANDING.md`)  
+3. **N6 Standing desk $25,000/mo** — violent unit if a GC has several writes  
+4. **N5 Finished Remaining $8,500** — one-shot if they will not lease yet  
+5. **N3 Refusal $7,500** — if a board is already scared  
+6. **Install $2,500** / **N2 broker pack** / **N6 standing book $9,000/mo**  
+7. **Operator $25k + $5k/mo** — only if they will implement a licensed desk  
+8. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
 
-> Absolute is October’s launch language. **September’s dollar is Bind or Finished Remaining.**
+> Absolute is October’s launch language. **September’s dollar is Bind, Finished, or Standing.**
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · $0 until stranger paid and proved*

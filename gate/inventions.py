@@ -438,6 +438,26 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "cash door — not a sibling, not a /for/ plate, not Being-as-SKU",
     },
     {
+        "id": "standing_remaining",
+        "subject": "lease",
+        "name": "Standing Remaining",
+        "claim": (
+            "The remaining is a live stock. A souvenir folio ages. Live stock is a lease: "
+            "you operate every month so the folio stays true. 100% Nisaba LLC. No split. "
+            "They do not implement Gate. Cancel = stale = they fail the next ask."
+        ),
+        "satoshi": "One-time issuance. No rent on the world after a spend.",
+        "heavier": (
+            "New category: remaining lease. Operator floor needs a weld. "
+            "This is $4,500/mo per write or $25,000/mo desk and you operate. "
+            "First recurring that prints without them implementing."
+        ),
+        "real": "standing.py · /standing · POST /standing/checkout · $4,500/mo · $9,000/mo · $25,000/mo",
+        "status": "shipped",
+        "cash": True,
+        "tree": "remaining lease — cash door, not a sibling, not a /for/ plate",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -513,6 +533,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "first": f"{base}/.well-known/first.json",
             "remaining": f"{base}/.well-known/remaining.json",
             "finished": f"{base}/.well-known/finished.json",
+            "standing": f"{base}/.well-known/standing.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -526,6 +547,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Recurring",
+            "title": "Standing Remaining — remaining lease",
+            "body": (
+                "Live stock is a lease. $4,500/mo per write. $25,000/mo desk. "
+                "100% Nisaba. They never implement. Checkout is /standing."
+            ),
         },
         {
             "tag": "Cash now",

@@ -140,6 +140,11 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(m["finished"]["family_siblings_remain"], 5)
         self.assertFalse(m["finished"]["l2_module"])
         self.assertIsNone(m["finished"]["cleverer_layer"])
+        self.assertIn("standing", m)
+        self.assertTrue(m["standing"]["recurring"])
+        self.assertTrue(m["standing"]["no_split"])
+        self.assertEqual(m["standing"]["desk"], "$25,000/mo")
+        self.assertEqual(m["standing"]["category"], "remaining_lease")
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1584,7 +1589,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2925,7 +2930,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2937,6 +2942,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("Gate Conformant", html)
         self.assertIn("The remaining", html)
         self.assertIn("Finished Remaining", html)
+        self.assertIn("Standing Remaining", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3501,6 +3507,68 @@ class FinishedRemainingTests(unittest.TestCase):
             follow_redirects=False,
         )
         self.assertIn(broker.status_code, (302, 303))
+
+
+class StandingRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_lease_is_recurring_and_unsplit(self):
+        import standing
+
+        m = standing.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-standing-remaining-v1")
+        self.assertEqual(m["category"], "remaining_lease")
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertTrue(m["no_split"])
+        self.assertFalse(m["connect"])
+        self.assertEqual(m["distribution"], "none — 100% Nisaba LLC")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertFalse(m["l2_module"])
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertEqual(m["skus"]["standing_write"]["label"], "$4,500/mo")
+        self.assertEqual(m["skus"]["standing_book"]["label"], "$9,000/mo")
+        self.assertEqual(m["skus"]["standing_desk"]["label"], "$25,000/mo")
+        item = standing.stripe_line_item("standing_desk")
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "month")
+        self.assertEqual(item["price_data"]["unit_amount"], 2_500_000)
+        html = self.client.get("/standing").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$4,500/mo", html)
+        self.assertIn("$25,000/mo", html)
+        self.assertIn("no split", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /standing", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("standing", gate)
+        wk = self.client.get("/.well-known/standing.json").get_json()
+        self.assertEqual(wk["prints_when"], "they stay — we operate every month — they attach")
+
+    def test_pack_and_dev_checkout(self):
+        job = f"pc:STAND-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post(
+            "/demo/pas/standing",
+            json={"job_id": job, "sku": "standing_desk"},
+        ).get_json()
+        self.assertEqual(pack["kind"], "standing_remaining_pack")
+        self.assertEqual(pack["sku"], "standing_desk")
+        self.assertTrue(pack["standing"])
+        self.assertTrue(pack["no_split"])
+        self.assertEqual(pack["payee"], "Nisaba LLC")
+        self.assertTrue(pack["stale_if_canceled"])
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        email = f"desk-{uuid.uuid4().hex[:8]}@example.com"
+        for sku in ("standing_write", "standing_book", "standing_desk"):
+            r = self.client.post(
+                "/standing/checkout",
+                data={"email": email, "sku": sku, "job_id": job},
+                follow_redirects=False,
+            )
+            self.assertIn(r.status_code, (302, 303), sku)
 
 
 if __name__ == "__main__":

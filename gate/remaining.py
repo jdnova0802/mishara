@@ -540,10 +540,11 @@ def manifest(public_url: str) -> dict[str, Any]:
             "kappa": f"{base}/.well-known/kappa.json",
             "heavier": f"{base}/.well-known/heavier.json",
             "finished": f"{base}/finished",
+            "standing": f"{base}/standing",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/remaining",
-        "gatekeep": "The remaining. Not a buyer chrome plate. Operated cash is /finished. Weld is /operator.",
+        "gatekeep": "The remaining. Not a buyer chrome plate. Operated cash is /finished. Remaining lease is /standing. Weld is /operator.",
     }
 
 
