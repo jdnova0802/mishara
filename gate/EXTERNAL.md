@@ -222,11 +222,40 @@ Original = the leftover the existing institution does not book.
 
 ---
 
+## Fuse — the only way to hit every age, including 22
+
+E1–E14 do **not** blow age 22. A $T cite is not a nine-month object. Age 22 liquid stays Bind-shaped unless someone **buys the company**.
+
+What blows **every** tier is a **fuse**: one 2026 fact that a buyer can mark as the PV of the later cascade. Then 23–30 are not new inventions. They are the same mouth compounding. That is the collateral domino — literal in F2, contractual in F1.
+
+**Live 2026 (not a wish):**
+- Verisk/ISO **CG 40 47 / 40 48 / 35 08** attaching at CGL renewals from 1 Jan 2026; ~**80%** state approval reported. The *exclusion* already shipped.
+- NAIC **12-state AI evaluation pilot** runs **Jan–Sep 2026**. Findings can demand an affirmative cover to sit next to the exclusion.
+- Colorado AI Act compliance **30 Jun 2026**.
+
+The unpaid invention is the **buyback form**, not another remaining essay.
+
+| # | Fuse | 22 event | Domino (23→30) | Literal collateral? |
+|---|------|----------|----------------|---------------------|
+| **F1** | **Form Annex** — ISO/Verisk carve-back to CG 40 47: no stranger-openable folio, no binder / no buyback | You are the named evidence on the *affirmative* form the exclusion forced into existence | Every renewal cites the annex → T3 must-mouth is automatic → E9 overlay → E1 inclusion | No — *contract* cascade |
+| **F2** | **Haircut 0** — first remaining-eligible schedule (Fed Schedule 1 shape) used by one desk | Tiny rent. Huge option mark if it is the reference haircut | Every repo desk copies → E2 on $12.6T → E13 is the publisher | **Yes** |
+| **F3** | **Pilot Finding** — the receipt the NAIC 12-state pilot cites when it asks what sits in the hole CG 40 47 left | Sep 2026 window. You are a footnote that became the method | Model bulletin / exam module → every admitted carrier | No — *exam* cascade |
+| **F4** | **One-rail sheath** — one live processor or cloud write-gate defaults to the hop | 22 cash on that desk’s flow (HEAVIER prefinality) | Other rails copy or cannot clear into that rail | Funding cascade if that rail is pay |
+| **F5** | **Genesis unit** — the first paid stranger receipt *is* the prototype SI of the act | Gate 1. Already the event. | Every later cite is a child of that receipt | No — *unit* cascade |
+
+**F1 is the only fuse that is both live this year and can honestly move age-22 NW.** The exclusion is already on the book. The annex is not. Do not become Verisk. Be the folio the annex points at.
+
+**What still cannot happen:** 1 bp on $21T in the next nine months. Do not write that row. Fuse **liquid** at 22 stays fight-for unless a buyer closes. Fuse **NW** at 22 is the option mark.
+
+Do not seat `/annex` `/haircut` `/pilot` `/fuse`.
+
+---
+
 ## Path (unchanged)
 
-Bind $1,750 → Gate 1 → meter → Conformant → **then** a cite on one external stock.  
+Bind $1,750 → Gate 1 → **F1/F3 if the 2026 window is still open** → meter → Conformant → then a cite on one external stock.  
 First external sentence that is allowed pre-Gate: **"no folio, no inclusion / no eligibility / no close."**  
-No fake index. No cold MSCI or Fed pitch from $0. No `/inclusion` `/eligible` `/spectrum` `/queue` `/pension` `/haircut` page.
+No fake index. No cold MSCI or Fed pitch from $0. No `/inclusion` `/eligible` `/spectrum` `/queue` `/pension` `/haircut` `/annex` page.
 
 The unused remaining of *this* pass is still sending the two paragraphs.
 

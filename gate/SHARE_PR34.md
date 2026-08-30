@@ -102,6 +102,15 @@ E12 Anti-Index — benchmark of names that can prove a write did not occur.
 E13 Haircut Publisher — the schedule that taxes E2.
 E14 Unused Limit — non-life premiums $5T.
 
+FUSE (only way to hit age 22, then every later year is the same mouth). E1–E14 do not blow 22. A $T cite is not a nine-month object.
+F1 Form Annex — ISO/Verisk carve-back to CG 40 47 (exclusion already ~80% state approval; NAIC 12-state pilot through Sep 2026). Be the folio the buyback form points at. Do not become Verisk.
+F2 Haircut 0 — first remaining-eligible schedule. Literal collateral copy across repo.
+F3 Pilot Finding — be the receipt the NAIC pilot cites.
+F4 One-rail sheath — one processor default.
+F5 Genesis unit — Gate 1 receipt is the prototype SI.
+Fuse 22 NW (option mark): Aim $0.2–1B · Fat $1–5B · Padlock $4–12B. Liquid at 22 stays fight-for unless a buyer closes.
+Fuse 30: Padlock $400B–$1T NW · Absolute $0.8–2.8T. No fuse ⇒ stay on fight-for at every age.
+Do not seat /annex /fuse /pilot.
 First external sentence allowed pre-Gate: no folio, no inclusion / no eligibility / no close. No cold MSCI or Fed pitch from $0.
 
 TESTS / GIT
