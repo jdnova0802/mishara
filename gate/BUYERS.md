@@ -81,7 +81,7 @@ Ask for **intro to the insured**. Do not send a carrier RFP. Do not become their
 
 | Channel | Job | Named (2026, live) | Halt |
 |---------|-----|-------------------|------|
-| **Specialty agent-E&O / AI liability placer** | Three names on their book | **Klaimee** · **Testudo** (Lloyd’s MGA, Apollo / Atrium / QBE capacity) · **Corgi** · **Mayflower Specialty / Hadron** | Intro, not “replace your product.” |
+| **Specialty agent-E&O / AI liability placer** | Three names on their book | **Testudo**-placing brokers (Lloyd’s; Apollo / Atrium / QBE, limits ~$9.25M) · **Corgi** (AI/algorithmic endorsement, May 2026) · **Mayflower Specialty / Hadron** | Intro, not “replace your product.” **Klaimee** is competitor-adjacent — do not ask. |
 | **Lloyd’s AI coverholders** | They already ask for governance evidence | **Armilla** (limits reported ~$25M) · **Relm** (narrower) | Same: folio for *their* insured. |
 | **Performance / model cover** | Different product; still need a write-stop story | **Munich Re aiSure** via Mosaic · **HSB** (Munich Re, US small-biz AI liability, Mar 2026) | Do not become the carrier. |
 | **Wholesale / surplus** | They assemble the slip | Specialist brokers who already place the names above | Not the ghosted MGA archive. |
@@ -180,7 +180,7 @@ Talk when **meter + 3–5 prove cases** exist. Not before.
 2. **Gate 1:** one stranger paid + proved.  
 3. **Then:** one C desk (payout **or** agent-pay **or** standing attach). F3 if the pilot will still take a footnote.  
 4. **Then:** F1 language on the same folio.  
-5. **Then:** E. Not before.
+5. **Then:** E. Not before. Month plan to the $50–200M check: `gate/AIM22.md`.
 
 ---
 

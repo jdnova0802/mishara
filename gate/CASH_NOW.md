@@ -97,6 +97,7 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 **Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.  
+**Aim $50–200M by Jun 2027:** `gate/AIM22.md` — ownership × one E buyer, not Standing stacking.  
 **Tools (after Gate 1):** `gate/TOOLS.md` — Sheath, Gatewall, Prove Desk — not more ontology.
 
 ---
