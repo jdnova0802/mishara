@@ -11,7 +11,7 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is EXTERNAL.md (external attach). This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
@@ -76,9 +76,33 @@ Not: ghosted MGA list · AI-governance LinkedIn · defense / nuclear / C2.
 NAMED-ONLY. Do not seat as pages.
 EVOID-AS · BATTMAN · federal shelf patents · SBIR Phase-II remainder · USPTO maintenance-fee clock · phage-bank · TOPAZ · EKIP · OGAS/Kitov · dead-repository · thesis appendix · strategic-kill · expired-draft · post-crisis TTO · Implant Remaining · Dead-Seed Remaining · Unpublished-Proof Remaining · Phantom-Dataset Remaining · unused ORFs · Anellotech · seal bathymetry · surplus plutonium · Voyager unused thrusters · SciCast Remaining · Leftover-Pill · Stop-on-EV · Tick Remaining · Substrate Remaining · Punch-Card Remaining · FDA PRV leftover · FERC queue remaining · unused spectrum · unused appropriations.
 
-Do not seat /trial /shelf /phage /topaz /ogas /appendix /implant /seed /proof /phantom /plutonium /voyager /scicast /checklist /cpp /cabinet /circadian /letter /roman /census /unused /incentive /queue /two /cut.
+Do not seat /trial /shelf /phage /topaz /ogas /appendix /implant /seed /proof /phantom /plutonium /voyager /scicast /checklist /cpp /cabinet /circadian /letter /roman /census /unused /incentive /queue /two /cut /inclusion /eligible /haircut /pension /spectrum.
 
-High-yield leftover inventions: nah. Communication was the last fat one. It shipped as the cut. Incentives / energy / compound / systems are already mouthed as bps, payout-clear, standing, remaining. Subject count was never the constraint.
+High-yield leftover *internal* inventions: nah. Communication was the last fat internal one; it shipped as the cut.
+
+EXTERNAL (last inventing pass). gate/EXTERNAL.md · gate/AGES_22_30.md. No page. No checkout. Must-cite on a stock the world already has. Do not seat /inclusion /eligible /queue /pension /haircut /spectrum.
+
+Fight-for 22 (internal, unchanged): Aim $50–200M · Fat $200–800M · Padlock $0.5–2B.
+Fight-for 30: Aim $1–3B liq / $10–30B NW · Fat $8–25B / $40–100B · Padlock $20–50B+ / $80–200B+.
+External 30 (cite live): Aim $8–25B liq / $40–150B NW · Fat $30–100B / $200–500B · Padlock $80–250B / $400B–$1T · Absolute $0.8–2.8T NW.
+No Gate 1 ⇒ $0. No cite ⇒ stay on fight-for. Tuesday is Bind.
+
+E1 Inclusion Mouth — $21T MSCI-benchmarked; MSCI Inc ~$41B on ~$2B index run-rate. 1 bp on the book → ~$21B/yr → ~$420B NW.
+E2 Eligible Remaining — US repo $12.6T · global tri-party $14.49T.
+E3 Unused Commitment Remaining — FDIC unused lines $11.16T (Q1 2026). Original.
+E4 Title of Unused — real estate $393.3T. 0.1 bp → ~$39B/yr → ~$780B. Do not own the acre.
+E5 Surplus Interconnect — 2,061 GW queued; 75% withdrawn; 549 GW IA-not-COD; SIS 44 GW.
+E6 Dark Capex — $630–750B hyperscaler; enterprise GPU util ~5%.
+E7 Spectrum Remaining — BEA ~$2T US spectra wealth. Does not blow the table alone.
+E8 Unhedged Remaining — FX $9.6T/day; Apr 2025 ~$1.5T surge from under-hedge.
+E9 Rated Remaining — overlay on S&P/Moody’s, not a fourth agency.
+E10 Pension Surplus — Milliman 100 $139B leftover. Real GC. Sell seated SKU if the fact is true.
+E11 Cite Remaining — IRD ~$650T notional. Do not publish a fake rate.
+E12 Anti-Index — benchmark of names that can prove a write did not occur.
+E13 Haircut Publisher — the schedule that taxes E2.
+E14 Unused Limit — non-life premiums $5T.
+
+First external sentence allowed pre-Gate: no folio, no inclusion / no eligibility / no close. No cold MSCI or Fed pitch from $0.
 
 TESTS / GIT
 - Touched tests passing locally under GATE_DEV_MODE=1: BindRoomFlaskTests · FieldAndWeldTests · OperatorInvoiceTests · NamedMayAndInventionsTests
