@@ -183,6 +183,9 @@ class ManifestTests(unittest.TestCase):
         self.assertFalse(m["discharge"]["checkout"])
         self.assertFalse(m["discharge"]["deletion"])
         self.assertEqual(m["discharge"]["identity"], "standing lapses; the chain does not")
+        self.assertIn("space", m)
+        self.assertTrue(m["space"]["not_the_academy"])
+        self.assertFalse(m["space"]["c2"])
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1627,7 +1630,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/space"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2968,7 +2971,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "space_academy_remaining"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -4003,6 +4006,50 @@ class DischargeTests(unittest.TestCase):
         self.assertFalse(null["succeeded"])
         self.assertEqual(null["tried"], "unbound agent write")
         self.assertEqual(null["custodian"], "failure has a remaining")
+
+
+class SpaceAcademyTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_not_the_academy_not_c2(self):
+        import space
+
+        m = space.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-space-academy-remaining-v1")
+        self.assertEqual(m["identity"], "we record the commission and the delay; we do not own the sky")
+        self.assertFalse(m["checkout"])
+        self.assertIn("sell C2", m["never"])
+        ids = {i["id"] for i in m["inventions"]}
+        self.assertTrue({"delay_unwatched", "commission_remaining", "sheath_class"}.issubset(ids))
+        html = self.client.get("/space").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("do not own the sky", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /space", robots)
+
+    def test_delay_and_commission_mouths(self):
+        delay = self.client.post(
+            "/demo/pas/space/delay",
+            json={"vehicle": "demo-1", "light_s": 1500},
+        ).get_json()
+        self.assertEqual(delay["kind"], "delay_unwatched")
+        self.assertTrue(delay["unwatched_by_geometry"])
+        self.assertFalse(delay["c2"])
+        self.assertFalse(delay["command_sold"])
+        comm = self.client.post(
+            "/demo/pas/space/commission",
+            json={"graduate": "Example", "sheath": "civil", "years": 5},
+        ).get_json()
+        self.assertEqual(comm["kind"], "commission_remaining")
+        self.assertTrue(comm["state_issues_rank"])
+        self.assertTrue(comm["we_do_not_commission"])
+        self.assertFalse(comm["c2"])
+        self.assertTrue(comm["discharge_rail"])
+        self.assertEqual(comm["sheath_class"], "civil")
 
 
 if __name__ == "__main__":

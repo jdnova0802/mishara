@@ -9,7 +9,7 @@ Paste this to the other agent:
 
 > Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
 > `gate/SHARE_PR34.md` (this pack)  
-> then `gate/DISCHARGE.md` `gate/VITAL.md` `gate/ACTS.md` `gate/FLOWS.md` `gate/HAND.md` `gate/COMMONS.md` `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
+> then `gate/SPACE.md` `gate/DISCHARGE.md` `gate/VITAL.md` `gate/ACTS.md` `gate/FLOWS.md` `gate/HAND.md` `gate/COMMONS.md` `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
 > Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/acts` · `/hand` · `/commons` · `/general` · `/standing` · `/finished` · `/bind-room` · `/operator`.  
 > **Cash this month:** Bind $1,750 · Finished $8,500 · Standing. **Act rents:** `ACTS.md` — keep-alive $1,200/mo · query $2,000/mo · silence $1,500/mo. **Way of life:** `HAND.md` — keep a hand $12,000/yr unmetered; not hops, not Being. **Commons:** operate, don't found.  
 > Inventing: **The Vital** (unwatched remaining — not Visa/DTCC) · Priced act rents · The Hand · Commons · The General. H₀ · R₀ · COFFIN. Cash path: `CASH_NOW.md`. Gate 1 still Bind.
@@ -40,6 +40,7 @@ Paste this to the other agent:
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |
+| `gate/SPACE.md` | **Space Academy remaining** — not the school · Delay Unwatched · Commission Remaining · not C2 · EO 2026-08-28 · `/space` |
 | `gate/DISCHARGE.md` | **Forgetting institution** — standing lapses; chain stays · no expiry rail = prison · near-miss + null result · `/discharge` |
 | `gate/VITAL.md` | **Life institutions** — Unwatched Remaining · Night $600/yr house · world default **$1.32T** circadian · three-organ cartoon **~$2.08T** · shape not forecast · `/vital` |
 | `gate/ACTS.md` | **Priced act rents** — keep-alive $1,200/mo · query $2,000/mo · silence lease $1,500/mo · `/acts` |
@@ -64,7 +65,7 @@ Paste this to the other agent:
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
 Machine-readable (same branch):  
-`/.well-known/discharge.json` · `vital.json` · `acts.json` · `hand.json` · `commons.json` · `general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json` · `flows.json`
+`/.well-known/space.json` · `discharge.json` · `vital.json` · `acts.json` · `hand.json` · `commons.json` · `general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json` · `flows.json`
 
 ---
 

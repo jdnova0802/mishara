@@ -268,6 +268,26 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "status": "shipped",
     },
     {
+        "id": "space_academy_remaining",
+        "subject": "space",
+        "name": "Space Academy remaining",
+        "claim": (
+            "The Space Academy will mint operators who write past human watch. "
+            "Delay Unwatched is remaining across light-time. Commission Remaining "
+            "is the write-classes a rank may spend until discharge. We record. "
+            "We do not run the school. We do not sell C2."
+        ),
+        "satoshi": "Broadcast is already in space. No remaining of the delay or the rank.",
+        "heavier": (
+            "West Point never needed geometry-unwatched remaining. "
+            "EO 2026-08-28 creates the priesthood. The recorder sits in front of every solo."
+        ),
+        "real": "space.py · /space · SPACE.md · POST /demo/pas/space/delay · /commission",
+        "status": "shipped",
+        "cash": False,
+        "tree": "not the academy — not C2 — not a sibling",
+    },
+    {
         "id": "bind_only",
         "subject": "insurance",
         "name": "Bind-only mouth",
@@ -685,6 +705,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "acts": f"{base}/.well-known/acts.json",
             "vital": f"{base}/.well-known/vital.json",
             "discharge": f"{base}/.well-known/discharge.json",
+            "space": f"{base}/.well-known/space.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -698,6 +719,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Space",
+            "title": "Commission and delay — not the academy",
+            "body": (
+                "EO 2026-08-28. Delay Unwatched across light-time. "
+                "Commission Remaining until discharge. Not C2. /space."
+            ),
         },
         {
             "tag": "Forgetting",

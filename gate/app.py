@@ -235,6 +235,11 @@ except ImportError:
     import discharge as discharge_mod
 
 try:
+    from gate import space as space_mod
+except ImportError:
+    import space as space_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -439,7 +444,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/space",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1539,6 +1544,8 @@ def well_known_gate():
             "vital_page": f"{advertised_url()}/vital",
             "discharge": f"{advertised_url()}/.well-known/discharge.json",
             "discharge_page": f"{advertised_url()}/discharge",
+            "space": f"{advertised_url()}/.well-known/space.json",
+            "space_page": f"{advertised_url()}/space",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2492,6 +2499,38 @@ def demo_discharge_may():
 def demo_discharge_open():
     body = request.get_json(silent=True) or {}
     return jsonify(discharge_mod.open_both(body.get("job_id") or ""))
+
+
+@app.route("/.well-known/space.json")
+def well_known_space():
+    return jsonify(space_mod.manifest(advertised_url()))
+
+
+@app.route("/space")
+def space_page():
+    return render_template(
+        "space.html",
+        manifest=space_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/space/delay", methods=["POST"])
+def demo_space_delay():
+    body = request.get_json(silent=True) or {}
+    return jsonify(space_mod.delay_hold(body.get("vehicle") or "", body.get("light_s") or 0))
+
+
+@app.route("/demo/pas/space/commission", methods=["POST"])
+def demo_space_commission():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        space_mod.commission(
+            body.get("graduate") or "",
+            sheath=body.get("sheath") or "civil",
+            years=int(body.get("years") or 5),
+        )
+    )
 
 
 @app.route("/.well-known/legal.json")
@@ -4377,6 +4416,7 @@ def robots():
             "Disallow: /acts",
             "Disallow: /vital",
             "Disallow: /discharge",
+            "Disallow: /space",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

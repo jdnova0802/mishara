@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Space Academy remaining — not the school{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Not the academy · not C2 · not a sixth sibling</p>
+  <h1>We record the commission and the delay. We do not own the sky.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted);">{{ manifest.source }} · cash until Gate 1: <strong>$0</strong></p>
+
+  {% for x in manifest.inventions %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ x.code }} · {{ x.id }}</p>
+    <h3>{{ x.name }}</h3>
+    <p>{{ x.what }}</p>
+    <p style="margin-top: 0.4rem;"><strong>Chokepoint:</strong> {{ x.chokepoint }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">Pays: {{ x.who_pays }} · {{ x.print }}</p>
+    <p style="margin-top: 0.35rem;">Not: {{ x.not }}</p>
+  </div>
+  {% endfor %}
+
+  <div class="card" style="margin-top: 1.25rem;">
+    <h3>Never</h3>
+    <p>{{ manifest.never | join(" · ") }}</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_space') }}" class="btn btn-ghost btn-sm">space.json</a>
+    <a href="{{ url_for('uplink_page') }}" class="btn btn-ghost btn-sm">Uplink — the now</a>
+    <a href="{{ url_for('vital_page') }}" class="btn btn-ghost btn-sm">Unwatched</a>
+    <a href="{{ url_for('discharge_page') }}" class="btn btn-ghost btn-sm">Discharge</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Gate 1 is still Bind</a>
+  </div>
+</div>
+{% endblock %}
