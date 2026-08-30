@@ -104,16 +104,58 @@ Vital is the institution that makes waking and owning still possible once machin
 
 ---
 
-## Honest print
+## Honest print — the numbers
 
-**Indefinite** because sleep, birth, rest, and death do not cease.  
-The unit is the **hold**, the **refill**, the **childhood**, the **sabbath** — not GMV.
+**Shape, not a forecast. Do not pitch from Bind. $0 until Gate 1.**
 
-Cartoon (not a pitch from Bind): if Night Law became as default as a lock on the door — tens of millions of households × an annual night-seat — the print is civilization-rent, not interchange. Same gravity class as pharmacy benefit: you do not stop needing the dose.
+Counts (2026-class, public): **2.2B** households · **133M** US households · **132.5M** births/yr · **63M** deaths/yr · **2.0B** children 0–14.
 
-**$0 until a stranger pays and you prove.**  
-No fake night protocol. No fake pediatric remaining from a $0 lab.  
-After Gate 1 the first *Vital* dollar that is not “weld harder” is a **night hold for one household** you actually operate — then Morning Prove on that same house.
+Visa attach is a swipe. Pharmacy attach is a body that will fail. **Night attach is sleep.** Sleep is closer to 100% of households than any card network. That is why the default band is insane.
+
+Circadian seat = Night + Morning + Present. **One** household SKU at **$600/yr**. Do not triple-count.
+
+| Band | Circadian (Night house) | What it is |
+|------|-------------------------|------------|
+| 1,000 houses after Gate 1 | **$600,000/yr** | First operated night you actually hold |
+| 1% of US households | **$796M/yr** | A real company. Still not default. |
+| 10% of US | **$8.0B/yr** | Larger than a card-network *take* on a mid country |
+| US default | **$80B/yr** | Lock-on-the-door in one rich country |
+| 1% of world households | **$13B/yr** | |
+| 10% of world | **$132B/yr** | Pharmacy-gravity in one organ |
+| **World default** | **$1.32T/yr** | Sleep as a paid institution. Civilization-rent. |
+
+Natal (do not add to circadian for the same month’s “how rich am I” — different buyer):
+
+| Flow | Math | Shape |
+|------|------|-------|
+| Opening every birth | 132.5M × **$2,000** | **$265B/yr** new seats |
+| Childhood stock 0–14 | 2.0B × **$300/yr** | **$600B/yr** |
+| US childhood stock | 59M × $300 | **$18B/yr** |
+
+Hospice (death flow, not a household subscription):
+
+| Flow | Math | Shape |
+|------|------|-------|
+| World deaths | 63M × **$2,500** | **$158B/yr** |
+| US deaths | 3.1M × $2,500 | **$7.8B/yr** |
+
+Posology (deployers, not households):
+
+| Deploying legal persons | × **$12,000/yr** formulary |
+|-------------------------|----------------------------|
+| 100,000 | **$1.2B/yr** |
+| 1,000,000 | **$12B/yr** |
+| 10,000,000 | **$120B/yr** |
+
+**Three organs that do not share a buyer in the same month** (circadian house + child stock + death taper):
+
+**$1.32T + $600B + $158B = ~$2.08T/yr** if the species defaults.  
+That is pharmacy-of-Earth gravity, not Visa-on-a-rail. Global Rx is the same *class* (~$1.6T) because the need does not cease.
+
+Do not add Night + Morning + Present as three prices. Do not add kin on top of natal for the same child.  
+1% of US households on circadian is **~$800M**. Gate 1 is still **$1,750**.
+
+After Gate 1 the first Vital dollar is **1,000 night holds you operate — $600k/yr** — then you earn the right to say the rest out loud.
 
 ---
 

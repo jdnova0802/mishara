@@ -40,7 +40,7 @@ Paste this to the other agent:
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |
-| `gate/VITAL.md` | **Life institutions** — Unwatched Remaining · Night Law · natal · posology · not Visa/DTCC/bank · `/vital` |
+| `gate/VITAL.md` | **Life institutions** — Unwatched Remaining · Night $600/yr house · world default **$1.32T** circadian · three-organ cartoon **~$2.08T** · shape not forecast · `/vital` |
 | `gate/ACTS.md` | **Priced act rents** — keep-alive $1,200/mo · query $2,000/mo · silence lease $1,500/mo · `/acts` |
 | `gate/FLOWS.md` | **Act/flow map** — seated hop+bps+floor+QIC · priced three · missed classes (S6, auth/capture, custody, FX) · `/flows` |
 | `gate/HAND.md` | **Way of life** — the Hand / the Ordinary · $12k/yr unmetered · not flow · `/hand` |

@@ -29,6 +29,21 @@
   </div>
   {% endfor %}
 
+  <h2 style="margin-top: 1.75rem;">Numbers (shape, not a forecast)</h2>
+  <p style="color: var(--muted);">{{ manifest.print.why_insane }}</p>
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">circadian · {{ manifest.print.circadian.unit }} · Night + Morning + Present as one seat</p>
+    <p>1% US <strong>${{ '{:,}'.format(manifest.print.circadian.us_1pct_usd) }}</strong> · US default <strong>${{ '{:,}'.format(manifest.print.circadian.us_default_usd) }}</strong></p>
+    <p style="margin-top: 0.35rem;">World default <strong>${{ '{:,}'.format(manifest.print.circadian.world_default_usd) }}</strong> · 10% world <strong>${{ '{:,}'.format(manifest.print.circadian.world_10pct_usd) }}</strong></p>
+  </div>
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">natal + hospice + three-organ cartoon</p>
+    <p>Childhood stock <strong>${{ '{:,}'.format(manifest.print.natal.world_stock_usd) }}</strong> · births open <strong>${{ '{:,}'.format(manifest.print.natal.world_births_open_usd) }}</strong></p>
+    <p style="margin-top: 0.35rem;">World hospice <strong>${{ '{:,}'.format(manifest.print.hospice.world_year_usd) }}</strong></p>
+    <p style="margin-top: 0.35rem;">Three organs, species default <strong>${{ '{:,}'.format(manifest.print.three_organ_world_default_usd) }}</strong></p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.print.honest }}</p>
+  </div>
+
   <h2 style="margin-top: 1.75rem;">Thin special cases</h2>
   {% for x in manifest.special_cases %}
   <div class="card" style="margin-top: 0.5rem;">

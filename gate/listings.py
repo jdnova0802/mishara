@@ -329,6 +329,9 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "family_siblings_remain": 5,
             "until_gate1_usd": 0,
             "civilizational": True,
+            "circadian_world_default_usd": 1_320_000_000_000,
+            "three_organ_world_default_usd": 2_077_500_000_000,
+            "forecast": False,
             "prints_when": "they must sleep, be born, rest, or die — not when they swipe",
         },
         "license_fuse": {

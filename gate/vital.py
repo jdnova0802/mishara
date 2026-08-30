@@ -142,6 +142,95 @@ ORGANS: tuple[dict[str, Any], ...] = (
     },
 )
 
+# 2026-class public counts (UN WPP / household tables). Shape, not a census.
+BASE = {
+    "year": 2026,
+    "world_households": 2_200_000_000,
+    "us_households": 132_700_000,
+    "births_per_year": 132_500_000,
+    "deaths_per_year": 63_000_000,
+    "children_0_14": 2_000_000_000,
+    "us_children_0_14": 59_000_000,
+    "us_deaths_per_year": 3_100_000,
+}
+
+# Pharmacy-chronic units. Not hops. Not bps.
+UNITS = {
+    "circadian_usd_year": 600,
+    "natal_open_usd": 2_000,
+    "pediatric_usd_year": 300,
+    "posology_usd_year": 12_000,
+    "sabbath_employer_usd_year": 12_000,
+    "hospice_usd": 2_500,
+    "kin_usd_year": 360,
+}
+
+_US_HH = BASE["us_households"]
+_W_HH = BASE["world_households"]
+_CIR = UNITS["circadian_usd_year"]
+_PED = UNITS["pediatric_usd_year"]
+_HOS = UNITS["hospice_usd"]
+
+PRINT = {
+    "forecast": False,
+    "until_gate1_usd": 0,
+    "do_not_pitch_from_bind": True,
+    "why_insane": (
+        "Visa attach is a swipe. Pharmacy attach is a body that will die. "
+        "Night attach is sleep. Sleep is closer to 100% of households than "
+        "any card network. That is why the default band is civilization-rent."
+    ),
+    "unit": "the hold / the childhood / the refill — not GMV",
+    "circadian": {
+        "what": "Night + Morning + Present as one household seat",
+        "unit": "$600/yr",
+        "us_1pct_usd": int(_US_HH * 0.01 * _CIR),
+        "us_10pct_usd": int(_US_HH * 0.10 * _CIR),
+        "us_default_usd": int(_US_HH * _CIR),
+        "world_1pct_usd": int(_W_HH * 0.01 * _CIR),
+        "world_10pct_usd": int(_W_HH * 0.10 * _CIR),
+        "world_default_usd": int(_W_HH * _CIR),
+        "foothill_1k_houses_usd": 1_000 * _CIR,
+    },
+    "natal": {
+        "what": "Opening at birth + pediatric remaining 0–14",
+        "open_unit": "$2,000/birth",
+        "stock_unit": "$300/yr per child 0–14",
+        "world_births_open_usd": int(BASE["births_per_year"] * UNITS["natal_open_usd"]),
+        "world_stock_usd": int(BASE["children_0_14"] * _PED),
+        "us_stock_usd": int(BASE["us_children_0_14"] * _PED),
+    },
+    "posology": {
+        "what": "Formulary of becoming for one deploying legal person",
+        "unit": "$12,000/yr",
+        "deployers_100k_usd": 100_000 * UNITS["posology_usd_year"],
+        "deployers_1m_usd": 1_000_000 * UNITS["posology_usd_year"],
+        "deployers_10m_usd": 10_000_000 * UNITS["posology_usd_year"],
+    },
+    "hospice": {
+        "what": "Lawful taper per dying name",
+        "unit": "$2,500",
+        "world_year_usd": int(BASE["deaths_per_year"] * _HOS),
+        "us_year_usd": int(BASE["us_deaths_per_year"] * _HOS),
+    },
+    "kin": {
+        "what": "Dependent seat (do not add to natal for the same child)",
+        "unit": "$360/yr",
+        "note": "Use for non-child dependents, or skip if natal already covers the child.",
+    },
+    "three_organ_world_default_usd": int(_W_HH * _CIR)
+    + int(BASE["children_0_14"] * _PED)
+    + int(BASE["deaths_per_year"] * _HOS),
+    "honest": (
+        "Do not add Night + Morning + Present as three household SKUs. "
+        "Circadian is one seat. Natal is the child stock. Hospice is the death flow. "
+        "Those three do not share a buyer in the same month. "
+        "Species-default on all three is the $2T-class cartoon. "
+        "1% of US households on circadian is ~$800M. Gate 1 is still $1,750."
+    ),
+}
+
+
 SPECIAL_CASES: tuple[dict[str, str], ...] = (
     {"institution": "Pharmacy", "thin_of": "V4 Posology", "held": "potency → body"},
     {"institution": "Bank overnight", "thin_of": "V2 Night Law", "held": "value → morning"},
@@ -199,6 +288,9 @@ def manifest(public_url: str) -> dict[str, Any]:
         "not_this": dict(NOT_THIS),
         "organs": [dict(x) for x in ORGANS],
         "special_cases": [dict(x) for x in SPECIAL_CASES],
+        "base": dict(BASE),
+        "units": dict(UNITS),
+        "print": dict(PRINT),
         "payee": PAYEE,
         "family_siblings_remain": FAMILY_SIBLINGS_REMAIN,
         "l2_module": L2_MODULE,
