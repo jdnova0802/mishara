@@ -18,7 +18,7 @@ Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). P
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -94,8 +94,6 @@ PASTE END
 
 ---
 
----
-
 ## Locks (do not violate)
 
 - Primitive: `may · sheath · prove`
@@ -143,6 +141,7 @@ PASTE END
 | `gate/MONETIZE_R0.md` | **How to cash R₀** — foothill → latch → rail → Absolute seats |
 | `gate/END22_RANK.md` | **End of age 22 liquid** + top 10 by matter × monetization |
 | `gate/AGES_22_30.md` | **Ages 22–30** liquid + net worth bands (Aim / Fat / Padlock / Absolute) |
+| `gate/EXTERNAL.md` | **Last inventing pass** — external attach on $T stocks the world already has. No page. To outscale the age table, not Tuesday cash. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 

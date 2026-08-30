@@ -6,7 +6,8 @@
 
 **Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
 
-**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.
+**If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
+**To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.
 
 ---
 
