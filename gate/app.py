@@ -225,6 +225,11 @@ except ImportError:
     import acts as acts_mod
 
 try:
+    from gate import vital as vital_mod
+except ImportError:
+    import vital as vital_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -429,7 +434,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1525,6 +1530,8 @@ def well_known_gate():
             "flows_page": f"{advertised_url()}/flows",
             "acts": f"{advertised_url()}/.well-known/acts.json",
             "acts_page": f"{advertised_url()}/acts",
+            "vital": f"{advertised_url()}/.well-known/vital.json",
+            "vital_page": f"{advertised_url()}/vital",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2397,6 +2404,26 @@ def demo_acts_run():
     if sku == "silence_lease":
         return jsonify(acts_mod.silence(body.get("named_agent") or body.get("subject") or ""))
     return jsonify(acts_mod.keep_alive(body.get("job_id") or body.get("subject") or ""))
+
+
+@app.route("/.well-known/vital.json")
+def well_known_vital():
+    return jsonify(vital_mod.manifest(advertised_url()))
+
+
+@app.route("/vital")
+def vital_page():
+    return render_template(
+        "vital.html",
+        manifest=vital_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/vital/hold", methods=["POST"])
+def demo_vital_hold():
+    body = request.get_json(silent=True) or {}
+    return jsonify(vital_mod.hold(body.get("kind") or "unwatched", body.get("subject") or ""))
 
 
 @app.route("/.well-known/legal.json")
@@ -4280,6 +4307,7 @@ def robots():
             "Disallow: /hand",
             "Disallow: /flows",
             "Disallow: /acts",
+            "Disallow: /vital",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

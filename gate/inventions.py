@@ -561,6 +561,27 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "act-rent cash door — not a sibling, not interchange, not a weld",
     },
     {
+        "id": "the_vital",
+        "subject": "life",
+        "name": "The Vital",
+        "claim": (
+            "Humanity cannot live if the world writes when no one who lives in it "
+            "can watch. Unwatched Remaining is anesthesia of the after. Night, "
+            "natal, posology, sabbath, morning, hospice, kin, and the present "
+            "are the organs. Pharmacy and banking are thin special cases. "
+            "Not Visa. Not DTCC. Not a bank. Not Being."
+        ),
+        "satoshi": "Invented overnight value. Left the unwatched world unbound.",
+        "heavier": (
+            "Skip the night and you wake into a spent world — like skipping insulin. "
+            "Print is the hold, the childhood, the refill — not GMV. $0 until Gate 1."
+        ),
+        "real": "vital.py · /vital · VITAL.md · POST /demo/pas/vital/hold · no checkout",
+        "status": "shipped",
+        "cash": False,
+        "tree": "life-institution designation — not a sibling, not a buyer plate, not Being",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -642,6 +663,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "hand": f"{base}/.well-known/hand.json",
             "flows": f"{base}/.well-known/flows.json",
             "acts": f"{base}/.well-known/acts.json",
+            "vital": f"{base}/.well-known/vital.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -655,6 +677,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Vital",
+            "title": "The world must hold when you cannot watch",
+            "body": (
+                "Night, natal, posology, sabbath, hospice. Not Visa. Not a bank. "
+                "Pharmacy and overnight clearing are thin special cases. /vital."
+            ),
         },
         {
             "tag": "Act rents",

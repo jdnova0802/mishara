@@ -103,7 +103,8 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 10. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
 11. **Priced act rents** — keep-alive **$1,200/mo** · query **$2,000/mo** · silence lease **$1,500/mo** (`ACTS.md` · `/acts`). Thinner than Standing. Not September spray. Not interchange.
 12. **Still-unpaid stack** — scheme assessment · per-clear · S6 employment · custody stock · auth/capture/settle (`FLOWS.md`). Do not sell interchange from Bind.
-13. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
+13. **The Vital** — Night Law / natal / posology (`VITAL.md`). Life institutions, not interchange. **Museum until Gate 1.** After Gate 1 the first Vital dollar is a night hold you actually operate — not a cartoon.
+14. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
 
 > Absolute is October’s launch language. **September’s dollar is Bind, Finished, or Standing.**
 

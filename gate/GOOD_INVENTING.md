@@ -4,7 +4,7 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. Inventing pauses after the coffin.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
 
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.
 
@@ -16,7 +16,8 @@
 |------|---------|-------|
 | **∞⁺** | More crucial than agriculture as *civilizational metabolism* (Remaining Husbandry / H₀) | Yes — crown-prior (`HUSBANDRY.md`) |
 | **∞** | Bigger than the Internet — commons of *becoming* (Afterweb / R₀) | Yes — crown only (`AFTERWEB.md`) |
-| **Coffin** | Bigger than writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity | Yes — final pass (`COFFIN.md`) |
+| **Coffin** | Bigger than writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity | Yes — pillar pass (`COFFIN.md`) |
+| **Vital** | Life institution: humanity cannot live if this stops (sleep, birth, dose, rest, dying) — not a bank remix | Yes — `VITAL.md` |
 | **11–13** | Remakes what civilization *runs on* (layer-0 / reality settlement / multi-mind constitution) | Yes — *Amazing* tier |
 | **10** | Civilization default changes if this exists (HTTPS / DTCC / double-entry class) **or** an unprecedented unification | Yes |
 | **9** | Fat buyer or court or protocol *must* cite it; cash latch or Schelling clear | Yes (not in Unprecedented / Amazing) |

@@ -171,6 +171,12 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(m["acts"]["query"], "$2,000/mo")
         self.assertEqual(m["acts"]["silence"], "$1,500/mo")
         self.assertEqual(m["acts"]["family_siblings_remain"], 5)
+        self.assertIn("vital", m)
+        self.assertFalse(m["vital"]["checkout"])
+        self.assertFalse(m["vital"]["visa"])
+        self.assertFalse(m["vital"]["bank"])
+        self.assertEqual(m["vital"]["identity"], "the world must hold when the inhabitant cannot watch")
+        self.assertEqual(m["vital"]["family_siblings_remain"], 5)
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1615,7 +1621,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2956,7 +2962,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -3871,6 +3877,54 @@ class PricedActRentsTests(unittest.TestCase):
                 follow_redirects=False,
             )
             self.assertIn(r.status_code, (302, 303), sku)
+
+
+class VitalTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_unwatched_is_not_a_bank(self):
+        import vital
+
+        m = vital.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-vital-v1")
+        self.assertEqual(m["identity"], "the world must hold when the inhabitant cannot watch")
+        self.assertFalse(m["checkout"])
+        self.assertEqual(m["until_gate1_usd"], 0)
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertIsNone(m["cleverer_layer"])
+        ids = {o["id"] for o in m["organs"]}
+        self.assertTrue(
+            {"unwatched", "night", "natal", "posology", "sabbath", "morning", "hospice", "kin", "present"}.issubset(ids)
+        )
+        crown = next(o for o in m["organs"] if o["crown"])
+        self.assertEqual(crown["id"], "unwatched")
+        html = self.client.get("/vital").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("cannot watch", html)
+        self.assertIn("Night Law", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /vital", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("vital", gate)
+
+    def test_hold_is_the_interval_not_the_soul(self):
+        held = self.client.post(
+            "/demo/pas/vital/hold",
+            json={"kind": "night", "subject": "Example Household"},
+        ).get_json()
+        self.assertEqual(held["kind"], "vital_hold")
+        self.assertEqual(held["organ"], "night")
+        self.assertTrue(held["interval_held"])
+        self.assertFalse(held["soul_held"])
+        self.assertFalse(held["being_sold"])
+        self.assertFalse(held["may_sold"])
+        self.assertFalse(held["visa"])
+        self.assertFalse(held["bank"])
+        self.assertEqual(held["until_gate1_usd"], 0)
 
 
 if __name__ == "__main__":
