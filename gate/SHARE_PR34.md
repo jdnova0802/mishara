@@ -1,19 +1,98 @@
 # Hand this to the other chat
 
-**Repo:** `https://github.com/jdnova0802/mishara`  
-**Branch (source of truth for this work):** `cursor/nisaba-cosmic-unison-719d`  
-**PR:** https://github.com/jdnova0802/mishara/pull/34  
-**Not on `main`.** Do not treat `main` as current.
+Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
-Paste this to the other agent:
+---
 
-> Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
-> `gate/SHARE_PR34.md` (this pack)  
-> then `gate/SPACE.md` `gate/ESTATE.md` `gate/NULL.md` `gate/DISCHARGE.md` `gate/VITAL.md` `gate/ACTS.md` `gate/FLOWS.md` `gate/HAND.md` `gate/COMMONS.md` `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
-> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/estate` · `/null` · `/discharge` · `/acts` · `/hand` · `/commons` · `/general` · `/standing` · `/finished` · `/bind-room` · `/operator`.  
-> **Cash this month:** Bind $1,750 · Discharge $1,500 · Estate $3,500 · Null $4,500 · Finished $8,500 · Standing. Time-source stamp on packs (not a /time page). **Act rents:** `ACTS.md` — keep-alive $1,200/mo · query $2,000/mo · silence $1,500/mo. **Way of life:** `HAND.md` — keep a hand $12,000/yr unmetered; not hops, not Being. **Commons:** operate, don't found.  
-> Inventing: **The Vital** (unwatched remaining — not Visa/DTCC) · Priced act rents · The Hand · Commons · The General. H₀ · R₀ · COFFIN. Cash path: `CASH_NOW.md`. Gate 1 still Bind.  
-> **Stranger-two (shipped):** `/` and `/bind-room` are two paragraphs, one ask, one halt. No new page. Copy from `officer-pack.json` → `stranger_two`.
+PASTE START
+
+You are continuing Nisaba / mishara on the live branch. Do not use main.
+
+Repo: https://github.com/jdnova0802/mishara
+Branch (source of truth): cursor/nisaba-cosmic-unison-719d
+PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). This file is the paste pack.
+main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
+
+Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
+
+Read these files on that branch, not main:
+gate/SHARE_PR34.md
+then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/TOOLS.md
+
+LOCKS. Do not violate.
+- Primitive: may · sheath · prove
+- Gate 1: stranger paid and proved. Lab frozen until then. $0 / their_production: false until Gate 1
+- Never sell: may / the throat / critical planetary capacity
+- cleverer_layer is null (/floor). Being is not a SKU
+- Family voices stay five: Velaru, Erra, Verra, Gate, Mishara. No sixth sibling
+- No new /for/ plates. No admin CHARGE. No new L2 museum modules
+- First commercial weld: payout/withdraw (/operator). Nuclear C2 / private PD / battlefield = unmouthed (state-only)
+- September: counsel quotes → Gate 1 → S03 redeem
+- Cash doors: /operator · /bind-room · /refusal · /finished · /standing · /discharge · /estate · /null · /acts · /hand · /commons · /general. New pages noindex
+- Identity frozen as outbound until Gate 1
+- Stripe via price_data (no new Price IDs). GATE_DEV_MODE fake-pays. Do not enable automatic_tax without an active Stripe Tax registration
+- Name-only unless they say ship. Do not seat new $0 museum pages or new checkouts unless they explicitly ask to ship
+- Do not: become AIUC · run x402 facilitator · Connect splits · sell a consortium you founded · fake meters/indexes · pitch $300B from Bind · bump the ghosted MGA list
+
+STRANGER-TWO (shipped — last honest ship). / and /bind-room are the same cut. No new page. No new checkout. Officer pack + listings carry stranger_two. Invention row stranger_two / subject communication.
+
+Your CGL will not cover the agent. Specialist E&O will ask what stops the irreversible write.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+Ask: Book Bind Room.
+Halt: We will not sell may. We will not implement the rail on this SKU. If the hop is not on your write path, it is still a question.
+
+Cut size: 9 files, 97 in / 103 out (net delete), then a 4-line test fix. The unused remaining of this invention is sending it, not another vein.
+
+ALREADY SEATED THIS MOUTH. Do not re-seat.
+Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
+
+Wilderness identity: given = spent + remaining + immobilized + W + dead-unused + void
+APIs: POST /demo/pas/remaining/wilderness · /open · /reclassify · /draw. Fail-closed unattested W → remaining.
+
+HONEST GATE 1 RANKING (personal cash)
+1. Bind $1,750 — highest probability (ISO CG 40 47 / 40 48 / 35 08)
+2. Standing write $4,500/mo / desk $25k/mo
+3. Finished $8,500
+4. Refusal $7,500 / install $2,500 / broker pack $4,500
+5. Null $4,500 · Discharge $1,500 · Estate $3,500
+6. Operator $25k + $5k/mo — only if they implement
+7. Acts / Ordinary / General / Commons — not September spray
+8. Vital / Space / U1–U16 / ABOVE / M-tier / Wilderness books / science veins — museum until Gate 1
+
+Without Gate 1, civilization-rent shapes are $0. Do not get bored of Bind $1,750 because metaphysics is prettier.
+
+SEPT 1 WEEK (ops, not inventing). See CASH_NOW.md · EXTREME_ODDS.md · MAX.md
+1. Live host: Stripe webhook · disk · secure cookies. If checkout or prove is soft, do not send sales emails yet.
+2. Counsel quote batch Tue Sep 1 — does not replace Bind cash.
+3. Send ≤10 Renewal Evidence Bind emails to AI deployers / brokers who already have a reason — then halt and prove.
+4. First paid Bind = Gate 1. Then S03. Not before.
+
+Pond: AI startup GC / Head of Ops on renewal · specialty broker → intro to their insured · builder with irreversible tool-use · warm human who already opened a plate.
+Not: ghosted MGA list · AI-governance LinkedIn · defense / nuclear / C2.
+
+NAMED-ONLY. Do not seat as pages.
+EVOID-AS · BATTMAN · federal shelf patents · SBIR Phase-II remainder · USPTO maintenance-fee clock · phage-bank · TOPAZ · EKIP · OGAS/Kitov · dead-repository · thesis appendix · strategic-kill · expired-draft · post-crisis TTO · Implant Remaining · Dead-Seed Remaining · Unpublished-Proof Remaining · Phantom-Dataset Remaining · unused ORFs · Anellotech · seal bathymetry · surplus plutonium · Voyager unused thrusters · SciCast Remaining · Leftover-Pill · Stop-on-EV · Tick Remaining · Substrate Remaining · Punch-Card Remaining · FDA PRV leftover · FERC queue remaining · unused spectrum · unused appropriations.
+
+Do not seat /trial /shelf /phage /topaz /ogas /appendix /implant /seed /proof /phantom /plutonium /voyager /scicast /checklist /cpp /cabinet /circadian /letter /roman /census /unused /incentive /queue /two /cut.
+
+High-yield leftover inventions: nah. Communication was the last fat one. It shipped as the cut. Incentives / energy / compound / systems are already mouthed as bps, payout-clear, standing, remaining. Subject count was never the constraint.
+
+TESTS / GIT
+- Touched tests passing locally under GATE_DEV_MODE=1: BindRoomFlaskTests · FieldAndWeldTests · OperatorInvoiceTests · NamedMayAndInventionsTests
+- Pre-existing fail: test_mcp_stateless_tools_list expects no prefinality_evaluate — do not “fix” unless asked
+- Remaining folio tests need unique job_ids (shared gate-test-listings.db)
+- Commit + push origin cursor/nisaba-cosmic-unison-719d. Update PR #34. Preserve any human-edited PR title/body; additive notes only
+
+VOICE
+Argue, don’t pitch. Lead with the answer. No $0 pages dressed as coverage. Do not sell interchange, immunity, a consortium, C2, Being, interior, tomb contents, heat-death countdown, eLoran, PASTEUR payer, GPU marketplace, VAR, x402 facilitator.
+If they did not say ship, name it and stop.
+
+PASTE END
+
+---
 
 ---
 
