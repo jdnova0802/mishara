@@ -1575,8 +1575,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("If money is about to leave", home)
         self.assertNotIn("/science", home)
         self.assertIn("/trust", home)
-        self.assertIn("Parent revoked", home)
-        self.assertIn("their_production", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Book Bind Room", home)
 
         import db as gate_db
 
