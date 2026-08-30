@@ -81,7 +81,7 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 | Talk to | Do not talk to |
 |---------|----------------|
 | AI startup GC / Head of Ops facing insurance renewal | Ghosted MGA cold list (archived) |
-| Specialty broker placing agent E&O (Klaimee / Testudo / Corgi / Mayflower-class books) — ask for **intro to their insured**, not a carrier RFP | Random “AI governance” LinkedIn |
+| **One** surplus broker who already places **Testudo** (backup: Corgi / Mayflower-class) — ask for **intro to one insured**, not a carrier RFP. Copy in `BUYERS.md` | Klaimee / AIUC (competitor-adjacent) · Testudo the coverholder as a Bind buyer · Random “AI governance” LinkedIn |
 | Builder shipping tool-use with irreversible writes (pay, delete, bind, send) | Defense / nuclear / C2 |
 | Warm human who already opened a plate | “Everyone on the opportunities map” |
 
@@ -93,7 +93,7 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 1. Finish public path so pay + prove works on live host (Stripe webhook · disk · secure cookies — see `MAX.md`).
 2. One counsel quote email batch (Tue Sep 1) — does not replace Bind cash.
-3. Send **≤10** N1 emails to AI deployers / brokers — Renewal Evidence Bind — then stop and prove.
+3. Send **≤10** N1 emails: warm GCs with `stranger_two`, plus **at most one** Testudo-placing broker using the ask in `BUYERS.md` — then stop and prove. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 **Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.  

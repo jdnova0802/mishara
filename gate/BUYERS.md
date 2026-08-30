@@ -22,6 +22,42 @@ A name on this page is **not** permission to email them tomorrow.
 
 ---
 
+## This week's one throat (locked)
+
+**Best B cut:** one **US surplus-lines broker who already places Testudo** (backup class: Corgi endorsement or Mayflower/Hadron). Ask for **intro to one insured**. Not a C desk. Not a scrape.
+
+**Why this and not the rest of B**
+
+| Candidate | Verdict |
+|-----------|---------|
+| **Testudo-placing broker** | They already say CG 40 47 / 40 48 / 35 08 to the GC. Testudo prices from litigation data and does not need a tech audit to quote — the *insured* still needs a stranger-openable write-stop when the specialist form or E&O asks what stops the irreversible write. Broker already has the relationship. |
+| **Testudo the coverholder** | Not the first email. They sell the policy. Asking them to buy Bind is a carrier-shaped RFP. Optional later: forward to one *appointed* producer, if a thread already exists. |
+| **Klaimee** | Competitor-adjacent (cert + guarantee + agent insurance). Same halt as AIUC. Do not ask them to intro, and do not become them. |
+| **HSB / Munich Re / Armilla** | Capacity. Insured still pays Bind. Not Tuesday. |
+| **Gallagher Re / panel** | Wholesale that seated Testudo's capacity. They do not own the insured. |
+| **C payout / agent-pay desk** | After Gate 1. Naming one now is inventing a pond. |
+
+**If you already know that broker** — send the ask below, after pay+prove is green (`MAX.md`).  
+**If you do not** — do not hunt LinkedIn for "Testudo appointed." Use this copy on the first human who already places that class. The rest of the ≤10 are warm GCs with `stranger_two`.
+
+### Broker ask (one, then halt)
+
+**To:** the producer / account exec who places Testudo (or Corgi / Mayflower-class) on a US deployer  
+**Subject:** One insured whose bind is stuck on the write-stop
+
+Your client's CGL will not cover the agent. The specialist gen-AI form still asks what stops the irreversible write.
+
+We are not another policy and not a system badge. Bind Room is the officer pack plus a stranger-openable receipt — $1,750. If you have three names, the three-pack is $4,500.
+
+Ask: intro one GC or Head of Ops whose renewal or new bind is waiting on HITL / commit-gate evidence.  
+Halt: we will not replace your form. We will not sell may. We will not implement the rail on this SKU.
+
+Door: `/bind-room` · three names: `/finished`.
+
+If the intro lands, the insured gets `stranger_two` unchanged. Do not write a second invention for them.
+
+---
+
 ## A — Gate 1 (they pay this month)
 
 The insured pays. Not the carrier. Not the cert shop.
