@@ -150,6 +150,11 @@ except ImportError:
     import unison as unison_mod
 
 try:
+    from gate import nisabatree as nisabatree_mod
+except ImportError:
+    import nisabatree as nisabatree_mod
+
+try:
     from gate import inventions as inventions_mod
 except ImportError:
     import inventions as inventions_mod
@@ -460,7 +465,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space",
+    "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1528,6 +1533,8 @@ def well_known_gate():
             "science_page": f"{advertised_url()}/science",
             "unison": f"{advertised_url()}/.well-known/unison.json",
             "unison_page": f"{advertised_url()}/unison",
+            "nisabatree": f"{advertised_url()}/.well-known/nisabatree.json",
+            "nisabatree_page": f"{advertised_url()}/nisabatree",
             "inventions": f"{advertised_url()}/.well-known/inventions.json",
             "inventions_page": f"{advertised_url()}/inventions",
             "inventor": f"{advertised_url()}/.well-known/inventor.json",
@@ -1837,6 +1844,22 @@ def unison_page():
         "unison.html",
         manifest=m,
         blocks=unison_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/nisabatree.json")
+def well_known_nisabatree():
+    return jsonify(nisabatree_mod.manifest(advertised_url()))
+
+
+@app.route("/nisabatree")
+def nisabatree_page():
+    m = nisabatree_mod.manifest(advertised_url())
+    return render_template(
+        "nisabatree.html",
+        manifest=m,
+        blocks=nisabatree_mod.page_blocks(),
         public_url=advertised_url(),
     )
 

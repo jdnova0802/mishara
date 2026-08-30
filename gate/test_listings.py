@@ -1657,7 +1657,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -1681,6 +1681,15 @@ class OperatorInvoiceTests(unittest.TestCase):
         )
         self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
         self.assertIn("unison", self.client.get("/.well-known/gate.json").get_json())
+        self.assertIn("nisabatree", self.client.get("/.well-known/gate.json").get_json())
+
+        tree = self.client.get("/.well-known/nisabatree.json")
+        self.assertEqual(tree.status_code, 200)
+        tree_data = tree.get_json()
+        self.assertEqual(tree_data["spec"], "nisaba-nisabatree-v1")
+        self.assertIsNone(tree_data["checkout"])
+        self.assertEqual(len(tree_data["family"]), 5)
+        self.assertIn("Bind", tree_data["cash_now"][0]["sku"])
 
         uni = self.client.get("/.well-known/unison.json")
         self.assertEqual(uni.status_code, 200)
@@ -3127,6 +3136,42 @@ class UnisonTests(unittest.TestCase):
         self.assertIn("The Unuttered", html)
         self.assertIn("CHARGE outside the actor", html)
         self.assertIn("remaining", html.lower())
+
+
+class NisabatreeTests(unittest.TestCase):
+    def test_manifest_plain_english_map(self):
+        import nisabatree
+
+        m = nisabatree.manifest("https://example.test")
+        self.assertEqual(m["name"], "nisabatree")
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertFalse(m["their_production"])
+        self.assertIsNone(m["checkout"])
+        self.assertTrue(m["not_a_product"])
+        self.assertEqual(m["inventor"]["name"], "Demond Davis")
+        self.assertEqual(m["inventor"]["entity"], "Nisaba LLC")
+        self.assertEqual(len(m["family"]), 5)
+        self.assertEqual(m["family"][0], "Velaru")
+        self.assertEqual(m["primitive"], ["may", "sheath", "prove"])
+        self.assertEqual(m["gate1"], "stranger paid and proved")
+        self.assertIn("Bind", m["cash_now"][0]["sku"])
+        self.assertEqual(m["page"], "https://example.test/nisabatree")
+        blocks = nisabatree.page_blocks()
+        self.assertGreaterEqual(len(blocks), 6)
+        self.assertTrue(any("Bind" in b["body"] for b in blocks))
+
+    def test_page_and_well_known(self):
+        client = gate_app.app.test_client()
+        html = client.get("/nisabatree").get_data(as_text=True)
+        self.assertIn("Nisabatree", html)
+        self.assertIn("Bind", html)
+        self.assertIn("Velaru", html)
+        self.assertIn("noindex", html)
+        wk = client.get("/.well-known/nisabatree.json")
+        self.assertEqual(wk.status_code, 200)
+        data = wk.get_json()
+        self.assertEqual(data["spec"], "nisaba-nisabatree-v1")
+        self.assertIsNone(data["checkout"])
 
 
 class ConformantQicTests(unittest.TestCase):

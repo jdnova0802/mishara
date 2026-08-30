@@ -11,14 +11,14 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is EXTERNAL.md (external attach). This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is EXTERNAL.md (external attach). Last explain ship is nisabatree (`/nisabatree`). This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -47,6 +47,7 @@ Halt: We will not sell may. We will not implement the rail on this SKU. If the h
 Cut size: 9 files, 97 in / 103 out (net delete), then a 4-line test fix. The unused remaining of this invention is sending it, not another vein.
 
 ALREADY SEATED THIS MOUTH. Do not re-seat.
+**Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
 
 Wilderness identity: given = spent + remaining + immobilized + W + dead-unused + void
@@ -151,6 +152,7 @@ PASTE END
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |
+| `gate/NISABATREE.md` | **Plain-English whole-company map** — brands, organs, cash now, glossary, scripts for any audience · `/nisabatree` · no checkout |
 | `gate/SPACE.md` | **Space Academy remaining** — not the school · Delay Unwatched · Commission Remaining · not C2 · EO 2026-08-28 · `/space` |
 | `gate/DISCHARGE.md` | **Forgetting institution** — standing lapses; chain stays · **$1,500** Discharge of Record · checkout live · `/discharge` |
 | `gate/NULL.md` | **Failed try** — failure has a remaining · **$4,500** · not Refusal, not Finished · `/null` |
@@ -179,7 +181,7 @@ PASTE END
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
 Machine-readable (same branch):  
-`/.well-known/space.json` · `estate.json` · `null.json` · `discharge.json` · `vital.json` · `acts.json` · `hand.json` · `commons.json` · `general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json` · `flows.json`
+`/.well-known/space.json` · `estate.json` · `null.json` · `discharge.json` · `vital.json` · `acts.json` · `hand.json` · `commons.json` · `general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json` · `nisabatree.json` · `flows.json`
 
 ---
 
