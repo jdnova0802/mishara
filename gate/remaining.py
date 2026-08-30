@@ -282,7 +282,7 @@ MEDIUM: tuple[dict[str, Any], ...] = (
             "Inhabitant-facing. Actor cannot self-forgive."
         ),
         "dots": "right to be forgotten × CHARGE outside × recused mouth × healing",
-        "real": "discharge.py · /discharge · standing lapses; the chain does not",
+        "real": "discharge.py · /discharge · $1,500 Discharge of Record · standing lapses; the chain does not",
         "status": "shipped",
         "not_threatening": "GDPR-shaped mercy with a stranger receipt. Not a memory hole.",
     },

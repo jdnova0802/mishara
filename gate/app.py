@@ -235,6 +235,11 @@ except ImportError:
     import discharge as discharge_mod
 
 try:
+    from gate import null_remaining as null_remaining_mod
+except ImportError:
+    import null_remaining as null_remaining_mod
+
+try:
     from gate import space as space_mod
 except ImportError:
     import space as space_mod
@@ -398,6 +403,10 @@ HAND_ORDINARY_LABEL = os.getenv("GATE_HAND_ORDINARY_LABEL", hand_mod.ORDINARY_LA
 HAND_ORDINARY_CENTS = int(os.getenv("GATE_HAND_ORDINARY_CENTS", str(hand_mod.ORDINARY_CENTS)))
 ACTS_SKU_CENTS = {k: int(v["cents"]) for k, v in acts_mod.SKUS.items()}
 ACTS_SKU_LABELS = {k: v["label"] for k, v in acts_mod.SKUS.items()}
+DISCHARGE_PRICE_LABEL = os.getenv("GATE_DISCHARGE_PRICE_LABEL", discharge_mod.DISCHARGE_LABEL)
+DISCHARGE_PRICE_CENTS = int(os.getenv("GATE_DISCHARGE_PRICE_CENTS", str(discharge_mod.DISCHARGE_CENTS)))
+NULL_PRICE_LABEL = os.getenv("GATE_NULL_PRICE_LABEL", null_remaining_mod.NULL_LABEL)
+NULL_PRICE_CENTS = int(os.getenv("GATE_NULL_PRICE_CENTS", str(null_remaining_mod.NULL_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -444,7 +453,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/space",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/space",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1544,6 +1553,8 @@ def well_known_gate():
             "vital_page": f"{advertised_url()}/vital",
             "discharge": f"{advertised_url()}/.well-known/discharge.json",
             "discharge_page": f"{advertised_url()}/discharge",
+            "null": f"{advertised_url()}/.well-known/null.json",
+            "null_page": f"{advertised_url()}/null",
             "space": f"{advertised_url()}/.well-known/space.json",
             "space_page": f"{advertised_url()}/space",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
@@ -2462,7 +2473,120 @@ def discharge_page():
     return render_template(
         "discharge.html",
         manifest=discharge_mod.manifest(advertised_url()),
+        discharge_price=DISCHARGE_PRICE_LABEL,
+        null_price=NULL_PRICE_LABEL,
+        finished_price=FINISHED_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
         public_url=advertised_url(),
+    )
+
+
+@app.route("/discharge/checkout", methods=["POST"])
+def discharge_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("discharge_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, DISCHARGE_PRICE_CENTS, product="discharge_of_record")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Discharge of Record (dev)",
+            f"{email} {DISCHARGE_PRICE_LABEL} job={job_id or 'later'}",
+            {"email": email, "job_id": job_id, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Discharge of Record.", "error")
+        return redirect(url_for("discharge_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[discharge_mod.stripe_line_item("discharge_of_record")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/discharge?canceled=1",
+        metadata={"product": "discharge_of_record", "contact_email": email, "job_id": job_id},
+    )
+    db.create_install_order(email, checkout.id, DISCHARGE_PRICE_CENTS, product="discharge_of_record")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/discharge/pack", methods=["POST"])
+def demo_discharge_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        discharge_mod.pack(
+            body.get("job_id") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/.well-known/null.json")
+def well_known_null():
+    return jsonify(null_remaining_mod.manifest(advertised_url()))
+
+
+@app.route("/null")
+def null_page():
+    return render_template(
+        "null.html",
+        manifest=null_remaining_mod.manifest(advertised_url()),
+        null_price=NULL_PRICE_LABEL,
+        discharge_price=DISCHARGE_PRICE_LABEL,
+        finished_price=FINISHED_PRICE_LABEL,
+        refusal_price=REFUSAL_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/null/checkout", methods=["POST"])
+def null_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    tried = (request.form.get("tried") or "").strip()[:200]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("null_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, NULL_PRICE_CENTS, product="null_remaining")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Null Remaining (dev)",
+            f"{email} {NULL_PRICE_LABEL} job={job_id or 'later'} tried={tried or 'killed agent write'}",
+            {"email": email, "job_id": job_id, "tried": tried, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Null Remaining.", "error")
+        return redirect(url_for("null_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[null_remaining_mod.stripe_line_item("null_remaining")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/null?canceled=1",
+        metadata={"product": "null_remaining", "contact_email": email, "job_id": job_id, "tried": tried},
+    )
+    db.create_install_order(email, checkout.id, NULL_PRICE_CENTS, product="null_remaining")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/null", methods=["POST"])
+def demo_null_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        null_remaining_mod.pack(
+            body.get("job_id") or "",
+            body.get("tried") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+        )
     )
 
 
@@ -4084,6 +4208,25 @@ def billing_webhook():
                 f"{BROKER_PACK_PRICE_LABEL} from {email}",
                 {"email": email, "session": sess["id"]},
             )
+        elif product == "discharge_of_record":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            notify.money(
+                "CASH — Discharge of Record",
+                f"{DISCHARGE_PRICE_LABEL} from {email} job={job_id or 'later'}",
+                {"email": email, "job_id": job_id, "session": sess["id"]},
+            )
+        elif product == "null_remaining":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            tried = (sess.get("metadata") or {}).get("tried") or ""
+            notify.money(
+                "CASH — Null Remaining",
+                f"{NULL_PRICE_LABEL} from {email} job={job_id or 'later'} tried={tried or 'killed'}",
+                {"email": email, "job_id": job_id, "tried": tried, "session": sess["id"]},
+            )
         elif product in STANDING_SKU_CENTS:
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -4416,6 +4559,7 @@ def robots():
             "Disallow: /acts",
             "Disallow: /vital",
             "Disallow: /discharge",
+            "Disallow: /null",
             "Disallow: /space",
             "Disallow: /positioning",
             "Disallow: /focus",

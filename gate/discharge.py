@@ -13,8 +13,9 @@ Vacancy test:
   Contribution rule — no schedule, no second folio (prison)
   Chokepoint — the next contribution cannot proceed without an expiry rail
 
+Cash SKU: Discharge of Record $1,500. We lapse one folio. They attach both.
+They do not implement Gate. Actor cannot self-discharge.
 Not a sixth sibling. Not a /for/ plate. Not Being. Never sell may.
-$0 until Gate 1. Actor cannot self-discharge.
 """
 from __future__ import annotations
 
@@ -38,6 +39,40 @@ FAMILY_SIBLINGS_REMAIN = 5
 L2_MODULE = False
 CLEVERER_LAYER = None
 PAYEE = "Nisaba LLC"
+
+DISCHARGE_LABEL = "$1,500"
+DISCHARGE_CENTS = 150_000
+DISCHARGE_USD = 1500
+
+EMAIL_LINE = (
+    "Your remaining has no expiry. The next contribution is a prison. "
+    "We lapse the standing and issue the receipt. You open both. $1,500. "
+    "The folio stays. The actor cannot wipe themselves."
+)
+
+SKUS: dict[str, dict[str, Any]] = {
+    "discharge_of_record": {
+        "id": "discharge_of_record",
+        "name": "Discharge of Record",
+        "label": DISCHARGE_LABEL,
+        "cents": DISCHARGE_CENTS,
+        "stripe_name": "Discharge of Record — lapse receipt for one folio",
+        "stripe_desc": "We schedule the already-lapsed standing and issue the receipt. You open both. The folio stays.",
+        "who": "GC / board with a prison folio — no expiry rail, next contribution blocked",
+        "deliverable": (
+            "Operated discharge pack: schedule already lapsed + stranger-openable "
+            "receipt + folio. They never implement. Actor cannot self-wipe."
+        ),
+        "why_now": (
+            "They already have a stale remaining or a Bind they cannot contribute to again. "
+            "They will pay to lapse it, not to invent jubilee."
+        ),
+        "surpasses": (
+            "Bind is the lock. Finished is the live write. This is the lawful end of standing. "
+            "Cheaper than Refusal because the try already exists."
+        ),
+    },
+}
 
 IDENTITY = "standing lapses; the chain does not"
 THESIS = (
@@ -235,6 +270,69 @@ def issue(job_id: str, reason: str = "standing_lapsed_on_schedule", now: datetim
     return receipt
 
 
+def stripe_line_item(sku: str = "discharge_of_record") -> dict[str, Any]:
+    row = SKUS[sku]
+    return {
+        "price_data": {
+            "currency": "usd",
+            "unit_amount": int(row["cents"]),
+            "product_data": {
+                "name": row["stripe_name"],
+                "description": row["stripe_desc"],
+            },
+        },
+        "quantity": 1,
+    }
+
+
+def pack(job_id: str, public_url: str = "", contact_email: str = "") -> dict[str, Any]:
+    """They pay. We lapse one folio. They attach both. They do not implement."""
+    jid = (job_id or "").strip()[:160] or f"pc:DCH-PAY-{uuid.uuid4().hex[:12]}"
+    st = standing(jid)
+    if st["state"] != "DISCHARGED":
+        past = _iso(_now() - timedelta(seconds=1))
+        schedule(jid, standing_until=past)
+        issued = issue(jid)
+    else:
+        recs = [r for r in _RECEIPTS.values() if r.get("job_id") == jid]
+        issued = recs[-1] if recs else issue(jid)
+    both = open_both(jid)
+    return {
+        "spec": SPEC,
+        "kind": "discharge_of_record_pack",
+        "inventor": inventor_mod.stamp(),
+        "job_id": jid,
+        "price": DISCHARGE_LABEL,
+        "until_gate1_usd": DISCHARGE_USD,
+        "operated_by": "Nisaba LLC",
+        "payee": PAYEE,
+        "they_do_not_implement_gate": True,
+        "identity": IDENTITY,
+        "receipt": issued,
+        "open_both": both,
+        "deletion": False,
+        "chain_intact": True,
+        "folio_still_exists": True,
+        "actor_cannot_self_discharge": True,
+        "may_sold": False,
+        "being_sold": False,
+        "cleverer_layer": CLEVERER_LAYER,
+        "l2_module": L2_MODULE,
+        "their_production": False,
+        "not": [
+            "deletion",
+            "admin CHARGE",
+            "actor self-wipe",
+            "a memory hole",
+            "Being",
+            "immunity",
+        ],
+        "evaluated_at": _iso(_now()),
+        "page": f"{(public_url or '').rstrip('/')}/discharge" if public_url else "/discharge",
+        "contact": contact_email or None,
+    }
+
+
 def open_both(job_id: str) -> dict[str, Any]:
     """A stranger opens the folio and the discharge. That is the product."""
     jid = (job_id or "").strip()[:160]
@@ -262,6 +360,8 @@ def manifest(public_url: str) -> dict[str, Any]:
         "inventor": inventor_mod.stamp(),
         "identity": IDENTITY,
         "thesis": THESIS,
+        "email_line": EMAIL_LINE,
+        "skus": {k: {kk: vv for kk, vv in v.items() if kk != "stripe_desc"} for k, v in SKUS.items()},
         "vacancy_test": {
             "identifier": "job_id",
             "contribution_rule": "no expiry rail → contribution is a prison",
@@ -273,23 +373,30 @@ def manifest(public_url: str) -> dict[str, Any]:
             "actor self-wipe",
             "a memory hole",
             "Being",
+            "immunity",
         ],
         "payee": PAYEE,
         "family_siblings_remain": FAMILY_SIBLINGS_REMAIN,
         "l2_module": L2_MODULE,
         "cleverer_layer": CLEVERER_LAYER,
-        "until_gate1_usd": 0,
-        "checkout": False,
-        "cash_door": f"{base}/bind-room",
+        "not_museum": True,
+        "until_gate1_usd": DISCHARGE_USD,
+        "checkout": f"{base}/discharge/checkout",
+        "cash_now": True,
+        "prints_when": "they pay — we lapse — they open both",
+        "cash_door": f"{base}/discharge",
         "page": f"{base}/discharge",
         "links": {
             "page": f"{base}/discharge",
+            "null": f"{base}/null",
             "remaining": f"{base}/remaining",
+            "finished": f"{base}/finished",
+            "bind_room": f"{base}/bind-room",
             "commons": f"{base}/commons",
             "vital": f"{base}/vital",
         },
         "gatekeep": (
-            "Forgetting institution. Not a buyer plate. Not a sixth sibling. "
-            "Standing lapses. The chain does not. $0 until Gate 1."
+            "Cash SKU. Forgetting institution. Not a buyer plate. Not a sixth sibling. "
+            "Standing lapses. The chain does not. $1,500 operated lapse."
         ),
     }

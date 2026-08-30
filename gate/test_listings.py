@@ -180,9 +180,16 @@ class ManifestTests(unittest.TestCase):
         self.assertFalse(m["vital"]["forecast"])
         self.assertEqual(m["vital"]["circadian_world_default_usd"], 1_320_000_000_000)
         self.assertIn("discharge", m)
-        self.assertFalse(m["discharge"]["checkout"])
+        self.assertIn("/discharge/checkout", m["discharge"]["checkout"])
         self.assertFalse(m["discharge"]["deletion"])
         self.assertEqual(m["discharge"]["identity"], "standing lapses; the chain does not")
+        self.assertEqual(m["discharge"]["until_gate1_usd"], 1500)
+        self.assertEqual(m["discharge"]["price"], "$1,500")
+        self.assertIn("null", m)
+        self.assertIn("/null/checkout", m["null"]["checkout"])
+        self.assertEqual(m["null"]["until_gate1_usd"], 4500)
+        self.assertEqual(m["null"]["price"], "$4,500")
+        self.assertEqual(m["null"]["identity"], "failure has a remaining")
         self.assertIn("space", m)
         self.assertTrue(m["space"]["not_the_academy"])
         self.assertFalse(m["space"]["c2"])
@@ -1630,7 +1637,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/space"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/space"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2971,7 +2978,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "space_academy_remaining"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "null_remaining", "space_academy_remaining"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -3987,8 +3994,34 @@ class DischargeTests(unittest.TestCase):
         html = self.client.get("/discharge").get_data(as_text=True)
         self.assertIn("noindex", html)
         self.assertIn("lapses", html.lower())
+        self.assertIn("$1,500", html)
+        self.assertIn("Pay $1,500", html)
         robots = self.client.get("/robots.txt").get_data(as_text=True)
         self.assertIn("Disallow: /discharge", robots)
+
+    def test_pack_and_dev_checkout_are_the_number(self):
+        import discharge
+
+        m = discharge.manifest("https://example.test")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["until_gate1_usd"], 1500)
+        self.assertIn("/discharge/checkout", m["checkout"])
+        self.assertEqual(m["skus"]["discharge_of_record"]["label"], "$1,500")
+        job = f"pc:DCH-PAY-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post("/demo/pas/discharge/pack", json={"job_id": job}).get_json()
+        self.assertEqual(pack["kind"], "discharge_of_record_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["until_gate1_usd"], 1500)
+        self.assertFalse(pack["deletion"])
+        self.assertTrue(pack["folio_still_exists"])
+        self.assertEqual(pack["open_both"]["standing"]["state"], "DISCHARGED")
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/discharge/checkout",
+            data={"email": email, "job_id": job},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
 
     def test_near_miss_and_null_result(self):
         job = f"pc:NULL-{uuid.uuid4().hex[:10]}"
@@ -4006,6 +4039,60 @@ class DischargeTests(unittest.TestCase):
         self.assertFalse(null["succeeded"])
         self.assertEqual(null["tried"], "unbound agent write")
         self.assertEqual(null["custodian"], "failure has a remaining")
+
+
+class NullRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_manifest_and_page_are_cash_not_museum(self):
+        import null_remaining
+
+        m = null_remaining.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-null-remaining-v1")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["until_gate1_usd"], 4500)
+        self.assertEqual(m["identity"], "failure has a remaining")
+        self.assertIn("/null/checkout", m["checkout"])
+        self.assertEqual(m["skus"]["null_remaining"]["label"], "$4,500")
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertFalse(m["l2_module"])
+        self.assertIsNone(m["cleverer_layer"])
+        html = self.client.get("/null").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$4,500", html)
+        self.assertIn("Pay $4,500", html)
+        self.assertIn("failure has a remaining", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /null", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("null", gate)
+        wk = self.client.get("/.well-known/null.json").get_json()
+        self.assertEqual(wk["prints_when"], "they pay — we seal the failed try — they attach")
+
+    def test_pack_and_dev_checkout(self):
+        job = f"pc:NULL-PAY-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post(
+            "/demo/pas/null",
+            json={"job_id": job, "tried": "unbound agent write"},
+        ).get_json()
+        self.assertEqual(pack["kind"], "null_remaining_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["until_gate1_usd"], 4500)
+        self.assertFalse(pack["succeeded"])
+        self.assertEqual(pack["tried"], "unbound agent write")
+        self.assertEqual(pack["sealed"]["kind"], "null_result")
+        self.assertIn("will not ship", pack["distinct_from"]["refusal"])
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/null/checkout",
+            data={"email": email, "job_id": job, "tried": "unbound agent write"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
 
 
 class SpaceAcademyTests(unittest.TestCase):

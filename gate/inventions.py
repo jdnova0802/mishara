@@ -616,10 +616,29 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
             "Jubilee was a name. This is the receipt. Near-miss and null result "
             "are the mouths people will actually fill."
         ),
-        "real": "discharge.py · /discharge · POST /demo/pas/discharge · no deletion",
+        "real": "discharge.py · /discharge · POST /discharge/checkout · $1,500 lapse pack",
         "status": "shipped",
-        "cash": False,
-        "tree": "forgetting institution — not a sibling, not a memory hole, not CHARGE",
+        "cash": True,
+        "tree": "cash door — forgetting institution, not a sibling, not a memory hole, not CHARGE",
+    },
+    {
+        "id": "null_remaining",
+        "subject": "cash",
+        "name": "Null Remaining",
+        "claim": (
+            "Failure has a remaining. A killed try without a folio is a postmortem "
+            "PDF. We seal the remaining of the failed try. Distinct from Refusal "
+            "(will not ship) and Finished (live write). They do not implement Gate."
+        ),
+        "satoshi": "The chain only records wins. Failure leaves no stock.",
+        "heavier": (
+            "Clinical trials invented the null result so generation does not rerun "
+            "blind. Engineering never sold it. $4,500 operated pack."
+        ),
+        "real": "null_remaining.py · /null · POST /null/checkout · $4,500",
+        "status": "shipped",
+        "cash": True,
+        "tree": "cash door — not Refusal, not Finished, not a sibling, not Being",
     },
     {
         "id": "evac_comms",
@@ -705,6 +724,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "acts": f"{base}/.well-known/acts.json",
             "vital": f"{base}/.well-known/vital.json",
             "discharge": f"{base}/.well-known/discharge.json",
+            "null": f"{base}/.well-known/null.json",
             "space": f"{base}/.well-known/space.json",
             "operator": f"{base}/operator",
         },
@@ -732,8 +752,9 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Forgetting",
             "title": "Discharge — standing lapses; the chain does not",
             "body": (
-                "A proof rail with no expiry is a prison. No schedule, no second "
-                "folio. Near-miss and null result are the mouths people will fill. /discharge."
+                "A proof rail with no expiry is a prison. Discharge of Record "
+                "$1,500 — we lapse one folio, they open both. Null Remaining "
+                "$4,500 — sealed failed try. /discharge · /null."
             ),
         },
         {
