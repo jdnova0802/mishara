@@ -55,14 +55,16 @@ No H₀. No coffin. No $100B. No Conformant franchise pitch from Bind.
 
 | Lever | Why it spikes odds |
 |-------|--------------------|
-| One broker: “I’ll Bind three names for $4,500” | They already have trust |
+| One broker: “I’ll Bind three names for $4,500” — checkout `/finished` | They already have trust |
+| One GC with an E&O date: Finished Remaining $8,500 — we operate the write | They will not implement a rail before the binder |
 | One warm forward from counsel / operator / friend into an AI GC | Warm > cold |
 | One builder already on `/for/agents` or install docs | Shortest path to $2,500 if Bind stalls |
 | Public proof clip: 60s “DEAD stops the write + verify link” | Reduces “is this real?” |
 
 ### A6. Refusal / weld only if the conversation is already there
 
-Don’t lead with $7.5k or $25k cold. Escalate when they flinch upward.
+Don’t lead with $7.5k or $25k cold. Escalate when they flinch upward.  
+If they say “we can’t implement this before the binder,” that is Finished Remaining — `/finished` $8,500.
 
 ---
 

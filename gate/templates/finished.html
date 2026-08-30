@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Finished Remaining — {{ finished_price }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Cash · operated folio · not a padlock</p>
+  <h1>Buy the remaining. We operate the mouth.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <div class="install-price">{{ finished_price }} <span>one write · we run it · you attach it</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 0.75rem;">
+    <form method="post" action="{{ url_for('finished_checkout') }}">
+      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <input type="text" name="job_id" placeholder="job id (or later)" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 12rem;">
+      <button type="submit" class="btn btn-primary">Pay {{ finished_price }}</button>
+    </form>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>What you get</h3>
+      <p>{{ manifest.skus.finished_remaining.deliverable }}</p>
+    </div>
+    <div class="card">
+      <h3>Why not Bind Room</h3>
+      <p>{{ manifest.skus.finished_remaining.surpasses }}</p>
+    </div>
+    <div class="card">
+      <h3>Not this</h3>
+      <p>Not Conformant. Not QIC. Not Afterweb. Not a mandate. Not a sixth sibling. The remaining, finished.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <p class="audience-tag">broker · volume</p>
+    <h2>Broker three-pack {{ broker_price }}</h2>
+    <p>{{ manifest.skus.broker_three_pack.deliverable }}</p>
+    <form method="post" action="{{ url_for('broker_checkout') }}" style="margin-top: 1rem;">
+      <input type="email" name="email" placeholder="broker work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <button type="submit" class="btn btn-ghost">Pay {{ broker_price }}</button>
+    </form>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_finished') }}" class="btn btn-ghost btn-sm">finished.json</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-ghost btn-sm">Bind Room {{ bind_room_price }}</a>
+    <a href="{{ url_for('refusal_page') }}" class="btn btn-ghost btn-sm">Refusal {{ refusal_price }}</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld {{ weld_price }}</a>
+  </div>
+</div>
+{% endblock %}

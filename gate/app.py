@@ -190,6 +190,11 @@ except ImportError:
     import remaining as remaining_mod
 
 try:
+    from gate import finished as finished_mod
+except ImportError:
+    import finished as finished_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -320,6 +325,10 @@ BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
 BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
 REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
 REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
+FINISHED_PRICE_LABEL = os.getenv("GATE_FINISHED_PRICE_LABEL", finished_mod.FINISHED_LABEL)
+FINISHED_PRICE_CENTS = int(os.getenv("GATE_FINISHED_PRICE_CENTS", str(finished_mod.FINISHED_CENTS)))
+BROKER_PACK_PRICE_LABEL = os.getenv("GATE_BROKER_PACK_PRICE_LABEL", finished_mod.BROKER_LABEL)
+BROKER_PACK_PRICE_CENTS = int(os.getenv("GATE_BROKER_PACK_PRICE_CENTS", str(finished_mod.BROKER_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -366,7 +375,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -402,6 +411,8 @@ def inject_globals():
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
         "refusal_price": REFUSAL_PRICE_LABEL,
+        "finished_price": FINISHED_PRICE_LABEL,
+        "broker_pack_price": BROKER_PACK_PRICE_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
@@ -1440,6 +1451,8 @@ def well_known_gate():
             "first_page": f"{advertised_url()}/first",
             "remaining": f"{advertised_url()}/.well-known/remaining.json",
             "remaining_page": f"{advertised_url()}/remaining",
+            "finished": f"{advertised_url()}/.well-known/finished.json",
+            "finished_page": f"{advertised_url()}/finished",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -1877,6 +1890,100 @@ def remaining_page():
 def demo_remaining_folio():
     body = request.get_json(silent=True) or {}
     return jsonify(remaining_mod.folio(body.get("job_id") or ""))
+
+
+@app.route("/.well-known/finished.json")
+def well_known_finished():
+    return jsonify(finished_mod.manifest(advertised_url()))
+
+
+@app.route("/finished")
+def finished_page():
+    return render_template(
+        "finished.html",
+        manifest=finished_mod.manifest(advertised_url()),
+        finished_price=FINISHED_PRICE_LABEL,
+        broker_price=BROKER_PACK_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        refusal_price=REFUSAL_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/finished/checkout", methods=["POST"])
+def finished_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("finished_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, FINISHED_PRICE_CENTS, product="finished_remaining")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Finished Remaining (dev)",
+            f"{email} {FINISHED_PRICE_LABEL} job={job_id or 'later'}",
+            {"email": email, "job_id": job_id, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Finished Remaining.", "error")
+        return redirect(url_for("finished_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[finished_mod.stripe_line_item("finished_remaining")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/finished?canceled=1",
+        metadata={"product": "finished_remaining", "contact_email": email, "job_id": job_id},
+    )
+    db.create_install_order(email, checkout.id, FINISHED_PRICE_CENTS, product="finished_remaining")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/finished/broker-checkout", methods=["POST"])
+def broker_checkout():
+    email = (request.form.get("email") or "").strip()
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("finished_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, BROKER_PACK_PRICE_CENTS, product="broker_three_pack")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Broker three-pack (dev)",
+            f"{email} {BROKER_PACK_PRICE_LABEL}",
+            {"email": email, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Broker three-pack.", "error")
+        return redirect(url_for("finished_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[finished_mod.stripe_line_item("broker_three_pack")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/finished?canceled=1",
+        metadata={"product": "broker_three_pack", "contact_email": email},
+    )
+    db.create_install_order(email, checkout.id, BROKER_PACK_PRICE_CENTS, product="broker_three_pack")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/finished", methods=["POST"])
+def demo_finished_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        finished_mod.pack(
+            body.get("job_id") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+        )
+    )
 
 
 @app.route("/.well-known/legal.json")
@@ -3413,6 +3520,23 @@ def billing_webhook():
                 f"{REFUSAL_PRICE_LABEL} from {email} — refused {agent_name!r}",
                 {"email": email, "agent_name": agent_name, "session": sess["id"]},
             )
+        elif product == "finished_remaining":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            notify.money(
+                "CASH — Finished Remaining",
+                f"{FINISHED_PRICE_LABEL} from {email} job={job_id or 'later'}",
+                {"email": email, "job_id": job_id, "session": sess["id"]},
+            )
+        elif product == "broker_three_pack":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            notify.money(
+                "CASH — Broker three-pack",
+                f"{BROKER_PACK_PRICE_LABEL} from {email}",
+                {"email": email, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3648,6 +3772,7 @@ def robots():
             "Disallow: /heavier",
             "Disallow: /first",
             "Disallow: /remaining",
+            "Disallow: /finished",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

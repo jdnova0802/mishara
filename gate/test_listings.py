@@ -134,6 +134,12 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("remaining", m)
         self.assertIsNone(m["remaining"]["cleverer_layer"])
         self.assertFalse(m["remaining"]["l2_module"])
+        self.assertIn("finished", m)
+        self.assertTrue(m["finished"]["cash_now"])
+        self.assertEqual(m["finished"]["price"], "$8,500")
+        self.assertEqual(m["finished"]["family_siblings_remain"], 5)
+        self.assertFalse(m["finished"]["l2_module"])
+        self.assertIsNone(m["finished"]["cleverer_layer"])
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1578,7 +1584,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2919,7 +2925,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2930,6 +2936,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("Satoshi", html)
         self.assertIn("Gate Conformant", html)
         self.assertIn("The remaining", html)
+        self.assertIn("Finished Remaining", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3426,6 +3433,74 @@ class RemainingTests(unittest.TestCase):
             stock["remaining"]["tickets_unconsumed"],
             stock["given"]["tickets_issued"] - stock["act"]["tickets_consumed"],
         )
+
+
+class FinishedRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_manifest_and_page_are_cash_not_museum(self):
+        import finished
+
+        m = finished.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-finished-remaining-v1")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertFalse(m["l2_module"])
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertEqual(m["skus"]["finished_remaining"]["label"], "$8,500")
+        self.assertEqual(m["skus"]["broker_three_pack"]["label"], "$4,500")
+        self.assertIn("/finished/checkout", m["checkout"])
+        html = self.client.get("/finished").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$8,500", html)
+        self.assertIn("$4,500", html)
+        self.assertIn("Pay $8,500", html)
+        self.assertIn("we operate", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /finished", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("finished", gate)
+        wk = self.client.get("/.well-known/finished.json").get_json()
+        self.assertEqual(wk["prints_when"], "they pay — we operate — they attach")
+
+    def test_pack_is_the_remaining_already_run(self):
+        job = f"pc:FINISHED-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post(
+            "/demo/pas/finished",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(pack["kind"], "finished_remaining_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["operated_by"], "Nisaba LLC")
+        self.assertEqual(pack["identity"], "remaining = given − spent one-wayness")
+        self.assertIn("folio", pack)
+        self.assertIn("apostille", pack)
+        self.assertIn("vital", pack)
+        self.assertIn("officer_pack", pack)
+        self.assertTrue(pack["the_act_is_not_the_object"])
+        self.assertIsNone(pack["cleverer_layer"])
+        self.assertFalse(pack["l2_module"])
+        self.assertFalse(pack["their_production"])
+        self.assertIn("a padlock they implement", pack["not"])
+
+    def test_dev_checkout_prints(self):
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/finished/checkout",
+            data={"email": email, "job_id": "pc:CASH-NOW"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+        broker = self.client.post(
+            "/finished/broker-checkout",
+            data={"email": email},
+            follow_redirects=False,
+        )
+        self.assertIn(broker.status_code, (302, 303))
 
 
 if __name__ == "__main__":

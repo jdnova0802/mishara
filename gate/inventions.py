@@ -419,6 +419,25 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "designation on Nisaba — not a sibling, not a cleverer layer",
     },
     {
+        "id": "finished_remaining",
+        "subject": "cash",
+        "name": "Finished Remaining",
+        "claim": (
+            "They buy the remaining already run. You operate may · redeem-or-silence "
+            "· remaining · apostille · inhabitant for one named write. They attach the folio. "
+            "They do not implement Gate."
+        ),
+        "satoshi": "Gave the protocol away. Could not cash. They implement, or they don't.",
+        "heavier": (
+            "First SKU whose object is the remaining, not the rail. "
+            "Ticket 5× Bind. Padlocks, meters, books, mandates, ontology do not print this week. This does."
+        ),
+        "real": "finished.py · /finished · POST /finished/checkout · $8,500 / broker $4,500",
+        "status": "shipped",
+        "cash": True,
+        "tree": "cash door — not a sibling, not a /for/ plate, not Being-as-SKU",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -493,6 +512,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "heavier": f"{base}/.well-known/heavier.json",
             "first": f"{base}/.well-known/first.json",
             "remaining": f"{base}/.well-known/remaining.json",
+            "finished": f"{base}/.well-known/finished.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -506,6 +526,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Cash now",
+            "title": "Finished Remaining — $8,500",
+            "body": (
+                "They buy the remaining already run. You operate one write. "
+                "They attach the folio. Checkout is /finished. Not a padlock they implement."
+            ),
         },
         {
             "tag": "Cash latch",

@@ -9,10 +9,10 @@ Paste this to the other agent:
 
 > Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
 > `gate/SHARE_PR34.md` (this pack)  
-> then `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
-> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash is `/operator`.  
-> **Cash this month:** `CASH_NOW.md` — Bind Room $1,750 as renewal-evidence to AI deployers (not ghosted MGAs). Absolute inventing is museum until Gate 1.  
-> Inventing: H₀ · R₀ · COFFIN (paused). **Tools:** `TOOLS.md` (Sheath/Gatewall/etc — build after Gate 1). Cash path: `MONETIZE_R0.md` · `EXTREME_ODDS.md` · `END22_RANK.md`.
+> then `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
+> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. $0 / `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/finished` · `/bind-room` · `/operator`.  
+> **Cash this month:** `PRINT.md` — Finished Remaining $8,500 (we operate one write). `CASH_NOW.md` — Bind Room $1,750 as highest-probability renewal-evidence. Absolute inventing is museum until Gate 1.  
+> Inventing: H₀ · R₀ · COFFIN (paused). **Tools:** `TOOLS.md` (Sheath/Gatewall/etc — build after Gate 1). Cash path: `PRINT.md` · `MONETIZE_R0.md` · `EXTREME_ODDS.md` · `END22_RANK.md`.
 
 ---
 
@@ -26,7 +26,7 @@ Paste this to the other agent:
 - First commercial weld: payout/withdraw (`/operator`).
 - Nuclear C2 / private PD / battlefield = unmouthed (state-only).
 - September: counsel quotes → Gate 1 → S03 redeem.
-- Cash now: Bind Room **$1,750** · weld **$25k** · floor **$5k/mo** · **10 bps** (+5 above $500M/mo) · $0.10/hop.
+- Cash now: Finished Remaining **$8,500** · Bind Room **$1,750** · broker pack **$4,500** · weld **$25k** · floor **$5k/mo** · **10 bps** (+5 above $500M/mo) · $0.10/hop.
 
 ---
 
@@ -40,7 +40,8 @@ Paste this to the other agent:
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
 | `gate/UNISON.md` | Organs, priors, 15/10, intel kit 7.5 |
-| `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 renewal-evidence · Refusal $7.5k · pond change |
+| `gate/PRINT.md` | **Prints this week** — Finished Remaining $8,500 operated folio · broker pack $4,500 · `/finished` |
+| `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 highest-probability · Finished $8,500 highest-ticket · Refusal $7.5k |
 | `gate/GOOD_INVENTING.md` | **9–10** · rail · civilization rent · Unprecedented 10s · **Amazing above-10s** |
 | `gate/ABOVE.md` | Civilization rent: custody · mandate · index · hyperscaler · apostille |
 | `gate/UNPRECEDENTED.md` | Deep 10s: trinity · anti-act · silence · regret · world-after · cross-substrate |
@@ -55,7 +56,7 @@ Paste this to the other agent:
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
 Machine-readable (same branch):  
-`/.well-known/remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
+`/.well-known/finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json`
 
 ---
 

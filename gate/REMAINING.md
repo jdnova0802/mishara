@@ -38,4 +38,5 @@ World-budget of one-wayness · irreversibility taxonomy · trial balance of may 
 
 Atmosphere of writes · SI of remaining · convention on the remaining · the given cannot be invented · when reversal is cheap
 
-Never sell may. Never sell the throat. Never sell planetary capacity. Cash still `/operator`.
+Never sell may. Never sell the throat. Never sell planetary capacity.  
+Identity stays `/remaining`. **Operated cash is `/finished` ($8,500).** Weld is `/operator`.
