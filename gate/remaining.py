@@ -282,8 +282,8 @@ MEDIUM: tuple[dict[str, Any], ...] = (
             "Inhabitant-facing. Actor cannot self-forgive."
         ),
         "dots": "right to be forgotten × CHARGE outside × recused mouth × healing",
-        "real": "designation — no admin CHARGE, no actor self-wipe",
-        "status": "law",
+        "real": "discharge.py · /discharge · standing lapses; the chain does not",
+        "status": "shipped",
         "not_threatening": "GDPR-shaped mercy with a stranger receipt. Not a memory hole.",
     },
     {
@@ -505,6 +505,29 @@ def folio(job_id: str) -> dict[str, Any]:
             "Being as a SKU",
             "a sixth sibling",
         ],
+    }
+
+
+def null_result(job_id: str, tried: str = "") -> dict[str, Any]:
+    """Failure has a remaining. The try that did not succeed is the stock."""
+    pack = folio((job_id or "").strip())
+    what = (tried or "").strip()[:200]
+    return {
+        "spec": SPEC,
+        "kind": "null_result",
+        "inventor": inventor_mod.stamp(),
+        "identity": IDENTITY,
+        "job_id": pack.get("job_id"),
+        "tried": what or None,
+        "succeeded": False,
+        "act_occurred": (pack.get("act") or {}).get("occurred"),
+        "folio": pack,
+        "custodian": "failure has a remaining",
+        "not_publication": True,
+        "not_a_win": True,
+        "generation_does_not_rerun_blind": True,
+        "cleverer_layer": CLEVERER_LAYER,
+        "until_gate1_usd": 0,
     }
 
 

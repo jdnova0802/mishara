@@ -230,6 +230,11 @@ except ImportError:
     import vital as vital_mod
 
 try:
+    from gate import discharge as discharge_mod
+except ImportError:
+    import discharge as discharge_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -434,7 +439,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1532,6 +1537,8 @@ def well_known_gate():
             "acts_page": f"{advertised_url()}/acts",
             "vital": f"{advertised_url()}/.well-known/vital.json",
             "vital_page": f"{advertised_url()}/vital",
+            "discharge": f"{advertised_url()}/.well-known/discharge.json",
+            "discharge_page": f"{advertised_url()}/discharge",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -1971,6 +1978,12 @@ def demo_remaining_folio():
     return jsonify(remaining_mod.folio(body.get("job_id") or ""))
 
 
+@app.route("/demo/pas/remaining/null", methods=["POST"])
+def demo_remaining_null():
+    body = request.get_json(silent=True) or {}
+    return jsonify(remaining_mod.null_result(body.get("job_id") or "", body.get("tried") or ""))
+
+
 @app.route("/.well-known/finished.json")
 def well_known_finished():
     return jsonify(finished_mod.manifest(advertised_url()))
@@ -2265,6 +2278,12 @@ def demo_commons_query():
     return jsonify(commons_mod.can_query(contributed=bool(body.get("contributed"))))
 
 
+@app.route("/demo/pas/commons/near-miss", methods=["POST"])
+def demo_commons_near_miss():
+    body = request.get_json(silent=True) or {}
+    return jsonify(commons_mod.seed_near_miss(body.get("job_id") or "", advertised_url()))
+
+
 @app.route("/.well-known/hand.json")
 def well_known_hand():
     return jsonify(hand_mod.manifest(advertised_url()))
@@ -2424,6 +2443,55 @@ def vital_page():
 def demo_vital_hold():
     body = request.get_json(silent=True) or {}
     return jsonify(vital_mod.hold(body.get("kind") or "unwatched", body.get("subject") or ""))
+
+
+@app.route("/.well-known/discharge.json")
+def well_known_discharge():
+    return jsonify(discharge_mod.manifest(advertised_url()))
+
+
+@app.route("/discharge")
+def discharge_page():
+    return render_template(
+        "discharge.html",
+        manifest=discharge_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/discharge/schedule", methods=["POST"])
+def demo_discharge_schedule():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        discharge_mod.schedule(
+            body.get("job_id") or "",
+            standing_until=body.get("standing_until") or "",
+            days=int(body.get("days") or discharge_mod.DEFAULT_STANDING_DAYS),
+        )
+    )
+
+
+@app.route("/demo/pas/discharge", methods=["POST"])
+def demo_discharge_issue():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        discharge_mod.issue(
+            body.get("job_id") or "",
+            reason=body.get("reason") or "standing_lapsed_on_schedule",
+        )
+    )
+
+
+@app.route("/demo/pas/discharge/may", methods=["POST"])
+def demo_discharge_may():
+    body = request.get_json(silent=True) or {}
+    return jsonify(discharge_mod.may_contribute(body.get("job_id") or ""))
+
+
+@app.route("/demo/pas/discharge/open", methods=["POST"])
+def demo_discharge_open():
+    body = request.get_json(silent=True) or {}
+    return jsonify(discharge_mod.open_both(body.get("job_id") or ""))
 
 
 @app.route("/.well-known/legal.json")
@@ -4308,6 +4376,7 @@ def robots():
             "Disallow: /flows",
             "Disallow: /acts",
             "Disallow: /vital",
+            "Disallow: /discharge",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

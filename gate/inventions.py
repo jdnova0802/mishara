@@ -582,6 +582,26 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "life-institution designation — not a sibling, not a buyer plate, not Being",
     },
     {
+        "id": "discharge",
+        "subject": "forgetting",
+        "name": "Discharge",
+        "claim": (
+            "A proof rail with no expiry rail is a prison. Standing lapses; "
+            "the chain does not. Stranger opens both. Actor cannot self-wipe. "
+            "No schedule, no second folio. That is the contribution rule "
+            "incident registries never had."
+        ),
+        "satoshi": "The chain only grows. No lawful wash. Permanence is the product.",
+        "heavier": (
+            "Jubilee was a name. This is the receipt. Near-miss and null result "
+            "are the mouths people will actually fill."
+        ),
+        "real": "discharge.py · /discharge · POST /demo/pas/discharge · no deletion",
+        "status": "shipped",
+        "cash": False,
+        "tree": "forgetting institution — not a sibling, not a memory hole, not CHARGE",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -664,6 +684,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "flows": f"{base}/.well-known/flows.json",
             "acts": f"{base}/.well-known/acts.json",
             "vital": f"{base}/.well-known/vital.json",
+            "discharge": f"{base}/.well-known/discharge.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -677,6 +698,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Forgetting",
+            "title": "Discharge — standing lapses; the chain does not",
+            "body": (
+                "A proof rail with no expiry is a prison. No schedule, no second "
+                "folio. Near-miss and null result are the mouths people will fill. /discharge."
+            ),
         },
         {
             "tag": "Vital",

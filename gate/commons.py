@@ -176,6 +176,19 @@ def seed(job_id: str, public_url: str = "") -> dict[str, Any]:
     }
 
 
+def seed_near_miss(job_id: str, public_url: str = "") -> dict[str, Any]:
+    """The only layer anyone will contribute: nobody is suing yet. ASRS shape."""
+    row = seed(job_id, public_url)
+    row["kind"] = "near_miss_remaining_seed"
+    row["incident"] = False
+    row["near_miss"] = True
+    row["not_a_claim"] = True
+    row["not_discoverable_as_incident"] = True
+    row["why_contributable"] = "nobody is suing yet — aviation ASRS shape"
+    row["not"] = list(row.get("not") or []) + ["an incident file", "a lawsuit exhibit"]
+    return row
+
+
 def can_query(*, contributed: bool) -> dict[str, Any]:
     """Free-rider exclusion. The padlock of the commons."""
     return {

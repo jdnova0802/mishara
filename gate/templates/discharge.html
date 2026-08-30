@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Discharge — standing lapses; the chain does not{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Forgetting institution · not deletion · not a sixth sibling</p>
+  <h1>Standing lapses. The chain does not.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted);">cash until Gate 1: <strong>$0</strong> · checkout: <strong>none</strong></p>
+
+  <div class="card" style="margin-top: 1rem;">
+    <p class="audience-tag">the identity</p>
+    <p><code class="inline">{{ manifest.identity }}</code></p>
+  </div>
+
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">vacancy test</p>
+    <p>Identifier: <strong>{{ manifest.vacancy_test.identifier }}</strong></p>
+    <p style="margin-top: 0.35rem;">Contribution: {{ manifest.vacancy_test.contribution_rule }}</p>
+    <p style="margin-top: 0.35rem;">Chokepoint: {{ manifest.vacancy_test.chokepoint }}</p>
+  </div>
+
+  <div class="card" style="margin-top: 0.75rem;">
+    <h3>Not</h3>
+    <p>{{ manifest.not | join(" · ") }}</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_discharge') }}" class="btn btn-ghost btn-sm">discharge.json</a>
+    <a href="{{ url_for('commons_page') }}" class="btn btn-ghost btn-sm">Near-miss lives on Commons</a>
+    <a href="{{ url_for('remaining_page') }}" class="btn btn-ghost btn-sm">Null result is remaining</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Gate 1 is still Bind</a>
+  </div>
+</div>
+{% endblock %}

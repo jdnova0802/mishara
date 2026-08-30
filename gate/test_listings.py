@@ -179,6 +179,10 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(m["vital"]["family_siblings_remain"], 5)
         self.assertFalse(m["vital"]["forecast"])
         self.assertEqual(m["vital"]["circadian_world_default_usd"], 1_320_000_000_000)
+        self.assertIn("discharge", m)
+        self.assertFalse(m["discharge"]["checkout"])
+        self.assertFalse(m["discharge"]["deletion"])
+        self.assertEqual(m["discharge"]["identity"], "standing lapses; the chain does not")
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1623,7 +1627,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2964,7 +2968,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -3933,6 +3937,72 @@ class VitalTests(unittest.TestCase):
         self.assertFalse(held["visa"])
         self.assertFalse(held["bank"])
         self.assertEqual(held["until_gate1_usd"], 0)
+
+
+class DischargeTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_unbounded_is_a_prison_then_lapse_opens(self):
+        import discharge
+        from datetime import datetime, timedelta, timezone
+
+        job = f"pc:DCH-{uuid.uuid4().hex[:10]}"
+        prison = self.client.post("/demo/pas/discharge/may", json={"job_id": job}).get_json()
+        self.assertFalse(prison["ok"])
+        self.assertEqual(prison["reason"], "no_expiry_rail_prison")
+        self.assertEqual(prison["state"], "UNBOUNDED")
+        past = (datetime.now(timezone.utc) - timedelta(days=1)).replace(microsecond=0).isoformat()
+        sched = self.client.post(
+            "/demo/pas/discharge/schedule",
+            json={"job_id": job, "standing_until": past},
+        ).get_json()
+        self.assertTrue(sched["ok"])
+        self.assertFalse(sched["deletion"])
+        may = self.client.post("/demo/pas/discharge/may", json={"job_id": job}).get_json()
+        self.assertTrue(may["ok"])
+        future = (datetime.now(timezone.utc) + timedelta(days=30)).replace(microsecond=0).isoformat()
+        live_job = f"pc:DCH-LIVE-{uuid.uuid4().hex[:8]}"
+        discharge.schedule(live_job, standing_until=future)
+        live_block = discharge.issue(live_job)
+        self.assertFalse(live_block["ok"])
+        self.assertEqual(live_block["reason"], "standing_still_live")
+        receipt = self.client.post("/demo/pas/discharge", json={"job_id": job}).get_json()
+        self.assertTrue(receipt["ok"])
+        self.assertEqual(receipt["kind"], "discharge_receipt")
+        self.assertTrue(receipt["folio_still_exists"])
+        self.assertFalse(receipt["deletion"])
+        self.assertTrue(receipt["chain_intact"])
+        self.assertTrue(receipt["actor_cannot_self_discharge"])
+        both = self.client.post("/demo/pas/discharge/open", json={"job_id": job}).get_json()
+        self.assertEqual(both["kind"], "stranger_opens_both")
+        self.assertEqual(both["standing"]["state"], "DISCHARGED")
+        self.assertIn("folio", both)
+        html = self.client.get("/discharge").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("lapses", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /discharge", robots)
+
+    def test_near_miss_and_null_result(self):
+        job = f"pc:NULL-{uuid.uuid4().hex[:10]}"
+        miss = self.client.post("/demo/pas/commons/near-miss", json={"job_id": job}).get_json()
+        self.assertEqual(miss["kind"], "near_miss_remaining_seed")
+        self.assertTrue(miss["near_miss"])
+        self.assertFalse(miss["incident"])
+        self.assertTrue(miss["not_a_claim"])
+        self.assertIsNone(miss["job_id"])
+        null = self.client.post(
+            "/demo/pas/remaining/null",
+            json={"job_id": job, "tried": "unbound agent write"},
+        ).get_json()
+        self.assertEqual(null["kind"], "null_result")
+        self.assertFalse(null["succeeded"])
+        self.assertEqual(null["tried"], "unbound agent write")
+        self.assertEqual(null["custodian"], "failure has a remaining")
 
 
 if __name__ == "__main__":
