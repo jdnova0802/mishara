@@ -3,7 +3,7 @@
 Recurring off **doing** and **moving value**.  
 Not The Hand (unmetered custom). Not Commons (levy). Not a sixth sibling.
 
-`/flows` · `/.well-known/flows.json`
+`/flows` · `/.well-known/flows.json` · priced till: `/acts`
 
 **$0 until Gate 1** on every meter below. Never sell may. Never run a facilitator. Never split (Connect).
 
@@ -20,59 +20,62 @@ Not The Hand (unmetered custom). Not Commons (levy). Not a sixth sibling.
 | **Standing Remaining** | Operated remaining kept true | Seated · not flow; act-adjacent lease | `/standing` |
 | **Finished / Bind / Refusal** | One act or one anti-act | One-shot, not recurring | `/finished` · `/bind-room` · `/refusal` |
 
-That is a **card-acquirer stub**: one hop fee + one bps + a monthly minimum. Visa charges the same act **several** times. We do not, yet.
+That was a **card-acquirer stub**: one hop fee + one bps + a monthly minimum. Visa charges the same act **several** times.
 
 ---
 
-## Protocol exists — nobody pays it
+## Now priced (checkout on `/acts`)
+
+| Rent | On | Price | Cancel |
+|------|----|-------|--------|
+| **Prefinality keep-alive** | Unspent may (TTL 300s) | **$1,200/mo** / job | Window dies |
+| **Query of remaining** | The ask after | **$2,000/mo** / legal person | Ask goes dark |
+| **Silence lease** | Named anti-act | **$1,500/mo** / agent | The no goes stale |
+
+Not September spray. Bind $1,750 is still Gate 1. See `ACTS.md`.
+
+---
+
+## Protocol exists — still unpaid
 
 | Engine | File | Missing rent |
 |--------|------|----------------|
-| **Prefinality** GO / NO_GO / HOLD | `prefinality.py` · TTL 300s | Per-evaluate · **keep-alive** to refresh an unspent may |
-| **Settlement** netting / window / waterfall | `settlement.py` | Per-window · per-clear · default-fund contribution |
+| **Prefinality** | `prefinality.py` | Per-evaluate (keep-alive is rented; the evaluate itself is not) |
+| **Settlement** | `settlement.py` | Per-window · per-clear · default-fund |
 | **PvP immobilize** | `pvp.py` | Both-or-neither close fee (CLS) |
-| **Apostille / vital** | `first.py` | Per-act stranger seal (Hague-class) |
-| **Remaining folio** | `remaining.py` | **Query** of the world after (Bloomberg, not the write) |
-| **x402 evaluate** | `x402_challenge.py` | Authenticity stamp that a 402 was real demand — **not** a facilitator |
+| **Apostille / vital** | `first.py` | Per-act stranger seal · **death certificate** of unused may |
+| **Remaining folio** | `remaining.py` | Query is rented; **prove-verify** (stranger opens) is not |
+| **x402 evaluate** | `x402_challenge.py` | Authenticity stamp — **not** a facilitator |
 | **License fuse** | `license_fuse.py` | Cascade rent on LIVE children |
 | **Restraint HALT** | `restraint.py` | The no is free. HALT-as-billable is a hole |
+| **Named may** | `named_may.py` | Naming fee · **S6** $/agent/mo |
+| **Exclusion / epoch / counterpart** | those files | Priced open · now-door · dual-redeem close |
 
 ---
 
-## Named in doctrine — never a cash object
+## What the first map missed
 
-**On the rail (S1–S6)**  
-S1 may interchange above TAP/AP2/x402/MPP · S2 multi-rail per-pay · S3 hosted redeem (same throat as operator bps) · S5 clearinghouse per-clear · S6 named-may employment ($/agent/mo — fleet, not hop).
+Doctrine named these. The first 18-hole list did not give them ids.
 
-**On one act, stacked (what networks actually do)**  
-Scheme **assessment** (network % ≠ merchant bps) · authorization **hold** · **dispute / regret / chargeback** analog · cross-rail · retry/fail LIVE surcharge.
+**Visa stacks the same payment more than once**  
+Authorize ≠ capture ≠ settle (we have one hop) · cross-rail / FX spread · retry / fail LIVE surcharge · refund / void / unwind · priority / same-window premium.
 
-**After the act**  
-T2 may reference rate (SOFR-class index license) · T4 attestation franchise (SOC/10-K royalty + disclosure feed) · T6 apostille monopoly · T7 finality-definition rent · query seats.
+**Rail (S1–S6) that was language-only**  
+S1 interchange (still do not sell from Bind) · **S2 multi-rail** per-pay · S3 hosted redeem (same throat as operator bps) · S4 insurability attach (Bind story, not a SKU) · S5 per-clear · **S6 named-may employment** ($/agent/mo — fleet, not hop).
 
-**Anti-act**  
-Silence **lease** (Refusal is $7,500 once; boards would pay yearly to keep an agent unshipped) · anti-act market.
+**Stock, not flow (Above the rail)**  
+**T1 custody bps on immobilized remaining** · T2 index license · T3 must-mouth (multiplier) · T4 attest franchise · **T5 hyperscaler sheath default** · T6 apostille monopoly · T7 finality-definition rent.
 
-**Structural attach**  
-T3 must-mouth (100% attach — multiplies every line above) · trinity close (paid + said + wrote) · edition pin of record · exclusive-now / `/only` door rent · rehearsal≠spend cut (labs pay for the ontological cut, not for eval hours).
+**The open, not the write**  
+Prove verification (stranger opens the stock) · capability death certificate · naming fee (bearer → named).
 
 ---
 
-## What we have not covered (the list)
+## Still a hole (priced later, or never a SKU)
 
-1. **Scheme assessment** — network tax on the act, distinct from desk 10 bps.  
-2. **Prefinality keep-alive** — rent on *unspent* may (TTL refresh). Recurring on the act *before* flow.  
-3. **Per-clear / window fee** — `settlement.py` unpaid.  
-4. **Dispute / regret fee** — chargeback energy for machine acts.  
-5. **Query of remaining** — pay to *ask* what happened, not to write.  
-6. **Interchange above the pay protocols (S1)** — bps of GMV that cannot settle without may.  
-7. **x402 authenticity stamp** — remaining of the payment; never run the facilitator.  
-8. **Silence lease** — recurring anti-act. Refusal is a souvenir.  
-9. **HALT-as-billable** — the no as a priced receipt.  
-10. **Index license (T2)** — every E&O / SLA / credit line cites a remaining/QIC rate.  
-11. **Attestation franchise (T4)** — royalty on Big 4 / 10-K agent posture; feed seats.  
-12. **Must-mouth (T3)** — not a SKU; a multiplier. Language only until a rule.  
-13. **Trinity close** · **edition pin** · **now-door** · **fuse cascade** · **rehearsal cut** · **CCP default fund**.
+Scheme assessment · per-clear · dispute/regret · S1 interchange · x402 stamp · HALT-as-billable · T2 index · T4 attest · T3 must-mouth · trinity close · edition pin · now-door · fuse cascade · rehearsal cut · CCP default fund · S6 employment · S2 multi-rail · auth/capture/settle · FX · retry · unwind · priority window · T1 custody · T5 sheath · prove-verify · death certificate · naming fee.
+
+**Not an act/flow SKU** (Unprecedented — name only until Gate 1): U4 anti-act *market* (silence lease is one named no) · U7 estate of remaining · U12 duty-remaining · U14 sealed-time · U15 inhabitant veto.
 
 Do **not** cover: Connect splits · facilitator take-rate · selling may · Being-as-SKU · interest on customer float.
 
@@ -81,4 +84,5 @@ Do **not** cover: Connect splits · facilitator take-rate · selling may · Bein
 ## What to do with this
 
 September still Bind / Finished / Standing.  
-After Gate 1 the first *new* act/flow dollar that is not “weld harder” is **prefinality keep-alive** or **query of remaining** — both already have a mouth. Interchange and must-mouth wait for Schelling.
+`/acts` is the till for keep-alive / query / silence — thinner than Standing, not spray.  
+After Gate 1 the next *new* formula that is not “weld harder” is **scheme assessment** (network % ≠ desk bps) or **per-clear**. Interchange and must-mouth wait for Schelling.

@@ -220,6 +220,11 @@ except ImportError:
     import flows as flows_mod
 
 try:
+    from gate import acts as acts_mod
+except ImportError:
+    import acts as acts_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -376,6 +381,8 @@ COMMONS_OPERATOR_LABEL = os.getenv("GATE_COMMONS_OPERATOR_LABEL", commons_mod.OP
 COMMONS_OPERATOR_CENTS = int(os.getenv("GATE_COMMONS_OPERATOR_CENTS", str(commons_mod.OPERATOR_CENTS)))
 HAND_ORDINARY_LABEL = os.getenv("GATE_HAND_ORDINARY_LABEL", hand_mod.ORDINARY_LABEL)
 HAND_ORDINARY_CENTS = int(os.getenv("GATE_HAND_ORDINARY_CENTS", str(hand_mod.ORDINARY_CENTS)))
+ACTS_SKU_CENTS = {k: int(v["cents"]) for k, v in acts_mod.SKUS.items()}
+ACTS_SKU_LABELS = {k: v["label"] for k, v in acts_mod.SKUS.items()}
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -422,7 +429,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1516,6 +1523,8 @@ def well_known_gate():
             "hand_page": f"{advertised_url()}/hand",
             "flows": f"{advertised_url()}/.well-known/flows.json",
             "flows_page": f"{advertised_url()}/flows",
+            "acts": f"{advertised_url()}/.well-known/acts.json",
+            "acts_page": f"{advertised_url()}/acts",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2317,6 +2326,77 @@ def flows_page():
         manifest=flows_mod.manifest(advertised_url()),
         public_url=advertised_url(),
     )
+
+
+@app.route("/.well-known/acts.json")
+def well_known_acts():
+    return jsonify(acts_mod.manifest(advertised_url()))
+
+
+@app.route("/acts")
+def acts_page():
+    return render_template(
+        "acts.html",
+        manifest=acts_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/acts/checkout", methods=["POST"])
+def acts_checkout():
+    email = (request.form.get("email") or "").strip()
+    subject = (request.form.get("subject") or "").strip()[:160]
+    sku = (request.form.get("sku") or "prefinality_keepalive").strip()
+    if sku not in acts_mod.SKUS:
+        flash("Pick an act rent.", "error")
+        return redirect(url_for("acts_page"))
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("acts_page"))
+    label = ACTS_SKU_LABELS[sku]
+    cents = ACTS_SKU_CENTS[sku]
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, cents, product=sku)
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Priced act rent (dev)",
+            f"{email} {label} sku={sku} subject={subject or 'later'}",
+            {"email": email, "sku": sku, "subject": subject, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Act rent.", "error")
+        return redirect(url_for("acts_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[acts_mod.stripe_line_item(sku)],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/acts?canceled=1",
+        metadata={"product": sku, "contact_email": email, "subject": subject},
+        subscription_data={
+            "metadata": {"product": sku, "contact_email": email, "subject": subject},
+        },
+    )
+    db.create_install_order(email, checkout.id, cents, product=sku)
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/acts", methods=["POST"])
+def demo_acts_run():
+    body = request.get_json(silent=True) or {}
+    sku = (body.get("sku") or "prefinality_keepalive").strip()
+    if sku == "query_remaining":
+        return jsonify(
+            acts_mod.query(
+                body.get("job_id") or body.get("subject") or "",
+                legal_person=body.get("legal_person") or "",
+            )
+        )
+    if sku == "silence_lease":
+        return jsonify(acts_mod.silence(body.get("named_agent") or body.get("subject") or ""))
+    return jsonify(acts_mod.keep_alive(body.get("job_id") or body.get("subject") or ""))
 
 
 @app.route("/.well-known/legal.json")
@@ -3906,6 +3986,15 @@ def billing_webhook():
                 f"{HAND_ORDINARY_LABEL} from {email} legal_person={legal_person or 'later'}",
                 {"email": email, "legal_person": legal_person, "session": sess["id"]},
             )
+        elif product in ACTS_SKU_CENTS:
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            subject = (sess.get("metadata") or {}).get("subject") or ""
+            notify.money(
+                "CASH — Priced act rent",
+                f"{ACTS_SKU_LABELS[product]} from {email} subject={subject or 'later'}",
+                {"email": email, "sku": product, "subject": subject, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3962,6 +4051,13 @@ def billing_webhook():
                 notify.money(
                     "CASH — The Ordinary (renewal)",
                     f"{HAND_ORDINARY_LABEL} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product in ACTS_SKU_CENTS:
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Priced act rent (renewal)",
+                    f"{ACTS_SKU_LABELS[product]} from {email}",
                     {"email": email, "sku": product, "invoice": inv.get("id")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
@@ -4183,6 +4279,7 @@ def robots():
             "Disallow: /commons",
             "Disallow: /hand",
             "Disallow: /flows",
+            "Disallow: /acts",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

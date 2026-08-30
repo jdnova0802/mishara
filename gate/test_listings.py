@@ -163,8 +163,14 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(m["hand"]["identity"], "rent is keeping the hand, not moving it")
         self.assertIn("flows", m)
         self.assertFalse(m["flows"]["checkout"])
-        self.assertEqual(m["flows"]["next_after_gate1"][0], "prefinality_keepalive")
+        self.assertEqual(m["flows"]["next_after_gate1"][0], "scheme_assessment")
+        self.assertEqual(m["flows"]["priced"][0], "prefinality_keepalive")
         self.assertEqual(m["flows"]["family_siblings_remain"], 5)
+        self.assertIn("acts", m)
+        self.assertEqual(m["acts"]["keepalive"], "$1,200/mo")
+        self.assertEqual(m["acts"]["query"], "$2,000/mo")
+        self.assertEqual(m["acts"]["silence"], "$1,500/mo")
+        self.assertEqual(m["acts"]["family_siblings_remain"], 5)
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1609,7 +1615,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2950,7 +2956,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -3783,17 +3789,88 @@ class FlowRentsTests(unittest.TestCase):
         self.assertEqual(m["family_siblings_remain"], 5)
         ids = {h["id"] for h in m["holes"]}
         self.assertTrue(
-            {"scheme_assessment", "prefinality_keepalive", "query_remaining", "interchange", "silence_lease"}.issubset(ids)
+            {"scheme_assessment", "interchange", "named_may_employment", "auth_capture_settle", "custody_stock_bps"}.issubset(ids)
         )
+        self.assertFalse({"prefinality_keepalive", "query_remaining", "silence_lease"} & ids)
         seated = {s["id"] for s in m["seated"]}
         self.assertTrue({"hop", "bps", "floor", "qic"}.issubset(seated))
-        self.assertEqual(m["next_after_gate1"], ["prefinality_keepalive", "query_remaining"])
+        priced = {s["id"] for s in m["priced"]}
+        self.assertEqual(priced, {"prefinality_keepalive", "query_remaining", "silence_lease"})
+        self.assertEqual(m["next_after_gate1"], ["scheme_assessment", "per_clear"])
         self.assertIn("selling may", m["never"])
         html = gate_app.app.test_client().get("/flows").get_data(as_text=True)
         self.assertIn("noindex", html)
         self.assertIn("unpaid", html.lower())
+        self.assertIn("$1,200/mo", html)
         robots = gate_app.app.test_client().get("/robots.txt").get_data(as_text=True)
         self.assertIn("Disallow: /flows", robots)
+
+
+class PricedActRentsTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_three_rents_and_dev_checkout(self):
+        import acts
+
+        m = acts.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-priced-act-rents-v1")
+        self.assertEqual(m["identity"], "the same act is rented more than once")
+        self.assertTrue(m["no_split"])
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["skus"]["prefinality_keepalive"]["label"], "$1,200/mo")
+        self.assertEqual(m["skus"]["query_remaining"]["label"], "$2,000/mo")
+        self.assertEqual(m["skus"]["silence_lease"]["label"], "$1,500/mo")
+        item = acts.stripe_line_item("prefinality_keepalive")
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "month")
+        self.assertEqual(item["price_data"]["unit_amount"], 120_000)
+        html = self.client.get("/acts").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("rented more than once", html)
+        self.assertIn("$1,200/mo", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /acts", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("acts", gate)
+
+    def test_demo_and_checkout_each_sku(self):
+        job = f"pc:ACT-{uuid.uuid4().hex[:10]}"
+        kept = self.client.post(
+            "/demo/pas/acts",
+            json={"sku": "prefinality_keepalive", "job_id": job},
+        ).get_json()
+        self.assertEqual(kept["kind"], "prefinality_keepalive")
+        self.assertFalse(kept["unspent_may_sold"])
+        self.assertTrue(kept["window_kept"])
+        self.assertEqual(kept["ttl_seconds"], 300)
+        asked = self.client.post(
+            "/demo/pas/acts",
+            json={"sku": "query_remaining", "job_id": job, "legal_person": "Example LLC"},
+        ).get_json()
+        self.assertEqual(asked["kind"], "query_of_remaining")
+        self.assertTrue(asked["ask"])
+        self.assertFalse(asked["write"])
+        self.assertEqual(asked["legal_person"], "Example LLC")
+        self.assertIn("folio", asked)
+        quiet = self.client.post(
+            "/demo/pas/acts",
+            json={"sku": "silence_lease", "named_agent": "unbound-agent"},
+        ).get_json()
+        self.assertEqual(quiet["kind"], "silence_lease")
+        self.assertTrue(quiet["refusal_is_souvenir"])
+        self.assertFalse(quiet["may_sold"])
+        email = f"acts-{uuid.uuid4().hex[:8]}@example.com"
+        for sku in ("prefinality_keepalive", "query_remaining", "silence_lease"):
+            r = self.client.post(
+                "/acts/checkout",
+                data={"email": email, "sku": sku, "subject": job},
+                follow_redirects=False,
+            )
+            self.assertIn(r.status_code, (302, 303), sku)
 
 
 if __name__ == "__main__":

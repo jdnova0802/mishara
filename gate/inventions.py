@@ -527,18 +527,38 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "claim": (
             "We have an acquirer stub: hop + bps + floor + QIC. "
             "A network charges the same act several times. "
-            "Prefinality, settlement, query, scheme assessment, regret, "
-            "interchange, silence lease — protocol or name, not a price."
+            "Keep-alive, query, and silence lease now have a mouth. "
+            "Scheme assessment, S6 employment, custody stock, auth/capture/settle — still holes."
         ),
         "satoshi": "One fee to miners. No stack on the same spend.",
         "heavier": (
-            "Register of seated vs hole. Next after Gate 1 that is not "
-            "weld-harder: prefinality keep-alive or query of remaining."
+            "Register of seated vs priced vs hole. Till is /acts. "
+            "Next formula after Gate 1 that is not weld-harder: scheme assessment or per-clear."
         ),
-        "real": "flows.py · /flows · FLOWS.md · no new checkout",
+        "real": "flows.py · /flows · FLOWS.md · till /acts",
         "status": "shipped",
         "cash": False,
         "tree": "register — not a sibling, not a buyer plate",
+    },
+    {
+        "id": "priced_act_rents",
+        "subject": "flow",
+        "name": "Priced act rents",
+        "claim": (
+            "Keep-alive rents the unspent window. Query rents the ask after. "
+            "Silence lease rents the no that must stay live. Visa stacks several "
+            "rents on one act. These three have a checkout. 100% Nisaba. "
+            "They never implement."
+        ),
+        "satoshi": "One miner fee. The window, the ask, and the no were free.",
+        "heavier": (
+            "Thinner than Standing. Not interchange. Not September spray. "
+            "$1,200/mo window · $2,000/mo ask · $1,500/mo no."
+        ),
+        "real": "acts.py · /acts · POST /acts/checkout · $1,200/mo · $2,000/mo · $1,500/mo",
+        "status": "shipped",
+        "cash": True,
+        "tree": "act-rent cash door — not a sibling, not interchange, not a weld",
     },
     {
         "id": "evac_comms",
@@ -621,6 +641,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "commons": f"{base}/.well-known/commons.json",
             "hand": f"{base}/.well-known/hand.json",
             "flows": f"{base}/.well-known/flows.json",
+            "acts": f"{base}/.well-known/acts.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -634,6 +655,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Act rents",
+            "title": "Keep-alive · query · silence lease",
+            "body": (
+                "The same act, rented more than once. $1,200/mo window, "
+                "$2,000/mo ask, $1,500/mo no. Checkout is /acts. Not interchange."
+            ),
         },
         {
             "tag": "Custom",

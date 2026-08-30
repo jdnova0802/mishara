@@ -44,7 +44,7 @@ That purchase **is** Gate 1 if they pay and you prove.
 | **Standing desk** | **$25,000/mo** | Company with several irreversible writes | Violent recurring · $300k/yr · 100% you · `/standing` |
 | **Operator weld** | **$25,000** + **$5k/mo** | Licensed payout / withdraw desk with a live money-leave path | They implement; only with warm intro |
 
-Cash door: `/standing` · `/finished` · `/operator` · Bind: `/bind-room` · Refusal: `/refusal`.
+Cash door: `/standing` · `/finished` · `/operator` · Bind: `/bind-room` · Refusal: `/refusal` · act rents: `/acts`.
 
 **Do not:** bump the archived MGA list · pitch $300B cartoon · sell may · run x402 facilitator · become AIUC · invent a sixth plate to “explain” the sale.
 
@@ -101,8 +101,9 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 8. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
 9. **Commons operator $150,000/yr** — only if a convener with standing is forming a pool (`COMMONS.md`). Seed is Bind/Finished/Standing. Do not sell “join my consortium.”
 10. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
-11. **Act/flow holes** — map only (`FLOWS.md`). Do not sell interchange from Bind. After Gate 1: prefinality keep-alive or query of remaining.
-12. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
+11. **Priced act rents** — keep-alive **$1,200/mo** · query **$2,000/mo** · silence lease **$1,500/mo** (`ACTS.md` · `/acts`). Thinner than Standing. Not September spray. Not interchange.
+12. **Still-unpaid stack** — scheme assessment · per-clear · S6 employment · custody stock · auth/capture/settle (`FLOWS.md`). Do not sell interchange from Bind.
+13. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
 
 > Absolute is October’s launch language. **September’s dollar is Bind, Finished, or Standing.**
 
