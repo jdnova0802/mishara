@@ -9,9 +9,9 @@ Paste this to the other agent:
 
 > Read these files on branch `cursor/nisaba-cosmic-unison-719d` (PR #34). Do not use `main`.  
 > `gate/SHARE_PR34.md` (this pack)  
-> then `gate/SPACE.md` `gate/DISCHARGE.md` `gate/VITAL.md` `gate/ACTS.md` `gate/FLOWS.md` `gate/HAND.md` `gate/COMMONS.md` `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
-> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/null` · `/discharge` · `/acts` · `/hand` · `/commons` · `/general` · `/standing` · `/finished` · `/bind-room` · `/operator`.  
-> **Cash this month:** Bind $1,750 · Discharge $1,500 · Null $4,500 · Finished $8,500 · Standing. **Act rents:** `ACTS.md` — keep-alive $1,200/mo · query $2,000/mo · silence $1,500/mo. **Way of life:** `HAND.md` — keep a hand $12,000/yr unmetered; not hops, not Being. **Commons:** operate, don't found.  
+> then `gate/SPACE.md` `gate/ESTATE.md` `gate/NULL.md` `gate/DISCHARGE.md` `gate/VITAL.md` `gate/ACTS.md` `gate/FLOWS.md` `gate/HAND.md` `gate/COMMONS.md` `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
+> Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/estate` · `/null` · `/discharge` · `/acts` · `/hand` · `/commons` · `/general` · `/standing` · `/finished` · `/bind-room` · `/operator`.  
+> **Cash this month:** Bind $1,750 · Discharge $1,500 · Estate $3,500 · Null $4,500 · Finished $8,500 · Standing. Time-source stamp on packs (not a /time page). **Act rents:** `ACTS.md` — keep-alive $1,200/mo · query $2,000/mo · silence $1,500/mo. **Way of life:** `HAND.md` — keep a hand $12,000/yr unmetered; not hops, not Being. **Commons:** operate, don't found.  
 > Inventing: **The Vital** (unwatched remaining — not Visa/DTCC) · Priced act rents · The Hand · Commons · The General. H₀ · R₀ · COFFIN. Cash path: `CASH_NOW.md`. Gate 1 still Bind.
 
 ---
@@ -26,7 +26,7 @@ Paste this to the other agent:
 - First commercial weld: payout/withdraw (`/operator`).
 - Nuclear C2 / private PD / battlefield = unmouthed (state-only).
 - September: counsel quotes → Gate 1 → S03 redeem.
-- Cash now: Standing Remaining **$4,500/mo · $9,000/mo · $25,000/mo** (100% you) · Finished Remaining **$8,500** · Null Remaining **$4,500** · Discharge of Record **$1,500** · Bind Room **$1,750** · broker pack **$4,500** · weld **$25k** · floor **$5k/mo** · **10 bps** (+5 above $500M/mo) · $0.10/hop · act rents **$1,200/mo keep-alive · $2,000/mo query · $1,500/mo silence**.
+- Cash now: Standing Remaining **$4,500/mo · $9,000/mo · $25,000/mo** (100% you) · Finished Remaining **$8,500** · Null Remaining **$4,500** · Estate of Remaining **$3,500** · Discharge of Record **$1,500** · Bind Room **$1,750** · broker pack **$4,500** · weld **$25k** · floor **$5k/mo** · **10 bps** (+5 above $500M/mo) · $0.10/hop · act rents **$1,200/mo keep-alive · $2,000/mo query · $1,500/mo silence**. Time-source stamp on operated packs — not a `/time` page.
 
 ---
 
@@ -43,6 +43,7 @@ Paste this to the other agent:
 | `gate/SPACE.md` | **Space Academy remaining** — not the school · Delay Unwatched · Commission Remaining · not C2 · EO 2026-08-28 · `/space` |
 | `gate/DISCHARGE.md` | **Forgetting institution** — standing lapses; chain stays · **$1,500** Discharge of Record · checkout live · `/discharge` |
 | `gate/NULL.md` | **Failed try** — failure has a remaining · **$4,500** · not Refusal, not Finished · `/null` |
+| `gate/ESTATE.md` | **Bearer gone** — remaining is probated, not orphaned LIVE · **$3,500** · U7 · `/estate` |
 | `gate/VITAL.md` | **Life institutions** — Unwatched Remaining · Night $600/yr house · world default **$1.32T** circadian · three-organ cartoon **~$2.08T** · shape not forecast · `/vital` |
 | `gate/ACTS.md` | **Priced act rents** — keep-alive $1,200/mo · query $2,000/mo · silence lease $1,500/mo · `/acts` |
 | `gate/FLOWS.md` | **Act/flow map** — seated hop+bps+floor+QIC · priced three · missed classes (S6, auth/capture, custody, FX) · `/flows` |
@@ -51,7 +52,7 @@ Paste this to the other agent:
 | `gate/GENERAL.md` | **Contains Satoshi** — money is a special case · correspondent remaining $1M/yr · 100 seats = $100M · `/general` |
 | `gate/STANDING.md` | **Recurring that prints** — remaining lease $4,500/mo · $9,000/mo · $25,000/mo · 100% Nisaba · `/standing` |
 | `gate/PRINT.md` | **Prints this week** — Finished Remaining $8,500 operated folio · broker pack $4,500 · `/finished` |
-| `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 highest-probability · Discharge $1,500 · Null $4,500 · Finished $8,500 · Refusal $7.5k |
+| `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 highest-probability · Discharge $1,500 · Estate $3,500 · Null $4,500 · Finished $8,500 · Refusal $7.5k |
 | `gate/GOOD_INVENTING.md` | **9–10** · rail · civilization rent · Unprecedented 10s · **Amazing above-10s** |
 | `gate/ABOVE.md` | Civilization rent: custody · mandate · index · hyperscaler · apostille |
 | `gate/UNPRECEDENTED.md` | Deep 10s: trinity · anti-act · silence · regret · world-after · cross-substrate |
@@ -66,7 +67,7 @@ Paste this to the other agent:
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
 Machine-readable (same branch):  
-`/.well-known/space.json` · `null.json` · `discharge.json` · `vital.json` · `acts.json` · `hand.json` · `commons.json` · `general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json` · `flows.json`
+`/.well-known/space.json` · `estate.json` · `null.json` · `discharge.json` · `vital.json` · `acts.json` · `hand.json` · `commons.json` · `general.json` · `standing.json` · `finished.json` · `remaining.json` · `first.json` · `pvp.json` · `heavier.json` · `conformant.json` · `qic.json` · `inventions.json` · `inventor.json` · `unison.json` · `flows.json`
 
 ---
 

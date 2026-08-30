@@ -25,6 +25,11 @@ try:
 except ImportError:
     import remaining as remaining_mod
 
+try:
+    from gate import time_source as time_source_mod
+except ImportError:
+    import time_source as time_source_mod
+
 SPEC = "gate-null-remaining-v1"
 FAMILY_SIBLINGS_REMAIN = 5
 L2_MODULE = False
@@ -110,10 +115,12 @@ def pack(job_id: str, tried: str = "", public_url: str = "", contact_email: str 
         "succeeded": False,
         "not_a_win": True,
         "generation_does_not_rerun_blind": True,
+        "time_source": time_source_mod.attest(),
         "distinct_from": {
             "refusal": "will not ship — $7,500",
             "finished": "live write — $8,500",
             "discharge": "standing lapsed — $1,500",
+            "estate": "bearer gone — $3,500",
         },
         "may_sold": False,
         "being_sold": False,

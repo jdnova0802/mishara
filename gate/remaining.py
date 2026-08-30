@@ -287,6 +287,24 @@ MEDIUM: tuple[dict[str, Any], ...] = (
         "not_threatening": "GDPR-shaped mercy with a stranger receipt. Not a memory hole.",
     },
     {
+        "id": "estate_of_remaining",
+        "name": "Estate of remaining",
+        "horizon": "medium",
+        "first": (
+            "When the bearer dies, dissolves, or goes insolvent, remaining that "
+            "stays LIVE is an orphan well. Human death has probate. Digital may did not."
+        ),
+        "invention": (
+            "Probate one remaining: wound down, inherited, or washed. "
+            "No successor → leftover writes HALT. CHARGE-outside. "
+            "Actor cannot self-probate. Estate is not admin resurrect."
+        ),
+        "dots": "orphan wells × probate × U7 × CHARGE outside",
+        "real": "estate.py · /estate · $3,500 Estate of Remaining",
+        "status": "shipped",
+        "not_threatening": "Wind-down for a dead vendor. Not a court. Not deletion.",
+    },
+    {
         "id": "correspondent_remaining",
         "name": "Correspondent remaining",
         "horizon": "medium",

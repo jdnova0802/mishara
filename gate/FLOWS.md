@@ -21,6 +21,7 @@ Not The Hand (unmetered custom). Not Commons (levy). Not a sixth sibling.
 | **Finished / Bind / Refusal** | One act or one anti-act | One-shot, not recurring | `/finished` · `/bind-room` · `/refusal` |
 | **Discharge of Record** | Standing lapses; folio stays | One-shot **$1,500** · checkout live | `/discharge` |
 | **Null Remaining** | Failed try has a remaining | One-shot **$4,500** · checkout live | `/null` |
+| **Estate of Remaining** | Bearer gone; remaining probated | One-shot **$3,500** · checkout live | `/estate` |
 
 That was a **card-acquirer stub**: one hop fee + one bps + a monthly minimum. Visa charges the same act **several** times.
 

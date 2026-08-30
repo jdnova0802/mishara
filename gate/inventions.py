@@ -641,6 +641,26 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "cash door — not Refusal, not Finished, not a sibling, not Being",
     },
     {
+        "id": "estate_of_remaining",
+        "subject": "cash",
+        "name": "Estate of Remaining",
+        "claim": (
+            "When the bearer dies, dissolves, or goes insolvent, remaining that "
+            "stays LIVE is an orphan well. We probate one bearer: wound down, "
+            "inherited, or washed. CHARGE-outside. Actor cannot self-probate. "
+            "They do not implement Gate."
+        ),
+        "satoshi": "The chain outlives the bearer. Nobody inherits. Zombie LIVE.",
+        "heavier": (
+            "Human death has probate. Corporate dissolution has wind-down. "
+            "Digital may had neither. U7, operated. $3,500."
+        ),
+        "real": "estate.py · /estate · POST /estate/checkout · $3,500",
+        "status": "shipped",
+        "cash": True,
+        "tree": "cash door — not Discharge, not Null, not admin CHARGE, not Being",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -725,6 +745,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "vital": f"{base}/.well-known/vital.json",
             "discharge": f"{base}/.well-known/discharge.json",
             "null": f"{base}/.well-known/null.json",
+            "estate": f"{base}/.well-known/estate.json",
             "space": f"{base}/.well-known/space.json",
             "operator": f"{base}/operator",
         },
@@ -753,8 +774,9 @@ def page_blocks() -> list[dict[str, Any]]:
             "title": "Discharge — standing lapses; the chain does not",
             "body": (
                 "A proof rail with no expiry is a prison. Discharge of Record "
-                "$1,500 — we lapse one folio, they open both. Null Remaining "
-                "$4,500 — sealed failed try. /discharge · /null."
+                "$1,500 — we lapse one folio. Null Remaining $4,500 — sealed "
+                "failed try. Estate of Remaining $3,500 — bearer gone, probate. "
+                "/discharge · /null · /estate."
             ),
         },
         {

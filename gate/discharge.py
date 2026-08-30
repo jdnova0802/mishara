@@ -34,6 +34,11 @@ try:
 except ImportError:
     import remaining as remaining_mod
 
+try:
+    from gate import time_source as time_source_mod
+except ImportError:
+    import time_source as time_source_mod
+
 SPEC = "gate-discharge-v1"
 FAMILY_SIBLINGS_REMAIN = 5
 L2_MODULE = False
@@ -314,6 +319,7 @@ def pack(job_id: str, public_url: str = "", contact_email: str = "") -> dict[str
         "chain_intact": True,
         "folio_still_exists": True,
         "actor_cannot_self_discharge": True,
+        "time_source": time_source_mod.attest(),
         "may_sold": False,
         "being_sold": False,
         "cleverer_layer": CLEVERER_LAYER,

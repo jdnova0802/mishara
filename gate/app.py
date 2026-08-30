@@ -240,6 +240,11 @@ except ImportError:
     import null_remaining as null_remaining_mod
 
 try:
+    from gate import estate as estate_mod
+except ImportError:
+    import estate as estate_mod
+
+try:
     from gate import space as space_mod
 except ImportError:
     import space as space_mod
@@ -407,6 +412,8 @@ DISCHARGE_PRICE_LABEL = os.getenv("GATE_DISCHARGE_PRICE_LABEL", discharge_mod.DI
 DISCHARGE_PRICE_CENTS = int(os.getenv("GATE_DISCHARGE_PRICE_CENTS", str(discharge_mod.DISCHARGE_CENTS)))
 NULL_PRICE_LABEL = os.getenv("GATE_NULL_PRICE_LABEL", null_remaining_mod.NULL_LABEL)
 NULL_PRICE_CENTS = int(os.getenv("GATE_NULL_PRICE_CENTS", str(null_remaining_mod.NULL_CENTS)))
+ESTATE_PRICE_LABEL = os.getenv("GATE_ESTATE_PRICE_LABEL", estate_mod.ESTATE_LABEL)
+ESTATE_PRICE_CENTS = int(os.getenv("GATE_ESTATE_PRICE_CENTS", str(estate_mod.ESTATE_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -453,7 +460,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/space",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1555,6 +1562,8 @@ def well_known_gate():
             "discharge_page": f"{advertised_url()}/discharge",
             "null": f"{advertised_url()}/.well-known/null.json",
             "null_page": f"{advertised_url()}/null",
+            "estate": f"{advertised_url()}/.well-known/estate.json",
+            "estate_page": f"{advertised_url()}/estate",
             "space": f"{advertised_url()}/.well-known/space.json",
             "space_page": f"{advertised_url()}/space",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
@@ -2586,6 +2595,90 @@ def demo_null_pack():
             body.get("tried") or "",
             advertised_url(),
             CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/.well-known/estate.json")
+def well_known_estate():
+    return jsonify(estate_mod.manifest(advertised_url()))
+
+
+@app.route("/estate")
+def estate_page():
+    return render_template(
+        "estate.html",
+        manifest=estate_mod.manifest(advertised_url()),
+        estate_price=ESTATE_PRICE_LABEL,
+        discharge_price=DISCHARGE_PRICE_LABEL,
+        null_price=NULL_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/estate/checkout", methods=["POST"])
+def estate_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    bearer = (request.form.get("bearer") or "").strip()[:160]
+    successor = (request.form.get("successor") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("estate_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, ESTATE_PRICE_CENTS, product="estate_of_remaining")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Estate of Remaining (dev)",
+            f"{email} {ESTATE_PRICE_LABEL} job={job_id or 'later'} bearer={bearer or 'unnamed'}",
+            {"email": email, "job_id": job_id, "bearer": bearer, "successor": successor, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Estate of Remaining.", "error")
+        return redirect(url_for("estate_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[estate_mod.stripe_line_item("estate_of_remaining")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/estate?canceled=1",
+        metadata={
+            "product": "estate_of_remaining",
+            "contact_email": email,
+            "job_id": job_id,
+            "bearer": bearer,
+            "successor": successor,
+        },
+    )
+    db.create_install_order(email, checkout.id, ESTATE_PRICE_CENTS, product="estate_of_remaining")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/estate", methods=["POST"])
+def demo_estate_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        estate_mod.pack(
+            body.get("job_id") or "",
+            bearer=body.get("bearer") or "",
+            successor=body.get("successor") or "",
+            reason=body.get("reason") or "dissolved",
+            public_url=advertised_url(),
+            contact_email=CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/demo/pas/estate/may", methods=["POST"])
+def demo_estate_may():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        estate_mod.may_write(
+            body.get("job_id") or "",
+            bearer_gone=bool(body.get("bearer_gone", True)),
         )
     )
 
@@ -4227,6 +4320,16 @@ def billing_webhook():
                 f"{NULL_PRICE_LABEL} from {email} job={job_id or 'later'} tried={tried or 'killed'}",
                 {"email": email, "job_id": job_id, "tried": tried, "session": sess["id"]},
             )
+        elif product == "estate_of_remaining":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            bearer = (sess.get("metadata") or {}).get("bearer") or ""
+            notify.money(
+                "CASH — Estate of Remaining",
+                f"{ESTATE_PRICE_LABEL} from {email} job={job_id or 'later'} bearer={bearer or 'unnamed'}",
+                {"email": email, "job_id": job_id, "bearer": bearer, "session": sess["id"]},
+            )
         elif product in STANDING_SKU_CENTS:
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -4560,6 +4663,7 @@ def robots():
             "Disallow: /vital",
             "Disallow: /discharge",
             "Disallow: /null",
+            "Disallow: /estate",
             "Disallow: /space",
             "Disallow: /positioning",
             "Disallow: /focus",

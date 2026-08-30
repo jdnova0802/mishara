@@ -39,6 +39,7 @@ That purchase **is** Gate 1 if they pay and you prove.
 | **Broker three-pack** | **$4,500** | Specialty broker, three AI names on their book | One checkout; you never cold the insured — `/finished` |
 | **Refusal** | **$7,500** | Board / founder who wants a signed “we will not ship this unbound agent” | Anti-act as product — absence is the deliverable; already `/refusal` |
 | **Discharge of Record** | **$1,500** | GC with a prison folio — no expiry, next contribution blocked | We lapse one standing; they open both — `/discharge` |
+| **Estate of Remaining** | **$3,500** | GC whose agent vendor dissolved or whose named-may fleet died | We probate one bearer; leftover writes HALT without a successor — `/estate` |
 | **Null Remaining** | **$4,500** | Board / GC who already killed an agent project | Sealed folio of the failed try — not Refusal, not Finished — `/null` |
 | **Finished Remaining** | **$8,500** | GC / founder with an E&O date who will not implement a rail before the binder | We operate one write; they attach the folio — `/finished` |
 | **Standing write** | **$4,500/mo** | GC who knows the underwriter asks again | Remaining lease — we operate every month · `/standing` |
@@ -46,7 +47,7 @@ That purchase **is** Gate 1 if they pay and you prove.
 | **Standing desk** | **$25,000/mo** | Company with several irreversible writes | Violent recurring · $300k/yr · 100% you · `/standing` |
 | **Operator weld** | **$25,000** + **$5k/mo** | Licensed payout / withdraw desk with a live money-leave path | They implement; only with warm intro |
 
-Cash door: `/standing` · `/finished` · `/discharge` · `/null` · `/operator` · Bind: `/bind-room` · Refusal: `/refusal` · act rents: `/acts`.
+Cash door: `/standing` · `/finished` · `/discharge` · `/estate` · `/null` · `/operator` · Bind: `/bind-room` · Refusal: `/refusal` · act rents: `/acts`.
 
 **Do not:** bump the archived MGA list · pitch $300B cartoon · sell may · run x402 facilitator · become AIUC · invent a sixth plate to “explain” the sale.
 
@@ -65,6 +66,7 @@ These are offer-shapes on **existing** SKUs. Score = commercial 10 for *this mon
 | **N6** | **Standing Remaining** — remaining lease. Souvenir ages. Live stock is rent. 100% you. | `/standing` **$4,500/mo** · **$9,000/mo** · **$25,000/mo** | First recurring that prints **without a weld**. Desk = $300k/yr per company. No split. |
 | **N7** | **Discharge of Record** — we lapse one prison folio; they open the folio and the receipt | `/discharge` **$1,500** | They already have a stale remaining. Cheaper than Refusal because the try exists. |
 | **N8** | **Null Remaining** — sealed remaining of a killed try. Not a will-not-ship. | `/null` **$4,500** | Board already killed the project. Minutes need a remaining, not a postmortem PDF. |
+| **N9** | **Estate of Remaining** — bearer gone; remaining is probated, not orphaned LIVE | `/estate` **$3,500** | Dissolving vendor or dead agent fleet. Distinct from Discharge (standing) and Null (killed try). |
 
 Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25k` weld + $5k/mo they implement. Not a spray list.
 
@@ -102,16 +104,17 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 5. **N3 Refusal $7,500** — if a board is already scared  
 6. **N7 Discharge $1,500** — if they already have a prison folio (`DISCHARGE.md`)  
 7. **N8 Null Remaining $4,500** — if they already killed a project (`NULL.md`)  
-8. **Install $2,500** / **N2 broker pack** / **N6 standing book $9,000/mo**  
-9. **Operator $25k + $5k/mo** — only if they will implement a licensed desk  
-10. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
-11. **Commons operator $150,000/yr** — only if a convener with standing is forming a pool (`COMMONS.md`). Seed is Bind/Finished/Standing. Do not sell “join my consortium.”
-12. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
-13. **Priced act rents** — keep-alive **$1,200/mo** · query **$2,000/mo** · silence lease **$1,500/mo** (`ACTS.md` · `/acts`). Thinner than Standing. Not September spray. Not interchange.
-14. **Still-unpaid stack** — scheme assessment · per-clear · S6 employment · custody stock · auth/capture/settle (`FLOWS.md`). Do not sell interchange from Bind.
-15. **The Vital** — Night Law / natal / posology (`VITAL.md`). Life institutions, not interchange. **Museum until Gate 1.** After Gate 1 the first Vital dollar is a night hold you actually operate — not a cartoon.
-16. Everything in `UNPRECEDENTED.md` / `ABOVE.md` / Space Academy — **museum until Gate 1**
+8. **N9 Estate $3,500** — if the vendor already dissolved (`ESTATE.md`)  
+9. **Install $2,500** / **N2 broker pack** / **N6 standing book $9,000/mo**  
+10. **Operator $25k + $5k/mo** — only if they will implement a licensed desk  
+11. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
+12. **Commons operator $150,000/yr** — only if a convener with standing is forming a pool (`COMMONS.md`). Seed is Bind/Finished/Standing. Do not sell “join my consortium.”
+13. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
+14. **Priced act rents** — keep-alive **$1,200/mo** · query **$2,000/mo** · silence lease **$1,500/mo** (`ACTS.md` · `/acts`). Thinner than Standing. Not September spray. Not interchange.
+15. **Still-unpaid stack** — scheme assessment · per-clear · S6 employment · custody stock · auth/capture/settle (`FLOWS.md`). Do not sell interchange from Bind.
+16. **The Vital** — Night Law / natal / posology (`VITAL.md`). Life institutions, not interchange. **Museum until Gate 1.** After Gate 1 the first Vital dollar is a night hold you actually operate — not a cartoon.
+17. Everything in `UNPRECEDENTED.md` / `ABOVE.md` / Space Academy — **museum until Gate 1**
 
-> Absolute is October’s launch language. **September’s dollar is Bind, Finished, Standing, Discharge, or Null.**
+> Absolute is October’s launch language. **September’s dollar is Bind, Finished, Standing, Discharge, Estate, or Null.**
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · $0 until stranger paid and proved*

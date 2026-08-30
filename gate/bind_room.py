@@ -5,6 +5,10 @@ B) On-request appendix — each bind event → verify_url + hop. Not the SERFF f
 """
 from __future__ import annotations
 
+try:
+    from gate import time_source as time_source_mod
+except ImportError:
+    import time_source as time_source_mod
 
 SECTION_5 = [
     ("5.A.1", "Governing principles", "ECDIS/algorithms designed and monitored to prevent unfair discrimination."),
@@ -54,6 +58,7 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "Do not sell model inventory (Monitaur's pile).",
             "Do not put PII on Gate.",
         ],
+        "time_source": time_source_mod.attest(),
     }
 
 

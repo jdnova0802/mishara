@@ -32,6 +32,11 @@ try:
 except ImportError:
     import bind_room as bind_room_mod
 
+try:
+    from gate import time_source as time_source_mod
+except ImportError:
+    import time_source as time_source_mod
+
 SPEC = "gate-finished-remaining-v1"
 FAMILY_SIBLINGS_REMAIN = 5
 L2_MODULE = False
@@ -123,6 +128,7 @@ def pack(job_id: str, public_url: str, contact_email: str = "") -> dict[str, Any
         "apostille": first_mod.apostille(jid),
         "vital": first_mod.death_certificate(jid),
         "officer_pack": bind_room_mod.officer_pack(public_url, contact_email),
+        "time_source": time_source_mod.attest(),
         "the_act_is_not_the_object": True,
         "not": [
             "a padlock they implement",
