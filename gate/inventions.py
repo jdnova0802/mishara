@@ -500,6 +500,27 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "commons operator door — not a sibling, not the chair, not the carrier",
     },
     {
+        "id": "the_hand",
+        "subject": "custom",
+        "name": "The Hand",
+        "claim": (
+            "Screens made looking a habit; taps made intending a habit. "
+            "The Hand is the default gesture of one-wayness. Rent is keeping it, "
+            "not moving it. Flat. Unmetered. Not hops, not bps, not effector count. "
+            "A legal person, not Being. The Ordinary is the custom."
+        ),
+        "satoshi": "Metered the spend. Billed the motion. Gave the protocol away.",
+        "heavier": (
+            "Phone numbers are not billed by syllables. The Ordinary is not billed "
+            "by taps. 8,500 houses × $12,000/yr = $102M with zero GMV. "
+            "Way of life, not flow."
+        ),
+        "real": "hand.py · /hand · POST /demo/pas/hand · $12,000/yr unmetered",
+        "status": "shipped",
+        "cash": True,
+        "tree": "way-of-life cash door — not a sibling, not Being, not may",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -578,6 +599,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "standing": f"{base}/.well-known/standing.json",
             "general": f"{base}/.well-known/general.json",
             "commons": f"{base}/.well-known/commons.json",
+            "hand": f"{base}/.well-known/hand.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -591,6 +613,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Custom",
+            "title": "The Hand — keep it, don't meter it",
+            "body": (
+                "Way of life. $12,000/yr unmetered for one legal person. "
+                "Not hops. Not Being. Checkout is /hand."
+            ),
         },
         {
             "tag": "Commons",

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}The Hand — keep it, don't meter it{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Way of life · unmetered · not flow · not Being</p>
+  <h1>Rent is keeping the hand, not moving it.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="install-price">{{ ordinary_price }} <span>one legal person · unlimited gestures · no hops · no bps</span></div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin: 1.25rem 0 2rem; flex-wrap: wrap; gap: 0.75rem;">
+    <form method="post" action="{{ url_for('hand_checkout') }}">
+      <input type="email" name="email" placeholder="entity work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <input type="text" name="legal_person" placeholder="legal person (entity name)" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 16rem;">
+      <button type="submit" class="btn btn-primary">Keep a hand {{ ordinary_price }}</button>
+    </form>
+  </div>
+
+  <div class="grid-3">
+    {% for t in manifest.timeless %}
+    <div class="card">
+      <p class="audience-tag">{{ t.id }}</p>
+      <h3>{{ t.name }}</h3>
+      <p>{{ t.what }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h3>Not volume</h3>
+    <p>{{ manifest.print.why_not_volume }}</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.print.honest }}</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_hand') }}" class="btn btn-ghost btn-sm">hand.json</a>
+    <a href="{{ url_for('standing_page') }}" class="btn btn-ghost btn-sm">Still metered — Standing</a>
+    <a href="{{ url_for('commons_page') }}" class="btn btn-ghost btn-sm">Commons</a>
+    <a href="{{ url_for('general_page') }}" class="btn btn-ghost btn-sm">The General</a>
+  </div>
+</div>
+{% endblock %}

@@ -156,6 +156,11 @@ class ManifestTests(unittest.TestCase):
         self.assertTrue(m["commons"]["we_do_not_carry_risk"])
         self.assertEqual(m["commons"]["operator"], "$150,000/yr")
         self.assertEqual(m["commons"]["family_siblings_remain"], 5)
+        self.assertIn("hand", m)
+        self.assertFalse(m["hand"]["metered"])
+        self.assertFalse(m["hand"]["being_sold"])
+        self.assertEqual(m["hand"]["ordinary"], "$12,000/yr")
+        self.assertEqual(m["hand"]["identity"], "rent is keeping the hand, not moving it")
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1600,7 +1605,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2941,7 +2946,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2956,6 +2961,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("Standing Remaining", html)
         self.assertIn("The General", html)
         self.assertIn("Incident Remaining Commons", html)
+        self.assertIn("The Hand", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3700,6 +3706,63 @@ class CommonsTests(unittest.TestCase):
         r = self.client.post(
             "/commons/checkout",
             data={"email": email, "convener": "Example Specialty"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class HandTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_unmetered_way_of_life(self):
+        import hand
+
+        m = hand.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-the-hand-v1")
+        self.assertEqual(m["identity"], "rent is keeping the hand, not moving it")
+        self.assertFalse(m["sku"]["metered"])
+        self.assertFalse(m["print"]["hops"])
+        self.assertFalse(m["print"]["bps"])
+        self.assertFalse(m["print"]["qic"])
+        self.assertFalse(m["print"]["effector_count"])
+        self.assertTrue(m["print"]["indefinite"])
+        self.assertIsNone(m["print"]["meter"])
+        self.assertEqual(m["sku"]["label"], "$12,000/yr")
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["family_siblings_remain"], 5)
+        ids = {t["id"] for t in m["timeless"]}
+        self.assertTrue({"oath", "handshake", "signature", "vote", "tap"}.issubset(ids))
+        item = hand.stripe_line_item()
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "year")
+        self.assertEqual(item["price_data"]["unit_amount"], 1_200_000)
+        html = self.client.get("/hand").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("keeping the hand", html)
+        self.assertIn("$12,000/yr", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /hand", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("hand", gate)
+
+    def test_keep_is_not_a_spend(self):
+        kept = self.client.post(
+            "/demo/pas/hand",
+            json={"legal_person": "Example LLC"},
+        ).get_json()
+        self.assertEqual(kept["kind"], "hand_kept")
+        self.assertFalse(kept["metered"])
+        self.assertFalse(kept["taps_counted"])
+        self.assertFalse(kept["may_sold"])
+        self.assertFalse(kept["being_sold"])
+        self.assertEqual(kept["legal_person"], "Example LLC")
+        email = f"hand-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/hand/checkout",
+            data={"email": email, "legal_person": "Example LLC"},
             follow_redirects=False,
         )
         self.assertIn(r.status_code, (302, 303))

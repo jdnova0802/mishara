@@ -210,6 +210,11 @@ except ImportError:
     import commons as commons_mod
 
 try:
+    from gate import hand as hand_mod
+except ImportError:
+    import hand as hand_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -364,6 +369,8 @@ GENERAL_SEAT_LABEL = os.getenv("GATE_GENERAL_SEAT_LABEL", general_mod.SEAT_LABEL
 GENERAL_SEAT_CENTS = int(os.getenv("GATE_GENERAL_SEAT_CENTS", str(general_mod.SEAT_CENTS)))
 COMMONS_OPERATOR_LABEL = os.getenv("GATE_COMMONS_OPERATOR_LABEL", commons_mod.OPERATOR_LABEL)
 COMMONS_OPERATOR_CENTS = int(os.getenv("GATE_COMMONS_OPERATOR_CENTS", str(commons_mod.OPERATOR_CENTS)))
+HAND_ORDINARY_LABEL = os.getenv("GATE_HAND_ORDINARY_LABEL", hand_mod.ORDINARY_LABEL)
+HAND_ORDINARY_CENTS = int(os.getenv("GATE_HAND_ORDINARY_CENTS", str(hand_mod.ORDINARY_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -410,7 +417,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -453,6 +460,7 @@ def inject_globals():
         "standing_desk_price": STANDING_DESK_LABEL,
         "general_seat_price": GENERAL_SEAT_LABEL,
         "commons_operator_price": COMMONS_OPERATOR_LABEL,
+        "ordinary_price": HAND_ORDINARY_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
@@ -1499,6 +1507,8 @@ def well_known_gate():
             "general_page": f"{advertised_url()}/general",
             "commons": f"{advertised_url()}/.well-known/commons.json",
             "commons_page": f"{advertised_url()}/commons",
+            "hand": f"{advertised_url()}/.well-known/hand.json",
+            "hand_page": f"{advertised_url()}/hand",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2230,6 +2240,62 @@ def demo_commons_seed():
 def demo_commons_query():
     body = request.get_json(silent=True) or {}
     return jsonify(commons_mod.can_query(contributed=bool(body.get("contributed"))))
+
+
+@app.route("/.well-known/hand.json")
+def well_known_hand():
+    return jsonify(hand_mod.manifest(advertised_url()))
+
+
+@app.route("/hand")
+def hand_page():
+    return render_template(
+        "hand.html",
+        manifest=hand_mod.manifest(advertised_url()),
+        ordinary_price=HAND_ORDINARY_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/hand/checkout", methods=["POST"])
+def hand_checkout():
+    email = (request.form.get("email") or "").strip()
+    legal_person = (request.form.get("legal_person") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("hand_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, HAND_ORDINARY_CENTS, product="ordinary")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — The Ordinary (dev)",
+            f"{email} {HAND_ORDINARY_LABEL} legal_person={legal_person or 'later'}",
+            {"email": email, "legal_person": legal_person, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject The Ordinary.", "error")
+        return redirect(url_for("hand_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[hand_mod.stripe_line_item()],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/hand?canceled=1",
+        metadata={"product": "ordinary", "contact_email": email, "legal_person": legal_person},
+        subscription_data={
+            "metadata": {"product": "ordinary", "contact_email": email, "legal_person": legal_person},
+        },
+    )
+    db.create_install_order(email, checkout.id, HAND_ORDINARY_CENTS, product="ordinary")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/hand", methods=["POST"])
+def demo_hand_keep():
+    body = request.get_json(silent=True) or {}
+    return jsonify(hand_mod.keep(body.get("legal_person") or body.get("name") or ""))
 
 
 @app.route("/.well-known/legal.json")
@@ -3810,6 +3876,15 @@ def billing_webhook():
                 f"{COMMONS_OPERATOR_LABEL} from {email} convener={convener or 'later'}",
                 {"email": email, "convener": convener, "session": sess["id"]},
             )
+        elif product == "ordinary":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            legal_person = (sess.get("metadata") or {}).get("legal_person") or ""
+            notify.money(
+                "CASH — The Ordinary",
+                f"{HAND_ORDINARY_LABEL} from {email} legal_person={legal_person or 'later'}",
+                {"email": email, "legal_person": legal_person, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3859,6 +3934,13 @@ def billing_webhook():
                 notify.money(
                     "CASH — Commons operator (renewal)",
                     f"{COMMONS_OPERATOR_LABEL} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product == "ordinary":
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — The Ordinary (renewal)",
+                    f"{HAND_ORDINARY_LABEL} from {email}",
                     {"email": email, "sku": product, "invoice": inv.get("id")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
@@ -4078,6 +4160,7 @@ def robots():
             "Disallow: /standing",
             "Disallow: /general",
             "Disallow: /commons",
+            "Disallow: /hand",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",
