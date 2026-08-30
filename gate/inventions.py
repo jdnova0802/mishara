@@ -378,6 +378,16 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "status": "shipped",
     },
     {
+        "id": "stranger_two",
+        "subject": "communication",
+        "name": "Two-Paragraph Remaining",
+        "claim": "Two paragraphs, one ask, one halt. The unused invention is the cut.",
+        "satoshi": "The whitepaper was long. The first money was a stranger who understood enough to act.",
+        "heavier": "Nisaba's constraint is whether a stranger reads two paragraphs and replies. Not another vein.",
+        "real": "/bind-room · / · officer-pack.json stranger_two",
+        "status": "shipped",
+    },
+    {
         "id": "gate1_event",
         "subject": "incarnation",
         "name": "Gate 1 — stranger paid and proved",

@@ -612,6 +612,11 @@ class FieldAndWeldTests(unittest.TestCase):
         self.assertEqual(pack["time_source"]["kind"], "time_source_attestation")
         self.assertFalse(pack["time_source"]["claims_before_loss"])
         self.assertEqual(pack["time_source"]["on_gnss_loss"], "HALT claim of recorded-before-loss")
+        two = pack["stranger_two"]
+        self.assertEqual(two["spec"], "gate-stranger-two-v1")
+        self.assertEqual(len(two["paragraphs"]), 2)
+        self.assertEqual(two["ask"], "Book Bind Room")
+        self.assertIn("will not sell may", two["halt"])
 
 
 class BindRoomFlaskTests(unittest.TestCase):
@@ -685,7 +690,14 @@ class BindRoomFlaskTests(unittest.TestCase):
     def test_bind_room_page(self):
         r = self.client.get("/bind-room")
         self.assertEqual(r.status_code, 200)
-        self.assertIn(b"Officer pack", r.data)
+        body = r.get_data(as_text=True)
+        self.assertIn("Your CGL will not cover the agent", body)
+        self.assertIn("Not another governance PDF", body)
+        self.assertIn("Book Bind Room", body)
+        self.assertIn("will not sell may", body)
+        self.assertIn("officer-pack.json", body)
+        self.assertNotIn("Two yeses — who wins", body)
+        self.assertNotIn("Two artifacts. One weld.", body)
 
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")
@@ -1798,7 +1810,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Weld a path", body)
+        self.assertIn("Book Bind Room", body)
+        self.assertIn("/bind-room", body)
         self.assertIn("/register", body)
         self.assertIn("Fee schedule", body)
         self.assertNotIn("scarcity is the DENY", body)
@@ -1881,7 +1894,8 @@ class OperatorInvoiceTests(unittest.TestCase):
                 self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
         home = self.client.get("/").get_data(as_text=True)
         self.assertIn("If money is about to leave and should not", home)
-        self.assertIn("Weld a path", home)
+        self.assertIn("Book Bind Room", home)
+        self.assertIn("Your CGL will not cover the agent", home)
         chrome = home.split("<footer>", 1)[0]
         for phrase in (
             "Lab docs",
@@ -2986,7 +3000,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "null_remaining", "estate_of_remaining", "space_academy_remaining"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "null_remaining", "estate_of_remaining", "space_academy_remaining", "stranger_two"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)

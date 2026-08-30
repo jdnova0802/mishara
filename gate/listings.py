@@ -1,6 +1,11 @@
 """Dating manifests — list everywhere, weld one write path."""
 from __future__ import annotations
 
+try:
+    from gate import bind_room as bind_room_mod
+except ImportError:
+    import bind_room as bind_room_mod
+
 
 def listings_manifest(public_url: str, contact_email: str) -> dict:
     mcp = f"{public_url}/mcp"
@@ -425,6 +430,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",
             "appendix": f"{public_url}/bind-room/appendix.schema.json",
             "price": "$1,750",
+            "stranger_two": bind_room_mod.stranger_two(public_url),
         },
         "register": {
             "page": f"{public_url}/register",

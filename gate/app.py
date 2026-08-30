@@ -831,6 +831,7 @@ def index():
         pro_price=PRO_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         install_slots=db.install_slots_remaining(),
+        stranger_two=bind_room_mod.stranger_two(advertised_url()),
     )
 
 
@@ -4028,6 +4029,7 @@ def bind_room():
         install_price=INSTALL_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
+        stranger_two=bind_room_mod.stranger_two(advertised_url()),
     )
 
 

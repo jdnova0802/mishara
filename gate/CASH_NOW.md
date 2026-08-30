@@ -22,9 +22,13 @@ Those print after Gate 1. This file is only what a stranger can pay **before** c
 | **Prove** | Officer pack + verify permalinks; stranger can open |
 | **Pond** | Warm intros · broker-of-record for AI shops · founder Slack/Discord · counsel who already has your brief · **not** the ghosted MGA list |
 
-One line for the email:
+The stranger door is now the cut (`/bind-room` and `/`). Two paragraphs. One ask. One halt. Copy from `officer-pack.json` → `stranger_two`.
 
-> Your CGL won’t cover the agent. Specialist E&O will ask what stops the irreversible write. Bind Room is the officer pack + stranger-openable receipt — $1,750. Not another governance PDF.
+> Your CGL will not cover the agent. Specialist E&O will ask what stops the irreversible write.
+>
+> Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+Ask: Book Bind Room. Halt: we will not sell may; we will not implement the rail on this SKU.
 
 That purchase **is** Gate 1 if they pay and you prove.
 

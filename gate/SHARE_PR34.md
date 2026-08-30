@@ -12,7 +12,8 @@ Paste this to the other agent:
 > then `gate/SPACE.md` `gate/ESTATE.md` `gate/NULL.md` `gate/DISCHARGE.md` `gate/VITAL.md` `gate/ACTS.md` `gate/FLOWS.md` `gate/HAND.md` `gate/COMMONS.md` `gate/GENERAL.md` `gate/STANDING.md` `gate/PRINT.md` `gate/CASH_NOW.md` `gate/REMAINING.md` `gate/FIRST.md` `gate/HEAVIER.md` `gate/CONFORMANT.md` `gate/INVENTIONS.md` `gate/UNISON.md` `gate/GOOD_INVENTING.md` `gate/ABOVE.md` `gate/UNPRECEDENTED.md` `gate/AMAZING.md` `gate/AFTERWEB.md` `gate/HUSBANDRY.md` `gate/COFFIN.md` `gate/MONETIZE_R0.md` `gate/END22_RANK.md`  
 > Locks: family voices stay five. No new `/for/` plates. No admin CHARGE. No new L2 museum. `cleverer_layer` is null. Never sell may / the throat / planetary capacity. `their_production` false until Gate 1: stranger paid and proved. Inventor is Demond Davis, Nisaba LLC, patent 64/124,027. Identity frozen outbound until Gate 1. Cash doors: `/estate` · `/null` · `/discharge` · `/acts` · `/hand` · `/commons` · `/general` · `/standing` · `/finished` · `/bind-room` · `/operator`.  
 > **Cash this month:** Bind $1,750 · Discharge $1,500 · Estate $3,500 · Null $4,500 · Finished $8,500 · Standing. Time-source stamp on packs (not a /time page). **Act rents:** `ACTS.md` — keep-alive $1,200/mo · query $2,000/mo · silence $1,500/mo. **Way of life:** `HAND.md` — keep a hand $12,000/yr unmetered; not hops, not Being. **Commons:** operate, don't found.  
-> Inventing: **The Vital** (unwatched remaining — not Visa/DTCC) · Priced act rents · The Hand · Commons · The General. H₀ · R₀ · COFFIN. Cash path: `CASH_NOW.md`. Gate 1 still Bind.
+> Inventing: **The Vital** (unwatched remaining — not Visa/DTCC) · Priced act rents · The Hand · Commons · The General. H₀ · R₀ · COFFIN. Cash path: `CASH_NOW.md`. Gate 1 still Bind.  
+> **Stranger-two (shipped):** `/` and `/bind-room` are two paragraphs, one ask, one halt. No new page. Copy from `officer-pack.json` → `stranger_two`.
 
 ---
 
