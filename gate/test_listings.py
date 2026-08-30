@@ -151,6 +151,11 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(m["general"]["n_for_100m"], 100)
         self.assertTrue(m["general"]["not_a_maycoin"])
         self.assertTrue(m["general"]["civilizational"])
+        self.assertIn("commons", m)
+        self.assertTrue(m["commons"]["we_do_not_convene"])
+        self.assertTrue(m["commons"]["we_do_not_carry_risk"])
+        self.assertEqual(m["commons"]["operator"], "$150,000/yr")
+        self.assertEqual(m["commons"]["family_siblings_remain"], 5)
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1595,7 +1600,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2936,7 +2941,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2950,6 +2955,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("Finished Remaining", html)
         self.assertIn("Standing Remaining", html)
         self.assertIn("The General", html)
+        self.assertIn("Incident Remaining Commons", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3632,6 +3638,68 @@ class TheGeneralTests(unittest.TestCase):
         r = self.client.post(
             "/general/checkout",
             data={"email": email, "institution": "Example Re"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class CommonsTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_operator_not_founder(self):
+        import commons
+
+        m = commons.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-incident-remaining-commons-v1")
+        self.assertTrue(m["we_do_not_convene"])
+        self.assertTrue(m["we_do_not_carry_risk"])
+        self.assertTrue(m["not_aiuc"])
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["sku"]["label"], "$150,000/yr")
+        self.assertFalse(m["assessment_after_convening"]["checkout"])
+        self.assertEqual(m["ostrom"]["nested"][:6], "Nisaba")
+        self.assertIn("recognition", m["ostrom"])
+        item = commons.stripe_line_item()
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "year")
+        self.assertEqual(item["price_data"]["unit_amount"], 15_000_000)
+        html = self.client.get("/commons").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("we do not convene", html.lower())
+        self.assertIn("$150,000/yr", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /commons", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("commons", gate)
+
+    def test_seed_strips_and_free_rider_excluded(self):
+        job = f"pc:COMMONS-{uuid.uuid4().hex[:10]}"
+        seed = self.client.post(
+            "/demo/pas/commons/seed",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(seed["kind"], "incident_remaining_seed")
+        self.assertFalse(seed["pii"])
+        self.assertIsNone(seed["job_id"])
+        self.assertIn("one_way_class", seed)
+        denied = self.client.post(
+            "/demo/pas/commons/query",
+            json={"contributed": False},
+        ).get_json()
+        self.assertFalse(denied["may_query"])
+        self.assertEqual(denied["sanction"], "no_contribute_no_query")
+        allowed = self.client.post(
+            "/demo/pas/commons/query",
+            json={"contributed": True},
+        ).get_json()
+        self.assertTrue(allowed["may_query"])
+        email = f"convene-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/commons/checkout",
+            data={"email": email, "convener": "Example Specialty"},
             follow_redirects=False,
         )
         self.assertIn(r.status_code, (302, 303))

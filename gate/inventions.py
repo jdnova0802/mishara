@@ -479,6 +479,27 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "civilizational cash door — contains Satoshi, not a sibling",
     },
     {
+        "id": "incident_remaining_commons",
+        "subject": "commons",
+        "name": "Incident Remaining Commons",
+        "claim": (
+            "Ostrom pool of incident remaining for the agent-insurance stack. "
+            "Not claims PDFs. Not a consortium the vendor founds. Convener appoints "
+            "Nisaba technical operator. No contribute → no query. Levy forever, "
+            "not one deployer's renewal. Seed is pilots. Exit from concentration, not a skip."
+        ),
+        "satoshi": "Gave the ledger away. No commons of the world after a loss. No operator rent.",
+        "heavier": (
+            "Closed Claims / UL shape: conveners with skin, a lab that holds the books. "
+            "The only insurance-stack dollar that does not die when one insured churns. "
+            "July named it. This seats it."
+        ),
+        "real": "commons.py · /commons · POST /demo/pas/commons/seed · $150,000/yr operator",
+        "status": "shipped",
+        "cash": True,
+        "tree": "commons operator door — not a sibling, not the chair, not the carrier",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -556,6 +577,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "finished": f"{base}/.well-known/finished.json",
             "standing": f"{base}/.well-known/standing.json",
             "general": f"{base}/.well-known/general.json",
+            "commons": f"{base}/.well-known/commons.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
@@ -569,6 +591,14 @@ def page_blocks() -> list[dict[str, Any]]:
             "tag": "Inventor",
             "title": inventor_mod.INVENTOR["name"],
             "body": inventor_mod.INVENTOR["rule"],
+        },
+        {
+            "tag": "Commons",
+            "title": "Incident Remaining — operator, not founder",
+            "body": (
+                "Ostrom pool. Convener appoints. $150,000/yr operator of record. "
+                "Levy forever after. Seed is pilots. Checkout is /commons."
+            ),
         },
         {
             "tag": "Civilizational",

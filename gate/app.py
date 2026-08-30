@@ -205,6 +205,11 @@ except ImportError:
     import general as general_mod
 
 try:
+    from gate import commons as commons_mod
+except ImportError:
+    import commons as commons_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -357,6 +362,8 @@ STANDING_SKU_LABELS = {
 }
 GENERAL_SEAT_LABEL = os.getenv("GATE_GENERAL_SEAT_LABEL", general_mod.SEAT_LABEL)
 GENERAL_SEAT_CENTS = int(os.getenv("GATE_GENERAL_SEAT_CENTS", str(general_mod.SEAT_CENTS)))
+COMMONS_OPERATOR_LABEL = os.getenv("GATE_COMMONS_OPERATOR_LABEL", commons_mod.OPERATOR_LABEL)
+COMMONS_OPERATOR_CENTS = int(os.getenv("GATE_COMMONS_OPERATOR_CENTS", str(commons_mod.OPERATOR_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -403,7 +410,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -445,6 +452,7 @@ def inject_globals():
         "standing_book_price": STANDING_BOOK_LABEL,
         "standing_desk_price": STANDING_DESK_LABEL,
         "general_seat_price": GENERAL_SEAT_LABEL,
+        "commons_operator_price": COMMONS_OPERATOR_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
@@ -1489,6 +1497,8 @@ def well_known_gate():
             "standing_page": f"{advertised_url()}/standing",
             "general": f"{advertised_url()}/.well-known/general.json",
             "general_page": f"{advertised_url()}/general",
+            "commons": f"{advertised_url()}/.well-known/commons.json",
+            "commons_page": f"{advertised_url()}/commons",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2156,6 +2166,70 @@ def demo_correspondent_books():
             body.get("right_job") or "",
         )
     )
+
+
+@app.route("/.well-known/commons.json")
+def well_known_commons():
+    return jsonify(commons_mod.manifest(advertised_url()))
+
+
+@app.route("/commons")
+def commons_page():
+    return render_template(
+        "commons.html",
+        manifest=commons_mod.manifest(advertised_url()),
+        operator_price=COMMONS_OPERATOR_LABEL,
+        finished_price=FINISHED_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/commons/checkout", methods=["POST"])
+def commons_checkout():
+    email = (request.form.get("email") or "").strip()
+    convener = (request.form.get("convener") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("commons_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, COMMONS_OPERATOR_CENTS, product="operator_of_record")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Commons operator (dev)",
+            f"{email} {COMMONS_OPERATOR_LABEL} convener={convener or 'later'}",
+            {"email": email, "convener": convener, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Commons operator.", "error")
+        return redirect(url_for("commons_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[commons_mod.stripe_line_item()],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/commons?canceled=1",
+        metadata={"product": "operator_of_record", "contact_email": email, "convener": convener},
+        subscription_data={
+            "metadata": {"product": "operator_of_record", "contact_email": email, "convener": convener},
+        },
+    )
+    db.create_install_order(email, checkout.id, COMMONS_OPERATOR_CENTS, product="operator_of_record")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/commons/seed", methods=["POST"])
+def demo_commons_seed():
+    body = request.get_json(silent=True) or {}
+    return jsonify(commons_mod.seed(body.get("job_id") or "", advertised_url()))
+
+
+@app.route("/demo/pas/commons/query", methods=["POST"])
+def demo_commons_query():
+    body = request.get_json(silent=True) or {}
+    return jsonify(commons_mod.can_query(contributed=bool(body.get("contributed"))))
 
 
 @app.route("/.well-known/legal.json")
@@ -3727,6 +3801,15 @@ def billing_webhook():
                 f"{GENERAL_SEAT_LABEL} from {email} institution={institution or 'later'}",
                 {"email": email, "institution": institution, "session": sess["id"]},
             )
+        elif product == "operator_of_record":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            convener = (sess.get("metadata") or {}).get("convener") or ""
+            notify.money(
+                "CASH — Commons operator",
+                f"{COMMONS_OPERATOR_LABEL} from {email} convener={convener or 'later'}",
+                {"email": email, "convener": convener, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3769,6 +3852,13 @@ def billing_webhook():
                 notify.money(
                     "CASH — Correspondent Remaining (renewal)",
                     f"{GENERAL_SEAT_LABEL} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product == "operator_of_record":
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Commons operator (renewal)",
+                    f"{COMMONS_OPERATOR_LABEL} from {email}",
                     {"email": email, "sku": product, "invoice": inv.get("id")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
@@ -3987,6 +4077,7 @@ def robots():
             "Disallow: /finished",
             "Disallow: /standing",
             "Disallow: /general",
+            "Disallow: /commons",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

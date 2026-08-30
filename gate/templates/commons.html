@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Incident Remaining Commons — operator, not founder{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Ostrom · Closed Claims shape · we operate · we do not convene</p>
+  <h1>Incident remaining is a commons. Appoint the operator.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="install-price">{{ operator_price }} <span>technical operator of record · annual · convener appoints</span></div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin: 1.25rem 0 2rem; flex-wrap: wrap; gap: 0.75rem;">
+    <form method="post" action="{{ url_for('commons_checkout') }}">
+      <input type="email" name="email" placeholder="convener work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <input type="text" name="convener" placeholder="convener (carrier / trade body)" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 16rem;">
+      <button type="submit" class="btn btn-primary">Appoint {{ operator_price }}</button>
+    </form>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Not the founder</h3>
+      <p>{{ manifest.honest.not_the_founder }}</p>
+    </div>
+    <div class="card">
+      <h3>No skip</h3>
+      <p>{{ manifest.honest.no_skip }}</p>
+    </div>
+    <div class="card">
+      <h3>Exit, not on-ramp</h3>
+      <p>{{ manifest.honest.exit_not_onramp }}</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 1.75rem;">Ostrom (the pool's law)</h2>
+  <ul class="check-list">
+    {% for k, v in manifest.ostrom.items() %}
+    <li><strong>{{ k }}</strong> — {{ v }}</li>
+    {% endfor %}
+  </ul>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <p class="audience-tag">after convening · no checkout yet</p>
+    <h3>Member assessment {{ manifest.assessment_after_convening.label }}</h3>
+    <p>{{ manifest.assessment_after_convening.why_not_yet }}</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_commons') }}" class="btn btn-ghost btn-sm">commons.json</a>
+    <a href="{{ url_for('finished_page') }}" class="btn btn-ghost btn-sm">Seed path — Finished {{ finished_price }}</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-ghost btn-sm">Seed path — Bind {{ bind_room_price }}</a>
+    <a href="{{ url_for('standing_page') }}" class="btn btn-ghost btn-sm">Standing lease</a>
+  </div>
+</div>
+{% endblock %}
