@@ -215,6 +215,11 @@ except ImportError:
     import hand as hand_mod
 
 try:
+    from gate import flows as flows_mod
+except ImportError:
+    import flows as flows_mod
+
+try:
     from gate import pvp as pvp_mod
 except ImportError:
     import pvp as pvp_mod
@@ -417,7 +422,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
-    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand",
+    "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -1509,6 +1514,8 @@ def well_known_gate():
             "commons_page": f"{advertised_url()}/commons",
             "hand": f"{advertised_url()}/.well-known/hand.json",
             "hand_page": f"{advertised_url()}/hand",
+            "flows": f"{advertised_url()}/.well-known/flows.json",
+            "flows_page": f"{advertised_url()}/flows",
             "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
@@ -2296,6 +2303,20 @@ def hand_checkout():
 def demo_hand_keep():
     body = request.get_json(silent=True) or {}
     return jsonify(hand_mod.keep(body.get("legal_person") or body.get("name") or ""))
+
+
+@app.route("/.well-known/flows.json")
+def well_known_flows():
+    return jsonify(flows_mod.manifest(advertised_url()))
+
+
+@app.route("/flows")
+def flows_page():
+    return render_template(
+        "flows.html",
+        manifest=flows_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/.well-known/legal.json")
@@ -4161,6 +4182,7 @@ def robots():
             "Disallow: /general",
             "Disallow: /commons",
             "Disallow: /hand",
+            "Disallow: /flows",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

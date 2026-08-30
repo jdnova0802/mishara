@@ -101,7 +101,8 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 8. **The General / correspondent seat $1,000,000/yr** — nine-figure *structure* (`GENERAL.md`). Not a September spray. One warm institution after Gate 1.
 9. **Commons operator $150,000/yr** — only if a convener with standing is forming a pool (`COMMONS.md`). Seed is Bind/Finished/Standing. Do not sell “join my consortium.”
 10. **The Ordinary $12,000/yr** — unmetered way of life for one legal person (`HAND.md`). Not hops. Not Being. Not September unless they already live this way.
-11. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
+11. **Act/flow holes** — map only (`FLOWS.md`). Do not sell interchange from Bind. After Gate 1: prefinality keep-alive or query of remaining.
+12. Everything in `UNPRECEDENTED.md` / `ABOVE.md` — **museum until Gate 1**
 
 > Absolute is October’s launch language. **September’s dollar is Bind, Finished, or Standing.**
 

@@ -161,6 +161,10 @@ class ManifestTests(unittest.TestCase):
         self.assertFalse(m["hand"]["being_sold"])
         self.assertEqual(m["hand"]["ordinary"], "$12,000/yr")
         self.assertEqual(m["hand"]["identity"], "rent is keeping the hand, not moving it")
+        self.assertIn("flows", m)
+        self.assertFalse(m["flows"]["checkout"])
+        self.assertEqual(m["flows"]["next_after_gate1"][0], "prefinality_keepalive")
+        self.assertEqual(m["flows"]["family_siblings_remain"], 5)
         self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
         self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
@@ -1605,7 +1609,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/inventions", "/conformant", "/heavier", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -2946,7 +2950,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertEqual(data["inventor"]["name"], "Demond Davis")
         ids = {i["id"] for i in data["inventions"]}
         self.assertTrue(
-            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand"}.issubset(ids)
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents"}.issubset(ids)
         )
         self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
         self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
@@ -2962,6 +2966,7 @@ class NamedMayAndInventionsTests(unittest.TestCase):
         self.assertIn("The General", html)
         self.assertIn("Incident Remaining Commons", html)
         self.assertIn("The Hand", html)
+        self.assertIn("Act and flow rents", html)
 
     def test_named_may_token_alone_cannot_radiate(self):
         live = {
@@ -3766,6 +3771,29 @@ class HandTests(unittest.TestCase):
             follow_redirects=False,
         )
         self.assertIn(r.status_code, (302, 303))
+
+
+class FlowRentsTests(unittest.TestCase):
+    def test_register_names_holes_and_next(self):
+        import flows
+
+        m = flows.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-act-flow-rents-v1")
+        self.assertEqual(m["until_gate1_usd"], 0)
+        self.assertEqual(m["family_siblings_remain"], 5)
+        ids = {h["id"] for h in m["holes"]}
+        self.assertTrue(
+            {"scheme_assessment", "prefinality_keepalive", "query_remaining", "interchange", "silence_lease"}.issubset(ids)
+        )
+        seated = {s["id"] for s in m["seated"]}
+        self.assertTrue({"hop", "bps", "floor", "qic"}.issubset(seated))
+        self.assertEqual(m["next_after_gate1"], ["prefinality_keepalive", "query_remaining"])
+        self.assertIn("selling may", m["never"])
+        html = gate_app.app.test_client().get("/flows").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("unpaid", html.lower())
+        robots = gate_app.app.test_client().get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /flows", robots)
 
 
 if __name__ == "__main__":

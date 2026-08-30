@@ -521,6 +521,26 @@ INVENTIONS: tuple[dict[str, Any], ...] = (
         "tree": "way-of-life cash door — not a sibling, not Being, not may",
     },
     {
+        "id": "act_flow_rents",
+        "subject": "flow",
+        "name": "Act and flow rents",
+        "claim": (
+            "We have an acquirer stub: hop + bps + floor + QIC. "
+            "A network charges the same act several times. "
+            "Prefinality, settlement, query, scheme assessment, regret, "
+            "interchange, silence lease — protocol or name, not a price."
+        ),
+        "satoshi": "One fee to miners. No stack on the same spend.",
+        "heavier": (
+            "Register of seated vs hole. Next after Gate 1 that is not "
+            "weld-harder: prefinality keep-alive or query of remaining."
+        ),
+        "real": "flows.py · /flows · FLOWS.md · no new checkout",
+        "status": "shipped",
+        "cash": False,
+        "tree": "register — not a sibling, not a buyer plate",
+    },
+    {
         "id": "evac_comms",
         "subject": "ceiling",
         "name": "Evac-comms handoff",
@@ -600,6 +620,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "general": f"{base}/.well-known/general.json",
             "commons": f"{base}/.well-known/commons.json",
             "hand": f"{base}/.well-known/hand.json",
+            "flows": f"{base}/.well-known/flows.json",
             "operator": f"{base}/operator",
         },
         "page": f"{base}/inventions",
