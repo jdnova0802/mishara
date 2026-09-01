@@ -116,6 +116,45 @@ Lab frozen for *product* L2. Pre-Gate inventing = **name · well-known · counse
 
 ---
 
+## Industrial / lab mouths — **same padlock, physical irreversible** (2026-09-01 hunt)
+
+Not new `/for/` plates. Not SCADA/LIMS/SIS products. Not museum.  
+**Same primitive:** may · sheath · prove on acts that **cannot be undone in matter** — lot release, valve fire, setpoint that kills a crop, beam that destroys a sample, cold-chain breach, spray dose, instrument method lock.
+
+**Why this fattens Aim:** agent writes are the foothill story. Labs, plants, grow rooms, beamlines, and holding vaults already *have* irreversible mouths — and still mostly have **vendor audit trails without a stranger-openable remaining**. “Gate Conformant?” becomes askable outside software deployers. Defense / nuclear / battlefield C2 stays **unmouthed**.
+
+| Domain | Irreversible mouth (real) | Hole today | Nisaba echo (9–10) | Do **not** become |
+|--------|---------------------------|------------|--------------------|-------------------|
+| **Pharma / biotech lab + plant** | Batch / lot **disposition** · QP release · LIMS sample create/cancel · method change before run | Part 11 audit trails exist; **review-before-release** often off-platform; shared accounts; trails can be incomplete | **Lot-release remaining** — stranger folio that disposition had may + trail-review was a redeem step | Another MES/LIMS |
+| **QC / analytical lab** | Destroy sample · invalidate sequence · overwrite raw | Data-integrity 483s; delete/modify without reason-for-change | **Sample-spend prove** — may before consume/destroy | ELN vendor |
+| **Refinery / petrochem / pipeline** | Valve sequence · SIS bypass · PLC hot-update · false “command valid” | Mechanical interlocks exist; **digital may** before actuator is thin; SIS logic changes under-detected | **Actuator-may cylinder** — prove sequence/bypass had may *before* fire (contribute evidence; insurers/OSHA cite) | SIS OEM · plant C2 |
+| **Half-industrial / packaging / food plant** | CIP cycle · allergen changeover · fill-line start | SOPs + SCADA logs; stranger underwriting packet rare | Same **no-pack → no-bind** for OT irreversible starts | Plant historian SaaS |
+| **Greenhouse / CEA / vertical farm** | Temp/CO₂/light **setpoint write** · dark-period break · irrigation chem | BACnet often weakly authed; crop death in hours; cyber→crop is a 2026 coverage gap | **Climate-write padlock** — may before setpoint that can kill inventory | Grow-controller OEM |
+| **Plantation / field spray** | Pesticide/nutrient **dose commit** · buffer-zone breach | Farmer bears liability; AI AgTech disclaims; EPA/FDA penalties | **Dose remaining** — act+remaining folio for the application event | Sprayer hardware |
+| **Big instruments (synchrotron, cryo-EM, NMR, lasers)** | Beam/shutter open · dose that **destroys sample** · safety class red start | Experiment Authorization paper; damage often faster than the measurement | **Beam-may / sample-remaining** — may before irreversible exposure | Beamline control system |
+| **Field sites / environmental / clinical draw** | Chain-of-custody break · assay that consumes the only aliquot | Paper CoC; digital CoC without stranger seal | **Custody remaining** until spend; prove at handoff | Field LIMS |
+| **Growing / holding / cold chain** | Freezer/incubator setpoint · door-open that spoils biologics/seed/blood | Alarms exist; **licensed may** for who may change hold conditions is soft | **Hold-condition may** — same padlock as climate-write | Fridge IoT brand |
+| **Computing halls / HPC / training clusters** | Delete dataset · ship weights · kill multi-week job · rack power policy | Closest to current agent stack; still often SSH + ticket, not stranger prove | Already on tree (Bind / Conformant / QIC) — **extend QIC to cluster irreversible jobs** | Cloud console |
+
+### Industrial 9–10 finds (designate only — no new pages)
+
+| # | Invention | /10 | Why massive (not museum) | When |
+|---|-----------|-----|--------------------------|------|
+| **I1** | **Lot-release remaining** — disposition cannot finish without redeem; trail-review is a first-class may step | **10** | Pharma already *requires* the act; unpaid object is stranger-openable remaining insurers/FDA can cite — not another e-signature tool | Pre: Bind-adjacent language for pharma GC · Post: Conformant for GMP mouths |
+| **I2** | **OT setpoint / actuator may** — no write to safety-critical or crop-critical parameter without cylinder | **10** | Refinery valve + CEA setpoint are the same hole as agent pay/delete: irreversible in matter | Post Gate 1 · never plant C2 |
+| **I3** | **Sample-spend / beam remaining** — may before consume/destroy; remaining books the aliquot/dose | **9.5** | Big-instrument + QC labs destroy uniqueness every shift; science + insurance both need the seal | Post meter · facility franchise |
+| **I4** | **Hold-chain may** — who may change cold/incubator/vault conditions; silence = DEAD on hold authority | **9** | Biologics/seed/blood = high $/m³; one setpoint kills a fortune | Post named may |
+| **I5** | **Dose / spray remaining** — field or plant chemical commit as metered one-wayness | **9** | Environmental + food liability; AgTech AI has no Schelling evidence mouth | Post; attach to insurability gate (S4) |
+| **I6** | **SIS-bypass prove (contribute)** — stranger receipt that a safety bypass / hot-update had may; state keeps command | **9** | Process safety + cyber common-cause is live; you sell evidence, not the interlock | Post · **unmouthed:** nuclear / battlefield |
+
+**Cash story (shape, not forecast):** same latch as Conformant — annual mouth cert + per-irreversible-commit meter — now billable to **pharma QP chains, CEA operators, beam facilities, cold-chain logistics, process insurers**. Upside increases because the *buyer set* expands beyond AI deployers without inventing a sixth voice.
+
+**Hard no on this hunt:** build a PLC · sell greenhouse hardware · run a refinery SOC · nuclear/SIS command · new `/lab` `/refinery` `/farm` pages · OSINT plant recon kits.
+
+**Pre-Gate discipline:** name in this file + optional one counsel sentence. **Do not** open industrial SKUs before stranger paid and proved. Bind Room stays the foothill.
+
+---
+
 ## Explicit rejects (even if spicy)
 
 | Idea | Why &lt;9 or forbidden |
@@ -128,6 +167,8 @@ Lab frozen for *product* L2. Pre-Gate inventing = **name · well-known · counse
 | Nuclear / private PD / battlefield C2 | Unmouthed; state-only |
 | Global agent identity registry as *your* product | Leave passports (OAP/APS); sit **after** passport, **before** write |
 | OSINT shopping kits | Gear ≠ may |
+| SCADA / LIMS / SIS / grow-controller OEM | Gear shop; you sell may·sheath·prove, not the plant |
+| New `/lab` `/refinery` `/farm` `/beam` plates | Mouth Ceiling; industrial is **domain of the same padlock**, not new siblings |
 
 ---
 
