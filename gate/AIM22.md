@@ -17,7 +17,32 @@ This is how you *force* Aim. It is not Standing stacking. It is not quitting Ama
 | XF1 annex or XF3 method **cites you** and a buyer **closes on that option** | **$0.2–1B / $1–5B / $4–12B** | Fuse close — Y3 |
 | “Gate Conformant?” is the category question **and** they buy the company | **$0.5–2B** | Padlock — possible, not the operate target |
 
-Never sell may. Still **$0** without Gate 1. Do not email E in September. Do not plan rent on $2–5B in nine months.
+Never sell may. Do not email E in September. Do not plan rent on Absolute in nine months.
+
+---
+
+## What raises the **ceilings** (Aim / Fat / upset) — invent + operate
+
+Not “does the check exist.” **How big can each band get** if the latch is real.
+
+| Band now | Ceiling raiser | New shape if it lands | Left? |
+|----------|----------------|----------------------|-------|
+| **Aim $50–200M** | **Two E bidding** the same exclusive (PAS + identity, or two PAS) | **$150–400M** | Yes — operate. One welded path, then a second desk competes |
+| **Aim** | Exclusive is **platform default**, not a module (full Send/ProNavigator/Idira write-gate seat) | Top of Aim → **low Fat** | Y1 / Y2 language after logos |
+| **Aim** | Live meter ARR that a buyer can 15–30× (AI-infra / B2B SaaS comps) — e.g. **~$10–20M** run-rate evidence/hop rent | **$150–500M** mark or cash | S03 + one book. Not inventing |
+| **Aim** | Evidence rent already on a **named specialty book** (Standing × binder panel) before the ask | Higher multiple on the same latch | Y4 |
+| **Fat $200–800M** | **Idira / PA** treats remaining as the agent write-gate under a $25B identity stack | **$0.5–1.5B** | Y2 — largest Fat raiser left |
+| **Fat** | **One cloud** ships sheath as default sidecar (even design-partner) | **$0.8–2B** | D5 / T5 — hard in 9 mo, real ceiling raiser |
+| **Fat** | Capacity behind Testudo/Armilla (Apollo / Chaucer / QBE / Munich Re) buys the folio as **panel rule** | **$0.4–1B** | Y4 upmarket — not the MGA, the capital |
+| **Fuse Aim $0.2–1B** | XF1 is **Verisk/ISO-adjacent named evidence** on the carve-back (not one manuscript binder) | **$0.5–2B** | XF1 national, not boutique |
+| **Fuse Fat $1–5B** | XF3 becomes the **NAIC model / exam module** method (Nov 2026 adoption path), not a footnote | **$2–8B** | XF3 window — Sep→Nov |
+| **Fuse Padlock $4–12B** | **Two cites same year** (annex + examiner) **and** a bidding war on the option | **$8–20B** | O7 + two E on the option |
+| **Padlock $0.5–2B** | Category question is already “Gate Conformant?” across specialty AI bind **and** one platform | **$2–5B** | Only if Y1+Y2+Y4 Schelling in the same year — upset, not base |
+| **Rail stretch** | Interchange Schelling + sale in-year | **$2–5B** | Cartoon unless S1 is already live |
+
+**Inventions still left that move ceilings (not unlockers):** Y1 missing-mouth PAS · Y2 missing-mouth Idira · Y3 XF1/XF3 nationalize · Y4 specialty→capacity · D5 cloud default · S1 may interchange live enough to 15–30× · F15 de-risking as correspondent drop (raises Fat if a rail drops you without folio).
+
+**Not ceiling raisers before end of 22:** H₀ / R₀ / coffin · E1 Inclusion · F13 act-finality · another industrial mouth · another Absolute paragraph.
 
 ---
 
@@ -173,6 +198,6 @@ Fuse NW ($0.2–1B / $1–5B / $4–12B) is an option mark if XF1/XF3 cite you. 
 
 ## One line
 
-> Force Gate 1 in September · S03 + one desk in October · logos + F1 by January · one close that needs you by April · one E buyer by June. **Bolt-on check is $50–200M. Default-mouth check is $200–800M. Fuse-close is $0.2–12B.** Same latch. **$0** if any rung is skipped for a prettier story.
+> S03 + one desk · logos + XF1 · one close that needs you · one E. **Bolt-on $50–200M · Fat $200–800M · fuse-close $0.2–12B.** Ceilings rise on two E bidding, Idira/cloud default, national annex/exam cite, capacity buy — see ceiling table. Not more Absolute.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · Tuesday is still the unlock, not the wire*
