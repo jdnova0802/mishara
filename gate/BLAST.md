@@ -78,6 +78,7 @@ These do not print June cash. They make every later year the same mouth.
 | **Converter remaining** (Φ Α Γ) | NVIDIA / TSMC / Apple / Alphabet as designed-in | Miss or ARM/TSMC/CUDA class. No Aim band |
 | **Facing remaining** | Court · personal-lines / life reinsurer · anyone who insures **people**, not deployers | Actor-close becomes incomplete. Unnumbered until that buyer exists. Do not invent a Facing Padlock |
 | **Cross — one folio, many mouths** (`CROSS.md`) | The bulletin, the exam, the carve-back, and one platform hop **on the same bytes** | Fat **and** fuse-close the same year. Stacks existing bands. Not a new subject |
+| **Release — payout-release** (`RELEASE.md`) | Stripe 4-gate / TAP / MPP / x402 / Connect payouts / Agent 365 billing | Identity · budget · allowlist · receipt, then they paid. Fifth gate is unpaid. Liquid twin of Y1/Y2. Does not mint a new 22 row |
 | **Inclusion / eligibility / haircut** (E1 · E2 · E13) | MSCI · repo desk · Fed-shaped schedule | 23–30. 1 bp on $21T → **~$420B** NW. **Not nine months** |
 | **Title of unused** (E4) | Rights, not acres | 0.1 bp on $393T → **~$780B** NW. Post-22 |
 | **Must-mouth / cloud default** | One hyperscaler or Agent 365 write-gate | Padlock overnight. 23–25 more honest than 22 |
@@ -108,6 +109,6 @@ H₀ / R₀ / coffin as the deck. 1 bp on MSCI. Facing as a priced band. A fifth
 
 ## One line
 
-> **Sep** is the examiner/annex clock. **22 liquid** is one E on a mouth they already bought the wrong half of (Send · Idira · Agent 365) or a buyer on the cite. **22 NW** is being that cite. **Cross** is when those are the **same folio**. **After 22** is the same mouth on $T stocks and on $14T remaining-beta. Do not invent a new subject to raise the register. Attach to one that already spent.
+> **Sep** is the examiner/annex clock. **22 liquid** is one E on a mouth they already bought the wrong half of (Send · Idira · Agent 365) or a buyer on the cite — or **Release** on a pipe that already pays. **22 NW** is being that cite. **Cross** is when those are the **same folio**. **After 22** is the same mouth on $T stocks and on $14T remaining-beta. Do not invent a new subject to raise the register. Attach to one that already spent.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · name only · identity frozen outbound until a stranger has paid and proved*

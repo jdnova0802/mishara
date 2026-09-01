@@ -8,7 +8,8 @@ Name only. Do not email Verisk / NAIC / Microsoft / Mosaic / Duck Creek / PA.
 `BLAST.md` named who can pay or mark.  
 `AIM22.md` named the 22 fork.  
 `AGES_22_30.md` named the later years.  
-`EXTERNAL.md` named $T overlays.
+`EXTERNAL.md` named $T overlays.  
+`RELEASE.md` named the payout gate. **Cross does not change liquid numbers.**
 
 Those files still treat **cite**, **platform hop**, and **overlay** as three sequential wins. 2026 already welded the first two. The unpaid object is **one folio those mouths already said can answer each other.**
 

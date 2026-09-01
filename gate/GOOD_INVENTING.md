@@ -12,7 +12,8 @@
 **To make every map including TOP3 a rounding error:** `gate/WRITE_ERA.md` — **W₀**. Their $14T is remaining-beta. The $3T/yr hole is writes. Remaining is the era, not a meter on their invoice.  
 **The index they will not see coming:** `gate/FACING.md` — they all built remaining that faces the mouth. The only close faces the inhabitant.  
 **What blasts the register Sep→22+:** `gate/BLAST.md` — Agent 365 · Send · Idira · aiSure · NAIC v5/v7. Not another remaining essay.  
-**What changes the fork and the other tables at once:** `gate/CROSS.md` — one folio, many mouths. The weld is already in the 2026 text. Remaining is the unpaid bytestring.
+**What changes the fork and the other tables at once:** `gate/CROSS.md` — one folio, many mouths. The weld is already in the 2026 text. Remaining is the unpaid bytestring.  
+**What can change liquid without a new remaining book:** `gate/RELEASE.md` — remaining as payout-release. Fifth gate on pipes that already pay. Does not mint a new 22 row.
 
 ---
 
@@ -391,8 +392,9 @@ Horizon: **~9 months** to ~2027-06-05. Score = what can actually move **your** l
 | **Y4** | **Specialty evidence default** — one MGA/coverholder (Testudo / Armilla / HSB class) makes “no folio, no bind” *their* rule, not ISO’s. Specialty AI book **~$0.5B** prem 2026, **$4.7B** shape by 2032; Armilla limits already **$25M**/org | **Bridge $5–40M** (evidence rent + Standing on their book); **Aim** if capacity behind them (Apollo / Chaucer / QBE) buys exclusive | Option on that book | Nearest *operate* path after Gate 1. Tuesday throat already points here (Testudo-placing broker → one insured) | After pay+prove · one broker · do not become the MGA |
 | **Y5** | **XF3 examiner artifact** — remaining is the Exhibit C/D method the **NAIC 12-state** AI Risk Evaluation Supplement scores. Pilot through **Sep 2026**; adoption aimed **Nov 2026** | Not liquid by itself | **Fuse NW $0.2–1B+** if you are the footnote that became the method | Only **open statutory window** inside age 22. After Nov, it is an exam module (23+) | Counsel language · **do not email NAIC** |
 | **Y6** | **Bridge one-close** — one renewal / withdraw / bind dies without redeem (`/bridge`) | **$5–40M** before June | Option on the attach | Backup so June is not binary. Does not raise Aim by existing | Feb–Apr 2027 · after meter |
+| **Y7** | **Release** — remaining as the fifth gate on money-leave (`RELEASE.md`). Stripe 4-gate / TAP / MPP / Connect payouts already pay after identity · budget · allowlist · receipt | Meter / Bridge if `/operator` welds; Fat **$0.8–2B** if a processor buys exclusive; rail stretch **$2–5B** only if S1 is actually live | Same if they buy | Liquid twin of Y1/Y2. **Does not mint a new band.** x402 ~$42M is not a dimension | Name only · do not email Stripe / Visa · do not run a facilitator |
 
-**What does *not* drastically move 22 liquid:** another Bind SKU, industrial I1–I6, cosmic F13 finality, H₀/R₀/coffin, 1 bp on MSCI, Art. 12 (clock is **Dec 2027** — after 22).
+**What does *not* drastically move 22 liquid:** another Bind SKU, industrial I1–I6, cosmic F13 finality, H₀/R₀/coffin, 1 bp on MSCI, Art. 12 (clock is **Dec 2027** — after 22), Cross by itself, another remaining essay.
 
 ### Honest rank for *your* end-22 check
 
@@ -428,7 +430,7 @@ These do not print June 2027. They are why a fuse mark is rational.
 
 ### One line
 
-> End-22 liquid jumps only from **Y4 book → Y3 exclusive/sale → Y1/Y2 platform latch**. End-22 NW jumps from **XF1/XF3 cite**. After 22, **inclusion / haircut / cloud / must-mouth** blow the table. Tuesday is still Gate 1.
+> End-22 liquid jumps only from **Y4 book → Y3 exclusive/sale → Y1/Y2 platform latch → Y7 Release on a live cash pipe**. End-22 NW jumps from **XF1/XF3 cite**. Cross stacks Fat+fuse; it does not change liquid numbers. After 22, **inclusion / haircut / cloud / must-mouth / F13 remaining=paid** blow the table. Tuesday is still Gate 1.
 
 ---
 
@@ -700,6 +702,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming — **now on the remaining rails**, not only in `NU.md`. Bind Room without hold is a pack about a stop. W₀ without hold is an era with no refuse. **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta.** **Facing (`FACING.md`) turns the books around** — a mouth can tetrad-seal and the world is still spent. **Cross (`CROSS.md`) is the simultaneous latch** — one folio the mouths already said can answer each other; Fat and fuse on the same artifact. No fifth book. No Bind sermon. No `/hold` or `/facing` or `/cross` page.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming — **now on the remaining rails**, not only in `NU.md`. Bind Room without hold is a pack about a stop. W₀ without hold is an era with no refuse. **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta.** **Facing (`FACING.md`) turns the books around** — a mouth can tetrad-seal and the world is still spent. **Cross (`CROSS.md`) is the simultaneous latch** — one folio the mouths already said can answer each other; Fat and fuse on the same artifact. **Release (`RELEASE.md`) is the payout** — identity, budget, allowlist, receipt, then they paid; remaining is the unpaid fifth gate. No fifth book. No Bind sermon. No `/hold` or `/facing` or `/cross` or `/release` page.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

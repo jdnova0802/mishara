@@ -11,14 +11,14 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is **Cross** (`gate/CROSS.md`) — one folio, many mouths. The bulletin / exam / carve-back / underwriter already agreed they can answer each other; remaining is the unpaid bytestring. Last **blast map** is `gate/BLAST.md`. Last object-turn is Facing (`gate/FACING.md`). Do not email Verisk / NAIC / Microsoft / Mosaic. Do not re-invent Facing / W₀ / Φ / Α / Γ / Ω / Ρ / Ν / BLAST rows / CROSS. Last recode is Ν hold. Last explain ship is nisabatree. This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is **Release** (`gate/RELEASE.md`) — remaining as payout-release. The fifth gate on pipes that already pay (identity · budget · allowlist · receipt). Cross does **not** change liquid numbers. Do not re-invent Facing / W₀ / Φ / Α / Γ / Ω / Ρ / Ν / BLAST / CROSS / RELEASE / S1 as a new file. Do not email Stripe / Visa / Microsoft. Do not run an x402 facilitator. Last recode is Ν hold. This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/BLAST.md gate/CROSS.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -57,6 +57,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT Facing.** (`FACING.md`) Actor remaining is a factory subledger. Do not add a `/facing` page or Facing SKU. Do not invent the inhabitant. Do not pitch from Bind Room.
 **DO NOT RE-INVENT BLAST.md.** The Sep→22+ buyer/entity/market map is seated. Do not write another “what blasts Aim” file. Do not email Duck Creek / PA / Microsoft / NAIC / Mosaic.
 **DO NOT RE-INVENT CROSS.md.** One folio, many mouths. The weld is already in the 2026 text. Do not add a `/cross` page or a Cross SKU. Do not invent a new Fat/fuse band — stack what is in `AIM22.md`. Do not email Verisk / NAIC / Microsoft / Mosaic.
+**DO NOT RE-INVENT RELEASE.md.** Remaining as payout-release. Fifth gate on money-leave. Does **not** mint a new 22 liquid row. Do not add a `/release` page. Do not run an x402 facilitator. Do not email Stripe / Visa.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -201,6 +202,7 @@ PASTE END
 | `gate/FACING.md` | Remaining that faces the inhabitant. Actor remaining is a factory subledger. |
 | `gate/BLAST.md` | **What moves the register Sep→22+.** Agent 365 · Send · Idira · aiSure · NAIC v5/v7 · capacity behind MGAs. Not another remaining essay. |
 | `gate/CROSS.md` | **One folio, many mouths.** Bulletin / exam / carve-back already welded. Remaining is the unpaid bytestring. Stacks Fat + fuse — does not invent a new band. |
+| `gate/RELEASE.md` | **Remaining as payout-release.** Fifth gate on pipes that already pay. Liquid twin of Y1/Y2. Does not mint a new 22 row. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
