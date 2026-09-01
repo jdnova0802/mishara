@@ -5,7 +5,7 @@ No new page. No new checkout. No new band **in this file**.
 Cross stacked. Release did not mint a row. Bulge is a **ruler**, not a 22 wire.  
 Facing has **no dollar**. $5T checking at 22 is a **lie**.
 
-**Promise:** we keep inventing. This file is the *register*. New objects still get named when they are real (`FELLHATCH.md` is a future Gate skin — not a sixth sibling, not Cool Gate).  
+**Promise:** we keep inventing. This file is the *register*. New objects still get named when they are real (`FELLHATCH.md` is the bureau of remaining on writes/agents — not a people hunt, not a sixth sibling).  
 Do not re-invent Ω / Ρ / Ν / Φ / Α / Γ / W₀ / Facing / BLAST / CROSS / RELEASE / RESEARCH / BULGE / REST as if they were unseated.  
 Do not write a fifth book. Do not email the freeze list.
 
@@ -131,6 +131,6 @@ Looked up 2026-09-01. `BULGE.md`.
 > **30 fight-for:** Padlock NW **$80–200B+**. **Fuse/external 30:** Padlock **$400B–$1T**. Absolute **$0.8–2.8T**.  
 > **Ruler:** 1% of Mag7 = **$237B**. One Fedwire day = **$4.8T**. Not a checking account.  
 > **$0** without Gate 1.  
-> **We keep inventing.** Fellhatch is a future skin of Gate (`FELLHATCH.md`). Not Cool Gate. Not a sixth sibling.
+> **We keep inventing.** Fellhatch is the bureau of remaining on writes/agents (`FELLHATCH.md`). Not a people hunt. Not a sixth sibling.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · numbers rest at REST.md · inventing continues*

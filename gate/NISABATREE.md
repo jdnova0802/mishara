@@ -55,7 +55,7 @@ These are the public faces. **Never invent a sixth.**
 | **Gate** | Can this agent still act *right now*? | The **mouth / kill door** on irreversible writes. DENY is the scarcity. |
 | **Mishara** | Was a person harmed? | The **human path** after harm — receipt + demand, not corporate Action OS. |
 
-**Fellhatch** (future, not a sixth brand, not Cool Gate): the same door as the night the list went out — named people only, neighbors without the alert, the hatch that closes. Name only until they say ship. `gate/FELLHATCH.md`.
+**Fellhatch** (future, not a sixth brand): bureau of remaining on **writes/agents** — public meter that’s hard to hide, specialist file for qualified customers/hires. Not a people hunt. Gate stays the hidden click. Name only until they say ship. `gate/FELLHATCH.md`.
 
 **How they fit:** Erra asks “should we?” → Velaru proves “did the gate hold?” → Verra is the session that forces both → Gate owns the irreversible door → Mishara is for the person when something already hurt them.
 
