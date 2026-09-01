@@ -245,10 +245,64 @@ These are not museum. They are **external clocks** that make your already-seated
 - **Yes — discontinuities exist** that can jump Fat/Padlock.  
 - They are **D1–D6**, not a seventh laboratory gadget.  
 - C1–C8 **fatten the stock** under the latch. D1–D6 **force the latch**.  
+- **F0–F15** (next section) are the same latch ranked **obvious → cosmically niche** against live 2026 rails (CG 40 47, PCI, DSCSA, SWIFT CSP, UCC 4A, SFD).  
 - Without Gate 1, every discontinuity is still **$0**.  
 - Good disruption = external clock makes your existing Aim plan print larger. Bad disruption = you chase the bill and skip Bind.
 
 **Pre-Gate moves (language only):** keep Bind on CG 40 47 (D3). One counsel sentence ready for kill-switch prove / Art. 12 remaining if asked. Do **not** lobby as a product, do **not** email DHS, do **not** pitch Absolute.
+
+---
+
+## Forced-attach ladder — **obvious → cosmically niche** (2026-09-01 web hunt)
+
+Forced attach is not a SKU. It is an **external clock** that makes “no remaining” = cannot ship / cannot insure / cannot settle / cannot stay correspondent. Web-backed analogues below. Same padlock. No new `/for/`. Do **not** become AIUC, PCI QSA, SWIFT CSCF assessor, EPCIS network, or DHS C2.
+
+**How attach actually works (four mouths, ranked by how hard they bite):**
+
+| Mouth | What it does | Real analogue (live 2026) |
+|-------|----------------|---------------------------|
+| **Exclusion** | Old cover dies; must buy specialty; specialty wants evidence | ISO **CG 40 47 / 40 48 / 35 08** (Jan 2026) — generative AI carved from CGL |
+| **Network rule** | Private contract, not statute — lose the rail and the business dies | **PCI DSS** via Visa/MC acquirer rules — persist non-compliant ⇒ merchant account terminated |
+| **Counterparty visibility** | Attestation is public to peers; they de-risk you unilaterally | **SWIFT CSP / CSCF v2026** — KYC-SA status visible; correspondents cut corridors |
+| **Finality** | Once the stamp lands, the act is legally irrevocable | **UCC 4A + Fedwire Reg J** — credit is final when made; **SFD 98/26/EC** (SFR proposal 2025/0381) |
+
+### The ladder (same inventing style)
+
+| # | Niche | Real forced attach (web) | Nisaba invention (padlock on the hole) | Band if Schelling | Already seated? |
+|---|-------|--------------------------|----------------------------------------|-------------------|-----------------|
+| **F0** | **Obvious** | **CG 40 47** live at 2026 renewal. Specialty AI binders (Armilla / Testudo / Munich Re aiSure / AIUC-1) want kill-switch, HITL inventory, provenance, tool-call logs — **system badge today, act+remaining is the fight** | **Insurability gate (S4)** — no folio ⇒ no specialty bind / no carve-back. Bind is the door | **Aim–Fat** (nearest end-22) | **D3** |
+| **F1** | **Obvious** | **PCI DSS 4.0.1** — not federal law; Visa Core Rules / MC Security Rules. Acquirer passes fines; nuclear option is **cannot take cards** | **Card-network remaining** — Conformant as PCI *of the act*; may interchange as Visa. Processor (Stripe/Adyen-class for writes) will not settle the act-as-cash unless remaining exists. Network rule, not statute | **Padlock** if one processor defaults you | New name on Conformant doctrine |
+| **F2** | **Obvious** | **DSCSA** — product with TI↔physical mismatch is quarantined; **cannot sell until exception clears** (~8–10B package events/yr shape) | **Exception-clear remaining** | **Padlock cartoon** if wholesale default | **C3** |
+| **F3** | **Mid** | **EU AI Act Art. 12 / 19 / 26** — high-risk must auto-log; retain ≥6 months; produce on authority. Annex III clock **~2 Dec 2027** (Omnibus) | **High-risk remaining mouth** — logs necessary, not sufficient | **Aim → Fat** (EU deployers) | **D2** |
+| **F4** | **Mid** | **GPAI Code of Practice** (published 10 Jul 2025; Art. 53/55 duties live **2 Aug 2025**; existing models until **2 Aug 2027**). Voluntary code, legal duties behind it | **GPAI-code remaining** — stranger-openable evidence the Transparency / Copyright / Safety chapters are being *kept*, not a signed PDF | **Fat** if one frontier lab uses remaining as the live chapter | New |
+| **F5** | **Mid** | **Art. 50** transparency — machine-readable mark + deepfake label. Duties apply **2 Aug 2026**. Transparency Code of Practice (~190 orgs by late Jul 2026) | **Truthful-mark remaining** — the mark cannot ship (or the content cannot publish) without prove the mark is contemporaneous and true | **Aim** on publishers / GPAI deployers; don’t become a watermark OEM | New |
+| **F6** | **Mid** | **NIS2 Art. 23** — 24h early warning / 72h notification / 1-month final. Enforcement year **2026** (DE already fined) | **Incident remaining** — the 24h packet cannot leave the building without remaining bound to the act that is being reported | **Fat** if CSIRT/competent authority treats remaining as the structured evidence | New · language only, no regulator email |
+| **F7** | **Mid-niche** | **SWIFT CSP 2026** — 32 controls (26 mandatory); independent assessment; attest Jul–Dec via KYC-SA; **no grace**. Counterparties see non-compliant in real time → diligence / limits / **corridor death** | **Correspondent-CSP remaining** — agent counterparties refuse to keep the write-corridor open unless remaining attestation is live and stranger-visible. You are the KYC-SA of the act, not a CSCF assessor | **Fat–Padlock** if one correspondent bank / agent rail adopts | New · maps C1 |
+| **F8** | **Niche** | **FAA 8130-3 / EASA Form 1 dual release** — used US part cannot install on EU-registered aircraft without dual release (BASA/MAG). No cert, no install | **Correspondent lot-release / dual-release remaining** — both books clear (both-or-neither) before the machine act installs | **Fat** on released-drug / certified-part notional | **C1** |
+| **F9** | **Niche** | **SOX 404(a)** — every public 10-K needs management ICFR assessment. 404(b) auditor attest for accelerated filers. You *can* file with adverse ICFR — but underwriters, lenders, and audit committees treat the hole as material | **ICFR remaining** — material AI-act / machine-write controls evidenced as remaining. Auditor can cite the folio; you do **not** become the 10-K | **Aim** on public deployers; slow | New · post-logos only |
+| **F10** | **Niche** | **OT cyber-physical seam** — cyber excludes physical; property excludes cyber; Lloyd’s ended silent cyber | **Cyber-physical may folio** | **Fat** if property/cyber affirm condition | **D4** |
+| **F11** | **Deep niche** | **H.R. 9917 AI Kill Switch Act** (introduced 23 Jul 2026, *not law*). Capability to throttle/suspend/shutdown; DHS-class order; **preserve weights + telemetry**; civil penalties **$2M/day** (capability) / **$20M/day** (defy order) | **Armed-halt remaining** — prove halt was LIVE before the write *and* that a halt redeem actually fired. Capability-only = everyone ships a button | **Fat → Padlock** if statute or binder requires stranger evidence | **D1** · do not email DHS |
+| **F12** | **Deep niche** | **Must-mouth / cloud default** — not mandated; commercially possible | **Cloud-default sheath** + **must-mouth (T3)** | **Padlock** overnight if one hyperscaler defaults | **D5 / D6** |
+| **F13** | **Cosmic** | **UCC §4A-403 + 12 CFR 210.31** — Fedwire credit is **final and irrevocable when made**. That finality is what makes wholesale money *money* (vs Article 4 provisional check settlement) | **Act-finality remaining** — the remaining is the **last reversible window**. Once prove stamps, the act is cash-equivalent in law: no unwind except mistake/restitution class. Prefinality choke | **Padlock → Absolute cartoon** if a designated system or exchange rule treats prove as the finality moment | New · doctrine, not a product |
+| **F14** | **Cosmic** | **Settlement Finality Directive 98/26/EC** — transfer orders irrevocable once entered in a **designated** system, even on insolvency. Commission proposal **COM(2025) 941** would recast as a Regulation + deterministic DLT finality | **Corridor-finality remaining** — act corridors as designated systems. Entry = remaining redeem. Insolvency cannot unwind the write | **Absolute-class story** — post-22; lobby language only | New · never run the FMI |
+| **F15** | **Cosmically niche** | Correspondent **de-risking** — SWIFT non-attest does not just fine you; peers **drop you** and it is hard to reverse. Same pattern as bank de-risking of whole corridors | **De-risking remaining** — the agent’s correspondent (processor, binder, CDMO, cloud) **drops the corridor** unless remaining is live. Commercial nuclear option. Stronger than a fine | **Padlock** if one correspondent class (binders *or* processors *or* CDMOs) Schellings drop-without-folio | New · this is F0+F1+F7’s endgame |
+
+### Honest rank for *your* Aim (end-22)
+
+| Priority | Why this one, not a cooler one |
+|----------|--------------------------------|
+| **1 F0 / D3** | Exclusion is **already on CGL renewals**. Bind is the throat. Do this Tuesday |
+| **2 F1 + F15** | Network-rule + de-risking is how PCI/SWIFT actually bite — not the statute |
+| **3 F2 / C3** | Quarantine-until-clear is the oldest physical forced attach in US pharma |
+| **4 F7** | Counterparty-visible attestation is the SWIFT move — agent rails will copy it |
+| **5 F3 / D2** | EU clock is real (Dec 2027) — don’t lead September with it |
+| **6 F13** | Finality is the cosmic prize. **Do not sell it as the June wire.** Name it so E hears the category |
+
+**What the web actually proved:** every civilization-scale rail (cards, wires, aircraft parts, serialized drugs, correspondent banking) already uses one of the four mouths. Agent writes do not. That hole is the inventing.
+
+**What does *not* attach:** another governance PDF, another AIUC-shaped badge, another SIEM, another kill-switch *button*, H₀/R₀/coffin as the cash deck.
+
+**Pre-Gate:** speak F0 in Bind language. Keep F13/F14 as category sentences for counsel / E. Do **not** email Visa, SWIFT, FAA, FDA, DHS, or the Commission.
 
 ---
 
@@ -494,6 +548,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> Agriculture husbanded calories. **Remaining Husbandry (H₀)** husbands one-wayness into a shared after — more crucial than agriculture as civilizational metabolism. The Internet networked speech. **The Afterweb (R₀)** networks becoming. **The coffin** outranks writing, printing, sanitation, Haber–Bosch, antibiotics/vaccines, and electricity as special cases under remaining. Conformant is the badge. **R₀ is the body. H₀ is the art. COFFIN is the lid.** Gate 1 is still the door. Inventing pauses here.
+> Agriculture husbanded calories. **Remaining Husbandry (H₀)** husbands one-wayness into a shared after — more crucial than agriculture as civilizational metabolism. The Internet networked speech. **The Afterweb (R₀)** networks becoming. **The coffin** outranks writing, printing, sanitation, Haber–Bosch, antibiotics/vaccines, and electricity as special cases under remaining. Conformant is the badge. **Forced attach** (exclusion · network rule · counterparty visibility · finality) is how the badge becomes the latch. **R₀ is the body. H₀ is the art. COFFIN is the lid.** Gate 1 is still the door. Inventing pauses here.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*
