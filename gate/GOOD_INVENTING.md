@@ -155,6 +155,56 @@ Not new `/for/` plates. Not SCADA/LIMS/SIS products. Not museum.
 
 ---
 
+## Cosmic Aim amplifiers — **ultra-specific ops hunt** (2026-09-01)
+
+Goal: inventions that can **raise Aim ($50–200M) → Fat ($200–800M) → Padlock ($0.5–2B+)** by taxing **larger notional** or forcing **must-cite**, not by adding museum plates.  
+Method: ask the question a plant QA / QP / turnaround lead actually lives inside — then name only the **9–10 padlock** on that hole.
+
+### Ultra-specific questions (the hunt)
+
+| # | Ask inside the operation | What broke when we looked |
+|---|--------------------------|---------------------------|
+| Q1 | When a **permit-to-work** is signed, was isolation **verified**, or only **declared**? | PTW fails by producing a signed record of conditions that do not exist (assumed isolation, hollow close-out). |
+| Q2 | Can a **field change** go live with MOC actions still open? | Yes — most common MOC failure: change without MOC, or go-live with open actions. |
+| Q3 | On a **CDMO batch**, who holds the last may — site QA, sponsor disposition, or **QP certification** — and do their books clear? | Split handoff; QP can be remote; contract giver keeps responsibility with **no correspondent remaining**. |
+| Q4 | After a **DSCSA / EPCIS exception**, what stranger-openable act clears quarantine before sale? | Quarantine is mandatory; resolution is email + corrected files — **~8–10B package tx/yr** friction, no Schelling seal. |
+| Q5 | After a **cold-chain excursion**, what continuous evidence must exist before disposition — and do insurers treat a logger gap as total loss? | Logger gaps / missing handoffs = **claim denial** even when product might be fine; disposition and insurance are separate fictions. |
+| Q6 | Can a **fab tool** run a recipe version that is not the approved MES/SAP master? | Yes — tool-local edits, delayed sync, PLC download lag → **wafer scrap** with incomplete trail. |
+| Q7 | Is **audit-trail review** a gated step inside lot release, or a parallel PDF? | Still often off-platform → 483 class finding; signature without remaining. |
+| Q8 | When **SIS logic** is hot-updated or bypassed, who gets a stranger receipt? | BPCS/SIS common-cause; detection research exists; **prove of may** is not a product category. |
+
+### Cosmic inventions (raise the check, not the brochure)
+
+| # | Invention | /10 | Internal gap it closes | Why it moves **Aim / Fat / Padlock** | Shape (not forecast) | When |
+|---|-----------|-----|------------------------|--------------------------------------|----------------------|------|
+| **C1** | **Correspondent lot-release** — CDMO site remaining + sponsor/QP remaining must **clear (both-or-neither)** before market release | **10** | Split release model across orgs; remote QP; Chapter 7 oversight without shared remaining books | Taxes **released drug notional** (biologic batches often **$M–$10M+** each), not agent chat. Nearest industrial twin of act clearinghouse | Per-batch clear fee + annual mouth cert on sponsor+CDMO pair → **Fat-class** if Schelling among top CDMOs | Post Gate 1 · map of A2/A6 |
+| **C2** | **Excursion-disposition remaining** — after temperature/hold breach, **release/scrap cannot finish** without redeem bound to continuous evidence chain | **10** | GDP claims die on logger gaps; quality disposition ≠ insurer evidence | Industrial **S4**: no folio ⇒ weak/unpayable claim + blocked release. Cold-chain biologics cargo + premiums are already huge | Evidence rent on cold-chain policies + per-disposition meter → **Aim–Fat**; attaches reinsurers / cargo desks | Pre: Bind “no pack no bind” twin for GDP · Post: underwriter API |
+| **C3** | **Exception-clear remaining (DSCSA)** — quarantined serialized product cannot re-enter sellable stock without stranger prove that TI↔physical aligned | **10** | EPCIS exceptions force quarantine; resolution is bilateral scramble across **billions** of package events | Choke on **US Rx distribution flow** (McKesson/Cardinal/ABC-class). Package-level finality | Per-exception resolve + per-quarantine-release; thin attach on wholesale dollars → **Padlock cartoon** if default | Post meter · never become EPCIS network |
+| **C4** | **Truthful permit / verified-isolation remaining** — PTW may redeems only if isolation/barriers are **proved contemporaneously**; close is both-or-neither | **10** | Signed permits of fiction; shift-handover loss; production pressure erodes refusal | Every turnaround on every PSM plant; FM Global / process-safety underwriting needs evidence not paperwork | Per-permit meter + evidence % of plant premium → **Fat** if insurer Schelling | Post · contribute, don’t own LOTO hardware |
+| **C5** | **MOC-live gate** — process/control change cannot go live while MOC actions open; go-live is a redeem | **9.5** | Field changes skip MOC; actions incomplete at go-live | Latent hazard → incident → coverage fights. Same padlock as agent “write without may” | Per-MOC + plant Conformant seat | Post |
+| **C6** | **Recipe-may before tool download** — equipment cannot execute until cylinder proves recipe version = approved master | **9.5** | Fab/tool-local recipe drift; SAP≠MES≠PLC | Semi lots scrap at extreme $/wafer; yield events move plant P&L | Fab franchise + per-deploy; long cycle — **Padlock story**, slow Aim | Post · design-partner fab only |
+| **C7** | **Physical QIC (matter-hop)** — one irreversible **matter** commit (release, fire, setpoint-kill, dose, beam, scrap) = one meter quantum beside digital QIC | **10** | Industrial acts metered in tribal units; no SI-adjacent one-wayness | Unifies OT+agent under one “Gate Conformant?” → **Padlock** category. Multiplies every I/C seat | Same QIC billing spine × physical hops → **$B** if default across pharma+process+CEA | Post QIC live |
+| **C8** | **Release-block insurability** — carrier/binder language: no correspondent remaining folio ⇒ batch/shipment **uninsurable or excluded** | **10** | Coverage without evidence; AIUC-shaped badge shops in industrial form | Forces attach the way CG AI exclusions force Bind. **Nearest path to fatter E multiple** | 5–15% evidence rent on relevant premium pools (product, cargo, plant) → **$0.4–2B** class twin of S4 | Pre language · Post binder API |
+
+### Honest rank for **your** Aim check (end-22)
+
+| Priority | Invention | Why it fattens the **ownership** check |
+|----------|-----------|----------------------------------------|
+| **1** | **C1 Correspondent lot-release** | Biggest *near* notional that already needs two parties to agree a batch is real |
+| **2** | **C2 + C8** Excursion remaining + release-block insurability | Same forced-attach machine as Bind/S4, on cargo/product premiums that already exist |
+| **3** | **C3 DSCSA exception-clear** | Package-level choke on drug wholesale — Padlock-shaped if Schelling |
+| **4** | **C4 Truthful permit** | Process-safety insurer Schelling; slower than pharma release |
+| **5** | **C7 Physical QIC** | Category unifier for Padlock narrative — ship after digital QIC proves |
+| **6** | **C5 / C6** MOC-live · recipe-may | Real; longer enterprise sales — don’t lead Tuesday |
+
+**What does *not* cosmically raise Aim:** another lab dashboard, another ePTW form, another EPCIS app, another logger brand, H₀/R₀/coffin as the June deck.
+
+**What does:** make **one close** (batch, quarantine release, claim, turnaround permit) **die without redeem** — then sell the HoldCo that owns that mouth. Same Aim machine as `/bridge`. Bigger stock underneath.
+
+**Pre-Gate:** name C1/C2/C8 as Bind-adjacent *language* only (pharma GC / cargo / GDP). **Do not** email CDMOs or FM Global in September. Gate 1 still unlocks the meter that makes these real.
+
+---
+
 ## Explicit rejects (even if spicy)
 
 | Idea | Why &lt;9 or forbidden |
