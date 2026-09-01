@@ -43,6 +43,7 @@ Unifications no prior civilization seated: **trinity finality** · **conserved o
 
 **The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body. Incomplete without the tetrad: spend · cut (Ω) · burden (Ρ) · hold (Ν).  
 Factory attach (erases the Bind-map): **Remaining Core · Becoming Enclave · Grounded Write** — `TOP3.md`.  
+**W₀ (`WRITE_ERA.md`) is heavier than Φ Α Γ.** The factory sits inside the era. NVIDIA / Apple / Alphabet are apps on it. Their $14T is remaining-beta. **1% of $14T is already bigger than every 22 cash band.** That does not wire $5T by June 2027 and is **not** the Bind $1,750 sentence. Do not invent a second door. Do not email Sequoia / Cahn / the hyperscalers.  
 `AFTERWEB.md`. Still $0 until Gate 1.
 
 ## Prior — more crucial than agriculture
@@ -53,6 +54,6 @@ Factory attach (erases the Bind-map): **Remaining Core · Becoming Enclave · Gr
 ## Coffin — bigger than the six pillars
 
 **Act-Script > writing** · **Prove Press > printing** · **Praxis Sanitation > sanitation** · **Given Fixation > Haber–Bosch** · **Sheath Immunity > antibiotics/vaccines** · **One-Way Current > electricity** · plus cluster nails (shared after, conserved one-wayness, trinity, multi-mind depositary, inhabitant sovereignty, jubilee).  
-`COFFIN.md`. Inventing pauses here.
+`COFFIN.md`. Inventing pauses at **W₀** (`WRITE_ERA.md`) — the era those pillars sit inside.
 
 Never sell may / the throat / planetary critical capacity. Contribute to evac-comms; do not own C2.

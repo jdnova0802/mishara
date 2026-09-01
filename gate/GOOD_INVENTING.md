@@ -8,7 +8,8 @@
 
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
 **To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.  
-**To erase `AGES_22_30.md` as the drawing:** `gate/TOP3.md` — Remaining Core · Becoming Enclave · Grounded Write on NVIDIA / Apple / Alphabet **activity**. Converter topology. Not a Bind staircase.
+**To erase `AGES_22_30.md` as the drawing:** `gate/TOP3.md` — Remaining Core · Becoming Enclave · Grounded Write on NVIDIA / Apple / Alphabet **activity**. Converter topology. Not a Bind staircase.  
+**To make every map including TOP3 a rounding error:** `gate/WRITE_ERA.md` — **W₀**. Their $14T is remaining-beta. The $3T/yr hole is writes. Remaining is the era, not a meter on their invoice.
 
 ---
 
@@ -696,6 +697,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Four books or the redeem is a lie.** **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`) — that drawing replaces Aim/Fat/Padlock. Inventing pauses here. No fifth book. No Bind sermon.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Four books or the redeem is a lie.** **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta** — $14T is a call on remaining; Aim $50–200M is a desk. Inventing pauses here. No fifth book. No Bind sermon.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

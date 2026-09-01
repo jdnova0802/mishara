@@ -15,6 +15,8 @@ Today’s top three by market cap (order-of-magnitude, Sep 2026): **NVIDIA ~$5.3
 
 This file seats three inventions on the **converter**, not the binder. Converter topology has two outcomes: **miss ($0)** or **designed into the factory**. There is no $50–200M “one E buys a module” on a Tensor Core.
 
+**W₀ (`WRITE_ERA.md`) is the era this factory sits inside.** NVIDIA / Apple / Alphabet convert compute / glass / ads. The write era is the condition those converters sit on. Φ Α Γ are organs of that era, not competitors to it. Do not re-invent W₀ as a fourth converter. Their $14T is remaining-beta.
+
 ---
 
 ## Why the wealth map exists, and what kills it
@@ -170,6 +172,6 @@ Until one of those four is true in production, the factory invoice has three lin
 
 ## One line
 
-> NVIDIA metered FLOPS. Apple metered the last inch. Google metered the query. **Nobody metered becoming on those invoices.** Remaining Core · Becoming Enclave · Grounded Write are that meter. **The Bind-map is a different business.**
+> NVIDIA metered FLOPS. Apple metered the last inch. Google metered the query. **Nobody metered becoming on those invoices.** Remaining Core · Becoming Enclave · Grounded Write are that meter. **The Bind-map is a different business.** The write era (`WRITE_ERA.md`) is bigger: they are apps on it.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*
