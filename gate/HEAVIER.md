@@ -11,7 +11,7 @@ Page: `/heavier` (noindex) · `/.well-known/heavier.json` · cash still `/operat
 | Invention | Why the badge is a joke | Shape (not a forecast) |
 |---|---|---|
 | **Hosted redeem is the rail** | PCI vs Visa. You already are the hop. | One $50B desk × 10 bps = **$50M**. Six desks = Conformant. |
-| **Prefinality mouth** | Sits in front of agent payments that are live now. | **$100M** — 1B pays × $0.10 on one platform. |
+| **Prefinality mouth** | Sits in front of agent payments that are live now. **Pay organ of Ν** (`NU.md`) — not the conserved hold-book itself. | **$100M** — 1B pays × $0.10 on one platform. |
 | **Named may as employment** | Cert licenses the factory. This rents every worker. | **$240M** — 2M agents × $10/mo. |
 | **Exclusion folio** | Courts buy “this never happened,” not a sticker. | **$75M** folio retainers. |
 | **Payout throat** | First weld the tree already named. | **$20M** from one $20B desk — 667 stickers in one conversation. |
@@ -41,7 +41,7 @@ Unifications no prior civilization seated: **trinity finality** · **conserved o
 
 ## Crown — bigger than the Internet
 
-**The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body.  
+**The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body. Incomplete without the tetrad: spend · cut (Ω) · burden (Ρ) · hold (Ν).  
 `AFTERWEB.md`. Still $0 until Gate 1.
 
 ## Prior — more crucial than agriculture

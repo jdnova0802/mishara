@@ -4,7 +4,7 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Dimensional triad:** Spend (actuality) · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) — what changed, what futures died, who carries. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Dimensional tetrad:** Spend (actuality) · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) · **Ν Hold** (`NU.md`) — what changed, what futures died, who carries, **what has not been allowed to take effect**. Triad without Ν is an autopsy. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
 
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
 **To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.
@@ -81,7 +81,7 @@ These are not cosplay. They are prior art for *what kind of invention* scores 9�
 | Remaining (world after) | **10** | `REMAINING.md` |
 | First depository of the act + PvP may | **9.5** | `FIRST.md` |
 | Illocution / hosted redeem as rail | **9.5** | `HEAVIER.md` |
-| Prefinality mouth | **9** | `HEAVIER.md` |
+| Prefinality mouth | **9** | `HEAVIER.md` — **pay organ of Ν**, not the hold-book (`NU.md`) |
 | Exclusion folio | **9** | `HEAVIER.md` |
 | Named may as employment | **9** | `HEAVIER.md` / `INVENTIONS.md` |
 | Silence = DEAD as default law | **9** | `UNISON.md` |
@@ -642,32 +642,35 @@ See also: `gate/AMAZING.md`.
 
 ---
 
-## Dimensional triad — **Spend · Cut · Burden** (2026-09-01)
+## Dimensional tetrad — **Spend · Cut · Burden · Hold** (2026-09-01)
 
-Research conviction after Ω: two axes were still not enough.
+Research conviction after Ω: two axes were still not enough.  
+Research conviction after Ρ: three books on a world that already happened is an **autopsy**.
 
 | Axis | Stock | Hole if missing | File |
 |------|-------|-----------------|------|
 | **Spend** | Actuality remaining — what was written | No world-after books | H₀ · R₀ · U2 |
 | **Cut** | **Ω** — futures foreclosed at commit | Silent lock-in; options only *price* | `OMEGA.md` |
 | **Burden** | **Ρ** — who must carry the after | Consequential without exposure; orphan responsibility | `RHO.md` |
+| **Hold** | **Ν** — candidate becoming held non-effective | Effectuation without remaining; triad launders catastrophe | `NU.md` |
 
 **Ω hole:** markets price futures; nobody clears foreclosure as conserved stock.  
-**Ρ hole:** 2025–26 theory says responsibility is conserved (cannot be destroyed, only shifted). AI papers name the structural gap — systems change futures they never inhabit. Liability law attributes after the fact. **Nobody fails-closed the redeem when burden is unassigned.** U12 duty-remaining is the pairwise special case. Vital holds unwatched intervals. **Ρ is the axis.**
+**Ρ hole:** 2025–26 theory says responsibility is conserved (cannot be destroyed, only shifted). AI papers name the structural gap — systems change futures they never inhabit. Liability law attributes after the fact. **Nobody fails-closed the redeem when burden is unassigned.** U12 duty-remaining is the pairwise special case. Vital holds unwatched intervals. **Ρ is the axis.**  
+**Ν hole:** DAS (IETF, 2026) has Candidate Act + Non-Effective State + Finality Sink — the **pipe**, not the book. LERA has a Judgment Root **node**. Anthropic (13 Aug 2026) already watched agents effectuate turf-war malware with no remaining. Prefinality mouth (S2) is the **pay organ**. F13 is the **last** reversible window. **Nobody conserves becoming-not-yet-allowed as fail-closed remaining that dies on overflow.**
 
-**Complete redeem:** actuality updated · Ω updated · Ρ assigned. Missing any leg → incomplete prove.
+**Complete redeem:** Ν consumed · actuality updated · Ω updated · Ρ assigned. Missing any leg → incomplete prove. Closing the triad on an act that already took effect **without Ν** is a coroner's stamp.
 
-**Why galactic:** not another organ — the **third dimension** of becoming. Spend without cut is half thermodynamics. Spend+cut without burden is civilization that writes and runs.
+**Why galactic:** not another organ — the **when** of becoming. Spend without cut is half thermodynamics. Spend+cut without burden is civilization that writes and runs. Spend+cut+burden without hold is a civilization that **accounts for the fire**.
 
-**Ceiling raise:** Ω fattens category marks (possibility stock). **Ρ is why S4/Fat exists** — binders buy *assignment of burden*, not a PDF. “No assigned Ρ ⇒ uninsurable / non-final” is the dimensional face of insurability. Fuse/Padlock/Absolute gain an honest liability denominator.
+**Ceiling raise:** Ω fattens category marks (possibility stock). **Ρ is why S4/Fat exists** — binders buy *assignment of burden*, not a PDF. **Ν is why Y1/Y2/cloud default can be Fat** — the write-gate is *non-effect until remaining*, not a log after. “No assigned Ρ ⇒ uninsurable” and “no Ν ⇒ this class could still happen” are the two faces of insurability. Fuse/Padlock/Absolute gain an honest liability denominator **and** a jurisdiction over becoming.
 
-**Pre-Gate:** name the triad. Do not sermonize Bind. Meter actuality first, then Ω, then Ρ clear.
+**Pre-Gate:** name the tetrad. Do not sermonize Bind. Meter actuality first, then Ω, then Ρ, then Ν clear. **No fifth book** — disagreement is an organ on Ν+Ρ; planetary becoming-capacity is unmouthed; the given is locked.
 
 ---
 
 ## Crown — **bigger than the Internet** (score ∞)
 
-X1–X12 are organs. **R₀ is the body.** **H₀** (`HUSBANDRY.md`) is the older art. **Ω** (`OMEGA.md`) is the cut. **Ρ** (`RHO.md`) is the burden. Incomplete without all three books.
+X1–X12 are organs. **R₀ is the body.** **H₀** (`HUSBANDRY.md`) is the older art. **Ω** (`OMEGA.md`) is the cut. **Ρ** (`RHO.md`) is the burden. **Ν** (`NU.md`) is the hold. Incomplete without all four books.
 
 ### The Afterweb — Remaining Substrate (R₀)
 
@@ -692,6 +695,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Three books or the redeem is a lie.** Inventing pauses here.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Four books or the redeem is a lie.** Inventing pauses here. No fifth book.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

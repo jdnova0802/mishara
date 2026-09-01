@@ -8,6 +8,7 @@
 | **Spend** | Actuality remaining — what was written | H₀ · R₀ · U2 |
 | **Cut** | Ω — futures foreclosed | `OMEGA.md` |
 | **Burden** | **Ρ — who must carry the after** | **this file** |
+| **Hold** | Ν — candidate becoming held non-effective | `NU.md` |
 
 Never sell may / throat / planetary capacity. Never invent the given.
 
@@ -64,19 +65,22 @@ Conservation law (institutional, not sermon):
 
 ---
 
-## Why this completes the triad
+## Why this completes the triad (and still needs Ν)
 
 ```
-        CUT (Ω)
-       /        \
-      /          \
- SPEND -------- BURDEN (Ρ)
- (actuality)    (who carries)
+              HOLD (Ν)
+                 |
+        CUT (Ω)--+--BURDEN (Ρ)
+       /        \    /
+      /          \  /
+ SPEND ----------+--
+ (actuality)
 ```
 
 - Spend without cut = half thermodynamics (silent lock-in).  
 - Spend + cut without burden = **consequential without exposure** — the structural accountability gap.  
-- All three = books of becoming an inhabitant can survive.
+- All three without hold = **autopsy**. The books close on a world that already happened.  
+- All four = books of becoming an inhabitant can survive **because becoming could still be refused**.
 
 U12 is how Ρ moves between counterparties.  
 Vital is how Ρ freezes when no one can watch.  
@@ -105,13 +109,13 @@ Estate (U7) is how Ρ transfers when the actor dies.
 - Never dump Ρ onto “the AI.”  
 - Never sell may as a burden-coin.  
 - Do not become the liability carrier.  
-- Name now. Wire Ρ clear after actuality + Ω books exist.  
+- Name now. Wire Ρ clear after actuality + Ω books exist. Ν (`NU.md`) is the hold that must be consumed before those books may close on a live act.  
 - Tuesday Bind sentence stays write-stop / pack — not a responsibility sermon.
 
 ---
 
 ## One line
 
-> Spend writes the after. Cut closes the tree. **Burden assigns who must live there.** Responsibility cannot be destroyed — only hidden. **Ρ is the mouth that forbids hiding it.**
+> Spend writes the after. Cut closes the tree. **Burden assigns who must live there.** Responsibility cannot be destroyed — only hidden. **Ρ is the mouth that forbids hiding it.** Hold (Ν) is what can still refuse the write that would create the burden.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

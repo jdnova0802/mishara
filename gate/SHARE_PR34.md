@@ -11,14 +11,14 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is EXTERNAL.md (external attach). Last explain ship is nisabatree (`/nisabatree`). This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is Ν Prefinality Remaining (`gate/NU.md`) — tetrad spend · cut · burden · hold. Do not re-invent Ω / Ρ / Ν. Last explain ship is nisabatree (`/nisabatree`). This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -50,6 +50,7 @@ Halt: We will not sell may. We will not implement the rail on this SKU. If the h
 Cut size: 9 files, 97 in / 103 out (net delete), then a 4-line test fix. The unused remaining of this invention is sending it, not another vein.
 
 ALREADY SEATED THIS MOUTH. Do not re-seat.
+**DO NOT RE-INVENT the tetrad.** Spend · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) · **Ν Hold** (`NU.md`). No fifth book. Not Bind sentences. Not pages. Cousin watch: IETF DAS is the pipe, not the stock.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -184,7 +185,10 @@ PASTE END
 | `gate/MONETIZE_R0.md` | **How to cash R₀** — foothill → latch → rail → Absolute seats |
 | `gate/END22_RANK.md` | **End of age 22 liquid** + top 10 by matter × monetization |
 | `gate/AGES_22_30.md` | **Ages 22–30** liquid + net worth bands (Aim / Fat / Padlock / Absolute) |
-| `gate/EXTERNAL.md` | **Last inventing pass** — external attach on $T stocks the world already has. No page. To outscale the age table, not Tuesday cash. |
+| `gate/EXTERNAL.md` | External attach on $T stocks the world already has. No page. To outscale the age table, not Tuesday cash. |
+| `gate/OMEGA.md` | **Ω Cut** — Possibility Remaining. Dimensional axis. Not the Bind sentence. |
+| `gate/RHO.md` | **Ρ Burden** — who must carry the after. Third axis. |
+| `gate/NU.md` | **Ν Hold** — Prefinality Remaining. Crisis book. **Last inventing pass.** Tetrad: spend · cut · burden · hold. Do not re-invent. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 

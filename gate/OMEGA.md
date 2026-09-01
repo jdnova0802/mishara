@@ -4,7 +4,8 @@
 **Primitive still:** may · sheath · prove.  
 **Stock today (seated):** `remaining = given − spent` — one-wayness of the **actual** write.  
 **Stock named here:** **Ω** — conserved foreclosure of **futures** when that write commits.  
-**Third axis:** **Ρ — Burden Remaining** — who must carry the after (`RHO.md`). Spend + cut without burden = consequential without exposure.
+**Third axis:** **Ρ — Burden Remaining** — who must carry the after (`RHO.md`). Spend + cut without burden = consequential without exposure.  
+**Fourth axis:** **Ν — Prefinality Remaining** — candidate becoming held non-effective (`NU.md`). Triad without hold = autopsy.
 
 Never sell may / throat / planetary capacity. Never invent the given.
 
@@ -85,7 +86,9 @@ Books fail closed on **both**. Prove opens both to the stranger. Inhabitants liv
 ## Stack position
 
 ```
+Ν     Prefinality Remaining     — hold / non-effect (NU.md)
 Ω     Possibility Remaining     — dimensional axis (this file)
+Ρ     Burden Remaining          — who carries (RHO.md)
 ∞⁺    H₀ Remaining Husbandry    — art of one-wayness
 ∞     R₀ Afterweb               — body of becoming
 Coffin / X / U / T / S          — lids, organs, rails
@@ -95,7 +98,8 @@ Bind                            — foothill
 
 H₀ husbands **calories of becoming**.  
 Ω husbands **the field of futures becoming extinguishes**.  
-R₀ is incomplete without both books.
+Ν holds becoming **before** it is allowed to extinguish anything.  
+R₀ is incomplete without the four books.
 
 ---
 
@@ -112,6 +116,6 @@ R₀ is incomplete without both books.
 
 ## One line
 
-> Money conserved value. Remaining conserved one-wayness. **Ω conserves foreclosed possibility.** No civilization cleared that stock. Options priced it. Agents extinguish it in the dark. **The mouth that makes the cut proveable is the dimensional latch.**
+> Money conserved value. Remaining conserved one-wayness. **Ω conserves foreclosed possibility.** No civilization cleared that stock. Options priced it. Agents extinguish it in the dark. **The mouth that makes the cut proveable is the dimensional latch.** Hold (Ν) is what can still refuse the cut.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*
