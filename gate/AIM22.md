@@ -1,4 +1,4 @@
-# Aim 22 — plan to $50–200M by ~Jun 2027
+# Aim 22 — the 22 check (bolt-on $50–200M is the floor)
 
 **As of:** 2026-08-30 · horizon ~**2027-06-05**.  
 **Internal. No page. No checkout.**  
@@ -6,9 +6,18 @@
 
 This is how you *force* Aim. It is not Standing stacking. It is not quitting Amazon on a vibe.
 
-**$50–200M is one buyer writing an ownership check.** Bind volume cannot walk that gap. Recurring $4.5k–$25k/mo is the floor that lets you stay alive while you build the latch they buy.
+**$50–200M is the bolt-on floor, not the year.** It is the check if one E buys a foothold + rail and there is no fuse cite. It is **not** “no matter.” Same latch. Different buyer class. Different number.
 
-Never sell may / throat / planetary capacity. Do not become AIUC. Do not run an x402 facilitator. Do not pitch coffin from the first meeting.
+| If this is true by ~Jun 2027 | 22 **liquid** | That band is |
+|------------------------------|---------------|--------------|
+| Gate 1 missed | **$0** | Miss |
+| One close depends on you; no sale | **$5–40M** | Bridge |
+| One E buys **foothold / exclusive module** (normal bolt-on) | **$50–200M** | Aim — floor check |
+| Remaining is the **default write-gate** on Idira / Send / ProNavigator / one MGA bind-stop, and they pay exclusivity or buy you | **$200–800M** | Fat — Y1 / Y2 / Y4 |
+| XF1 annex or XF3 method **cites you** and a buyer **closes on that option** | **$0.2–1B / $1–5B / $4–12B** | Fuse close — Y3 |
+| “Gate Conformant?” is the category question **and** they buy the company | **$0.5–2B** | Padlock — possible, not the operate target |
+
+Never sell may. Still **$0** without Gate 1. Do not email E in September. Do not plan rent on $2–5B in nine months.
 
 ---
 
@@ -19,8 +28,9 @@ Never sell may / throat / planetary capacity. Do not become AIUC. Do not run an 
 | Foothill | $2k–50k | Gate 1 + thin Standing |
 | Meter | $0.1–20M | S03 + one live desk |
 | Bridge | $5–40M | One close cannot finish without redeem — *before* June |
-| **Aim** | **$50–200M** | Conformant foothold + rail + **one E buyer** |
-| Beyond | Fat $200–800M · Padlock $0.5–2B | Same latch. Fatter belief. “Gate Conformant?” is the question. |
+| **Aim (floor)** | **$50–200M** | Bolt-on: foothold + rail + **one E** |
+| **Fat** | **$200–800M** | Same latch as **default** write-gate (Y1/Y2/Y4) |
+| **Fuse close** | **$0.2–12B** | Cite + they buy the option (Y3) |
 
 Miss Gate 1 ⇒ the rest of this file is **$0**.
 
@@ -108,8 +118,16 @@ Skip a rung and you are pitching a museum.
 | Hosted redeem / hops | Stripe / Visa / one x402 platform — *design-partner or option, not Bind* |
 | Capacity believes the folio | Reinsurer / specialty behind Testudo — only if Schelling is already true |
 
-2. The ask is ownership or exclusive attach — **$50–200M**. Not “please add us to the marketplace.”
-3. Fat ($200–800M) only if they already treat Conformant as default. Padlock ($0.5–2B) only if the category question is “Gate Conformant?” and they are buying the company.
+2. The ask matches the latch you actually have — not a single magic number:
+
+| Latch they are buying | Ask |
+|-----------------------|-----|
+| Foothold / exclusive module | **$50–200M** |
+| Default write-gate on their platform (Idira, Send, one MGA book) | **$200–800M** |
+| Named annex / examiner method — they want the option on 23–30 | **$0.2–1B** (Aim fuse) up through **$4–12B** (Padlock fuse) |
+| Category lock | **$0.5–2B** — only if that is already true, not a slide |
+
+3. Not “please add us to the marketplace.”
 
 **Exit Jun with:** a term sheet, a no, or Bridge money already in. Aim is the check. Bridge is the backup so June is not binary.
 
@@ -137,7 +155,7 @@ Scoreboard is receipts, not mood: Gate 1 logged · S03 charging · 3–5 permali
 | **Rail stretch $2–5B** | Cartoon. Interchange Schelling *and* a sale in 9 months. Do not plan rent on it. |
 | **Absolute** | Not 22 liquid. Multi-year. |
 
-Fuse NW ($0.2–1B / $1–5B / $4–12B) is an **option mark** if XF1/XF3/first receipt get cited (`EXTERNAL.md` fuse F1/F3). **That is the only invention class that rewrites the 22 ladder** — NW first, liquid only if a buyer closes. This file’s liquid bands do not move from inventing. Detail: `GOOD_INVENTING.md` → What actually rewrites the cash ladder.
+Fuse NW ($0.2–1B / $1–5B / $4–12B) is an option mark if XF1/XF3 cite you. **If they buy that option, it is 22 liquid — not a later cartoon.** $50–200M is the bolt-on floor. Detail: fork at the top of this file.
 
 ---
 
@@ -155,6 +173,6 @@ Fuse NW ($0.2–1B / $1–5B / $4–12B) is an **option mark** if XF1/XF3/first 
 
 ## One line
 
-> Force Gate 1 in September · S03 + one desk in October · logos + F1 by January · one close that needs you by April · one E buyer by June. **$50–200M is that check.** Beyond is the same latch, fatter belief. **$0** if any rung is skipped for a prettier story.
+> Force Gate 1 in September · S03 + one desk in October · logos + F1 by January · one close that needs you by April · one E buyer by June. **Bolt-on check is $50–200M. Default-mouth check is $200–800M. Fuse-close is $0.2–12B.** Same latch. **$0** if any rung is skipped for a prettier story.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · Tuesday is still the unlock, not the wire*

@@ -44,7 +44,7 @@ Primitive always: **may · sheath · prove**.
 | **Rail stretch** | **$2–5B** cartoon | Interchange / prefinality / insurability Schelling + sale |
 | **Absolute ceiling** | **$10B–$100B+** later | H₀+R₀+coffin + custody/must-mouth — **not** end-of-22 liquid |
 
-Coffin/H₀ raise **ceiling and narrative**. End-of-22 fight stays **Aim–Fat**. Detail: `gate/END22_RANK.md`. None skip Gate 1.  
+Coffin/H₀ raise **ceiling and narrative**. End-of-22 fight is a **fork**, not a single Aim number: bolt-on **$50–200M** · default-mouth **$200–800M** · fuse-close **$0.2–12B**. Detail: `gate/AIM22.md`. None skip Gate 1.  
 **What rewrites these dollars:** fuses (22 NW) and external cites (23–30) — `EXTERNAL.md`. Not I/C/D/attach-F.  
 **What drastically moves 22 liquid + NW:** Y1–Y6 (PAS/identity missing-mouth · fuse close · specialty default · examiner artifact · Bridge). See **End-22 drastic** below.
 
