@@ -53,9 +53,9 @@ These are the public faces. **Never invent a sixth.**
 | **Erra** | Should we act? | The **signal** before money or force moves. ACT or HOLD. |
 | **Verra** | Did both rails clear before we bind? | The **room** where signal + proof must both clear — one export. |
 | **Gate** | Can this agent still act *right now*? | The **mouth / kill door** on irreversible writes. DENY is the scarcity. |
-
-**Cool Gate** (future, not a sixth brand): the same door in TikTok-edit grammar — freeze before the write, DENY on the beat, a stranger opens why. Name only until they say ship. `gate/COOL.md`.
 | **Mishara** | Was a person harmed? | The **human path** after harm — receipt + demand, not corporate Action OS. |
+
+**Fellhatch** (future, not a sixth brand, not Cool Gate): the same door as the night the list went out — named people only, neighbors without the alert, the hatch that closes. Name only until they say ship. `gate/FELLHATCH.md`.
 
 **How they fit:** Erra asks “should we?” → Velaru proves “did the gate hold?” → Verra is the session that forces both → Gate owns the irreversible door → Mishara is for the person when something already hurt them.
 

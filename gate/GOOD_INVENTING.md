@@ -17,7 +17,7 @@
 **What to look up to rewrite the register:** `gate/RESEARCH.md` — facts, not essays.  
 **What makes the register look like a joke as a ruler:** `gate/BULGE.md` — looked-up denominators. Not a 22 wire.  
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
-**Cool Gate (future skin, not a sixth sibling):** `gate/COOL.md`.
+**Fellhatch (future skin, not a sixth sibling, not Cool Gate):** `gate/FELLHATCH.md`.
 
 ---
 
