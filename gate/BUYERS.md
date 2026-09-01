@@ -71,7 +71,7 @@ The insured pays. Not the carrier. Not the cert shop.
 | **GC whose vendor died** | Leftover writes must HALT. | Estate **$3,500** | Named shape. No list yet. |
 | **GC with a stale folio** | Next contribution blocked. | Discharge **$1,500** | Named shape. No list yet. |
 
-Pond rule: **≤10 N1 emails**, then halt and prove. Personalize one line (renewal / product / book).
+Pond rule: **≤10 N1 emails**, then halt and prove. Personalize one line (renewal / product / book). The ten are empty slots you fill from threads you already have — `gate/TUESDAY.md`. Not ten logos in this file.
 
 ---
 
@@ -187,7 +187,7 @@ Talk when **meter + 3–5 prove cases** exist. Not before.
 ## Honest holes (still blank)
 
 - No **named** payout/iGaming desks. Operator is a class.  
-- No **named** AI deployer GC list (on purpose — warm + renewal, not a scrape).  
+- No **named** AI deployer GC list (on purpose — warm + renewal, not a scrape). Tuesday send sheet is `gate/TUESDAY.md`: ten blank slots, not a blast.  
 - No **corp-dev contact** at Duck Creek / Guidewire / Palo Alto.  
 - No replacement MGA list. Specialty row above is the replacement *class*.  
 - EU cover (Armilla / aiSure) is a channel, not a September blast.

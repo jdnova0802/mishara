@@ -44,7 +44,7 @@ No H₀. No coffin. No $100B. No Conformant franchise pitch from Bind.
 | Day | Action |
 |-----|--------|
 | 0 | Live pay+prove green |
-| 0 | Send **10** N1 emails (Bind renewal-evidence) |
+| 0 | Send **≤10** N1 emails from `gate/TUESDAY.md` (fill slots from existing threads; do not invent ten GCs) |
 | 2 | Follow up all 10 once |
 | 3–4 | 5 more if needed (broker-angled or builder install $2,500) |
 | Same week as first “yes” | Take money → prove same day → Gate 1 logged |

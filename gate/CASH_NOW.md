@@ -115,7 +115,7 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 1. Finish public path so pay + prove works on live host (Stripe webhook · disk · secure cookies — see `MAX.md`).
 2. One counsel quote email batch (Tue Sep 1) — does not replace Bind cash.
-3. Send **≤10** N1 emails: warm GCs with `stranger_two`, plus **at most one** Testudo-placing broker using the ask in `BUYERS.md` — then stop and prove. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send **≤10** N1 emails from `gate/TUESDAY.md`: warm GCs with `stranger_two`, plus **at most one** Testudo-placing broker using the ask in `BUYERS.md` — then stop and prove. The ten names are not in git. Fill slots from existing threads or send fewer. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 **Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.  

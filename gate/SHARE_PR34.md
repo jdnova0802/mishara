@@ -18,7 +18,7 @@ Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). P
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/TUESDAY.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -86,7 +86,7 @@ Without Gate 1, civilization-rent shapes are $0. Do not get bored of Bind $1,750
 SEPT 1 WEEK (ops, not inventing). See CASH_NOW.md · EXTREME_ODDS.md · MAX.md
 1. Live host: Stripe webhook · disk · secure cookies. If checkout or prove is soft, do not send sales emails yet.
 2. Counsel quote batch Tue Sep 1 — does not replace Bind cash.
-3. Send ≤10 Renewal Evidence Bind emails: warm GCs (stranger_two) plus at most one Testudo-placing broker (ask in BUYERS.md). Then halt and prove. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md: warm GCs (stranger_two) plus at most one Testudo-placing broker (ask in BUYERS.md). The ten names were never in git — fill slots from existing threads or send fewer. Then halt and prove. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 Pond: AI startup GC / Head of Ops on renewal · specialty broker → intro to their insured · builder with irreversible tool-use · warm human who already opened a plate.
@@ -170,6 +170,7 @@ PASTE END
 | `gate/HEAVIER.md` | Inventions that dunk the Conformant badge |
 | `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/BUYERS.md` | **Full buyer map** — A Gate 1 · B channels · C meter/bridge · D cite · E Aim/Fat · F hard no · internal, no page |
+| `gate/TUESDAY.md` | **Tue 1 Sep 2026 send sheet** — ten blank slots from existing threads · paste-ready N1 / broker / counsel · not a named GC list |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
