@@ -137,7 +137,7 @@ Scoreboard is receipts, not mood: Gate 1 logged · S03 charging · 3–5 permali
 | **Rail stretch $2–5B** | Cartoon. Interchange Schelling *and* a sale in 9 months. Do not plan rent on it. |
 | **Absolute** | Not 22 liquid. Multi-year. |
 
-Fuse NW ($0.2–1B / $1–5B / $4–12B) is an **option mark** if F1/F3/first receipt get cited. Liquid stays this file unless a buyer closes.
+Fuse NW ($0.2–1B / $1–5B / $4–12B) is an **option mark** if XF1/XF3/first receipt get cited (`EXTERNAL.md` fuse F1/F3). **That is the only invention class that rewrites the 22 ladder** — NW first, liquid only if a buyer closes. This file’s liquid bands do not move from inventing. Detail: `GOOD_INVENTING.md` → What actually rewrites the cash ladder.
 
 ---
 

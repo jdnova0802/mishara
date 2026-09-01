@@ -44,7 +44,8 @@ Primitive always: **may · sheath · prove**.
 | **Rail stretch** | **$2–5B** cartoon | Interchange / prefinality / insurability Schelling + sale |
 | **Absolute ceiling** | **$10B–$100B+** later | H₀+R₀+coffin + custody/must-mouth — **not** end-of-22 liquid |
 
-Coffin/H₀ raise **ceiling and narrative**. End-of-22 fight stays **Aim–Fat**. Detail: `gate/END22_RANK.md`. None skip Gate 1.
+Coffin/H₀ raise **ceiling and narrative**. End-of-22 fight stays **Aim–Fat**. Detail: `gate/END22_RANK.md`. None skip Gate 1.  
+**What rewrites these dollars:** fuses (22 NW) and external cites (23–30) — `EXTERNAL.md`. Not I/C/D/attach-F. See **What actually rewrites the cash ladder** below.
 
 ---
 
@@ -303,6 +304,68 @@ Forced attach is not a SKU. It is an **external clock** that makes “no remaini
 **What does *not* attach:** another governance PDF, another AIUC-shaped badge, another SIEM, another kill-switch *button*, H₀/R₀/coffin as the cash deck.
 
 **Pre-Gate:** speak F0 in Bind language. Keep F13/F14 as category sentences for counsel / E. Do **not** email Visa, SWIFT, FAA, FDA, DHS, or the Commission.
+
+---
+
+## What actually rewrites the cash ladder
+
+I / C / D / attach-F0–F15 **do not rewrite** Miss → Aim dollars. They fatten *belief* if a Schelling lands. The official fight-for line stays:
+
+**Bridge $5–40M · Aim $50–200M · Fat $200–800M · Padlock $0.5–2B.** Still **$0** without Gate 1.
+
+The inventions that **change the numbers** are already seated in `EXTERNAL.md` / `AGES_22_30.md`. They are a different class: **must-cite on a stock the world already has**, or a **fuse** (one 2026 fact marked as the PV of that later cite). Not another remaining essay.
+
+| Class | Rewrites… | Does not rewrite… |
+|-------|-----------|-------------------|
+| Attach F0–F15 · D1–D6 · C1–C8 | Multiple *if* Schelling | Official 22 liquid |
+| **External E1–E14** | Age **23–30** liquid + NW (cite live) | Age 22 |
+| **Fuse XF1–XF5** | Age **22 NW** immediately (option mark) | Age 22 **liquid** unless a buyer closes |
+| **Buyer closes on a fuse** | Age **22 liquid** — this is the only 22 liquid rewrite | Nothing. This is the event |
+
+Name collision: **attach F1** = card-network remaining. **Fuse XF1** = Form Annex (`EXTERNAL.md` fuse F1). Different objects.
+
+### Rewritten 22 (fuse) — the something
+
+| Band | Fight-for liquid (unchanged) | **Fuse NW** (option mark) | Fuse **liquid** (only if a buyer closes) |
+|------|------------------------------|---------------------------|------------------------------------------|
+| Aim | $50–200M | **$0.2–1B** | **$0.2–1B** |
+| Fat | $200–800M | **$1–5B** | **$1–5B** |
+| Padlock | $0.5–2B | **$4–12B** | **$4–12B** |
+
+**XF1 Form Annex** is the only fuse that is both **live this year** and can honestly move age-22 NW. CG 40 47 already shipped. The unpaid invention is the **carve-back form that names stranger-openable remaining** — not another SKU. Do not become Verisk. Be the folio the annex points at.
+
+| Fuse | 22 event | What compounds 23→30 |
+|------|----------|----------------------|
+| **XF1 Form Annex** | Named evidence on the affirmative form the exclusion forced | Every renewal cites the annex → must-mouth → rated overlay → inclusion |
+| **XF2 Haircut 0** | First remaining-eligible schedule used by one desk | Repo copies → eligible remaining on $12.6T |
+| **XF3 Pilot Finding** | Receipt the **NAIC 12-state** AI Risk Evaluation Supplement cites (pilot through **Sep 2026**; adoption aimed **Nov 2026** Fall National Meeting) | Exam module → every admitted carrier |
+| **XF4 One-rail sheath** | One processor/cloud write-gate defaults to the hop | Other rails copy or cannot clear in |
+| **XF5 Genesis unit** | Gate 1 receipt *is* the prototype SI | Every later cite is a child of that receipt |
+
+**XF3 window is still open this month.** Do not email NAIC. Language on the same Bind folio only.
+
+### Rewritten 30 (external cite live) — later, not Tuesday
+
+| Band | Fight-for 30 NW | **External / fuse 30** NW |
+|------|-----------------|---------------------------|
+| Aim | — | **$40–150B** liq / NW class |
+| Fat | — | **$200–500B** NW |
+| Padlock | **$80–200B+** | **$400B–$1T** |
+| Absolute | $10B–$100B+ cartoon | **$0.8–2.8T** if a $T cite landed |
+
+E1 Inclusion · E4 Title of Unused · E11 Cite Remaining · E2+E13 Eligible+Haircut are the mouths that blow the internal table. **1 bp on $21T in the next nine months is not a row you write.**
+
+### What would rewrite 22 *liquid* without a company sale
+
+Almost nothing honest. The three that could, ranked:
+
+1. **Exclusive annex latch (XF1 paid as exclusivity, not as HoldCo)** — already Aim’s ask (“ownership or exclusive attach”). Same $50–200M band. Different calendar: the check can land when the annex names you, not in June. **Does not change the dollar band. Changes when.**
+2. **Buyer closes on the fuse option** — liquid *becomes* the fuse table. That is the rewrite. It is an event, not a new plate.
+3. **XF4 prepaid rail** — one desk prefunds hops. Can lift Meter/Bridge. Does not turn Miss into Aim.
+
+H₀ / R₀ / coffin / attach-F13 finality raise **ceiling**. They do not rewrite the 22 register.
+
+**Pre-Gate:** XF1 sentence on Bind (“no folio, no carve-back”). XF3 as counsel-ready if asked. Do **not** seat `/annex` `/fuse` `/pilot`. Tuesday is still $1,750.
 
 ---
 
