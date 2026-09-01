@@ -34,6 +34,28 @@ That purchase **is** Gate 1 if they pay and you prove.
 
 ---
 
+## Signed surface (Sep 2026)
+
+Split origins. **Bind $1,750 is Gate 1** — not a $149 ladder. Five brands stay the LLC; they do not all need to be in nav.
+
+| Surface | Job |
+|---------|-----|
+| Gate (`/` · `/bind-room`) | Officer proof. B-shaped. |
+| Payout HOLD (`/operator`, licensed only) | Evidence factory: the rail fires on real money. **Not** AI-liability frequency/severity. |
+| Grey catalog | Dead. No Curacao/Malta/Stake-class on the indexed web. |
+
+**Hands vs unattended**
+
+| Requires Demond | Sellable without his hours |
+|-----------------|----------------------------|
+| Bind Room · Finished · operator weld | Public hop demo · officer-pack JSON · verify URL |
+
+Hands cap: **at most 4 Bind Rooms in a month** (≈46 billable hours). Do not promise a partner desk “10 sprints/mo.” `/for/partners` and `/broker-relay` are **410**.
+
+Payout HOLD is a 60–90 day licensed-ops motion. Bind cash carries it. Do not claim Munich Re loss evidence from withdrawal holds.
+
+---
+
 ## Menu that already has a checkout (use these, don’t invent plates)
 
 | SKU | Price | Who pays **this month** | Why they flinch less than an MGA |

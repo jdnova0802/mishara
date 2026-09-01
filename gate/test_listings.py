@@ -386,6 +386,26 @@ class FlaskListingTests(unittest.TestCase):
         self.assertNotIn("Open Mishara", consumers)
         self.assertIn("Open Gate", consumers)
 
+        for path in ("/for/partners", "/pitch/partners", "/partners", "/broker-relay"):
+            gone = self.client.get(path)
+            self.assertEqual(gone.status_code, 410, path)
+            blob = gone.headers.get("X-Robots-Tag", "") + gone.get_data(as_text=True)
+            self.assertIn("noindex", blob, path)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /partners", robots)
+        self.assertIn("Disallow: /broker-relay", robots)
+        self.assertIn("Disallow: /for/partners", robots)
+        opp_slugs = {
+            e["slug"]
+            for e in self.client.get("/.well-known/opportunities.json").get_json()["opportunities"]
+        }
+        self.assertNotIn("partners", opp_slugs)
+        llms = self.client.get("/llms.txt").get_data(as_text=True)
+        self.assertNotIn("/for/partners", llms)
+        brokers = self.client.get("/for/brokers").get_data(as_text=True)
+        self.assertNotIn("forced national", brokers.lower())
+        self.assertNotIn("CG 40 / 47", brokers)
+
         aos = self.client.get("/.well-known/action-os.json").get_json()
         self.assertEqual(aos["spec"], "nisaba-action-os-v2")
         self.assertIn("DENY", aos["formula"])

@@ -27,7 +27,8 @@ Replace `YOUR_GATE_URL` with your live Gate deploy.
 | HR / hiring tech | `/for/hiring` | CT AEDT receipts |
 | Consumer harm | `/for/consumers` | Mishara intake |
 | Investor | `/for/investors` | Status, metrics, patent |
-| Integrator / agency | `/for/partners` | White-label install |
+
+`/for/partners` is **offline** (410). No public rev-share / wholesale plate.
 
 ---
 

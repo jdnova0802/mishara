@@ -474,6 +474,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
+    "/partners", "/broker-relay", "/for/partners", "/pitch/partners",
 )
 PUBLIC_WELLKNOWN = frozenset(
     {
@@ -885,8 +886,23 @@ def focus_hub():
     return render_template("focus.html", plates=core, public_url=advertised_url())
 
 
+def _wholesale_gone():
+    resp = make_response(render_template("gone.html"), 410)
+    resp.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return resp
+
+
+@app.route("/partners")
+@app.route("/broker-relay")
+def wholesale_pages_offline():
+    """Rev-share / wholesale pages stay off the indexed web."""
+    return _wholesale_gone()
+
+
 @app.route("/for/<slug>")
 def audience_plate(slug):
+    if slug in audiences.OFFLINE_SLUGS:
+        return _wholesale_gone()
     plate = audiences.get_plate(slug)
     if not plate:
         abort(404)
@@ -901,6 +917,8 @@ def audience_plate(slug):
 
 @app.route("/pitch/<slug>")
 def audience_pitch(slug):
+    if slug in audiences.OFFLINE_SLUGS:
+        return _wholesale_gone()
     if not audiences.get_plate(slug):
         abort(404)
     return redirect(url_for("audience_plate", slug=slug))
@@ -4807,6 +4825,10 @@ def robots():
             "Disallow: /signup",
             "Disallow: /login",
             "Disallow: /dashboard",
+            "Disallow: /partners",
+            "Disallow: /broker-relay",
+            "Disallow: /for/partners",
+            "Disallow: /pitch/partners",
             f"Sitemap: {advertised_url()}/sitemap.xml",
             "",
         ]
@@ -4871,6 +4893,8 @@ def llms_txt():
         "",
     ]
     for slug, plate in audiences.all_plates().items():
+        if slug in audiences.OFFLINE_SLUGS:
+            continue
         lines.append(f"- {plate['title']}: {advertised_url()}/for/{slug} — {plate['headline']}")
     return "\n".join(lines) + "\n", 200, {"Content-Type": "text/plain; charset=utf-8"}
 

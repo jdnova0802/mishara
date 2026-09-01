@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Gone{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>This page is offline</h1>
+  <p>Partner / wholesale / relay pages are not on the public web. Bind Room is the cash door.</p>
+  <p><a href="{{ url_for('bind_room') }}">Bind Room</a> · <a href="{{ url_for('index') }}">Gate</a></p>
+</div>
+{% endblock %}

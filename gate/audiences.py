@@ -113,8 +113,8 @@ PLATES: dict[str, dict] = {
     "brokers": {
         "emoji": "",
         "title": "Brokers & MGAs",
-        "headline": "CG 40 / 47 renewal with proof rail",
-        "subhead": "Renewal desk gets verify links — not another AI trust slide deck.",
+        "headline": "CG 40 47 / 40 48 renewal evidence a stranger can open",
+        "subhead": "Renewal desk gets verify links — not a claim that ISO forced a national spend.",
         "pain": "Carrier wants AI controls proof at renewal. Your insured has nothing clickable.",
         "offer": "MGA delegated-authority gate — premium/line/state + fuse hop before binder",
         "price": "$25,000 operator weld",
@@ -229,8 +229,14 @@ PLATES: dict[str, dict] = {
         "secondary_mailto": "subject=Partner%20%E2%80%94%20White%20label",
         "proof": "Fail-closed hop · Velaru verify · weld economics",
         "tags": ["partner", "whitelabel", "agency"],
+        "public_offline": True,
     },
 }
+
+# Indexed wholesale / rev-share plates stay in PLATES for tests but must 410.
+OFFLINE_SLUGS = frozenset(
+    slug for slug, p in PLATES.items() if p.get("public_offline")
+)
 
 
 def all_plates() -> dict[str, dict]:
@@ -263,6 +269,8 @@ def core_gtm_plates() -> list[dict]:
 def opportunities_manifest(public_url: str, contact_email: str) -> dict:
     entries = []
     for slug, p in PLATES.items():
+        if slug in OFFLINE_SLUGS:
+            continue
         entries.append(
             {
                 "slug": slug,
