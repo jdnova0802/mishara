@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Bind Room{% endblock %}
+{% block title %}Bind Room · $1,750{% endblock %}
 {% block meta %}
-<meta name="description" content="Officer pack examiners take + PolicyCenter pre-bind weld. $1,750. Control, not a rating model.">
+<meta name="description" content="Your CGL will not cover the agent. $1,750 officer pack — halt before bind-and-issue with stranger-verifiable proof.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Bind Room</p>
-  <h1>Two artifacts. One weld. A no that holds.</h1>
-  <p class="audience-sub">The officer pack is the narrative examiners take. The bound answer is the no on bind-and-issue. On request they take verify permalinks. If the hop is not on <em>their</em> write path, it is still a question.</p>
+  <p class="audience-tag">Bind Room · officer pack</p>
+  <h1>Your CGL will not cover the agent.</h1>
+  <p class="audience-sub">General liability excludes AI agent acts. If bind-and-issue runs without a governed halt, you are selling coverage you cannot pay. This pack is the assessment path: officer narrative + on-request verify appendix + public demo hop — <strong>not</strong> a rating model, not a wholesale partner desk.</p>
   <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Production weld in their house: <a href="{{ url_for('operator_page') }}">operator {{ weld_price }}</a>. Agent path: {{ install_price }} / 48hr. Fuse_id + job_id only. No PII.</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Full assessment is $3,500 · this deposit starts the officer pack and bind-room pattern. Production weld in their house is a separate operator path — ask after the pack lands.</p>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
     {% if stripe_bind_room %}
@@ -22,48 +22,36 @@
     {% else %}
     <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
     {% endif %}
-    <a class="btn btn-ghost" href="{{ url_for('operator_page') }}">Operator weld {{ weld_price }}</a>
+    <a class="btn btn-ghost" href="https://velaru.xyz/verify" target="_blank" rel="noopener">Stranger verify →</a>
+    <a class="btn btn-ghost" href="{{ url_for('bind_room_officer_pack') }}">Officer pack JSON</a>
   </div>
 
   <div class="grid-3">
     <div class="card">
-      <h3>A. Officer pack</h3>
-      <p>Colorado 10-1-1 SERFF shape. Titles on each Section 5 duty. NYDFS CL7 + Exhibit C HITL mapped. ≤10 pages. Not a fuse hash in SERFF.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a></p>
+      <h3>What you get</h3>
+      <p>Officer pack JSON (examiner narrative shape) · appendix schema · Exhibit C HITL mapping · demo bind-check that returns BLOCK + <code>velaru.xyz/verify</code> URL.</p>
+      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a> · <a href="{{ url_for('bind_room_appendix_schema') }}">appendix.schema.json</a></p>
     </div>
     <div class="card">
-      <h3>B. Appendix</h3>
-      <p>On-request. Each job_id → ALLOW/BLOCK/HALT + verify_url. Pull after you weld.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_appendix_schema') }}">appendix.schema.json</a> · <a href="{{ url_for('exhibit_c_hitl') }}">Exhibit C HITL</a></p>
+      <h3>The halt</h3>
+      <p>Hop before bind-and-issue. If DEAD, raise a UW issue that <strong>BlocksBind</strong>. Do not call <code>bind-and-issue</code>. QuoteRelease is not a bind stop. UW approve ≠ CHARGE.</p>
+      <p style="margin-top: 0.75rem;">Control plane — not ECDIS, not a model inventory slide deck.</p>
     </div>
     <div class="card">
-      <h3>The weld</h3>
-      <p>Hop. If DEAD, raise a UW issue that <strong>BlocksBind</strong>. Do not call <code class="inline">bind-only</code> or <code class="inline">bind-and-issue</code>. QuoteRelease is not a bind stop. UW approve ≠ CHARGE.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('capture_page') }}">Production capture</a> · <a href="/listings/guidewire-partnerconnect.json">PolicyCenter packet</a> · <a href="/listings/control-not-model.json">control, not model</a></p>
+      <h3>Public proof (no key, no PII)</h3>
+      <pre style="font-size: 0.65rem; white-space: pre-wrap;">curl -s -X POST "{{ public_url }}/demo/pas/bind-check" \
+  -H "Content-Type: application/json" -d '{}'</pre>
+      <p style="margin-top: 0.5rem;">Returns BLOCK + verify URL. Paste in counsel thread — not your admin panel.</p>
     </div>
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">
-    <h2>Public proof (no key, no PII)</h2>
-    <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/mga-authority" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000,"line":"GL","state":"CO"}'</pre>
-  </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2>Two yeses — who wins</h2>
-    <ol>
-      <li>Bind-path owner with a live job API this quarter (MGA pen or PolicyCenter)</li>
-      <li>Else CUO / named Colorado 10-1-1 owner or NAIC pilot domestic</li>
-      <li>Else this pack (cash, not a weld)</li>
-      <li>MCP / listings never win a slot</li>
-    </ol>
+    <h2>Honest ceiling</h2>
+    <ul>
+      <li><code>their_production: false</code> until a recorded third-party weld — drills are not production.</li>
+      <li>Cap: <strong>4 Bind Rooms/month</strong> (hands). Demo hop + officer-pack JSON + verify URL scale without a partner desk.</li>
+      <li>This is not Munich Re loss data — it is proof the halt fired before bind.</li>
+    </ul>
   </div>
 </div>
 {% endblock %}

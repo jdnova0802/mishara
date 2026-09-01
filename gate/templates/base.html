@@ -40,6 +40,13 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
+        {% if bind_surface %}
+        <a href="{{ url_for('bind_room') }}">Bind Room</a>
+        <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
+        <a href="{{ url_for('trust') }}">Trust</a>
+        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
+        {% else %}
+        <a href="{{ url_for('bind_room') }}">Bind Room</a>
         <a href="{{ url_for('operator_page') }}">Weld</a>
         <a href="{{ url_for('live_page') }}">Live</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
@@ -48,7 +55,8 @@
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
         {% endif %}
-        <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path</a>
+        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Bind Room · {{ bind_room_price }}</a>
+        {% endif %}
       </div>
     </div>
   </nav>

@@ -113,17 +113,17 @@ PLATES: dict[str, dict] = {
     "brokers": {
         "emoji": "",
         "title": "Brokers & MGAs",
-        "headline": "CG 40 / 47 renewal with proof rail",
-        "subhead": "Renewal desk gets verify links — not another AI trust slide deck.",
-        "pain": "Carrier wants AI controls proof at renewal. Your insured has nothing clickable.",
-        "offer": "MGA delegated-authority gate — premium/line/state + fuse hop before binder",
-        "price": "$25,000 operator weld",
-        "cta_label": "MGA / Bind Room",
+        "headline": "ISO AI-exclusion renewal — proof before submit",
+        "subhead": "Renewal desk gets verify links — not another AI trust slide deck. No forced national spend claim.",
+        "pain": "Carrier wants AI controls proof at renewal. Your insured has nothing stranger-verifiable.",
+        "offer": "Bind Room officer pack — halt narrative + verify appendix",
+        "price": "$1,750 Bind Room",
+        "cta_label": "Open Bind Room",
         "cta_route": "bind_room",
-        "secondary_label": "Operator weld",
-        "secondary_route": "operator_page",
-        "proof": "Independent verify · prepaid parent license",
-        "tags": ["broker", "renewal", "cg4047"],
+        "secondary_label": "Officer pack JSON",
+        "secondary_href": "/bind-room/officer-pack.json",
+        "proof": "Independent verify · demo bind-check BLOCK",
+        "tags": ["broker", "renewal", "ai-exclusion"],
     },
     "enterprise": {
         "emoji": "",
@@ -263,6 +263,8 @@ def core_gtm_plates() -> list[dict]:
 def opportunities_manifest(public_url: str, contact_email: str) -> dict:
     entries = []
     for slug, p in PLATES.items():
+        if slug in ("partners",):
+            continue
         entries.append(
             {
                 "slug": slug,

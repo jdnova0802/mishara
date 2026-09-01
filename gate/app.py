@@ -350,6 +350,8 @@ def _archive_noindex(resp):
 
 @app.context_processor
 def inject_globals():
+    path = request.path or ""
+    bind_surface = path in ("/", "/bind-room") or path.startswith("/bind-room")
     return {
         "gate_public_url": advertised_url(),
         "install_price": INSTALL_PRICE_LABEL,
@@ -361,6 +363,7 @@ def inject_globals():
         "contact_email": CONTACT_EMAIL,
         "meta_pixel_id": META_PIXEL_ID,
         "ga_id": GA_ID,
+        "bind_surface": bind_surface,
     }
 
 
@@ -713,6 +716,24 @@ def trust():
     return render_template("trust.html", velaru_base=VELARU_BASE, public_url=advertised_url())
 
 
+GONE_AUDIENCE_SLUGS = frozenset({"partners"})
+
+
+def _gone_410(message: str = "Gone — wholesale partner desk offline.") -> Response:
+    return Response(
+        message,
+        status=410,
+        headers={"X-Robots-Tag": "noindex, nofollow", "Cache-Control": "no-store, max-age=0"},
+    )
+
+
+@app.route("/partners")
+@app.route("/broker-relay")
+@app.route("/for/partners")
+def gone_partner_surfaces():
+    return _gone_410()
+
+
 @app.route("/start")
 def start_hub():
     plates = audiences.plate_list()
@@ -727,6 +748,8 @@ def focus_hub():
 
 @app.route("/for/<slug>")
 def audience_plate(slug):
+    if slug in GONE_AUDIENCE_SLUGS:
+        return _gone_410()
     plate = audiences.get_plate(slug)
     if not plate:
         abort(404)
@@ -3412,6 +3435,9 @@ def robots():
             "Disallow: /signup",
             "Disallow: /login",
             "Disallow: /dashboard",
+            "Disallow: /partners",
+            "Disallow: /broker-relay",
+            "Disallow: /for/partners",
             f"Sitemap: {advertised_url()}/sitemap.xml",
             "",
         ]
@@ -3476,6 +3502,8 @@ def llms_txt():
         "",
     ]
     for slug, plate in audiences.all_plates().items():
+        if slug in GONE_AUDIENCE_SLUGS:
+            continue
         lines.append(f"- {plate['title']}: {advertised_url()}/for/{slug} — {plate['headline']}")
     return "\n".join(lines) + "\n", 200, {"Content-Type": "text/plain; charset=utf-8"}
 
