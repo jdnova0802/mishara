@@ -99,6 +99,7 @@ This is the “bigger than Internet ad markets” cartoon: tax **becoming**, not
 | Payout / withdraw desk | Weld $25k | Hosted redeem rail · bps |
 | Insurer / broker (warm) | Evidence API / folio | Insurability gate · custody |
 | Cloud / agent runtime | Design-partner sheath | Hyperscaler default |
+| **NVIDIA / Apple / Alphabet (factory)** | **Not this month.** Remaining Core · Becoming Enclave · Grounded Write (`TOP3.md`) | **Converter invoice** — billed with FLOPS / last-inch / acting-query. Erases the Bind-map. |
 | Court / counsel / auditor | Apostille / attest royalty | Reality settlement · franchise |
 | Agent commerce platform | Prefinality + interchange | Layer-0 take |
 

@@ -7,7 +7,8 @@
 **Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Dimensional tetrad:** Spend (actuality) · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) · **Ν Hold** (`NU.md`) — what changed, what futures died, who carries, **what has not been allowed to take effect**. Triad without Ν is an autopsy. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
 
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
-**To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.
+**To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.  
+**To erase `AGES_22_30.md` as the drawing:** `gate/TOP3.md` — Remaining Core · Becoming Enclave · Grounded Write on NVIDIA / Apple / Alphabet **activity**. Converter topology. Not a Bind staircase.
 
 ---
 
@@ -695,6 +696,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Four books or the redeem is a lie.** Inventing pauses here. No fifth book.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Four books or the redeem is a lie.** **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`) — that drawing replaces Aim/Fat/Padlock. Inventing pauses here. No fifth book. No Bind sermon.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

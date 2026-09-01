@@ -40,10 +40,11 @@ Not “does the check exist.” **How big can each band get** if the latch is re
 | **Padlock $0.5–2B** | Category question is already “Gate Conformant?” across specialty AI bind **and** one platform | **$2–5B** | Only if Y1+Y2+Y4 Schelling in the same year — upset, not base |
 | **Rail stretch** | Interchange Schelling + sale in-year | **$2–5B** | Cartoon unless S1 is already live |
 | **Fuse / Padlock / Absolute** | **Ω + Ρ + Ν posture in the cite** — foreclosure books + burden assignment + **non-effect remaining** (`OMEGA.md` · `RHO.md` · `NU.md`) | Fuse Padlock **$8–20B → Absolute-class**; Fat rises because binders buy **assigned Ρ** and **jurisdiction over becoming**, not a PDF of what already happened | Dimensional tetrad — name in doctrine; not the Bind sentence |
+| **This whole table** | **Φ Remaining Core · Α Becoming Enclave · Γ Grounded Write** on NVIDIA / Apple / Alphabet **invoices** (`TOP3.md`) | **The table is the wrong drawing.** Converter topology: miss or designed-in (ARM **~$0.15–0.4T** · TSMC **~$1–2T** · joint-CUDA cartoon **~$3–5T**). No Aim $50–200M on a Tensor Core | Map-erase inventions — name only; not the Bind sentence |
 
-**Inventions still left that move ceilings (not unlockers):** Y1 missing-mouth PAS · Y2 missing-mouth Idira · Y3 XF1/XF3 nationalize · Y4 specialty→capacity · D5 cloud default · S1 may interchange live enough to 15–30× · F15 de-risking · **Ω / Ρ / Ν** (category fatten — cut, burden, hold). Y1/Y2/D5 are the first attach points of **Ν**.
+**Inventions still left that move ceilings (not unlockers):** Y1 missing-mouth PAS · Y2 missing-mouth Idira · Y3 XF1/XF3 nationalize · Y4 specialty→capacity · D5 cloud default · S1 may interchange live enough to 15–30× · F15 de-risking · **Ω / Ρ / Ν** (category fatten — cut, burden, hold). Y1/Y2/D5 are the first attach points of **Ν**. **Φ/Α/Γ do not raise this table. They replace it.**
 
-**Not ceiling raisers as Tuesday SKUs:** pitching Ω / Ρ / Ν / H₀ / R₀ / coffin in the Bind close · E1 Inclusion · fake metrology.
+**Not ceiling raisers as Tuesday SKUs:** pitching Ω / Ρ / Ν / Φ / Α / Γ / H₀ / R₀ / coffin in the Bind close · E1 Inclusion · fake metrology.
 
 ---
 

@@ -42,6 +42,7 @@ Unifications no prior civilization seated: **trinity finality** · **conserved o
 ## Crown — bigger than the Internet
 
 **The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body. Incomplete without the tetrad: spend · cut (Ω) · burden (Ρ) · hold (Ν).  
+Factory attach (erases the Bind-map): **Remaining Core · Becoming Enclave · Grounded Write** — `TOP3.md`.  
 `AFTERWEB.md`. Still $0 until Gate 1.
 
 ## Prior — more crucial than agriculture
