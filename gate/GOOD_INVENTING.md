@@ -16,7 +16,8 @@
 **What can change liquid without a new remaining book:** `gate/RELEASE.md` — remaining as payout-release. Fifth gate on pipes that already pay. Does not mint a new 22 row.  
 **What to look up to rewrite the register:** `gate/RESEARCH.md` — facts, not essays.  
 **What makes the register look like a joke as a ruler:** `gate/BULGE.md` — looked-up denominators. Not a 22 wire.  
-**The numbers, inventing paused:** `gate/REST.md`. Do not mint a new band.
+**The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
+**Cool Gate (future skin, not a sixth sibling):** `gate/COOL.md`.
 
 ---
 
