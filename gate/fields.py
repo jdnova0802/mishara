@@ -29,6 +29,11 @@ ALLOWED_PAS_KEYS = frozenset(
         "counterpart_kind",
         "counterpart_path",
         "counterpart_method",
+        "uw_approved",
+        "chat_yes",
+        "boss_said_yes",
+        "sanction_flag",
+        "write_kind",
     }
 )
 

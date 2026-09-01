@@ -205,6 +205,151 @@ except ImportError:
     import license_fuse as license_fuse_mod
 
 try:
+    from gate import throat as throat_mod
+except ImportError:
+    import throat as throat_mod
+
+try:
+    from gate import ghost_bind as ghost_bind_mod
+except ImportError:
+    import ghost_bind as ghost_bind_mod
+
+try:
+    from gate import stick_meter as stick_meter_mod
+except ImportError:
+    import stick_meter as stick_meter_mod
+
+try:
+    from gate import charge_bride as charge_bride_mod
+except ImportError:
+    import charge_bride as charge_bride_mod
+
+try:
+    from gate import hop_tattoo as hop_tattoo_mod
+except ImportError:
+    import hop_tattoo as hop_tattoo_mod
+
+try:
+    from gate import soft_yes_snare as soft_yes_snare_mod
+except ImportError:
+    import soft_yes_snare as soft_yes_snare_mod
+
+try:
+    from gate import mass_tag as mass_tag_mod
+except ImportError:
+    import mass_tag as mass_tag_mod
+
+try:
+    from gate import issue_bind_splitter as issue_bind_splitter_mod
+except ImportError:
+    import issue_bind_splitter as issue_bind_splitter_mod
+
+try:
+    from gate import ticket_fuse_pack as ticket_fuse_pack_mod
+except ImportError:
+    import ticket_fuse_pack as ticket_fuse_pack_mod
+
+try:
+    from gate import payout_throat as payout_throat_mod
+except ImportError:
+    import payout_throat as payout_throat_mod
+
+try:
+    from gate import twin_diode as twin_diode_mod
+except ImportError:
+    import twin_diode as twin_diode_mod
+
+try:
+    from gate import agent_passport_weld as agent_passport_weld_mod
+except ImportError:
+    import agent_passport_weld as agent_passport_weld_mod
+
+try:
+    from gate import bypass_canary as bypass_canary_mod
+except ImportError:
+    import bypass_canary as bypass_canary_mod
+
+try:
+    from gate import restraint_invoice as restraint_invoice_mod
+except ImportError:
+    import restraint_invoice as restraint_invoice_mod
+
+try:
+    from gate import desk_quorum_fob as desk_quorum_fob_mod
+except ImportError:
+    import desk_quorum_fob as desk_quorum_fob_mod
+
+try:
+    from gate import panic_latch as panic_latch_mod
+except ImportError:
+    import panic_latch as panic_latch_mod
+
+try:
+    from gate import receipt_mirror as receipt_mirror_mod
+except ImportError:
+    import receipt_mirror as receipt_mirror_mod
+
+try:
+    from gate import deadman_echo as deadman_echo_mod
+except ImportError:
+    import deadman_echo as deadman_echo_mod
+
+try:
+    from gate import witness_seat as witness_seat_mod
+except ImportError:
+    import witness_seat as witness_seat_mod
+
+try:
+    from gate import pardon_sunset as pardon_sunset_mod
+except ImportError:
+    import pardon_sunset as pardon_sunset_mod
+
+try:
+    from gate import watchman_fuse as watchman_fuse_mod
+except ImportError:
+    import watchman_fuse as watchman_fuse_mod
+
+try:
+    from gate import indulgence_trap as indulgence_trap_mod
+except ImportError:
+    import indulgence_trap as indulgence_trap_mod
+
+try:
+    from gate import bind_path_compiler as bind_path_compiler_mod
+except ImportError:
+    import bind_path_compiler as bind_path_compiler_mod
+
+try:
+    from gate import gate_od_skins as gate_od_skins_mod
+except ImportError:
+    import gate_od_skins as gate_od_skins_mod
+
+try:
+    from gate import restraint_unit as restraint_unit_mod
+except ImportError:
+    import restraint_unit as restraint_unit_mod
+
+try:
+    from gate import oath_compiler as oath_compiler_mod
+except ImportError:
+    import oath_compiler as oath_compiler_mod
+
+try:
+    from gate import mouth_density as mouth_density_mod
+except ImportError:
+    import mouth_density as mouth_density_mod
+
+try:
+    from gate import foothill_max as foothill_max_mod
+except ImportError:
+    import foothill_max as foothill_max_mod
+
+try:
+    from gate import mandate_layer as mandate_layer_mod
+except ImportError:
+    import mandate_layer as mandate_layer_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -943,6 +1088,55 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = plan.get("reason") or epoch_meta.get("reason") or "prior_halt_requires_charge"
+    plan["epoch"] = epoch_meta or {}
+    plan["charge_id"] = epoch_mod.normalize_charge_id(charge_id)
+    # Charge Bride before Throat — forged UW/chat/boss resurrection never soft-allows.
+    charge_bride_mod.attach(
+        plan,
+        charge_id=charge_id,
+        epoch_meta=epoch_meta,
+        hop=hop_d if isinstance(hop_d, dict) else None,
+        job_id=jid,
+    )
+    if plan.get("charge_bride", {}).get("verdict") == charge_bride_mod.VERDICT_FORGED:
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["decision"] = "HALT"
+        plan["acted"] = False
+        plan["reason"] = plan.get("reason") or plan["charge_bride"].get("reason") or "forged_resurrection"
+    # Throat before the irreversible edge is recorded — CHOKE cannot soft-allow.
+    plan["decision"] = decision
+    plan["acted"] = acted
+    throat_mod.attach(plan, hop=hop_d if isinstance(hop_d, dict) else None)
+    if plan.get("throat", {}).get("state") == throat_mod.CHOKE:
+        acted = False
+        decision = "HALT"
+        plan["allow_bind"] = False
+        if "bind_allowed" in plan:
+            plan["bind_allowed"] = False
+        plan["halt"] = True
+        plan["decision"] = "HALT"
+        plan["acted"] = False
+        plan["reason"] = plan.get("reason") or (plan["throat"].get("reasons") or ["throat_choke"])[0]
+    ghost_bind_mod.attach_haunt(plan)
+    stick_meter_mod.attach(plan, spend_write=spend_write)
+    mass_tag_mod.attach(plan)
+    issue_bind_splitter_mod.attach(plan, issue_type=plan.get("issue_type"))
+    ticket_fuse_pack_mod.attach(plan, public_url=advertised_url())
+    payout_throat_mod.attach(plan, spend_write=spend_write)
+    twin_diode_mod.attach(plan)
+    agent_passport_weld_mod.attach(plan)
+    desk_quorum_fob_mod.attach(plan)
+    panic_latch_mod.attach(plan)
+    deadman_echo_mod.attach(plan)
+    witness_seat_mod.attach(plan)
+    indulgence_trap_mod.attach(plan)
+    pardon_sunset_mod.attach(plan)
+    watchman_fuse_mod.attach(plan)
     if plan.get("halt") and plan.get("reason") and isinstance(hop_d, dict):
         hop_d.setdefault("reason", plan["reason"])
     cid = epoch_mod.normalize_charge_id(charge_id)
@@ -984,9 +1178,47 @@ def _finalize_spend_plan(
         "spec_url": f"{advertised_url()}/.well-known/spend-protocol.json",
     }
     plan["event_id"] = event_id
+    hop_tattoo_mod.attach(
+        plan,
+        job_id=jid,
+        verify_url=_verify_from(hop_d) or plan.get("verify_url"),
+        event_id=event_id,
+        fuse_id=fuse_id,
+        hop=hop_d if isinstance(hop_d, dict) else None,
+    )
+    plan["event_id"] = event_id
+    plan["acted"] = acted
+    plan["decision"] = decision
+    bypass_canary_mod.attach(plan)
+    restraint_invoice_mod.attach(plan, public_url=advertised_url())
+    receipt_mirror_mod.attach(plan, public_url=advertised_url())
+    bind_path_compiler_mod.attach(plan, public_url=advertised_url(), job_id=jid)
+    gate_od_skins_mod.attach(plan, public_url=advertised_url())
+    restraint_unit_mod.attach(plan, public_url=advertised_url())
+    oath_compiler_mod.attach(plan, public_url=advertised_url())
+    mouth_density_mod.attach(plan, public_url=advertised_url())
+    foothill_max_mod.attach(plan, public_url=advertised_url())
+    mandate_layer_mod.attach(plan, public_url=advertised_url())
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
+    extra["X-Gate-Throat"] = (plan.get("throat") or {}).get("state") or ""
+    extra["X-Gate-Ghost-Bind"] = (plan.get("ghost_bind") or {}).get("verdict") or ""
+    extra["X-Gate-Stick-Meter"] = str((plan.get("stick_meter") or {}).get("score") or "")
+    extra["X-Gate-Mass-Class"] = (plan.get("stick_meter") or {}).get("mass_class") or ""
+    extra["X-Gate-Charge-Bride"] = (plan.get("charge_bride") or {}).get("verdict") or ""
+    extra["X-Gate-Mass-Tag"] = (plan.get("mass_tag") or {}).get("tag") or ""
+    extra["X-Gate-Hop-Tattoo"] = (plan.get("hop_tattoo") or {}).get("tattoo_hash") or ""
+    extra["X-Gate-Payout-Throat"] = (plan.get("payout_throat") or {}).get("state") or ""
+    extra["X-Gate-Panic-Latch"] = (plan.get("panic_latch") or {}).get("verdict") or ""
+    extra["X-Gate-Desk-Quorum"] = (plan.get("desk_quorum_fob") or {}).get("verdict") or ""
+    extra["X-Gate-Bind-Path"] = (plan.get("bind_path_compiler") or {}).get("path_state") or ""
+    extra["X-Gate-OD-Skin"] = (plan.get("gate_od_skins") or {}).get("skin") or ""
+    extra["X-Gate-Rho"] = str((plan.get("restraint_unit") or {}).get("rho_mass") or "")
+    extra["X-Gate-Oath"] = "1" if (plan.get("oath_compiler") or {}).get("executable") else "0"
+    extra["X-Gate-Mouth-Density"] = str((plan.get("mouth_density") or {}).get("active_count") or "")
+    extra["X-Gate-Foothill-Max"] = str((plan.get("foothill_max") or {}).get("active_count") or "")
+    extra["X-Gate-Mandate"] = str((plan.get("mandate_layer") or {}).get("active_count") or "")
     extra["X-Gate-Allow-Bind"] = "1" if (plan.get("allow_bind") or plan.get("bind_allowed")) else "0"
     extra["X-Gate-Ticket-TTL"] = str(ticket_mod.ttl_seconds())
     extra["X-Gate-Event-Id"] = event_id
@@ -1005,6 +1237,28 @@ def _num(value):
         return None
 
 
+def _stamp_invention_context(plan: dict, body: dict | None) -> None:
+    """Copy PAS control signals onto the plan for Stick Meter + Charge Bride."""
+    if not isinstance(body, dict):
+        return
+    for key in (
+        "uw_approved",
+        "chat_yes",
+        "boss_said_yes",
+        "sanction_flag",
+        "write_kind",
+        "premium",
+        "authority_limit",
+        "fuse_state",
+    ):
+        if key in body and body.get(key) is not None:
+            plan[key] = body[key]
+    if "premium" in body:
+        plan["premium"] = _num(body.get("premium"))
+    if "authority_limit" in body:
+        plan["authority_limit"] = _num(body.get("authority_limit"))
+
+
 def run_policycenter_pre_bind(body: dict, account_id=None):
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     job_id = (str(body.get("job_id") or "")).strip()
@@ -1018,6 +1272,8 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
     )
     plan = weld.policycenter_plan(job_id, hop_d, status, body.get("issue_type"))
     plan["fuse_id"] = fuse_id
+    plan["issue_type"] = body.get("issue_type")
+    _stamp_invention_context(plan, body)
     spend_write = spend_protocol_mod.intended_policycenter(
         job_id=job_id,
         action=body.get("action"),
@@ -1072,6 +1328,7 @@ def run_mga_authority(body: dict, account_id=None):
     )
     plan["fuse_id"] = fuse_id
     plan["job_id"] = job_id or None
+    _stamp_invention_context(plan, body)
     if plan.get("reasons"):
         hop_d["constraint_reasons"] = plan["reasons"]
     spend_write = spend_protocol_mod.intended_mga(job_id=job_id)
@@ -1106,6 +1363,7 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
     )
     plan = weld.duckcreek_plan(job_id, hop_d, status)
     plan["fuse_id"] = fuse_id
+    _stamp_invention_context(plan, body)
     spend_write = spend_protocol_mod.intended_duckcreek(job_id=job_id)
     decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if hop_d.get("halt") else "BLOCK")
     return _finalize_spend_plan(
@@ -1144,14 +1402,21 @@ def demo_pas_bind_check():
     return data, status, extra
 
 
-@app.route("/demo/pas/policycenter/pre-bind", methods=["POST"])
+_DEMO_PC_PRE_BIND = {"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO"}
+_DEMO_DC_PRE_BIND = {"fuse_id": "fuse_velaru_drill", "job_id": "dc:DEMO"}
+
+
+@app.route("/demo/pas/policycenter/pre-bind", methods=["GET", "POST"])
 def demo_pc_pre_bind():
     _, err = _demo_gate()
     if err:
         return err
-    body, blocked, code = _pas_incoming()
-    if blocked:
-        return blocked, code
+    if request.method == "GET":
+        body = dict(_DEMO_PC_PRE_BIND)
+    else:
+        body, blocked, code = _pas_incoming()
+        if blocked:
+            return blocked, code
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return {"error": {"code": "demo_fuse_only"}}, 400
@@ -1159,6 +1424,8 @@ def demo_pc_pre_bind():
     data, status, extra = run_policycenter_pre_bind(body)
     if isinstance(data, dict):
         data["demo"] = True
+        data["autorun"] = request.method == "GET"
+        data["bind_room"] = f"{advertised_url()}/bind-room"
         bound.attach(data, status, demo=True)
     return data, status, extra
 
@@ -1286,14 +1553,17 @@ def demo_mga_authority():
     return data, status, extra
 
 
-@app.route("/demo/pas/duckcreek/pre-bind", methods=["POST"])
+@app.route("/demo/pas/duckcreek/pre-bind", methods=["GET", "POST"])
 def demo_dc_pre_bind():
     _, err = _demo_gate()
     if err:
         return err
-    body, blocked, code = _pas_incoming()
-    if blocked:
-        return blocked, code
+    if request.method == "GET":
+        body = dict(_DEMO_DC_PRE_BIND)
+    else:
+        body, blocked, code = _pas_incoming()
+        if blocked:
+            return blocked, code
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return {"error": {"code": "demo_fuse_only"}}, 400
@@ -1301,6 +1571,8 @@ def demo_dc_pre_bind():
     data, status, extra = run_duckcreek_pre_bind(body)
     if isinstance(data, dict):
         data["demo"] = True
+        data["autorun"] = request.method == "GET"
+        data["bind_room"] = f"{advertised_url()}/bind-room"
         bound.attach(data, status, demo=True)
     return data, status, extra
 
@@ -1357,6 +1629,60 @@ def well_known_gate():
             "x402": f"{advertised_url()}/.well-known/x402.json",
             "listings": f"{advertised_url()}/.well-known/listings.json",
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
+            "throat": f"{advertised_url()}/.well-known/throat.json",
+            "ghost_bind": f"{advertised_url()}/.well-known/ghost-bind.json",
+            "stick_meter": f"{advertised_url()}/.well-known/stick-meter.json",
+            "charge_bride": f"{advertised_url()}/.well-known/charge-bride.json",
+            "hop_tattoo": f"{advertised_url()}/.well-known/hop-tattoo.json",
+            "soft_yes_snare": f"{advertised_url()}/.well-known/soft-yes-snare.json",
+            "mass_tag": f"{advertised_url()}/.well-known/mass-tag.json",
+            "issue_bind_splitter": f"{advertised_url()}/.well-known/issue-bind-splitter.json",
+            "ticket_fuse_pack": f"{advertised_url()}/.well-known/ticket-fuse-pack.json",
+            "payout_throat": f"{advertised_url()}/.well-known/payout-throat.json",
+            "twin_diode": f"{advertised_url()}/.well-known/twin-diode.json",
+            "agent_passport_weld": f"{advertised_url()}/.well-known/agent-passport-weld.json",
+            "bypass_canary": f"{advertised_url()}/.well-known/bypass-canary.json",
+            "restraint_invoice": f"{advertised_url()}/.well-known/restraint-invoice.json",
+            "desk_quorum_fob": f"{advertised_url()}/.well-known/desk-quorum-fob.json",
+            "panic_latch": f"{advertised_url()}/.well-known/panic-latch.json",
+            "receipt_mirror": f"{advertised_url()}/.well-known/receipt-mirror.json",
+            "deadman_echo": f"{advertised_url()}/.well-known/deadman-echo.json",
+            "witness_seat": f"{advertised_url()}/.well-known/witness-seat.json",
+            "pardon_sunset": f"{advertised_url()}/.well-known/pardon-sunset.json",
+            "watchman_fuse": f"{advertised_url()}/.well-known/watchman-fuse.json",
+            "indulgence_trap": f"{advertised_url()}/.well-known/indulgence-trap.json",
+            "bind_path_compiler": f"{advertised_url()}/.well-known/bind-path-compiler.json",
+            "gate_od_skins": f"{advertised_url()}/.well-known/gate-od-skins.json",
+            "larp_gap_pack": f"{advertised_url()}/.well-known/larp-gap-pack.json",
+            "restraint_unit": f"{advertised_url()}/.well-known/restraint-unit.json",
+            "restraint_unit_ledger": f"{advertised_url()}/.well-known/restraint-unit-ledger.json",
+            "oath_compiler": f"{advertised_url()}/.well-known/oath-compiler.json",
+            "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
+            "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
+            "mouth_ceiling": f"{advertised_url()}/.well-known/mouth-ceiling.json",
+            "mandate_layer": f"{advertised_url()}/.well-known/mandate-layer.json",
+            "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
+            "stale_live": f"{advertised_url()}/.well-known/stale-live.json",
+            "cool_off": f"{advertised_url()}/.well-known/cool-off.json",
+            "silence_gate": f"{advertised_url()}/.well-known/silence-gate.json",
+            "algedonic_relay": f"{advertised_url()}/.well-known/algedonic-relay.json",
+            "may_budget": f"{advertised_url()}/.well-known/may-budget.json",
+            "funeral_bit": f"{advertised_url()}/.well-known/funeral-bit.json",
+            "bind_genealogy": f"{advertised_url()}/.well-known/bind-genealogy.json",
+            "cold_weld": f"{advertised_url()}/.well-known/cold-weld.json",
+            "tool_throat": f"{advertised_url()}/.well-known/tool-throat.json",
+            "time_lock": f"{advertised_url()}/.well-known/time-lock.json",
+            "charisma_nullifier": f"{advertised_url()}/.well-known/charisma-nullifier.json",
+            "sabbath_latch": f"{advertised_url()}/.well-known/sabbath-latch.json",
+            "may_quarantine": f"{advertised_url()}/.well-known/may-quarantine.json",
+            "branch_tombstone": f"{advertised_url()}/.well-known/branch-tombstone.json",
+            "secure_write_macro": f"{advertised_url()}/.well-known/secure-write-macro.json",
+            "dose_throat": f"{advertised_url()}/.well-known/dose-throat.json",
+            "jubilee_clock": f"{advertised_url()}/.well-known/jubilee-clock.json",
+            "antimay": f"{advertised_url()}/.well-known/antimay.json",
+            "senate_socket_soft": f"{advertised_url()}/.well-known/senate-socket-soft.json",
+            "receipt_stone": f"{advertised_url()}/.well-known/receipt-stone.json",
+            "temporal_sheath": f"{advertised_url()}/.well-known/temporal-sheath.json",
             "kappa_register": f"{advertised_url()}/.well-known/kappa.json",
             "schism": f"{advertised_url()}/.well-known/schism.json",
             "positioning": f"{advertised_url()}/.well-known/positioning.json",
@@ -1529,6 +1855,92 @@ def well_known_settlement_windows():
             "windows": gate_db.list_settlement_windows(limit=20),
         }
     )
+
+
+@app.route("/.well-known/restraint-unit.json")
+def well_known_restraint_unit():
+    return jsonify(restraint_unit_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/restraint-unit-ledger.json")
+def well_known_restraint_unit_ledger():
+    import db as gate_db
+
+    events = gate_db.list_bind_events_chronological(limit=10000)
+    return jsonify(restraint_unit_mod.ledger(events))
+
+
+@app.route("/.well-known/oath-compiler.json")
+def well_known_oath_compiler():
+    return jsonify(oath_compiler_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mouth-density.json")
+def well_known_mouth_density():
+    return jsonify(mouth_density_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/foothill-max.json")
+def well_known_foothill_max():
+    return jsonify(foothill_max_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mouth-ceiling.json")
+def well_known_mouth_ceiling():
+    return jsonify(
+        {
+            "spec": "gate-mouth-ceiling-v1",
+            "doc": "gate/MOUTH_CEILING.md",
+            "invention": "Mouth Ceiling",
+            "one_liner": "Doctrine max for software-era Gate — stop inventing L2 until paid weld.",
+            "foothill_max": f"{advertised_url()}/.well-known/foothill-max.json",
+            "mouth_density": f"{advertised_url()}/.well-known/mouth-density.json",
+            "mandate_layer": f"{advertised_url()}/.well-known/mandate-layer.json",
+            "nisaba_stack": f"{advertised_url()}/.well-known/nisaba-stack.json",
+            "north_star": "gate/NORTH_STAR.md",
+            "posture": "Under coordinators. Never sovereign.",
+        }
+    )
+
+
+@app.route("/.well-known/mandate-layer.json")
+def well_known_mandate_layer():
+    return jsonify(mandate_layer_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/nisaba-stack.json")
+def well_known_nisaba_stack():
+    return jsonify(mandate_layer_mod.stack_manifest(advertised_url()))
+
+
+@app.route("/.well-known/stale-live.json")
+@app.route("/.well-known/cool-off.json")
+@app.route("/.well-known/silence-gate.json")
+@app.route("/.well-known/algedonic-relay.json")
+@app.route("/.well-known/may-budget.json")
+@app.route("/.well-known/funeral-bit.json")
+@app.route("/.well-known/bind-genealogy.json")
+@app.route("/.well-known/cold-weld.json")
+def well_known_mouth_density_one():
+    slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
+    return jsonify(mouth_density_mod.manifest_one(advertised_url(), slug))
+
+
+@app.route("/.well-known/tool-throat.json")
+@app.route("/.well-known/time-lock.json")
+@app.route("/.well-known/charisma-nullifier.json")
+@app.route("/.well-known/sabbath-latch.json")
+@app.route("/.well-known/may-quarantine.json")
+@app.route("/.well-known/branch-tombstone.json")
+@app.route("/.well-known/secure-write-macro.json")
+@app.route("/.well-known/dose-throat.json")
+@app.route("/.well-known/jubilee-clock.json")
+@app.route("/.well-known/antimay.json")
+@app.route("/.well-known/senate-socket-soft.json")
+@app.route("/.well-known/receipt-stone.json")
+def well_known_foothill_max_one():
+    slug = request.path.rsplit("/", 1)[-1].replace(".json", "").replace("-", "_")
+    return jsonify(foothill_max_mod.manifest_one(advertised_url(), slug))
 
 
 @app.route("/.well-known/kappa.json")
@@ -2853,6 +3265,7 @@ def bind_room():
         public_url=advertised_url(),
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         bind_room_payment_link=BIND_ROOM_PAYMENT_LINK if not (STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE) else "",
         contact_email=CONTACT_EMAIL,
@@ -2862,6 +3275,964 @@ def bind_room():
 @app.route("/bind-room/officer-pack.json")
 def bind_room_officer_pack():
     return jsonify(bind_room_mod.officer_pack(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/bind-room/throat.json")
+def bind_room_throat():
+    return jsonify(throat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ghost-bind.json")
+def bind_room_ghost_bind():
+    return jsonify(ghost_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/stick-meter.json")
+def bind_room_stick_meter():
+    return jsonify(stick_meter_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/charge-bride.json")
+def bind_room_charge_bride():
+    return jsonify(charge_bride_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/hop-tattoo.json")
+def bind_room_hop_tattoo():
+    return jsonify(hop_tattoo_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/soft-yes-snare.json")
+def bind_room_soft_yes_snare():
+    return jsonify(soft_yes_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/mass-tag.json")
+def bind_room_mass_tag():
+    return jsonify(mass_tag_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/issue-bind-splitter.json")
+def bind_room_issue_bind_splitter():
+    return jsonify(issue_bind_splitter_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/ticket-fuse-pack.json")
+def bind_room_ticket_fuse_pack():
+    return jsonify(ticket_fuse_pack_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/payout-throat.json")
+def bind_room_payout_throat():
+    return jsonify(payout_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/twin-diode.json")
+def bind_room_twin_diode():
+    return jsonify(twin_diode_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/agent-passport-weld.json")
+def bind_room_agent_passport_weld():
+    return jsonify(agent_passport_weld_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/bypass-canary.json")
+def bind_room_bypass_canary():
+    return jsonify(bypass_canary_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/restraint-invoice.json")
+def bind_room_restraint_invoice():
+    return jsonify(restraint_invoice_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/desk-quorum-fob.json")
+def bind_room_desk_quorum_fob():
+    return jsonify(desk_quorum_fob_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/panic-latch.json")
+def bind_room_panic_latch():
+    return jsonify(panic_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/receipt-mirror.json")
+def bind_room_receipt_mirror():
+    return jsonify(receipt_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/deadman-echo.json")
+def bind_room_deadman_echo():
+    return jsonify(deadman_echo_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/witness-seat.json")
+def bind_room_witness_seat():
+    return jsonify(witness_seat_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/pardon-sunset.json")
+def bind_room_pardon_sunset():
+    return jsonify(pardon_sunset_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/watchman-fuse.json")
+def bind_room_watchman_fuse():
+    return jsonify(watchman_fuse_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/indulgence-trap.json")
+def bind_room_indulgence_trap():
+    return jsonify(indulgence_trap_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/bind-path-compiler.json")
+def bind_room_bind_path_compiler():
+    return jsonify(bind_path_compiler_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/gate-od-skins.json")
+def bind_room_gate_od_skins():
+    return jsonify(gate_od_skins_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/restraint-unit.json")
+def bind_room_restraint_unit():
+    return jsonify(restraint_unit_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/oath-compiler.json")
+def bind_room_oath_compiler():
+    return jsonify(oath_compiler_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/mouth-density.json")
+def bind_room_mouth_density():
+    return jsonify(mouth_density_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/foothill-max.json")
+def bind_room_foothill_max():
+    return jsonify(foothill_max_mod.manifest(advertised_url()))
+
+
+@app.route("/bind-room/mandate-layer.json")
+def bind_room_mandate_layer():
+    return jsonify(mandate_layer_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/temporal-sheath.json")
+def well_known_temporal_sheath():
+    return jsonify(
+        {
+            "spec": "gate-temporal-sheath-v1",
+            "invention": "Temporal Sheath",
+            "doc": "gate/TEMPORAL_SHEATH.md",
+            "one_liner": "Time is part of the mouth — when force may exist, expire, or be required.",
+            "foothills": [
+                "pardon-sunset",
+                "watchman-fuse",
+                "indulgence-trap",
+                "deadman-echo",
+                "panic-latch",
+            ],
+            "bind_room": f"{advertised_url()}/bind-room",
+            "north_star": "gate/NORTH_STAR.md#moral-throat",
+        }
+    )
+
+
+@app.route("/.well-known/throat.json")
+def well_known_throat():
+    return jsonify(throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ghost-bind.json")
+def well_known_ghost_bind():
+    return jsonify(ghost_bind_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/stick-meter.json")
+def well_known_stick_meter():
+    return jsonify(stick_meter_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/charge-bride.json")
+def well_known_charge_bride():
+    return jsonify(charge_bride_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/hop-tattoo.json")
+def well_known_hop_tattoo():
+    return jsonify(hop_tattoo_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/soft-yes-snare.json")
+def well_known_soft_yes_snare():
+    return jsonify(soft_yes_snare_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mass-tag.json")
+def well_known_mass_tag():
+    return jsonify(mass_tag_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/issue-bind-splitter.json")
+def well_known_issue_bind_splitter():
+    return jsonify(issue_bind_splitter_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/ticket-fuse-pack.json")
+def well_known_ticket_fuse_pack():
+    return jsonify(ticket_fuse_pack_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/payout-throat.json")
+def well_known_payout_throat():
+    return jsonify(payout_throat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/twin-diode.json")
+def well_known_twin_diode():
+    return jsonify(twin_diode_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/agent-passport-weld.json")
+def well_known_agent_passport_weld():
+    return jsonify(agent_passport_weld_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bypass-canary.json")
+def well_known_bypass_canary():
+    return jsonify(bypass_canary_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/restraint-invoice.json")
+def well_known_restraint_invoice():
+    return jsonify(restraint_invoice_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/desk-quorum-fob.json")
+def well_known_desk_quorum_fob():
+    return jsonify(desk_quorum_fob_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/panic-latch.json")
+def well_known_panic_latch():
+    return jsonify(panic_latch_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/receipt-mirror.json")
+def well_known_receipt_mirror():
+    return jsonify(receipt_mirror_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/deadman-echo.json")
+def well_known_deadman_echo():
+    return jsonify(deadman_echo_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/witness-seat.json")
+def well_known_witness_seat():
+    return jsonify(witness_seat_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/pardon-sunset.json")
+def well_known_pardon_sunset():
+    return jsonify(pardon_sunset_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/watchman-fuse.json")
+def well_known_watchman_fuse():
+    return jsonify(watchman_fuse_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/indulgence-trap.json")
+def well_known_indulgence_trap():
+    return jsonify(indulgence_trap_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/bind-path-compiler.json")
+def well_known_bind_path_compiler():
+    return jsonify(bind_path_compiler_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/gate-od-skins.json")
+def well_known_gate_od_skins():
+    return jsonify(gate_od_skins_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/larp-gap-pack.json")
+def well_known_larp_gap_pack():
+    return jsonify(gate_od_skins_mod.larp_gap_pack(advertised_url()))
+
+
+@app.route("/demo/pas/throat", methods=["POST"])
+def demo_pas_throat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = throat_mod.evaluate(
+        decision=body.get("decision"),
+        acted=body.get("acted"),
+        halt=body.get("halt"),
+        allow_bind=body.get("allow_bind"),
+        verify_url=body.get("verify_url"),
+        hop=body.get("hop") if isinstance(body.get("hop"), dict) else None,
+        soft_pas=body.get("soft_pas"),
+        timeout=body.get("timeout"),
+        sight_only=body.get("sight_only"),
+        boss_said_yes=body.get("boss_said_yes"),
+    )
+    result["demo"] = True
+    result["ghost_bind"] = f"{advertised_url()}/demo/pas/ghost-bind"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/ghost-bind", methods=["POST"])
+def demo_pas_ghost_bind():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    report = ghost_bind_mod.scan(scenario)
+    report["demo"] = True
+    report["throat"] = f"{advertised_url()}/demo/pas/throat"
+    return jsonify(report)
+
+
+@app.route("/demo/pas/ghost-bind/drills")
+def demo_pas_ghost_bind_drills():
+    report = ghost_bind_mod.run_drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/stick-meter", methods=["POST"])
+def demo_pas_stick_meter():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = stick_meter_mod.score(
+        write_kind=body.get("write_kind"),
+        spend_write=body.get("spend_write") if isinstance(body.get("spend_write"), dict) else None,
+        premium=_num(body.get("premium")),
+        authority_limit=_num(body.get("authority_limit")),
+        sanction_flag=body.get("sanction_flag"),
+        fuse_state=body.get("fuse_state"),
+        license_state=body.get("license_state"),
+        epoch_locked=body.get("epoch_locked"),
+        would_bind=body.get("would_bind"),
+        acted=body.get("acted"),
+    )
+    result["demo"] = True
+    result["charge_bride"] = f"{advertised_url()}/demo/pas/charge-bride"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/charge-bride", methods=["POST"])
+def demo_pas_charge_bride():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    hop = body.get("hop") if isinstance(body.get("hop"), dict) else None
+    result = charge_bride_mod.evaluate(
+        charge_id=body.get("charge_id"),
+        uw_approved=body.get("uw_approved"),
+        chat_yes=body.get("chat_yes"),
+        boss_said_yes=body.get("boss_said_yes"),
+        admin_resurrect=body.get("admin_resurrect"),
+        fuse_state=body.get("fuse_state"),
+        license_state=body.get("license_state"),
+        epoch_locked=body.get("epoch_locked"),
+        prior_decision=body.get("prior_decision"),
+        would_proceed=body.get("would_proceed"),
+        purpose=body.get("purpose") or "epoch",
+        subject=body.get("subject"),
+        hop=hop,
+    )
+    result["demo"] = True
+    result["stick_meter"] = f"{advertised_url()}/demo/pas/stick-meter"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/charge-bride/drills")
+def demo_pas_charge_bride_drills():
+    report = charge_bride_mod.run_drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/hop-tattoo", methods=["POST"])
+def demo_pas_hop_tattoo():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = hop_tattoo_mod.burn(
+        job_id=body.get("job_id"),
+        verify_url=body.get("verify_url"),
+        event_id=body.get("event_id"),
+        fuse_id=body.get("fuse_id"),
+        decision=body.get("decision"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/hop-tattoo/<job_id>")
+def demo_pas_hop_tattoo_lookup(job_id: str):
+    _, err = _demo_gate()
+    if err:
+        return err
+    result = hop_tattoo_mod.lookup(job_id)
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/soft-yes-snare", methods=["POST"])
+def demo_pas_soft_yes_snare():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    scenario = body.get("scenario") if isinstance(body.get("scenario"), dict) else body
+    result = soft_yes_snare_mod.evaluate_scenario(scenario)
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/soft-yes-snare/drills")
+def demo_pas_soft_yes_snare_drills():
+    report = soft_yes_snare_mod.run_drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/issue-bind-splitter", methods=["POST"])
+def demo_pas_issue_bind_splitter():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = issue_bind_splitter_mod.evaluate(
+        issue_type=body.get("issue_type"),
+        blocking_point=body.get("blocking_point"),
+        bind_path=body.get("bind_path"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/ticket-fuse-pack")
+def demo_pas_ticket_fuse_pack():
+    _, err = _demo_gate()
+    if err:
+        return err
+    license_id = (request.args.get("license_id") or "").strip() or None
+    result = ticket_fuse_pack_mod.pack(license_id=license_id, public_url=advertised_url())
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/payout-throat", methods=["POST"])
+def demo_pas_payout_throat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = payout_throat_mod.evaluate(
+        decision=body.get("decision"),
+        acted=body.get("acted"),
+        halt=body.get("halt"),
+        allow_payout=body.get("allow_payout"),
+        verify_url=body.get("verify_url"),
+        soft_pas=body.get("soft_pas"),
+        timeout=body.get("timeout"),
+        sight_only=body.get("sight_only"),
+        boss_said_yes=body.get("boss_said_yes"),
+        write_kind=body.get("write_kind") or "payout",
+        spend_write=body.get("spend_write") if isinstance(body.get("spend_write"), dict) else None,
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/twin-diode", methods=["POST"])
+def demo_pas_twin_diode():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = twin_diode_mod.evaluate(
+        direction=body.get("direction"),
+        secure_write_macro=body.get("secure_write_macro"),
+        live_cleared=body.get("live_cleared"),
+        decision=body.get("decision"),
+        sim_only=body.get("sim_only"),
+        would_actuate=body.get("would_actuate"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/agent-passport-weld", methods=["POST"])
+def demo_pas_agent_passport_weld():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = agent_passport_weld_mod.evaluate(
+        tool_class=body.get("tool_class"),
+        agent_id=body.get("agent_id"),
+        passport=body.get("passport"),
+        subject=body.get("subject"),
+        decision=body.get("decision"),
+        soft_yes=body.get("soft_yes"),
+        password_as_auth=body.get("password_as_auth"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/agent-passport-weld/mint", methods=["POST"])
+def demo_pas_agent_passport_mint():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = agent_passport_weld_mod.mint_passport(
+        agent_id=str(body.get("agent_id") or "agent_demo"),
+        tool_class=str(body.get("tool_class") or "wire"),
+        subject=body.get("subject"),
+        ttl_seconds=int(body.get("ttl_seconds") or 300),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/bypass-canary", methods=["POST"])
+def demo_pas_bypass_canary():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = bypass_canary_mod.probe(
+        write_path=str(body.get("write_path") or "POST /bind-only"),
+        job_id=body.get("job_id"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/bypass-canary/drills")
+def demo_pas_bypass_canary_drills():
+    report = bypass_canary_mod.drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/restraint-invoice", methods=["POST"])
+def demo_pas_restraint_invoice():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = restraint_invoice_mod.draft(
+        job_id=body.get("job_id"),
+        fuse_id=body.get("fuse_id"),
+        decision=body.get("decision") or "HALT",
+        acted=body.get("acted"),
+        verify_url=body.get("verify_url"),
+        event_id=body.get("event_id"),
+        public_url=advertised_url(),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/desk-quorum-fob", methods=["POST"])
+def demo_pas_desk_quorum_fob():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = desk_quorum_fob_mod.evaluate(
+        mass_class=body.get("mass_class"),
+        score=body.get("score"),
+        uw_approvals=body.get("uw_approvals"),
+        charge_present=body.get("charge_present"),
+        required_n=body.get("required_n"),
+        fob_tokens=body.get("fob_tokens") if isinstance(body.get("fob_tokens"), list) else None,
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/panic-latch", methods=["POST"])
+def demo_pas_panic_latch():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = panic_latch_mod.evaluate(
+        incident_declared=body.get("incident_declared"),
+        panic_mode=body.get("panic_mode"),
+        would_commit=body.get("would_commit"),
+        escalated=body.get("escalated"),
+        mass_class=body.get("mass_class"),
+        boss_said_yes=body.get("boss_said_yes"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/receipt-mirror", methods=["POST"])
+def demo_pas_receipt_mirror():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = receipt_mirror_mod.mirror(
+        event_id=body.get("event_id"),
+        job_id=body.get("job_id"),
+        decision=body.get("decision"),
+        acted=body.get("acted"),
+        verify_url=body.get("verify_url"),
+        receipt_hash=body.get("receipt_hash"),
+        public_url=advertised_url(),
+        carrier_ref=body.get("carrier_ref"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/deadman-echo", methods=["POST"])
+def demo_pas_deadman_echo():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = deadman_echo_mod.evaluate(
+        last_live_at=body.get("last_live_at"),
+        now=body.get("now"),
+        ttl_seconds=body.get("ttl_seconds"),
+        chain_step=body.get("chain_step"),
+        re_live_presented=body.get("re_live_presented"),
+        soft_continue=body.get("soft_continue"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/witness-seat", methods=["POST"])
+def demo_pas_witness_seat():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = witness_seat_mod.evaluate(
+        role=body.get("role"),
+        would_live=body.get("would_live"),
+        verify_only=body.get("verify_only"),
+        verify_url=body.get("verify_url"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/pardon-sunset", methods=["POST"])
+def demo_pas_pardon_sunset():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = pardon_sunset_mod.evaluate(
+        against_score=body.get("against_score", True),
+        grantor_id=body.get("grantor_id"),
+        subject_id=body.get("subject_id"),
+        cosigner_id=body.get("cosigner_id"),
+        sunset_at=body.get("sunset_at"),
+        ttl_seconds=body.get("ttl_seconds"),
+        now=body.get("now"),
+        scar=body.get("scar"),
+        paid=body.get("paid"),
+        relationship_path=body.get("relationship_path"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/watchman-fuse", methods=["POST"])
+def demo_pas_watchman_fuse():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = watchman_fuse_mod.evaluate(
+        duty_class=body.get("duty_class", True),
+        duty_sla_seconds=body.get("duty_sla_seconds"),
+        armed_at=body.get("armed_at"),
+        last_pulse_at=body.get("last_pulse_at"),
+        now=body.get("now"),
+        clear_required=body.get("clear_required"),
+        choked=body.get("choked"),
+        acted=body.get("acted"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/indulgence-trap", methods=["POST"])
+def demo_pas_indulgence_trap():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = indulgence_trap_mod.evaluate(
+        mercy_attempt=body.get("mercy_attempt", True),
+        paid=body.get("paid"),
+        relationship_path=body.get("relationship_path"),
+        self_pardon=body.get("self_pardon"),
+        letterhead_only=body.get("letterhead_only"),
+        emoji_quorum=body.get("emoji_quorum"),
+        panic_favor=body.get("panic_favor"),
+        scar=body.get("scar"),
+        has_sunset=body.get("has_sunset"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/indulgence-trap/drills")
+def demo_pas_indulgence_trap_drills():
+    report = indulgence_trap_mod.drills()
+    report["demo"] = True
+    return jsonify(report)
+
+
+@app.route("/demo/pas/bind-path-compiler", methods=["POST"])
+def demo_pas_bind_path_compiler():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    plan = dict(body)
+    if isinstance(body.get("plan"), dict):
+        plan = dict(body["plan"])
+    throat_mod.attach(plan, hop=plan.get("hop") if isinstance(plan.get("hop"), dict) else None)
+    stick_meter_mod.attach(plan, spend_write=plan.get("spend_write") if isinstance(plan.get("spend_write"), dict) else None)
+    mass_tag_mod.attach(plan)
+    charge_bride_mod.attach(
+        plan,
+        charge_id=plan.get("charge_id"),
+        epoch_meta=plan.get("epoch") if isinstance(plan.get("epoch"), dict) else None,
+        hop=plan.get("hop") if isinstance(plan.get("hop"), dict) else None,
+        job_id=plan.get("job_id"),
+    )
+    desk_quorum_fob_mod.attach(plan)
+    result = bind_path_compiler_mod.compile_plan(
+        plan=plan,
+        public_url=advertised_url(),
+        job_id=plan.get("job_id"),
+    )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/gate-od-skins", methods=["POST"])
+def demo_pas_gate_od_skins():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    result = gate_od_skins_mod.classify(
+        skin=body.get("skin") or body.get("gate_skin"),
+        edge_id=body.get("edge_id") or body.get("commit_surface"),
+        stick_score=body.get("stick_score"),
+        stick_mass_class=body.get("stick_mass_class") or body.get("mass_class"),
+        panic=body.get("panic") or body.get("panic_mode"),
+        boss_said_go=body.get("boss_said_go") or body.get("boss_said_yes"),
+        loss_of_link=body.get("loss_of_link") or body.get("link_lost"),
+    )
+    result["demo"] = True
+    result["profiles"] = {
+        "gate_c": gate_od_skins_mod.skin_profile("gate_c"),
+        "gate_d": gate_od_skins_mod.skin_profile("gate_d"),
+        "gate_o": gate_od_skins_mod.skin_profile("gate_o"),
+    }
+    result["larp_gap_pack"] = f"{advertised_url()}/.well-known/larp-gap-pack.json"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/restraint-unit", methods=["POST"])
+def demo_pas_restraint_unit():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    if isinstance(body.get("events"), list):
+        result = restraint_unit_mod.ledger(body["events"])
+    else:
+        result = restraint_unit_mod.mint(
+            decision=body.get("decision"),
+            acted=body.get("acted"),
+            mass_class=body.get("mass_class"),
+            stick_score=body.get("stick_score") or body.get("score"),
+            event_id=body.get("event_id"),
+            job_id=body.get("job_id"),
+            verify_url=body.get("verify_url"),
+            edge_id=body.get("edge_id"),
+            skin=body.get("skin"),
+        )
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/oath-compiler", methods=["POST"])
+def demo_pas_oath_compiler():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    if isinstance(body.get("clauses"), list):
+        result = oath_compiler_mod.compile_clauses(body["clauses"])
+    else:
+        result = oath_compiler_mod.compile_preset(body.get("preset") or "pas_bind")
+    plan = body.get("plan") if isinstance(body.get("plan"), dict) else body
+    result["evaluation"] = oath_compiler_mod.evaluate_against_plan(result, plan)
+    result["demo"] = True
+    return jsonify(result)
+
+
+@app.route("/demo/pas/mouth-density", methods=["POST"])
+def demo_pas_mouth_density():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    name = body.get("invention") or body.get("name")
+    if name:
+        kwargs = {k: v for k, v in body.items() if k not in ("invention", "name", "demo")}
+        result = mouth_density_mod.evaluate(str(name), **kwargs)
+    else:
+        plan = dict(body)
+        if isinstance(body.get("plan"), dict):
+            plan = dict(body["plan"])
+        mouth_density_mod.attach(plan, public_url=advertised_url())
+        result = plan.get("mouth_density") or {}
+    result["demo"] = True
+    result["catalog"] = mouth_density_mod.manifest(advertised_url())
+    return jsonify(result)
+
+
+@app.route("/demo/pas/foothill-max", methods=["POST"])
+def demo_pas_foothill_max():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    name = body.get("invention") or body.get("name")
+    if name:
+        kwargs = {k: v for k, v in body.items() if k not in ("invention", "name", "demo")}
+        result = foothill_max_mod.evaluate(str(name), **kwargs)
+    else:
+        plan = dict(body)
+        if isinstance(body.get("plan"), dict):
+            plan = dict(body["plan"])
+        foothill_max_mod.attach(plan, public_url=advertised_url())
+        result = plan.get("foothill_max") or {}
+    result["demo"] = True
+    result["catalog"] = foothill_max_mod.manifest(advertised_url())
+    result["ceiling"] = f"{advertised_url()}/.well-known/mouth-ceiling.json"
+    return jsonify(result)
+
+
+@app.route("/demo/pas/mandate-layer", methods=["POST"])
+def demo_pas_mandate_layer():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    if not isinstance(body, dict):
+        body = {}
+    name = body.get("pillar") or body.get("invention") or body.get("name")
+    if name:
+        kwargs = {
+            k: v
+            for k, v in body.items()
+            if k not in ("pillar", "invention", "name", "demo", "plan")
+        }
+        result = mandate_layer_mod.evaluate(str(name), **kwargs)
+    else:
+        plan = dict(body)
+        if isinstance(body.get("plan"), dict):
+            plan = dict(body["plan"])
+        mandate_layer_mod.attach(plan, public_url=advertised_url())
+        result = plan.get("mandate_layer") or {}
+    result["demo"] = True
+    result["catalog"] = mandate_layer_mod.manifest(advertised_url())
+    result["stack"] = mandate_layer_mod.stack_manifest(advertised_url())
+    return jsonify(result)
 
 
 @app.route("/bind-room/appendix.schema.json")
