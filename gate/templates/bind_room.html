@@ -15,8 +15,10 @@
     {% if stripe_bind_room %}
     <form method="post" action="{{ url_for('bind_room_checkout') }}">
       <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
-      <button type="submit" class="btn btn-primary">Book Bind Room</button>
+      <button type="submit" class="btn btn-primary">Book Bind Room · {{ bind_room_price }}</button>
     </form>
+    {% elif bind_room_payment_link %}
+    <a class="btn btn-primary" href="{{ bind_room_payment_link }}" target="_blank" rel="noopener">Pay {{ bind_room_price }} (Stripe) →</a>
     {% else %}
     <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
     {% endif %}

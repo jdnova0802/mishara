@@ -258,6 +258,10 @@ STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 STRIPE_INSTALL_PRICE_ID = os.getenv("STRIPE_INSTALL_PRICE_ID", "")
 STRIPE_BIND_ROOM_PRICE_ID = os.getenv("STRIPE_BIND_ROOM_PRICE_ID", "")
+BIND_ROOM_PAYMENT_LINK = os.getenv(
+    "VELARU_BIND_ROOM_PAYMENT_LINK",
+    "https://buy.stripe.com/aFabIU4wqcxmavd3EE8Vi04",
+).strip()
 STRIPE_REFUSAL_PRICE_ID = os.getenv("STRIPE_REFUSAL_PRICE_ID", "")
 STRIPE_WELD_PRICE_ID = os.getenv("STRIPE_WELD_PRICE_ID", "")
 STRIPE_FLOOR_PRICE_ID = os.getenv("STRIPE_FLOOR_PRICE_ID", "")
@@ -2850,6 +2854,7 @@ def bind_room():
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
+        bind_room_payment_link=BIND_ROOM_PAYMENT_LINK if not (STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE) else "",
         contact_email=CONTACT_EMAIL,
     )
 
