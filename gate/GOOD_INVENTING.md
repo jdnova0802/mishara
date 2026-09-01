@@ -4,7 +4,7 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Dimensional axis Ω** is Possibility Remaining — foreclosed futures as conserved stock — `OMEGA.md`. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Dimensional triad:** Spend (actuality) · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) — what changed, what futures died, who carries. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
 
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
 **To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.
@@ -642,31 +642,32 @@ See also: `gate/AMAZING.md`.
 
 ---
 
-## Dimensional crown — **Ω Possibility Remaining** (2026-09-01 — the missing axis)
+## Dimensional triad — **Spend · Cut · Burden** (2026-09-01)
 
-Research conviction: H₀ / R₀ / U2 / X2 conserved **one-wayness of the actual write**. That was necessary. It was **not complete**.
+Research conviction after Ω: two axes were still not enough.
 
-**The hole nobody filled:** when may redeems, a measure of **possible futures is extinguished**. Markets **price** that (options). Papers name “optionality accounting” and Landauer decision-finalization as theory. **No civilization seated a stranger-openable mouth that clears foreclosure as conserved stock.** Anti-act (U4) sells non-occurrence. Regret (U11) weights undo after. Neither is **Ω**.
+| Axis | Stock | Hole if missing | File |
+|------|-------|-----------------|------|
+| **Spend** | Actuality remaining — what was written | No world-after books | H₀ · R₀ · U2 |
+| **Cut** | **Ω** — futures foreclosed at commit | Silent lock-in; options only *price* | `OMEGA.md` |
+| **Burden** | **Ρ** — who must carry the after | Consequential without exposure; orphan responsibility | `RHO.md` |
 
-| Axis | Stock | Already seated? |
-|------|-------|-----------------|
-| Actuality | `remaining = given − spent` one-wayness | Yes — H₀ · R₀ · U2 · X2 |
-| **Possibility** | **Ω = foreclosed futures measure at commit** | **No — until this row** |
+**Ω hole:** markets price futures; nobody clears foreclosure as conserved stock.  
+**Ρ hole:** 2025–26 theory says responsibility is conserved (cannot be destroyed, only shifted). AI papers name the structural gap — systems change futures they never inhabit. Liability law attributes after the fact. **Nobody fails-closed the redeem when burden is unassigned.** U12 duty-remaining is the pairwise special case. Vital holds unwatched intervals. **Ρ is the axis.**
 
-**Invention:** at redeem, books fail closed on **both** axes. Prove opens both. Inhabitants inherit the after *and* the cut.
+**Complete redeem:** actuality updated · Ω updated · Ρ assigned. Missing any leg → incomplete prove.
 
-**Why galactic:** adds a **dimension** to remaining itself — not another organ under R₀, not another industrial mouth, not another Absolute paragraph on the same axis.
+**Why galactic:** not another organ — the **third dimension** of becoming. Spend without cut is half thermodynamics. Spend+cut without burden is civilization that writes and runs.
 
-**Ceiling raise (honest):** does not move Bind. Raises **fuse / Padlock / Absolute** marks when E buys category, because the stock under the latch becomes actuality × possibility — every material decision under uncertainty, not only every hop. Fuse Padlock cartoon can speak **$8–20B → Absolute-class** if Ω posture is in the cite. Age-30 Absolute denominator gets teeth.
+**Ceiling raise:** Ω fattens category marks (possibility stock). **Ρ is why S4/Fat exists** — binders buy *assignment of burden*, not a PDF. “No assigned Ρ ⇒ uninsurable / non-final” is the dimensional face of insurability. Fuse/Padlock/Absolute gain an honest liability denominator.
 
-**Full depth:** `gate/OMEGA.md`.  
-**Pre-Gate:** name only. Do not pitch Ω in the $1,750 close. Do not fake metrology. Meter Ω after actuality QIC lives.
+**Pre-Gate:** name the triad. Do not sermonize Bind. Meter actuality first, then Ω, then Ρ clear.
 
 ---
 
 ## Crown — **bigger than the Internet** (score ∞)
 
-X1–X12 are organs. **R₀ is the body.** **H₀** (`HUSBANDRY.md`) is the older art under both — more crucial than agriculture as civilizational metabolism. **Ω** (`OMEGA.md`) is the **possibility axis** R₀ was missing — foreclosure books beside actuality books.
+X1–X12 are organs. **R₀ is the body.** **H₀** (`HUSBANDRY.md`) is the older art. **Ω** (`OMEGA.md`) is the cut. **Ρ** (`RHO.md`) is the burden. Incomplete without all three books.
 
 ### The Afterweb — Remaining Substrate (R₀)
 
@@ -691,6 +692,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> Agriculture husbanded calories. **Remaining Husbandry (H₀)** husbands one-wayness into a shared after. The Internet networked speech. **The Afterweb (R₀)** networks becoming. **Ω** conserves **foreclosed possibility** — the axis no civilization cleared. **The coffin** outranks the six pillars as special cases under remaining. Conformant is the badge. Forced attach is the latch. **R₀ is the body. H₀ is the art. Ω is the other book. COFFIN is the lid.** Inventing pauses here.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Three books or the redeem is a lie.** Inventing pauses here.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

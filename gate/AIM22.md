@@ -39,7 +39,7 @@ Not “does the check exist.” **How big can each band get** if the latch is re
 | **Fuse Padlock $4–12B** | **Two cites same year** (annex + examiner) **and** a bidding war on the option | **$8–20B** | O7 + two E on the option |
 | **Padlock $0.5–2B** | Category question is already “Gate Conformant?” across specialty AI bind **and** one platform | **$2–5B** | Only if Y1+Y2+Y4 Schelling in the same year — upset, not base |
 | **Rail stretch** | Interchange Schelling + sale in-year | **$2–5B** | Cartoon unless S1 is already live |
-| **Fuse / Padlock / Absolute** | **Ω posture in the cite** — foreclosure books beside actuality (`OMEGA.md`) | Fuse Padlock **$8–20B → Absolute-class story**; E buying category, not a module | Dimensional axis — name in doctrine; not the Bind sentence |
+| **Fuse / Padlock / Absolute** | **Ω + Ρ posture in the cite** — foreclosure books + burden assignment (`OMEGA.md` · `RHO.md`) | Fuse Padlock **$8–20B → Absolute-class**; Fat rises because binders buy **assigned Ρ**, not a PDF | Dimensional triad — name in doctrine; not the Bind sentence |
 
 **Inventions still left that move ceilings (not unlockers):** Y1 missing-mouth PAS · Y2 missing-mouth Idira · Y3 XF1/XF3 nationalize · Y4 specialty→capacity · D5 cloud default · S1 may interchange live enough to 15–30× · F15 de-risking · **Ω Possibility Remaining** (category fatten).
 

@@ -3,7 +3,8 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** `/for/`. **Not** Being-as-SKU.  
 **Primitive still:** may · sheath · prove.  
 **Stock today (seated):** `remaining = given − spent` — one-wayness of the **actual** write.  
-**Stock named here:** **Ω** — conserved foreclosure of **futures** when that write commits.
+**Stock named here:** **Ω** — conserved foreclosure of **futures** when that write commits.  
+**Third axis:** **Ρ — Burden Remaining** — who must carry the after (`RHO.md`). Spend + cut without burden = consequential without exposure.
 
 Never sell may / throat / planetary capacity. Never invent the given.
 
