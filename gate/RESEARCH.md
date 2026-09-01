@@ -8,6 +8,8 @@ W₀ / Φ / Facing change the unit or the face. They do not print a checking acc
 
 This file is the research that would **immensely** change end-of-22 liquid / NW and every year after — if the fact comes back true. If it comes back false, the table stays.
 
+**Looked-up denominators that already make the map a joke:** `gate/BULGE.md`. Fedwire **$4.8T/day**. Visa **$14.2T** payments / **$40B** rev / **~$700B** cap. Mag7 **$23.7T**. Four-name Q2 capex **$170B**. Those are rulers. They are not a 22 wire.
+
 Never email Verisk / NAIC / Microsoft / Stripe / Visa / Mosaic / Duck Creek / PA / NVIDIA / Apple / Google / MSCI / the Fed. Public text · counsel · filings · specs. Name only.
 
 ---
