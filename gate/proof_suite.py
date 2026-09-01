@@ -206,6 +206,147 @@ def run_invariants() -> list[dict[str, Any]]:
         and all((v.get("citations") or v.get("id") == "gate") for v in fam.get("family") or []),
         {"count": len(fam.get("family") or [])},
     )
+    organ_ids = {o.get("id") for o in (fam.get("organs") or [])}
+    add(
+        "family_organs_seated",
+        "May throat + Redeem defense seated as organs, not siblings",
+        fam.get("organs_are_not_siblings") is True
+        and {"may", "redeem", "inhabitant", "unuttered"}.issubset(organ_ids)
+        and len(fam.get("family") or []) == 5,
+        {"organs": sorted(organ_ids)},
+    )
+
+    try:
+        from gate import unison as unison_mod
+    except ImportError:
+        import unison as unison_mod  # type: ignore[no-redef]
+
+    uni = unison_mod.manifest("https://gate.local")
+    add(
+        "unison_map",
+        "Unison map: cleverer_layer null, intel kit 7.5, Gate 1 lock, no sixth sibling",
+        uni.get("cleverer_layer") is None
+        and uni.get("their_production") is False
+        and uni.get("family_siblings_remain") == 5
+        and (uni.get("intel_kit") or {}).get("rating") == 7.5
+        and (uni.get("intel_kit") or {}).get("not_a_sibling") is True
+        and bool(uni.get("gate1_lock"))
+        and len(uni.get("more_massive") or []) >= 4,
+        {"intel": (uni.get("intel_kit") or {}).get("rating")},
+    )
+
+    try:
+        from gate import inventions as inventions_mod
+        from gate import inventor as inventor_mod
+        from gate import named_may as named_may_mod
+    except ImportError:
+        import inventions as inventions_mod  # type: ignore[no-redef]
+        import inventor as inventor_mod  # type: ignore[no-redef]
+        import named_may as named_may_mod  # type: ignore[no-redef]
+
+    inv = inventions_mod.manifest("https://gate.local")
+    who = inventor_mod.stamp()
+    add(
+        "inventor_stands",
+        "Inventor is named — Satoshi inverse. May is not bearer by law.",
+        who.get("anonymous") is False
+        and who.get("satoshi_inverse") is True
+        and bool(who.get("name"))
+        and (inv.get("inventor") or {}).get("name") == who.get("name")
+        and len(inv.get("inventions") or []) >= 12
+        and named_may_mod.classify(holder_id=None).get("bearer") is True,
+        {"inventor": who.get("name"), "count": len(inv.get("inventions") or [])},
+    )
+
+    try:
+        from gate import conformant as conformant_mod
+        from gate import qic as qic_mod
+    except ImportError:
+        import conformant as conformant_mod  # type: ignore[no-redef]
+        import qic as qic_mod  # type: ignore[no-redef]
+
+    conf = conformant_mod.manifest("https://gate.local")
+    ghost = conformant_mod.evaluate_claim({"tests_passed": False})
+    sells = conformant_mod.evaluate_claim(
+        {"tests_passed": True, "requirements": list(conformant_mod.REQUIREMENTS), "sells_may": True}
+    )
+    meter = qic_mod.billable()
+    add(
+        "conformant_qic_cash_latch",
+        "Gate Conformant™ + QIC seated on Gate — not a sixth sibling; ghost DENY; $0 until Gate 1",
+        conf.get("tree", {}).get("not_a_sibling") is True
+        and conf.get("tree", {}).get("family_siblings_remain") == 5
+        and conf.get("ghost_conformant") == "DENY"
+        and conf.get("cash_usd") == 0
+        and ghost.get("reason") == "ghost_conformant"
+        and sells.get("reason") == "never_sell_may"
+        and meter.get("billable_usd") == 0
+        and meter.get("reason") == "gate1_unpaid"
+        and (inv.get("cash_latch") or {}).get("mark") == "Gate Conformant",
+        {"mark": conf.get("mark"), "laq": meter.get("laq")},
+    )
+
+    try:
+        from gate import heavier as heavier_mod
+    except ImportError:
+        import heavier as heavier_mod  # type: ignore[no-redef]
+
+    heavy = heavier_mod.manifest("https://gate.local")
+    ready = heavy.get("soon_ready") or {}
+    add(
+        "heavier_than_conformant",
+        "Soon/medium/long inventions dunk the Conformant badge without a sixth sibling or new L2",
+        heavy.get("l2_module") is False
+        and heavy.get("family_siblings_remain") == 5
+        and heavy.get("cash_usd") == 0
+        and (heavy.get("counts") or {}).get("soon", 0) >= 4
+        and (heavy.get("counts") or {}).get("medium", 0) >= 4
+        and (heavy.get("counts") or {}).get("long", 0) >= 4
+        and ready.get("hosted_redeem_rail") is True
+        and ready.get("agent_work_permit") is True,
+        {"soon": (heavy.get("counts") or {}).get("soon")},
+    )
+
+    try:
+        from gate import first as first_mod
+        from gate import pvp as pvp_mod
+    except ImportError:
+        import first as first_mod  # type: ignore[no-redef]
+        import pvp as pvp_mod  # type: ignore[no-redef]
+
+    first = first_mod.manifest("https://gate.local")
+    add(
+        "first_in_history_depository",
+        "Nisaba designated first recorder of the act; PvP may exists; family stays 5",
+        first.get("l2_module") is False
+        and first.get("family_siblings_remain") == 5
+        and first.get("cash_usd") == 0
+        and (first.get("reshape") or {}).get("headline") == "Humanity recorded the act."
+        and (first.get("counts") or {}).get("soon", 0) >= 5
+        and pvp_mod.SPEC == "gate-pvp-may-v1",
+        {"headline": (first.get("reshape") or {}).get("headline")},
+    )
+
+    try:
+        from gate import remaining as remaining_mod
+    except ImportError:
+        import remaining as remaining_mod  # type: ignore[no-redef]
+
+    rem = remaining_mod.manifest("https://gate.local")
+    add(
+        "remaining_bigger_than_the_act",
+        "Nisaba holds the remaining; cleverer_layer stays null; family stays 5",
+        rem.get("l2_module") is False
+        and rem.get("family_siblings_remain") == 5
+        and rem.get("cash_usd") == 0
+        and rem.get("cleverer_layer") is None
+        and rem.get("identity")
+        == "given = spent + remaining + immobilized + W + dead-unused + void"
+        and (rem.get("reshape") or {}).get("headline")
+        == "Bigger than the act is the remaining."
+        and (rem.get("counts") or {}).get("soon", 0) >= 5,
+        {"headline": (rem.get("reshape") or {}).get("headline")},
+    )
 
     # --- Settlement / kappa surfaces exist ---
     try:

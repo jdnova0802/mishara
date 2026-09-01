@@ -75,6 +75,8 @@ def manifest(public_url: str, contact_email: str) -> dict:
         "their_production": False,
         "page": f"{base}/register",
         "operator_contract": f"{base}/.well-known/operator.json",
+        "conformant": f"{base}/.well-known/conformant.json",
+        "qic": f"{base}/.well-known/qic.json",
         "positioning": f"{base}/.well-known/positioning.json",
         "action_os": f"{base}/.well-known/action-os.json",
         "engine": "https://velaru.xyz",

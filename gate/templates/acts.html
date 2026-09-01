@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Priced act rents — keep-alive · query · silence{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Act rents · stacked on one act · 100% {{ manifest.payee }} · no split</p>
+  <h1>The same act, rented more than once.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="grid-3">
+    {% for sku in (manifest.skus.prefinality_keepalive, manifest.skus.query_remaining, manifest.skus.silence_lease) %}
+    <div class="card">
+      <p class="audience-tag">{{ sku.on }}</p>
+      <h2>{{ sku.label }}</h2>
+      <p>{{ sku.deliverable }}</p>
+      <p style="margin-top: 0.5rem; color: var(--muted);">{{ sku.stacks }}</p>
+      <form method="post" action="{{ url_for('acts_checkout') }}" style="margin-top: 1rem;">
+        <input type="hidden" name="sku" value="{{ sku.id }}">
+        <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+        <input type="text" name="subject" placeholder="{{ sku.subject_placeholder }}" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 14rem;">
+        <button type="submit" class="btn btn-primary">Start {{ sku.label }}</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h3>Not a split · not interchange · not September</h3>
+    <p>Payee is {{ manifest.payee }}. {{ manifest.distribution }}. Not Connect. Not a facilitator. Not S1 from Bind. Gate 1 is still Bind Room.</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_acts') }}" class="btn btn-ghost btn-sm">acts.json</a>
+    <a href="{{ url_for('flows_page') }}" class="btn btn-ghost btn-sm">The unpaid stack</a>
+    <a href="{{ url_for('standing_page') }}" class="btn btn-ghost btn-sm">Operate the write</a>
+    <a href="{{ url_for('refusal_page') }}" class="btn btn-ghost btn-sm">Refusal once</a>
+  </div>
+</div>
+{% endblock %}

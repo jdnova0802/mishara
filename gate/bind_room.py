@@ -2,9 +2,26 @@
 
 A) Officer pack (≤10 pages / SERFF-shaped) — titles on each Section 5 duty.
 B) On-request appendix — each bind event → verify_url + hop. Not the SERFF filing.
+
+Stranger-two is the cut: two paragraphs, one ask, one halt.
+The page is that. The pack is that. Not another vein.
 """
 from __future__ import annotations
 
+STRANGER_TWO_PARAS = (
+    "Your CGL will not cover the agent. Specialist E&O will ask what stops the irreversible write.",
+    "Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.",
+)
+STRANGER_TWO_ASK = "Book Bind Room"
+STRANGER_TWO_HALT = (
+    "We will not sell may. We will not implement the rail on this SKU. "
+    "If the hop is not on your write path, it is still a question."
+)
+
+try:
+    from gate import time_source as time_source_mod
+except ImportError:
+    import time_source as time_source_mod
 
 SECTION_5 = [
     ("5.A.1", "Governing principles", "ECDIS/algorithms designed and monitored to prevent unfair discrimination."),
@@ -23,9 +40,33 @@ SECTION_5 = [
 ]
 
 
+def stranger_two(public_url: str = "") -> dict:
+    door = f"{public_url}/bind-room" if public_url else "/bind-room"
+    return {
+        "spec": "gate-stranger-two-v1",
+        "paragraphs": list(STRANGER_TWO_PARAS),
+        "ask": STRANGER_TWO_ASK,
+        "halt": STRANGER_TWO_HALT,
+        "price": "$1,750",
+        "door": door,
+        "not": [
+            "a new page",
+            "a new checkout",
+            "another vein",
+            "a governance PDF",
+        ],
+    }
+
+
 def officer_pack(public_url: str, contact_email: str) -> dict:
     return {
         "spec": "gate-bind-room-officer-pack-v1",
+        "stranger_two": stranger_two(public_url),
+        "bridge": {
+            "page": f"{public_url}/bridge" if public_url else "/bridge",
+            "identity": "forced attach at irreversibility",
+            "not_a_new_sku": True,
+        },
         "price": "$1,750",
         "filing": "Colorado Regulation 10-1-1 Section 6 — SERFF Annual Report, ≤10 pages, officer attestation",
         "not_the_filing": "Appendix B (verify permalinks) is on-request, not the SERFF body.",
@@ -54,6 +95,7 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
             "Do not sell model inventory (Monitaur's pile).",
             "Do not put PII on Gate.",
         ],
+        "time_source": time_source_mod.attest(),
     }
 
 

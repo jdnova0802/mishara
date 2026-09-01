@@ -120,6 +120,68 @@ def init_db():
             conn.execute("ALTER TABLE bind_tickets ADD COLUMN license_id TEXT")
         if "counterpart_fingerprint" not in ticket_cols:
             conn.execute("ALTER TABLE bind_tickets ADD COLUMN counterpart_fingerprint TEXT")
+        if "holder_id" not in ticket_cols:
+            conn.execute("ALTER TABLE bind_tickets ADD COLUMN holder_id TEXT")
+        if "stock_class" not in ticket_cols:
+            conn.execute(
+                "ALTER TABLE bind_tickets ADD COLUMN stock_class TEXT NOT NULL DEFAULT 'remaining'"
+            )
+
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS wilderness_attestation (
+                id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL,
+                ticket_id TEXT NOT NULL UNIQUE,
+                steward_id TEXT NOT NULL,
+                third_id TEXT,
+                state TEXT NOT NULL,
+                charge_id TEXT,
+                opened_at TEXT,
+                drawn_at TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_wilderness_job ON wilderness_attestation(job_id);
+            CREATE TABLE IF NOT EXISTS prefinality_holds (
+                id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL,
+                candidate TEXT NOT NULL,
+                state TEXT NOT NULL,
+                n_at_propose INTEGER NOT NULL,
+                cut TEXT,
+                burden TEXT,
+                ticket_id TEXT,
+                died_reason TEXT,
+                sealed_at TEXT,
+                died_at TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_prefinality_holds_job
+                ON prefinality_holds(job_id, state, created_at);
+            """
+        )
+
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS pvp_windows (
+                id TEXT PRIMARY KEY,
+                side_a_ticket TEXT NOT NULL,
+                side_b_ticket TEXT NOT NULL,
+                side_a_job TEXT NOT NULL,
+                side_b_job TEXT NOT NULL,
+                state TEXT NOT NULL,
+                side_a_offered_at TEXT,
+                side_b_offered_at TEXT,
+                side_a_now TEXT,
+                side_b_now TEXT,
+                settled_at TEXT,
+                void_reason TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_pvp_a ON pvp_windows(side_a_ticket);
+            CREATE INDEX IF NOT EXISTS idx_pvp_b ON pvp_windows(side_b_ticket);
+            """
+        )
 
         conn.executescript(
             """
@@ -652,14 +714,15 @@ def insert_bind_ticket(
     spend_fingerprint: str | None = None,
     license_id: str | None = None,
     counterpart_fingerprint: str | None = None,
+    holder_id: str | None = None,
 ) -> None:
     with db() as conn:
         conn.execute(
             """INSERT INTO bind_tickets
                (id, job_id, fuse_id, event_id, receipt_hash, token_hash,
                 not_before, not_after, spend_fingerprint, license_id,
-                counterpart_fingerprint, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                counterpart_fingerprint, holder_id, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 ticket_id,
                 job_id,
@@ -672,6 +735,7 @@ def insert_bind_ticket(
                 spend_fingerprint,
                 license_id,
                 counterpart_fingerprint,
+                holder_id,
                 utc_now(),
             ),
         )
@@ -684,6 +748,20 @@ def get_bind_ticket(ticket_id: str) -> dict | None:
     with db() as conn:
         row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (tid,)).fetchone()
     return dict(row) if row else None
+
+
+def tickets_for_job(job_id: str) -> list[dict]:
+    """Issued tickets for one job — opening of the remaining folio."""
+    jid = (job_id or "").strip()
+    if not jid:
+        return []
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM bind_tickets WHERE job_id = ?
+               ORDER BY created_at ASC, id ASC""",
+            (jid,),
+        ).fetchall()
+    return [dict(r) for r in rows]
 
 
 def consume_bind_ticket(
@@ -727,6 +805,13 @@ def consume_bind_ticket(
                 return {"ok": False, "reason": "counterpart_mismatch"}
         if row["consumed_at"]:
             return {"ok": False, "reason": "ticket_replay"}
+        stock_class = "remaining"
+        try:
+            stock_class = (row["stock_class"] or "remaining").strip() or "remaining"
+        except (IndexError, KeyError):
+            stock_class = "remaining"
+        if stock_class == "wilderness":
+            return {"ok": False, "reason": "wilderness_not_ordinary_spend"}
         if row["not_after"] < now:
             return {"ok": False, "reason": "ticket_expired"}
         if row["not_before"] > now:
@@ -739,6 +824,496 @@ def consume_bind_ticket(
         if cur.rowcount != 1:
             return {"ok": False, "reason": "ticket_replay"}
     return {"ok": True}
+
+
+def _ticket_stock_class(row) -> str:
+    try:
+        return (row["stock_class"] or "remaining").strip() or "remaining"
+    except (IndexError, KeyError, TypeError):
+        return "remaining"
+
+
+def wilderness_get(ticket_id: str) -> dict | None:
+    tid = (ticket_id or "").strip()
+    if not tid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM wilderness_attestation WHERE ticket_id = ?",
+            (tid,),
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def wilderness_for_job(job_id: str) -> list[dict]:
+    jid = (job_id or "").strip()
+    if not jid:
+        return []
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM wilderness_attestation WHERE job_id = ?
+               ORDER BY created_at ASC""",
+            (jid,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def pvp_active_ticket_ids_for_job(job_id: str) -> set[str]:
+    jid = (job_id or "").strip()
+    if not jid:
+        return set()
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT side_a_ticket, side_b_ticket, side_a_job, side_b_job
+               FROM pvp_windows
+               WHERE (side_a_job = ? OR side_b_job = ?)
+                 AND state IN ('OPEN', 'ARMED')""",
+            (jid, jid),
+        ).fetchall()
+    out: set[str] = set()
+    for row in rows:
+        if row["side_a_job"] == jid:
+            out.add(row["side_a_ticket"])
+        if row["side_b_job"] == jid:
+            out.add(row["side_b_ticket"])
+    return out
+
+
+def wilderness_attest(*, job_id: str, ticket_id: str, steward_id: str) -> dict:
+    jid = (job_id or "").strip()
+    tid = (ticket_id or "").strip()
+    steward = (steward_id or "").strip()
+    if not jid or not tid or not steward:
+        return {"ok": False, "halt": "wilderness_attest_incomplete"}
+    if tid in pvp_active_ticket_ids_for_job(jid):
+        return {"ok": False, "halt": "wilderness_immobilized"}
+    now = utc_now()
+    with db() as conn:
+        row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (tid,)).fetchone()
+        if not row:
+            return {"ok": False, "halt": "ticket_not_found"}
+        if row["job_id"] != jid:
+            return {"ok": False, "halt": "ticket_job_mismatch"}
+        if row["consumed_at"]:
+            return {"ok": False, "halt": "already_spent"}
+        if _ticket_stock_class(row) == "wilderness":
+            return {"ok": False, "halt": "already_wilderness"}
+        cur = conn.execute(
+            """UPDATE bind_tickets SET stock_class = 'wilderness'
+               WHERE id = ? AND consumed_at IS NULL AND stock_class = 'remaining'""",
+            (tid,),
+        )
+        if cur.rowcount != 1:
+            return {"ok": False, "halt": "wilderness_attest_conflict"}
+        conn.execute(
+            """INSERT INTO wilderness_attestation
+               (id, job_id, ticket_id, steward_id, third_id, state,
+                charge_id, opened_at, drawn_at, created_at)
+               VALUES (?, ?, ?, ?, NULL, 'ATTESTED', NULL, NULL, NULL, ?)""",
+            (str(uuid.uuid4()), jid, tid, steward, now),
+        )
+    return {"ok": True, "state": "ATTESTED", "ticket_id": tid, "steward_id": steward}
+
+
+def wilderness_open(*, ticket_id: str, third_id: str) -> dict:
+    tid = (ticket_id or "").strip()
+    third = (third_id or "").strip()
+    if not tid or not third:
+        return {"ok": False, "halt": "wilderness_open_incomplete"}
+    now = utc_now()
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM wilderness_attestation WHERE ticket_id = ?",
+            (tid,),
+        ).fetchone()
+        if not row:
+            return {"ok": False, "halt": "wilderness_unattested"}
+        if row["steward_id"] == third:
+            return {"ok": False, "halt": "third_cannot_be_steward"}
+        if row["state"] not in ("ATTESTED", "OPENED"):
+            return {"ok": False, "halt": "wilderness_not_openable"}
+        conn.execute(
+            """UPDATE wilderness_attestation
+               SET third_id = ?, opened_at = ?, state = 'OPENED'
+               WHERE ticket_id = ? AND state IN ('ATTESTED', 'OPENED')""",
+            (third, now, tid),
+        )
+    return {"ok": True, "state": "OPENED", "ticket_id": tid, "third_id": third}
+
+
+def wilderness_reclassify(*, ticket_id: str, actor_id: str, charge_id: str) -> dict:
+    tid = (ticket_id or "").strip()
+    actor = (actor_id or "").strip()
+    charge = (charge_id or "").strip()
+    if not tid:
+        return {"ok": False, "halt": "wilderness_unattested"}
+    if not charge:
+        return {"ok": False, "halt": "wilderness_reclassify_needs_charge"}
+    with db() as conn:
+        att = conn.execute(
+            "SELECT * FROM wilderness_attestation WHERE ticket_id = ?",
+            (tid,),
+        ).fetchone()
+        if not att:
+            return {"ok": False, "halt": "unattested_w_cannot_become_remaining"}
+        if att["state"] != "OPENED":
+            return {"ok": False, "halt": "unattested_w_cannot_become_remaining"}
+        if not att["third_id"] or att["third_id"] != actor:
+            return {"ok": False, "halt": "only_third_opens"}
+        if att["steward_id"] == actor:
+            return {"ok": False, "halt": "steward_cannot_spend_w"}
+        cur = conn.execute(
+            """UPDATE bind_tickets SET stock_class = 'remaining'
+               WHERE id = ? AND stock_class = 'wilderness' AND consumed_at IS NULL""",
+            (tid,),
+        )
+        if cur.rowcount != 1:
+            return {"ok": False, "halt": "wilderness_reclassify_conflict"}
+        conn.execute(
+            """UPDATE wilderness_attestation
+               SET state = 'RECLASSIFIED', charge_id = ?
+               WHERE ticket_id = ?""",
+            (charge, tid),
+        )
+    return {"ok": True, "state": "RECLASSIFIED", "ticket_id": tid}
+
+
+def wilderness_draw(*, ticket_id: str, actor_id: str, charge_id: str) -> dict:
+    tid = (ticket_id or "").strip()
+    actor = (actor_id or "").strip()
+    charge = (charge_id or "").strip()
+    if not tid:
+        return {"ok": False, "halt": "wilderness_unattested"}
+    if not charge:
+        return {"ok": False, "halt": "w_draw_needs_charge"}
+    now = utc_now()
+    with db() as conn:
+        att = conn.execute(
+            "SELECT * FROM wilderness_attestation WHERE ticket_id = ?",
+            (tid,),
+        ).fetchone()
+        if not att:
+            return {"ok": False, "halt": "wilderness_unattested"}
+        if att["state"] != "OPENED":
+            return {"ok": False, "halt": "w_draw_needs_third"}
+        if att["steward_id"] == actor:
+            return {"ok": False, "halt": "steward_cannot_spend_w"}
+        if not att["third_id"] or att["third_id"] != actor:
+            return {"ok": False, "halt": "only_third_opens"}
+        cur = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND stock_class = 'wilderness' AND consumed_at IS NULL""",
+            (now, tid),
+        )
+        if cur.rowcount != 1:
+            return {"ok": False, "halt": "w_draw_conflict"}
+        conn.execute(
+            """UPDATE wilderness_attestation
+               SET state = 'DRAWN', charge_id = ?, drawn_at = ?
+               WHERE ticket_id = ?""",
+            (charge, now, tid),
+        )
+    return {"ok": True, "state": "DRAWN", "ticket_id": tid, "kind": "w_draw"}
+
+
+def n_stock_for_job(job_id: str) -> int:
+    """Ν available to seal: unspent remaining tickets. Does not grow with candidates."""
+    jid = (job_id or "").strip()
+    if not jid:
+        return 0
+    now = utc_now()
+    immobilized = pvp_active_ticket_ids_for_job(jid)
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT id, stock_class, consumed_at, not_after
+               FROM bind_tickets WHERE job_id = ?""",
+            (jid,),
+        ).fetchall()
+    n = 0
+    for row in rows:
+        if row["consumed_at"]:
+            continue
+        if (row["stock_class"] or "remaining") != "remaining":
+            continue
+        if row["id"] in immobilized:
+            continue
+        if row["not_after"] and row["not_after"] < now:
+            continue
+        n += 1
+    return n
+
+
+def holds_for_job(job_id: str) -> list[dict]:
+    jid = (job_id or "").strip()
+    if not jid:
+        return []
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM prefinality_holds
+               WHERE job_id = ?
+               ORDER BY created_at ASC, id ASC""",
+            (jid,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def hold_get(hold_id: str) -> dict | None:
+    hid = (hold_id or "").strip()
+    if not hid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM prefinality_holds WHERE id = ?", (hid,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def hold_propose(*, job_id: str, candidate: str, n_stock: int) -> dict:
+    jid = (job_id or "").strip()
+    what = (candidate or "").strip()[:500]
+    if not jid:
+        return {"ok": False, "halt": "hold_needs_job"}
+    if not what:
+        return {"ok": False, "halt": "hold_needs_candidate"}
+    hid = uuid.uuid4().hex
+    now = utc_now()
+    n = int(n_stock)
+    if n <= 0:
+        state = "died"
+        reason = "overflow_die"
+        died_at = now
+    else:
+        state = "held"
+        reason = None
+        died_at = None
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO prefinality_holds (
+                   id, job_id, candidate, state, n_at_propose,
+                   died_reason, died_at, created_at
+               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (hid, jid, what, state, n, reason, died_at, now),
+        )
+    return {
+        "ok": True,
+        "id": hid,
+        "job_id": jid,
+        "candidate": what,
+        "state": state,
+        "n_at_propose": n,
+        "died_reason": reason,
+        "effective": False,
+    }
+
+
+def hold_seal(
+    *, hold_id: str, job_id: str, ticket_id: str, cut: str, burden: str
+) -> dict:
+    hid = (hold_id or "").strip()
+    jid = (job_id or "").strip()
+    tid = (ticket_id or "").strip()
+    omega = (cut or "").strip()[:300]
+    rho = (burden or "").strip()[:300]
+    if not hid:
+        return {"ok": False, "halt": "seal_needs_hold"}
+    if not jid:
+        return {"ok": False, "halt": "seal_needs_job"}
+    if not tid:
+        return {"ok": False, "halt": "effectuate_undefined_without_n"}
+    if not omega:
+        return {"ok": False, "halt": "seal_needs_cut"}
+    if not rho:
+        return {"ok": False, "halt": "seal_needs_burden"}
+    now = utc_now()
+    died_ids: list[str] = []
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM prefinality_holds WHERE id = ?", (hid,)
+        ).fetchone()
+        if not row:
+            return {"ok": False, "halt": "hold_not_found"}
+        if row["job_id"] != jid:
+            return {"ok": False, "halt": "hold_job_mismatch"}
+        if row["state"] != "held":
+            return {"ok": False, "halt": "hold_not_held"}
+        ticket = conn.execute(
+            "SELECT * FROM bind_tickets WHERE id = ?", (tid,)
+        ).fetchone()
+        if not ticket:
+            return {"ok": False, "halt": "effectuate_undefined_without_n"}
+        if ticket["job_id"] != jid:
+            return {"ok": False, "halt": "ticket_job_mismatch"}
+        if ticket["consumed_at"]:
+            return {"ok": False, "halt": "effectuate_undefined_without_n"}
+        if (ticket["stock_class"] or "remaining") != "remaining":
+            return {"ok": False, "halt": "effectuate_undefined_without_n"}
+        cur = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND job_id = ? AND consumed_at IS NULL
+                 AND stock_class = 'remaining'""",
+            (now, tid, jid),
+        )
+        if cur.rowcount != 1:
+            return {"ok": False, "halt": "seal_n_conflict"}
+        conn.execute(
+            """UPDATE prefinality_holds
+               SET state = 'sealed', cut = ?, burden = ?, ticket_id = ?, sealed_at = ?
+               WHERE id = ? AND state = 'held'""",
+            (omega, rho, tid, now, hid),
+        )
+        left = conn.execute(
+            """SELECT COUNT(*) AS n FROM bind_tickets
+               WHERE job_id = ? AND consumed_at IS NULL
+                 AND stock_class = 'remaining'
+                 AND (not_after IS NULL OR not_after >= ?)""",
+            (jid, now),
+        ).fetchone()["n"]
+        if left <= 0:
+            others = conn.execute(
+                """SELECT id FROM prefinality_holds
+                   WHERE job_id = ? AND state = 'held' AND id != ?""",
+                (jid, hid),
+            ).fetchall()
+            died_ids = [r["id"] for r in others]
+            if died_ids:
+                conn.executemany(
+                    """UPDATE prefinality_holds
+                       SET state = 'died', died_reason = 'overflow_die', died_at = ?
+                       WHERE id = ? AND state = 'held'""",
+                    [(now, oid) for oid in died_ids],
+                )
+    return {
+        "ok": True,
+        "id": hid,
+        "job_id": jid,
+        "state": "sealed",
+        "ticket_id": tid,
+        "cut": omega,
+        "burden": rho,
+        "overflow_died": died_ids,
+        "effective": True,
+    }
+
+
+def pvp_open(
+    *,
+    window_id: str,
+    side_a_ticket: str,
+    side_b_ticket: str,
+    side_a_job: str,
+    side_b_job: str,
+) -> dict:
+    now = utc_now()
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO pvp_windows
+               (id, side_a_ticket, side_b_ticket, side_a_job, side_b_job,
+                state, created_at)
+               VALUES (?, ?, ?, ?, ?, 'OPEN', ?)""",
+            (window_id, side_a_ticket, side_b_ticket, side_a_job, side_b_job, now),
+        )
+    return {"ok": True, "window_id": window_id, "state": "OPEN"}
+
+
+def pvp_get(window_id: str) -> dict | None:
+    wid = (window_id or "").strip()
+    if not wid:
+        return None
+    with db() as conn:
+        row = conn.execute("SELECT * FROM pvp_windows WHERE id = ?", (wid,)).fetchone()
+    return dict(row) if row else None
+
+
+def pvp_lock_for_ticket(ticket_id: str) -> dict | None:
+    tid = (ticket_id or "").strip()
+    if not tid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            """SELECT * FROM pvp_windows
+               WHERE (side_a_ticket = ? OR side_b_ticket = ?)
+                 AND state IN ('OPEN', 'ARMED')
+               ORDER BY created_at DESC LIMIT 1""",
+            (tid, tid),
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def pvp_record_offer(*, window_id: str, side: str, offered_at: str, presented_now: str) -> dict:
+    col_off = "side_a_offered_at" if side == "a" else "side_b_offered_at"
+    col_now = "side_a_now" if side == "a" else "side_b_now"
+    with db() as conn:
+        conn.execute(
+            f"UPDATE pvp_windows SET {col_off} = ?, {col_now} = ?, state = 'ARMED' WHERE id = ? AND state IN ('OPEN', 'ARMED')",
+            (offered_at, presented_now, window_id),
+        )
+        row = conn.execute("SELECT * FROM pvp_windows WHERE id = ?", (window_id,)).fetchone()
+    return dict(row) if row else {}
+
+
+def pvp_settle(
+    *,
+    window_id: str,
+    now: str,
+    a_ticket: str,
+    a_token_hash: str,
+    a_job: str,
+    a_spend: str | None,
+    b_ticket: str,
+    b_token_hash: str,
+    b_job: str,
+    b_spend: str | None,
+) -> dict:
+    """Atomic: both tickets consume or neither does."""
+    with db() as conn:
+        win = conn.execute("SELECT * FROM pvp_windows WHERE id = ?", (window_id,)).fetchone()
+        if not win or win["state"] not in ("OPEN", "ARMED"):
+            return {"ok": False, "reason": "pvp_window_not_open"}
+        for tid, tok, jid, fp in (
+            (a_ticket, a_token_hash, a_job, a_spend),
+            (b_ticket, b_token_hash, b_job, b_spend),
+        ):
+            row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (tid,)).fetchone()
+            if not row:
+                return {"ok": False, "reason": "ticket_not_found"}
+            if row["token_hash"] != tok:
+                return {"ok": False, "reason": "ticket_token_mismatch"}
+            if row["job_id"] != jid:
+                return {"ok": False, "reason": "ticket_job_mismatch"}
+            if row["consumed_at"]:
+                return {"ok": False, "reason": "ticket_replay"}
+            issued_fp = (row["spend_fingerprint"] or "").strip() if "spend_fingerprint" in row.keys() else ""
+            presented_fp = (fp or "").strip()
+            if issued_fp and issued_fp.lower() != presented_fp.lower():
+                return {"ok": False, "reason": "ticket_spend_mismatch"}
+        cur_a = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
+            (now, a_ticket, a_token_hash),
+        )
+        cur_b = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
+            (now, b_ticket, b_token_hash),
+        )
+        if cur_a.rowcount != 1 or cur_b.rowcount != 1:
+            conn.rollback()
+            return {"ok": False, "reason": "pvp_atomic_abort"}
+        conn.execute(
+            """UPDATE pvp_windows SET state = 'SETTLED', settled_at = ? WHERE id = ?""",
+            (now, window_id),
+        )
+    return {"ok": True, "state": "SETTLED"}
+
+
+def pvp_void(*, window_id: str, reason: str) -> dict:
+    with db() as conn:
+        conn.execute(
+            """UPDATE pvp_windows SET state = 'VOID', void_reason = ?
+               WHERE id = ? AND state IN ('OPEN', 'ARMED')""",
+            (reason, window_id),
+        )
+    return {"ok": True, "state": "VOID", "reason": reason}
 
 
 def get_license_parent(license_id: str) -> dict | None:

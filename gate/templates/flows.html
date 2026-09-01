@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Acts and flows — seated vs hole{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Register · act / flow rents · not a sixth sibling</p>
+  <h1>Hop + bps + floor. The rest is unpaid.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+
+  <h2 style="margin-top: 1.5rem;">Seated</h2>
+  {% for x in manifest.seated %}
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">{{ x.kind }} · {{ x.door }}</p>
+    <h3>{{ x.name }}</h3>
+    <p>On: {{ x.on }} · until Gate 1: ${{ x.until_gate1_usd }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.75rem;">Now priced</h2>
+  {% for x in manifest.priced %}
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">{{ x.kind }} · {{ x.door }} · {{ x.label }}</p>
+    <h3>{{ x.name }}</h3>
+    <p>On: {{ x.on }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.75rem;">Protocol exists — nobody pays</h2>
+  {% for x in manifest.protocol_unpaid %}
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">{{ x.file }}</p>
+    <h3>{{ x.id }}</h3>
+    <p>Missing: {{ x.missing }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.75rem;">Holes</h2>
+  {% for x in manifest.holes %}
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">{{ x.on }}</p>
+    <h3>{{ x.name }}</h3>
+    <p>{{ x.why }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.75rem;">Not an act/flow SKU</h2>
+  {% for x in manifest.not_a_sku %}
+  <div class="card" style="margin-top: 0.6rem;">
+    <p class="audience-tag">unification</p>
+    <h3>{{ x.name }}</h3>
+    <p>{{ x.why }}</p>
+  </div>
+  {% endfor %}
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h3>Never</h3>
+    <p>{{ manifest.never | join(" · ") }}</p>
+    <p style="margin-top: 0.5rem;">After Gate 1, first new formula that is not “weld harder”: <strong>{{ manifest.next_after_gate1 | join(" · ") }}</strong></p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('acts_page') }}" class="btn btn-primary btn-sm">Priced three — /acts</a>
+    <a href="{{ url_for('well_known_flows') }}" class="btn btn-ghost btn-sm">flows.json</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Operator weld</a>
+    <a href="{{ url_for('hand_page') }}" class="btn btn-ghost btn-sm">Unmetered — The Hand</a>
+  </div>
+</div>
+{% endblock %}

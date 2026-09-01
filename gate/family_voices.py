@@ -325,6 +325,20 @@ def voice(slug: str, public_url: str = "") -> dict[str, Any]:
     return out
 
 
+def organs(public_url: str = "") -> list[dict[str, Any]]:
+    """Gate/Nisaba organs — not product siblings. Family length stays 5."""
+    try:
+        from gate import unison as unison_mod
+    except ImportError:
+        import unison as unison_mod
+
+    base = (public_url or "").rstrip("/")
+    rows = unison_mod.organs()
+    for row in rows:
+        row["unison"] = f"{base}/unison" if base else "/unison"
+    return rows
+
+
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
     family = [voice(k, base) for k in ("velaru", "erra", "verra", "gate", "mishara")]
@@ -337,8 +351,35 @@ def manifest(public_url: str) -> dict[str, Any]:
             "Reflect Velaru as the engine. Keep own gravity. "
             "Bite real markets. Twin chrome is not a voice."
         ),
+        "first_in_history": (
+            "Nisaba is designated the first depository and recorder of the act. "
+            "Not a sixth voice. Identity frozen until Gate 1."
+        ),
+        "bigger_than_the_act": (
+            "The act is a journal line. Nisaba holds the remaining — "
+            "the world after. Not a sixth voice. cleverer_layer is null."
+        ),
         "engine": ENGINE,
         "family": family,
+        "organs": organs(base),
+        "organs_are_not_siblings": True,
+        "marks": [
+            {
+                "id": "gate_conformant",
+                "name": "Gate Conformant",
+                "role": "cert / franchise mark on Gate",
+                "not_a_sibling": True,
+                "not_a_homepage": True,
+                "attaches_to": ["gate", "velaru"],
+                "sellable": False,
+                "rent": True,
+                "status": "planned_post_stranger_prove",
+                "ghost": "DENY",
+                "page": f"{base}/conformant" if base else "/conformant",
+                "manifest": f"{base}/.well-known/conformant.json" if base else None,
+            }
+        ],
+        "marks_are_not_siblings": True,
         "weakest_voice_fix": {
             "priority": ["verra", "erra", "mishara"],
             "action": "Paste hero/nav/not blocks into sibling deploys; keep Gate as Action OS money door",
@@ -351,6 +392,9 @@ def manifest(public_url: str) -> dict[str, Any]:
         "links": {
             "scorecard": f"{base}/.well-known/scorecard.json",
             "action_os": f"{base}/.well-known/action-os.json",
+            "unison": f"{base}/.well-known/unison.json",
+            "conformant": f"{base}/.well-known/conformant.json",
+            "remaining": f"{base}/.well-known/remaining.json",
             "page": f"{base}/family",
         },
         "page": f"{base}/family",

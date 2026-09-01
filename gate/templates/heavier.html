@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Heavier than Conformant{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Internal · dunks the badge · not a sixth sibling · no new L2</p>
+  <h1>Conformant is the sticker. These are the language.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p><strong>{{ manifest.inventor.name }}</strong> · {{ manifest.inventor.entity }} · Patent #{{ manifest.inventor.patent }}</p>
+  <p>cash until Gate 1: <strong>${{ manifest.cash_usd }}</strong>
+    · family siblings: <strong>{{ manifest.family_siblings_remain }}</strong>
+    · L2 module: <strong>{{ manifest.l2_module }}</strong>
+    · soon {{ manifest.counts.soon }} · medium {{ manifest.counts.medium }} · long {{ manifest.counts.long }}</p>
+
+  <div class="card">
+    <p class="audience-tag">the joke</p>
+    <p><strong>{{ manifest.joke.conformant_is }}</strong></p>
+    <p style="margin-top: 0.5rem;">{{ manifest.joke.m1 }}</p>
+    <p style="margin-top: 0.5rem;">{{ manifest.joke.why_joke }}</p>
+  </div>
+
+  <h2 style="margin-top: 1.75rem;">Soon — already coded. Crown them.</h2>
+  <p style="color: var(--muted);">Cash from the first weld. You do not wait on 10,000 stickers.</p>
+  {% for inv in manifest.soon %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ inv.horizon }} · {{ inv.status }} · dunks Conformant ×{{ inv.dunks_conformant_by }}</p>
+    <h3>{{ inv.shape_money }} — {{ inv.name }}</h3>
+    <p><strong>{{ inv.joke }}</strong></p>
+    <p style="margin-top: 0.5rem;">{{ inv.invention }}</p>
+    <p style="margin-top: 0.35rem;">{{ inv.why_bigger }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">{{ inv.shape }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">{{ inv.tree }} · {{ inv.real }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">Not threatening: {{ inv.not_threatening }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.75rem;">Medium — the act cannot close without you</h2>
+  {% for inv in manifest.medium %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ inv.horizon }} · {{ inv.status }} · dunks Conformant ×{{ inv.dunks_conformant_by }}</p>
+    <h3>{{ inv.shape_money }} — {{ inv.name }}</h3>
+    <p><strong>{{ inv.joke }}</strong></p>
+    <p style="margin-top: 0.5rem;">{{ inv.invention }}</p>
+    <p style="margin-top: 0.35rem;">{{ inv.why_bigger }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">{{ inv.shape }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">{{ inv.tree }} · {{ inv.real }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">Not threatening: {{ inv.not_threatening }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.75rem;">Long — civilization default. Not a new money.</h2>
+  {% for inv in manifest.long %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ inv.horizon }} · {{ inv.status }} · dunks Conformant ×{{ inv.dunks_conformant_by }}</p>
+    <h3>{{ inv.shape_money }} — {{ inv.name }}</h3>
+    <p><strong>{{ inv.joke }}</strong></p>
+    <p style="margin-top: 0.5rem;">{{ inv.invention }}</p>
+    <p style="margin-top: 0.35rem;">{{ inv.why_bigger }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">{{ inv.shape }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">{{ inv.tree }} · {{ inv.real }}</p>
+    <p style="margin-top: 0.35rem; font-size: 0.9rem;">Not threatening: {{ inv.not_threatening }}</p>
+  </div>
+  {% endfor %}
+
+  <p style="margin-top: 1.25rem;">{{ manifest.next_real_dollar }}</p>
+  <p style="color: var(--muted);">Shape, not a forecast. Mouth Ceiling held. Never sell may.</p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_heavier') }}" class="btn btn-ghost btn-sm">heavier.json</a>
+    <a href="{{ url_for('first_page') }}" class="btn btn-ghost btn-sm">First in history</a>
+    <a href="{{ url_for('conformant_page') }}" class="btn btn-ghost btn-sm">Conformant</a>
+    <a href="{{ url_for('inventions_page') }}" class="btn btn-ghost btn-sm">Inventions</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Gate 1 — weld</a>
+  </div>
+</div>
+{% endblock %}

@@ -145,6 +145,126 @@ except ImportError:
     import family_voices as family_voices_mod
 
 try:
+    from gate import unison as unison_mod
+except ImportError:
+    import unison as unison_mod
+
+try:
+    from gate import nisabatree as nisabatree_mod
+except ImportError:
+    import nisabatree as nisabatree_mod
+
+try:
+    from gate import inventions as inventions_mod
+except ImportError:
+    import inventions as inventions_mod
+
+try:
+    from gate import inventor as inventor_mod
+except ImportError:
+    import inventor as inventor_mod
+
+try:
+    from gate import named_may as named_may_mod
+except ImportError:
+    import named_may as named_may_mod
+
+try:
+    from gate import conformant as conformant_mod
+except ImportError:
+    import conformant as conformant_mod
+
+try:
+    from gate import qic as qic_mod
+except ImportError:
+    import qic as qic_mod
+
+try:
+    from gate import heavier as heavier_mod
+except ImportError:
+    import heavier as heavier_mod
+
+try:
+    from gate import bridge as bridge_mod
+except ImportError:
+    import bridge as bridge_mod
+
+try:
+    from gate import first as first_mod
+except ImportError:
+    import first as first_mod
+
+try:
+    from gate import remaining as remaining_mod
+except ImportError:
+    import remaining as remaining_mod
+
+try:
+    from gate import finished as finished_mod
+except ImportError:
+    import finished as finished_mod
+
+try:
+    from gate import standing as standing_mod
+except ImportError:
+    import standing as standing_mod
+
+try:
+    from gate import general as general_mod
+except ImportError:
+    import general as general_mod
+
+try:
+    from gate import commons as commons_mod
+except ImportError:
+    import commons as commons_mod
+
+try:
+    from gate import hand as hand_mod
+except ImportError:
+    import hand as hand_mod
+
+try:
+    from gate import flows as flows_mod
+except ImportError:
+    import flows as flows_mod
+
+try:
+    from gate import acts as acts_mod
+except ImportError:
+    import acts as acts_mod
+
+try:
+    from gate import vital as vital_mod
+except ImportError:
+    import vital as vital_mod
+
+try:
+    from gate import discharge as discharge_mod
+except ImportError:
+    import discharge as discharge_mod
+
+try:
+    from gate import null_remaining as null_remaining_mod
+except ImportError:
+    import null_remaining as null_remaining_mod
+
+try:
+    from gate import estate as estate_mod
+except ImportError:
+    import estate as estate_mod
+
+try:
+    from gate import space as space_mod
+except ImportError:
+    import space as space_mod
+
+try:
+    from gate import pvp as pvp_mod
+except ImportError:
+    import pvp as pvp_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -270,6 +390,40 @@ BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
 BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
 REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
 REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
+FINISHED_PRICE_LABEL = os.getenv("GATE_FINISHED_PRICE_LABEL", finished_mod.FINISHED_LABEL)
+FINISHED_PRICE_CENTS = int(os.getenv("GATE_FINISHED_PRICE_CENTS", str(finished_mod.FINISHED_CENTS)))
+BROKER_PACK_PRICE_LABEL = os.getenv("GATE_BROKER_PACK_PRICE_LABEL", finished_mod.BROKER_LABEL)
+BROKER_PACK_PRICE_CENTS = int(os.getenv("GATE_BROKER_PACK_PRICE_CENTS", str(finished_mod.BROKER_CENTS)))
+STANDING_WRITE_LABEL = os.getenv("GATE_STANDING_WRITE_LABEL", standing_mod.WRITE_LABEL)
+STANDING_WRITE_CENTS = int(os.getenv("GATE_STANDING_WRITE_CENTS", str(standing_mod.WRITE_CENTS)))
+STANDING_BOOK_LABEL = os.getenv("GATE_STANDING_BOOK_LABEL", standing_mod.BOOK_LABEL)
+STANDING_BOOK_CENTS = int(os.getenv("GATE_STANDING_BOOK_CENTS", str(standing_mod.BOOK_CENTS)))
+STANDING_DESK_LABEL = os.getenv("GATE_STANDING_DESK_LABEL", standing_mod.DESK_LABEL)
+STANDING_DESK_CENTS = int(os.getenv("GATE_STANDING_DESK_CENTS", str(standing_mod.DESK_CENTS)))
+STANDING_SKU_CENTS = {
+    "standing_write": STANDING_WRITE_CENTS,
+    "standing_book": STANDING_BOOK_CENTS,
+    "standing_desk": STANDING_DESK_CENTS,
+}
+STANDING_SKU_LABELS = {
+    "standing_write": STANDING_WRITE_LABEL,
+    "standing_book": STANDING_BOOK_LABEL,
+    "standing_desk": STANDING_DESK_LABEL,
+}
+GENERAL_SEAT_LABEL = os.getenv("GATE_GENERAL_SEAT_LABEL", general_mod.SEAT_LABEL)
+GENERAL_SEAT_CENTS = int(os.getenv("GATE_GENERAL_SEAT_CENTS", str(general_mod.SEAT_CENTS)))
+COMMONS_OPERATOR_LABEL = os.getenv("GATE_COMMONS_OPERATOR_LABEL", commons_mod.OPERATOR_LABEL)
+COMMONS_OPERATOR_CENTS = int(os.getenv("GATE_COMMONS_OPERATOR_CENTS", str(commons_mod.OPERATOR_CENTS)))
+HAND_ORDINARY_LABEL = os.getenv("GATE_HAND_ORDINARY_LABEL", hand_mod.ORDINARY_LABEL)
+HAND_ORDINARY_CENTS = int(os.getenv("GATE_HAND_ORDINARY_CENTS", str(hand_mod.ORDINARY_CENTS)))
+ACTS_SKU_CENTS = {k: int(v["cents"]) for k, v in acts_mod.SKUS.items()}
+ACTS_SKU_LABELS = {k: v["label"] for k, v in acts_mod.SKUS.items()}
+DISCHARGE_PRICE_LABEL = os.getenv("GATE_DISCHARGE_PRICE_LABEL", discharge_mod.DISCHARGE_LABEL)
+DISCHARGE_PRICE_CENTS = int(os.getenv("GATE_DISCHARGE_PRICE_CENTS", str(discharge_mod.DISCHARGE_CENTS)))
+NULL_PRICE_LABEL = os.getenv("GATE_NULL_PRICE_LABEL", null_remaining_mod.NULL_LABEL)
+NULL_PRICE_CENTS = int(os.getenv("GATE_NULL_PRICE_CENTS", str(null_remaining_mod.NULL_CENTS)))
+ESTATE_PRICE_LABEL = os.getenv("GATE_ESTATE_PRICE_LABEL", estate_mod.ESTATE_LABEL)
+ESTATE_PRICE_CENTS = int(os.getenv("GATE_ESTATE_PRICE_CENTS", str(estate_mod.ESTATE_CENTS)))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -316,6 +470,7 @@ def _ops_authorized() -> bool:
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
+    "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/bridge", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -351,6 +506,14 @@ def inject_globals():
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
         "refusal_price": REFUSAL_PRICE_LABEL,
+        "finished_price": FINISHED_PRICE_LABEL,
+        "broker_pack_price": BROKER_PACK_PRICE_LABEL,
+        "standing_write_price": STANDING_WRITE_LABEL,
+        "standing_book_price": STANDING_BOOK_LABEL,
+        "standing_desk_price": STANDING_DESK_LABEL,
+        "general_seat_price": GENERAL_SEAT_LABEL,
+        "commons_operator_price": COMMONS_OPERATOR_LABEL,
+        "ordinary_price": HAND_ORDINARY_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "install_slots": db.install_slots_remaining(),
@@ -678,6 +841,7 @@ def index():
         pro_price=PRO_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
         install_slots=db.install_slots_remaining(),
+        stranger_two=bind_room_mod.stranger_two(advertised_url()),
     )
 
 
@@ -891,6 +1055,7 @@ def _finalize_spend_plan(
     spend_write: dict | None = None,
     license_id: str | None = None,
     counterpart: dict | None = None,
+    holder_id: str | None = None,
 ):
     jid = (job_id or "").strip() or None
     fp = spend_protocol_mod.fingerprint(spend_write)
@@ -964,6 +1129,7 @@ def _finalize_spend_plan(
             spend_write=spend_write,
             license_id=parent.get("license_id"),
             counterpart=cp,
+            holder_id=holder_id,
         )
         if ticket_pack:
             plan["bind_ticket"] = ticket_pack["bearer"]
@@ -1042,6 +1208,7 @@ def run_policycenter_pre_bind(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        holder_id=body.get("holder_id"),
     )
 
 
@@ -1086,6 +1253,7 @@ def run_mga_authority(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        holder_id=body.get("holder_id"),
     )
 
 
@@ -1119,6 +1287,7 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        holder_id=body.get("holder_id"),
     )
 
 
@@ -1176,6 +1345,7 @@ def _redeem_ticket_view(*, demo: bool = False):
         now=str(body.get("now") or ""),
         license_id=str(body.get("license_id") or "") or None,
         counterpart=counterpart_mod.parse(body),
+        holder_id=str(body.get("holder_id") or "") or None,
     )
     if isinstance(result, dict):
         result["demo"] = demo
@@ -1366,6 +1536,52 @@ def well_known_gate():
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
             "science_page": f"{advertised_url()}/science",
+            "unison": f"{advertised_url()}/.well-known/unison.json",
+            "unison_page": f"{advertised_url()}/unison",
+            "nisabatree": f"{advertised_url()}/.well-known/nisabatree.json",
+            "nisabatree_page": f"{advertised_url()}/nisabatree",
+            "inventions": f"{advertised_url()}/.well-known/inventions.json",
+            "inventions_page": f"{advertised_url()}/inventions",
+            "inventor": f"{advertised_url()}/.well-known/inventor.json",
+            "named_may": f"{advertised_url()}/.well-known/named-may.json",
+            "conformant": f"{advertised_url()}/.well-known/conformant.json",
+            "conformant_page": f"{advertised_url()}/conformant",
+            "qic": f"{advertised_url()}/.well-known/qic.json",
+            "licensed_field": f"{advertised_url()}/.well-known/licensed-field.json",
+            "conformant_outcome": f"{advertised_url()}/.well-known/conformant-outcome.json",
+            "heavier": f"{advertised_url()}/.well-known/heavier.json",
+            "heavier_page": f"{advertised_url()}/heavier",
+            "bridge": f"{advertised_url()}/.well-known/bridge.json",
+            "bridge_page": f"{advertised_url()}/bridge",
+            "first": f"{advertised_url()}/.well-known/first.json",
+            "first_page": f"{advertised_url()}/first",
+            "remaining": f"{advertised_url()}/.well-known/remaining.json",
+            "remaining_page": f"{advertised_url()}/remaining",
+            "finished": f"{advertised_url()}/.well-known/finished.json",
+            "finished_page": f"{advertised_url()}/finished",
+            "standing": f"{advertised_url()}/.well-known/standing.json",
+            "standing_page": f"{advertised_url()}/standing",
+            "general": f"{advertised_url()}/.well-known/general.json",
+            "general_page": f"{advertised_url()}/general",
+            "commons": f"{advertised_url()}/.well-known/commons.json",
+            "commons_page": f"{advertised_url()}/commons",
+            "hand": f"{advertised_url()}/.well-known/hand.json",
+            "hand_page": f"{advertised_url()}/hand",
+            "flows": f"{advertised_url()}/.well-known/flows.json",
+            "flows_page": f"{advertised_url()}/flows",
+            "acts": f"{advertised_url()}/.well-known/acts.json",
+            "acts_page": f"{advertised_url()}/acts",
+            "vital": f"{advertised_url()}/.well-known/vital.json",
+            "vital_page": f"{advertised_url()}/vital",
+            "discharge": f"{advertised_url()}/.well-known/discharge.json",
+            "discharge_page": f"{advertised_url()}/discharge",
+            "null": f"{advertised_url()}/.well-known/null.json",
+            "null_page": f"{advertised_url()}/null",
+            "estate": f"{advertised_url()}/.well-known/estate.json",
+            "estate_page": f"{advertised_url()}/estate",
+            "space": f"{advertised_url()}/.well-known/space.json",
+            "space_page": f"{advertised_url()}/space",
+            "pvp": f"{advertised_url()}/.well-known/pvp.json",
             "legal": f"{advertised_url()}/.well-known/legal.json",
             "privacy": f"{advertised_url()}/privacy",
             "terms": f"{advertised_url()}/terms",
@@ -1620,6 +1836,1036 @@ def science_page():
         manifest=m,
         blocks=science_pri_mod.page_blocks(),
         public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/unison.json")
+def well_known_unison():
+    return jsonify(unison_mod.manifest(advertised_url()))
+
+
+@app.route("/unison")
+def unison_page():
+    m = unison_mod.manifest(advertised_url())
+    return render_template(
+        "unison.html",
+        manifest=m,
+        blocks=unison_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/nisabatree.json")
+def well_known_nisabatree():
+    return jsonify(nisabatree_mod.manifest(advertised_url()))
+
+
+@app.route("/nisabatree")
+def nisabatree_page():
+    m = nisabatree_mod.manifest(advertised_url())
+    return render_template(
+        "nisabatree.html",
+        manifest=m,
+        blocks=nisabatree_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/inventions.json")
+def well_known_inventions():
+    return jsonify(inventions_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/inventor.json")
+def well_known_inventor():
+    return jsonify(inventor_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/named-may.json")
+def well_known_named_may():
+    return jsonify(named_may_mod.spec(advertised_url()))
+
+
+@app.route("/inventions")
+def inventions_page():
+    m = inventions_mod.manifest(advertised_url())
+    return render_template(
+        "inventions.html",
+        manifest=m,
+        blocks=inventions_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/conformant.json")
+def well_known_conformant():
+    return jsonify(conformant_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/qic.json")
+def well_known_qic():
+    return jsonify(qic_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/licensed-field.json")
+def well_known_licensed_field():
+    return jsonify(conformant_mod.licensed_field_manifest(advertised_url()))
+
+
+@app.route("/.well-known/conformant-outcome.json")
+def well_known_conformant_outcome():
+    return jsonify(conformant_mod.outcome(advertised_url()))
+
+
+@app.route("/conformant")
+def conformant_page():
+    m = conformant_mod.manifest(advertised_url())
+    return render_template(
+        "conformant.html",
+        manifest=m,
+        qic=qic_mod.manifest(advertised_url()),
+        blocks=conformant_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/gate-conformant-mark", methods=["POST"])
+def demo_gate_conformant_mark():
+    body = request.get_json(silent=True) or {}
+    return jsonify(conformant_mod.evaluate_claim(body))
+
+
+@app.route("/.well-known/heavier.json")
+def well_known_heavier():
+    return jsonify(heavier_mod.manifest(advertised_url()))
+
+
+@app.route("/heavier")
+def heavier_page():
+    m = heavier_mod.manifest(advertised_url())
+    return render_template(
+        "heavier.html",
+        manifest=m,
+        blocks=heavier_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/bridge.json")
+def well_known_bridge():
+    return jsonify(bridge_mod.manifest(advertised_url()))
+
+
+@app.route("/bridge")
+def bridge_page():
+    m = bridge_mod.manifest(advertised_url())
+    return render_template(
+        "bridge.html",
+        manifest=m,
+        blocks=bridge_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/first.json")
+def well_known_first():
+    return jsonify(first_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/pvp.json")
+def well_known_pvp():
+    return jsonify(pvp_mod.spec(advertised_url()))
+
+
+@app.route("/first")
+def first_page():
+    m = first_mod.manifest(advertised_url())
+    return render_template(
+        "first.html",
+        manifest=m,
+        blocks=first_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/pvp/open", methods=["POST"])
+def demo_pvp_open():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        pvp_mod.open_window(
+            side_a_ticket=body.get("side_a_ticket") or "",
+            side_b_ticket=body.get("side_b_ticket") or "",
+            side_a_job=body.get("side_a_job") or "",
+            side_b_job=body.get("side_b_job") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/pvp/offer", methods=["POST"])
+def demo_pvp_offer():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        pvp_mod.offer(
+            window_id=body.get("window_id") or "",
+            ticket_id=body.get("ticket_id") or "",
+            token=body.get("token") or "",
+            job_id=body.get("job_id") or "",
+            method=body.get("method"),
+            path=body.get("path"),
+            now=body.get("now"),
+            holder_id=body.get("holder_id"),
+        )
+    )
+
+
+@app.route("/demo/pas/apostille", methods=["POST"])
+def demo_machine_act_apostille():
+    body = request.get_json(silent=True) or {}
+    return jsonify(first_mod.apostille(body.get("job_id") or ""))
+
+
+@app.route("/demo/pas/capability-vital", methods=["POST"])
+def demo_capability_vital():
+    body = request.get_json(silent=True) or {}
+    return jsonify(first_mod.death_certificate(body.get("job_id") or ""))
+
+
+@app.route("/.well-known/remaining.json")
+def well_known_remaining():
+    return jsonify(remaining_mod.manifest(advertised_url()))
+
+
+@app.route("/remaining")
+def remaining_page():
+    m = remaining_mod.manifest(advertised_url())
+    return render_template(
+        "remaining.html",
+        manifest=m,
+        blocks=remaining_mod.page_blocks(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/remaining", methods=["POST"])
+def demo_remaining_folio():
+    body = request.get_json(silent=True) or {}
+    return jsonify(remaining_mod.folio(body.get("job_id") or ""))
+
+
+@app.route("/demo/pas/remaining/null", methods=["POST"])
+def demo_remaining_null():
+    body = request.get_json(silent=True) or {}
+    return jsonify(remaining_mod.null_result(body.get("job_id") or "", body.get("tried") or ""))
+
+
+@app.route("/demo/pas/remaining/wilderness", methods=["POST"])
+def demo_remaining_wilderness_attest():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.attest_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("steward_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/wilderness/open", methods=["POST"])
+def demo_remaining_wilderness_open():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.open_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("third_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/wilderness/reclassify", methods=["POST"])
+def demo_remaining_wilderness_reclassify():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.reclassify_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("actor_id") or "",
+            body.get("charge_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/wilderness/draw", methods=["POST"])
+def demo_remaining_wilderness_draw():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.draw_wilderness(
+            body.get("job_id") or "",
+            body.get("ticket_id") or "",
+            body.get("actor_id") or "",
+            body.get("charge_id") or "",
+        )
+    )
+
+
+@app.route("/demo/pas/remaining/hold", methods=["POST"])
+def demo_remaining_hold():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.hold(body.get("job_id") or "", body.get("candidate") or "")
+    )
+
+
+@app.route("/demo/pas/remaining/seal", methods=["POST"])
+def demo_remaining_seal():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.seal(
+            body.get("job_id") or "",
+            body.get("hold_id") or "",
+            body.get("ticket_id") or "",
+            body.get("cut") or "",
+            body.get("burden") or "",
+        )
+    )
+
+
+@app.route("/.well-known/finished.json")
+def well_known_finished():
+    return jsonify(finished_mod.manifest(advertised_url()))
+
+
+@app.route("/finished")
+def finished_page():
+    return render_template(
+        "finished.html",
+        manifest=finished_mod.manifest(advertised_url()),
+        finished_price=FINISHED_PRICE_LABEL,
+        broker_price=BROKER_PACK_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        refusal_price=REFUSAL_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/finished/checkout", methods=["POST"])
+def finished_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("finished_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, FINISHED_PRICE_CENTS, product="finished_remaining")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Finished Remaining (dev)",
+            f"{email} {FINISHED_PRICE_LABEL} job={job_id or 'later'}",
+            {"email": email, "job_id": job_id, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Finished Remaining.", "error")
+        return redirect(url_for("finished_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[finished_mod.stripe_line_item("finished_remaining")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/finished?canceled=1",
+        metadata={"product": "finished_remaining", "contact_email": email, "job_id": job_id},
+    )
+    db.create_install_order(email, checkout.id, FINISHED_PRICE_CENTS, product="finished_remaining")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/finished/broker-checkout", methods=["POST"])
+def broker_checkout():
+    email = (request.form.get("email") or "").strip()
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("finished_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, BROKER_PACK_PRICE_CENTS, product="broker_three_pack")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Broker three-pack (dev)",
+            f"{email} {BROKER_PACK_PRICE_LABEL}",
+            {"email": email, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Broker three-pack.", "error")
+        return redirect(url_for("finished_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[finished_mod.stripe_line_item("broker_three_pack")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/finished?canceled=1",
+        metadata={"product": "broker_three_pack", "contact_email": email},
+    )
+    db.create_install_order(email, checkout.id, BROKER_PACK_PRICE_CENTS, product="broker_three_pack")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/finished", methods=["POST"])
+def demo_finished_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        finished_mod.pack(
+            body.get("job_id") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/.well-known/standing.json")
+def well_known_standing():
+    return jsonify(standing_mod.manifest(advertised_url()))
+
+
+@app.route("/standing")
+def standing_page():
+    return render_template(
+        "standing.html",
+        manifest=standing_mod.manifest(advertised_url()),
+        finished_price=FINISHED_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        weld_price=WELD_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/standing/checkout", methods=["POST"])
+def standing_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    sku = (request.form.get("sku") or "standing_write").strip()
+    if sku not in standing_mod.SKUS:
+        flash("Pick a standing SKU.", "error")
+        return redirect(url_for("standing_page"))
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("standing_page"))
+    label = STANDING_SKU_LABELS[sku]
+    cents = STANDING_SKU_CENTS[sku]
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, cents, product=sku)
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Standing Remaining (dev)",
+            f"{email} {label} sku={sku} job={job_id or 'later'}",
+            {"email": email, "sku": sku, "job_id": job_id, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Standing Remaining.", "error")
+        return redirect(url_for("standing_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[standing_mod.stripe_line_item(sku)],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/standing?canceled=1",
+        metadata={"product": sku, "contact_email": email, "job_id": job_id},
+        subscription_data={
+            "metadata": {"product": sku, "contact_email": email, "job_id": job_id},
+        },
+    )
+    db.create_install_order(email, checkout.id, cents, product=sku)
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/standing", methods=["POST"])
+def demo_standing_pack():
+    body = request.get_json(silent=True) or {}
+    sku = (body.get("sku") or "standing_write").strip()
+    if sku not in standing_mod.SKUS:
+        sku = "standing_write"
+    return jsonify(
+        standing_mod.pack(
+            body.get("job_id") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+            sku=sku,
+        )
+    )
+
+
+@app.route("/.well-known/general.json")
+def well_known_general():
+    return jsonify(general_mod.manifest(advertised_url()))
+
+
+@app.route("/general")
+def general_page():
+    return render_template(
+        "general.html",
+        manifest=general_mod.manifest(advertised_url()),
+        seat_price=GENERAL_SEAT_LABEL,
+        standing_desk_price=STANDING_DESK_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/general/checkout", methods=["POST"])
+def general_checkout():
+    email = (request.form.get("email") or "").strip()
+    institution = (request.form.get("institution") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("general_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, GENERAL_SEAT_CENTS, product="correspondent_seat")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Correspondent Remaining (dev)",
+            f"{email} {GENERAL_SEAT_LABEL} institution={institution or 'later'}",
+            {"email": email, "institution": institution, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Correspondent Remaining.", "error")
+        return redirect(url_for("general_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[general_mod.stripe_line_item()],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/general?canceled=1",
+        metadata={"product": "correspondent_seat", "contact_email": email, "institution": institution},
+        subscription_data={
+            "metadata": {"product": "correspondent_seat", "contact_email": email, "institution": institution},
+        },
+    )
+    db.create_install_order(email, checkout.id, GENERAL_SEAT_CENTS, product="correspondent_seat")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/correspondent", methods=["POST"])
+def demo_correspondent_books():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        general_mod.correspondent_books(
+            body.get("left_job") or body.get("job_id") or "",
+            body.get("right_job") or "",
+        )
+    )
+
+
+@app.route("/.well-known/commons.json")
+def well_known_commons():
+    return jsonify(commons_mod.manifest(advertised_url()))
+
+
+@app.route("/commons")
+def commons_page():
+    return render_template(
+        "commons.html",
+        manifest=commons_mod.manifest(advertised_url()),
+        operator_price=COMMONS_OPERATOR_LABEL,
+        finished_price=FINISHED_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/commons/checkout", methods=["POST"])
+def commons_checkout():
+    email = (request.form.get("email") or "").strip()
+    convener = (request.form.get("convener") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("commons_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, COMMONS_OPERATOR_CENTS, product="operator_of_record")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Commons operator (dev)",
+            f"{email} {COMMONS_OPERATOR_LABEL} convener={convener or 'later'}",
+            {"email": email, "convener": convener, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Commons operator.", "error")
+        return redirect(url_for("commons_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[commons_mod.stripe_line_item()],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/commons?canceled=1",
+        metadata={"product": "operator_of_record", "contact_email": email, "convener": convener},
+        subscription_data={
+            "metadata": {"product": "operator_of_record", "contact_email": email, "convener": convener},
+        },
+    )
+    db.create_install_order(email, checkout.id, COMMONS_OPERATOR_CENTS, product="operator_of_record")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/commons/seed", methods=["POST"])
+def demo_commons_seed():
+    body = request.get_json(silent=True) or {}
+    return jsonify(commons_mod.seed(body.get("job_id") or "", advertised_url()))
+
+
+@app.route("/demo/pas/commons/query", methods=["POST"])
+def demo_commons_query():
+    body = request.get_json(silent=True) or {}
+    return jsonify(commons_mod.can_query(contributed=bool(body.get("contributed"))))
+
+
+@app.route("/demo/pas/commons/near-miss", methods=["POST"])
+def demo_commons_near_miss():
+    body = request.get_json(silent=True) or {}
+    return jsonify(commons_mod.seed_near_miss(body.get("job_id") or "", advertised_url()))
+
+
+@app.route("/.well-known/hand.json")
+def well_known_hand():
+    return jsonify(hand_mod.manifest(advertised_url()))
+
+
+@app.route("/hand")
+def hand_page():
+    return render_template(
+        "hand.html",
+        manifest=hand_mod.manifest(advertised_url()),
+        ordinary_price=HAND_ORDINARY_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/hand/checkout", methods=["POST"])
+def hand_checkout():
+    email = (request.form.get("email") or "").strip()
+    legal_person = (request.form.get("legal_person") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("hand_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, HAND_ORDINARY_CENTS, product="ordinary")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — The Ordinary (dev)",
+            f"{email} {HAND_ORDINARY_LABEL} legal_person={legal_person or 'later'}",
+            {"email": email, "legal_person": legal_person, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject The Ordinary.", "error")
+        return redirect(url_for("hand_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[hand_mod.stripe_line_item()],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/hand?canceled=1",
+        metadata={"product": "ordinary", "contact_email": email, "legal_person": legal_person},
+        subscription_data={
+            "metadata": {"product": "ordinary", "contact_email": email, "legal_person": legal_person},
+        },
+    )
+    db.create_install_order(email, checkout.id, HAND_ORDINARY_CENTS, product="ordinary")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/hand", methods=["POST"])
+def demo_hand_keep():
+    body = request.get_json(silent=True) or {}
+    return jsonify(hand_mod.keep(body.get("legal_person") or body.get("name") or ""))
+
+
+@app.route("/.well-known/flows.json")
+def well_known_flows():
+    return jsonify(flows_mod.manifest(advertised_url()))
+
+
+@app.route("/flows")
+def flows_page():
+    return render_template(
+        "flows.html",
+        manifest=flows_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/acts.json")
+def well_known_acts():
+    return jsonify(acts_mod.manifest(advertised_url()))
+
+
+@app.route("/acts")
+def acts_page():
+    return render_template(
+        "acts.html",
+        manifest=acts_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/acts/checkout", methods=["POST"])
+def acts_checkout():
+    email = (request.form.get("email") or "").strip()
+    subject = (request.form.get("subject") or "").strip()[:160]
+    sku = (request.form.get("sku") or "prefinality_keepalive").strip()
+    if sku not in acts_mod.SKUS:
+        flash("Pick an act rent.", "error")
+        return redirect(url_for("acts_page"))
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("acts_page"))
+    label = ACTS_SKU_LABELS[sku]
+    cents = ACTS_SKU_CENTS[sku]
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, cents, product=sku)
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Priced act rent (dev)",
+            f"{email} {label} sku={sku} subject={subject or 'later'}",
+            {"email": email, "sku": sku, "subject": subject, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Act rent.", "error")
+        return redirect(url_for("acts_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="subscription",
+        customer_email=email,
+        line_items=[acts_mod.stripe_line_item(sku)],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/acts?canceled=1",
+        metadata={"product": sku, "contact_email": email, "subject": subject},
+        subscription_data={
+            "metadata": {"product": sku, "contact_email": email, "subject": subject},
+        },
+    )
+    db.create_install_order(email, checkout.id, cents, product=sku)
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/acts", methods=["POST"])
+def demo_acts_run():
+    body = request.get_json(silent=True) or {}
+    sku = (body.get("sku") or "prefinality_keepalive").strip()
+    if sku == "query_remaining":
+        return jsonify(
+            acts_mod.query(
+                body.get("job_id") or body.get("subject") or "",
+                legal_person=body.get("legal_person") or "",
+            )
+        )
+    if sku == "silence_lease":
+        return jsonify(acts_mod.silence(body.get("named_agent") or body.get("subject") or ""))
+    return jsonify(acts_mod.keep_alive(body.get("job_id") or body.get("subject") or ""))
+
+
+@app.route("/.well-known/vital.json")
+def well_known_vital():
+    return jsonify(vital_mod.manifest(advertised_url()))
+
+
+@app.route("/vital")
+def vital_page():
+    return render_template(
+        "vital.html",
+        manifest=vital_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/vital/hold", methods=["POST"])
+def demo_vital_hold():
+    body = request.get_json(silent=True) or {}
+    return jsonify(vital_mod.hold(body.get("kind") or "unwatched", body.get("subject") or ""))
+
+
+@app.route("/.well-known/discharge.json")
+def well_known_discharge():
+    return jsonify(discharge_mod.manifest(advertised_url()))
+
+
+@app.route("/discharge")
+def discharge_page():
+    return render_template(
+        "discharge.html",
+        manifest=discharge_mod.manifest(advertised_url()),
+        discharge_price=DISCHARGE_PRICE_LABEL,
+        null_price=NULL_PRICE_LABEL,
+        finished_price=FINISHED_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/discharge/checkout", methods=["POST"])
+def discharge_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("discharge_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, DISCHARGE_PRICE_CENTS, product="discharge_of_record")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Discharge of Record (dev)",
+            f"{email} {DISCHARGE_PRICE_LABEL} job={job_id or 'later'}",
+            {"email": email, "job_id": job_id, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Discharge of Record.", "error")
+        return redirect(url_for("discharge_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[discharge_mod.stripe_line_item("discharge_of_record")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/discharge?canceled=1",
+        metadata={"product": "discharge_of_record", "contact_email": email, "job_id": job_id},
+    )
+    db.create_install_order(email, checkout.id, DISCHARGE_PRICE_CENTS, product="discharge_of_record")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/discharge/pack", methods=["POST"])
+def demo_discharge_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        discharge_mod.pack(
+            body.get("job_id") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/.well-known/null.json")
+def well_known_null():
+    return jsonify(null_remaining_mod.manifest(advertised_url()))
+
+
+@app.route("/null")
+def null_page():
+    return render_template(
+        "null.html",
+        manifest=null_remaining_mod.manifest(advertised_url()),
+        null_price=NULL_PRICE_LABEL,
+        discharge_price=DISCHARGE_PRICE_LABEL,
+        finished_price=FINISHED_PRICE_LABEL,
+        refusal_price=REFUSAL_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/null/checkout", methods=["POST"])
+def null_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    tried = (request.form.get("tried") or "").strip()[:200]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("null_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, NULL_PRICE_CENTS, product="null_remaining")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Null Remaining (dev)",
+            f"{email} {NULL_PRICE_LABEL} job={job_id or 'later'} tried={tried or 'killed agent write'}",
+            {"email": email, "job_id": job_id, "tried": tried, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Null Remaining.", "error")
+        return redirect(url_for("null_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[null_remaining_mod.stripe_line_item("null_remaining")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/null?canceled=1",
+        metadata={"product": "null_remaining", "contact_email": email, "job_id": job_id, "tried": tried},
+    )
+    db.create_install_order(email, checkout.id, NULL_PRICE_CENTS, product="null_remaining")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/null", methods=["POST"])
+def demo_null_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        null_remaining_mod.pack(
+            body.get("job_id") or "",
+            body.get("tried") or "",
+            advertised_url(),
+            CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/.well-known/estate.json")
+def well_known_estate():
+    return jsonify(estate_mod.manifest(advertised_url()))
+
+
+@app.route("/estate")
+def estate_page():
+    return render_template(
+        "estate.html",
+        manifest=estate_mod.manifest(advertised_url()),
+        estate_price=ESTATE_PRICE_LABEL,
+        discharge_price=DISCHARGE_PRICE_LABEL,
+        null_price=NULL_PRICE_LABEL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/estate/checkout", methods=["POST"])
+def estate_checkout():
+    email = (request.form.get("email") or "").strip()
+    job_id = (request.form.get("job_id") or "").strip()[:160]
+    bearer = (request.form.get("bearer") or "").strip()[:160]
+    successor = (request.form.get("successor") or "").strip()[:160]
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("estate_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(email, fake_session, ESTATE_PRICE_CENTS, product="estate_of_remaining")
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "CASH — Estate of Remaining (dev)",
+            f"{email} {ESTATE_PRICE_LABEL} job={job_id or 'later'} bearer={bearer or 'unnamed'}",
+            {"email": email, "job_id": job_id, "bearer": bearer, "successor": successor, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key:
+        flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Estate of Remaining.", "error")
+        return redirect(url_for("estate_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[estate_mod.stripe_line_item("estate_of_remaining")],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/estate?canceled=1",
+        metadata={
+            "product": "estate_of_remaining",
+            "contact_email": email,
+            "job_id": job_id,
+            "bearer": bearer,
+            "successor": successor,
+        },
+    )
+    db.create_install_order(email, checkout.id, ESTATE_PRICE_CENTS, product="estate_of_remaining")
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/demo/pas/estate", methods=["POST"])
+def demo_estate_pack():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        estate_mod.pack(
+            body.get("job_id") or "",
+            bearer=body.get("bearer") or "",
+            successor=body.get("successor") or "",
+            reason=body.get("reason") or "dissolved",
+            public_url=advertised_url(),
+            contact_email=CONTACT_EMAIL,
+        )
+    )
+
+
+@app.route("/demo/pas/estate/may", methods=["POST"])
+def demo_estate_may():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        estate_mod.may_write(
+            body.get("job_id") or "",
+            bearer_gone=bool(body.get("bearer_gone", True)),
+        )
+    )
+
+
+@app.route("/demo/pas/discharge/schedule", methods=["POST"])
+def demo_discharge_schedule():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        discharge_mod.schedule(
+            body.get("job_id") or "",
+            standing_until=body.get("standing_until") or "",
+            days=int(body.get("days") or discharge_mod.DEFAULT_STANDING_DAYS),
+        )
+    )
+
+
+@app.route("/demo/pas/discharge", methods=["POST"])
+def demo_discharge_issue():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        discharge_mod.issue(
+            body.get("job_id") or "",
+            reason=body.get("reason") or "standing_lapsed_on_schedule",
+        )
+    )
+
+
+@app.route("/demo/pas/discharge/may", methods=["POST"])
+def demo_discharge_may():
+    body = request.get_json(silent=True) or {}
+    return jsonify(discharge_mod.may_contribute(body.get("job_id") or ""))
+
+
+@app.route("/demo/pas/discharge/open", methods=["POST"])
+def demo_discharge_open():
+    body = request.get_json(silent=True) or {}
+    return jsonify(discharge_mod.open_both(body.get("job_id") or ""))
+
+
+@app.route("/.well-known/space.json")
+def well_known_space():
+    return jsonify(space_mod.manifest(advertised_url()))
+
+
+@app.route("/space")
+def space_page():
+    return render_template(
+        "space.html",
+        manifest=space_mod.manifest(advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/pas/space/delay", methods=["POST"])
+def demo_space_delay():
+    body = request.get_json(silent=True) or {}
+    return jsonify(space_mod.delay_hold(body.get("vehicle") or "", body.get("light_s") or 0))
+
+
+@app.route("/demo/pas/space/commission", methods=["POST"])
+def demo_space_commission():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        space_mod.commission(
+            body.get("graduate") or "",
+            sheath=body.get("sheath") or "civil",
+            years=int(body.get("years") or 5),
+        )
     )
 
 
@@ -2851,6 +4097,7 @@ def bind_room():
         install_price=INSTALL_PRICE_LABEL,
         stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
+        stranger_two=bind_room_mod.stranger_two(advertised_url()),
     )
 
 
@@ -3157,6 +4404,97 @@ def billing_webhook():
                 f"{REFUSAL_PRICE_LABEL} from {email} — refused {agent_name!r}",
                 {"email": email, "agent_name": agent_name, "session": sess["id"]},
             )
+        elif product == "finished_remaining":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            notify.money(
+                "CASH — Finished Remaining",
+                f"{FINISHED_PRICE_LABEL} from {email} job={job_id or 'later'}",
+                {"email": email, "job_id": job_id, "session": sess["id"]},
+            )
+        elif product == "broker_three_pack":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            notify.money(
+                "CASH — Broker three-pack",
+                f"{BROKER_PACK_PRICE_LABEL} from {email}",
+                {"email": email, "session": sess["id"]},
+            )
+        elif product == "discharge_of_record":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            notify.money(
+                "CASH — Discharge of Record",
+                f"{DISCHARGE_PRICE_LABEL} from {email} job={job_id or 'later'}",
+                {"email": email, "job_id": job_id, "session": sess["id"]},
+            )
+        elif product == "null_remaining":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            tried = (sess.get("metadata") or {}).get("tried") or ""
+            notify.money(
+                "CASH — Null Remaining",
+                f"{NULL_PRICE_LABEL} from {email} job={job_id or 'later'} tried={tried or 'killed'}",
+                {"email": email, "job_id": job_id, "tried": tried, "session": sess["id"]},
+            )
+        elif product == "estate_of_remaining":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            bearer = (sess.get("metadata") or {}).get("bearer") or ""
+            notify.money(
+                "CASH — Estate of Remaining",
+                f"{ESTATE_PRICE_LABEL} from {email} job={job_id or 'later'} bearer={bearer or 'unnamed'}",
+                {"email": email, "job_id": job_id, "bearer": bearer, "session": sess["id"]},
+            )
+        elif product in STANDING_SKU_CENTS:
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            job_id = (sess.get("metadata") or {}).get("job_id") or ""
+            notify.money(
+                "CASH — Standing Remaining",
+                f"{STANDING_SKU_LABELS[product]} from {email} job={job_id or 'later'}",
+                {"email": email, "sku": product, "job_id": job_id, "session": sess["id"]},
+            )
+        elif product == "correspondent_seat":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            institution = (sess.get("metadata") or {}).get("institution") or ""
+            notify.money(
+                "CASH — Correspondent Remaining",
+                f"{GENERAL_SEAT_LABEL} from {email} institution={institution or 'later'}",
+                {"email": email, "institution": institution, "session": sess["id"]},
+            )
+        elif product == "operator_of_record":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            convener = (sess.get("metadata") or {}).get("convener") or ""
+            notify.money(
+                "CASH — Commons operator",
+                f"{COMMONS_OPERATOR_LABEL} from {email} convener={convener or 'later'}",
+                {"email": email, "convener": convener, "session": sess["id"]},
+            )
+        elif product == "ordinary":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            legal_person = (sess.get("metadata") or {}).get("legal_person") or ""
+            notify.money(
+                "CASH — The Ordinary",
+                f"{HAND_ORDINARY_LABEL} from {email} legal_person={legal_person or 'later'}",
+                {"email": email, "legal_person": legal_person, "session": sess["id"]},
+            )
+        elif product in ACTS_SKU_CENTS:
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            subject = (sess.get("metadata") or {}).get("subject") or ""
+            notify.money(
+                "CASH — Priced act rent",
+                f"{ACTS_SKU_LABELS[product]} from {email} subject={subject or 'later'}",
+                {"email": email, "sku": product, "subject": subject, "session": sess["id"]},
+            )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
@@ -3178,6 +4516,49 @@ def billing_webhook():
                     "CASH — Gate Pro",
                     f"{PRO_PRICE_LABEL} from {acct['email'] if acct else account_id}",
                     {"account_id": account_id, "subscription": sub_id},
+                )
+    elif event["type"] == "invoice.paid":
+        inv = event["data"]["object"]
+        if inv.get("billing_reason") == "subscription_cycle":
+            parent = inv.get("parent") or {}
+            meta = ((parent.get("subscription_details") or {}).get("metadata")) or {}
+            if not meta:
+                meta = (inv.get("subscription_details") or {}).get("metadata") or {}
+            product = meta.get("product") or ""
+            if product in STANDING_SKU_CENTS:
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Standing Remaining (renewal)",
+                    f"{STANDING_SKU_LABELS[product]} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product == "correspondent_seat":
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Correspondent Remaining (renewal)",
+                    f"{GENERAL_SEAT_LABEL} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product == "operator_of_record":
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Commons operator (renewal)",
+                    f"{COMMONS_OPERATOR_LABEL} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product == "ordinary":
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — The Ordinary (renewal)",
+                    f"{HAND_ORDINARY_LABEL} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
+                )
+            elif product in ACTS_SKU_CENTS:
+                email = meta.get("contact_email") or inv.get("customer_email") or ""
+                notify.money(
+                    "CASH — Priced act rent (renewal)",
+                    f"{ACTS_SKU_LABELS[product]} from {email}",
+                    {"email": email, "sku": product, "invoice": inv.get("id")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
         sub = event["data"]["object"]
@@ -3386,6 +4767,25 @@ def robots():
             "Disallow: /family",
             "Disallow: /action-os",
             "Disallow: /science",
+            "Disallow: /unison",
+            "Disallow: /inventions",
+            "Disallow: /conformant",
+            "Disallow: /heavier",
+            "Disallow: /bridge",
+            "Disallow: /first",
+            "Disallow: /remaining",
+            "Disallow: /finished",
+            "Disallow: /standing",
+            "Disallow: /general",
+            "Disallow: /commons",
+            "Disallow: /hand",
+            "Disallow: /flows",
+            "Disallow: /acts",
+            "Disallow: /vital",
+            "Disallow: /discharge",
+            "Disallow: /null",
+            "Disallow: /estate",
+            "Disallow: /space",
             "Disallow: /positioning",
             "Disallow: /focus",
             "Disallow: /stack",

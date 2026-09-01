@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Discharge of Record — {{ discharge_price }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Cash · forgetting institution · not deletion</p>
+  <h1>Standing lapses. The chain does not.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <div class="install-price">{{ discharge_price }} <span>one folio · we lapse it · you open both</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 0.75rem;">
+    <form method="post" action="{{ url_for('discharge_checkout') }}">
+      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <input type="text" name="job_id" placeholder="job id (or later)" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 12rem;">
+      <button type="submit" class="btn btn-primary">Pay {{ discharge_price }}</button>
+    </form>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>What you get</h3>
+      <p>{{ manifest.skus.discharge_of_record.deliverable }}</p>
+    </div>
+    <div class="card">
+      <h3>Why not Bind</h3>
+      <p>{{ manifest.skus.discharge_of_record.surpasses }}</p>
+    </div>
+    <div class="card">
+      <h3>Not this</h3>
+      <p>Not deletion. Not admin CHARGE. Not a memory hole. Not Being. Not immunity. Standing is metadata. The folio stays.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <p class="audience-tag">vacancy test</p>
+    <p>Identifier: <strong>{{ manifest.vacancy_test.identifier }}</strong></p>
+    <p style="margin-top: 0.35rem;">Contribution: {{ manifest.vacancy_test.contribution_rule }}</p>
+    <p style="margin-top: 0.35rem;">Chokepoint: {{ manifest.vacancy_test.chokepoint }}</p>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_discharge') }}" class="btn btn-ghost btn-sm">discharge.json</a>
+    <a href="{{ url_for('estate_page') }}" class="btn btn-ghost btn-sm">Estate of Remaining</a>
+    <a href="{{ url_for('null_page') }}" class="btn btn-ghost btn-sm">Null Remaining {{ null_price }}</a>
+    <a href="{{ url_for('finished_page') }}" class="btn btn-ghost btn-sm">Finished {{ finished_price }}</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Gate 1 is still Bind {{ bind_room_price }}</a>
+  </div>
+</div>
+{% endblock %}

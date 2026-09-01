@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}The General — money is a special case of remaining{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.thesis }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Civilizational · remaining lease of institutions · 100% {{ manifest.payee }}</p>
+  <h1>Money is a special case of remaining.</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ manifest.email_line }}</p>
+
+  <div class="install-price">{{ seat_price }} <span>correspondent seat · annual · 100 seats = $100M</span></div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin: 1.25rem 0 2rem; flex-wrap: wrap; gap: 0.75rem;">
+    <form method="post" action="{{ url_for('general_checkout') }}">
+      <input type="email" name="email" placeholder="institution work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <input type="text" name="institution" placeholder="institution name" style="margin-right: 0.5rem; padding: 0.5rem; max-width: 14rem;">
+      <button type="submit" class="btn btn-primary">Seat {{ seat_price }}</button>
+    </form>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Contains Satoshi</h3>
+      <p>{{ manifest.containment.why }}</p>
+    </div>
+    <div class="card">
+      <h3>Correspondent remaining</h3>
+      <p>{{ manifest.sku.deliverable }}</p>
+    </div>
+    <div class="card">
+      <h3>Nine figures the easy way</h3>
+      <p>{{ manifest.print.easy_nine_figure.why_easy }}</p>
+      <p style="margin-top: 0.5rem; color: var(--muted);">{{ manifest.print.honest }}</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 1.75rem;">Special cases (contained)</h2>
+  {% for c in manifest.containment.special_cases %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ c.remaining_class }}</p>
+    <h3>{{ c.name }}</h3>
+    <p>{{ c.what }}</p>
+    <p style="margin-top: 0.35rem; color: var(--muted);">{{ c.contained }}</p>
+  </div>
+  {% endfor %}
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+    <a href="{{ url_for('well_known_general') }}" class="btn btn-ghost btn-sm">general.json</a>
+    <a href="{{ url_for('standing_page') }}" class="btn btn-ghost btn-sm">Retail lease {{ standing_desk_price }}</a>
+    <a href="{{ url_for('remaining_page') }}" class="btn btn-ghost btn-sm">The remaining</a>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld they run</a>
+  </div>
+</div>
+{% endblock %}

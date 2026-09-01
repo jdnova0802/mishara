@@ -54,6 +54,23 @@
   {% endfor %}
 </section>
 
+{% if manifest.organs %}
+<section class="container section">
+  <div class="card">
+    <h2>Organs — not siblings</h2>
+    <p style="color: var(--muted);">May is the throat. Redeem is the defense. Family length stays five.</p>
+    <ul class="check-list" style="margin-top: 0.75rem;">
+      {% for o in manifest.organs %}
+      <li><strong>{{ o.name }}</strong> ({{ o.role }}) — {{ o.question }}</li>
+      {% endfor %}
+    </ul>
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 0.75rem;">
+      <a href="{{ url_for('unison_page') }}" class="btn btn-ghost btn-sm">Unison map →</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <section class="container section">
   <div class="card">
     <h2>Fix order</h2>

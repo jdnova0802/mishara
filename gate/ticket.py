@@ -54,6 +54,11 @@ try:
 except ImportError:
     import license_fuse as license_fuse_mod
 
+try:
+    from gate import named_may as named_may_mod
+except ImportError:
+    import named_may as named_may_mod
+
 SPEC = "gate-bind-ticket-v1"
 DEFAULT_TTL = 15
 
@@ -80,11 +85,13 @@ def issue(
     spend_write: dict | None = None,
     license_id: str | None = None,
     counterpart: dict | None = None,
+    holder_id: str | None = None,
 ) -> dict | None:
-    """Mint a bearer ticket. Token is returned once; public receipts never include it.
+    """Mint a ticket. Token is returned once; public receipts never include it.
 
     Fail closed if there is no spend fingerprint. A job-only ticket is not a print.
     If license_id is present, the parent must be LIVE. Children cannot outlive it.
+    If holder_id is present (or GATE_NAMED_MAY=1), the ticket is named — not bearer.
     """
     jid = (job_id or "").strip()
     fp = spend_protocol.fingerprint(spend_write)
@@ -97,6 +104,10 @@ def issue(
     cp = counterpart if isinstance(counterpart, dict) else {}
     counterpart_fp = (cp.get("fingerprint") or None) if cp.get("fused") else None
     counterpart_write = cp.get("write") if cp.get("fused") else None
+    named = named_may_mod.classify(holder_id=holder_id)
+    if not named.get("ok"):
+        return None
+    holder = named.get("holder_id")
     now = datetime.now(timezone.utc)
     ttl = ttl_seconds()
     ticket_id = str(uuid.uuid4())
@@ -125,6 +136,9 @@ def issue(
         "children_cannot_outlive_parent": bool(lid),
         "counterpart_fingerprint": counterpart_fp,
         "counterpart": counterpart_write,
+        "holder_id": holder,
+        "named_may": bool(named.get("named")),
+        "bearer": bool(named.get("bearer")),
         "ttl_seconds": ttl,
         "stale_hop_cannot_spend": True,
     }
@@ -142,6 +156,7 @@ def issue(
         spend_fingerprint=fp,
         license_id=lid,
         counterpart_fingerprint=counterpart_fp,
+        holder_id=holder,
     )
     public = {
         **body,
@@ -191,6 +206,7 @@ def redeem(
     now: str | None = None,
     license_id: str | None = None,
     counterpart: dict | None = None,
+    holder_id: str | None = None,
 ) -> dict:
     """Atomic consume. Fail closed on missing now, skew, stale, mismatch, replay, dead parent, or wrong write."""
     server_now = datetime.now(timezone.utc)
@@ -265,6 +281,30 @@ def redeem(
                 ticket_id=tid,
                 job_id=jid,
             )
+    issued_holder = ""
+    if row:
+        try:
+            issued_holder = (row.get("holder_id") or "").strip()
+        except (AttributeError, KeyError):
+            issued_holder = ""
+    held = named_may_mod.check(
+        issued_holder=issued_holder or None,
+        presented_holder=holder_id,
+    )
+    if not held.get("ok"):
+        return _halt(
+            reason=held.get("reason") or named_may_mod.REASON_REQUIRED,
+            ticket_id=tid,
+            job_id=jid,
+            extra={"named_may": held},
+        )
+    if db.pvp_lock_for_ticket(tid):
+        return _halt(
+            reason="pvp_pair_required",
+            ticket_id=tid,
+            job_id=jid,
+            extra={"pvp": "immobilized — both throats must redeem in one now"},
+        )
     token_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
     result = db.consume_bind_ticket(
         ticket_id=tid,
@@ -275,6 +315,10 @@ def redeem(
         counterpart_fingerprint=presented_cp or None,
     )
     if result.get("ok"):
+        try:
+            from gate import qic as qic_mod
+        except ImportError:
+            import qic as qic_mod
         return {
             "ok": True,
             "halt": False,
@@ -291,6 +335,7 @@ def redeem(
             "license_id": issued_lid or None,
             "counterpart_fingerprint": presented_cp or None,
             "command_radiation": clock,
+            "qic": qic_mod.stamp_event(job_id=jid, ticket_id=tid),
         }
     return _halt(
         reason=result.get("reason") or "ticket_invalid",

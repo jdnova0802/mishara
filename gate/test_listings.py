@@ -120,6 +120,90 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("commit_auth", m)
         self.assertIn("spend_protocol", m)
         self.assertIn("command_radiation", m)
+        self.assertIn("unison", m)
+        self.assertEqual(m["unison"]["intel_kit_rating"], 7.5)
+        self.assertIsNone(m["unison"]["cleverer_layer"])
+        self.assertIn("inventions", m)
+        self.assertFalse(m["inventions"]["anonymous"])
+        self.assertIn("conformant", m)
+        self.assertTrue(m["conformant"]["not_a_sibling"])
+        self.assertIn("heavier", m)
+        self.assertFalse(m["heavier"]["l2_module"])
+        self.assertIn("bridge", m)
+        self.assertFalse(m["bridge"]["new_sku"])
+        self.assertFalse(m["bridge"]["l2_module"])
+        self.assertEqual(m["bridge"]["bands"]["bridge"], "$5–40M")
+        self.assertIn("first", m)
+        self.assertTrue(m["first"]["first_in_history"])
+        self.assertIn("remaining", m)
+        self.assertIsNone(m["remaining"]["cleverer_layer"])
+        self.assertFalse(m["remaining"]["l2_module"])
+        self.assertIn("finished", m)
+        self.assertTrue(m["finished"]["cash_now"])
+        self.assertEqual(m["finished"]["price"], "$8,500")
+        self.assertEqual(m["finished"]["family_siblings_remain"], 5)
+        self.assertFalse(m["finished"]["l2_module"])
+        self.assertIsNone(m["finished"]["cleverer_layer"])
+        self.assertIn("standing", m)
+        self.assertTrue(m["standing"]["recurring"])
+        self.assertTrue(m["standing"]["no_split"])
+        self.assertEqual(m["standing"]["desk"], "$25,000/mo")
+        self.assertEqual(m["standing"]["category"], "remaining_lease")
+        self.assertIn("general", m)
+        self.assertEqual(m["general"]["identity"], "money is a special case of remaining")
+        self.assertEqual(m["general"]["seat"], "$1,000,000/yr")
+        self.assertEqual(m["general"]["n_for_100m"], 100)
+        self.assertTrue(m["general"]["not_a_maycoin"])
+        self.assertTrue(m["general"]["civilizational"])
+        self.assertIn("commons", m)
+        self.assertTrue(m["commons"]["we_do_not_convene"])
+        self.assertTrue(m["commons"]["we_do_not_carry_risk"])
+        self.assertEqual(m["commons"]["operator"], "$150,000/yr")
+        self.assertEqual(m["commons"]["family_siblings_remain"], 5)
+        self.assertIn("hand", m)
+        self.assertFalse(m["hand"]["metered"])
+        self.assertFalse(m["hand"]["being_sold"])
+        self.assertEqual(m["hand"]["ordinary"], "$12,000/yr")
+        self.assertEqual(m["hand"]["identity"], "rent is keeping the hand, not moving it")
+        self.assertIn("flows", m)
+        self.assertFalse(m["flows"]["checkout"])
+        self.assertEqual(m["flows"]["next_after_gate1"][0], "scheme_assessment")
+        self.assertEqual(m["flows"]["priced"][0], "prefinality_keepalive")
+        self.assertEqual(m["flows"]["family_siblings_remain"], 5)
+        self.assertIn("acts", m)
+        self.assertEqual(m["acts"]["keepalive"], "$1,200/mo")
+        self.assertEqual(m["acts"]["query"], "$2,000/mo")
+        self.assertEqual(m["acts"]["silence"], "$1,500/mo")
+        self.assertEqual(m["acts"]["family_siblings_remain"], 5)
+        self.assertIn("vital", m)
+        self.assertFalse(m["vital"]["checkout"])
+        self.assertFalse(m["vital"]["visa"])
+        self.assertFalse(m["vital"]["bank"])
+        self.assertEqual(m["vital"]["identity"], "the world must hold when the inhabitant cannot watch")
+        self.assertEqual(m["vital"]["family_siblings_remain"], 5)
+        self.assertFalse(m["vital"]["forecast"])
+        self.assertEqual(m["vital"]["circadian_world_default_usd"], 1_320_000_000_000)
+        self.assertIn("discharge", m)
+        self.assertIn("/discharge/checkout", m["discharge"]["checkout"])
+        self.assertFalse(m["discharge"]["deletion"])
+        self.assertEqual(m["discharge"]["identity"], "standing lapses; the chain does not")
+        self.assertEqual(m["discharge"]["until_gate1_usd"], 1500)
+        self.assertEqual(m["discharge"]["price"], "$1,500")
+        self.assertIn("null", m)
+        self.assertIn("/null/checkout", m["null"]["checkout"])
+        self.assertEqual(m["null"]["until_gate1_usd"], 4500)
+        self.assertEqual(m["null"]["price"], "$4,500")
+        self.assertEqual(m["null"]["identity"], "failure has a remaining")
+        self.assertIn("estate", m)
+        self.assertIn("/estate/checkout", m["estate"]["checkout"])
+        self.assertEqual(m["estate"]["until_gate1_usd"], 3500)
+        self.assertEqual(m["estate"]["price"], "$3,500")
+        self.assertEqual(m["estate"]["identity"], "remaining is probated; it is not orphaned LIVE")
+        self.assertIn("space", m)
+        self.assertTrue(m["space"]["not_the_academy"])
+        self.assertFalse(m["space"]["c2"])
+        self.assertEqual(m["conformant"]["ghost_conformant"], "DENY")
+        self.assertEqual(m["conformant"]["until_gate1_usd"], 0)
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
         self.assertIn("register", m)
@@ -282,6 +366,8 @@ class FlaskListingTests(unittest.TestCase):
             "/for/operators",
             "/action-os",
             "/science",
+            "/unison",
+            "/inventions",
             "/focus",
             "/positioning",
             "/scorecard",
@@ -527,6 +613,14 @@ class FieldAndWeldTests(unittest.TestCase):
         self.assertIn("5.A.2", ids)
         self.assertIn("5.A.1", ids)
         self.assertIn("5.A.13", ids)
+        self.assertEqual(pack["time_source"]["kind"], "time_source_attestation")
+        self.assertFalse(pack["time_source"]["claims_before_loss"])
+        self.assertEqual(pack["time_source"]["on_gnss_loss"], "HALT claim of recorded-before-loss")
+        two = pack["stranger_two"]
+        self.assertEqual(two["spec"], "gate-stranger-two-v1")
+        self.assertEqual(len(two["paragraphs"]), 2)
+        self.assertEqual(two["ask"], "Book Bind Room")
+        self.assertIn("will not sell may", two["halt"])
 
 
 class BindRoomFlaskTests(unittest.TestCase):
@@ -600,7 +694,14 @@ class BindRoomFlaskTests(unittest.TestCase):
     def test_bind_room_page(self):
         r = self.client.get("/bind-room")
         self.assertEqual(r.status_code, 200)
-        self.assertIn(b"Officer pack", r.data)
+        body = r.get_data(as_text=True)
+        self.assertIn("Your CGL will not cover the agent", body)
+        self.assertIn("Not another governance PDF", body)
+        self.assertIn("Book Bind Room", body)
+        self.assertIn("will not sell may", body)
+        self.assertIn("officer-pack.json", body)
+        self.assertNotIn("Two yeses — who wins", body)
+        self.assertNotIn("Two artifacts. One weld.", body)
 
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")
@@ -1478,8 +1579,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("If money is about to leave", home)
         self.assertNotIn("/science", home)
         self.assertIn("/trust", home)
-        self.assertIn("Parent revoked", home)
-        self.assertIn("their_production", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Book Bind Room", home)
 
         import db as gate_db
 
@@ -1528,6 +1629,9 @@ class OperatorInvoiceTests(unittest.TestCase):
         fam_data = fam.get_json()
         self.assertEqual(fam_data["spec"], "nisaba-family-voices-v1")
         self.assertEqual(len(fam_data["family"]), 5)
+        self.assertTrue(fam_data.get("organs_are_not_siblings"))
+        organ_ids = {o["id"] for o in fam_data.get("organs") or []}
+        self.assertTrue({"may", "redeem", "inhabitant", "unuttered"}.issubset(organ_ids))
         erra = self.client.get("/.well-known/family/erra.json").get_json()
         self.assertIn("EIOPA", erra["market_problem"])
         self.assertTrue(erra["citations"])
@@ -1557,7 +1661,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(proof_data["spec"], "gate-proof-suite-v2")
         self.assertEqual(proof_data["readiness"]["level"], 2)
 
-        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science"):
+        for path in ("/scorecard", "/production-skin", "/proof", "/runbook", "/dogfood", "/production-weld", "/science", "/unison", "/nisabatree", "/inventions", "/conformant", "/heavier", "/bridge", "/first", "/remaining", "/finished", "/standing", "/general", "/commons", "/hand", "/flows", "/acts", "/vital", "/discharge", "/null", "/estate", "/space"):
             self.assertEqual(self.client.get(path).status_code, 200, path)
 
         rb = self.client.get("/.well-known/runbook.json")
@@ -1580,6 +1684,40 @@ class OperatorInvoiceTests(unittest.TestCase):
             {"agent_control", "grid_forming", "leo_mesh", "tee_mpc_hsm", "pd_kinetic"}.issubset(tech_ids)
         )
         self.assertIn("science_pri", self.client.get("/.well-known/gate.json").get_json())
+        self.assertIn("unison", self.client.get("/.well-known/gate.json").get_json())
+        self.assertIn("nisabatree", self.client.get("/.well-known/gate.json").get_json())
+
+        tree = self.client.get("/.well-known/nisabatree.json")
+        self.assertEqual(tree.status_code, 200)
+        tree_data = tree.get_json()
+        self.assertEqual(tree_data["spec"], "nisaba-nisabatree-v1")
+        self.assertIsNone(tree_data["checkout"])
+        self.assertEqual(len(tree_data["family"]), 5)
+        self.assertIn("Bind", tree_data["cash_now"][0]["sku"])
+
+        uni = self.client.get("/.well-known/unison.json")
+        self.assertEqual(uni.status_code, 200)
+        uni_data = uni.get_json()
+        self.assertEqual(uni_data["spec"], "nisaba-unison-v1")
+        self.assertIsNone(uni_data["cleverer_layer"])
+        self.assertFalse(uni_data["their_production"])
+        self.assertEqual(uni_data["family_siblings_remain"], 5)
+        self.assertEqual(uni_data["intel_kit"]["rating"], 7.5)
+        self.assertTrue(uni_data["intel_kit"]["not_a_sibling"])
+        self.assertIn("stranger", uni_data["gate1_lock"].lower())
+        self.assertEqual(uni_data["primitive"], ["may", "sheath", "prove"])
+        self.assertEqual(uni_data["gate1"], "stranger paid and proved")
+        self.assertIn("may", uni_data["never_sell"])
+        self.assertGreaterEqual(len(uni_data["more_massive"]), 4)
+        more_ids = {m["id"] for m in uni_data["more_massive"]}
+        self.assertTrue(
+            {"no_throat", "silence_law", "non_actor_charge", "dual_redeem"}.issubset(more_ids)
+        )
+        unmouthed = {u["write_class"] for u in uni_data["unmouthed"]}
+        self.assertIn("nuclear_c2", unmouthed)
+        listings = self.client.get("/.well-known/listings.json").get_json()
+        self.assertEqual(listings["unison"]["intel_kit_rating"], 7.5)
+        self.assertIsNone(listings["unison"]["cleverer_layer"])
 
         legal = self.client.get("/.well-known/legal.json")
         self.assertEqual(legal.status_code, 200)
@@ -1685,7 +1823,8 @@ class OperatorInvoiceTests(unittest.TestCase):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Weld a path", body)
+        self.assertIn("Book Bind Room", body)
+        self.assertIn("/bind-room", body)
         self.assertIn("/register", body)
         self.assertIn("Fee schedule", body)
         self.assertNotIn("scarcity is the DENY", body)
@@ -1768,7 +1907,8 @@ class OperatorInvoiceTests(unittest.TestCase):
                 self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
         home = self.client.get("/").get_data(as_text=True)
         self.assertIn("If money is about to leave and should not", home)
-        self.assertIn("Weld a path", home)
+        self.assertIn("Book Bind Room", home)
+        self.assertIn("Your CGL will not cover the agent", home)
         chrome = home.split("<footer>", 1)[0]
         for phrase in (
             "Lab docs",
@@ -2848,6 +2988,1520 @@ class X402AuditWireTests(unittest.TestCase):
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
+
+
+class NamedMayAndInventionsTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_inventor_is_named_not_hidden(self):
+        who = self.client.get("/.well-known/inventor.json").get_json()
+        self.assertFalse(who["anonymous"])
+        self.assertTrue(who["satoshi_inverse"])
+        self.assertEqual(who["name"], "Demond Davis")
+        self.assertEqual(who["entity"], "Nisaba LLC")
+        self.assertIsNone(who["pseudonym"])
+
+    def test_inventions_cover_subjects_and_outscale_satoshi(self):
+        r = self.client.get("/.well-known/inventions.json")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        self.assertEqual(data["spec"], "nisaba-inventions-v1")
+        self.assertEqual(data["inventor"]["name"], "Demond Davis")
+        ids = {i["id"] for i in data["inventions"]}
+        self.assertTrue(
+            {"public_inventor", "named_may", "exclusion", "silence_dead", "inhabitant", "gate_conformant", "qic_meter", "heavier_than_conformant", "first_depository", "the_remaining", "finished_remaining", "standing_remaining", "the_general", "incident_remaining_commons", "the_hand", "act_flow_rents", "priced_act_rents", "the_vital", "discharge", "null_remaining", "estate_of_remaining", "space_academy_remaining", "stranger_two", "forced_attach_bridge"}.issubset(ids)
+        )
+        self.assertEqual(data["cash_latch"]["mark"], "Gate Conformant")
+        self.assertEqual(data["cash_latch"]["until_gate1_usd"], 0)
+        self.assertGreaterEqual(len(data["subjects"]), 12)
+        html = self.client.get("/inventions").get_data(as_text=True)
+        self.assertIn("Demond Davis", html)
+        self.assertIn("Named may", html)
+        self.assertIn("Satoshi", html)
+        self.assertIn("Gate Conformant", html)
+        self.assertIn("The remaining", html)
+        self.assertIn("Finished Remaining", html)
+        self.assertIn("Standing Remaining", html)
+        self.assertIn("The General", html)
+        self.assertIn("Incident Remaining Commons", html)
+        self.assertIn("The Hand", html)
+        self.assertIn("Act and flow rents", html)
+
+    def test_named_may_token_alone_cannot_radiate(self):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=named-may",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": "pc:NAMED-MAY-1",
+                    "holder_id": "op:demond-davis",
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        ticket = r.get_json()["bind_ticket"]
+        self.assertTrue(ticket["named_may"])
+        self.assertFalse(ticket["bearer"])
+        self.assertEqual(ticket["holder_id"], "op:demond-davis")
+
+        stolen = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NAMED-MAY-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NAMED-MAY-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+            },
+        )
+        self.assertEqual(stolen.status_code, 403)
+        self.assertEqual(stolen.get_json()["reason"], "named_may_holder_required")
+
+        wrong = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NAMED-MAY-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NAMED-MAY-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:someone-else",
+            },
+        )
+        self.assertEqual(wrong.status_code, 403)
+        self.assertEqual(wrong.get_json()["reason"], "named_may_holder_mismatch")
+
+        ok = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NAMED-MAY-1",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NAMED-MAY-1/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:demond-davis",
+            },
+        )
+        self.assertEqual(ok.status_code, 200)
+        spent = ok.get_json()
+        self.assertTrue(spent["radiated"])
+        self.assertTrue(spent["qic"]["counted"])
+        self.assertEqual(spent["qic"]["billable_usd"], 0)
+        self.assertEqual(spent["qic"]["reason"], "gate1_unpaid")
+
+    def test_bearer_still_redeems_when_unnamed(self):
+        import named_may
+
+        self.assertTrue(named_may.classify(holder_id=None)["bearer"])
+        law = named_may.check(issued_holder=None, presented_holder=None)
+        self.assertTrue(law["ok"])
+
+
+class UnisonTests(unittest.TestCase):
+    def test_organs_are_not_siblings(self):
+        import unison
+
+        m = unison.manifest("https://example.test")
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["intel_kit"]["becomes_real_after"], "gate_1_stranger_pay")
+        self.assertEqual(m["inventor"]["name"], "Demond Davis")
+        self.assertFalse(m["inventor"]["anonymous"])
+        self.assertEqual(m["primitive"], ["may", "sheath", "prove"])
+        self.assertEqual(m["gate1"], "stranger paid and proved")
+        ids = {o["id"] for o in m["organs"]}
+        self.assertTrue({"may", "redeem", "now", "silence", "inhabitant", "unuttered"}.issubset(ids))
+        self.assertTrue(all(o.get("not_a_product") for o in m["organs"]))
+        self.assertGreater(m["already_above"][-1]["rating"], m["baseline"][0]["rating"])
+        self.assertEqual(m["already_above"][-1]["id"], "gate1")
+        more_ids = {x["id"] for x in m["more_massive"]}
+        self.assertIn("the_remaining", more_ids)
+
+    def test_page_mentions_throat_and_defense(self):
+        html = gate_app.app.test_client().get("/unison").get_data(as_text=True)
+        self.assertIn("May this CLTU still be radiated", html)
+        self.assertIn("Did redeem occur", html)
+        self.assertIn("7.5", html)
+        self.assertIn("The Unuttered", html)
+        self.assertIn("CHARGE outside the actor", html)
+        self.assertIn("remaining", html.lower())
+
+
+class NisabatreeTests(unittest.TestCase):
+    def test_manifest_plain_english_map(self):
+        import nisabatree
+
+        m = nisabatree.manifest("https://example.test")
+        self.assertEqual(m["name"], "nisabatree")
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertFalse(m["their_production"])
+        self.assertIsNone(m["checkout"])
+        self.assertTrue(m["not_a_product"])
+        self.assertEqual(m["inventor"]["name"], "Demond Davis")
+        self.assertEqual(m["inventor"]["entity"], "Nisaba LLC")
+        self.assertEqual(len(m["family"]), 5)
+        self.assertEqual(m["family"][0], "Velaru")
+        self.assertEqual(m["primitive"], ["may", "sheath", "prove"])
+        self.assertEqual(m["gate1"], "stranger paid and proved")
+        self.assertIn("Bind", m["cash_now"][0]["sku"])
+        self.assertEqual(m["page"], "https://example.test/nisabatree")
+        blocks = nisabatree.page_blocks()
+        self.assertGreaterEqual(len(blocks), 6)
+        self.assertTrue(any("Bind" in b["body"] for b in blocks))
+
+    def test_page_and_well_known(self):
+        client = gate_app.app.test_client()
+        html = client.get("/nisabatree").get_data(as_text=True)
+        self.assertIn("Nisabatree", html)
+        self.assertIn("Bind", html)
+        self.assertIn("Velaru", html)
+        self.assertIn("noindex", html)
+        wk = client.get("/.well-known/nisabatree.json")
+        self.assertEqual(wk.status_code, 200)
+        data = wk.get_json()
+        self.assertEqual(data["spec"], "nisaba-nisabatree-v1")
+        self.assertIsNone(data["checkout"])
+
+
+class ConformantQicTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_mark_is_on_the_tree_not_a_sixth_sibling(self):
+        import conformant
+        import qic
+
+        m = conformant.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-conformant-mark-spec-v1")
+        self.assertEqual(m["mark"], "Gate Conformant")
+        self.assertTrue(m["tree"]["not_a_sibling"])
+        self.assertTrue(m["tree"]["not_a_homepage"])
+        self.assertEqual(m["tree"]["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertFalse(m["their_production"])
+        self.assertEqual(m["ghost_conformant"], "DENY")
+        self.assertEqual(m["licensed_field"]["id"], "option_b_platform")
+        self.assertIn("may", m["licensed_field"]["never_grant"])
+        self.assertTrue(m["engine_ready"])
+        self.assertFalse(m["engine_requirements"]["annual_officer_attestation"])
+
+        meter = qic.billable()
+        self.assertEqual(meter["billable_usd"], 0)
+        self.assertEqual(meter["reason"], "gate1_unpaid")
+        self.assertEqual(meter["formula"], "max(MAR, LAQ × per_QIC_rate)")
+        live = qic.billable(mar_usd=50_000, per_qic_usd=0.10, their_production=True, laq=10)
+        self.assertEqual(live["billable_usd"], 50_000)
+
+    def test_ghost_conformant_and_throat_sale_deny(self):
+        ghost = self.client.post(
+            "/demo/pas/gate-conformant-mark",
+            json={"tests_passed": False},
+        ).get_json()
+        self.assertEqual(ghost["verdict"], "DENY")
+        self.assertEqual(ghost["reason"], "ghost_conformant")
+        self.assertTrue(ghost["ghost_conformant"])
+
+        sells = self.client.post(
+            "/demo/pas/gate-conformant-mark",
+            json={
+                "tests_passed": True,
+                "requirements": list(__import__("conformant").REQUIREMENTS),
+                "sells_may": True,
+            },
+        ).get_json()
+        self.assertEqual(sells["verdict"], "DENY")
+        self.assertEqual(sells["reason"], "never_sell_may")
+
+        hold = self.client.post(
+            "/demo/pas/gate-conformant-mark",
+            json={
+                "tests_passed": True,
+                "requirements": list(__import__("conformant").REQUIREMENTS),
+            },
+        ).get_json()
+        self.assertEqual(hold["verdict"], "HOLD")
+        self.assertFalse(hold["certified"])
+        self.assertEqual(hold["cash_usd"], 0)
+
+    def test_pages_and_well_known(self):
+        conf = self.client.get("/.well-known/conformant.json")
+        self.assertEqual(conf.status_code, 200)
+        self.assertEqual(conf.get_json()["inventor"]["name"], "Demond Davis")
+        qic_j = self.client.get("/.well-known/qic.json")
+        self.assertEqual(qic_j.status_code, 200)
+        self.assertEqual(qic_j.get_json()["billable"]["billable_usd"], 0)
+        field = self.client.get("/.well-known/licensed-field.json")
+        self.assertEqual(field.get_json()["default"], "platform_delegated_write")
+        html = self.client.get("/conformant").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("Gate Conformant", html)
+        self.assertIn("not a new money", html.lower())
+        self.assertIn("Nisaba", html)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("conformant", gate)
+        self.assertIn("qic", gate)
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+        self.assertTrue(fam["marks_are_not_siblings"])
+        self.assertEqual(fam["marks"][0]["id"], "gate_conformant")
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /conformant", robots)
+
+    def test_outcome_makes_the_ladder_without_claiming_cash(self):
+        import conformant
+
+        out = conformant.outcome("https://example.test")
+        self.assertEqual(out["spec"], "gate-conformant-qic-outcome-v1")
+        self.assertEqual(out["cash_usd"], 0)
+        self.assertFalse(out["forecast"])
+        self.assertTrue(out["cartoon_is_not_the_pitch"])
+        self.assertIn("HTTPS", out["heart"]["one_line"])
+        self.assertIn("your name", out["heart"]["one_line"])
+        ids = [r["id"] for r in out["rungs"]]
+        self.assertEqual(ids[0], "m0_gate1")
+        self.assertTrue(out["rungs"][0]["claimable_now"])
+        self.assertEqual(out["rungs"][-1]["annual_usd"], 300_000_000_000)
+        self.assertTrue(out["rungs"][-1]["cartoon"])
+        engines = {e["id"] for e in out["engines"]}
+        self.assertEqual(engines, {"conformant", "qic", "bps"})
+        wk = self.client.get("/.well-known/conformant-outcome.json").get_json()
+        self.assertEqual(wk["until_gate1_usd"], 0)
+        html = self.client.get("/conformant").get_data(as_text=True)
+        self.assertIn("Three engines", html)
+        self.assertIn("$300,000,000", html)
+        self.assertIn("$1,000,000,000", html)
+        self.assertIn("cartoon", html)
+
+    def test_heavier_dunks_the_badge_without_a_new_sibling(self):
+        import heavier
+
+        m = heavier.manifest("https://example.test")
+        self.assertEqual(m["spec"], "nisaba-heavier-than-conformant-v1")
+        self.assertFalse(m["l2_module"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertGreaterEqual(m["counts"]["soon"], 5)
+        self.assertGreaterEqual(m["counts"]["medium"], 5)
+        self.assertGreaterEqual(m["counts"]["long"], 5)
+        self.assertTrue(m["soon_ready"]["hosted_redeem_rail"])
+        self.assertTrue(m["soon_ready"]["agent_work_permit"])
+        self.assertTrue(m["soon_ready"]["payout_bps_choke"])
+        ids = {i["id"] for i in m["soon"] + m["medium"] + m["long"]}
+        self.assertTrue(
+            {
+                "hosted_redeem_rail",
+                "agent_work_permit",
+                "illocution_infrastructure",
+                "act_clearinghouse",
+                "crisis_handoff_clearinghouse",
+                "may_candela",
+            }.issubset(ids)
+        )
+        self.assertGreater(m["soon"][0]["dunks_conformant_by"], 0)
+        wk = self.client.get("/.well-known/heavier.json")
+        self.assertEqual(wk.status_code, 200)
+        html = self.client.get("/heavier").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("sticker", html.lower())
+        self.assertIn("Hosted redeem", html)
+        self.assertIn("Illocution", html)
+        self.assertIn("Schelling", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /heavier", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("heavier", gate)
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+
+    def test_bridge_is_forced_attach_not_a_new_sku(self):
+        import bridge
+
+        m = bridge.manifest("https://example.test")
+        self.assertEqual(m["spec"], "nisaba-bridge-v1")
+        self.assertFalse(m["l2_module"])
+        self.assertFalse(m["new_sku"])
+        self.assertFalse(m["new_price_id"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertTrue(m["pick_one_seat"])
+        self.assertEqual(m["bands"]["bridge"]["liquid"], "$5–40M")
+        self.assertEqual(len(m["seats"]), 3)
+        ids = {s["id"] for s in m["seats"]}
+        self.assertTrue({"s4_insurability", "s3_hosted_redeem", "closing_dependency"}.issubset(ids))
+        self.assertIn("/bind-room", m["cash_doors"]["bind_room"])
+        wk = self.client.get("/.well-known/bridge.json")
+        self.assertEqual(wk.status_code, 200)
+        html = self.client.get("/bridge").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("forced attach", html.lower())
+        self.assertIn("Book Bind Room", html)
+        self.assertNotIn("Pay $", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /bridge", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("bridge", gate)
+        pack = self.client.get("/bind-room/officer-pack.json").get_json()
+        self.assertEqual(pack["bridge"]["identity"], "forced attach at irreversibility")
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+
+
+class FirstInHistoryTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def _issue(self, job_id, holder_id):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=pvp",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": job_id,
+                    "holder_id": holder_id,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        return r.get_json()["bind_ticket"]
+
+    def test_reshape_and_pages(self):
+        import first
+
+        m = first.manifest("https://example.test")
+        self.assertEqual(m["reshape"]["headline"], "Humanity recorded the act.")
+        self.assertFalse(m["l2_module"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertTrue(m["identity_frozen_until_gate1"])
+        self.assertGreaterEqual(m["counts"]["soon"], 5)
+        html = self.client.get("/first").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("Humanity recorded the act", html)
+        self.assertIn("PvP may", html)
+        self.assertIn("ICAD", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /first", robots)
+        who = self.client.get("/.well-known/inventor.json").get_json()
+        self.assertEqual(who["first_in_history"], "depository and recorder of the act")
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+        self.assertIn("depository", fam["first_in_history"])
+
+    def test_pvp_immobilizes_and_settles_both_or_neither(self):
+        a = self._issue("pc:PVP-A", "op:alpha")
+        b = self._issue("pc:PVP-B", "op:beta")
+        opened = self.client.post(
+            "/demo/pas/pvp/open",
+            json={
+                "side_a_ticket": a["ticket_id"],
+                "side_b_ticket": b["ticket_id"],
+                "side_a_job": "pc:PVP-A",
+                "side_b_job": "pc:PVP-B",
+            },
+        ).get_json()
+        self.assertTrue(opened["ok"])
+        wid = opened["window_id"]
+
+        stolen = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": a["ticket_id"],
+                "token": a["token"],
+                "job_id": "pc:PVP-A",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:PVP-A/bind-only",
+                "spend_fingerprint": a["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:alpha",
+            },
+        )
+        self.assertEqual(stolen.status_code, 403)
+        self.assertEqual(stolen.get_json()["reason"], "pvp_pair_required")
+
+        now = _now()
+        first_leg = self.client.post(
+            "/demo/pas/pvp/offer",
+            json={
+                "window_id": wid,
+                "ticket_id": a["ticket_id"],
+                "token": a["token"],
+                "job_id": "pc:PVP-A",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:PVP-A/bind-only",
+                "now": now,
+                "holder_id": "op:alpha",
+            },
+        ).get_json()
+        self.assertEqual(first_leg["state"], "ARMED")
+        self.assertFalse(first_leg["settled"])
+
+        second = self.client.post(
+            "/demo/pas/pvp/offer",
+            json={
+                "window_id": wid,
+                "ticket_id": b["ticket_id"],
+                "token": b["token"],
+                "job_id": "pc:PVP-B",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:PVP-B/bind-only",
+                "now": now,
+                "holder_id": "op:beta",
+            },
+        ).get_json()
+        self.assertTrue(second["settled"])
+        self.assertEqual(second["state"], "SETTLED")
+        self.assertEqual(len(second["qic"]), 2)
+
+        unused = self.client.post(
+            "/demo/pas/capability-vital",
+            json={"job_id": "pc:NEVER-VITAL"},
+        ).get_json()
+        self.assertTrue(unused["died_unused"])
+        spent = self.client.post(
+            "/demo/pas/apostille",
+            json={"job_id": "pc:PVP-A"},
+        ).get_json()
+        self.assertTrue(spent["act_occurred"])
+
+
+class RemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def _issue(self, job_id, holder_id):
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=remaining",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": job_id,
+                    "holder_id": holder_id,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        return r.get_json()["bind_ticket"]
+
+    def test_reshape_and_pages(self):
+        import remaining
+
+        m = remaining.manifest("https://example.test")
+        self.assertEqual(m["reshape"]["headline"], "Bigger than the act is the remaining.")
+        self.assertEqual(
+            m["identity"],
+            "given = spent + remaining + immobilized + W + dead-unused + void",
+        )
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertFalse(m["l2_module"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["cash_usd"], 0)
+        self.assertTrue(m["identity_frozen_until_gate1"])
+        self.assertGreaterEqual(m["counts"]["soon"], 5)
+        html = self.client.get("/remaining").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("Bigger than the act is the remaining", html)
+        self.assertIn("Remaining folio", html)
+        self.assertIn("World-budget", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /remaining", robots)
+        who = self.client.get("/.well-known/inventor.json").get_json()
+        self.assertEqual(who["bigger_than_the_act"], "the remaining — the world after")
+        fam = self.client.get("/.well-known/family.json").get_json()
+        self.assertEqual(len(fam["family"]), 5)
+        self.assertIn("remaining", fam["bigger_than_the_act"])
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("remaining", gate)
+
+    def test_folio_given_then_spent(self):
+        never = f"pc:REMAIN-NEVER-{uuid.uuid4().hex[:10]}"
+        job = f"pc:REMAIN-{uuid.uuid4().hex[:10]}"
+        empty = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": never},
+        ).get_json()
+        self.assertTrue(empty["given"]["absent"])
+        self.assertEqual(empty["remaining"]["one_way_class"], "no_given")
+        self.assertEqual(empty["remaining"]["for"], "inhabitant")
+        self.assertEqual(empty["remaining"]["not_for"], "the actor")
+        self.assertTrue(empty["identity_holds"])
+        self.assertFalse(empty["facing"]["holds"])
+        self.assertEqual(empty["facing"]["reason"], "actor_indexed")
+        self.assertIsNone(empty["cleverer_layer"])
+
+        ticket = self._issue(job, "op:remain")
+        potency = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        self.assertFalse(potency["given"]["absent"])
+        self.assertGreaterEqual(potency["given"]["tickets_issued"], 1)
+        self.assertEqual(potency["remaining"]["one_way_class"], "potency")
+        self.assertFalse(potency["act"]["occurred"])
+        self.assertTrue(potency["the_act_is_not_the_object"])
+
+        redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": job,
+                "method": "POST",
+                "path": f"/job/v1/jobs/{job}/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:remain",
+            },
+        )
+        self.assertEqual(redeem.status_code, 200)
+        stock = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        self.assertTrue(stock["act"]["occurred"])
+        self.assertEqual(stock["remaining"]["one_way_class"], "spent_one_wayness")
+        self.assertTrue(stock["remaining"]["one_way_spent"])
+        self.assertTrue(stock["identity_holds"])
+        self.assertEqual(
+            stock["remaining"]["tickets_unconsumed"],
+            stock["given"]["tickets_issued"] - stock["act"]["tickets_consumed"],
+        )
+        self.assertTrue(stock["close"]["holds"])
+        self.assertEqual(stock["close"]["W"], 0)
+        self.assertEqual(stock["close"]["omega"], 0.0)
+
+    def test_wilderness_column_fail_closed(self):
+        job = f"pc:WILD-{uuid.uuid4().hex[:10]}"
+        ticket = self._issue(job, "op:wild-steward")
+        tid = ticket["ticket_id"]
+        attested = self.client.post(
+            "/demo/pas/remaining/wilderness",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "steward_id": "op:wild-steward",
+            },
+        ).get_json()
+        self.assertTrue(attested["ok"])
+        self.assertEqual(attested["kind"], "wilderness_attested")
+        self.assertEqual(attested["folio"]["close"]["W"], 1)
+        self.assertEqual(attested["folio"]["remaining"]["tickets_unconsumed"], 0)
+        self.assertEqual(attested["folio"]["remaining"]["one_way_class"], "wilderness")
+        self.assertTrue(attested["folio"]["close"]["holds"])
+        self.assertEqual(attested["folio"]["close"]["omega"], 1.0)
+
+        redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": tid,
+                "token": ticket["token"],
+                "job_id": job,
+                "method": "POST",
+                "path": f"/job/v1/jobs/{job}/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+                "holder_id": "op:wild-steward",
+            },
+        )
+        self.assertEqual(redeem.status_code, 403)
+        self.assertEqual(redeem.get_json()["reason"], "wilderness_not_ordinary_spend")
+
+        silent = self.client.post(
+            "/demo/pas/remaining/wilderness/reclassify",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-steward",
+                "charge_id": "",
+            },
+        ).get_json()
+        self.assertTrue(silent["halt"])
+        self.assertIn(
+            silent["reason"],
+            (
+                "wilderness_reclassify_needs_charge",
+                "unattested_w_cannot_become_remaining",
+            ),
+        )
+
+        steward_draw = self.client.post(
+            "/demo/pas/remaining/wilderness/draw",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-steward",
+                "charge_id": "chg:wild",
+            },
+        ).get_json()
+        self.assertTrue(steward_draw["halt"])
+
+        opened = self.client.post(
+            "/demo/pas/remaining/wilderness/open",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "third_id": "op:wild-third",
+            },
+        ).get_json()
+        self.assertTrue(opened["ok"])
+        self.assertTrue(opened["third_opens_never_spends"])
+
+        drawn = self.client.post(
+            "/demo/pas/remaining/wilderness/draw",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-third",
+                "charge_id": "chg:wild",
+            },
+        ).get_json()
+        self.assertTrue(drawn["ok"])
+        self.assertEqual(drawn["kind"], "w_draw")
+        self.assertTrue(drawn["folio"]["close"]["holds"])
+        self.assertEqual(drawn["folio"]["close"]["spent"], 1)
+        self.assertEqual(drawn["folio"]["close"]["W"], 0)
+
+    def test_hold_overflow_dies_and_seal_consumes_n(self):
+        empty_job = f"pc:HOLD-EMPTY-{uuid.uuid4().hex[:10]}"
+        dead = self.client.post(
+            "/demo/pas/remaining/hold",
+            json={"job_id": empty_job, "candidate": "delete prod"},
+        ).get_json()
+        self.assertTrue(dead["ok"])
+        self.assertTrue(dead["overflow_die"])
+        self.assertEqual(dead["hold"]["state"], "died")
+        self.assertEqual(dead["hold"]["died_reason"], "overflow_die")
+        self.assertFalse(dead["effective"])
+        self.assertEqual(dead["folio"]["hold"]["N"], 0)
+        self.assertEqual(dead["folio"]["hold"]["book"], "Ν")
+        self.assertTrue(dead["folio"]["hold"]["not_pending"])
+
+        job = f"pc:HOLD-{uuid.uuid4().hex[:10]}"
+        ticket = self._issue(job, "op:hold")
+        first = self.client.post(
+            "/demo/pas/remaining/hold",
+            json={"job_id": job, "candidate": "bind policy A"},
+        ).get_json()
+        self.assertTrue(first["ok"])
+        self.assertFalse(first["overflow_die"])
+        self.assertEqual(first["hold"]["state"], "held")
+        self.assertEqual(first["N"], 1)
+        self.assertFalse(first["effective"])
+
+        second = self.client.post(
+            "/demo/pas/remaining/hold",
+            json={"job_id": job, "candidate": "bind policy B"},
+        ).get_json()
+        self.assertTrue(second["ok"])
+        self.assertEqual(second["hold"]["state"], "held")
+        self.assertEqual(second["folio"]["hold"]["held"], 2)
+        self.assertEqual(second["folio"]["hold"]["candidates"], 2)
+        self.assertEqual(second["N"], 1)
+
+        no_ticket = self.client.post(
+            "/demo/pas/remaining/seal",
+            json={
+                "job_id": job,
+                "hold_id": first["hold"]["id"],
+                "cut": "A binds; B cannot",
+                "burden": "named UW desk",
+            },
+        ).get_json()
+        self.assertTrue(no_ticket["halt"])
+        self.assertEqual(no_ticket["reason"], "effectuate_undefined_without_n")
+
+        sealed = self.client.post(
+            "/demo/pas/remaining/seal",
+            json={
+                "job_id": job,
+                "hold_id": first["hold"]["id"],
+                "ticket_id": ticket["ticket_id"],
+                "cut": "A binds; B cannot",
+                "burden": "named UW desk",
+            },
+        ).get_json()
+        self.assertTrue(sealed["ok"])
+        self.assertEqual(sealed["kind"], "seal")
+        self.assertTrue(sealed["effective"])
+        self.assertTrue(sealed["tetrad"]["spend"])
+        self.assertEqual(sealed["tetrad"]["cut"], "A binds; B cannot")
+        self.assertEqual(sealed["tetrad"]["burden"], "named UW desk")
+        self.assertEqual(sealed["N"], 0)
+        self.assertTrue(sealed["folio"]["act"]["occurred"])
+        self.assertEqual(sealed["folio"]["hold"]["sealed"], 1)
+        self.assertEqual(sealed["folio"]["hold"]["died"], 1)
+        self.assertEqual(sealed["folio"]["hold"]["held"], 0)
+        self.assertIn(second["hold"]["id"], sealed["seal"]["overflow_died"])
+        stock = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(stock["hold"]["N"], 0)
+        self.assertTrue(stock["close"]["law"]["overflow_dies"])
+        self.assertTrue(stock["identity_holds"])
+        self.assertFalse(stock["facing"]["holds"])
+        self.assertEqual(stock["facing"]["reason"], "actor_indexed")
+
+
+class FinishedRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_manifest_and_page_are_cash_not_museum(self):
+        import finished
+
+        m = finished.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-finished-remaining-v1")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertFalse(m["l2_module"])
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertEqual(m["skus"]["finished_remaining"]["label"], "$8,500")
+        self.assertEqual(m["skus"]["broker_three_pack"]["label"], "$4,500")
+        self.assertIn("/finished/checkout", m["checkout"])
+        html = self.client.get("/finished").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$8,500", html)
+        self.assertIn("$4,500", html)
+        self.assertIn("Pay $8,500", html)
+        self.assertIn("we operate", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /finished", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("finished", gate)
+        wk = self.client.get("/.well-known/finished.json").get_json()
+        self.assertEqual(wk["prints_when"], "they pay — we operate — they attach")
+
+    def test_pack_is_the_remaining_already_run(self):
+        job = f"pc:FINISHED-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post(
+            "/demo/pas/finished",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(pack["kind"], "finished_remaining_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["operated_by"], "Nisaba LLC")
+        self.assertEqual(
+            pack["identity"],
+            "given = spent + remaining + immobilized + W + dead-unused + void",
+        )
+        self.assertIn("folio", pack)
+        self.assertIn("apostille", pack)
+        self.assertIn("vital", pack)
+        self.assertIn("officer_pack", pack)
+        self.assertTrue(pack["the_act_is_not_the_object"])
+        self.assertIsNone(pack["cleverer_layer"])
+        self.assertFalse(pack["l2_module"])
+        self.assertFalse(pack["their_production"])
+        self.assertIn("a padlock they implement", pack["not"])
+        self.assertEqual(pack["time_source"]["kind"], "time_source_attestation")
+        self.assertFalse(pack["time_source"]["claims_before_loss"])
+
+    def test_dev_checkout_prints(self):
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/finished/checkout",
+            data={"email": email, "job_id": "pc:CASH-NOW"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+        broker = self.client.post(
+            "/finished/broker-checkout",
+            data={"email": email},
+            follow_redirects=False,
+        )
+        self.assertIn(broker.status_code, (302, 303))
+
+
+class StandingRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_lease_is_recurring_and_unsplit(self):
+        import standing
+
+        m = standing.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-standing-remaining-v1")
+        self.assertEqual(m["category"], "remaining_lease")
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertTrue(m["no_split"])
+        self.assertFalse(m["connect"])
+        self.assertEqual(m["distribution"], "none — 100% Nisaba LLC")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertFalse(m["l2_module"])
+        self.assertIsNone(m["cleverer_layer"])
+        self.assertEqual(m["skus"]["standing_write"]["label"], "$4,500/mo")
+        self.assertEqual(m["skus"]["standing_book"]["label"], "$9,000/mo")
+        self.assertEqual(m["skus"]["standing_desk"]["label"], "$25,000/mo")
+        item = standing.stripe_line_item("standing_desk")
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "month")
+        self.assertEqual(item["price_data"]["unit_amount"], 2_500_000)
+        html = self.client.get("/standing").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$4,500/mo", html)
+        self.assertIn("$25,000/mo", html)
+        self.assertIn("no split", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /standing", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("standing", gate)
+        wk = self.client.get("/.well-known/standing.json").get_json()
+        self.assertEqual(wk["prints_when"], "they stay — we operate every month — they attach")
+
+    def test_pack_and_dev_checkout(self):
+        job = f"pc:STAND-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post(
+            "/demo/pas/standing",
+            json={"job_id": job, "sku": "standing_desk"},
+        ).get_json()
+        self.assertEqual(pack["kind"], "standing_remaining_pack")
+        self.assertEqual(pack["sku"], "standing_desk")
+        self.assertTrue(pack["standing"])
+        self.assertTrue(pack["no_split"])
+        self.assertEqual(pack["payee"], "Nisaba LLC")
+        self.assertTrue(pack["stale_if_canceled"])
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        email = f"desk-{uuid.uuid4().hex[:8]}@example.com"
+        for sku in ("standing_write", "standing_book", "standing_desk"):
+            r = self.client.post(
+                "/standing/checkout",
+                data={"email": email, "sku": sku, "job_id": job},
+                follow_redirects=False,
+            )
+            self.assertIn(r.status_code, (302, 303), sku)
+
+
+class TheGeneralTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_contains_satoshi_and_prints_structurally(self):
+        import general
+
+        m = general.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-the-general-v1")
+        self.assertEqual(m["identity"], "money is a special case of remaining")
+        self.assertTrue(m["containment"]["satoshi_inverse_is_not_enough"])
+        self.assertTrue(m["not_a_maycoin"])
+        self.assertTrue(m["no_split"])
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["sku"]["label"], "$1,000,000/yr")
+        self.assertEqual(m["sku"]["n_for_nine_figures"], 100)
+        self.assertEqual(m["print"]["easy_nine_figure"]["n_for_100m"], 100)
+        self.assertFalse(m["print"]["easy_nine_figure"]["this_year"])
+        self.assertEqual(m["print"]["easy_nine_figure"]["until_gate1_usd"], 0)
+        ids = {c["id"] for c in m["containment"]["special_cases"]}
+        self.assertTrue({"bitcoin", "double_entry", "carbon", "conformant_qic"}.issubset(ids))
+        item = general.stripe_line_item()
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "year")
+        self.assertEqual(item["price_data"]["unit_amount"], 100_000_000)
+        html = self.client.get("/general").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("special case of remaining", html)
+        self.assertIn("$1,000,000/yr", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /general", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("general", gate)
+
+    def test_correspondent_books_neither_forges_alone(self):
+        left = f"pc:CORR-L-{uuid.uuid4().hex[:10]}"
+        right = f"pc:CORR-R-{uuid.uuid4().hex[:10]}"
+        books = self.client.post(
+            "/demo/pas/correspondent",
+            json={"left_job": left, "right_job": right},
+        ).get_json()
+        self.assertEqual(books["kind"], "correspondent_remaining")
+        self.assertTrue(books["neither_forges_alone"])
+        self.assertTrue(books["not_a_maycoin"])
+        self.assertEqual(books["payee"], "Nisaba LLC")
+        self.assertEqual(books["the_general"], "money is a special case of remaining")
+        self.assertIn("folio", books["left"])
+        self.assertIn("folio", books["right"])
+        email = f"corr-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/general/checkout",
+            data={"email": email, "institution": "Example Re"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class CommonsTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_operator_not_founder(self):
+        import commons
+
+        m = commons.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-incident-remaining-commons-v1")
+        self.assertTrue(m["we_do_not_convene"])
+        self.assertTrue(m["we_do_not_carry_risk"])
+        self.assertTrue(m["not_aiuc"])
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["sku"]["label"], "$150,000/yr")
+        self.assertFalse(m["assessment_after_convening"]["checkout"])
+        self.assertEqual(m["ostrom"]["nested"][:6], "Nisaba")
+        self.assertIn("recognition", m["ostrom"])
+        item = commons.stripe_line_item()
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "year")
+        self.assertEqual(item["price_data"]["unit_amount"], 15_000_000)
+        html = self.client.get("/commons").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("we do not convene", html.lower())
+        self.assertIn("$150,000/yr", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /commons", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("commons", gate)
+
+    def test_seed_strips_and_free_rider_excluded(self):
+        job = f"pc:COMMONS-{uuid.uuid4().hex[:10]}"
+        seed = self.client.post(
+            "/demo/pas/commons/seed",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(seed["kind"], "incident_remaining_seed")
+        self.assertFalse(seed["pii"])
+        self.assertIsNone(seed["job_id"])
+        self.assertIn("one_way_class", seed)
+        denied = self.client.post(
+            "/demo/pas/commons/query",
+            json={"contributed": False},
+        ).get_json()
+        self.assertFalse(denied["may_query"])
+        self.assertEqual(denied["sanction"], "no_contribute_no_query")
+        allowed = self.client.post(
+            "/demo/pas/commons/query",
+            json={"contributed": True},
+        ).get_json()
+        self.assertTrue(allowed["may_query"])
+        email = f"convene-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/commons/checkout",
+            data={"email": email, "convener": "Example Specialty"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class HandTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_unmetered_way_of_life(self):
+        import hand
+
+        m = hand.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-the-hand-v1")
+        self.assertEqual(m["identity"], "rent is keeping the hand, not moving it")
+        self.assertFalse(m["sku"]["metered"])
+        self.assertFalse(m["print"]["hops"])
+        self.assertFalse(m["print"]["bps"])
+        self.assertFalse(m["print"]["qic"])
+        self.assertFalse(m["print"]["effector_count"])
+        self.assertTrue(m["print"]["indefinite"])
+        self.assertIsNone(m["print"]["meter"])
+        self.assertEqual(m["sku"]["label"], "$12,000/yr")
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["family_siblings_remain"], 5)
+        ids = {t["id"] for t in m["timeless"]}
+        self.assertTrue({"oath", "handshake", "signature", "vote", "tap"}.issubset(ids))
+        item = hand.stripe_line_item()
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "year")
+        self.assertEqual(item["price_data"]["unit_amount"], 1_200_000)
+        html = self.client.get("/hand").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("keeping the hand", html)
+        self.assertIn("$12,000/yr", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /hand", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("hand", gate)
+
+    def test_keep_is_not_a_spend(self):
+        kept = self.client.post(
+            "/demo/pas/hand",
+            json={"legal_person": "Example LLC"},
+        ).get_json()
+        self.assertEqual(kept["kind"], "hand_kept")
+        self.assertFalse(kept["metered"])
+        self.assertFalse(kept["taps_counted"])
+        self.assertFalse(kept["may_sold"])
+        self.assertFalse(kept["being_sold"])
+        self.assertEqual(kept["legal_person"], "Example LLC")
+        email = f"hand-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/hand/checkout",
+            data={"email": email, "legal_person": "Example LLC"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class FlowRentsTests(unittest.TestCase):
+    def test_register_names_holes_and_next(self):
+        import flows
+
+        m = flows.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-act-flow-rents-v1")
+        self.assertEqual(m["until_gate1_usd"], 0)
+        self.assertEqual(m["family_siblings_remain"], 5)
+        ids = {h["id"] for h in m["holes"]}
+        self.assertTrue(
+            {"scheme_assessment", "interchange", "named_may_employment", "auth_capture_settle", "custody_stock_bps"}.issubset(ids)
+        )
+        self.assertFalse({"prefinality_keepalive", "query_remaining", "silence_lease"} & ids)
+        seated = {s["id"] for s in m["seated"]}
+        self.assertTrue({"hop", "bps", "floor", "qic"}.issubset(seated))
+        priced = {s["id"] for s in m["priced"]}
+        self.assertEqual(priced, {"prefinality_keepalive", "query_remaining", "silence_lease"})
+        self.assertEqual(m["next_after_gate1"], ["scheme_assessment", "per_clear"])
+        self.assertIn("selling may", m["never"])
+        html = gate_app.app.test_client().get("/flows").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("unpaid", html.lower())
+        self.assertIn("$1,200/mo", html)
+        robots = gate_app.app.test_client().get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /flows", robots)
+
+
+class PricedActRentsTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_three_rents_and_dev_checkout(self):
+        import acts
+
+        m = acts.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-priced-act-rents-v1")
+        self.assertEqual(m["identity"], "the same act is rented more than once")
+        self.assertTrue(m["no_split"])
+        self.assertEqual(m["payee"], "Nisaba LLC")
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertEqual(m["skus"]["prefinality_keepalive"]["label"], "$1,200/mo")
+        self.assertEqual(m["skus"]["query_remaining"]["label"], "$2,000/mo")
+        self.assertEqual(m["skus"]["silence_lease"]["label"], "$1,500/mo")
+        item = acts.stripe_line_item("prefinality_keepalive")
+        self.assertEqual(item["price_data"]["recurring"]["interval"], "month")
+        self.assertEqual(item["price_data"]["unit_amount"], 120_000)
+        html = self.client.get("/acts").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("rented more than once", html)
+        self.assertIn("$1,200/mo", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /acts", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("acts", gate)
+
+    def test_demo_and_checkout_each_sku(self):
+        job = f"pc:ACT-{uuid.uuid4().hex[:10]}"
+        kept = self.client.post(
+            "/demo/pas/acts",
+            json={"sku": "prefinality_keepalive", "job_id": job},
+        ).get_json()
+        self.assertEqual(kept["kind"], "prefinality_keepalive")
+        self.assertFalse(kept["unspent_may_sold"])
+        self.assertTrue(kept["window_kept"])
+        self.assertEqual(kept["ttl_seconds"], 300)
+        asked = self.client.post(
+            "/demo/pas/acts",
+            json={"sku": "query_remaining", "job_id": job, "legal_person": "Example LLC"},
+        ).get_json()
+        self.assertEqual(asked["kind"], "query_of_remaining")
+        self.assertTrue(asked["ask"])
+        self.assertFalse(asked["write"])
+        self.assertEqual(asked["legal_person"], "Example LLC")
+        self.assertIn("folio", asked)
+        quiet = self.client.post(
+            "/demo/pas/acts",
+            json={"sku": "silence_lease", "named_agent": "unbound-agent"},
+        ).get_json()
+        self.assertEqual(quiet["kind"], "silence_lease")
+        self.assertTrue(quiet["refusal_is_souvenir"])
+        self.assertFalse(quiet["may_sold"])
+        email = f"acts-{uuid.uuid4().hex[:8]}@example.com"
+        for sku in ("prefinality_keepalive", "query_remaining", "silence_lease"):
+            r = self.client.post(
+                "/acts/checkout",
+                data={"email": email, "sku": sku, "subject": job},
+                follow_redirects=False,
+            )
+            self.assertIn(r.status_code, (302, 303), sku)
+
+
+class VitalTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_unwatched_is_not_a_bank(self):
+        import vital
+
+        m = vital.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-vital-v1")
+        self.assertEqual(m["identity"], "the world must hold when the inhabitant cannot watch")
+        self.assertFalse(m["checkout"])
+        self.assertEqual(m["until_gate1_usd"], 0)
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertIsNone(m["cleverer_layer"])
+        ids = {o["id"] for o in m["organs"]}
+        self.assertTrue(
+            {"unwatched", "night", "natal", "posology", "sabbath", "morning", "hospice", "kin", "present"}.issubset(ids)
+        )
+        crown = next(o for o in m["organs"] if o["crown"])
+        self.assertEqual(crown["id"], "unwatched")
+        self.assertFalse(m["print"]["forecast"])
+        self.assertTrue(m["print"]["do_not_pitch_from_bind"])
+        self.assertEqual(m["print"]["circadian"]["world_default_usd"], 1_320_000_000_000)
+        self.assertEqual(m["print"]["circadian"]["us_default_usd"], 79_620_000_000)
+        self.assertEqual(m["print"]["three_organ_world_default_usd"], 2_077_500_000_000)
+        html = self.client.get("/vital").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("cannot watch", html)
+        self.assertIn("Night Law", html)
+        self.assertIn("1,320,000,000,000", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /vital", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("vital", gate)
+
+    def test_hold_is_the_interval_not_the_soul(self):
+        held = self.client.post(
+            "/demo/pas/vital/hold",
+            json={"kind": "night", "subject": "Example Household"},
+        ).get_json()
+        self.assertEqual(held["kind"], "vital_hold")
+        self.assertEqual(held["organ"], "night")
+        self.assertTrue(held["interval_held"])
+        self.assertFalse(held["soul_held"])
+        self.assertFalse(held["being_sold"])
+        self.assertFalse(held["may_sold"])
+        self.assertFalse(held["visa"])
+        self.assertFalse(held["bank"])
+        self.assertEqual(held["until_gate1_usd"], 0)
+
+
+class DischargeTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_unbounded_is_a_prison_then_lapse_opens(self):
+        import discharge
+        from datetime import datetime, timedelta, timezone
+
+        job = f"pc:DCH-{uuid.uuid4().hex[:10]}"
+        prison = self.client.post("/demo/pas/discharge/may", json={"job_id": job}).get_json()
+        self.assertFalse(prison["ok"])
+        self.assertEqual(prison["reason"], "no_expiry_rail_prison")
+        self.assertEqual(prison["state"], "UNBOUNDED")
+        past = (datetime.now(timezone.utc) - timedelta(days=1)).replace(microsecond=0).isoformat()
+        sched = self.client.post(
+            "/demo/pas/discharge/schedule",
+            json={"job_id": job, "standing_until": past},
+        ).get_json()
+        self.assertTrue(sched["ok"])
+        self.assertFalse(sched["deletion"])
+        may = self.client.post("/demo/pas/discharge/may", json={"job_id": job}).get_json()
+        self.assertTrue(may["ok"])
+        future = (datetime.now(timezone.utc) + timedelta(days=30)).replace(microsecond=0).isoformat()
+        live_job = f"pc:DCH-LIVE-{uuid.uuid4().hex[:8]}"
+        discharge.schedule(live_job, standing_until=future)
+        live_block = discharge.issue(live_job)
+        self.assertFalse(live_block["ok"])
+        self.assertEqual(live_block["reason"], "standing_still_live")
+        receipt = self.client.post("/demo/pas/discharge", json={"job_id": job}).get_json()
+        self.assertTrue(receipt["ok"])
+        self.assertEqual(receipt["kind"], "discharge_receipt")
+        self.assertTrue(receipt["folio_still_exists"])
+        self.assertFalse(receipt["deletion"])
+        self.assertTrue(receipt["chain_intact"])
+        self.assertTrue(receipt["actor_cannot_self_discharge"])
+        both = self.client.post("/demo/pas/discharge/open", json={"job_id": job}).get_json()
+        self.assertEqual(both["kind"], "stranger_opens_both")
+        self.assertEqual(both["standing"]["state"], "DISCHARGED")
+        self.assertIn("folio", both)
+        html = self.client.get("/discharge").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("lapses", html.lower())
+        self.assertIn("$1,500", html)
+        self.assertIn("Pay $1,500", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /discharge", robots)
+
+    def test_pack_and_dev_checkout_are_the_number(self):
+        import discharge
+
+        m = discharge.manifest("https://example.test")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["until_gate1_usd"], 1500)
+        self.assertIn("/discharge/checkout", m["checkout"])
+        self.assertEqual(m["skus"]["discharge_of_record"]["label"], "$1,500")
+        job = f"pc:DCH-PAY-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post("/demo/pas/discharge/pack", json={"job_id": job}).get_json()
+        self.assertEqual(pack["kind"], "discharge_of_record_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["until_gate1_usd"], 1500)
+        self.assertFalse(pack["deletion"])
+        self.assertTrue(pack["folio_still_exists"])
+        self.assertEqual(pack["open_both"]["standing"]["state"], "DISCHARGED")
+        self.assertEqual(pack["time_source"]["kind"], "time_source_attestation")
+        self.assertFalse(pack["time_source"]["claims_before_loss"])
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/discharge/checkout",
+            data={"email": email, "job_id": job},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+    def test_near_miss_and_null_result(self):
+        job = f"pc:NULL-{uuid.uuid4().hex[:10]}"
+        miss = self.client.post("/demo/pas/commons/near-miss", json={"job_id": job}).get_json()
+        self.assertEqual(miss["kind"], "near_miss_remaining_seed")
+        self.assertTrue(miss["near_miss"])
+        self.assertFalse(miss["incident"])
+        self.assertTrue(miss["not_a_claim"])
+        self.assertIsNone(miss["job_id"])
+        null = self.client.post(
+            "/demo/pas/remaining/null",
+            json={"job_id": job, "tried": "unbound agent write"},
+        ).get_json()
+        self.assertEqual(null["kind"], "null_result")
+        self.assertFalse(null["succeeded"])
+        self.assertEqual(null["tried"], "unbound agent write")
+        self.assertEqual(null["custodian"], "failure has a remaining")
+
+
+class NullRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_manifest_and_page_are_cash_not_museum(self):
+        import null_remaining
+
+        m = null_remaining.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-null-remaining-v1")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["until_gate1_usd"], 4500)
+        self.assertEqual(m["identity"], "failure has a remaining")
+        self.assertIn("/null/checkout", m["checkout"])
+        self.assertEqual(m["skus"]["null_remaining"]["label"], "$4,500")
+        self.assertEqual(m["family_siblings_remain"], 5)
+        self.assertFalse(m["l2_module"])
+        self.assertIsNone(m["cleverer_layer"])
+        html = self.client.get("/null").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$4,500", html)
+        self.assertIn("Pay $4,500", html)
+        self.assertIn("failure has a remaining", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /null", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("null", gate)
+        wk = self.client.get("/.well-known/null.json").get_json()
+        self.assertEqual(wk["prints_when"], "they pay — we seal the failed try — they attach")
+
+    def test_pack_and_dev_checkout(self):
+        job = f"pc:NULL-PAY-{uuid.uuid4().hex[:10]}"
+        pack = self.client.post(
+            "/demo/pas/null",
+            json={"job_id": job, "tried": "unbound agent write"},
+        ).get_json()
+        self.assertEqual(pack["kind"], "null_remaining_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["until_gate1_usd"], 4500)
+        self.assertFalse(pack["succeeded"])
+        self.assertEqual(pack["tried"], "unbound agent write")
+        self.assertEqual(pack["sealed"]["kind"], "null_result")
+        self.assertIn("will not ship", pack["distinct_from"]["refusal"])
+        self.assertEqual(pack["time_source"]["kind"], "time_source_attestation")
+        self.assertFalse(pack["time_source"]["claims_before_loss"])
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/null/checkout",
+            data={"email": email, "job_id": job, "tried": "unbound agent write"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class EstateRemainingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_orphaned_then_probate_halts_or_inherits(self):
+        job = f"pc:EST-{uuid.uuid4().hex[:10]}"
+        prison = self.client.post(
+            "/demo/pas/estate/may",
+            json={"job_id": job, "bearer_gone": True},
+        ).get_json()
+        self.assertFalse(prison["ok"])
+        self.assertEqual(prison["reason"], "orphaned_live_no_estate")
+        pack = self.client.post(
+            "/demo/pas/estate",
+            json={"job_id": job, "bearer": "Dead Vendor LLC", "reason": "dissolved"},
+        ).get_json()
+        self.assertEqual(pack["kind"], "estate_of_remaining_pack")
+        self.assertTrue(pack["they_do_not_implement_gate"])
+        self.assertEqual(pack["until_gate1_usd"], 3500)
+        self.assertEqual(pack["receipt"]["disposition"], "wind_down")
+        self.assertEqual(pack["receipt"]["leftover_writes"], "HALT")
+        self.assertTrue(pack["actor_cannot_self_probate"])
+        self.assertTrue(pack["estate_is_not_admin_resurrect"])
+        self.assertEqual(pack["time_source"]["kind"], "time_source_attestation")
+        self.assertFalse(pack["time_source"]["claims_before_loss"])
+        halt = self.client.post(
+            "/demo/pas/estate/may",
+            json={"job_id": job, "bearer_gone": True},
+        ).get_json()
+        self.assertFalse(halt["ok"])
+        self.assertEqual(halt["reason"], "probated_wind_down_halt")
+        heir_job = f"pc:EST-HEIR-{uuid.uuid4().hex[:8]}"
+        heir = self.client.post(
+            "/demo/pas/estate",
+            json={"job_id": heir_job, "bearer": "Dead Vendor LLC", "successor": "Nisaba LLC", "reason": "dissolved"},
+        ).get_json()
+        self.assertEqual(heir["receipt"]["disposition"], "inherit")
+        self.assertEqual(heir["receipt"]["leftover_writes"], "named_successor")
+        opened = heir["open_both"]
+        self.assertEqual(opened["state"]["state"], "PROBATED")
+        self.assertTrue(opened["the_record_is_not_the_bearer"])
+
+    def test_manifest_page_and_dev_checkout(self):
+        import estate
+
+        m = estate.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-estate-remaining-v1")
+        self.assertTrue(m["not_museum"])
+        self.assertEqual(m["until_gate1_usd"], 3500)
+        self.assertIn("/estate/checkout", m["checkout"])
+        self.assertEqual(m["skus"]["estate_of_remaining"]["label"], "$3,500")
+        self.assertEqual(m["failure_class"], "2.3 the bearer is gone")
+        html = self.client.get("/estate").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("$3,500", html)
+        self.assertIn("Pay $3,500", html)
+        self.assertIn("orphaned", html.lower())
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /estate", robots)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("estate", gate)
+        email = f"gc-{uuid.uuid4().hex[:8]}@example.com"
+        r = self.client.post(
+            "/estate/checkout",
+            data={"email": email, "job_id": "pc:EST-CASH", "bearer": "Dead Vendor LLC"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+
+
+class SpaceAcademyTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_not_the_academy_not_c2(self):
+        import space
+
+        m = space.manifest("https://example.test")
+        self.assertEqual(m["spec"], "gate-space-academy-remaining-v1")
+        self.assertEqual(m["identity"], "we record the commission and the delay; we do not own the sky")
+        self.assertFalse(m["checkout"])
+        self.assertIn("sell C2", m["never"])
+        ids = {i["id"] for i in m["inventions"]}
+        self.assertTrue({"delay_unwatched", "commission_remaining", "sheath_class"}.issubset(ids))
+        html = self.client.get("/space").get_data(as_text=True)
+        self.assertIn("noindex", html)
+        self.assertIn("do not own the sky", html)
+        robots = self.client.get("/robots.txt").get_data(as_text=True)
+        self.assertIn("Disallow: /space", robots)
+
+    def test_delay_and_commission_mouths(self):
+        delay = self.client.post(
+            "/demo/pas/space/delay",
+            json={"vehicle": "demo-1", "light_s": 1500},
+        ).get_json()
+        self.assertEqual(delay["kind"], "delay_unwatched")
+        self.assertTrue(delay["unwatched_by_geometry"])
+        self.assertFalse(delay["c2"])
+        self.assertFalse(delay["command_sold"])
+        comm = self.client.post(
+            "/demo/pas/space/commission",
+            json={"graduate": "Example", "sheath": "civil", "years": 5},
+        ).get_json()
+        self.assertEqual(comm["kind"], "commission_remaining")
+        self.assertTrue(comm["state_issues_rank"])
+        self.assertTrue(comm["we_do_not_commission"])
+        self.assertFalse(comm["c2"])
+        self.assertTrue(comm["discharge_rail"])
+        self.assertEqual(comm["sheath_class"], "civil")
 
 
 if __name__ == "__main__":

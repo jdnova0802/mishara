@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block title %}Nisabatree — Nisaba in plain English{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ manifest.shorter }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Plain English · whole company · not a checkout</p>
+  <h1>Nisabatree</h1>
+  <p class="audience-sub">{{ manifest.thesis }}</p>
+  <p><strong>{{ manifest.inventor.name }}</strong> · {{ manifest.inventor.entity }} · Patent #{{ manifest.inventor.patent }}</p>
+  <p style="color: var(--muted);">
+    Primitive: <strong>{{ manifest.primitive | join(' · ') }}</strong>
+    · Gate 1: <strong>{{ manifest.gate1 }}</strong>
+    · never sell: <strong>{{ manifest.never_sell | join(' / ') }}</strong>
+  </p>
+  <p>cleverer_layer: <strong>{{ manifest.cleverer_layer }}</strong>
+    · their_production: <strong>{{ manifest.their_production }}</strong>
+    · family stays <strong>{{ manifest.family | length }}</strong>
+    · checkout: <strong>none</strong></p>
+
+  {% for b in blocks %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ b.id }}</p>
+    <h2>{{ b.heading }}</h2>
+    <p>{{ b.body }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Five brands</h2>
+  {% for brand in manifest.brands %}
+  <div class="card" style="margin-top: 0.75rem;">
+    <p class="audience-tag">{{ brand.name }}</p>
+    <h3>{{ brand.question }}</h3>
+    <p style="color: var(--muted);">{{ brand.job }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Organs (not brands)</h2>
+  <ul class="check-list">
+    {% for o in manifest.organs %}
+    <li><strong>{{ o.name }}</strong> — {{ o.job }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2 style="margin-top: 1.5rem;">Cash now</h2>
+  {% for c in manifest.cash_now %}
+  <div class="card" style="margin-top: 0.5rem;">
+    <p><strong>{{ c.sku }}</strong> · {{ c.price }}</p>
+    <p style="color: var(--muted);">{{ c.line }}</p>
+  </div>
+  {% endfor %}
+
+  <h2 style="margin-top: 1.5rem;">Glossary</h2>
+  <ul class="check-list">
+    {% for g in manifest.glossary %}
+    <li><strong>{{ g.term }}</strong> — {{ g.plain }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2 style="margin-top: 1.5rem;">Fight-for ~22 (shapes)</h2>
+  <div class="card">
+    <p>Aim liquid <strong>{{ manifest.fight_for_22.aim_liquid }}</strong>
+      · Fat <strong>{{ manifest.fight_for_22.fat_liquid }}</strong>
+      · Padlock <strong>{{ manifest.fight_for_22.padlock }}</strong></p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">$0 without Gate 1. External/fuse language does not change Tuesday.</p>
+  </div>
+
+  <h2 style="margin-top: 1.5rem;">One breath</h2>
+  <div class="card">
+    <p>{{ manifest.one_breath }}</p>
+  </div>
+
+  <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.9rem;">
+    Full prose: <code>gate/NISABATREE.md</code>
+    · machine: <a href="/.well-known/nisabatree.json">nisabatree.json</a>
+    · Tuesday door: <a href="/bind-room">/bind-room</a>
+  </p>
+</div>
+{% endblock %}

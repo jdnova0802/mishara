@@ -212,6 +212,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "operator": f"{base}/operator",
             "science": f"{base}/science",
             "science_pri": f"{base}/.well-known/science-pri.json",
+            "unison": f"{base}/.well-known/unison.json",
+            "unison_page": f"{base}/unison",
             "act": f"{base}/v1/act",
             "demo_hop": f"{base}/demo/hop",
             "gate": f"{base}/.well-known/gate.json",

@@ -281,7 +281,10 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "hurdle_cleared_month": f"${HURDLE_CLEARED_CENTS // 100_000_000}/mo",
             "volume": "cleared flow through welded mouths",
             "not_the_product": "one lonely $5,000/mo line",
+            "after_gate1": "Conformant franchise + MAR + QIC stacked with these legs",
         },
+        "conformant": f"{public_url}/.well-known/conformant.json",
+        "qic": f"{public_url}/.well-known/qic.json",
         "register_fees": {
             "spec": REGISTER_FEES_SPEC,
             "fund_analog": {

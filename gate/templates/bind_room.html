@@ -1,67 +1,32 @@
 {% extends "base.html" %}
 {% block title %}Bind Room{% endblock %}
 {% block meta %}
-<meta name="description" content="Officer pack examiners take + PolicyCenter pre-bind weld. $1,750. Control, not a rating model.">
+<meta name="description" content="{{ stranger_two.paragraphs[0] }} {{ stranger_two.paragraphs[1] }}">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Bind Room</p>
-  <h1>Two artifacts. One weld. A no that holds.</h1>
-  <p class="audience-sub">The officer pack is the narrative examiners take. The bound answer is the no on bind-and-issue. On request they take verify permalinks. If the hop is not on <em>their</em> write path, it is still a question.</p>
+  <p class="audience-sub">{{ stranger_two.paragraphs[0] }}</p>
+  <p class="audience-sub">{{ stranger_two.paragraphs[1] }}</p>
   <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Production weld in their house: <a href="{{ url_for('operator_page') }}">operator {{ weld_price }}</a>. Agent path: {{ install_price }} / 48hr. Fuse_id + job_id only. No PII.</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ stranger_two.halt }} Don't implement? <a href="{{ url_for('finished_page') }}">Finished Remaining {{ finished_price }}</a>.</p>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
     {% if stripe_bind_room %}
     <form method="post" action="{{ url_for('bind_room_checkout') }}">
       <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
-      <button type="submit" class="btn btn-primary">Book Bind Room</button>
+      <button type="submit" class="btn btn-primary">{{ stranger_two.ask }}</button>
     </form>
     {% else %}
     <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
     {% endif %}
-    <a class="btn btn-ghost" href="{{ url_for('operator_page') }}">Operator weld {{ weld_price }}</a>
   </div>
 
-  <div class="grid-3">
-    <div class="card">
-      <h3>A. Officer pack</h3>
-      <p>Colorado 10-1-1 SERFF shape. Titles on each Section 5 duty. NYDFS CL7 + Exhibit C HITL mapped. ≤10 pages. Not a fuse hash in SERFF.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a></p>
-    </div>
-    <div class="card">
-      <h3>B. Appendix</h3>
-      <p>On-request. Each job_id → ALLOW/BLOCK/HALT + verify_url. Pull after you weld.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room_appendix_schema') }}">appendix.schema.json</a> · <a href="{{ url_for('exhibit_c_hitl') }}">Exhibit C HITL</a></p>
-    </div>
-    <div class="card">
-      <h3>The weld</h3>
-      <p>Hop. If DEAD, raise a UW issue that <strong>BlocksBind</strong>. Do not call <code class="inline">bind-only</code> or <code class="inline">bind-and-issue</code>. QuoteRelease is not a bind stop. UW approve ≠ CHARGE.</p>
-      <p style="margin-top: 0.75rem;"><a href="{{ url_for('capture_page') }}">Production capture</a> · <a href="/listings/guidewire-partnerconnect.json">PolicyCenter packet</a> · <a href="/listings/control-not-model.json">control, not model</a></p>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2>Public proof (no key, no PII)</h2>
-    <pre>curl -s -X POST "{{ public_url }}/demo/pas/bind-check" -H "Content-Type: application/json" -d '{}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'
-
-curl -s -X POST "{{ public_url }}/demo/pas/mga-authority" \
-  -H "Content-Type: application/json" \
-  -d '{"fuse_id":"fuse_velaru_drill","premium":60000,"authority_limit":50000,"line":"GL","state":"CO"}'</pre>
-  </div>
-
-  <div class="card" style="margin-top: 1.5rem;">
-    <h2>Two yeses — who wins</h2>
-    <ol>
-      <li>Bind-path owner with a live job API this quarter (MGA pen or PolicyCenter)</li>
-      <li>Else CUO / named Colorado 10-1-1 owner or NAIC pilot domestic</li>
-      <li>Else this pack (cash, not a weld)</li>
-      <li>MCP / listings never win a slot</li>
-    </ol>
-  </div>
+  <p style="color: var(--muted); font-size: 0.9rem;">
+    Prove: <a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a>
+    · <a href="{{ url_for('bind_room_appendix_schema') }}">appendix.schema.json</a>
+    · <a href="{{ url_for('exhibit_c_hitl') }}">Exhibit C HITL</a>
+    · <code class="inline">POST {{ public_url }}/demo/pas/bind-check</code>
+  </p>
 </div>
 {% endblock %}
