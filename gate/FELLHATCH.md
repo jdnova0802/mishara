@@ -1,47 +1,57 @@
-# Fellhatch — bureau of remaining (not a skin, not a people hunt)
+# Fellhatch — the lab (not Gate’s restraint, not a people hunt)
 
-**Not Cool Gate.** Not a sixth family voice. Not Gate in a different font.  
-**Not a wanted list of humans.** That’s a hunt. Nuts. Palantir doesn’t run that either — they integrate *their customer’s* files so the customer can act. Fellhatch takes that *shape* (two shelves, infamous, operational intel gated) and Gate’s *object* (irreversible writes / agents that can still act).
+**Not Cool Gate.** Not a sixth family voice. Not Gate in a lab coat.  
+**Gate restrains. Fellhatch assembles.** Gate can still stop what the lab named. That is the point of two names.
+
+**Not a wanted list of humans.** That’s a hunt. Nuts. Palantir sells glue on *their customer’s* files. Fellhatch takes that *shape* (two shelves, infamous, intel gated) on **writes/agents that can still act** — and the *place* is a laboratory, not a bureau-only PDF shop.
 
 **Status:** designation. Future. Name only. No `/fellhatch` page. No new Price ID. No sixth voice in `family_voices`.  
-Cash still Gate 1. Never sell may. Never sell the throat / C2. Do not email the freeze list.
+Cash still Gate 1. Do not email the freeze list.
 
 ---
 
-## The slot (locked)
+## The split (locked)
 
-**Gate** = the hidden click. Act-may × sheath × prove. Can this write still happen *right now*? DENY. Back room.
+**Gate** = restrain. Hidden click. This write, *right now*. DENY. Sheath. Prove. Back room.  
+**Fellhatch** = assemble and keep remaining. Frankenstein lab: name the write/agent, file it, meter what’s still live. Public shelf / specialist shelf. Infamous online.
 
-**Fellhatch** = the ground that click stands on. Named-may × hatch-remaining × prove. A **bureau** with a **wanted-list face** and a **checkable meter**. Own guts. Two shelves.
+Gate can still restrain Fellhatch. The lab does not replace the click. The click does not do the lab’s job.
 
-| Shelf | Who | What they get |
-|-------|-----|----------------|
-| **Public (legal, hard to hide)** | Anyone | National-emergency layer. Remaining on the door moved. A designation happened. Meter a stranger can check. No names of people. No ops file |
-| **Specialist (top shelf)** | Qualified only — scary customers, or people you hire because they fit a need. Not a signup | Operational remaining: which **write / agent** still has remaining, hatch quota, designation file, prove. Not a hunt of humans |
-
-**Fame:** villain-notorious to people who live on the internet. Grocery-line normies may not know it. Not hidden. Not a Super Bowl ad. Gate stays the name in the back.
+| | Gate | Fellhatch |
+|--|--|--|
+| Verb | Stop | Assemble / name / file / meter |
+| Myth | The cut | The laboratory (the creature is an unbound write) |
+| Object | This act | Remaining of writes/agents that can still act |
+| Public | Not the public product | Hard-to-hide meter + “a designation happened” |
+| Top shelf | The DENY | Qualified customers / hires. The file. Not a people hunt |
+| Physical later | The switch | The lab — instruments, maybe manufacture of the *door’s remaining gear*. Not munitions |
 
 Public sentence:
 
-> **Fellhatch. The hatch has remaining. A stranger can check the meter. The file is not the street’s.**
-
-Subjects on the list: **irreversible writes and agents that can still act** (entities that write — companies/deployers as *operators of writes*, not a people-wanted board).  
-If someone asks “is this Palantir?”: same *shape* (integrate, gate the intel, infamous). Different *object* (remaining of the write, not Gotham on persons).
+> **Fellhatch. The lab named it. The hatch has remaining. Gate can still stop it.**
 
 ---
 
 ## Own guts (not shipped)
 
-Name-only until they say ship. When shipped, organs are Fellhatch’s, sitting on Gate’s click — not a second `/v1/act`.
+Fellhatch organs are the lab’s, not a second `/v1/act`.
 
 | Organ | Job |
 |-------|-----|
-| **Hatch meter** | Public, checkable remaining on the door (one number: remaining of writes/agents still live). Hard to hide |
-| **Designation file** | Specialist. This write/agent was named. Remaining, hold, prove |
-| **Unlist / still-named** | Specialist. Who/what still has remaining on the hatch. Not a public hunt wall of humans |
-| **Qualify** | How a specialist or hire gets top-shelf access. Not a consumer login |
+| **Hatch meter** | Public. Remaining still live. Hard to hide |
+| **Designation file** | Specialist. This write/agent was named in the lab |
+| **Still-named** | Specialist. What the lab still has on the hatch. Not a human wanted wall |
+| **Qualify** | Who gets into the lab. Not a consumer signup |
 
-Gate still owns DENY on the moment. Fellhatch without Gate is a bureau with no click (a corpse file). Gate without Fellhatch is a click with no remaining-list to stand on.
+Without Gate, the lab has remaining with no stop. Without Fellhatch, Gate has a stop with no creature-file.
+
+---
+
+## Physical, weapons, “protection”
+
+Fellhatch can be a **real lab** (Frankenstein remaining on what was assembled). It can later **make hardware of the hatch** (meter, prove, remaining you can touch).
+
+It is **not** a weapons manufacturer. Munitions / strike / C2 stay out. That’s a different LLC and a different patent. This file will not turn into a firing-range brand so Gate’s job can look “less boring.” Restraint stays Gate. The lab stays the lab.
 
 ---
 
@@ -49,20 +59,21 @@ Gate still owns DENY on the moment. Fellhatch without Gate is a bureau with no c
 
 | No | Why |
 |----|-----|
-| A people hunt / public wanted board of humans | Nuts. Not Palantir. Not Mishara |
-| Selling may or C2 | Locked |
-| A sixth family voice | Family stays five. Fellhatch is a front + bureau on Gate’s object |
-| A skin / TikTok house | Rejected. Own guts |
-| An illegal market / dark web | Two *legal* shelves. Public = hard-to-hide. Top = qualified intel |
-| Bind replacement | Tuesday cash stays Bind Room until they say otherwise |
+| Gate’s job (restrain / DENY / sheath) | That’s Gate. Gate still restrains the lab |
+| A people hunt | Nuts |
+| Munitions / C2 / selling may | Not this company |
+| A sixth family voice | Family stays five |
+| A skin | Own guts |
+| Bind replacement | Tuesday cash stays Bind until they say otherwise |
 | `/fellhatch` this week | Name until they say ship |
 
-Stills stay weather for the public shelf (`gate/static/fellhatch/`) — alert, unlist-as-DENY, hatch. Not the product guts.
+Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 
 ---
 
 ## Locks
 
+- Do not give Fellhatch Gate’s verb.
 - Do not put people on a wanted wall.
 - Do not re-invent Ω / Ρ / Ν / Facing / W₀ as this file.
 - Do not add `/fellhatch` until they explicitly say ship.
@@ -74,6 +85,6 @@ Stills stay weather for the public shelf (`gate/static/fellhatch/`) — alert, u
 
 ## One line
 
-> **Gate** is the hidden click (this write, now). **Fellhatch** is the bureau of remaining on writes/agents: public meter that’s hard to hide, specialist file that’s not. Infamous online. Not a skin. Not a people hunt.
+> **Gate stops. Fellhatch is the lab that names and files remaining on writes/agents** (public meter, specialist file). Gate can still restrain the lab. Infamous online. Not a skin. Not a people hunt. Not a weapons shop.
 
-*Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling · not Cool Gate*
+*Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*

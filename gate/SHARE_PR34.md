@@ -11,7 +11,7 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). **Numbers rest at `gate/REST.md`. Inventing continues.** Do not mint new *bands* in REST. Do not re-invent Facing / W₀ / Φ / tetrad / BLAST / CROSS / RELEASE / RESEARCH / BULGE / REST as unseated. **Fellhatch** (`gate/FELLHATCH.md`) is the bureau of remaining on writes/agents — public meter + specialist file, not a people hunt, not a skin, not a sixth sibling, no `/fellhatch` until they say ship. Last bulge `gate/BULGE.md`. Do not email the freeze list. This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). **Numbers rest at `gate/REST.md`. Inventing continues.** Do not mint new *bands* in REST. Do not re-invent Facing / W₀ / Φ / tetrad / BLAST / CROSS / RELEASE / RESEARCH / BULGE / REST as unseated. **Fellhatch** (`gate/FELLHATCH.md`) is the **lab** that names/files remaining on writes/agents — Gate **restrains** (and can still stop the lab). Public meter + specialist file. Not Gate in a coat. Not a people hunt. Not munitions. No `/fellhatch` until they say ship. Last bulge `gate/BULGE.md`. Do not email the freeze list. This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
@@ -61,7 +61,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT RESEARCH.md.** The look-up list that can rewrite liquid/NW. Do not turn it into another remaining essay. Do not email the freeze list to “research” them.
 **DO NOT RE-INVENT BULGE.md.** Looked-up denominators. Do not write a new 22 liquid row from them. Do not become Visa / MSCI / the Fed.
 **DO NOT RE-INVENT REST.md.** The numbers. Do not mint a new band because an essay was prettier. **Inventing continues** — REST is the register, not a stop.
-**DO NOT RE-INVENT FELLHATCH.md.** Bureau of remaining on writes/agents. Public meter (hard to hide) + specialist file (qualified only). Not a people hunt. Not a skin. Not a sixth sibling. No `/fellhatch` until they say ship. Do not pitch Fellhatch from Bind Room.
+**DO NOT RE-INVENT FELLHATCH.md.** The lab (assemble/name/file remaining). **Gate restrains** — including the lab. Public meter + specialist file. Not a people hunt. Not munitions. Not a sixth sibling. No `/fellhatch` until they say ship. Do not pitch Fellhatch from Bind Room.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -210,7 +210,7 @@ PASTE END
 | `gate/RESEARCH.md` | **Facts that rewrite liquid/NW.** v5 text · carve-back author · one money-leave path · Art. 12 · inclusion/eligibility. Not an invention. |
 | `gate/BULGE.md` | **Looked-up rulers.** Fedwire $4.8T/day · Visa $14T · Mag7 $23.7T · $170B/quarter capex. Map is a desk. Not a 22 wire. |
 | `gate/REST.md` | **The numbers.** Register rests. Inventing continues. Fight-for · fuse · external · ruler. No new band here. |
-| `gate/FELLHATCH.md` | **Fellhatch** — bureau of remaining on writes/agents. Public meter + specialist file. Not a people hunt. Not a skin. No `/fellhatch` until they say ship. |
+| `gate/FELLHATCH.md` | **Fellhatch** — the lab. Names/files remaining on writes/agents. Gate restrains. Public meter + specialist file. Not munitions. No `/fellhatch` until they say ship. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
