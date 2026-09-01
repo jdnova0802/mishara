@@ -147,7 +147,7 @@ Talk when **meter + 3–5 prove cases** exist. Not before.
 | Class | Why they would write $50–200M+ | 2026 signal | Our halt |
 |-------|--------------------------------|------------|----------|
 | **Insurance core / PAS** | They are already buying agentic UW; a fail-closed bind mouth is a product gap | **Duck Creek** (Send) · **Guidewire** (Qusar agentic framework, partner-led) · Sapiens / Majesco / Socotra | Listings ≠ sale. One welded bind path first. |
-| **Identity / agent access** | Agents are a new identity. Latch on the write is next to PAM. | **Palo Alto + CyberArk** (closed Feb 2026; human + machine + agentic identity) | After logos. Do not pitch coffin. |
+| **Identity / agent access** | Agents are a new identity. Latch on the write is next to PAM. | **Palo Alto + CyberArk** (closed Feb 2026; Idira May 2026) · **Microsoft Agent 365** (GA 1 May 2026) + **Entra Agent ID** | After logos. Do not pitch coffin. Do not email Microsoft. |
 | **Hyperscaler / edge** | T5: sheath as default write-gate | **AWS · GCP · Azure · Cloudflare** (x402 Foundation members) | One design-partner after S03. Not a Bind pitch. |
 | **Card / pay platforms** | They own settle; they do not own may | **Stripe · Visa · Mastercard · Coinbase** | Interchange is post–Gate 1, not Bind. |
 | **Specialty capacity / reinsurer infra** | They need evidence, not another MGA | Munich Re / HSB / QBE / Apollo / Atrium (already *behind* Testudo) | They buy *you* only if the folio is Schelling. |

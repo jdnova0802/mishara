@@ -10,7 +10,8 @@
 **To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.  
 **To erase `AGES_22_30.md` as the drawing:** `gate/TOP3.md` — Remaining Core · Becoming Enclave · Grounded Write on NVIDIA / Apple / Alphabet **activity**. Converter topology. Not a Bind staircase.  
 **To make every map including TOP3 a rounding error:** `gate/WRITE_ERA.md` — **W₀**. Their $14T is remaining-beta. The $3T/yr hole is writes. Remaining is the era, not a meter on their invoice.  
-**The index they will not see coming:** `gate/FACING.md` — they all built remaining that faces the mouth. The only close faces the inhabitant.
+**The index they will not see coming:** `gate/FACING.md` — they all built remaining that faces the mouth. The only close faces the inhabitant.  
+**What blasts the register Sep→22+:** `gate/BLAST.md` — Agent 365 · Send · Idira · aiSure · NAIC v5/v7. Not another remaining essay.
 
 ---
 
