@@ -76,6 +76,7 @@ Facing is **which way the books face.** Not a fifth axis. Not a copy. Not a vote
 | U15 veto | Power. Not the close. |
 | Ρ burden | Who carries *this* write. Not every write that landed. |
 | Correspondent remaining | Two mouths **agreed** to share a book. Facing is **involuntary** — the world already composed. |
+| Cross (`CROSS.md`) | One folio many mouths. Stacks Fat + fuse. Still **actor-indexed**. Can Cross-close and face the wrong person. |
 | U9 / X3 world-after | Agents must agree with each other. Facing: the inhabitant’s after is the only close, even if every agent agrees a lie. |
 | GDPR / Decern subject / credit file | After-the-fact copies and scores. Speech or money. Not fail-closed becoming. |
 | Principal (Agent Receipts, AP2) | The one who **sent** the agent. Often the opposite of the one who has to live there. |

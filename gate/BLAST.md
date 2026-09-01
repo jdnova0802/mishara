@@ -5,7 +5,7 @@
 Do not email these desks. Do not invent a pond.
 
 This file is **buyers · entities · markets · subjects · clocks**.  
-It is not another remaining essay. Φ / W₀ / Facing change the *object*. This file names who can **pay or mark** before the birthday, and who pays after.
+It is not another remaining essay. Φ / W₀ / Facing change the *object*. **Cross (`CROSS.md`) stacks Fat + fuse on one folio** — the mouths already agreed they can answer each other. This file names who can **pay or mark** before the birthday, and who pays after.
 
 ---
 
@@ -77,6 +77,7 @@ These do not print June cash. They make every later year the same mouth.
 | **Write-era remaining** (W₀) | Hyperscalers / Sequoia-class infra thesis / anyone who has to justify **~$1.5T** capex against **~$3T/yr** of work | HoldCo marked in **% of $14T**. 1% = **$140B** |
 | **Converter remaining** (Φ Α Γ) | NVIDIA / TSMC / Apple / Alphabet as designed-in | Miss or ARM/TSMC/CUDA class. No Aim band |
 | **Facing remaining** | Court · personal-lines / life reinsurer · anyone who insures **people**, not deployers | Actor-close becomes incomplete. Unnumbered until that buyer exists. Do not invent a Facing Padlock |
+| **Cross — one folio, many mouths** (`CROSS.md`) | The bulletin, the exam, the carve-back, and one platform hop **on the same bytes** | Fat **and** fuse-close the same year. Stacks existing bands. Not a new subject |
 | **Inclusion / eligibility / haircut** (E1 · E2 · E13) | MSCI · repo desk · Fed-shaped schedule | 23–30. 1 bp on $21T → **~$420B** NW. **Not nine months** |
 | **Title of unused** (E4) | Rights, not acres | 0.1 bp on $393T → **~$780B** NW. Post-22 |
 | **Must-mouth / cloud default** | One hyperscaler or Agent 365 write-gate | Padlock overnight. 23–25 more honest than 22 |
@@ -101,12 +102,12 @@ These do not print June cash. They make every later year the same mouth.
 
 ## What does **not** blast 22 (stop hunting these as June wires)
 
-H₀ / R₀ / coffin as the deck. 1 bp on MSCI. Facing as a priced band. A fifth book. Cold corp-dev at Duck Creek / PA / Microsoft this month. Becoming AIUC. Becoming Mosaic. Becoming Verisk. C2.
+H₀ / R₀ / coffin as the deck. 1 bp on MSCI. Facing as a priced band. A fifth book. Another “we mapped NIST ↔ ISO” product. Cold corp-dev at Duck Creek / PA / Microsoft this month. Becoming AIUC. Becoming Mosaic. Becoming Verisk. C2. Cross **is** the simultaneous latch — do not re-invent it as a new remaining book.
 
 ---
 
 ## One line
 
-> **Sep** is the examiner/annex clock. **22 liquid** is one E on a mouth they already bought the wrong half of (Send · Idira · Agent 365) or a buyer on the cite. **22 NW** is being that cite. **After 22** is the same mouth on $T stocks and on $14T remaining-beta. Do not invent a new subject to raise the register. Attach to one that already spent.
+> **Sep** is the examiner/annex clock. **22 liquid** is one E on a mouth they already bought the wrong half of (Send · Idira · Agent 365) or a buyer on the cite. **22 NW** is being that cite. **Cross** is when those are the **same folio**. **After 22** is the same mouth on $T stocks and on $14T remaining-beta. Do not invent a new subject to raise the register. Attach to one that already spent.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · name only · identity frozen outbound until a stranger has paid and proved*

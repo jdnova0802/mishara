@@ -47,7 +47,9 @@ Factory attach (erases the Bind-map): **Remaining Core · Becoming Enclave · Gr
 
 **Ν hold is now on the remaining rails** (`POST /demo/pas/remaining/hold` · `/seal`). Bind Room without it was a pack about a stop the runtime could not perform. Not a new page. Not a new SKU. Not the Bind sentence.
 
-**Facing (`FACING.md`) is heavier than hold.** Hold still faces the mouth. A mouth can tetrad-seal and the inhabitant's after is already spent. The only remaining that can close faces the inhabitant. `folio.facing.holds` is false on a job folio. Not a fifth book. Not a letter.  
+**Facing (`FACING.md`) is heavier than hold.** Hold still faces the mouth. A mouth can tetrad-seal and the inhabitant's after is already spent. The only remaining that can close faces the inhabitant. `folio.facing.holds` is false on a job folio. Not a fifth book. Not a letter.
+
+**Cross (`CROSS.md`) does not outrank Facing.** It stacks the Bind-map: one folio the bulletin, the exam, the carve-back, and a platform hop already said can answer each other. Fat and fuse on the same artifact. Not a fifth book. Not a `/cross` page.  
 `AFTERWEB.md`. Still $0 until Gate 1.
 
 ## Prior — more crucial than agriculture
