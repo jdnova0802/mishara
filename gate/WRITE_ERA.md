@@ -124,7 +124,8 @@ If W₀ is true, the staircase is a category error. There is no Aim/Fat/Padlock 
 
 W₀ does not add a fifth book. Spend · cut · burden · hold still fail closed (`NU.md`).
 Hold is no longer only a file. `POST /demo/pas/remaining/hold` · `/seal` · `folio.hold`.
-Bind Room without that runtime was a pack about a stop.  
+Bind Room without that runtime was a pack about a stop.
+**Facing (`FACING.md`)** — even W₀'s $14T is remaining-beta of *actor* writes. A factory era can still face the wrong person.  
 
 W₀ changes **who the books are for**:
 

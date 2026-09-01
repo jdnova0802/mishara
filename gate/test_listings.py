@@ -3558,6 +3558,8 @@ class RemainingTests(unittest.TestCase):
         self.assertEqual(empty["remaining"]["for"], "inhabitant")
         self.assertEqual(empty["remaining"]["not_for"], "the actor")
         self.assertTrue(empty["identity_holds"])
+        self.assertFalse(empty["facing"]["holds"])
+        self.assertEqual(empty["facing"]["reason"], "actor_indexed")
         self.assertIsNone(empty["cleverer_layer"])
 
         ticket = self._issue(job, "op:remain")
@@ -3770,6 +3772,8 @@ class RemainingTests(unittest.TestCase):
         self.assertEqual(stock["hold"]["N"], 0)
         self.assertTrue(stock["close"]["law"]["overflow_dies"])
         self.assertTrue(stock["identity_holds"])
+        self.assertFalse(stock["facing"]["holds"])
+        self.assertEqual(stock["facing"]["reason"], "actor_indexed")
 
 
 class FinishedRemainingTests(unittest.TestCase):

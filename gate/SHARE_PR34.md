@@ -11,14 +11,14 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is **W₀** (`WRITE_ERA.md`). Last **recode** is **Ν hold on remaining rails** — `POST /demo/pas/remaining/hold` · `POST /demo/pas/remaining/seal` · `folio.hold`. Bind Room sold a pack about a stop the runtime could not perform. The remaining folio was a coroner. Hold is conserved becoming: proposals free, Ν does not grow, overflow dies, effectuation undefined until seal consumes Ν and writes spend · cut · burden. **Not a new page. Not a new checkout. Not the Bind sentence.** Do not re-invent W₀ / Φ / Α / Γ / Ω / Ρ / Ν. Do not email NVIDIA / Apple / Google. Do not pitch from Bind Room. Last explain ship is nisabatree (`/nisabatree`). This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is **Facing Remaining** (`gate/FACING.md`) — they all built remaining that faces the **mouth**. A mouth can tetrad-seal and the world is still spent. The only remaining that can close faces the **inhabitant**, including foreign spends they never authorized. `folio.facing.holds` is false on a job folio. Not a fifth book. Not a letter. Not veto. Not a page. Not the Bind sentence. Do not re-invent Facing / W₀ / Φ / Α / Γ / Ω / Ρ / Ν. Do not email them. Do not pitch from Bind Room. Last recode is Ν hold. Last explain ship is nisabatree. This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/AIM22.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -54,6 +54,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT Φ / Α / Γ.** Remaining Core · Becoming Enclave · Grounded Write (`TOP3.md`). These erase the Bind-map. Not Tuesday SKUs. Do not email NVIDIA / Apple / Google.
 **DO NOT RE-INVENT W₀.** The Write Era (`WRITE_ERA.md`). Their $14T is remaining-beta. Do not promise $5T liquid by June 2027. Do not pitch from Bind Room. Do not invent “another NVIDIA.” Φ Α Γ are organs of W₀. Aim-is-a-fork (`AIM22.md`) — W₀ makes the **unit** of that map a joke; it does not wire the cash by birthday.
 **DO NOT RE-INVENT the hold recode.** Ν is on `POST /demo/pas/remaining/hold` and `/seal`. Do not add a `/hold` page or a Hold SKU. Do not put it in the Bind $1,750 email.
+**DO NOT RE-INVENT Facing.** (`FACING.md`) Actor remaining is a factory subledger. Do not add a `/facing` page or Facing SKU. Do not invent the inhabitant. Do not pitch from Bind Room.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -194,7 +195,8 @@ PASTE END
 | `gate/RHO.md` | **Ρ Burden** — who must carry the after. Third axis. |
 | `gate/NU.md` | **Ν Hold** — Prefinality Remaining. Crisis book. Tetrad: spend · cut · burden · hold. Do not re-invent. |
 | `gate/TOP3.md` | Φ Remaining Core · Α Becoming Enclave · Γ Grounded Write. NVIDIA / Apple / Alphabet **activity**. Organs of W₀. Converter topology. |
-| `gate/WRITE_ERA.md` | **Last inventing pass. W₀.** NVIDIA / Apple / Alphabet are apps on the write era. $14T is remaining-beta. $3T/yr hole is writes. Makes every map including TOP3 a rounding error. |
+| `gate/WRITE_ERA.md` | W₀. NVIDIA / Apple / Alphabet are apps on the write era. $14T is remaining-beta. |
+| `gate/FACING.md` | **Last inventing pass.** Remaining that faces the inhabitant. Actor remaining is a factory subledger. `folio.facing.holds` is false on a job folio. Not a fifth book. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 

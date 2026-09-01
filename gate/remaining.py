@@ -130,6 +130,27 @@ SOON: tuple[dict[str, Any], ...] = (
         "not_threatening": "A trial balance for one write. Not a central bank.",
     },
     {
+        "id": "facing_remaining",
+        "name": "Facing Remaining — books that face the inhabitant",
+        "horizon": "soon",
+        "first": (
+            "Every remaining on earth is indexed by the actor, the job, the "
+            "principal, or the system. A mouth can tetrad-seal and the "
+            "inhabitant's after is already spent by a stranger."
+        ),
+        "invention": (
+            "The only remaining that can close faces the inhabitant and "
+            "imports foreign spends that landed in their after. Actor "
+            "remaining is a factory subledger. folio.facing.holds is false "
+            "on a job folio until the index turns around. Not a fifth book. "
+            "Not a letter. Not veto."
+        ),
+        "dots": "atmosphere vs factory CO₂ × title × inhabitant letter ≠ ledger",
+        "real": "folio.facing · gate/FACING.md — admission shipped; inhabitant ledger is weld",
+        "status": "shipped",
+        "not_threatening": "Which way the books face. Not C2. Not a new page.",
+    },
+    {
         "id": "hold_book",
         "name": "Hold (Ν) — candidate becoming non-effective",
         "horizon": "soon",
@@ -649,6 +670,20 @@ def folio(job_id: str) -> dict[str, Any]:
             "not_for": "the actor",
         },
         "hold": _hold_book(jid),
+        "facing": {
+            "kind": "inhabitant_remaining",
+            "holds": False,
+            "reason": "actor_indexed",
+            "law": (
+                "only remaining that faces the inhabitant can close; "
+                "a job folio is a mouth journal"
+            ),
+            "imports_foreign_spends": False,
+            "not_a_letter": True,
+            "not_veto": True,
+            "not_the_bind_sentence": True,
+            "file": "FACING.md",
+        },
         "close": {
             "spent": cols["spent"],
             "remaining": cols["remaining"],
@@ -891,6 +926,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "operator": f"{base}/operator",
             "hold": f"POST {base}/demo/pas/remaining/hold",
             "seal": f"POST {base}/demo/pas/remaining/seal",
+            "facing": "gate/FACING.md",
         },
         "page": f"{base}/remaining",
         "gatekeep": "The remaining. Not a buyer chrome plate. Operated cash is /finished. Remaining lease is /standing. Weld is /operator.",
@@ -918,6 +954,16 @@ def page_blocks() -> list[dict[str, Any]]:
                 "Ν does not grow with them. Overflow dies. Effectuation is "
                 "undefined until seal consumes remaining and writes spend, "
                 "cut, and burden. Not pending. Not the Bind sentence."
+            ),
+        },
+        {
+            "tag": "Facing",
+            "title": "Inhabitant",
+            "body": (
+                "A job folio is a mouth journal. Facing remaining is the only "
+                "close — the inhabitant's after, including spends they never "
+                "authorized. folio.facing.holds is false until the index "
+                "turns around. Not a fifth book. Not a letter."
             ),
         },
         {"tag": "Civilization", "title": "Prior", "body": RESHAPE["civilization"]},

@@ -9,7 +9,8 @@
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
 **To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.  
 **To erase `AGES_22_30.md` as the drawing:** `gate/TOP3.md` — Remaining Core · Becoming Enclave · Grounded Write on NVIDIA / Apple / Alphabet **activity**. Converter topology. Not a Bind staircase.  
-**To make every map including TOP3 a rounding error:** `gate/WRITE_ERA.md` — **W₀**. Their $14T is remaining-beta. The $3T/yr hole is writes. Remaining is the era, not a meter on their invoice.
+**To make every map including TOP3 a rounding error:** `gate/WRITE_ERA.md` — **W₀**. Their $14T is remaining-beta. The $3T/yr hole is writes. Remaining is the era, not a meter on their invoice.  
+**The index they will not see coming:** `gate/FACING.md` — they all built remaining that faces the mouth. The only close faces the inhabitant.
 
 ---
 
@@ -697,6 +698,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming — **now on the remaining rails**, not only in `NU.md`. Bind Room without hold is a pack about a stop. W₀ without hold is an era with no refuse. **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta.** No fifth book. No Bind sermon. No `/hold` page.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming — **now on the remaining rails**, not only in `NU.md`. Bind Room without hold is a pack about a stop. W₀ without hold is an era with no refuse. **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta.** **Facing (`FACING.md`) turns the books around** — a mouth can tetrad-seal and the world is still spent. No fifth book. No Bind sermon. No `/hold` or `/facing` page.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*
