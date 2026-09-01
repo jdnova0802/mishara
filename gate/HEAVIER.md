@@ -43,7 +43,9 @@ Unifications no prior civilization seated: **trinity finality** · **conserved o
 
 **The Afterweb (R₀)** — Remaining Substrate: commons of **becoming**, not speech. Internet = reversible copies. R₀ = may · sheath · prove · conserved remaining · world-after for inhabitants. X-tier are organs; R₀ is the body. Incomplete without the tetrad: spend · cut (Ω) · burden (Ρ) · hold (Ν).  
 Factory attach (erases the Bind-map): **Remaining Core · Becoming Enclave · Grounded Write** — `TOP3.md`.  
-**W₀ (`WRITE_ERA.md`) is heavier than Φ Α Γ.** The factory sits inside the era. NVIDIA / Apple / Alphabet are apps on it. Their $14T is remaining-beta. **1% of $14T is already bigger than every 22 cash band.** That does not wire $5T by June 2027 and is **not** the Bind $1,750 sentence. Do not invent a second door. Do not email Sequoia / Cahn / the hyperscalers.  
+**W₀ (`WRITE_ERA.md`) is heavier than Φ Α Γ.** The factory sits inside the era. NVIDIA / Apple / Alphabet are apps on it. Their $14T is remaining-beta. **1% of $14T is already bigger than every 22 cash band.** That does not wire $5T by June 2027 and is **not** the Bind $1,750 sentence. Do not invent a second door. Do not email Sequoia / Cahn / the hyperscalers.
+
+**Ν hold is now on the remaining rails** (`POST /demo/pas/remaining/hold` · `/seal`). Bind Room without it was a pack about a stop the runtime could not perform. Not a new page. Not a new SKU. Not the Bind sentence.  
 `AFTERWEB.md`. Still $0 until Gate 1.
 
 ## Prior — more crucial than agriculture

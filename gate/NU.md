@@ -170,11 +170,10 @@ Nuclear, C2, planetary kill-switch, defense remaining: **still unmouthed.** Ν m
 ## Status
 
 - **Invented as dimension:** 2026-09-01, this file.
-- **Not a Bind sentence.**
-- **Not shipped.**
+- **Shipped as the hold-book on remaining rails** (2026-09-01): `POST /demo/pas/remaining/hold` · `POST /demo/pas/remaining/seal` · `folio.hold`. Overflow dies. Seal consumes Ν and writes spend · cut · burden. Not a page. Not a checkout. Not the Bind sentence.
 - **Not emailed to E, PAS, PA, NAIC, cloud, DHS.**
 - Closest cousin in the wild (DAS sink) **has the pipe and not the stock.** LERA has the node. Memory papers have the conflict. Escrow has the queue. Prefinality mouth (S2) has the pay organ. F13 has the last window.
-- Triad without Ν = coroner. Tetrad = the first remaining that can still refuse the world.
+- Triad without Ν = coroner. Tetrad = the first remaining that can still refuse the world. The remaining folio without hold was a coroner. That is why this was recoded.
 
 ## One line
 

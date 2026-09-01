@@ -697,6 +697,6 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ## One line
 
-> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming. H₀ husbands one-wayness. R₀ networks becoming. The coffin lids the pillars. Conformant is the badge. Forced attach is the latch. **Four books or the redeem is a lie.** **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta** — $14T is a call on remaining; Aim $50–200M is a desk. Inventing pauses here. No fifth book. No Bind sermon.
+> **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming — **now on the remaining rails**, not only in `NU.md`. Bind Room without hold is a pack about a stop. W₀ without hold is an era with no refuse. **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta.** No fifth book. No Bind sermon. No `/hold` page.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

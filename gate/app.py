@@ -2108,6 +2108,28 @@ def demo_remaining_wilderness_draw():
     )
 
 
+@app.route("/demo/pas/remaining/hold", methods=["POST"])
+def demo_remaining_hold():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.hold(body.get("job_id") or "", body.get("candidate") or "")
+    )
+
+
+@app.route("/demo/pas/remaining/seal", methods=["POST"])
+def demo_remaining_seal():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        remaining_mod.seal(
+            body.get("job_id") or "",
+            body.get("hold_id") or "",
+            body.get("ticket_id") or "",
+            body.get("cut") or "",
+            body.get("burden") or "",
+        )
+    )
+
+
 @app.route("/.well-known/finished.json")
 def well_known_finished():
     return jsonify(finished_mod.manifest(advertised_url()))

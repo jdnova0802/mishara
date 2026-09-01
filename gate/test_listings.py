@@ -3692,6 +3692,85 @@ class RemainingTests(unittest.TestCase):
         self.assertEqual(drawn["folio"]["close"]["spent"], 1)
         self.assertEqual(drawn["folio"]["close"]["W"], 0)
 
+    def test_hold_overflow_dies_and_seal_consumes_n(self):
+        empty_job = f"pc:HOLD-EMPTY-{uuid.uuid4().hex[:10]}"
+        dead = self.client.post(
+            "/demo/pas/remaining/hold",
+            json={"job_id": empty_job, "candidate": "delete prod"},
+        ).get_json()
+        self.assertTrue(dead["ok"])
+        self.assertTrue(dead["overflow_die"])
+        self.assertEqual(dead["hold"]["state"], "died")
+        self.assertEqual(dead["hold"]["died_reason"], "overflow_die")
+        self.assertFalse(dead["effective"])
+        self.assertEqual(dead["folio"]["hold"]["N"], 0)
+        self.assertEqual(dead["folio"]["hold"]["book"], "Ν")
+        self.assertTrue(dead["folio"]["hold"]["not_pending"])
+
+        job = f"pc:HOLD-{uuid.uuid4().hex[:10]}"
+        ticket = self._issue(job, "op:hold")
+        first = self.client.post(
+            "/demo/pas/remaining/hold",
+            json={"job_id": job, "candidate": "bind policy A"},
+        ).get_json()
+        self.assertTrue(first["ok"])
+        self.assertFalse(first["overflow_die"])
+        self.assertEqual(first["hold"]["state"], "held")
+        self.assertEqual(first["N"], 1)
+        self.assertFalse(first["effective"])
+
+        second = self.client.post(
+            "/demo/pas/remaining/hold",
+            json={"job_id": job, "candidate": "bind policy B"},
+        ).get_json()
+        self.assertTrue(second["ok"])
+        self.assertEqual(second["hold"]["state"], "held")
+        self.assertEqual(second["folio"]["hold"]["held"], 2)
+        self.assertEqual(second["folio"]["hold"]["candidates"], 2)
+        self.assertEqual(second["N"], 1)
+
+        no_ticket = self.client.post(
+            "/demo/pas/remaining/seal",
+            json={
+                "job_id": job,
+                "hold_id": first["hold"]["id"],
+                "cut": "A binds; B cannot",
+                "burden": "named UW desk",
+            },
+        ).get_json()
+        self.assertTrue(no_ticket["halt"])
+        self.assertEqual(no_ticket["reason"], "effectuate_undefined_without_n")
+
+        sealed = self.client.post(
+            "/demo/pas/remaining/seal",
+            json={
+                "job_id": job,
+                "hold_id": first["hold"]["id"],
+                "ticket_id": ticket["ticket_id"],
+                "cut": "A binds; B cannot",
+                "burden": "named UW desk",
+            },
+        ).get_json()
+        self.assertTrue(sealed["ok"])
+        self.assertEqual(sealed["kind"], "seal")
+        self.assertTrue(sealed["effective"])
+        self.assertTrue(sealed["tetrad"]["spend"])
+        self.assertEqual(sealed["tetrad"]["cut"], "A binds; B cannot")
+        self.assertEqual(sealed["tetrad"]["burden"], "named UW desk")
+        self.assertEqual(sealed["N"], 0)
+        self.assertTrue(sealed["folio"]["act"]["occurred"])
+        self.assertEqual(sealed["folio"]["hold"]["sealed"], 1)
+        self.assertEqual(sealed["folio"]["hold"]["died"], 1)
+        self.assertEqual(sealed["folio"]["hold"]["held"], 0)
+        self.assertIn(second["hold"]["id"], sealed["seal"]["overflow_died"])
+        stock = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(stock["hold"]["N"], 0)
+        self.assertTrue(stock["close"]["law"]["overflow_dies"])
+        self.assertTrue(stock["identity_holds"])
+
 
 class FinishedRemainingTests(unittest.TestCase):
     @classmethod

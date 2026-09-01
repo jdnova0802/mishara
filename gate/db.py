@@ -142,6 +142,22 @@ def init_db():
                 created_at TEXT NOT NULL
             );
             CREATE INDEX IF NOT EXISTS idx_wilderness_job ON wilderness_attestation(job_id);
+            CREATE TABLE IF NOT EXISTS prefinality_holds (
+                id TEXT PRIMARY KEY,
+                job_id TEXT NOT NULL,
+                candidate TEXT NOT NULL,
+                state TEXT NOT NULL,
+                n_at_propose INTEGER NOT NULL,
+                cut TEXT,
+                burden TEXT,
+                ticket_id TEXT,
+                died_reason TEXT,
+                sealed_at TEXT,
+                died_at TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_prefinality_holds_job
+                ON prefinality_holds(job_id, state, created_at);
             """
         )
 
@@ -998,6 +1014,185 @@ def wilderness_draw(*, ticket_id: str, actor_id: str, charge_id: str) -> dict:
             (charge, now, tid),
         )
     return {"ok": True, "state": "DRAWN", "ticket_id": tid, "kind": "w_draw"}
+
+
+def n_stock_for_job(job_id: str) -> int:
+    """Ν available to seal: unspent remaining tickets. Does not grow with candidates."""
+    jid = (job_id or "").strip()
+    if not jid:
+        return 0
+    now = utc_now()
+    immobilized = pvp_active_ticket_ids_for_job(jid)
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT id, stock_class, consumed_at, not_after
+               FROM bind_tickets WHERE job_id = ?""",
+            (jid,),
+        ).fetchall()
+    n = 0
+    for row in rows:
+        if row["consumed_at"]:
+            continue
+        if (row["stock_class"] or "remaining") != "remaining":
+            continue
+        if row["id"] in immobilized:
+            continue
+        if row["not_after"] and row["not_after"] < now:
+            continue
+        n += 1
+    return n
+
+
+def holds_for_job(job_id: str) -> list[dict]:
+    jid = (job_id or "").strip()
+    if not jid:
+        return []
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT * FROM prefinality_holds
+               WHERE job_id = ?
+               ORDER BY created_at ASC, id ASC""",
+            (jid,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def hold_get(hold_id: str) -> dict | None:
+    hid = (hold_id or "").strip()
+    if not hid:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM prefinality_holds WHERE id = ?", (hid,)
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def hold_propose(*, job_id: str, candidate: str, n_stock: int) -> dict:
+    jid = (job_id or "").strip()
+    what = (candidate or "").strip()[:500]
+    if not jid:
+        return {"ok": False, "halt": "hold_needs_job"}
+    if not what:
+        return {"ok": False, "halt": "hold_needs_candidate"}
+    hid = uuid.uuid4().hex
+    now = utc_now()
+    n = int(n_stock)
+    if n <= 0:
+        state = "died"
+        reason = "overflow_die"
+        died_at = now
+    else:
+        state = "held"
+        reason = None
+        died_at = None
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO prefinality_holds (
+                   id, job_id, candidate, state, n_at_propose,
+                   died_reason, died_at, created_at
+               ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (hid, jid, what, state, n, reason, died_at, now),
+        )
+    return {
+        "ok": True,
+        "id": hid,
+        "job_id": jid,
+        "candidate": what,
+        "state": state,
+        "n_at_propose": n,
+        "died_reason": reason,
+        "effective": False,
+    }
+
+
+def hold_seal(
+    *, hold_id: str, job_id: str, ticket_id: str, cut: str, burden: str
+) -> dict:
+    hid = (hold_id or "").strip()
+    jid = (job_id or "").strip()
+    tid = (ticket_id or "").strip()
+    omega = (cut or "").strip()[:300]
+    rho = (burden or "").strip()[:300]
+    if not hid:
+        return {"ok": False, "halt": "seal_needs_hold"}
+    if not jid:
+        return {"ok": False, "halt": "seal_needs_job"}
+    if not tid:
+        return {"ok": False, "halt": "effectuate_undefined_without_n"}
+    if not omega:
+        return {"ok": False, "halt": "seal_needs_cut"}
+    if not rho:
+        return {"ok": False, "halt": "seal_needs_burden"}
+    now = utc_now()
+    died_ids: list[str] = []
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM prefinality_holds WHERE id = ?", (hid,)
+        ).fetchone()
+        if not row:
+            return {"ok": False, "halt": "hold_not_found"}
+        if row["job_id"] != jid:
+            return {"ok": False, "halt": "hold_job_mismatch"}
+        if row["state"] != "held":
+            return {"ok": False, "halt": "hold_not_held"}
+        ticket = conn.execute(
+            "SELECT * FROM bind_tickets WHERE id = ?", (tid,)
+        ).fetchone()
+        if not ticket:
+            return {"ok": False, "halt": "effectuate_undefined_without_n"}
+        if ticket["job_id"] != jid:
+            return {"ok": False, "halt": "ticket_job_mismatch"}
+        if ticket["consumed_at"]:
+            return {"ok": False, "halt": "effectuate_undefined_without_n"}
+        if (ticket["stock_class"] or "remaining") != "remaining":
+            return {"ok": False, "halt": "effectuate_undefined_without_n"}
+        cur = conn.execute(
+            """UPDATE bind_tickets SET consumed_at = ?
+               WHERE id = ? AND job_id = ? AND consumed_at IS NULL
+                 AND stock_class = 'remaining'""",
+            (now, tid, jid),
+        )
+        if cur.rowcount != 1:
+            return {"ok": False, "halt": "seal_n_conflict"}
+        conn.execute(
+            """UPDATE prefinality_holds
+               SET state = 'sealed', cut = ?, burden = ?, ticket_id = ?, sealed_at = ?
+               WHERE id = ? AND state = 'held'""",
+            (omega, rho, tid, now, hid),
+        )
+        left = conn.execute(
+            """SELECT COUNT(*) AS n FROM bind_tickets
+               WHERE job_id = ? AND consumed_at IS NULL
+                 AND stock_class = 'remaining'
+                 AND (not_after IS NULL OR not_after >= ?)""",
+            (jid, now),
+        ).fetchone()["n"]
+        if left <= 0:
+            others = conn.execute(
+                """SELECT id FROM prefinality_holds
+                   WHERE job_id = ? AND state = 'held' AND id != ?""",
+                (jid, hid),
+            ).fetchall()
+            died_ids = [r["id"] for r in others]
+            if died_ids:
+                conn.executemany(
+                    """UPDATE prefinality_holds
+                       SET state = 'died', died_reason = 'overflow_die', died_at = ?
+                       WHERE id = ? AND state = 'held'""",
+                    [(now, oid) for oid in died_ids],
+                )
+    return {
+        "ok": True,
+        "id": hid,
+        "job_id": jid,
+        "state": "sealed",
+        "ticket_id": tid,
+        "cut": omega,
+        "burden": rho,
+        "overflow_died": died_ids,
+        "effective": True,
+    }
 
 
 def pvp_open(

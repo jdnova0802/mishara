@@ -122,7 +122,9 @@ If W₀ is true, the staircase is a category error. There is no Aim/Fat/Padlock 
 
 ## Conservation (same tetrad, new invoice)
 
-W₀ does not add a fifth book. Spend · cut · burden · hold still fail closed (`NU.md`).  
+W₀ does not add a fifth book. Spend · cut · burden · hold still fail closed (`NU.md`).
+Hold is no longer only a file. `POST /demo/pas/remaining/hold` · `/seal` · `folio.hold`.
+Bind Room without that runtime was a pack about a stop.  
 
 W₀ changes **who the books are for**:
 

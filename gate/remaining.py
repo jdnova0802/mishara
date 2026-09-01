@@ -130,6 +130,30 @@ SOON: tuple[dict[str, Any], ...] = (
         "not_threatening": "A trial balance for one write. Not a central bank.",
     },
     {
+        "id": "hold_book",
+        "name": "Hold (Ν) — candidate becoming non-effective",
+        "horizon": "soon",
+        "first": (
+            "The folio booked the after. Prefinality evaluated pay. Bind Room "
+            "sold a pack about a stop. Nobody conserved becoming that has not "
+            "been allowed to take effect — overflow queued, effect was default."
+        ),
+        "invention": (
+            "A candidate may be proposed for free. Ν does not grow with the "
+            "candidate count. If Ν is zero the candidate dies — it is not "
+            "queued. Effectuation is undefined until a seal consumes Ν and "
+            "writes spend, cut (Ω), and burden (Ρ) in the same remaining. "
+            "The hold is the book. Not pending. Not a Bind sentence."
+        ),
+        "dots": "Ν × DAS pipe-not-stock × rehearsal≠spend × overflow-die",
+        "real": (
+            "remaining.hold · POST /demo/pas/remaining/hold · "
+            "POST /demo/pas/remaining/seal · folio.hold"
+        ),
+        "status": "shipped",
+        "not_threatening": "A hold-book on one job. Not C2. Not a new page.",
+    },
+    {
         "id": "accounting_identity",
         "name": "Accounting identity of may",
         "horizon": "soon",
@@ -489,10 +513,46 @@ def _halt(reason: str, **extra: Any) -> dict[str, Any]:
         "steward_cannot_spend_w": True,
         "w_draw_is_not_ordinary_spend": True,
         "third_opens_never_spends": True,
+        "effectuate_undefined_without_n": True,
         "cleverer_layer": CLEVERER_LAYER,
     }
     out.update(extra)
     return out
+
+
+def _hold_book(job_id: str) -> dict[str, Any]:
+    n = db_mod.n_stock_for_job(job_id) if job_id else 0
+    rows = db_mod.holds_for_job(job_id) if job_id else []
+    held = [r for r in rows if r.get("state") == "held"]
+    died = [r for r in rows if r.get("state") == "died"]
+    sealed = [r for r in rows if r.get("state") == "sealed"]
+    return {
+        "kind": "prefinality_remaining",
+        "book": "Ν",
+        "N": n,
+        "candidates": len(rows),
+        "held": len(held),
+        "died": len(died),
+        "sealed": len(sealed),
+        "overflow_dies": True,
+        "proposals_are_free": True,
+        "N_does_not_grow_with_C": True,
+        "effectuate_undefined_without_seal": True,
+        "not_pending": True,
+        "not_the_bind_sentence": True,
+        "open": [
+            {
+                "id": r.get("id"),
+                "candidate": r.get("candidate"),
+                "state": r.get("state"),
+                "effective": r.get("state") == "sealed",
+                "cut": r.get("cut"),
+                "burden": r.get("burden"),
+                "died_reason": r.get("died_reason"),
+            }
+            for r in rows
+        ],
+    }
 
 
 def _columns(tickets: list[dict[str, Any]], job_id: str, now: str) -> dict[str, Any]:
@@ -588,6 +648,7 @@ def folio(job_id: str) -> dict[str, Any]:
             "for": "inhabitant",
             "not_for": "the actor",
         },
+        "hold": _hold_book(jid),
         "close": {
             "spent": cols["spent"],
             "remaining": cols["remaining"],
@@ -602,6 +663,8 @@ def folio(job_id: str) -> dict[str, Any]:
                 "w_draw_is_not_ordinary_spend": True,
                 "steward_cannot_spend_w": True,
                 "third_opens_never_spends": True,
+                "effectuate_undefined_without_n": True,
+                "overflow_dies": True,
             },
         },
         "inhabitant": {
@@ -625,7 +688,71 @@ def folio(job_id: str) -> dict[str, Any]:
             "Being as a SKU",
             "a sixth sibling",
             "a new homepage",
+            "pending",
+            "the Bind sentence",
         ],
+    }
+
+
+def hold(job_id: str, candidate: str) -> dict[str, Any]:
+    """Propose a candidate becoming. Ν does not grow. Overflow dies."""
+    jid = (job_id or "").strip()
+    n = db_mod.n_stock_for_job(jid) if jid else 0
+    result = db_mod.hold_propose(job_id=jid, candidate=candidate, n_stock=n)
+    if not result.get("ok"):
+        return _halt(result.get("halt") or "hold_failed", **result)
+    pack = folio(jid)
+    return {
+        "ok": True,
+        "kind": "hold",
+        "book": "Ν",
+        "identity": IDENTITY,
+        "effective": False,
+        "overflow_die": result.get("state") == "died",
+        "hold": result,
+        "folio": pack,
+        "N": (pack.get("hold") or {}).get("N"),
+        "not_the_bind_sentence": True,
+        "cleverer_layer": CLEVERER_LAYER,
+    }
+
+
+def seal(
+    job_id: str,
+    hold_id: str,
+    ticket_id: str,
+    cut: str,
+    burden: str,
+) -> dict[str, Any]:
+    """Consume Ν. Write spend · cut · burden. Other held candidates die if Ν hits zero."""
+    jid = (job_id or "").strip()
+    result = db_mod.hold_seal(
+        hold_id=hold_id,
+        job_id=jid,
+        ticket_id=ticket_id,
+        cut=cut,
+        burden=burden,
+    )
+    if not result.get("ok"):
+        return _halt(result.get("halt") or "seal_failed", **result)
+    pack = folio(jid)
+    return {
+        "ok": True,
+        "kind": "seal",
+        "book": "Ν",
+        "identity": IDENTITY,
+        "effective": True,
+        "seal": result,
+        "folio": pack,
+        "N": (pack.get("hold") or {}).get("N"),
+        "tetrad": {
+            "spend": (pack.get("act") or {}).get("occurred"),
+            "cut": result.get("cut"),
+            "burden": result.get("burden"),
+            "hold_consumed": True,
+        },
+        "not_the_bind_sentence": True,
+        "cleverer_layer": CLEVERER_LAYER,
     }
 
 
@@ -762,6 +889,8 @@ def manifest(public_url: str) -> dict[str, Any]:
             "standing": f"{base}/standing",
             "general": f"{base}/general",
             "operator": f"{base}/operator",
+            "hold": f"POST {base}/demo/pas/remaining/hold",
+            "seal": f"POST {base}/demo/pas/remaining/seal",
         },
         "page": f"{base}/remaining",
         "gatekeep": "The remaining. Not a buyer chrome plate. Operated cash is /finished. Remaining lease is /standing. Weld is /operator.",
@@ -779,6 +908,16 @@ def page_blocks() -> list[dict[str, Any]]:
             "body": (
                 "Unused-as-product is a column. Unattested W cannot become "
                 "remaining. The steward cannot spend it. The Third opens."
+            ),
+        },
+        {
+            "tag": "Hold",
+            "title": "Ν",
+            "body": (
+                "Candidate becoming is held non-effective. Proposals are free. "
+                "Ν does not grow with them. Overflow dies. Effectuation is "
+                "undefined until seal consumes remaining and writes spend, "
+                "cut, and burden. Not pending. Not the Bind sentence."
             ),
         },
         {"tag": "Civilization", "title": "Prior", "body": RESHAPE["civilization"]},

@@ -11,7 +11,7 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is **W₀** (`gate/WRITE_ERA.md`) — NVIDIA / Apple / Alphabet are **apps on the write era**. Their **$14T is remaining-beta**. 2026 infra ~$1.5T needs ~$3T/yr of write-work. Tokens cannot close it. **Remaining is all a write needs.** 1% of $14T = **$140B**. Honest 22: the joke is the **unit**, not $5T in the checking account. Φ Α Γ (`TOP3.md`) are organs of W₀, not competitors. Do not re-invent W₀ / Φ / Α / Γ / Ω / Ρ / Ν. Do not email them. Do not pitch from Bind Room. Last explain ship is nisabatree (`/nisabatree`). This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). Last inventing pass is **W₀** (`WRITE_ERA.md`). Last **recode** is **Ν hold on remaining rails** — `POST /demo/pas/remaining/hold` · `POST /demo/pas/remaining/seal` · `folio.hold`. Bind Room sold a pack about a stop the runtime could not perform. The remaining folio was a coroner. Hold is conserved becoming: proposals free, Ν does not grow, overflow dies, effectuation undefined until seal consumes Ν and writes spend · cut · burden. **Not a new page. Not a new checkout. Not the Bind sentence.** Do not re-invent W₀ / Φ / Α / Γ / Ω / Ρ / Ν. Do not email NVIDIA / Apple / Google. Do not pitch from Bind Room. Last explain ship is nisabatree (`/nisabatree`). This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
@@ -53,12 +53,14 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT the tetrad.** Spend · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) · **Ν Hold** (`NU.md`). No fifth book. Not Bind sentences. Not pages. Cousin watch: IETF DAS is the pipe, not the stock.
 **DO NOT RE-INVENT Φ / Α / Γ.** Remaining Core · Becoming Enclave · Grounded Write (`TOP3.md`). These erase the Bind-map. Not Tuesday SKUs. Do not email NVIDIA / Apple / Google.
 **DO NOT RE-INVENT W₀.** The Write Era (`WRITE_ERA.md`). Their $14T is remaining-beta. Do not promise $5T liquid by June 2027. Do not pitch from Bind Room. Do not invent “another NVIDIA.” Φ Α Γ are organs of W₀. Aim-is-a-fork (`AIM22.md`) — W₀ makes the **unit** of that map a joke; it does not wire the cash by birthday.
+**DO NOT RE-INVENT the hold recode.** Ν is on `POST /demo/pas/remaining/hold` and `/seal`. Do not add a `/hold` page or a Hold SKU. Do not put it in the Bind $1,750 email.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
 
 Wilderness identity: given = spent + remaining + immobilized + W + dead-unused + void
 APIs: POST /demo/pas/remaining/wilderness · /open · /reclassify · /draw. Fail-closed unattested W → remaining.
+Hold: POST /demo/pas/remaining/hold · /seal. Folio.hold is Ν. Overflow dies. Not a page. Not the Bind sentence.
 
 HONEST GATE 1 RANKING (personal cash)
 1. Bind $1,750 — highest probability (ISO CG 40 47 / 40 48 / 35 08)
