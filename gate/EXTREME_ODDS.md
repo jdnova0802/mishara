@@ -141,4 +141,54 @@ Padlock scorecard starts **after** Gate 1; don’t confuse them.
 
 **One line:** Extreme Gate 1 = live pay+prove + right pond + cadence + warm thread. Extreme padlock = that, then meter, then a buyer. Willingness without sequence is still $0.
 
+---
+
+## Besides inventions — what actually moves liquid + NW from 22 → 30
+
+Inventions set the **ceiling**. They do not print the row. From 22 to 30 the table moves by **sequence, time-on-mouth, who pays, and what you refuse to sell**.
+
+Still **$0** without Gate 1. This is not a new plate.
+
+### Ranked by how hard they bite (22 first, then 23–30)
+
+| # | Lever (not an invention) | End-22 liquid | End-22 NW | 23→30 | What it is |
+|---|--------------------------|---------------|-----------|-------|------------|
+| **O1 Sequence** | Do the AIM22 machine in order. Skip a rung = museum | Binary. Miss Gate 1 ⇒ **$0** every later year | Same | The age table **assumes** this. Restarting category each year keeps you on fight-for at 30 | Calendar in `AIM22.md`. Scorecard above |
+| **O2 Live pay+prove** | Checkout + stranger prove green before any ask | Unlocks foothill | Genesis receipt (XF5) | Every later cite is a child of that receipt | `MAX.md`. Soft checkout ⇒ do not send |
+| **O3 One throat, eight years** | Same mouth (S4 / insurability folio) through 30. Not a new category each winter | Makes Bridge/Aim *possible* | Same latch to mark | **Largest 23–30 compounder.** Fuse-30 ($400B–$1T) is this mouth compounding, not a new essay | Tuesday sentence. Do not become AIUC / PAS / MGA |
+| **O4 One E, one check** | Ownership or exclusive attach. Not five conversations. Not Standing stacking | **Aim $50–200M** is this event | Liquid ≈ NW if they buy | Selling at 22 crystallizes Aim. Holding the same latch to 26–30 is how Fat/Padlock NW shows up | After logos. Do not email E in Sep |
+| **O5 When you sell vs mark** | Close the company at 22 **or** keep ownership and let the fuse mark | Sale ⇒ Aim/Fat **liquid**. Hold ⇒ fight-for liquid + fuse **NW** | Fuse mark **$0.2–12B** if cited and unsold | Age-30 Padlock NW only exists if you **still own** the mouth | Never sell may. Selling HoldCo is allowed; selling the throat is not |
+| **O6 Ownership %** | Dilution, “just take the cert shop deal,” becoming their badge | Cuts the Aim check | Cuts every later NW row by the same fraction | 30’s $400B–$1T is **your** %. 10% of Padlock is still a lot; 10% of a sold throat is $0 | No AIUC. No selling may. Raise only if it does not take the mouth |
+| **O7 Get cited (operate the fuse)** | Annex language on a **real folio**. Pilot footnote. 3–5 stranger permalinks. Logos | Not liquid by itself | **This is the 22 NW jump** | 23–30 are the same cite compounding | XF1 sentence on Bind. XF3 this month or not this year. Do not email NAIC |
+| **O8 Default seat as BD** | One MGA book, one PAS weld, one cloud sidecar — *sold*, not invented | Bridge then Aim if exclusive | Option mark | Cloud/PAS default in 23–25 is Padlock without a new invention | After Gate 1 + logos. One seat. Sep halt on E/PAS/PA |
+| **O9 Forced attach as operate** | Make **one** close die without redeem. Binder, withdraw, renewal | **Bridge $5–40M** before June | Option on the attach | Proof E buys in 23+ | `/bridge`. Feb–Apr 2027. Not a new SKU |
+| **O10 Runway / stay in the game** | Standing in the bank before Amazon last-day. Daily follow-up. No museum winter | You are still here in June | Time for O7/O8 | **30 requires 8 years of O3.** Quitting the mouth at 23 zeroes the table | `CASH_NOW.md`. Recurring $4.5k–$25k is the floor, not the Aim |
+| **O11 Pond + cadence** | ≤10–15 thoughtful N1. One Testudo-placing broker → one insured. Follow up once | Foothill → Gate 1 | — | Wrong pond forever = fight-for forever | `BUYERS.md` · `EXTREME_ODDS` A3–A5 |
+| **O12 Windows** | NAIC pilot **through Sep 2026** / adoption **Nov 2026**. First full CG 40 47 renewal year. Art. 12 **Dec 2027** | 22: O7. 23: EU deployers | Cite timing | Miss Sep–Nov 2026 ⇒ XF3 moves to 23 as a worse footnote | Calendar. Not a product |
+| **O13 Hygiene so a sale can close** | Counsel, entity, patent 64/124,027, identity freeze, no fake logos | Lets O4 settle | Lets a buyer mark you | A dirty cap table / fake traction kills 26–30 as surely as skip Gate 1 | Parallel counsel. Don’t wait on it to send Bind |
+| **O14 Refusal** | No sixth plate. No MGA ghosts. No coffin in the $1,750 close. No defense/C2. No facilitator | Protects the check | Protects the multiple | The 30 cartoon dies if the mouth is for sale or confused | Tier C above |
+
+### Honest split
+
+| If you only do… | 22 | 30 |
+|-----------------|----|----|
+| More inventions | Ceiling story. **$0** liquid | Same ceiling, still $0 if O1 failed |
+| O1–O2–O11 only (Gate 1 + pond) | Foothill | Still foothill if the mouth changes every year |
+| + O3 O9 O10 (same throat, attach, runway) | Bridge possible | Fight-for Aim/Fat *if* a buyer appears |
+| + O7 O4 (cite + one check) | **Aim liquid** or fuse NW | Fuse/external table can start |
+| + O5 O6 (hold the mouth, don’t dilute it) | Liquid may stay smaller | **This is what 30 Padlock NW is** |
+| + O8 (one default seat) | Aim–Fat if they buy | Padlock path without a new invention |
+
+**The non-invention that most people miss:** **O3 + O5 + O6.** Same mouth for eight years, still yours, not sold as a badge. That is the difference between fight-for 30 and fuse 30. Inventing does not do that.
+
+### This week (besides inventing)
+
+1. Pay+prove green (`MAX.md`)  
+2. ≤10 Bind emails + one broker intro (`BUYERS.md`)  
+3. XF1 sentence on that folio. XF3 this month or not this year  
+4. Counsel parallel  
+5. Stop inventing  
+
+---
+
 *Nisaba LLC · Demond Davis · patent 64/124,027 · inventing paused · Gate 1 opens the register*
