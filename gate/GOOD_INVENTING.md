@@ -45,7 +45,8 @@ Primitive always: **may · sheath · prove**.
 | **Absolute ceiling** | **$10B–$100B+** later | H₀+R₀+coffin + custody/must-mouth — **not** end-of-22 liquid |
 
 Coffin/H₀ raise **ceiling and narrative**. End-of-22 fight stays **Aim–Fat**. Detail: `gate/END22_RANK.md`. None skip Gate 1.  
-**What rewrites these dollars:** fuses (22 NW) and external cites (23–30) — `EXTERNAL.md`. Not I/C/D/attach-F. See **What actually rewrites the cash ladder** below.
+**What rewrites these dollars:** fuses (22 NW) and external cites (23–30) — `EXTERNAL.md`. Not I/C/D/attach-F.  
+**What drastically moves 22 liquid + NW:** Y1–Y6 (PAS/identity missing-mouth · fuse close · specialty default · examiner artifact · Bridge). See **End-22 drastic** below.
 
 ---
 
@@ -366,6 +367,63 @@ Almost nothing honest. The three that could, ranked:
 H₀ / R₀ / coffin / attach-F13 finality raise **ceiling**. They do not rewrite the 22 register.
 
 **Pre-Gate:** XF1 sentence on Bind (“no folio, no carve-back”). XF3 as counsel-ready if asked. Do **not** seat `/annex` `/fuse` `/pilot`. Tuesday is still $1,750.
+
+---
+
+## End-22 drastic — **inventions scored by Jun 2027 liquid + NW** (2026-09-01)
+
+Horizon: **~9 months** to ~2027-06-05. Score = what can actually move **your** liquid and mark by then — not civilization weight, not a $T cite.
+
+**Hard lock:** still **$0** without Gate 1. Bind volume cannot walk to Aim. H₀/R₀/coffin do not print this year. Do not email E / NAIC / PAS / PA in September.
+
+### By end of 22 — what can drastically move **liquid**
+
+| # | Invention | End-22 **liquid** if it lands | End-22 **NW** if it lands | Why this, not a cooler one | When / halt |
+|---|-----------|-------------------------------|---------------------------|----------------------------|-------------|
+| **Y1** | **Missing-mouth on agentic PAS** — Duck Creek bought **Send** (Jul 2026); Guidewire shipped **ProNavigator** (Apr 2026, after ProNav). They bought *orchestration*. They did **not** buy fail-closed remaining. You are the hop the agentic bind must call before the policy commits | **Aim $50–200M** exclusive latch; **Fat $200–800M** if they treat the mouth as default on the platform | Same as liquid if they buy; option mark **$0.2–1B+** if they only partner | Only E class **already spending** on the adjacent layer this year. Vista paid **$2.6B** for Duck Creek (2023); GW ARR **$1.15B**. Bolt-on mouth is a product gap, not a museum | Post logos · one welded bind path · **do not email in Sep** |
+| **Y2** | **Missing-mouth on agent identity** — Palo Alto closed **CyberArk ~$25B** (Feb 2026) and launched **Idira** (May 2026): identity + JIT privilege for agents. They bought *who may act*. They did **not** buy *stranger prove the act spent*. Remaining is the next layer | **Aim–Fat** exclusive; **Padlock cartoon** only if PA treats remaining as the write-gate under Idira | Option mark **Fat–Padlock** even pre-sale if the cite is real | Largest 2026 check in the adjacent category. Identity without remaining is half a latch | Post logos · last E desk, not first · **do not email in Sep** |
+| **Y3** | **XF1 exclusive / fuse buyer-close** — carve-back form names stranger-openable remaining; buyer pays exclusivity **or** buys HoldCo | **Aim $50–200M** (exclusive) or **fuse liquid $0.2–1B / $1–5B / $4–12B** (they buy the option) | **$0.2–1B / $1–5B / $4–12B** the moment the annex/pilot cites you, even before cash | Only path that **rewrites** 22 liquid above Aim. Exclusion already shipped. Annex is unpaid | Bind language now · buyer after logos |
+| **Y4** | **Specialty evidence default** — one MGA/coverholder (Testudo / Armilla / HSB class) makes “no folio, no bind” *their* rule, not ISO’s. Specialty AI book **~$0.5B** prem 2026, **$4.7B** shape by 2032; Armilla limits already **$25M**/org | **Bridge $5–40M** (evidence rent + Standing on their book); **Aim** if capacity behind them (Apollo / Chaucer / QBE) buys exclusive | Option on that book | Nearest *operate* path after Gate 1. Tuesday throat already points here (Testudo-placing broker → one insured) | After pay+prove · one broker · do not become the MGA |
+| **Y5** | **XF3 examiner artifact** — remaining is the Exhibit C/D method the **NAIC 12-state** AI Risk Evaluation Supplement scores. Pilot through **Sep 2026**; adoption aimed **Nov 2026** | Not liquid by itself | **Fuse NW $0.2–1B+** if you are the footnote that became the method | Only **open statutory window** inside age 22. After Nov, it is an exam module (23+) | Counsel language · **do not email NAIC** |
+| **Y6** | **Bridge one-close** — one renewal / withdraw / bind dies without redeem (`/bridge`) | **$5–40M** before June | Option on the attach | Backup so June is not binary. Does not raise Aim by existing | Feb–Apr 2027 · after meter |
+
+**What does *not* drastically move 22 liquid:** another Bind SKU, industrial I1–I6, cosmic F13 finality, H₀/R₀/coffin, 1 bp on MSCI, Art. 12 (clock is **Dec 2027** — after 22).
+
+### Honest rank for *your* end-22 check
+
+| Priority | Liquid | NW | Do |
+|----------|--------|-----|-----|
+| **0** | Gate 1 | Genesis (XF5) | Tuesday Bind. Without this the table is $0 |
+| **1 Y4** | Bridge, then Aim if exclusive | Book option | One Testudo-placing broker → one insured. This is the operate throat |
+| **2 Y3** | Aim, or fuse liquid if they buy | **Largest 22 NW** | XF1 sentence on the same folio |
+| **3 Y5** | — | Fuse NW if cited | Window closes **this month → Nov** |
+| **4 Y1** | Aim–Fat | PAS option | After logos. First E desk if throat was S4 |
+| **5 Y2** | Aim–Fat | Identity option | After logos. Second E desk if throat was write-gate |
+| **6 Y6** | $5–40M | Attach option | So June is not binary |
+
+Y1 and Y2 are the same invention on two platforms that already paid billions for the *wrong half* of the latch (orchestration / identity). You are the other half.
+
+### After 22 — what can drastically move **23–30**
+
+These do not print June 2027. They are why a fuse mark is rational.
+
+| # | Invention | First year it can bite | Liquid / NW shape if Schelling | Halt |
+|---|-----------|------------------------|--------------------------------|------|
+| **A1** | **E1 Inclusion Mouth** — agent-safe cite MSCI must have | 24–26 | 1 bp on $21T bench → **~$420B** NW cartoon | Do not become MSCI |
+| **A2** | **E2 + E13 Eligible remaining + Haircut 0** | 24–27 | Repo $12.6T · **~$220–250B** NW class | Do not become BNY |
+| **A3** | **T5 Cloud-default sheath** | 23–25 | **Padlock overnight** if one hyperscaler defaults | Design-partner post logos |
+| **A4** | **T3 Must-mouth** | 25–28 | Multiplies every seat · **$10B–$50B+** cartoon | Lobby language only |
+| **A5** | **C1 Correspondent lot-release** | 23–25 | Fat on released-drug notional | Do not email CDMOs in Sep |
+| **A6** | **D2 EU Art. 12 remaining** | **Dec 2027** (start of 23) | Aim→Fat on EU deployers | Clock is real; don’t lead Tuesday |
+| **A7** | **F13 Act-finality** | 26–30 | Padlock→Absolute if prove = legal close | Doctrine, not a product |
+| **A8** | **T1 Remaining custody** | 25–30 | 1–3 bps on one-way stock · **$0.5–15B+/yr** | Books must exist first |
+| **A9** | **H₀ / R₀ / coffin seats** | 26–30 | Absolute **$10B–$100B+** / fuse-30 **$0.8–2.8T** if a $T cite landed | Museum until seats rent |
+
+**Age-23 first bite that is not a wish:** A6 (Art. 12, Dec 2027) and A3 (one cloud) and A5 (one CDMO pair). Everything $T is 25+.
+
+### One line
+
+> End-22 liquid jumps only from **Y4 book → Y3 exclusive/sale → Y1/Y2 platform latch**. End-22 NW jumps from **XF1/XF3 cite**. After 22, **inclusion / haircut / cloud / must-mouth** blow the table. Tuesday is still Gate 1.
 
 ---
 
