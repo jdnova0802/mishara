@@ -205,6 +205,53 @@ Method: ask the question a plant QA / QP / turnaround lead actually lives inside
 
 ---
 
+## Discontinuity class — **shit that jumps Aim / Fat / Padlock** (2026-09-01)
+
+Honest answer: **another SKU will not drastically raise Aim.**  
+What *will* is **forced attach** — law, binder language, cloud default, or insurer exclusion that makes “no Gate remaining” = **cannot ship / cannot insure / cannot run**. Same HoldCo. Bigger multiple. Good disruption.
+
+These are not museum. They are **external clocks** that make your already-seated latch mandatory.
+
+| # | Discontinuity | Status out there (2026) | Nisaba invention (padlock on the hole) | Band jump if Schelling |
+|---|---------------|-------------------------|----------------------------------------|------------------------|
+| **D1** | **AI Kill Switch Act-class** — frontier systems must be able to throttle/suspend/shutdown; DHS-class halt + forensic preserve; proposed civil penalties up to **$2M–$20M/day** | Bill introduced (e.g. H.R. 9917 class, Jul 2026) — **not law yet** | **Armed-halt remaining** — stranger prove that (a) halt capability was LIVE before the write, (b) a halt redeem actually fired, (c) forensics preserved. Kill switch without prove is theater | **Fat → Padlock** if statute/binder requires stranger evidence. You do **not** become DHS C2 |
+| **D2** | **EU AI Act Art. 12 / 19 / 26** — high-risk systems must **auto-log**; providers/deployers keep logs ≥6 months; produce on authority request. Annex III duties from **~Dec 2027** (Omnibus dates) | Law in force; high-risk logging clock is real | **High-risk remaining mouth** — logs are necessary, not sufficient. Stranger-openable remaining that Art. 12 events map into may·sheath·prove (not another SIEM) | **Aim → Fat** on EU deployers; **Padlock** if “Gate Conformant?” = CE-adjacent question for high-risk acts |
+| **D3** | **CG 40 47 / 40 48 / 35 08 wave** — generative AI carved out of CGL; specialty AI liability market forming (**~$4.7B** premium shape cited into 2030s) | **Live now** (ISO/Verisk 2026) — this is already your Bind foothill | **Insurability gate (S4) at Schelling** — no act+remaining folio ⇒ no specialty bind / no carve-back. Evidence rent on the new specialty book | **Nearest drastic** for end-22: forces the throat you already named. **Aim–Fat** if one binder platform treats folio as default |
+| **D4** | **OT cyber-physical coverage seam** — cyber excludes physical; property excludes cyber; Lloyd’s ended silent cyber; underwriters demand documented OT controls | **Live underwriting fight 2025–26** | **Cyber-physical may folio** — actuator/setpoint/bypass remaining as the evidence property+cyber programs need to affirm cover | **Fat** if FM Global / specialty property Schellings your folio as underwriting condition |
+| **D5** | **Cloud / platform default seat** — agent tool-use cannot leave the hyperscaler without a write-gate | Not mandated; commercially possible | **Cloud-default sheath** — Conformant/redeem as the default sidecar on Bedrock/Azure/GCP agent runtimes (rent the seat, don’t sell may) | **Padlock** overnight if one hyperscaler defaults you. Long sales; design-partner only post logos |
+| **D6** | **Must-mouth mandate (T3)** — irreversible machine write without act+remaining = illegal / delisted / non-final | Doctrine already; statute later | Already on tree — **permission singularity choke** | **Padlock → Absolute cartoon** if law/exchange rule lands. Lobby language only pre-Gate |
+
+### What “drastically improve” actually means
+
+| If this lands… | Your Aim machine… | Liquid shape |
+|----------------|--------------------|--------------|
+| D3 Schelling (one binder: no folio, no cover) | Unchanged door — Bind → prove → bridge → E | **$50–200M becomes easier**; Fat if platform buys you |
+| D1 becomes law + evidence required | Same padlock; halt is a first-class redeem | Multiple jumps — strategic buyers (identity, cloud, insurance) pay **Padlock** for the mouth |
+| D2 EU high-risk remaining becomes the cite | EU Conformant franchise | Adds a continent of forced seats → Fat |
+| D4 OT folio = property cyber-affirm condition | Industrial S4 | Fat on plant book, slower than AI exclusions |
+| D5 one cloud defaults Gate | You become PCI of agent writes | **Padlock** without inventing Absolute |
+| D6 statute | Category lock | Absolute ceiling story becomes liquid — **post-22** |
+
+### Ultra-specific questions that decide if the jump is real
+
+1. Does the **kill-switch bill** (if any) require *capability only*, or **stranger-auditable prove that halt was armed and used**? (Capability alone = everyone ships a button. Prove = you.)  
+2. Will **specialty AI binders** accept a system badge (AIUC-shaped) or will they demand **act+remaining**? (You win only on the second.)  
+3. For **Art. 12**, who becomes the Schelling store — SIEM vendors, or a remaining mouth that maps events to may?  
+4. For **OT**, will affirmative cyber-physical cover require **may-before-actuator** evidence or just “we have Claroty”?  
+5. Will any **hyperscaler** make write-gate a default for agent tool-use in 2027–28?
+
+### Hard truth
+
+- **Yes — discontinuities exist** that can jump Fat/Padlock.  
+- They are **D1–D6**, not a seventh laboratory gadget.  
+- C1–C8 **fatten the stock** under the latch. D1–D6 **force the latch**.  
+- Without Gate 1, every discontinuity is still **$0**.  
+- Good disruption = external clock makes your existing Aim plan print larger. Bad disruption = you chase the bill and skip Bind.
+
+**Pre-Gate moves (language only):** keep Bind on CG 40 47 (D3). One counsel sentence ready for kill-switch prove / Art. 12 remaining if asked. Do **not** lobby as a product, do **not** email DHS, do **not** pitch Absolute.
+
+---
+
 ## Explicit rejects (even if spicy)
 
 | Idea | Why &lt;9 or forbidden |
