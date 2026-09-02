@@ -221,6 +221,24 @@ Looked up. **Do not mint a new band.** This is whether the *floors* are soft or 
 
 ---
 
+## Floor stress 2 — 2026-09-02 (try to break the floors)
+
+Looked up the cheap exits, the seed tuck-ins, the generic multiple, and the cash doors. **Do not mint a new band.**
+
+| Floor | What looked like a break | Why it is / isn't | Verdict |
+|-------|--------------------------|-------------------|---------|
+| **Aim $50M** | Generic private SaaS M&A median ~**4.5×** ARR prices ProNav-class **$4M** at ~**$18M**. FairNow last mark **$15M** (CB Insights, Oct 2024) then Optro tuck-in (undisclosed, Oct 2025). Midship **$4.15M** seed → Optro (May 2026, undisclosed). VigilAigent ~**$3.25M** / **$3.5M** ARR; Secuvant **$2.9M** / ~**$3M** rev; QPoint **$8.7M** distressed | Cheap cyber = **MSSP / distress**, not remaining. FairNow / Midship = **seed AI-gov / SOX widget** to a **$3B+** platform (Hg×AuditBoard **>$3B**, now Optro **$300M** ARR). Complyance **$20M** GV A ⇒ implied ~**$80–100M** post (Premier Alts prints **$88.7M** — one-source). Petual **$20M** a16z (post undisclosed). IriusRisk **>$100M**. Windsor Drake **core insurance software 9.1×**, not 4.5× | **Holds if the latch is exclusive remaining / write-gate.** **Fails** if sold as FairNow/Midship widget or as undifferentiated SaaS at 3–5×. Do not under-ask Aim because a seed registry sold cheap |
+| **Aim $200M** | — | Vanta **$4.15B** / **$300M** ARR; Drata **~$2B**; Securiti **$1.725B** (Veeam, Dec 2025). Those are **platforms**, not module tops | **Holds as module top.** Platform comps are Padlock+ |
+| **Fat $200M** | — | Same $400–740M agent/control prints as pass 1, plus Securiti **$1.725B** and Optro **>$3B** as category platforms | **Still conservative.** Band not rewritten |
+| **Padlock $0.5B** | OneTrust rumored **>$10B** / **$550M** ARR (not closed). Vanta **$4.15B** | Closed: Securiti **$1.725B**; Optro **>$3B**; At-Bay **$575M**; SGNL **~$740M** | **Holds.** Closed category sales sit **in** and **above** the band |
+| **Bridge $5–40M** | Reserv AiDE: insurance AI stack at **compute + 10%**, **no minimums**, no multi-year. Butterfly exclusive field license **$10M/yr** (SEC exhibit). FairNow **$15M** last mark | Reserv is **non-exclusive interchangeable model access** — Bridge **fails** if remaining is sold that way. Exclusive field license at **$10M/yr** and seed AI-gov marks at **$15M** sit **in** Bridge | **Holds as exclusive / forced-attach.** **Fails** as compute-plus commodity |
+| **Bind $1,750** | US security day **$1,200–$2,500** (senior boutique **$2,000–$2,500**). Packaged pentest **$5–15k**. vCISO **$2–8k/mo** | Bind is **one stranger-proved day**, not a pentest package and not a retainer | **Holds.** Cheap vs a scoped assessment; honest vs one senior day |
+| **Standing $4,500/mo** | vCISO / security retainer **$2–8k/mo**. Fractional CISO **$5–20k/mo**. Vanta/Drata seats **$20–70k/yr** | Standing is the **retainer band**, not a compliance-SaaS seat | **Holds** mid-retainer. Desk **$25k/mo** is enterprise fractional / red-team class, not Vanta |
+
+**The only live way to break Aim $50M:** sell remaining as a seed widget (FairNow/Midship) or let a PE desk 4.5× an ARR you do not have. Exclusive remaining is not that sale. REST rows stay.
+
+---
+
 ## One line
 
 > S03 + one desk · logos + XF1 · one close that needs you · one E. **Bolt-on $50–200M · Fat $200–800M · fuse-close $0.2–12B.** Ceilings rise on two E bidding, Idira/cloud default, national annex/exam cite, capacity buy — see ceiling table. Not more Absolute.

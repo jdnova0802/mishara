@@ -168,6 +168,22 @@ Full table seated on `AIM22.md` · Floor stress. REST rows unchanged.
 
 ---
 
+## Stress-pass 4 — floor-break hunt 2026-09-02
+
+Tried to crack the floors with cheap exits, seed tuck-ins, generic multiples, exclusive-license comps, and cash-door rates.
+
+| Floor | Fact back | Verdict |
+|-------|-----------|---------|
+| **Aim $50–200M** | Complyance **$20M** GV A (Feb 2026) ⇒ implied ~**$80–100M** post. Petual **$20M** a16z (Apr 2026; post undisclosed). IriusRisk **>$100M** (ThreatModeler, closed YE 2025; combined ~**$50M** ARR). FairNow last mark **$15M** then Optro tuck-in (undisclosed). Midship **$4.15M** seed → Optro (undisclosed). Generic private SaaS ~**4.5×** ARR would price **$4M** at ~**$18M**. Windsor Drake **insurance software 9.1×**. VigilAigent / Secuvant / QPoint **$3–9M** = MSSP/distress | **Holds** for exclusive remaining. **Breaks** only if sold as seed AI-gov widget or 3–5× undifferentiated SaaS. Cheap cyber is the wrong denominator |
+| **Fat $200–800M** | Prior $400–740M prints. Optro (Hg×AuditBoard) **>$3B** / now **$300M** ARR. Veeam×Securiti **$1.725B** (closed Dec 2025). Vanta **$4.15B** / **$300M** ARR. Drata **~$2B** | Floor **still conservative**. Platforms are Padlock+, not a reason to lift the Fat *row* |
+| **Padlock $0.5–2B** | Securiti **$1.725B** sits in-band. Optro / Vanta sit **above**. OneTrust **>$10B** rumor **not closed** | **Holds.** Do not write the rumor into REST |
+| **Bridge $5–40M** | Butterfly exclusive field license **$10M/yr** (BFLY 10-K exhibit). FairNow **$15M** mark. Reserv AiDE **compute+10% / no mins** | **Holds** as exclusive. **Fails** as interchangeable compute |
+| **Bind $1,750 · Standing $4,500/mo** | US security day **$1.2–2.5k**; vCISO **$2–8k/mo**; pentest pack **$5–15k**; Vanta seat **$20–70k/yr** | **Both hold.** Bind = one stranger day. Standing = mid-retainer. Not a SaaS seat |
+
+Full table + cash doors: `AIM22.md` · Floor stress 2. REST rows unchanged.
+
+---
+
 ## One line
 
 > **22 NW** research is the v5→v7 Fall text and the carve-back author. **22 liquid** research is one money-leave path that will not pay without remaining. **23–30** research is Art. 12, one cloud, then inclusion / eligibility / remaining=paid. Everything else is a remaining essay. Those do not change the register.
