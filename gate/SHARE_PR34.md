@@ -218,7 +218,7 @@ PASTE END
 | `gate/BLAST.md` | **What moves the register Sep→22+.** Agent 365 · Send · Idira · aiSure · NAIC v5/v7 · capacity behind MGAs. Not another remaining essay. |
 | `gate/CROSS.md` | **One folio, many mouths.** Bulletin / exam / carve-back already welded. Remaining is the unpaid bytestring. Stacks Fat + fuse — does not invent a new band. |
 | `gate/RELEASE.md` | **Remaining as payout-release.** Fifth gate on pipes that already pay. Liquid twin of Y1/Y2. Does not mint a new 22 row. |
-| `gate/RESEARCH.md` | **Facts that rewrite liquid/NW.** v5 text · carve-back author · one money-leave path · Art. 12 · inclusion/eligibility. Not an invention. |
+| `gate/RESEARCH.md` | **Facts that rewrite liquid/NW.** Looked up 2026-09-02: Fall NAIC · carve-backs · MPP/TAP · Agent 365 · A13 gates. Not an invention. |
 | `gate/BULGE.md` | **Looked-up rulers.** Fedwire $4.8T/day · Visa $14T · Mag7 $23.7T · $170B/quarter capex. Map is a desk. Not a 22 wire. |
 | `gate/REST.md` | **The numbers.** Register rests. Inventing continues. Fight-for · fuse · external · ruler. No new band here. |
 | `gate/FELLHATCH.md` | **Fellhatch** — the lab. Names/files remaining on writes/agents. Gate restrains. Public meter + specialist file. Not munitions. No `/fellhatch` until they say ship. |

@@ -442,7 +442,7 @@ Jaw finder’s fees are **not** Aim. Count:
 | J3 Type B finder’s (15% of $50k job) | **$7,500** | **6,667** jobs |
 | J21 cassette lot-find | **$5,000** | **10,000** lots |
 
-**Only new find with Aim math:** **`ALARMING.md` A13** — **$440B** NT-BDC + interval stack × **0.5 bp** = **$22M/yr** → **$220–330M** at 10–15×. That is the existing Aim/Fat latch, new throat. Not a jaw email. Not a new REST band.
+**Only find with Aim math:** **`ALARMING.md` A13** — base **$440B** × **0.5–1 bp** → **$220–660M**; stress-pass broader **~$600B** × 1 bp → **$600–900M**. Existing Aim/Fat latch, raised ceiling shapes. Not a jaw email. Not a new REST band.
 
 Producer comps (you do **not** own these): BMS–RayzeBio **$4.1B** · AZ–Fusion **$2.4B** · Niowave plant **$75M** · MSCI Index run-rate **~$2.0B**.
 
