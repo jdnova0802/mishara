@@ -151,7 +151,47 @@ Stavan is a mid-Sept *listen* (he’s building tools). Munich Re / HSB = capacit
 | **E. Inbound, not outbound** | Deploy stranger-two to live + keep the public demo. People searching the exclusion find you. Slow. No spray. | Pond stays empty and you refuse cold lists |
 | **F. Shelf Gate, earn elsewhere** | Company nights/weekends. Day job or freelance pays the body. Wonders stay designation. | Bind has no To: line |
 
-**Still not workarounds:** inventing ten GCs · emailing freeze list · pitching Munich Re · chasing Peter for a deal you don’t have · NSF while Amazon is >19.6 hrs/wk.
+**Still not workarounds:** inventing ten GCs · emailing freeze list · pitching Munich Re · chasing Peter for a deal you don’t have · NSF while Amazon is >19.6 hrs/wk.  
+**Not on this list:** job transfers / “just get a better shift.” That is not making Gate work.
+
+---
+
+## Until it’s cooked (company doors only)
+
+Run these. In order. When the terminal line hits, stop pretending.
+
+### Still alive (do these)
+
+| # | Door | What “worked” looks like |
+|---|------|--------------------------|
+| 1 | **Deploy stranger-two** to `gate.velaru.xyz` | Live `/` and `/bind-room` match the two paragraphs. Old $3,500 assessment copy is dead. |
+| 2 | **Ohio Patent Pro Bono** (+ Case / Detroit Mercy clinics if needed) | Volunteer counsel on 64/124,027. Not Lockhart $12k. |
+| 3 | **Other two patent quotes** (still waiting) | One flat fee you can actually survive — or pro bono wins. |
+| 4 | **Mid-Sept Stavan — listen only** | 15 min. If he knows an *insured* whose CGL hurts, ask for that intro. He is not the Bind buyer. |
+| 5 | **Inbound** | Demo + officer pack + verify findable when someone searches the exclusion. No cold list. |
+| 6 | **One Bind $1,750** if any warm human with the pain appears | Pay + prove same day = **Gate 1**. Halt. |
+| 7 | **Install $2,500** only if a builder you already know has a write | Same rule: already know them. |
+| 8 | **YC W27 apply** (by 2 Nov) | Company bet. Not a job. Optional. |
+| 9 | **NSF Project Pitch** | Only if at *award* you can be Nisaba-primary. Company funding. Optional. Long. |
+| 10 | **Toledo MBAC / Hello Alice profile** | Capital packaging + grant alerts when cycles open. Not buyers. Parallel. |
+
+### Dead on arrival (do not do)
+
+Invent ten GCs · freeze-list email · Munich Re cold · Peter chase with no client for him · more wonder essays as a substitute for a To: line · Bind sermon to Stavan like he’s the insured.
+
+### Cooked (terminal — stop the company theater)
+
+It’s cooked when **all** of these are true:
+
+1. **Patent path dead** — Ohio pro bono (and clinics) denied or abandoned, paid counsel impossible, provisional clock dies with nothing converted.  
+2. **Every real thread closed** — Stavan mid-Sept done (no intro, no path), no other warm human left, no new inbound that asked for the pack.  
+3. **Live door was correct** and still **$0** — stranger-two deployed, demo/prove worked, and still no stranger paid.  
+4. **Optional long shots resolved or skipped** — YC decision or you chose not to apply; NSF invite dead or you chose not to pitch.
+
+Until that stack is true, empty September is a dud month — **not** cooked.  
+After that stack is true, inventing more remaining is cosplay. Shelf it. Don’t spray. Don’t lie to yourself that BLAST has a buyer.
+
+**Gate 1 still only means:** stranger paid Bind (or Finished) and you proved it.
 
 **Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.  
 **Aim $50–200M by Jun 2027:** `gate/AIM22.md` — ownership × one E buyer, not Standing stacking.  
