@@ -89,7 +89,7 @@ Without Gate 1, civilization-rent shapes are $0. Do not get bored of Bind $1,750
 SEPT 1 WEEK (ops, not inventing). See CASH_NOW.md · EXTREME_ODDS.md · MAX.md
 1. Live host: Stripe webhook · disk · secure cookies. If checkout or prove is soft, do not send sales emails yet.
 2. Counsel quote batch Tue Sep 1 — does not replace Bind cash.
-3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md: warm GCs (stranger_two) plus at most one Testudo-placing broker (ask in BUYERS.md). The ten names were never in git — fill slots from existing threads or send fewer. Then halt and prove. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md **only if threads exist**. **Sep 2: pond is zero.** Zero is honest. Do not invent GCs. USPTO pro bono is the live door (`CASH_NOW.md`). Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 Pond: AI startup GC / Head of Ops on renewal · specialty broker → intro to their insured · builder with irreversible tool-use · warm human who already opened a plate.

@@ -11,6 +11,8 @@ Filling ten logos from a scrape, LinkedIn, or BLAST would invent a pond. Do not.
 
 If you already have a thread, send. If you have three threads, send three. If you have zero, send zero. Zero is honest. Ten invented GCs is not.
 
+**Sep 2:** pond is zero. See `CASH_NOW.md` → *If the pond is zero* — USPTO pro bono is the live door, not a scrape.
+
 ---
 
 ## What is already done (do not redo)

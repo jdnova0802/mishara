@@ -115,8 +115,26 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 1. Finish public path so pay + prove works on live host (Stripe webhook · disk · secure cookies — see `MAX.md`).
 2. One counsel quote email batch (Tue Sep 1) — does not replace Bind cash.
-3. Send **≤10** N1 emails from `gate/TUESDAY.md`: warm GCs with `stranger_two`, plus **at most one** Testudo-placing broker using the ask in `BUYERS.md` — then stop and prove. The ten names are not in git. Fill slots from existing threads or send fewer. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send **≤10** N1 emails from `gate/TUESDAY.md` — **only if threads exist**. Sep 2: pond is **zero**. Zero is honest. Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
+
+---
+
+## If the pond is zero (Sep 2026 look-up)
+
+Grants are not Gate 1. They do not replace Bind. They can pay **counsel** or buy time. Looked up 2 Sep 2026.
+
+| Door | What it actually is | This month? | Honest catch |
+|------|---------------------|-------------|--------------|
+| **USPTO Patent Pro Bono** | Free attorney for the non-provisional. You already have 64/124,027 (knowledge box). Income bar is usually **<300% FPL** (~**$47,880** one person, 2026 contiguous). Apply by the **state you live in**, not the Wyoming LLC. Map: [uspto.gov pro bono](https://www.uspto.gov/patents/basics/using-legal-services/pro-bono/patent-pro-bono-program). Questions: `probono@uspto.gov`. | **Yes. This is the one.** | Regional programs differ. Not instant. Beats wiring Lockhart $12k. |
+| **NSF Project Pitch** (NSF 26-510) | Rolling pitch → invite → full proposal. Next full deadline **4 Nov 2026**. Phase I up to ~$305k. Topic rhyme: trustworthy/safe AI. | Pitch *this month* only if you want a Nov shot | **PI must be >50% employed by Nisaba at award.** Amazon hours >19.6/wk conflict. Months, not rent. |
+| **Wyoming Phase 0/00** | Up to **$5,000** to write an SBIR. Reviewed 1st and 15th. `wssi@uwyo.edu` · wyomingsbdc.org | Only if you **live/operate/create jobs in Wyoming** | LLC-on-paper is not enough. Kickstart grant is **paused**. STEP (29 Sep) is export marketing — skip. |
+| **YC W27** | Apply open. On-time **2 Nov 2026** 8pm PT. Batch Jan–Mar SF. Not a grant. | Application, not cash | ~1%. In-person SF. Equity. Optional. Not Tuesday. |
+| Thinking Machines Tinker “grants” (due **25 Sep**) | Up to $50k **credits** for safety research on *their* models | Wrong object | Not rent. Not Bind. Do not become a model-eval shop. |
+| SBA microloan | Debt, avg ~$13k, through a local intermediary | Rolling | Loan on cleaner wages to pay counsel. Last resort. |
+
+Do not spray Safe-AI / Babuschkin “rolling funds.” That is a hunt.  
+Do not email the freeze list to ask for a grant.
 
 **Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.  
 **Aim $50–200M by Jun 2027:** `gate/AIM22.md` — ownership × one E buyer, not Standing stacking.  
