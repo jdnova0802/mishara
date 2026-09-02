@@ -9,7 +9,7 @@ Inventing continues. Numbers rest at `REST.md`.
 
 ---
 
-## Keep (3 + galactic 4 + strange 6)
+## Keep (3 + galactic 4 + strange 6 + galaxy 6)
 
 ### A1 — Buffer Remaining (SIXTEEN PERCENT)
 
@@ -79,8 +79,8 @@ Do not mint bands from these. See `BULGE.md`.
 | Nuclear decommissioning / dam condition | Incomplete two-source this pass |
 | PNT as a vague hunt | Split: Continuous UTC (A4) and lunar timescale (A5) now have 2026 CGPM drafts. Do not re-open “PNT” as a third clock. |
 
-**Next hunt (allowed):** closed this pass — private-credit NAV is **A13**. Do not re-open LaK9 / SEMI F72 content farms.  
-**Parallel jaw shelf (not remaining remixes):** `gate/JAW.md` — through J27 (FDA SKUs, cassettes/foils, HPGe, CZT, space Ge). Do not slip. Cash still Gate 1.
+**Next hunt (allowed):** galaxy pass seated **A14–A19** (mirror life · harvested ciphertext · CRASH Clock · tritium · PABS · spent fuel). Niche SKU hunt is closed for Aim.  
+**Parallel jaw shelf (not remaining remixes):** `gate/JAW.md` — through J27. Cash still Gate 1.
 
 ---
 
@@ -259,6 +259,94 @@ Comp: MSCI Index run-rate **~$2.0B** (Jun 2026); ETF ABF alone **~$233M** in one
 **Public sentence:** The fund is marked at full NAV. Redemptions are capped at five percent. The remaining is the part you cannot exit.
 
 **Locks:** Name only. Do not become an auditor or a BDC. Do not email SS&C / State Street / Blackstone / Blue Owl / Cliffwater. Do not pitch from Bind Room. Cousin of A2 — **does not mint a new number band in `REST.md`.** It is a **new Aim throat** into the existing **$50–200M** latch. Gate 1 still first.
+
+---
+
+## Galaxy pass (not niches — unpaid civilizations)
+
+Niche SKUs are dug. This pass hunts **stocks a stranger still cannot open**: extinction red-lines, harvested secrets, orbital commons, fusion fuel, pandemic Schelling, spent may with no redeem. Two-source or dead. **No new REST band. No page. Cash still Gate 1.**
+
+### Keep (6) — name only
+
+### A14 — Mirror Remaining (RED LINE)
+
+**What already burns:** Life on Earth is one chirality. A self-replicating **mirror bacterium** would sit outside immune systems and ecological predators. Science (Dec 2024) + 299-page technical report: halt creation. 2026: UN Secretary-General’s Scientific Advisory Board brief; UNESCO precautionary moratorium *recommended*; Bulletin Doomsday Clock names it; WHO Q&A; national statements (UK, Germany ZKBS, NTI). **No binding global ban.** Mirror molecules for drugs advance; the red line on *replicating* mirror life is still soft law and philanthropy refusals (Sloan will not fund). Homochirality *origin* was killed as a SKU — this is the **governance hole on making the opposite**.
+
+**Unpaid object:** Stranger-openable remaining on whether **creation is still permitted** — red-line stock before the organism exists. Extinction-class. Schelling, not a lab.
+
+**Public sentence:** Dozens of scientists say don’t make mirror life. The UN put it on paper. Nobody has a binding lock a stranger can open.
+
+**Locks:** Name only. Do not become a biosafety regulator. Do not fund or simulate creation. Not dual-use help. Cousin of A8 (commons without code).
+
+---
+
+### A15 — Harvested Remaining (HNDL / PQC CLOCK)
+
+**What already burns:** Adversaries **store ciphertext now** for decryption when a cryptographically relevant quantum computer exists (NSA / NCSC / Five Eyes already say the collection is live). White House **EO 14412** (22 Jun 2026) + OMB **M-26-15**: federal HVAs / high-impact systems must be on NIST PQC for **key establishment by 31 Dec 2030**, **signatures by 31 Dec 2031**, remaining systems by **2035**. Agency PQC plans due **Oct 2026**. Migration closes the *future* pipe. It does **not** un-steal what is already in the archive. Mosca-class timelines put Q-Day risk in the 2030s while data needs 15+ year confidentiality.
+
+**Unpaid object:** Remaining on **already-harvested secrets** + **unmigrated classical crypto inventory** against the 2030 clock. A11 is whether the integer overflows. This is whether the ciphertext still means anything when the adversary’s computer arrives.
+
+**Public sentence:** They are already storing what you encrypt. The federal clock hits 2030. Yesterday’s traffic has no redeploy.
+
+**Locks:** Name only. Do not become a crypto vendor. Do not pitch “quantum safe” from Bind Room. Cousin of A2 (snapshot) and A11 (epoch).
+
+---
+
+### A16 — CRASH Clock Remaining (ORBITAL COMMONS)
+
+**What already burns:** Acta Astronautica (2026): **CRASH Clock** — time to a catastrophic collision if collision-avoidance / situational awareness fails — is **2.8 days**. In **2018** it was **121 days**. Megaconstellations pushed LEO shells (incl. ~550 km) across runaway-debris thresholds. Kessler’s 1978 arithmetic is no longer theoretical. Liability Convention fault for cascade debris is still mush. TraCSS *detects* conjunctions. It does not hold remaining on the commons’ capacity.
+
+**Unpaid object:** Stranger-openable remaining on **usable LEO** — how much clock is left before a shell is dirt for generations. SA1 is delay across *c*. A6 is Art. VI supervision. This is the **stock of sky**.
+
+**Public sentence:** If the avoidance net blinked, catastrophe was four months away in 2018. Now it is under three days.
+
+**Locks:** Name only. Do not sell C2. Do not email SpaceX / freeze-list. SPACE cousin — not a fourth Space book.
+
+---
+
+### A17 — Tritium Remaining (FUSION WINDOW)
+
+**What already burns:** Civilian tritium stockpile **~20–30 kg** worldwide (mostly CANDU byproduct; Canada). Half-life ~12 yr → **~5%/yr** decay. One **1 GW** DT fusion plant wants ~**55 kg/yr**. Spot class **~$30k–$35k per gram**. US Watts Bar tritium is **weapons**. ITER will eat kilograms when it burns DT (~2035+). Breeding blankets (TBR > 1.05) are not commercial yet. The industry can invent stars and still starve for fuel.
+
+**Unpaid object:** Remaining on the **civilian tritium window** before breeders close the loop — a stranger-openable stock, not a reactor pitch deck. Cousin of A9 helium (leaves / decays) — this one is the *fuel of the star*, not MRI liters.
+
+**Public sentence:** The world has maybe thirty kilograms of fusion’s fuel. One power plant wants fifty-five a year. The window is open and shrinking.
+
+**Locks:** Name only. Do not become a nuclear licensee. Do not touch weapons tritium. Not munitions.
+
+---
+
+### A18 — PABS Remaining (UNSIGNED PANDEMIC)
+
+**What already burns:** WHO Pandemic Agreement **adopted May 2025 (WHA78)**. Article 31(2): **cannot open for signature** without the **PABS** (Pathogen Access and Benefit-Sharing) annex. July 2026 IGWG7: **fourth deadline miss**; next shot Sep 2026 / WHA May 2027. Africa Group vs EU still fight *which labs* process shared samples. Digital sequence information loophole still open. A new pathogen shared today still rides the old voluntary deals that left countries waiting months for COVID shots.
+
+**Unpaid object:** Remaining on the **bargain itself** — sample out, countermeasure back — while the treaty sits adopted-but-unsignable. A8 is the seafloor without a mining code. This is the **next pandemic without a signed throat**.
+
+**Public sentence:** The world adopted a pandemic treaty. Nobody can sign it. The annex that trades pathogen for vaccine is still blank.
+
+**Locks:** Name only. Do not become WHO. Do not invent bioweapon framing. Necessity face of global remaining.
+
+---
+
+### A19 — Spent Redeem Remaining (CASKED MAY)
+
+**What already burns:** US commercial spent fuel **>~89,000 MTU** (and climbing toward **~150,000** by 2050). NWPA Yucca capacity cap **70,000** — already exceeded on paper. Yucca work stopped; no schedule to remove fuel from reactor sites. ~**4,000** dry casks loaded; ~**10,000** projected by 2080. NRC continued-storage rule: decades to **160 years** on-site is the de facto path. Sealed. Documented. **No ride to a repository.**
+
+**Unpaid object:** Remaining on **may that cannot redeem** — Earth twin of Jezero (A12). The tubes are here. The mouth that takes custody permanently does not exist.
+
+**Public sentence:** Ninety thousand tons of spent fuel sit in dry casks. The repository’s legal cap is already too small. There is no redeem date.
+
+**Locks:** Name only. Do not become DOE. Do not handle fuel. Cousin of A12 / Ρ — burden after the actor leaves the plant.
+
+---
+
+## Fold (galaxy — not new rows)
+
+| Idea | Why folded |
+|------|------------|
+| SF6 switchgear forever-gas | Real (GWP ~23,500; EU F-gas bans new MV from **1 Jan 2026**). Sit under **A10 Forever** + grid ruler — phaseout is law, not an unpaid Schelling |
+| Homochirality *origin* | Already killed — different from **A14** (creation red-line) |
+| TraCSS as Kessler remaining | Detects conjunctions. **A16** is the clock/stock. Do not double-seat |
 
 ---
 
