@@ -29,6 +29,8 @@ Shorter:
 
 > Proof that an AI was allowed (or blocked) before it did something it can’t undo.
 
+**Both, always:** work on the world’s biggest remaining (clock, Moon, delay, the after) **and** do not neglect what a person needs to live (sleep, kin, a receipt when they couldn’t watch, first cash so the inventor eats). Wonder without the body is abandonment. Body without wonder is a smaller company than this one.
+
 ---
 
 ## 3. Why the world needs this (bar version)

@@ -704,6 +704,19 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ---
 
+## Wonders and necessities (one company)
+
+They want **both**. This is a lock, not a product.
+
+**Wonders** = the biggest unpaid remaining already on the table: Afterweb, Husbandry, delay, continuous UTC, lunar time, continuing supervision, plume.  
+**Necessities** = what a human cannot live without while those wonders run: sleep, birth, dose, rest, dying, kin (`VITAL.md`); an after that faces the inhabitant (`FACING.md`); **Gate 1 cash** so the inventor eats (Bind $1,750).
+
+Wonder without the body is abandonment. Body without wonder is another pharmacy PDF.  
+Do not pick. Do not sermonize Bind as a clock. Do not sermonize the clock as rent.  
+A4–A7 do not replace Night Law. Night Law does not retire the Moon.
+
+---
+
 ## Alarming name-only (Sep 2026)
 
 Two-source fires, not hopium. Full cards: `gate/ALARMING.md`.

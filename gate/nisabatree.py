@@ -32,6 +32,13 @@ ONE_SENTENCE = (
 
 SHORTER = "Proof that an AI was allowed (or blocked) before it did something it can't undo."
 
+BOTH = (
+    "Work on the world's biggest remaining — clock, Moon, delay, the after — "
+    "and do not neglect what a person needs to live: sleep, kin, a receipt when "
+    "they couldn't watch, first cash so the inventor eats. Wonder without the "
+    "body is abandonment. Body without wonder is a smaller company than this one."
+)
+
 BRANDS = (
     {
         "name": "Velaru",
@@ -117,6 +124,7 @@ def manifest(public_url: str = "") -> dict[str, Any]:
         "title": "Nisabatree — Nisaba in plain English",
         "thesis": ONE_SENTENCE,
         "shorter": SHORTER,
+        "both": BOTH,
         "one_breath": ONE_BREATH,
         "inventor": {
             "name": INVENTOR_NAME,
@@ -157,6 +165,11 @@ def page_blocks() -> list[dict[str, Any]]:
             "id": "one-sentence",
             "heading": "One sentence",
             "body": ONE_SENTENCE,
+        },
+        {
+            "id": "both",
+            "heading": "Wonders and necessities",
+            "body": BOTH,
         },
         {
             "id": "family",

@@ -4,7 +4,8 @@
 **Not hopium.** Two-source fires. Do not mint a 22 liquid band.  
 **Cash still Gate 1.** Do not pitch from Bind Room. Do not email the freeze list.
 
-Inventing continues. Numbers rest at `REST.md`.
+Inventing continues. Numbers rest at `REST.md`.  
+**Wonders and necessities:** these rows are wonders. They do not retire Vital / Facing / Bind. Do not pick.
 
 ---
 

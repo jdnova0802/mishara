@@ -3190,12 +3190,14 @@ class NisabatreeTests(unittest.TestCase):
         self.assertIn("Nisabatree", html)
         self.assertIn("Bind", html)
         self.assertIn("Velaru", html)
+        self.assertIn("Wonder without the body", html)
         self.assertIn("noindex", html)
         wk = client.get("/.well-known/nisabatree.json")
         self.assertEqual(wk.status_code, 200)
         data = wk.get_json()
         self.assertEqual(data["spec"], "nisaba-nisabatree-v1")
         self.assertIsNone(data["checkout"])
+        self.assertIn("Wonder without the body", data["both"])
 
 
 class ConformantQicTests(unittest.TestCase):
