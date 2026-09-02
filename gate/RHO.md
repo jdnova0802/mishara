@@ -99,6 +99,7 @@ Estate (U7) is how Ρ transfers when the actor dies.
 | **Ρ estate** | Probate of orphan burden (pairs U7) |
 | **Ρ bond-at-transfer** | Industrial face (`ALARMING.md` A3): bond remaining vs **today’s** reclaim cost, fail-closed when the operator transfers. Orphan wells / surety gap. Name only. Never become the surety. |
 | **Ρ plume-stewardship** | Geologic face (`ALARMING.md` A7): remaining on a **perpetual CO₂ plume** after Class VI title/custody transfers to the state (ND/WV ~10 yr · WY 20 yr · LA 50 yr). Trust often caps what the state will carry. Distinct from A1 buffer credits. Name only. Never become the steward. |
+| **Ρ forever** | Chemical face (`ALARMING.md` A10): remaining on **PFAS that do not degrade**. Treaty lists some, not all. No stranger-openable global stock in bodies / wells / dumps. Necessity face of Ρ. Name only. Never become the remediator. |
 | **Category** | No folio ⇒ no bind becomes **no assigned Ρ ⇒ uninsurable / non-final** |
 
 **Ceiling (22):** this is the dimensional reason specialty bind pays. S4 was the operate face. Ρ is why the face is galactic — insurers buy **assignment of burden**, not a PDF. Raises Fat / fuse when the cite is “burden sealed at mouth.”  

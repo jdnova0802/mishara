@@ -730,8 +730,13 @@ Two-source fires, not hopium. Full cards: `gate/ALARMING.md`.
 | **A5** | Lunar Timescale Remaining | Which lunar scale + UTC offset (~56 µs/day) | Name only |
 | **A6** | Continuing Supervision Remaining | OST Art. VI still-live supervision, not the license | SPACE legal face |
 | **A7** | Plume Stewardship Remaining | Perpetual Class VI plume after state transfer; trust-capped | Under **Ρ** |
+| **A8** | Common Heritage Remaining | ISA Area still unspent; Mining Code unadopted Jul 2026 | Name only |
+| **A9** | Helium Remaining | Non-renewable gas that leaves Earth; reserve sold; MRI/fabs | Name only |
+| **A10** | Forever Remaining | PFAS that do not end; no stranger global stock | Under **Ρ** |
+| **A11** | Epoch Remaining | 32-bit time dies 19 Jan 2038; no device inventory | Clock cousin of A4 |
+| **A12** | Cached Remaining | Jezero tubes sealed; MSR defunded; no redeem | SPACE cousin |
 
-Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new invention. Coil winders / repair hulls / DSN aperture / GaiaNIR = `BULGE` denominators only. TraCSS folds into `SPACE.md`. KSK ceremony and ZK toxic waste are dead this pass.
+Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new invention. Coil winders / repair hulls / DSN aperture / GaiaNIR / SAA = `BULGE` denominators only. TraCSS / Voyager watts fold into `SPACE.md`. KSK, ZK waste, DESI-as-invention, dark oxygen, homochirality-as-SKU, 3I hopium, peak phosphorus, Being = dead this pass.
 
 ---
 

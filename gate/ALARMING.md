@@ -9,7 +9,7 @@ Inventing continues. Numbers rest at `REST.md`.
 
 ---
 
-## Keep (3 + galactic 4)
+## Keep (3 + galactic 4 + strange 5)
 
 ### A1 — Buffer Remaining (SIXTEEN PERCENT)
 
@@ -167,6 +167,100 @@ Not hopium. Not a Claude brief. Sources are 2026 instruments, not vibes.
 | npm people-wall / ONE HAND | People hunt. |
 | Coil winders / repair hulls as inventions | Already `BULGE`. |
 | TraCSS as a new invention | Fold into SPACE. |
+
+---
+
+## Strange pass (this mouth ran the searches)
+
+Biggest theories and weird unpaid objects. Two-source or dead. **No hopium. No Being. No people hunt.**  
+Wonders **and** necessities. Do not pick.
+
+### Keep (5) — name only
+
+### A8 — Common Heritage Remaining (THE AREA)
+
+**What already burns:** UNCLOS “common heritage of humankind.” ISA still has **no adopted Mining Code** after the July 2026 Kingston session (talks since 2014; next Council March 2027). Outstanding: liability, inspection, benefit-sharing, when exploitation may start. ~**46** states want a precautionary pause. Same fortnight: NORI exploration contract extended five years while a non-compliance inquiry was open. Unilateral licensing talk for the Clarion-Clipperton Zone.
+
+**Unpaid object:** Stranger-openable remaining that the **Area is still unspent** — not a contractor PDF, not a moratorium press release. Legal commons with no fail-closed stock.
+
+**Public sentence:** The seafloor outside nations is already named humanity’s. The mining code is still unwritten. The remaining is unsupervised.
+
+**Locks:** Name only. Do not become ISA. Do not sell the Area. Collision: Husbandry / Ρ / SPACE. Not a fifth book.
+
+---
+
+### A9 — Helium Remaining (ESCAPES)
+
+**What already burns:** Helium is non-renewable on a human clock — alpha decay, then it **leaves Earth**. USGS / industry: ~52 Bcm known, ~88% in four countries. US Federal Helium Reserve **sold 2024**. Helium dropped from USGS critical-minerals lists 2022 and 2025. **March 2026** Ras Laffan shock took Qatar (~⅓ of supply) offline; fifth global shortage since 2006; MRI and fabs on allocation. PIIE (2026): bring the public reserve back. Philips sealed magnets use ~99% less.
+
+**Unpaid object:** Remaining on a gas that **cannot be remade** and is not on a public stranger-openable reserve. Necessity (MRI, the body) and wonder (it leaves the planet). Cousin of A2 (between-attestation float) — this is the **element**, not last month’s attestation.
+
+**Public sentence:** Helium is made over geologic time and then it leaves. The public reserve was sold. Hospitals and chip plants are on allocation.
+
+**Locks:** Name only. Do not become a gas trader. Do not pitch from Bind Room.
+
+---
+
+### A10 — Forever Remaining (PFAS) — under Ρ
+
+**What already burns:** Perfluorinated PFAS do not degrade in soil or groundwater. Stockholm lists PFOS / PFOA / PFHxS / long-chain PFCAs (COP-12 2025). BRS 2026 to the UN Special Rapporteur: **not all PFAS are listed**. No single global remaining stock a stranger can open — Parties keep national inventories; most historic production already in landfills, bodies, and sites; a share still in products (carpets, articles). EFSA tolerable weekly intake is frequently exceeded.
+
+**Unpaid object:** Remaining on a burden that **does not end**. Distinct from A1 (credit buffer) and A7 (plume after transfer). This is chemistry that outlives the actor in the inhabitant.
+
+**Public sentence:** Some chemicals do not go away. The treaty lists some of them. Nobody publishes remaining in a body, a well, or a dump that a stranger can open.
+
+**Locks:** Seat under `RHO.md`. Never become a remediator. Never sell may as a toxin-coin. Necessity face of Ρ.
+
+---
+
+### A11 — Epoch Remaining (2038) — clock cousin of A4
+
+**What already burns:** 32-bit Unix time overflows **19 January 2038, 03:14:07 UTC**. Modern 64-bit stacks are mostly safe. The unpaid hole is **embedded firmware that cannot be patched** — industrial controllers, medical devices, vehicles, building plant — plus 30-year mortgages that already hit the wall after 2008. No exhaustive inventory exists (Kaspersky 2026; Planet Mainframe Jan 2026). Twelve years is long for a board and short for firmware.
+
+**Unpaid object:** Remaining **seconds of representable time** on a named device class. A4 is whether UTC still jumps. This is whether the integer still holds. Same clock mouth, different stock.
+
+**Public sentence:** A lot of machines will think the date is 1901. Nobody has the list of which ones.
+
+**Locks:** Name only. Do not become a scanner vendor. Do not people-hunt device owners.
+
+---
+
+### A12 — Cached Remaining (JEZERO) — SPACE cousin
+
+**What already burns:** Perseverance has spent years sealing Mars samples. FY26 appropriations: “the agreement does not support the existing Mars Sample Return program.” Tubes are documented and sitting in Jezero. No approved retrieval, schedule, or complete budget. China Tianwen-3 still talks 2028–31. COSPAR 2026 still writes restricted-return / icy-world policy for a cargo that has **no ride home**.
+
+**Unpaid object:** Remaining on **sealed may that cannot redeem** — the farthest cached write with no mouth. Delay Unwatched is geometry of *c*. This is a depot with no redeem.
+
+**Public sentence:** The samples are sealed on Mars. The return mission was defunded. The remaining has no ride.
+
+**Locks:** Seat as SPACE cousin. Do not become NASA. Do not invent a `/jezro` page.
+
+---
+
+## Fold (strange — not new)
+
+| Fact | Where it already sits |
+|------|------------------------|
+| **South Atlantic Anomaly** grew ~half of Europe since 2014 (ESA Swarm; Finlay et al.). Faster weakening SW of Africa since 2020. Recurring; **not** a proven pole-reversal. Satellites take radiation. | SPACE / `BULGE` shield ruler. Occupied measurement. Do not mint “magnetic remaining” as a book. |
+| **Voyager 1** RTG −~4 W/yr; LECP shut 17 Apr 2026 after a Feb undervoltage scare; MAG + PWS still on; “Big Bang” power plan mid-2026. 23-hour command delay. | SPACE SA1 already. Last watts are NASA’s remaining, not a new invention. |
+| **COSPAR** 2026 icy-worlds planetary-protection policy | Occupied protocol. Quarantine remaining is hypothetical while MSR is dead. |
+
+---
+
+## Kill (strange pass)
+
+| Idea | Why dead |
+|------|----------|
+| DESI evolving dark energy / Hubble tension | Biggest live cosmology **theory**. Significance dataset-dependent (2.8–4.2σ frequentist; some Bayesian reanalyses kill it). Occupied physics. Not a stranger stock. |
+| Higgs vacuum metastability | Holds weight; lifetime ≫ age of universe after 2024–26 prefactor revisions. No unpaid remaining a stranger opens. |
+| Dark oxygen from nodules | Nature Geoscience 2024; 2025–26 critiques (artefact / thermodynamics). Replication expeditions 2026. **Hopium until two-source replication.** |
+| Homochirality origin | Still unsolved (C&EN May 2026). Biggest unoccupied origin **question**. No remaining shape. Do not invent life’s handedness as a SKU. |
+| Gravitational memory / BMS soft hair | Real GR; undetected. LVK stacking / LISA. Occupied detector program. Watch, do not seat. |
+| 3I/ATLAS as engineered visitor | NASA: hyperbolic comet, outgassing perturbations. Loeb anomalies are not two-source remaining. |
+| Oklo / drifting fine-structure constant | Occupied constraint (Δα/α ≲ 0.01 ppm / 1.9 Gyr). Not unpaid stock. |
+| Peak phosphorus | USGS MCS 2026: no imminent shortage; world resources >300 Gt. Food necessity is real; “peak” is hopium. |
+| Consciousness / simulation / Boltzmann brains | `cleverer_layer` is null. Being is not a SKU. |
+| Language last-speakers / uncontacted peoples | People hunt. Dead. |
 
 ---
 
