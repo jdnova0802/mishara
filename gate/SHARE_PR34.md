@@ -2,6 +2,8 @@
 
 Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
+**Deploy is blocked on desktop.** Live `gate.velaru.xyz` still shows Full assessment $3,500. Stranger-two is on this branch, not live. Paste `gate/DESKTOP_DEPLOY.md` into desktop Cursor — deploy this branch to Render, commit if dirty, verify live, halt. Do not run `gate/deploy_render.py` (it can rotate receipt keys).
+
 ---
 
 PASTE START
