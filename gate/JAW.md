@@ -423,7 +423,7 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | I-131 capsule “shortage” | 2026 lot recalls (particulates / specs), not a national shortage. Kill. |
 | Ethicon suture + AirLife mask **discontinuances** | Real SKU exits (Ethicon Feb 2026 letter; FDA Jun 2026 list; NHS sutures intermittent through Oct 2026). GPO substitution, not a monopoly. Watch on the device desk — do not mint a new J. |
 | Helium Linde-style bayonets / MRI fill kits | Real fittings. No evidence the *coupling* is scarce. Sit under **J7** (the gas). |
-| Private-credit NAV / gated marks | Remaining shape, not a jaw desk. Seated **`ALARMING.md` A13**. |
+| Private-credit NAV / gated marks | Remaining shape, not a jaw desk. Seated **`ALARMING.md` A13** with **Aim-latch math** ($440B × 0.5–1 bp). Jaw finder’s fees do **not** mint Aim — see A13. |
 
 ---
 
