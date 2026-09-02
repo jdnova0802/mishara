@@ -3191,6 +3191,7 @@ class NisabatreeTests(unittest.TestCase):
         self.assertIn("Bind", html)
         self.assertIn("Velaru", html)
         self.assertIn("Wonder without the body", html)
+        self.assertIn("Internal architecture and external architecture stay equal", html)
         self.assertIn("noindex", html)
         wk = client.get("/.well-known/nisabatree.json")
         self.assertEqual(wk.status_code, 200)
@@ -3198,6 +3199,7 @@ class NisabatreeTests(unittest.TestCase):
         self.assertEqual(data["spec"], "nisaba-nisabatree-v1")
         self.assertIsNone(data["checkout"])
         self.assertIn("Wonder without the body", data["both"])
+        self.assertIn("stay equal", data["architectures_equal"])
 
 
 class ConformantQicTests(unittest.TestCase):

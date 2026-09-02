@@ -21,6 +21,7 @@ gate/SHARE_PR34.md
 then gate/CASH_NOW.md gate/BUYERS.md gate/BUYERS_HOT.md gate/ENTITIES.md gate/TUESDAY.md gate/ALARMING.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
+- Internal architecture and external architecture stay equal. Same official-page research on inventing and on buyers/desks. Ultra-specific. Cosmic-specific when the fact is real. Urgent when a clock is live. Do not deepen one while the other starves.
 - Primitive: may · sheath · prove
 - Gate 1: stranger paid and proved. Lab frozen until then. $0 / their_production: false until Gate 1
 - Never sell: may / the throat / critical planetary capacity
@@ -34,7 +35,7 @@ LOCKS. Do not violate.
 - Stripe via price_data (no new Price IDs). GATE_DEV_MODE fake-pays. Do not enable automatic_tax without an active Stripe Tax registration
 - Name-only unless they say ship. Do not seat new $0 museum pages or new checkouts unless they explicitly ask to ship
 - They asked to ship the gap. /bridge is seated. Do not also seat Afterweb/coffin/Vital as cash. Those do not close meter→Aim.
-- Buyer map is internal: gate/BUYERS.md. High-chance cut: gate/BUYERS_HOT.md. Researched names: gate/ENTITIES.md. External architecture uses the same official-page research as inventing — ultra-specific and cosmic-specific, and urgent (the send clock, not another remaining essay). Tuesday send clock: 11:00 AM EDT from Toledo; do not send at 6:30 AM home. Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
+- Buyer map is internal: gate/BUYERS.md. High-chance cut: gate/BUYERS_HOT.md. Researched names: gate/ENTITIES.md. Tuesday send clock: schedule 11:00 AM EDT from Toledo (confirmed). Do not send at 6:30 AM home. Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
 - Aim $50–200M by Jun 2027 is an operate plan: gate/AIM22.md. Ownership × one E buyer. Not Standing stacking. No /aim page.
 - Do not: become AIUC · run x402 facilitator · Connect splits · sell a consortium you founded · fake meters/indexes · pitch $300B from Bind · bump the ghosted MGA list
 

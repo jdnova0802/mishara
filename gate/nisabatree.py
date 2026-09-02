@@ -39,6 +39,13 @@ BOTH = (
     "body is abandonment. Body without wonder is a smaller company than this one."
 )
 
+ARCHITECTURES_EQUAL = (
+    "Internal architecture and external architecture stay equal. "
+    "The inventing stack and the buyer/desk stack get the same official-page "
+    "research: ultra-specific, cosmic-specific when the fact is real, and urgent "
+    "when a clock is live. Do not deepen one while the other starves."
+)
+
 BRANDS = (
     {
         "name": "Velaru",
@@ -125,6 +132,7 @@ def manifest(public_url: str = "") -> dict[str, Any]:
         "thesis": ONE_SENTENCE,
         "shorter": SHORTER,
         "both": BOTH,
+        "architectures_equal": ARCHITECTURES_EQUAL,
         "one_breath": ONE_BREATH,
         "inventor": {
             "name": INVENTOR_NAME,
@@ -170,6 +178,11 @@ def page_blocks() -> list[dict[str, Any]]:
             "id": "both",
             "heading": "Wonders and necessities",
             "body": BOTH,
+        },
+        {
+            "id": "architectures-equal",
+            "heading": "Internal and external",
+            "body": ARCHITECTURES_EQUAL,
         },
         {
             "id": "family",

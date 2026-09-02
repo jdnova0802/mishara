@@ -81,9 +81,9 @@ Researched. Active deployers. **A stranger $1,750 does not clear those desks.** 
 
 ---
 
-## External architecture (same standard as inventing)
+## Architectures stay equal
 
-Look up the **desk**, not a vibe. HQ city · timezone · summer time · whether Wednesday is a business day · whether the inbox is legal or security.txt. Ultra-specific (this To:, this write, this clock). Cosmic-specific when the fact is real (AEDT starts 4 Oct 2026 — not today). Urgent means **this morning's send window**, not another remaining essay.
+Internal inventing and external desks are the same job. Official pages. Named sources. No invented GCs and no invented remaining. Ultra-specific (this To:, this write, this clock). Cosmic-specific when the fact is real (AEDT starts 4 Oct 2026 — not today). Urgent means the live clock — **11:00 AM EDT scheduled** — not another remaining essay. Do not deepen one stack while the other starves.
 
 ## How to send
 

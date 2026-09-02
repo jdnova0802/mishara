@@ -10,7 +10,7 @@ You get home **6:30 AM Eastern**. Do **not** hit send then.
 
 6:30 AM EDT = **3:30 AM Pacific**. Factory, Artisan, Gumloop, HappyRobot HQ are SF. That timestamp is a night-shift graveyard. Mayflower (NY) is not at the desk yet. Primer (London) would be fine (11:30 AM BST) — one inbox does not set the batch.
 
-**Do this:** sleep or eat. In Gmail, **schedule send for 11:00 AM Eastern** (set it when you walk in the door if you will be dead at 11).
+**Confirmed:** schedule the batch for **11:00 AM Eastern**. Set it when you walk in if you will be dead at 11. Then sleep.
 
 | Your clock (EDT) | What it is on their desk | Who |
 |------------------|--------------------------|-----|

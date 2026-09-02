@@ -31,6 +31,8 @@ Shorter:
 
 **Both, always:** work on the world’s biggest remaining (clock, Moon, delay, the after) **and** do not neglect what a person needs to live (sleep, kin, a receipt when they couldn’t watch, first cash so the inventor eats). Wonder without the body is abandonment. Body without wonder is a smaller company than this one.
 
+**Architectures, always equal:** the inventing stack and the buyer/desk stack get the same official-page research. Ultra-specific. Cosmic-specific when the fact is real. Urgent when a clock is live. Do not deepen one while the other starves.
+
 ---
 
 ## 3. Why the world needs this (bar version)
