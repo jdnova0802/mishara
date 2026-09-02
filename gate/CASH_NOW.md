@@ -136,6 +136,23 @@ Grants are not Gate 1. They do not replace Bind. They can pay **counsel** or buy
 Do not spray Safe-AI / Babuschkin “rolling funds.” That is a hunt.  
 Do not email the freeze list to ask for a grant.
 
+---
+
+## Workarounds that are **not** Stavan / Munich Re / invented GCs
+
+Stavan is a mid-Sept *listen* (he’s building tools). Munich Re / HSB = capacity, **Not Tuesday**. Peter’s arrow is backwards. None of those are Gate 1.
+
+| Path | What it actually does | Do this if |
+|------|----------------------|------------|
+| **A. Wage above $16.28** | Different job / Amazon internal transfer / junior backend·ops·QA that pays more. Uses that you can ship software. **Not Gate 1.** | You need more than cleaner money *this month* |
+| **B. Ohio patent free counsel** | [ohio-patentprobono.org](https://ohio-patentprobono.org/) — USPTO video cert → apply. Also Case Western clinic `lawclinic@case.edu` (N. Ohio) · Detroit Mercy `IPClinic@udmercy.edu` (Ohio ok). `admin@ohio-patentprobono.org` · (440) 745-4145 | You will not wire Lockhart $12k |
+| **C. Toledo MBAC** | Chamber Minority Business Assistance Center — loan packaging, counseling, certifications. Not a Bind buyer. [toledochamber.com/mbac](https://www.toledochamber.com/minority-business-assistance-center.html) | You want local humans who package capital, not LinkedIn GCs |
+| **D. Install $2,500** | Builder with one irreversible write. Same stranger door shape. Still needs a human you **already** know. | A Discord/Slack builder already in your life — not a scrape |
+| **E. Inbound, not outbound** | Deploy stranger-two to live + keep the public demo. People searching the exclusion find you. Slow. No spray. | Pond stays empty and you refuse cold lists |
+| **F. Shelf Gate, earn elsewhere** | Company nights/weekends. Day job or freelance pays the body. Wonders stay designation. | Bind has no To: line |
+
+**Still not workarounds:** inventing ten GCs · emailing freeze list · pitching Munich Re · chasing Peter for a deal you don’t have · NSF while Amazon is >19.6 hrs/wk.
+
 **Willing to do whatever it takes?** Sequence beats intensity: `gate/EXTREME_ODDS.md`.  
 **Aim $50–200M by Jun 2027:** `gate/AIM22.md` — ownership × one E buyer, not Standing stacking.  
 **Tools (after Gate 1):** `gate/TOOLS.md` — Sheath, Gatewall, Prove Desk — not more ontology.
