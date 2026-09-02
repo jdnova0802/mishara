@@ -5,7 +5,13 @@
 **Not remaining remixes.** Not carbon / UTC / PFAS / orphan-well / lunar (those live in `ALARMING.md`).
 
 Inventing continues. Numbers stay `REST.md`.  
-Nine Bind emails already out (2 Sep 2026). Friday follow-up once. This file is the **parallel shelf** so the search does not die when the chat does.
+Nine Bind emails already out (2 Sep 2026). Prefer **Monday 11:00 AM ET** follow-up once. This file is the **parallel shelf** so the search does not die when the chat does.
+
+**Hunt modes (both allowed):**
+- **Hot** — live 2025–2026 force majeure / trial pause / allocation cut  
+- **Decades** — 20–40 year thin pipelines, sole domestic sources, demographic cliffs, Cold War leftovers  
+
+Decades finds can **tilt the ladder** harder than hot tweets. Same locks: two sources, ASAP wedge named, no page.
 
 ---
 
@@ -155,6 +161,34 @@ These are categories where **one real close can dwarf $1,750** — and some have
 
 ---
 
+### J10 — Tool & die makers (decades cliff) — **manufacturers of manufacturing**
+
+**What already burns (decades):** U.S. tool/die / mold base roughly **halved over ~25 years** as work went offshore. ~**55k** tool & die makers left; ~**1,187** registered apprentices → ~**1 apprentice per 46 workers**. Average age ~**54**; ~**90% over 40**; ~**2% aged 20–30**. By ~2030 a chunk of master toolmakers retire with undigitized tribal knowledge. **No dies → no mass production → reshoring cosplay.** Same shape as coil winders, deeper: they make the tools that make the tools.
+
+**Why ladder tilts:** Every Aim-class hardware / auto / med-device / munitions line eventually needs a mold. Placement + knowledge-capture on this trade is decades of pricing power.
+
+**ASAP wedge:** Midwest tooling-shop recruiting + apprentice match (OH/MI/IN die shops). Contingency fees. Optional: pay masters to record process libraries (boring SaaS later — not this week).
+
+**Sources:** tool-and-die workforce outlook syntheses (2025–45); NAM / reshoring tooling coverage; McKinsey trades scarcity context.
+
+**Locks:** Name only. Cousin of J8 — do not merge into one vague “trades” SKU. Separate desks if ever shipped.
+
+---
+
+### J11 — Egg-based flu / fill-finish (decades pandemic puzzle)
+
+**What already burns (decades):** WHO: seasonal capacity ~**1.53B** doses; **>80% still egg-based**. Cell/recombinant invested since ~2005/2009; seasonal economics keep eggs dominant. Fill-finish (vials, stoppers, lines) has been the **known bottleneck since the H1N1 postmortem** — bulk vaccine without bottles is theater. Africa still has essentially **no** local flu vaccine manufacturing in WHO surveys. Bird-flu into hen houses = nightmare input risk.
+
+**Why Bind looks small:** Pandemic response still routes through **chickens and glass**. Civilization dependency with a 20-year warning label.
+
+**ASAP wedge:** Watch / map only for now — sterile fill CMOs, vial glass, specialty egg supply. Solo doesn’t open a fill line next month. Seat so the decades choke isn’t forgotten when the next H5 headline hits.
+
+**Sources:** WHO 2023 capacity survey (Vaccine / PMC); KFF / ASPR egg vs cell commentary; CIDRAP fill-finish / vial historical puzzle.
+
+**Locks:** Name only. Not a Bind pitch. Not bioweapon cosplay.
+
+---
+
 ### Fold (looked · not new JAW rows)
 
 | Idea | Why folded |
@@ -163,6 +197,7 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | Pharmacy reverse distributors | Real DEA forced spend; **crowded** (IMC / Outdate / RxRS). Optional later, not jaw-new |
 | PTE / Hatch-Waxman desk | High dollar; needs counsel credentials Demond is still quoting |
 | FDA PreCheck backlog (71 consults / thin staff) | Serious; consulting needs GMP street cred — watch |
+| Cleveland-Cliffs sole US **GOES** + DLA ~$400M lock | Already `BULGE.md` ruler / J8 cousin — do not double-count as new invention |
 
 ---
 
@@ -177,9 +212,10 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | 5 | **J9 NDT Level III roster** | Day-rate / block fees | Weeks–months | Cert-gated |
 | 6 | **J5 trauma cleaning** | Per-job cash | Months | Physical LLC |
 | 7 | **J6 repatriation** | Per-case fees | Months | Doc hell |
-| 8 | **J4 bubbler/cert** | Retainer | Months+ | Fab intros |
-| 9 | **J1 Ac-225 map** | BD research | Hard | Jawmax |
-| — | **J2 Mo-99** | — | Watch | Civilization; no solo plant |
+| 8 | **J10 tool & die placement** | Same shape as J8 | Weeks if roster exists | **Decades cliff** |
+| 9 | **J4 bubbler/cert** | Retainer | Months+ | Fab intros |
+| 10 | **J1 Ac-225 map** | BD research | Hard | Jawmax |
+| — | **J2 Mo-99 / J11 eggs+fill** | — | Watch | Civilization; decades warning |
 
 ---
 
@@ -280,8 +316,13 @@ Run these next with two 2025–2026 sources before seating:
 1. **Private-credit NAV marks** (already allowed in `ALARMING.md` — A2 cousin)  
 2. **Ac-225 cold-chain last-mile** specialists (shielded, timed, who gets the dose window)  
 3. **Only-N U.S. labs** for a specific SEMI cert (name the cert, name the queue)  
-4. **Nuclear gauge** installed-base end-of-life wave (construction/civil — who holds Cs-137/Co-60 gauges aging out) — start with ODH licensee FOIA  
-5. Anything where **Big Pharma paused a trial** for a physical input that isn’t compute
+4. **Nuclear gauge** installed-base end-of-life wave — ODH licensee FOIA  
+5. **MRI helium Great Lakes service map** — who actually delivers emergency liters to OH/MI/IN hospitals (names J7)  
+6. **Ohio / Midwest coil-winder & NDT Level III roster** — trade schools, ASNT sections, OEM career pages (names J8/J9)  
+7. Anything where **Big Pharma paused a trial** for a physical input that isn’t compute  
+8. **Decades sole-source components** — one/two US makers for a part every OEM needs (name the NSN / SEMI / ASTM spec)  
+9. **Optical coating / precision glass** shops — aging masters, defense + lithography demand  
+10. **Sterile fill-finish Midwest capacity map** (names J11) — who has idle vials vs who is booked 18 months
 
 ---
 
@@ -300,6 +341,6 @@ Run these next with two 2025–2026 sources before seating:
 
 ## One line
 
-> **Bind is the ignition. JAW is the shelf of boring chokepoints where one close can dwarf $1,750 — Ac-225, Mo-99, Type B/sources, bubbler cert, trauma, repatriation. Research continues. Cash still Gate 1.**
+> **Bind is the ignition. JAW is hot + decades chokepoints where one close can dwarf $1,750 — isotopes, helium MRI, Type B, coil/tool humans, NDT signatures, eggs+vials. Research continues. Cash still Gate 1.**
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · do not slip*
