@@ -93,7 +93,7 @@ Skip a rung and you are pitching a museum.
 
 1. Live pay+prove (`MAX.md`). If checkout is soft, do not send.
 2. Counsel quotes Tue Sep 1 — parallel, not the cash.
-3. ≤10 Bind emails from `TUESDAY.md`: warm GCs + **one** Testudo-placing broker (`BUYERS.md`). Mix shapes if you have the names. Same door. Halt. Do not invent ten logos.
+3. ≤10 Bind emails from `TUESDAY.md`: researched official inboxes in `ENTITIES.md` + **one** channel (Mayflower intro, or a Testudo-placing producer you already know). Same door. Halt. Do not invent ten surnames.
 4. First paid Bind → prove same day → Gate 1 logged.
 5. **F3 this month or never this year.** NAIC 12-state pilot footnote on that folio. Clock dies end of September.
 

@@ -102,12 +102,12 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 | Talk to | Do not talk to |
 |---------|----------------|
-| AI startup GC / Head of Ops facing insurance renewal | Ghosted MGA cold list (archived) |
-| **One** surplus broker who already places **Testudo** (backup: Corgi / Mayflower-class) — ask for **intro to one insured**, not a carrier RFP. Copy in `BUYERS.md` | Klaimee / AIUC (competitor-adjacent) · Testudo the coverholder as a Bind buyer · Random “AI governance” LinkedIn |
-| Builder shipping tool-use with irreversible writes (pay, delete, bind, send) | Defense / nuclear / C2 |
-| Warm human who already opened a plate | “Everyone on the opportunities map” |
+| Researched deployers on `ENTITIES.md` / `TUESDAY.md` (official privacy / legal / support inboxes) | Invented GCs · LinkedIn surname scrapes |
+| **One** channel: Mayflower (`jeremy@mayflowerspecialty.com`) or a surplus producer you already know who places Testudo / Corgi-class — **intro to one insured** | Klaimee / AIUC · Testudo the coverholder as a Bind buyer · Relm + Mayflower in the same ten |
+| Builder shipping tool-use with irreversible writes (pay, delete, bind, send) | Defense / nuclear / C2 · freeze list |
+| Warm human who already opened a plate (takes a slot; drop a cold one) | “Everyone on the opportunities map” · BLAST as a To: list |
 
-**Full buyer map:** `gate/BUYERS.md` — A/B this week, C after logos, D cite, E after meter, F never. No `/buyers` page. A name on that file is not permission to email them tomorrow.
+**Full buyer map:** `gate/BUYERS.md`. **Researched names:** `gate/ENTITIES.md`. A/B this week, C after logos, D cite, E after meter, F never. No `/buyers` or `/entities` page. Freeze list still means do not email.
 
 ---
 
@@ -115,12 +115,12 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 1. Finish public path so pay + prove works on live host (Stripe webhook · disk · secure cookies — see `MAX.md`).
 2. One counsel quote email batch (Tue Sep 1) — does not replace Bind cash.
-3. Send **≤10** N1 emails from `gate/TUESDAY.md` — **only if threads exist**. Sep 2: pond is **zero**. Zero is honest. Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send **≤10** N1 emails from `gate/TUESDAY.md` — researched official inboxes in `gate/ENTITIES.md`. Warm threads are still zero; that is not “no entities.” Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 ---
 
-## If the pond is zero (Sep 2026 look-up)
+## Grants and free counsel (parallel — not buyers)
 
 Grants are not Gate 1. They do not replace Bind. They can pay **counsel** or buy time. Looked up 2 Sep 2026.
 
@@ -168,8 +168,8 @@ Run these. In order. When the terminal line hits, stop pretending.
 | 2 | **Ohio Patent Pro Bono** (+ Case / Detroit Mercy clinics if needed) | Volunteer counsel on 64/124,027. Not Lockhart $12k. |
 | 3 | **Other two patent quotes** (still waiting) | One flat fee you can actually survive — or pro bono wins. |
 | 4 | **Mid-Sept Stavan — listen only** | 15 min. If he knows an *insured* whose CGL hurts, ask for that intro. He is not the Bind buyer. |
-| 5 | **Inbound** | Demo + officer pack + verify findable when someone searches the exclusion. No cold list. |
-| 6 | **One Bind $1,750** if any warm human with the pain appears | Pay + prove same day = **Gate 1**. Halt. |
+| 5 | **≤10 researched N1** from `TUESDAY.md` / `ENTITIES.md` | Sent from `hello@velaru.xyz`. Follow up once. Halt. Not invented GCs. |
+| 6 | **One Bind $1,750** | Pay + prove same day = **Gate 1**. Halt. |
 | 7 | **Install $2,500** only if a builder you already know has a write | Same rule: already know them. |
 | 8 | **YC W27 apply** (by 2 Nov) | Company bet. Not a job. Optional. |
 | 9 | **NSF Project Pitch** | Only if at *award* you can be Nisaba-primary. Company funding. Optional. Long. |
@@ -184,7 +184,7 @@ Invent ten GCs · freeze-list email · Munich Re cold · Peter chase with no cli
 It’s cooked when **all** of these are true:
 
 1. **Patent path dead** — Ohio pro bono (and clinics) denied or abandoned, paid counsel impossible, provisional clock dies with nothing converted.  
-2. **Every real thread closed** — Stavan mid-Sept done (no intro, no path), no other warm human left, no new inbound that asked for the pack.  
+2. **Every real thread closed** — the ten researched `ENTITIES.md` sends followed up once and dead, Stavan mid-Sept done (no intro, no path), no new inbound that asked for the pack.  
 3. **Live door was correct** and still **$0** — stranger-two deployed, demo/prove worked, and still no stranger paid.  
 4. **Optional long shots resolved or skipped** — YC decision or you chose not to apply; NSF invite dead or you chose not to pitch.
 

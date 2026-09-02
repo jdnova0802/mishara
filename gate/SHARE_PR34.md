@@ -18,7 +18,7 @@ Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). P
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/TUESDAY.md gate/ALARMING.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/ENTITIES.md gate/TUESDAY.md gate/ALARMING.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -34,7 +34,7 @@ LOCKS. Do not violate.
 - Stripe via price_data (no new Price IDs). GATE_DEV_MODE fake-pays. Do not enable automatic_tax without an active Stripe Tax registration
 - Name-only unless they say ship. Do not seat new $0 museum pages or new checkouts unless they explicitly ask to ship
 - They asked to ship the gap. /bridge is seated. Do not also seat Afterweb/coffin/Vital as cash. Those do not close meter→Aim.
-- Buyer map is internal: gate/BUYERS.md. No /buyers page. A/B this week only. C after logos. E after meter. F never. This week's one throat: at most one Testudo-placing broker, intro to one insured. Do not email Klaimee, Testudo-the-MGA, or a C desk. A name on that file is not permission to email them tomorrow.
+- Buyer map is internal: gate/BUYERS.md. Researched names: gate/ENTITIES.md. No /buyers or /entities page. A/B this week only. C after logos. E after meter. F never. Tuesday To: lines are the researched official inboxes (Mayflower intro + deployer privacy/legal/support). Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
 - Aim $50–200M by Jun 2027 is an operate plan: gate/AIM22.md. Ownership × one E buyer. Not Standing stacking. No /aim page.
 - Do not: become AIUC · run x402 facilitator · Connect splits · sell a consortium you founded · fake meters/indexes · pitch $300B from Bind · bump the ghosted MGA list
 
@@ -89,12 +89,12 @@ Without Gate 1, civilization-rent shapes are $0. Do not get bored of Bind $1,750
 SEPT 1 WEEK (ops, not inventing). See CASH_NOW.md · EXTREME_ODDS.md · MAX.md
 1. Live host: Stripe webhook · disk · secure cookies. If checkout or prove is soft, do not send sales emails yet.
 2. Counsel quote batch Tue Sep 1 — does not replace Bind cash.
-3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md **only if threads exist**. **Sep 2: pond is zero.** Zero is honest. Do not invent GCs. USPTO pro bono is the live door (`CASH_NOW.md`). Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md. Names are researched official inboxes in gate/ENTITIES.md. Warm threads are still zero; that is not “no entities.” Do not invent GCs. USPTO pro bono is parallel, not a buyer. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 Pond: AI startup GC / Head of Ops on renewal · specialty broker → intro to their insured · builder with irreversible tool-use · warm human who already opened a plate.
 Not: ghosted MGA list · AI-governance LinkedIn · defense / nuclear / C2.
-Full map: gate/BUYERS.md (A/B this week, C after logos, D cite, E after meter, F never). No /buyers page.
+Full map: gate/BUYERS.md. Researched names: gate/ENTITIES.md (A/B this week, C after logos, D cite, E after meter, F never). No /buyers or /entities page.
 
 NAMED-ONLY. Do not seat as pages.
 EVOID-AS · BATTMAN · federal shelf patents · SBIR Phase-II remainder · USPTO maintenance-fee clock · phage-bank · TOPAZ · EKIP · OGAS/Kitov · dead-repository · thesis appendix · strategic-kill · expired-draft · post-crisis TTO · Implant Remaining · Dead-Seed Remaining · Unpublished-Proof Remaining · Phantom-Dataset Remaining · unused ORFs · Anellotech · seal bathymetry · surplus plutonium · Voyager unused thrusters · SciCast Remaining · Leftover-Pill · Stop-on-EV · Tick Remaining · Substrate Remaining · Punch-Card Remaining · FDA PRV leftover · FERC queue remaining · unused spectrum · unused appropriations.
@@ -173,7 +173,8 @@ PASTE END
 | `gate/HEAVIER.md` | Inventions that dunk the Conformant badge |
 | `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/BUYERS.md` | **Full buyer map** — A Gate 1 · B channels · C meter/bridge · D cite · E Aim/Fat · F hard no · internal, no page |
-| `gate/TUESDAY.md` | **Tue 1 Sep 2026 send sheet** — ten blank slots from existing threads · paste-ready N1 / broker / counsel · not a named GC list |
+| `gate/ENTITIES.md` | **Researched entities** — official inboxes from web search (ToS / privacy / press). A payer vs B channel vs skip. No page. |
+| `gate/TUESDAY.md` | **Tue 1 Sep 2026 send sheet** — ten researched official To: lines · paste-ready N1 / broker / counsel |
 | `gate/ALARMING.md` | **Name-only hunt** — A1–A12 (galactic + strange). No pages. No hopium. |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
@@ -192,7 +193,7 @@ PASTE END
 | `gate/GENERAL.md` | **Contains Satoshi** — money is a special case · correspondent remaining $1M/yr · 100 seats = $100M · `/general` |
 | `gate/STANDING.md` | **Recurring that prints** — remaining lease $4,500/mo · $9,000/mo · $25,000/mo · 100% Nisaba · `/standing` |
 | `gate/PRINT.md` | **Prints this week** — Finished Remaining $8,500 operated folio · broker pack $4,500 · `/finished` |
-| `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 highest-probability · Discharge $1,500 · Estate $3,500 · Null $4,500 · Finished $8,500 · Refusal $7.5k |
+| `gate/CASH_NOW.md` | **Money this month** — Bind $1,750 · researched To: lines in ENTITIES · USPTO pro bono parallel · Discharge / Estate / Null / Finished / Refusal |
 | `gate/GOOD_INVENTING.md` | **9–10** · rail · civilization rent · Unprecedented 10s · **Amazing above-10s** |
 | `gate/ABOVE.md` | Civilization rent: custody · mandate · index · hyperscaler · apostille |
 | `gate/UNPRECEDENTED.md` | Deep 10s: trinity · anti-act · silence · regret · world-after · cross-substrate |

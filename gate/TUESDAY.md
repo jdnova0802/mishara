@@ -4,14 +4,14 @@
 
 Today is Tuesday. Bind is the throat. This file is the send sheet.
 
-We did the letter, the live door, the cap, the freeze, and the broker ask.  
-We did **not** name ten humans. That was never in git. `BUYERS.md` still says so on purpose.
+We did the letter, the live door, the cap, the freeze, and the broker ask.
 
-Filling ten logos from a scrape, LinkedIn, or BLAST would invent a pond. Do not.
+**Sep 2:** warm threads are still zero. That is not the same as “no entities exist.”  
+Researched names and official inboxes: `gate/ENTITIES.md` (web search of ToS / privacy / press / customer pages).  
+The ten slots below are those inboxes — **not** invented GCs, **not** LinkedIn surnames.
 
-If you already have a thread, send. If you have three threads, send three. If you have zero, send zero. Zero is honest. Ten invented GCs is not.
-
-**Sep 2:** pond is zero. See `CASH_NOW.md` → *If the pond is zero* — USPTO pro bono is the live door, not a scrape.
+If you also have a warm thread, send that first and drop a cold slot so the cap stays ≤10.  
+Patent pro bono stays parallel (`CASH_NOW.md`). It is not a buyer.
 
 ---
 
@@ -19,7 +19,7 @@ If you already have a thread, send. If you have three threads, send three. If yo
 
 | Done | Not done |
 |------|----------|
-| Stranger-two on `/` and `/bind-room` | Ten named GCs |
+| Stranger-two on `/` and `/bind-room` | Ten invented GCs |
 | Officer pack JSON | Counsel names in this repo |
 | Live door `https://gate.velaru.xyz/bind-room` | Cloud agent sending mail |
 | Cap: **≤10** N1, then halt and prove | A paid stranger (Gate 1) |
@@ -29,32 +29,34 @@ Do not paste `/gaming`. Do not pitch Ω / Fellhatch / H₀ / W₀ from Bind.
 
 ---
 
-## How to fill the ten (15 minutes, your inbox)
+## How to send the ten
 
-Search **existing** threads only (sent mail, iMessage, LinkedIn DMs, Discord/Slack, counsel already holding the brief):
+Slots 2–10 are researched official inboxes from `ENTITIES.md`. Slot 1 is counsel you already wrote.
 
-`insurance` · `E&O` · `GC` · `counsel` · `renewal` · `bind` · `Testudo` · `Corgi` · `agent` · `HITL`
+Personalize **one line** (product / write). Then send from `hello@velaru.xyz`. Then stop.
 
-Skip anyone on the freeze list. Skip anyone you have not already talked to. Personalize **one line** (their product / renewal / book). Then send. Then stop.
+Skip the freeze list. Skip Testudo-the-MGA. Skip Klaimee. Do not invent a surname to “look more GC.” The published inbox is the To: line.
 
 ---
 
 ## The ten slots
 
-Write the name in. Empty means skip that slot. Do not invent a name to fill it.
+Sources and role tags: `gate/ENTITIES.md`. One line in brackets is the personalize line.
 
-| # | Slot | Email | Name (you type) |
-|---|------|-------|-----------------|
-| 1 | Counsel who already has the brief — quote batch **and** ask them to name/forward one GC | Counsel | |
-| 2 | Surplus producer who **already** places Testudo (backup: Corgi / Mayflower-class) — intro one insured. If you do not know this person, leave blank. Do not hunt “Testudo appointed.” | Broker | |
-| 3 | GC / Head of Ops you already know, AI shop, renewal or new bind | N1 | |
-| 4 | Same shape | N1 | |
-| 5 | Same shape | N1 | |
-| 6 | Same shape | N1 | |
-| 7 | Builder you already know whose tool-use pays, deletes, binds, or sends | N1 | |
-| 8 | Warm human who already opened a plate / verify link | N1 | |
-| 9 | Friend / operator who can forward into an AI GC (they send, or they intro) | N1 | |
-| 10 | Last warm GC / ops lead with a real reason this week | N1 | |
+| # | Slot | To | Shape |
+|---|------|-----|-------|
+| 1 | Counsel who already has the brief — quote **and** ask them to name/forward one GC | the inboxes you already sent (Zyl, ICAP, USIP) | Counsel |
+| 2 | Mayflower Specialty — first US affirmative AI-liability program (Hadron). Ask **intro one insured**. Not “buy Bind.” | `jeremy@mayflowerspecialty.com` | B · channel |
+| 3 | Lindy — AI teammate that sends email / updates tickets / publishes | `privacy@lindy.ai` | A · N1 |
+| 4 | Cognition / Devin — ships production code | `support@cognition.ai` | A · N1 |
+| 5 | ORO Labs — agentic procurement (agents that buy) | `privacy@orolabs.ai` | A · N1 |
+| 6 | Sierra — action-taking customer agents | `privacy@sierra.ai` | A · N1 |
+| 7 | Decagon — agents that refund / cancel / update accounts | `privacy@decagon.ai` | A · N1 |
+| 8 | AIsa — payment + resource layer for agents | `developer@aisa.one` | A · N1 |
+| 9 | Ramp — named Sierra customer; agent on support cases | `legal@ramp.com` | A · N1 |
+| 10 | Rivian — named Sierra customer | `legal@rivian.com` | A · N1 |
+
+Overflow if one bounces: Wayfair `legal@wayfair.com` (also a named Sierra customer). Relm `connect@relminsurance.com` only if slot 2 is unused. Do not add both.
 
 Slot 2 counts toward the ten. Do not also cold the coverholder. Do not email a C desk.
 
@@ -66,7 +68,7 @@ After the tenth send (or after the last real name, if fewer): **halt and prove.*
 
 E · CDMOs · FM Global · DHS · NAIC · PAS · PA · NVIDIA · Apple · Google · Sequoia · hyperscalers · Microsoft · Mosaic · Verisk · Duck Creek · Stripe · Visa · Klaimee · Testudo-the-MGA · C desks · ghosted MGA archive · defense / nuclear / C2 · cold AI-governance LinkedIn.
 
-A name in `BUYERS.md` / `BLAST.md` is a class or a later desk. It is not today’s To: line.
+A name in `BUYERS.md` / `BLAST.md` is a class or a later desk. Today’s To: lines are the researched inboxes in the table above. Do not expand the table from BLAST.
 
 ---
 

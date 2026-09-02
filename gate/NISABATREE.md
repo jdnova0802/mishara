@@ -245,7 +245,7 @@ Nisaba LLC (you · patent · invoice)
 
 1. Live checkout + prove actually work.  
 2. Counsel quotes moving (parallel).  
-3. ≤10 Bind emails to people with a real reason (`TUESDAY.md` slots) — then halt and prove.  
+3. ≤10 Bind emails from `TUESDAY.md` (researched entities in `ENTITIES.md`) — then halt and prove.  
 4. First paid Bind = Gate 1.
 
 Detail: `CASH_NOW.md` · `TUESDAY.md` · `EXTREME_ODDS.md` · `MAX.md`.
