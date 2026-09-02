@@ -427,6 +427,27 @@ These are categories where **one real close can dwarf $1,750** — and some have
 
 ---
 
+## Aim arithmetic (stop lying to yourself)
+
+**Aim floor = $50,000,000 liquid** (`AIM22.md`: one E buys foothold).  
+Jaw finder’s fees are **not** Aim. Count:
+
+| Desk | Honest mid take | Closes to hit **$50M** Aim |
+|------|-----------------|----------------------------|
+| Bind | **$1,750** | **28,572** closes |
+| Standing write | **$4,500/mo** = **$54k/yr** | **926 years** |
+| Standing desk | **$25,000/mo** = **$300k/yr** | **167 years** |
+| J7 helium finder’s | **$25,000**/event | **2,000** quenches |
+| J20 oxygenator finder’s | **$10,000**/allocation | **5,000** finds |
+| J3 Type B finder’s (15% of $50k job) | **$7,500** | **6,667** jobs |
+| J21 cassette lot-find | **$5,000** | **10,000** lots |
+
+**Only new find with Aim math:** **`ALARMING.md` A13** — **$440B** NT-BDC + interval stack × **0.5 bp** = **$22M/yr** → **$220–330M** at 10–15×. That is the existing Aim/Fat latch, new throat. Not a jaw email. Not a new REST band.
+
+Producer comps (you do **not** own these): BMS–RayzeBio **$4.1B** · AZ–Fusion **$2.4B** · Niowave plant **$75M** · MSCI Index run-rate **~$2.0B**.
+
+---
+
 ## ASAP rank (if Bind is already running — parallel only)
 
 | Rank | Play | Ticket shape | Speed | Notes |

@@ -2,7 +2,7 @@
 
 Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
-**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf so it does not slip: `gate/JAW.md` (through J25 — FDA SKUs, cassettes, foils, HPGe, space hardware) — name only, do not skip Bind.
+**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Remaining cousin: `ALARMING.md` **A13** gated NAV. Name only, do not skip Bind.
 
 ---
 
