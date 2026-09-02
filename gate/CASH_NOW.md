@@ -164,7 +164,7 @@ Run these. In order. When the terminal line hits, stop pretending.
 
 | # | Door | What “worked” looks like |
 |---|------|--------------------------|
-| 1 | **Deploy stranger-two** to `gate.velaru.xyz` | Live `/` and `/bind-room` match the two paragraphs. Old $3,500 assessment copy is dead. Paste pack for desktop Cursor: `gate/DESKTOP_DEPLOY.md`. |
+| 1 | **Deploy stranger-two** to `gate.velaru.xyz` | **Live 2 Sep 2026.** `/` and `/bind-room` match the two paragraphs. No Full assessment $3,500. Desktop deployed branch `cursor/nisaba-cosmic-unison-719d`. |
 | 2 | **Ohio Patent Pro Bono** (+ Case / Detroit Mercy clinics if needed) | Volunteer counsel on 64/124,027. Not Lockhart $12k. |
 | 3 | **Other two patent quotes** (still waiting) | One flat fee you can actually survive — or pro bono wins. |
 | 4 | **Mid-Sept Stavan — listen only** | 15 min. If he knows an *insured* whose CGL hurts, ask for that intro. He is not the Bind buyer. |
