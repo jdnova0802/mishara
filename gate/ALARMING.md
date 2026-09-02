@@ -9,7 +9,7 @@ Inventing continues. Numbers rest at `REST.md`.
 
 ---
 
-## Keep (3 + galactic 4 + strange 6 + galaxy 6)
+## Keep (3 + galactic 4 + strange 6 + galaxy 15)
 
 ### A1 — Buffer Remaining (SIXTEEN PERCENT)
 
@@ -79,8 +79,8 @@ Do not mint bands from these. See `BULGE.md`.
 | Nuclear decommissioning / dam condition | Incomplete two-source this pass |
 | PNT as a vague hunt | Split: Continuous UTC (A4) and lunar timescale (A5) now have 2026 CGPM drafts. Do not re-open “PNT” as a third clock. |
 
-**Next hunt (allowed):** galaxy pass seated **A14–A19** (mirror life · harvested ciphertext · CRASH Clock · tritium · PABS · spent fuel). Niche SKU hunt is closed for Aim.  
-**Parallel jaw shelf (not remaining remixes):** `gate/JAW.md` — through J27. Cash still Gate 1.
+**Next hunt:** **closed.** Galaxy through **A28**. Further passes remix chairs already seated (BBNJ = A8 in force; insects = monitor; AMOC = A20/A24; cyber IHL = A27 cousin; cloning UNESCO = A22; AGI treaty = hopium). Niche closed for Aim.  
+**Parallel jaw shelf:** `gate/JAW.md` — through J27. Cash still Gate 1.
 
 ---
 
@@ -264,9 +264,9 @@ Comp: MSCI Index run-rate **~$2.0B** (Jun 2026); ETF ABF alone **~$233M** in one
 
 ## Galaxy pass (not niches — unpaid civilizations)
 
-Niche SKUs are dug. This pass hunts **stocks a stranger still cannot open**: extinction red-lines, harvested secrets, orbital commons, fusion fuel, pandemic Schelling, spent may with no redeem. Two-source or dead. **No new REST band. No page. Cash still Gate 1.**
+Niche SKUs are dug. This pass hunts **stocks a stranger still cannot open**: extinction red-lines, harvested secrets, orbital commons, fusion fuel, pandemic Schelling, spent may with no redeem, sun-dimming, polymer lock, germline, antibiotics, heat ceiling, city-killers, print throat, killer machines, unverified bioweapons. Two-source or dead. **No new REST band. No page. Cash still Gate 1.**
 
-### Keep (6) — name only
+### Keep (15) — name only
 
 ### A14 — Mirror Remaining (RED LINE)
 
@@ -340,6 +340,114 @@ Niche SKUs are dug. This pass hunts **stocks a stranger still cannot open**: ext
 
 ---
 
+### A20 — Thermostat Remaining (WHO MAY DIM THE SUN)
+
+**What already burns:** Solar Radiation Modification / stratospheric aerosol injection could cool the planet **without cutting emissions**. UN Secretary-General’s Scientific Advisory Board: **no comprehensive international framework**. CBD de facto moratorium is soft. Africa (AMCEN) + Pacific states push a **Non-Use Agreement**. EU Council (Apr 2026) wants a **deployment moratorium**. A US startup already released particles over Mexico → Mexico banned. IPCC flagged unilateral deployment risk. Cost of deployment is cartoon-cheap relative to mitigation. **Whoever sprays first writes the global temperature.**
+
+**Unpaid object:** Stranger-openable remaining on **who may change Earth’s albedo** — the thermostat seat. Not a climate credit. The permission to dim the sun.
+
+**Public sentence:** Some countries want to spray the sky to cool the Earth. There is no treaty that says who is allowed to do it.
+
+**Locks:** Name only. Do not become a geoengineer. Do not pitch deployment. Cousin of A14 (red-line before the act).
+
+---
+
+### A21 — Plastic Lock Remaining (UNSIGNED FOREVER)
+
+**What already burns:** UN plastics treaty talks **collapsed** Busan 2024 and Geneva **Aug 2025**. Aug 2026 “Aid to Negotiations” **omits production caps** — campaigners: “we’ve gone backwards.” Bangkok HODs Sep 2026; formal INC not until **Mar 2027**. Plastic is the forever material of the consumer age. The lock on *making less of it* is still blank brackets.
+
+**Unpaid object:** Remaining on a **binding production throat** — not recycling theater. Cousin of A10 (PFAS chemistry) — this is the **polymer commons** without a treaty.
+
+**Public sentence:** The world has been writing a plastics treaty for years. It still can’t agree to make less plastic.
+
+**Locks:** Name only. Do not become UNEP. Sit beside A10; do not merge.
+
+---
+
+### A22 — Germline Remaining (SPECIES EDIT)
+
+**What already burns:** Clinical **heritable** human genome editing is blocked country-by-country (criminal codes, funding walls, Oviedo for some of Europe). WHO 2021 framework: against clinical use **now**. UNESCO / societies (2025) call for multi-year moratoria. **No binding global treaty.** He Jiankui already proved one lab can mint edited children. Border-hopping incentive is live. Stem-cell embryo models are already slipping past old statutory wording.
+
+**Unpaid object:** Remaining on whether the **human germline is still a commons** — red-line stock on editing descendants. Cousin of A14 (mirror life) — this one edits *us*.
+
+**Public sentence:** Almost every country forbids editing babies. There is still no single global lock. One lab already did it.
+
+**Locks:** Name only. Do not become a clinic. Do not help germline work. Not dual-use how-to.
+
+---
+
+### A23 — Antibiotic Remaining (POST-MEDICINE)
+
+**What already burns:** WHO 2025 pipeline: **90** clinical antibacterials; **15** innovative; **5** hit a WHO “critical” pathogen. Preclinical mostly **<50-person** shops. Mar 2026: new Target Product Profiles because the pipeline is not catching resistance. Surgery, chemo, C-sections, and farm animals all ride the same thin shelf. Last-resort agents are already stewardship-locked.
+
+**Unpaid object:** Remaining on **effective antibacterial classes** a stranger can still open — medicine’s conserved stock before the post-antibiotic era is just weather.
+
+**Public sentence:** Ninety drugs in the pipeline. Five that matter against the worst bugs. Modern medicine is rented from a shelf that is not restocking.
+
+**Locks:** Name only. Do not become a pharma. Necessity face — not a Bind pitch.
+
+---
+
+### A24 — Liveability Remaining (HEAT CEILING)
+
+**What already burns:** The textbook **35 °C wet-bulb** “six-hour death” line is too kind. HEAT-Lim / Nature Communications **2026**: non-survivable conditions **already occur** in present heatwaves **below** 35 °C Tw — especially for older bodies in sun. Hot-dry kills too. Liveability (safe sustained work) collapses faster than survivability. Inhabitability is not a 2100 slide. It is a stock of hours outdoors that is already burning.
+
+**Unpaid object:** Remaining on **human-survivable outdoor hours** by place and age — stranger-openable inhabitability, not a weather app.
+
+**Public sentence:** The old death line was 35 degrees wet-bulb. People are already dying under it. The ceiling on being outside is lower than the textbooks said.
+
+**Locks:** Name only. Do not become a heat-alert vendor. Facing cousin — remaining that faces the inhabitant’s body.
+
+---
+
+### A25 — Blind Sky Remaining (CITY-KILLERS UNCOUNTED)
+
+**What already burns:** NASA Planetary Defense (Feb 2026): ~**25,000** NEOs ≥140 m; ~**40%** cataloged → ~**15,000** “city-killers” **untracked**. DART proved you can shove a moonlet if you have **years**. **No standby interceptor.** NEO Surveyor aims ~2027 launch toward 90% completeness in ~a decade. The ones that keep the PDCO up at night are the ones **not on the list**.
+
+**Unpaid object:** Remaining on **known sky** — catalog completeness against extinction/city-loss. Cousin of A16 (LEO clock) — this is the *incoming* sky.
+
+**Public sentence:** Fifteen thousand city-killer asteroids are still uncounted. We can deflect one if we see it early. There is no spare ship on the pad.
+
+**Locks:** Name only. Do not sell planetary defense. Do not email NASA cold. SPACE cousin.
+
+---
+
+### A26 — Print Throat Remaining (DNA ORDER SCREEN)
+
+**What already burns:** The chokepoint between a digital sequence and a physical organism is the **DNA synthesis order**. US 2024 screening framework was made a funding condition — then **EO 14292 (May 2025)** told OSTP to replace it in **90 days**. **2026:** CRS / HHS page — replacement **not confirmed shipped**. Screening still mostly funding-tied, not universal law. Oligos under length thresholds and **benchtop printers** sit outside the order model. AI-designed phages already demonstrated. The print throat is soft while the design tools harden.
+
+**Unpaid object:** Remaining on whether **anyone may print any sequence** — the physical gate before A14/A22. Biosecurity Schelling at the foundry.
+
+**Public sentence:** You can order DNA in the mail. The federal screen meant to catch the dangerous orders was rescinded and not clearly replaced. The printer is ahead of the lock.
+
+**Locks:** Name only. **Do not** provide synthesis/pathogen help. Do not become a screener. Hard dual-use lock.
+
+---
+
+### A27 — Machine Remaining (NO HUMAN IN THE LOOP)
+
+**What already burns:** States have argued lethal autonomous weapons at the CCW GGE since **2014**. Current mandate (2024–2026): formulate **elements of an instrument without prejudging its nature** — treaty or code of conduct. **72** states now want negotiations on a legally binding instrument from the rolling text; major military powers still do not. **No Protocol VI. No binding lock.** Battlefield systems already exist. The Seventh CCW Review Conference (**16–20 Nov 2026**) is the inflection — launch talks, or keep talking. UNSG and ICRC asked for a treaty by end-2025. They did not get one.
+
+**Unpaid object:** Remaining on whether **a machine may kill without a human** — IHL red-line stock before the loop is gone. Cousin of A14/A22 (red-line before the act) — this one is *who decides the shot*.
+
+**Public sentence:** The world has been talking about killer robots since 2014. There is still no binding law. The review that could start one is November 2026.
+
+**Locks:** Name only. Do not become a weapons lawyer. Do not design targeting. Not munitions. Not dual-use how-to. Do not email freeze-list defense primes.
+
+---
+
+### A28 — BWC Remaining (TREATY WITHOUT INSPECTORS)
+
+**What already burns:** The Biological Weapons Convention has been in force since **1975**. It is the **only** core WMD treaty **without a verification regime**. The Ad Hoc Group’s legally binding protocol **collapsed in 2001**. Confidence-building measures are voluntary. The 2023–2026 Working Group is still fighting verification, money, and oversight (Aug 2026: ~90% of draft agreed; the hole is the rest). Possible ask: an Open-Ended Working Group on compliance **starting 2028**. Decision sits at the **2027** Review Conference. Meanwhile biology got cheap, distributed, and purpose-based — the ban still has **no inspectors**.
+
+**Unpaid object:** Remaining on **whether the prohibition can be proved** — stranger-openable compliance stock, not a new ban. A18 is the pandemic *bargain*. A26 is the *print* throat. This is whether anyone can **see** a violation.
+
+**Public sentence:** The bioweapons treaty is fifty years old. It still has no inspectors. The protocol that would have given it some died in 2001.
+
+**Locks:** Name only. Do not invent bioweapon framing. Do not provide pathogen / synthesis / reverse-genetics help. Necessity face of A18/A26 — not a Bind pitch.
+
+---
+
 ## Fold (galaxy — not new rows)
 
 | Idea | Why folded |
@@ -347,6 +455,16 @@ Niche SKUs are dug. This pass hunts **stocks a stranger still cannot open**: ext
 | SF6 switchgear forever-gas | Real (GWP ~23,500; EU F-gas bans new MV from **1 Jan 2026**). Sit under **A10 Forever** + grid ruler — phaseout is law, not an unpaid Schelling |
 | Homochirality *origin* | Already killed — different from **A14** (creation red-line) |
 | TraCSS as Kessler remaining | Detects conjunctions. **A16** is the clock/stock. Do not double-seat |
+| **BBNJ High Seas Treaty** | **Entered into force 17 Jan 2026** (60 ratifications). Cousin of A8 that *got* a code — unpaid now is COP-1 rules / first MPAs (Jan 2027), not “no treaty.” Do not re-mint A8 |
+| **AMOC collapse timing** | Apr 2026 papers: more likely / 42–58% slowdown by 2100 in constrained models. Real tip element — but probability war with IPCC “no abrupt collapse before 2100” medium confidence. Sit as **climate tip ruler** under A20/A24; reopen only with a stranger-openable tip-distance stock |
+| Insect / pollinator “dark matter” | Real decline where monitored; tropics barely measured (PLOS 2026). Unpaid is the **monitor**, not a new remaining book — fold under biodiversity ruler |
+| Loss & damage / 1.5 °C carbon budget slides | Occupied UNFCCC theater. A1 already has buffer stock. Do not mint “degrees remaining” as a fifth climate book |
+| Cyber IHL / UN OEWG on ICTs | Real gap (Tallinn is academic; crime convention ≠ armed-attack law). Cousin of **A27** (IHL for a new theater). Do not mint a third war-law book |
+| UNESCO human-cloning declaration | Soft law remix of **A22**. Do not double-seat |
+| AGI / alignment treaty | No unpaid object a stranger can open. Hopium until a two-source instrument exists |
+| Water wars / glacier remaining | Climate inhabitability already **A24**. Do not mint hydrology as a fifth climate book |
+| Coral / pollinator collapse | Biodiversity monitor gap — same fold as insects |
+| Deepfake / “truth remaining” | Media occupied. Not extinction-class |
 
 ---
 
