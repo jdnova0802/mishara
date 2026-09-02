@@ -108,17 +108,78 @@ These are categories where **one real close can dwarf $1,750** — and some have
 
 ---
 
+### J7 — MRI helium quench cash (LIVE 2026) — **bruhhhh**
+
+**What already burns:** Conventional MRI holds ~**1,500–2,000 L** liquid helium. Mar 2026: strikes hit Qatar’s Ras Laffan (~**30%** of world helium). Spot roughly **$30–55+/L**. U.S. distributors (e.g. Airgas force majeure) cut allocations — academics reported **~50%** shipments. A quench refill at crisis prices cited around **$68k–$170k** (was ~$45–100k). Unplanned quench repair often **$50k–$80k+**; downtime cited ~**$10k–$15k/day** lost imaging revenue. ~**40M** U.S. MRI scans/yr hang on this. Helium-light magnets (e.g. ~7 L sealed) exist; installed base is still the thirsty kind.
+
+**Why Bind looks like a joke:** **One quench invoice** can clear **40–100 Binds**. Hospital pays **tomorrow**, not after an E&O renewal cycle.
+
+**ASAP wedge (solo):** Not “become Air Liquide.”  
+1. **Boil-off / vacuum-monitor + recovery** gear brokerage to hospital imaging / biomedical engineering (early detection pays in days at $40/L).  
+2. **Quench-response desk** — who has allocatable helium + service techs in the Great Lakes when a magnet dies. Finder’s / coordination on emergency fills.  
+3. Toledo / OH hospital imaging directors + OEM service partners — public contacts only.
+
+**Cousin:** `ALARMING.md` A9 Helium Remaining (planet leaving). **J7 is the cash face** — MRI downtime money now.
+
+**Sources:** ITN helium/MRI challenges; Airgas allocation reporting (2026); quench cost syntheses; BlueSeal / low-helium installed-base contrast.
+
+**Locks:** Name only until Demond says send. Do not fake helium inventory. Separate desk from Gate.
+
+---
+
+### J8 — Coil-winder placement (transformer labor) — **ladder-tilting**
+
+**What already burns:** Grid/data-center transformers: lead times **~128 weeks**, specialty **~4 years**. Binding constraint is not steel alone — ~**15,000** U.S. coil winders; demand wants ~**3×**. You can build a plant in 24 months; you **cannot** mint a winder in 24 months. Already a `BULGE.md` / `ALARMING.md` **ruler** — elevating here because the **ASAP cash wedge** was unnamed: **staffing / apprentice brokerage into OEM expansions**.
+
+**Why it changes the ladder:** Data-center Aim money can’t energize without this human. Placement fees on roles that unlock **seven-figure units** beat Standing stacking.
+
+**ASAP wedge:** Specialist recruiting desk — coil winders, test/quality leads, transformer plant ops — for OEMs/expansions (VA, NC, etc.). Contingency fees on scarce trades. Ohio has electrical manufacturing history; start with public OEM career pages + trade schools, not invented GCs.
+
+**Sources:** Manufacturing Mag / Niskanen-class coil-winder analyses; OEM expansion + apprenticeship coverage; `BULGE.md` ruler row.
+
+**Locks:** Name only. Do not re-mint a REST band from the backlog. Do not email freeze-list hyperscalers “about transformers.”
+
+---
+
+### J9 — NDT Level III sign-off scarcity
+
+**What already burns:** Oil/gas, fab yards, infrastructure — welds don’t proceed without certified NDT. **Level III** (procedures / final authority) needs years of documented hours. Cannot hire your way out in a quarter. Remote Level III validation platforms emerging because plants can’t staff one in every bay.
+
+**Why Bind looks small:** One delayed turnaround / pipeline job burns more than $1,750/hour in idle capital. The scarce object is **the signature**.
+
+**ASAP wedge:** Roster + remote-review brokerage — connect certified Level IIIs to Midwest plants for procedure approval / review blocks. Or staffing desk for Level II→III pipeline training partners. Credential-gated; verify certs; don’t freestyle inspection.
+
+**Sources:** industry NDT bottleneck reporting; remote Level III validation product coverage (2025–26).
+
+**Locks:** Name only. Never fake a cert. Not Gate.
+
+---
+
+### Fold (looked · not new JAW rows)
+
+| Idea | Why folded |
+|------|------------|
+| France e-invoicing Sep 2026 | Real forced spend; **wrong geography** for Toledo throat |
+| Pharmacy reverse distributors | Real DEA forced spend; **crowded** (IMC / Outdate / RxRS). Optional later, not jaw-new |
+| PTE / Hatch-Waxman desk | High dollar; needs counsel credentials Demond is still quoting |
+| FDA PreCheck backlog (71 consults / thin staff) | Serious; consulting needs GMP street cred — watch |
+
+---
+
 ## ASAP rank (if Bind is already running — parallel only)
 
 | Rank | Play | Ticket shape | Speed | Notes |
 |------|------|--------------|-------|-------|
-| 1 | **Keep the nine + Friday follow-up** | $1,750 → Gate 1 | Now | Do not abandon |
-| 2 | **J3 referral desk → licensed broker** | Finder’s on $5k–$100k+ jobs | Weeks–months | Study CRCPD list first |
-| 3 | **J5 trauma cleaning (separate LLC)** | Per-job cash | Months | Physical; Ohio-possible |
-| 4 | **J6 repatriation coordinator** | Per-case fees | Months | Doc hell moat |
-| 5 | **J4 bubbler/cert queue info** | Retainer / spread | Months+ | Needs fab-adjacent intros |
-| 6 | **J1 Ac-225 supply map** | BD research fees | Hard | Jawmax; relationship-gated |
-| — | **J2 Mo-99** | — | Watch | No solo ASAP |
+| 1 | **Nine + Monday follow-up** | $1,750 → Gate 1 | Now | Do not abandon |
+| 2 | **J7 helium / MRI quench desk** | **$5k–$50k+** per emergency coordination / gear sale | **Fastest “bruh”** | Live 2026 shortage |
+| 3 | **J3 sealed-source referral** | Finder’s on $5k–$100k+ jobs | Weeks–months | Pack below; broker first |
+| 4 | **J8 coil-winder placement** | **15–25%** of first-year salary on scarce hires | Weeks if you can source humans | Ladder-tilt |
+| 5 | **J9 NDT Level III roster** | Day-rate / block fees | Weeks–months | Cert-gated |
+| 6 | **J5 trauma cleaning** | Per-job cash | Months | Physical LLC |
+| 7 | **J6 repatriation** | Per-case fees | Months | Doc hell |
+| 8 | **J4 bubbler/cert** | Retainer | Months+ | Fab intros |
+| 9 | **J1 Ac-225 map** | BD research | Hard | Jawmax |
+| — | **J2 Mo-99** | — | Watch | Civilization; no solo plant |
 
 ---
 
@@ -128,7 +189,7 @@ Built 2 Sep 2026. Public pages only. You are a **referral / coordination desk**,
 
 ### Order of operations
 
-1. Finish Bind Friday follow-up first (or same week only if energy is clean).  
+1. Finish Bind **Monday 11:00 AM ET** follow-up first (Wed send → Mon bump; Friday was tight).  
 2. **Partner before prospect.** Call/email 2–3 licensed brokers: “I find Midwest RSOs with unwanted sealed sources / gauges; I hand them to you for a finder’s fee. I never take custody.”  
 3. Only after **one broker says yes in writing** (email is enough): touch RSOs as “I can get you competing disposition quotes through licensed brokers — send nuclide / activity / assay date / model / serial / leak-test status.”  
 4. Never quote disposal prices yourself. Never touch material. Never invent gauges.

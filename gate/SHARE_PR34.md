@@ -222,6 +222,7 @@ PASTE END
 | `gate/BULGE.md` | **Looked-up rulers.** Fedwire $4.8T/day · Visa $14T · Mag7 $23.7T · $170B/quarter capex. Map is a desk. Not a 22 wire. |
 | `gate/REST.md` | **The numbers.** Register rests. Inventing continues. Fight-for · fuse · external · ruler. No new band here. |
 | `gate/FELLHATCH.md` | **Fellhatch** — the lab. Names/files remaining on writes/agents. Gate restrains. Public meter + specialist file. Not munitions. No `/fellhatch` until they say ship. |
+| `gate/JAW.md` | **Jaw shelf** — Ac-225 / Mo-99 / Type B / bubbler / trauma / repatriation / **MRI helium quench (J7)** / **coil-winder placement (J8)** / **NDT Level III (J9)**. Outside remaining remixes. Name only. Do not skip Bind. Do not slip. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
