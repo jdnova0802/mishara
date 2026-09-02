@@ -9,7 +9,7 @@ Inventing continues. Numbers rest at `REST.md`.
 
 ---
 
-## Keep (3 + galactic 4 + strange 5)
+## Keep (3 + galactic 4 + strange 6)
 
 ### A1 — Buffer Remaining (SIXTEEN PERCENT)
 
@@ -79,8 +79,8 @@ Do not mint bands from these. See `BULGE.md`.
 | Nuclear decommissioning / dam condition | Incomplete two-source this pass |
 | PNT as a vague hunt | Split: Continuous UTC (A4) and lunar timescale (A5) now have 2026 CGPM drafts. Do not re-open “PNT” as a third clock. |
 
-**Next hunt (allowed):** private-credit NAV marks — same shape as A2. Name-only if two 2025–2026 sources.  
-**Parallel jaw shelf (not remaining remixes):** `gate/JAW.md` — through J25 (isotopes, Type B, helium MRI, FDA SKUs, cassettes/foils, HPGe, reaction wheels, xenon). Do not slip. Cash still Gate 1.
+**Next hunt (allowed):** closed this pass — private-credit NAV is **A13**. Do not re-open LaK9 / SEMI F72 content farms.  
+**Parallel jaw shelf (not remaining remixes):** `gate/JAW.md` — through J27 (FDA SKUs, cassettes/foils, HPGe, CZT, space Ge). Do not slip. Cash still Gate 1.
 
 ---
 
@@ -176,7 +176,7 @@ Not hopium. Not a Claude brief. Sources are 2026 instruments, not vibes.
 Biggest theories and weird unpaid objects. Two-source or dead. **No hopium. No Being. No people hunt.**  
 Wonders **and** necessities. Do not pick.
 
-### Keep (5) — name only
+### Keep (6) — name only
 
 ### A8 — Common Heritage Remaining (THE AREA)
 
@@ -235,6 +235,18 @@ Wonders **and** necessities. Do not pick.
 **Public sentence:** The samples are sealed on Mars. The return mission was defunded. The remaining has no ride.
 
 **Locks:** Seat as SPACE cousin. Do not become NASA. Do not invent a `/jezro` page.
+
+---
+
+### A13 — Marked Remaining (GATED NAV) — A2’s credit face
+
+**What already burns:** Private-credit vehicles strike a **NAV**. Redemption is live. Apr 2026: Blue Owl **OCIC** got tenders for **~21.9%** of shares and **OTIC ~40.7%**; both **capped at 5%** (CNBC). Cliffwater Corporate Lending (~**$31.6B**) holds stakes in gated funds and still carries them at the **managers’ full NAVs** (WSJ / Lumida). ICI (Apr 2026) tells regulated funds they may keep monthly/quarterly marks *if* they monitor material change between dates — the same snapshot hole as stablecoin attestations. ASC 820’s **NAV practical expedient** lets a gated, un-sellable stake print as if it were cash.
+
+**Unpaid object:** Stranger-openable remaining **between the mark and the gate** — how much of the printed NAV is actually redeemable *today*. A2 is the reserve attestation. This is the credit folio.
+
+**Public sentence:** The fund is marked at full NAV. Redemptions are capped at five percent. The remaining is the part you cannot exit.
+
+**Locks:** Name only. Do not become an auditor or a BDC. Do not pitch from Bind Room. Cousin of A2 — not a fifth book.
 
 ---
 

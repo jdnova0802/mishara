@@ -371,6 +371,34 @@ These are categories where **one real close can dwarf $1,750** — and some have
 
 ---
 
+### J26 — CZT / CdZnTe detector crystals — **ultra-small · long**
+
+**What already burns:** Cadmium-zinc-telluride for SPECT / photon-counting CT. BBC: **very few organisations can make it**; a Washington University balloon-telescope buyer could not get 0.8 mm thin pieces because Kromek’s medical demand ate the line. Merchant supply is **yield-constrained** (inch-class low-defect boules), not floor-space. Redlen (Canon), Kromek, Acrorad class. A dead module is a dead camera; the hospital does not grow CZT.
+
+**ASAP wedge:** Almost none. Placement only if a house has a spare module and a hospital has a dead head.
+
+**Long:** Crystal-growth / surplus-module desk. Years.
+
+**Sources:** BBC CZT “wonder material very few can make”; ReportPrime / industry concentration (Kromek, Redlen, GE SPECT).
+
+**Locks:** Name only. Cousin of J23 (the *other* detector crystal). Do not merge into HPGe.
+
+---
+
+### J27 — Space III-V cells / Ge substrates (5N Plus class) — **ultra-small · long · space physical**
+
+**What already burns:** Space arrays are **GaAs / III-V on germanium wafers**, not silicon. pv magazine USA (Apr 2026): **≥12 month** GaAs cell lead times; Shield Capital ~**2 MW/yr** global GaAs space-cell capacity; China ~**98%** gallium. Payne Institute: **5N Plus, St. George UT** is treated by the Department of War as the **effective sole domestic Ge-substrate grower** for multi-junction cells; DPA money Jan 2026 to 7× recovered Ge. ESA M-IND already flagged European solar-cell sourcing as insufficient. Same atom as J23, **different form** (substrate wafer ≠ HPGe detector).
+
+**ASAP wedge:** None from Toledo this month.
+
+**Long:** Watch the one US grower. Dual-source / recycle intro only if a smallsat shop is actually short a qualified wafer lot.
+
+**Sources:** pv magazine USA 24 Apr 2026; Payne Institute NA germanium chain (DPA awards to 5N Plus / Lattice / Umicore Optical, 2025–26); ESA M-IND solar-cell line.
+
+**Locks:** Name only. Cousin of J23 (Ge) and J24 (the bus). Not SPACE remaining. Do not email Boeing/Spectrolab/Rocket Lab from $0.
+
+---
+
 ### Fold (looked · not new JAW rows)
 
 | Idea | Why folded |
@@ -388,6 +416,14 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | RTU nested sterile vials (Schott / SGD) | Real; sit under **J11** until a named missed tub lot |
 | Scrap-yard portal-monitor week | Real Friday; sit under **J3** (same CRCPD brokers) — do not mint a second waste desk |
 | Toledo Custom Deco / glass-deco WARN (May 2026) | Local closure, not a stranger-payable choke |
+| SCHOTT/HOYA LaK9 / LaF28 “joint halt” (May 2026 blog) | **KILL.** SCHOTT Jan 2026 positive list still lists N-LAK9 for ≥5 years; shop still sells. Content-farm only. |
+| SEMI F72-0526 “only-N labs / 92% AMC” | **KILL.** Only globaltradedraft pages with conflicting dates (May 7/8/10/15). No SEMI.org hit. |
+| Ac-225 last-mile / aviation cold-chain | MEDraysintell: 9.9-day Ac-225 is **not** transport-constrained; **production** is. Sit under **J1**. |
+| Ir-192 industrial radiography discs | DOE/ORNL + QSA **routine domestic production Jun 2026**. Gap easing. Leftover sources still **J3**. |
+| I-131 capsule “shortage” | 2026 lot recalls (particulates / specs), not a national shortage. Kill. |
+| Ethicon suture + AirLife mask **discontinuances** | Real SKU exits (Ethicon Feb 2026 letter; FDA Jun 2026 list; NHS sutures intermittent through Oct 2026). GPO substitution, not a monopoly. Watch on the device desk — do not mint a new J. |
+| Helium Linde-style bayonets / MRI fill kits | Real fittings. No evidence the *coupling* is scarce. Sit under **J7** (the gas). |
+| Private-credit NAV / gated marks | Remaining shape, not a jaw desk. Seated **`ALARMING.md` A13**. |
 
 ---
 
@@ -405,8 +441,8 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | 8 | **J8 / J10 human placement** | % of salary | Weeks | Coil + tool&die |
 | 9 | **J9 NDT Level III** | Block fees | Weeks–months | Signature |
 | 10 | **J5 / J6** physical | Per job/case | Months | Trauma / repatriation |
-| 11 | **J4 / J14 / J17 / J22 / J23** | Retainer / capital | Months–years | Bubbler, ribbon, UHV, foils, HPGe |
-| — | **J1 / J2 / J11 / J24 / J25** | — | Watch / hard | Isotopes, eggs, space physical |
+| 11 | **J4 / J14 / J17 / J22 / J23 / J26 / J27** | Retainer / capital | Months–years | Bubbler, ribbon, UHV, foils, HPGe, CZT, space Ge |
+| — | **J1 / J2 / J11 / J24 / J25** | — | Watch / hard | Isotopes, eggs, wheels, xenon |
 
 ---
 
@@ -502,24 +538,17 @@ Do **not** invent construction-company emails. Next research pass:
 
 ## Still hunting (do not slip)
 
-Run these next with two 2025–2026 sources before seating:
+This pass **closed** NAV (→ A13), Ac-225 last-mile (→ J1), LaK9, SEMI F72, Ir-192, I-131, Ethicon, bayonets. Left are **maps**, not new categories:
 
-1. **Private-credit NAV marks** (already allowed in `ALARMING.md` — A2 cousin)  
-2. **Ac-225 cold-chain last-mile** specialists (shielded, timed, who gets the dose window)  
-3. **Only-N U.S. labs** for a specific SEMI cert (name the cert, name the queue)  
-4. **Nuclear gauge** installed-base end-of-life wave — ODH licensee FOIA  
-5. **MRI helium Great Lakes service map** — who actually delivers emergency liters to OH/MI/IN hospitals (names J7)  
-6. **Ohio / Midwest coil-winder & NDT Level III roster** — trade schools, ASNT sections, OEM career pages (names J8/J9)  
-7. Anything where **Big Pharma paused a trial** for a physical input that isn’t compute  
-8. **Decades sole-source components** — name the NSN / SEMI / ASTM spec + the one shop  
-9. **Optical coating / precision glass** — aging masters, defense + lithography  
-10. **Sterile fill-finish Midwest map** (J11)  
-11. **OH hospital materials managers** for J12–J13 / J18–J20 — ProMedica / UTMC / Mercy public supply-chain contacts only; **one** note  
-12. **Who owns >30 ft electroless baths** within 500 mi of Toledo (names J15)  
-13. **Second-source UHV seal** reality check vs Bostec claim (names J17)  
-14. **Which OH/MI cyclotrons run FASTlab vs Synthera** + who stocks Havar thickness (names J21/J22)  
-15. **LaK9 / LaF28 industrial-glass halt** — second independent source or kill  
-16. **Who actually quotes emergency Xe/Kr cylinders** to smallsat / university labs in the Midwest (names J25)
+1. **Nuclear gauge** installed-base EOL — ODH licensee FOIA (names J3)  
+2. **MRI helium Great Lakes service map** — who delivers emergency liters to OH/MI/IN (names J7)  
+3. **Ohio / Midwest coil-winder & NDT Level III roster** (names J8/J9)  
+4. **OH hospital materials managers** for the device desk — ProMedica / UTMC / Mercy public contacts only; **one** note  
+5. **Who owns >30 ft electroless baths** within 500 mi of Toledo (names J15)  
+6. **Second-source UHV seal** vs Bostec claim (names J17)  
+7. **Which OH/MI cyclotrons run FASTlab vs Synthera** + who stocks Havar thickness (names J21/J22)  
+8. Anything where **Big Pharma paused a trial** for a physical input that isn’t compute  
+9. **Optical coating / precision glass** — aging masters — only if a named shop + two sources (LaK9 path is dead)
 
 ---
 
@@ -538,6 +567,6 @@ Run these next with two 2025–2026 sources before seating:
 
 ## One line
 
-> **Bind is the ignition. JAW is hot + decades chokepoints where one close can dwarf $1,750 — isotopes, helium MRI, Type B, FDA SKUs, cassettes/foils, coil/tool humans, space hardware. Research continues. Cash still Gate 1.**
+> **Bind is the ignition. JAW is hot + decades chokepoints where one close can dwarf $1,750 — isotopes, helium MRI, Type B, FDA SKUs, cassettes/foils, coil/tool humans, CZT, space Ge. Research continues. Cash still Gate 1.**
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · do not slip*
