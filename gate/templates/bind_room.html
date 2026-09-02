@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Bind Room{% endblock %}
 {% block meta %}
-<meta name="description" content="{{ stranger_two.paragraphs[0] }} {{ stranger_two.paragraphs[1] }}">
+<meta name="description" content="{{ stranger_two.paragraphs[0] | safe }} {{ stranger_two.paragraphs[1] | safe }}">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Bind Room</p>
-  <p class="audience-sub">{{ stranger_two.paragraphs[0] }}</p>
-  <p class="audience-sub">{{ stranger_two.paragraphs[1] }}</p>
+  <p class="audience-sub">{{ stranger_two.paragraphs[0] | safe }}</p>
+  <p class="audience-sub">{{ stranger_two.paragraphs[1] | safe }}</p>
   <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
   <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ stranger_two.halt }} Don't implement? <a href="{{ url_for('finished_page') }}">Finished Remaining {{ finished_price }}</a>.</p>
 

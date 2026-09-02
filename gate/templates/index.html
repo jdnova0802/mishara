@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Bind Room — $1,750{% endblock %}
 {% block meta %}
-<meta name="description" content="{{ stranger_two.paragraphs[0] }} {{ stranger_two.paragraphs[1] }}">
+<meta name="description" content="{{ stranger_two.paragraphs[0] | safe }} {{ stranger_two.paragraphs[1] | safe }}">
 {% endblock %}
 {% block content %}
 <div class="top-banner">
@@ -11,8 +11,8 @@
 
 <section class="hero container">
   <h1>Gate</h1>
-  <p class="hero-sub">{{ stranger_two.paragraphs[0] }}</p>
-  <p class="hero-sub">{{ stranger_two.paragraphs[1] }}</p>
+  <p class="hero-sub">{{ stranger_two.paragraphs[0] | safe }}</p>
+  <p class="hero-sub">{{ stranger_two.paragraphs[1] | safe }}</p>
   <p style="color: var(--muted); margin: 0.75rem 0 0;">{{ stranger_two.halt }}</p>
   <div class="hero-actions">
     <a href="{{ url_for('bind_room') }}" class="btn btn-primary">{{ stranger_two.ask }} · {{ bind_room_price }}</a>
