@@ -121,9 +121,10 @@ Original = the leftover the existing institution does not book.
 
 **What:** Folio of unused interconnection service at an existing point of interconnection, plus a **withdrawal certificate** for the queue slot that was paid for and abandoned.  
 **External:** **~2,061 GW** still queued (end-2025); median COD wait **61 months**; **13%** of 2000–2020 requests ever built; **549 GW** has an IA and is not on; FERC 845 surplus interconnect is **44 GW** all-time and barely a market; energy investment **$3.4T** (2026); AI capex **$630–750B**.  
+**Sharpen (LBNL Queued Up 2026):** of capacity that **signed** GIAs **2000–2022**, **~41%** had withdrawn by end-2025. Signature is not remaining. PJM 21 Oct 2025 mass cancel (~**38 GW**) showed how much of a queue can be phantom against a deposit deadline.  
 **Two-source:** SIS exists as a tariff. The unused POI is not a remaining anyone can open. 14 GW withdrawn per 1 GW built (2025 ratio) is leftover optionality.  
 **Money:** not 10 bps on capex ($750M — does not blow). Percent of **unlocked** GW × data-center willingness-to-pay. Time-to-power is the scarce good.  
-**Lock:** do not own the grid. Record unused service. Fail-closed unattested W → remaining (same wilderness rule).
+**Lock:** do not own the grid. Record unused service. Fail-closed unattested W → remaining (same wilderness rule). Do **not** re-seat “signed-and-gone” as a new invention — it is this row.
 
 ### E6 — Dark Capex Remaining
 

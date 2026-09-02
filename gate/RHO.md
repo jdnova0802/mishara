@@ -97,6 +97,7 @@ Estate (U7) is how Ρ transfers when the actor dies.
 | **Ρ posture** | “Who carries?” trial balance for boards / deployers / binders — **nearest Fat twin of S4** |
 | **Ρ transfer** | Correspondent burden clearing when remaining moves institutions |
 | **Ρ estate** | Probate of orphan burden (pairs U7) |
+| **Ρ bond-at-transfer** | Industrial face (`ALARMING.md` A3): bond remaining vs **today’s** reclaim cost, fail-closed when the operator transfers. Orphan wells / surety gap. Name only. Never become the surety. |
 | **Category** | No folio ⇒ no bind becomes **no assigned Ρ ⇒ uninsurable / non-final** |
 
 **Ceiling (22):** this is the dimensional reason specialty bind pays. S4 was the operate face. Ρ is why the face is galactic — insurers buy **assignment of burden**, not a PDF. Raises Fat / fuse when the cite is “burden sealed at mouth.”  

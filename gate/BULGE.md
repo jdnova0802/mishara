@@ -181,6 +181,17 @@ The bulge is the **denominator**. The unpaid work is still R1–R5 in `RESEARCH.
 
 ---
 
+## More rulers (Sep 2026 — not inventions)
+
+| Denominator | Fact | Not |
+|-------------|------|-----|
+| **Coil winders** | ~**15,000** US workers hand-wind power-transformer coils; lead times ~**128** weeks (specialty ~4 years). New OEM lines late. Cleveland-Cliffs = sole domestic GOES. | A SKU. Capital cannot buy the skill faster. |
+| **Subsea repair hulls** | ~95% intercontinental data on seabed fiber; ~200 faults/yr. Route diversity ≠ repair capacity (e.g. one dedicated vessel class for a region; multi-cable hits wait months). | A SKU. Map shows paths, not ships. |
+
+Name only as rulers. Detail / inventions that cleared the bar: `ALARMING.md`.
+
+---
+
 ## Locks
 
 - Do not write a new 22 liquid row from this file.  

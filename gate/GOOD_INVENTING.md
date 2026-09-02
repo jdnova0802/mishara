@@ -704,6 +704,20 @@ Full depth: `gate/AFTERWEB.md`. Deeper prior: `gate/HUSBANDRY.md`.
 
 ---
 
+## Alarming name-only (Sep 2026)
+
+Two-source fires, not hopium. Full cards: `gate/ALARMING.md`.
+
+| # | Name | Object | Seat |
+|---|------|--------|------|
+| **A1** | Buffer Remaining | Stock behind a retired carbon ton; buffer ~16% of required | Name only |
+| **A2** | Continuous Reserve Remaining | Between-attestation coverage on a live float | Name only |
+| **A3** | Bond-at-Transfer Remaining | Bond vs today’s plug cost; fail-closed at transfer | Under **Ρ** |
+
+Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new invention. Coil winders / repair hulls = `BULGE` denominators only.
+
+---
+
 ## One line
 
 > **Spend** writes the after. **Cut (Ω)** closes the tree. **Burden (Ρ)** assigns who must live there. **Hold (Ν)** is the remaining that can still refuse becoming — **now on the remaining rails**, not only in `NU.md`. Bind Room without hold is a pack about a stop. W₀ without hold is an era with no refuse. **Φ/Α/Γ put those books on the NVIDIA / Apple / Alphabet invoice** (`TOP3.md`). **W₀ (`WRITE_ERA.md`) makes even that invoice remaining-beta.** **Facing (`FACING.md`) turns the books around** — a mouth can tetrad-seal and the world is still spent. **Cross (`CROSS.md`) is the simultaneous latch** — one folio the mouths already said can answer each other; Fat and fuse on the same artifact. **Release (`RELEASE.md`) is the payout** — identity, budget, allowlist, receipt, then they paid; remaining is the unpaid fifth gate. No fifth book. No Bind sermon. No `/hold` or `/facing` or `/cross` or `/release` page.
