@@ -174,7 +174,7 @@ PASTE END
 | `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/BUYERS.md` | **Full buyer map** — A Gate 1 · B channels · C meter/bridge · D cite · E Aim/Fat · F hard no · internal, no page |
 | `gate/TUESDAY.md` | **Tue 1 Sep 2026 send sheet** — ten blank slots from existing threads · paste-ready N1 / broker / counsel · not a named GC list |
-| `gate/ALARMING.md` | **Name-only hunt** — A1–A3 plus galactic A4 UTC · A5 lunar · A6 supervision · A7 plume. No pages. No hopium. |
+| `gate/ALARMING.md` | **Name-only hunt** — A1–A12 (galactic + strange). No pages. No hopium. |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
