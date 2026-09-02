@@ -168,7 +168,7 @@ Run these. In order. When the terminal line hits, stop pretending.
 | 2 | **Ohio Patent Pro Bono** (+ Case / Detroit Mercy clinics if needed) | Volunteer counsel on 64/124,027. Not Lockhart $12k. |
 | 3 | **Other two patent quotes** (still waiting) | One flat fee you can actually survive — or pro bono wins. |
 | 4 | **Mid-Sept Stavan — listen only** | 15 min. If he knows an *insured* whose CGL hurts, ask for that intro. He is not the Bind buyer. |
-| 5 | **≤10 researched N1** from `TUESDAY.md` / `BUYERS_HOT.md` | **Sent 2 Sep 2026** (Factory resent after `facotry.ai` typo). Follow up Friday 11:00 once. Halt. Jaw shelf parallel only: `JAW.md`. |
+| 5 | **≤10 researched N1** from `TUESDAY.md` / `BUYERS_HOT.md` | **Sent 2 Sep 2026** (Factory resent after `facotry.ai` typo). Follow up **Monday 11:00 AM ET** once (Friday was tight). Halt. Jaw shelf parallel only: `JAW.md`. |
 | 6 | **One Bind $1,750** | Pay + prove same day = **Gate 1**. Halt. |
 | 7 | **Install $2,500** only if a builder you already know has a write | Same rule: already know them. |
 | 8 | **YC W27 apply** (by 2 Nov) | Company bet. Not a job. Optional. |

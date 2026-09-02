@@ -189,6 +189,188 @@ These are categories where **one real close can dwarf $1,750** — and some have
 
 ---
 
+### J12 — Stereotactic breast biopsy needles (FDA shortage) — **ultra-small · hot**
+
+**What already burns:** FDA Medical Device Shortages List — product code **KNW**. Hologic pulled Brevera **9-gauge** disposables (Jan 2026 particulate risk). FDA letter: shortage expected through **Q1 2027**; conservation strategies; ACR said alternatives haven’t fully met demand. Cancer diagnosis timing on a **needle SKU**.
+
+**ASAP wedge:** Hospital / imaging-center **substitution + allocation desk** — who still has Eviva / alternate gauges, who can trade stock across OH systems, OEM allocation contacts. Not invent a needle. Finder’s / logistics coordination while shortage runs.
+
+**Long:** Watch who becomes second-source 510(k) for that form factor.
+
+**Sources:** FDA shortages list + Letter to Health Care Providers (breast biopsy needles); MedTech Dive / ACR coverage.
+
+**Locks:** Name only. Clinical judgment stays with providers. No medical advice cosplay.
+
+---
+
+### J13 — Angiographic control syringes w/ rotating adapters — **ultra-small · hot**
+
+**What already burns:** FDA shortage list — angiographic injector/syringe class (**DXT**); control syringes with **rotating adapters** estimated through **Q3 2026**. Cath-lab consumable; procedures don’t wait politely.
+
+**ASAP wedge:** Same shape as J12 — cath-lab materials managers, GPO leftovers, alternate catalog crosswalk. Cosmically specific SKU, not “medical devices” vagueness.
+
+**Sources:** FDA Medical Device Shortages List (Mar 2026 updates).
+
+**Locks:** Name only. Pair with J12 as **device-shortage desk**, don’t spray hospitals twice.
+
+---
+
+### J14 — Nanocrystalline ribbon (3 mills) — **ultra-small · long**
+
+**What already burns:** EV / solar / high-freq magnetics cores. Only ~**three** mills globally consistently hit **18–25 µm** ribbon (Proterial JP, Vacuumschmelze DE, select CN). Capacity adds ~**18 months**. Custom cores cited **12–22 weeks** in crunch; anneal furnace is the queue inside the queue. CRGO has 20+ producers; this ribbon does not.
+
+**ASAP wedge:** Thin — dual-qualify / buffer-buy advisory for Midwest power-electronics OEMs. Mostly **long**: own a NA slit/wind/anneal node or distribution buffer (capital).
+
+**Sources:** nanocrystalline supply-chain lead-time analyses (Centura-class / mill concentration reporting).
+
+**Locks:** Name only. Do not pretend you own ribbon. Cousin of J8 magnetics, different atom.
+
+---
+
+### J15 — 40-foot electroless-nickel / roller coating — **ultra-small · soon**
+
+**What already burns:** Pulp/paper, steel, print, textile — calendar rolls / dryer drums **25–40 ft**. Only a **handful** of NA shops have baths long enough to plate in one piece (e.g. ~40 ft electroless Ni). Everyone else sections or waits.
+
+**ASAP wedge:** **Broker long-roll coating slots** — find the bath, book the crane window, quote mill maintenance downtime. Classic ugly middleman. Ohio/Midwest mills + printers are the throat.
+
+**Sources:** long-bath electroless nickel / industrial roller coating specialist pages.
+
+**Locks:** Name only until a shop partnership exists. Physical logistics, not Gate.
+
+---
+
+### J16 — ISO/IEC 17025 metrology talent + auditor day-rates — **ultra-small · soon**
+
+**What already burns:** Calibration labs face **17025:2025** digital-traceability transition (ILAC window into **2028**). Metrology/QA workforce aging; specialist roles (digital metrology, uncertainty budgets) scarce. ISO auditor day-rates reported climbing (**~£1,250–£1,800** class / ~20% cert cost up in 2026 analyses) with longer waits.
+
+**ASAP wedge:** Place contract metrologists / internal-audit help into Midwest cal labs before surveillance. Or sell gap-analysis templates + booking the scarce assessor. Credential-gated — verify, don’t fake.
+
+**Sources:** ISO 17025:2025 talent analyses; qualified auditor shortage / day-rate reporting.
+
+**Locks:** Name only. Cousin of J9 (signature scarcity) — different standard.
+
+---
+
+### J17 — Static UHV/XHV metal seals (sole-source shape) — **ultra-small · long**
+
+**What already burns:** Failure-intolerant vacuum (fabs, accelerators, fusion, space). At least one US shop (**Bostec**) publicly claims sole-source dedication to static UHV/UHP metal seals (H-seal / XE vs fragile C-seals). Whether or not literally unique, the category is **tiny and unforgiving** — a leak kills a chamber.
+
+**ASAP wedge:** Dual-source hunt / surplus matched-set brokerage for fab tool OEMs. **Long:** second-source seal house (capital + process).
+
+**Sources:** Bostec sole-source claims; UHV seal failure modes in tool OEM practice.
+
+**Locks:** Name only. Verify competition before calling anything monopoly. Don’t email Intel cold from $0.
+
+---
+
+### J18 — Neurosurgical patties / sponges / strips (FDA HBA) — **ultra-small · hot**
+
+**What already burns:** FDA Medical Device Shortages List — product code **HBA**. Patties, sponges, and strip products used on the brain. Estimated through **Q4 2026**. FDA issued a Letter to Health Care Providers. A case does not wait for a cottonoid SKU.
+
+**ASAP wedge:** Same **device-shortage desk** as J12/J13 — neuro OR materials managers, GPO leftovers, alternate catalog. Do **not** spray the same hospital five times; one note, named SKUs.
+
+**Long:** Second-source 510(k) watch.
+
+**Sources:** FDA shortages list (May 2026 initial / Jun 2026 list still live); Medical Design & Outsourcing Jun 2026 update.
+
+**Locks:** Name only. Clinical judgment stays with the surgeon. Pair with J12/J13/J19/J20 as one desk.
+
+---
+
+### J19 — Endoscopic vessel harvesting systems (FDA GEI) — **ultra-small · hot**
+
+**What already burns:** FDA shortage — product code **GEI**, endoscopic vessel harvesting for CABG. Reverified through **Q1 2027**. Cardiac OR consumable. FDA letter to providers already exists.
+
+**ASAP wedge:** Cardiac / perfusion materials — who has a lot, who can wait, who will take a prior-generation device. Same desk, different aisle.
+
+**Sources:** FDA shortages list (initial 2024; reverified 2025–2026 Jun 16); MDO Jun 2026.
+
+**Locks:** Name only. Pair, don’t spray.
+
+---
+
+### J20 — ECMO / CPB oxygenators (FDA BYS + DTZ) — **ultra-small · hot**
+
+**What already burns:** FDA shortage — **BYS** (oxygenator, long-term support >6 hours) and **DTZ** (cardiopulmonary bypass). Estimated through **Q1 2027**. Component/part/accessory discontinuance. Perfusion cannot improvise a membrane.
+
+**ASAP wedge:** Perfusion / ECMO coordinators — allocation, alternate catalog, regional share. Highest *life-support* gravity on the device desk. Still not “become Getinge.”
+
+**Sources:** FDA shortages list (initial 2023; reverified Jun 16 2026); MDO Jun 2026.
+
+**Locks:** Name only. No clinical advice. Same one desk as J12/J13/J18/J19.
+
+---
+
+### J21 — Radiopharmacy synthesizer cassettes (GE FASTlab / IBA Synthera class) — **ultra-small · soon/long**
+
+**What already burns:** Cassette-based synthesizers run F-18 / Ga-68 / Lu-177. The cassette is a single-use fluid path. **2026:** Norwegian hospital group published a monopoly notice — GE is the only FASTlab cassette maker (~NOK 7.5M / 4-year frame). University of Utah posted a **sole-source** FASTlab 2 RFP (Aug 2026). IBA owns its own cassette house (Fluidomica / CASSY). Wrong cassette = warm cyclotron, dead PET schedule.
+
+**ASAP wedge:** Not invent a cassette. **Lot-find / allocation call** when a pharmacy is short a SKU. Directory of who runs which box in OH/MI/IN.
+
+**Long:** Second-source cassette (capital + 510(k) / DMF). Decades sole-source.
+
+**Sources:** SYKEHUSINNKJØP HF FASTlab cassette monopoly notice (2026); University of Utah FASTlab 2 sole-source RFP (Aug 2026); IBA Synthera / Fluidomica cassette pages.
+
+**Locks:** Name only. Do not claim a shortage you have not named by week. Monopoly ≠ allocation cut — both are jaws.
+
+---
+
+### J22 — Cyclotron target foils (Havar / niobium, thickness-named) — **ultra-small · long**
+
+**What already burns:** Medical cyclotrons need a **named alloy + thickness** window (Havar® often **25–75 µm**; Nb in many radiometal targets). Wrong foil = no beam or a ruined target. Mills that roll Havar / Nb that thin are a handful. 2025–26 papers still treat Havar as the high-current standard and Nb as the low-activation swap — not a commodity coil.
+
+**ASAP wedge:** Place a **foil lot** or name the mill/stockist who still has the thickness. Coin-sized. The week’s FDG depends on it.
+
+**Long:** Qualified foil rolling / disc cutting in NA.
+
+**Sources:** Goodfellow / alloy data for Havar cyclotron windows; MDPI *Instruments* Nb-vs-Havar target-window paper; 2025 cyclotron target-assembly activation literature.
+
+**Locks:** Name only. Cousin of J1/J2 (the *window*, not the nuclide). Do not handle activated foils unlicensed.
+
+---
+
+### J23 — Qualified HPGe detector crystals — **ultra-small · long**
+
+**What already burns:** High-purity germanium gamma spectrometers (RSO / lab / portal). USGS MCS **2026**: US Ge metal imports down sharply; Europe 99.999% metal **$3,150 → $5,380/kg** (Jan–Oct 2025). China licensing / US-ban drama. Detector houses (Mirion / ORTEC class) grow and qualify the crystal — buyers cannot swap a zinc-smelter ingot for a detector. Qualification of form (crystal / wafer / detector) is the choke, not “germanium the tweet.”
+
+**ASAP wedge:** Used / surplus **qualified detector** brokerage to university RSOs and state labs. Recert / repair intro. Not a mine.
+
+**Long:** Crystal-growth node or recycling-to-detector path (capital + years).
+
+**Sources:** USGS Mineral Commodity Summaries 2026 (germanium); Metal Tech News / allied refining rebuild (Aug 2026); Stimson / trade-routing notes on export controls.
+
+**Locks:** Name only. Cousin of J3/J9 (the *counter*, not the waste). Do not invent a Ge mine.
+
+---
+
+### J24 — Flight reaction wheels / ITAR CMGs — **ultra-small · long · space physical**
+
+**What already burns:** A smallsat typically flies **3–4 reaction wheels**. Blue Canyon (RTX) is spending to go **650 → 2,400 wheels/yr** (Apr 2026) because demand outran the line. ESA M-IND: **European reaction-wheel sourcing is insufficient**; CMGs sit on the **USML / ITAR** — longer lead, smaller market, agility missions wait. This is a **bearing + balance + heritage** object, not Delay Unwatched / commission remaining.
+
+**ASAP wedge:** Almost none from Toledo this month (ITAR, flight heritage). Watch / map who is actually quoting 12-week vs 12-month wheels.
+
+**Long:** Placement into the *precision-balance / mill* shops those lines just bought — cousin of J8/J10, space aisle. Or surplus/refurb wheels for university CubeSats (ITAR-clean only).
+
+**Sources:** SpaceNews BCT capacity expansion (14 Apr 2026); ESA M-IND industrialisation report (RW/CMG lines); satsearch 2025 CMG/ITAR lead-time note.
+
+**Locks:** Name only. **Not** a SPACE.md remaining invention. Do not sell C2. Do not email freeze-list primes. ITAR is a lock, not a vibe.
+
+---
+
+### J25 — Xenon (and krypton) Hall-thruster lots — **ultra-small · long · space physical**
+
+**What already burns:** Electric propulsion wants **xenon**; constellations already pushed operators to **krypton / argon**. Noble gases are **air-separation byproducts** — same family as helium (A9 / J7), different atom, different machine. Price + allocation still bite satellite builds; GAO-class notes still flag xenon cost for smallsat developers. You cannot stockpile a constellation’s life from a hardware-store cylinder.
+
+**ASAP wedge:** None as a producer. Thin: **lot-find / allocation intro** only if a smallsat shop is actually short a qualified cylinder this quarter.
+
+**Long:** Watch / map NA rare-gas taps vs propulsion OEMs. Do not remix into Helium Remaining.
+
+**Sources:** New Space Economy propulsion analysis (May 2026); noble-gas / constellation substitution coverage (Starlink Kr/Ar); Hall-thruster propellant-constraint reviews.
+
+**Locks:** Name only. Cousin of J7 (noble gas) and J24 (the bus). Not an MRI quench desk. Not a SPACE remaining book.
+
+---
+
 ### Fold (looked · not new JAW rows)
 
 | Idea | Why folded |
@@ -198,6 +380,14 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | PTE / Hatch-Waxman desk | High dollar; needs counsel credentials Demond is still quoting |
 | FDA PreCheck backlog (71 consults / thin staff) | Serious; consulting needs GMP street cred — watch |
 | Cleveland-Cliffs sole US **GOES** + DLA ~$400M lock | Already `BULGE.md` ruler / J8 cousin — do not double-count as new invention |
+| Compression-bonded Neo magnets “only US end-to-end” | Real dual-source story; fold under J14 magnetics watch unless two independent confirmations |
+| Sucker rods (only private US plant claims) | Oilfield; real but narrower than J15 for Toledo hands this month |
+| US precision dicing saw OEM claims | Tiny machine tool; watch, not ASAP cash |
+| SCHOTT/HOYA LaK9 / LaF28 “joint halt” (May 2026 blog) | Cosmically specific *if* real; **one thin source** — re-open only with a second independent confirm |
+| Isolator RTP / alpha-beta ports | Real sole-source shape; fold under J21 cassette / J11 fill-finish until a named OEM + missed-lot week |
+| RTU nested sterile vials (Schott / SGD) | Real; sit under **J11** until a named missed tub lot |
+| Scrap-yard portal-monitor week | Real Friday; sit under **J3** (same CRCPD brokers) — do not mint a second waste desk |
+| Toledo Custom Deco / glass-deco WARN (May 2026) | Local closure, not a stranger-payable choke |
 
 ---
 
@@ -206,16 +396,17 @@ These are categories where **one real close can dwarf $1,750** — and some have
 | Rank | Play | Ticket shape | Speed | Notes |
 |------|------|--------------|-------|-------|
 | 1 | **Nine + Monday follow-up** | $1,750 → Gate 1 | Now | Do not abandon |
-| 2 | **J7 helium / MRI quench desk** | **$5k–$50k+** per emergency coordination / gear sale | **Fastest “bruh”** | Live 2026 shortage |
-| 3 | **J3 sealed-source referral** | Finder’s on $5k–$100k+ jobs | Weeks–months | Pack below; broker first |
-| 4 | **J8 coil-winder placement** | **15–25%** of first-year salary on scarce hires | Weeks if you can source humans | Ladder-tilt |
-| 5 | **J9 NDT Level III roster** | Day-rate / block fees | Weeks–months | Cert-gated |
-| 6 | **J5 trauma cleaning** | Per-job cash | Months | Physical LLC |
-| 7 | **J6 repatriation** | Per-case fees | Months | Doc hell |
-| 8 | **J10 tool & die placement** | Same shape as J8 | Weeks if roster exists | **Decades cliff** |
-| 9 | **J4 bubbler/cert** | Retainer | Months+ | Fab intros |
-| 10 | **J1 Ac-225 map** | BD research | Hard | Jawmax |
-| — | **J2 Mo-99 / J11 eggs+fill** | — | Watch | Civilization; decades warning |
+| 2 | **J7 helium / MRI quench** | **$5k–$50k+** / event | **Fastest bruh** | Live 2026 |
+| 3 | **J12–J13 / J18–J20 device-shortage desk** | Allocation / sub finder’s | **This month possible** | Needles, angio syringes, **patties, EVH, oxygenators** — **one** hospital desk |
+| 4 | **J3 sealed-source referral** | Finder’s on $5k–$100k+ | Weeks–months | Pack below |
+| 5 | **J15 long-roller coating slots** | Job brokerage | Weeks | Cosmically small bath |
+| 6 | **J16 17025 metrology placement** | Contract day-rates | Weeks | Auditor/metrologist scarcity |
+| 7 | **J21 cassette lot-find** | SKU hunt | Weeks if a pharmacy is short | Monopoly confirmed 2026 |
+| 8 | **J8 / J10 human placement** | % of salary | Weeks | Coil + tool&die |
+| 9 | **J9 NDT Level III** | Block fees | Weeks–months | Signature |
+| 10 | **J5 / J6** physical | Per job/case | Months | Trauma / repatriation |
+| 11 | **J4 / J14 / J17 / J22 / J23** | Retainer / capital | Months–years | Bubbler, ribbon, UHV, foils, HPGe |
+| — | **J1 / J2 / J11 / J24 / J25** | — | Watch / hard | Isotopes, eggs, space physical |
 
 ---
 
@@ -302,7 +493,7 @@ Do **not** invent construction-company emails. Next research pass:
 
 ### D — Kill switches
 
-- No send while Bind Friday follow-up is the open loop unless Demond explicitly splits energy.  
+- No send while Bind **Monday 11:00 AM ET** follow-up is the open loop unless Demond explicitly splits energy.  
 - No custody. No Class 7. No “I’m a broker” unless licensed.  
 - No Gate / Bind / stranger-two in these emails. Separate desk.  
 - Cap: **≤5 broker partner notes**, then halt until one replies. Then **≤5 RSO notes**. Same discipline as Tuesday.
@@ -320,15 +511,21 @@ Run these next with two 2025–2026 sources before seating:
 5. **MRI helium Great Lakes service map** — who actually delivers emergency liters to OH/MI/IN hospitals (names J7)  
 6. **Ohio / Midwest coil-winder & NDT Level III roster** — trade schools, ASNT sections, OEM career pages (names J8/J9)  
 7. Anything where **Big Pharma paused a trial** for a physical input that isn’t compute  
-8. **Decades sole-source components** — one/two US makers for a part every OEM needs (name the NSN / SEMI / ASTM spec)  
-9. **Optical coating / precision glass** shops — aging masters, defense + lithography demand  
-10. **Sterile fill-finish Midwest capacity map** (names J11) — who has idle vials vs who is booked 18 months
+8. **Decades sole-source components** — name the NSN / SEMI / ASTM spec + the one shop  
+9. **Optical coating / precision glass** — aging masters, defense + lithography  
+10. **Sterile fill-finish Midwest map** (J11)  
+11. **OH hospital materials managers** for J12–J13 / J18–J20 — ProMedica / UTMC / Mercy public supply-chain contacts only; **one** note  
+12. **Who owns >30 ft electroless baths** within 500 mi of Toledo (names J15)  
+13. **Second-source UHV seal** reality check vs Bostec claim (names J17)  
+14. **Which OH/MI cyclotrons run FASTlab vs Synthera** + who stocks Havar thickness (names J21/J22)  
+15. **LaK9 / LaF28 industrial-glass halt** — second independent source or kill  
+16. **Who actually quotes emergency Xe/Kr cylinders** to smallsat / university labs in the Midwest (names J25)
 
 ---
 
 ## Locks
 
-- Do not skip Bind / the nine / Friday once.  
+- Do not skip Bind / the nine / **Monday 11:00 AM ET** once.  
 - Do not seat `/jaw` `/isotope` `/cask` `/trauma` pages.  
 - Do not email NVIDIA / Apple / Google / freeze list “about” these.  
 - Do not become unlicensed radioactive shipper.  
@@ -341,6 +538,6 @@ Run these next with two 2025–2026 sources before seating:
 
 ## One line
 
-> **Bind is the ignition. JAW is hot + decades chokepoints where one close can dwarf $1,750 — isotopes, helium MRI, Type B, coil/tool humans, NDT signatures, eggs+vials. Research continues. Cash still Gate 1.**
+> **Bind is the ignition. JAW is hot + decades chokepoints where one close can dwarf $1,750 — isotopes, helium MRI, Type B, FDA SKUs, cassettes/foils, coil/tool humans, space hardware. Research continues. Cash still Gate 1.**
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · do not slip*

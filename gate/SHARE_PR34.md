@@ -2,7 +2,7 @@
 
 Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
-**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Friday 11:00 AM ET follow-up once. Parallel shelf so it does not slip: `gate/JAW.md` (Ac-225, Mo-99, Type B/sources, bubbler cert, trauma, repatriation) — name only, do not skip Bind.
+**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf so it does not slip: `gate/JAW.md` (through J25 — FDA SKUs, cassettes, foils, HPGe, space hardware) — name only, do not skip Bind.
 
 ---
 
@@ -222,7 +222,7 @@ PASTE END
 | `gate/BULGE.md` | **Looked-up rulers.** Fedwire $4.8T/day · Visa $14T · Mag7 $23.7T · $170B/quarter capex. Map is a desk. Not a 22 wire. |
 | `gate/REST.md` | **The numbers.** Register rests. Inventing continues. Fight-for · fuse · external · ruler. No new band here. |
 | `gate/FELLHATCH.md` | **Fellhatch** — the lab. Names/files remaining on writes/agents. Gate restrains. Public meter + specialist file. Not munitions. No `/fellhatch` until they say ship. |
-| `gate/JAW.md` | **Jaw shelf** (hot + **decades**) — Ac-225 / Mo-99 / Type B / bubbler / trauma / repatriation / helium MRI / coil winders / NDT III / **tool&die (J10)** / **egg flu+fill-finish (J11)**. Name only. Do not skip Bind. Do not slip. |
+| `gate/JAW.md` | **Jaw shelf** (hot + **decades**) — through **J25**: isotopes / Type B / helium MRI / coil+tool / NDT / eggs / **FDA SKUs (needles, syringes, patties, EVH, oxygenators)** / cassettes / foils / HPGe / reaction wheels / xenon. Name only. Do not skip Bind. Do not slip. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
 
