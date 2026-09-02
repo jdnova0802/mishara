@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Full map — Bind Room{% endblock %}
+{% block meta %}
+<meta name="description" content="One fuse. Nine irreversible doors. Weld one this quarter. Fail-closed clearance with a stranger-verifiable receipt.">
+<meta name="robots" content="noindex,nofollow">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Bind Room · full map</p>
+  <h1>One fuse. Nine doors. Weld one.</h1>
+  <p class="audience-sub">{{ map.thesis }}</p>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Same on every door</h2>
+    <ul>
+      <li>{{ map.same_everywhere.hop }}</li>
+      <li>{{ map.same_everywhere.receipt }}</li>
+      <li>{{ map.same_everywhere.override }}</li>
+      <li>{{ map.same_everywhere.not }}</li>
+    </ul>
+    <p style="margin-top: 0.75rem; color: var(--muted);">{{ map.rule }}</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>The nine doors</h2>
+    <ol style="padding-left: 1.25rem;">
+      {% for d in map.doors %}
+      <li style="margin-bottom: 1rem;">
+        <strong>{{ d.door }}</strong>
+        <span style="color: var(--muted);"> — {{ d.status | replace('_', ' ') }}</span>
+        <br>{{ d.pain }}
+        <br><em>Weld:</em> {{ d.weld }}
+        {% if d.artifact %}<br><a href="{{ d.artifact }}">artifact</a>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Sequence</h2>
+    <ol>
+      {% for step in map.sequence %}
+      <li>{{ step }}</li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Follow-up paste</h2>
+    <pre style="white-space: pre-wrap;">{{ map.followup_blurb }}</pre>
+  </div>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+    <a class="btn btn-primary" href="{{ url_for('bind_room') }}">Bind Room</a>
+    <a class="btn btn-ghost" href="{{ url_for('bind_room_full_map_json') }}">full-map.json</a>
+    <a class="btn btn-ghost" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20one%20door%20this%20quarter">Email {{ contact_email }}</a>
+  </div>
+</div>
+{% endblock %}

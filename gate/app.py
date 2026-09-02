@@ -2887,6 +2887,21 @@ def bind_room_officer_pack():
     return jsonify(bind_room_mod.officer_pack(advertised_url(), CONTACT_EMAIL))
 
 
+@app.route("/bind-room/full-map.json")
+def bind_room_full_map_json():
+    return jsonify(bind_room_mod.full_map(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/bind-room/full-map")
+def bind_room_full_map():
+    return render_template(
+        "bind_room_full_map.html",
+        map=bind_room_mod.full_map(advertised_url(), CONTACT_EMAIL),
+        contact_email=CONTACT_EMAIL,
+        public_url=advertised_url(),
+    )
+
+
 @app.route("/bind-room/appendix.schema.json")
 def bind_room_appendix_schema():
     return jsonify(bind_room_mod.appendix_schema())
