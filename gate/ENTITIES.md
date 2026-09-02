@@ -33,9 +33,22 @@ Tuesday cap stays **≤10**, then halt and prove. **Paste-ready emails:** `gate/
 | **AIsa** | Resource + payment layer for AI agents (discover, access, settle). | `developer@aisa.one` | ToS notices | [aisa.one/TOS](https://aisa.one/TOS) |
 | **Ramp** | Named Sierra customer. Agent handles support cases (Sierra: ~90% resolution). Deployer insured. | `legal@ramp.com` | Notices to General Counsel | [ramp.com authorized-user terms](https://ramp.com/legal/authorized-user-terms) · [sierra.ai/customers/ramp](https://sierra.ai/customers/ramp) |
 | **Rivian** | Named Sierra customer (Sierra $100M ARR post). Deployer insured. | `legal@rivian.com` | Legal entities + DMCA | [rivian.com/legal/entities](https://rivian.com/legal/entities) · [sierra.ai/blog/100m-arr](https://sierra.ai/blog/100m-arr) |
-| **Wayfair** | Named Sierra customer. Agents on returns. Deployer insured. | `legal@wayfair.com` | Dispute / legal notice | [terms.wayfair.io](https://terms.wayfair.io/en-US) · Sierra $100M ARR post |
+| **Wayfair** | Named Sierra customer. Agents on returns. Deployer insured. **Demoted — low close chance.** | `legal@wayfair.com` | Dispute / legal notice | [terms.wayfair.io](https://terms.wayfair.io/en-US) · Sierra $100M ARR post |
+| **Factory** | Droids open PRs; `droid exec --auto high` deploys. | `legal@factory.ai` | Official ToS notices | [factory.com/legal/terms-individual](https://factory.com/legal/terms-individual) |
+| **Artisan** | Ava sends outbound and books meetings. | `privacy@artisan.co` | Official DPA | [artisan.co/dpa](https://www.artisan.co/dpa) |
+| **Gumloop** (AgentHub) | Agents with tool calls + MCP inventory. | `privacy@gumloop.com` | Official DPO | [gumloop.com/privacy-policy](https://www.gumloop.com/privacy-policy) |
+| **Relevance AI** | Named agent workforce; HITL. | `privacy@relevanceai.com` | Official privacy | [relevanceai.com/privacy-policy](https://relevanceai.com/privacy-policy) |
+| **CrewAI** | Production multi-agent runtime. | `privacy@crewai.com` | Official privacy | [crewai.com/privacy-policy](https://crewai.com/privacy-policy) |
+| **Bland** (Intelliga) | Voice agents that resolve calls. | `privacy@bland.ai` | Official privacy-choices | [bland.ai/privacy-choices](https://www.bland.ai/privacy-choices) |
+| **Primer** (primer.io) | Companion executing payments. Not primer.ai. | `legal@primer.io` | Official merchant terms | [primer.io/terms](https://www.primer.io/terms) |
+| **HappyRobot** | Agents do calls / email / scheduling. Series C Aug 2026. | `security@happyrobot.ai` | security.txt + job GDPR | `happyrobot.ai/.well-known/security.txt` |
+| **Retell** | Voice agents. Overflow. | `support@retellai.com` | Official ToS | [retellai.com/legal/terms-of-service](https://www.retellai.com/legal/terms-of-service) |
+| **Bardeen** | Browser Playbooks that write into apps. Overflow. | `support+privacy@bardeen.ai` | Official privacy | [bardeen.ai/privacy-policy](https://www.bardeen.ai/privacy-policy) |
+| **Dust** | 300k agents / 3k teams. Overflow. | `support@dust.tt` | Official support | [dust.tt/home/support](https://dust.tt/home/support) |
+| **Harvey** | Legal work product. Large. Overflow. | `legalnotices@harvey.ai` | Official platform agreement | [harvey.ai/legal/platform-agreement](https://www.harvey.ai/legal/platform-agreement) |
 
-**Tuesday uses the first eight A rows plus one B row.** Wayfair is the ninth A if a slot opens. Do not invent a tenth logo to fill the cap.
+**High-chance wave (send these):** `gate/BUYERS_HOT.md` + `gate/TUESDAY.md`. Factory · Artisan · Gumloop · Relevance AI · CrewAI · Bland · Primer.io · HappyRobot.  
+Ramp / Rivian / Wayfair stay researched and **demoted** (low close chance).
 
 ---
 

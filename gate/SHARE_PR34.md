@@ -18,7 +18,7 @@ Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). P
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/ENTITIES.md gate/TUESDAY.md gate/ALARMING.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/BUYERS_HOT.md gate/ENTITIES.md gate/TUESDAY.md gate/ALARMING.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Primitive: may · sheath · prove
@@ -34,7 +34,7 @@ LOCKS. Do not violate.
 - Stripe via price_data (no new Price IDs). GATE_DEV_MODE fake-pays. Do not enable automatic_tax without an active Stripe Tax registration
 - Name-only unless they say ship. Do not seat new $0 museum pages or new checkouts unless they explicitly ask to ship
 - They asked to ship the gap. /bridge is seated. Do not also seat Afterweb/coffin/Vital as cash. Those do not close meter→Aim.
-- Buyer map is internal: gate/BUYERS.md. Researched names: gate/ENTITIES.md. No /buyers or /entities page. A/B this week only. C after logos. E after meter. F never. Tuesday To: lines are the researched official inboxes (Mayflower intro + deployer privacy/legal/support). Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
+- Buyer map is internal: gate/BUYERS.md. High-chance cut: gate/BUYERS_HOT.md. Researched names: gate/ENTITIES.md. No /buyers or /entities page. Tuesday is the high-chance wave (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer.io / HappyRobot + Mayflower intro). Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
 - Aim $50–200M by Jun 2027 is an operate plan: gate/AIM22.md. Ownership × one E buyer. Not Standing stacking. No /aim page.
 - Do not: become AIUC · run x402 facilitator · Connect splits · sell a consortium you founded · fake meters/indexes · pitch $300B from Bind · bump the ghosted MGA list
 
@@ -174,7 +174,8 @@ PASTE END
 | `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/BUYERS.md` | **Full buyer map** — A Gate 1 · B channels · C meter/bridge · D cite · E Aim/Fat · F hard no · internal, no page |
 | `gate/ENTITIES.md` | **Researched entities** — official inboxes from web search (ToS / privacy / press). A payer vs B channel vs skip. No page. |
-| `gate/TUESDAY.md` | **Paste-ready Bind emails** — To / subject / body for the ten researched inboxes |
+| `gate/BUYERS_HOT.md` | **High-chance Bind buyers** — scored mid-size deployers shipping irreversible writes. No page. |
+| `gate/TUESDAY.md` | **Paste-ready Bind emails** — high-chance wave (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer / HappyRobot) |
 | `gate/ALARMING.md` | **Name-only hunt** — A1–A12 (galactic + strange). No pages. No hopium. |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |

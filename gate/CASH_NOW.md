@@ -102,7 +102,7 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 | Talk to | Do not talk to |
 |---------|----------------|
-| Researched deployers on `ENTITIES.md` / `TUESDAY.md` (official privacy / legal / support inboxes) | Invented GCs · LinkedIn surname scrapes |
+| High-chance deployers on `BUYERS_HOT.md` / `TUESDAY.md` (Factory, Artisan, Gumloop, Relevance, CrewAI, Bland, Primer.io, HappyRobot) | Invented GCs · LinkedIn surname scrapes · Ramp/Rivian/Wayfair instead of the mid-size wave |
 | **One** channel: Mayflower (`jeremy@mayflowerspecialty.com`) or a surplus producer you already know who places Testudo / Corgi-class — **intro to one insured** | Klaimee / AIUC · Testudo the coverholder as a Bind buyer · Relm + Mayflower in the same ten |
 | Builder shipping tool-use with irreversible writes (pay, delete, bind, send) | Defense / nuclear / C2 · freeze list |
 | Warm human who already opened a plate (takes a slot; drop a cold one) | “Everyone on the opportunities map” · BLAST as a To: list |

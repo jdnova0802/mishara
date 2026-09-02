@@ -187,7 +187,7 @@ Talk when **meter + 3–5 prove cases** exist. Not before.
 ## Honest holes (still blank)
 
 - No **named** payout/iGaming desks. Operator is a class.  
-- **Named AI deployer inboxes:** researched 2026-09-02 in `gate/ENTITIES.md` (official privacy / legal / support pages). Tuesday copies ten of them. Not a LinkedIn surname list.  
+- **Named AI deployer inboxes:** researched 2026-09-02 in `gate/ENTITIES.md`. **High-chance cut:** `gate/BUYERS_HOT.md` (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer.io / HappyRobot). Tuesday is that wave.  
 - No **corp-dev contact** at Duck Creek / Guidewire / Palo Alto.  
 - Specialty *class* is still Testudo-placing / Corgi / Mayflower / Hadron. Mayflower now has a researched inbox (`jeremy@mayflowerspecialty.com`) — intro only.  
 - EU cover (Armilla / aiSure) is a channel, not a September blast.
