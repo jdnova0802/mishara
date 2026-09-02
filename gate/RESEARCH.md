@@ -104,8 +104,33 @@ R11–R12 are the only research that can make `AGES_22_30.md` the *wrong drawing
 
 ---
 
+## Looked up 2026-09-02 (public — not a new band)
+
+This is the search that can rewrite the **film strip**, not another remaining book. Bands stay `REST.md` until a sale, hop, or cite lands.
+
+| # | Fact back | Status | Film-strip effect |
+|---|-----------|--------|-------------------|
+| **R1** | NAIC **AI Risk Evaluation Supplement** — pilot 12 states through Sep; v4→**v5** changes in Aug materials; Sep/Oct public exposure → consider **v7 for adoption at Fall National Meeting Dallas Nov 14–17 2026**. Exhibit B asks HITL on consumer-impact systems. Exhibit C autonomy band; **no dedicated override field** — override evidence sits in the operational record. Agentic AI definition added. | **Open fuse clock.** Not adopted. Remaining is **not** named as the examiner method yet | Fall adoption as *method* → **22 NW** fuse path real. Until then fuse NW is a wish |
+| **R2** | CG 40 47 / 40 48 / 35 08 **exclusions** live Jan 2026. **No standardized ISO buyback / carve-back form.** Carve-backs are negotiated manuscripts; governance + HITL + kill-switch evidence strengthen the ask | Path open as **manuscript evidence**, not a bureau cite naming you | XF1 fuse needs a named annex or a buyer of exclusive evidence — not invented |
+| **R3** | Practitioner blogs weld NIST / ISO 42001 / AIS Program. Primary NAIC text still asks governance + HITL; does not say “one folio answers bulletin + exam + carve-back” | Soft CROSS. Not primary-text locked | Two-cite **$8–20B** NW still needs Fall + a second mouth |
+| **R5** | Stripe **MPP** + Shared Payment Tokens; Visa **TAP** / Intelligent Commerce; Mastercard **Agent Pay** — identity, limits, tokens, settlement shipping | Rails live. **No remaining as fifth gate** on money-leave | 22 liquid without an E sale stays closed until a desk welds remaining. Do not run a facilitator |
+| **R7** | Affirmative AI market prices on **evidence**: kill switch, HITL inventory, provenance, named AI exec (Munich Re/Mosaic aiSure ≤$15M; Armilla ≤$25M; Testudo ≤~$9M). Not software you buy — evidence you produce | Confirms Bind→Standing **evidence** path | Bridge/Fat panel rule after Gate 1 + logos. Do not email MGAs/capacity in September |
+| **R8** | Credo AI-class governance comps still ~**$100M** private marks / mid-six-figure ARR contracts. Vista Duck Creek / PA+CyberArk still the Fat-class comps | Aim floor **$50–200M** still the honest bolt-on ask | Does not raise Fat by itself |
+| **R13** | Microsoft Agent 365 + Entra Agent ID + Defender real-time protection (tool-invocation block for threat classes). Docs: Agent 365 is identity/policy/observability; **does not enforce runtime behavior for non-Microsoft agents**. Intune policy-based runtime still preview | Threat-block ≠ remaining-as-write-gate before irreversible business writes | Fat/Padlock cloud-default **still open**. Do not email Microsoft |
+| **A13** | Private-credit gate crisis **still live** Q1–Q2 2026 (BCRED met record redemptions; Cliffwater capped; Blue Owl / HPS gated; Q2 NT-BDC fulfillment ~**53%**). Semi-liquid stack still mid-hundreds of billions | Existing Aim throat **hotter**, not a new REST row | Same **$50–200M → $220–660M** latch at 0.5–1 bp. Name only. No freeze-list email |
+
+**What this pass did *not* do:** mint a new Aim/Fat/Padlock number. Rewrite the outside-read film strip. Replace Bind. Seat a civilization remaining as cash.
+
+**What would rewrite the strip overnight (still unpaid):**
+1. Fall NAIC adopts a version where stranger-openable remaining / override evidence is the **examiner method** → fuse NW.  
+2. One processor/network **defaults remaining as the fifth money-leave gate** → Bridge/Fat/rail without waiting on an E check.  
+3. One cloud seats remaining as the **default write-gate** before irreversible I/O (not only threat blocking) → Fat/Padlock.  
+4. One E buys exclusive remaining on mark-vs-gate (**A13**) or on an agent write path → Aim liquid.
+
+---
+
 ## One line
 
-> **22 NW** research is the v5 text and the carve-back author. **22 liquid** research is one money-leave path that will not pay without remaining. **23–30** research is Art. 12, one cloud, then inclusion / eligibility / remaining=paid. Everything else is a remaining essay. Those do not change the register.
+> **22 NW** research is the v5→v7 Fall text and the carve-back author. **22 liquid** research is one money-leave path that will not pay without remaining. **23–30** research is Art. 12, one cloud, then inclusion / eligibility / remaining=paid. Everything else is a remaining essay. Those do not change the register.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · name only · identity frozen outbound until Gate 1*
