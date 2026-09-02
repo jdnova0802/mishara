@@ -110,7 +110,7 @@ This is the search that can rewrite the **film strip**, not another remaining bo
 
 | # | Fact back | Status | Film-strip effect |
 |---|-----------|--------|-------------------|
-| **R1** | NAIC **AI Risk Evaluation Supplement** — pilot 12 states through Sep; v4→**v5** changes in Aug materials; Sep/Oct public exposure → consider **v7 for adoption at Fall National Meeting Dallas Nov 14–17 2026**. Exhibit B asks HITL on consumer-impact systems. Exhibit C autonomy band; **no dedicated override field** — override evidence sits in the operational record. Agentic AI definition added. | **Open fuse clock.** Not adopted. Remaining is **not** named as the examiner method yet | Fall adoption as *method* → **22 NW** fuse path real. Until then fuse NW is a wish |
+| **R1** | NAIC **AI Risk Evaluation Supplement v5.0** — **exposed now**; comments due **Tue Sep 29, 2026**; Oct v6 (14-day) → consider **v7 at Fall NM Dallas Nov 14–17**. Exhibit B **1g** autonomy/reversibility; **2b** HITL on consumer impact; Exhibit A Model Inventory. Exhibit C: **no override field**. Agentic AI defined. Still optional. | **Live comment window.** Not adopted. Remaining **not** examiner method yet | Fall adoption as *method* → **22 NW** fuse path real. Until then fuse NW is a wish |
 | **R2** | CG 40 47 / 40 48 / 35 08 **exclusions** live Jan 2026. **No standardized ISO buyback / carve-back form.** Carve-backs are negotiated manuscripts; governance + HITL + kill-switch evidence strengthen the ask | Path open as **manuscript evidence**, not a bureau cite naming you | XF1 fuse needs a named annex or a buyer of exclusive evidence — not invented |
 | **R3** | Practitioner blogs weld NIST / ISO 42001 / AIS Program. Primary NAIC text still asks governance + HITL; does not say “one folio answers bulletin + exam + carve-back” | Soft CROSS. Not primary-text locked | Two-cite **$8–20B** NW still needs Fall + a second mouth |
 | **R5** | Stripe **MPP** + Shared Payment Tokens; Visa **TAP** / Intelligent Commerce; Mastercard **Agent Pay** — identity, limits, tokens, settlement shipping | Rails live. **No remaining as fifth gate** on money-leave | 22 liquid without an E sale stays closed until a desk welds remaining. Do not run a facilitator |
@@ -141,6 +141,17 @@ These are the angles that historically moved ceilings. Looked up hard.
 | **Release / rail** | Visa TAP / express agent rules: identity + scope + tokens. Dispute path: mandate evidence **plumbing exists, obligation does not** (mid-2026 reads) | Release fifth-gate still **open**. Hardens R5, does not mint rail stretch |
 | **R9 factor** | No two-source specialty advance against AI underwriting evidence packs | Bridge lift via factor still **empty** |
 | **E&O wording** | Carve-backs = supervised/HITL manuscripts. No published form that says stranger-openable remaining | XF1 still needs named annex / exclusive evidence buyer |
+
+---
+
+## Stress-pass 2 — 2026-09-02 (primary angles)
+
+| Angle | Fact back | What moved |
+|-------|-----------|------------|
+| **R1 v5 text** | **Exposed now.** Comments due **Tue Sep 29, 2026**. Then Oct v6 (14-day) → consider **v7 at Fall NM Dallas Nov 14–17**. Exhibit B **1g** asks autonomy / **reversibility** / reporting impact. **2b** asks HITL on direct consumer impact. Exhibit A asks **Model Inventory**. Agentic AI defined. Still **optional supplement**; Exhibit C still has **no override field**; remaining not named as examiner method | Fuse clock is **live in the comment window**, not theoretical. NW path still needs Fall adoption as *method*. Do not email NAIC |
+| **R6 Visa primary** | Visa Core Rules / Product & Service Rules effective **18 Apr 2026**: **Agentic Payment Provider** + **Agentic Payment Enabler**; agentic stored-credential tx must use **network token** (no raw PAN). TAP (developer.visa.com): agent recognition signatures, consumer identity object, payment container — merchant verifies agent. Mandate/dispute **obligation to retain remaining as fifth gate** still not in the rule text | Rails are **rule-text**. Release still **unpaid**. Hardens R5; does not mint rail stretch **$2–5B** |
+| **PAS attach $** | Guidewire ProNavigator: acquired Oct 2025; expected **~$4M ARR / ~$2M** FY26 rev at close (GWRE IR). Q2: **9** deals; Q3: **5 of 11** cloud deals. ARR platform **$1.147B**. Price undisclosed. Duck Creek: private (Vista); double-digit SaaS ARR H1 FY26; agentic apps priced separate; **no public AI-module $** | Small AI bolt-on ARR can sit **below** Aim floor. Aim **$50–200M** is exclusive *write-gate / remaining*, not a $4M KM attach. Fat stays default-seat on the **$1B+** platform |
+| **Big 4 gated NAV** | PwC ASC 820: practical expedient = NAV **without further adjustment** for restrictions when elected. Practitioner guides: gates “may not” force a markdown. No Big 4 **must-cite** gate-discount method published | A13 hole **hardened**, not closed. “Consider” remains discretion. No new REST row; ceiling shapes from prior pass still stand |
 
 ---
 

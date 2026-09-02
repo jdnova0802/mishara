@@ -2,7 +2,7 @@
 
 Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
-**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Galaxy remaining: `ALARMING.md` **A14–A28** (hunt **closed**). Film-strip clocks looked up in `RESEARCH.md` (2026-09-02): NAIC Fall Nov 14–17 · no ISO buyback form · agent money rails live without remaining · Agent 365 ≠ write-gate · A13 gates still live. Bands unchanged. Name only, do not skip Bind.
+**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Galaxy remaining: `ALARMING.md` **A14–A28** (hunt **closed**). Film-strip stress in `RESEARCH.md`: **NAIC v5 exposed, comments due Sep 29** → Fall Nov 14–17 · Visa Core Rules APP/APE **18 Apr 2026** (token, not remaining gate) · ProNavigator ~**$4M ARR** (Aim ≠ tiny KM) · A13 ceilings **$600–900M** shapes · Big 4 no must-cite gate markdown. Bands unchanged. Name only, do not skip Bind.
 
 ---
 
