@@ -79,7 +79,8 @@ Do not mint bands from these. See `BULGE.md`.
 | Nuclear decommissioning / dam condition | Incomplete two-source this pass |
 | PNT as a vague hunt | Split: Continuous UTC (A4) and lunar timescale (A5) now have 2026 CGPM drafts. Do not re-open “PNT” as a third clock. |
 
-**Next hunt (allowed):** private-credit NAV marks — same shape as A2. Name-only if two 2025–2026 sources.
+**Next hunt (allowed):** private-credit NAV marks — same shape as A2. Name-only if two 2025–2026 sources.  
+**Parallel jaw shelf (not remaining remixes):** `gate/JAW.md` — Ac-225 / Mo-99 / Type B sealed sources / bubbler cert / trauma / repatriation. Do not slip. Cash still Gate 1.
 
 ---
 
