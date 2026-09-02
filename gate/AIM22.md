@@ -204,6 +204,23 @@ Fuse NW ($0.2–1B / $1–5B / $4–12B) is an option mark if XF1/XF3 cite you. 
 
 ---
 
+## Floor stress 2026-09-02 (comps vs the latch — not a REST rewrite)
+
+Looked up. **Do not mint a new band.** This is whether the *floors* are soft or honest.
+
+| Floor | Comp that hits it | Comp that blows past it | Verdict |
+|-------|-------------------|-------------------------|---------|
+| **Aim $50M** | ProNavigator ~**$4M ARR** → ~**$40–60M** at 10–15×; Credo AI marks ~**$101–150M**; GRC median ~**8.7×** rev (Finro Q2 2026) | Tiny KM bolt-ons alone can print **under** $50M | **Holds.** Floor is the exclusive *module / remaining* ask, not every AI widget |
+| **Aim $200M** | ~**$10–20M** evidence/hop ARR × 10–15× (already in ceiling table); strategic SaaS 6–15× ARR | Cisco×Robust Intelligence ~**$400M** (~$10M rev); Cisco×Astrix ~**$400M** (NHI/agents); PANW×Protect AI ~**$635–700M** | **Holds as module top.** Agent-*security* capability comps clear **into Fat**. If the latch is default write-gate, do not under-ask Aim |
+| **Fat $200M** | — | Astrix / Robust **~$400M**; Protect AI **~$0.65–0.7B**; CrowdStrike×SGNL **~$740M**; Munich Re×At-Bay **$575M** EV (cyber InsurSec) | **Floor is conservative.** Live agent/AI-control bolt-ons are printing **$400–740M**. Fat band still right; landing zone often above the floor |
+| **Fat $800M** | Mid-Fat security attaches | Moveworks **~$2.85B** (full front door) → Padlock class | **Holds as top of “default seat, not category.”** Full platform = next rung |
+| **Padlock $0.5B** | At-Bay **$575M**; SGNL **~$740M** | Moveworks **~$2.85B**; Armis **~$7.75B** (ServiceNow); CyberArk stack **~$25B** (PA) | **Holds.** Category / ownership starts here; upset already in ceiling table |
+| **Bridge $5–40M** | Adept-class license+hire prints ~**$25M**; private SaaS PE bolt-ons often **$5–40M** cash | Inflection-class license+lift **~$650M** = Fat, not Bridge | **Holds** as pre-June forced-attach / small exclusive — not mega license&lift |
+
+**Arithmetic hygiene:** private SaaS median ~**3–5×** ARR; strategic AI-security **15–35×** when scarce. Aim assumes a **sale of exclusive remaining**, not Credo’s private mark and not Wiz’s **$32B**. A13 still the only remaining with Aim→Fat *shapes* without a platform default.
+
+---
+
 ## One line
 
 > S03 + one desk · logos + XF1 · one close that needs you · one E. **Bolt-on $50–200M · Fat $200–800M · fuse-close $0.2–12B.** Ceilings rise on two E bidding, Idira/cloud default, national annex/exam cite, capacity buy — see ceiling table. Not more Absolute.

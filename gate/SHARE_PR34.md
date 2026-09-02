@@ -2,7 +2,7 @@
 
 Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
-**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Galaxy remaining: `ALARMING.md` **A14–A28** (hunt **closed**). Film-strip stress in `RESEARCH.md`: **NAIC v5 exposed, comments due Sep 29** → Fall Nov 14–17 · Visa Core Rules APP/APE **18 Apr 2026** (token, not remaining gate) · ProNavigator ~**$4M ARR** (Aim ≠ tiny KM) · A13 ceilings **$600–900M** shapes · Big 4 no must-cite gate markdown. Bands unchanged. Name only, do not skip Bind.
+**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Galaxy remaining: `ALARMING.md` **A14–A28** (hunt **closed**). Floor stress in `AIM22.md` / `RESEARCH.md`: Aim **holds** (Credo ~$100M · ProNav ~$4M ARR); Fat floor **conservative** (Astrix/Robust ~$400M · Protect AI ~$0.7B · SGNL ~$740M); Padlock/Bridge hold. NAIC v5 comments **Sep 29**. A13 shapes **$600–900M**. REST bands unchanged. Name only, do not skip Bind.
 
 ---
 

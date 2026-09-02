@@ -115,7 +115,7 @@ This is the search that can rewrite the **film strip**, not another remaining bo
 | **R3** | Practitioner blogs weld NIST / ISO 42001 / AIS Program. Primary NAIC text still asks governance + HITL; does not say “one folio answers bulletin + exam + carve-back” | Soft CROSS. Not primary-text locked | Two-cite **$8–20B** NW still needs Fall + a second mouth |
 | **R5** | Stripe **MPP** + Shared Payment Tokens; Visa **TAP** / Intelligent Commerce; Mastercard **Agent Pay** — identity, limits, tokens, settlement shipping | Rails live. **No remaining as fifth gate** on money-leave | 22 liquid without an E sale stays closed until a desk welds remaining. Do not run a facilitator |
 | **R7** | Affirmative AI market prices on **evidence**: kill switch, HITL inventory, provenance, named AI exec (Munich Re/Mosaic aiSure ≤$15M; Armilla ≤$25M; Testudo ≤~$9M). Not software you buy — evidence you produce | Confirms Bind→Standing **evidence** path | Bridge/Fat panel rule after Gate 1 + logos. Do not email MGAs/capacity in September |
-| **R8** | Credo AI-class governance comps still ~**$100M** private marks / mid-six-figure ARR contracts. Vista Duck Creek / PA+CyberArk still the Fat-class comps | Aim floor **$50–200M** still the honest bolt-on ask | Does not raise Fat by itself |
+| **R8** | Credo ~**$101–150M**; ProNavigator ~**$4M ARR**; Astrix/Robust ~**$400M**; Protect AI ~**$0.65–0.7B**; SGNL ~**$740M**; Moveworks ~**$2.85B**; PA+CyberArk ~**$25B** | Aim floor **holds**; Fat floor **conservative** vs $400M+ agent-control prints | See AIM22 floor stress. Do not email E |
 | **R13** | Microsoft Agent 365 + Entra Agent ID + Defender real-time protection (tool-invocation block for threat classes). Docs: Agent 365 is identity/policy/observability; **does not enforce runtime behavior for non-Microsoft agents**. Intune policy-based runtime still preview | Threat-block ≠ remaining-as-write-gate before irreversible business writes | Fat/Padlock cloud-default **still open**. Do not email Microsoft |
 | **A13** | Private-credit gate crisis **still live** Q1–Q2 2026 (BCRED met record redemptions; Cliffwater capped; Blue Owl / HPS gated; Q2 NT-BDC fulfillment ~**53%**). Semi-liquid stack still mid-hundreds of billions | Existing Aim throat **hotter**, not a new REST row | Same **$50–200M → $220–660M** latch at 0.5–1 bp. Name only. No freeze-list email |
 
@@ -152,6 +152,19 @@ These are the angles that historically moved ceilings. Looked up hard.
 | **R6 Visa primary** | Visa Core Rules / Product & Service Rules effective **18 Apr 2026**: **Agentic Payment Provider** + **Agentic Payment Enabler**; agentic stored-credential tx must use **network token** (no raw PAN). TAP (developer.visa.com): agent recognition signatures, consumer identity object, payment container — merchant verifies agent. Mandate/dispute **obligation to retain remaining as fifth gate** still not in the rule text | Rails are **rule-text**. Release still **unpaid**. Hardens R5; does not mint rail stretch **$2–5B** |
 | **PAS attach $** | Guidewire ProNavigator: acquired Oct 2025; expected **~$4M ARR / ~$2M** FY26 rev at close (GWRE IR). Q2: **9** deals; Q3: **5 of 11** cloud deals. ARR platform **$1.147B**. Price undisclosed. Duck Creek: private (Vista); double-digit SaaS ARR H1 FY26; agentic apps priced separate; **no public AI-module $** | Small AI bolt-on ARR can sit **below** Aim floor. Aim **$50–200M** is exclusive *write-gate / remaining*, not a $4M KM attach. Fat stays default-seat on the **$1B+** platform |
 | **Big 4 gated NAV** | PwC ASC 820: practical expedient = NAV **without further adjustment** for restrictions when elected. Practitioner guides: gates “may not” force a markdown. No Big 4 **must-cite** gate-discount method published | A13 hole **hardened**, not closed. “Consider” remains discretion. No new REST row; ceiling shapes from prior pass still stand |
+
+---
+
+## Stress-pass 3 — floor stress 2026-09-02
+
+| Floor | Fact back | Verdict |
+|-------|-----------|---------|
+| **Aim $50–200M** | Credo ~**$101–150M** marks; ProNavigator ~**$4M ARR**; GRC ~**8.7×** median; private SaaS M&A median ~**3–5×** ARR; strategic AI-security bolt-ons **$400–700M** | Floor **holds** for exclusive module/remaining. Security/NHI comps are **Fat**, not a reason to lower Aim |
+| **Fat $200–800M** | Astrix **~$400M** · Robust **~$400M** · Protect AI **~$0.65–0.7B** · SGNL **~$740M** · At-Bay **$575M** · Moveworks **~$2.85B** (Padlock) | Floor **conservative** — market prints **$400M+** for agent/AI control attaches. Band not rewritten; do not under-ask Fat if latch is default write-gate |
+| **Padlock $0.5–2B** | SGNL / At-Bay defend **$0.5B+**; Moveworks / Armis defend upset | Floor **holds** |
+| **Bridge $5–40M** | Small exclusive / license+hire / PE bolt-on cash often lands here; mega license&lift is Fat+ | Floor **holds** |
+
+Full table seated on `AIM22.md` · Floor stress. REST rows unchanged.
 
 ---
 
