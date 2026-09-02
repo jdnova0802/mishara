@@ -129,6 +129,21 @@ This is the search that can rewrite the **film strip**, not another remaining bo
 
 ---
 
+## Stress-pass angles 2026-09-02 (not user-prompted civilization)
+
+These are the angles that historically moved ceilings. Looked up hard.
+
+| Angle | Fact back | What moved |
+|-------|-----------|------------|
+| **A13 mark-vs-gate** | ASC 820 = **consider** adjustment, not require. Cliffwater carries gated Blue Owl/Ares at **full NAV**. Secondary ~**10¢** off; forensics argue **15–22%**. Semi-liquid wrappers ~**$600B** | **Ceiling shapes raised** in A13/AIM22 → **$600–900M** at 1 bp on $600B. REST Aim row **unchanged** (still $50–200M floor latch) |
+| **Aim bolt-on comps** | ServiceNow×Moveworks **~$2.85B** (full agent front door — Fat/Padlock *platform* class). Guidewire ProNavigator **bundled**; ~**45%** cloud-deal attach (5/11). Duck Creek prices agentic apps **separately** | Aim floor still honest for a **module**. Fat is the **default seat**. Bundled GW makes module-to-GW harder; DC keeps a priced attach |
+| **Fat write-gate** | Idira = identity broker + task privilege + HITL on sensitive + kill switch. ServiceNow AI Control Tower = inventory + kill switch + irreversible approval gates + audit | Adjacent control planes are **filling**. Stranger-openable **remaining folio** still unpaid. Competition urgency ↑; REST Fat band not rewritten |
+| **Release / rail** | Visa TAP / express agent rules: identity + scope + tokens. Dispute path: mandate evidence **plumbing exists, obligation does not** (mid-2026 reads) | Release fifth-gate still **open**. Hardens R5, does not mint rail stretch |
+| **R9 factor** | No two-source specialty advance against AI underwriting evidence packs | Bridge lift via factor still **empty** |
+| **E&O wording** | Carve-backs = supervised/HITL manuscripts. No published form that says stranger-openable remaining | XF1 still needs named annex / exclusive evidence buyer |
+
+---
+
 ## One line
 
 > **22 NW** research is the v5→v7 Fall text and the carve-back author. **22 liquid** research is one money-leave path that will not pay without remaining. **23–30** research is Art. 12, one cloud, then inclusion / eligibility / remaining=paid. Everything else is a remaining essay. Those do not change the register.

@@ -240,25 +240,28 @@ Wonders **and** necessities. Do not pick.
 
 ### A13 — Marked Remaining (GATED NAV) — A2’s credit face · **Aim throat**
 
-**What already burns:** Private-credit vehicles strike a **NAV**. Redemption is live. Apr 2026: Blue Owl **OCIC** tenders **~21.9%** / **OTIC ~40.7%**; both **capped at 5%** (CNBC). Cliffwater (~**$31.6B**) still carries gated stakes at managers’ full NAVs (WSJ / Lumida). Top-12 non-traded BDCs: Q1 2026 **~$15B** redemption *requests*, **53.4%** honored (With Intelligence). Non-traded BDCs **~$357B** (2025) + credit interval funds **~$83B** ≈ **$440B** semi-liquid stack. Public BDCs trade ~**80¢ on NAV** (May 2026). ICI Apr 2026 + ASC 820 NAV practical expedient = the mark can stay full while the gate is shut.
+**What already burns:** Private-credit vehicles strike a **NAV**. Redemption is live. Apr 2026: Blue Owl **OCIC** tenders **~21.9%** / **OTIC ~40.7%**; both **capped at 5%** (CNBC). Cliffwater (~**$31.6B**) still carries gated stakes at managers’ full NAVs (WSJ / Lumida) — CIO on record: **no gate adjustment**. ASC 820 practical expedient: managers must **consider** an adjustment, not make one. Q2 2026 stress still live (~**53%** NT-BDC fulfillment). Secondary bids on Cliffwater-class shares ~**10¢** off NAV; forensic marks argue **~15–22%** fiction; public BDCs ~**80¢**; OBDC II tender print as low as **~54¢**. Base stack: NT-BDC + credit interval ≈ **$440B**. Broader semi-liquid wrapper market nearing **~$600B** (2026).
 
 **Unpaid object:** Stranger-openable remaining **between the mark and the gate** — redeemable *today*, not the printed NAV. A2 is the reserve attestation. This is the credit folio.
 
-**Hard Aim math (existing Aim band — new throat, not a new REST row):**
+**Hard Aim math (existing Aim band — new throat, not a new REST row). Stress-pass 2026-09-02 raised the ceiling shapes, not a REST row:**
 
 | Denominator | Fee if remaining is must-cite | Annual rent | 10–15× sale (AIM22 meter multiple) |
 |-------------|------------------------------|-------------|-------------------------------------|
-| **$440B** semi-liquid (NT-BDC + interval) | **0.5 bp** | **$22M/yr** | **$220–330M** |
-| Same $440B | **1 bp** | **$44M/yr** | **$440–660M** |
+| **$440B** base (NT-BDC + credit interval) | **0.5 bp** | **$22M/yr** | **$220–330M** |
+| Same **$440B** | **1 bp** | **$44M/yr** | **$440–660M** |
+| **~$600B** semi-liquid wrapper (broader) | **0.5 bp** | **$30M/yr** | **$300–450M** |
+| Same **~$600B** | **1 bp** | **$60M/yr** | **$600–900M** |
 | Same $440B | **2.28 bp** (MSCI ETF ABF class, 2Q26) | **$100M/yr** | **$1.0–1.5B** |
-| Mark fiction at 20% discount on $440B | = **$88B** unpaid print | — | object size, not rent |
+| Mark fiction at **10%** secondary on $440B | = **$44B** unpaid print | — | object size, not rent |
+| Mark fiction at **20%** on $440B | = **$88B** unpaid print | — | object size, not rent |
 | One E buys exclusive module (fund admin / valuation / BDC platform) | — | — | **Aim floor $50–200M** under `AIM22.md` latch |
 
-Comp: MSCI Index run-rate **~$2.0B** (Jun 2026); ETF ABF alone **~$233M** in one quarter at **~2.28 bps** on ~$2.7T average AUM. A cite-tax on a smaller, uglier stack still clears Aim if one buyer seats it.
+Comp: MSCI Index run-rate **~$2.0B** (Jun 2026); ETF ABF alone **~$233M** in one quarter at **~2.28 bps** on ~$2.7T average AUM. A cite-tax on a smaller, uglier stack still clears Aim if one buyer seats it. Stress: the hole is **discretion** (“consider”), not missing data.
 
 **Public sentence:** The fund is marked at full NAV. Redemptions are capped at five percent. The remaining is the part you cannot exit.
 
-**Locks:** Name only. Do not become an auditor or a BDC. Do not email SS&C / State Street / Blackstone / Blue Owl / Cliffwater. Do not pitch from Bind Room. Cousin of A2 — **does not mint a new number band in `REST.md`.** It is a **new Aim throat** into the existing **$50–200M** latch. Gate 1 still first.
+**Locks:** Name only. Do not become an auditor or a BDC. Do not email SS&C / State Street / Blackstone / Blue Owl / Cliffwater. Do not pitch from Bind Room. Cousin of A2 — **does not mint a new number band in `REST.md`.** It is a **new Aim throat** into the existing **$50–200M** latch; ceiling shapes now reach **Aim top → Fat (~$600–900M)** if the broader stack + 1 bp seats. Gate 1 still first.
 
 ---
 

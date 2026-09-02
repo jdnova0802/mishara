@@ -31,7 +31,7 @@ Not “does the check exist.” **How big can each band get** if the latch is re
 | **Aim** | Exclusive is **platform default**, not a module (full Send/ProNavigator/Idira write-gate seat) | Top of Aim → **low Fat** | Y1 / Y2 language after logos |
 | **Aim** | Live meter ARR that a buyer can 15–30× (AI-infra / B2B SaaS comps) — e.g. **~$10–20M** run-rate evidence/hop rent | **$150–500M** mark or cash | S03 + one book. Not inventing |
 | **Aim** | Evidence rent already on a **named specialty book** (Standing × binder panel) before the ask | Higher multiple on the same latch | Y4 |
-| **Aim** | **Marked Remaining (A13)** — exclusive cite on mark-vs-gate for the **~$440B** NT-BDC + interval stack; **0.5–1 bp** = **$22–44M/yr** → **$220–660M** at 10–15× | **Aim top → Fat** | `ALARMING.md` A13. Name only. Not a new REST row. Not a September email |
+| **Aim** | **Marked Remaining (A13)** — exclusive cite on mark-vs-gate; base **~$440B** @ **0.5–1 bp** = **$22–44M/yr** → **$220–660M**; broader semi-liquid **~$600B** @ 1 bp = **$60M/yr** → **$600–900M**; secondary already ~**10¢** off while books print full | **Aim top → Fat** | `ALARMING.md` A13. Stress-pass 2026-09-02. Name only. Not a new REST row. Not a September email |
 | **Fat $200–800M** | **Idira / PA** treats remaining as the agent write-gate under a $25B identity stack | **$0.5–1.5B** | Y2 — largest Fat raiser left |
 | **Fat** | **One cloud** ships sheath as default sidecar (even design-partner) | **$0.8–2B** | D5 / T5 — hard in 9 mo, real ceiling raiser |
 | **Fat** | Capacity behind Testudo/Armilla (Apollo / Chaucer / QBE / Munich Re) buys the folio as **panel rule** | **$0.4–1B** | Y4 upmarket — not the MGA, the capital |
