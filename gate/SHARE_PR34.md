@@ -64,7 +64,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT FELLHATCH.md.** The lab (assemble/name/file remaining). **Gate restrains** — including the lab. Public meter + specialist file. Not a people hunt. Not munitions. Not a sixth sibling. No `/fellhatch` until they say ship. Do not pitch Fellhatch from Bind Room.
 **SURFACE (signed).** Bind $1,750 = Gate 1. Split origins. Payout HOLD = evidence the rail fires, not AI-liability loss data. Hands cap: 4 Bind Rooms/mo. `/for/partners` and `/broker-relay` are 410. Grey catalog dead. Do not promise partner-desk volume.
 **HARDEN (not inventing).** `/health` probes real routes (`probes_ok`). Optional `SENTRY_DSN`. Sep 1 chain audit via `/ops/chain-continuity` → `/trust/corrections`. External uptime → phone. Not RFC 3161 museum. Not before Gate 1 as a seven-item diligence product.
-**ALARMING (name-only).** `gate/ALARMING.md` — Buffer Remaining · Continuous Reserve Remaining · Bond-at-Transfer (under Ρ). Signed-and-gone folds into EXTERNAL E5. Coil/ship = BULGE rulers. Do not re-invent. No pages.
+**ALARMING (name-only).** `gate/ALARMING.md` — A1 Buffer · A2 Continuous Reserve · A3 Bond-at-Transfer (Ρ) · **A4 Continuous UTC** · **A5 Lunar Timescale** · **A6 Continuing Supervision** (SPACE legal face) · **A7 Plume Stewardship** (Ρ). TraCSS folds into SPACE. DSN/GaiaNIR = BULGE. KSK + ZK waste = dead. Signed-and-gone folds into EXTERNAL E5. Coil/ship = BULGE rulers. Do not re-invent. No pages.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -173,7 +173,7 @@ PASTE END
 | `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/BUYERS.md` | **Full buyer map** — A Gate 1 · B channels · C meter/bridge · D cite · E Aim/Fat · F hard no · internal, no page |
 | `gate/TUESDAY.md` | **Tue 1 Sep 2026 send sheet** — ten blank slots from existing threads · paste-ready N1 / broker / counsel · not a named GC list |
-| `gate/ALARMING.md` | **Name-only hunt** — Buffer Remaining · Continuous Reserve Remaining · Bond-at-Transfer (Ρ). No pages. No hopium. |
+| `gate/ALARMING.md` | **Name-only hunt** — A1–A3 plus galactic A4 UTC · A5 lunar · A6 supervision · A7 plume. No pages. No hopium. |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |

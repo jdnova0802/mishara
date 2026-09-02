@@ -23,7 +23,7 @@ West Point already exists for Earth-speed force. The unpaid object is not anothe
 
 Night Law is sleep. This is **c**.
 
-When round-trip light time exceeds a human watch, the vehicle’s after is unwatched **by geometry**. The academy will train people for that interval and has no institution for it. TraCSS detects conjunctions; it does not hold remaining across the delay.
+When round-trip light time exceeds a human watch, the vehicle’s after is unwatched **by geometry**. The academy will train people for that interval and has no institution for it. TraCSS detects conjunctions; it does not hold remaining across the delay. TraCSS is still a **pilot** (70+ operators / ~10 governments as of Aug 2026; FY26 $52.5M after a kill attempt). Do not mint it as a fourth Space invention.
 
 **Chokepoint:** launch license / hull insurance cannot honestly bind a solo without a delay hold.  
 **Who pays:** insurer or licensor — **not** the cadet (issuer-pays trap).  
@@ -42,6 +42,10 @@ State issues the rank. We record the remaining. Discharge already exists — the
 ### SA3 — Sheath class
 
 One school, two priesthoods. A civil operator must not radiate a military write. Wrong sheath → radiation abort (`/uplink`). We record the class. Unmouthed write-classes stay unmouthed.
+
+### Cousin (name-only, not a fourth book)
+
+**Continuing Supervision Remaining** (`ALARMING.md` A6) is Art. VI’s legal face of the same hole: authorization is not remaining. Lunar timescale (`ALARMING.md` A5) is the *unit* cousin of Delay Unwatched (*c*). Continuous UTC (`ALARMING.md` A4) is the Earth clock those delays are measured against. Do not re-seat.
 
 ---
 

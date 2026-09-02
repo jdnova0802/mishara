@@ -713,8 +713,12 @@ Two-source fires, not hopium. Full cards: `gate/ALARMING.md`.
 | **A1** | Buffer Remaining | Stock behind a retired carbon ton; buffer ~16% of required | Name only |
 | **A2** | Continuous Reserve Remaining | Between-attestation coverage on a live float | Name only |
 | **A3** | Bond-at-Transfer Remaining | Bond vs today’s plug cost; fail-closed at transfer | Under **Ρ** |
+| **A4** | Continuous UTC Remaining | Shared-clock continuity state; CGPM Draft C · 20 May 2027 | Name only |
+| **A5** | Lunar Timescale Remaining | Which lunar scale + UTC offset (~56 µs/day) | Name only |
+| **A6** | Continuing Supervision Remaining | OST Art. VI still-live supervision, not the license | SPACE legal face |
+| **A7** | Plume Stewardship Remaining | Perpetual Class VI plume after state transfer; trust-capped | Under **Ρ** |
 
-Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new invention. Coil winders / repair hulls = `BULGE` denominators only.
+Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new invention. Coil winders / repair hulls / DSN aperture / GaiaNIR = `BULGE` denominators only. TraCSS folds into `SPACE.md`. KSK ceremony and ZK toxic waste are dead this pass.
 
 ---
 
