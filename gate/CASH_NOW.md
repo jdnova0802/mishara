@@ -115,7 +115,7 @@ Optional warm-only: **N4 Payout throat** — one licensed withdraw desk → `$25
 
 1. Finish public path so pay + prove works on live host (Stripe webhook · disk · secure cookies — see `MAX.md`).
 2. One counsel quote email batch (Tue Sep 1) — does not replace Bind cash.
-3. Send **≤10** N1 emails from `gate/TUESDAY.md` — researched official inboxes in `gate/ENTITIES.md`. Warm threads are still zero; that is not “no entities.” Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send **≤10** N1 emails from `gate/TUESDAY.md` at **11:00 AM EDT** (schedule from 6:30 home — do not send then). High-chance cut is `BUYERS_HOT.md`. Do not resend Tuesday counsel today. Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 ---
@@ -168,7 +168,7 @@ Run these. In order. When the terminal line hits, stop pretending.
 | 2 | **Ohio Patent Pro Bono** (+ Case / Detroit Mercy clinics if needed) | Volunteer counsel on 64/124,027. Not Lockhart $12k. |
 | 3 | **Other two patent quotes** (still waiting) | One flat fee you can actually survive — or pro bono wins. |
 | 4 | **Mid-Sept Stavan — listen only** | 15 min. If he knows an *insured* whose CGL hurts, ask for that intro. He is not the Bind buyer. |
-| 5 | **≤10 researched N1** from `TUESDAY.md` / `ENTITIES.md` | Sent from `hello@velaru.xyz`. Follow up once. Halt. Not invented GCs. |
+| 5 | **≤10 researched N1** from `TUESDAY.md` / `BUYERS_HOT.md` | Sent **11:00 AM EDT** (schedule if you get home 6:30). Follow up Friday 11:00 once. Halt. Not invented GCs. |
 | 6 | **One Bind $1,750** | Pay + prove same day = **Gate 1**. Halt. |
 | 7 | **Install $2,500** only if a builder you already know has a write | Same rule: already know them. |
 | 8 | **YC W27 apply** (by 2 Nov) | Company bet. Not a job. Optional. |

@@ -4,6 +4,29 @@
 Research + rank: `gate/BUYERS_HOT.md`.  
 Cap: send these **ten**, then halt. Follow up the same ten once in two days.
 
+## When to send (Toledo · EDT · Wed 2 Sep 2026)
+
+You get home **6:30 AM Eastern**. Do **not** hit send then.
+
+6:30 AM EDT = **3:30 AM Pacific**. Factory, Artisan, Gumloop, HappyRobot HQ are SF. That timestamp is a night-shift graveyard. Mayflower (NY) is not at the desk yet. Primer (London) would be fine (11:30 AM BST) — one inbox does not set the batch.
+
+**Do this:** sleep or eat. In Gmail, **schedule send for 11:00 AM Eastern** (set it when you walk in the door if you will be dead at 11).
+
+| Your clock (EDT) | What it is on their desk | Who |
+|------------------|--------------------------|-----|
+| **11:00 AM** | 8:00 AM PDT — first coffee, inbox not buried | Factory · Artisan · Gumloop · HappyRobot · Bland · CrewAI |
+| **11:00 AM** | 11:00 AM EDT — mid-morning | Mayflower (NY) |
+| **11:00 AM** | 4:00 PM BST — still in the office | Primer (London) |
+| **11:00 AM** | 1:00 AM AEST Thursday — night in Surry Hills | Relevance AI HQ. They also have SF. Send with the pack. |
+
+Do not wait past **12:00 PM EDT**. After that Primer is walking out (5 PM BST) and the SF morning is already a pile.
+
+**Do not resend counsel today.** That went Tuesday. Follow those three **Friday 11:00 AM EDT** if silent (two days, same window).
+
+**Follow the eight + Mayflower Friday 11:00 AM EDT**, once. Then halt.
+
+Wed 2 Sep is a normal US business day. Labor Day is **Mon 7 Sep** — do not hold the batch for a long weekend. US and UK are still on summer time. Sydney is still AEST (AEDT starts 4 Oct 2026).
+
 This wave replaces Ramp / Rivian / Wayfair. Those are real and low-close. Do not send both waves.
 
 Do not paste `/gaming`. Do not pitch Ω / Fellhatch / H₀ / W₀.

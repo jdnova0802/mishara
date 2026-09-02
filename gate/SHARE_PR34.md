@@ -34,7 +34,7 @@ LOCKS. Do not violate.
 - Stripe via price_data (no new Price IDs). GATE_DEV_MODE fake-pays. Do not enable automatic_tax without an active Stripe Tax registration
 - Name-only unless they say ship. Do not seat new $0 museum pages or new checkouts unless they explicitly ask to ship
 - They asked to ship the gap. /bridge is seated. Do not also seat Afterweb/coffin/Vital as cash. Those do not close meter→Aim.
-- Buyer map is internal: gate/BUYERS.md. High-chance cut: gate/BUYERS_HOT.md. Researched names: gate/ENTITIES.md. No /buyers or /entities page. Tuesday is the high-chance wave (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer.io / HappyRobot + Mayflower intro). Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
+- Buyer map is internal: gate/BUYERS.md. High-chance cut: gate/BUYERS_HOT.md. Researched names: gate/ENTITIES.md. External architecture uses the same official-page research as inventing — ultra-specific and cosmic-specific, and urgent (the send clock, not another remaining essay). Tuesday send clock: 11:00 AM EDT from Toledo; do not send at 6:30 AM home. Do not invent GCs. Do not email Klaimee, Testudo-the-MGA, or a C desk. Freeze list still means do not email.
 - Aim $50–200M by Jun 2027 is an operate plan: gate/AIM22.md. Ownership × one E buyer. Not Standing stacking. No /aim page.
 - Do not: become AIUC · run x402 facilitator · Connect splits · sell a consortium you founded · fake meters/indexes · pitch $300B from Bind · bump the ghosted MGA list
 
@@ -89,7 +89,7 @@ Without Gate 1, civilization-rent shapes are $0. Do not get bored of Bind $1,750
 SEPT 1 WEEK (ops, not inventing). See CASH_NOW.md · EXTREME_ODDS.md · MAX.md
 1. Live host: Stripe webhook · disk · secure cookies. If checkout or prove is soft, do not send sales emails yet.
 2. Counsel quote batch Tue Sep 1 — does not replace Bind cash.
-3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md. Names are researched official inboxes in gate/ENTITIES.md. Warm threads are still zero; that is not “no entities.” Do not invent GCs. USPTO pro bono is parallel, not a buyer. Do not email Klaimee, Testudo-the-MGA, or a C desk.
+3. Send ≤10 Renewal Evidence Bind emails from gate/TUESDAY.md (high-chance wave in gate/BUYERS_HOT.md). Do not invent GCs. USPTO pro bono is parallel, not a buyer. Do not email Klaimee, Testudo-the-MGA, or a C desk.
 4. First paid Bind = Gate 1. Then S03. Not before.
 
 Pond: AI startup GC / Head of Ops on renewal · specialty broker → intro to their insured · builder with irreversible tool-use · warm human who already opened a plate.

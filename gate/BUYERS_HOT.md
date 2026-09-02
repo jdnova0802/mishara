@@ -81,9 +81,13 @@ Researched. Active deployers. **A stranger $1,750 does not clear those desks.** 
 
 ---
 
+## External architecture (same standard as inventing)
+
+Look up the **desk**, not a vibe. HQ city · timezone · summer time · whether Wednesday is a business day · whether the inbox is legal or security.txt. Ultra-specific (this To:, this write, this clock). Cosmic-specific when the fact is real (AEDT starts 4 Oct 2026 — not today). Urgent means **this morning's send window**, not another remaining essay.
+
 ## How to send
 
-From `hello@velaru.xyz`. The ten in `TUESDAY.md`. Then halt. Follow up once.  
+From `hello@velaru.xyz`. The ten in `TUESDAY.md`. **Clock is on that file.** Toledo 6:30 AM home → schedule **11:00 AM EDT**. Do not send at 6:30. Do not resend counsel today. Follow up Friday 11:00 AM EDT, once. Then halt.  
 If a wave-1 mail already went to Lindy / Cognition / etc., do **not** resend. Swap a bounce for Retell / Bardeen / Dust / Harvey.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · buyers, not more inventing*
