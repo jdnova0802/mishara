@@ -359,12 +359,23 @@ try:
 except ImportError:
     import evidence_log as evidence_log_mod
 
+try:
+    from gate import health_probes as health_probes_mod
+except ImportError:
+    import health_probes as health_probes_mod
+
+try:
+    from gate import chain_continuity as chain_continuity_mod
+except ImportError:
+    import chain_continuity as chain_continuity_mod
+
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
 GATE_PUBLIC_URL = public_url_mod.resolve_public_url()
 GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
+SENTRY_DSN = (os.getenv("SENTRY_DSN") or os.getenv("GATE_SENTRY_DSN") or "").strip()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("GATE_SECRET_KEY", os.urandom(32).hex())
@@ -372,6 +383,22 @@ app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 if not GATE_DEV_MODE and GATE_PUBLIC_URL.startswith("https"):
     app.config["SESSION_COOKIE_SECURE"] = True
+
+_sentry_configured = False
+if SENTRY_DSN:
+    try:
+        import sentry_sdk
+        from sentry_sdk.integrations.flask import FlaskIntegration
+
+        sentry_sdk.init(
+            dsn=SENTRY_DSN,
+            integrations=[FlaskIntegration()],
+            traces_sample_rate=float(os.getenv("GATE_SENTRY_TRACES", "0.05")),
+            send_default_pii=False,
+        )
+        _sentry_configured = True
+    except Exception:
+        _sentry_configured = False
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
@@ -769,7 +796,7 @@ def metered_api(view=None, *, count_usage=True):
 def health():
     velaru_ok = False
     try:
-        r = velaru_request("GET", "/health", timeout=10, params={"format": "json"})
+        r = velaru_request("GET", "/health", timeout=3, params={"format": "json"})
         velaru_ok = r.status_code == 200
     except requests.RequestException:
         pass
@@ -778,6 +805,29 @@ def health():
     https_ok = public_url_mod.public_ok(pub)
     db_path = os.getenv("GATE_DB_PATH", "./gate.db")
     ephemeral_db = public_url_mod.db_path_is_ephemeral(db_path)
+
+    # Exercise real gate-path routes (not config flags). Never probe /health itself.
+    route_probes = health_probes_mod.probe_local_routes(app.test_client())
+    try:
+        verify_probe = health_probes_mod.probe_velaru_verify(
+            lambda path: velaru_request("GET", path, timeout=3)
+        )
+    except Exception:
+        verify_probe = {"ok": False, "status": None, "path": "/verify", "error": "probe_failed"}
+    route_probes["velaru_verify"] = verify_probe
+    probes = health_probes_mod.summarize(route_probes)
+
+    link_ok = True
+    link_broken = 0
+    try:
+        rows = db.list_bind_events_chronological(limit=10000)
+        link_audit = chain_continuity_mod.audit_link_integrity(rows)
+        link_ok = bool(link_audit.get("ok"))
+        link_broken = int(link_audit.get("broken_link_count") or 0)
+    except Exception:
+        link_ok = False
+        link_broken = -1
+
     payload = {
         "status": "ok",
         "service": "gate-api",
@@ -788,6 +838,11 @@ def health():
         "https": https_ok,
         "ephemeral_db": ephemeral_db,
         "dev_mode": GATE_DEV_MODE,
+        "sentry_configured": _sentry_configured,
+        "probes": probes,
+        "probes_ok": bool(probes.get("ok")),
+        "chain_links_ok": link_ok,
+        "chain_broken_link_count": link_broken,
         "listings": f"{pub}/.well-known/listings.json",
         "mcp": f"{pub}/mcp",
         "bind_room": f"{pub}/bind-room",
@@ -813,7 +868,8 @@ def health():
         payload["status"] = "not_public"
         payload["message"] = "GATE_PUBLIC_URL is still local/http. Set https origin or rely on RENDER_EXTERNAL_URL."
         return jsonify(payload), 503
-    payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
+    hard_ok = velaru_ok and not ephemeral_db and bool(probes.get("ok")) and link_ok
+    payload["status"] = "ok" if hard_ok else "degraded"
     return jsonify(payload)
 
 
@@ -872,6 +928,24 @@ def status_page():
 @app.route("/trust")
 def trust():
     return render_template("trust.html", velaru_base=VELARU_BASE, public_url=advertised_url())
+
+
+@app.route("/trust/corrections")
+@app.route("/.well-known/chain-corrections.json")
+def trust_corrections():
+    """Honest chain continuity corrections ledger. Do not paper over gaps."""
+    return jsonify(chain_continuity_mod.load_corrections())
+
+
+@app.route("/ops/chain-continuity")
+def ops_chain_continuity():
+    """Run Sep 1 window + link audit. Writes corrections when material or first run."""
+    if not _ops_authorized():
+        return jsonify({"error": "unauthorized"}), 401
+    force = (request.args.get("force") or "") in ("1", "true", "yes")
+    rows = db.list_bind_events_chronological(limit=10000)
+    result = chain_continuity_mod.record_sep1_audit(rows, force=force)
+    return jsonify(result)
 
 
 @app.route("/start")
