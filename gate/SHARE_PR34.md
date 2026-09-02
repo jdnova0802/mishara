@@ -174,7 +174,7 @@ PASTE END
 | `gate/BRIDGE.md` | **Meter→Aim gap** — forced attach · $5–40M before June · `/bridge` · not a new SKU |
 | `gate/BUYERS.md` | **Full buyer map** — A Gate 1 · B channels · C meter/bridge · D cite · E Aim/Fat · F hard no · internal, no page |
 | `gate/ENTITIES.md` | **Researched entities** — official inboxes from web search (ToS / privacy / press). A payer vs B channel vs skip. No page. |
-| `gate/TUESDAY.md` | **Tue 1 Sep 2026 send sheet** — ten researched official To: lines · paste-ready N1 / broker / counsel |
+| `gate/TUESDAY.md` | **Paste-ready Bind emails** — To / subject / body for the ten researched inboxes |
 | `gate/ALARMING.md` | **Name-only hunt** — A1–A12 (galactic + strange). No pages. No hopium. |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |

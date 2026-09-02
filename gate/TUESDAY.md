@@ -1,66 +1,325 @@
-# Tuesday — 1 Sep 2026
+# Tuesday — paste-ready Bind emails
 
-**Internal. No page. Not a spray list.**
+**Internal. No page.** From: `hello@velaru.xyz`  
+Cap: send these **ten**, then halt. Follow up the same ten once in two days. Do not invent an eleventh logo.
 
-Today is Tuesday. Bind is the throat. This file is the send sheet.
-
-We did the letter, the live door, the cap, the freeze, and the broker ask.
-
-**Sep 2:** warm threads are still zero. That is not the same as “no entities exist.”  
-Researched names and official inboxes: `gate/ENTITIES.md` (web search of ToS / privacy / press / customer pages).  
-The ten slots below are those inboxes — **not** invented GCs, **not** LinkedIn surnames.
-
-If you also have a warm thread, send that first and drop a cold slot so the cap stays ≤10.  
-Patent pro bono stays parallel (`CASH_NOW.md`). It is not a buyer.
+Sources: `gate/ENTITIES.md`. Do not paste `/gaming`. Do not pitch Ω / Fellhatch / H₀ / W₀.
 
 ---
 
-## What is already done (do not redo)
+## 1 — Counsel follow-up (already have the brief)
 
-| Done | Not done |
-|------|----------|
-| Stranger-two on `/` and `/bind-room` | Ten invented GCs |
-| Officer pack JSON | Counsel names in this repo |
-| Live door `https://gate.velaru.xyz/bind-room` | Cloud agent sending mail |
-| Cap: **≤10** N1, then halt and prove | A paid stranger (Gate 1) |
-| At most **one** Testudo-*placing* broker ask | |
+Send the same body to each. This is quotes + a forward, not Bind cash.
 
-Do not paste `/gaming`. Do not pitch Ω / Fellhatch / H₀ / W₀ from Bind.
+**To:** `patent@zyllaw.com`  
+**To:** `vlin@icaplaw.com`  
+**To:** `info@usip.law`  
+**Subject:** Quote + one GC who needs the write-stop exhibit
+
+```
+You already have the Nisaba brief (patent 64/124,027 · Bind Room).
+
+Need two things:
+
+1) Hours + rate to put the officer pack in front of one AI-deployer GC — CGL/gen-AI exclusion (ISO CG 40 47 / 40 48 / 35 08); E&O asking what stops the irreversible write.
+
+2) If you already sit next to that GC, a forward is the whole favor. They get the same pack. We will not sell may. We will not implement the rail on this SKU.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+Do not also re-pitch Curt Lockhart (`curt@usip.law`) for Bind. He quoted $12k. Holding.
 
 ---
 
-## How to send the ten
+## 2 — Mayflower Specialty (channel · intro one insured)
 
-Slots 2–10 are researched official inboxes from `ENTITIES.md`. Slot 1 is counsel you already wrote.
+**To:** `jeremy@mayflowerspecialty.com`  
+**Subject:** One insured whose bind is stuck on the write-stop
 
-Personalize **one line** (product / write). Then send from `hello@velaru.xyz`. Then stop.
+```
+Jeremy —
 
-Skip the freeze list. Skip Testudo-the-MGA. Skip Klaimee. Do not invent a surname to “look more GC.” The published inbox is the To: line.
+You underwrite the Hadron affirmative AI-liability program (D&O / EPL / E&O for companies deploying AI). I am not asking Mayflower to buy anything.
+
+Your client's CGL will not cover the agent. The specialist form still asks what stops the irreversible write.
+
+We are not another policy and not a system badge. Bind Room is the officer pack plus a stranger-openable receipt — $1,750. If you have three names, the three-pack is $4,500.
+
+Ask: intro one GC or Head of Ops whose renewal or new bind is waiting on HITL / commit-gate evidence.
+Halt: we will not replace your form. We will not sell may. We will not implement the rail on this SKU.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/finished
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+Do not also email Relm unless this one is unused. Relm paste is at the bottom.
 
 ---
 
-## The ten slots
+## 3 — Lindy
 
-Sources and role tags: `gate/ENTITIES.md`. One line in brackets is the personalize line.
+**To:** `privacy@lindy.ai`  
+**Subject:** Please route to legal / risk — write-stop evidence for Lindy sends
 
-| # | Slot | To | Shape |
-|---|------|-----|-------|
-| 1 | Counsel who already has the brief — quote **and** ask them to name/forward one GC | the inboxes you already sent (Zyl, ICAP, USIP) | Counsel |
-| 2 | Mayflower Specialty — first US affirmative AI-liability program (Hadron). Ask **intro one insured**. Not “buy Bind.” | `jeremy@mayflowerspecialty.com` | B · channel |
-| 3 | Lindy — AI teammate that sends email / updates tickets / publishes | `privacy@lindy.ai` | A · N1 |
-| 4 | Cognition / Devin — ships production code | `support@cognition.ai` | A · N1 |
-| 5 | ORO Labs — agentic procurement (agents that buy) | `privacy@orolabs.ai` | A · N1 |
-| 6 | Sierra — action-taking customer agents | `privacy@sierra.ai` | A · N1 |
-| 7 | Decagon — agents that refund / cancel / update accounts | `privacy@decagon.ai` | A · N1 |
-| 8 | AIsa — payment + resource layer for agents | `developer@aisa.one` | A · N1 |
-| 9 | Ramp — named Sierra customer; agent on support cases | `legal@ramp.com` | A · N1 |
-| 10 | Rivian — named Sierra customer | `legal@rivian.com` | A · N1 |
+```
+Please route this to legal or risk. Not a privacy request.
 
-Overflow if one bounces: Wayfair `legal@wayfair.com` (also a named Sierra customer). Relm `connect@relminsurance.com` only if slot 2 is unused. Do not add both.
+Lindy already sends email, updates tickets, and publishes docs once a named approver clears the write. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible send.
 
-Slot 2 counts toward the ten. Do not also cold the coverholder. Do not email a C desk.
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
 
-After the tenth send (or after the last real name, if fewer): **halt and prove.** Follow up those same people once in two days. Do not top up with a scrape.
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 4 — Cognition / Devin
+
+**To:** `support@cognition.ai`  
+**Subject:** Please route to legal / risk — write-stop evidence for Devin ships
+
+```
+Please route this to legal or risk. Not a product ticket.
+
+Devin plans, writes, tests, and ships production code. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible ship.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 5 — ORO Labs
+
+**To:** `privacy@orolabs.ai`  
+**Subject:** Please route to legal / risk — write-stop evidence for agentic buy
+
+```
+Please route this to legal or risk. Not a privacy request.
+
+ORO agents buy. Procurement writes are irreversible once the PO or payment leaves. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible buy.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 6 — Sierra
+
+**To:** `privacy@sierra.ai`  
+**Subject:** Please route to legal / risk — write-stop evidence for action-taking agents
+
+```
+Please route this to legal or risk. Not a privacy request.
+
+Sierra agents take actions — returns, account updates, cancellations — across chat, voice, and email. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible write. Same question sits on you and on the brands you deploy for.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 7 — Decagon
+
+**To:** `privacy@decagon.ai`  
+**Subject:** Please route to legal / risk — write-stop evidence for refund / cancel agents
+
+```
+Please route this to legal or risk. Not a privacy request.
+
+Decagon agents refund, cancel, verify identity, and update accounts. Those writes leave the building. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible refund.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 8 — AIsa
+
+**To:** `developer@aisa.one`  
+**Subject:** Please route to legal / risk — write-stop evidence for agent settlement
+
+```
+Please route this to legal or contracts / risk. Not an API ticket.
+
+AIsa is the resource and payment layer for agents — discover, access, settle. Once settlement leaves, the write is irreversible. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible pay.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 9 — Ramp
+
+**To:** `legal@ramp.com`  
+**Subject:** Write-stop evidence for the Sierra support agent
+
+```
+Ramp’s Sierra agent resolves support cases (you’ve said publicly it takes the straightforward ones). CGL will not cover that agent. Specialist E&O will ask what stops the irreversible write the agent is already making on the customer.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF. Underwriters can open it without calling us.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## 10 — Rivian
+
+**To:** `legal@rivian.com`  
+**Subject:** Write-stop evidence for the Sierra customer agent
+
+```
+Rivian is a named Sierra customer. That agent talks to drivers and takes actions. CGL will not cover the agent. Specialist E&O will ask what stops the irreversible write.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF. Underwriters can open it without calling us.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## Overflow — use only if one of 3–10 bounces
+
+**Do not send this and #10.** Swap, do not add.
+
+**To:** `legal@wayfair.com`  
+**Subject:** Write-stop evidence for the Sierra returns agent
+
+```
+Wayfair is a named Sierra customer. The agent runs returns that hit inventory and money. CGL will not cover that agent. Specialist E&O will ask what stops the irreversible write.
+
+Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/bind-room/officer-pack.json
+https://velaru.xyz/verify
+
+Ask: book Bind Room.
+Halt: we will not sell may. We will not implement the rail on this SKU.
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
+
+---
+
+## Overflow — Relm (only if you skip Mayflower)
+
+**Do not send this and #2.**
+
+**To:** `connect@relminsurance.com`  
+**Subject:** One insured whose bind is stuck on the write-stop
+
+```
+You write AI liability. I am not asking Relm to buy Bind.
+
+Your insured’s CGL will not cover the agent. The specialist form still asks what stops the irreversible write.
+
+We are not another policy and not a system badge. Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Three names: $4,500.
+
+Ask: intro one GC or Head of Ops whose renewal or new bind is waiting on HITL / commit-gate evidence.
+Halt: we will not replace your form. We will not sell may. We will not implement the rail on this SKU.
+
+https://gate.velaru.xyz/bind-room
+https://gate.velaru.xyz/finished
+
+Demond Davis
+Nisaba LLC
+hello@velaru.xyz
+```
 
 ---
 
@@ -68,77 +327,11 @@ After the tenth send (or after the last real name, if fewer): **halt and prove.*
 
 E · CDMOs · FM Global · DHS · NAIC · PAS · PA · NVIDIA · Apple · Google · Sequoia · hyperscalers · Microsoft · Mosaic · Verisk · Duck Creek · Stripe · Visa · Klaimee · Testudo-the-MGA · C desks · ghosted MGA archive · defense / nuclear / C2 · cold AI-governance LinkedIn.
 
-A name in `BUYERS.md` / `BLAST.md` is a class or a later desk. Today’s To: lines are the researched inboxes in the table above. Do not expand the table from BLAST.
-
----
-
-## From
-
-`hello@velaru.xyz`
-
-Door: `https://gate.velaru.xyz/bind-room`  
-Officer pack: `https://gate.velaru.xyz/bind-room/officer-pack.json`  
-Verify: `https://velaru.xyz/verify`  
-Finished / three-pack: `https://gate.velaru.xyz/finished`
-
----
-
-## Email — N1 (slots 3–10)
-
-**Subject:** Your CGL will not cover the agent
-
-[one line: their product / renewal / the write that already ships]
-
-Your CGL will not cover the agent. Specialist E&O will ask what stops the irreversible write.
-
-Bind Room is the officer pack plus a stranger-openable receipt — $1,750. Not another governance PDF.
-
-https://gate.velaru.xyz/bind-room  
-https://gate.velaru.xyz/bind-room/officer-pack.json  
-https://velaru.xyz/verify
-
-Ask: Book Bind Room.  
-Halt: We will not sell may. We will not implement the rail on this SKU.
-
----
-
-## Email — broker (slot 2, at most one)
-
-**Subject:** One insured whose bind is stuck on the write-stop
-
-Your client's CGL will not cover the agent. The specialist gen-AI form still asks what stops the irreversible write.
-
-We are not another policy and not a system badge. Bind Room is the officer pack plus a stranger-openable receipt — $1,750. If you have three names, the three-pack is $4,500.
-
-Ask: intro one GC or Head of Ops whose renewal or new bind is waiting on HITL / commit-gate evidence.  
-Halt: we will not replace your form. We will not sell may. We will not implement the rail on this SKU.
-
-https://gate.velaru.xyz/bind-room · three names: https://gate.velaru.xyz/finished
-
-If the intro lands, the insured gets stranger-two unchanged.
-
----
-
-## Email — counsel (slot 1, parallel, not Bind cash)
-
-**Subject:** Quote batch — Bind Room as the write-stop exhibit
-
-You already have the brief. This is the quote ask, not a Bind sale.
-
-Need: hours + rate to put the officer pack in front of one AI-deployer GC (CGL/gen-AI exclusion; E&O asking what stops the irreversible write).
-
-If you already sit next to that GC, a forward is the whole favor. They get stranger-two. We halt the same way: we will not sell may; we will not implement the rail on this SKU.
-
-https://gate.velaru.xyz/bind-room  
-https://gate.velaru.xyz/bind-room/officer-pack.json
-
-Quotes do not replace Gate 1. First stranger paid + proved still is.
-
 ---
 
 ## After send
 
-If they pay: prove the same day (officer pack + verify). That purchase is Gate 1. Then S03. Not before.
+If they pay: prove the same day (officer pack + verify). That purchase is Gate 1.
 
 Hands cap: 4 Bind Rooms / month. Do not promise a partner desk.
 

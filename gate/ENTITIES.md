@@ -6,7 +6,7 @@
 
 A name here is a **researched entity**. The inbox is whatever that company **published**. Most published inboxes are privacy / support / notices — not a named general counsel. That is still research. Inventing `legal@` because the company exists is not.
 
-Tuesday cap stays **≤10**, then halt and prove. Copy lives in `gate/TUESDAY.md`.
+Tuesday cap stays **≤10**, then halt and prove. **Paste-ready emails:** `gate/TUESDAY.md`.
 
 ---
 
