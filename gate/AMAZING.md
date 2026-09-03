@@ -66,4 +66,4 @@ Lid over the six pillars: **`gate/COFFIN.md`** (inventing pauses there).
 
 **Fellhatch founds the objects** (`gate/FELLHATCH.md` FA1–FA7): prototype remaining · type culture · discovery remaining · facing apply · Afterweb instrument · capture-proof object · stop-native matter. Not a sixth sibling. Inventing does not wait on Gate 1; cash does.  
 **Puke inventory** (`gate/PUKE.md` P1–P10): they tested the run, the click, the sample, the event. Remaining was unpaid.  
-**Quark inventory** (`gate/QUARK.md` Q1–Q9): a vial, a bit, a default, a unit string — civilizational blast. The world will not see it coming.
+**Quark inventory** (`gate/QUARK.md` Q1–Q16): a vial, a bit, a default, a unit string, a leading zero, a decimal, a leftover flag — civilizational blast. The world will not see it coming.

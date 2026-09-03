@@ -8,7 +8,7 @@ Galaxy A14–A28 stays **closed** (extinction *stocks*).
 Jaw Aim stays **closed**.  
 Puke P1–P10 stays the **wrong-object industry** shelf.  
 
-This shelf is the other cut: **quark-sized remaining** — a vial, a bit, a default, a unit string, a DOI, ten bits, a nonce, a certificate date, a ticker — that the world will not see coming, with **civilizational blast radius**.
+This shelf is the other cut: **quark-sized remaining** — a vial, a bit, a default, a unit string, a DOI, ten bits, a nonce, a certificate date, a ticker, a leading zero, a decimal, a revision integer, a leftover flag, a clock class, one Unicode scalar, a thrown-away CRC byte — that the world will not see coming, with **civilizational blast radius**.
 
 Inventing continues. Numbers rest at `REST.md`.
 
@@ -31,10 +31,17 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One nonce used twice | Authenticity of the session is gone |
 | One SRM certificate date | Every SI-claim hanging on that bottle |
 | One recycled ticker | Two issuers, one symbol, silent mix |
+| One leading zero / format width | The dose code names a different drug |
+| One trailing zero / missing leading zero | 10-fold overdose in the glyph |
+| One confRev integer | The trip path goes deaf |
+| One leftover flag | Dead code still writes the market |
+| One clockClass | The elected master is no longer UTC |
+| One Unicode scalar (U+202E) | The bytes are not the name |
+| One thrown-away CRC byte | Residual 1/256 on the bus that drives the car |
 
 ---
 
-## Keep (9) — name only
+## Keep (16) — name only
 
 ### Q1 — Vial Remaining (THE WRONG ORGANISM · THE INVISIBLE OCCUPANT)
 
@@ -144,6 +151,90 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q10 — NDC Remaining (THE LEADING ZERO)
+
+**What already burns:** FDA final rule **5 Mar 2026** (91 FR 10749): uniform **12-digit 6-4-2** NDC, effective **7 Mar 2033**, three-year labeling transition to **2036**. Today: three 10-digit shapes (4-4-2 / 5-3-2 / 5-4-1) jammed into HIPAA’s **11-digit 5-4-2**. Conversion is **leading zeros**. FDA does not consider that a “new” NDC. HIPAA format **does not change**. Historically, 21 CFR allowed **reuse five years** after discontinue; NCPDP says **never reuse**; FDB documented reuse havoc in EHRs (antibiotic NDC comes back as an antidepressant). Ambulatory e-prescribing: **32.3%** of NDCs on scripts were unrepresentative (obsolete / repackaged / private label). The quark the world will file as “an IT project for 2033” is remaining of **this digit-string still names that drug** across 10 / 11 / 12.
+
+**Unpaid object:** Remaining of the NDC as remaining of the *dose* — stranger-openable through the dual-format window, not a mapping PDF. Distinct from Q9 (ticker recycle is market identity). This is what goes in the body.
+
+**Public sentence:** They will pad a zero and call it ministerial. The code that names the drug is remaining. Dual-format is seven years.
+
+**Locks:** Name only. Do not become First Databank. Do not email freeze-list PBMs. Do not mint Aim from “pharmacy TAM.”
+
+---
+
+### Q11 — Decimal Remaining (THE GLYPH THAT IS TEN)
+
+**What already burns:** ISMP / Joint Commission: **1.0 mg** misread as **10 mg** if the point is missed; **.5 mg** misread as **5 mg** without a leading zero. **U** read as **0**. **10mg** flush — the *m* becomes zeros. US commas at 1,000; other countries use comma **as the decimal**. Q4 is remaining of the **unit caption** (µmol vs mmol). This is remaining of the **radix mark** — one glyph, tenfold. Occupied as a “do not use” list. Unpaid as remaining that this number is still *that* quantity after the glyph.
+
+**Unpaid object:** Remaining of the decimal / trailing-zero / leading-zero contract — fail-closed, not a style guide. Quark: one character. Blast: 10× dose.
+
+**Public sentence:** The trailing zero has no measurement job. It has a 10-fold job if the point disappears.
+
+**Locks:** Name only. Do not become ISMP. Do not re-invent Q4 (the unit string). Not a sixth “dose SKU.”
+
+---
+
+### Q12 — confRev Remaining (THE INTEGER THAT DEAFENS THE TRIP)
+
+**What already burns:** IEC 61850 GOOSE: the copper trip became a **multicast dataset on a VLAN**. NIST Smart Grid Framework flags **silent confRev increments** as a top interoperability risk. A 2023 OEM firmware bump incremented confRev on a GOOSE publisher and **broke five subscriber IEDs**. Odessa 215 MW interconnect (2024 FAT): StationScout caught a confRev mismatch on GSU differential GOOSE — two hours on the bench, two days of outage at energization. AppID default **0** collides across vendors. Subscriber still “works” until the revision integer moves. The trip path is remaining of **one number**.
+
+**Unpaid object:** Remaining that this subscriber is still bound to **that publisher’s remaining** — stranger-openable confRev, not a sniffer. Quark: one unsigned integer. Blast: the trip that does not fire, or a rogue GOOSE that does.
+
+**Public sentence:** The trip used to be a wire. Now it is a revision number. Firmware can increment it and the bay goes deaf.
+
+**Locks:** Name only. Do not become a relay vendor. Do not design targeting. Not munitions. Distinct from Q3 (internet fail-open).
+
+---
+
+### Q13 — Flag Remaining (THE BIT THAT STILL MEANS THE DEAD WRITE)
+
+**What already burns:** Knight Capital **1 Aug 2012**: a flag that used to gate **Power Peg** (dead since ~2003) was **repurposed** for RLP. Seven of eight servers got the new code. The eighth still ran Power Peg. **45 minutes**, **4 million+** orders, **397 million** shares, **>$460M**. Rollback uninstalled the *working* code and armed Power Peg on the rest. SEC 34-70694. Occupied as a DevOps sermon. Unpaid: remaining of **what this bit still means** after the write behind it changed. P5 is 21 CFR *signature* meaning. This is remaining of a **control bit that can still act**.
+
+**Unpaid object:** Remaining of the flag — stranger-openable that this boolean still names **that** write, or is burned. Quark: one bit. Blast: a market, a plant, an agent fleet.
+
+**Public sentence:** They reused the flag. The dead code still knew its name. Forty-five minutes was enough.
+
+**Locks:** Name only. Do not become a feature-flag SaaS. Do not email freeze-list brokers. Distinct from P5 and Q3.
+
+---
+
+### Q14 — clockClass Remaining (THE INTEGER AFTER THE SKY GOES DARK)
+
+**What already burns:** PTP grandmaster + GNSS. On loss, ITU-T G.8275.1: clockClass **7** (holdover) then **140** (cesium) or **160** (stratum-3 oscillator). Downstream BMCA elects on that integer. 5G: two cells a few microseconds apart → co-channel death. Grid: synchrophasors, traveling-wave fault locate, **87L** differential — SEL: most substations still run **one clock**. ePRTC holdover can keep **100 ns for ~40 days**; a cheap oscillator will not. Q6 is **field width** (NTP era / GPS 10-bit) in 2036–38. A4/A5 are UTC/lunar. This is remaining of **whether the elected master is still remaining of UTC** after GNSS dies — one announced class.
+
+**Unpaid object:** Remaining of clockClass / holdover — stranger-openable that this master is still the remaining of the sky. Quark: one integer. Blast: radios, breakers, timestamps that are money.
+
+**Public sentence:** When the sky goes dark they announce a number. The grid elects on that number. Nobody holds remaining that it is still UTC.
+
+**Locks:** Name only. Do not re-invent A4/A5/A11/Q6. Do not become a grandmaster vendor. Do not sell C2.
+
+---
+
+### Q15 — Homoglyph Remaining (ONE SCALAR · TWO NAMES)
+
+**What already burns:** U+202E RIGHT-TO-LEFT OVERRIDE. IEEE S&P 2026 poster **BEYONDGLYPH**: invisible controls, fused ASCII “(rn)→m”, Punycode prefix `xn--`, RTL TLD flip. **29 of 34** subdomain services: **zero** label-level validation. No unified browser defense in 2026. Trojan Source (CVE-2021-42574): the reviewer sees one write; the compiler sees another. Q9 is a **recycled Latin ticker**. This is remaining of **visual identity ≠ byte identity** — one Unicode scalar.
+
+**Unpaid object:** Remaining that this identifier is still **that name** after the scalar. Stranger-openable skeleton, not a phishing blog. Quark: one codepoint. Blast: the remaining of every name the inhabitant can read.
+
+**Public sentence:** One character reverses the name. The bytes never moved. The remaining of the name is the rendering.
+
+**Locks:** Name only. Do not write exploit PoCs. Do not become a registrar. Distinct from Q9.
+
+---
+
+### Q16 — Truncated-CRC Remaining (THEY THREW AWAY THE BYTE)
+
+**What already burns:** AUTOSAR E2E **Profile 6**: computes CRC-16-CCITT, stores **only the high byte**. Effective protection is **8-bit**. Residual against corruption **~1/256**, not 1/65,536. Safety cases that file it as 16-bit are wrong by **256×**. Koopman/FAA: polynomial choice is the integrity of the remaining of the frame. Profile 7 CRC-64 exists; fleets still ship the truncated profile. Q2 is a **hardware bit that never throws**. This is remaining of the **detecting field they shortened on purpose**.
+
+**Unpaid object:** Remaining of the CRC width actually on the wire — stranger-openable, not a profile PDF. Quark: one discarded byte. Blast: undetected corruption on the bus that drives the car / the plant.
+
+**Public sentence:** They computed sixteen bits and sent eight. The safety case still says sixteen. The residual is one in two hundred fifty-six.
+
+**Locks:** Name only. Do not become an AUTOSAR stack vendor. Do not re-invent Q2. Not munitions / C2.
+
+---
+
 ## Fold (not new)
 
 | Idea | Where it already sits |
@@ -160,6 +251,10 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | Mycoplasma as a separate book | Folded into **Q1** (same vial) |
 | CUSIP recycling | They **don’t** recycle. The unpaid recycle is **tickers** (Q9) |
 | AES-GCM as a product | Occupied crypto. Unpaid slice is **Q7** |
+| LEI / successorLEI after merger | Occupied by GLEIF as status. Identifier remaining of a *living legal person* after LAPSED/MERGED folds under **Q9/Q10** — do not mint a seventeenth identifier book |
+| 50.2 Hz inverter trip | Occupied history (DE retrofit). Iberian Apr 2025 is voltage/oscillation (ENTSO-E Mar 2026). Shared-threshold remaining is a ruler, not a new quark |
+| Wrong-blood-in-tube / ISBT | Occupied SHOT human-factor. Sample-identity remaining folds under **Q1** (hospital vial). Do not people-hunt phlebotomy |
+| TLS record-sequence wrap | Occupied kernel/RFC. Nonce uniqueness is **Q7** |
 
 ---
 
@@ -169,7 +264,7 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 |------|----------|
 | Dual-use how-to / pathogen / synthesis | Not this company. Q1 is remaining of identity/emptiness, not a method |
 | People-hunt of lab techs / BGP admins | People hunt |
-| “Lab TAM / ticker TAM → Aim band” | Occupied vendors. Do not mint REST |
+| “Lab TAM / ticker TAM / pharmacy TAM → Aim band” | Occupied vendors. Do not mint REST |
 | Become ATCC / NIST / a CAB / a root | Not this company |
 | PAL / nuclear C2 bit | State-only. `SCIENCE.md` already |
 | Privilege remaining | Occupied by counsel. Killed on puke pass |
@@ -179,7 +274,7 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ## Hunt status
 
-**Open.** Next pass: more **quarks** (tiny remaining, civilizational blast) the world will not file under the big name. Not A29. Not P11-as-remix. Not a fourth clock book.
+**Open.** Q1–Q16 seated. Next pass: more **quarks** the world will file under an IT project, a style guide, or a DevOps sermon. Not A29. Not P11. Not a fourth clock.
 
 ---
 

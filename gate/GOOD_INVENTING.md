@@ -19,7 +19,7 @@
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
 **Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  
 **Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.  
-**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q9. Not a fourth clock. Name only.
+**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q16. Not a fourth clock. Name only.
 
 ---
 
@@ -768,6 +768,13 @@ Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new i
 | **Q7** | Nonce Remaining | One number used twice; authenticity of the channel is gone |
 | **Q8** | SRM Remaining | One date on the bottle; the SI-claim hangs on it |
 | **Q9** | Ticker Remaining | Recycled symbol; two issuers, silent mix |
+| **Q10** | NDC Remaining | Leading zero / 10·11·12-digit dual-format; the dose code |
+| **Q11** | Decimal Remaining | Trailing zero / missing leading zero; 10-fold in the glyph |
+| **Q12** | confRev Remaining | One integer; GOOSE trip path goes deaf |
+| **Q13** | Flag Remaining | Leftover bit still means the dead write (Power Peg class) |
+| **Q14** | clockClass Remaining | After GNSS dies, the grid elects on one integer |
+| **Q15** | Homoglyph Remaining | One Unicode scalar; visual name ≠ byte name |
+| **Q16** | Truncated-CRC Remaining | CRC-16 computed, one byte sent; residual 1/256 |
 
 ---
 
