@@ -46,6 +46,24 @@ Fellhatch is a **breakthrough lab**. The product is a civilizational object that
 
 **Make without apply** = museum. **Train without make** = Anthropic. **Apply without Gate** = unbound write.
 
+---
+
+## What complements this / what dies (looked up 2026-09-03)
+
+Bell Labs worked because AT&T **owned the network it applied into**. After the 1984 breakup the translation bridge died. Xerox PARC invented; Apple and Cisco captured. Train-only labs are rebuilding **consulting** as the bridge, not remaining.
+
+| Complement (already ours or already named) | Looked-up incumbent | Dies extremely if Fellhatch is real |
+|--------------------------------------------|---------------------|-------------------------------------|
+| **Gate** — stop | Anthropic RSP / DeepMind FSF / CAISI voluntary eval | Policy PDF as the stop. Eval without stranger prove |
+| **Prove** — stranger-openable remaining | Ode with Anthropic **$1.5B** (Jul 2026) · OpenAI Deployment Company · Accenture/Deloitte FDE | **Apply-as-staffing.** Embed engineers, no remaining on the write |
+| **Apply into a live write you already restrain** (Bind / one close) | Same Ode / Deployment class | Implementation JV as the civilizational apply organ |
+| **Matter remaining** (hatch gear · C7 physical QIC — already named) | Anthropic **Model Hardware Standard** (Aug 27, 2026, Janelia) — agents drive scopes, arms, lasers | **USB-for-robots as sufficient apply.** Spec + safety eval, no remaining, no Gate |
+| **Make that does not leave the hatch** | PARC / Bell capture-failure; museum FROs | Invent-and-lose. Paper-only breakthrough shops |
+
+**Do not become:** Ode. MHS. A sixth Claude. Emilia “Model-to-Matter” (IETF draft, **not deployed**, no wet lab) — protocol cousin, not the lab. Do not email Anthropic / Blackstone / Janelia.
+
+The fourth verb is not new. It is **Gate**. Make · train · apply · **stop**. Without stop, the breakthrough is an unbound write. Without a live write to apply into, you are PARC.
+
 Family stays five. No `/fellhatch` until they say ship. Do not pitch this from Bind Room. Fellhatch still does not raise Aim. Cash still Gate 1.
 
 ---
@@ -103,6 +121,6 @@ Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 
 ## One line
 
-> **Gate stops. Fellhatch makes, trains, and applies civilizational breakthroughs** — remaining on writes/agents, not another model shop. Gate can still restrain the lab. Name only. Not munitions. Not Bind.
+> **Gate stops. Fellhatch makes, trains, and applies.** Ode / MHS / eval-PDF die if that is real. Not a model shop. Name only. Not Bind.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*
