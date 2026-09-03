@@ -19,7 +19,7 @@
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
 **Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  
 **Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.  
-**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q16. Not a fourth clock. Name only.
+**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q25. Q17–Q25 cash gravity is shape, not REST. Not a fourth clock. Name only.
 
 ---
 
@@ -775,6 +775,15 @@ Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new i
 | **Q14** | clockClass Remaining | After GNSS dies, the grid elects on one integer |
 | **Q15** | Homoglyph Remaining | One Unicode scalar; visual name ≠ byte name |
 | **Q16** | Truncated-CRC Remaining | CRC-16 computed, one byte sent; residual 1/256 |
+| **Q17** | Number Remaining | Recycled MSISDN still names the previous owner (Princeton 171/259) |
+| **Q18** | Unlearn Remaining | Fact still linearly decodable from weights after “unlearn” |
+| **Q19** | SSI Remaining | Stale standing instruction; T+1 has no afternoon to fix it |
+| **Q20** | Status-Bit Remaining | One bit in the W3C list; revoked credential still treated live |
+| **Q21** | Ghost Remaining | Soft-deleted vector still reconstructible / still steering RAG |
+| **Q22** | Redaction Remaining | Black box is not gone; span still in another layer |
+| **Q23** | Serial Remaining | DSCSA pack serial status unpaid at scan (not the NDC class) |
+| **Q24** | UDI Remaining | Device code: label / GUDID / complaint file allowed to disagree |
+| **Q25** | IMEI Remaining | Fifteen digits; clean at sale, flagged after the money moved |
 
 ---
 

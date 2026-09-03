@@ -8,7 +8,7 @@ Galaxy A14–A28 stays **closed** (extinction *stocks*).
 Jaw Aim stays **closed**.  
 Puke P1–P10 stays the **wrong-object industry** shelf.  
 
-This shelf is the other cut: **quark-sized remaining** — a vial, a bit, a default, a unit string, a DOI, ten bits, a nonce, a certificate date, a ticker, a leading zero, a decimal, a revision integer, a leftover flag, a clock class, one Unicode scalar, a thrown-away CRC byte — that the world will not see coming, with **civilizational blast radius**.
+This shelf is the other cut: **quark-sized remaining** — a vial, a bit, a default, a unit string, a DOI, ten bits, a nonce, a certificate date, a ticker, a leading zero, a decimal, a revision integer, a leftover flag, a clock class, one Unicode scalar, a thrown-away CRC byte, ten recycled digits, a fact in the weights, an SSI, a status bit, a ghost vector, a black box, a pack serial, a device UDI, fifteen IMEI digits — that the world will not see coming, with **civilizational blast radius**.
 
 Inventing continues. Numbers rest at `REST.md`.
 
@@ -38,10 +38,19 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One clockClass | The elected master is no longer UTC |
 | One Unicode scalar (U+202E) | The bytes are not the name |
 | One thrown-away CRC byte | Residual 1/256 on the bus that drives the car |
+| Ten recycled digits | The 2FA still names the previous owner |
+| One fact after “unlearn” | The weights still decode the forgotten write |
+| One stale SSI | The trade settles to the wrong account |
+| One bit in the status list | The wallet still treats a revoked credential as live |
+| One soft-deleted vector | The index still reconstructs / still steers retrieval |
+| One black box | The span is still in another layer |
+| One pack serial | Recalled / destroyed still scans as saleable |
+| One UDI | The label, the GUDID row, and the device disagree |
+| Fifteen IMEI digits | Clean at sale; flagged after the money moved |
 
 ---
 
-## Keep (16) — name only
+## Keep (25) — name only
 
 ### Q1 — Vial Remaining (THE WRONG ORGANISM · THE INVISIBLE OCCUPANT)
 
@@ -235,6 +244,152 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q17 — Number Remaining (THE TEN DIGITS THAT STILL NAME SOMEONE ELSE)
+
+**What already burns:** FCC: ~**35 million** US numbers disconnected each year and made available for reassignment. Princeton CITP: **259** numbers sampled at two carriers; **171 / 259 (66%)** had a linked account on at least one of Amazon, AOL, Facebook, Google, PayPal, Yahoo; **100 / 259** tied to breached credentials. Honeypot: **19 / 200** still receiving OTPs and pharmacy calls in one week. Occupied: Telesign / Prove / people-search **lookup** APIs. FCC Reassigned Numbers Database returns **yes / no / no-data** for *robocall consent* — not remaining of 2FA. Distinct from Q9 (ticker recycle is market identity). This is remaining of **this 10-digit still naming that person**.
+
+**Unpaid object:** Remaining that this MSISDN is still remaining of **that inhabitant** at this auth. Stranger-openable, not a deactivation feed. Quark: ten recycled digits. Blast: every SMS 2FA / recovery stack that treats the number as durable identity.
+
+**Public sentence:** The number came back. It still opens the previous owner's accounts. The lookup said the line was live.
+
+**Cash gravity:** Adjacent paid = deactivation / reputation lookup and TCPA safe-harbor queries. Unpaid remaining = **per-auth remaining** on the SMS 2FA stack. Shape, not REST. Do not email Telesign / Prove.
+
+**Locks:** Name only. Do not become a carrier or an identity API. Distinct from Q9. Not a people hunt of subscribers.
+
+---
+
+### Q18 — Unlearn Remaining (THE FACT STILL IN THE WEIGHTS)
+
+**What already burns:** EACL 2026 (Goel, Ritter, Gurevych): after unlearning algorithms “succeed,” forgotten data remains **linearly decodable** from internal representations. PID audit: **residual knowledge** (redundant information shared by base and “unlearned” model) correlates with reconstruction attacks. Current audits check *outputs* (weak unlearning). GDPR Art. 17 asks for the fact to be gone. Occupied as a machine-unlearning paper / DSAR product category. Distinct from Q5 (the DOI still cited after retraction) and Q21 (the *index*, not the weights).
+
+**Unpaid object:** Remaining that this fact is still gone from the **weights** after the erasure write. Stranger-openable prove, not a TOFU leaderboard. Quark: one fact. Blast: every model that filed “forgotten.”
+
+**Public sentence:** They ran unlearn. The behavior changed. The fact is still in the weights.
+
+**Cash gravity:** Adjacent paid = DSAR processors and unlearning toolkits. Unpaid remaining = **per-erasure prove**. Shape, not REST. Do not become an unlearning vendor.
+
+**Locks:** Name only. Do not write extraction / reconstruction steps. Distinct from Q5 and Q21.
+
+---
+
+### Q19 — SSI Remaining (THE INSTRUCTION THAT IS STILL THAT ACCOUNT TODAY)
+
+**What already burns:** DTCC **17 Jun 2026**: Standing Settlement Instructions are the most overlooked risk to Europe **T+1** (Oct **2027**). FMSB Core Principle 1: automate SSIs by **end of 2026**. ISSA: SSI-related issues among the most common settlement failures. Cognizant citing Firebrand: data quality including stale SSIs ~**21%** of fails. Euroclear: only **65%** of instructions match on trade date; PSET is a frequent mismatch field. DTCC ALERT occupies the golden-source *data*. CSDR already levies **daily cash penalties** on fails. Occupied as a repository. Unpaid as remaining that this instruction is still **that account today**.
+
+**Unpaid object:** Remaining of the SSI — stranger-openable that this standing instruction still names that place-of-settlement / that account *now*. Quark: one stale instruction. Blast: unmatched fail, cascade, penalty, the wrong remaining in the wrong CSD.
+
+**Public sentence:** The trade matched on the symbol. The instruction still named last year's account. T+1 has no afternoon to fix it.
+
+**Cash gravity:** Adjacent paid = ALERT / SSI-repository subscriptions. Unpaid remaining = **per-SSI remaining**; the fail tax is already CSDR. Shape, not REST. Do not email DTCC. Do not mint a T+1 band.
+
+**Locks:** Name only. Do not become a CSD. Distinct from Q9 (ticker). UETR is occupied SWIFT tracker — do not mint.
+
+---
+
+### Q20 — Status-Bit Remaining (ONE BIT IN THE LIST)
+
+**What already burns:** W3C Bitstring Status List v1.0: one bit per credential — **0** live / **1** revoked or suspended. Default list **131,072** entries (16 KB uncompressed). eIDAS2 / mDL / EBSI wallets already ship against the spec. Occupied as a W3C Recommendation. Unpaid as stranger-openable remaining of **that bit**. Distinct from Q2 (hardware SDC that never throws) and Q13 (a leftover *code* flag that still acts).
+
+**Unpaid object:** Remaining that this bit is still remaining of that credential's status at verify. Quark: one bit in a gzipped list. Blast: a revoked mDL / VC still treated as live.
+
+**Public sentence:** The wallet checked a bit. Nobody holds remaining that the bit is still the remaining of the revoke.
+
+**Cash gravity:** Adjacent paid = issuers already paying to issue wallets / mDLs. Unpaid remaining = **per-verify remaining**. Shape, not REST.
+
+**Locks:** Name only. Do not become a wallet vendor. Distinct from Q2 and Q13.
+
+---
+
+### Q21 — Ghost Remaining (THE VECTOR AFTER DELETE)
+
+**What already burns:** arXiv **2606.18497** Ghost Vectors (Jun 2026): HNSW **soft-delete** leaves the embedding on disk; Vec2Text recovers **25.5%** exact names (Wikipedia BLP) and **100%** age and gender on NIH Synthea. arXiv **2608.20352** Ghost Echoes: the API delete is correct; the deleted record still shifts the retrieval centroid (median drift **0.1522**; **53 / 54** paired comparisons; rebuilds do not kill the echo). Occupied as a vector-DB feature (tombstone). Distinct from Q18 (weights, not the index).
+
+**Unpaid object:** Remaining that this embedding is gone from the **index and the topology** after delete. Stranger-openable prove, not a vacuum cron. Quark: one tombstoned vector. Blast: RAG that still reconstructs / still steers after “erased.”
+
+**Public sentence:** They deleted it. The API agreed. The graph still knew the neighbor.
+
+**Cash gravity:** Adjacent paid = vector DB / RAG already on the invoice. Unpaid remaining = **per-delete prove**. Shape, not REST. Do not become Pinecone.
+
+**Locks:** Name only. Do not write reconstruction / inversion steps. Distinct from Q18.
+
+---
+
+### Q22 — Redaction Remaining (THE BLACK BOX IS NOT GONE)
+
+**What already burns:** Dec **2025** DOJ Epstein-files release: highlighting was filed as redaction; the text layer survived. Sherlock Forensics **2026**: **4–9%** of production-redacted PDFs fail depending on source; visual-only overlay and OCR-layer-behind-scan are the two common patterns. Occupied as an e-discovery / redact-tool category. Unpaid as remaining that this span is gone from **all layers**. Distinct from Q5 (the DOI still cited; this is the bytes still in the production).
+
+**Unpaid object:** Remaining of the span — stranger-openable that it is gone from content stream, OCR, thumbnails, attachments, metadata. Quark: one black box. Blast: privilege, FOIA, every production that looked redacted.
+
+**Public sentence:** They put a black box on it. The words were still in the file. The production went out.
+
+**Cash gravity:** Adjacent paid = redact / e-discovery vendors. Unpaid remaining = **per-production remaining**. Shape, not REST.
+
+**Locks:** Name only. **Do not write extract / unredact steps.** Do not become Relativity. Distinct from Q5.
+
+---
+
+### Q23 — Serial Remaining (THIS PACK'S STATUS)
+
+**What already burns:** DSCSA interoperability: verification of *this serial* (commissioned / decommissioned / destroyed / recalled / suspect) is **producer policy** returned by verification APIs. TraceLink / Movilitas occupy the pedigree / verify *pipe*. Q10 is NDC = **product class**. This is remaining of the **instance**. Occupied as a network subscription. Unpaid as remaining of **this serial's status**, stranger-openable.
+
+**Unpaid object:** Remaining that this pack serial still has **that** status at scan. Quark: one serial. Blast: a recalled / destroyed pack that still saleable-returns.
+
+**Public sentence:** The barcode matched the class. The serial's status was already dead. The scan did not hold remaining.
+
+**Cash gravity:** Adjacent paid = verification / pedigree APIs. Unpaid remaining = **per-scan remaining**. Shape, not REST. Do not email TraceLink.
+
+**Locks:** Name only. Do not become a DSCSA network. Distinct from Q10. Not dual-use how-to.
+
+---
+
+### Q24 — UDI Remaining (THE DEVICE CODE)
+
+**What already burns:** FDA Unique Device Identification + GUDID. Compliance Program **7382.850** / QMSR live **2 Feb 2026**: UDI is an inspection element; label, GUDID row, and quality records must match; mismatch can be **misbranding**. AccessGUDID occupies the *catalog*. EU EUDAMED UDI deadlines land in **2026**. Q10 is the **drug** class code. Q23 is the **pharma pack** serial. This is remaining of the **device identifier** still naming that device.
+
+**Unpaid object:** Remaining that this UDI is still remaining of **that device** across label / GUDID / complaint file. Stranger-openable, not a GS1 license. Quark: one device code. Blast: the recall that cannot find the unit; the 483 that starts as a string mismatch.
+
+**Public sentence:** Three places name the device. They are allowed to disagree. Remaining of the name is unpaid.
+
+**Cash gravity:** Adjacent paid = GS1 issuance and GUDID submission. Unpaid remaining = **per-scan remaining** of this UDI still that device. Shape, not REST. Do not become GS1.
+
+**Locks:** Name only. Distinct from Q10 and Q23. Do not people-hunt labelers.
+
+---
+
+### Q25 — IMEI Remaining (THE FIFTEEN DIGITS OF THE HANDSET)
+
+**What already burns:** GSMA Device Check / Device Registry occupies lost / stolen / finance-claim **lookup**. “GSMA clean” is a snapshot at query time; the flag can land **after** the wholesale money moved — the trade already writes 30-/60-day re-check clauses. Distinct from Q17 (MSISDN names a *person*) and Q23 (pharma pack serial). Occupied as a per-IMEI check. Unpaid as remaining that this IMEI still names **that device's status now**.
+
+**Unpaid object:** Remaining of the IMEI — stranger-openable that this 15-digit still remaining of that handset's status. Quark: fifteen digits. Blast: stolen / financed devices that entered the chain on a clean check.
+
+**Public sentence:** The check was clean at sale. The flag arrived later. Nobody held remaining of the status.
+
+**Cash gravity:** Adjacent paid = GSMA Device Check and wrapper per-IMEI fees. Unpaid remaining = **per-check remaining** of status, not another lookup SKU. Shape, not REST. Do not email GSMA.
+
+**Locks:** Name only. Do not become CheckMEND. Distinct from Q17 and Q23. Not a people hunt of resellers.
+
+---
+
+## Cash gravity (shape, not REST)
+
+Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
+
+| # | Adjacent paid | Unpaid remaining | Shape |
+|---|----------------|------------------|--------|
+| Q17 | Telesign / Prove / FCC RND | Number still that person | Per-auth remaining |
+| Q18 | DSAR / unlearning toolkits | Fact still in the weights | Per-erasure prove |
+| Q19 | DTCC ALERT / SSI repositories | SSI still that account today | Per-SSI remaining; CSDR fail tax |
+| Q20 | Wallet / mDL issuers | Bit still live | Per-verify remaining |
+| Q21 | Vector DB / RAG | Embedding still reconstructible / still steering | Per-delete prove |
+| Q22 | Redact / e-discovery vendors | Span still gone from all layers | Per-production remaining |
+| Q23 | DSCSA verification / pedigree | Serial still that status | Per-scan remaining |
+| Q24 | GS1 / GUDID submission | UDI still that device | Per-scan remaining |
+| Q25 | GSMA Device Check / wrappers | IMEI still that status now | Per-check remaining |
+
+Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names where money already sits **next door**.
+
+---
+
 ## Fold (not new)
 
 | Idea | Where it already sits |
@@ -255,6 +410,11 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | 50.2 Hz inverter trip | Occupied history (DE retrofit). Iberian Apr 2025 is voltage/oscillation (ENTSO-E Mar 2026). Shared-threshold remaining is a ruler, not a new quark |
 | Wrong-blood-in-tube / ISBT | Occupied SHOT human-factor. Sample-identity remaining folds under **Q1** (hospital vial). Do not people-hunt phlebotomy |
 | TLS record-sequence wrap | Occupied kernel/RFC. Nonce uniqueness is **Q7** |
+| SWIFT UETR | Occupied tracker. Remaining of the *instruction still that account* is **Q19**. Do not mint a UETR book. Do not email SWIFT |
+| Network token / VTS / MDES lifecycle | Occupied scheme mapping. Credential-status remaining folds under **Q20**. Do not become Visa. Do not email Stripe / Visa |
+| npm yank / lockfile after unpublish | The write after kill still installed. Folds under **Q5** (zombie). Do not mint a left-pad card |
+| VIN / odometer / CARFAX / NMVTIS | Occupied history *report*. Remaining of the integer is a people-hunt of dealers — do not mint |
+| JWT after logout | Occupied auth vendors. Session remaining is not a new quark |
 
 ---
 
@@ -264,8 +424,9 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 |------|----------|
 | Dual-use how-to / pathogen / synthesis | Not this company. Q1 is remaining of identity/emptiness, not a method |
 | People-hunt of lab techs / BGP admins | People hunt |
-| “Lab TAM / ticker TAM / pharmacy TAM → Aim band” | Occupied vendors. Do not mint REST |
+| “Lab TAM / ticker TAM / pharmacy TAM / phone TAM / SSI TAM / RAG TAM → Aim band” | Occupied vendors. Do not mint REST |
 | Become ATCC / NIST / a CAB / a root | Not this company |
+| Become Telesign / Prove / DTCC / TraceLink / GSMA / Visa | Occupied pipes. Remaining sits next door. Do not email them |
 | PAL / nuclear C2 bit | State-only. `SCIENCE.md` already |
 | Privilege remaining | Occupied by counsel. Killed on puke pass |
 | Being / consciousness / simulation | `cleverer_layer` is null |
@@ -274,7 +435,7 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ## Hunt status
 
-**Open.** Q1–Q16 seated. Next pass: more **quarks** the world will file under an IT project, a style guide, or a DevOps sermon. Not A29. Not P11. Not a fourth clock.
+**Open.** Q1–Q25 seated. Q17–Q25 add **cash gravity** (shape, not REST): remaining sitting next to pipes that already charge. Next pass: more **quarks** the world will file under an IT project, a style guide, a DevOps sermon, or a lookup API. Not A29. Not P11. Not a fourth clock. Do not mint bands from the gravity table.
 
 ---
 
@@ -282,8 +443,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list.  
-- Do not mint REST bands.  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa).  
+- Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · name only · inventing continues*
