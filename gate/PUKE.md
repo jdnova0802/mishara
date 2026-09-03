@@ -185,7 +185,8 @@ The shiny lanes already have companies. These lanes are **boring, massive, and e
 
 ## Hunt status
 
-**Open.** This shelf is the inverse-Elon inventory. Galaxy and jaw Aim hunts stay closed. Next pass hunts more **wrong-object industries** (they built the factory; remaining is unpaid), not A29 remixes, not U/X as if unseated.
+**Open.** This shelf is the inverse-Elon inventory. Galaxy and jaw Aim hunts stay closed. Next pass hunts more **wrong-object industries** (they built the factory; remaining is unpaid), not A29 remixes, not U/X as if unseated.  
+**Quark shelf (different cut):** `gate/QUARK.md` — tiny remaining, civilizational blast. Not P11.
 
 ---
 

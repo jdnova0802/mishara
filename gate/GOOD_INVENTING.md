@@ -18,7 +18,8 @@
 **What makes the register look like a joke as a ruler:** `gate/BULGE.md` — looked-up denominators. Not a 22 wire.  
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
 **Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  
-**Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.
+**Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.  
+**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q9. Not a fourth clock. Name only.
 
 ---
 
@@ -753,6 +754,20 @@ Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new i
 | **P8** | Survival Remaining | 41% no-survival; escrow is a pile with a calendar |
 | **P9** | Act-Idempotency Remaining | Stripe owns the charge key; irreversible acts retry as new |
 | **P10** | Unpublished Remaining | Outbox is a table; unpublished committed write is remaining |
+
+**Quark (tiny remaining — civilizational blast).** Full cards: `gate/QUARK.md`. Not A29. Not P11.
+
+| # | Name | Object |
+|---|------|--------|
+| **Q1** | Vial Remaining | One vial: wrong organism (ICLAC 560 no authentic stock) + invisible occupant |
+| **Q2** | Silent-Bit Remaining | One bit that never throws; the model keeps training |
+| **Q3** | Fail-Open Remaining | One RFC default: cannot prove remaining → accept the write |
+| **Q4** | Unit-Binding Remaining | One string; a thousandfold lives in the caption |
+| **Q5** | Zombie Remaining | One DOI after the kill; medicine still cites the corpse |
+| **Q6** | Era-Field Remaining | 10-bit GPS week + inferred NTP era in the same window as “2038” |
+| **Q7** | Nonce Remaining | One number used twice; authenticity of the channel is gone |
+| **Q8** | SRM Remaining | One date on the bottle; the SI-claim hangs on it |
+| **Q9** | Ticker Remaining | Recycled symbol; two issuers, silent mix |
 
 ---
 

@@ -81,7 +81,8 @@ Do not mint bands from these. See `BULGE.md`.
 
 **Next hunt:** **closed.** Galaxy through **A28**. Further passes remix chairs already seated (BBNJ = A8 in force; insects = monitor; AMOC = A20/A24; cyber IHL = A27 cousin; cloning UNESCO = A22; AGI treaty = hopium). Niche closed for Aim.  
 **Parallel jaw shelf:** `gate/JAW.md` — through J27. Cash still Gate 1.  
-**Puke shelf (different hunt):** `gate/PUKE.md` — boring wrong-object industries, not extinction stocks. Not A29.
+**Puke shelf (different hunt):** `gate/PUKE.md` — boring wrong-object industries, not extinction stocks. Not A29.  
+**Quark shelf (different hunt):** `gate/QUARK.md` — tiny remaining, civilizational blast. Q6 is era-*field* remaining, not a fourth clock. Not A29.
 
 ---
 
