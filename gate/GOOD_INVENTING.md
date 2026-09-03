@@ -17,7 +17,8 @@
 **What to look up to rewrite the register:** `gate/RESEARCH.md` — facts, not essays.  
 **What makes the register look like a joke as a ruler:** `gate/BULGE.md` — looked-up denominators. Not a 22 wire.  
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
-**Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.
+**Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  
+**Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.
 
 ---
 
@@ -737,6 +738,21 @@ Two-source fires, not hopium. Full cards: `gate/ALARMING.md`.
 | **A12** | Cached Remaining | Jezero tubes sealed; MSR defunded; no redeem | SPACE cousin |
 
 Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new invention. Coil winders / repair hulls / DSN aperture / GaiaNIR / SAA = `BULGE` denominators only. TraCSS / Voyager watts fold into `SPACE.md`. KSK, ZK waste, DESI-as-invention, dark oxygen, homochirality-as-SKU, 3I hopium, peak phosphorus, Being = dead this pass.
+
+**Puke (inverse Elon — they tested the wrong object).** Full cards: `gate/PUKE.md`. Not A29.
+
+| # | Name | Object |
+|---|------|--------|
+| **P1** | Remaining-CT | ISO/SOC/42001 test that the control *ran*; remaining still true is unpaid |
+| **P2** | Exception Remaining | The DLQ miss *is* the remaining; ops junk drawer |
+| **P3** | Accept Remaining | ESIGN asked for intent; industry sold the click trail |
+| **P4** | Completeness Remaining | Sampling the ledger cannot test completeness |
+| **P5** | Meaning Remaining | 11.50 meaning is still a string (review ≠ approval) |
+| **P6** | Agency Remaining | Who-may-write remaining after Chevron died |
+| **P7** | Remaining-Break Cover | aiSure pays on a score/finding; remaining can already be gone |
+| **P8** | Survival Remaining | 41% no-survival; escrow is a pile with a calendar |
+| **P9** | Act-Idempotency Remaining | Stripe owns the charge key; irreversible acts retry as new |
+| **P10** | Unpublished Remaining | Outbox is a table; unpublished committed write is remaining |
 
 ---
 

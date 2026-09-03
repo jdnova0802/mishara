@@ -80,7 +80,8 @@ Do not mint bands from these. See `BULGE.md`.
 | PNT as a vague hunt | Split: Continuous UTC (A4) and lunar timescale (A5) now have 2026 CGPM drafts. Do not re-open “PNT” as a third clock. |
 
 **Next hunt:** **closed.** Galaxy through **A28**. Further passes remix chairs already seated (BBNJ = A8 in force; insects = monitor; AMOC = A20/A24; cyber IHL = A27 cousin; cloning UNESCO = A22; AGI treaty = hopium). Niche closed for Aim.  
-**Parallel jaw shelf:** `gate/JAW.md` — through J27. Cash still Gate 1.
+**Parallel jaw shelf:** `gate/JAW.md` — through J27. Cash still Gate 1.  
+**Puke shelf (different hunt):** `gate/PUKE.md` — boring wrong-object industries, not extinction stocks. Not A29.
 
 ---
 

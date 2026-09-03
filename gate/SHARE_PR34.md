@@ -2,7 +2,7 @@
 
 Copy the block between PASTE START and PASTE END into the other agent. One paste. Do not add commentary.
 
-**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Galaxy remaining: `ALARMING.md` **A14–A28** (hunt **closed**). Floor stress 3 in `AIM22.md` / `RESEARCH.md`: the conservative frame was filing identity as “not remaining.” **Cyera × Oasis ~$1B closed Sep 1** (agent/NHI identity). SGNL **$627.9M** cash in the 8-K. PANW × Console **~$500M** reported same week. Aim **$50–200M** stays the *module* floor. Welded exclusive (remaining + who-may-write) is a **Fat** ask; Padlock is live next door. REST rows unchanged. Name only, do not skip Bind.
+**Live door is stranger-two (verified 2 Sep 2026).** `https://gate.velaru.xyz/` and `/bind-room` show the two paragraphs, $1,750, halt. Full assessment $3,500 is dead on those pages. Desktop deployed this branch. Nine Bind emails sent 2 Sep (Factory resent after typo). Prefer **Monday 11:00 AM ET** follow-up once (Friday was tight). Parallel shelf: `gate/JAW.md` through J27. Galaxy remaining: `ALARMING.md` **A14–A28** (hunt **closed**). **Puke shelf:** `gate/PUKE.md` **P1–P10** (open — inverse-Elon wrong-object industries, not A29). Floor stress 3 in `AIM22.md` / `RESEARCH.md`: the conservative frame was filing identity as “not remaining.” **Cyera × Oasis ~$1B closed Sep 1** (agent/NHI identity). SGNL **$627.9M** cash in the 8-K. PANW × Console **~$500M** reported same week. Aim **$50–200M** stays the *module* floor. Welded exclusive (remaining + who-may-write) is a **Fat** ask; Padlock is live next door. REST rows unchanged. Name only, do not skip Bind.
 
 ---
 
@@ -13,14 +13,14 @@ You are continuing Nisaba / mishara on the live branch. Do not use main.
 Repo: https://github.com/jdnova0802/mishara
 Branch (source of truth): cursor/nisaba-cosmic-unison-719d
 PR: https://github.com/jdnova0802/mishara/pull/34 (draft, base main)
-Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). **Numbers rest at `gate/REST.md`. Inventing continues.** Do not mint new *bands* in REST. Do not re-invent Facing / W₀ / Φ / tetrad / BLAST / CROSS / RELEASE / RESEARCH / BULGE / REST as unseated. **Fellhatch** (`gate/FELLHATCH.md`) — **inverse Elon locked:** monopolize the boring snorefest lanes (remaining · prove · stop · hatch). Plumbing FH1–FH10. Amazing FA1–FA7. Inventing does not wait. Cash does. Name only. **Signed surface:** Bind $1,750 = Gate 1. Split origins. Payout HOLD = rail-fires evidence, not AI-liability loss data. Hands cap 4 Bind Rooms/mo. `/for/partners` and `/broker-relay` are 410. Last bulge `gate/BULGE.md`. Do not email the freeze list. This file is the paste pack.
+Tip: fetch origin/cursor/nisaba-cosmic-unison-719d before you write. Last cash ship is stranger-two (c398230). **Numbers rest at `gate/REST.md`. Inventing continues.** Do not mint new *bands* in REST. Do not re-invent Facing / W₀ / Φ / tetrad / BLAST / CROSS / RELEASE / RESEARCH / BULGE / REST as unseated. **Fellhatch** (`gate/FELLHATCH.md`) — **inverse Elon locked:** monopolize the boring snorefest lanes (remaining · prove · stop · hatch). Plumbing FH1–FH10. Amazing FA1–FA7. **Puke** (`gate/PUKE.md`) P1–P10 — they tested the wrong object. Inventing does not wait. Cash does. Name only. **Signed surface:** Bind $1,750 = Gate 1. Split origins. Payout HOLD = rail-fires evidence, not AI-liability loss data. Hands cap 4 Bind Rooms/mo. `/for/partners` and `/broker-relay` are 410. Last bulge `gate/BULGE.md`. Do not email the freeze list. This file is the paste pack.
 main does not have this work. Other chats move this branch. Keep cursor/<name>-719d.
 
 Who: Demond Davis, inventor, Nisaba LLC (Wyoming). Stays named (anti-Satoshi). Patent 64/124,027. anonymous: false. Email demonddavis000@gmail.com.
 
 Read these files on that branch, not main:
 gate/SHARE_PR34.md
-then gate/CASH_NOW.md gate/BUYERS.md gate/BUYERS_HOT.md gate/ENTITIES.md gate/TUESDAY.md gate/ALARMING.md gate/JAW.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
+then gate/CASH_NOW.md gate/BUYERS.md gate/BUYERS_HOT.md gate/ENTITIES.md gate/TUESDAY.md gate/ALARMING.md gate/PUKE.md gate/JAW.md gate/AIM22.md gate/REST.md gate/FELLHATCH.md gate/BLAST.md gate/CROSS.md gate/RELEASE.md gate/RESEARCH.md gate/BULGE.md gate/EXTREME_ODDS.md gate/MAX.md gate/PRINT.md gate/STANDING.md gate/DISCHARGE.md gate/NULL.md gate/ESTATE.md gate/SPACE.md gate/VITAL.md gate/ACTS.md gate/FLOWS.md gate/HAND.md gate/COMMONS.md gate/GENERAL.md gate/REMAINING.md gate/FIRST.md gate/HEAVIER.md gate/BRIDGE.md gate/CONFORMANT.md gate/INVENTIONS.md gate/UNISON.md gate/NISABATREE.md gate/GOOD_INVENTING.md gate/ABOVE.md gate/UNPRECEDENTED.md gate/AMAZING.md gate/AFTERWEB.md gate/HUSBANDRY.md gate/COFFIN.md gate/MONETIZE_R0.md gate/END22_RANK.md gate/AGES_22_30.md gate/EXTERNAL.md gate/OMEGA.md gate/RHO.md gate/NU.md gate/TOP3.md gate/WRITE_ERA.md gate/FACING.md gate/TOOLS.md
 
 LOCKS. Do not violate.
 - Internal architecture and external architecture stay equal. Same official-page research on inventing and on buyers/desks. Ultra-specific. Cosmic-specific when the fact is real. Urgent when a clock is live. Do not deepen one while the other starves.
@@ -65,10 +65,12 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT BULGE.md.** Looked-up denominators. Do not write a new 22 liquid row from them. Do not become Visa / MSCI / the Fed.
 **DO NOT RE-INVENT REST.md.** The numbers. Do not mint a new band because an essay was prettier. **Inventing continues** — REST is the register, not a stop.
 **DO NOT RE-INVENT FELLHATCH.md.** **Inverse Elon** is locked (boring lanes). Organs FH1–FH10 · Amazing FA1–FA7 seated. **Not Anthropic. Not Ode. Not MHS.** Gate restrains. No `/fellhatch` until they say ship. Do not pitch from Bind Room.
+**DO NOT RE-INVENT PUKE.md as A29.** P1–P10 are the snorefest inventory (action-CT vs remaining-CT · exception remaining · accept remaining · completeness remaining · meaning remaining · agency remaining · remaining-break cover · survival remaining · act-idempotency remaining · unpublished remaining). Hunt **open**. Not galaxy remix. No `/puke` page.
 **SURFACE (signed).** Bind $1,750 = Gate 1. Split origins. Payout HOLD = evidence the rail fires, not AI-liability loss data. Hands cap: 4 Bind Rooms/mo. `/for/partners` and `/broker-relay` are 410. Grey catalog dead. Do not promise partner-desk volume.
 **HARDEN (not inventing).** `/health` probes real routes (`probes_ok`). Optional `SENTRY_DSN`. Sep 1 chain audit via `/ops/chain-continuity` → `/trust/corrections`. External uptime → phone. Not RFC 3161 museum. Not before Gate 1 as a seven-item diligence product.
 **WONDERS + NECESSITIES (lock).** Both. Afterweb / delay / UTC / lunar / supervision / plume **and** Vital / Facing / Gate 1 Bind. Wonder without the body is abandonment. Body without wonder is a PDF. Do not pick. Not a product.
 **ALARMING (name-only).** `gate/ALARMING.md` — A1–A13 plus galaxy **A14–A28** (hunt closed). DESI / vacuum / dark oxygen / homochirality-as-SKU / 3I hopium / Being / AGI-treaty = dead. TraCSS / Voyager watts fold into SPACE. Cyber IHL folds under A27. Do not re-invent. No pages.
+**PUKE (name-only).** `gate/PUKE.md` — P1–P10. Inverse Elon: they built the factory around the wrong object. Hunt open. Not A29. No pages.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -180,6 +182,7 @@ PASTE END
 | `gate/BUYERS_HOT.md` | **High-chance Bind buyers** — scored mid-size deployers shipping irreversible writes. No page. |
 | `gate/TUESDAY.md` | **Paste-ready Bind emails** — high-chance wave (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer / HappyRobot) |
 | `gate/ALARMING.md` | **Name-only hunt** — A1–A28 (galactic + strange + galaxy). Hunt closed. No pages. No hopium. |
+| `gate/PUKE.md` | **Puke shelf** — P1–P10 inverse-Elon wrong-object remaining. Hunt open. Not A29. No pages. |
 | `gate/AIM22.md` | **Aim $50–200M by Jun 2027** — month plan · one E buyer · not Standing stacking · no page |
 | `gate/CONFORMANT.md` | Cash latch: cert rent + QIC meter |
 | `gate/INVENTIONS.md` | Inventor stands; Satoshi inverse |
@@ -221,7 +224,7 @@ PASTE END
 | `gate/RESEARCH.md` | **Facts that rewrite liquid/NW.** Looked up 2026-09-02: Fall NAIC · carve-backs · MPP/TAP · Agent 365 · A13 gates. Not an invention. |
 | `gate/BULGE.md` | **Looked-up rulers.** Fedwire $4.8T/day · Visa $14T · Mag7 $23.7T · $170B/quarter capex. Map is a desk. Not a 22 wire. |
 | `gate/REST.md` | **The numbers.** Register rests. Inventing continues. Fight-for · fuse · external · ruler. No new band here. |
-| `gate/FELLHATCH.md` | **Fellhatch** — FH1–FH10. Make · train · apply. Gate stops. No page until they say ship. |
+| `gate/FELLHATCH.md` | **Fellhatch** — FH1–FH10. Make · train · apply. Gate stops. Inverse Elon. No page until they say ship. |
 | `gate/JAW.md` | **Jaw shelf** (hot + **decades**) — through **J27**: FDA SKUs, cassettes/foils, HPGe, **CZT**, **space Ge substrates**. Final-call kills in the fold table. Name only. Do not skip Bind. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |
