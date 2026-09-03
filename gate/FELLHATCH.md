@@ -62,24 +62,48 @@ Bell Labs worked because AT&T **owned the network it applied into**. After the 1
 
 **Do not become:** Ode. MHS. A sixth Claude. Emilia “Model-to-Matter” (IETF draft, **not deployed**, no wet lab) — protocol cousin, not the lab. Do not email Anthropic / Blackstone / Janelia.
 
-The fourth verb is not new. It is **Gate**. Make · train · apply · **stop**. Without stop, the breakthrough is an unbound write. Without a live write to apply into, you are PARC.
+The fourth verb is not new. It is **Gate**. Make · train · apply · **stop**.
 
-Family stays five. No `/fellhatch` until they say ship. Do not pitch this from Bind Room. Fellhatch still does not raise Aim. Cash still Gate 1.
+---
+
+## Invented 2026-09-03 — the lab’s organs (work)
+
+Not a lookup. These are the guts. Name only. No page. Not a sixth voice.
+
+| # | Organ | What it is | What dies |
+|---|--------|------------|-----------|
+| **FH1 Worked** | Fourth shelf | Public/specialist: this breakthrough **was applied**. World-after named. Remaining still live. Infamous = it happened | Paper / demo as the lab’s output |
+| **FH2 Capture remaining** | Anti-PARC | The world can *use* the object. The remaining **does not leave the hatch**. Use without remaining = leak, not apply | Invent-and-Cisco-captures |
+| **FH3 Train-cut** | Anti-Anthropic | Train remaining and apply remaining are **different books**. Train cannot debit apply. (U5 as a *lab organ*, not a SKU) | Eval / rehearsal that is secretly live |
+| **FH4 Apply-or-burn** | Anti-museum | A named breakthrough not applied by sealed time **burns off still-named** | FRO that never touches a write |
+| **FH5 Write-bridge** | Anti-Ode | Apply only into a write the hatch **already named** or Gate already restrains. Not a client SOW | Embed-engineers-as-apply |
+| **FH6 Effect remaining** | Anti-MHS | When apply is matter, remaining is on the **effect** (world delta), not the driver spec | USB-for-robots as sufficient |
+| **FH7 Stop-designed** | Anti-eval-PDF | A breakthrough is not finished making until Gate **can** stop it. Stop is an instrument of the object, not a policy after | RSP as the stop |
+| **FH8 Breed** | Anti-distill | One breakthrough trains another only by **remaining transfer**. Weights / methods leaving as the product = leak | Distillation-as-the-lab |
+| **FH9 Foundry** | Later physical | Manufacture the hatch gear — meter, prove, remaining you can touch. Not munitions | Lab-as-PDF-shop forever |
+| **FH10 Qualify-by-write** | Door | You don’t qualify as a model customer. You qualify because you **have a write** the lab can apply into | Enterprise signup / seat license |
+
+**How the three verbs run:**
+
+1. **Make** — designation file opens. FH7 must be true before it is “made.”  
+2. **Train** — spends FH3 train remaining only. FH8 if it teaches another.  
+3. **Apply** — only via FH5. Writes FH1 Worked. FH2 keeps remaining. FH6 if matter.  
+4. **Miss the clock** — FH4 burns it.  
+5. **Gate can still stop** the applied object. Always.
+
+Without Gate, the lab has remaining with no stop. Without these organs, Gate has a stop with no creature.
 
 ---
 
 ## Own guts (not shipped)
-
-Fellhatch organs are the lab’s, not a second `/v1/act`.
 
 | Organ | Job |
 |-------|-----|
 | **Hatch meter** | Public. Remaining still live. Hard to hide |
 | **Designation file** | Specialist. This write/agent was named in the lab |
 | **Still-named** | Specialist. What the lab still has on the hatch. Not a human wanted wall |
-| **Qualify** | Who gets into the lab. Not a consumer signup |
-
-Without Gate, the lab has remaining with no stop. Without Fellhatch, Gate has a stop with no creature-file.
+| **Worked (FH1)** | Specialist + public. It was applied. World-after named |
+| **Qualify (FH10)** | Who gets in — by write, not by seat |
 
 ---
 
@@ -115,12 +139,12 @@ Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 - Do not add `/fellhatch` until they explicitly say ship.
 - Do not pitch Fellhatch from Bind Room.
 - Do not email the freeze list.
-- Numbers stay `REST.md`. Fellhatch does not raise Aim.
+- Numbers stay `REST.md`. Inventing here is the lab, not a band.
 
 ---
 
 ## One line
 
-> **Gate stops. Fellhatch makes, trains, and applies.** Ode / MHS / eval-PDF die if that is real. Not a model shop. Name only. Not Bind.
+> **Gate stops. Fellhatch makes, trains, and applies through FH1–FH10.** Worked · capture remaining · train-cut · apply-or-burn · write-bridge · effect remaining · stop-designed · breed · foundry · qualify-by-write.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*
