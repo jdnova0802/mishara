@@ -95,6 +95,26 @@ Without Gate, the lab has remaining with no stop. Without these organs, Gate has
 
 ---
 
+## Amazing — what the lab makes (2026-09-03)
+
+FH1–FH10 is plumbing. This is the shelf. Score **11–13**. Not a remix of X1–X12 as if unseated — those are organs of doing. These are **objects Fellhatch founds**. Looked up: kilogram had Le Grand K in a vault; remaining has **no prototype**. ATCC holds living strains. Autonomous discovery (Qiushi optical engine · ORNL atom-by-atom · Nature Robin · US Genesis Mission) already **makes and applies into matter** with no remaining on the apply.
+
+| # | Object | /score | What it is | Why it is amazing | Lock |
+|---|--------|--------|------------|-------------------|------|
+| **FA1 Prototype Remaining** | Le Grand K of one-wayness | **12** | A held prototype other remaining calibrates to. X5 as an **object in the lab**, not a paper unit | Mass had a cylinder. Remaining has nothing to walk up to | No fake BIPM. Name until the first Worked exists |
+| **FA2 Type culture** | ATCC of remaining | **12** | A living collection of remaining that **can still act**. The lab *is* the collection | Civilization type-cultures microbes and artifacts. Nobody type-cultures one-wayness that is still LIVE | Not a people hunt. Not a zoo of agents |
+| **FA3 Discovery remaining** | Remaining on machine discovery | **13** | First lab that makes a discovery whose remaining is still live after the instrument fires | Looked up: agents already run real optics, build lattices, run wet loops, plug into national labs. The write lands. Remaining does not | Do not become Genesis / MHS. Remaining on the *effect* (FH6) |
+| **FA4 Facing apply** | Inhabitant-facing breakthrough | **12** | First apply that faces the person who **lives in the world-after**, not the actor. `FACING.md` **made**, not re-essayed | Every 2026 factory indexes the line that ran. Carbon already proved factory books can close while the atmosphere is spent | Do not re-invent Facing. Make it |
+| **FA5 Afterweb instrument** | World-after you can read | **13** | A real instrument that reads shared reality after the act. R₀ as gear, not a file | Fedwire settles money. Nothing settles the world-after as a thing you can hold | Not a social net. Not Being |
+| **FA6 Capture-proof object** | Remaining *is* the invention | **11** | First breakthrough that cannot be stolen the PARC way, because remaining does not leave (FH2 as the object) | Xerox invented; Cisco captured. An object whose remaining is the invention ends that death | Never sell may. Use ≠ leak |
+| **FA7 Stop-native matter** | Effector that cannot fire without remaining | **12** | First physical instrument finished only when Gate can stop it (FH7 + FH9) | MHS is USB + eval. This is matter that will not act without remaining | Not munitions. Not C2 |
+
+**Fellhatch makes FA1–FA7. Gate can still stop them. X1–X12 / R₀ / H₀ / coffin stay seated** — the lab is who *founds* the objects, not a fifth book.
+
+Inventing does not wait on Tuesday. Cash does.
+
+---
+
 ## Own guts (not shipped)
 
 | Organ | Job |
@@ -145,6 +165,6 @@ Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 
 ## One line
 
-> **Gate stops. Fellhatch makes, trains, and applies through FH1–FH10.** Worked · capture remaining · train-cut · apply-or-burn · write-bridge · effect remaining · stop-designed · breed · foundry · qualify-by-write.
+> **Plumbing FH1–FH10. Amazing FA1–FA7:** prototype remaining · type culture · discovery remaining · facing apply · Afterweb instrument · capture-proof object · stop-native matter. Gate stops. Inventing does not wait.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*

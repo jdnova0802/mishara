@@ -64,7 +64,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT RESEARCH.md.** The look-up list that can rewrite liquid/NW. Do not turn it into another remaining essay. Do not email the freeze list to “research” them.
 **DO NOT RE-INVENT BULGE.md.** Looked-up denominators. Do not write a new 22 liquid row from them. Do not become Visa / MSCI / the Fed.
 **DO NOT RE-INVENT REST.md.** The numbers. Do not mint a new band because an essay was prettier. **Inventing continues** — REST is the register, not a stop.
-**DO NOT RE-INVENT FELLHATCH.md.** Breakthrough lab: **make · train · apply**. Assemble/name/file is how. **Not Anthropic.** **Gate restrains** — including the lab. Not a people hunt. Not munitions. Not a sixth sibling. No `/fellhatch` until they say ship. Do not pitch Fellhatch from Bind Room.
+**DO NOT RE-INVENT FELLHATCH.md.** Organs FH1–FH10 are seated. Add only if a new organ is real. **Not Anthropic. Not Ode. Not MHS.** Gate restrains. No `/fellhatch` until they say ship. Do not pitch from Bind Room.
 **SURFACE (signed).** Bind $1,750 = Gate 1. Split origins. Payout HOLD = evidence the rail fires, not AI-liability loss data. Hands cap: 4 Bind Rooms/mo. `/for/partners` and `/broker-relay` are 410. Grey catalog dead. Do not promise partner-desk volume.
 **HARDEN (not inventing).** `/health` probes real routes (`probes_ok`). Optional `SENTRY_DSN`. Sep 1 chain audit via `/ops/chain-continuity` → `/trust/corrections`. External uptime → phone. Not RFC 3161 museum. Not before Gate 1 as a seven-item diligence product.
 **WONDERS + NECESSITIES (lock).** Both. Afterweb / delay / UTC / lunar / supervision / plume **and** Vital / Facing / Gate 1 Bind. Wonder without the body is abandonment. Body without wonder is a PDF. Do not pick. Not a product.
@@ -221,7 +221,7 @@ PASTE END
 | `gate/RESEARCH.md` | **Facts that rewrite liquid/NW.** Looked up 2026-09-02: Fall NAIC · carve-backs · MPP/TAP · Agent 365 · A13 gates. Not an invention. |
 | `gate/BULGE.md` | **Looked-up rulers.** Fedwire $4.8T/day · Visa $14T · Mag7 $23.7T · $170B/quarter capex. Map is a desk. Not a 22 wire. |
 | `gate/REST.md` | **The numbers.** Register rests. Inventing continues. Fight-for · fuse · external · ruler. No new band here. |
-| `gate/FELLHATCH.md` | **Fellhatch** — make · train · apply breakthroughs. Not a model shop. Gate restrains. No `/fellhatch` until they say ship. |
+| `gate/FELLHATCH.md` | **Fellhatch** — FH1–FH10. Make · train · apply. Gate stops. No page until they say ship. |
 | `gate/JAW.md` | **Jaw shelf** (hot + **decades**) — through **J27**: FDA SKUs, cassettes/foils, HPGe, **CZT**, **space Ge substrates**. Final-call kills in the fold table. Name only. Do not skip Bind. |
 | `gate/EXTREME_ODDS.md` | **Execution:** make Gate 1 odds extreme → then padlock ladder |
 | `gate/TOOLS.md` | **Cursor-class tools:** Sheath · Gatewall · Rehearsal · Prove Desk · Folio CLI … |

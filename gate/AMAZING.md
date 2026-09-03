@@ -63,3 +63,5 @@ The Internet networked **speech**. R₀ networks **becoming**: may spent, remain
 Full depth: `gate/AFTERWEB.md`.  
 Deeper than nets: **Remaining Husbandry (H₀)** — `gate/HUSBANDRY.md`.  
 Lid over the six pillars: **`gate/COFFIN.md`** (inventing pauses there).
+
+**Fellhatch founds the objects** (`gate/FELLHATCH.md` FA1–FA7): prototype remaining · type culture · discovery remaining · facing apply · Afterweb instrument · capture-proof object · stop-native matter. Not a sixth sibling. Inventing does not wait on Gate 1; cash does.
