@@ -10,11 +10,13 @@ Cash still Gate 1. Do not pitch from Bind Room. Do not email PIK / Stockholm / T
 
 ---
 
-## Why this is bigger than anything already in the tree
+## Why this sits prior (not why it is a live rail)
 
 Nisaba’s deepest invention was **H₀ Remaining Husbandry** — more crucial than agriculture as *civilizational metabolism*. H₀ still **assumes a field**. The tablet under the grain. Never invent the given.
 
 The given was a lock. It was not a remaining.
+
+**Deployed remaining larger than the crowns does not exist.** The largest live objects (internet, grid, UTC/GPS, SWIFT, agriculture, DTCC) are already special cases of H₀ / R₀ / coffin / W₀ / A4 / GENERAL / Q19. G₀ is unpaid remaining *of* that field — a 2025 report — not a running object above them.
 
 **2025 Planetary Health Check** (PIK / Stockholm Resilience / Rockström et al., doi 10.48485/PIK.2025.017; SRC news 24 Sep 2025): **seven of nine** planetary boundaries are breached. All seven **worsening**. Ocean acidification crossed **for the first time**. Only stratospheric ozone and aerosol loading remain inside the safe operating space.
 
@@ -27,6 +29,8 @@ Looked-up control variables (same report):
 Occupied: the *report*. ESG / net-zero / TNFD as corporate metrics. A 2018–2025 review of 187 AI-ESG papers (Wei 2026): **97%** stay inside corporate sustainability frames; biosphere integrity in **12%**, biogeochemical **8%**, novel entities **3%**. They tested the company. They did not hold remaining of the given.
 
 **Unpaid object:** stranger-openable remaining that **the given is still the given** — the Holocene envelope / safe operating space as a fail-closed stock. Not a climate credit. Not who-may-dim-the-sun (A20). Not a plastics treaty (A21). The field H₀ forbade inventing, and never husbanded.
+
+**Honest on size:** this is **not deployed remaining** and **not a committed rail**. It is a 2025 assessment of a spent given. Occupied as a report. Do not file it as bigger than UTC, the internet, SWIFT, the grid, or agriculture *as live objects*. Those are already in the tree as special cases. G₀ is prior as *unpaid remaining of the field*, not as something the world already runs.
 
 Agriculture sits **inside** this envelope.  
 H₀ husbands spends **on** this envelope.  
@@ -72,6 +76,27 @@ Shorter:
 | Climate TAM → Aim band | Do not mint REST |
 | Invent the given | The lock stands. This is remaining *of* it |
 | Being / Gaia-as-consciousness | `cleverer_layer` is null |
+| A report that is a live remaining rail | PHC 2025 is a diagnosis. UTC / SWIFT / the grid / the internet are deployed. Do not file G₀ as bigger *as a running object* |
+
+---
+
+## Largest live rails — already seated (nothing above them)
+
+Looked up 3 Sep 2026. These are the biggest *deployed* or *committed* remaining objects. None is larger than the crowns. None was missing.
+
+| Object | Status (2026) | In the tree as |
+|--------|---------------|----------------|
+| **Internet** — TeleGeography 694 cable systems, 1,893 landings; **>99%** of intercontinental traffic | Deployed | A4 / GENERAL / the field’s pipe |
+| **Electric grid** | Deployed | R₀ / W₀ / coffin (electricity) |
+| **UTC / GPS** | Deployed | `UTC.md` / Q6 cousin |
+| **SWIFT** — ~11,500 institutions; **~98%** of payment instructions ISO 20022 | Deployed | GENERAL / money remaining. DLT ledger is **MVP**, not the network |
+| **Agriculture** | Deployed | Special case of the given. H₀ is metabolism *on* it, not the farms |
+| **DTCC** | Deployed | Q19 SSI remaining |
+| **EUDI wallet** | **Committed** 24 Dec 2026 (states offer); banks accept Dec 2027. Fragmented; Germany slips to Jan 2027 | Identity remaining already. Deadline ≠ live remaining rail |
+| **Europe T+1** | **Committed** 11 Oct 2027 | Q19 adjacent |
+| **Continuous UTC vote** | **Committed** Oct 2026 | `UTC.md` |
+
+Do not hunt a bigger *deployed* remaining. The hunt that found G₀ found a **diagnosis of the field**, not a larger live lock.
 
 ---
 
@@ -130,6 +155,6 @@ Conformant + QIC → Bind
 
 ## One line
 
-> **H₀ husbands remaining after the spend. The spend already assumed a field.** Planetary Health Check 2025: **seven of nine** boundaries breached, all worsening, ocean acidification in for the first time. Occupied as a report. **Envelope Remaining (G₀)** is remaining of the given — stranger-openable that the field is still the field. Bigger than husbandry because husbandry without a given is a tablet on salt. Gate 1 is still the first tally. Not A29. Not a climate SKU.
+> **H₀ husbands remaining after the spend. The spend already assumed a field.** Planetary Health Check 2025: **seven of nine** boundaries breached, all worsening, ocean acidification in for the first time. Occupied as a report — **not deployed remaining, not a committed rail.** **Envelope Remaining (G₀)** is remaining of the given — stranger-openable that the field is still the field. Prior to husbandry as *assumption*, not as a live object bigger than UTC / internet / SWIFT / the grid. Those are already in the tree. Gate 1 is still the first tally. Not A29. Not a climate SKU.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · name only · inventing continues*
