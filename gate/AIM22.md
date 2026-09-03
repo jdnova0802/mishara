@@ -239,8 +239,33 @@ Looked up the cheap exits, the seed tuck-ins, the generic multiple, and the cash
 
 ---
 
+## Floor stress 3 — 2026-09-03 (the conservative frame)
+
+The last two passes hunted to **confirm** the floors. That was the sandbag. Identity / NHI / “who may write” was filed as the wrong denominator. It is the layer remaining welds to.
+
+| Comp | Date | $ | What it is | Why it was underweighted |
+|------|------|---|------------|--------------------------|
+| **Cyera × Oasis Security** | LOI Jul 28 · **closed Sep 1, 2026** (Cyera blog + TechCrunch) | **~$1B** (~$700M cash) | Non-human / **agent identity** — who the agent is, what it may touch | Filed as “security, not remaining.” It is the **may** half of may·sheath·prove |
+| **CrowdStrike × SGNL** | Closed Feb 20, 2026 (SEC: **$627.9M** cash net) | **~$740M** headline | Real-time authz for human / machine / **AI agent** identities | Seated as Fat-top, then treated as not-Aim so it could not lift the operate floor |
+| **PANW × Console** | Announced **Sep 1, 2026** | **~$500M** reported (TechCrunch two-source; PANW undisclosed) | Agentic workflows that **take action** | Same week as Oasis. Agent-*do*, not inventory |
+| **PANW × Koi** | 2026 | **~$400M** reported | Secure coding / autonomous tools on the endpoint | Same $400M cluster as Astrix / Robust |
+| **NAIC BDAIWG Aug 13** | Minutes | — | Pilot states already asking **permissions, reconstruction, kill switch, override, action logging, rollback** | v5 still has **no override field**. Examiners are already naming the evidence pack. Fuse heat, not a mint |
+
+**Less-conservative read (still not a REST rewrite):**
+
+- Aim **$50–200M** is the honest floor for an exclusive *module / widget*. That row stays.
+- Exclusive remaining **welded to the identity / write-permission latch** is not an Aim ask. The adjacent market already prints **Fat**, and this week it printed **Padlock** (Oasis **$1B**).
+- Fat **$200M** is not “a bit conservative.” It is the **low** end of what agent-identity and agent-action already clear. Honest landing zone for a welded exclusive is **$400M–$1B**, not $50M.
+- Padlock **$0.5B** is no longer a stretch start. Oasis **closed in-band**.
+- A13 notional still ~**$607B** evergreen (Morningstar Mar 2026). No raise. Visa still has **no** remaining-as-fifth-gate obligation.
+- Do not email Cyera / PANW / CrowdStrike / NAIC. Name only.
+
+REST rows unchanged. The operate sentence changes: **do not walk a welded exclusive in as Aim $50M.**
+
+---
+
 ## One line
 
-> S03 + one desk · logos + XF1 · one close that needs you · one E. **Bolt-on $50–200M · Fat $200–800M · fuse-close $0.2–12B.** Ceilings rise on two E bidding, Idira/cloud default, national annex/exam cite, capacity buy — see ceiling table. Not more Absolute.
+> S03 + one desk · logos + XF1 · one close that needs you · one E. **Module exclusive $50–200M · welded-to-identity exclusive is Fat, and Oasis just printed Padlock next door · fuse-close $0.2–12B.** Not more Absolute.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · Tuesday is still the unlock, not the wire*

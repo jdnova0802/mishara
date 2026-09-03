@@ -184,6 +184,23 @@ Full table + cash doors: `AIM22.md` · Floor stress 2. REST rows unchanged.
 
 ---
 
+## Stress-pass 5 — 2026-09-03 (stopped confirming)
+
+The conservative move was the **frame**: identity / NHI / agent-action comps were filed as “not remaining,” so they could not lift floors. They are the **may** half of may·sheath·prove.
+
+| Fact | Source | What it does |
+|------|--------|--------------|
+| Cyera **completed** Oasis Security **~$1B** (Sep 1, 2026) | Cyera blog + TechCrunch Jul 28 LOI | Agent / NHI identity is already a **Padlock** sale. Missed in passes 1–4 |
+| SGNL consideration **$627.9M** cash net (Feb 20, 2026) | CrowdStrike 8-K / 10-Q exhibit | Agent authz is **Fat-top / Padlock-floor** in a filing, not a blog |
+| PANW × Console **~$500M** reported (Sep 1, 2026) | TechCrunch two-source; PANW undisclosed | Agent-*do* the same week as Oasis |
+| NAIC BDAIWG Aug 13 minutes | content.naic.org | Examiners already naming kill switch / override / logging / rollback. v5 still no override **field** |
+| Evergreen / semi-liquid **$607B** (Mar 31, 2026) | Morningstar PitchBook | Confirms A13 ~$600B. Does **not** raise the 1 bp shape |
+| Visa TAP receipt / “prove what the gate prevented” | GitHub RFC thread, not Core Rules | Still **not** a network obligation. Do not mint rail stretch |
+
+**Operate, not REST:** Aim $50–200M stays the **module** floor. A welded exclusive (remaining + who-may-write) walks in as **Fat**. Oasis means Padlock is **live next door**, not a cartoon. Do not email the freeze list.
+
+---
+
 ## One line
 
 > **22 NW** research is the v5→v7 Fall text and the carve-back author. **22 liquid** research is one money-leave path that will not pay without remaining. **23–30** research is Art. 12, one cloud, then inclusion / eligibility / remaining=paid. Everything else is a remaining essay. Those do not change the register.
