@@ -19,7 +19,8 @@
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
 **Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  
 **Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.  
-**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q25. Q17–Q25 cash gravity is shape, not REST. Not a fourth clock. Name only.
+**Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q25. Q17–Q25 cash gravity is shape, not REST. Not a fourth clock. Name only.  
+**Stet (remaining with no ticket — more boring than boring work):** `gate/STET.md` — S1–S8. Let it stand. Name only.
 
 ---
 
@@ -784,6 +785,19 @@ Signed-and-gone GIA withdraw (**~41%**) folds into `EXTERNAL` E5 — not a new i
 | **Q23** | Serial Remaining | DSCSA pack serial status unpaid at scan (not the NDC class) |
 | **Q24** | UDI Remaining | Device code: label / GUDID / complaint file allowed to disagree |
 | **Q25** | IMEI Remaining | Fifteen digits; clean at sale, flagged after the money moved |
+
+**Stet (remaining with no ticket — more boring than boring work).** Full cards: `gate/STET.md`. Not P11. Not Q26.
+
+| # | Name | Object |
+|---|------|--------|
+| **S1** | Initial Remaining | NFPA 10 monthly initials; the month still remaining |
+| **S2** | Sticker Remaining | Calibration due-date sticker; the instrument does not know the date |
+| **S3** | Log Remaining | The page of nothing; the round that found nothing |
+| **S4** | Tour Remaining | The post still walked; a wand beep is not remaining of the walk |
+| **S5** | Bin Remaining | Cycle-count totals can match; the bin is already wrong |
+| **S6** | Box Remaining | Retention schedule vs remaining of the files in the carton |
+| **S7** | Spare Remaining | Unused still unused; ghost inventory / cannibalization |
+| **S8** | Preload Remaining | Bolt still that clamp after years of stet |
 
 ---
 

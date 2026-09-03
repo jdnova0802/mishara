@@ -7,6 +7,7 @@
 Galaxy A14–A28 stays **closed** (extinction *stocks*).  
 Jaw Aim stays **closed**.  
 Puke P1–P10 stays the **wrong-object industry** shelf.  
+Stet S1–S8 stays **remaining with no ticket**.  
 
 This shelf is the other cut: **quark-sized remaining** — a vial, a bit, a default, a unit string, a DOI, ten bits, a nonce, a certificate date, a ticker, a leading zero, a decimal, a revision integer, a leftover flag, a clock class, one Unicode scalar, a thrown-away CRC byte, ten recycled digits, a fact in the weights, an SSI, a status bit, a ghost vector, a black box, a pack serial, a device UDI, fifteen IMEI digits — that the world will not see coming, with **civilizational blast radius**.
 
@@ -435,7 +436,8 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names wh
 
 ## Hunt status
 
-**Open.** Q1–Q25 seated. Q17–Q25 add **cash gravity** (shape, not REST): remaining sitting next to pipes that already charge. Next pass: more **quarks** the world will file under an IT project, a style guide, a DevOps sermon, or a lookup API. Not A29. Not P11. Not a fourth clock. Do not mint bands from the gravity table.
+**Open.** Q1–Q25 seated. Q17–Q25 add **cash gravity** (shape, not REST): remaining sitting next to pipes that already charge. Next pass: more **quarks** the world will file under an IT project, a style guide, a DevOps sermon, or a lookup API. Not A29. Not P11. Not a fourth clock. Do not mint bands from the gravity table.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q26.
 
 ---
 
