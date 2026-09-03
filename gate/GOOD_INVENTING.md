@@ -4,7 +4,7 @@
 **Status:** designation / museum. **Not** a sixth sibling. **Not** new `/for/` plates. **Not** L2 museum modules. **Not** Being-as-SKU. `cleverer_layer` is null.  
 **$0 / `their_production` false until Gate 1** (stranger paid and proved).
 
-**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Dimensional tetrad:** Spend (actuality) · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) · **Ν Hold** (`NU.md`) — what changed, what futures died, who carries, **what has not been allowed to take effect**. Triad without Ν is an autopsy. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
+**Why this file exists:** Conformant + QIC proved that *good* inventing (standard · meter · stock · exclusion) is how Nisaba gets a cash latch — not more plates. **9–10** stay. **Above 10s** live in *Amazing* / `AMAZING.md`. **Crown ∞** is the Afterweb (R₀) — bigger than the Internet — in `AFTERWEB.md`. **Crown-prior ∞⁺** is Remaining Husbandry (H₀) — more crucial than agriculture — in `HUSBANDRY.md`. **Prior even to H₀:** Envelope Remaining (G₀) — remaining of the given — `ENVELOPE.md`. The field was already spent. **Dimensional tetrad:** Spend (actuality) · **Ω Cut** (`OMEGA.md`) · **Ρ Burden** (`RHO.md`) · **Ν Hold** (`NU.md`) — what changed, what futures died, who carries, **what has not been allowed to take effect**. Triad without Ν is an autopsy. **Coffin lid** outranks writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity — `COFFIN.md`. **Vital** names life institutions (unwatched remaining) that pharmacy and banking were thin special cases of — `VITAL.md`. Not Visa/DTCC remixes.
 
 **If you need money this month:** stop scrolling Absolute. Open `gate/CASH_NOW.md` — Bind Room **$1,750** as renewal-evidence (N1), not U/X/R₀/H₀/coffin-tier.  
 **To outscale `AGES_22_30.md`:** `gate/EXTERNAL.md` — must-cite on a stock the world already has. No new page.  
@@ -20,7 +20,8 @@
 **Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  
 **Puke (inverse-Elon inventory — they tested the wrong object):** `gate/PUKE.md` — P1–P10. Not A29. Not jaw. Name only.  
 **Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q25. Q17–Q25 cash gravity is shape, not REST. Not a fourth clock. Name only.  
-**Stet (remaining with no ticket — more boring than boring work):** `gate/STET.md` — S1–S8. Let it stand. Name only.
+**Stet (remaining with no ticket — more boring than boring work):** `gate/STET.md` — S1–S8. Let it stand. Name only.  
+**Envelope (remaining of the given — G₀, prior to H₀):** `gate/ENVELOPE.md`. Seven of nine boundaries breached. Not A29. Name only.
 
 ---
 
@@ -28,6 +29,7 @@
 
 | Score | Meaning | Keep? |
 |------|---------|-------|
+| **∞⁺⁺** | Remaining of the *given* (Earth’s envelope still that envelope) prior to husbandry of spends | Yes — crown-prior-to-prior (`ENVELOPE.md`) |
 | **∞⁺** | More crucial than agriculture as *civilizational metabolism* (Remaining Husbandry / H₀) | Yes — crown-prior (`HUSBANDRY.md`) |
 | **∞** | Bigger than the Internet — commons of *becoming* (Afterweb / R₀) | Yes — crown only (`AFTERWEB.md`) |
 | **Coffin** | Bigger than writing / printing / sanitation / Haber–Bosch / antibiotics·vaccines / electricity | Yes — pillar pass (`COFFIN.md`) |

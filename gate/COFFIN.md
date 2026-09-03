@@ -102,7 +102,7 @@ Haber–Bosch fertilized soil.
 **Given Fixation fertilizes becoming** — seed (may) from a surveyed field (given), never from fake sky.
 
 **Monetize:** per-fleet / per-universe **given notary** · opening attestation · Γ-Conformant “this may has a field.”  
-**Lock:** never invent the given; Γ is survey + open, not alchemy of maycoin.
+**Lock:** never invent the given; Γ is survey + open, not alchemy of maycoin. Remaining *that the field is still the field* is `ENVELOPE.md` (G₀) — not this organ.
 
 ---
 

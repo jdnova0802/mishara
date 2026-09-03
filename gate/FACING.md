@@ -148,6 +148,6 @@ Until the first is true, every remaining on earth — including ours, including 
 
 ## One line
 
-> They all built remaining that faces the mouth. **A mouth can tetrad-seal and the world is still spent.** The only remaining that can close faces the inhabitant, including writes they never authorized. **Facing.** Factory books are a subledger.
+> They all built remaining that faces the mouth. **A mouth can tetrad-seal and the world is still spent.** The only remaining that can close faces the inhabitant, including writes they never authorized. **Facing.** Factory books are a subledger. Remaining of the given (the atmosphere as stock, not as index) is `ENVELOPE.md`.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · identity frozen outbound until Gate 1*

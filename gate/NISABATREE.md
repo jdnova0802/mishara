@@ -184,7 +184,7 @@ Nisaba LLC (you · patent · invoice)
 │   Conformant badge · QIC meter · then rail
 │
 ├── Museum shelf (named, not pitched from Bind)
-│   Afterweb R₀ · Husbandry H₀ · Coffin · Absolute seats · External/fuse cites
+│   Envelope G₀ · Afterweb R₀ · Husbandry H₀ · Coffin · Absolute seats · External/fuse cites
 │
 └── Knowing tree (intel kit, score 7.5)
     Erra feed after Gate 1 — not a sixth sibling
@@ -204,6 +204,7 @@ Nisaba LLC (you · patent · invoice)
 | **Conformant** | Badge: “this system meets Gate’s lock standard.” |
 | **QIC** | One redeem + one irreversible write — the meter unit. |
 | **Remaining** | What’s left in the world after the act. |
+| **The given / envelope** | The field remaining assumes — Earth’s safe operating space. `ENVELOPE.md`. Do not invent it. |
 | **Wilderness (W)** | Unused-on-purpose stock — still unused is the correct next state. |
 | **Standing** | Monthly lease so the remaining stays live. |
 | **Finished** | You operate one write; they don’t install Gate. |

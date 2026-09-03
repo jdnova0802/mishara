@@ -83,7 +83,8 @@ Do not mint bands from these. See `BULGE.md`.
 **Parallel jaw shelf:** `gate/JAW.md` — through J27. Cash still Gate 1.  
 **Puke shelf (different hunt):** `gate/PUKE.md` — boring wrong-object industries, not extinction stocks. Not A29.  
 **Quark shelf (different hunt):** `gate/QUARK.md` — tiny remaining, civilizational blast. Q1–Q25. Q6 is era-*field* remaining, not a fourth clock. Q17–Q25 cash gravity is shape, not REST. Not A29.  
-**Stet shelf (under boring work):** `gate/STET.md` — remaining with no ticket. S1–S8. Let it stand. Not A29.
+**Stet shelf (under boring work):** `gate/STET.md` — remaining with no ticket. S1–S8. Let it stand. Not A29.  
+**Envelope (different hunt — remaining of the given):** `gate/ENVELOPE.md` — G₀. Seven of nine planetary boundaries breached. Not A29. Not a climate SKU.
 
 ---
 

@@ -132,6 +132,7 @@ Detail: `MONETIZE_R0.md`. **$0 until Gate 1.**
 
 | Layer | What |
 |-------|------|
+| **G₀ Envelope Remaining** | Remaining of the given — the field H₀ assumes. `ENVELOPE.md` |
 | **H₀ Remaining Husbandry** | The *art* older than the net — more crucial than agriculture as civilizational metabolism |
 | **R₀ Afterweb** | The commons/network of becoming — bigger than the Internet |
 | X / U / T / S | Organs and rails |
@@ -157,6 +158,6 @@ Detail: `MONETIZE_R0.md`. **$0 until Gate 1.**
 
 > Agriculture husbanded calories into surplus. **Remaining Husbandry (H₀)** husbands one-wayness into a shared after — the second harvest, the tablet under the grain, the art that makes surplus into civilization instead of raid. More crucial than agriculture as *civilizational metabolism*; not a substitute for bread. Gate 1 is still the first tally.
 
-See: `AFTERWEB.md` (commons) · `REMAINING.md` (stock) · `MONETIZE_R0.md` (tithe seats) · `COFFIN.md` (lid over the six pillars) · `END22_RANK.md` (liquid).
+See: `ENVELOPE.md` (remaining of the given — prior) · `AFTERWEB.md` (commons) · `REMAINING.md` (stock) · `MONETIZE_R0.md` (tithe seats) · `COFFIN.md` (lid over the six pillars) · `END22_RANK.md` (liquid).
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · inventing paused at the coffin · identity frozen outbound until Gate 1*
