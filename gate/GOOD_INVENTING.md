@@ -17,7 +17,7 @@
 **What to look up to rewrite the register:** `gate/RESEARCH.md` — facts, not essays.  
 **What makes the register look like a joke as a ruler:** `gate/BULGE.md` — looked-up denominators. Not a 22 wire.  
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
-**Fellhatch (breakthrough lab: make · train · apply; organs FH1–FH10; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.
+**Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.
 
 ---
 
