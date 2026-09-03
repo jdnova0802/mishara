@@ -19,7 +19,7 @@ Gate can still restrain Fellhatch. The lab does not replace the click. The click
 
 | | Gate | Fellhatch |
 |--|--|--|
-| Verb | Stop | Assemble / name / file / meter |
+| Verb | Stop | **Make · train · apply** (assemble / name / file / meter is how) |
 | Myth | The cut | The laboratory (the creature is an unbound write) |
 | Object | This act | Remaining of writes/agents that can still act |
 | Public | Not the public product | Hard-to-hide meter + “a designation happened” |
@@ -29,6 +29,24 @@ Gate can still restrain Fellhatch. The lab does not replace the click. The click
 Public sentence:
 
 > **Fellhatch. The lab named it. The hatch has remaining. Gate can still stop it.**
+
+---
+
+## Not Anthropic — three verbs (locked 2026-09-03)
+
+Anthropic is a **model lab**. The product is the trained thing.
+
+Fellhatch is a **breakthrough lab**. The product is a civilizational object that can still act — made, trained, applied — with remaining on it, and Gate still able to stop it.
+
+| Verb | What it means here | What it is not |
+|------|--------------------|----------------|
+| **Make** | Actual breakthroughs. The hatch gear. The remaining you can touch. The unprecedented object | A paper about a breakthrough. A sixth Claude |
+| **Train** | Train the *capability* so the breakthrough holds — operators, remaining, instruments. Models are tools of the lab | The company *is* a foundation-model shop |
+| **Apply** | Put it on a live write / a live remaining. Infamous because it happened | Demo theater. Apply with no Gate = remaining with no stop |
+
+**Make without apply** = museum. **Train without make** = Anthropic. **Apply without Gate** = unbound write.
+
+Family stays five. No `/fellhatch` until they say ship. Do not pitch this from Bind Room. Fellhatch still does not raise Aim. Cash still Gate 1.
 
 ---
 
@@ -85,6 +103,6 @@ Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 
 ## One line
 
-> **Gate stops. Fellhatch is the lab that names and files remaining on writes/agents** (public meter, specialist file). Gate can still restrain the lab. Infamous online. Not a skin. Not a people hunt. Not a weapons shop.
+> **Gate stops. Fellhatch makes, trains, and applies civilizational breakthroughs** — remaining on writes/agents, not another model shop. Gate can still restrain the lab. Name only. Not munitions. Not Bind.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*
