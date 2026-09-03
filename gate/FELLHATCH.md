@@ -10,6 +10,24 @@ Cash still Gate 1. Do not email the freeze list.
 
 ---
 
+## Inverse Elon (locked 2026-09-03)
+
+He takes the shiny lanes: rockets, the feed, the model, the bot in your apps. Compete against everyone on the spectacle.
+
+**We monopolize the boring snorefest lanes.** Remaining. Prove. The stop. The hatch. The meter under the boom. The real game is boring on purpose.
+
+| Shiny (them) | Boring (us) |
+|--------------|-------------|
+| Train the teammate | Remaining on the write after it acts |
+| Agent desktop / Grok Bot / Claude Cowork | Gate stop · stranger prove |
+| Implementation staffing (Ode) | Write-bridge · Worked · capture remaining |
+| USB-for-robots (MHS) | Stop-native matter · effect remaining |
+| Fireworks | The meter on the boom |
+
+Not a sixth brand. Not competing with SpaceXAI / Anthropic / OpenAI for the model. Formally established: **inverse Elon = own the snorefest.**
+
+---
+
 ## The split (locked)
 
 **Gate** = restrain. Hidden click. This write, *right now*. DENY. Sheath. Prove. Back room.  
@@ -165,6 +183,6 @@ Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 
 ## One line
 
-> **Plumbing FH1–FH10. Amazing FA1–FA7:** prototype remaining · type culture · discovery remaining · facing apply · Afterweb instrument · capture-proof object · stop-native matter. Gate stops. Inventing does not wait.
+> **Inverse Elon: own the snorefest.** Plumbing FH1–FH10. Amazing FA1–FA7. Gate stops. Inventing does not wait.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*
