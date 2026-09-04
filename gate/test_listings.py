@@ -3563,6 +3563,7 @@ class RemainingTests(unittest.TestCase):
         self.assertIn("noindex", html)
         self.assertIn("Bigger than the act is the remaining", html)
         self.assertIn("naïve harvest", html)
+        self.assertIn("Opening remaining", html)
         self.assertIn("Remaining folio", html)
         self.assertIn("World-budget", html)
         robots = self.client.get("/robots.txt").get_data(as_text=True)
@@ -3592,6 +3593,19 @@ class RemainingTests(unittest.TestCase):
         self.assertTrue(empty["books"]["h0_is_naive_harvest"])
         self.assertTrue(empty["books"]["opening_unpaid"])
         self.assertTrue(empty["given"]["opening_unpaid"])
+        self.assertTrue(empty["opening"]["unpaid"])
+        self.assertFalse(empty["opening"]["holds"])
+        self.assertFalse(empty["opening"]["in_close"])
+        self.assertTrue(empty["opening"]["not_a_ticket"])
+        self.assertTrue(empty["opening"]["not_a_column"])
+        self.assertTrue(empty["opening"]["not_N"])
+        self.assertTrue(empty["opening"]["not_wilderness"])
+        self.assertTrue(empty["opening"]["precedes_the_issue"])
+        self.assertTrue(empty["opening"]["visible_as_absence"])
+        self.assertIsNone(empty["opening"]["harvested_as"])
+        self.assertTrue(empty["books"]["opening_is_not_a_column"])
+        self.assertFalse(empty["books"]["opening_in_close"])
+        self.assertFalse(empty["close"]["opening_in_close"])
         self.assertFalse(empty["facing"]["holds"])
         self.assertEqual(empty["facing"]["reason"], "actor_indexed")
         self.assertIsNone(empty["cleverer_layer"])
@@ -3603,6 +3617,12 @@ class RemainingTests(unittest.TestCase):
         ).get_json()
         self.assertFalse(potency["given"]["absent"])
         self.assertGreaterEqual(potency["given"]["tickets_issued"], 1)
+        self.assertEqual(potency["given"]["issue"]["tickets_issued"], potency["given"]["tickets_issued"])
+        self.assertEqual(potency["opening"]["harvested_as"], "tickets_issued")
+        self.assertFalse(potency["opening"]["visible_as_absence"])
+        self.assertFalse(potency["opening"]["holds"])
+        self.assertTrue(potency["opening"]["unpaid"])
+        self.assertFalse(potency["opening"]["in_close"])
         self.assertEqual(potency["remaining"]["one_way_class"], "potency")
         self.assertFalse(potency["act"]["occurred"])
         self.assertTrue(potency["the_act_is_not_the_object"])
@@ -3638,6 +3658,10 @@ class RemainingTests(unittest.TestCase):
         self.assertTrue(stock["close"]["naive_harvest"])
         self.assertEqual(stock["close"]["W"], 0)
         self.assertEqual(stock["close"]["omega"], 0.0)
+        self.assertFalse(stock["opening"]["holds"])
+        self.assertTrue(stock["opening"]["unpaid"])
+        self.assertFalse(stock["close"]["opening_in_close"])
+        self.assertEqual(stock["opening"]["harvested_as"], "tickets_issued")
 
     def test_wilderness_column_fail_closed(self):
         job = f"pc:WILD-{uuid.uuid4().hex[:10]}"
@@ -3660,6 +3684,12 @@ class RemainingTests(unittest.TestCase):
         self.assertFalse(attested["folio"]["books"]["legacy_holds"])
         self.assertFalse(attested["folio"]["books"]["h0_is_naive_harvest"])
         self.assertEqual(attested["folio"]["close"]["omega"], 1.0)
+        self.assertTrue(attested["folio"]["opening"]["unpaid"])
+        self.assertFalse(attested["folio"]["opening"]["holds"])
+        self.assertFalse(attested["folio"]["opening"]["in_close"])
+        self.assertFalse(attested["folio"]["close"]["opening_in_close"])
+        self.assertTrue(attested["folio"]["opening"]["not_wilderness"])
+        self.assertEqual(attested["folio"]["opening"]["harvested_as"], "tickets_issued")
 
         redeem = self.client.post(
             "/demo/pas/bind-ticket/redeem",
@@ -3731,6 +3761,30 @@ class RemainingTests(unittest.TestCase):
         self.assertTrue(drawn["folio"]["close"]["holds"])
         self.assertEqual(drawn["folio"]["close"]["spent"], 1)
         self.assertEqual(drawn["folio"]["close"]["W"], 0)
+        self.assertTrue(drawn["folio"]["opening"]["unpaid"])
+        self.assertFalse(drawn["folio"]["close"]["opening_in_close"])
+
+    def test_opening_remaining_is_not_an_issue(self):
+        never = f"pc:OPEN-NEVER-{uuid.uuid4().hex[:10]}"
+        empty = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": never},
+        ).get_json()
+        opening = empty["opening"]
+        self.assertEqual(opening["kind"], "remaining_of_the_given")
+        self.assertFalse(opening["holds"])
+        self.assertTrue(opening["unpaid"])
+        self.assertFalse(opening["in_close"])
+        self.assertTrue(opening["not_a_ticket"])
+        self.assertTrue(opening["not_a_column"])
+        self.assertTrue(opening["not_N"])
+        self.assertTrue(opening["not_wilderness"])
+        self.assertTrue(opening["precedes_the_issue"])
+        self.assertTrue(opening["we_will_not_invent_it"])
+        self.assertTrue(opening["we_will_not_sell_it"])
+        self.assertNotIn("opening", empty["close"])
+        self.assertFalse(empty["close"]["opening_in_close"])
+        self.assertIn("remaining of the opening as a ticket", empty["not"])
 
     def test_hold_overflow_dies_and_seal_consumes_n(self):
         empty_job = f"pc:HOLD-EMPTY-{uuid.uuid4().hex[:10]}"

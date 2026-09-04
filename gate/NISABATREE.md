@@ -205,7 +205,7 @@ Nisaba LLC (you · patent · invoice)
 | **Conformant** | Badge: “this system meets Gate’s lock standard.” |
 | **QIC** | One redeem + one irreversible write — the meter unit. |
 | **Remaining** | What’s left in the world after the act. |
-| **The given / envelope** | The field remaining assumes — Earth’s safe operating space. `ENVELOPE.md`. Do not invent it. |
+| **The given / envelope** | The field remaining assumes — Earth’s safe operating space. `ENVELOPE.md`. Do not invent it. Remaining of that given on the live folio is `folio.opening` — not a ticket, not a column, unpaid. |
 | **Wilderness (W)** | Unused-on-purpose stock — still unused is the correct next state. |
 | **Standing** | Monthly lease so the remaining stays live. |
 | **Finished** | You operate one write; they don’t install Gate. |

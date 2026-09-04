@@ -12,7 +12,8 @@ Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null.
 
 | Word | What it is |
 |---|---|
-| given | Opening. The world was already there. We will not invent it. |
+| given | Opening harvested as tickets — the issue. The world was already there. We will not invent it. |
+| opening | Remaining of the given. Not a ticket. Not a column. Not in close. Unpaid. |
 | may | Unspent one-wayness |
 | act | Journal line — spending |
 | remaining | Not-yet *and* the world after. Split named in `CHALLENGE.md`. Quarks are still-*that*. Ν is not-yet. |
@@ -24,7 +25,7 @@ Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null.
 Identity (partition): `given = spent + remaining + immobilized + W + dead-unused + void`  
 H₀ / naïve harvest: `remaining = given − spent` — special case immobilized = W = dead-unused = void = 0.
 
-The partition always holds in this mouth because **given is counted as tickets issued**. Remaining of the opening is unpaid. Ν is a second book. Void is the reversal plug. Facing cannot close a mouth journal.
+The partition always holds in this mouth because **given is counted as tickets issued**. `folio.opening` is remaining of that given: not a ticket, not a column, not Ν, not wilderness, not in close. `holds` is false. Issuing tickets is not payment. Ν is a second book. Void is the reversal plug. Facing cannot close a mouth journal.
 
 ω = W / given. Unattested W cannot become remaining. Steward of unusedness cannot spend W. The Third opens, never spends. A W-draw is not an ordinary spend (CHARGE-outside).
 
@@ -35,7 +36,7 @@ The partition always holds in this mouth because **given is counted as tickets i
 - **Wilderness column** — unused-as-product · `POST /demo/pas/remaining/wilderness`
 - **One-way class** — potency / spent / no-given / wilderness
 - **Remaining party** — inhabitant, not the actor
-- **The given as opening** — we will not invent t=0
+- **The given as opening** — `folio.opening` remaining of the given; we will not invent t=0
 
 ## Medium
 

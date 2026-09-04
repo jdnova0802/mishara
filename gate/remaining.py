@@ -17,7 +17,8 @@ the remaining. We seated half the goddess. This seats the other half.
 
 Stack (not a cleverer layer — the floor still holds):
 
-  given      = opening — the world was already there
+  given      = opening harvested as tickets — the issue
+  opening    = remaining of the given — unpaid, not a column
   may        = unspent one-wayness (potency)
   act        = journal line (spending)
   remaining  = the world after (stock / balance sheet)
@@ -189,7 +190,8 @@ SOON: tuple[dict[str, Any], ...] = (
             "not remaining of the opening. Legacy / H₀: remaining = given − "
             "spent. That holds only when immobilized = W = dead-unused = "
             "void = 0 — the naïve harvest. Ν is a second book. Facing does "
-            "not close on a mouth journal. Unattested W cannot become remaining."
+            "not close on a mouth journal. Opening remaining does not enter "
+            "close. Unattested W cannot become remaining."
         ),
         "dots": "Pacioli × κ mouth-invariant × spend map",
         "real": "remaining.folio identity_holds",
@@ -245,13 +247,17 @@ SOON: tuple[dict[str, Any], ...] = (
             "opening balance — tickets, a live fuse, a shared now, a floor."
         ),
         "invention": (
-            "The folio opens with given.kind = opening. If there is no ticket "
+            "The folio opens with given.kind = opening. given.tickets_issued "
+            "is the harvest of that opening into issues. folio.opening is "
+            "remaining of the given: not a ticket, not a column, not Ν, not "
+            "wilderness, not in close, holds false. If there is no ticket "
             "and no event, given.absent is true: there was no world this mouth "
-            "can spend. We will not invent an opening. That is the same weld "
-            "as the missing inhabitant letter."
+            "can spend. Issuing tickets is not payment of the opening. We "
+            "will not invent an opening. That is the same weld as the missing "
+            "inhabitant letter."
         ),
-        "dots": "the given (Marion / Heidegger) × floor × missing letter",
-        "real": "remaining.folio given",
+        "dots": "the given (Marion / Heidegger) × floor × missing letter × Facing",
+        "real": "remaining.folio opening",
         "status": "shipped",
         "not_threatening": "Opening balance. We do not sell Being.",
     },
@@ -665,6 +671,9 @@ def folio(job_id: str) -> dict[str, Any]:
             "h0_is_naive_harvest": cols["naive_harvest"],
             "given_counted_as": "tickets_issued",
             "opening_unpaid": True,
+            "opening_is_not_a_column": True,
+            "opening_precedes_the_issue": True,
+            "opening_in_close": False,
             "N_is_a_second_book": True,
             "void_is_the_reversal_plug": True,
             "facing_cannot_close_this_folio": True,
@@ -672,7 +681,8 @@ def folio(job_id: str) -> dict[str, Any]:
                 "H₀ remaining = given − spent is the special case "
                 "immobilized = W = dead-unused = void = 0. "
                 "Partition always holds because given is the issue. "
-                "Remaining of the opening is unpaid."
+                "Remaining of the opening is unpaid — not a ticket, "
+                "not a column, not in close."
             ),
         },
         "the_act_is_not_the_object": True,
@@ -684,7 +694,34 @@ def folio(job_id: str) -> dict[str, Any]:
             "tickets_issued": issued,
             "event_existed": has_event,
             "absent": given_absent,
+            "issue": {
+                "counted_as": "tickets_issued",
+                "tickets_issued": issued,
+                "event_existed": has_event,
+            },
             "we_will_not_invent_an_opening": True,
+        },
+        "opening": {
+            "kind": "remaining_of_the_given",
+            "not_a_ticket": True,
+            "not_a_column": True,
+            "not_N": True,
+            "not_wilderness": True,
+            "in_close": False,
+            "precedes_the_issue": True,
+            "holds": False,
+            "unpaid": True,
+            "harvested_as": "tickets_issued" if issued else None,
+            "visible_as_absence": given_absent,
+            "we_will_not_invent_it": True,
+            "we_will_not_sell_it": True,
+            "law": (
+                "given.kind is opening. given.tickets_issued is the harvest "
+                "of that opening into issues. Remaining of the opening is "
+                "not a ticket, not a column, not Ν, not wilderness, and not "
+                "in close. This folio cannot close it. Issuing tickets is "
+                "not payment. We will not invent it. We will not sell it."
+            ),
         },
         "act": {
             "occurred": spent_act,
@@ -726,6 +763,7 @@ def folio(job_id: str) -> dict[str, Any]:
             "holds": cols["holds"],
             "legacy_holds": cols["legacy_holds"],
             "naive_harvest": cols["naive_harvest"],
+            "opening_in_close": False,
             "law": {
                 "unattested_w_cannot_become_remaining": True,
                 "w_draw_is_not_ordinary_spend": True,
@@ -758,6 +796,7 @@ def folio(job_id: str) -> dict[str, Any]:
             "a new homepage",
             "pending",
             "the Bind sentence",
+            "remaining of the opening as a ticket",
         ],
     }
 
@@ -972,6 +1011,16 @@ def page_blocks() -> list[dict[str, Any]]:
         {"tag": "Headline", "title": "The remaining", "body": RESHAPE["headline"]},
         {"tag": "Nisaba", "title": "Accountant", "body": RESHAPE["nisaba"]},
         {"tag": "Identity", "title": "Books", "body": IDENTITY},
+        {
+            "tag": "Opening",
+            "title": "Remaining of the given",
+            "body": (
+                "Not a ticket. Not a column. Not Ν. Not wilderness. Not in "
+                "close. folio.opening.holds is false. Issuing tickets is not "
+                "payment of the opening. We will not invent it. We will not "
+                "sell it."
+            ),
+        },
         {
             "tag": "Wilderness",
             "title": "W",

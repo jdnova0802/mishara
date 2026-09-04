@@ -70,7 +70,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **DO NOT RE-INVENT STET.md as P11 or Q48.** S1–S8 are remaining with **no ticket** (monthly initial · calibration sticker · log of nothing · guard tour · bin · records box · unused spare · bolt preload). More boring than boring work. Let it stand. Hunt **open**. No `/stet` page.
 **DO NOT RE-INVENT ENVELOPE.md as A29 or a climate SKU.** G₀ is remaining of the **given** (planetary envelope still that envelope). H₀ assumes the field. Seven of nine boundaries breached (PHC 2025). **Not deployed remaining. Not a live rail bigger than UTC / internet / SWIFT / the grid** — those are already special cases in the tree. Not who-may-dim (A20). Not plastics (A21). Never sell planetary capacity. No `/envelope` page.
 **DO NOT RE-INVENT LEFTOVER.md as a sixth brand or as A29.** L1–L7 are remaining **under the boom** (outage · open-promise · session · long-run · threshold · slot · eval). New world events mint new leftover. Hunt **open**. No C2. No thought-SKU. No `/leftover` page.
-**DO NOT RE-INVENT CHALLENGE.md as Being, as Q48, or as a sixth primitive.** Philosophy against the tree. Remaining splits: after · still-*that* · not-yet (Ν). May splits: ticket · one-wayness. Given splits: opening · partition. Prove is cash, not ontology. Floor is a lock, not a theorem. Gate 1 is an event, not a doctrine. Hunt **closed as mint**, open as pressure. No `/challenge` page.
+**DO NOT RE-INVENT CHALLENGE.md as Being, as Q48, or as a sixth primitive.** Philosophy against the tree. Remaining splits: after · still-*that* · not-yet (Ν). May splits: ticket · one-wayness. Given splits: opening · partition. Opening remaining is `folio.opening` (not a column, holds false). Prove is cash, not ontology. Floor is a lock, not a theorem. Gate 1 is an event, not a doctrine. Hunt **closed as mint**, open as pressure. No `/challenge` page.
 **SURFACE (signed).** Bind $1,750 = Gate 1. Split origins. Payout HOLD = evidence the rail fires, not AI-liability loss data. Hands cap: 4 Bind Rooms/mo. `/for/partners` and `/broker-relay` are 410. Grey catalog dead. Do not promise partner-desk volume.
 **HARDEN (not inventing).** `/health` probes real routes (`probes_ok`). Optional `SENTRY_DSN`. Sep 1 chain audit via `/ops/chain-continuity` → `/trust/corrections`. External uptime → phone. Not RFC 3161 museum. Not before Gate 1 as a seven-item diligence product.
 **WONDERS + NECESSITIES (lock).** Both. Afterweb / delay / UTC / lunar / supervision / plume **and** Vital / Facing / Gate 1 Bind. Wonder without the body is abandonment. Body without wonder is a PDF. Do not pick. Not a product.
@@ -80,7 +80,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **STET (name-only).** `gate/STET.md` — S1–S8. Remaining with no ticket. More boring than boring work. Let it stand. Hunt open. No pages.
 **ENVELOPE (name-only).** `gate/ENVELOPE.md` — G₀ remaining of the given. Seven of nine planetary boundaries breached. Prior to H₀ as *assumption*, not as a deployed rail. Not A29. No pages.
 **LEFTOVER (name-only).** `gate/LEFTOVER.md` — L1–L7 remaining under the boom. 3 Sep 2026 leftover. Hunt open. No pages.
-**CHALLENGE (name-only).** `gate/CHALLENGE.md` — philosophy against the tree. Splits named. Books pass: H₀ is naïve harvest; partition counts tickets; opening unpaid. Not Being. Not Q48. No pages.
+**CHALLENGE (name-only).** `gate/CHALLENGE.md` — philosophy against the tree. Splits named. Books pass: H₀ is naïve harvest; partition counts tickets. Opening remaining is now `folio.opening` — remaining of the given, not a column, holds false. Not Being. Not Q48. No pages.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).
@@ -277,7 +277,8 @@ Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null.
 
 | Word | What it is |
 |---|---|
-| given | Opening. The world was already there. We will not invent it. |
+| given | Opening harvested as tickets — the issue. We will not invent t=0. |
+| opening | Remaining of the given. Not a ticket. Not a column. Not in close. |
 | may | Unspent one-wayness |
 | act | Journal line — spending |
 | remaining | Not-yet. Waiting to spend. |
@@ -297,7 +298,7 @@ Identity: `given = spent + remaining + immobilized + W + dead-unused + void`
 - **Wilderness column** — unused-as-product · `POST /demo/pas/remaining/wilderness`
 - **One-way class** — potency / spent / no-given / wilderness
 - **Remaining party** — inhabitant, not the actor
-- **The given as opening** — we will not invent t=0
+- **The given as opening** — `folio.opening` remaining of the given; we will not invent t=0
 
 ## Medium
 
