@@ -5,7 +5,7 @@
 **Honest:** Bodies still need food. Gate 1 still stops cash. This does not skip either.  
 **$0 until stranger paid + proved.** Never sell may / throat / planetary capacity.
 
-Primitive: **may · sheath · prove**. Stock: **remaining = given − spent one-wayness**.
+Primitive: **may · sheath · prove**. Stock: **remaining = given − spent one-wayness** (naïve harvest). Full books: `given = spent + remaining + immobilized + W + dead-unused + void`. H₀ is the special case the other columns are zero. `gate/CHALLENGE.md` · `gate/REMAINING.md`.
 
 Nisaba was already grain **and** the tablet. This seats which crop was always the deeper one.
 

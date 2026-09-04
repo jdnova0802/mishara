@@ -80,7 +80,7 @@ ALREADY SEATED THIS MOUTH. Do not re-seat.
 **STET (name-only).** `gate/STET.md` — S1–S8. Remaining with no ticket. More boring than boring work. Let it stand. Hunt open. No pages.
 **ENVELOPE (name-only).** `gate/ENVELOPE.md` — G₀ remaining of the given. Seven of nine planetary boundaries breached. Prior to H₀ as *assumption*, not as a deployed rail. Not A29. No pages.
 **LEFTOVER (name-only).** `gate/LEFTOVER.md` — L1–L7 remaining under the boom. 3 Sep 2026 leftover. Hunt open. No pages.
-**CHALLENGE (name-only).** `gate/CHALLENGE.md` — philosophy against the tree. Splits named. Not Being. Not Q48. No pages.
+**CHALLENGE (name-only).** `gate/CHALLENGE.md` — philosophy against the tree. Splits named. Books pass: H₀ is naïve harvest; partition counts tickets; opening unpaid. Not Being. Not Q48. No pages.
 **Bridge** `/bridge` — forced attach (S4 insurability or S3 hosted redeem + closing dependency). No new Price ID. Asks Bind / Standing / Operator. Halt: no may, no interchange from this page. Bands: Meter $0.1–20M · Bridge $5–40M before June · Aim $50–200M still a buyer. Source: `gate/BRIDGE.md`.
 **Nisabatree** `/nisabatree` — plain-English map of the whole LLC (brands · organs · cash · glossary). No checkout. Explain-to-anyone surface. Source: `gate/NISABATREE.md`.
 Finished /finished $8,500 · Standing /standing $4,500/mo · $9,000/mo · $25,000/mo · General /general · Commons /commons · Hand /hand · Acts /acts · Flows /flows · Vital /vital $0 · Discharge /discharge $1,500 · Null /null $4,500 · Estate /estate $3,500 · Space /space $0 · Wilderness column on the same /remaining (no new checkout) · time-source stamps on operated packs (not a /time page, not eLoran).

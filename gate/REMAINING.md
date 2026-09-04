@@ -15,13 +15,16 @@ Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null.
 | given | Opening. The world was already there. We will not invent it. |
 | may | Unspent one-wayness |
 | act | Journal line — spending |
-| remaining | Not-yet. Waiting to spend. |
+| remaining | Not-yet *and* the world after. Split named in `CHALLENGE.md`. Quarks are still-*that*. Ν is not-yet. |
 | W | Unused-as-product. Correct next state is still unused. |
 | inhabitant | Who the remaining is for |
 | prove | A stranger can open the stock |
 | floor | The remaining cannot be climbed under |
 
-Identity: `given = spent + remaining + immobilized + W + dead-unused + void`
+Identity (partition): `given = spent + remaining + immobilized + W + dead-unused + void`  
+H₀ / naïve harvest: `remaining = given − spent` — special case immobilized = W = dead-unused = void = 0.
+
+The partition always holds in this mouth because **given is counted as tickets issued**. Remaining of the opening is unpaid. Ν is a second book. Void is the reversal plug. Facing cannot close a mouth journal.
 
 ω = W / given. Unattested W cannot become remaining. Steward of unusedness cannot spend W. The Third opens, never spends. A W-draw is not an ordinary spend (CHARGE-outside).
 

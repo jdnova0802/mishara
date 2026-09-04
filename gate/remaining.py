@@ -183,10 +183,13 @@ SOON: tuple[dict[str, Any], ...] = (
             "remaining = given − spent as a civil object that can fail closed."
         ),
         "invention": (
-            "The folio states the close and whether it holds. Unused-as-product "
-            "is W, not leftover remaining. If given does not equal spent + "
-            "remaining + immobilized + W + dead-unused + void, the remaining "
-            "is a lie. Unattested W cannot become remaining."
+            "The folio states two closes. Partition: given := |tickets|, so "
+            "spent + remaining + immobilized + W + dead-unused + void always "
+            "equals given unless a ticket is counted twice. That is a bin, "
+            "not remaining of the opening. Legacy / H₀: remaining = given − "
+            "spent. That holds only when immobilized = W = dead-unused = "
+            "void = 0 — the naïve harvest. Ν is a second book. Facing does "
+            "not close on a mouth journal. Unattested W cannot become remaining."
         ),
         "dots": "Pacioli × κ mouth-invariant × spend map",
         "real": "remaining.folio identity_holds",
@@ -323,9 +326,13 @@ MEDIUM: tuple[dict[str, Any], ...] = (
             "across a mouth."
         ),
         "invention": (
-            "Period close: given = spent + remaining + immobilized + W + "
-            "dead-unused + void. If it does not close, the mouth does not "
-            "speak. κ is the mouth. W is the warehouse. ω = W / given."
+            "Period close publishes both books. Partition: given = spent + "
+            "remaining + immobilized + W + dead-unused + void — a ticket bin. "
+            "H₀: remaining = given − spent — naïve harvest, other columns "
+            "zero. If partition does not close, the mouth does not speak. "
+            "If H₀ closes while W or void is live, the harvest is a lie. "
+            "κ is the mouth. W is the warehouse. ω = W / given. Ν is off this "
+            "identity. Void is the reversal plug."
         ),
         "dots": "κ × Pacioli × ICAD × restraint inventory × unused-as-product",
         "real": "remaining.folio close + wilderness attest / open / draw",
@@ -603,6 +610,7 @@ def _columns(tickets: list[dict[str, Any]], job_id: str, now: str) -> dict[str, 
     given = len(tickets)
     close = spent + remaining + immobilized + wilderness + dead_unused + void
     omega = (wilderness / given) if given else 0.0
+    other = immobilized + wilderness + dead_unused + void
     return {
         "given": given,
         "spent": spent,
@@ -614,6 +622,8 @@ def _columns(tickets: list[dict[str, Any]], job_id: str, now: str) -> dict[str, 
         "close": close,
         "omega": omega,
         "holds": given == close,
+        "legacy_holds": remaining == given - spent,
+        "naive_harvest": other == 0,
     }
 
 
@@ -646,10 +656,31 @@ def folio(job_id: str) -> dict[str, Any]:
         "identity": IDENTITY,
         "legacy_identity": LEGACY_IDENTITY,
         "identity_holds": identity_holds,
+        "books": {
+            "partition": IDENTITY,
+            "partition_holds": identity_holds,
+            "partition_is_ticket_count": True,
+            "legacy": LEGACY_IDENTITY,
+            "legacy_holds": cols["legacy_holds"],
+            "h0_is_naive_harvest": cols["naive_harvest"],
+            "given_counted_as": "tickets_issued",
+            "opening_unpaid": True,
+            "N_is_a_second_book": True,
+            "void_is_the_reversal_plug": True,
+            "facing_cannot_close_this_folio": True,
+            "law": (
+                "H₀ remaining = given − spent is the special case "
+                "immobilized = W = dead-unused = void = 0. "
+                "Partition always holds because given is the issue. "
+                "Remaining of the opening is unpaid."
+            ),
+        },
         "the_act_is_not_the_object": True,
         "given": {
             "kind": "opening",
             "claim": "the world was already there",
+            "counted_as": "tickets_issued",
+            "opening_unpaid": True,
             "tickets_issued": issued,
             "event_existed": has_event,
             "absent": given_absent,
@@ -693,6 +724,8 @@ def folio(job_id: str) -> dict[str, Any]:
             "void": cols["void"],
             "omega": cols["omega"],
             "holds": cols["holds"],
+            "legacy_holds": cols["legacy_holds"],
+            "naive_harvest": cols["naive_harvest"],
             "law": {
                 "unattested_w_cannot_become_remaining": True,
                 "w_draw_is_not_ordinary_spend": True,
@@ -899,6 +932,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         "reshape": dict(RESHAPE),
         "thesis": RESHAPE["headline"] + " " + RESHAPE["nisaba"],
         "identity": IDENTITY,
+        "legacy_identity": LEGACY_IDENTITY,
         "soon": [dict(x) for x in SOON],
         "medium": [dict(x) for x in MEDIUM],
         "long": [dict(x) for x in LONG],

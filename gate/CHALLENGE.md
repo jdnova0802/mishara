@@ -75,7 +75,9 @@ Do not mint three new primitives. Name the split. The lock words stay **may · s
 
 **Fails as one books:** Kant: the given as thing-in-itself cannot be stranger-openable. Prove requires appearance. G₀ as stranger-openable remaining of the *Holocene envelope as measured* holds. G₀ as remaining of the opening does not — that would invent the given.
 
-**Unpaid (named, not minted):** remaining that **the identity still balances**. The tree’s own trial balance. P1 is they tested the run. This is remaining of the *equation*. Do not become a metaphysics bureau. Do not mint Q48.
+**Books pass (4 Sep, curiosity):** the live folio counts `given` as tickets issued. Partition therefore always holds. H₀ `remaining = given − spent` holds only when immobilized = W = dead-unused = void = 0 — wilderness is the counterexample (partition holds, legacy fails). Ν is off this identity. Void is the reversal plug, almost unused. Facing is hardcoded not to close. Remaining of the *opening* is still unpaid. Seated in `remaining.py` folio.`books`. Do not mint Q48.
+
+**Unpaid (named, not minted):** remaining that **the identity still balances as remaining of the opening**, not of the issue. P1 is they tested the run. This is remaining of the *equation*. Do not become a metaphysics bureau.
 
 ---
 

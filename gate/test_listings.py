@@ -3549,6 +3549,10 @@ class RemainingTests(unittest.TestCase):
             m["identity"],
             "given = spent + remaining + immobilized + W + dead-unused + void",
         )
+        self.assertEqual(
+            m["legacy_identity"],
+            "remaining = given − spent one-wayness",
+        )
         self.assertIsNone(m["cleverer_layer"])
         self.assertFalse(m["l2_module"])
         self.assertEqual(m["family_siblings_remain"], 5)
@@ -3558,6 +3562,7 @@ class RemainingTests(unittest.TestCase):
         html = self.client.get("/remaining").get_data(as_text=True)
         self.assertIn("noindex", html)
         self.assertIn("Bigger than the act is the remaining", html)
+        self.assertIn("naïve harvest", html)
         self.assertIn("Remaining folio", html)
         self.assertIn("World-budget", html)
         robots = self.client.get("/robots.txt").get_data(as_text=True)
@@ -3582,6 +3587,11 @@ class RemainingTests(unittest.TestCase):
         self.assertEqual(empty["remaining"]["for"], "inhabitant")
         self.assertEqual(empty["remaining"]["not_for"], "the actor")
         self.assertTrue(empty["identity_holds"])
+        self.assertTrue(empty["books"]["partition_holds"])
+        self.assertTrue(empty["books"]["legacy_holds"])
+        self.assertTrue(empty["books"]["h0_is_naive_harvest"])
+        self.assertTrue(empty["books"]["opening_unpaid"])
+        self.assertTrue(empty["given"]["opening_unpaid"])
         self.assertFalse(empty["facing"]["holds"])
         self.assertEqual(empty["facing"]["reason"], "actor_indexed")
         self.assertIsNone(empty["cleverer_layer"])
@@ -3624,6 +3634,8 @@ class RemainingTests(unittest.TestCase):
             stock["given"]["tickets_issued"] - stock["act"]["tickets_consumed"],
         )
         self.assertTrue(stock["close"]["holds"])
+        self.assertTrue(stock["books"]["legacy_holds"])
+        self.assertTrue(stock["close"]["naive_harvest"])
         self.assertEqual(stock["close"]["W"], 0)
         self.assertEqual(stock["close"]["omega"], 0.0)
 
@@ -3645,6 +3657,8 @@ class RemainingTests(unittest.TestCase):
         self.assertEqual(attested["folio"]["remaining"]["tickets_unconsumed"], 0)
         self.assertEqual(attested["folio"]["remaining"]["one_way_class"], "wilderness")
         self.assertTrue(attested["folio"]["close"]["holds"])
+        self.assertFalse(attested["folio"]["books"]["legacy_holds"])
+        self.assertFalse(attested["folio"]["books"]["h0_is_naive_harvest"])
         self.assertEqual(attested["folio"]["close"]["omega"], 1.0)
 
         redeem = self.client.post(
