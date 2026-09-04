@@ -186,7 +186,7 @@ The shiny lanes already have companies. These lanes are **boring, massive, and e
 ## Hunt status
 
 **Open.** This shelf is the inverse-Elon inventory. Galaxy and jaw Aim hunts stay closed. Next pass hunts more **wrong-object industries** (they built the factory; remaining is unpaid), not A29 remixes, not U/X as if unseated.  
-**Quark shelf (different cut):** `gate/QUARK.md` — Q1–Q40 tiny remaining, civilizational blast. Q26–Q31 emergency cut. Q32–Q36 irreversibility cut. Q37–Q40 spine cut. Cash gravity is shape, not REST. Not P11.  
+**Quark shelf (different cut):** `gate/QUARK.md` — Q1–Q43 tiny remaining, civilizational blast. Q26–Q31 emergency cut. Q32–Q36 irreversibility cut. Q37–Q40 spine cut. Q41–Q43 body cut. Cash gravity is shape, not REST. Not P11.  
 **Stet shelf (under this shelf):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not P11.
 
 ---

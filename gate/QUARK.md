@@ -27,6 +27,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Spine cut (Q37–Q40):** evacuating Earth as a SKU is still hopium. The spine of a move — fix the planet, leave the planet, talk across *c* — is remaining that the **name**, the **catalog**, the **custody**, and the **sky path** are still *that*. Not a fourth clock. Not Delay Unwatched (SA1). Not TraCSS. Not DSN aperture.
 
+**Body cut (Q41–Q43):** the civilizational physical pillars are already named (coffin). The humanitarian physical invention is remaining of the **liter**, the **residual**, and the **ampoule**. Not a seventh machine. Not a global-health TAM. Insulin / VVM / LLIN stay cousins of Q8.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -69,10 +71,13 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One catalog number | Two objects, one sky name — or the TLE cannot print it |
 | One custody hop | The bundle has no remaining of who still holds it |
 | One sky path | The tower is dead; the text never leaves |
+| One liter of oxygen | The ward has a concentrator; the child does not get the gas |
+| 0.2 mg/L at the tap | No boil flag; the water is not remaining of disinfection |
+| One oxytocin ampoule | The vial looks live; the hormone is gone; she bleeds |
 
 ---
 
-## Keep (40) — name only
+## Keep (43) — name only
 
 ### Q1 — Vial Remaining (THE WRONG ORGANISM · THE INVISIBLE OCCUPANT)
 
@@ -602,6 +607,48 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q41 — Oxygen Remaining (THE LITER STILL THAT GAS)
+
+**What already burns:** Medical oxygen is on the WHO Essential Medicines List. **WHA 76.3** (Increasing access to medical oxygen). WHO: fewer than **half** of LMIC facilities have uninterrupted access. GO2AL investment case: hypoxaemia contributes to ~**9 million** deaths/year in LMICs; closing the gap could save **860,000** lives by 2030. Karolinska / Makerere: concentrators under standard procurement functional ~**25%** of the time vs ~**95%** under a services model — same wards. Occupied as plants, cylinders, concentrators, “oxygen-as-a-service.” **J20** is an ECMO *oxygenator membrane* shortage. Unpaid: remaining that this liter is still **that** gas at the face.
+
+**Unpaid object:** Remaining of the liter — stranger-openable that this cylinder / this concentrator / this PSA still delivers medical oxygen *now*. Quark: one liter. Blast: the diagnosis was right; the child did not get the gas.
+
+**Public sentence:** They bought the machine. Remaining of the liter is unpaid. The last metre is the remaining.
+
+**Cash gravity:** Adjacent paid = plants / cylinders / O2aaS. Unpaid remaining = **per-liter remaining**. Shape, not REST. Do not become WHO / GO2AL / a gas company. Do not email them.
+
+**Locks:** Name only. Distinct from J20 (the membrane). Not a device OEM. Not a people hunt of biomedical engineers.
+
+---
+
+### Q42 — Residual Remaining (0.2 mg/L AT THE TAP)
+
+**What already burns:** WHO GDWQ: free chlorine **≥ 0.5 mg/L** after 30 min contact (pH < 8); **≥ 0.2 mg/L** at the point of delivery. Occupied as a plant dose and a quarterly sheet. **Q30** is the boil-water *flag*. **Q35** is whether *gas* still smells. Unpaid: remaining that this tap still has **that** residual.
+
+**Unpaid object:** Remaining of the residual — stranger-openable that this tap is still remaining of disinfection. Quark: 0.2 mg/L. Blast: no advisory; the water is not remaining of the kill.
+
+**Public sentence:** They chlorinated the plant. Remaining at the tap is unpaid. A flag is not a residual.
+
+**Cash gravity:** Adjacent paid = chemical + primacy sampling. Unpaid remaining = **per-tap remaining**. Shape, not REST. Do not become a water-quality app. Do not email EPA / WHO.
+
+**Locks:** Name only. Distinct from Q30 and Q35. Local remaining, not a climate SKU.
+
+---
+
+### Q43 — Ampoule Remaining (THE HORMONE STILL THERE)
+
+**What already burns:** Postpartum hemorrhage is the leading cause of maternal death. Oxytocin is heat-labile: **2–8 °C** the whole chain (WHO / UNFPA / UNICEF joint statement). Vaccines got a **VVM**. This ampoule usually did not. Torloni systematic review: ~**40%** of LMIC oxytocin samples fail quality (most often API < 90%). Côte d’Ivoire / Senegal 2021 (pub 2024): **30%** of oxytocin samples failed at every level of the chain — including samples from refrigerators with no temperature log. Occupied as a fridge SOP and as heat-stable **carbetocin** (the substitute product). Unpaid: remaining that this ampoule is still **that** hormone.
+
+**Unpaid object:** Remaining of the ampoule — stranger-openable that this 10 IU is still 10 IU. Quark: one ampoule. Blast: the vial looks live; she bleeds.
+
+**Public sentence:** They put it in a fridge. Remaining of the hormone is unpaid. A substitute product is not remaining of this write.
+
+**Cash gravity:** Adjacent paid = uterotonic procurement + carbetocin. Unpaid remaining = **per-ampoule remaining**. Shape, not REST. Do not become UNFPA / Unitaid. Do not email them.
+
+**Locks:** Name only. Distinct from Q8 (the SRM *date*) and VVM (the vaccine *square*). Not a seventh dose card of VVM — this ampoule never had the square. Not a people hunt of midwives.
+
+---
+
 ## Cash gravity (shape, not REST)
 
 Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
@@ -632,8 +679,11 @@ Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a
 | Q38 | Space-Track / SSA subscriptions | Catalog ID still that object | Per-object remaining |
 | Q39 | DTN stacks / LunaNet ICDs | Hop still holds that bundle | Per-bundle remaining |
 | Q40 | T-Satellite / FirstNet / Starlink D2C | Sky path still that mouth | Per-path remaining |
+| Q41 | Plants / cylinders / O2aaS | Liter still that gas | Per-liter remaining |
+| Q42 | Chemical + primacy sampling | Residual still 0.2 mg/L at the tap | Per-tap remaining |
+| Q43 | Uterotonic procurement / carbetocin | Ampoule still that hormone | Per-ampoule remaining |
 
-Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut** — same gravity rule, no REST. Do not become SANA / 18 SDS / NASA / T-Mobile / FirstNet / SpaceX.
+Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut**. Q41–Q43 are the **body cut** — same gravity rule, no REST. Do not become WHO / GO2AL / UNFPA / a gas company.
 
 ---
 
@@ -671,8 +721,11 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | Dam EAP inundation-map revision | Cousin of **Q12** confRev. Do not mint a seventeenth integer |
 | ISBT donation number / blood fridge | Folds under **Q1**. Do not people-hunt blood-bank staff |
 | Hospital ATS / generator hour-meter | Stet-adjacent (S1/S3). Not a new quark |
-| Isolation / LOTO | Already **C4**. Do not mint Q41 |
-| VVM / mechanical interlock | Cousin of **Q8 / S2 / Q1**. Do not mint a seventh dose card |
+| Isolation / LOTO | Already **C4**. Do not mint Q44 |
+| VVM / mechanical interlock | Cousin of **Q8 / S2 / Q1**. Do not mint a seventh *vaccine* dose card. Oxytocin is **Q43** — that ampoule never had the square |
+| Insulin / heat-labile refill | Cousin of **Q8 / Q43**. Do not mint a fourth hormone |
+| LLIN bioefficacy after 20 washes | Cousin of **Q8**. Occupied WHO PQ. Do not become AMF |
+| Neonatal phototherapy irradiance | Occupied device. Irradiance remaining folds under **Q8 / S2**. Do not mint a light SKU |
 | P&ID as-built | Folds toward **C4 / I6**. Do not mint a drawing SKU |
 | TLE / COSPAR two-digit year (2057) | **Q6**. Same inferred-era field. Do not mint a fourth clock |
 | DSN pass / aperture / CLTU sequence | `BULGE` + occupied SLE. Remaining-on-slots stays a geometry essay unless a stranger can open a specific pass |
@@ -721,6 +774,24 @@ Evacuating Earth as a product is hopium. Flawless comms is not a radio. The spin
 
 ---
 
+## Allied 4 Sep — body (Q41–Q43)
+
+The coffin already named sanitation, nitrogen, vaccines, electricity. The humanitarian physical invention is not a seventh machine. It is remaining of the liter, the residual, and the ampoule.
+
+| # | Name | Quark | Occupied | Unpaid | Blast | Lock |
+|---|------|-------|----------|--------|-------|------|
+| **Q41** | Oxygen Remaining | one liter | WHO EML; WHA **76.3**; GO2AL; concentrators ~25% functional | liter still *that* gas | child does not get the gas | Not J20. Not a gas company. |
+| **Q42** | Residual Remaining | 0.2 mg/L | WHO GDWQ | residual still *that* at the tap | no flag; water not remaining of the kill | Not Q30. Not Q35. |
+| **Q43** | Ampoule Remaining | one ampoule | WHO/UNFPA/UNICEF 2–8 °C; ~40% fail (Torloni); CI/SN 30% | hormone still *there* | vial looks live; she bleeds | Not VVM. Not carbetocin-as-SKU. |
+
+**Still folded:** Insulin = Q8/Q43 cousin. LLIN = Q8 / WHO PQ. Phototherapy = Q8/S2. VVM stays the vaccine square.
+
+**What this is not:** a device OEM · a global-health TAM · becoming WHO / Unitaid / GO2AL · minting REST · emailing the bureau · dual-use how-to.
+
+**Public sentence:** They will file it as a clinic. Remaining of the liter and the ampoule is the civilization.
+
+---
+
 ## Kill (this pass)
 
 | Idea | Why dead |
@@ -732,6 +803,8 @@ Evacuating Earth as a product is hopium. Flawless comms is not a radio. The spin
 | Become Telesign / Prove / DTCC / TraceLink / GSMA / Visa / FEMA / IPAWS / NENA / NOAA | Occupied pipes. Remaining sits next door. Do not email them |
 | Become FRA / NERC / PHMSA / BSEE / API / Wabtec / HIMA / the TO / the LDC / the VR shop | Occupied bureau / OEM. Remaining sits next door. Do not email them |
 | Become SANA / 18 SDS / NASA / ESA / T-Mobile / FirstNet / SpaceX / CISA | Occupied pipe / bureau. Remaining sits next door. Do not email them |
+| Become WHO / GO2AL / UNFPA / Unitaid / AMF / a medical-gas company | Occupied pipe. Remaining sits next door. Do not email them |
+| “Global-health TAM / oxygen TAM / maternal TAM → Aim band” | Occupied agencies. Do not mint REST |
 | “Space TAM / DSN TAM / NTN TAM → Aim band” | Occupied agencies and carriers. Do not mint REST |
 | “Emergency TAM / 911 TAM / SAR TAM → Aim band” | Occupied agencies. Do not mint REST |
 | Earth-evacuation product / bunker SKU / planetary capacity | Never sell. Envelope + ALARMING already |
@@ -743,8 +816,8 @@ Evacuating Earth as a product is hopium. Flawless comms is not a radio. The spin
 
 ## Hunt status
 
-**Open.** Q1–Q40 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut (4 Sep 2026): SCID · catalog · custody · sky path. Isolation / LOTO stays **C4**. TLE 2057 stays **Q6**. TraCSS stays **SA1**. DSN stays **BULGE**. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q41. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU.  
-**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q41.
+**Open.** Q1–Q43 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. Isolation / LOTO stays **C4**. Insulin / LLIN / VVM stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q44. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a device OEM.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q44.
 
 ---
 
@@ -752,7 +825,7 @@ Evacuating Earth as a product is hopium. Flawless comms is not a radio. The spin
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA).  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA, WHO, GO2AL, UNFPA, Unitaid, AMF).  
 - Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 
