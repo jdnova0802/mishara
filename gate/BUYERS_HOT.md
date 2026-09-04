@@ -42,6 +42,8 @@ Skip: freeze list · invented surnames · form-only · media-only · capacity RF
 **Dust** (`support@dust.tt`, official support page; 300k agents / 3k teams / Series B) is overflow. Strong activity, more knowledge+action than “the write already left.”  
 **Harvey** (`legalnotices@harvey.ai`, official platform agreement) is overflow. Perfect inbox. Company is large (~900 people, $150–200M ARR class). They will understand the sentence; $1,750 may bounce off a big legal team.
 
+**Bind-plus-sweetener overflow (do not send instead of the ten):** FIL ’26 classmates of Mayflower — Skyfire / Artian / Beam / Zeplyn — and AIUC leftover ElevenLabs / Lovable. Map: `gate/BUYERS.md`. Inboxes: `gate/ENTITIES.md`. Cap stays this wave.
+
 ---
 
 ## Demoted (still real — low close chance)

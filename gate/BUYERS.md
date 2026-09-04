@@ -218,6 +218,27 @@ Already seated, still true: NVIDIA × HF **$12.9B** (L2) · Cyera × Oasis ~**$1
 
 No new leftover. TAP/MPP/x402 fifth gate still unpaid. Claudeforce beta still a sentence, not a live door this morning.
 
+## Bind plus a sweetener (researched 4 Sep)
+
+Not a new Tuesday wave. Cap stays the ten already sent. This is the desk where **$1,750 lands and something else lands with it**.
+
+| Rank | Shape | Who pays Bind | The sweetener | Official door | Halt |
+|------|-------|---------------|---------------|---------------|------|
+| **1** | **FIL latch** | One 2026 FinTech Innovation Lab NY classmate who already writes | Mayflower is **in the same lab**. Aon Re structured Mayflower/Hadron. Aon just paid **$17.0B** for USI. Bind + three-pack + the $17B throat. | Mayflower already: `jeremy@mayflowerspecialty.com` (intro). Classmates below. | Do not email Accenture `fil.nyc@`. Do not spray the cohort. One classmate, or the Mayflower intro already on Tuesday. |
+| **2** | **Skyfire** | They *are* the agent checkout. Agents pay. | Bind + later **payout/Release weld**. Same FIL as Mayflower. | `privacy@skyfire.xyz` — official privacy, Skyfire Systems Inc. | Overflow. Not Tuesday. Do not run a facilitator. Distinct from skyfireai.com (wrong company). |
+| **3** | **Artian** | Multi-agent platform for regulated FS. Writes in bank workflows. | Bind + a **bank prove case** later. Same FIL as Mayflower. | `privacy@artian.ai` — official privacy. | Overflow. Regulated buyer still the insured. |
+| **4** | **Beam AI** | Underwriting / claims / compliance agents. The write is the file. | Bind + **insurance-ops prove**. Same FIL as Mayflower. | `support@beam.ai` — official privacy. | Support inbox. Overflow. |
+| **5** | **Zeplyn** | Wealth-advisor agents. Advice / workflow writes. | Bind + **advice-write prove**. Same FIL as Mayflower. | `info@zeplyn.ai` — official privacy (weaker `info@`). | Overflow. Do not treat `info@` as a GC. |
+| **6** | **AIUC leftover** | Deployer who already bought the **badge** and still ships irreversible writes | Logo of someone who already paid for governance. Bind is remaining the badge does not hold. | **ElevenLabs** `legal@elevenlabs.io` (official contact-legal + privacy). **Lovable** `privacy@lovable.dev` (official privacy). | Do **not** become AIUC. Do not email KPMG / Cursor / Intercom / UiPath — Fortune / badge shop. Harvey already overflow. |
+| **7** | **Factory latch** | Factory already on Tuesday | If they pay: prove case on **EY / Adyen / Hexaware** Droid writes. Not a second send. | Already `legal@factory.ai` | Do not email EY / Morgan Stanley / NVIDIA / PANW / Hexaware. |
+| **8** | **Primer latch** | Primer already on Tuesday | If they pay: **payout weld** (companion executes payments). | Already `legal@primer.io` | After Gate 1. |
+| **9** | **Counsel latch** | Already have the brief | Forward into one GC = Bind + channel. | Already the three To: lines | Friday follow was the clock. Do not invent a fourth shop. |
+| **10** | **NAIC latch** | Cannot name the pilot carriers (Houdek: confidential) | F3 footnote if a folio is already in a **pilot-state** GC’s hands. Fuse-shaped. | None | Do not invent carriers. Do not email NAIC. |
+
+FIL 2026 class (official, 25 Mar 2026): Artian · Beam · Charm Security · DFNS · Kobalt Labs · LinqAlpha · **Mayflower** · PVML · **Skyfire** · Varos · **Zeplyn**. Demo Day was late June at BNY. Charm / DFNS / Kobalt / LinqAlpha / PVML / Varos are infra or research — not first Bind. Do not mint inboxes for them this pass.
+
+**Not a sweetener:** spraying AIUC-1 names · emailing Aon / USI · pitching Mosaic / Munich Re · Hexaware `Privacy_core@` (official, too big) · becoming Skyfire / Zoro.
+
 ## Honest holes (still blank)
 
 - Payout/iGaming is now a **named class**, still **no To:**. Hunt one desk after Gate 1.  

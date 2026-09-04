@@ -76,6 +76,19 @@ Cigna is an insurer. Do not treat as a Bind insured. Discord / SoFi / Chime stay
 
 **Naïve** (Relixir, Inc. · `usenaive.ai`) — agents incorporate, pay, file. Series A $28.5M (TechCrunch 6 Aug 2026). Official privacy (21 Jul 2026) has **no email**; rights “through the Service.” Named-no-inbox. Do not invent `support@usenaive.ai`. Not Tuesday.
 
+### Bind-plus-sweetener overflow (researched 4 Sep — not Tuesday)
+
+| Entity | Why Bind + sweetener | Published inbox | Inbox source |
+|--------|----------------------|-----------------|--------------|
+| **Skyfire** (Skyfire Systems Inc.) | FIL ’26 classmate of Mayflower. Agents identify + checkout + pay. Bind + later weld. | `privacy@skyfire.xyz` | [skyfire.xyz/privacy-policy](https://skyfire.xyz/privacy-policy/) |
+| **Artian** | FIL ’26. Multi-agent for regulated FS. Bind + bank prove later. | `privacy@artian.ai` | [artian.ai/privacy](https://artian.ai/privacy) |
+| **Beam AI** | FIL ’26. UW / claims / compliance writes. | `support@beam.ai` | [beam.ai/legal/privacy-policy](https://beam.ai/legal/privacy-policy) |
+| **Zeplyn** (DeepInsights AI Inc.) | FIL ’26. Wealth-advisor agents. | `info@zeplyn.ai` | [zeplyn.ai/privacy-and-policy](https://www.zeplyn.ai/privacy-and-policy) |
+| **ElevenLabs** | Voice agents that bind. Already AIUC-1. Badge ≠ remaining. | `legal@elevenlabs.io` | [elevenlabs.io/contact-legal](https://elevenlabs.io/contact-legal) |
+| **Lovable** | Coding agents that ship apps. AIUC-1. $400M Series C — may bounce $1,750. | `privacy@lovable.dev` | [lovable.dev/privacy](https://lovable.dev/privacy) |
+
+Do not add these to Tuesday. Do not invent Charm / DFNS / Kobalt / LinqAlpha / PVML / Varos inboxes this pass. Do not use `skyfireai.com` (different company).
+
 ---
 
 ## Looked up and skipped
