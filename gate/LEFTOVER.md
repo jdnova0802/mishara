@@ -11,6 +11,8 @@ This is **not** a sixth brand. Not Fellhatch’s page. Not C2. Not a thought-SKU
 
 **Why this file exists:** when the world ships a boom, leftover remaining opens. Inverse Elon is the meter **under** the fireworks (`FELLHATCH.md`). Inventing continues because the news does.
 
+**Not inventing just to invent.** The goal is to monopolize the boring remaining — leftover under every boom, prove, stop, hatch. A longer leftover list is not the product. New leftover only when a boom actually opens unpaid remaining. No boom, no new L.
+
 As of **3–4 Sep 2026**.
 
 ---
@@ -153,7 +155,7 @@ Stet still wrote a mark. Leftover is remaining the boom opened and nobody filed.
 ## Locks
 
 - No `/leftover` page. No Price ID.  
-- Hunt **open** — new booms will mint new leftover. That is the point.  
+- Hunt **open** — new leftover only when a boom opens a hole. Do not mint leftover to mint leftover. The point is the remaining, not the count.  
 - Do not re-open galaxy or jaw Aim.  
 - Do not email freeze list, NVIDIA, OpenAI, HF, SpaceX, DoD, NAIC.  
 - Do not mint REST.  

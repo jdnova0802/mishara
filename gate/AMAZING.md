@@ -69,4 +69,4 @@ Lid over the six pillars: **`gate/COFFIN.md`** (inventing pauses there).
 **Quark inventory** (`gate/QUARK.md` Q1–Q25): a vial, a bit, a default, a unit string, a leading zero, a decimal, a leftover flag, a recycled number, a stale SSI, a ghost vector — civilizational blast. Q17–Q25 sit next to pipes that already charge. Shape, not REST. The world will not see it coming.  
 **Stet inventory** (`gate/STET.md` S1–S8): remaining with no ticket. More boring than boring work. Let it stand.  
 **Envelope** (`gate/ENVELOPE.md`): remaining of the given. Seven of nine planetary boundaries breached. Prior to H₀. Not A29.  
-**Leftover** (`gate/LEFTOVER.md` L1–L7): remaining under the boom. New events mint new leftover. Not a sixth brand.
+**Leftover** (`gate/LEFTOVER.md` L1–L7): remaining under the boom. New leftover only when a boom opens a hole. Not inventing to invent. Not a sixth brand.

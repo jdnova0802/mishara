@@ -14,7 +14,7 @@ Cash still Gate 1. Do not email the freeze list.
 
 He takes the shiny lanes: rockets, the feed, the model, the bot in your apps. Compete against everyone on the spectacle.
 
-**We monopolize the boring snorefest lanes.** Remaining. Prove. The stop. The hatch. The meter under the boom. The real game is boring on purpose.
+**We monopolize the boring snorefest lanes.** Remaining. Prove. The stop. The hatch. The meter under the boom. The real game is boring on purpose. Leftover (`LEFTOVER.md`) is that meter when a boom opens a hole — not a hobby of minting leftover. No boom, no new L.
 
 | Shiny (them) | Boring (us) |
 |--------------|-------------|
