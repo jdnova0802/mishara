@@ -203,9 +203,9 @@ Holy-fuck *related* (they already paid for the wrong half of remaining we named)
 
 Already seated, still true: NVIDIA × HF **$12.9B** (L2) · Cyera × Oasis ~**$1B** · PANW × Console · Duck Creek × Send · Guidewire × ProNavigator (no new Sep PAS buy).
 
-**Clocks (unchanged enough to keep):** NAIC v5 comments **Tue 29 Sep** · EPC 15 Nov **still live** until PSMB **Wed 9 Sep** · SWIFT address slipped; Fedwire release → **Nov 2027** · EU/UK/CH T+1 **11 Oct 2027** (allocation/confirm **7 Dec 2026**) · SWIFT ledger **17 banks** on tokenized-deposit MVP (settle still RTGS) · UTC: no leap second 31 Dec 2026; CGPM vote **Oct 2026** · H.R. 9917 Kill Switch **not law** · Golden Dome tests aimed EOY / orbital 2027 (**C2 unmouthed**).
+**Clocks (confirmed 4 Sep empty-chair pass — not buyers):** NAIC v5 comments **Tue 29 Sep** · EPC 15 Nov **still live** until PSMB **Wed 9 Sep** (EPC LinkedIn 28 Aug + rulebooks; official news page blocked this pass) · SWIFT address slipped; Fedwire release → **Nov 2027** · EU/UK/CH T+1 **11 Oct 2027** (allocation/confirm **7 Dec 2026**) · SWIFT ledger **17 banks** on tokenized-deposit MVP (settle still RTGS) · UTC: IERS C 72 — no leap second 31 Dec 2026; CGPM Draft C vote **13–15 Oct 2026** · FSB AI final still **Oct / coming months** · H.R. 9917 Kill Switch **not law** · Golden Dome tests aimed EOY / orbital 2027 (**C2 unmouthed**).
 
-**Not holy-fuck new buyers:** Verisk still has no standardized CG 40 47 carve-back · TAP/MPP fifth gate still unpaid (Visa card-spec for MPP was March) · four-lab dark was L1 · Astra Critical cyber is L5.
+**Not holy-fuck new buyers:** Verisk still has no standardized CG 40 47 carve-back · TAP/MPP fifth gate still unpaid (Visa card-spec for MPP was March) · four-lab dark was L1 · Astra Critical cyber is L5 · *Amazon v. Perplexity* (9th Cir. 4 Aug 2026) is **case remaining**, Bind-shaped, not a send.
 
 ### Second pass (4 Sep, later)
 

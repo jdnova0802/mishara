@@ -129,6 +129,32 @@ This is the search that can rewrite the **film strip**, not another remaining bo
 
 ---
 
+## Looked up 2026-09-04 — empty chairs (not buyers)
+
+Not leftover. Not a new band. Not a Tuesday wave. The remaining of *carve-back*, *case*, *clock*, and *prove-as-standard* — whether anyone else sat them. Hunt once. Do not re-hunt this week unless a boom opens a hole.
+
+| Chair | Fact back | Status | Halt |
+|-------|-----------|--------|------|
+| **R2 carve-back** | Still **no** ISO/Verisk standardized CG 40 47 / 40 48 / 35 08 buyback. Practitioner text (Gridex, Risk Specialty, Gallagher, The AI Hat) still says negotiate **manuscript** HITL / governance carve-backs. Exclusion family live Jan 2026; annex unpaid. | **Empty.** XF1 still manuscript evidence, not a bureau cite | Do not email Verisk. Do not become the bureau. Do not mint leftover from the hole |
+| **R4 FSB** | Official 10 Jun 2026: final report **October 2026**. Official responses page (6 Aug): public comments up; final expected **in the coming months**. Consultation **Sound Practice 10** = meaningful human oversight (ability, authority, and incentive to intervene — not tick-box) plus agentic-AI notes. Not a standard. Not examiner method. | Final **unpaid**. 23+ cite *if* October names evidence the way Exhibit C does | Do not email FSB |
+| **Case — 9th Cir.** | *Amazon.com Services, LLC v. Perplexity AI, Inc.*, No. 26-1444 (9th Cir. **4 Aug 2026**). First circuit on agentic AI + CFAA. Agent is a **tool, not a person**. The **user** accessed Amazon. Court: does **not** establish a new legal regime; does **not** address tort. | **Bind-shaped.** Attribution of the write sits on deployer/user. Tort chair **empty** | Not leftover. Do not email Amazon / Perplexity |
+| **Case — Moffatt** | Still **2024** BCCRT (*Moffatt v. Air Canada*), ~**$812 CAD**. No 2026 US circuit tort verdict on an agent-authored write. | Plaintiff-bar template is still that small-claims line | Do not inflate “proven in court” past BCCRT |
+| **EPC clock** | Official 2025 SCT / SCT Inst rulebook v1.1 and EPC153-22: unstructured address dies **15 Nov 2026**. SWIFT slipped. EPC own LinkedIn **28 Aug 2026** + scheme language: **15 Nov stands** until PSMB **Wed 9 Sep**. Official news page Cloudflare-blocked this pass; rulebooks + EPC LinkedIn are the two sources. | Next signal **Wed 9 Sep**. Do not mint rail remaining from a maybe-slip | Do not email EPC |
+| **UTC clock** | IERS Bulletin **C 72** (6 Jul 2026): **no** leap second **31 Dec 2026**. UTC−TAI = **−37 s**. 28th CGPM Versailles **13–15 Oct 2026**; Draft **Resolution C** continuous UTC **20 May 2027**, max \|UT1−UTC\| = **3600 s**. Already `ALARMING.md` A4. | Unchanged | Do not re-open PNT as a third clock |
+| **Prove-as-standard** | C2PA 2.3/2.4 = **media-asset** origin. IETF *individual* drafts (PAIT, VAP, ATA) talk attribution / agent identity. None is stranger-openable remaining of the **business write**. | Empty as a cite that names the folio | Do not become a standards body. Do not mint leftover from an I-D |
+
+**What this pass did *not* do:** mint L8. Mint REST. Grow Tuesday. Email anyone.
+
+**What would rewrite overnight, still unpaid (same four, plus two named chairs):**
+1. Fall NAIC remaining-as-method.  
+2. ISO carve-back form (R2 still empty).  
+3. Fifth money-leave gate.  
+4. Cloud write-gate / one E check.  
+5. A US **tort** verdict on the agent write (9th Cir. left it open).  
+6. FSB **final** that names evidence (October, not a 22 wire).
+
+---
+
 ## Stress-pass angles 2026-09-02 (not user-prompted civilization)
 
 These are the angles that historically moved ceilings. Looked up hard.

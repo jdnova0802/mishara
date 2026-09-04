@@ -14,7 +14,7 @@
 **What blasts the register Sep→22+:** `gate/BLAST.md` — Agent 365 · Send · Idira · aiSure · NAIC v5/v7. Not another remaining essay.  
 **What changes the fork and the other tables at once:** `gate/CROSS.md` — one folio, many mouths. The weld is already in the 2026 text. Remaining is the unpaid bytestring.  
 **What can change liquid without a new remaining book:** `gate/RELEASE.md` — remaining as payout-release. Fifth gate on pipes that already pay. Does not mint a new 22 row.  
-**What to look up to rewrite the register:** `gate/RESEARCH.md` — facts, not essays.  
+**What to look up to rewrite the register:** `gate/RESEARCH.md` — facts, not essays. Empty-chair pass 4 Sep seated (carve-back / case / clock / prove-as-standard). Do not re-hunt those chairs this week unless a boom.  
 **What makes the register look like a joke as a ruler:** `gate/BULGE.md` — looked-up denominators. Not a 22 wire.  
 **The numbers, inventing continues:** `gate/REST.md`. Do not mint a new band.  
 **Fellhatch (inverse Elon — monopolize boring lanes; make · train · apply; FH1–FH10 · FA1–FA7; Gate restrains; not a sixth sibling):** `gate/FELLHATCH.md`.  

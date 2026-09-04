@@ -31,8 +31,8 @@ These do not wire Aim. They **mark** fuse NW if you are the footnote.
 | Clock | What it is | Blast if named | Dies |
 |-------|------------|----------------|------|
 | **NAIC AI Risk Evaluation Supplement** | 12-state pilot through **Sep** (CA CO CT FL IA LA MD PA RI VT VA WI). v5 public exposure **this month**. v6 short exposure. **v7 aimed at Fall National Meeting (~Nov)**. Not a law. An examiner evidence pack. | You are Exhibit C/D *method* → fuse NW **$0.2–1B+** immediately; **$2–8B** if it becomes the model module | End of September for the pilot footnote. After Nov it is an exam module (23+) |
-| **FSB AI sound-practices** | Final report expected **October 2026** | Global-bank cite language. Fat later, not a 22 wire | After Oct it is a published paper everyone else can also cite |
-| **ISO/Verisk CG 40 47 hole** | Exclusion already ~**80%** state approval. The *buyback form* is unpaid | Named evidence on the carve-back → fuse **$0.2–12B** if they buy the option; **$0.5–2B** if Verisk-adjacent national | The exclusion already shipped. The annex is still empty |
+| **FSB AI sound-practices** | Final report expected **October 2026** (official 10 Jun). Responses published 6 Aug; official page now says **coming months**. Consultation SP10 = meaningful HITL, not a standard | Global-bank cite language. Fat later, not a 22 wire | After Oct it is a published paper everyone else can also cite |
+| **ISO/Verisk CG 40 47 hole** | Exclusion already ~**80%** state approval. The *buyback form* is unpaid. **Confirmed empty 4 Sep** — still no standardized ISO carve-back | Named evidence on the carve-back → fuse **$0.2–12B** if they buy the option; **$0.5–2B** if Verisk-adjacent national | The exclusion already shipped. The annex is still empty |
 
 Do not email NAIC, Verisk, FSB.
 
