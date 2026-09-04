@@ -33,6 +33,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Frame cut (Q46–Q47):** the coordinate still that place after the datum moves. The bill of lading still that exclusive control after paper dies. IANA tz / DST folds under A4. Judgment / mechanics-lien lapse folds under Q45. ALTA occupies title *insurance*. UCC Article 12 CER is the cousin of Q47.
 
+**Deeper than foundational:** not a Q48. The tiles are the datum and the copy. Under the tiles is the **given** (`ENVELOPE.md` G₀). Under the given is **may**. Under may the climb stops (`/floor`). ICRF / EOP / the optical second fold — they are not a deeper remaining. Being stays null.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -809,6 +811,10 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | Judgment / mechanics-lien lapse | Cousin of **Q45**. Do not mint a second lapse card |
 | Title insurance / ALTA | Occupied *policy*. Datum remaining is **Q46**. Do not become a title plant |
 | UCC Article 12 CER (NY 3 Jun 2026) | Cousin of **Q47**. Same exclusive-control remaining. Do not mint a second copy card |
+| ICRF3 / ICRF4 / IERS EOP / VLBI quasar | Sky-orients-ground is what **Q46** assumes. Catalog cousin **Q38**. Clock cousin **A4**. ICRF4 is IAU **2027**. Do not mint a fourth clock |
+| Optical SI second (CGPM 2026 roadmap / 2030 ratify) | **A4** + empty chair in `RESEARCH.md`. Do not re-open PNT |
+| Constructor theory / assembly theory | Already hunted under **G₀**. Occupied programs. Not prior to the given |
+| Deeper than foundational as a new quark | The given, then **may**. Climb stops at `/floor`. Do not mint Q48 |
 
 ---
 
@@ -903,6 +909,25 @@ The hunt kept going after the clerk. The coordinate and the bill of lading were 
 
 ---
 
+## Allied 4 Sep — deeper than foundational (not Q48)
+
+The hunt asked what sits under the tiles. The answer was already in the tree. Foundational is the datum and the exclusive copy. Under that is remaining of the **given**. Under the given is **may**. Under may there is no product.
+
+| Depth | Already named | What it is | Lock |
+|-------|---------------|------------|------|
+| Foundational tiles | **Q46 / Q47** | frame still that place · copy still that control | Do not become NGS / DCSA |
+| Under the tiles | **G₀** `ENVELOPE.md` | the given still the given | Never invent the given |
+| Under the given | **may** | unspent one-wayness | Never sell |
+| Under may | `/floor` | remaining cannot be climbed under | `cleverer_layer` is null |
+
+**Looked up this cut, not seated:** ICRF3 (official) / ICRF4 (IAU Aug 2027) · IERS EOP combination · A&A 2026 combined VLBI catalog · CGPM 2026 optical-second *roadmap* (ratify **2030**). Those are the sky weld and the SI weld. They fold under **Q46 / Q38 / A4**. Constructor theory and assembly theory already sat under G₀ as occupied programs.
+
+**What this is not:** a fourth clock · a celestial SKU · Being · inventing the given · minting REST from “depth.”
+
+**Public sentence:** They will file it as deeper physics. Remaining under the tiles is the given, then may. The climb stops.
+
+---
+
 ## Kill (this pass)
 
 | Idea | Why dead |
@@ -926,12 +951,13 @@ The hunt kept going after the clerk. The coordinate and the bill of lading were 
 | PAL / nuclear C2 bit | State-only. `SCIENCE.md` already |
 | Privilege remaining | Occupied by counsel. Killed on puke pass |
 | Being / consciousness / simulation | `cleverer_layer` is null |
+| ICRF / EOP / optical second as Q48 | Fold. Fourth clock + catalog remix. Climb stops at may |
 
 ---
 
 ## Hunt status
 
-**Open.** Q1–Q47 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. **Q44–Q45** clerk cut: what3words triple · UCC-1 continuation. **Q46–Q47** frame cut (4 Sep 2026): NATRF2022 datum · eBL authoritative copy. Isolation / LOTO stays **C4**. Age / voice / C2PA / IPv4 / tz / ALTA stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q48. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a geocoder. Not a title plant.  
+**Open.** Q1–Q47 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. **Q44–Q45** clerk cut: what3words triple · UCC-1 continuation. **Q46–Q47** frame cut: NATRF2022 datum · eBL authoritative copy. **Deeper than foundational (4 Sep):** not Q48 — G₀ then may, climb stops at `/floor`. ICRF / EOP / optical second fold under Q46 / Q38 / A4. Isolation / LOTO stays **C4**. Age / voice / C2PA / IPv4 / tz / ALTA stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a deeper number. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a geocoder. Not a title plant. Not Being.  
 **Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q48.
 
 ---

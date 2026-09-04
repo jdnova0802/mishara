@@ -98,6 +98,8 @@ Looked up 3 Sep 2026. These are the biggest *deployed* or *committed* remaining 
 
 Do not hunt a bigger *deployed* remaining. The hunt that found G₀ found a **diagnosis of the field**, not a larger live lock.
 
+**Deeper than foundational (4 Sep, not a new G):** Q46–Q47 are the tile. This file is under the tile. Under this file is **may**. Under may the climb stops (`/floor`). ICRF / EOP / the optical second are not larger than remaining of the given. Do not mint Q48 from a depth question.
+
 ---
 
 ## Looked up this hunt — not seated as bigger
@@ -111,6 +113,8 @@ These are real 2026 fires. They are **not** larger than remaining of the given.
 | **Landauer / NTT DRAM** (PRL 2026; NTT 23 Apr 2026) | Remaining of *erasure as heat*. DRAM cannot reach the Landauer limit even infinitely slow — nonequilibrium store. Cousin of Discharge / Q18. Quark-sized physics, not prior to the given |
 | IBM logical-qubit advantage (30 Jul 2026) | Occupied lab result. Not remaining of the given |
 | Fusion PACMAN / EAST density | Occupied control. A17 is tritium remaining. Do not mint a tokamak |
+| ICRF3 / ICRF4 (IAU 2027) / IERS EOP | Sky-orients-ground. Q46 assumes it. Q38 / A4 cousins. Not prior to the given |
+| Optical SI second (CGPM 2026 roadmap, 2030 ratify) | A4 + RESEARCH empty chair. Do not re-open PNT |
 
 ---
 
