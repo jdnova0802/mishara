@@ -86,7 +86,7 @@ Cigna is an insurer. Do not treat as a Bind insured. Discord / SoFi / Chime stay
 | **Amwins** | Wholesale. Published emails are media (`lisa.kuszmar@amwins.com`) or program UW for *retail agents placing cover*. | Not a Bind To: line. |
 | **Klaimee / AIUC** | Competitor-adjacent. | Freeze / F. |
 | **Testudo the coverholder · HSB · Munich Re · Armilla · Mosaic** | Capacity. Insured pays Bind. | Freeze / later desk. |
-| **NVIDIA · Apple · Google · Microsoft · Stripe · Visa · Duck Creek · Verisk · NAIC · PAS · PA · hyperscalers · DHS · FM Global · CDMOs** | Freeze. | Do not email to “research” them. |
+| **NVIDIA · Apple · Google · Microsoft · Stripe · Visa · Duck Creek · Verisk · NAIC · PAS · PA · hyperscalers · DHS · FM Global · CDMOs · Aon · USI · Salesforce · ServiceNow · Socure · CrowdStrike · GSA / Login.gov** | Freeze / E after meter. | Do not email to “research” them. |
 | `hello@sierra.ai` / `operations@sierra.ai` / `info@cognition.ai` | Showed up on aggregators, **not** on official legal pages this pass. | Do not use. |
 
 ---

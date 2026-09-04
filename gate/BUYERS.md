@@ -1,6 +1,6 @@
 # Buyer map — who pays, who forwards, who buys the company
 
-**As of:** 2026-08-30. Internal. **No page. No checkout. Not a spray list.**  
+**As of:** 2026-09-04. Internal. **No page. No checkout. Not a spray list.**  
 **$0** until Gate 1. Tuesday pond stays the four-row close list. This file is the rest of the map so we know what we have not hunted.
 
 Never sell may / throat / planetary capacity. Do not become AIUC. Do not run an x402 facilitator. Do not sell interchange from Bind. Do not bump the ghosted MGA list. Defense / nuclear / C2 = unmouthed.
@@ -146,12 +146,14 @@ Talk when **meter + 3–5 prove cases** exist. Not before.
 
 | Class | Why they would write $50–200M+ | 2026 signal | Our halt |
 |-------|--------------------------------|------------|----------|
-| **Insurance core / PAS** | They are already buying agentic UW; a fail-closed bind mouth is a product gap | **Duck Creek** (Send) · **Guidewire** (Qusar agentic framework, partner-led) · Sapiens / Majesco / Socotra | Listings ≠ sale. One welded bind path first. |
-| **Identity / agent access** | Agents are a new identity. Latch on the write is next to PAM. | **Palo Alto + CyberArk** (closed Feb 2026; Idira May 2026) · **Microsoft Agent 365** (GA 1 May 2026) + **Entra Agent ID** | After logos. Do not pitch coffin. Do not email Microsoft. |
-| **Hyperscaler / edge** | T5: sheath as default write-gate | **AWS · GCP · Azure · Cloudflare** (x402 Foundation members) | One design-partner after S03. Not a Bind pitch. |
+| **Insurance core / PAS** | They are already buying agentic UW; a fail-closed bind mouth is a product gap | **Duck Creek** (Send, Jul 2026) · **Guidewire** (ProNavigator + Qusar; no new Sep buy) · Sapiens / Majesco / Socotra | Listings ≠ sale. One welded bind path first. |
+| **Insurance distribution** | They place the exclusion and the specialist form. The Bind question sits on their book. | **Aon × USI $17.0B** (IR deck; Q4’26 close) — US middle-market platform | Intro-to-insured later. Do not email Aon / USI. Not Tuesday. |
+| **Enterprise write mouths** | They already sell the agent that *does* the irreversible CRM / IT write. Remaining of that write is unpaid (same leftover as L3). | **Salesforce** Agentforce **$1.5B ARR** + Claudeforce open beta **Sep 2026** · **ServiceNow** AI ACV **>$1B** + Armis **~$7.75B** + Sweep (reported ~$400M) | E after meter. Do not email. Do not become CRM/ITSM. |
+| **Identity / agent access** | Agents are a new identity. Latch on the write is next to PAM. | **Palo Alto + CyberArk** (Idira) · **PANW × Console** (~$500M, 1 Sep) · **Microsoft Agent 365** + Entra Agent ID · **Cyera × Oasis ~$1B** (1 Sep) · **Socure $5.2B** + Login.gov **$163M** + Fravity agents (27 Aug) | After logos. Do not pitch coffin. Do not email Microsoft / GSA / Socure. |
+| **Agent runtime block** | They occupy *who may run* and endpoint stop. Remaining of the write is still unpaid. | **CrowdStrike** SGNL **$627.9M** + Falcon Guardian / SafeMind (1 Sep, NVIDIA Nemotron) | Fat-adjacent. Do not become EDR. Do not email. |
+| **Hyperscaler / edge** | T5: sheath as default write-gate. 3 Sep outage leftover also sat on **Azure East US** (ChatGPT/Claude/Grok) + **Memphis** (xAI). | **AWS · GCP · Azure · Cloudflare** (x402 Foundation members) | One design-partner after S03. Not a Bind pitch. |
 | **Card / pay platforms** | They own settle; they do not own may | **Stripe · Visa · Mastercard · Coinbase** | Interchange is post–Gate 1, not Bind. |
 | **Specialty capacity / reinsurer infra** | They need evidence, not another MGA | Munich Re / HSB / QBE / Apollo / Atrium (already *behind* Testudo) | They buy *you* only if the folio is Schelling. |
-| **Identity-agent / “AI security” strategics** | Category story once Conformant is a question | Unnamed until meter exists | EXTREME_ODDS: fat buyers after logos. |
 
 **Rail stretch / Padlock** ($0.5–2B) is this row plus “Gate Conformant?” as the default question. Still a sale, not Bind volume.
 
@@ -183,6 +185,26 @@ Talk when **meter + 3–5 prove cases** exist. Not before.
 5. **Then:** E. Not before. Month plan to the $50–200M check: `gate/AIM22.md`.
 
 ---
+
+## Caught 4 Sep 2026 — cosmic adjacent, not Tuesday
+
+External hunt. Two-source. **No new leftover. No REST. No emails.**
+
+Holy-fuck *related* (they already paid for the wrong half of remaining we named):
+
+| Who | What they just did | Why it is ours | Why it is not a send |
+|-----|--------------------|----------------|----------------------|
+| **Aon** | Agreed **$17.0B** all-cash for **USI** (IR: premier US middle-market; Sicard → Aon President / global Middle Market CEO; Q4’26 close) | That book is where CG 40 47 meets the specialist form. Bind is “what stops the write” for *their* insured. Largest B-channel inflation this week. | They buy distribution. Insured pays Bind. Do not email Aon / USI / KKR. |
+| **Salesforce** | Agentforce **$1.5B ARR** (+240% YoY). Claudeforce = Salesforce-in-Claude, 37 sales skills, **open beta September 2026**. 7.0B “Agentic Work Units.” | Default CRM write mouth. Remaining of pipeline / email / record writes while Claude drives is **L3**, not a new L. | E after meter. Do not email. |
+| **ServiceNow** | AI ACV **>$1B**. Agentic customers in production **9×** in nine months. Armis **~$7.75B**. Sweep acquired (reported ~$400M). NVIDIA **Project Arc** desktop agents. | Default IT/workflow write mouth. Same leftover as L3 on a different organ. | E after meter. Do not email. |
+| **Socure** | **$5.2B** mark + Fravity agents that write the KYC / sanctions file. Login.gov **$163M** / 5-yr. | Federal + bank identity mouth. Agents now *write the case*. Remaining of that write unpaid. | Identity E-adjacent. Do not email Socure / GSA. |
+| **CrowdStrike** | Falcon Guardian + SafeMind (1 Sep, NVIDIA). Endpoint inventory / block of agents. | Occupies *who may run*. Remaining of the write still unpaid. | Already Fat via SGNL 8-K. Do not become EDR. |
+
+Already seated, still true: NVIDIA × HF **$12.9B** (L2) · Cyera × Oasis ~**$1B** · PANW × Console · Duck Creek × Send · Guidewire × ProNavigator (no new Sep PAS buy).
+
+**Clocks (unchanged enough to keep):** NAIC v5 comments **Tue 29 Sep** · EPC 15 Nov **still live** until PSMB **Wed 9 Sep** · SWIFT address slipped; Fedwire release → **Nov 2027** · EU/UK/CH T+1 **11 Oct 2027** (allocation/confirm **7 Dec 2026**) · SWIFT ledger **17 banks** on tokenized-deposit MVP (settle still RTGS) · UTC: no leap second 31 Dec 2026; CGPM vote **Oct 2026** · H.R. 9917 Kill Switch **not law** · Golden Dome tests aimed EOY / orbital 2027 (**C2 unmouthed**).
+
+**Not holy-fuck new buyers:** Verisk still has no standardized CG 40 47 carve-back · TAP/MPP fifth gate still unpaid · four-lab dark was L1 (Azure-shaped + Memphis) · Astra Critical cyber is L5.
 
 ## Honest holes (still blank)
 

@@ -43,7 +43,7 @@ Stet still wrote a mark. Leftover is remaining the boom opened and nobody filed.
 
 ### L1 — Outage Remaining (THE MOUTH WENT DARK)
 
-**What already burns:** 3 Sep 2026, overlapping downtime: OpenAI (ChatGPT / Codex elevated errors ~10:43–12:55 ET), Anthropic (Mythos / Fable / Opus from ~9:23 ET), xAI (Memphis compute), Gemini spike on DownDetector. Occupied: status pages. Unpaid: remaining that **in-flight writes were held** while the mouth was dark.
+**What already burns:** 3 Sep 2026, overlapping downtime: OpenAI (ChatGPT / Codex elevated errors ~10:43–12:55 ET), Anthropic (Mythos / Fable / Opus from ~9:23 ET), xAI (Memphis compute — parent said so), Gemini spike on DownDetector. Occupied: status pages + Azure-East-US speculation for ChatGPT/Claude/Grok. Unpaid: remaining that **in-flight writes were held** while the mouth was dark. Azure is a *where*, not a new leftover.
 
 **Unpaid object:** Stranger-openable remaining of the dark interval — fail-closed stock, not an incident tweet. Vital is the inhabitant asleep. This is the **model-as-mouth** asleep.
 
@@ -67,7 +67,7 @@ Stet still wrote a mark. Leftover is remaining the boom opened and nobody filed.
 
 ### L3 — Session Remaining (THE MODEL HAS THE DESKTOP)
 
-**What already burns:** Astra launch line: anything you can do on a computer, it can do. Computer-use / OSWorld-class. Occupied: the demo. Unpaid: remaining of **this session’s irreversible writes** — file, send, pay, bind — while the model is the hands.
+**What already burns:** Astra launch line: anything you can do on a computer, it can do. Computer-use / OSWorld-class. Occupied: the demo. Same leftover, fatter mouths this week: **Salesforce** Claudeforce open beta (Sep 2026) and **ServiceNow** NVIDIA Project Arc — CRM/IT writes while the model drives. Unpaid: remaining of **this session’s irreversible writes** — file, send, pay, bind — while the model is the hands. Not a new L.
 
 **Unpaid object:** Per-session remaining. Not the model. Not the screenshot. Gate is this write right now. This is remaining of the **whole sitting**.
 
