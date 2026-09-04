@@ -22,7 +22,8 @@
 **Quark (tiny remaining, civilizational blast — the world will not see coming):** `gate/QUARK.md` — Q1–Q47. Q26–Q31 emergency cut. Q32–Q36 irreversibility cut. Q37–Q40 spine cut. Q41–Q43 body cut. Q44–Q45 clerk cut. Q46–Q47 frame cut. Cash gravity is shape, not REST. Not a fourth clock. Name only.  
 **Stet (remaining with no ticket — more boring than boring work):** `gate/STET.md` — S1–S8. Let it stand. Name only.  
 **Envelope (remaining of the given — G₀, prior to H₀ as assumption, not a live rail):** `gate/ENVELOPE.md`. Seven of nine boundaries breached. Occupied as a report. Not A29. Name only.  
-**Leftover (remaining under the boom — new leftover only when a boom opens a hole; not inventing to invent):** `gate/LEFTOVER.md` — L1–L7. Name only. Goal is monopolize boring remaining.
+**Leftover (remaining under the boom — new leftover only when a boom opens a hole; not inventing to invent):** `gate/LEFTOVER.md` — L1–L7. Name only. Goal is monopolize boring remaining.  
+**Challenge (philosophy / metaphysics against the tree — splits named, not a sixth primitive, not Being):** `gate/CHALLENGE.md`. Name only.
 
 ---
 

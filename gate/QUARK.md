@@ -33,7 +33,7 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Frame cut (Q46–Q47):** the coordinate still that place after the datum moves. The bill of lading still that exclusive control after paper dies. IANA tz / DST folds under A4. Judgment / mechanics-lien lapse folds under Q45. ALTA occupies title *insurance*. UCC Article 12 CER is the cousin of Q47.
 
-**Deeper than foundational:** not a Q48. The tiles are the datum and the copy. Under the tiles is the **given** (`ENVELOPE.md` G₀). Under the given is **may**. Under may the climb stops (`/floor`). ICRF / EOP / the optical second fold — they are not a deeper remaining. Being stays null.
+**Deeper than foundational:** not a Q48. The tiles are the datum and the copy. Under the tiles is the **given** (`ENVELOPE.md` G₀). Under the given is **may**. Under may the climb stops (`/floor`). ICRF / EOP / the optical second fold — they are not a deeper remaining. Being stays null. Philosophy against the tree: `gate/CHALLENGE.md` — remaining splits (after · still-*that* · not-yet). Do not mint a thisness SKU. The quarks already are thisness.
 
 | Quark | Blast |
 |-------|--------|

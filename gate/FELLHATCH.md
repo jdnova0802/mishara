@@ -29,7 +29,8 @@ Not a sixth brand. Not competing with SpaceXAI / Anthropic / OpenAI for the mode
 Inventory of missed snorefest objects (they built the factory around the wrong object): `gate/PUKE.md` P1–P10. Not A29. Hunt open.  
 Quark cut (tiny remaining, civilizational blast — they will not see it coming): `gate/QUARK.md` Q1–Q47. Q26–Q31 emergency cut. Q32–Q36 irreversibility cut. Q37–Q40 spine cut. Q41–Q43 body cut. Q44–Q45 clerk cut. Q46–Q47 frame cut. Cash gravity is shape, not REST.  
 Stet cut (remaining with no ticket — more boring than boring work): `gate/STET.md` S1–S8. Let it stand.  
-Leftover cut (remaining under the boom — new events mint new leftover): `gate/LEFTOVER.md` L1–L7.
+Leftover cut (remaining under the boom — new events mint new leftover): `gate/LEFTOVER.md` L1–L7.  
+Challenge (philosophy against the tree — splits named, not a sixth primitive): `gate/CHALLENGE.md`. Not Being. Not leftover.
 
 ---
 

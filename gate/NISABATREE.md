@@ -185,6 +185,7 @@ Nisaba LLC (you · patent · invoice)
 │
 ├── Museum shelf (named, not pitched from Bind)
 │   Envelope G₀ · Leftover L1–L7 · Afterweb R₀ · Husbandry H₀ · Coffin · Absolute seats · External/fuse cites
+│   Challenge (philosophy against the tree — splits named, not a sixth primitive) · `gate/CHALLENGE.md`
 │
 └── Knowing tree (intel kit, score 7.5)
     Erra feed after Gate 1 — not a sixth sibling
@@ -220,6 +221,7 @@ Nisaba LLC (you · patent · invoice)
 | **Fuse** | One real 2026 fact marked as the seed of a later cascade (museum). |
 | **External cite** | Rule that forces others’ $T books to point at your folio (museum). |
 | **Cleverer layer** | Forbidden. Null. No “deeper Being SKU.” |
+| **Challenge** | Philosophy against the tree. Remaining splits three ways (after · still-that · not-yet). Not a product. `CHALLENGE.md`. |
 | **Family lock** | Five voices only. |
 | **their_production** | False until Gate 1 — you have not produced for them yet. |
 
