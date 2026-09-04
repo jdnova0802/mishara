@@ -82,7 +82,8 @@ Ask for **intro to the insured**. Do not send a carrier RFP. Do not become their
 | Channel | Job | Named (2026, live) | Halt |
 |---------|-----|-------------------|------|
 | **Specialty agent-E&O / AI liability placer** | Three names on their book | **Testudo**-placing brokers (Lloyd’s; Apollo / Atrium / QBE, limits ~$9.25M) · **Corgi** (AI/algorithmic endorsement, May 2026) · **Mayflower Specialty / Hadron** | Intro, not “replace your product.” **Klaimee** is competitor-adjacent — do not ask. |
-| **Lloyd’s AI coverholders** | They already ask for governance evidence | **Armilla** (limits reported ~$25M) · **Relm** (narrower) | Same: folio for *their* insured. |
+| **Lloyd’s AI coverholders** | They already ask for governance evidence | **Armilla** (limits reported ~$25M) · **Relm** (PONTAAI excess DIC wrap) | Same: folio for *their* insured. |
+| **UK Tech PI (affirmative AI in the wording)** | They already name “AI agents” in the grant | **Hiscox** UK Technology PI (May 2025 rewrite — first UK affirmative AI cover; agents defined in the wording) | EU/UK channel, not a September blast. Do not email Hiscox. |
 | **Performance / model cover** | Different product; still need a write-stop story | **Munich Re aiSure** via Mosaic · **HSB** (Munich Re, US small-biz AI liability, Mar 2026) | Do not become the carrier. |
 | **Wholesale / surplus** | They assemble the slip | Specialist brokers who already place the names above | Not the ghosted MGA archive. |
 | **Counsel with our brief** | Warm forward into a GC | Patent / AI GC shops getting the Tue Sep 1 quote batch | Quotes ≠ Bind cash. |
@@ -102,7 +103,7 @@ One throat. Pick **insurability** or **hosted redeem**. Not both as a spray.
 
 | Shape | Why | SKU | Named class |
 |-------|-----|-----|-------------|
-| Licensed money-leave | Irreversible by definition | Operator **$25k + $5k/mo + 10 bps + $0.10/hop** | Licensed **iGaming / creator withdraw / payout** desks (`OPPORTUNITIES.md`). **No named desk list yet — hunt after Gate 1.** |
+| Licensed money-leave | Irreversible by definition | Operator **$25k + $5k/mo + 10 bps + $0.10/hop** | **Class named 4 Sep, not a pond:** US licensed sportsbook/iGaming operators (FanDuel · DraftKings · BetMGM · Caesars class) and payout *rails* (Paysafe Gateway · PayNearMe MoneyLine). **Diesta × JPM Kinexys Liink Confirm** (4 Aug) occupies *payee verify* on insurance settlement — Release’s fifth gate is still unpaid. Hunt **one** desk after Gate 1. No To: lines. Do not email. |
 
 ### C2 — Agent-pay / mandate rails (prefinality / S03)
 
@@ -195,7 +196,7 @@ Holy-fuck *related* (they already paid for the wrong half of remaining we named)
 | Who | What they just did | Why it is ours | Why it is not a send |
 |-----|--------------------|----------------|----------------------|
 | **Aon** | Agreed **$17.0B** all-cash for **USI** (IR: premier US middle-market; Sicard → Aon President / global Middle Market CEO; Q4’26 close) | That book is where CG 40 47 meets the specialist form. Bind is “what stops the write” for *their* insured. Largest B-channel inflation this week. | They buy distribution. Insured pays Bind. Do not email Aon / USI / KKR. |
-| **Salesforce** | Agentforce **$1.5B ARR** (+240% YoY). Claudeforce = Salesforce-in-Claude, 37 sales skills, **open beta September 2026**. 7.0B “Agentic Work Units.” | Default CRM write mouth. Remaining of pipeline / email / record writes while Claude drives is **L3**, not a new L. | E after meter. Do not email. |
+| **Salesforce** | Agentforce **$1.5B ARR** (+240% YoY). Claudeforce = Salesforce-in-Claude, 37 sales skills. Official: pilots now, **expects open beta in September 2026** — not confirmed live as of 4 Sep. 7.0B “Agentic Work Units.” | Default CRM write mouth. Remaining of pipeline / email / record writes while Claude drives is **L3**, not a new L. | E after meter. Do not email. |
 | **ServiceNow** | AI ACV **>$1B**. Agentic customers in production **9×** in nine months. Armis **~$7.75B**. Sweep acquired (reported ~$400M). NVIDIA **Project Arc** desktop agents. | Default IT/workflow write mouth. Same leftover as L3 on a different organ. | E after meter. Do not email. |
 | **Socure** | **$5.2B** mark + Fravity agents that write the KYC / sanctions file. Login.gov **$163M** / 5-yr. | Federal + bank identity mouth. Agents now *write the case*. Remaining of that write unpaid. | Identity E-adjacent. Do not email Socure / GSA. |
 | **CrowdStrike** | Falcon Guardian + SafeMind (1 Sep, NVIDIA). Endpoint inventory / block of agents. | Occupies *who may run*. Remaining of the write still unpaid. | Already Fat via SGNL 8-K. Do not become EDR. |
@@ -204,15 +205,26 @@ Already seated, still true: NVIDIA × HF **$12.9B** (L2) · Cyera × Oasis ~**$1
 
 **Clocks (unchanged enough to keep):** NAIC v5 comments **Tue 29 Sep** · EPC 15 Nov **still live** until PSMB **Wed 9 Sep** · SWIFT address slipped; Fedwire release → **Nov 2027** · EU/UK/CH T+1 **11 Oct 2027** (allocation/confirm **7 Dec 2026**) · SWIFT ledger **17 banks** on tokenized-deposit MVP (settle still RTGS) · UTC: no leap second 31 Dec 2026; CGPM vote **Oct 2026** · H.R. 9917 Kill Switch **not law** · Golden Dome tests aimed EOY / orbital 2027 (**C2 unmouthed**).
 
-**Not holy-fuck new buyers:** Verisk still has no standardized CG 40 47 carve-back · TAP/MPP fifth gate still unpaid · four-lab dark was L1 (Azure-shaped + Memphis) · Astra Critical cyber is L5.
+**Not holy-fuck new buyers:** Verisk still has no standardized CG 40 47 carve-back · TAP/MPP fifth gate still unpaid (Visa card-spec for MPP was March) · four-lab dark was L1 · Astra Critical cyber is L5.
+
+### Second pass (4 Sep, later)
+
+| Who | What | Seat |
+|-----|------|------|
+| **Naïve** (Relixir, Inc. · `usenaive.ai`) | Series A **$28.5M** (6 Aug). Agents incorporate LLCs, issue cards, pay, file. Irreversible writes. Official privacy has **no inbox** — rights “through the Service.” | Overflow A-shape. Named-no-inbox. Do **not** invent `support@` / `legal@`. Do not add to Tuesday. |
+| **Hiscox** UK Tech PI | May 2025 rewrite names generative AI **and AI agents** in the grant. First UK affirmative AI cover. | B-class EU/UK. Not a send. |
+| **Payout class** | FanDuel / DraftKings / BetMGM / Caesars-class operators · Paysafe / PayNearMe rails · Diesta×JPM payee-verify on insurance settlement | C after Gate 1. Class named. No pond. No To:. |
+| **Zoro / A2X** | Agent spend / card control planes | Competitor-adjacent to Release. Do not become them. Do not email. |
+
+No new leftover. TAP/MPP/x402 fifth gate still unpaid. Claudeforce beta still a sentence, not a live door this morning.
 
 ## Honest holes (still blank)
 
-- No **named** payout/iGaming desks. Operator is a class.  
-- **Named AI deployer inboxes:** researched 2026-09-02 in `gate/ENTITIES.md`. **High-chance cut:** `gate/BUYERS_HOT.md` (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer.io / HappyRobot). Tuesday is that wave.  
+- Payout/iGaming is now a **named class**, still **no To:**. Hunt one desk after Gate 1.  
+- **Named AI deployer inboxes:** researched 2026-09-02 in `gate/ENTITIES.md`. **High-chance cut:** `gate/BUYERS_HOT.md` (Factory / Artisan / Gumloop / Relevance / CrewAI / Bland / Primer.io / HappyRobot). Tuesday is that wave. Naïve is overflow without an inbox.  
 - No **corp-dev contact** at Duck Creek / Guidewire / Palo Alto.  
-- Specialty *class* is still Testudo-placing / Corgi / Mayflower / Hadron. Mayflower now has a researched inbox (`jeremy@mayflowerspecialty.com`) — intro only.  
-- EU cover (Armilla / aiSure) is a channel, not a September blast.
+- Specialty *class* is still Testudo-placing / Corgi / Mayflower / Hadron · plus Hiscox UK as a later channel. Mayflower inbox (`jeremy@mayflowerspecialty.com`) — intro only.  
+- EU cover (Armilla / aiSure / Hiscox) is a channel, not a September blast.
 
 Do not invent the next ten because these ten are cold. Cap, then prove.
 

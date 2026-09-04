@@ -74,6 +74,8 @@ Do **not** mint `legal@` for these. They are researched *entities*, not research
 
 Cigna is an insurer. Do not treat as a Bind insured. Discord / SoFi / Chime stay **named-no-inbox** until an official legal page is looked up.
 
+**Naïve** (Relixir, Inc. · `usenaive.ai`) — agents incorporate, pay, file. Series A $28.5M (TechCrunch 6 Aug 2026). Official privacy (21 Jul 2026) has **no email**; rights “through the Service.” Named-no-inbox. Do not invent `support@usenaive.ai`. Not Tuesday.
+
 ---
 
 ## Looked up and skipped

@@ -67,7 +67,7 @@ Stet still wrote a mark. Leftover is remaining the boom opened and nobody filed.
 
 ### L3 — Session Remaining (THE MODEL HAS THE DESKTOP)
 
-**What already burns:** Astra launch line: anything you can do on a computer, it can do. Computer-use / OSWorld-class. Occupied: the demo. Same leftover, fatter mouths this week: **Salesforce** Claudeforce open beta (Sep 2026) and **ServiceNow** NVIDIA Project Arc — CRM/IT writes while the model drives. Unpaid: remaining of **this session’s irreversible writes** — file, send, pay, bind — while the model is the hands. Not a new L.
+**What already burns:** Astra launch line: anything you can do on a computer, it can do. Computer-use / OSWorld-class. Occupied: the demo. Same leftover, fatter mouths this week: **Salesforce** Claudeforce (pilots live; official still *expects* Sep open beta — not confirmed live 4 Sep) and **ServiceNow** NVIDIA Project Arc — CRM/IT writes while the model drives. Unpaid: remaining of **this session’s irreversible writes** — file, send, pay, bind — while the model is the hands. Not a new L.
 
 **Unpaid object:** Per-session remaining. Not the model. Not the screenshot. Gate is this write right now. This is remaining of the **whole sitting**.
 
