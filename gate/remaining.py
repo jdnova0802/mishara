@@ -719,8 +719,9 @@ def folio(job_id: str) -> dict[str, Any]:
                 "given.kind is opening. given.tickets_issued is the harvest "
                 "of that opening into issues. Remaining of the opening is "
                 "not a ticket, not a column, not Ν, not wilderness, and not "
-                "in close. This folio cannot close it. Issuing tickets is "
-                "not payment. We will not invent it. We will not sell it."
+                "in close. This folio cannot close it. This identity cannot "
+                "prove it. Issuing tickets is not payment. We will not invent "
+                "it. We will not sell it."
             ),
         },
         "act": {

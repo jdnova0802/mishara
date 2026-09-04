@@ -73,7 +73,7 @@ The shiny lanes already have companies. These lanes are **boring, massive, and e
 
 **What already burns:** PCAOB AS 2315 / ISA 530: sampling the recorded ledger **cannot test completeness** — omitted items are not in the list. Reciprocal-population procedures exist (subsequent disbursements, GRNs, vendor statements). They are **procedures**, not remaining. Fieldguide (2026): a bigger sample of the wrong list scales the blind spot; AI pointed at the ledger reproduces the frame error. Every Big Four engagement ends with a **projected** misstatement and an untested remainder.
 
-**Unpaid object:** Remaining that **this is still the full population** — stranger-openable completeness stock, not a larger sample. A25 catalog-sky is extinction completeness. This is **books** completeness.
+**Unpaid object:** Remaining that **this is still the full population** — stranger-openable completeness stock, not a larger sample. A25 catalog-sky is extinction completeness. This is **books** completeness. Gödel is the *formal* cousin (unprovable truth inside a system that already lists everything it can list) — `CHALLENGE.md` §10.2. Distinct. Do not remint P4 as incompleteness remaining.
 
 **Public sentence:** You cannot find the missing item in the book it never entered. They still sample the book.
 

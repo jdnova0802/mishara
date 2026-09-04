@@ -3782,6 +3782,7 @@ class RemainingTests(unittest.TestCase):
         self.assertTrue(opening["precedes_the_issue"])
         self.assertTrue(opening["we_will_not_invent_it"])
         self.assertTrue(opening["we_will_not_sell_it"])
+        self.assertIn("cannot prove", opening["law"])
         self.assertNotIn("opening", empty["close"])
         self.assertFalse(empty["close"]["opening_in_close"])
         self.assertIn("remaining of the opening as a ticket", empty["not"])

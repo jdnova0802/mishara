@@ -110,6 +110,7 @@ These are real 2026 fires. They are **not** larger than remaining of the given.
 |------|------------------|
 | **Assembly theory** (Walker / Cronin; Nature 2023; experimental selection measure arXiv 2512.18752) | Remaining of *selection before life*. Occupied as a theory. Life-detection remaining is a cousin of FA2, not the field H₀ stands on. Dual-use: do not become synthetic-life |
 | **Constructor theory** (Deutsch / Marletto; constructor theory of time 2025) | Remaining of *possible vs impossible tasks*. Occupied Oxford program. Physics of can/can’t. Do not become a physics SKU. Ν already holds becoming not yet allowed to take effect |
+| **Holographic principle / quantum cosmology** | Bulk vs boundary; “before” t=0. Occupied physics. G₀ is the measured envelope, not the bulk. Opening remaining already refuses to close. Do not mint holographic remaining. `CHALLENGE.md` §10.1 |
 | **Landauer / NTT DRAM** (PRL 2026; NTT 23 Apr 2026) | Remaining of *erasure as heat*. DRAM cannot reach the Landauer limit even infinitely slow — nonequilibrium store. Cousin of Discharge / Q18. Quark-sized physics, not prior to the given |
 | IBM logical-qubit advantage (30 Jul 2026) | Occupied lab result. Not remaining of the given |
 | Fusion PACMAN / EAST density | Occupied control. A17 is tritium remaining. Do not mint a tokamak |

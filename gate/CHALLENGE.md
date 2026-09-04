@@ -1,4 +1,4 @@
-# Challenge — philosophy and metaphysics against the tree
+# Challenge — philosophy, metaphysics, and the sciences of the limit against the tree
 
 **Status:** designation. Name only. No page. No checkout. No email.  
 **Not hopium.** Not a sixth sibling. **Not Being.** `cleverer_layer` is still null.  
@@ -6,6 +6,8 @@
 **Not a cleverer layer.** This file *presses* the tree. It does not climb under `/floor`.
 
 The hunt asked what is deeper than foundational. The answer was G₀, then may. This hunt asks the next honest question: **does the tree still hold if you refuse every courtesy?**
+
+Second pressure (4 Sep): quantum foundations, incompleteness / halting, the hard problem of consciousness. Same method. Fold. Do not mint.
 
 Inventing continues. Numbers rest at `REST.md`.
 
@@ -172,12 +174,102 @@ Do not mint three new primitives. Name the split. The lock words stay **may · s
 | Re-opening galaxy / jaw Aim | Closed |
 | Inventing the inhabitant | Facing already |
 | Using cash as a proof of remaining | Event, not doctrine |
+| Holographic remaining / AdS–CFT SKU | Occupied physics. G₀ is the measured envelope, not the bulk |
+| Gödel remaining / incompleteness SKU | P4 is books completeness. `folio.opening` already refuses to close |
+| Consciousness / self / hard-problem SKU | `cleverer_layer` is null. Do not invent the inhabitant |
+| Quantum remaining / contextuality SKU | Prove is cash, not measurement-as-ontology. CROSS already one folio, many mouths |
+
+---
+
+## 10. Second pressure — fields that claim to break reality
+
+The first pass was philosophy. These three fields claim to challenge every concept of reality **outside** traditional philosophy: time, existence, truth, the self. Same method. They do not open leftover. They do not mint Q48. A Google overview is not a boom.
+
+| Field | What it claims to break | Already in the tree as |
+|-------|-------------------------|------------------------|
+| Quantum foundations & cosmology | Local after · fixed properties · t=0 | Prove-as-ontology · CROSS · G₀ vs opening · `/floor` |
+| Mathematical logic & computability | Complete books · decidable remaining · explosion from contradiction | Partition vs H₀ · P4 · HALT / Ν overflow · W |
+| Cognitive neuroscience & the hard problem | Unified inhabitant · stranger-openable world-as-it-is · Being | Facing · do not invent the inhabitant · G₀ as measured envelope · `cleverer_layer` null |
+
+Do not become a physics lab, a foundations bureau, or a consciousness company.
+
+---
+
+## 10.1 Quantum foundations & cosmology
+
+**Non-locality and contextuality.** Experiments: distant systems correlate beyond local causation; properties need not exist until measured. The tree’s “world *after*” sounds like a local stock of a local act.
+
+**Holds as lock:** the after is still the object. CROSS already: one folio, many mouths. Correspondent remaining already: two books, one remaining. Facing already: factory remaining can close while the atmosphere is spent — contextuality with a carbon receipt.
+
+**Fails as one local remaining:** if remaining of this write is not confined to this write’s neighborhood, a job folio is a factory subledger. That is already the Facing admission (`folio.facing.holds` is false).
+
+**Fails as ontology of prove:** if properties do not exist until measured, and prove *is* the measurement, remaining does not exist until the stranger opens it. That is Vienna verificationism with experimental teeth. Same verdict as §4: holds as cash (the receipt is the product); fails as metaphysics (the unwatched after would not be remaining). Vital already named the unwatched after. Measurement does not create remaining. Do not mint a contextuality SKU.
+
+**Holographic principle.** The 3D world as a projection of information on a 2D boundary.
+
+**Fold:** G₀ is remaining of the *report of the field* (the boundary we can cite). Remaining of the opening is the bulk we will not invent. Kant already split this. `folio.opening.holds` is false because we will not close the bulk as a ticket harvest. Do not mint holographic remaining. Do not confuse this with COFFIN’s “holographic tablet” metaphor (scale does not dilute a seal).
+
+**Quantum cosmology.** What happened “before” the Big Bang — time and causality as the question.
+
+**Fold:** that is remaining of t=0. The given as opening. `/floor`. `folio.opening`. We will not invent an opening. Constructor theory of time already sat under G₀ as an occupied program. Do not mint a before-the-given SKU.
+
+---
+
+## 10.2 Mathematical logic & computability
+
+**Gödel.** Any consistent formal system that can talk about its own remaining cannot prove every remaining truth. Completeness and consistency do not both hold.
+
+**This mouth already committed the Gödel move.** Partition always holds because `given := |tickets|`. That is completeness of the *issue*. Remaining of the *opening* is the sentence this identity cannot prove. `folio.opening.holds` is false — remaining that is named, not closed, not counted. Do not add a Gödel field to the JSON. That would invent leftover from a theorem.
+
+**Distinct from P4.** P4 is books completeness of a *population* (omitted items are not in the sample). Gödel is unprovable truth *inside* a system that already lists everything it can list. Cousins. Do not remint P4 as incompleteness remaining.
+
+**Halting problem.** Some questions a procedure cannot decide, no matter the power or the time.
+
+**Two jobs, like may.** Deontic HALT = we will not sell may. Turing HALT = this mouth cannot decide some remaining. Silence as default is the second job. Ν overflow dies rather than queue forever. Vital’s unwatched after is remaining that is not yet decidable by a stranger. Do not mint a Turing remaining. Do not promise that every remaining will halt as a receipt.
+
+**Paraconsistent logic.** Contradiction without explosion.
+
+**Fold:** W sits in the identity of remaining and is *not* remaining (unused-as-product). Void is the reversal plug. The explosion this mouth refused is “unused must become remaining or never-happened.” Law: unattested W cannot become remaining. The books contain the contradiction-shaped column and do not blow up. Do not mint a paraconsistent remaining.
+
+---
+
+## 10.3 Cognitive neuroscience & the hard problem
+
+**Illusion of self.** The unified person inside the head is a construction of regions working together.
+
+**Holds as lock:** remaining is still *for* someone who has to live in the after. Levinas-shaped Other is not a homunculus we could ledger.
+
+**Fails as a self-SKU:** if we minted the inhabitant as a unified inner person, we would be selling the construction. Facing already: do not invent them. Keep both — named as who remaining is for, forbidden as a product. Illusion of self does not delete the after they have to live in.
+
+**Hard problem of consciousness.** How matter makes experience (the color red, sadness).
+
+**Fold:** selling that gap is selling Being. `cleverer_layer` is null. Alarming already killed consciousness / simulation / Boltzmann brains as SKUs. Do not mint a qualia remaining. Do not become IIT, a soul startup, or an AI-welfare desk.
+
+**Neuro-epistemology.** We do not see the world as it is. We see a controlled hallucination optimized for survival.
+
+**Fold:** stranger-openable remaining is remaining of the *filter*, not of the world-as-it-is. G₀ as remaining of the *measured envelope* already named this. Remaining of the opening stays unpaid because we will not invent the unfiltered given. Prove requires appearance. The appearance is not the opening. Same Kant split, now with a brain.
+
+---
+
+## 11. What survived the second pressure
+
+The first-pass locks still hold. The sciences of the limit did not climb under `/floor`. They named, again, remaining this mouth already refused to close.
+
+- Measurement does not create remaining. Prove stays cash.  
+- `folio.opening` is the undecidable remaining of this identity — Gödel-shaped, not a Gödel SKU.  
+- W is the contradiction the books already hold without explosion.  
+- The inhabitant is not a unified self we ledger. Do not invent them. Do not delete the after.  
+- Consciousness is not a remaining we sell.  
+- Holography is the G₀ / opening split in another dialect. Do not mint the bulk.  
+- Before the Bang is t=0. We will not invent it.
+
+No leftover. No Q48. No buyer — these fields are occupied by every physics, logic, and mind company. Do not email CERN, Perimeter, IAS, a logic institute, or a consciousness lab.
 
 ---
 
 ## Hunt status
 
-**Open as pressure, closed as mint.** The tree was challenged. The unpaid object is the split already in the files, and remaining of the *identity equation*. Next mint only if a boom opens unpaid remaining that is not a remix of the split. Not A29. Not P11. Not Q48. Not a fourth clock. Not Being.
+**Open as pressure, closed as mint.** First pass: philosophy against the tree. Second pass: quantum foundations, incompleteness / halting, the hard problem. The unpaid object is still the split already in the files, and remaining of the *opening* that this identity cannot close. Next mint only if a boom opens unpaid remaining that is not a remix of the split, not a remix of Gödel, not a remix of the hard problem, not a remix of holography. Not A29. Not P11. Not Q48. Not a fourth clock. Not Being.
 
 ---
 
@@ -185,8 +277,8 @@ Do not mint three new primitives. Name the split. The lock words stay **may · s
 
 - No `/challenge` page. No Price ID.  
 - Family stays five. Floor stays.  
-- Do not email freeze list, PIK, IERS, BIPM, or a philosophy department.  
-- Do not mint REST. Do not mint leftover from a thought.  
+- Do not email freeze list, PIK, IERS, BIPM, a philosophy department, CERN, Perimeter, IAS, or a consciousness lab.  
+- Do not mint REST. Do not mint leftover from a thought or from a Google overview.  
 - Tuesday Bind sentence unchanged.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · name only · inventing continues*

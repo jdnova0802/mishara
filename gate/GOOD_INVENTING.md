@@ -23,7 +23,7 @@
 **Stet (remaining with no ticket — more boring than boring work):** `gate/STET.md` — S1–S8. Let it stand. Name only.  
 **Envelope (remaining of the given — G₀, prior to H₀ as assumption, not a live rail):** `gate/ENVELOPE.md`. Seven of nine boundaries breached. Occupied as a report. Not A29. Name only.  
 **Leftover (remaining under the boom — new leftover only when a boom opens a hole; not inventing to invent):** `gate/LEFTOVER.md` — L1–L7. Name only. Goal is monopolize boring remaining.  
-**Challenge (philosophy / metaphysics against the tree — splits named, not a sixth primitive, not Being):** `gate/CHALLENGE.md`. Name only.
+**Challenge (philosophy / metaphysics / sciences of the limit against the tree — splits named, not a sixth primitive, not Being, not Gödel/consciousness/holographic SKUs):** `gate/CHALLENGE.md`. Name only.
 
 ---
 

@@ -13,7 +13,7 @@ Not a sixth sibling. Not a new L2. Not Being-as-a-SKU. `cleverer_layer` is null.
 | Word | What it is |
 |---|---|
 | given | Opening harvested as tickets — the issue. The world was already there. We will not invent it. |
-| opening | Remaining of the given. Not a ticket. Not a column. Not in close. Unpaid. |
+| opening | Remaining of the given. Not a ticket. Not a column. Not in close. Unpaid. This identity cannot prove it. |
 | may | Unspent one-wayness |
 | act | Journal line — spending |
 | remaining | Not-yet *and* the world after. Split named in `CHALLENGE.md`. Quarks are still-*that*. Ν is not-yet. |
