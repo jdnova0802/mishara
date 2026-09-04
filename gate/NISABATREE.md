@@ -184,7 +184,7 @@ Nisaba LLC (you · patent · invoice)
 │   Conformant badge · QIC meter · then rail
 │
 ├── Museum shelf (named, not pitched from Bind)
-│   Envelope G₀ · Afterweb R₀ · Husbandry H₀ · Coffin · Absolute seats · External/fuse cites
+│   Envelope G₀ · Leftover L1–L7 · Afterweb R₀ · Husbandry H₀ · Coffin · Absolute seats · External/fuse cites
 │
 └── Knowing tree (intel kit, score 7.5)
     Erra feed after Gate 1 — not a sixth sibling
