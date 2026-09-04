@@ -29,6 +29,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Body cut (Q41–Q43):** the civilizational physical pillars are already named (coffin). The humanitarian physical invention is remaining of the **liter**, the **residual**, and the **ampoule**. Not a seventh machine. Not a global-health TAM. Insulin / VVM / LLIN stay cousins of Q8.
 
+**Clerk cut (Q44–Q45):** not matter. The spoken place still that square. The financing statement still that perfection. Age assurance folds under V3 / Q20. Voice / likeness is may — do not sell the throat. C2PA stays the empty chair in `RESEARCH.md`.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -74,6 +76,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One liter of oxygen | The ward has a concentrator; the child does not get the gas |
 | 0.2 mg/L at the tap | No boil flag; the water is not remaining of disinfection |
 | One oxytocin ampoule | The vial looks live; the hormone is gone; she bleeds |
+| Three words | The ambulance goes to the other square |
+| One UCC-1 | Lapse = never perfected vs a purchaser for value |
 
 ---
 
@@ -649,6 +653,34 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q44 — Triple Remaining (THE SQUARE AFTER THE HOMOPHONE)
+
+**What already burns:** what3words: every 3 m square on Earth has a unique three-word address. YAS **2026** #KnowExactlyWhere: Yorkshire Ambulance is on the national campaign. Occupied as a grid and a 999 mouth — **>85%** of UK police, fire, and ambulance services already sit on it. Unpaid is not the grid. Unpaid is the triple still *that* square after a plural, a homophone, or a near-match. PLOS ONE **2023** (Arthur): the assignment algorithm creates many confusable pairs, some close together; **20–25%** of addresses have more than three confusable triples once homophones and typing errors are counted. Cybergibbons: confusing pairs frequently under **10 km**, including in UK cities — what3words claimed distance would make the miss obvious. The ambulance goes to the other square.
+
+**Unpaid object:** Remaining of the triple — stranger-openable that these three words still name **that** 3 m square after they were spoken. Quark: three words. Blast: the crew is on the other street.
+
+**Public sentence:** They said three words. Remaining of the square is unpaid. A homophone is not a different country.
+
+**Cash gravity:** Adjacent paid = what3words licence + 999 campaign. Unpaid remaining = **per-triple remaining**. Shape, not REST. Do not become what3words. Do not email YAS.
+
+**Locks:** Name only. Distinct from Q15 (homoglyph remaining of the *scalar*, not of the spoken triple) and Q31 (911 LoST URI of the *PSAP*, not of the three words). Plus-code / OLC occupies the *code* — fold, not a card. Not a people hunt of dispatchers. Not a child card because the fridge-art campaign names children.
+
+---
+
+### Q45 — Lien Remaining (THE STATEMENT AFTER YEAR FIVE)
+
+**What already burns:** UCC **§9-515**: a filed financing statement is effective for **five years**. Continuation only in the last **six months** (§9-515(d)). File too early or too late and the continuation is ineffective. DLA Piper **March 2026**: a UCC-3 one day before the window opens does nothing; miss the window and the only remedy is a new UCC-1 from a new date — no revive. Upon lapse the security interest is deemed **never to have been perfected** as against a purchaser of the collateral for value (§9-515(c)). CSC and Wolters Kluwer sell the filing. Occupied as a docket and a service bureau. Unpaid: remaining that this statement is still *that* perfection — not the form, the window.
+
+**Unpaid object:** Remaining of the lien — stranger-openable that this UCC-1 is still remaining of that security interest today. Quark: one financing statement. Blast: lapse = never perfected vs the next buyer.
+
+**Public sentence:** They filed the form. Remaining of the perfection is unpaid. Year five is the remaining.
+
+**Cash gravity:** Adjacent paid = CSC / Wolters Kluwer filing. Unpaid remaining = **per-statement remaining**. Shape, not REST. Do not become the bureau. Do not email CSC.
+
+**Locks:** Name only. Distinct from Q19 (SSI remaining of the *settlement instruction*, not of the lien). Not a people hunt of clerks. Not counsel privilege.
+
+---
+
 ## Cash gravity (shape, not REST)
 
 Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
@@ -682,8 +714,10 @@ Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a
 | Q41 | Plants / cylinders / O2aaS | Liter still that gas | Per-liter remaining |
 | Q42 | Chemical + primacy sampling | Residual still 0.2 mg/L at the tap | Per-tap remaining |
 | Q43 | Uterotonic procurement / carbetocin | Ampoule still that hormone | Per-ampoule remaining |
+| Q44 | what3words licence + 999 campaign | Triple still that 3 m square | Per-triple remaining |
+| Q45 | CSC / Wolters Kluwer filing | Statement still that perfection | Per-statement remaining |
 
-Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut**. Q41–Q43 are the **body cut** — same gravity rule, no REST. Do not become WHO / GO2AL / UNFPA / a gas company.
+Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut**. Q41–Q43 are the **body cut**. Q44–Q45 are the **clerk cut** — same gravity rule, no REST. Do not become what3words / CSC / a geocoder / a lien bureau.
 
 ---
 
@@ -721,7 +755,7 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | Dam EAP inundation-map revision | Cousin of **Q12** confRev. Do not mint a seventeenth integer |
 | ISBT donation number / blood fridge | Folds under **Q1**. Do not people-hunt blood-bank staff |
 | Hospital ATS / generator hour-meter | Stet-adjacent (S1/S3). Not a new quark |
-| Isolation / LOTO | Already **C4**. Do not mint Q44 |
+| Isolation / LOTO | Already **C4**. Do not mint another LOTO card |
 | VVM / mechanical interlock | Cousin of **Q8 / S2 / Q1**. Do not mint a seventh *vaccine* dose card. Oxytocin is **Q43** — that ampoule never had the square |
 | Insulin / heat-labile refill | Cousin of **Q8 / Q43**. Do not mint a fourth hormone |
 | LLIN bioefficacy after 20 washes | Cousin of **Q8**. Occupied WHO PQ. Do not become AMF |
@@ -732,6 +766,11 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | TraCSS / CDM OBJECT_DESIGNATOR | `SPACE.md` SA1. Detects conjunctions. Does not hold remaining across delay. Do not mint a fourth Space book |
 | SHARES / HF ALE | Occupied CISA program. Path remaining when SATCOM dies folds under **Q40 / Q34**. Do not become CISA |
 | GMDSS multi-RMSS (1 Jan 2028) | Occupied IMO / IMSO. Identifier remaining is **Q28**. Do not mint a 2028 band |
+| Age assurance / SMMA / under-16 codes | Folds under **V3 / Q20**. Occupied statute. Not a child card. Not a people hunt |
+| Voice / likeness / NO FAKES | **Facing / Estate**. May of the throat. Do not sell. Do not mint a likeness SKU |
+| C2PA media-asset origin | Empty chair in `RESEARCH.md`. Media-asset origin ≠ remaining of the business write |
+| IPv4 assignment / recovery | Folds under **Q3 / Q9**. Occupied RIR. Do not become ARIN |
+| Plus-code / Open Location Code | Occupied *code*. Spoken-triple remaining is **Q44**. Do not mint a second geocode |
 
 ---
 
@@ -792,6 +831,23 @@ The coffin already named sanitation, nitrogen, vaccines, electricity. The humani
 
 ---
 
+## Allied 4 Sep — clerk (Q44–Q45)
+
+Not matter. The hunt asked what else besides physical was unpaid. The spoken place and the lien were. Age, voice, C2PA, and IPv4 were already named.
+
+| # | Name | Quark | Occupied | Unpaid | Blast | Lock |
+|---|------|-------|----------|--------|-------|------|
+| **Q44** | Triple Remaining | three words | what3words; YAS **2026** #KnowExactlyWhere; **>85%** UK police / fire / ambulance | triple still *that* 3 m square after plural / homophone | ambulance goes to the other square | Not what3words. Distinct from Q15 / Q31. |
+| **Q45** | Lien Remaining | one UCC-1 | UCC **§9-515**: 5 years; continuation only last **6 months**; DLA Piper **Mar 2026** | statement still *that* perfection | lapse = never perfected vs purchaser for value | Not CSC / Wolters Kluwer. Distinct from Q19. |
+
+**Still folded:** Age assurance = **V3 / Q20**. Voice / likeness = **Facing / Estate** (do not sell the throat). C2PA = empty chair in `RESEARCH.md`. IPv4 = **Q3 / Q9**. Plus-code / OLC occupies the *code*.
+
+**What this is not:** the geocoder · the lien bureau · a child card · a likeness SKU · minting REST from “filing TAM” · emailing what3words / YAS / CSC / eSafety / ARIN.
+
+**Public sentence:** They will file it as a map and a form. Remaining of the square and the perfection is the clerk.
+
+---
+
 ## Kill (this pass)
 
 | Idea | Why dead |
@@ -804,7 +860,9 @@ The coffin already named sanitation, nitrogen, vaccines, electricity. The humani
 | Become FRA / NERC / PHMSA / BSEE / API / Wabtec / HIMA / the TO / the LDC / the VR shop | Occupied bureau / OEM. Remaining sits next door. Do not email them |
 | Become SANA / 18 SDS / NASA / ESA / T-Mobile / FirstNet / SpaceX / CISA | Occupied pipe / bureau. Remaining sits next door. Do not email them |
 | Become WHO / GO2AL / UNFPA / Unitaid / AMF / a medical-gas company | Occupied pipe. Remaining sits next door. Do not email them |
+| Become what3words / YAS / CSC / Wolters Kluwer / eSafety / ARIN | Occupied grid / bureau. Remaining sits next door. Do not email them |
 | “Global-health TAM / oxygen TAM / maternal TAM → Aim band” | Occupied agencies. Do not mint REST |
+| “Geocoder TAM / lien TAM / age-assurance TAM → Aim band” | Occupied vendors. Do not mint REST |
 | “Space TAM / DSN TAM / NTN TAM → Aim band” | Occupied agencies and carriers. Do not mint REST |
 | “Emergency TAM / 911 TAM / SAR TAM → Aim band” | Occupied agencies. Do not mint REST |
 | Earth-evacuation product / bunker SKU / planetary capacity | Never sell. Envelope + ALARMING already |
@@ -816,8 +874,8 @@ The coffin already named sanitation, nitrogen, vaccines, electricity. The humani
 
 ## Hunt status
 
-**Open.** Q1–Q43 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. Isolation / LOTO stays **C4**. Insulin / LLIN / VVM stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q44. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a device OEM.  
-**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q44.
+**Open.** Q1–Q45 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. **Q44–Q45** clerk cut (4 Sep 2026): what3words triple · UCC-1 continuation. Isolation / LOTO stays **C4**. Age / voice / C2PA / IPv4 stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q46. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a geocoder. Not a lien bureau.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q46.
 
 ---
 
@@ -825,7 +883,7 @@ The coffin already named sanitation, nitrogen, vaccines, electricity. The humani
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA, WHO, GO2AL, UNFPA, Unitaid, AMF).  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA, WHO, GO2AL, UNFPA, Unitaid, AMF, what3words, YAS, CSC, Wolters Kluwer, eSafety, ARIN).  
 - Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 
