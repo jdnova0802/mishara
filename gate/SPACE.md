@@ -45,7 +45,7 @@ One school, two priesthoods. A civil operator must not radiate a military write.
 
 ### Cousin (name-only, not a fourth book)
 
-**Continuing Supervision Remaining** (`ALARMING.md` A6) is Art. VI’s legal face of the same hole: authorization is not remaining. Lunar timescale (`ALARMING.md` A5) is the *unit* cousin of Delay Unwatched (*c*). Continuous UTC (`ALARMING.md` A4) is the Earth clock those delays are measured against. **Cached Remaining** (`ALARMING.md` A12) is sealed may in Jezero with no redeem after MSR was defunded. Voyager’s last watts and the South Atlantic Anomaly are occupied measurements / NASA remaining — fold, do not mint. Do not re-seat.
+**Continuing Supervision Remaining** (`ALARMING.md` A6) is Art. VI’s legal face of the same hole: authorization is not remaining. Lunar timescale (`ALARMING.md` A5) is the *unit* cousin of Delay Unwatched (*c*). Continuous UTC (`ALARMING.md` A4) is the Earth clock those delays are measured against. **Cached Remaining** (`ALARMING.md` A12) is sealed may in Jezero with no redeem after MSR was defunded. Voyager’s last watts and the South Atlantic Anomaly are occupied measurements / NASA remaining — fold, do not mint. **Quark spine** (`QUARK.md` Q37–Q40) is remaining of the SCID, the catalog number, the custody hop, and the sky path — not a fourth Space invention and not an earth-evacuation SKU. Do not re-seat.
 
 ---
 

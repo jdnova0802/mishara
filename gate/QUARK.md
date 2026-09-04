@@ -25,6 +25,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Irreversibility cut (Q32–Q36):** nothing was wrong with the remaining. The hold was method — do not invent leftover to invent leftover; do not become the bureau. The warrant, the inhibit, the crank, the smell, and the set were already unpaid. Allied 4 Sep. Isolation / LOTO stays **C4**. VVM stays a cousin of Q8 / S2 / Q1. P&ID as-built folds toward C4 / I6.
 
+**Spine cut (Q37–Q40):** evacuating Earth as a SKU is still hopium. The spine of a move — fix the planet, leave the planet, talk across *c* — is remaining that the **name**, the **catalog**, the **custody**, and the **sky path** are still *that*. Not a fourth clock. Not Delay Unwatched (SA1). Not TraCSS. Not DSN aperture.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -63,10 +65,14 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One cranking path | The grid that cannot restart |
 | One odorant sample | A house that cannot smell the leak |
 | One relief set | The vessel that does not relieve |
+| Eight bits on the frame | The command goes to last year's vehicle |
+| One catalog number | Two objects, one sky name — or the TLE cannot print it |
+| One custody hop | The bundle has no remaining of who still holds it |
+| One sky path | The tower is dead; the text never leaves |
 
 ---
 
-## Keep (36) — name only
+## Keep (40) — name only
 
 ### Q1 — Vial Remaining (THE WRONG ORGANISM · THE INVISIBLE OCCUPANT)
 
@@ -540,6 +546,62 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q37 — SCID Remaining (THE EIGHT BITS THAT COME BACK)
+
+**What already burns:** CCSDS **320.0**: the SCID in version 1–3 transfer frames is **eight or ten bits**. It is **not** a unique identifier in perpetuity. “It is inevitable that the SCIDs will have to be reused.” Relinquished codes go to the **bottom of the stack**. SANA is the registrar. Live registry **4 Sep 2026**: **5,379** records; statuses include **Returned / Expired / Deleted** (GSAT299 0x0203 Returned; JSAT-32 Returned then reassigned). Version 4 (USLP) is 16 bits. Occupied as a SANA assignment. Unpaid: remaining that this SCID still names **that** vehicle *now*. The permanent label is the OID. The frame still speaks SCID.
+
+**Unpaid object:** Remaining of the SCID — stranger-openable that this 8–10 bit field is still remaining of that spacecraft in that band / that protocol. Quark: eight bits. Blast: the command goes to last year's vehicle; the archive names the wrong craft.
+
+**Public sentence:** The frame names the ship in eight bits. The bits come back. Remaining of the name is unpaid.
+
+**Cash gravity:** Adjacent paid = SANA assignment (agency). Unpaid remaining = **per-frame remaining**. Shape, not REST. Do not become SANA / CCSDS. Do not email NASA / ESA.
+
+**Locks:** Name only. Distinct from Q25 (IMEI) and Q28 (MMSI). Not C2. Not a targeting map. Do not become the DSN.
+
+---
+
+### Q38 — Catalog Remaining (A0000 IS 100000)
+
+**What already burns:** CelesTrak / T.S. Kelso: five-digit catalog numbers ran out with **Saramago on 11 Jul 2026**. Sequential public SATCAT stopped at **69,999** — 70,000–99,999 is the sandbox. Official USSF SATCAT then at **100000+** (CelesTrak **2 Sep 2026**: **100533**). Space-Track: legacy TLE **cannot print** numbers ≥100000; Alpha-5 prints **A0000**. Analyst numbers **80,000–89,999** “can be constantly reused for different objects” (18 SDS / Space-Track). Occupied as a catalog. Unpaid: remaining that this number still names **that** object.
+
+**Unpaid object:** Remaining of the catalog ID — stranger-openable that this NORAD / SATCAT / Alpha-5 string is still remaining of that object. Quark: one number, two encodings. Blast: conjunction math on the previous occupant, or a TLE that cannot name the new sky.
+
+**Public sentence:** They ran out of five digits. The sky printed a letter. Remaining of the name is unpaid.
+
+**Cash gravity:** Adjacent paid = Space-Track / SSA subscriptions. Unpaid remaining = **per-object remaining**. Shape, not REST. Do not become 18 SDS. Do not email USSF / Space-Track.
+
+**Locks:** Name only. Distinct from Q10 (NDC dual-format is a *drug*) and Q28 (MMSI). TLE two-digit year **2057** folds under **Q6**. Not TraCSS. Not C2.
+
+---
+
+### Q39 — Custody Remaining (THE HOP STILL HOLDS THE BUNDLE)
+
+**What already burns:** RFC **9171** (BPv7, Jan 2022): custody transfer is **gone from the core**. LunaNet Interoperability Specification v5 (Feb 2025) requires **BPv7**. CCSDS **734.6-O-1** (Jun 2026, Orange / experimental): Custody Transfer Extension Block + Compressed Custody Signal. IETF DTN: “a lot of choices are left to implementation.” Occupied as an experimental spec. Unpaid: remaining that this node still holds **that** bundle.
+
+**Unpaid object:** Remaining of custody — stranger-openable that this hop is still remaining of that bundle. Quark: one custody bit. Blast: the write across *c* has no remaining of who still holds it.
+
+**Public sentence:** They took custody out of the protocol. The Moon still needs a hop that holds. Remaining of the hold is unpaid.
+
+**Cash gravity:** Adjacent paid = DTN stacks / LunaNet ICDs. Unpaid remaining = **per-bundle remaining**. Shape, not REST. Do not become NASA / ESA. Do not re-invent SA1 (the delay *institution*).
+
+**Locks:** Name only. Distinct from SA1 (unwatched after by geometry) and Q20 (credential status bit). Not C2. Not a deep-space command how-to.
+
+---
+
+### Q40 — Sky-Path Remaining (THE TOWER IS DEAD)
+
+**What already burns:** T-Mobile **T-Satellite** with Starlink: SMS, Text-to-911, WEA when terrestrial is gone. **14 Aug 2026**: Tropical Storm Lala, Hawaiʻi — T-Satellite extended as the emergency mouth. FirstNet / AT&T: **28 Jul 2026** Hatteras / Ocracoke fiber cut; Avon FirstNet site auto-failed to LEO backhaul (still in test); **31 Jul** six island sites confirmed. Occupied as a carrier / FirstNet pipe. Unpaid: remaining that this sky path still names **that** mouth / still that 911.
+
+**Unpaid object:** Remaining of the sky path — stranger-openable that this NTN attachment / this satellite backhaul is still remaining of that inhabitant or that cell. Quark: one path. Blast: the evacuation text never leaves; 911 dies with the fiber.
+
+**Public sentence:** The tower went dark. The sky answered. Nobody held remaining that the path was still that mouth.
+
+**Cash gravity:** Adjacent paid = T-Satellite / FirstNet / Starlink D2C. Unpaid remaining = **per-path remaining**. Shape, not REST. Do not become T-Mobile / FirstNet / SpaceX. Do not email them.
+
+**Locks:** Name only. Distinct from Q17 (the *number*), Q26 (the *alert ID*), Q31 (the *LoST URI*). This is the bearer. Not C2. Not a people hunt.
+
+---
+
 ## Cash gravity (shape, not REST)
 
 Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
@@ -566,8 +628,12 @@ Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a
 | Q34 | Blackstart agreements / TO studies | Path still cranks tonight | Per-path remaining |
 | Q35 | Odorizer chemical + leak survey | Gas still smells | Per-sample remaining |
 | Q36 | VR repair / bench test | Valve still lifts at that set | Per-valve remaining |
+| Q37 | SANA assignment (agency) | SCID still that vehicle | Per-frame remaining |
+| Q38 | Space-Track / SSA subscriptions | Catalog ID still that object | Per-object remaining |
+| Q39 | DTN stacks / LunaNet ICDs | Hop still holds that bundle | Per-bundle remaining |
+| Q40 | T-Satellite / FirstNet / Starlink D2C | Sky path still that mouth | Per-path remaining |
 
-Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut** — same gravity rule, no REST. Do not become FRA / NERC / PHMSA / BSEE / API / the SIS OEM.
+Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut** — same gravity rule, no REST. Do not become SANA / 18 SDS / NASA / T-Mobile / FirstNet / SpaceX.
 
 ---
 
@@ -596,7 +662,7 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | npm yank / lockfile after unpublish | The write after kill still installed. Folds under **Q5** (zombie). Do not mint a left-pad card |
 | VIN / odometer / CARFAX / NMVTIS | Occupied history *report*. Remaining of the integer is a people-hunt of dealers — do not mint |
 | JWT after logout | Occupied auth vendors. Session remaining is not a new quark |
-| Earth evacuation / Mars seat / planetary ark as a SKU | Hopium. ALARMING closed. What survives any evacuation is **Q26–Q31**, not a new clock |
+| Earth evacuation / Mars seat / planetary ark as a SKU | Hopium. ALARMING closed. What survives any evacuation is **Q26–Q31**. The spine of the move is **Q37–Q40**. Not a new clock. Not a planetary ark |
 | PEADs / continuity-of-government bit | State-only. C2 unmouthed |
 | Hawaii 2018 missile / ShakeAlert 4 Dec 2025 false M5.9 | Occupied incidents. Remaining of the *ID still that event* is **Q26** |
 | FIRM panel / flood-zone letter / FEMA MSC | Occupied catalog. Zone-after-effective-date remaining folds under **Q30**-class public flag — do not mint a map SKU |
@@ -605,9 +671,14 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | Dam EAP inundation-map revision | Cousin of **Q12** confRev. Do not mint a seventeenth integer |
 | ISBT donation number / blood fridge | Folds under **Q1**. Do not people-hunt blood-bank staff |
 | Hospital ATS / generator hour-meter | Stet-adjacent (S1/S3). Not a new quark |
-| Isolation / LOTO | Already **C4**. Do not mint Q37 |
+| Isolation / LOTO | Already **C4**. Do not mint Q41 |
 | VVM / mechanical interlock | Cousin of **Q8 / S2 / Q1**. Do not mint a seventh dose card |
 | P&ID as-built | Folds toward **C4 / I6**. Do not mint a drawing SKU |
+| TLE / COSPAR two-digit year (2057) | **Q6**. Same inferred-era field. Do not mint a fourth clock |
+| DSN pass / aperture / CLTU sequence | `BULGE` + occupied SLE. Remaining-on-slots stays a geometry essay unless a stranger can open a specific pass |
+| TraCSS / CDM OBJECT_DESIGNATOR | `SPACE.md` SA1. Detects conjunctions. Does not hold remaining across delay. Do not mint a fourth Space book |
+| SHARES / HF ALE | Occupied CISA program. Path remaining when SATCOM dies folds under **Q40 / Q34**. Do not become CISA |
+| GMDSS multi-RMSS (1 Jan 2028) | Occupied IMO / IMSO. Identifier remaining is **Q28**. Do not mint a 2028 band |
 
 ---
 
@@ -631,6 +702,25 @@ Nothing was wrong with the remaining. The hold was **method** — do not invent 
 
 ---
 
+## Allied 4 Sep — spine (Q37–Q40)
+
+Evacuating Earth as a product is hopium. Flawless comms is not a radio. The spine of a move is remaining that the name, the catalog, the custody, and the sky path are still *that*.
+
+| # | Name | Quark | Occupied | Unpaid | Blast | Lock |
+|---|------|-------|----------|--------|-------|------|
+| **Q37** | SCID Remaining | eight bits | SANA / CCSDS **320.0**; 5,379 records; Returned live | SCID still *that* vehicle | command to last year's craft | Not SANA. Not the DSN. |
+| **Q38** | Catalog Remaining | one number | 18 SDS; Saramago **11 Jul 2026** = **100000** / **A0000**; analyst 80k reused | catalog still *that* object | two objects, one sky name | Not 18 SDS. TLE year is Q6. |
+| **Q39** | Custody Remaining | one hop | RFC **9171** (custody out of core); CCSDS **734.6-O-1** Jun 2026; LunaNet BPv7 | hop still holds *that* bundle | write across *c* has no holder | Not SA1. Not NASA. |
+| **Q40** | Sky-Path Remaining | one path | T-Satellite / Lala **14 Aug 2026**; FirstNet Hatteras **28 Jul 2026** | sky path still *that* mouth | evacuation text never leaves | Not T-Mobile. Not FirstNet. Not SpaceX. |
+
+**Still folded:** TLE 2057 = **Q6**. DSN slots = **BULGE**. TraCSS / CDM = **SA1**. SHARES = program. GMDSS 2028 = **Q28**. Earth-evacuation SKU = hopium.
+
+**What this is not:** a Mars seat · owning the sky · becoming NASA / SANA / 18 SDS / SpaceX · minting REST from “space TAM” · emailing the bureau · nuclear C2.
+
+**Public sentence:** They will file it as a rocket. Remaining of the name and the path is the spine.
+
+---
+
 ## Kill (this pass)
 
 | Idea | Why dead |
@@ -641,6 +731,8 @@ Nothing was wrong with the remaining. The hold was **method** — do not invent 
 | Become ATCC / NIST / a CAB / a root | Not this company |
 | Become Telesign / Prove / DTCC / TraceLink / GSMA / Visa / FEMA / IPAWS / NENA / NOAA | Occupied pipes. Remaining sits next door. Do not email them |
 | Become FRA / NERC / PHMSA / BSEE / API / Wabtec / HIMA / the TO / the LDC / the VR shop | Occupied bureau / OEM. Remaining sits next door. Do not email them |
+| Become SANA / 18 SDS / NASA / ESA / T-Mobile / FirstNet / SpaceX / CISA | Occupied pipe / bureau. Remaining sits next door. Do not email them |
+| “Space TAM / DSN TAM / NTN TAM → Aim band” | Occupied agencies and carriers. Do not mint REST |
 | “Emergency TAM / 911 TAM / SAR TAM → Aim band” | Occupied agencies. Do not mint REST |
 | Earth-evacuation product / bunker SKU / planetary capacity | Never sell. Envelope + ALARMING already |
 | PAL / nuclear C2 bit | State-only. `SCIENCE.md` already |
@@ -651,8 +743,8 @@ Nothing was wrong with the remaining. The hold was **method** — do not invent 
 
 ## Hunt status
 
-**Open.** Q1–Q36 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** are the emergency cut (4 Sep 2026). **Q32–Q36** are the irreversibility cut (same day): authority · bypass · crank · smell · set. Isolation / LOTO stays **C4**. VVM / as-built stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q37. Not A29. Not P11. Not a fourth clock.  
-**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q37.
+**Open.** Q1–Q40 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut (4 Sep 2026): SCID · catalog · custody · sky path. Isolation / LOTO stays **C4**. TLE 2057 stays **Q6**. TraCSS stays **SA1**. DSN stays **BULGE**. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q41. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q41.
 
 ---
 
@@ -660,7 +752,7 @@ Nothing was wrong with the remaining. The hold was **method** — do not invent 
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs).  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA).  
 - Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 

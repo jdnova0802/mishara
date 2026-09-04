@@ -7,7 +7,7 @@
 Galaxy A14–A28 stays **closed**.  
 Jaw Aim stays **closed**.  
 Puke P1–P10 stays the **wrong-object industry** shelf.  
-Quark Q1–Q36 stays **tiny remaining with blast**.
+Quark Q1–Q40 stays **tiny remaining with blast**.
 
 This shelf is under all of that: **remaining that is not even work.**
 
@@ -201,7 +201,7 @@ Adjacent pipes already charge for the *round*. The unpaid object is remaining of
 
 ## Hunt status
 
-**Open.** S1–S8 seated. Next pass: more **stets** — remaining with no ticket, no blast poster, no factory. Not A29. Not P11. Not Q37. Not a fourth clock. Do not mint bands from the gravity table.
+**Open.** S1–S8 seated. Next pass: more **stets** — remaining with no ticket, no blast poster, no factory. Not A29. Not P11. Not Q41. Not a fourth clock. Do not mint bands from the gravity table.
 
 ---
 
