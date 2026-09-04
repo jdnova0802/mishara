@@ -218,6 +218,17 @@ Already seated, still true: NVIDIA × HF **$12.9B** (L2) · Cyera × Oasis ~**$1
 
 No new leftover. TAP/MPP/x402 fifth gate still unpaid. Claudeforce beta still a sentence, not a live door this morning.
 
+### Third pass (4 Sep, equal hunt — not leftover)
+
+Same official-page standard as the inventing cut. No REST. No Tuesday add. Do not email.
+
+| Who | What | Seat |
+|-----|------|------|
+| **VIPR** × **Bridgepoint** | News **3 Sep 2026** (close **Jul**). Majority via Bridgepoint Growth; Tenzing exits. ~**500,000** bordereaux / yr · ~**$12B** GWP. Aon already deploys VIPR on delegated-authority ops. Official privacy: `cio@viprsolutions.com`. | Occupies DA *data*. Remaining of the bordereaux write unpaid. B-pipe next to the Aon $17B throat. Overflow. Do **not** email VIPR / Bridgepoint / Tenzing / Aon. |
+| **Huscarl** | Seed **$5.6M** **1 Sep 2026** (FRST / YC). Autonomous AI actuary for captives / self-insurance. Writes the SAO. Official privacy: `contact@huscarl.io` ([huscarl.io/legal](https://www.huscarl.io/legal)). | Overflow A-shape — they write the reserve. Not Tuesday. Do **not** email. |
+
+Not holy-fuck new leftover. Cyber M&A (PANW / Cisco NHI / identity) remixes seats already named (Cyera × Oasis · CrowdStrike / SGNL · Socure). Do not remint.
+
 ## Bind plus a sweetener (researched 4 Sep)
 
 Not a new Tuesday wave. Cap stays the ten already sent. This is the desk where **$1,750 lands and something else lands with it**.

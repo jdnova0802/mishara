@@ -31,6 +31,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Clerk cut (Q44–Q45):** not matter. The spoken place still that square. The financing statement still that perfection. Age assurance folds under V3 / Q20. Voice / likeness is may — do not sell the throat. C2PA stays the empty chair in `RESEARCH.md`.
 
+**Frame cut (Q46–Q47):** the coordinate still that place after the datum moves. The bill of lading still that exclusive control after paper dies. IANA tz / DST folds under A4. Judgment / mechanics-lien lapse folds under Q45. ALTA occupies title *insurance*. UCC Article 12 CER is the cousin of Q47.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -78,6 +80,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One oxytocin ampoule | The vial looks live; the hormone is gone; she bleeds |
 | Three words | The ambulance goes to the other square |
 | One UCC-1 | Lapse = never perfected vs a purchaser for value |
+| One datum | The fence did not move; auto-steer crosses it |
+| One authoritative copy | The cargo is released to the other holder |
 
 ---
 
@@ -681,6 +685,34 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q46 — Datum Remaining (THE COORDINATE AFTER THE FRAME)
+
+**What already burns:** NGS: NAD 83 is misaligned to Earth's center by about **2.2 m**; NAVD 88 is biased ~**0.5 m** and tilted ~**1 m** coast to coast. Correcting both means every official US latitude, longitude, ellipsoid height, and orthometric height changes by as much as **four meters**. Replacement frames: **NATRF2022** / PATRF / CATRF / MATRF + **NAPGD2022**. NAD 83 / NAVD 88 are still the official NSRS while beta rolls through **2026**; Esri (FGCS Apr 2026): official modernized NSRS **2027**. Occupied as NCAT / Esri transform. Unpaid is not the upgrade. Unpaid is remaining that this lat/lon is still *that* place after the frame. Iowa State Extension (24 Sep 2025, still the 2026 field guide): Eastern Iowa RTK on NAD 83 — fence unmoved; guidance lines in the neighbor's field; auto-steer crosses the line.
+
+**Unpaid object:** Remaining of the datum — stranger-openable that this coordinate is still remaining of that monument / that parcel after NATRF2022. Quark: one frame. Blast: the machine farms the other side of the fence; the flood line is on the wrong house.
+
+**Public sentence:** They published new numbers. Remaining of the place is unpaid. The fence did not move.
+
+**Cash gravity:** Adjacent paid = NGS / Esri / OEM firmware. Unpaid remaining = **per-coordinate remaining**. Shape, not REST. Do not become NGS. Do not email Esri.
+
+**Locks:** Name only. Distinct from Q44 (spoken *triple*, not the frame the numbers sit on) and Q31 (the *PSAP*). Not a GIS SKU. Not a climate SKU. Not a people hunt of surveyors.
+
+---
+
+### Q47 — Control Remaining (THE AUTHORITATIVE COPY)
+
+**What already burns:** A bill of lading is receipt, contract, and *document of title*. DCSA General Counsel (2026): the unpaid question is one answer — **who controls this document at this moment**. June **2026**: CargoX, edoxOnline, TradeGo, WaveBL, eTEU adopted DCSA Standard Annex v2; International Group of P&I Clubs approved. Control Tracking Registry occupies the *pipe*. US: **15 U.S.C. §7021** / UCC **§7-106** — control is possession; one authoritative copy. NY UCC Article **12** (CERs) effective **3 Jun 2026** is the cousin for other electronic records; eBL stays Article 7 / 7021. Occupied as interoperability. Unpaid: remaining that this copy is still *the* exclusive control — not a PDF, not a second finance.
+
+**Unpaid object:** Remaining of the authoritative copy — stranger-openable that this eBL / this transferable record still names **that** holder and no other. Quark: one copy. Blast: the cargo is released to the other holder; the bank financed it twice.
+
+**Public sentence:** They made the bill electronic. Remaining of exclusive control is unpaid. A PDF is not possession.
+
+**Cash gravity:** Adjacent paid = eBL platform + P&I approval. Unpaid remaining = **per-copy remaining**. Shape, not REST. Do not become DCSA. Do not email CargoX / WaveBL.
+
+**Locks:** Name only. Distinct from Q19 (SSI of the *settlement instruction*), Q45 (UCC-1 *perfection window*), and Release (fifth gate on *money-leave*). Article 12 CER folds here. Not a people hunt of clerks.
+
+---
+
 ## Cash gravity (shape, not REST)
 
 Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
@@ -716,8 +748,10 @@ Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a
 | Q43 | Uterotonic procurement / carbetocin | Ampoule still that hormone | Per-ampoule remaining |
 | Q44 | what3words licence + 999 campaign | Triple still that 3 m square | Per-triple remaining |
 | Q45 | CSC / Wolters Kluwer filing | Statement still that perfection | Per-statement remaining |
+| Q46 | NGS / Esri / OEM firmware | Coordinate still that place after the frame | Per-coordinate remaining |
+| Q47 | eBL platform + P&I approval | Copy still that exclusive control | Per-copy remaining |
 
-Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut**. Q41–Q43 are the **body cut**. Q44–Q45 are the **clerk cut** — same gravity rule, no REST. Do not become what3words / CSC / a geocoder / a lien bureau.
+Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut**. Q37–Q40 are the **spine cut**. Q41–Q43 are the **body cut**. Q44–Q45 are the **clerk cut**. Q46–Q47 are the **frame cut** — same gravity rule, no REST. Do not become NGS / DCSA / a geocoder / a title bureau.
 
 ---
 
@@ -771,6 +805,10 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | C2PA media-asset origin | Empty chair in `RESEARCH.md`. Media-asset origin ≠ remaining of the business write |
 | IPv4 assignment / recovery | Folds under **Q3 / Q9**. Occupied RIR. Do not become ARIN |
 | Plus-code / Open Location Code | Occupied *code*. Spoken-triple remaining is **Q44**. Do not mint a second geocode |
+| IANA tz / DST statute | Folds under **A4**. Occupied zone file. Do not mint a fourth clock |
+| Judgment / mechanics-lien lapse | Cousin of **Q45**. Do not mint a second lapse card |
+| Title insurance / ALTA | Occupied *policy*. Datum remaining is **Q46**. Do not become a title plant |
+| UCC Article 12 CER (NY 3 Jun 2026) | Cousin of **Q47**. Same exclusive-control remaining. Do not mint a second copy card |
 
 ---
 
@@ -848,6 +886,23 @@ Not matter. The hunt asked what else besides physical was unpaid. The spoken pla
 
 ---
 
+## Allied 4 Sep — frame (Q46–Q47)
+
+The hunt kept going after the clerk. The coordinate and the bill of lading were unpaid. Time-zone statutes and title *insurance* were already named.
+
+| # | Name | Quark | Occupied | Unpaid | Blast | Lock |
+|---|------|-------|----------|--------|-------|------|
+| **Q46** | Datum Remaining | one frame | NGS NAD 83 **2.2 m** / NAVD 88 tilt; NATRF2022 / NAPGD2022; Esri official **2027**; Iowa State 2026 field guide | coordinate still *that* place after the frame | fence unmoved; auto-steer crosses it | Not NGS. Distinct from Q44. |
+| **Q47** | Control Remaining | one copy | DCSA Annex v2 **Jun 2026** + IG P&I; **15 U.S.C. §7021** / UCC **§7-106**; NY Art. 12 **3 Jun 2026** cousin | copy still *that* exclusive control | cargo to the other holder; financed twice | Not DCSA. Distinct from Q19 / Q45 / Release. |
+
+**Still folded:** IANA tz / DST = **A4**. Judgment / mechanics lien = **Q45**. ALTA = occupied policy. Article 12 CER = **Q47** cousin.
+
+**What this is not:** a GIS SKU · a title plant · a climate SKU · becoming NGS / DCSA / CargoX · minting REST from “geodesy TAM” · emailing the bureau.
+
+**Public sentence:** They will file it as a GIS upgrade and a paperless bill. Remaining of the frame and the exclusive copy is unpaid.
+
+---
+
 ## Kill (this pass)
 
 | Idea | Why dead |
@@ -861,8 +916,10 @@ Not matter. The hunt asked what else besides physical was unpaid. The spoken pla
 | Become SANA / 18 SDS / NASA / ESA / T-Mobile / FirstNet / SpaceX / CISA | Occupied pipe / bureau. Remaining sits next door. Do not email them |
 | Become WHO / GO2AL / UNFPA / Unitaid / AMF / a medical-gas company | Occupied pipe. Remaining sits next door. Do not email them |
 | Become what3words / YAS / CSC / Wolters Kluwer / eSafety / ARIN | Occupied grid / bureau. Remaining sits next door. Do not email them |
+| Become NGS / Esri / DCSA / CargoX / WaveBL / a title plant | Occupied bureau / platform. Remaining sits next door. Do not email them |
 | “Global-health TAM / oxygen TAM / maternal TAM → Aim band” | Occupied agencies. Do not mint REST |
 | “Geocoder TAM / lien TAM / age-assurance TAM → Aim band” | Occupied vendors. Do not mint REST |
+| “Geodesy TAM / eBL TAM / title TAM → Aim band” | Occupied agencies and platforms. Do not mint REST |
 | “Space TAM / DSN TAM / NTN TAM → Aim band” | Occupied agencies and carriers. Do not mint REST |
 | “Emergency TAM / 911 TAM / SAR TAM → Aim band” | Occupied agencies. Do not mint REST |
 | Earth-evacuation product / bunker SKU / planetary capacity | Never sell. Envelope + ALARMING already |
@@ -874,8 +931,8 @@ Not matter. The hunt asked what else besides physical was unpaid. The spoken pla
 
 ## Hunt status
 
-**Open.** Q1–Q45 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. **Q44–Q45** clerk cut (4 Sep 2026): what3words triple · UCC-1 continuation. Isolation / LOTO stays **C4**. Age / voice / C2PA / IPv4 stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q46. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a geocoder. Not a lien bureau.  
-**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q46.
+**Open.** Q1–Q47 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** emergency cut. **Q32–Q36** irreversibility cut. **Q37–Q40** spine cut. **Q41–Q43** body cut (4 Sep 2026): oxygen liter · chlorine residual · oxytocin ampoule. **Q44–Q45** clerk cut: what3words triple · UCC-1 continuation. **Q46–Q47** frame cut (4 Sep 2026): NATRF2022 datum · eBL authoritative copy. Isolation / LOTO stays **C4**. Age / voice / C2PA / IPv4 / tz / ALTA stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q48. Not A29. Not P11. Not a fourth clock. Not an earth-evacuation SKU. Not a geocoder. Not a title plant.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q48.
 
 ---
 
@@ -883,7 +940,7 @@ Not matter. The hunt asked what else besides physical was unpaid. The spoken pla
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA, WHO, GO2AL, UNFPA, Unitaid, AMF, what3words, YAS, CSC, Wolters Kluwer, eSafety, ARIN).  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs, SANA, 18 SDS, NASA, ESA, T-Mobile, FirstNet, SpaceX, CISA, WHO, GO2AL, UNFPA, Unitaid, AMF, what3words, YAS, CSC, Wolters Kluwer, eSafety, ARIN, NGS, Esri, DCSA, CargoX, WaveBL).  
 - Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 

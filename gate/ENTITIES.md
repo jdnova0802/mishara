@@ -86,6 +86,7 @@ Cigna is an insurer. Do not treat as a Bind insured. Discord / SoFi / Chime stay
 | **Zeplyn** (DeepInsights AI Inc.) | FIL ’26. Wealth-advisor agents. | `info@zeplyn.ai` | [zeplyn.ai/privacy-and-policy](https://www.zeplyn.ai/privacy-and-policy) |
 | **ElevenLabs** | Voice agents that bind. Already AIUC-1. Badge ≠ remaining. | `legal@elevenlabs.io` | [elevenlabs.io/contact-legal](https://elevenlabs.io/contact-legal) |
 | **Lovable** | Coding agents that ship apps. AIUC-1. $400M Series C — may bounce $1,750. | `privacy@lovable.dev` | [lovable.dev/privacy](https://lovable.dev/privacy) |
+| **Huscarl** | AI actuary / captive SAO. $5.6M seed 1 Sep 2026. Writes the reserve. | `contact@huscarl.io` | [huscarl.io/legal](https://www.huscarl.io/legal) |
 
 Do not add these to Tuesday. Do not invent Charm / DFNS / Kobalt / LinqAlpha / PVML / Varos inboxes this pass. Do not use `skyfireai.com` (different company).
 
@@ -101,7 +102,7 @@ Do not add these to Tuesday. Do not invent Charm / DFNS / Kobalt / LinqAlpha / P
 | **Amwins** | Wholesale. Published emails are media (`lisa.kuszmar@amwins.com`) or program UW for *retail agents placing cover*. | Not a Bind To: line. |
 | **Klaimee / AIUC** | Competitor-adjacent. | Freeze / F. |
 | **Testudo the coverholder · HSB · Munich Re · Armilla · Mosaic** | Capacity. Insured pays Bind. | Freeze / later desk. |
-| **NVIDIA · Apple · Google · Microsoft · Stripe · Visa · Duck Creek · Verisk · NAIC · PAS · PA · hyperscalers · DHS · FM Global · CDMOs · Aon · USI · Salesforce · ServiceNow · Socure · CrowdStrike · GSA / Login.gov** | Freeze / E after meter. | Do not email to “research” them. |
+| **NVIDIA · Apple · Google · Microsoft · Stripe · Visa · Duck Creek · Verisk · NAIC · PAS · PA · hyperscalers · DHS · FM Global · CDMOs · Aon · USI · Salesforce · ServiceNow · Socure · CrowdStrike · GSA / Login.gov · VIPR · Bridgepoint · NGS · Esri · DCSA** | Freeze / E after meter / occupied pipe. | Do not email to “research” them. |
 | `hello@sierra.ai` / `operations@sierra.ai` / `info@cognition.ai` | Showed up on aggregators, **not** on official legal pages this pass. | Do not use. |
 
 ---
