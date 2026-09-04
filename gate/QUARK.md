@@ -21,6 +21,8 @@ ALARMING hunts *big unpaid stocks* (helium, Kessler, tritium). PUKE hunts *indus
 
 This hunts the **tiny latch**. People look up. The remaining is a field width. The consequence is a civilization.
 
+**Emergency cut (Q26–Q31):** the boring things that still have to be true in a local / national / global emergency — and in any evacuation that is not hopium — are **quarks**, not a new clock and not a planetary SKU. Earth-evacuation-as-a-product is dead (ALARMING). What survives the emergency is remaining of the **alert ID**, the **beacon**, the **ship number**, the **warning number**, the **water flag**, the **911 URI**.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -48,10 +50,16 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | One pack serial | Recalled / destroyed still scans as saleable |
 | One UDI | The label, the GUDID row, and the device disagree |
 | Fifteen IMEI digits | Clean at sale; flagged after the money moved |
+| One shortened WEA ID | The phone suppresses the real evacuation — or keeps the false one |
+| Fifteen hex on a beacon | SAR goes to the previous owner, or to nobody |
+| Nine recycled MMSI digits | The distress alert still names last year's ship |
+| Four digits with no year | Two storms share a warning number |
+| One boil-water flag | The tap is still that advisory, or the lift was a rumor |
+| One 911 LoST URI | The call routes to yesterday's PSAP |
 
 ---
 
-## Keep (25) — name only
+## Keep (31) — name only
 
 ### Q1 — Vial Remaining (THE WRONG ORGANISM · THE INVISIBLE OCCUPANT)
 
@@ -371,6 +379,90 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q26 — Alert-ID Remaining (THE SHORTENED WEA ID)
+
+**What already burns:** FCC **91 FR 48320** (31 Jul 2026) FNPRM: no **universal alert message ID** on Wireless Emergency Alerts. IPAWS already assigns a unique CAP ID; it is **too long** for WEA metadata. The Commission asks whether to **hash / shorten** it so a handset can suppress duplicates over the **24-hour** WEA retention window — and what collision rate is acceptable. Legacy EAS still uses **six-digit** SAME/FIPS location codes. WEA geotargeting exceptions still deliver to “best approximates.” Occupied: IPAWS as the *pipe*. Unpaid: remaining that this shortened ID still names **that** alert and not another. Hawaii 13 Jan 2018 ballistic-missile false and ShakeAlert **4 Dec 2025** false M5.9 (ghost triggers → WEA) are occupied incidents. The quark is the **ID**, not the siren.
+
+**Unpaid object:** Remaining of the alert identifier — stranger-openable that this ID is still unique to **that** event for the retention window. Quark: one shortened hash. Blast: the phone **suppresses** a real evacuation as a duplicate, or **keeps** a false one as live.
+
+**Public sentence:** They will shorten the ID so the phone can ignore a duplicate. Remaining of uniqueness was unpaid. The county evacuates on that bit.
+
+**Cash gravity:** Adjacent paid = IPAWS / CAP origination software and CMS-provider WEA transport. Unpaid remaining = **per-alert remaining**. Shape, not REST. Do not email FEMA / FCC.
+
+**Locks:** Name only. Do not become IPAWS. Distinct from Q7 (crypto nonce) and Q20 (credential status bit). Not C2. Not a people hunt of alerting officers.
+
+---
+
+### Q27 — Beacon Remaining (THE FIFTEEN HEX)
+
+**What already burns:** Cospas-Sarsat 406 MHz. Official **SD 51** (Dec 2025): **2.5 million** registered beacons vs **~3.4 million** estimated by the registration-rate method (end-2024). Detected-and-registered rate last published as a programme measure: **74.0%** (2017, all types). The 15-character **Hex ID** is what the satellite forwards. IBRD / NOAA RGDB occupy the *lookup*. Registration is to be confirmed **every two years**. Historically a checksum was **optional** so a mistyped Hex ID still filed. Occupied as a database. Unpaid as remaining that this Hex ID still names **that craft / that owner now**. Distinct from Q25 (handset IMEI status at sale) and Q17 (the phone number).
+
+**Unpaid object:** Remaining of the beacon — stranger-openable that this 15-hex is still remaining of that registration. Quark: fifteen hex characters. Blast: SAR goes to the previous owner, or to an empty row.
+
+**Public sentence:** The beacon fired. The hex was live. Nobody held remaining that it still named a person.
+
+**Cash gravity:** Adjacent paid = beacon sale + national/IBRD registration (free at IBRD). Unpaid remaining = **per-alert remaining** of the Hex ID still that registration. Shape, not REST. Do not become NOAA / Cospas-Sarsat.
+
+**Locks:** Name only. Distinct from Q25 and Q17. Not a people hunt of vessel owners. Not munitions.
+
+---
+
+### Q28 — MMSI Remaining (THE NINE DIGITS AFTER REUSE)
+
+**What already burns:** ITU-R **M.585-9**: an MMSI **may be reused** after it has been absent from **two successive** editions of ITU List V **or after two years**, whichever is greater. Nine digits. DSC / AIS / GMDSS distress still transmit that number. ITU MARS occupies the *list*. Occupied as an assignment. Unpaid as remaining that this MMSI still names **that ship today**. Distinct from Q17 (MSISDN names a person) and Q27 (beacon Hex is the radio).
+
+**Unpaid object:** Remaining of the MMSI — stranger-openable that this 9-digit is still remaining of that station. Quark: nine recycled digits. Blast: a distress alert or AIS track that still names last year's ship.
+
+**Public sentence:** The number came back. The distress still said the old name. Two years was the whole remaining.
+
+**Cash gravity:** Adjacent paid = radio licence / List V notification. Unpaid remaining = **per-alert remaining**. Shape, not REST. Do not email ITU.
+
+**Locks:** Name only. Distinct from Q17 and Q27. Not a people hunt of masters. Not C2.
+
+---
+
+### Q29 — ETN Remaining (FOUR DIGITS WITHOUT A YEAR)
+
+**What already burns:** NWS **NWSI 10-1703**: Valid Time Event Code Event Tracking Number is **four digits**, assigned sequentially from **0001** at **0000 UTC 1 January** per office × phenomenon. The ETN field **does not carry the year** (year lives in the datetime groups). Uniqueness is a **local AWIPS table**. Iowa Environmental Mesonet: ETNs “should be unique for this event, **but sometimes it is not**.” 2017 AWIPS-empty / reset-to-1 is a published operator incident, not a second official count — do not file “332” as a bureau number. Occupied as a product directive. Unpaid as remaining that this ETN still names **that** storm.
+
+**Unpaid object:** Remaining of the ETN — stranger-openable that this four-digit is still remaining of that event in that year. Quark: four digits, no year in the field. Blast: two warnings share a number; EAS / WEA / archives merge them.
+
+**Public sentence:** They will file it as a weather-product IT project. Four digits without a year is remaining. The warning number came back.
+
+**Cash gravity:** Adjacent paid = none as a SKU (NWS is public). Unpaid remaining = **per-warning remaining**. Shape, not REST. Do not email NWS.
+
+**Locks:** Name only. Distinct from Q6 (field *width* of NTP/GPS in 2036–38) and Q26 (WEA message ID). Do not re-open PNT. Not a fourth clock.
+
+---
+
+### Q30 — Boil Remaining (THE ADVISORY STILL THAT TAP)
+
+**What already burns:** EPA Report to Congress (final admin **3 Jun 2024**, posted **Jan 2025**): states are **not required** to report boil-water advisories to EPA. There is **no live national remaining** of “this PWSID is still under a BWA.” SDWIS/Fed holds violations and inventory, not a real-time advisory flag. Of BWAs EPA could assemble, **29.5%** appeared **open** at end-2021 (end date missing or unresolved). Lift is local: typically **two consecutive** negative coliform sets, then a rescission PDF. Occupied as a press release. Unpaid as remaining that this advisory is still remaining of **that** public water system.
+
+**Unpaid object:** Remaining of the BWA — stranger-openable that this PWSID is still under / still lifted. Quark: one flag on one PWSID. Blast: a town drinks, or boils, on a rumor.
+
+**Public sentence:** They lifted it in a PDF. Nobody holds remaining that the tap is still that advisory.
+
+**Cash gravity:** Adjacent paid = labs / primacy sampling. Unpaid remaining = **per-advisory remaining**. Shape, not REST. Do not become a water-quality app. Do not email EPA.
+
+**Locks:** Name only. Distinct from Q1 (the hospital vial) and Envelope G₀ (the planetary field). Local emergency, not a climate SKU.
+
+---
+
+### Q31 — LoST Remaining (THE URI STILL THAT PSAP)
+
+**What already burns:** NG9-1-1 Emergency Call Routing Function is a **LoST** server (NENA-STA-010 / RFC 5222): location + `urn:service:sos` → a **URI**. Ohio 2025 ESB guidance (official state 9-1-1 office): a bad provisioning boundary “could cause routes to the **wrong**” PSAP. Occupied: NENA / ESInet vendors as the *pipe*. Unpaid as remaining that this URI is still remaining of **that** PSAP for this civic / this point. Distinct from Q19 (SSI is a *settlement* account) and Q17 (the caller’s number).
+
+**Unpaid object:** Remaining of the route — stranger-openable that this LoST answer is still that PSAP. Quark: one URI. Blast: the emergency call lands in yesterday’s jurisdiction.
+
+**Public sentence:** The location was right. The URI was last year’s. 911 is remaining of one string.
+
+**Cash gravity:** Adjacent paid = NG911 / ESInet contracts. Unpaid remaining = **per-call remaining**. Shape, not REST. Do not become NENA. Do not email freeze-list 911 vendors.
+
+**Locks:** Name only. Distinct from Q19 and Q17. Not a people hunt of dispatchers.
+
+---
+
 ## Cash gravity (shape, not REST)
 
 Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
@@ -386,8 +478,14 @@ Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a
 | Q23 | DSCSA verification / pedigree | Serial still that status | Per-scan remaining |
 | Q24 | GS1 / GUDID submission | UDI still that device | Per-scan remaining |
 | Q25 | GSMA Device Check / wrappers | IMEI still that status now | Per-check remaining |
+| Q26 | IPAWS / CAP origination / WEA transport | Shortened ID still that alert | Per-alert remaining |
+| Q27 | Beacon sale + IBRD / RGDB lookup | Hex ID still that registration | Per-alert remaining |
+| Q28 | Radio licence / ITU List V | MMSI still that ship | Per-alert remaining |
+| Q29 | None as a SKU (NWS is public) | ETN still that storm | Per-warning remaining |
+| Q30 | Primacy sampling / labs | BWA still that PWSID | Per-advisory remaining |
+| Q31 | NG911 / ESInet contracts | LoST URI still that PSAP | Per-call remaining |
 
-Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names where money already sits **next door**.
+Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut** — same gravity rule, no REST.
 
 ---
 
@@ -416,6 +514,15 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names wh
 | npm yank / lockfile after unpublish | The write after kill still installed. Folds under **Q5** (zombie). Do not mint a left-pad card |
 | VIN / odometer / CARFAX / NMVTIS | Occupied history *report*. Remaining of the integer is a people-hunt of dealers — do not mint |
 | JWT after logout | Occupied auth vendors. Session remaining is not a new quark |
+| Earth evacuation / Mars seat / planetary ark as a SKU | Hopium. ALARMING closed. What survives any evacuation is **Q26–Q31**, not a new clock |
+| PEADs / continuity-of-government bit | State-only. C2 unmouthed |
+| Hawaii 2018 missile / ShakeAlert 4 Dec 2025 false M5.9 | Occupied incidents. Remaining of the *ID still that event* is **Q26** |
+| FIRM panel / flood-zone letter / FEMA MSC | Occupied catalog. Zone-after-effective-date remaining folds under **Q30**-class public flag — do not mint a map SKU |
+| NOTAM serial recycle / NMS 2026 | Occupied FAA pipe. Number-after-year-wrap folds under **Q5 / Q29**. Do not become FAA |
+| ICAO 24-bit Mode S address | Occupied Annex 10. Identifier remaining folds under **Q25 / Q28**. Duplicate ACAS is a known install fault — do not mint |
+| Dam EAP inundation-map revision | Cousin of **Q12** confRev. Do not mint a seventeenth integer |
+| ISBT donation number / blood fridge | Folds under **Q1**. Do not people-hunt blood-bank staff |
+| Hospital ATS / generator hour-meter | Stet-adjacent (S1/S3). Not a new quark |
 
 ---
 
@@ -427,7 +534,9 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names wh
 | People-hunt of lab techs / BGP admins | People hunt |
 | “Lab TAM / ticker TAM / pharmacy TAM / phone TAM / SSI TAM / RAG TAM → Aim band” | Occupied vendors. Do not mint REST |
 | Become ATCC / NIST / a CAB / a root | Not this company |
-| Become Telesign / Prove / DTCC / TraceLink / GSMA / Visa | Occupied pipes. Remaining sits next door. Do not email them |
+| Become Telesign / Prove / DTCC / TraceLink / GSMA / Visa / FEMA / IPAWS / NENA / NOAA | Occupied pipes. Remaining sits next door. Do not email them |
+| “Emergency TAM / 911 TAM / SAR TAM → Aim band” | Occupied agencies. Do not mint REST |
+| Earth-evacuation product / bunker SKU / planetary capacity | Never sell. Envelope + ALARMING already |
 | PAL / nuclear C2 bit | State-only. `SCIENCE.md` already |
 | Privilege remaining | Occupied by counsel. Killed on puke pass |
 | Being / consciousness / simulation | `cleverer_layer` is null |
@@ -436,8 +545,8 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names wh
 
 ## Hunt status
 
-**Open.** Q1–Q25 seated. Q17–Q25 add **cash gravity** (shape, not REST): remaining sitting next to pipes that already charge. Next pass: more **quarks** the world will file under an IT project, a style guide, a DevOps sermon, or a lookup API. Not A29. Not P11. Not a fourth clock. Do not mint bands from the gravity table.  
-**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q26.
+**Open.** Q1–Q31 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** are the emergency cut (4 Sep 2026): alert ID · beacon hex · MMSI · ETN · boil flag · 911 URI. Next pass: more **quarks** the world will file under an IT project, a style guide, a DevOps sermon, a lookup API, or an “alerting modernization.” Not A29. Not P11. Not a fourth clock. Do not mint bands from the gravity table.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q32.
 
 ---
 
@@ -445,7 +554,7 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. This pass names wh
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa).  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS).  
 - Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 
