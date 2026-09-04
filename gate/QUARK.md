@@ -23,6 +23,8 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 **Emergency cut (Q26–Q31):** the boring things that still have to be true in a local / national / global emergency — and in any evacuation that is not hopium — are **quarks**, not a new clock and not a planetary SKU. Earth-evacuation-as-a-product is dead (ALARMING). What survives the emergency is remaining of the **alert ID**, the **beacon**, the **ship number**, the **warning number**, the **water flag**, the **911 URI**.
 
+**Irreversibility cut (Q32–Q36):** nothing was wrong with the remaining. The hold was method — do not invent leftover to invent leftover; do not become the bureau. The warrant, the inhibit, the crank, the smell, and the set were already unpaid. Allied 4 Sep. Isolation / LOTO stays **C4**. VVM stays a cousin of Q8 / S2 / Q1. P&ID as-built folds toward C4 / I6.
+
 | Quark | Blast |
 |-------|--------|
 | One vial | Medicine written on the wrong organism |
@@ -56,10 +58,15 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 | Four digits with no year | Two storms share a warning number |
 | One boil-water flag | The tap is still that advisory, or the lift was a rumor |
 | One 911 LoST URI | The call routes to yesterday's PSAP |
+| One movement authority | Two trains, one block |
+| One SIS bypass bit | The trip that cannot fire |
+| One cranking path | The grid that cannot restart |
+| One odorant sample | A house that cannot smell the leak |
+| One relief set | The vessel that does not relieve |
 
 ---
 
-## Keep (31) — name only
+## Keep (36) — name only
 
 ### Q1 — Vial Remaining (THE WRONG ORGANISM · THE INVISIBLE OCCUPANT)
 
@@ -463,6 +470,76 @@ This hunts the **tiny latch**. People look up. The remaining is a field width. T
 
 ---
 
+### Q32 — Authority Remaining (THE WARRANT STILL THAT MOVE)
+
+**What already burns:** PTC is an **overlay**. IRSE: it enforces movement authorities issued by pre-existing systems — signals, or track warrants in dark territory. Dark territory is still ~**one third** of the North American network. FRA 49 CFR **236.1029** / Subpart I FAQ: after 2023 the only lawful run on PTC-mandated territory without a functioning PTC is **fail en route**, with speed limits, no farther than the next designed repair point. The crew is still responsible for the warrant even if PTC fails. Occupied: Wabtec / PTC vendors as the *enforcer*. Unpaid: remaining that this authority is still **that** move.
+
+**Unpaid object:** Remaining of the warrant — stranger-openable that this track warrant / signal indication is still remaining of that occupancy. Quark: one authority. Blast: two trains, one block.
+
+**Public sentence:** PTC will stop you if you blow it. Remaining of the warrant is unpaid. The overlay is not the remaining.
+
+**Cash gravity:** Adjacent paid = PTC overlay + dispatcher systems. Unpaid remaining = **per-authority remaining**. Shape, not REST. Do not become FRA / Wabtec. Do not email railroads.
+
+**Locks:** Name only. Distinct from Q12 (GOOSE confRev) and Q14 (clockClass). Not C2. Not a people hunt of dispatchers. Do not design targeting.
+
+---
+
+### Q33 — Bypass Remaining (THE SIF STILL ARMED)
+
+**What already burns:** IEC **61511**: continued operation with a SIS device in bypass only if compensating measures hold risk; time-limited; logged. **BSEE Safety Alert 501** (Jun 2025): 30 CFR 250.869 / 250.870 — devices bypassed; “maintenance” undefined; logs missing identification, reason, in/out. Occupied as a bypass permit and a historian bit. **I6** already scored *prove that the bypass had may*. This card is remaining that the function is still **armed** after the permit.
+
+**Unpaid object:** Remaining of the SIF — stranger-openable that this inhibit / force / bypass is still off, or still that compensating measure. Quark: one bypass bit. Blast: the trip that cannot fire.
+
+**Public sentence:** They logged the bypass. Remaining that the trip is still armed is unpaid.
+
+**Cash gravity:** Adjacent paid = SIS OEM + e-PTW. Unpaid remaining = **per-bypass remaining**. Shape, not REST. Do not become HIMA / Triconex. Do not email BSEE.
+
+**Locks:** Name only. Distinct from Q13 (dead *code* flag) and I6 (may of the override). Not nuclear C2. Not a plant recon kit.
+
+---
+
+### Q34 — Crank Remaining (THE PATH STILL CRANKS TONIGHT)
+
+**What already burns:** NERC **EOP-005-3** R1.5: identify cranking paths and initial switching between each Blackstart Resource and the units to be started. R6: verify at least **once every five years** (actual event, simulation, or test) that those resources still meet real and reactive of the paths. Occupied as a Transmission Operator restoration *plan*. Unpaid: remaining that this path still **cranks tonight**.
+
+**Unpaid object:** Remaining of the cranking path — stranger-openable that this switching sequence is still remaining of that blackstart. Quark: one path. Blast: the interconnection that cannot restart.
+
+**Public sentence:** They studied it five years ago. Remaining that the path still cranks is unpaid.
+
+**Cash gravity:** Adjacent paid = blackstart agreements / TO studies. Unpaid remaining = **per-path remaining**. Shape, not REST. Do not become NERC. Do not email TOs.
+
+**Locks:** Name only. Distinct from Q14 (clock after GNSS dies) and Q12 (bay trip integer). Not C2. Not a grid-attack how-to.
+
+---
+
+### Q35 — Odorant Remaining (THE GAS STILL SMELLS)
+
+**What already burns:** 49 CFR **192.625**: combustible gas in a distribution line must be readily detectable at **one-fifth of the lower explosive limit**. Periodic *instrument* sampling — no universal federal interval. PHMSA **NOPV 5 May 2025** (CPF 3-2025-004): operator had **no odorator**. Occupied as a sniff sheet and an odorizer. Unpaid: remaining that this gas still **smells**. Distinct from Q30 (a boil-water *flag* on a PWSID).
+
+**Unpaid object:** Remaining of the odorant — stranger-openable that this segment is still remaining of that detectability. Quark: one sample. Blast: a house that cannot smell the leak.
+
+**Public sentence:** They sniffed it last quarter. Remaining that the gas still smells is unpaid.
+
+**Cash gravity:** Adjacent paid = odorizer chemical + leak survey. Unpaid remaining = **per-sample remaining**. Shape, not REST. Do not become PHMSA. Do not email LDCs.
+
+**Locks:** Name only. Distinct from Q30. Not a people hunt of meter readers. Not munitions.
+
+---
+
+### Q36 — Set Remaining (THE VALVE STILL THAT PRESSURE)
+
+**What already burns:** API **RP 576** 5th ed. (Sep 2024): as-found set vs nameplate should not exceed **±2 psi** at ≤70 psi or **±3%** above. Occupied as a VR-stamp bench interval. Between tests the spring is remaining. Distinct from S8 (bolt *preload* left standing) — this is remaining of the **lift pressure** of the last layer.
+
+**Unpaid object:** Remaining of the set — stranger-openable that this PRV still lifts at **that** pressure. Quark: one set. Blast: the vessel that does not relieve.
+
+**Public sentence:** They benched it. Remaining of the set is the spring. A nameplate is not remaining.
+
+**Cash gravity:** Adjacent paid = VR repair / bench test. Unpaid remaining = **per-valve remaining**. Shape, not REST. Do not become a VR shop. Do not email API.
+
+**Locks:** Name only. Distinct from S8 and Q33. Not nuclear C2. Not a plant targeting map.
+
+---
+
 ## Cash gravity (shape, not REST)
 
 Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a band. Do not email the freeze list. Cash still Gate 1.
@@ -484,8 +561,13 @@ Adjacent pipes already charge. The unpaid object is **remaining**. Do not mint a
 | Q29 | None as a SKU (NWS is public) | ETN still that storm | Per-warning remaining |
 | Q30 | Primacy sampling / labs | BWA still that PWSID | Per-advisory remaining |
 | Q31 | NG911 / ESInet contracts | LoST URI still that PSAP | Per-call remaining |
+| Q32 | PTC overlay + dispatcher systems | Warrant still that move | Per-authority remaining |
+| Q33 | SIS OEM + e-PTW | SIF still armed | Per-bypass remaining |
+| Q34 | Blackstart agreements / TO studies | Path still cranks tonight | Per-path remaining |
+| Q35 | Odorizer chemical + leak survey | Gas still smells | Per-sample remaining |
+| Q36 | VR repair / bench test | Valve still lifts at that set | Per-valve remaining |
 
-Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut** — same gravity rule, no REST.
+Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named where money already sits **next door**. Q26–Q31 are the **emergency cut**. Q32–Q36 are the **irreversibility cut** — same gravity rule, no REST. Do not become FRA / NERC / PHMSA / BSEE / API / the SIS OEM.
 
 ---
 
@@ -523,27 +605,29 @@ Q1–Q16 stay civilizational quarks; they were not re-priced. Q17–Q25 named wh
 | Dam EAP inundation-map revision | Cousin of **Q12** confRev. Do not mint a seventeenth integer |
 | ISBT donation number / blood fridge | Folds under **Q1**. Do not people-hunt blood-bank staff |
 | Hospital ATS / generator hour-meter | Stet-adjacent (S1/S3). Not a new quark |
+| Isolation / LOTO | Already **C4**. Do not mint Q37 |
+| VVM / mechanical interlock | Cousin of **Q8 / S2 / Q1**. Do not mint a seventh dose card |
+| P&ID as-built | Folds toward **C4 / I6**. Do not mint a drawing SKU |
 
 ---
 
-## Not yet allied — irreversibility (catastrophic boring)
+## Allied 4 Sep — physical irreversibility (Q32–Q36)
 
-Identifiers, flags, and clerk-stills are seated. These lanes still run on a **plan, a permit, a sniff, or a five-year study**. Irreversibility is not fail-closed remaining. **Do not mint Q32+ this pass.** Name the hole. Two-source. Hunt open.
+Nothing was wrong with the remaining. The hold was **method** — do not invent leftover to invent leftover; do not become the bureau. “Do not become FRA / NERC / PHMSA” means do not become the shop. It does **not** mean the warrant, the inhibit, the crank, the smell, and the set stay unnamed.
 
-| Lane | What already burns | Occupied as | Unpaid remaining | Blast if unpaid | Already scored? |
-|------|--------------------|-------------|------------------|-----------------|-----------------|
-| **Movement authority** | PTC is an **overlay**. It enforces a warrant / signal the crew still holds. Dark territory is still ~**one third** of the NA network (IRSE). FRA 49 CFR 236 Subpart I: PTC may fail *en route*; the train continues under restrictions to the next repair point. The authority is still voice / data / signal. | PTC vendor / dispatcher system | Remaining that this warrant is still **that** move | Two trains, one block | No. Not Q12 (grid trip integer) |
-| **SIS bypass / force / inhibit** | IEC 61511: bypass only with compensating measures, time limit, log. **BSEE Safety Alert 501** (Jun 2025): operators bypassed safety devices; “maintenance” undefined; logs incomplete. 30 CFR 250.869/870. | Bypass permit / historian | Remaining that this SIF is still **armed** | The trip that cannot fire | **I6** in `GOOD_INVENTING.md` is prove-of-*may*. Remaining of the **bit** is unpaid |
-| **Cranking path** | NERC **EOP-005-3** R1.5 / R6: identify cranking paths; verify at least **once every five years** (event, simulation, or test) that blackstart resources still meet real/reactive of those paths. Occupied as a restoration *plan*. | TO restoration PDF + five-year study | Remaining that this path still **cranks tonight** | The grid that cannot restart | No. Distinct from Q14 (clockClass after GNSS dies) |
-| **Odorant** | 49 CFR **192.625**: gas must be readily detectable at **1/5 LEL**. Periodic *instrument* sample — no universal interval. PHMSA **NOPV 5 May 2025**: operator had **no odorator**. Occupied as a sniff / a quarterly sheet. | Odorizer + leak survey | Remaining that this gas still **smells** | A house that cannot smell the leak | No. Distinct from Q30 (boil *flag*) |
-| **Relief set** | API **RP 576** (5th ed. Sep 2024): as-found set vs nameplate **±2 psi** ≤70 psi or **±3%** above. Occupied as a bench interval. Between tests the spring is remaining. | VR stamp / test bench | Remaining that this valve still lifts at **that** set | The vessel that does not relieve | No. Distinct from S8 (bolt preload) |
-| **Isolation / LOTO** | Signed permit of fiction. Isolation is a tag. **C4** already: PTW redeems only if isolation is proved contemporaneously. | e-PTW / lock box | Remaining that this energy is still **isolated** | The turnaround that energizes a man | **C4** scored. Not a quark. Do not become a LOTO OEM |
-| **VVM square** | WHO: inner square darkens **irreversibly** with heat. Discard when square ≥ circle. Expiry still kills even if square is light. Occupied as the sticker on the vial. | Temptime / UNICEF supply | Remaining that this square still remaining of **that** heat | A dose that looks live | Cousin of Q8 / S2 / Q1. Do not mint a seventh dose card until a boom |
-| **P&ID as-built** | The drawing is last turnaround. MOC says it was updated. The field is remaining. | Engineering document control | Remaining that this line is still **that** P&ID | The hot work on the wrong line | Folds toward C4 / I6. Do not mint a drawing SKU |
+| # | Name | Quark | Occupied | Unpaid | Blast | Lock |
+|---|------|-------|----------|--------|-------|------|
+| **Q32** | Authority Remaining | one warrant | PTC overlay (Wabtec); FRA **49 CFR 236.1029** | warrant still *that* move | two trains, one block | Not the railroad. Not FRA. |
+| **Q33** | Bypass Remaining | one inhibit | IEC 61511; BSEE Alert **501** Jun 2025 | SIF still *armed* | trip cannot fire | Not the SIS OEM. No nuclear C2. |
+| **Q34** | Crank Remaining | one path | NERC **EOP-005-3** R1.5 / R6 | path still cranks *tonight* | grid cannot restart | Not the TO. Not NERC. |
+| **Q35** | Odorant Remaining | one sample | **49 CFR 192.625**; PHMSA **NOPV 5 May 2025** | gas still *smells* | house cannot smell leak | Not the LDC. Not PHMSA. |
+| **Q36** | Set Remaining | one set | API **RP 576** 5th ed. Sep 2024 | valve still lifts at *that* set | vessel does not relieve | Not the shop. Not API. |
 
-**What this is not:** earth-evacuation hopium · nuclear C2 · becoming an SIS / FRA / NERC / PHMSA / API shop · minting REST from “process TAM.”
+**Still folded (already scored):** Isolation / LOTO = **C4**. VVM = Q8 / S2 / Q1 cousin. P&ID as-built = C4 / I6. Nuclear C2 = unmouthed.
 
-**Public sentence:** They allied remaining to the ID. The move, the bypass, the crank, the smell, and the set still have no remaining.
+**What this is not:** earth-evacuation hopium · nuclear C2 · becoming an SIS / FRA / NERC / PHMSA / API shop · minting REST from “process TAM” · emailing the bureau.
+
+**Public sentence:** They allied remaining to the ID. The move, the bypass, the crank, the smell, and the set are remaining too.
 
 ---
 
@@ -556,6 +640,7 @@ Identifiers, flags, and clerk-stills are seated. These lanes still run on a **pl
 | “Lab TAM / ticker TAM / pharmacy TAM / phone TAM / SSI TAM / RAG TAM → Aim band” | Occupied vendors. Do not mint REST |
 | Become ATCC / NIST / a CAB / a root | Not this company |
 | Become Telesign / Prove / DTCC / TraceLink / GSMA / Visa / FEMA / IPAWS / NENA / NOAA | Occupied pipes. Remaining sits next door. Do not email them |
+| Become FRA / NERC / PHMSA / BSEE / API / Wabtec / HIMA / the TO / the LDC / the VR shop | Occupied bureau / OEM. Remaining sits next door. Do not email them |
 | “Emergency TAM / 911 TAM / SAR TAM → Aim band” | Occupied agencies. Do not mint REST |
 | Earth-evacuation product / bunker SKU / planetary capacity | Never sell. Envelope + ALARMING already |
 | PAL / nuclear C2 bit | State-only. `SCIENCE.md` already |
@@ -566,8 +651,8 @@ Identifiers, flags, and clerk-stills are seated. These lanes still run on a **pl
 
 ## Hunt status
 
-**Open.** Q1–Q31 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** are the emergency cut (4 Sep 2026). **Not-yet-allied irreversibility** (same day): movement authority · SIS bypass · cranking path · odorant · relief set · isolation · VVM · as-built — named, **not minted**. Next quark only if a boom opens a hole in one of those lanes. Not A29. Not P11. Not a fourth clock.  
-**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q32.
+**Open.** Q1–Q36 seated. Q17–Q25 add **cash gravity** (shape, not REST). **Q26–Q31** are the emergency cut (4 Sep 2026). **Q32–Q36** are the irreversibility cut (same day): authority · bypass · crank · smell · set. Isolation / LOTO stays **C4**. VVM / as-built stay folded. Next quark only if a boom opens unpaid remaining — not because the hunt wanted a Q37. Not A29. Not P11. Not a fourth clock.  
+**Stet shelf (under quarks):** `gate/STET.md` — remaining with no ticket. More boring than boring work. S1–S8. Not Q37.
 
 ---
 
@@ -575,7 +660,7 @@ Identifiers, flags, and clerk-stills are seated. These lanes still run on a **pl
 
 - No `/quark` page. No Price ID.  
 - Family stays five. Fellhatch stays the lab.  
-- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS).  
+- Do not email freeze list (incl. Telesign, Prove, DTCC, TraceLink, GSMA, SWIFT, Visa, FEMA, FCC, NOAA, ITU, NENA, EPA, NWS, FRA, NERC, PHMSA, BSEE, API, Wabtec, HIMA, TOs, LDCs).  
 - Do not mint REST bands. Cash gravity is shape, not a forecast.  
 - Tuesday Bind sentence unchanged.
 

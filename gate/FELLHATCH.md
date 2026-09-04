@@ -27,7 +27,7 @@ He takes the shiny lanes: rockets, the feed, the model, the bot in your apps. Co
 Not a sixth brand. Not competing with SpaceXAI / Anthropic / OpenAI for the model. Formally established: **inverse Elon = own the snorefest.**
 
 Inventory of missed snorefest objects (they built the factory around the wrong object): `gate/PUKE.md` P1–P10. Not A29. Hunt open.  
-Quark cut (tiny remaining, civilizational blast — they will not see it coming): `gate/QUARK.md` Q1–Q31. Q26–Q31 emergency cut. Cash gravity is shape, not REST.  
+Quark cut (tiny remaining, civilizational blast — they will not see it coming): `gate/QUARK.md` Q1–Q36. Q26–Q31 emergency cut. Q32–Q36 irreversibility cut. Cash gravity is shape, not REST.  
 Stet cut (remaining with no ticket — more boring than boring work): `gate/STET.md` S1–S8. Let it stand.  
 Leftover cut (remaining under the boom — new events mint new leftover): `gate/LEFTOVER.md` L1–L7.
 
@@ -188,6 +188,6 @@ Stills: `gate/static/fellhatch/` — public-shelf weather. Not the lab guts.
 
 ## One line
 
-> **Inverse Elon: own the snorefest.** Plumbing FH1–FH10. Amazing FA1–FA7. Puke P1–P10. Quark Q1–Q31. Stet S1–S8. Leftover L1–L7. Gate stops. Inventing does not wait.
+> **Inverse Elon: own the snorefest.** Plumbing FH1–FH10. Amazing FA1–FA7. Puke P1–P10. Quark Q1–Q36. Stet S1–S8. Leftover L1–L7. Gate stops. Inventing does not wait.
 
 *Nisaba LLC · Demond Davis · patent 64/124,027 · designation · not a sixth sibling*

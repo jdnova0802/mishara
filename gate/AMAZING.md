@@ -66,7 +66,7 @@ Lid over the six pillars: **`gate/COFFIN.md`** (inventing pauses there).
 
 **Fellhatch founds the objects** (`gate/FELLHATCH.md` FA1–FA7): prototype remaining · type culture · discovery remaining · facing apply · Afterweb instrument · capture-proof object · stop-native matter. Not a sixth sibling. Inventing does not wait on Gate 1; cash does.  
 **Puke inventory** (`gate/PUKE.md` P1–P10): they tested the run, the click, the sample, the event. Remaining was unpaid.  
-**Quark inventory** (`gate/QUARK.md` Q1–Q31): a vial, a bit, a default, a unit string, a leading zero, a decimal, a leftover flag, a recycled number, a stale SSI, a ghost vector — plus the emergency cut (WEA ID · beacon hex · MMSI · ETN · boil flag · 911 URI). Civilizational blast. Cash gravity is shape, not REST. The world will not see it coming.  
+**Quark inventory** (`gate/QUARK.md` Q1–Q36): a vial, a bit, a default, a unit string, a leading zero, a decimal, a leftover flag, a recycled number, a stale SSI, a ghost vector — plus the emergency cut (WEA ID · beacon hex · MMSI · ETN · boil flag · 911 URI) and the irreversibility cut (warrant · inhibit · crank · smell · set). Civilizational blast. Cash gravity is shape, not REST. The world will not see it coming.  
 **Stet inventory** (`gate/STET.md` S1–S8): remaining with no ticket. More boring than boring work. Let it stand.  
 **Envelope** (`gate/ENVELOPE.md`): remaining of the given. Seven of nine planetary boundaries breached. Prior to H₀. Not A29.  
 **Leftover** (`gate/LEFTOVER.md` L1–L7): remaining under the boom. New leftover only when a boom opens a hole. Not inventing to invent. Not a sixth brand.
