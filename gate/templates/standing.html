@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Standing write · $4,500/mo{% endblock %}
 {% block meta %}
-<meta name="description" content="Standing write — monthly lease on write-stop remaining true. Same officer pack and stranger-openable receipt as Bind Room, kept current. $4,500/mo. Reply-path after Bind.">
+<meta name="description" content="Standing write — dated write-stop evidence that stays current for renewal. Same officer pack and stranger-openable receipt as Bind Room, reissued monthly. $4,500/mo.">
 <meta name="robots" content="noindex, follow">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Standing write · after Bind</p>
-  <h1>Write-stop that stays true at renewal.</h1>
-  <p class="audience-sub">{{ what }}</p>
+  <p class="audience-tag">Standing write · $4,500/mo</p>
+  <h1>Dated evidence goes stale. Renewal asks again.</h1>
+  <p class="audience-sub">{{ their_problem }} Standing write keeps the receipt current for that ask — same officer pack, same stranger verify, reissued monthly.</p>
   <div class="install-price">{{ standing_write_price }} <span>lease · billed monthly</span></div>
   <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ why_monthly }}</p>
 
@@ -20,20 +20,16 @@
 
   <div class="grid-3">
     <div class="card">
+      <h3>Their problem</h3>
+      <p>{{ their_problem }} Underwriters re-ask at renewal. Credits and conditions are re-earned, not granted once.</p>
+    </div>
+    <div class="card">
+      <h3>What arrives monthly</h3>
+      <p>{{ what_arrives_monthly }}</p>
+    </div>
+    <div class="card">
       <h3>What it is</h3>
-      <p>Same officer pack + stranger-openable receipt as Bind Room. Kept current each month for the named write. Cancel and it goes stale.</p>
-    </div>
-    <div class="card">
-      <h3>Why monthly</h3>
-      <ul style="margin: 0; padding-left: 1.1rem; color: var(--muted);">
-        {% for line in why_monthly_body %}
-        <li style="margin-bottom: 0.4rem;">{{ line }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Why not re-buy Bind</h3>
-      <p>{{ rebuy_bind_objection }}</p>
+      <p>{{ what }}</p>
     </div>
   </div>
 

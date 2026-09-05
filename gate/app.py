@@ -2902,6 +2902,8 @@ def standing_write_page():
     return render_template(
         "standing.html",
         what=standing_write_mod.WHAT_IT_IS,
+        their_problem=standing_write_mod.THEIR_PROBLEM,
+        what_arrives_monthly=standing_write_mod.WHAT_ARRIVES_MONTHLY,
         standing_write_price=STANDING_WRITE_PRICE_LABEL,
         why_monthly=standing_write_mod.WHY_MONTHLY,
         why_monthly_body=standing_write_mod.WHY_MONTHLY_BODY,

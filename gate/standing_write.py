@@ -1,7 +1,7 @@
 """Standing write — monthly lease on write-stop remaining true.
 
 Reply-path only after Bind yes. Not cold. Not book/desk/Operator/Conformant.
-Same officer pack + stranger-openable receipt, kept current.
+Same officer pack + stranger-openable receipt, reissued current each month.
 """
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ PRICE_CENTS = 450_000
 PAYEE = "Nisaba LLC"
 CONTACT = "hello@velaru.xyz"
 
-# Objection: "why not just re-buy Bind next year"
+# Objection only — deploy if asked "why not just re-buy Bind next year"
 REBUY_BIND_OBJECTION = (
     "Bind is the first proof. Standing is the same pack kept current for the "
     "renewal ask — a receipt from last March does not answer this March's question."
@@ -24,24 +24,34 @@ WHY_MONTHLY = (
 )
 
 WHY_MONTHLY_BODY = [
-    "Carriers credit documented controls (MFA, stacked controls) at renewal — not once forever.",
-    "Self-attestation is giving way to exports and third-party verification.",
+    "Underwriters re-ask at renewal; credits and conditions are re-earned, not granted once.",
+    "Carriers stopped taking self-attestation in 2026 — they want dated evidence, and dated evidence goes stale.",
     "SOC 2 / ISO rarely buy a fixed rate credit; they show up as better terms, lower retentions, fewer conditions.",
     "Mid-market retentions often run near $100k. Evidence that shifts conditions on that is worth more than the lease.",
 ]
+
+WHAT_ARRIVES_MONTHLY = (
+    "The receipt is reissued current each month. If nothing changed, you still get "
+    "a dated current receipt for this month's ask — not a silent 'trust us.'"
+)
 
 ASK = "reply STANDING and I'll send the monthly invoice."
 HALT = "we will not sell may. We will not implement the rail on this SKU."
 
 WHAT_IT_IS = (
     "Monthly lease on write-stop remaining true. Same officer pack and "
-    "stranger-openable receipt as Bind Room — kept current. Not implementation. "
-    "Not a retainer for work. Not a new product."
+    "stranger-openable receipt as Bind Room — reissued current each month. "
+    "Not implementation. Not a retainer for work. Not a new product."
 )
 
 WHEN_OFFERED = (
     "In-thread, after a Bind yes, only when the underwriter will ask again at renewal. "
-    "Never cold. Never a second sermon."
+    "Never cold outbound. A forwarded page must still read clean to a GC who was not on the thread."
+)
+
+THEIR_PROBLEM = (
+    "Carriers stopped taking self-attestation in 2026 — they want dated evidence, "
+    "and dated evidence goes stale."
 )
 
 
@@ -56,8 +66,10 @@ def manifest(public_url: str) -> dict[str, Any]:
         "payee": PAYEE,
         "contact": CONTACT,
         "what": WHAT_IT_IS,
+        "their_problem": THEIR_PROBLEM,
         "why_monthly": WHY_MONTHLY,
         "why_monthly_body": WHY_MONTHLY_BODY,
+        "what_arrives_monthly": WHAT_ARRIVES_MONTHLY,
         "rebuy_bind_objection": REBUY_BIND_OBJECTION,
         "when_offered": WHEN_OFFERED,
         "ask": ASK,
@@ -80,15 +92,13 @@ def manifest(public_url: str) -> dict[str, Any]:
 
 
 def reply_email(*, prior_subject: str = "Bind Room") -> dict[str, str]:
-    """Paste-ready reply after Bind yes."""
+    """Paste-ready reply after Bind yes. Objection line lives in §2 only."""
     subject = f"Re: {prior_subject} — Standing write"
-    body = f"""Underwriters re-ask at renewal. Credits and conditions are re-earned, not granted once.
+    body = f"""Underwriters re-ask at renewal, and credits and conditions are re-earned rather than granted once. Carriers stopped taking self-attestation in 2026 — they want dated evidence, and dated evidence goes stale.
 
-Bind Room is the first stranger-openable receipt. Standing write keeps that evidence current — same officer pack, same verify, every month — {PRICE_LABEL}.
+Standing write keeps the receipt current for that ask. Same officer pack, same verify, reissued monthly — {PRICE_LABEL}.
 
 {WHY_MONTHLY}
-
-{REBUY_BIND_OBJECTION}
 
 https://gate.velaru.xyz/standing
 https://gate.velaru.xyz/bind-room/officer-pack.json
