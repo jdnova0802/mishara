@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Standing write · $4,500/mo{% endblock %}
+{% block meta %}
+<meta name="description" content="Standing write — monthly lease on write-stop remaining true. Same officer pack and stranger-openable receipt as Bind Room, kept current. $4,500/mo. Reply-path after Bind.">
+<meta name="robots" content="noindex, follow">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Standing write · after Bind</p>
+  <h1>Write-stop that stays true at renewal.</h1>
+  <p class="audience-sub">{{ what }}</p>
+  <div class="install-price">{{ standing_write_price }} <span>lease · billed monthly</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ why_monthly }}</p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 0.75rem;">
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Standing%20write%20%E2%80%94%20%244%2C500%2Fmo&body=STANDING%0A%0AWork%20email%3A%0ANamed%20write%20%2F%20context%3A%0A">Start Standing write · {{ standing_write_price }}</a>
+    <a class="btn btn-ghost" href="https://velaru.xyz/verify" target="_blank" rel="noopener">Stranger verify →</a>
+    <a class="btn btn-ghost" href="{{ url_for('bind_room') }}">Bind Room {{ bind_room_price }}</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>What it is</h3>
+      <p>Same officer pack + stranger-openable receipt as Bind Room. Kept current each month for the named write. Cancel and it goes stale.</p>
+    </div>
+    <div class="card">
+      <h3>Why monthly</h3>
+      <ul style="margin: 0; padding-left: 1.1rem; color: var(--muted);">
+        {% for line in why_monthly_body %}
+        <li style="margin-bottom: 0.4rem;">{{ line }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Why not re-buy Bind</h3>
+      <p>{{ rebuy_bind_objection }}</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>When this is offered</h2>
+    <p>{{ when_offered }}</p>
+    <p style="margin-top: 0.75rem; color: var(--muted);"><strong>Ask:</strong> {{ ask }}<br><strong>Halt:</strong> {{ halt }}</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Not this SKU</h2>
+    <ul>
+      <li>Not selling may</li>
+      <li>Not implementing the rail on this SKU</li>
+      <li>Not Standing book, Standing desk, Operator, or Conformant</li>
+      <li>Not a cold outbound lead</li>
+    </ul>
+  </div>
+
+  <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.9rem;">
+    Prove surfaces:
+    <a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a>
+    · <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">velaru.xyz/verify</a>
+    · <a href="{{ url_for('well_known_standing_write') }}">standing-write.json</a>
+  </p>
+</div>
+{% endblock %}

@@ -80,6 +80,11 @@ except ImportError:
     import bind_room as bind_room_mod
 
 try:
+    from gate import standing_write as standing_write_mod
+except ImportError:
+    import standing_write as standing_write_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -272,6 +277,12 @@ INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
 BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
 BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
+STANDING_WRITE_PRICE_LABEL = os.getenv(
+    "GATE_STANDING_WRITE_PRICE_LABEL", standing_write_mod.PRICE_LABEL
+)
+STANDING_WRITE_PRICE_CENTS = int(
+    os.getenv("GATE_STANDING_WRITE_PRICE_CENTS", str(standing_write_mod.PRICE_CENTS))
+)
 REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
 REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
@@ -323,6 +334,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
+    "/standing", "/standing-write",
 )
 PUBLIC_WELLKNOWN = frozenset(
     {
@@ -356,6 +368,7 @@ def inject_globals():
         "gate_public_url": advertised_url(),
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
+        "standing_write_price": STANDING_WRITE_PRICE_LABEL,
         "refusal_price": REFUSAL_PRICE_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
@@ -2880,6 +2893,30 @@ def bind_room():
         bind_room_payment_link=BIND_ROOM_PAYMENT_LINK if not (STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE) else "",
         contact_email=CONTACT_EMAIL,
     )
+
+
+@app.route("/standing")
+@app.route("/standing-write")
+def standing_write_page():
+    """Reply-path only after Bind yes. Write SKU only — no book/desk carnival."""
+    return render_template(
+        "standing.html",
+        what=standing_write_mod.WHAT_IT_IS,
+        standing_write_price=STANDING_WRITE_PRICE_LABEL,
+        why_monthly=standing_write_mod.WHY_MONTHLY,
+        why_monthly_body=standing_write_mod.WHY_MONTHLY_BODY,
+        rebuy_bind_objection=standing_write_mod.REBUY_BIND_OBJECTION,
+        when_offered=standing_write_mod.WHEN_OFFERED,
+        ask=standing_write_mod.ASK,
+        halt=standing_write_mod.HALT,
+        contact_email=CONTACT_EMAIL,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
+    )
+
+
+@app.route("/.well-known/standing-write.json")
+def well_known_standing_write():
+    return jsonify(standing_write_mod.manifest(advertised_url()))
 
 
 @app.route("/bind-room/officer-pack.json")
