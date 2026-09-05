@@ -17,7 +17,8 @@
   <p class="hero-sub" style="margin-top: 0.75rem;">{{ manifest.thesis }}</p>
   <div class="hero-actions">
     <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-accent-outline">Fee schedule</a>
+    <a href="{{ url_for('nisaba_paste_page') }}" class="btn btn-accent-outline">Paste + Copy</a>
+    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule</a>
     <a href="{{ url_for('well_known_action_os') }}" class="btn btn-ghost">action-os.json</a>
   </div>
 </section>
@@ -62,7 +63,8 @@
 </section>
 
 <section class="container section" style="text-align:center; padding-bottom: 3rem;">
-  <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Weld a path</a>
+  <a href="{{ url_for('nisaba_paste_page') }}" class="btn btn-primary">Copy full description</a>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-accent-outline">Weld a path</a>
   <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
 </section>
 {% endblock %}
