@@ -321,7 +321,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
-    "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
+    "/action-os", "/nisaba", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
 )
 PUBLIC_WELLKNOWN = frozenset(
@@ -1895,6 +1895,27 @@ def action_os_page():
     )
 
 
+@app.route("/nisaba")
+@app.route("/nisaba/paste")
+def nisaba_paste_page():
+    paste = action_os_mod.paste_description(advertised_url())
+    return render_template(
+        "nisaba_paste.html",
+        paste=paste,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/nisaba/paste.txt")
+def nisaba_paste_txt():
+    body = action_os_mod.paste_description(advertised_url())
+    return Response(
+        body,
+        mimetype="text/plain; charset=utf-8",
+        headers={"Cache-Control": "public, max-age=300"},
+    )
+
+
 @app.route("/positioning")
 def positioning_page():
     m = positioning_mod.manifest(advertised_url())
@@ -3413,6 +3434,7 @@ def robots():
             "Disallow: /production-skin",
             "Disallow: /family",
             "Disallow: /action-os",
+            "Disallow: /nisaba",
             "Disallow: /science",
             "Disallow: /positioning",
             "Disallow: /focus",

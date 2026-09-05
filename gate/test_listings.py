@@ -257,6 +257,7 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn('href="/trust"', home)
         # Spec / Reference / Family stay off buyer chrome
         self.assertNotIn('href="/action-os"', home)
+        self.assertNotIn('href="/nisaba"', home)
         self.assertNotIn('href="/science"', home)
         self.assertNotIn('href="/family"', home)
         for path in (
@@ -281,6 +282,8 @@ class FlaskListingTests(unittest.TestCase):
             "/bind-room",
             "/for/operators",
             "/action-os",
+            "/nisaba",
+            "/nisaba/paste",
             "/science",
             "/focus",
             "/positioning",
@@ -1466,6 +1469,29 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("Clearance before irreversible write", aos_body)
         self.assertIn("Weld a path", aos_body)
         self.assertIn("noindex", aos_body)
+        self.assertIn("/nisaba", aos_body)
+        self.assertIn("Paste + Copy", aos_body)
+
+        nisaba = self.client.get("/nisaba")
+        self.assertEqual(nisaba.status_code, 200)
+        nisaba_body = nisaba.get_data(as_text=True)
+        self.assertIn("copyNisabaPaste", nisaba_body)
+        self.assertIn("nisaba-paste", nisaba_body)
+        self.assertIn("Own permission on irreversible acts", nisaba_body)
+        self.assertIn("Nisaba stays on the invoice", nisaba_body)
+        self.assertIn("noindex", nisaba_body)
+        self.assertEqual(nisaba.headers.get("X-Robots-Tag"), "noindex, nofollow")
+
+        paste_txt = self.client.get("/nisaba/paste.txt")
+        self.assertEqual(paste_txt.status_code, 200)
+        self.assertIn("text/plain", paste_txt.content_type)
+        paste_body = paste_txt.get_data(as_text=True)
+        self.assertIn("# Nisaba — Full Description", paste_body)
+        self.assertIn("Action OS", paste_body)
+        self.assertIn("Patent #64/124,027", paste_body)
+        self.assertIn("paste_page", aos_data)
+        self.assertIn("/nisaba", aos_data["links"]["paste"])
+        self.assertIn("/nisaba/paste.txt", aos_data["links"]["paste_txt"])
 
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("action_os", gate)
@@ -1473,6 +1499,7 @@ class OperatorInvoiceTests(unittest.TestCase):
 
         home = self.client.get("/").get_data(as_text=True)
         self.assertNotIn("/action-os", home)
+        self.assertNotIn("/nisaba", home)
         self.assertNotIn(">Action OS</a>", home)
         self.assertNotIn("scarcity is the DENY", home)
         self.assertIn("If money is about to leave", home)
@@ -1712,6 +1739,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         robots = self.client.get("/robots.txt").get_data(as_text=True)
         self.assertIn("Disallow: /this", robots)
         self.assertIn("Disallow: /production-weld", robots)
+        self.assertIn("Disallow: /nisaba", robots)
         import app as gate_app
 
         prev, prev_tok = gate_app.GATE_DEV_MODE, gate_app.OPS_TOKEN
