@@ -23,7 +23,7 @@ https://gate.velaru.xyz/standing
 https://gate.velaru.xyz/bind-room/officer-pack.json
 https://velaru.xyz/verify
 
-Ask: reply STANDING and I'll send the monthly invoice.
+Ask: reply STANDING and I'll send the monthly invoice. Month-to-month from invoice; cancel anytime — the receipt stops being reissued.
 Halt: we will not sell may. We will not implement the rail on this SKU.
 
 Demond Davis

@@ -35,7 +35,10 @@ WHAT_ARRIVES_MONTHLY = (
     "a dated current receipt for this month's ask — not a silent 'trust us.'"
 )
 
-ASK = "reply STANDING and I'll send the monthly invoice."
+ASK = (
+    "reply STANDING and I'll send the monthly invoice. "
+    "Month-to-month from invoice; cancel anytime — the receipt stops being reissued."
+)
 HALT = "we will not sell may. We will not implement the rail on this SKU."
 
 WHAT_IT_IS = (
