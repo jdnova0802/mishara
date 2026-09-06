@@ -58,6 +58,11 @@ try:
 except ImportError:
     import inhabitant as inhabitant_mod
 
+try:
+    from gate import license_fuse as license_fuse_mod
+except ImportError:
+    import license_fuse as license_fuse_mod
+
 SPEC = "nisaba-remaining-v1"
 FAMILY_SIBLINGS_REMAIN = 5
 L2_MODULE = False
@@ -633,6 +638,111 @@ def _columns(tickets: list[dict[str, Any]], job_id: str, now: str) -> dict[str, 
     }
 
 
+def _ticket_bin(ticket: dict[str, Any], immobilized_ids: set[str], now: str) -> str:
+    """Same exclusive classification as _columns, for one ticket."""
+    if ticket.get("consumed_at"):
+        return "spent"
+    klass = _stock_class(ticket)
+    if klass == "wilderness":
+        return "W"
+    if klass == "void":
+        return "void"
+    tid = ticket.get("id") or ""
+    if tid in immobilized_ids:
+        return "immobilized"
+    if ticket.get("not_after") and ticket["not_after"] < now:
+        return "dead_unused"
+    return "remaining"
+
+
+def _parent_status(ticket: dict[str, Any]) -> dict[str, Any]:
+    """Fuse liveness for one ticket. Unfused tickets are live for spendability."""
+    try:
+        lid = (ticket.get("license_id") or "").strip() or None
+    except (AttributeError, TypeError):
+        lid = None
+    if not lid:
+        return {
+            "fused": False,
+            "live": True,
+            "license_id": None,
+            "stored": None,
+            "reason": None,
+        }
+    snap = license_fuse_mod.snapshot(lid)
+    stored = snap.get("stored") or "UNSIGNED"
+    live = stored == "LIVE"
+    return {
+        "fused": True,
+        "live": live,
+        "license_id": lid,
+        "stored": stored,
+        "state": snap.get("state") or stored,
+        "reason": None if live else license_fuse_mod.REASON_NOT_LIVE,
+    }
+
+
+def _spendability(
+    tickets: list[dict[str, Any]], job_id: str, now: str
+) -> dict[str, Any]:
+    """Overlay: stock bins ≠ spendable capacity after parent death.
+
+    Option B — keep the six-bin partition (identity_holds unchanged);
+    publish an explicit liveness field so remaining is never read as
+    spendable without it.
+    """
+    immobilized_ids = db_mod.pvp_active_ticket_ids_for_job(job_id) if job_id else set()
+    parents: dict[str, dict[str, Any]] = {}
+    spendable_remaining = 0
+    drawable_wilderness = 0
+    unspendable_remaining = 0
+    undrawable_wilderness = 0
+    any_dead_or_unsigned = False
+
+    for t in tickets:
+        parent = _parent_status(t)
+        lid = parent.get("license_id")
+        if lid and lid not in parents:
+            parents[lid] = {
+                "license_id": lid,
+                "stored": parent.get("stored"),
+                "state": parent.get("state"),
+                "live": parent.get("live"),
+            }
+        if parent.get("fused") and not parent.get("live"):
+            any_dead_or_unsigned = True
+
+        bin_name = _ticket_bin(t, immobilized_ids, now)
+        if bin_name == "remaining":
+            if parent.get("live"):
+                spendable_remaining += 1
+            else:
+                unspendable_remaining += 1
+        elif bin_name == "W":
+            if parent.get("live"):
+                drawable_wilderness += 1
+            else:
+                undrawable_wilderness += 1
+
+    return {
+        "remaining_bin_is_not_spendable_without_this_field": True,
+        "law": (
+            "close.remaining is a stock bin (unconsumed, not W/void/"
+            "immobilized/expired). Spendability also requires an unfused "
+            "ticket or a LIVE license parent. After dead(), remaining may "
+            "be > 0 while spendable_remaining is 0."
+        ),
+        "parents": list(parents.values()),
+        "any_dead_or_unsigned_parent": any_dead_or_unsigned,
+        "all_fused_parents_live_or_unfused": not any_dead_or_unsigned,
+        "spendable_remaining": spendable_remaining,
+        "drawable_wilderness": drawable_wilderness,
+        "unspendable_remaining_due_to_parent": unspendable_remaining,
+        "undrawable_wilderness_due_to_parent": undrawable_wilderness,
+        "children_cannot_outlive_parent": True,
+    }
+
+
 def folio(job_id: str) -> dict[str, Any]:
     """The remaining of one job — stock, not the apostille of the act."""
     jid = (job_id or "").strip()
@@ -640,7 +750,9 @@ def folio(job_id: str) -> dict[str, Any]:
     spent_act = bool(proof.get("spent"))
     event = db_mod.latest_bind_event_for_job(jid) if jid else None
     tickets = _tickets_for_job(jid)
-    cols = _columns(tickets, jid, _now())
+    now = _now()
+    cols = _columns(tickets, jid, now)
+    spend = _spendability(tickets, jid, now)
     issued = cols["given"]
     consumed = cols["spent"]
     unconsumed = cols["remaining"]
@@ -737,7 +849,11 @@ def folio(job_id: str) -> dict[str, Any]:
             "one_way_class": one_way,
             "for": "inhabitant",
             "not_for": "the actor",
+            # Stock bin count — not live spendable capacity. See liveness.
+            "is_not_spendable_without_liveness_field": True,
+            "spendable": spend["spendable_remaining"],
         },
+        "liveness": spend,
         "hold": _hold_book(jid),
         "facing": {
             "kind": "inhabitant_remaining",
@@ -765,6 +881,8 @@ def folio(job_id: str) -> dict[str, Any]:
             "legacy_holds": cols["legacy_holds"],
             "naive_harvest": cols["naive_harvest"],
             "opening_in_close": False,
+            "spendable_remaining": spend["spendable_remaining"],
+            "drawable_wilderness": spend["drawable_wilderness"],
             "law": {
                 "unattested_w_cannot_become_remaining": True,
                 "w_draw_is_not_ordinary_spend": True,
@@ -772,6 +890,8 @@ def folio(job_id: str) -> dict[str, Any]:
                 "third_opens_never_spends": True,
                 "effectuate_undefined_without_n": True,
                 "overflow_dies": True,
+                "remaining_bin_is_not_spendable_without_liveness": True,
+                "children_cannot_outlive_parent": True,
             },
         },
         "inhabitant": {
@@ -798,6 +918,7 @@ def folio(job_id: str) -> dict[str, Any]:
             "pending",
             "the Bind sentence",
             "remaining of the opening as a ticket",
+            "remaining as spendable without liveness",
         ],
     }
 
@@ -928,7 +1049,13 @@ def draw_wilderness(
         charge_id=(charge_id or "").strip(),
     )
     if not result.get("ok"):
-        return _halt(result.get("halt") or "w_draw_failed", **result)
+        # Do not let result.halt (a reason string) overwrite _halt's halt=True.
+        extra = {
+            k: v
+            for k, v in result.items()
+            if k not in ("ok", "halt")
+        }
+        return _halt(result.get("halt") or "w_draw_failed", **extra)
     return {
         "ok": True,
         "kind": "w_draw",
