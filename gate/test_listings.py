@@ -2767,6 +2767,140 @@ class PrefinalityTests(FlaskListingTests):
         self.assertTrue(accepts)
         self.assertEqual(accepts[0].get("payTo"), payto)
 
+    def test_go_receipt_is_one_shot_on_verify(self):
+        transfer = {"amount": "0.002", "currency": "USDC", "counterparty": self.PAYTO}
+        r = self.client.post(
+            "/demo/prefinality/evaluate",
+            json={
+                "rail": "x402",
+                "transfer": transfer,
+                "mandate": {"agent_id": "test-agent", "max_amount": "1.00"},
+            },
+        )
+        receipt = r.get_json()["receipt"]
+        first = self.client.post(
+            "/v1/prefinality/verify",
+            json={"receipt": receipt, "rail": "x402", "transfer": transfer},
+        )
+        self.assertEqual(first.status_code, 200)
+        self.assertTrue(first.get_json().get("valid"))
+        second = self.client.post(
+            "/v1/prefinality/verify",
+            json={"receipt": receipt, "rail": "x402", "transfer": transfer},
+        )
+        self.assertEqual(second.status_code, 400)
+        body = second.get_json()
+        self.assertFalse(body.get("valid"))
+        self.assertEqual(body.get("reason"), "receipt_replay")
+
+    def test_rtp_gate_rejects_receipt_replay(self):
+        transfer = {
+            "amount": "100.00",
+            "currency": "USD",
+            "routing_number": "021000021",
+            "account_number": "123456789",
+        }
+        order = {
+            "type": "rtp",
+            "amount": 10000,
+            "currency": "USD",
+            "routing_number": "021000021",
+            "account_number": "123456789",
+        }
+        r = self.client.post(
+            "/demo/prefinality/evaluate",
+            json={
+                "rail": "rtp",
+                "transfer": transfer,
+                "mandate": {"agent_id": "treasury-bot", "max_amount": "500.00"},
+            },
+        )
+        receipt = r.get_json()["receipt"]
+        first = self.client.post(
+            "/v1/prefinality/rtp/gate",
+            json={"receipt": receipt, "payment_order": order},
+        )
+        self.assertEqual(first.status_code, 200)
+        self.assertTrue(first.get_json().get("allow"))
+        self.assertTrue(first.get_json().get("redeemed"))
+        second = self.client.post(
+            "/v1/prefinality/rtp/gate",
+            json={"receipt": receipt, "payment_order": order},
+        )
+        self.assertEqual(second.status_code, 403)
+        body = second.get_json()
+        self.assertFalse(body.get("allow"))
+        self.assertEqual(body.get("reason"), "receipt_replay")
+
+    def test_unsigned_keys_never_go(self):
+        import prefinality as pf
+
+        priv = os.environ.get("GATE_RECEIPT_PRIVATE_KEY")
+        pub = os.environ.get("GATE_RECEIPT_PUBLIC_KEY")
+        try:
+            os.environ.pop("GATE_RECEIPT_PRIVATE_KEY", None)
+            os.environ.pop("GATE_RECEIPT_PUBLIC_KEY", None)
+            out = pf.evaluate(
+                {
+                    "rail": "x402",
+                    "transfer": {
+                        "amount": "0.002",
+                        "currency": "USDC",
+                        "counterparty": self.PAYTO,
+                    },
+                    "mandate": {"max_amount": "1.00"},
+                },
+                public_url="http://localhost",
+            )
+            self.assertEqual(out["decision"], "NO_GO")
+            self.assertIn("unsigned_halt", out.get("signals", []))
+            self.assertTrue(out.get("halt"))
+            self.assertIsNone(out.get("receipt"))
+        finally:
+            if priv is not None:
+                os.environ["GATE_RECEIPT_PRIVATE_KEY"] = priv
+            if pub is not None:
+                os.environ["GATE_RECEIPT_PUBLIC_KEY"] = pub
+
+    def test_fuse_id_without_live_hop_is_no_go(self):
+        import prefinality as pf
+
+        out = pf.evaluate(
+            {
+                "rail": "x402",
+                "transfer": {
+                    "amount": "0.002",
+                    "currency": "USDC",
+                    "counterparty": self.PAYTO,
+                },
+                "mandate": {"max_amount": "1.00", "fuse_id": "fuse_missing"},
+            },
+            public_url="http://localhost",
+            fuse_hop=lambda _fid: {"state": "ARMED"},
+        )
+        self.assertEqual(out["decision"], "NO_GO")
+        self.assertIn("fuse_unverified", out.get("signals", []))
+
+    def test_payment_header_present_fail_closed_without_facilitator(self):
+        import x402_challenge as xc
+
+        self.assertFalse(xc.FACILITATOR_VERIFY_IMPLEMENTED)
+        self.assertTrue(xc.payment_header_raw_present({"X-PAYMENT": "sig"}))
+        self.assertFalse(xc.payment_header_present({"X-PAYMENT": "sig"}))
+        auth = xc.verify_payment_authorization({"X-PAYMENT": "sig"})
+        self.assertFalse(auth.get("authorized"))
+        self.assertEqual(auth.get("reason"), "facilitator_verify_unimplemented")
+
+    def test_wrap_rejects_fail_open_config(self):
+        wrap_path = os.path.join(HERE, "sdk", "prefinality", "wrap.mjs")
+        with open(wrap_path, encoding="utf-8") as fh:
+            src = fh.read()
+        self.assertIn("failOpen is intentionally absent", src)
+        self.assertIn('"failOpen"', src)
+        self.assertIn("is not supported", src)
+        self.assertNotRegex(src, r"failOpen\s*=\s*false")
+        self.assertNotRegex(src, r"if\s*\(\s*failOpen\s*\)")
+        self.assertIn("redeemPrefinalityReceipt", src)
 
 class X402AuditWireTests(unittest.TestCase):
     @classmethod
