@@ -3764,6 +3764,125 @@ class RemainingTests(unittest.TestCase):
         self.assertTrue(drawn["folio"]["opening"]["unpaid"])
         self.assertFalse(drawn["folio"]["close"]["opening_in_close"])
 
+    def _issue_fused(self, job_id, holder_id, license_id):
+        charged = self.client.post(
+            f"/demo/pas/licenses/{license_id}/charge",
+            json={"charge_id": f"chg_{uuid.uuid4().hex[:8]}"},
+        )
+        self.assertEqual(charged.status_code, 200)
+        self.assertEqual(charged.get_json()["state"], "LIVE")
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=remaining-fuse",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={
+                    "fuse_id": "fuse_velaru_drill",
+                    "job_id": job_id,
+                    "holder_id": holder_id,
+                    "license_id": license_id,
+                },
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body.get("allow_bind"))
+        return body["bind_ticket"]
+
+    def test_wilderness_draw_halts_when_parent_dead(self):
+        """Defect 1: W-draw must honor require_live — no consumed_at after DEAD."""
+        lid = f"lic:W-DEAD-{uuid.uuid4().hex[:8]}"
+        job = f"pc:W-DEAD-{uuid.uuid4().hex[:10]}"
+        ticket = self._issue_fused(job, "op:wild-steward", lid)
+        tid = ticket["ticket_id"]
+
+        attested = self.client.post(
+            "/demo/pas/remaining/wilderness",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "steward_id": "op:wild-steward",
+            },
+        ).get_json()
+        self.assertTrue(attested["ok"])
+
+        opened = self.client.post(
+            "/demo/pas/remaining/wilderness/open",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "third_id": "op:wild-third",
+            },
+        ).get_json()
+        self.assertTrue(opened["ok"])
+
+        blown = self.client.post(f"/demo/pas/licenses/{lid}/dead", json={})
+        self.assertEqual(blown.status_code, 200)
+        self.assertEqual(blown.get_json()["state"], "DEAD")
+
+        drawn = self.client.post(
+            "/demo/pas/remaining/wilderness/draw",
+            json={
+                "job_id": job,
+                "ticket_id": tid,
+                "actor_id": "op:wild-third",
+                "charge_id": "chg:wild-after-dead",
+            },
+        ).get_json()
+        self.assertFalse(drawn.get("ok"))
+        self.assertTrue(drawn.get("halt"))
+        self.assertEqual(drawn.get("reason"), "license_parent_not_live")
+        # Folio must still show W unconsumed — exclusion must not see spent.
+        folio = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(folio["close"]["W"], 1)
+        self.assertEqual(folio["close"]["spent"], 0)
+        self.assertTrue(folio["identity_holds"])
+        self.assertEqual(folio["liveness"]["drawable_wilderness"], 0)
+        self.assertEqual(folio["liveness"]["undrawable_wilderness_due_to_parent"], 1)
+
+    def test_folio_remaining_not_spendable_after_parent_dead(self):
+        """Defect 2: after dead(), remaining bin may be >0 but spendable_remaining is 0."""
+        lid = f"lic:REM-DEAD-{uuid.uuid4().hex[:8]}"
+        job = f"pc:REM-DEAD-{uuid.uuid4().hex[:10]}"
+        ticket = self._issue_fused(job, "op:remain", lid)
+        self.assertTrue(ticket.get("ticket_id"))
+
+        live_folio = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        self.assertEqual(live_folio["close"]["remaining"], 1)
+        self.assertEqual(live_folio["liveness"]["spendable_remaining"], 1)
+        self.assertTrue(live_folio["identity_holds"])
+        self.assertTrue(live_folio["remaining"]["is_not_spendable_without_liveness_field"])
+
+        blown = self.client.post(f"/demo/pas/licenses/{lid}/dead", json={})
+        self.assertEqual(blown.get_json()["state"], "DEAD")
+
+        dead_folio = self.client.post(
+            "/demo/pas/remaining",
+            json={"job_id": job},
+        ).get_json()
+        # Stock bin unchanged — identity still holds.
+        self.assertEqual(dead_folio["close"]["remaining"], 1)
+        self.assertTrue(dead_folio["identity_holds"])
+        self.assertEqual(dead_folio["close"]["spent"], 0)
+        # Truth about spendability lives on liveness, not the bin.
+        self.assertEqual(dead_folio["liveness"]["spendable_remaining"], 0)
+        self.assertEqual(dead_folio["close"]["spendable_remaining"], 0)
+        self.assertEqual(dead_folio["remaining"]["spendable"], 0)
+        self.assertEqual(dead_folio["liveness"]["unspendable_remaining_due_to_parent"], 1)
+        self.assertTrue(dead_folio["liveness"]["any_dead_or_unsigned_parent"])
+        self.assertTrue(
+            dead_folio["liveness"]["remaining_bin_is_not_spendable_without_this_field"]
+        )
+
     def test_opening_remaining_is_not_an_issue(self):
         never = f"pc:OPEN-NEVER-{uuid.uuid4().hex[:10]}"
         empty = self.client.post(

@@ -979,6 +979,12 @@ def wilderness_reclassify(*, ticket_id: str, actor_id: str, charge_id: str) -> d
 
 
 def wilderness_draw(*, ticket_id: str, actor_id: str, charge_id: str) -> dict:
+    """Consume a wilderness ticket via W-draw.
+
+    Same parent-liveness rule as ordinary redeem: if the ticket names a
+    license_id, the parent must be LIVE. DEAD / UNSIGNED parents HALT —
+    children cannot outlive parent on this path either.
+    """
     tid = (ticket_id or "").strip()
     actor = (actor_id or "").strip()
     charge = (charge_id or "").strip()
@@ -988,6 +994,15 @@ def wilderness_draw(*, ticket_id: str, actor_id: str, charge_id: str) -> dict:
         return {"ok": False, "halt": "w_draw_needs_charge"}
     now = utc_now()
     with db() as conn:
+        ticket = conn.execute(
+            "SELECT * FROM bind_tickets WHERE id = ?", (tid,)
+        ).fetchone()
+        if not ticket:
+            return {"ok": False, "halt": "wilderness_unattested"}
+        try:
+            issued_lid = (ticket["license_id"] or "").strip()
+        except (IndexError, KeyError, TypeError):
+            issued_lid = ""
         att = conn.execute(
             "SELECT * FROM wilderness_attestation WHERE ticket_id = ?",
             (tid,),
@@ -1000,6 +1015,25 @@ def wilderness_draw(*, ticket_id: str, actor_id: str, charge_id: str) -> dict:
             return {"ok": False, "halt": "steward_cannot_spend_w"}
         if not att["third_id"] or att["third_id"] != actor:
             return {"ok": False, "halt": "only_third_opens"}
+
+    # Fuse check outside the write txn (lazy import avoids db↔license_fuse cycle).
+    # Omitted license_id → unfused → ok, same as ordinary redeem.
+    if issued_lid:
+        try:
+            from gate import license_fuse as license_fuse_mod
+        except ImportError:
+            import license_fuse as license_fuse_mod
+
+        parent = license_fuse_mod.require_live(issued_lid)
+        if not parent.get("ok"):
+            return {
+                "ok": False,
+                "halt": parent.get("reason") or license_fuse_mod.REASON_NOT_LIVE,
+                "license_fuse": license_fuse_mod.snapshot(issued_lid),
+                "children_cannot_outlive_parent": True,
+            }
+
+    with db() as conn:
         cur = conn.execute(
             """UPDATE bind_tickets SET consumed_at = ?
                WHERE id = ? AND stock_class = 'wilderness' AND consumed_at IS NULL""",
