@@ -109,6 +109,8 @@ class ManifestTests(unittest.TestCase):
             self.assertIn(key, m["dates"])
         self.assertIn("google", m["do_not_date"])
         self.assertIn("bind_room", m)
+        self.assertIn("diligence", m)
+        self.assertEqual(m["diligence"]["deposit"], "$2,500")
         self.assertIn("operator_invoice", m)
         self.assertTrue(m["operator_invoice"]["licensed_only"])
         self.assertIn("bound_answer", m)
@@ -602,7 +604,34 @@ class BindRoomFlaskTests(unittest.TestCase):
     def test_bind_room_page(self):
         r = self.client.get("/bind-room")
         self.assertEqual(r.status_code, 200)
-        self.assertIn(b"Officer pack", r.data)
+        self.assertIn(b"bind-and-issue", r.data)
+        self.assertIn(b"Pay", r.data)
+
+    def test_diligence_page_and_artifacts(self):
+        r = self.client.get("/diligence")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"irreversible write", r.data)
+        self.assertIn(b"$2,500", r.data)
+        offer = self.client.get("/diligence/offer.json")
+        self.assertEqual(offer.status_code, 200)
+        body = offer.get_json()
+        self.assertEqual(body["spec"], "gate-diligence-offer-v1")
+        self.assertFalse(body["their_production"])
+        self.assertIn("peg-out", " ".join(body["surfaces"]))
+        pager = self.client.get("/diligence/one-pager.txt")
+        self.assertEqual(pager.status_code, 200)
+        self.assertIn(b"MOUTH / FINALITY DILIGENCE", pager.data)
+
+    def test_diligence_checkout_dev(self):
+        r = self.client.post(
+            "/diligence/checkout",
+            data={"email": "buyer@example.com"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+        # Dev mode marks paid and lands on install success
+        loc = r.headers.get("Location") or ""
+        self.assertTrue("success" in loc or "diligence" in loc or loc.startswith("http"))
 
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")

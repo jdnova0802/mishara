@@ -150,6 +150,14 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "appendix": f"{public_url}/bind-room/appendix.schema.json",
             "price": "$1,750",
         },
+        "diligence": {
+            "url": f"{public_url}/diligence",
+            "offer": f"{public_url}/diligence/offer.json",
+            "one_pager": f"{public_url}/diligence/one-pager.txt",
+            "deposit": "$2,500",
+            "review": "$5,000",
+            "what": "Mouth/finality edge review — where irreversible writes complete without may",
+        },
         "register": {
             "page": f"{public_url}/register",
             "manifest": f"{public_url}/.well-known/register.json",
