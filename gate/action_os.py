@@ -4,6 +4,7 @@ Formula:
   Own permission on irreversible acts for any power that needs it —
   and make your scarcity the DENY, not the narrative.
 
+Nisaba LLC is the Action OS company — not a holding company.
 Palantir integrates data so institutions can know faster.
 Nisaba sits on irreversible action: should this act run?
 
@@ -14,14 +15,22 @@ verify, one door, fail-closed — not buyer purity theater.
 
 Force / battlefield authority is in the category. It is not a claimed
 production weld until someone pays for that door.
+
+See NISABA.md for the compressed nature sheet.
 """
 from __future__ import annotations
 
 from datetime import datetime, timezone
 from typing import Any
 
-SPEC = "nisaba-action-os-v2"
+SPEC = "nisaba-action-os-v3"
 INVENTOR = "Nisaba LLC"
+
+WHAT = (
+    "Nisaba LLC is the Action OS company — not a holding company. "
+    "We own permission on irreversible acts for any power that needs it. "
+    "Scarcity is the DENY — the halt that holds — not the story about the halt."
+)
 
 FORMULA = (
     "Own permission on irreversible acts for any power that needs it — "
@@ -32,7 +41,9 @@ THESIS = (
     "We serve everybody. Economies, politicians, companies — any entity "
     "that moves irreversible authority. Controversial or not: that is nature "
     "when you sit on the act. Palantir made knowing cheaper. Nisaba is the "
-    "Action OS — governable irreversible action. Scarcity is the DENY."
+    "Action OS — governable irreversible action. Scarcity is the DENY. "
+    "Erra, Velaru, Gate, Verra, and Mishara are brands under Nisaba — "
+    "not a holding-company shell that sells nothing."
 )
 
 EQUIVALENT = {
@@ -138,6 +149,7 @@ NOT = (
     "Action OS marketing with no ACT/HOLD · ALLOW/BLOCK · /v1/act behavior",
     "Battlefield marketing without a force-path weld",
     "Scarcity as storytelling — DENY that does not hold",
+    "A holding company that only owns other companies and sells nothing",
 )
 
 OPERATIONAL = (
@@ -178,6 +190,8 @@ def manifest(public_url: str) -> dict[str, Any]:
         "name": "Nisaba Action OS",
         "inventor": INVENTOR,
         "evaluated_at": _now(),
+        "what": WHAT,
+        "holding_company": False,
         "formula": FORMULA,
         "thesis": THESIS,
         "scarcity": "DENY/DEAD that holds — not the narrative about the product",

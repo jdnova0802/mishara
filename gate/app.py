@@ -80,6 +80,11 @@ except ImportError:
     import bind_room as bind_room_mod
 
 try:
+    from gate import diligence as diligence_mod
+except ImportError:
+    import diligence as diligence_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -262,6 +267,8 @@ BIND_ROOM_PAYMENT_LINK = os.getenv(
     "VELARU_BIND_ROOM_PAYMENT_LINK",
     "https://buy.stripe.com/aFabIU4wqcxmavd3EE8Vi04",
 ).strip()
+STRIPE_DILIGENCE_DEPOSIT_PRICE_ID = os.getenv("STRIPE_DILIGENCE_DEPOSIT_PRICE_ID", "")
+DILIGENCE_PAYMENT_LINK = os.getenv("VELARU_DILIGENCE_PAYMENT_LINK", "").strip()
 STRIPE_REFUSAL_PRICE_ID = os.getenv("STRIPE_REFUSAL_PRICE_ID", "")
 STRIPE_WELD_PRICE_ID = os.getenv("STRIPE_WELD_PRICE_ID", "")
 STRIPE_FLOOR_PRICE_ID = os.getenv("STRIPE_FLOOR_PRICE_ID", "")
@@ -272,6 +279,15 @@ INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
 BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
 BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
+DILIGENCE_REVIEW_PRICE_LABEL = os.getenv(
+    "GATE_DILIGENCE_REVIEW_PRICE_LABEL", diligence_mod.REVIEW_PRICE_LABEL
+)
+DILIGENCE_DEPOSIT_PRICE_LABEL = os.getenv(
+    "GATE_DILIGENCE_DEPOSIT_PRICE_LABEL", diligence_mod.DEPOSIT_PRICE_LABEL
+)
+DILIGENCE_DEPOSIT_PRICE_CENTS = int(
+    os.getenv("GATE_DILIGENCE_DEPOSIT_PRICE_CENTS", "250000")
+)
 REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
 REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
@@ -356,6 +372,8 @@ def inject_globals():
         "gate_public_url": advertised_url(),
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
+        "diligence_deposit_price": DILIGENCE_DEPOSIT_PRICE_LABEL,
+        "diligence_review_price": DILIGENCE_REVIEW_PRICE_LABEL,
         "refusal_price": REFUSAL_PRICE_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
@@ -374,6 +392,7 @@ def cors_discovery(resp):
         path.startswith("/.well-known/")
         or path.startswith("/listings/")
         or path.startswith("/bind-room")
+        or path.startswith("/diligence")
         or path.startswith("/operator")
         or path.startswith("/register")
         or path.startswith("/focus")
@@ -634,6 +653,7 @@ def health():
         "listings": f"{pub}/.well-known/listings.json",
         "mcp": f"{pub}/mcp",
         "bind_room": f"{pub}/bind-room",
+        "diligence": f"{pub}/diligence",
         "operator": f"{pub}/operator",
         "bound": f"{pub}/bound",
         "only": f"{pub}/only",
@@ -1347,6 +1367,8 @@ def well_known_gate():
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
+            "diligence": f"{advertised_url()}/diligence",
+            "diligence_offer": f"{advertised_url()}/diligence/offer.json",
             "operator": f"{advertised_url()}/operator",
             "register": f"{advertised_url()}/register",
             "register_manifest": f"{advertised_url()}/.well-known/register.json",
@@ -2871,15 +2893,107 @@ def install_success():
 
 @app.route("/bind-room")
 def bind_room():
+    # Prefer Checkout Session when price id (or dev) is set; always expose payment link
+    # when configured so pay-live never depends on a single path.
+    stripe_ready = bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE)
+    pay_link = BIND_ROOM_PAYMENT_LINK
     return render_template(
         "bind_room.html",
         public_url=advertised_url(),
         bind_room_price=BIND_ROOM_PRICE_LABEL,
         install_price=INSTALL_PRICE_LABEL,
-        stripe_bind_room=bool(STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE),
-        bind_room_payment_link=BIND_ROOM_PAYMENT_LINK if not (STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE) else "",
+        stripe_bind_room=stripe_ready,
+        bind_room_payment_link=pay_link,
         contact_email=CONTACT_EMAIL,
     )
+
+
+@app.route("/diligence")
+def diligence_page():
+    o = diligence_mod.offer(
+        advertised_url(),
+        CONTACT_EMAIL,
+        review_price=DILIGENCE_REVIEW_PRICE_LABEL,
+        deposit_price=DILIGENCE_DEPOSIT_PRICE_LABEL,
+    )
+    stripe_ready = bool(STRIPE_DILIGENCE_DEPOSIT_PRICE_ID or GATE_DEV_MODE)
+    return render_template(
+        "diligence.html",
+        public_url=advertised_url(),
+        diligence_deposit_price=DILIGENCE_DEPOSIT_PRICE_LABEL,
+        diligence_review_price=DILIGENCE_REVIEW_PRICE_LABEL,
+        diligence_review_band=o["price"]["review_band"],
+        diligence_retainer_band=o["price"]["retainer_band"],
+        diligence_surfaces=o["surfaces"],
+        diligence_deliverables=o["deliverables"],
+        diligence_not=o["not"],
+        stripe_diligence=stripe_ready,
+        diligence_payment_link=DILIGENCE_PAYMENT_LINK,
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/diligence/offer.json")
+def diligence_offer_json():
+    return jsonify(
+        diligence_mod.manifest(
+            advertised_url(),
+            CONTACT_EMAIL,
+            review_price=DILIGENCE_REVIEW_PRICE_LABEL,
+            deposit_price=DILIGENCE_DEPOSIT_PRICE_LABEL,
+        )
+    )
+
+
+@app.route("/diligence/one-pager.txt")
+def diligence_one_pager():
+    body = diligence_mod.render_one_pager(
+        advertised_url(),
+        CONTACT_EMAIL,
+        review_price=DILIGENCE_REVIEW_PRICE_LABEL,
+        deposit_price=DILIGENCE_DEPOSIT_PRICE_LABEL,
+    )
+    return app.response_class(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/diligence/checkout", methods=["POST"])
+def diligence_checkout():
+    email = (request.form.get("email") or "").strip()
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("diligence_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(
+            email, fake_session, DILIGENCE_DEPOSIT_PRICE_CENTS, product="diligence_deposit"
+        )
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "Finality diligence deposit (dev)",
+            f"{email} paid {DILIGENCE_DEPOSIT_PRICE_LABEL}",
+            {"email": email, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key or not STRIPE_DILIGENCE_DEPOSIT_PRICE_ID:
+        if DILIGENCE_PAYMENT_LINK:
+            return redirect(DILIGENCE_PAYMENT_LINK, code=303)
+        flash(
+            f"Deposit checkout not configured. Email {CONTACT_EMAIL} with subject Finality diligence.",
+            "error",
+        )
+        return redirect(url_for("diligence_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[{"price": STRIPE_DILIGENCE_DEPOSIT_PRICE_ID, "quantity": 1}],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/diligence?canceled=1",
+        metadata={"product": "diligence_deposit", "contact_email": email},
+    )
+    db.create_install_order(
+        email, checkout.id, DILIGENCE_DEPOSIT_PRICE_CENTS, product="diligence_deposit"
+    )
+    return redirect(checkout.url, code=303)
 
 
 @app.route("/bind-room/officer-pack.json")
@@ -2914,6 +3028,8 @@ def bind_room_checkout():
         )
         return redirect(url_for("install_success", session_id=fake_session))
     if not stripe.api_key or not STRIPE_BIND_ROOM_PRICE_ID:
+        if BIND_ROOM_PAYMENT_LINK:
+            return redirect(BIND_ROOM_PAYMENT_LINK, code=303)
         flash(f"Checkout not configured. Email {CONTACT_EMAIL} with subject Bind Room.", "error")
         return redirect(url_for("bind_room"))
     checkout = stripe.checkout.Session.create(
@@ -3174,6 +3290,14 @@ def billing_webhook():
             notify.money(
                 "CASH — Bind Room",
                 f"{BIND_ROOM_PRICE_LABEL} from {email}",
+                {"email": email, "session": sess["id"]},
+            )
+        elif product == "diligence_deposit":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            notify.money(
+                "CASH — Finality diligence deposit",
+                f"{DILIGENCE_DEPOSIT_PRICE_LABEL} from {email}",
                 {"email": email, "session": sess["id"]},
             )
         elif product == "refusal":
@@ -3457,6 +3581,7 @@ def sitemap():
         "/privacy",
         "/terms",
         "/bind-room",
+        "/diligence",
         "/audit",
         "/start",
         "/for/operators",
@@ -3492,6 +3617,8 @@ def llms_txt():
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
         f"- Bind Room: {advertised_url()}/bind-room",
+        f"- Finality diligence: {advertised_url()}/diligence",
+        f"- Diligence one-pager: {advertised_url()}/diligence/one-pager.txt",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
@@ -3698,6 +3825,13 @@ def openapi_full():
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
+                "/diligence": {
+                    "get": {
+                        "summary": "Mouth/finality diligence — $2,500 deposit starts 72h review"
+                    }
+                },
+                "/diligence/offer.json": {"get": {"summary": "Diligence offer manifest"}},
+                "/diligence/one-pager.txt": {"get": {"summary": "Diligence one-pager (plain text)"}},
                 "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},
                 "/operator": {"get": {"summary": "Weld checkout. One production write. Then max(floor, 10 bps, $0.10/hop)."}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},

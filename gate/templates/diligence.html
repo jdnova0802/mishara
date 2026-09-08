@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}Finality diligence · {{ diligence_deposit_price }} deposit{% endblock %}
+{% block meta %}
+<meta name="description" content="Where can an irreversible write complete without may? 72-hour mouth/finality diligence. {{ diligence_deposit_price }} deposit starts the clock.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <div class="install-hero">
+    <p class="audience-tag">Hustle 1 · mouth / finality diligence</p>
+    <h1>Where can an irreversible write complete without may?</h1>
+    <p class="install-lead">
+      72-hour edge review for payout, peg-out/bridge, settlement finality, custody quorum,
+      and nested rails. Deposit starts the clock. Remainder on delivery.
+      <strong>Not</strong> a weld. <strong>Not</strong> production clearance.
+    </p>
+    <div class="install-price">{{ diligence_deposit_price }} <span>deposit · due now</span></div>
+    <p style="color: var(--muted); margin: 0.5rem 0 0;">
+      Full review {{ diligence_review_price }}
+      {% if diligence_review_band %}· band {{ diligence_review_band }}{% endif %}
+      · retainer {{ diligence_retainer_band }}
+    </p>
+  </div>
+
+  {% if request.args.get('canceled') %}
+  <div class="flash error">Checkout canceled. Deposit when ready — no free work before cleared payment.</div>
+  {% endif %}
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Surfaces</h3>
+      <ul class="check-list">
+        {% for s in diligence_surfaces %}
+        <li>{{ s }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>You get</h3>
+      <ul class="check-list">
+        {% for d in diligence_deliverables %}
+        <li>{{ d }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Not this</h3>
+      <ul class="check-list muted-list">
+        {% for n in diligence_not %}
+        <li>{{ n }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="card install-checkout-card" style="margin-top: 1.5rem;">
+    <h2>Start with deposit · {{ diligence_deposit_price }}</h2>
+    <p>Pay deposit → email within 2 hours → 72h clock starts. No free scoping calls that replace the review.</p>
+
+    {% if stripe_diligence %}
+    <form method="post" action="{{ url_for('diligence_checkout') }}" class="install-form">
+      <div class="form-group">
+        <label for="email">Work email</label>
+        <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Pay {{ diligence_deposit_price }} deposit — start 72h</button>
+      <p class="fine-print">Deposit applied to {{ diligence_review_price }} review. Non-refundable once work starts. Illegal use voids the order.</p>
+    </form>
+    {% elif diligence_payment_link %}
+    <p class="hero-actions" style="justify-content: flex-start;">
+      <a class="btn btn-primary btn-lg" href="{{ diligence_payment_link }}" target="_blank" rel="noopener">Pay {{ diligence_deposit_price }} deposit (Stripe) →</a>
+    </p>
+    <p class="fine-print">After pay, email {{ contact_email }} with subject <strong>Finality diligence — deposit paid</strong> and your write path.</p>
+    {% else %}
+    <p class="hero-actions" style="justify-content: flex-start;">
+      <a class="btn btn-primary btn-lg" href="mailto:{{ contact_email }}?subject=Finality%20diligence%20%E2%80%94%20deposit">Email to book · {{ diligence_deposit_price }} deposit</a>
+    </p>
+    <p class="fine-print">Checkout not configured on this deploy — email works. Ask for Stripe link if you prefer card now.</p>
+    {% endif %}
+
+    {% if diligence_payment_link and stripe_diligence %}
+    <p style="margin-top: 1rem;">
+      <a href="{{ diligence_payment_link }}" target="_blank" rel="noopener">Or pay via Stripe link →</a>
+    </p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Also</h2>
+    <p>
+      <a href="{{ url_for('diligence_one_pager') }}">one-pager.txt</a>
+      · <a href="{{ url_for('diligence_offer_json') }}">offer.json</a>
+      · <a href="{{ url_for('bind_room') }}">Bind Room · {{ bind_room_price }}</a> (examiner pack — separate)
+      · <a href="{{ url_for('operator_page') }}">Operator weld</a> (production mouth — separate)
+    </p>
+  </div>
+</div>
+{% endblock %}

@@ -1,32 +1,66 @@
 {% extends "base.html" %}
-{% block title %}Bind Room · $1,750{% endblock %}
+{% block title %}Bind Room · {{ bind_room_price }}{% endblock %}
 {% block meta %}
-<meta name="description" content="Your CGL will not cover the agent. $1,750 officer pack — halt before bind-and-issue with stranger-verifiable proof.">
+<meta name="description" content="Bind Room officer pack {{ bind_room_price }} — halt before bind-and-issue with stranger-verifiable proof. Pay now. Not a rating model.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Bind Room · officer pack</p>
-  <h1>Your CGL will not cover the agent.</h1>
-  <p class="audience-sub">General liability excludes AI agent acts. If bind-and-issue runs without a governed halt, you are selling coverage you cannot pay. This pack is the assessment path: officer narrative + on-request verify appendix + public demo hop — <strong>not</strong> a rating model, not a wholesale partner desk.</p>
-  <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Full assessment is $3,500 · this deposit starts the officer pack and bind-room pattern. Production weld in their house is a separate operator path — ask after the pack lands.</p>
-
-  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
-    {% if stripe_bind_room %}
-    <form method="post" action="{{ url_for('bind_room_checkout') }}">
-      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
-      <button type="submit" class="btn btn-primary">Book Bind Room · {{ bind_room_price }}</button>
-    </form>
-    {% elif bind_room_payment_link %}
-    <a class="btn btn-primary" href="{{ bind_room_payment_link }}" target="_blank" rel="noopener">Pay {{ bind_room_price }} (Stripe) →</a>
-    {% else %}
-    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email {{ bind_room_price }}</a>
-    {% endif %}
-    <a class="btn btn-ghost" href="https://velaru.xyz/verify" target="_blank" rel="noopener">Stranger verify →</a>
-    <a class="btn btn-ghost" href="{{ url_for('bind_room_officer_pack') }}">Officer pack JSON</a>
+  <div class="install-hero">
+    <p class="audience-tag">Bind Room · officer pack · pay live</p>
+    <h1>Halt before bind-and-issue.</h1>
+    <p class="install-lead">
+      Officer pack examiners take + on-request verify appendix + public demo hop.
+      Stranger-openable write-stop receipt. <strong>Not</strong> a rating model.
+      <strong>Not</strong> a wholesale partner desk. Production weld is separate.
+    </p>
+    <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
+    <p style="color: var(--muted); margin: 0.5rem 0 0;">
+      Full assessment path often lands near $3,500 · this payment starts the officer pack and bind-room pattern.
+    </p>
   </div>
 
-  <div class="grid-3">
+  {% if request.args.get('canceled') %}
+  <div class="flash error">Checkout canceled. Pack is ready when you are — pay to start.</div>
+  {% endif %}
+
+  <div class="card install-checkout-card" style="margin-top: 1.5rem;">
+    <h2>Pay {{ bind_room_price }} · start Bind Room</h2>
+    <p>Pay → email within 2 hours → officer pack path starts. Hands cap: 4 Bind Rooms/month.</p>
+
+    {% if stripe_bind_room %}
+    <form method="post" action="{{ url_for('bind_room_checkout') }}" class="install-form">
+      <div class="form-group">
+        <label for="email">Work email</label>
+        <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Pay {{ bind_room_price }} — book Bind Room</button>
+      <p class="fine-print">One-time. Non-refundable once pack work starts. <code>their_production</code> stays false until a recorded third-party weld.</p>
+    </form>
+    {% endif %}
+
+    {% if bind_room_payment_link %}
+    <p class="hero-actions" style="justify-content: flex-start; margin-top: {% if stripe_bind_room %}1rem{% else %}0{% endif %};">
+      <a class="btn {% if stripe_bind_room %}btn-ghost{% else %}btn-primary btn-lg{% endif %}" href="{{ bind_room_payment_link }}" target="_blank" rel="noopener">
+        {% if stripe_bind_room %}Or pay via Stripe link →{% else %}Pay {{ bind_room_price }} (Stripe) →{% endif %}
+      </a>
+    </p>
+    {% if not stripe_bind_room %}
+    <p class="fine-print">After pay, email {{ contact_email }} with subject <strong>Bind Room — paid</strong>.</p>
+    {% endif %}
+    {% elif not stripe_bind_room %}
+    <p class="hero-actions" style="justify-content: flex-start;">
+      <a class="btn btn-primary btn-lg" href="mailto:{{ contact_email }}?subject=Bind%20Room%20%E2%80%94%20officer%20pack">Email to book · {{ bind_room_price }}</a>
+    </p>
+    {% endif %}
+
+    <p style="margin-top: 1rem;">
+      <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Stranger verify →</a>
+      · <a href="{{ url_for('bind_room_officer_pack') }}">officer-pack.json</a>
+      · <a href="{{ url_for('diligence_page') }}">Finality diligence</a>
+    </p>
+  </div>
+
+  <div class="grid-3" style="margin-top: 1.5rem;">
     <div class="card">
       <h3>What you get</h3>
       <p>Officer pack JSON (examiner narrative shape) · appendix schema · Exhibit C HITL mapping · demo bind-check that returns BLOCK + <code>velaru.xyz/verify</code> URL.</p>
