@@ -47,7 +47,7 @@ def classify(payload: dict | None, bound_answer: dict | None, *, demo: bool = Fa
         product = f"{PRODUCT} — if they do not bypass"
     else:
         product = None
-    return {
+    out = {
         "spec": SPEC,
         "museum": museum,
         "exclusive": exclusive,
@@ -64,6 +64,34 @@ def classify(payload: dict | None, bound_answer: dict | None, *, demo: bool = Fa
         "resurrect": "CHARGE must cost more than the act was worth.",
         "note": MUSEUM if museum else (
             "This door can refuse. Their production is exclusive only after they weld and do not bypass."
+        ),
+    }
+    if exclusive:
+        # Soft override killed: exclusive door cannot be museum cosplay.
+        out.update(harden(out))
+    return out
+
+
+def harden(timing: dict | None) -> dict:
+    """Exclusive harden — closed-world door is not a museum label.
+
+    Does not flip their_production. Forces bypass/resurrect cost language and
+    clears museum when exclusive is already true.
+    """
+    t = timing if isinstance(timing, dict) else {}
+    exclusive = bool(t.get("exclusive"))
+    return {
+        "hardened": True,
+        "museum": False if exclusive else bool(t.get("museum")),
+        "bypass_must_cost_more": True,
+        "charge_must_cost_more": True,
+        "soft_omit_forbidden": True,
+        "their_production": False,
+        "note": (
+            "Exclusive door hardened. Bypass and CHARGE must cost more than the act. "
+            "their_production stays false until a third-party weld attestation."
+            if exclusive
+            else t.get("note")
         ),
     }
 

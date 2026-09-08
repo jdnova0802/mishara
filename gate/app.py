@@ -205,6 +205,26 @@ except ImportError:
     import license_fuse as license_fuse_mod
 
 try:
+    from gate import finality_sink as finality_sink_mod
+except ImportError:
+    import finality_sink as finality_sink_mod
+
+try:
+    from gate import dual_charge as dual_charge_mod
+except ImportError:
+    import dual_charge as dual_charge_mod
+
+try:
+    from gate import register_bill as register_bill_mod
+except ImportError:
+    import register_bill as register_bill_mod
+
+try:
+    from gate import inventions as inventions_mod
+except ImportError:
+    import inventions as inventions_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -946,11 +966,17 @@ def _finalize_spend_plan(
             plan["bind_allowed"] = False
         plan["halt"] = True
         plan["reason"] = cp.get("reason") or counterpart_mod.REASON_REQUIRED
-    parent = license_fuse_mod.presented(license_id)
+    # Welded / closed-world mouths never soft-omit the parent.
+    welded_mouth = bool(plan.get("welded") or plan.get("closed_world") or hop_d.get("welded") or hop_d.get("closed_world"))
+    parent = (
+        license_fuse_mod.presented_for_weld(license_id)
+        if welded_mouth
+        else license_fuse_mod.presented(license_id)
+    )
     plan["license_fuse"] = license_fuse_mod.snapshot(parent.get("license_id"))
     # License parent halt always wins as the named reason when fused+not LIVE,
     # even if epoch already halted — otherwise reason goes missing on polluted jobs.
-    if parent.get("fused") and not parent.get("ok"):
+    if (parent.get("fused") or welded_mouth) and not parent.get("ok"):
         acted = False
         decision = "HALT"
         plan["allow_bind"] = False
@@ -1186,6 +1212,32 @@ def demo_pc_pre_bind():
     return data, status, extra
 
 
+def _sink_fuse_lookup(fuse_id: str) -> dict | None:
+    """Use-time fuse recheck. Fail closed unless LIVE.
+
+    Soft override killed: never promote DEAD→LIVE. DEV may stub LIVE only when
+    Velaru is unreachable (non-dict / transport fail_closed without a state).
+    """
+    data, status, _ = velaru_fuse(
+        "GET", "/api/v1/fuse/lookup", fuse_id=fuse_id, params={"fuse_id": fuse_id}
+    )
+    if isinstance(data, dict):
+        out = dict(data)
+        out["http_status"] = status
+        # fail_closed payloads are dicts with halt/UNREACHABLE — return as-is.
+        # Named DEAD from Velaru stays DEAD (no soft resurrect at the sink).
+        return out
+    if GATE_DEV_MODE:
+        return {
+            "state": "LIVE",
+            "verdict": True,
+            "halt": False,
+            "dev_stub": True,
+            "http_status": status if isinstance(status, int) else 503,
+        }
+    return {"state": "UNREACHABLE", "verdict": False, "halt": True, "http_status": status}
+
+
 def _redeem_ticket_view(*, demo: bool = False):
     raw = request.get_json(silent=True) or {}
     blocked = fields.pii_error(raw)
@@ -1203,6 +1255,7 @@ def _redeem_ticket_view(*, demo: bool = False):
         now=str(body.get("now") or ""),
         license_id=str(body.get("license_id") or "") or None,
         counterpart=counterpart_mod.parse(body),
+        fuse_lookup=_sink_fuse_lookup,
     )
     if isinstance(result, dict):
         result["demo"] = demo
@@ -1505,6 +1558,26 @@ def register_cleared_flow():
     return jsonify({"ok": True, "entry": entry, "totals": totals, "their_production": False})
 
 
+@app.route("/v1/register/bill", methods=["POST"])
+def register_bill():
+    """Ops: build management + bps + carry invoice from cleared-flow ledger."""
+    if not _ops_authorized():
+        return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
+    body = request.get_json(silent=True) or {}
+    try:
+        welded = int(body.get("welded_writes") if body.get("welded_writes") is not None else 1)
+        live_parents = body.get("live_parents")
+        hops = body.get("hop_count")
+        bill = register_bill_mod.from_ledger(
+            welded_writes=welded,
+            live_parents=int(live_parents) if live_parents is not None else None,
+            hop_count=int(hops) if hops is not None else None,
+        )
+    except (TypeError, ValueError) as exc:
+        return jsonify({"ok": False, "error": {"code": "invalid", "message": str(exc)}}), 400
+    return jsonify(bill)
+
+
 @app.route("/.well-known/cleared-flow.json")
 def well_known_cleared_flow():
     totals = db.cleared_flow_totals()
@@ -1513,6 +1586,7 @@ def well_known_cleared_flow():
             "spec": "gate-cleared-flow-v1",
             "totals": totals,
             "post": f"{advertised_url()}/v1/register/cleared",
+            "bill": f"{advertised_url()}/v1/register/bill",
             "note": "Ledger of cleared flow for fee register — not a production claim.",
             "their_production": False,
         }
@@ -1611,17 +1685,179 @@ def canary_bypass_report():
     if not _ops_authorized():
         return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
     body = request.get_json(silent=True) or {}
+    kill_raw = body.get("kill_parent")
+    kill_parent = None if kill_raw is None else bool(kill_raw)
     result = canary_mod.report(
         write_path=(body.get("write_path") or "").strip(),
         job_id=(body.get("job_id") or "").strip() or None,
         reporter=(body.get("reporter") or "").strip(),
         note=(body.get("note") or "").strip(),
         license_id=(body.get("license_id") or "").strip() or None,
-        kill_parent=bool(body.get("kill_parent")),
+        kill_parent=kill_parent,
         confirm=bool(body.get("confirm")),
     )
     code = 200 if result.get("ok") else 400
     return jsonify(result), code
+
+
+def _dual_charge_view(*, demo: bool = False):
+    body, blocked, code = _license_body()
+    if blocked:
+        return blocked, code
+    body = body or {}
+    result = dual_charge_mod.unlock(
+        license_id=body.get("license_id"),
+        job_id=str(body.get("job_id") or "") or None,
+        license_charge_id=body.get("license_charge_id") or body.get("charge_id"),
+        epoch_charge_id=body.get("epoch_charge_id"),
+        require_epoch=bool(body.get("require_epoch", True)),
+        require_license=bool(body.get("require_license", True)),
+    )
+    if isinstance(result, dict):
+        result["demo"] = demo
+        bound.attach(result, 200 if result.get("ok") else 403, demo=demo)
+    return result, 200 if result.get("ok") else 403
+
+
+@app.route("/demo/pas/dual-charge", methods=["POST"])
+def demo_dual_charge():
+    _, err = _demo_gate()
+    if err:
+        return err
+    return _dual_charge_view(demo=True)
+
+
+@app.route("/v1/pas/dual-charge", methods=["POST"])
+@metered_api(count_usage=False)
+def pas_dual_charge():
+    return _dual_charge_view(demo=False)
+
+
+@app.route("/.well-known/finality-sink.json")
+def well_known_finality_sink():
+    return jsonify(finality_sink_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/dual-charge.json")
+def well_known_dual_charge():
+    return jsonify(dual_charge_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/register-bill.json")
+def well_known_register_bill():
+    return jsonify(register_bill_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/inventions.json")
+def well_known_inventions():
+    return jsonify(inventions_mod.catalog(advertised_url()))
+
+
+@app.route("/inventions")
+def inventions_page():
+    cat = inventions_mod.catalog(advertised_url())
+    return jsonify(cat)
+
+
+@app.route("/v1/settlement/window/open", methods=["POST"])
+def settlement_window_open():
+    """Ops: open a T+0 settlement window and persist it."""
+    if not _ops_authorized():
+        return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
+    try:
+        from gate import settlement as settlement_mod
+    except ImportError:
+        import settlement as settlement_mod
+    window = settlement_mod.open_window()
+    row = db.record_settlement_window(
+        window_id=window.id,
+        state=window.state,
+        opened_at=window.opened_at,
+        cutoff_at=window.cutoff_at,
+        window_duration_minutes=getattr(window, "window_duration_minutes", None)
+        or settlement_mod.WINDOW_DURATION_MINUTES,
+    )
+    return jsonify(
+        {
+            "ok": True,
+            "spec": settlement_mod.SPEC,
+            "window": settlement_mod.window_to_public(window) if hasattr(settlement_mod, "window_to_public") else {
+                "id": window.id,
+                "state": window.state,
+                "opened_at": window.opened_at,
+                "cutoff_at": window.cutoff_at,
+            },
+            "stored": row,
+            "their_production": False,
+        }
+    )
+
+
+@app.route("/v1/settlement/window/<window_id>/settle", methods=["POST"])
+def settlement_window_settle(window_id: str):
+    """Ops: net + settle (or default) a window from posted obligations."""
+    if not _ops_authorized():
+        return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
+    try:
+        from gate import settlement as settlement_mod
+    except ImportError:
+        import settlement as settlement_mod
+    body = request.get_json(silent=True) or {}
+    obligations_raw = body.get("obligations") if isinstance(body.get("obligations"), list) else []
+    obligations = []
+    for raw in obligations_raw:
+        if not isinstance(raw, dict):
+            continue
+        allowed = {
+            k: raw[k]
+            for k in (
+                "id",
+                "member_id",
+                "counterparty_id",
+                "asset_class",
+                "gross_cents",
+                "direction",
+                "job_id",
+                "event_id",
+                "created_at",
+            )
+            if k in raw
+        }
+        obligations.append(allowed)
+    stored = db.get_settlement_window(window_id)
+    if not stored:
+        return jsonify({"ok": False, "error": {"code": "window_not_found"}}), 404
+    window = settlement_mod.SettlementWindow(
+        id=stored["id"],
+        state=stored.get("state") or settlement_mod.SettlementState.OPEN.value,
+        opened_at=stored.get("opened_at") or "",
+        cutoff_at=stored.get("cutoff_at"),
+        obligations=obligations,
+    )
+    closed = settlement_mod.close_window(window)
+    report = settlement_mod.regulatory_report(closed)
+    updated = db.update_settlement_window(
+        window_id=closed.id,
+        state=closed.state,
+        settled_at=closed.settled_at,
+        finality_hash=closed.finality_hash,
+    )
+    return jsonify(
+        {
+            "ok": True,
+            "spec": settlement_mod.SPEC,
+            "window": {
+                "id": closed.id,
+                "state": closed.state,
+                "settled_at": closed.settled_at,
+                "finality_hash": closed.finality_hash,
+                "defaulted_members": closed.defaulted_members,
+            },
+            "report": report,
+            "stored": updated,
+            "their_production": False,
+        }
+    )
 
 
 @app.route("/.well-known/production-skin.json")

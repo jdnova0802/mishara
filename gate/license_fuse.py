@@ -4,11 +4,13 @@ lookup exists. This mouth does not look up a directory and fail open.
 If a hop names license_id, the parent must be LIVE to print a ticket,
 and still LIVE to redeem it. DEAD → LIVE is CHARGE only.
 
-Omit license_id and the scanner behaves as it does today.
+Omit license_id: allowed only when GATE_LICENSE_REQUIRED is off (lab/demo).
+On welded / production mouths, set GATE_LICENSE_REQUIRED=1 — omit fails closed.
 Never license_number (that key is PII).
 """
 from __future__ import annotations
 
+import os
 import re
 
 try:
@@ -29,6 +31,10 @@ REASON_MISMATCH = "license_parent_mismatch"
 REASON_CHARGE_REQUIRED = "charge_id_required"
 STATES = ("UNSIGNED", "LIVE", "ARMED", "DEAD")
 _ID_RE = re.compile(r"^[A-Za-z0-9._:-]{1,128}$")
+
+
+def license_required() -> bool:
+    return os.getenv("GATE_LICENSE_REQUIRED", "").strip().lower() in ("1", "true", "yes", "on")
 
 
 def normalize_id(raw) -> str | None:
@@ -72,17 +78,29 @@ def snapshot(license_id: str | None) -> dict:
     return meta
 
 
-def presented(raw) -> dict:
-    """Empty/omitted → not fused. Non-empty invalid id → fail closed. Else require LIVE."""
-    if raw is None:
+def presented(raw, *, require: bool | None = None) -> dict:
+    """Empty/omitted → not fused unless require/GATE_LICENSE_REQUIRED. Else require LIVE."""
+    must = license_required() if require is None else bool(require)
+    if raw is None or not str(raw).strip():
+        if must:
+            return {
+                "ok": False,
+                "fused": True,
+                "reason": REASON_REQUIRED,
+                "license_id": None,
+                "state": None,
+                "hard_require": True,
+            }
         return {"ok": True, "fused": False, "state": None, "license_id": None}
-    s = str(raw).strip()
-    if not s:
-        return {"ok": True, "fused": False, "state": None, "license_id": None}
-    lid = normalize_id(s)
+    lid = normalize_id(str(raw).strip())
     if not lid:
         return {"ok": False, "fused": True, "reason": REASON_INVALID, "license_id": None, "state": None}
     return require_live(lid)
+
+
+def presented_for_weld(raw) -> dict:
+    """Welded mouths never soft-omit the parent."""
+    return presented(raw, require=True)
 
 
 def require_live(license_id: str | None) -> dict:
@@ -186,7 +204,12 @@ def spec(public_url: str) -> dict:
         ],
         "pas_key": "license_id",
         "children_cannot_outlive_parent": True,
-        "omit": "No license_id → current scanner behavior.",
+        "omit": (
+            "No license_id → fail closed when GATE_LICENSE_REQUIRED=1 or welded mouth; "
+            "else lab scanner behavior."
+        ),
+        "hard_require_env": "GATE_LICENSE_REQUIRED",
+        "hard_require_active": license_required(),
         "states": list(STATES),
         "stored_states": ["UNSIGNED", "LIVE", "DEAD"],
         "armed": "LIVE parent with at least one unredeemed child ticket.",

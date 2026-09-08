@@ -741,6 +741,14 @@ def consume_bind_ticket(
     return {"ok": True}
 
 
+def count_live_license_parents() -> int:
+    with db() as conn:
+        row = conn.execute(
+            "SELECT COUNT(*) AS n FROM license_parents WHERE state = 'LIVE'"
+        ).fetchone()
+    return int(row["n"] if row else 0)
+
+
 def get_license_parent(license_id: str) -> dict | None:
     lid = (license_id or "").strip()
     if not lid:
@@ -1213,6 +1221,68 @@ def list_settlement_windows(limit: int = 20) -> list[dict]:
             (limit,),
         ).fetchall()
     return [dict(r) for r in rows]
+
+
+def record_settlement_window(
+    *,
+    window_id: str,
+    state: str,
+    opened_at: str,
+    cutoff_at: str | None = None,
+    window_duration_minutes: int = 60,
+) -> dict:
+    """Persist an opened settlement window (ops write path)."""
+    wid = (window_id or "").strip()
+    if not wid:
+        raise ValueError("window_id required")
+    created = datetime.now(timezone.utc).isoformat()
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO settlement_windows
+               (id, state, opened_at, cutoff_at, settled_at, finality_hash,
+                window_duration_minutes, created_at)
+               VALUES (?, ?, ?, ?, NULL, NULL, ?, ?)""",
+            (
+                wid,
+                (state or "OPEN").strip(),
+                opened_at,
+                cutoff_at,
+                int(window_duration_minutes or 60),
+                created,
+            ),
+        )
+        row = conn.execute("SELECT * FROM settlement_windows WHERE id = ?", (wid,)).fetchone()
+    return dict(row) if row else {"id": wid, "state": state}
+
+
+def get_settlement_window(window_id: str) -> dict | None:
+    wid = (window_id or "").strip()
+    if not wid:
+        return None
+    with db() as conn:
+        row = conn.execute("SELECT * FROM settlement_windows WHERE id = ?", (wid,)).fetchone()
+    return dict(row) if row else None
+
+
+def update_settlement_window(
+    *,
+    window_id: str,
+    state: str,
+    settled_at: str | None = None,
+    finality_hash: str | None = None,
+) -> dict | None:
+    wid = (window_id or "").strip()
+    if not wid:
+        return None
+    with db() as conn:
+        conn.execute(
+            """UPDATE settlement_windows
+               SET state = ?, settled_at = ?, finality_hash = ?
+               WHERE id = ?""",
+            (state, settled_at, finality_hash, wid),
+        )
+        row = conn.execute("SELECT * FROM settlement_windows WHERE id = ?", (wid,)).fetchone()
+    return dict(row) if row else None
 
 
 def _table_cols(conn, name: str) -> set[str]:

@@ -132,8 +132,20 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "not": "license_number",
             "children_cannot_outlive_parent": True,
             "resurrection": "CHARGE only",
-            "omit": "No license_id → current scanner behavior.",
+            "omit": (
+                "No license_id → fail closed when GATE_LICENSE_REQUIRED=1; "
+                "welded mouths always require; else lab scanner behavior."
+            ),
+            "hard_require_env": "GATE_LICENSE_REQUIRED",
             "charge": f"{public_url}/v1/pas/licenses/{{license_id}}/charge",
+        },
+        "inventions": {
+            "manifest": f"{public_url}/.well-known/inventions.json",
+            "finality_sink": f"{public_url}/.well-known/finality-sink.json",
+            "dual_charge": f"{public_url}/.well-known/dual-charge.json",
+            "register_bill": f"{public_url}/.well-known/register-bill.json",
+            "settlement_write": f"{public_url}/v1/settlement/window/open",
+            "overrides_killed": True,
         },
         "counterpart": {
             "optional": True,
