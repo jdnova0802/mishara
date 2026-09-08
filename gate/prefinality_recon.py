@@ -41,7 +41,42 @@ except ImportError:
 
 SPEC = "gate-prefinality-reconstruction-v1"
 BOUNDARY_PAYOUT = "payout_release"
-BOUNDARIES = (BOUNDARY_PAYOUT, "x402_before_sign", "rtp_before_order")
+BOUNDARY_PEG_OUT = "peg_out_withdraw"
+BOUNDARY_RTP = "rtp_before_order"
+BOUNDARIES = (
+    BOUNDARY_PAYOUT,
+    BOUNDARY_PEG_OUT,
+    "x402_before_sign",
+    BOUNDARY_RTP,
+)
+
+# Hunt lock — prove → category → institutional (do not chase all three at once).
+DOOR_ORDER = (
+    {
+        "id": BOUNDARY_PAYOUT,
+        "rank": 1,
+        "write": "POST /v1/payouts/{id}/release",
+        "role": "prove",
+        "why": "First commercial driver — DENY + reconstruct on one welded release",
+    },
+    {
+        "id": BOUNDARY_PEG_OUT,
+        "rank": 2,
+        "write": "peg-out / bridge withdraw release",
+        "role": "category",
+        "why": (
+            "Highest blow-up cousin that upgrades diligence targets "
+            "(bridges · peg-outs · custody). Same Clear law; sponsor/custodian teeth."
+        ),
+    },
+    {
+        "id": BOUNDARY_RTP,
+        "rank": 3,
+        "write": "RTP/FedNow payment_order create",
+        "role": "institutional",
+        "why": "Inherits the law after prove — durable meter infrastructure, slower desks",
+    },
+)
 
 REASON_FP_MISMATCH = "reconstruction_fingerprint_mismatch"
 REASON_RECEIPT = "reconstruction_receipt_invalid"
@@ -68,12 +103,34 @@ def payout_write_fingerprint(*, payout_id: str | None, method: str = "POST") -> 
     return hashlib.sha256(_canonical(body).encode("utf-8")).hexdigest()
 
 
+def peg_out_write_fingerprint(
+    *,
+    bridge_id: str | None,
+    withdraw_id: str | None,
+    method: str = "POST",
+) -> str | None:
+    """Non-PII married write for peg-out / bridge withdraw (door #2)."""
+    bridge = (bridge_id or "").strip()
+    wid = (withdraw_id or "").strip()
+    if not bridge or not wid:
+        return None
+    path = f"/v1/bridges/{bridge}/withdrawals/{wid}/release"
+    body = {
+        "method": (method or "POST").upper(),
+        "path": path,
+        "boundary": BOUNDARY_PEG_OUT,
+    }
+    return hashlib.sha256(_canonical(body).encode("utf-8")).hexdigest()
+
+
 def reconstruct_descriptor(
     *,
     rail: str,
     transfer: dict | None,
     boundary: str = BOUNDARY_PAYOUT,
     payout_id: str | None = None,
+    bridge_id: str | None = None,
+    withdraw_id: str | None = None,
     fuse_id: str | None = None,
     license_id: str | None = None,
     job_id: str | None = None,
@@ -88,7 +145,11 @@ def reconstruct_descriptor(
     transfer_fp = (
         pf_mod.transfer_fingerprint(rail=rail_n, transfer=transfer) if rail_n in pf_mod.RAILS else None
     )
-    write_fp = payout_write_fingerprint(payout_id=payout_id) if boundary == BOUNDARY_PAYOUT else None
+    write_fp = None
+    if boundary == BOUNDARY_PAYOUT:
+        write_fp = payout_write_fingerprint(payout_id=payout_id)
+    elif boundary == BOUNDARY_PEG_OUT:
+        write_fp = peg_out_write_fingerprint(bridge_id=bridge_id, withdraw_id=withdraw_id)
     return {
         "spec": SPEC,
         "boundary": boundary,
@@ -100,6 +161,8 @@ def reconstruct_descriptor(
         "license_id": license_fuse_mod.normalize_id(license_id),
         "job_id": (job_id or "").strip() or None,
         "payout_id": (payout_id or "").strip() or None,
+        "bridge_id": (bridge_id or "").strip() or None,
+        "withdraw_id": (withdraw_id or "").strip() or None,
         "their_production": False,
     }
 
@@ -183,6 +246,8 @@ def clear(
     receipt: str | None,
     boundary: str = BOUNDARY_PAYOUT,
     payout_id: str | None = None,
+    bridge_id: str | None = None,
+    withdraw_id: str | None = None,
     fuse_id: str | None = None,
     license_id: str | None = None,
     job_id: str | None = None,
@@ -215,6 +280,8 @@ def clear(
         transfer=transfer,
         boundary=boundary_n,
         payout_id=payout_id,
+        bridge_id=bridge_id,
+        withdraw_id=withdraw_id,
         fuse_id=fuse_id,
         license_id=license_id,
         job_id=job_id,
@@ -302,6 +369,15 @@ def manifest(public_url: str) -> dict[str, Any]:
             "write": "POST /v1/payouts/{id}/release",
             "why": "Irreversible money-leave — first commercial driver edge",
         },
+        "second_boundary": {
+            "id": BOUNDARY_PEG_OUT,
+            "write": "peg-out / bridge withdraw release",
+            "why": (
+                "Locked category door — highest blow-up cousin; upgrades diligence "
+                "bridges/peg-outs. RTP/FedNow inherits the same law third."
+            ),
+        },
+        "door_order": list(DOOR_ORDER),
         "post": f"{base}/v1/prefinality/reconstruct",
         "demo": f"{base}/demo/prefinality/reconstruct",
         "evaluate": f"{base}/v1/prefinality/evaluate",

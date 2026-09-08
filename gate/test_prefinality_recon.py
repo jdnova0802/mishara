@@ -153,6 +153,14 @@ class AppReconRoutes(unittest.TestCase):
         body = r.get_json()
         self.assertEqual(body["spec"], "gate-prefinality-reconstruction-v1")
         self.assertIn("Clear", body["law"])
+        self.assertEqual(body["second_boundary"]["id"], "peg_out_withdraw")
+        self.assertEqual(body["door_order"][1]["id"], "peg_out_withdraw")
+
+    def test_peg_out_fingerprint(self):
+        a = recon.peg_out_write_fingerprint(bridge_id="br_1", withdraw_id="wd_1")
+        b = recon.peg_out_write_fingerprint(bridge_id="br_1", withdraw_id="wd_1")
+        self.assertEqual(a, b)
+        self.assertIsNone(recon.peg_out_write_fingerprint(bridge_id="br_1", withdraw_id=None))
 
     def test_inventions_lists_recon(self):
         r = self.client.get("/.well-known/inventions.json")
