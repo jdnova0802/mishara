@@ -23,6 +23,7 @@ def catalog(public_url: str) -> dict[str, Any]:
             "single CHARGE string opening both license and epoch gates",
             "DEAD→LIVE promotion at the Finality Sink under DEV panic",
             "exclusive door as museum label (harden when closed_world)",
+            "screenshot Prefinality GO then spend without boundary reconstruction",
         ],
         "inventions": [
             {
@@ -73,6 +74,12 @@ def catalog(public_url: str) -> dict[str, Any]:
                 "name": "Exclusion / proof of spend",
                 "manifest": f"{base}/.well-known/exclusion.json",
                 "law": "Spent leaf in Gate's map. Absence is bypass evidence, not metaphysical non-event.",
+            },
+            {
+                "spec": "gate-prefinality-reconstruction-v1",
+                "name": "Prefinality reconstruction-as-law",
+                "manifest": f"{base}/.well-known/prefinality-reconstruction.json",
+                "law": "Clear ⇔ Reconstruct = presented ∧ LIVE. Possession of GO is not finality.",
             },
         ],
         "their_production": False,

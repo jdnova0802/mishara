@@ -225,6 +225,11 @@ except ImportError:
     import inventions as inventions_mod
 
 try:
+    from gate import prefinality_recon as prefinality_recon_mod
+except ImportError:
+    import prefinality_recon as prefinality_recon_mod
+
+try:
     from gate import restraint as restraint_mod
 except ImportError:
     import restraint as restraint_mod
@@ -2412,6 +2417,56 @@ def well_known_prefinality():
     spec = prefinality_mod.manifest(advertised_url())
     spec["rtp_adapter"] = rtp_adapter_mod.spec(advertised_url())
     return jsonify(spec)
+
+
+@app.route("/.well-known/prefinality-reconstruction.json")
+def well_known_prefinality_reconstruction():
+    return jsonify(prefinality_recon_mod.manifest(advertised_url()))
+
+
+def _prefinality_reconstruct_view(*, demo: bool = False):
+    raw = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(raw)
+    if blocked:
+        return blocked, 400
+    body = raw if isinstance(raw, dict) else {}
+    fuse_id = (body.get("fuse_id") or (body.get("mandate") or {}).get("fuse_id") or "").strip() or None
+    require_fuse = bool(body.get("require_fuse")) if "require_fuse" in body else bool(fuse_id)
+    result = prefinality_recon_mod.clear(
+        rail=str(body.get("rail") or ""),
+        transfer=body.get("transfer") if isinstance(body.get("transfer"), dict) else {},
+        receipt=str(body.get("receipt") or body.get("token") or "") or None,
+        boundary=str(body.get("boundary") or prefinality_recon_mod.BOUNDARY_PAYOUT),
+        payout_id=str(body.get("payout_id") or "") or None,
+        fuse_id=fuse_id,
+        license_id=str(body.get("license_id") or "") or None,
+        job_id=str(body.get("job_id") or "") or None,
+        presented_fingerprint=str(body.get("fingerprint") or "") or None,
+        fuse_lookup=_sink_fuse_lookup if (require_fuse and fuse_id) else None,
+        welded=bool(body.get("welded") or body.get("closed_world")),
+        require_fuse=require_fuse,
+    )
+    if demo and isinstance(result, dict):
+        result["demo"] = True
+        bound.attach(result, 200 if result.get("clear") else 403, demo=True)
+    code = 200 if result.get("clear") else 403
+    return result, code
+
+
+@app.route("/demo/prefinality/reconstruct", methods=["POST"])
+def demo_prefinality_reconstruct():
+    _, err = _demo_gate()
+    if err:
+        return err
+    data, code = _prefinality_reconstruct_view(demo=True)
+    return jsonify(data), code
+
+
+@app.route("/v1/prefinality/reconstruct", methods=["POST"])
+@metered_api(count_usage=False)
+def prefinality_reconstruct():
+    data, code = _prefinality_reconstruct_view(demo=False)
+    return jsonify(data), code
 
 
 @app.route("/.well-known/prefinality-jwks.json")

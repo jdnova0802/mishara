@@ -144,6 +144,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "finality_sink": f"{public_url}/.well-known/finality-sink.json",
             "dual_charge": f"{public_url}/.well-known/dual-charge.json",
             "register_bill": f"{public_url}/.well-known/register-bill.json",
+            "prefinality_reconstruction": f"{public_url}/.well-known/prefinality-reconstruction.json",
             "settlement_write": f"{public_url}/v1/settlement/window/open",
             "overrides_killed": True,
         },
