@@ -27,6 +27,11 @@ HUSTLE 2 — Bind Room
   Price:  **$1,750** due now (hands cap ~4/mo)
   Targets: carriers · MGAs · bind desks
   Path:   pack → (later) binder → BIND → standing write
+  Monthly ranges (H2 alone):
+    Quiet:   ~$0–$1.75k   (0–1 pack)
+    Base:    ~$3.5k–$7k   (2–4 packs @ $1,750)
+    Strong:  ~$7k–$10k    (near cap + repeat desks / small upsells)
+    Note:    hard ceiling ~$7k on packs alone unless retainers/upsells attach
 
 LEAVE ALONE
   Gym bounty/pentest · satellite/commodities/HF pivots · self-bounty grey
@@ -34,12 +39,19 @@ LEAVE ALONE
 ══════════════════════════════════════════════════════════════════
 MONTHLY BANDS (HUSTLES)
 ══════════════════════════════════════════════════════════════════
-H1 base:     ~$8k–$15k
-H2 base:     ~$3.5k–$7k (2–4 packs)
-Both base:   ~$12k–$22k
-Strong:      ~$15k–$25k
-Hot:         ~$30k–$50k (retainer + stacking)
-God month:   ~$50k–$100k (incident spike — not normal)
+H1 alone:
+  Base:    ~$8k–$15k
+  Strong:  ~$15k–$25k
+  Hot:     ~$30k–$50k (retainer)
+H2 alone:
+  Quiet:   ~$0–$1.75k
+  Base:    ~$3.5k–$7k
+  Strong:  ~$7k–$10k
+Combined (H1+H2):
+  Base:    ~$12k–$22k
+  Strong:  ~$15k–$25k+
+  Hot:     ~$30k–$50k (H1 retainer + H2 packs)
+  God mo:  ~$50k–$100k (incident spike — not normal)
 
 ══════════════════════════════════════════════════════════════════
 TIMING (THIS CYCLE)
