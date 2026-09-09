@@ -602,6 +602,30 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertIn(b"Officer pack", r.data)
 
+    def test_diligence_surfaces(self):
+        page = self.client.get("/diligence")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(b"irreversible write", page.data)
+        self.assertIn(b"2,500", page.data)
+        offer = self.client.get("/diligence/offer.json")
+        self.assertEqual(offer.status_code, 200)
+        data = offer.get_json()
+        self.assertEqual(data["price"]["deposit"], "$2,500")
+        self.assertIn("/diligence", data["urls"]["page"])
+        one = self.client.get("/diligence/one-pager.txt")
+        self.assertEqual(one.status_code, 200)
+        self.assertIn(b"DEPOSIT", one.data)
+        self.assertEqual(one.content_type.split(";")[0], "text/plain")
+
+    def test_diligence_checkout_dev(self):
+        r = self.client.post(
+            "/diligence/checkout",
+            data={"email": "ops@example.com"},
+            follow_redirects=False,
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertIn("/install/success", r.headers.get("Location", ""))
+
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")
         self.assertEqual(r.status_code, 200)

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Diligence · {{ deposit_price }}{% endblock %}
+{% block meta %}
+<meta name="description" content="Mouth / finality diligence — where can an irreversible write complete without may? {{ deposit_price }} deposit · {{ review_band }} review · 72h.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Diligence · mouth / finality</p>
+  <h1>{{ copy.headline }}</h1>
+  <p class="audience-sub">{{ copy.sub }}</p>
+  <div class="install-price">{{ deposit_price }} <span>deposit · due now</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
+    Full review {{ review_band }} · retainer band {{ retainer_band }} ·
+    <strong>72h</strong> delivery after deposit clears. Prefinality sharpens the same offer when pay-live — it does not rename the firm.
+  </p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    {% if stripe_diligence %}
+    <form method="post" action="{{ url_for('diligence_checkout') }}">
+      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <button type="submit" class="btn btn-primary">Pay deposit · {{ deposit_price }}</button>
+    </form>
+    {% elif diligence_payment_link %}
+    <a class="btn btn-primary" href="{{ diligence_payment_link }}" target="_blank" rel="noopener">Pay {{ deposit_price }} (Stripe) →</a>
+    {% else %}
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=DEPOSIT%20%E2%80%94%20mouth%20diligence">Email DEPOSIT · {{ deposit_price }}</a>
+    {% endif %}
+    <a class="btn btn-ghost" href="{{ url_for('diligence_one_pager') }}">One-pager.txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('diligence_offer_json') }}">offer.json</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>What you get</h3>
+      <p>A written map of where your irreversible write can still complete without may — peg-out, withdraw, payout, ACH credit, bind path. The deliverable names the halt gap a stranger can open.</p>
+    </div>
+    <div class="card">
+      <h3>What this is not</h3>
+      <p>Not a pentest gym. Not a governance PDF. Not selling may. Not implementing the rail on this SKU. Production weld is a separate operator path.</p>
+    </div>
+    <div class="card">
+      <h3>Machine-readable</h3>
+      <p><a href="{{ url_for('diligence_offer_json') }}">offer.json</a> · <a href="{{ url_for('diligence_one_pager') }}">one-pager.txt</a></p>
+      <p style="margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem;">Ask: reply <strong>DEPOSIT</strong> — invoice same day.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Honest ceiling</h2>
+    <ul>
+      <li><code>their_production: false</code> until a recorded third-party weld.</li>
+      <li>Deposit starts the clock — review band {{ review_band }} closes the find.</li>
+      <li>Related: <a href="{{ url_for('bind_room') }}">Bind Room</a> (officer pack, separate SKU).</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
