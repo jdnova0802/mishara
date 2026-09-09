@@ -301,7 +301,7 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("Open Gate", consumers)
 
         aos = self.client.get("/.well-known/action-os.json").get_json()
-        self.assertEqual(aos["spec"], "nisaba-action-os-v3")
+        self.assertEqual(aos["spec"], "nisaba-action-os-v4")
         self.assertFalse(aos["holding_company"])
         self.assertIn("not a holding company", aos["what"])
         self.assertIn("DENY", aos["formula"])
@@ -1455,7 +1455,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         aos = self.client.get("/.well-known/action-os.json")
         self.assertEqual(aos.status_code, 200)
         aos_data = aos.get_json()
-        self.assertEqual(aos_data["spec"], "nisaba-action-os-v3")
+        self.assertEqual(aos_data["spec"], "nisaba-action-os-v4")
         self.assertFalse(aos_data["holding_company"])
         self.assertIn("not a holding company", aos_data["what"])
         self.assertIn("everybody", aos_data["thesis"].lower())

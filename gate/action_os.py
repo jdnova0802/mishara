@@ -23,13 +23,14 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-SPEC = "nisaba-action-os-v3"
+SPEC = "nisaba-action-os-v4"
 INVENTOR = "Nisaba LLC"
 
 WHAT = (
     "Nisaba LLC is the Action OS company — not a holding company. "
     "We own permission on irreversible acts for any power that needs it. "
-    "Scarcity is the DENY — the halt that holds — not the story about the halt."
+    "Scarcity is the DENY — the halt that holds — not the story about the halt. "
+    "Prefinality is reconstruction-as-law inside Nisaba — not a sister company."
 )
 
 FORMULA = (
@@ -107,7 +108,7 @@ FAMILY = (
     {
         "name": "Gate",
         "question": "Does the irreversible write complete?",
-        "rail": "mouth · /v1/act · CHARGE · weld",
+        "rail": "mouth · /v1/act · CHARGE · weld · Prefinality reconstruct",
         "url": None,  # filled with public_url
     },
     {
@@ -137,8 +138,10 @@ INTEGRITY = (
     "Stranger verify without login — exterior audit of the mouth",
     "One exclusive door per weld — no bypass UI / renewal / second write",
     "Fail closed on DEAD / timeout / 5xx — never treat UNREACHABLE as LIVE",
+    "Clear ⇔ reconstruct at the boundary — presented ∧ LIVE; no Clear ⇒ no release",
     "their_production stays false until a real production weld exists",
     "Force/battlefield doors stay unclaimed until welded — category ≠ costume",
+    "No second brand for time, ACI, Prefinality, or bypass",
 )
 
 NOT = (
@@ -150,6 +153,7 @@ NOT = (
     "Battlefield marketing without a force-path weld",
     "Scarcity as storytelling — DENY that does not hold",
     "A holding company that only owns other companies and sells nothing",
+    "A Prefinality startup beside Nisaba — same firm, same mouth",
 )
 
 OPERATIONAL = (
