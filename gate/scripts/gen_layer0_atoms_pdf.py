@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Layer-0 atoms study PDF + refresh index entry."""
+"""Layer-0 mega glossary: elementary plain, every fancy word defined."""
 
 from pathlib import Path
 
@@ -35,11 +35,11 @@ class StudyPDF(FPDF):
     def __init__(self, short_label: str):
         super().__init__(format="Letter")
         self.short_label = short_label
-        self.set_auto_page_break(auto=True, margin=18)
-        self.set_margins(18, 16, 18)
+        self.set_auto_page_break(auto=True, margin=16)
+        self.set_margins(16, 14, 16)
 
     def footer(self):
-        self.set_y(-14)
+        self.set_y(-12)
         self.set_font("Helvetica", size=8)
         self.set_text_color(80, 80, 80)
         self.cell(0, 8, f"Nisaba LLC  |  study document  |  {self.page_no()}", align="C")
@@ -49,57 +49,58 @@ class StudyPDF(FPDF):
             return
         self.set_font("Helvetica", size=8)
         self.set_text_color(90, 90, 90)
-        self.cell(0, 6, self.short_label, align="L")
-        self.ln(8)
+        self.cell(0, 5, self.short_label, align="L")
+        self.ln(6)
         self.set_text_color(0, 0, 0)
 
-    def _mc(self, text: str, h: float = 5):
+    def _mc(self, text: str, h: float = 4.5):
         self.multi_cell(0, h, ascii(text), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
     def title_block(self, title: str, blurb: str, source: str):
         self.add_page()
-        self.set_font("Helvetica", "B", 16)
-        self._mc(title, 7)
-        self.ln(2)
-        self.set_font("Helvetica", size=10)
-        self._mc(blurb)
+        self.set_font("Helvetica", "B", 15)
+        self._mc(title, 6.5)
         self.ln(1)
-        self.set_font("Helvetica", "I", 9)
+        self.set_font("Helvetica", size=9.5)
+        self._mc(blurb)
+        self.ln(0.5)
+        self.set_font("Helvetica", "I", 8.5)
         self.set_text_color(70, 70, 70)
         self._mc(source)
         self.set_text_color(0, 0, 0)
-        self.ln(3)
+        self.ln(2)
 
     def section(self, text: str):
         self.ln(1)
         self.set_font("Helvetica", "B", 11)
-        self._mc(text, 6)
-        self.ln(1)
-        self.set_font("Helvetica", size=10)
+        self._mc(text, 5.5)
+        self.ln(0.5)
+        self.set_font("Helvetica", size=9.5)
 
     def para(self, text: str):
-        self.set_font("Helvetica", size=10)
+        self.set_font("Helvetica", size=9.5)
         self._mc(text)
-        self.ln(1)
+        self.ln(0.5)
 
     def bullets(self, items):
-        self.set_font("Helvetica", size=10)
+        self.set_font("Helvetica", size=9.5)
         for item in items:
             self._mc(f"- {item}")
-        self.ln(1)
+        self.ln(0.5)
 
-    def atom(self, word: str, definition: str, example: str = ""):
-        self.set_font("Helvetica", "B", 10)
+    def atom(self, word: str, kid: str, strict: str = "", example: str = ""):
+        self.set_font("Helvetica", "B", 9.5)
         self._mc(word)
-        self.set_font("Helvetica", size=10)
-        self._mc(definition)
+        self.set_font("Helvetica", size=9.5)
+        self._mc(f"Kid: {kid}")
+        if strict:
+            self._mc(f"Strict: {strict}")
         if example:
-            self.set_font("Helvetica", "I", 9)
-            self.set_text_color(50, 50, 50)
+            self.set_font("Helvetica", "I", 8.5)
+            self.set_text_color(55, 55, 55)
             self._mc(f"Example: {example}")
             self.set_text_color(0, 0, 0)
-            self.set_font("Helvetica", size=10)
-        self.ln(1)
+        self.ln(0.8)
 
 
 def write_pdf(filename: str, short: str, build) -> Path:
@@ -115,277 +116,716 @@ def write_pdf(filename: str, short: str, build) -> Path:
 
 def build_18(pdf: StudyPDF):
     pdf.title_block(
-        "Layer 0 Atoms - Every Word From Scratch",
-        "Surgery on atoms. If a later doc uses a word, this page owns its definition. No tribal vocabulary. Middle-school plain, clearance-strict.",
-        "Source: Layer-0 glossary for the Action OS mouth. Read this before 01-17 when jargon feels hollow.",
+        "Layer 0 Glossary - Every Fancy Word, Kid-Plain",
+        "If a word shows up anywhere in the study pack, it must be here. "
+        "Kid line first (elementary). Strict line second (clearance-accurate). "
+        "No tribal leftovers. Missing word = bug in this doc, not in you.",
+        "Source: Master glossary for Action OS / Gate. Read before 01-17. Replaces thin atom sheets.",
     )
 
-    pdf.section("What Layer 0 means")
+    pdf.section("How to use")
     pdf.para(
-        "Layer 0 = the smallest real thing a word points at. Not 'sounds smart in a room.' Not Jensen-layer (using tools). Atom-layer: you can define it, give one money example, and say what must happen in the world."
-    )
-    pdf.para(
-        "Rule: if you cannot define it without using another undefined Gate word, you do not own it yet. Come back here."
-    )
-
-    pdf.section("The world (before Gate words)")
-    pdf.atom(
-        "Change",
-        "Something becomes different than it was.",
-        "A balance goes from $1000 to $0.",
-    )
-    pdf.atom(
-        "Act / write",
-        "A specific change a system tries to make. In Gate talk, 'write' means the change that gets recorded or sent - especially money leaving, a policy binding, a release.",
-        "POST that releases a payout. Button that wires funds.",
-    )
-    pdf.atom(
-        "Reversible",
-        "You can undo the change cheaply and fully (draft email, unsaved form).",
-    )
-    pdf.atom(
-        "Irreversible",
-        "You cannot undo it cheaply or fully. The world has moved. Money left. Policy bound. Harm done.",
-        "Wire sent. Peg out. Bind issued. Agent tool spent.",
-    )
-    pdf.atom(
-        "Permission",
-        "It is allowed to complete - not merely possible.",
-    )
-    pdf.atom(
-        "Proof",
-        "Evidence another person can check without trusting your story alone.",
-    )
-
-    pdf.section("Can vs may (two atoms people mix up)")
-    pdf.atom(
-        "can",
-        "The system is able to do the write. Keys exist. API works. Agent has the tool. Ability.",
-        "Payroll software can send every employee a wire today.",
-    )
-    pdf.atom(
-        "may",
-        "The write is allowed to complete under live authority, policy, and proof. Permission.",
-        "Only this payout, for this person, under this approval, right now, may leave.",
+        "1) Read the kid line out loud. 2) Check the strict line. 3) Give the example from memory. "
+        "If you need another Gate word to explain it, that other word is not owned yet - look it up here first."
     )
     pdf.para(
-        "Law in plain words: being able to do it is not the same as being allowed to do it. can != may."
+        "Story seed: A computer can press 'send money.' That does not mean it is allowed. "
+        "Some sends cannot be undone like taking back a spilled cup of juice. "
+        "Gate is the grown-up at the door who says stop or go - and keeps a note a stranger can read."
     )
 
-    pdf.section("Stop / go words (this is where DENY lives)")
+    # ---- WORLD ----
+    pdf.section("A. The world (before company words)")
     pdf.atom(
-        "DENY",
-        "DEFINITION: The irreversible write must not complete. The system stops that path. It does not quietly succeed. DENY is a real halt on the write - not a mood, not a meeting, not a red UI badge with a side door still open.",
-        "Payout release is refused. Money stays. A receipt says the halt happened.",
+        "change",
+        "Something is different than before.",
+        "A state transition in the world or in a system.",
+        "Account had $10. Now it has $0.",
     )
     pdf.atom(
-        "What DENY is not",
-        "Not 'we talked about risk.' Not 'dashboard shows red while another API still pays.' Not 'soft no' that becomes yes under pressure. If the write can still finish, you did not DENY.",
+        "act / write",
+        "A specific thing the computer tries to do that changes the world.",
+        "A concrete operation that mutates state - especially money leave, bind, release.",
+        "Clicking 'release payout' / POST that sends the wire.",
     )
     pdf.atom(
-        "HOLD",
-        "Pause for more check or human review. Not a full Clear. Not a silent yes. The write does not complete while HOLD is in force.",
+        "side effect",
+        "The real-world leftover of an act - not just words on a screen.",
+        "An observable external consequence of executing a write.",
+        "Money left the account; a policy became bound.",
     )
     pdf.atom(
-        "ALLOW / GO / LIVE permit",
-        "Signals that permission conditions are currently met for this path - still not the same as the money already leaving (see clearance vs execution).",
+        "reversible",
+        "You can undo it easily, like erasing pencil.",
+        "Change can be cheaply and fully undone.",
+        "Editing a draft email you never sent.",
     )
     pdf.atom(
-        "halt",
-        "Stop processing this write path now. Closely tied to DENY under uncertainty or refusal.",
+        "irreversible",
+        "You cannot undo it easily. The juice already spilled.",
+        "Change cannot be cheaply/fully undone; cost of reverse is high or impossible.",
+        "Wire already sent. Peg out. Bind issued. Harm done.",
     )
     pdf.atom(
-        "fail-closed",
-        "If we are unsure, broken, timed out, or missing proof: DENY / halt. Never treat 'we couldn't check' as yes.",
-        "Velaru does not answer -> stop the write. Do not guess LIVE.",
+        "irreversibility",
+        "The property of being one-way / hard to undo. The whole point of why we need a door.",
+        "The constraint class Gate sits on: acts whose completion has lasting, hard-to-reverse effects.",
+        "Once money left, 'sorry' does not put it back for free.",
     )
     pdf.atom(
-        "soft-yes",
-        "A fake allow: panic, politeness, or broken check treated as permission. This is the failure mode fail-closed exists to kill.",
-    )
-
-    pdf.section("Authority states")
-    pdf.atom(
-        "LIVE",
-        "The fuse / authority for this path is currently on - the write is allowed to be considered for completion under the mouth's rules.",
+        "finality",
+        "The moment the change is basically done-for-real.",
+        "The commit point after which the write is treated as completed/settled.",
+        "Payment credited; transfer finished.",
     )
     pdf.atom(
-        "DEAD",
-        "The fuse / authority is off. The irreversible write must not complete.",
+        "effectuation",
+        "The exact moment the system actually makes the irreversible thing happen.",
+        "The boundary where clearance must still be real as the write completes.",
+        "Right before the wire fires - not yesterday's green sticker.",
     )
     pdf.atom(
-        "CHARGE",
-        "The only allowed way to turn DEAD back into LIVE. Not a dashboard flip. Not 'admin said okay in Slack.' A real regime-change packet the system accepts.",
+        "permission",
+        "Allowed - not just possible.",
+        "Normative authorization under live authority, policy, and proof.",
     )
     pdf.atom(
-        "fuse",
-        "The live/dead switch object for a path - the thing you hop/check before acting.",
-    )
-
-    pdf.section("Clearance vs execution (two different jobs)")
-    pdf.atom(
-        "clearance",
-        "A decision that the write may proceed (permission check). Clearance answers: is this allowed right now?",
+        "authority",
+        "Who/what is allowed to say the path is on or off.",
+        "The controlling power that can grant or revoke may for a path.",
     )
     pdf.atom(
-        "execution",
-        "Actually doing the irreversible write (money moves, bind commits, release fires).",
+        "policy",
+        "The rules that say what is allowed.",
+        "Machine-checkable constraints (caps, counterparties, intents) on a write.",
     )
     pdf.atom(
-        "write_executed",
-        "A flag meaning the irreversible write really ran. On Gate's clearance path this stays false - Gate is the mouth that permits or denies, not the wire itself.",
-    )
-    pdf.atom(
-        "exclusive edge / weld / worker",
-        "The one door that is allowed to run the write after a valid permit. If another door can still write, the mouth is fake.",
-    )
-    pdf.para(
-        "Law in plain words: saying yes is not the same as money leaving. clearance != execution."
-    )
-
-    pdf.section("Clear and reconstruct")
-    pdf.atom(
-        "Clear (as a noun/event)",
-        "At the moment that matters (before finality), permission is real: the proof matches what was presented AND authority is LIVE. Clear is not a vibe.",
-    )
-    pdf.atom(
-        "reconstruct",
-        "A stranger can rebuild and check the proof - not take your word. If it cannot be rebuilt, it is not Clear.",
+        "proof",
+        "Something another kid can check - not 'because I said so.'",
+        "Evidence a third party can verify without trusting your narrative alone.",
     )
     pdf.atom(
         "receipt",
-        "A checkable record of what was decided or what was halted.",
+        "A note of what was decided or stopped.",
+        "Checkable record of a decision/halt bound to what was asked.",
     )
     pdf.atom(
-        "stranger-openable",
-        "Someone outside your team can open the proof without logging into your story.",
-    )
-    pdf.para(
-        "Law in plain words: Clear means you can rebuild the proof and it is still LIVE. Clear <=> reconstruct."
+        "invariant",
+        "A rule that must always stay true - like 'never leave the stove on.'",
+        "A property that must hold on every path (e.g. write_executed false on Gate clearance).",
     )
 
-    pdf.section("Money / honesty atoms")
+    # ---- CAN MAY ----
+    pdf.section("B. Can vs may")
     pdf.atom(
-        "mouth",
-        "The place permission sits on the irreversible write - the door between can and may.",
+        "can",
+        "Able to do it. The button works. The keys exist.",
+        "Capability: the system is able to perform the write.",
+        "Payroll software can wire everyone today.",
     )
     pdf.atom(
-        "scarcity (for Nisaba)",
-        "The valuable thing is a DENY that holds - not a speech about safety.",
+        "may",
+        "Allowed to do it right now under the rules.",
+        "Permission: write may complete under live authority, policy, and proof.",
+        "Only this payout, this person, this approval, now.",
+    )
+    pdf.atom(
+        "can != may",
+        "Able is not allowed. Biggest law in kid words.",
+        "Ability is not permission. Diligence finds where can still completes without may.",
+    )
+    pdf.atom(
+        "justified",
+        "There is a good enough reason under the rules - not a vibe.",
+        "Epistemic/policy adequacy to allow irreversible commitment.",
+    )
+    pdf.atom(
+        "bypass",
+        "A sneaky second door that skips the stop sign.",
+        "Any alternate path that completes the write without the mouth's permit.",
+        "Admin UI that pays while Gate says DEAD.",
+    )
+
+    # ---- STOP GO ----
+    pdf.section("C. Stop / go words")
+    pdf.atom(
+        "DENY",
+        "STOP. The dangerous send must not finish. Money stays.",
+        "The irreversible write must not complete; the path halts with no quiet success. Not a mood; not a badge with another door open.",
+        "Payout refused; receipt shows the halt.",
+    )
+    pdf.atom(
+        "HOLD",
+        "Pause. Wait for a grown-up check. Not yes.",
+        "Defer completion pending review; write does not complete while HOLD is in force.",
+    )
+    pdf.atom(
+        "ALLOW / GO / ACT (signal yes)",
+        "Conditions look okay to proceed - still not the same as money already gone.",
+        "Permission signal that path may proceed under current checks; distinct from execution.",
+    )
+    pdf.atom(
+        "NO_GO",
+        "Prefinality's hard no - do not sign/send.",
+        "Evaluate decision: fail closed; do not commit the transfer.",
+    )
+    pdf.atom(
+        "BLOCK",
+        "Velaru-style: proof rail says no / blocked.",
+        "Proof/fuse rail refusal (ALLOW/BLOCK language on Velaru).",
+    )
+    pdf.atom(
+        "halt",
+        "Stop this path now.",
+        "Abort processing of the write path; typically paired with DENY under uncertainty/refusal.",
+    )
+    pdf.atom(
+        "fail-closed",
+        "If unsure or broken: STOP. Never guess yes.",
+        "Uncertainty/timeout/missing proof => DENY/halt. Unreachable is not LIVE.",
+        "Velaru silent -> stop write.",
+    )
+    pdf.atom(
+        "fail-open",
+        "If unsure: let it through (dangerous for money).",
+        "Uncertainty treated as allow - the failure mode Gate refuses.",
+    )
+    pdf.atom(
+        "soft-yes",
+        "Fake yes from panic, manners, or a broken check.",
+        "Treating politeness/panic/broken verification as permission.",
+    )
+    pdf.atom(
+        "UNREACHABLE",
+        "We could not talk to the checker - so we STOP, we do not invent LIVE.",
+        "Upstream/timeout state that must fail closed.",
+    )
+
+    # ---- STATES ----
+    pdf.section("D. On/off authority")
+    pdf.atom(
+        "LIVE",
+        "The switch is ON for this path.",
+        "Fuse/authority currently on; write may be considered under mouth rules.",
+    )
+    pdf.atom(
+        "DEAD",
+        "The switch is OFF. Dangerous send must not finish.",
+        "Fuse/authority off; irreversible write must not complete.",
+    )
+    pdf.atom(
+        "CHARGE",
+        "The only special key that turns OFF back to ON.",
+        "Sole allowed regime-change DEAD -> LIVE. Not dashboard flip. Not Slack okay.",
+    )
+    pdf.atom(
+        "fuse",
+        "The ON/OFF object you check before acting.",
+        "Authority object hopped/looked up for LIVE/DEAD/verdict.",
+    )
+    pdf.atom(
+        "hop",
+        "Ask the fuse right now: are we LIVE?",
+        "A check/request against the fuse engine for current verdict/state.",
+    )
+    pdf.atom(
+        "verdict",
+        "The yes/no answer from the fuse check.",
+        "Boolean/result from hop used in clearance decisions.",
+    )
+    pdf.atom(
+        "quorum",
+        "More than one required yes - not one buddy alone.",
+        "Structured multi-party/policy requirement for LIVE; not charismatic single key.",
+    )
+    pdf.atom(
+        "webhook",
+        "A computer calls your computer when something happens (like CHARGE arrives).",
+        "HTTP callback delivering an event to your system.",
+    )
+
+    # ---- CLEARANCE EXEC ----
+    pdf.section("E. Saying yes vs doing the thing")
+    pdf.atom(
+        "clearance",
+        "Permission check: 'Are we allowed right now?'",
+        "Decision that the write may proceed; not the write itself.",
+    )
+    pdf.atom(
+        "execution",
+        "Actually doing the irreversible thing.",
+        "Performing the write (money moves, bind commits, release fires).",
+    )
+    pdf.atom(
+        "clearance != execution",
+        "Teacher saying 'you may leave' is not the same as you already left the building.",
+        "Gate may permit; exclusive edge executes. write_executed false on Gate clearance.",
+    )
+    pdf.atom(
+        "write_executed",
+        "Flag: the irreversible thing really ran.",
+        "Boolean that the side effect completed. Must stay false on Gate clearance path.",
+    )
+    pdf.atom(
+        "acted / clearance_allows",
+        "Gate's 'you may proceed' signal - still not money gone.",
+        "Clearance permit fields; must not be confused with write_executed.",
+    )
+    pdf.atom(
+        "mouth",
+        "The door between 'can' and 'may' on the dangerous act.",
+        "Permission seat on the irreversible write.",
+    )
+    pdf.atom(
+        "exclusive edge / exclusive door",
+        "The only door allowed to do the real send after permit.",
+        "Single non-bypassable execution path after valid clearance.",
+    )
+    pdf.atom(
+        "weld",
+        "Bolting that exclusive door onto a real path so it cannot be skipped.",
+        "Binding the mouth onto a concrete irreversible write path with no side door.",
+    )
+    pdf.atom(
+        "worker (Cloudflare worker)",
+        "A tiny program that stands in front of the real website/action and checks Gate first.",
+        "Edge compute that asks /v1/act before fetch/origin; may set write-executed after success.",
+    )
+    pdf.atom(
+        "origin",
+        "The real place that does the action after the door says okay.",
+        "Upstream service/request that performs the side effect after permit.",
+    )
+
+    # ---- CLEAR ----
+    pdf.section("F. Clear, Prefinality, reconstruct")
+    pdf.atom(
+        "Clear",
+        "At the important moment, permission is real and checkable - not a sticker.",
+        "At effectuation: proof reconstructs as presented AND authority is LIVE.",
+    )
+    pdf.atom(
+        "reconstruct",
+        "A stranger can rebuild and check the proof.",
+        "Independent rebuild/verify of presented evidence; required for Clear.",
+    )
+    pdf.atom(
+        "Clear <=> reconstruct",
+        "If you cannot rebuild it, it is not Clear.",
+        "Biconditional: Clear iff reconstructable presented proof AND LIVE.",
+    )
+    pdf.atom(
+        "Prefinality",
+        "Check GO/NO_GO before the irreversible finish line.",
+        "Doctrine/machinery inside Gate: evaluate before finality; not a sister company.",
+    )
+    pdf.atom(
+        "PRI (pre-irreversibility inhibition)",
+        "Build the STOP into the machine before the one-way act finishes.",
+        "Architectural restraint: execute iff LIVE and justified; else DENY; CHARGE-only reopen.",
+    )
+    pdf.atom(
+        "evaluate",
+        "Ask Prefinality for GO/NO_GO/HOLD on this transfer.",
+        "API/function that returns decision + receipt bound to transfer fingerprint.",
+    )
+    pdf.atom(
+        "verify",
+        "Check that a receipt/proof is real and still valid.",
+        "Validation path for receipt/JWT/fuse proof a stranger can use.",
+    )
+    pdf.atom(
+        "fingerprint",
+        "A unique stamp of exactly which write was approved.",
+        "Hash over canonical fields of the write/transfer so tickets cannot authorize a different act.",
+    )
+    pdf.atom(
+        "JWT / signed receipt",
+        "A sealed note the computer signed so others can check it was not forged.",
+        "Cryptographically signed token/receipt bound to decision + fingerprint + expiry.",
+    )
+    pdf.atom(
+        "TTL",
+        "Time limit - after that, the ticket/note is too old.",
+        "Time-to-live; expired grants must not spend.",
+    )
+    pdf.atom(
+        "rail",
+        "Which payment/transfer track (like different train lines).",
+        "Adapter class for finality (e.g. x402 agent wallet, rtp instant fiat).",
+    )
+    pdf.atom(
+        "x402",
+        "A rail where an agent wallet might sign - check before sign.",
+        "Prefinality adapter: before_wallet_sign style hook.",
+    )
+    pdf.atom(
+        "RTP / instant fiat rail",
+        "Fast bank-like credit path - check before the payment order.",
+        "Prefinality adapter before payment_order / FedNow-class credit.",
+    )
+    pdf.atom(
+        "mandate",
+        "The rules packet for this transfer (caps, expected payee, etc.).",
+        "Policy inputs to evaluate (max_amount, expected counterparty, ceilings).",
+    )
+
+    # ---- TICKETS ----
+    pdf.section("G. Married write / tickets")
+    pdf.atom(
+        "married write",
+        "Permission glued to one exact action - not a free pass for anything.",
+        "Authorization bound to one spend fingerprint (method+path+job+kind).",
+    )
+    pdf.atom(
+        "ticket",
+        "A short, one-time permission slip for that exact action.",
+        "Short-lived single-use grant redeemable only for the fingerprinted write.",
+    )
+    pdf.atom(
+        "redeem",
+        "Use up the ticket while showing the same action.",
+        "Atomic consume of ticket presenting matching write; fail closed on mismatch/replay/stale.",
+    )
+    pdf.atom(
+        "single-use",
+        "One time only. Replay is cheating.",
+        "Ticket cannot be successfully redeemed twice.",
+    )
+    pdf.atom(
+        "stale hop / museum hop",
+        "An old 'yes' that can no longer spend - like yesterday's hall pass.",
+        "Prior LIVE/hop without fresh ticket cannot authorize spend; demo/old hop is museum.",
     )
     pdf.atom(
         "museum",
-        "A demo or old hop that looks real but cannot spend / cannot authorize the live write anymore.",
+        "Looks real, cannot authorize the live dangerous send anymore.",
+        "Demo or expired hop/proof without spend power.",
+    )
+    pdf.atom(
+        "TOCTOU (time gap bug) - plain",
+        "Checked okay at time A, did something else dangerous at time B.",
+        "Time-of-check to time-of-use gap; married tickets exist to close it.",
+    )
+    pdf.atom(
+        "license fuse / parent LIVE",
+        "If the parent permission dies, kids cannot outlive it.",
+        "Parent authority must be LIVE; children_cannot_outlive_parent.",
+    )
+
+    # ---- COMPANY ----
+    pdf.section("H. Company / family / honesty")
+    pdf.atom(
+        "Nisaba / Action OS",
+        "The company that sits on permission for irreversible acts.",
+        "Firm whose scarcity is DENY that holds + stranger-openable receipt - not narrative.",
+    )
+    pdf.atom(
+        "Gate",
+        "The mouth: does the irreversible write complete?",
+        "Clearance mouth (/v1/act, CHARGE, weld) - clearance not execution.",
+    )
+    pdf.atom(
+        "Erra",
+        "Should we act? Signal ACT/HOLD.",
+        "Signal rail in the family map.",
+    )
+    pdf.atom(
+        "Velaru",
+        "Did we commit correctly? Proof ALLOW/BLOCK + fuse/verify.",
+        "Proof rail; stranger verify surface.",
+    )
+    pdf.atom(
+        "Verra",
+        "Did both rails clear before bind?",
+        "Action-session rail.",
+    )
+    pdf.atom(
+        "Mishara",
+        "Was a person harmed?",
+        "Consumer harm path rail.",
+    )
+    pdf.atom(
+        "scarcity (Nisaba)",
+        "The valuable thing is a real STOP that holds - not a speech.",
+        "Product scarcity = DENY/DEAD that holds, not storytelling.",
+    )
+    pdf.atom(
+        "stranger-openable",
+        "Someone outside your team can open the proof.",
+        "Verification without logging into your narrative/trust boundary.",
     )
     pdf.atom(
         "their_production",
-        "Honesty flag: true only when a real third party's irreversible path is exclusively welded. False means demos are demos.",
+        "Honesty bit: only true when a real customer's path is exclusively welded.",
+        "False until third-party exclusive production weld recorded; demos stay demos.",
     )
     pdf.atom(
-        "diligence (SKU)",
-        "Paid find: where can the irreversible write still complete without may. Deposit money for a written map - not a weld.",
+        "dogfood",
+        "You try your own product on yourself first.",
+        "First-party weld/record that lifts readiness but does not flip their_production.",
     )
     pdf.atom(
-        "Bind Room (SKU)",
-        "Paid examiner artifacts / stranger-openable halt evidence pack - not a weld.",
+        "cosplay",
+        "Dressing up like production/clearance without the real door.",
+        "Claiming force/production/contracts without weld/receipts.",
+    )
+    pdf.atom(
+        "Tier-S / coordinators",
+        "Highest serious continuity rooms - we contribute mouth, we do not own their guns.",
+        "Contribution altitude under global coordinators; no monopoly ownership claims.",
+    )
+    pdf.atom(
+        "C2",
+        "Command-and-control of force systems - state monopoly; we are not that.",
+        "Military/state command layer; out of ownership scope.",
+    )
+    pdf.atom(
+        "driver node vs hub",
+        "Hold the real lever on the act - not the busy billboard.",
+        "Controllability: weld irreversible edges; hub dashboards are not drivers.",
     )
 
-    pdf.section("Family questions (only after atoms above)")
-    pdf.bullets(
-        [
-            "Erra: Should we act? (signal)",
-            "Velaru: Did we commit correctly? (proof / fuse)",
-            "Gate: Does the irreversible write complete? (mouth)",
-            "Verra: Did both rails clear before bind?",
-            "Mishara: Was a person harmed?",
-        ]
+    # ---- MONEY SKUS ----
+    pdf.section("I. Money faces / SKUs")
+    pdf.atom(
+        "SKU",
+        "A named thing you sell with a price.",
+        "Sellable product unit.",
+    )
+    pdf.atom(
+        "diligence",
+        "Paid homework: find where dangerous sends can still happen without may.",
+        "$2,500 deposit SKU - written may-gap find; not a weld.",
+    )
+    pdf.atom(
+        "deposit / DEPOSIT ask",
+        "Money due now to start the paid find.",
+        "Upfront payment that triggers diligence delivery clock.",
+    )
+    pdf.atom(
+        "Bind Room",
+        "Paid pack of examiner papers + halt proof links.",
+        "$1,750 SKU - officer pack + stranger-openable halt appendix; not a weld.",
+    )
+    pdf.atom(
+        "operator / register",
+        "Human doors to commit/weld or register infrastructure fees.",
+        "Surfaces for weld checkout and non-SaaS fee registration.",
+    )
+    pdf.atom(
+        "bps",
+        "Tiny fee slices (basis points) - pricing for authority dissipation, not SaaS seats.",
+        "Basis points on flow; infrastructure fee framing.",
+    )
+    pdf.atom(
+        "Clear (quit trigger sense)",
+        "Paid diligence or Bind money that actually cleared - not a polite reply.",
+        "External receipt of paid SKU; replies are not Clear.",
     )
 
-    pdf.section("Retrieval drill (blank page)")
-    pdf.bullets(
-        [
-            "Define DENY without saying 'deny.'",
-            "Give one money example of can without may.",
-            "Why is fail-closed not the same as being mean?",
-            "What alone turns DEAD into LIVE?",
-            "Why can Gate say yes and money still not leave?",
-            "What makes Clear different from a green sticker?",
-        ]
+    # ---- SYSTEMS LITERACY ----
+    pdf.section("J. Computer words used in the pack")
+    pdf.atom(
+        "API",
+        "A menu of things one computer lets another computer ask for.",
+        "Application programming interface - machine-callable operations.",
+    )
+    pdf.atom(
+        "HTTP",
+        "How browsers/servers send asks and answers.",
+        "Request/response protocol on the web.",
+    )
+    pdf.atom(
+        "GET",
+        "Please show/read this.",
+        "HTTP method for read/retrieve.",
+    )
+    pdf.atom(
+        "POST",
+        "Please do/submit this change.",
+        "HTTP method often used to submit/act.",
+    )
+    pdf.atom(
+        "URL / endpoint / route",
+        "The address of a specific door on the server.",
+        "Path that maps to handler code (/v1/act, /diligence).",
+    )
+    pdf.atom(
+        "JSON",
+        "Structured text computers exchange - keys and values.",
+        "Data format for API bodies.",
+    )
+    pdf.atom(
+        "environment variable",
+        "Secret/settings kept outside the code (keys, public URL).",
+        "Process config/secrets injection; never commit live secrets.",
+    )
+    pdf.atom(
+        "DNS",
+        "Phone book from name to computer address.",
+        "Domain name resolution.",
+    )
+    pdf.atom(
+        "timeout",
+        "Waited too long - treat as broken, fail closed.",
+        "Exceeded wait bound; must not become soft LIVE.",
+    )
+    pdf.atom(
+        "5xx / 4xx / 2xx",
+        "Server broken / you asked wrong / mostly okay.",
+        "HTTP status classes.",
+    )
+    pdf.atom(
+        "PII",
+        "Personal private person info - Gate should refuse holding it on PAS paths.",
+        "Personally identifiable information.",
+    )
+    pdf.atom(
+        "PAS",
+        "Gate's bind/authority paths (policy action side) - still fail closed; no PII dump.",
+        "Product/action surface namespace for bind-ticket style controls.",
+    )
+    pdf.atom(
+        "SPF / DKIM / DMARC",
+        "Email authenticity locks so others cannot easily forge your From address.",
+        "DNS email authentication suite for outbound trust.",
     )
 
-    pdf.section("How to use this with the other PDFs")
+    # ---- BIND ROOM DIALECT ----
+    pdf.section("K. Bind Room buyer dialect (SKU words - not Layer-0 physics)")
     pdf.para(
-        "When 01-10 throw jargon at you, stop. Find the atom here. If the atom is missing, the other doc failed teaching - not you. Layer 0 first. Code dumps (04-07) are reference after you own the atoms."
+        "These appear in doc 08. They are insurance/compliance shop words. "
+        "Learn them as buyer language after atoms - they are not the physics of DENY."
+    )
+    pdf.atom(
+        "SERFF",
+        "A filing system insurers use to submit docs to regulators.",
+        "System for Electronic Rates & Forms Filing - shapes officer pack length/format talk.",
+    )
+    pdf.atom(
+        "NYDFS",
+        "New York financial regulator letters/rules buyers cite.",
+        "NY Department of Financial Services circulars (e.g. board oversight expectations).",
+    )
+    pdf.atom(
+        "ECDIS",
+        "Their phrase for algorithms/tools that can discriminate if badly governed.",
+        "Buyer vocabulary in Section 5 governing principles text.",
+    )
+    pdf.atom(
+        "PolicyCenter",
+        "A common insurance system where bind/issue writes happen.",
+        "Guidewire-class policy admin; hop-before-bind story lives here.",
+    )
+    pdf.atom(
+        "CUO",
+        "Chief Underwriting Officer - senior insurance buyer/exam audience.",
+        "Title often receiving Bind Room packaging.",
+    )
+    pdf.atom(
+        "officer pack / appendix B",
+        "Short official booklet + on-request list of verify links per bind event.",
+        "Bind Room artifact pair examiners take.",
+    )
+
+    # ---- DRILLS ----
+    pdf.section("L. Elementary teach-back (pass/fail)")
+    pdf.bullets(
+        [
+            "What is irreversibility? (one-way / hard to undo)",
+            "What is DENY? (dangerous send must not finish)",
+            "What is can vs may?",
+            "What is clearance vs execution?",
+            "What is Clear? (rebuildable proof + still LIVE at the moment)",
+            "What is a ticket vs a hop?",
+            "What is their_production?",
+            "Pick any fancy word from another PDF and find it here. If missing, that is a bug - tell the agent.",
+        ]
+    )
+    pdf.section("M. Missing-word rule")
+    pdf.para(
+        "This glossary is supposed to be complete for the study pack. "
+        "If you meet a technical/fancy word not defined here, stop. Do not guess from vibes. "
+        "Add it here before continuing. Layer 0 means no mishaps."
     )
 
 
 def build_00(pdf: StudyPDF):
     pdf.add_page()
-    pdf.set_font("Helvetica", "B", 16)
-    pdf._mc("Nisaba Action OS - Study Pack", 7)
-    pdf.ln(2)
-    pdf.set_font("Helvetica", size=10)
-    pdf._mc("Readable study documents for the irreversible-write mouth.")
+    pdf.set_font("Helvetica", "B", 15)
+    pdf._mc("Nisaba Action OS - Study Pack", 6.5)
     pdf.ln(1)
-    pdf.set_font("Helvetica", "I", 9)
+    pdf.set_font("Helvetica", size=9.5)
+    pdf._mc("Teaching docs first. Code dumps quarantined. Glossary is law.")
+    pdf.ln(0.5)
+    pdf.set_font("Helvetica", "I", 8.5)
     pdf.set_text_color(70, 70, 70)
-    pdf._mc("Source: gate/study-pdfs/")
+    pdf._mc("Source: gate/study-pdfs/  |  reference dumps: gate/study-pdfs/reference/")
     pdf.set_text_color(0, 0, 0)
     pdf.ln(2)
-    pdf.section("How to use")
-    pdf.para(
-        "If words feel hollow, start at 18 (Layer 0 atoms). Then retrieve. Cash first (Friday send). Depth in parallel (15-20 min/day)."
+    pdf.set_font("Helvetica", "B", 9)
+    pdf.set_fill_color(240, 240, 240)
+    pdf.multi_cell(
+        0,
+        4.5,
+        ascii(
+            "HARD RULE: Start at 18 (full kid-plain glossary). "
+            "Every fancy word must be defined there - including irreversibility. "
+            "04-07/10 code dumps are REFERENCE ONLY. Cash first (Friday send)."
+        ),
+        new_x=XPos.LMARGIN,
+        new_y=YPos.NEXT,
+        fill=True,
     )
-    pdf.section("The four laws (only after you can define each word)")
-    pdf.bullets(
-        [
-            "can != may",
-            "clearance != execution (write_executed false on Gate clearance)",
-            "CHARGE-only resurrect (DEAD -> LIVE)",
-            "Clear <=> reconstruct (presented AND LIVE)",
-        ]
-    )
-    pdf.section("Document list")
-    pdf.bullets(
-        [
-            "18  Layer 0 atoms - START HERE if jargon is undefined (DENY, LIVE, Clear, ...)",
-            "01  SCIENCE - can/may and Tier-S contribution",
-            "02  Action OS - company nature",
-            "03  Science PRI - formal PRI and first weld",
-            "04  Mouth mechanics - fuse, fail-closed, /v1/act (REFERENCE/code)",
-            "05  Write edge - Cloudflare worker (REFERENCE/code)",
-            "06  Prefinality - Clear before finality (REFERENCE-heavy)",
-            "07  Married write - spend + tickets (REFERENCE/code)",
-            "08  Bind Room - money face",
-            "09  Friday send pack - outbound",
-            "10  Production honesty - their_production",
-            "11  Mouth literacy (NO CODE) - plain teaching after atoms",
-            "12  Code reading for Gate - map literacy",
-            "13  Foundations trunk - layer-1 heart without textbook cosplay",
-            "14  Cash & clearance arithmetic - GENERAL (Gate-tied)",
-            "15  Logic & irreversible acts - GENERAL (Gate-tied)",
-            "16  Read the system - GENERAL (Gate-tied)",
-            "17  Uncertainty lite - GENERAL (Gate-tied)",
-        ]
-    )
-    pdf.section("Suggested path")
-    pdf.bullets(
-        [
-            "Layer-0 path: 18 -> 11 -> 01 -> 02 -> 14 -> 08 -> 09 -> 15 -> 16 -> 17 -> 12 -> then code refs 04-07",
-            "If weak at code: same as above; do not drown in 06/07 until atoms + 11 are blank-page solid",
-        ]
-    )
-    pdf.section("Near-term rule")
-    pdf.para(
-        "Deploy live. Send Friday pack. Quit on clear. Own atoms before jargon. General docs sharpen judgment - they do not replace DEPOSIT asks."
-    )
+    pdf.ln(2)
+    pdf.set_font("Helvetica", "B", 11)
+    pdf._mc("Suggested path", 5.5)
+    pdf.set_font("Helvetica", size=9.5)
+    for item in [
+        "18 (glossary) -> 11 -> 01 -> 02 -> 03 -> 14 -> 08 -> 09 -> 04 -> 05 -> 06 -> 07 -> 10 -> 15-17 -> 12",
+        "If a word is missing from 18, that is a pack bug - expand 18 before guessing",
+    ]:
+        pdf._mc(f"- {item}")
+    pdf.ln(1)
+    pdf.set_font("Helvetica", "B", 11)
+    pdf._mc("Document list", 5.5)
+    pdf.set_font("Helvetica", size=9.5)
+    for item in [
+        "18  Layer 0 glossary - START HERE (elementary + strict)",
+        "11  Mouth literacy",
+        "01-03  Doctrine teaching",
+        "04-07  Mouth teaching (code in reference/)",
+        "08  Bind Room SKU/ops",
+        "09  Friday send pack",
+        "10  Production honesty teaching",
+        "12-17  Map literacy + foundations + general",
+    ]:
+        pdf._mc(f"- {item}")
 
 
 def main():
-    p18 = write_pdf("18-layer-0-atoms.pdf", "18 Layer 0 atoms", build_18)
-    p00 = write_pdf("00-README-study-order.pdf", "00 Study pack index", build_00)
-    print(f"wrote {p18} ({p18.stat().st_size})")
-    print(f"wrote {p00} ({p00.stat().st_size})")
+    p = write_pdf("18-layer-0-atoms.pdf", "18 Layer 0 glossary", build_18)
+    p0 = write_pdf("00-README-study-order.pdf", "00 Study pack index", build_00)
+    print(f"wrote {p} pages~ size={p.stat().st_size}")
+    print(f"wrote {p0} size={p0.stat().st_size}")
+    from pypdf import PdfReader
+
+    r = PdfReader(str(p))
+    text = "\n".join((pg.extract_text() or "") for pg in r.pages)
+    for needle in [
+        "irreversibility",
+        "DENY",
+        "Prefinality",
+        "married write",
+        "their_production",
+        "SERFF",
+        "fail-closed",
+        "fingerprint",
+        "TOCTOU",
+    ]:
+        print(needle, "OK" if needle in text else "MISSING")
+    print("pages", len(r.pages), "chars", len(text))
 
 
 if __name__ == "__main__":
