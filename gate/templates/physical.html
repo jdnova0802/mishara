@@ -124,8 +124,23 @@
 
     <div class="phys-cta">
       <a class="primary" href="{{ public_url }}/.well-known/physical-prefinality.json">manifest</a>
-      <a href="{{ public_url }}/v1/physical/evaluate">evaluate</a>
+      <a href="{{ public_url }}/demo/physical/evaluate">demo park</a>
+      <a href="{{ public_url }}/signup">meter it</a>
       <a href="{{ public_url }}/admittance">admittance</a>
+    </div>
+
+    <div class="phys-product" style="border:1px solid var(--p-halt); padding:0.9rem 1rem; margin:0 0 1.75rem; background:linear-gradient(90deg,#2a120866,transparent);">
+      <div class="n" style="font-family:var(--p-mono);font-size:0.65rem;letter-spacing:0.14em;color:var(--p-halt);margin-bottom:0.35rem;">PRODUCT · LIVE METER</div>
+      <h2 style="font-family:var(--p-display);font-size:1.6rem;margin:0 0 0.35rem;letter-spacing:0.04em;">
+        {{ manifest.product.name if manifest and manifest.product else "Physical Park" }}
+        <span style="font-family:var(--p-mono);font-size:0.7rem;color:var(--p-mist);margin-left:0.4rem;">{{ manifest.product.sku if manifest and manifest.product else "gate.physical.park" }}</span>
+      </h2>
+      <p style="font-family:var(--p-serif);margin:0;color:var(--p-mist);line-height:1.4;">
+        {{ manifest.product.pitch if manifest and manifest.product else "Every absolute kinetic write without living authority mints a stranger-verifiable park ticket. That ticket is the product." }}
+      </p>
+      <p style="font-family:var(--p-mono);font-size:0.68rem;color:var(--p-ok);margin:0.55rem 0 0;">
+        meterable: {% if manifest and manifest.meterable %}{{ manifest.meterable | join(" · ") }}{% else %}physical.park · physical.verify · physical.clear{% endif %}
+      </p>
     </div>
 
     <div class="phys-lanes">

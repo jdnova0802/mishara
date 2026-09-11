@@ -63,6 +63,20 @@ class PhysicalPrefinalityTests(unittest.TestCase):
         self.assertEqual(out["reason"], "human_root_required")
         self.assertTrue(out["park_id"])
         self.assertTrue(phys_mod.get_park(out["park_id"]))
+        meter = out.get("meter") or {}
+        self.assertTrue(meter.get("billable"))
+        self.assertEqual(meter.get("event"), "physical.park")
+        self.assertEqual(meter.get("sku"), "gate.physical.park")
+        verified = phys_mod.verify_park(park_id=out["park_id"])
+        self.assertTrue(verified.get("valid"), verified)
+        self.assertTrue((verified.get("meter") or {}).get("billable"))
+
+    def test_manifest_ships_metered_product(self):
+        m = phys_mod.manifest("https://gate.test")
+        self.assertEqual((m.get("product") or {}).get("sku"), "gate.physical.park")
+        self.assertTrue((m.get("product") or {}).get("billable_today"))
+        self.assertIn("physical.park", m.get("meterable") or [])
+        self.assertTrue(m.get("verify"))
 
     def test_park_without_at_risk_subject(self):
         out = phys_mod.evaluate(

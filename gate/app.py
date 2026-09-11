@@ -1496,7 +1496,9 @@ def well_known_gate():
             "subject_verify": f"{advertised_url()}/v1/subject/verify",
             "physical_prefinality": f"{advertised_url()}/.well-known/physical-prefinality.json",
             "physical_evaluate": f"{advertised_url()}/v1/physical/evaluate",
+            "physical_verify": f"{advertised_url()}/v1/physical/verify",
             "physical_page": f"{advertised_url()}/physical",
+            "physical_park_sku": "gate.physical.park",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2700,14 +2702,39 @@ def well_known_physical_prefinality():
 
 @app.route("/v1/physical/evaluate", methods=["POST"])
 def physical_evaluate():
+    """Metered Physical Park product. API key counts a hop; anonymous still parks."""
     body = request.get_json(silent=True) or {}
     blocked = fields.pii_error(body)
     if blocked:
         return blocked, 400
+    row = authenticate_api_key()
+    account_id = None
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        account_id = row["account_id"]
+        usage = db.get_usage(account_id)
+        if usage["hops"] >= db.hop_limit(row["plan"]):
+            return payment_required_response(account_id, row["plan"])
     out = physical_mod.evaluate(
         body if isinstance(body, dict) else {},
         public_url=advertised_url(),
     )
+    if account_id and out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD"):
+        # Bill the hop when a park/clear/refuse/dead meter fires.
+        meter = out.get("meter") or {}
+        if meter.get("billable"):
+            updated = db.increment_usage(account_id, "hops")
+            out["usage"] = {
+                "hops": updated["hops"],
+                "hop_limit": db.hop_limit(row["plan"]),
+                "plan": row["plan"],
+                "metered_event": meter.get("event"),
+            }
+    if not account_id:
+        out["auth"] = "anonymous"
+        out["signup_url"] = f"{advertised_url()}/signup"
     code = 200 if out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD") else 400
     return jsonify(out), code
 
@@ -2726,6 +2753,32 @@ def demo_physical_evaluate():
     out["signup_url"] = f"{advertised_url()}/signup"
     code = 200 if out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD") else 400
     return jsonify(out), code
+
+
+@app.route("/v1/physical/verify", methods=["POST"])
+def physical_verify():
+    """Meterable stranger-verify of a park ticket."""
+    body = request.get_json(silent=True) or {}
+    out = physical_mod.verify_park(
+        park_id=str(body.get("park_id") or "").strip() or None,
+        ticket=body.get("park") or body.get("ticket") if isinstance(body.get("park") or body.get("ticket"), dict) else None,
+    )
+    row = authenticate_api_key()
+    if row and out.get("meter", {}).get("billable"):
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        usage = db.get_usage(row["account_id"])
+        if usage["hops"] >= db.hop_limit(row["plan"]):
+            return payment_required_response(row["account_id"], row["plan"])
+        updated = db.increment_usage(row["account_id"], "hops")
+        out["usage"] = {
+            "hops": updated["hops"],
+            "hop_limit": db.hop_limit(row["plan"]),
+            "plan": row["plan"],
+            "metered_event": "physical.verify",
+        }
+    return jsonify(out), 200 if out.get("valid") else 400
 
 
 @app.route("/v1/physical/park/<park_id>", methods=["GET"])

@@ -50,6 +50,16 @@ except ImportError:
 SPEC = "gate-physical-prefinality-v1"
 OUTCOMES = ("CLEARED", "PARKED", "REFUSED", "DEAD")
 
+# Meterable product SKUs — park tickets are the cash event.
+METERABLE = (
+    "physical.evaluate",
+    "physical.park",
+    "physical.clear",
+    "physical.refuse",
+    "physical.dead",
+    "physical.verify",
+)
+
 _lock = threading.Lock()
 _parks: dict[str, dict[str, Any]] = {}
 
@@ -73,6 +83,31 @@ def _sign(digest_hex: str) -> str | None:
         return receipt_mod.sign_receipt_hash(digest_hex)
     except Exception:
         return None
+
+
+def _meter(
+    event: str,
+    *,
+    billable: bool,
+    unit: str,
+    id: str | None = None,
+    digest: str | None = None,
+    outcome: str | None = None,
+) -> dict:
+    row: dict[str, Any] = {
+        "event": event,
+        "billable": bool(billable),
+        "unit": unit,
+        "product": "physical.park",
+        "sku": "gate.physical.park",
+    }
+    if id:
+        row["id"] = id
+    if digest:
+        row["digest"] = digest
+    if outcome:
+        row["outcome"] = outcome
+    return row
 
 
 def is_absolute_physical(sink_id: str) -> dict:
@@ -147,6 +182,12 @@ def evaluate(
             "actor": actor or None,
             "note": "Non-absolute sinks use ordinary Admittance / Right-to-Act.",
             "invariant": "Physical Prefinality only seizes absolute physical lanes.",
+            "meter": _meter(
+                "physical.evaluate",
+                billable=False,
+                unit="evaluate",
+                outcome="CLEARED",
+            ),
         }
 
     # Absolute physical: living human root required
@@ -336,6 +377,13 @@ def evaluate(
         "feb2020": (
             "Institutions moved after bodies. Prefinality parks before actuators."
         ),
+        "meter": _meter(
+            "physical.clear",
+            billable=True,
+            unit="clearance",
+            id=str(mandate_id),
+            outcome="CLEARED",
+        ),
     }
 
 
@@ -353,6 +401,55 @@ def list_parks(limit: int = 50) -> list[dict]:
             reverse=True,
         )
     return [dict(r) for r in rows[: max(1, min(int(limit), 200))]]
+
+
+def verify_park(park_id: str | None = None, ticket: dict | None = None) -> dict:
+    """Stranger-verify a park ticket (meterable)."""
+    row = None
+    if isinstance(ticket, dict):
+        row = dict(ticket)
+    pid = (park_id or (row or {}).get("park_id") or "").strip()
+    if not row and pid:
+        row = get_park(pid)
+    if not row:
+        return {
+            "spec": SPEC,
+            "valid": False,
+            "reason": "unknown_park",
+            "meter": _meter(
+                "physical.verify",
+                billable=True,
+                unit="verify",
+                id=pid or None,
+                outcome="unknown",
+            ),
+        }
+
+    body = {
+        k: v
+        for k, v in row.items()
+        if k not in ("park_digest", "signature", "unsigned")
+    }
+    expect = hashlib.sha256(_canonical(body).encode()).hexdigest()
+    got = str(row.get("park_digest") or "")
+    valid = bool(got and got == expect)
+    return {
+        "spec": SPEC,
+        "valid": valid,
+        "reason": None if valid else "digest_mismatch",
+        "park_id": row.get("park_id"),
+        "outcome": row.get("outcome"),
+        "park_digest": got,
+        "meter": _meter(
+            "physical.verify",
+            billable=True,
+            unit="verify",
+            id=str(row.get("park_id") or ""),
+            digest=got or None,
+            outcome="valid" if valid else "invalid",
+        ),
+        "invariant": "Park tickets are stranger-verifiable: atoms stayed put.",
+    }
 
 
 def _park(**kwargs: Any) -> dict:
@@ -406,6 +503,43 @@ def _out(
         with _lock:
             _parks[park_id] = dict(body)
 
+    if outcome == "PARKED":
+        meter = _meter(
+            "physical.park",
+            billable=True,
+            unit="park",
+            id=park_id,
+            digest=digest,
+            outcome=outcome,
+        )
+    elif outcome == "REFUSED":
+        meter = _meter(
+            "physical.refuse",
+            billable=True,
+            unit="refusal",
+            id=park_id,
+            digest=digest,
+            outcome=outcome,
+        )
+    elif outcome == "DEAD":
+        meter = _meter(
+            "physical.dead",
+            billable=True,
+            unit="death",
+            id=park_id,
+            digest=digest,
+            outcome=outcome,
+        )
+    else:
+        meter = _meter(
+            "physical.evaluate",
+            billable=True,
+            unit="evaluate",
+            id=park_id,
+            digest=digest,
+            outcome=outcome,
+        )
+
     out = {
         "spec": SPEC,
         "ok": outcome == "CLEARED",
@@ -429,6 +563,7 @@ def _out(
         "invariant": (
             "Society acts after harm. Physical Prefinality parks before actuators."
         ),
+        "meter": meter,
     }
     out.update(extra)
     return out
@@ -451,6 +586,16 @@ def manifest(public_url: str) -> dict:
             "before institutions catch up — a February 2020 rhyme. "
             "Prefinality is the protocol hedge: park kinetic writes until authority reconstructs."
         ),
+        "product": {
+            "sku": "gate.physical.park",
+            "name": "Physical Park",
+            "pitch": (
+                "Every absolute kinetic write that lacks living authority mints a "
+                "stranger-verifiable park ticket. That ticket is the product."
+            ),
+            "billable_today": True,
+        },
+        "meterable": list(METERABLE),
         "outcomes": list(OUTCOMES),
         "lanes": {
             "REVERSIBLE": "Ordinary Right-to-Act",
@@ -459,6 +604,7 @@ def manifest(public_url: str) -> dict:
         },
         "evaluate": f"{base}/v1/physical/evaluate",
         "demo": f"{base}/demo/physical/evaluate",
+        "verify": f"{base}/v1/physical/verify",
         "park": f"{base}/v1/physical/park/{{park_id}}",
         "page": f"{base}/physical",
         "well_known": f"{base}/.well-known/physical-prefinality.json",
@@ -469,7 +615,8 @@ def manifest(public_url: str) -> dict:
             "mandate": f"{base}/.well-known/mandate.json",
             "note": (
                 "Admittance disposes world-writes. Physical Prefinality seizes "
-                "the absolute physical lane before atoms move."
+                "the absolute physical lane before atoms move. "
+                "physical.park is meterable product — same class as subject.clear."
             ),
         },
         "operator": "Nisaba LLC",
