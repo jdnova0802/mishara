@@ -4,35 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — Mishara</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FAFAF8;--primary:#0D7377;--text:#1A1A2E;--muted:#5C5C72;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;max-width:640px;margin:0 auto;padding:24px 20px 60px;}
-a{color:var(--primary);}
-header{margin-bottom:32px;}
-.logo{font-weight:700;font-size:1.25rem;color:var(--primary);letter-spacing:0.08em;}
-h1{font-size:1.75rem;margin:24px 0 16px;}
-p{color:var(--muted);margin-bottom:16px;}
-ul{color:var(--muted);padding-left:20px;}
-footer{margin-top:48px;font-size:0.85rem;color:var(--muted);text-align:center;}
+:root{--bg:#F3EEE4;--surface:#FFFDF9;--ink:#1A1714;--muted:#5C564E;--teal:#0A5C5F;--line:#E2D9CC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(800px 420px at 10% -10%,rgba(10,92,95,.10),transparent 55%),var(--bg)}
+.wrap{max-width:640px;margin:0 auto;padding:28px 20px 70px}
+.brand{font-family:'Fraunces',Georgia,serif;font-weight:700;color:var(--teal);text-decoration:none;font-size:1.3rem}
+h1{font-family:'Fraunces',Georgia,serif;font-size:1.9rem;margin:28px 0 14px}
+h2{font-family:'Fraunces',Georgia,serif;font-size:1.2rem;margin:28px 0 12px}
+p,li{color:var(--muted);margin-bottom:12px}
+ul{padding-left:1.2rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.card strong{color:var(--ink)}
+footer{margin-top:40px;font-size:.85rem;color:var(--muted)}
+a{color:var(--teal)}
 </style>
 </head>
 <body>
-<header><a href="/" class="logo">MISHARA</a></header>
-<h1>About Mishara</h1>
-<p><strong>Mishara</strong> is the first place to go when an AI decision harmed you — rejected from a job, denied housing, deactivated on a gig platform, shadowbanned, denied benefits, or wrongfully screened out.</p>
-<p>Today, people in those situations have nowhere to turn that gives them <em>proof</em>. Mishara changes that.</p>
-<h2 style="font-size:1.2rem;margin-top:28px;">Three layers</h2>
-<ul>
-  <li><strong>Receipt</strong> — Document what happened. Get a cryptographic record powered by Velaru.</li>
-  <li><strong>Action</strong> — Plain-English rights guidance and demand letter templates.</li>
-  <li><strong>Pattern</strong> — Anonymous aggregation to surface systemic harm and class-action potential.</li>
-</ul>
-<p>Mishara stores <strong>no personal descriptions</strong> in its pattern database — only platform, harm type, classification, and receipt hash.</p>
-<p><em>Mishara</em> means justice in Akkadian — protection of the weak from the powerful.</p>
-<p>Powered by <a href="{{ velaru_base }}" target="_blank" rel="noopener">Velaru</a> (Nisaba LLC) · Patent #64/124,027</p>
-<footer>
-  <a href="/">← Start your receipt</a> · <a href="{{ velaru_verify }}" target="_blank" rel="noopener">Verify a receipt</a>
-</footer>
+<main class="wrap">
+  <a class="brand" href="/">Mishara</a>
+  <h1>About Mishara</h1>
+  <p>Mishara is the human door after an AI decision already hurt someone — hiring, housing, credit, gig work, benefits. It is not Gate and not Erra.</p>
+  <p>Powered by Velaru for stranger-verifiable receipts. Nisaba LLC.</p>
+
+  <h2>Three products</h2>
+  {% for key in ['harm_receipt','demand_pack','advocate_bundle'] %}
+  {% set p = products[key] %}
+  <div class="card">
+    <strong>{{ p.name }} · {{ p.price_label }}</strong>
+    <p style="margin:8px 0 0">{{ p.blurb }}</p>
+  </div>
+  {% endfor %}
+
+  <h2>What we store</h2>
+  <ul>
+    <li>Pattern DB keeps platform, domain, harm type, classification, and receipt hash — not your narrative.</li>
+    <li>Alert emails (Advocate Bundle) are stored as bcrypt hashes only.</li>
+    <li>Production weld into a company’s stack is a separate Gate path — not sold here.</li>
+  </ul>
+
+  <p><em>Mishara</em> — justice / protection of the weak from the powerful (Akkadian root).</p>
+  <footer>
+    <a href="/">← Start a Harm Receipt</a> ·
+    <a href="{{ velaru_verify }}" target="_blank" rel="noopener">Verify on Velaru</a> ·
+    <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+  </footer>
+</main>
 </body>
 </html>

@@ -1,62 +1,75 @@
 # Mishara
 
-**The first place to go when an AI decision harmed you.**
+**When an AI decision already hurt you.**
 
-Mishara is a consumer AI rights enforcement app powered entirely by [Velaru](https://velaru.onrender.com) audit infrastructure. It does not run its own classification engine, crypto layer, or audit chain — Velaru handles all of that.
+Consumer door for Nisaba LLC — powered by Velaru. Not Gate. Not Erra.
 
-## What Mishara does
+## Products
 
-1. **Receipt** — Document what happened; get a cryptographic Velaru-signed record
-2. **Action** — Plain-English rights guidance + demand letter generation
-3. **Pattern** — Anonymous aggregation by platform to surface systemic harm
+| SKU | Price | What you get |
+|-----|-------|--------------|
+| **Harm Receipt** | Free | Velaru-signed receipt + stranger verify URL + plain-English next step |
+| **Demand Pack** | $99 | Receipt + FCRA/ECOA/hiring-tool rights map + demand letter (Exhibit A = receipt hash) |
+| **Advocate Bundle** | $499 | Demand Pack + anonymous pattern join/alert email + advocate export (JSON + TXT) |
 
-## Quick start (local)
+## Quick start
 
 ```bash
-cd mishara
 pip install -r requirements_mishara.txt
 export VELARU_API_URL=https://velaru.onrender.com
-export ANTHROPIC_API_KEY=your_key   # optional — for demand letters & explanations
+export MISHARA_PAYMENTS=dev          # local unlocks without Stripe
+export MISHARA_ALLOW_DEV_PAY=1
+export OPENAI_API_KEY=...            # optional — demand letters / explanations
 python mishara_app.py
 ```
 
 Open http://localhost:5001
 
-## Deploy to Render
+## Deploy (Render)
 
-1. Push this repo to GitHub (`jdnova0802/mishara`)
-2. Create a new **Web Service** on Render
-3. Connect the repo and use `render_mishara.yaml` (Blueprint) or set:
-   - **Build:** `pip install -r requirements_mishara.txt`
-   - **Start:** `gunicorn mishara_app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
-   - **Health check:** `/health`
-4. Set environment variables:
-   - `VELARU_API_URL=https://velaru.onrender.com`
-   - `ANTHROPIC_API_KEY` (optional, for Claude-powered letters)
-5. Add custom domain **mishara.app** in Render → Settings → Custom Domains
+Use blueprint `render_mishara.yaml` (own web service + 1GB disk). **Do not** point Mishara domains at `gate-api`.
 
-## API endpoints
+- **Build:** `pip install -r requirements_mishara.txt`
+- **Start:** `gunicorn mishara_app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
+- **Health:** `/health`
+- **Disk:** `/var/data` → `MISHARA_DB_PATH=/var/data/mishara.db`
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/` | Main flow (mobile-first) |
-| POST | `/submit` | Classify via Velaru + store anonymized pattern |
-| POST | `/demand-letter` | Generate demand letter (Claude or template) |
-| GET | `/pattern?platform=X&domain=Y` | Pattern count for platform |
-| POST | `/join-pattern` | Email signup for class-action alerts (bcrypt hash only) |
-| GET | `/health` | Service health |
+Env:
 
-## Velaru endpoints used
+- `VELARU_API_URL=https://velaru.onrender.com`
+- `MISHARA_PAYMENTS=stripe` (or `dev` / `invoice`)
+- `STRIPE_SECRET_KEY` (when stripe)
+- `MISHARA_PUBLIC_URL=https://mishara.onrender.com`
+- `OPENAI_API_KEY` (optional)
+- `MISHARA_CONTACT_EMAIL=hello@velaru.xyz`
+- `MISHARA_SECRET_KEY` (session / unlock HMAC)
 
-- `POST https://velaru.onrender.com/classify`
-- `GET https://velaru.onrender.com/verify` (link for users)
-- `GET https://velaru.onrender.com/domains` (domain mapping reference)
+Cutover checklist:
+
+1. Create Render service from `render_mishara.yaml` (separate from `gate-api`)
+2. Attach custom domain `mishara.app` / `mishara.onrender.com` to **this** service
+3. Confirm `/health` returns `"service":"mishara"` and product ids
+4. Set Stripe keys, then one live Demand Pack checkout
+
+## API
+
+| Method | Path | Notes |
+|--------|------|-------|
+| GET | `/` | Product surface + Harm Receipt flow |
+| GET | `/products.json` | Machine-readable SKUs |
+| POST | `/submit` | Free Harm Receipt via Velaru |
+| POST | `/checkout` | Demand Pack / Advocate Bundle |
+| GET/POST | `/unlock/<token>` | Paid fulfillment |
+| POST | `/demand-letter` | Requires paid unlock token |
+| GET | `/pattern` | Anonymous counts |
+| POST | `/join-pattern` | Advocate Bundle alerts (email hashed) |
+| GET | `/health` | Health |
 
 ## Privacy
 
-- User descriptions are sent to Velaru for classification (same as Velaru product)
-- Mishara SQLite stores **no PII** in pattern data: platform, domain, classification, receipt hash, timestamp only
-- Notification emails stored as bcrypt hashes only
+- Narratives go to Velaru for classify/sign; Mishara pattern DB stores platform, domain, harm type, classification, receipt hash only.
+- Alert emails stored as bcrypt hashes.
+- `their_production: false` until a recorded third-party production weld elsewhere.
 
 ## License
 
