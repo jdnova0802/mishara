@@ -20,6 +20,16 @@
 
 **Slot line (edit date once):** holding **2** diligence seats through **Wed 17 Sep 2026 23:59 ET** — then the list rolls.
 
+### THIS WAVE (send these)
+
+| Status | Slots | Channel |
+|--------|-------|---------|
+| **SEND** | **#14–25** | email only |
+| **SEND** | **#27–28** | **website contact form only** |
+| **PARKED** | **#1–13** | do not send this wave |
+
+**LinkedIn: OFF.** Free LI messages exhausted — skip all LI DMs. Do not burn guesses. Email or form only.
+
 ---
 
 ## Master skeleton (every body follows this)
@@ -34,9 +44,9 @@ Target length: **90–140 words**.
 
 ---
 
-## LinkedIn DM (same day, after email)
+## LinkedIn — blocked this wave
 
-> Sent a short note to [inbox] on mouth diligence — where [specific write] can complete without may. $2,500 deposit. Not a pentest. If you’re not the seat, point me at Security / Ops who owns the leave path.
+Out of free LI messages. **No DMs.** If a slot says “LI primary,” use the listed email or site contact form only. Prefer skipping a name over guessing an inbox.
 
 ---
 
@@ -71,7 +81,9 @@ Reply DEPOSIT if you want the find.
 
 ---
 
-# S-TIER (send first — #1–12)
+# PARKED — first half (#1–13) — DO NOT SEND THIS WAVE
+
+S-tier #1–12 + A-tier #13 held for a later wave. Copy stays below for reuse. **This Friday: start at #14.**
 
 ---
 
@@ -355,11 +367,13 @@ Reply DEPOSIT.
 
 ---
 
-# A-TIER (#13–23) — after S-tier is queued
+# A-TIER (#13–23)
+
+### 13 — PARKED with first half (see above). Resume send list at #14.
 
 ---
 
-### 13. SideSwap — `hello@sideswap.io`
+### 13. SideSwap — `hello@sideswap.io` · PARKED
 
 **Subject:** DEPOSIT — Liquid peg-out without may
 
@@ -396,7 +410,7 @@ https://gate.velaru.xyz/diligence/offer.json
 Reply DEPOSIT with Security/Risk on the thread.
 ```
 
-**LI primary** — email is a door knock; LI Security/Risk is the real seat.
+**Channel:** email only this wave (LI off). Treat as door-knock to Security/Risk.
 
 ---
 
@@ -638,12 +652,12 @@ Reply DEPOSIT.
 
 # A-TIER NEW-WORLD SCOUT (#27–28)
 
-Same diligence SKU. No confirmed generic security/BD inbox — **LinkedIn DM primary**, site contact form fallback. **Do not guess addresses.** Slot into A-tier wave (not S-tier). No new page/infra.
+Same diligence SKU. No confirmed generic inbox. **Contact form only this wave** (LI blocked). **Do not guess addresses.**
 
 ---
 
-### 27. Aurionpro / Fintra — LI primary (Fintra/Aurionpro product or security lead)  
-Fallback: aurionpro.com contact form — **no guessed inbox**
+### 27. Aurionpro / Fintra — aurionpro.com contact form only  
+**No guessed inbox · no LI**
 
 **Subject:** DEPOSIT — Fintra CGHP halt, verified by a stranger
 
@@ -664,12 +678,12 @@ https://gate.velaru.xyz/diligence/one-pager.txt
 Not a competing product. Not replacing CGHP. Reply DEPOSIT.
 ```
 
-**LI:** Fintra / Aurionpro product or security lead — DM first  
+**Channel:** website contact form only  
 
 ---
 
-### 28. beatBread — LI primary (founders/product)  
-Fallback: website contact form — **no guessed inbox**
+### 28. beatBread — website contact form only  
+**No guessed inbox · no LI**
 
 **Subject:** DEPOSIT — ChordCashAI advance write without may
 
@@ -688,23 +702,19 @@ https://gate.velaru.xyz/diligence/one-pager.txt
 Not a lending audit. Not a forecasting critique. Reply DEPOSIT.
 ```
 
-**LI:** Founders / product — DM first  
+**Channel:** website contact form only  
 
 ---
 
-# Friday runbook
+# Friday runbook (this wave)
 
-1. **Pay → deploy → curl**
-   - `curl -sI https://gate.velaru.xyz/diligence`
-   - `curl -sI https://gate.velaru.xyz/diligence/one-pager.txt`
-   - `curl -sI https://gate.velaru.xyz/diligence/offer.json`
-   - Dry-run deposit checkout once with your own card if needed, then refund
-2. Set **slot date** in all bodies (one find-replace).
-3. Send **#1–12** first wave (morning).
-4. Same-day **LI DMs** on S-tier.
-5. Afternoon: **#13–25** then **#27–28** (LI/form only) only if S-tier is fully out.
-6. Calendar **D3** and **D5** nudges — no new names until this batch is worked.
-7. Quit trigger unchanged: **paid clear**, not replies.
+1. **Pay → deploy → curl** diligence page / one-pager / offer.json → 200  
+2. Set **slot date** once in bodies you actually send  
+3. **Send #14–25 only** (email). Skip every LI line.  
+4. **#27–28** via site contact forms only — paste the body, no guessed To:  
+5. **Do not send #1–13** this wave  
+6. D3 / D5 only on names you actually hit  
+7. Quit trigger unchanged: **paid clear**, not replies
 
 ---
 
