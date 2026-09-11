@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Cut mishara.onrender.com back to Mishara products (undo Gate takeover).
+"""Deploy / refresh Mishara on mishara.onrender.com (service mishara-public).
 
-Requires RENDER_API_KEY in env or .env.
-Default service is the existing mishara.onrender.com web service.
+Requires RENDER_API_KEY in env or Cloud Agent secrets.
+Gate lives on a separate service (gate-api / gate.velaru.xyz) — never point
+this script at Gate, and never rename this service to the bare name "mishara"
+(that name is taken by mishara-bu8k).
 """
 from __future__ import annotations
 
@@ -14,7 +16,7 @@ import urllib.parse
 import urllib.request
 
 API = "https://api.render.com/v1"
-# Existing mishara.onrender.com service (was repointed at gate/ earlier).
+# mishara-public → https://mishara.onrender.com (separate from gate-api).
 SERVICE_ID = os.getenv("RENDER_MISHARA_SERVICE_ID", "srv-d9romc2jnfac7385gn80")
 PUBLIC_URL = os.getenv("MISHARA_PUBLIC_URL", "https://mishara.onrender.com").rstrip("/")
 

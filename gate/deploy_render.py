@@ -12,7 +12,8 @@ import urllib.parse
 import urllib.request
 
 API = "https://api.render.com/v1"
-SERVICE_ID = os.getenv("RENDER_GATE_SERVICE_ID", "srv-d9romc2jnfac7385gn80")
+# Dedicated Gate service (do NOT reuse mishara-public / mishara.onrender.com).
+SERVICE_ID = os.getenv("RENDER_GATE_SERVICE_ID", "srv-dai3n0u1egvs73dbd94g")
 GATE_PUBLIC = os.getenv("GATE_PUBLIC_URL", "https://gate.velaru.xyz").rstrip("/")
 
 START = (
