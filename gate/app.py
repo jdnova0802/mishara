@@ -225,6 +225,11 @@ except ImportError:
     import right_to_act as right_to_act_mod
 
 try:
+    from gate import mandate as mandate_mod
+except ImportError:
+    import mandate as mandate_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -1438,6 +1443,9 @@ def well_known_gate():
             "right_to_act": f"{advertised_url()}/.well-known/right-to-act.json",
             "right_to_act_evaluate": f"{advertised_url()}/v1/right-to-act/evaluate",
             "right_to_act_demo": f"{advertised_url()}/demo/right-to-act/evaluate",
+            "mandate": f"{advertised_url()}/.well-known/mandate.json",
+            "mandate_issue": f"{advertised_url()}/v1/mandate/issue",
+            "mandate_reconstruct": f"{advertised_url()}/v1/mandate/reconstruct",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2214,6 +2222,77 @@ def well_known_right_to_act():
 @app.route("/.well-known/right-to-act-jwks.json")
 def well_known_right_to_act_jwks():
     return jsonify(right_to_act_mod.jwks())
+
+
+@app.route("/.well-known/mandate.json")
+def well_known_mandate():
+    return jsonify(mandate_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mandate-jwks.json")
+def well_known_mandate_jwks():
+    return jsonify(mandate_mod.jwks())
+
+
+@app.route("/v1/mandate/issue", methods=["POST"])
+def mandate_issue():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    out = mandate_mod.issue_root(
+        human_principal_id=str(body.get("human_principal_id") or body.get("principal_id") or ""),
+        agent_id=str(body.get("agent_id") or body.get("actor") or ""),
+        scope=body.get("scope") if isinstance(body.get("scope"), dict) else {},
+        ttl_seconds=int(body.get("ttl_seconds") or 86400),
+        approval_bytes=body.get("approval_bytes"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/mandate/attenuate", methods=["POST"])
+def mandate_attenuate():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.attenuate(
+        parent_id=str(body.get("parent_id") or body.get("mandate_id") or ""),
+        agent_id=body.get("agent_id"),
+        scope=body.get("scope") if isinstance(body.get("scope"), dict) else None,
+        ttl_seconds=body.get("ttl_seconds"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/mandate/revoke", methods=["POST"])
+def mandate_revoke():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.revoke(
+        str(body.get("mandate_id") or ""),
+        reason=body.get("reason"),
+    )
+    return jsonify(out), 200 if out.get("ok") else 404
+
+
+@app.route("/v1/mandate/reconstruct", methods=["POST"])
+def mandate_reconstruct():
+    body = request.get_json(silent=True) or {}
+    amount = body.get("amount")
+    try:
+        amount_f = float(amount) if amount is not None else None
+    except (TypeError, ValueError):
+        return jsonify({"outcome": "HALT", "reason": "invalid_amount", "admitted": False}), 400
+    out = mandate_mod.reconstruct(
+        mandate_id=body.get("mandate_id"),
+        mandate=body.get("mandate") if isinstance(body.get("mandate"), dict) else None,
+        action=str(body.get("action") or ""),
+        sink=str(body.get("sink") or ""),
+        amount=amount_f,
+        resource=str(body.get("resource") or body.get("target") or ""),
+        agent_id=body.get("agent_id") or body.get("actor"),
+    )
+    code = 200 if out.get("outcome") in ("ADMIT", "DENY", "HALT") else 400
+    return jsonify(out), code
 
 
 def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:

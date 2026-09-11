@@ -24,6 +24,11 @@ try:
 except ImportError:
     import receipt as receipt_mod
 
+try:
+    from gate import mandate as mandate_mod
+except ImportError:
+    import mandate as mandate_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -297,7 +302,18 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
     return meta
 
 
-def _mint_ticket(*, evaluation_id: str, fingerprint: str, sink: str, ttl_seconds: int) -> str:
+def _mint_ticket(
+    *,
+    evaluation_id: str,
+    fingerprint: str,
+    sink: str,
+    ttl_seconds: int,
+    mandate_id: str | None = None,
+    action: str | None = None,
+    agent_id: str | None = None,
+    amount: float | None = None,
+    resource: str | None = None,
+) -> str:
     tid = f"rta_{secrets.token_hex(16)}"
     with _ticket_lock:
         _tickets[tid] = {
@@ -306,11 +322,17 @@ def _mint_ticket(*, evaluation_id: str, fingerprint: str, sink: str, ttl_seconds
             "sink": sink,
             "expires_at": time.time() + max(30, min(int(ttl_seconds), 3600)),
             "burned": False,
+            "mandate_id": mandate_id,
+            "action": action,
+            "agent_id": agent_id,
+            "amount": amount,
+            "resource": resource or "",
         }
     return tid
 
 
 def burn_ticket(ticket_id: str, *, fingerprint: str, sink: str) -> dict:
+    """Consume EXIST ticket. If mandate-bound, reconstruct living authority NOW."""
     now = time.time()
     with _ticket_lock:
         row = _tickets.get(ticket_id)
@@ -324,16 +346,55 @@ def burn_ticket(ticket_id: str, *, fingerprint: str, sink: str) -> dict:
             return {"ok": False, "reason": "fingerprint_mismatch", "burned": False}
         if row["sink"] != sink:
             return {"ok": False, "reason": "sink_mismatch", "burned": False}
+        snap = dict(row)
+
+    # Reconstructive authority at consequence time (S-tier).
+    mandate_id = snap.get("mandate_id")
+    reconstruction = None
+    if mandate_id:
+        reconstruction = mandate_mod.reconstruct(
+            mandate_id=mandate_id,
+            action=str(snap.get("action") or ""),
+            sink=sink,
+            amount=snap.get("amount"),
+            resource=str(snap.get("resource") or ""),
+            agent_id=snap.get("agent_id"),
+        )
+        if reconstruction.get("outcome") == "HALT":
+            return {
+                "ok": False,
+                "reason": "mandate_halt",
+                "burned": False,
+                "reconstruction": reconstruction,
+                "invariant": "Cannot determine living authority → HALT, never burn.",
+            }
+        if not reconstruction.get("admitted"):
+            return {
+                "ok": False,
+                "reason": f"mandate_{reconstruction.get('reason') or 'denied'}",
+                "burned": False,
+                "reconstruction": reconstruction,
+                "invariant": "Prior EXIST is not current authority.",
+            }
+
+    with _ticket_lock:
+        row = _tickets.get(ticket_id)
+        if not row or row["burned"]:
+            return {"ok": False, "reason": "already_burned", "burned": True}
         row["burned"] = True
         row["burned_at"] = now
         evaluation_id = row["evaluation_id"]
-    return {
+
+    out = {
         "ok": True,
         "reason": None,
         "burned": True,
         "evaluation_id": evaluation_id,
         "ticket_id": ticket_id,
     }
+    if reconstruction:
+        out["reconstruction"] = reconstruction
+    return out
 
 
 def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> dict:
@@ -358,6 +419,44 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
     fingerprint = candidate_fingerprint(candidate)
     decision, signals = _policy_decide(candidate, policy, context)
 
+    # Mandate gate: living authority must reconstruct before EXIST.
+    mandate_obj = body.get("mandate") if isinstance(body.get("mandate"), dict) else None
+    mandate_id = body.get("mandate_id") or (mandate_obj or {}).get("mandate_id")
+    require_mandate = bool(policy.get("require_mandate") or context.get("require_mandate"))
+    reconstruction = None
+    amount = None
+    args = candidate.get("args") if isinstance(candidate.get("args"), dict) else {}
+    if "amount" in args:
+        try:
+            amount = float(args["amount"])
+        except (TypeError, ValueError):
+            amount = None
+
+    if require_mandate and not (mandate_id or mandate_obj):
+        decision = "NONEXIST"
+        signals = list(signals) + ["mandate_required"]
+    elif mandate_id or mandate_obj:
+        reconstruction = mandate_mod.reconstruct(
+            mandate_id=str(mandate_id) if mandate_id else None,
+            mandate=mandate_obj,
+            action=str(candidate.get("action") or "").strip(),
+            sink=str(candidate.get("sink") or "").strip(),
+            amount=amount,
+            resource=str(candidate.get("resource") or candidate.get("target") or ""),
+            agent_id=str(candidate.get("actor") or "").strip() or None,
+        )
+        if reconstruction.get("outcome") == "HALT":
+            decision = "HOLD"
+            signals = list(signals) + ["mandate_halt", reconstruction.get("reason") or "halt"]
+        elif not reconstruction.get("admitted"):
+            decision = "NONEXIST"
+            signals = list(signals) + [
+                "mandate_denied",
+                reconstruction.get("reason") or "denied",
+            ]
+        else:
+            mandate_id = reconstruction.get("mandate_id") or mandate_id
+
     if signing_required() and not _signing_key():
         decision = "NONEXIST"
         if "unsigned_halt" not in signals:
@@ -370,6 +469,11 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
             fingerprint=fingerprint,
             sink=str(candidate.get("sink") or "").strip(),
             ttl_seconds=ttl,
+            mandate_id=str(mandate_id) if mandate_id else None,
+            action=str(candidate.get("action") or "").strip() or None,
+            agent_id=str(candidate.get("actor") or "").strip() or None,
+            amount=amount,
+            resource=str(candidate.get("resource") or candidate.get("target") or ""),
         )
 
     issuer = (
@@ -425,6 +529,8 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "args_hash": _args_hash(candidate),
         "receipt": receipt,
         "ticket_id": ticket_id,
+        "mandate_id": mandate_id,
+        "reconstruction": reconstruction,
         "refusal_digest": refusal,
         "expires_in": ttl,
         "created_at": created_at,
@@ -437,10 +543,14 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
     }
     if decision == "EXIST":
         out["message"] = (
-            "Right-to-Act EXIST — sink may effectuate only after ticket burn + receipt verify."
+            "Right-to-Act EXIST — sink may effectuate only after ticket burn "
+            "+ live mandate reconstruct + receipt verify."
         )
     elif decision == "HOLD":
-        out["message"] = "Right-to-Act HOLD — human review required; act remains non-effective."
+        out["message"] = (
+            "Right-to-Act HOLD — living authority could not be determined (HALT). "
+            "Act remains non-effective."
+        )
     else:
         out["message"] = (
             "Right-to-Act NONEXIST — act has no right to become real. Refusal is the product."
@@ -489,6 +599,10 @@ def manifest(public_url: str) -> dict:
         "receipt_ttl_seconds_default": DEFAULT_TTL_SECONDS,
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
-            "note": "Prefinality = payment-rail specialization; Right-to-Act = generic substrate.",
+            "mandate": f"{base}/.well-known/mandate.json",
+            "note": (
+                "Mandate = living who; Right-to-Act = may this act EXIST; "
+                "Prefinality = payment-rail specialization."
+            ),
         },
     }
