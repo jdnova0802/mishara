@@ -47,6 +47,11 @@ try:
 except ImportError:
     import sinks as sinks_mod
 
+try:
+    from gate import subject as subject_mod
+except ImportError:
+    import subject as subject_mod
+
 SPEC = "gate-admittance-v1"
 OUTCOMES = ("ADMITTED", "REFUSED", "HALTED", "DEAD")
 
@@ -307,25 +312,32 @@ def admit(
             now=now,
         )
 
-    # Civ II — subject sovereignty
+    # Civ II — subject sovereignty (first-class, meterable)
+    subject_gate = None
     if subject_id:
-        subject_refuse = bool(body.get("subject_refuse") or body.get("subject_denies"))
-        gates.append(
-            {
-                "gate": "subject",
-                "result": {"subject_id": subject_id, "subject_refuse": subject_refuse},
-            }
+        subject_gate = subject_mod.require_for_admit(
+            subject_id=subject_id,
+            action=action,
+            sink=sink,
+            actor=actor,
+            clearance_id=str(body.get("subject_clearance_id") or body.get("clearance_id") or "")
+            or None,
+            subject_refuse=bool(body.get("subject_refuse") or body.get("subject_denies")),
+            public_url=public_url,
         )
-        if subject_refuse:
+        gates.append({"gate": "subject", "result": subject_gate})
+        if not subject_gate.get("ok"):
             return _finish(
                 "REFUSED",
                 admit_id=admit_id,
-                reason="subject_refused",
+                reason=str(subject_gate.get("reason") or "subject_refused"),
                 gates=gates,
                 action=action,
                 sink=sink,
                 actor=actor,
                 subject_id=subject_id,
+                subject=subject_gate,
+                refusal_digest=(subject_gate.get("refusal") or {}).get("refusal_digest"),
                 public_url=public_url,
                 now=now,
             )
@@ -565,6 +577,8 @@ def admit(
         "reconstruction": reconstruction,
         "counterpart": counterpart,
         "sink": sink_req,
+        "subject": subject_gate,
+        "meter": (subject_gate or {}).get("meter"),
         "ticket_id": rta.get("ticket_id"),
         "burn_url": f"{base}/v1/right-to-act/burn" if base else None,
         "fact_url": f"{base}/v1/admittance/fact/{fact_id}" if base else None,

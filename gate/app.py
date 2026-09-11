@@ -250,6 +250,11 @@ except ImportError:
     import admittance as admittance_mod
 
 try:
+    from gate import subject as subject_mod
+except ImportError:
+    import subject as subject_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -1480,6 +1485,10 @@ def well_known_gate():
             "admittance_admit": f"{advertised_url()}/v1/admittance/admit",
             "admittance_page": f"{advertised_url()}/admittance",
             "facts_well_known": f"{advertised_url()}/.well-known/facts/{{fact_id}}.json",
+            "subject": f"{advertised_url()}/.well-known/subject.json",
+            "subject_clear": f"{advertised_url()}/v1/subject/clear",
+            "subject_refuse": f"{advertised_url()}/v1/subject/refuse",
+            "subject_verify": f"{advertised_url()}/v1/subject/verify",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2588,6 +2597,92 @@ def admittance_page():
         manifest=admittance_mod.manifest(advertised_url()),
         facts=admittance_mod.list_facts(12),
     )
+
+
+@app.route("/.well-known/subject.json")
+def well_known_subject():
+    return jsonify(subject_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/subject/register", methods=["POST"])
+def subject_register():
+    body = request.get_json(silent=True) or {}
+    out = subject_mod.register(
+        subject_id=str(body.get("subject_id") or body.get("principal_id") or ""),
+        display_name=str(body.get("display_name") or ""),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/subject/clear", methods=["POST"])
+def subject_clear():
+    body = request.get_json(silent=True) or {}
+    amount = body.get("amount")
+    try:
+        amount_f = float(amount) if amount is not None else None
+    except (TypeError, ValueError):
+        amount_f = None
+    out = subject_mod.clear(
+        subject_id=str(body.get("subject_id") or ""),
+        action=str(body.get("action") or ""),
+        sink=str(body.get("sink") or ""),
+        actor=str(body.get("actor") or body.get("agent_id") or ""),
+        amount=amount_f,
+        ttl_seconds=int(body.get("ttl_seconds") or 300),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/subject/refuse", methods=["POST"])
+def subject_refuse():
+    body = request.get_json(silent=True) or {}
+    out = subject_mod.refuse(
+        subject_id=str(body.get("subject_id") or ""),
+        action=str(body.get("action") or ""),
+        sink=str(body.get("sink") or ""),
+        actor=str(body.get("actor") or body.get("agent_id") or ""),
+        reason=str(body.get("reason") or "subject_refuse"),
+        scope=body.get("scope") if isinstance(body.get("scope"), dict) else None,
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/subject/verify", methods=["POST"])
+def subject_verify():
+    body = request.get_json(silent=True) or {}
+    out = subject_mod.verify(
+        body.get("refusal") or body.get("certificate"),
+        digest=body.get("digest") or body.get("refusal_digest"),
+    )
+    return jsonify(out), 200 if out.get("valid") else 400
+
+
+@app.route("/v1/subject/<path:subject_id>", methods=["GET"])
+def subject_get(subject_id: str):
+    row = subject_mod.get(subject_id)
+    if not row:
+        return jsonify({"error": "unknown_subject", "subject_id": subject_id}), 404
+    listing = subject_mod.list_for_subject(subject_id)
+    return jsonify({"subject": row, **listing})
+
+
+@app.route("/.well-known/subjects/<path:subject_id>.json", methods=["GET"])
+def well_known_subject_id(subject_id: str):
+    row = subject_mod.get(subject_id)
+    if not row:
+        return jsonify({"error": "unknown_subject", "subject_id": subject_id}), 404
+    return jsonify(row)
+
+
+@app.route("/.well-known/subject-refusals/<digest>.json", methods=["GET"])
+def well_known_subject_refusal(digest: str):
+    row = subject_mod.get_refusal_by_digest(digest)
+    if not row:
+        return jsonify({"error": "unknown_refusal", "digest": digest}), 404
+    return jsonify(row)
 
 
 def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:
