@@ -24,11 +24,19 @@
 
 | Status | Slots | Channel |
 |--------|-------|---------|
-| **SEND** | **#14–25** | email only |
+| **SEND** | **#14–23, #25** | email only |
 | **SEND** | **#27–28** | **website contact form only** |
+| **SKIP cold** | **#24 Retell** | already in human thread — see WAITING |
 | **PARKED** | **#1–13** | do not send this wave |
 
 **LinkedIn: OFF.** Free LI messages exhausted — skip all LI DMs. Do not burn guesses. Email or form only.
+
+### WAITING (do not re-spray)
+
+| Name | State | Next |
+|------|--------|------|
+| **Retell AI** | Support (Lawrance Lui) → sales form is lead-qual only (no free text). Reply to Lawrance asking route to vendor/risk owner was **scheduled 12:00** — check if it sent; **no person reply yet**. | Check inbox. If sent + no reply: sit until D3 on *that* thread only. **Do not** also cold `founders@` today. |
+| **My AskAI** | Autoresponder filed original under “Something else? We’ll get back to you soon” (Mike/Alex). **No human reply yet.** | Let sit. No nudge. Nothing new until they respond. |
 
 ---
 
@@ -604,27 +612,28 @@ Same deposit SKU (diligence) unless Bind Room page is the better fit for a named
 
 ---
 
-### 24. Retell AI — `founders@retellai.com`  
-Fallback: `support@retellai.com`
+### 24. Retell AI — SKIP cold this wave  
+**Status:** In thread with Lawrance Lui (support). Sales form = lead qual, no free text. Route-to-vendor/risk reply scheduled **12:00**. Do **not** also hit `founders@retellai.com` today.
 
-**Subject:** DEPOSIT — voice agent side-effect without may
+**If 12:00 never sent — paste to Lawrance only:**
+
+**To:** (Lawrance’s support address from the thread)  
+**Subject:** Re: (keep their thread)
 
 ```
-Founders — Retell
+Lawrance —
 
-Voice agents that act are a leave path. Can ≠ may on the moment the side effect writes (book, pay, update, open a door in a system of record).
+The sales form is lead-qual only — no field for a vendor note.
+
+Please route to whoever owns vendor / risk review on irreversible agent side-effects (book / pay / system-of-record writes).
 
 Mouth / finality diligence — Nisaba LLC
-Where can an irreversible agent write complete without may?
-
 $2,500 deposit · 72h find
 https://gate.velaru.xyz/diligence
 https://gate.velaru.xyz/diligence/one-pager.txt
 
-Not a soft “AI governance” PDF. Reply DEPOSIT.
-```
-
-**LI:** Bing Wu / co-founders — DM same day  
+Reply DEPOSIT or point me at the right seat.
+```  
 
 ---
 
@@ -710,11 +719,12 @@ Not a lending audit. Not a forecasting critique. Reply DEPOSIT.
 
 1. **Pay → deploy → curl** diligence page / one-pager / offer.json → 200  
 2. Set **slot date** once in bodies you actually send  
-3. **Send #14–25 only** (email). Skip every LI line.  
+3. **Send #14–23 + #25** (email). **Skip #24 Retell cold.** Skip every LI line.  
 4. **#27–28** via site contact forms only — paste the body, no guessed To:  
 5. **Do not send #1–13** this wave  
-6. D3 / D5 only on names you actually hit  
-7. Quit trigger unchanged: **paid clear**, not replies
+6. After forms: check **Retell** + **My AskAI** inboxes — human reply changes next move; else let sit  
+7. D3 / D5 only on names you actually hit (Retell = that Lawrance thread only)  
+8. Quit trigger unchanged: **paid clear**, not replies
 
 ---
 
