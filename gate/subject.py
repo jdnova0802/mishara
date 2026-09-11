@@ -308,6 +308,7 @@ def require_for_admit(
     clearance_id: str | None = None,
     subject_refuse: bool = False,
     public_url: str = "",
+    consume: bool = True,
 ) -> dict:
     """Gate used by Admittance — fail closed on subject writes."""
     sid = (subject_id or "").strip()
@@ -396,23 +397,32 @@ def require_for_admit(
                 "status": "clearance_mismatch",
                 "reason": "clearance_act_mismatch",
             }
-        with _lock:
-            if cid in _clearances:
-                _clearances[cid]["consumed"] = True
-                _clearances[cid]["consumed_at"] = _iso()
-                clr = dict(_clearances[cid])
+        if consume:
+            with _lock:
+                if cid in _clearances:
+                    _clearances[cid]["consumed"] = True
+                    _clearances[cid]["consumed_at"] = _iso()
+                    clr = dict(_clearances[cid])
+            meter = {
+                "event": "subject.clear_consume",
+                "billable": True,
+                "unit": "clearance_consume",
+                "id": cid,
+            }
+        else:
+            meter = {
+                "event": "subject.clear_peek",
+                "billable": False,
+                "unit": "clearance_peek",
+                "id": cid,
+            }
         return {
             "ok": True,
             "required": True,
             "status": "clear",
             "reason": None,
             "clearance": clr,
-            "meter": {
-                "event": "subject.clear_consume",
-                "billable": True,
-                "unit": "clearance_consume",
-                "id": cid,
-            },
+            "meter": meter,
         }
 
     # Policy: subject present without clearance → fail closed (meter the deny).

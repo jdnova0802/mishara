@@ -52,6 +52,11 @@ try:
 except ImportError:
     import subject as subject_mod
 
+try:
+    from gate import physical_prefinality as physical_mod
+except ImportError:
+    import physical_prefinality as physical_mod
+
 SPEC = "gate-admittance-v1"
 OUTCOMES = ("ADMITTED", "REFUSED", "HALTED", "DEAD")
 
@@ -74,6 +79,10 @@ def _reset_for_tests() -> None:
     with _lock:
         _facts.clear()
         _epoch = 0
+    try:
+        physical_mod._reset_for_tests()
+    except Exception:
+        pass
 
 
 def _finder_refusal(**kwargs: Any) -> None:
@@ -267,6 +276,92 @@ def admit(
             public_url=public_url,
             now=now,
         )
+
+    # Absolute physical lane — park before actuators (Feb 2020 rhyme)
+    lane = physical_mod.is_absolute_physical(sink)
+    if lane.get("absolute_physical"):
+        phys = physical_mod.evaluate(
+            {
+                "action": action,
+                "sink": sink,
+                "actor": actor,
+                "human_principal_id": human_principal_id,
+                "human_root_digest": human_root_digest,
+                "mandate_id": mandate_id,
+                "subject_id": subject_id
+                or str(body.get("at_risk_subject_id") or "").strip(),
+                "subject_clearance_id": str(
+                    body.get("subject_clearance_id") or body.get("clearance_id") or ""
+                ).strip()
+                or None,
+                "subject_refuse": bool(
+                    body.get("subject_refuse") or body.get("subject_denies")
+                ),
+                "amount": amount_f,
+            },
+            public_url=public_url,
+        )
+        gates.append(
+            {
+                "gate": "physical_prefinality",
+                "result": {
+                    "outcome": phys.get("outcome"),
+                    "reason": phys.get("reason"),
+                    "park_id": phys.get("park_id"),
+                    "lane": phys.get("lane"),
+                },
+            }
+        )
+        outcome = phys.get("outcome")
+        if outcome == "PARKED":
+            return _finish(
+                "HALTED",
+                admit_id=admit_id,
+                reason=f"physical_{phys.get('reason') or 'parked'}",
+                gates=gates,
+                action=action,
+                sink=sink,
+                actor=actor,
+                physical=phys,
+                park_id=phys.get("park_id"),
+                park=phys.get("park"),
+                public_url=public_url,
+                now=now,
+            )
+        if outcome == "REFUSED":
+            return _finish(
+                "REFUSED",
+                admit_id=admit_id,
+                reason=str(phys.get("reason") or "physical_refused"),
+                gates=gates,
+                action=action,
+                sink=sink,
+                actor=actor,
+                physical=phys,
+                subject_id=subject_id or None,
+                refusal_digest=(
+                    ((phys.get("subject") or {}).get("refusal") or {}).get(
+                        "refusal_digest"
+                    )
+                ),
+                public_url=public_url,
+                now=now,
+            )
+        if outcome == "DEAD":
+            return _finish(
+                "DEAD",
+                admit_id=admit_id,
+                reason=str(phys.get("reason") or "physical_dead"),
+                gates=gates,
+                action=action,
+                sink=sink,
+                actor=actor,
+                physical=phys,
+                death_certificate=phys.get("death_certificate")
+                or (phys.get("reconstruction") or {}).get("death_certificate"),
+                public_url=public_url,
+                now=now,
+            )
 
     # Civ III — continuity of human root
     if human_principal_id:
@@ -641,8 +736,10 @@ def manifest(public_url: str) -> dict:
             "mandate": f"{base}/.well-known/mandate.json",
             "sinks": f"{base}/.well-known/sinks.json",
             "continuity": f"{base}/.well-known/continuity.json",
+            "physical_prefinality": f"{base}/.well-known/physical-prefinality.json",
             "note": (
                 "Finder indexes consequence. Admittance decides consequence. "
+                "Physical Prefinality parks absolute kinetic writes before atoms move. "
                 "TCP/IP of irreversible becoming."
             ),
         },

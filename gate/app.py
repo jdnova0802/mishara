@@ -255,6 +255,11 @@ except ImportError:
     import subject as subject_mod
 
 try:
+    from gate import physical_prefinality as physical_mod
+except ImportError:
+    import physical_prefinality as physical_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -1489,6 +1494,9 @@ def well_known_gate():
             "subject_clear": f"{advertised_url()}/v1/subject/clear",
             "subject_refuse": f"{advertised_url()}/v1/subject/refuse",
             "subject_verify": f"{advertised_url()}/v1/subject/verify",
+            "physical_prefinality": f"{advertised_url()}/.well-known/physical-prefinality.json",
+            "physical_evaluate": f"{advertised_url()}/v1/physical/evaluate",
+            "physical_page": f"{advertised_url()}/physical",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2683,6 +2691,70 @@ def well_known_subject_refusal(digest: str):
     if not row:
         return jsonify({"error": "unknown_refusal", "digest": digest}), 404
     return jsonify(row)
+
+
+@app.route("/.well-known/physical-prefinality.json")
+def well_known_physical_prefinality():
+    return jsonify(physical_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/physical/evaluate", methods=["POST"])
+def physical_evaluate():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    out = physical_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+    )
+    code = 200 if out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/demo/physical/evaluate", methods=["POST"])
+def demo_physical_evaluate():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    out = physical_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+    )
+    out["demo"] = True
+    out["signup_url"] = f"{advertised_url()}/signup"
+    code = 200 if out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/v1/physical/park/<park_id>", methods=["GET"])
+@app.route("/.well-known/physical-parks/<park_id>.json", methods=["GET"])
+def physical_park(park_id: str):
+    row = physical_mod.get_park(park_id)
+    if not row:
+        return jsonify({"error": "unknown_park", "park_id": park_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/physical/parks", methods=["GET"])
+def physical_parks_list():
+    try:
+        limit = int(request.args.get("limit") or 50)
+    except (TypeError, ValueError):
+        limit = 50
+    return jsonify({"spec": physical_mod.SPEC, "parks": physical_mod.list_parks(limit)})
+
+
+@app.route("/physical")
+def physical_page():
+    return render_template(
+        "physical.html",
+        public_url=advertised_url(),
+        manifest=physical_mod.manifest(advertised_url()),
+        parks=physical_mod.list_parks(12),
+        sinks=sinks_mod.list_sinks(sink_class="physical", irreversibility="absolute"),
+    )
 
 
 def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:
@@ -4116,6 +4188,9 @@ def sitemap():
         "/for/defense",
         "/for/legal",
         "/for/enterprise",
+        "/admittance",
+        "/physical",
+        "/finder",
         "/.well-known/gate.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",

@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block title %}Physical Prefinality — park before actuators{% endblock %}
+{% block meta %}
+<meta name="description" content="Nisaba Physical Prefinality: fail-closed lane for absolute physical sinks. Park before actuators. Society acts after bodies.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,ital,wght@8..60,400;8..60,600;8..60,400i&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --p-ink: #0a0c0f;
+    --p-steel: #12161c;
+    --p-line: #2a3340;
+    --p-mist: #9aa7b8;
+    --p-paper: #f2f5f8;
+    --p-halt: #ff6b3d;
+    --p-ok: #5dffb0;
+    --p-display: "Bebas Neue", Impact, sans-serif;
+    --p-serif: "Source Serif 4", Georgia, serif;
+    --p-mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  .phys-stage {
+    background:
+      radial-gradient(800px 480px at 100% 0%, #3a180866, transparent 55%),
+      radial-gradient(640px 420px at 0% 30%, #14302855, transparent 50%),
+      linear-gradient(165deg, #0b0e12 0%, var(--p-ink) 48%, #050608 100%);
+    min-height: 92vh;
+    margin: -2rem 0 0;
+    padding: 2.75rem 0 4rem;
+    color: var(--p-paper);
+    border-top: 1px solid var(--p-line);
+    animation: phys-in 0.7s ease-out both;
+  }
+  @keyframes phys-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .phys-shell { max-width: 900px; margin: 0 auto; padding: 0 1.25rem; }
+  .phys-kicker {
+    font-family: var(--p-mono); font-size: 0.7rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--p-halt); margin: 0 0 0.7rem;
+  }
+  .phys-brand {
+    font-family: var(--p-display);
+    font-size: clamp(3.2rem, 12vw, 6.2rem);
+    line-height: 0.88; letter-spacing: 0.02em; margin: 0 0 0.55rem;
+  }
+  .phys-brand em {
+    font-style: normal; color: var(--p-halt);
+    display: inline-block;
+    animation: phys-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes phys-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.72; }
+  }
+  .phys-thesis {
+    font-family: var(--p-serif); font-size: clamp(1.15rem, 2.6vw, 1.55rem);
+    font-style: italic; color: var(--p-mist); max-width: 34rem;
+    margin: 0 0 1.6rem; line-height: 1.35;
+  }
+  .phys-cta {
+    display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2.2rem;
+  }
+  .phys-cta a {
+    font-family: var(--p-mono); font-size: 0.72rem; letter-spacing: 0.06em;
+    text-decoration: none; padding: 0.65rem 0.95rem; border: 1px solid var(--p-line);
+    color: var(--p-paper); background: var(--p-steel);
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .phys-cta a.primary { border-color: var(--p-halt); color: var(--p-halt); }
+  .phys-cta a:hover { border-color: var(--p-ok); color: var(--p-ok); transform: translateY(-1px); }
+  .phys-lanes {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 720px) { .phys-lanes { grid-template-columns: 1fr; } }
+  .phys-lane {
+    border-left: 3px solid var(--p-line); padding: 0.75rem 0.85rem;
+    background: linear-gradient(90deg, #12161c99, transparent);
+  }
+  .phys-lane.irr { border-left-color: var(--p-halt); }
+  .phys-lane .n {
+    font-family: var(--p-mono); font-size: 0.65rem; letter-spacing: 0.12em;
+    color: var(--p-mist); margin-bottom: 0.3rem;
+  }
+  .phys-lane h3 {
+    font-family: var(--p-display); font-size: 1.35rem; margin: 0 0 0.3rem;
+    letter-spacing: 0.04em;
+  }
+  .phys-lane p {
+    font-family: var(--p-serif); font-size: 0.95rem; color: var(--p-mist);
+    margin: 0; line-height: 1.35;
+  }
+  .phys-sinks h2, .phys-parks h2 {
+    font-family: var(--p-display); font-size: 1.45rem; letter-spacing: 0.04em;
+    margin: 0 0 0.7rem;
+  }
+  .phys-sink {
+    font-family: var(--p-mono); font-size: 0.78rem; color: var(--p-mist);
+    padding: 0.45rem 0; border-bottom: 1px solid #1a212b;
+  }
+  .phys-sink b { color: var(--p-paper); font-weight: 500; }
+  .phys-park {
+    border-left: 3px solid var(--p-halt); padding: 0.65rem 0.85rem;
+    margin-bottom: 0.5rem; background: #16101666;
+  }
+  .phys-park .id { font-family: var(--p-mono); font-size: 0.65rem; color: var(--p-mist); }
+  .phys-park .t { font-family: var(--p-serif); margin: 0.2rem 0 0; }
+  .phys-empty { font-family: var(--p-serif); font-style: italic; color: var(--p-mist); }
+  .phys-foot {
+    margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid var(--p-line);
+    font-family: var(--p-mono); font-size: 0.7rem; color: var(--p-mist); line-height: 1.7;
+  }
+  .phys-foot a { color: var(--p-ok); }
+</style>
+
+<div class="phys-stage">
+  <div class="phys-shell">
+    <p class="phys-kicker">nisaba · gate · february 2020 rhyme</p>
+    <h1 class="phys-brand">Physical <em>Prefinality</em></h1>
+    <p class="phys-thesis">{{ manifest.tagline if manifest else "Park before actuators. Society acts after bodies." }}</p>
+
+    <div class="phys-cta">
+      <a class="primary" href="{{ public_url }}/.well-known/physical-prefinality.json">manifest</a>
+      <a href="{{ public_url }}/v1/physical/evaluate">evaluate</a>
+      <a href="{{ public_url }}/admittance">admittance</a>
+    </div>
+
+    <div class="phys-lanes">
+      <div class="phys-lane">
+        <div class="n">lane</div>
+        <h3>REVERSIBLE</h3>
+        <p>Ordinary Right-to-Act. Computation may proceed.</p>
+      </div>
+      <div class="phys-lane">
+        <div class="n">lane</div>
+        <h3>CONSEQUENTIAL</h3>
+        <p>HOLD / reconstruct, then ask a living human once.</p>
+      </div>
+      <div class="phys-lane irr">
+        <div class="n">seize</div>
+        <h3>IRREVERSIBLE</h3>
+        <p>PARK until living root + mandate + subject clear.</p>
+      </div>
+    </div>
+
+    <section class="phys-sinks">
+      <h2>Absolute physical sinks</h2>
+      {% if sinks %}
+        {% for s in sinks %}
+        <div class="phys-sink"><b>{{ s.sink_id }}</b> — {{ s.description }}</div>
+        {% endfor %}
+      {% else %}
+        <p class="phys-empty">No absolute physical sinks registered.</p>
+      {% endif %}
+    </section>
+
+    <section class="phys-parks" style="margin-top:2rem;">
+      <h2>Recent parks</h2>
+      {% if parks %}
+        {% for p in parks %}
+        <div class="phys-park">
+          <div class="id">{{ p.park_id }} · {{ p.reason }}</div>
+          <p class="t">{{ p.action or "—" }} → {{ p.sink or "—" }} · atoms do not move</p>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="phys-empty">No parks yet. Absolute physical evaluates park here first.</p>
+      {% endif %}
+    </section>
+
+    <div class="phys-foot">
+      {{ manifest.why_now if manifest else "" }}<br>
+      <a href="{{ public_url }}/.well-known/physical-prefinality.json">/.well-known/physical-prefinality.json</a>
+      · <a href="{{ public_url }}/.well-known/admittance.json">admittance</a>
+      · <a href="{{ public_url }}/.well-known/sinks.json">sinks</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
