@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Nisaba — paste description{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block meta %}
+<meta name="description" content="Full in-depth Nisaba description. Copy and paste anytime.">
+{% endblock %}
+{% block content %}
+<div class="top-banner">
+  <span><strong>Nisaba.</strong> Full description — copy anytime.</span>
+  <button type="button" class="btn btn-primary btn-sm" id="copy-btn" onclick="copyNisabaPaste()">Copy</button>
+</div>
+
+<section class="hero container" style="padding-bottom: 1rem;">
+  <p class="audience-tag">Company paste · archive</p>
+  <h1>Nisaba</h1>
+  <p class="hero-sub">Full in-depth description. One click copies the whole pack.</p>
+  <div class="hero-actions" style="justify-content: flex-start;">
+    <button type="button" class="btn btn-primary" id="copy-btn-hero" onclick="copyNisabaPaste()">Copy all</button>
+    <a href="{{ url_for('nisaba_paste_txt') }}" class="btn btn-accent-outline">Raw .txt</a>
+    <a href="{{ url_for('action_os_page') }}" class="btn btn-ghost">Action OS</a>
+  </div>
+  <p id="copy-status" style="margin-top: 0.75rem; color: var(--muted); min-height: 1.25rem;" aria-live="polite"></p>
+</section>
+
+<section class="container section" style="padding-top: 0;">
+  <div class="card">
+    <pre id="nisaba-paste" style="white-space: pre-wrap; word-break: break-word; margin: 0; font-size: 0.9rem; line-height: 1.45;">{{ paste }}</pre>
+  </div>
+</section>
+
+<script>
+async function copyNisabaPaste() {
+  var el = document.getElementById("nisaba-paste");
+  var status = document.getElementById("copy-status");
+  var text = el ? el.textContent : "";
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand("copy");
+      sel.removeAllRanges();
+    }
+    if (status) status.textContent = "Copied — paste anywhere";
+    ["copy-btn", "copy-btn-hero"].forEach(function (id) {
+      var b = document.getElementById(id);
+      if (!b) return;
+      var original = b.textContent;
+      b.textContent = "Copied";
+      setTimeout(function () { b.textContent = original; }, 1600);
+    });
+  } catch (e) {
+    if (status) status.textContent = "Select the text below and copy manually";
+  }
+}
+</script>
+{% endblock %}

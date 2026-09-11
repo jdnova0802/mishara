@@ -216,12 +216,15 @@ def manifest(public_url: str) -> dict[str, Any]:
             "demo_hop": f"{base}/demo/hop",
             "gate": f"{base}/.well-known/gate.json",
             "positioning": f"{base}/.well-known/positioning.json",
+            "paste": f"{base}/nisaba",
+            "paste_txt": f"{base}/nisaba/paste.txt",
             "erra": "https://velaru.xyz/erra",
             "verra": "https://velaru.xyz/verra",
             "velaru": "https://velaru.xyz",
             "verify": "https://velaru.xyz/verify",
         },
         "page": f"{base}/action-os",
+        "paste_page": f"{base}/nisaba",
         "their_production": False,
         "gatekeep": "Proprietary Nisaba Action OS doctrine. Ours.",
     }
@@ -238,3 +241,137 @@ def page_blocks() -> list[dict[str, Any]]:
         }
         for s in SERVE
     ]
+
+
+def paste_description(public_url: str = "") -> str:
+    """Full in-depth Nisaba description — paste anytime."""
+    base = (public_url or "").rstrip("/")
+    gate = base or "(Gate public URL)"
+    family_lines = []
+    for f in FAMILY:
+        url = gate if f["name"] == "Gate" else (f.get("url") or "")
+        family_lines.append(
+            f"- {f['name']} — {f['question']} — {f['rail']}"
+            + (f" — {url}" if url else "")
+        )
+    serve_lines = [
+        f"{i}. {s['who']} — {s['act']}" for i, s in enumerate(SERVE, 1)
+    ]
+    return "\n".join(
+        [
+            "# Nisaba — Full Description (paste anytime)",
+            "",
+            "## One line",
+            "",
+            "Nisaba is the company behind an Action OS: own permission on irreversible acts "
+            "for any power that needs it — and make scarcity the DENY, not the narrative.",
+            "",
+            "## What it is",
+            "",
+            "Nisaba LLC (nisaba.io / hello@nisaba.io) is the inventor/operator entity for a "
+            "family of products that sit on irreversible writes — money leaving, coverage "
+            "binding, authority releasing — and decide whether those acts may complete.",
+            "",
+            "Nisaba is not a consumer brand homepage and not a SaaS seat product. Doctrine: "
+            "Nisaba stays on the invoice. Never the homepage. Public surfaces are products "
+            "(Velaru, Gate, Erra, Verra, Mishara). The company name appears as operator, "
+            "inventor, patent holder, and register GP.",
+            "",
+            "Patent stack: #64/124,027.",
+            "",
+            "## Core formula",
+            "",
+            FORMULA,
+            "",
+            THESIS,
+            "",
+            "## Palantir equivalent",
+            "",
+            f"- Palantir job: {EQUIVALENT['palantir']['job']}. Bite: {EQUIVALENT['palantir']['bite']}.",
+            f"- Nisaba job: {EQUIVALENT['nisaba']['job']}. Bite: {EQUIVALENT['nisaba']['bite']}.",
+            f"- Nisaba scarcity: {EQUIVALENT['nisaba']['scarcity']}.",
+            "- Short: Palantir integrates data; Nisaba governs the act. Narrative without DENY is SaaS.",
+            "",
+            "## Who it serves",
+            "",
+            "Anybody whose write moves capital, coverage, or force:",
+            "",
+            *serve_lines,
+            "",
+            "Sitting on the write means serving entities that conflict. Neutrality is fake. "
+            "Controversy is nature, not dark copy.",
+            "",
+            "## Product family (Nisaba stack)",
+            "",
+            "All siblings share Velaru engine DNA (stranger verify, fail-closed, custody wall, "
+            "patent stack). Each asks a different question:",
+            "",
+            *family_lines,
+            "",
+            "Engine: Velaru — prepaid public mortality fuse (LIVE / ARMED / DEAD / UNSIGNED).",
+            "Commercial mouth: Gate — weld one irreversible write, management rent, 10 bps on "
+            "cleared flow. Lab hops are drills. their_production stays false until a real "
+            "third-party production weld.",
+            "",
+            "## Integrity laws (non-negotiable)",
+            "",
+            *[f"- {line}" for line in INTEGRITY],
+            "",
+            "Hands dirty = welded on their irreversible path. Hands clean = CHARGE-only LIVE.",
+            "",
+            "## Economics (GP register, not SaaS)",
+            "",
+            "Nisaba retains the mouth — do not dilute the GP early.",
+            "",
+            "1. Weld — $25,000 one-time to marry Gate to one irreversible write (withdraw/payout or bind-only)",
+            "2. Management — $5,000/mo floor per welded mouth / LIVE license parent (2%-on-AUM analog)",
+            "3. Flow — 10 bps on cleared flow through welded mouths; carry (+5 bps) above high hurdle (20%-carry analog)",
+            "",
+            "Asset equation: default × permission × welded mouths.",
+            "Civilization asset: default on irreversible spend across licensed rails — not seat tiers, "
+            "not a calculator, not museum hops.",
+            "",
+            "First commercial weld path: withdraw / payout — clear before wire.",
+            "",
+            "## Nature",
+            "",
+            *[f"- {line}" for line in NATURE],
+            "",
+            "## What Nisaba is not",
+            "",
+            *[f"- {line}" for line in NOT],
+            "",
+            "## Voice",
+            "",
+            "Nisaba voice: refusal SKU, stranger mass, inhabitant — not another purple-gradient dashboard.",
+            "",
+            "## Playbook",
+            "",
+            *[f"{i}. {line}" for i, line in enumerate(PLAYBOOK, 1)],
+            "",
+            "## Ads / paste snippets",
+            "",
+            "Company: Nisaba. Clearance before irreversible write. Fail closed.",
+            "",
+            "Formula: Own the door on irreversible acts. Scarcity is the DENY. We serve everybody. "
+            "Fail closed. CHARGE only. Stranger verify.",
+            "",
+            "Gate: Gate — Action OS mouth on irreversible writes. DENY that holds. Weld + register "
+            "(10 bps). Not SaaS. Not Free/Pro.",
+            "",
+            "Invoice: Nisaba LLC · hello@nisaba.io · Patent #64/124,027",
+            "",
+            "## Links",
+            "",
+            f"- Paste page: {gate}/nisaba",
+            f"- Raw .txt: {gate}/nisaba/paste.txt",
+            f"- Action OS: {gate}/action-os",
+            f"- action-os.json: {gate}/.well-known/action-os.json",
+            f"- Operator weld: {gate}/operator",
+            f"- Register: {gate}/register",
+            "- Velaru verify: https://velaru.xyz/verify",
+            "",
+            f"Spec: {SPEC}",
+            "",
+        ]
+    )
