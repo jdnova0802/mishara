@@ -552,6 +552,20 @@ def die(
                     _dead_roots[str(row["human_root_digest"])] = death_id
 
     base = (public_url or "").rstrip("/")
+    # Index into Finder — death becomes searchable consequence.
+    try:
+        from gate import finder as finder_mod
+    except ImportError:
+        try:
+            import finder as finder_mod
+        except ImportError:
+            finder_mod = None
+    if finder_mod is not None:
+        try:
+            finder_mod.record_death(cert_body)
+        except Exception:
+            pass
+
     return {
         "ok": True,
         "reason": None,
@@ -813,6 +827,138 @@ def jwks() -> dict:
     }
 
 
+def export_deaths(*, since_epoch: int = 0, since_unix: int = 0) -> dict:
+    """Federation export — peer nodes pull stranger-verifiable death certificates."""
+    with _lock:
+        rows = []
+        for cert in _deaths.values():
+            if int(cert.get("epoch") or 0) < int(since_epoch or 0):
+                continue
+            if int(cert.get("died_at_unix") or 0) < int(since_unix or 0):
+                continue
+            rows.append(dict(cert))
+        epoch = _death_epoch
+    rows.sort(key=lambda c: (int(c.get("epoch") or 0), int(c.get("died_at_unix") or 0)))
+    return {
+        "spec": DEATH_SPEC,
+        "federation": "gate-mortality-fed-v1",
+        "epoch": epoch,
+        "count": len(rows),
+        "deaths": rows,
+        "invariant": "Death clears across nodes — authority voided everywhere it is known.",
+    }
+
+
+def ingest_death(
+    certificate: dict | None = None,
+    *,
+    peer: str | None = None,
+    public_url: str = "",
+) -> dict:
+    """Federation ingest — accept a verified foreign death into this clearinghouse.
+
+    Does not re-sign. Stores the peer certificate after local signature verify,
+    then applies the same lineage voiding as a local die for known subjects.
+    """
+    global _death_epoch
+    cert = dict(certificate) if isinstance(certificate, dict) else None
+    if not cert:
+        return {"ok": False, "reason": "certificate_required", "death_certificate": None}
+
+    death_id = str(cert.get("death_id") or "").strip()
+    if not death_id:
+        return {"ok": False, "reason": "death_id_required", "death_certificate": None}
+
+    if not _verify_sig(cert, cert.get("signature")):
+        return {"ok": False, "reason": "bad_signature", "death_certificate": None}
+
+    with _lock:
+        if death_id in _deaths:
+            return {
+                "ok": True,
+                "reason": "already_known",
+                "death_certificate": dict(_deaths[death_id]),
+                "peer": peer,
+            }
+
+        subj = cert.get("subject") if isinstance(cert.get("subject"), dict) else {}
+        mid = (subj.get("mandate_id") or "").strip() or None
+        principal = (subj.get("human_principal_id") or "").strip() or None
+        root = (subj.get("human_root_digest") or "").strip() or None
+        agent = (subj.get("agent_id") or "").strip() or None
+
+        subjects: list[str] = []
+        if mid and mid in _mandates:
+            subjects = _collect_descendants(mid)
+        elif root or principal:
+            if principal:
+                subjects.extend(
+                    k
+                    for k, row in _mandates.items()
+                    if row.get("human_principal_id") == principal
+                )
+            if root:
+                subjects.extend(
+                    k
+                    for k, row in _mandates.items()
+                    if row.get("human_root_digest") == root
+                )
+            subjects = list(dict.fromkeys(subjects))
+        elif agent:
+            subjects = [k for k, row in _mandates.items() if row.get("agent_id") == agent]
+
+        killed: list[str] = []
+        for sid in subjects:
+            _revoked.add(sid)
+            killed.append(sid)
+
+        stored = dict(cert)
+        stored["federated_from"] = (peer or "").strip() or None
+        stored["ingested_at"] = _iso()
+        # Merge cascade with local kills for this node's view.
+        prior = list(stored.get("cascade_killed") or [])
+        stored["cascade_killed"] = sorted(set(prior) | set(killed))
+
+        _deaths[death_id] = stored
+        for sid in stored["cascade_killed"]:
+            _dead_mandates[sid] = death_id
+        if root:
+            _dead_roots[root] = death_id
+        if agent:
+            _dead_agents[agent] = death_id
+        if principal:
+            _dead_roots[f"principal:{principal}"] = death_id
+            for row in _mandates.values():
+                if row.get("human_principal_id") == principal and row.get("human_root_digest"):
+                    _dead_roots[str(row["human_root_digest"])] = death_id
+
+        try:
+            _death_epoch = max(int(_death_epoch), int(cert.get("epoch") or 0))
+        except (TypeError, ValueError):
+            pass
+
+    # Index into Finder (the Google that never happened).
+    try:
+        from gate import finder as finder_mod
+    except ImportError:
+        try:
+            import finder as finder_mod
+        except ImportError:
+            finder_mod = None
+    if finder_mod is not None:
+        finder_mod.record_death(stored)
+
+    base = (public_url or "").rstrip("/")
+    return {
+        "ok": True,
+        "reason": None,
+        "death_certificate": stored,
+        "peer": peer,
+        "well_known": f"{base}/.well-known/deaths/{death_id}.json" if base else None,
+        "invariant": "Federated death is local non-completability.",
+    }
+
+
 def manifest(public_url: str) -> dict:
     base = (public_url or "").rstrip("/")
     return {
@@ -833,13 +979,17 @@ def manifest(public_url: str) -> dict:
         "die": f"{base}/v1/mandate/die",
         "reconstruct": f"{base}/v1/mandate/reconstruct",
         "death_verify": f"{base}/v1/mandate/death/verify",
+        "death_export": f"{base}/v1/mandate/deaths/export",
+        "death_ingest": f"{base}/v1/mandate/deaths/ingest",
         "death_well_known": f"{base}/.well-known/deaths/{{death_id}}.json",
         "jwks": f"{base}/.well-known/mandate-jwks.json",
         "related": {
             "right_to_act": f"{base}/.well-known/right-to-act.json",
+            "finder": f"{base}/.well-known/finder.json",
             "note": (
                 "Mandate = WHO still authorizes; Mortality = authority is dead; "
-                "Right-to-Act = whether the act may EXIST."
+                "Right-to-Act = whether the act may EXIST; "
+                "Finder = the Google that never happened."
             ),
         },
     }

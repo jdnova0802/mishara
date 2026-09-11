@@ -230,6 +230,21 @@ except ImportError:
     import mandate as mandate_mod
 
 try:
+    from gate import sinks as sinks_mod
+except ImportError:
+    import sinks as sinks_mod
+
+try:
+    from gate import continuity as continuity_mod
+except ImportError:
+    import continuity as continuity_mod
+
+try:
+    from gate import finder as finder_mod
+except ImportError:
+    import finder as finder_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -1449,6 +1464,13 @@ def well_known_gate():
             "mandate_die": f"{advertised_url()}/v1/mandate/die",
             "mandate_death_verify": f"{advertised_url()}/v1/mandate/death/verify",
             "deaths_well_known": f"{advertised_url()}/.well-known/deaths/{{death_id}}.json",
+            "mortality_export": f"{advertised_url()}/v1/mandate/deaths/export",
+            "mortality_ingest": f"{advertised_url()}/v1/mandate/deaths/ingest",
+            "sinks": f"{advertised_url()}/.well-known/sinks.json",
+            "continuity": f"{advertised_url()}/.well-known/continuity.json",
+            "finder": f"{advertised_url()}/.well-known/finder.json",
+            "finder_page": f"{advertised_url()}/finder",
+            "finder_search": f"{advertised_url()}/v1/finder/search",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2340,6 +2362,151 @@ def mandate_is_dead():
         agent_id=body.get("agent_id") or body.get("actor"),
     )
     return jsonify(out), 200
+
+
+@app.route("/v1/mandate/deaths/export", methods=["GET", "POST"])
+def mandate_deaths_export():
+    body = request.get_json(silent=True) or {}
+    since_epoch = request.args.get("since_epoch", body.get("since_epoch") or 0)
+    since_unix = request.args.get("since_unix", body.get("since_unix") or 0)
+    try:
+        since_epoch_i = int(since_epoch or 0)
+        since_unix_i = int(since_unix or 0)
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "reason": "invalid_since"}), 400
+    return jsonify(mandate_mod.export_deaths(since_epoch=since_epoch_i, since_unix=since_unix_i))
+
+
+@app.route("/v1/mandate/deaths/ingest", methods=["POST"])
+def mandate_deaths_ingest():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.ingest_death(
+        body.get("death_certificate") or body.get("certificate"),
+        peer=body.get("peer") or request.headers.get("X-Gate-Peer"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/.well-known/sinks.json")
+def well_known_sinks():
+    return jsonify(sinks_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/sinks", methods=["GET"])
+def sinks_list():
+    return jsonify(
+        {
+            "spec": sinks_mod.SPEC,
+            "sinks": sinks_mod.list_sinks(
+                sink_class=request.args.get("class"),
+                irreversibility=request.args.get("irreversibility"),
+            ),
+        }
+    )
+
+
+@app.route("/v1/sinks/<path:sink_id>", methods=["GET"])
+def sinks_get(sink_id: str):
+    row = sinks_mod.get(sink_id)
+    if not row:
+        return jsonify({"error": "unknown_sink", "sink_id": sink_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/sinks/register", methods=["POST"])
+def sinks_register():
+    body = request.get_json(silent=True) or {}
+    out = sinks_mod.register(
+        sink_id=str(body.get("sink_id") or ""),
+        sink_class=str(body.get("class") or body.get("sink_class") or ""),
+        irreversibility=str(body.get("irreversibility") or "hard"),
+        burn_required=bool(body.get("burn_required", True)),
+        mandate_required=bool(body.get("mandate_required", True)),
+        description=str(body.get("description") or ""),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/.well-known/continuity.json")
+def well_known_continuity():
+    return jsonify(continuity_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/continuity/record", methods=["POST"])
+def continuity_record():
+    body = request.get_json(silent=True) or {}
+    out = continuity_mod.record(
+        human_principal_id=str(body.get("human_principal_id") or body.get("principal_id") or ""),
+        event=str(body.get("event") or ""),
+        reason=str(body.get("reason") or ""),
+        human_root_digest=body.get("human_root_digest"),
+        agent_id=body.get("agent_id") or body.get("actor"),
+        cascade_die=bool(body.get("cascade_die", True)),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/continuity/<continuity_id>", methods=["GET"])
+def continuity_get(continuity_id: str):
+    row = continuity_mod.get(continuity_id)
+    if not row:
+        return jsonify({"error": "unknown_continuity", "continuity_id": continuity_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/continuity/principal/<path:human_principal_id>", methods=["GET"])
+def continuity_for_principal(human_principal_id: str):
+    return jsonify(
+        {
+            "human_principal_id": human_principal_id,
+            "events": continuity_mod.for_principal(human_principal_id),
+            "status": continuity_mod.is_non_authorizing(human_principal_id),
+        }
+    )
+
+
+@app.route("/.well-known/finder.json")
+def well_known_finder():
+    return jsonify(finder_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/finder/search", methods=["GET", "POST"])
+def finder_search():
+    body = request.get_json(silent=True) or {}
+    q = request.args.get("q", body.get("q") or "")
+    kind = request.args.get("kind", body.get("kind"))
+    limit = request.args.get("limit", body.get("limit") or 25)
+    try:
+        limit_i = int(limit)
+    except (TypeError, ValueError):
+        limit_i = 25
+    return jsonify(finder_mod.search(q, kind=kind, limit=limit_i))
+
+
+@app.route("/v1/finder/stats", methods=["GET"])
+def finder_stats():
+    return jsonify(finder_mod.stats())
+
+
+@app.route("/v1/finder/doc/<path:doc_id>", methods=["GET"])
+def finder_doc(doc_id: str):
+    row = finder_mod.get(doc_id)
+    if not row:
+        return jsonify({"error": "unknown_doc", "id": doc_id}), 404
+    return jsonify(row)
+
+
+@app.route("/finder")
+def finder_page():
+    stats = finder_mod.stats()
+    return render_template(
+        "finder.html",
+        public_url=advertised_url(),
+        stats=stats,
+        thesis=finder_mod.manifest(advertised_url()).get("tagline"),
+    )
 
 
 def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:

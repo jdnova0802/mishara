@@ -568,6 +568,29 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         out["message"] = (
             "Right-to-Act NONEXIST — act has no right to become real. Refusal is the product."
         )
+
+    # Index refusals into Finder — the Google that never happened.
+    if decision == "NONEXIST" and refusal:
+        try:
+            from gate import finder as finder_mod
+        except ImportError:
+            try:
+                import finder as finder_mod
+            except ImportError:
+                finder_mod = None
+        if finder_mod is not None:
+            try:
+                finder_mod.record_refusal(
+                    refusal_digest=refusal,
+                    action=str(candidate.get("action") or ""),
+                    sink=str(candidate.get("sink") or ""),
+                    actor=str(candidate.get("actor") or ""),
+                    signals=list(signals or []),
+                    evaluation_id=evaluation_id,
+                    fingerprint=fingerprint,
+                )
+            except Exception:
+                pass
     return out
 
 
