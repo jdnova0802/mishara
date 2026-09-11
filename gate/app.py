@@ -220,6 +220,11 @@ except ImportError:
     import prefinality as prefinality_mod
 
 try:
+    from gate import right_to_act as right_to_act_mod
+except ImportError:
+    import right_to_act as right_to_act_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -1430,6 +1435,9 @@ def well_known_gate():
             "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
             "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
             "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
+            "right_to_act": f"{advertised_url()}/.well-known/right-to-act.json",
+            "right_to_act_evaluate": f"{advertised_url()}/v1/right-to-act/evaluate",
+            "right_to_act_demo": f"{advertised_url()}/demo/right-to-act/evaluate",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2196,6 +2204,97 @@ def well_known_prefinality():
 @app.route("/.well-known/prefinality-jwks.json")
 def well_known_prefinality_jwks():
     return jsonify(prefinality_mod.jwks())
+
+
+@app.route("/.well-known/right-to-act.json")
+def well_known_right_to_act():
+    return jsonify(right_to_act_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/right-to-act-jwks.json")
+def well_known_right_to_act_jwks():
+    return jsonify(right_to_act_mod.jwks())
+
+
+def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:
+    return right_to_act_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        account_id=account_id,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/right-to-act/evaluate", methods=["POST"])
+def demo_right_to_act_evaluate():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    data = run_right_to_act_evaluate(body, account_id=None)
+    data["demo"] = True
+    data["signup_url"] = f"{advertised_url()}/signup"
+    bound.attach(data, 200, demo=True)
+    return jsonify(data), 200
+
+
+@app.route("/v1/right-to-act/evaluate", methods=["POST"])
+def right_to_act_evaluate():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    row = authenticate_api_key()
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        data = run_right_to_act_evaluate(body, account_id=row["account_id"])
+        bound.attach(data, 200, demo=False)
+        return jsonify(data), 200
+    data = run_right_to_act_evaluate(body, account_id=None)
+    data["auth"] = "anonymous"
+    bound.attach(data, 200, demo=True)
+    return jsonify(data), 200
+
+
+@app.route("/v1/right-to-act/verify", methods=["POST"])
+def right_to_act_verify():
+    body = request.get_json(silent=True) or {}
+    receipt = body.get("receipt") or body.get("token") or ""
+    expected = body.get("fingerprint") or body.get("expected_fingerprint")
+    verified = right_to_act_mod.verify_receipt_jwt(
+        receipt, expected_fingerprint=expected if expected else None
+    )
+    return jsonify({"spec": right_to_act_mod.SPEC, **verified}), 200 if verified.get("valid") else 400
+
+
+@app.route("/v1/right-to-act/burn", methods=["POST"])
+def right_to_act_burn():
+    body = request.get_json(silent=True) or {}
+    ticket_id = (body.get("ticket_id") or "").strip()
+    fingerprint = (body.get("fingerprint") or "").strip()
+    sink = (body.get("sink") or "").strip()
+    if not ticket_id or not fingerprint or not sink:
+        return jsonify(
+            {
+                "ok": False,
+                "reason": "ticket_id_fingerprint_sink_required",
+                "invariant": "Sink must present exact ticket + fingerprint + sink to burn.",
+            }
+        ), 400
+    result = right_to_act_mod.burn_ticket(ticket_id, fingerprint=fingerprint, sink=sink)
+    return jsonify(result), 200 if result.get("ok") else 409
+
+
+@app.route("/sdk/right-to-act/wrap.mjs")
+def sdk_right_to_act_wrap():
+    path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "sdk", "right-to-act", "wrap.mjs"
+    )
+    if not os.path.isfile(path):
+        abort(404)
+    with open(path, "r", encoding="utf-8") as fh:
+        return Response(fh.read(), mimetype="text/javascript")
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
