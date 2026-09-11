@@ -245,6 +245,11 @@ except ImportError:
     import finder as finder_mod
 
 try:
+    from gate import admittance as admittance_mod
+except ImportError:
+    import admittance as admittance_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -1471,6 +1476,10 @@ def well_known_gate():
             "finder": f"{advertised_url()}/.well-known/finder.json",
             "finder_page": f"{advertised_url()}/finder",
             "finder_search": f"{advertised_url()}/v1/finder/search",
+            "admittance": f"{advertised_url()}/.well-known/admittance.json",
+            "admittance_admit": f"{advertised_url()}/v1/admittance/admit",
+            "admittance_page": f"{advertised_url()}/admittance",
+            "facts_well_known": f"{advertised_url()}/.well-known/facts/{{fact_id}}.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2506,6 +2515,78 @@ def finder_page():
         public_url=advertised_url(),
         stats=stats,
         thesis=finder_mod.manifest(advertised_url()).get("tagline"),
+    )
+
+
+@app.route("/.well-known/admittance.json")
+def well_known_admittance():
+    return jsonify(admittance_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/admittance/admit", methods=["POST"])
+def admittance_admit():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    account_id = None
+    row = authenticate_api_key()
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        account_id = row["account_id"]
+    out = admittance_mod.admit(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+        account_id=account_id,
+    )
+    code = 200 if out.get("outcome") in ("ADMITTED", "REFUSED", "HALTED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/demo/admittance/admit", methods=["POST"])
+def demo_admittance_admit():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    out = admittance_mod.admit(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+        account_id=None,
+    )
+    out["demo"] = True
+    out["signup_url"] = f"{advertised_url()}/signup"
+    code = 200 if out.get("outcome") in ("ADMITTED", "REFUSED", "HALTED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/v1/admittance/fact/<fact_id>", methods=["GET"])
+@app.route("/.well-known/facts/<fact_id>.json", methods=["GET"])
+def admittance_fact(fact_id: str):
+    row = admittance_mod.get_fact(fact_id)
+    if not row:
+        return jsonify({"error": "unknown_fact", "fact_id": fact_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/admittance/facts", methods=["GET"])
+def admittance_facts_list():
+    try:
+        limit = int(request.args.get("limit") or 50)
+    except (TypeError, ValueError):
+        limit = 50
+    return jsonify({"spec": admittance_mod.SPEC, "facts": admittance_mod.list_facts(limit)})
+
+
+@app.route("/admittance")
+def admittance_page():
+    return render_template(
+        "admittance.html",
+        public_url=advertised_url(),
+        manifest=admittance_mod.manifest(advertised_url()),
+        facts=admittance_mod.list_facts(12),
     )
 
 
