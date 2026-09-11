@@ -40,7 +40,14 @@ def payto_configured() -> bool:
     return payto() is not None
 
 
-def payment_header_present(headers) -> bool:
+# Facilitator cryptographic verification is not implemented. Until it is,
+# a payment header must NEVER authorize access. Callers that historically
+# treated payment_header_present() as "paid" now fail closed.
+FACILITATOR_VERIFY_IMPLEMENTED = False
+
+
+def payment_header_raw_present(headers) -> bool:
+    """True if a payment header byte is present. Not authorization."""
     if not headers:
         return False
     for key in (
@@ -53,6 +60,53 @@ def payment_header_present(headers) -> bool:
         if headers.get(key):
             return True
     return False
+
+
+def verify_payment_authorization(headers) -> dict:
+    """Fail-closed payment authorization for paid routes.
+
+    Returns authorized=True only after facilitator verification succeeds.
+    While FACILITATOR_VERIFY_IMPLEMENTED is False, always unauthorized —
+    even when a payment header is present.
+    """
+    raw = payment_header_raw_present(headers)
+    if not raw:
+        return {
+            "authorized": False,
+            "fail_closed": True,
+            "reason": "payment_header_absent",
+            "facilitator_verify_implemented": FACILITATOR_VERIFY_IMPLEMENTED,
+        }
+    if not FACILITATOR_VERIFY_IMPLEMENTED:
+        return {
+            "authorized": False,
+            "fail_closed": True,
+            "reason": "facilitator_verify_unimplemented",
+            "facilitator_verify_implemented": False,
+            "message": (
+                "Payment header present but facilitator verification is not implemented. "
+                "Refusing to treat request as paid. Use API key auth or wait for facilitator verify."
+            ),
+            "raw_header_present": True,
+        }
+    # Placeholder for future facilitator verify — must remain fail-closed on error.
+    return {
+        "authorized": False,
+        "fail_closed": True,
+        "reason": "facilitator_verify_not_wired",
+        "facilitator_verify_implemented": True,
+        "message": "Facilitator verify flag is on but no verifier is wired — fail closed.",
+    }
+
+
+def payment_header_present(headers) -> bool:
+    """Authorization gate used by app paid routes.
+
+    Historically returned True when any payment header was present (unsafe).
+    Now returns True only when verify_payment_authorization() authorizes.
+    Until facilitator verify ships, this is always False for real headers.
+    """
+    return bool(verify_payment_authorization(headers).get("authorized"))
 
 
 def _bazaar_info(*, method: str = "POST") -> dict:  # noqa: ARG001 — method reserved for GET wire routes

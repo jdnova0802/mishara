@@ -3,16 +3,19 @@
 Rail-agnostic evaluate contract:
   POST body → decision + signed JWT receipt bound to transfer fingerprint.
 
-Fail-closed: missing fields, policy breach, fuse DEAD, or unsigned receipt in prod → NO_GO.
+Fail-closed: missing fields, policy breach, fuse DEAD/unverified, unsigned
+receipt, storage errors, or any exception → NO_GO.
+
+GO receipts are single-use: jti is consumed on first successful commit-path
+verification (consume=True). Legitimate retries after redemption must
+re-evaluate for a new jti — replay of the same JWT is rejected.
 """
 from __future__ import annotations
 
 import base64
 import hashlib
 import json
-import os
 import re
-import secrets
 import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable
@@ -32,16 +35,20 @@ _ROUTING_RE = re.compile(r"^\d{9}$")
 _ACCOUNT_RE = re.compile(r"^\d{4,17}$")
 
 
-def _dev_mode() -> bool:
-    return os.getenv("GATE_DEV_MODE", "").strip().lower() in ("1", "true", "yes", "on")
+def _db_mod():
+    try:
+        from gate import db as db_mod
+    except ImportError:
+        import db as db_mod
+    return db_mod
 
 
 def _utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def _iso(dt: datetime) -> str:
-    return dt.replace(microsecond=0).isoformat()
+def _iso(dt: datetime | None = None) -> str:
+    return (dt or _utc_now()).replace(microsecond=0).isoformat()
 
 
 def _b64url(data: bytes) -> str:
@@ -88,7 +95,12 @@ def _normalize_transfer(rail: str, transfer: dict | None) -> dict:
     currency = (t.get("currency") or "").strip().upper()
     if currency:
         out["currency"] = currency
-    cp = (t.get("counterparty") or t.get("payto") or t.get("payTo") or "").strip()
+    cp = (
+        t.get("counterparty")
+        or t.get("payto")
+        or t.get("payTo")
+        or ""
+    ).strip()
     if cp:
         out["counterparty"] = cp
     if rail == "rtp":
@@ -125,7 +137,8 @@ def _parse_amount(raw) -> float | None:
 
 def _validate_transfer(rail: str, transfer: dict) -> list[str]:
     errors: list[str] = []
-    t = _normalize_transfer(rail, transfer if isinstance(transfer, dict) else {})
+    t_raw = transfer if isinstance(transfer, dict) else {}
+    t = _normalize_transfer(rail, t_raw)
     amount = _parse_amount(t.get("amount"))
     if amount is None or amount <= 0:
         errors.append("invalid_amount")
@@ -140,13 +153,16 @@ def _validate_transfer(rail: str, transfer: dict) -> list[str]:
         if currency not in ("", "USD"):
             errors.append("unsupported_currency")
         has_ext = bool(t.get("external_account_id"))
-        has_bank = bool(transfer.get("routing_number") and transfer.get("account_number"))
+        has_bank = bool(t_raw.get("routing_number") and t_raw.get("account_number"))
         if not has_ext and not has_bank:
             errors.append("rtp_counterparty_required")
-        if transfer.get("routing_number") and not _ROUTING_RE.match(str(transfer["routing_number"]).strip()):
+        if t_raw.get("routing_number") and not _ROUTING_RE.match(str(t_raw["routing_number"]).strip()):
             errors.append("invalid_routing_number")
-        if transfer.get("account_number") and not _ACCOUNT_RE.match(re.sub(r"\D", "", str(transfer["account_number"]))):
+        acct = t_raw.get("account_number")
+        if acct and not _ACCOUNT_RE.match(re.sub(r"\D", "", str(acct))):
             errors.append("invalid_account_number")
+    else:
+        errors.append("unsupported_rail")
     return errors
 
 
@@ -157,7 +173,6 @@ def _policy_signals(
     mandate: dict | None,
     context: dict | None,
 ) -> tuple[str, list[str]]:
-    """Return decision + signal codes."""
     signals: list[str] = []
     mandate = mandate if isinstance(mandate, dict) else {}
     context = context if isinstance(context, dict) else {}
@@ -168,7 +183,9 @@ def _policy_signals(
         return "NO_GO", errors
 
     amount = _parse_amount(t.get("amount"))
-    max_amount = _parse_amount(mandate.get("max_amount") or mandate.get("max_payment"))
+    max_amount = _parse_amount(
+        mandate.get("max_amount") or mandate.get("max_payment") or mandate.get("amount_cap")
+    )
     if max_amount is not None and amount is not None and amount > max_amount:
         signals.append("amount_exceeds_cap")
         return "NO_GO", signals
@@ -191,7 +208,6 @@ def _policy_signals(
 
     intent = (mandate.get("intent") or context.get("intended") or "").strip()
     if intent and untrusted and intent.lower() not in untrusted.lower() and actual:
-        # Soft signal only when intent is declared but doesn't match untrusted source.
         if untrusted.lower() in actual.lower():
             signals.append("intent_mismatch")
             return "NO_GO", signals
@@ -207,6 +223,52 @@ def _policy_signals(
         return "NO_GO", signals
 
     return "GO", signals
+
+
+def _ensure_redemption_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS prefinality_receipt_redemptions (
+            jti TEXT PRIMARY KEY,
+            fingerprint TEXT NOT NULL,
+            rail TEXT,
+            redeemed_at TEXT NOT NULL,
+            evaluation_id TEXT
+        )
+        """
+    )
+
+
+def _redeem_jti(*, jti: str, fingerprint: str, rail: str | None = None) -> dict:
+    """Atomically consume a GO jti. First success wins; reuse → receipt_replay."""
+    jti = (jti or "").strip()
+    fingerprint = (fingerprint or "").strip()
+    if not jti or not fingerprint:
+        return {"ok": False, "reason": "redeem_missing_jti_or_fingerprint"}
+    db_mod = _db_mod()
+    now = _iso()
+    try:
+        with db_mod.db() as conn:
+            _ensure_redemption_table(conn)
+            existing = conn.execute(
+                "SELECT jti, redeemed_at FROM prefinality_receipt_redemptions WHERE jti = ?",
+                (jti,),
+            ).fetchone()
+            if existing:
+                redeemed_at = existing["redeemed_at"] if not isinstance(existing, tuple) else existing[1]
+                return {"ok": False, "reason": "receipt_replay", "redeemed_at": redeemed_at}
+            conn.execute(
+                """INSERT INTO prefinality_receipt_redemptions
+                   (jti, fingerprint, rail, redeemed_at, evaluation_id)
+                   VALUES (?, ?, ?, ?, ?)""",
+                (jti, fingerprint, rail, now, jti),
+            )
+        return {"ok": True, "reason": None, "redeemed_at": now}
+    except Exception as exc:  # noqa: BLE001 — fail closed
+        msg = str(exc).lower()
+        if "unique" in msg or "constraint" in msg:
+            return {"ok": False, "reason": "receipt_replay"}
+        return {"ok": False, "reason": "redeem_store_error"}
 
 
 def mint_receipt_jwt(
@@ -236,7 +298,8 @@ def mint_receipt_jwt(
         "rail": rail,
         "dec": decision,
         "fp": fingerprint,
-        "sig": signals,
+        "sig": list(signals or []),
+        "one_shot": True,
     }
     header = {"alg": "EdDSA", "typ": "JWT", "kid": kid}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
@@ -246,13 +309,26 @@ def mint_receipt_jwt(
     return f"{header_b64}.{payload_b64}.{_b64url(sig)}"
 
 
-def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -> dict:
-    meta = {
+def verify_receipt_jwt(
+    token: str,
+    *,
+    expected_fingerprint: str | None = None,
+    consume: bool = True,
+) -> dict:
+    """Verify receipt JWT.
+
+    consume=True (default): GO jti is single-use — first successful verify
+    redeems it; reuse returns valid=False reason=receipt_replay.
+    Pass consume=False for signature-only audit inspection (does not authorize commit).
+    """
+    meta: dict[str, Any] = {
         "spec": SPEC,
         "valid": False,
         "decision": None,
         "reason": None,
         "payload": None,
+        "redeemed": False,
+        "consume": bool(consume),
     }
     if not token or not isinstance(token, str):
         meta["reason"] = "missing_token"
@@ -305,8 +381,28 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         meta["payload"] = payload
         return meta
 
+    if consume and decision == "GO":
+        jti = str(payload.get("jti") or "").strip()
+        red = _redeem_jti(jti=jti, fingerprint=str(fp or ""), rail=payload.get("rail"))
+        if not red.get("ok"):
+            meta["reason"] = red.get("reason") or "receipt_replay"
+            meta["payload"] = payload
+            meta["decision"] = decision
+            return meta
+        meta["redeemed"] = True
+        meta["redeemed_at"] = red.get("redeemed_at")
+
     meta.update({"valid": True, "decision": decision, "payload": payload, "reason": None})
     return meta
+
+
+def redeem_receipt_jwt(
+    token: str,
+    *,
+    expected_fingerprint: str | None = None,
+) -> dict:
+    """Commit-path helper: verify + consume GO jti (one-shot)."""
+    return verify_receipt_jwt(token, expected_fingerprint=expected_fingerprint, consume=True)
 
 
 def evaluate(
@@ -316,17 +412,49 @@ def evaluate(
     public_url: str,
     fuse_hop: Callable[[str], dict | None] | None = None,
 ) -> dict:
-    """Core evaluate — returns API response dict."""
+    """Core evaluate — returns API response dict. Fail closed to NO_GO."""
+    try:
+        return _evaluate_inner(
+            body if isinstance(body, dict) else {},
+            account_id=account_id,
+            public_url=public_url,
+            fuse_hop=fuse_hop,
+        )
+    except Exception as exc:  # noqa: BLE001 — never GO on internal error
+        eid = f"pf_{uuid.uuid4().hex}"
+        return _response(
+            evaluation_id=eid,
+            rail="unknown",
+            decision="NO_GO",
+            fingerprint="",
+            signals=["evaluate_error"],
+            receipt=None,
+            created_at=_iso(),
+            public_url=public_url or "",
+            halt=True,
+            reason=f"evaluate_error:{type(exc).__name__}",
+        )
+
+
+def _evaluate_inner(
+    body: dict,
+    *,
+    account_id: str | None,
+    public_url: str,
+    fuse_hop: Callable[[str], dict | None] | None,
+) -> dict:
     rail = (body.get("rail") or "").strip().lower()
     transfer = body.get("transfer") if isinstance(body.get("transfer"), dict) else {}
     mandate = body.get("mandate") if isinstance(body.get("mandate"), dict) else {}
     context = body.get("context") if isinstance(body.get("context"), dict) else {}
     ttl = int(body.get("ttl_seconds") or mandate.get("ttl_seconds") or DEFAULT_TTL_SECONDS)
-    agent_id = (mandate.get("agent_id") or body.get("agent_id") or context.get("agent_id") or "").strip() or None
+    agent_id = (
+        mandate.get("agent_id") or body.get("agent_id") or context.get("agent_id") or ""
+    ).strip() or None
     fuse_id = (mandate.get("fuse_id") or body.get("fuse_id") or "").strip() or None
 
     evaluation_id = f"pf_{uuid.uuid4().hex}"
-    created_at = _iso(_utc_now())
+    created_at = _iso()
 
     if rail not in RAILS:
         return _response(
@@ -343,21 +471,48 @@ def evaluate(
         )
 
     fingerprint = transfer_fingerprint(rail=rail, transfer=transfer)
-    decision, signals = _policy_signals(rail=rail, transfer=transfer, mandate=mandate, context=context)
+    decision, signals = _policy_signals(
+        rail=rail, transfer=transfer, mandate=mandate, context=context
+    )
 
     hop_meta = None
-    if fuse_id and fuse_hop:
-        hop_meta = fuse_hop(fuse_id)
-        if isinstance(hop_meta, dict):
-            if hop_meta.get("halt") or hop_meta.get("verdict") is False or hop_meta.get("state") == "DEAD":
+    if fuse_id:
+        # fuse_id present ⇒ must prove LIVE. Missing hop, unreachable, or
+        # ambiguous state/verdict is NO_GO — never GO by omission.
+        if not fuse_hop:
+            decision = "NO_GO"
+            if "fuse_unverified" not in signals:
+                signals.append("fuse_unverified")
+        else:
+            hop_meta = fuse_hop(fuse_id)
+            if not isinstance(hop_meta, dict):
+                decision = "NO_GO"
+                if "fuse_unverified" not in signals:
+                    signals.append("fuse_unverified")
+            elif (
+                hop_meta.get("halt")
+                or hop_meta.get("verdict") is False
+                or hop_meta.get("state") == "DEAD"
+            ):
                 decision = "NO_GO"
                 if "fuse_dead" not in signals:
                     signals.append("fuse_dead")
+            elif hop_meta.get("state") != "LIVE" or hop_meta.get("verdict") is not True:
+                decision = "NO_GO"
+                if "fuse_unverified" not in signals:
+                    signals.append("fuse_unverified")
 
-    if signing_required() and not _signing_key():
-        decision = "NO_GO"
-        signals.append("unsigned_halt")
+    # GO always requires a signed receipt — missing keys => NO_GO (incl. DEV_MODE).
+    if not _signing_key():
+        if decision == "GO":
+            decision = "NO_GO"
+        if "unsigned_halt" not in signals:
+            signals.append("unsigned_halt")
 
+    issuer = (
+        (public_url or "").replace("https://", "").replace("http://", "").split("/")[0]
+        or "gate.velaru.xyz"
+    )
     receipt = mint_receipt_jwt(
         evaluation_id=evaluation_id,
         rail=rail,
@@ -366,19 +521,30 @@ def evaluate(
         signals=signals,
         agent_id=agent_id,
         ttl_seconds=ttl,
-        issuer=public_url.replace("https://", "").replace("http://", "").split("/")[0] or "gate.velaru.xyz",
+        issuer=issuer,
     )
 
-    if signing_required() and not receipt:
+    if decision == "GO" and not receipt:
         decision = "NO_GO"
-        signals.append("unsigned_halt")
+        if "unsigned_halt" not in signals:
+            signals.append("unsigned_halt")
+
+    if decision != "GO" and receipt and _signing_key():
+        receipt = mint_receipt_jwt(
+            evaluation_id=evaluation_id,
+            rail=rail,
+            decision=decision,
+            fingerprint=fingerprint,
+            signals=signals,
+            agent_id=agent_id,
+            ttl_seconds=ttl,
+            issuer=issuer,
+        )
+    if decision == "NO_GO" and not _signing_key():
+        receipt = None
 
     halt = decision != "GO"
-    try:
-        from gate import db
-    except ImportError:
-        import db
-
+    db = _db_mod()
     db.record_prefinality_evaluation(
         evaluation_id=evaluation_id,
         account_id=account_id,
@@ -424,7 +590,7 @@ def _response(
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
 ) -> dict:
     base = (public_url or "").rstrip("/")
-    out = {
+    out: dict[str, Any] = {
         "spec": SPEC,
         "evaluation_id": evaluation_id,
         "restraint_id": evaluation_id,
@@ -441,19 +607,23 @@ def _response(
         "clearance_only": True,
         "write_executed": False,
         "their_production": False,
+        "receipt_one_shot": True,
     }
     if agent_id:
         out["agent_id"] = agent_id
     if reason:
         out["reason"] = reason
-    if hop:
+    if hop and isinstance(hop, dict):
         out["fuse_hop"] = {
             "state": hop.get("state"),
             "verdict": hop.get("verdict"),
             "halt": hop.get("halt"),
         }
     if decision == "GO":
-        out["message"] = "Pre-finality GO — rail may commit only if receipt verifies and is unexpired."
+        out["message"] = (
+            "Pre-finality GO — rail may commit only if receipt verifies, "
+            "is unexpired, and jti has not been redeemed."
+        )
     elif decision == "HOLD":
         out["message"] = "Pre-finality HOLD — human review required before commit."
     else:
@@ -487,7 +657,8 @@ def manifest(public_url: str) -> dict:
         "name": "Gate pre-finality clearance",
         "description": (
             "Rail-agnostic GO/NO-GO before irreversible commit. "
-            "x402 (agent wallet sign) and RTP/FedNow (instant fiat credit) adapters share one receipt."
+            "x402 (agent wallet sign) and RTP/FedNow (instant fiat credit) adapters share one receipt. "
+            "GO receipts are single-use (jti consumed on commit-path verify)."
         ),
         "rails": [
             {
@@ -513,6 +684,7 @@ def manifest(public_url: str) -> dict:
         "verify": f"{base}/v1/prefinality/verify",
         "jwks": f"{base}/.well-known/prefinality-jwks.json",
         "fail_closed": True,
+        "receipt_one_shot": True,
         "receipt_ttl_seconds_default": DEFAULT_TTL_SECONDS,
         "decisions": list(DECISIONS),
         "their_production": False,

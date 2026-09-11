@@ -3,6 +3,9 @@
 Modern Treasury and similar PSPs expose instant credit as `type: rtp`; the bank
 routes FedNow vs RTP internally. This adapter verifies a Gate pre-finality receipt
 matches the outbound payment instruction before you call the PSP API.
+
+GO receipts are redeemed (jti consumed) here. Network failure after allow means
+the caller must re-evaluate for a new jti — replay of the same receipt is rejected.
 """
 from __future__ import annotations
 
@@ -22,6 +25,7 @@ def payment_order_fingerprint(order: dict) -> str:
         "amount": _cents_to_decimal(order.get("amount")),
         "currency": (order.get("currency") or "USD").upper(),
     }
+    # Accept both nested receiving_account and flat MT-style fields used in tests.
     recv = order.get("receiving_account") if isinstance(order.get("receiving_account"), dict) else {}
     if recv.get("id"):
         transfer["external_account_id"] = str(recv["id"])
@@ -46,9 +50,16 @@ def _cents_to_decimal(amount) -> str | None:
 
 
 def gate_payment_order(*, receipt_jwt: str, payment_order: dict) -> dict:
-    """Return allow/deny for an outbound RTP-shaped payment order."""
-    fp = payment_order_fingerprint(payment_order if isinstance(payment_order, dict) else {})
-    verified = prefinality_mod.verify_receipt_jwt(receipt_jwt, expected_fingerprint=fp)
+    """Return allow/deny for an outbound RTP-shaped payment order.
+
+    Consumes the GO jti on first successful allow. Replay → allow=False.
+    """
+    order = payment_order if isinstance(payment_order, dict) else {}
+    fp = payment_order_fingerprint(order)
+    # Commit path: always consume. Retries after success need a fresh evaluate.
+    verified = prefinality_mod.redeem_receipt_jwt(
+        receipt_jwt, expected_fingerprint=fp
+    )
     decision = verified.get("decision")
     allow = bool(verified.get("valid") and decision == "GO")
     return {
@@ -57,13 +68,18 @@ def gate_payment_order(*, receipt_jwt: str, payment_order: dict) -> dict:
         "halt": not allow,
         "decision": decision,
         "valid_receipt": bool(verified.get("valid")),
+        "redeemed": bool(verified.get("redeemed")),
         "reason": verified.get("reason"),
         "fingerprint": fp,
         "payment_type_expected": "rtp",
+        "receipt_one_shot": True,
         "message": (
-            "Receipt valid and GO — safe to create payment_order with type=rtp."
+            "Receipt valid, GO, and jti redeemed — safe to create payment_order with type=rtp."
             if allow
-            else "Do not create payment_order — receipt missing, invalid, or not GO."
+            else (
+                "Do not create payment_order — receipt missing, invalid, not GO, "
+                "or already redeemed (re-evaluate for a new jti)."
+            )
         ),
     }
 
@@ -76,6 +92,7 @@ def spec(public_url: str) -> dict:
         "psp_examples": ["Modern Treasury", "Column"],
         "payment_type": "rtp",
         "fednow_note": "PSP selects FedNow vs RTP; Gate fingerprints the instruction, not the network.",
+        "receipt_one_shot": True,
         "evaluate": f"{base}/v1/prefinality/evaluate",
         "verify": f"{base}/v1/prefinality/verify",
         "manifest": f"{base}/.well-known/prefinality.json",
