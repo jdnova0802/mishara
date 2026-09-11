@@ -89,12 +89,13 @@ def main() -> None:
     service = svc.get("service") or svc
     print(f"  name={service.get('name')} type={service.get('type')}")
 
-    print("PATCH rootDir='' (repo root) + Mishara build/start")
+    # Do not rename to "mishara" — that name is already taken by another
+    # Render service (mishara-bu8k). Keep current name; only cut build/root.
+    print("PATCH rootDir='' (repo root) + Mishara build/start (keep service name)")
     _request(
         "PATCH",
         f"/services/{SERVICE_ID}",
         {
-            "name": "mishara",
             "rootDir": "",
             "serviceDetails": {
                 "envSpecificDetails": {
