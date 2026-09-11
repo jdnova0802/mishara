@@ -13,9 +13,19 @@ services:
         value: "3.13.0"
       - key: VELARU_API_URL
         value: https://velaru.onrender.com
+      - key: VELARU_VERIFY_URL
+        value: https://velaru.xyz/verify
       - key: MISHARA_DB_PATH
         value: /tmp/mishara.db
+      - key: MISHARA_PAYMENTS
+        value: stripe
+      - key: MISHARA_PUBLIC_URL
+        value: https://mishara.onrender.com
+      - key: MISHARA_CONTACT_EMAIL
+        value: hello@velaru.xyz
       - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
         sync: false
       - key: MISHARA_SECRET_KEY
         sync: false

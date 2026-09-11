@@ -288,14 +288,14 @@ VOICES: dict[str, dict[str, Any]] = {
             },
         ],
         "shipped": [
-            "Harm classify via Velaru",
-            "Cryptographic receipt + verify link",
-            "Rights guidance + demand letter",
-            "Anonymous pattern aggregation",
+            "Harm Receipt (free) — Velaru-signed verify URL",
+            "Demand Pack ($99) — rights map + demand letter",
+            "Advocate Bundle ($499) — pattern join + counsel export",
+            "Anonymous pattern aggregation (no narrative PII)",
         ],
         "gaps": [
-            "Attorney referral still coming",
-            "Economics intentionally thin — rights path not GP",
+            "Attorney referral network still coming",
+            "mishara.app DNS must point at Mishara deploy (not Gate)",
         ],
         "paste_hero": (
             "Was a person harmed?\n"
