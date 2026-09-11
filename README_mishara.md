@@ -27,11 +27,12 @@ Open http://localhost:5001
 
 ## Deploy (Render)
 
-Use `render_mishara.yaml` or:
+Use blueprint `render_mishara.yaml` (own web service + 1GB disk). **Do not** point Mishara domains at `gate-api`.
 
 - **Build:** `pip install -r requirements_mishara.txt`
 - **Start:** `gunicorn mishara_app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
 - **Health:** `/health`
+- **Disk:** `/var/data` → `MISHARA_DB_PATH=/var/data/mishara.db`
 
 Env:
 
@@ -41,8 +42,14 @@ Env:
 - `MISHARA_PUBLIC_URL=https://mishara.onrender.com`
 - `OPENAI_API_KEY` (optional)
 - `MISHARA_CONTACT_EMAIL=hello@velaru.xyz`
+- `MISHARA_SECRET_KEY` (session / unlock HMAC)
 
-Point **mishara.app** / Render service at this app — not Gate.
+Cutover checklist:
+
+1. Create Render service from `render_mishara.yaml` (separate from `gate-api`)
+2. Attach custom domain `mishara.app` / `mishara.onrender.com` to **this** service
+3. Confirm `/health` returns `"service":"mishara"` and product ids
+4. Set Stripe keys, then one live Demand Pack checkout
 
 ## API
 

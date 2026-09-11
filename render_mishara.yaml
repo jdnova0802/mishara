@@ -6,6 +6,10 @@ services:
     buildCommand: pip install -r requirements_mishara.txt
     startCommand: gunicorn mishara_app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
     healthCheckPath: /health
+    disk:
+      name: mishara-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: FLASK_DEBUG
         value: "false"
@@ -16,7 +20,7 @@ services:
       - key: VELARU_VERIFY_URL
         value: https://velaru.xyz/verify
       - key: MISHARA_DB_PATH
-        value: /tmp/mishara.db
+        value: /var/data/mishara.db
       - key: MISHARA_PAYMENTS
         value: stripe
       - key: MISHARA_PUBLIC_URL

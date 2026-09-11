@@ -1,0 +1,36 @@
+name: Mishara
+
+on:
+  push:
+    branches: [main, "cursor/mishara-*"]
+    paths:
+      - "mishara_app.py"
+      - "test_mishara.py"
+      - "requirements_mishara.txt"
+      - "templates/mishara/**"
+      - "render_mishara.yaml"
+      - ".github/workflows/mishara.yml"
+  pull_request:
+    paths:
+      - "mishara_app.py"
+      - "test_mishara.py"
+      - "requirements_mishara.txt"
+      - "templates/mishara/**"
+      - "render_mishara.yaml"
+      - ".github/workflows/mishara.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install
+        run: pip install -r requirements_mishara.txt pytest
+      - name: Test
+        env:
+          MISHARA_PAYMENTS: dev
+          MISHARA_ALLOW_DEV_PAY: "1"
+        run: python -m pytest test_mishara.py -q
