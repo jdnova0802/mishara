@@ -54,6 +54,11 @@ try:
 except ImportError:
     import license_fuse as license_fuse_mod
 
+try:
+    from gate import finality_sink as sink_mod
+except ImportError:
+    import finality_sink as sink_mod
+
 SPEC = "gate-bind-ticket-v1"
 DEFAULT_TTL = 15
 
@@ -191,8 +196,11 @@ def redeem(
     now: str | None = None,
     license_id: str | None = None,
     counterpart: dict | None = None,
+    fuse_lookup=None,
 ) -> dict:
-    """Atomic consume. Fail closed on missing now, skew, stale, mismatch, replay, dead parent, or wrong write."""
+    """Atomic consume. Fail closed on missing now, skew, stale, mismatch, replay,
+    dead parent, wrong write, or fuse not LIVE at use time (finality sink).
+    """
     server_now = datetime.now(timezone.utc)
     tid = (ticket_id or "").strip()
     tok = (token or "").strip()
@@ -230,6 +238,7 @@ def redeem(
     row = db.get_bind_ticket(tid)
     issued_lid = ""
     issued_cp = ""
+    issued_fuse = ""
     if row:
         try:
             issued_lid = (row.get("license_id") or "").strip()
@@ -239,6 +248,11 @@ def redeem(
             issued_cp = (row.get("counterpart_fingerprint") or "").strip()
         except (AttributeError, KeyError):
             issued_cp = ""
+        try:
+            issued_fuse = (row.get("fuse_id") or "").strip()
+        except (AttributeError, KeyError):
+            issued_fuse = ""
+    # Parent first — DEAD license is a more specific DENY than a dead fuse.
     if issued_lid:
         presented_lid = license_fuse_mod.normalize_id(license_id)
         if presented_lid and presented_lid != issued_lid:
@@ -265,6 +279,15 @@ def redeem(
                 ticket_id=tid,
                 job_id=jid,
             )
+    # Use-time Finality Sink — fuse must still be LIVE at redeem (TOCTOU closed).
+    sink = sink_mod.recheck(fuse_id=issued_fuse or None, fuse_lookup=fuse_lookup)
+    if not sink.get("ok"):
+        return _halt(
+            reason=sink.get("reason") or sink_mod.REASON_FUSE_NOT_LIVE,
+            ticket_id=tid,
+            job_id=jid,
+            extra={"finality_sink": sink},
+        )
     token_hash = hashlib.sha256(tok.encode("utf-8")).hexdigest()
     result = db.consume_bind_ticket(
         ticket_id=tid,
@@ -291,6 +314,8 @@ def redeem(
             "license_id": issued_lid or None,
             "counterpart_fingerprint": presented_cp or None,
             "command_radiation": clock,
+            "finality_sink": sink,
+            "fuse_id": issued_fuse or None,
         }
     return _halt(
         reason=result.get("reason") or "ticket_invalid",
@@ -314,6 +339,7 @@ def stamp(plan: dict, *, ticket_public: dict | None, epoch: dict | None, redeem_
         "max_skew_seconds": command_radiation.max_skew_seconds(),
         "license_id_parent": True,
         "children_cannot_outlive_parent": True,
+        "use_time_finality_sink": True,
         "counterpart_optional": True,
         "redeem": redeem_url,
         "ticket": ticket_public,
@@ -349,6 +375,8 @@ def manifest(public_url: str) -> dict:
         "spend_protocol": f"{public_url}/.well-known/spend-protocol.json",
         "command_radiation": f"{public_url}/.well-known/command-radiation.json",
         "license_fuse": f"{public_url}/.well-known/license-fuse.json",
+        "finality_sink": f"{public_url}/.well-known/finality-sink.json",
+        "use_time_fuse_recheck": True,
         "children_cannot_outlive_parent": True,
         "redeem": f"{public_url}/v1/pas/bind-ticket/redeem",
         "demo_redeem": f"{public_url}/demo/pas/bind-ticket/redeem",
