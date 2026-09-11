@@ -1446,6 +1446,9 @@ def well_known_gate():
             "mandate": f"{advertised_url()}/.well-known/mandate.json",
             "mandate_issue": f"{advertised_url()}/v1/mandate/issue",
             "mandate_reconstruct": f"{advertised_url()}/v1/mandate/reconstruct",
+            "mandate_die": f"{advertised_url()}/v1/mandate/die",
+            "mandate_death_verify": f"{advertised_url()}/v1/mandate/death/verify",
+            "deaths_well_known": f"{advertised_url()}/.well-known/deaths/{{death_id}}.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2293,6 +2296,50 @@ def mandate_reconstruct():
     )
     code = 200 if out.get("outcome") in ("ADMIT", "DENY", "HALT") else 400
     return jsonify(out), code
+
+
+@app.route("/v1/mandate/die", methods=["POST"])
+def mandate_die():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.die(
+        mandate_id=body.get("mandate_id"),
+        human_principal_id=body.get("human_principal_id") or body.get("principal_id"),
+        human_root_digest=body.get("human_root_digest"),
+        agent_id=body.get("agent_id") or body.get("actor"),
+        reason=str(body.get("reason") or "mortality"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/mandate/death/verify", methods=["POST"])
+def mandate_death_verify():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.verify_death(
+        body.get("death_certificate") or body.get("certificate"),
+        death_id=body.get("death_id"),
+    )
+    return jsonify(out), 200 if out.get("valid") else 400
+
+
+@app.route("/v1/mandate/death/<death_id>", methods=["GET"])
+@app.route("/.well-known/deaths/<death_id>.json", methods=["GET"])
+def mandate_death_get(death_id: str):
+    cert = mandate_mod.get_death(death_id)
+    if not cert:
+        return jsonify({"error": "unknown_death", "death_id": death_id}), 404
+    return jsonify(cert), 200
+
+
+@app.route("/v1/mandate/is-dead", methods=["POST"])
+def mandate_is_dead():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.is_dead(
+        mandate_id=body.get("mandate_id"),
+        human_root_digest=body.get("human_root_digest"),
+        agent_id=body.get("agent_id") or body.get("actor"),
+    )
+    return jsonify(out), 200
 
 
 def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:

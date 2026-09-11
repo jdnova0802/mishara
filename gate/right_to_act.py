@@ -377,6 +377,19 @@ def burn_ticket(ticket_id: str, *, fingerprint: str, sink: str) -> dict:
                 "invariant": "Prior EXIST is not current authority.",
             }
 
+    # Mortality: dead lineage cannot burn even if ticket still unspent.
+    if mandate_id:
+        dead = mandate_mod.is_dead(mandate_id=mandate_id)
+        if dead.get("dead"):
+            return {
+                "ok": False,
+                "reason": "mandate_dead",
+                "burned": False,
+                "death_id": dead.get("death_id"),
+                "death_certificate": dead.get("death_certificate"),
+                "invariant": "Death ends the right to become real — burns must fail.",
+            }
+
     with _ticket_lock:
         row = _tickets.get(ticket_id)
         if not row or row["burned"]:

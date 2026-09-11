@@ -37,7 +37,10 @@ CDN:
 - `POST /demo/right-to-act/evaluate` — public demo
 - `POST /v1/right-to-act/evaluate` — evaluate CandidateAct
 - `POST /v1/right-to-act/verify` — verify receipt JWT
-- `POST /v1/right-to-act/burn` — sink consumes ticket
+- `POST /v1/right-to-act/burn` — sink consumes ticket (re-proves living mandate; fails on death)
 - `GET /.well-known/right-to-act.json` — manifest
+
+Related: Mandate + Mortality Clearinghouse (`/.well-known/mandate.json`) —
+death certificates make burn paths non-completable for a lineage.
 
 Prefinality is the payment-rail specialization of this substrate.
