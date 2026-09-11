@@ -69,10 +69,14 @@ def report(
     reporter: str,
     note: str = "",
     license_id: str | None = None,
-    kill_parent: bool = False,
+    kill_parent: bool | None = None,
     confirm: bool = False,
 ) -> dict[str, Any]:
-    """Record a bypass canary. Requires confirm=True."""
+    """Record a bypass canary. Requires confirm=True.
+
+    Override killed: when bypass is suspected and license_id is present,
+    kill_parent defaults True (auto-DEAD). Pass kill_parent=False to keep parent.
+    """
     if not confirm:
         return {
             "ok": False,
@@ -84,18 +88,23 @@ def report(
     if not path or not who:
         return {"ok": False, "error": "write_path and reporter required"}
     ev = evaluate(write_path=path, job_id=job_id)
+    lid = (license_id or "").strip() or None
+    # Soft override removed: suspected bypass + named parent → DEAD by default.
+    do_kill = bool(kill_parent) if kill_parent is not None else bool(
+        ev.get("bypass_suspected") and lid
+    )
     parent_state = None
-    if kill_parent and license_id:
-        dead = license_fuse_mod.dead(license_id=license_id)
+    if do_kill and lid:
+        dead = license_fuse_mod.dead(license_id=lid)
         parent_state = dead
     row = db.record_bypass_canary(
         write_path=path,
         job_id=(job_id or "").strip() or None,
         reporter=who,
         note=note,
-        license_id=(license_id or "").strip() or None,
+        license_id=lid,
         bypass_suspected=bool(ev.get("bypass_suspected")),
-        killed_parent=bool(kill_parent and license_id),
+        killed_parent=bool(do_kill and lid),
     )
     return {
         "ok": True,
@@ -103,6 +112,7 @@ def report(
         "canary": row,
         "evaluation": ev,
         "parent": parent_state,
+        "killed_parent": bool(do_kill and lid),
         "severity": "BYPASS" if ev.get("bypass_suspected") else "REPORTED",
         "their_production": False,
         "evaluated_at": _now(),

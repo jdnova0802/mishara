@@ -511,9 +511,12 @@ def manifest(public_url: str) -> dict:
         ],
         "evaluate": f"{base}/v1/prefinality/evaluate",
         "verify": f"{base}/v1/prefinality/verify",
+        "reconstruct": f"{base}/v1/prefinality/reconstruct",
+        "reconstruction": f"{base}/.well-known/prefinality-reconstruction.json",
         "jwks": f"{base}/.well-known/prefinality-jwks.json",
         "fail_closed": True,
         "receipt_ttl_seconds_default": DEFAULT_TTL_SECONDS,
         "decisions": list(DECISIONS),
+        "law": "GO receipt is not spend grant — reconstruct at effectuation boundary",
         "their_production": False,
     }
