@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Intelligence Capability Tree</title>
+<style>
+@page {
+  size: Letter;
+  margin: 0.75in;
+  @bottom-center {
+    content: counter(page);
+    font-size: 9pt;
+    color: #666;
+  }
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+h1 { font-size: 22pt; margin: 0 0 0.4em; border-bottom: 2px solid #222; padding-bottom: 0.25em; }
+h2 { font-size: 14pt; margin: 1.4em 0 0.45em; border-bottom: 1px solid #ccc; padding-bottom: 0.15em; page-break-after: avoid; }
+h3 { font-size: 12pt; margin: 1.1em 0 0.35em; page-break-after: avoid; }
+h4 { font-size: 11pt; margin: 0.9em 0 0.3em; page-break-after: avoid; }
+p, li { orphans: 3; widows: 3; }
+ul, ol { padding-left: 1.3em; }
+li { margin: 0.15em 0; }
+hr { border: none; border-top: 1px solid #ddd; margin: 1.2em 0; }
+code, pre {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 8.5pt;
+}
+code {
+  background: #f4f4f4;
+  padding: 0.05em 0.25em;
+  border-radius: 3px;
+}
+pre {
+  background: #f6f6f6;
+  border: 1px solid #e0e0e0;
+  padding: 0.7em 0.8em;
+  white-space: pre-wrap;
+  word-break: break-word;
+  page-break-inside: avoid;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.6em 0 1em;
+  font-size: 9.5pt;
+  page-break-inside: avoid;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.35em 0.45em;
+  vertical-align: top;
+  text-align: left;
+}
+th { background: #f0f0f0; font-weight: 600; }
+blockquote {
+  margin: 0.6em 0;
+  padding: 0.3em 0.8em;
+  border-left: 3px solid #888;
+  color: #333;
+}
+strong { font-weight: 600; }
+a { color: #1a1a1a; text-decoration: none; }
+.meta {
+  color: #555;
+  font-size: 9.5pt;
+  margin-bottom: 1.2em;
+}
+</style>
+</head>
+<body>
+<h1 id="intelligence-capability-tree">Intelligence Capability Tree</h1>
+<p>Version 1.1 — August 2026<br>
+Companions: <em>OSINT Capability Ladder</em> v1.0 · <em>Intelligence Capability Kit</em> (devices / apps / setup by tier)<br>
+Review cadence: quarterly (next: November 2026)</p>
+<hr>
+<h2 id="0-how-to-use-this-document">0. How to use this document</h2>
+<p>The OSINT ladder is one branch. This document is the <strong>trunk and the rest of the canopy</strong>.</p>
+<p><strong>Stable layer</strong> — what each branch <em>is</em>, what question it answers, what legal footing it sits on, and how it connects to the others. Sections 1–4 and 7. Multi-year timescale.</p>
+<p><strong>Volatile layer</strong> — tools, vendors, prices, case law that currently deliver each branch. Section 5–6 and 8. Months-scale staleness. When you update, touch volatile only unless the field genuinely shifted.</p>
+<p><strong>Rule of depth:</strong> this tree maps <em>where you are</em> and <em>what you are not yet doing</em>. For a branch that has its own ladder (OSINT today), go to that ladder for tiering, cost bands, and playbooks. For <strong>what to own and run at each tier</strong> (devices, phone apps, software, desk/network layout), use the <em>Intelligence Capability Kit</em>. Do not duplicate gear lists here.</p>
+<p><strong>The stop rule still applies everywhere.</strong> Every engagement gets a written question and a written definition of done before collection starts. If a further pivot would not change a decision, stop pivoting.</p>
+<hr>
+<h2 id="1-scope-and-the-four-legal-footings">1. Scope and the four legal footings</h2>
+<p>Not every branch of this tree is “open source.” Mixing them without naming the footing is how people walk into criminal exposure while thinking they are doing research.</p>
+<table>
+<thead>
+<tr>
+<th>Footing</th>
+<th>What it covers</th>
+<th>Default posture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A — Open / lawful purchase</strong></td>
+<td>Published, publicly accessible, or lawfully purchasable data</td>
+<td>Default for civilian practitioners; defendable if purpose and retention are written</td>
+</tr>
+<tr>
+<td><strong>B — Authorized access</strong></td>
+<td>Systems, networks, accounts, or premises you own or have <em>written</em> authorization for</td>
+<td>Required for active scanning, forensics on third-party systems, nuclei/naabu against live targets</td>
+</tr>
+<tr>
+<td><strong>C — Regulated interception</strong></td>
+<td>RF/wireless capture, wiretap-class SIGINT, IMSI work</td>
+<td>Statute-gated; no “research purposes” carve-out in major jurisdictions</td>
+</tr>
+<tr>
+<td><strong>D — Human contact</strong></td>
+<td>Interview, pretext, sock-puppet engagement that creates a relationship with the subject</td>
+<td>ToS + fraud + privacy risk; Trace Labs “no-touch” is the safe default for A-footing work</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Hard exclusions (own document + counsel, never improvisation):</strong>
+- Authentication bypass / CFAA-class unauthorized access
+- Device or account takeover, credential use, password resets on systems you don’t own
+- Active exploitation without written authorization
+- Interception without statutory authority
+- Contact with minors in any investigative pretext framing</p>
+<p>If a technique needs Footing B, C, or D, it is <strong>not</strong> an OSINT technique that got aggressive. It is a different branch.</p>
+<hr>
+<h2 id="2-the-tree-stable-layer">2. The tree — stable layer</h2>
+<pre><code>INTELLIGENCE &amp; INVESTIGATION CAPABILITY
+│
+├── 1. COLLECTION (how information enters)
+│   ├── 1.1 OSINT .............. open published sources          [Footing A]
+│   ├── 1.2 SOCMINT ............ social platforms &amp; graphs       [A; D if engaged]
+│   ├── 1.3 GEOINT / IMINT ..... place, imagery, verification    [A; B for tasked]
+│   ├── 1.4 FININT ............. money, filings, on-chain         [A; B for bank]
+│   ├── 1.5 CORPINT ............ registries, ownership, filings   [A]
+│   ├── 1.6 BREACH / EXPOSURE .. already-leaked credentials       [A; careful use]
+│   ├── 1.7 CYBINT ............. adversary infra, malware, logs  [A/B]
+│   ├── 1.8 SIGINT ............. signals / RF / intercept         [C]
+│   ├── 1.9 HUMINT ............. human sources &amp; contact          [D]
+│   ├── 1.10 MASINT ............ measurement &amp; signatures        [B/C]
+│   └── 1.11 TECHINT ........... captured materiel / firmware    [B]
+│
+├── 2. ANALYSIS (what you do after collection)
+│   ├── 2.1 Identity / entity resolution
+│   ├── 2.2 Link / network analysis
+│   ├── 2.3 Temporal / change analysis
+│   ├── 2.4 Geospatial fusion
+│   ├── 2.5 Credibility &amp; structured analytic techniques
+│   ├── 2.6 Targeting &amp; prioritization
+│   └── 2.7 All-source fusion &amp; product writing
+│
+├── 3. MISSION SURFACES (where the tree is applied)
+│   ├── 3.1 Cyber threat intelligence (CTI)
+│   ├── 3.2 Digital forensics &amp; incident response (DFIR)
+│   ├── 3.3 Attack surface / authorized recon (ASM)
+│   ├── 3.4 Corporate due diligence &amp; risk
+│   ├── 3.5 Fraud / insurance / civil investigation
+│   ├── 3.6 Missing persons / humanitarian (no-touch default)
+│   ├── 3.7 Journalism / accountability reporting
+│   ├── 3.8 Litigation support / e-discovery adjacent
+│   └── 3.9 Protective / OPSEC / counter-collection
+│
+├── 4. ENABLERS (load-bearing under every branch)
+│   ├── 4.1 Evidence discipline &amp; chain of custody
+│   ├── 4.2 Case management &amp; source logging
+│   ├── 4.3 Collection engineering &amp; pipelines
+│   ├── 4.4 Research OPSEC &amp; compartmentation
+│   ├── 4.5 Legal / compliance / retention
+│   ├── 4.6 Training, review, accreditation
+│   └── 4.7 AI orchestration (assistive only)
+│
+└── 5. ALTITUDE (cross-cutting maturity — same idea as OSINT tiers)
+    Tier 0 Ad hoc → 1 Foundation → 2 Defensible → 3 Continuous
+    → 4 Team → 5 Institutional
+</code></pre>
+<p>You can be <strong>Tier 3 on OSINT infrastructure</strong> and <strong>Tier 1 on GEOINT verification</strong>. That is normal. Being deliberate about which branch you are climbing is the point.</p>
+<hr>
+<h2 id="3-collection-branches-what-each-buys-you">3. Collection branches — what each buys you</h2>
+<h3 id="11-osint-open-source-intelligence">1.1 OSINT — Open-source intelligence</h3>
+<p><strong>Answers:</strong> What is already published or lawfully purchasable about X?<br>
+<strong>Ceiling without other branches:</strong> Point-in-time public record; weak on private intent, encrypted comms, and anything behind auth.<br>
+<strong>Depth doc:</strong> <em>OSINT Capability Ladder</em> (stable tiers, tool stack, training, legal map).<br>
+<strong>Do not smuggle in:</strong> nuclei/naabu against third parties, logged-in scraping that violates accepted ToS, RF capture.</p>
+<h3 id="12-socmint-social-media-intelligence">1.2 SOCMINT — Social media intelligence</h3>
+<p><strong>Answers:</strong> What do people and groups say, show, and connect to in public social spaces?<br>
+<strong>Structural fact:</strong> the open-API era is over. Unauthenticated surface is shrinking; commercial platforms and brokers filled the gap with vendor lock-in and legal exposure.<br>
+<strong>Split from OSINT on purpose:</strong> platform ToS, sock-puppet pressure, and biometrics make the footing unstable even when the content looks “public.”<br>
+<strong>Safe default:</strong> logged-out, archive-before-cite, no liking/commenting/friending/joining closed groups.<br>
+<strong>Move carefully:</strong> dedicated research accounts with OPSEC are Footing-D-adjacent the moment they interact; hiQ’s sequel loss was contract + fake accounts, not CFAA.</p>
+<h3 id="13-geoint-imint">1.3 GEOINT / IMINT</h3>
+<p><strong>Answers:</strong> Where and when did this happen, and is the media real?<br>
+<strong>Core moves:</strong> geolocation from visual cues, satellite/aerial correlation, shadow/sun analysis, metadata (when present), reverse image search, synthetic-media detection as <em>lead not finding</em>.<br>
+<strong>Ceiling:</strong> rural/indoor scenes, depleted EXIF, adversarial degradation of deepfake detectors. Corroborate; never single-source a location from a model score.</p>
+<h3 id="14-finint">1.4 FININT</h3>
+<p><strong>Answers:</strong> Where did the money go; who controls the purse?<br>
+<strong>Public layer:</strong> corporate filings, sanctions lists, procurement, charity registers, on-chain explorers and clustering.<br>
+<strong>Closed layer:</strong> bank records, SAR/CTR, exchange KYC — Footing B / legal process.<br>
+<strong>Discipline:</strong> on-chain txs are immutable; <strong>entity labels are not</strong>. Timestamp every query and record the label you saw.</p>
+<h3 id="15-corpint-corporate-registry">1.5 CORPINT — Corporate / registry</h3>
+<p><strong>Answers:</strong> Who owns this entity, who controls it, what has it filed, where does it nest?<br>
+<strong>Spine:</strong> company registers, beneficial ownership where available, annual accounts, trademarks, patents, domain/WHOIS adjacency, officer cross-links.<br>
+<strong>Ceiling:</strong> nominee directors, offshore opacity, and jurisdictions that sell access slowly or not at all. Tier jumps here are often data-budget jumps, not skill jumps.</p>
+<h3 id="16-breach-and-credential-exposure">1.6 Breach and credential exposure</h3>
+<p><strong>Answers:</strong> What identifiers are already in leaked corpora?<br>
+<strong>Use rule:</strong> treat as <em>exposure intelligence</em>, not a password stash. Checking whether an email appears in a breach ≠ using a recovered password. The second is account access (excluded).<br>
+<strong>Operational hygiene:</strong> query through reputable brokers/HIBP-class APIs; do not hoard raw breach dumps you have no lawful basis to hold.</p>
+<h3 id="17-cybint-cyber-collection">1.7 CYBINT — Cyber collection</h3>
+<p><strong>Answers:</strong> What infrastructure, malware, tooling, and victimology describe this actor or campaign?<br>
+<strong>Overlaps OSINT</strong> on passive DNS, CT logs, scan-data platforms, public sandboxes.<br>
+<strong>Crosses into Footing B</strong> the moment you actively probe, detonate against third-party infra, or pull telemetry you are not entitled to.<br>
+<strong>Keep the line visible:</strong> passive CTI feeds and public reports = A; your own honeypot/telemetry and authorized response = B.</p>
+<h3 id="18-sigint">1.8 SIGINT</h3>
+<p><strong>Answers:</strong> What was transmitted, by whom, on what channel?<br>
+<strong>Not OSINT.</strong> RF, wifi capture, IMSI, uplink intercept sit on Footing C.<br>
+<strong>Civilian-adjacent edges that still need care:</strong> openly published signal databases, ADS-B/AIS aggregators, amateur radio logs — often A if you only consume published feeds; collecting from the air yourself is a different act.<br>
+<strong>Own document required</strong> before any collection design.</p>
+<h3 id="19-humint">1.9 HUMINT</h3>
+<p><strong>Answers:</strong> What will a person tell you, show you, or introduce you to?<br>
+<strong>Not OSINT.</strong> Includes interviews, cultivating sources, pretext, and most sock-puppet <em>engagement</em>.<br>
+<strong>No-touch rule</strong> (Trace Labs and peers): correct default for work you may later have to defend under Footing A.<br>
+<strong>Own document + ethical/legal review</strong> for any contact path.</p>
+<h3 id="110-masint">1.10 MASINT</h3>
+<p><strong>Answers:</strong> What does measurement of physical phenomena reveal (radar signature, chemical, spectral, acoustic)?<br>
+<strong>Mostly state / lab / industrial.</strong> Practitioners meet thin edges via open scientific datasets and remote-sensing products — usually better filed under GEOINT until you have actual MASINT instrumentation and authority.</p>
+<h3 id="111-techint">1.11 TECHINT</h3>
+<p><strong>Answers:</strong> What does this device, firmware, or captured system reveal about capability and origin?<br>
+<strong>Footing B</strong> almost always (you need lawful possession). Overlaps DFIR and malware analysis; distinct when the object is materiel rather than a live case disk.</p>
+<hr>
+<h2 id="4-analysis-mission-surfaces-enablers">4. Analysis, mission surfaces, enablers</h2>
+<h3 id="41-analysis-branches">4.1 Analysis branches</h3>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>Failure mode if skipped</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity resolution</td>
+<td>You collect forever and never collapse selectors into entities</td>
+</tr>
+<tr>
+<td>Link analysis</td>
+<td>Relationships stay in your head; graphs &gt; working memory break you</td>
+</tr>
+<tr>
+<td>Temporal / change</td>
+<td>Point-in-time answers; cannot say “when did this change”</td>
+</tr>
+<tr>
+<td>Geospatial fusion</td>
+<td>Photos and claims never meet a map</td>
+</tr>
+<tr>
+<td>Credibility (Admiralty / CRAAP / ACH)</td>
+<td>Confident wrong; no graded confidence in the product</td>
+</tr>
+<tr>
+<td>Targeting</td>
+<td>Everything is interesting; nothing is decided</td>
+</tr>
+<tr>
+<td>All-source fusion &amp; writing</td>
+<td>Collection theater with no decision-useful product</td>
+</tr>
+</tbody>
+</table>
+<p>Analysis maturity usually lags collection. Tier 2 in the OSINT ladder sense (“defensible practitioner”) is mostly an <strong>analysis + evidence</strong> upgrade, not a tool upgrade.</p>
+<h3 id="42-mission-surfaces">4.2 Mission surfaces</h3>
+<p>Same branches, different acceptance criteria:</p>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Dominant branches</th>
+<th>Non-negotiable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CTI</td>
+<td>CYBINT, OSINT, FININT (ransom), analysis</td>
+<td>IOC hygiene, ATT&amp;CK mapping, feed discipline</td>
+</tr>
+<tr>
+<td>DFIR</td>
+<td>TECHINT/CYBINT, evidence, temporal</td>
+<td>Chain of custody, volatility order, legal hold</td>
+</tr>
+<tr>
+<td>ASM / authorized recon</td>
+<td>OSINT + active tooling</td>
+<td><strong>Written authorization</strong>; scope file; no scope creep</td>
+</tr>
+<tr>
+<td>Due diligence</td>
+<td>CORPINT, FININT, OSINT, SOCMINT</td>
+<td>Source log, confidence grades, retention limits</td>
+</tr>
+<tr>
+<td>Fraud / insurance / civil</td>
+<td>FININT, OSINT, SOCMINT, evidence</td>
+<td>Defensible capture; counsel early</td>
+</tr>
+<tr>
+<td>Humanitarian / missing persons</td>
+<td>OSINT, SOCMINT, GEOINT</td>
+<td>No-touch; welfare over scoop</td>
+</tr>
+<tr>
+<td>Journalism</td>
+<td>OSINT, GEOINT, HUMINT (on record)</td>
+<td>Verification culture; source protection</td>
+</tr>
+<tr>
+<td>Litigation support</td>
+<td>Evidence, CORPINT, DFIR-adjacent</td>
+<td>Discovery rules; privilege; vendor accreditation</td>
+</tr>
+<tr>
+<td>Protective / OPSEC</td>
+<td>Counter-collection across all</td>
+<td>Assume your research traffic is visible</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-enablers-steal-these-from-the-osint-ladder-they-are-not-osint-specific">4.3 Enablers (steal these from the OSINT ladder; they are not OSINT-specific)</h3>
+<ul>
+<li><strong>Evidence:</strong> timestamped, hashed capture (Hunchly-class or WARC); archive before cite.</li>
+<li><strong>Case system:</strong> source log, entity files, report format with confidence grading.</li>
+<li><strong>OPSEC:</strong> separate machine/VLAN, compartmented browsers, no personal IP/payment crossover on research identities.</li>
+<li><strong>Pipelines:</strong> Tier 3+ standing collectors; gaps cannot be backfilled.</li>
+<li><strong>Governance (Tier 4+):</strong> access control, retention/deletion, second reader, named legal escalation, written decline criteria.</li>
+<li><strong>AI:</strong> orchestration and draft only. Hallucination is the dominant failure mode. Never give an agent untrusted page content <em>and</em> consequential actions in one loop.</li>
+</ul>
+<hr>
+<h2 id="5-how-branches-force-each-other-volatile-intuitions-stable-pattern">5. How branches force each other (volatile intuitions, stable pattern)</h2>
+<p>These edges are why a single-branch ladder is not enough:</p>
+<table>
+<thead>
+<tr>
+<th>You are strong in…</th>
+<th>You hit a wall that requires…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSINT domains/IPs</td>
+<td>CYBINT / CTI to interpret adversary use</td>
+</tr>
+<tr>
+<td>SOCMINT claims</td>
+<td>GEOINT to verify place/time; FININT if money is asserted</td>
+</tr>
+<tr>
+<td>On-chain FININT</td>
+<td>CORPINT + OSINT to land identities off-chain</td>
+</tr>
+<tr>
+<td>ASM actives</td>
+<td>Evidence + authorization theater the moment findings matter</td>
+</tr>
+<tr>
+<td>DFIR disk</td>
+<td>OSINT/CTI to contextualize tooling and infra</td>
+</tr>
+<tr>
+<td>Continuous OSINT archive</td>
+<td>Collection engineering + Tier 4 staffing (solo breaks)</td>
+</tr>
+<tr>
+<td>Any public graph</td>
+<td>Legal/compliance when personal data (GDPR) or ToS bind</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Promotion rule:</strong> do not “upgrade tools” inside one branch when the ceiling is a <strong>missing branch</strong>. Buy or train the adjacent branch, or rewrite the question.</p>
+<hr>
+<h2 id="6-legal-map-tree-level-not-advice">6. Legal map (tree-level — not advice)</h2>
+<p>Four fences that apply across branches (detail and citations live in the OSINT ladder §6 and counsel memos):</p>
+<ol>
+<li><strong>Authentication</strong> — bypass is criminal in kind (CFAA / CMA / equivalents).  </li>
+<li><strong>Personal data</strong> — public ≠ free to process without purpose (GDPR and kin).  </li>
+<li><strong>Copyright</strong> — extract facts, not creative expression.  </li>
+<li><strong>Rate / harm</strong> — volume that impairs a service invites civil theories even when content is public.</li>
+</ol>
+<p><strong>Case-shaped lessons to keep at tree level:</strong>
+- Public scraping ≠ CFAA “unauthorized access” in the hiQ line — <strong>and</strong> contracts you accepted still bind; fake accounts change the animal.
+- Logged-out public pages ≠ logged-in collection.
+- Circumventing anti-bot / rate controls is a live dispute surface (watch pending theories under DMCA §1201-style claims).
+- EU AI Act pressure on untargeted facial-image scraping and training-data provenance matters if corpora feed models.</p>
+<p><strong>Operating posture:</strong> default logged out; default stricter jurisdiction; per-field personal-data decision; separate collection from use; robots.txt as good-faith evidence, not magic law.</p>
+<hr>
+<h2 id="7-governance-triggers-any-branch-tier-34">7. Governance triggers (any branch, Tier 3→4)</h2>
+<p>Before a second person touches the work, in writing:</p>
+<ol>
+<li>Access control and audit logging on the case store  </li>
+<li>Retention and deletion policy with default expiry  </li>
+<li>Chain of custody for anything that could become evidence  </li>
+<li>Confidence grading standard applied consistently  </li>
+<li>Second-reader requirement on assessments that leave the building  </li>
+<li>Named legal escalation path  </li>
+<li>Engagement acceptance criteria, including what you decline  </li>
+<li><strong>Branch footing register</strong> — each live technique tagged A/B/C/D so nobody “accidentally” runs Footing-C work under an OSINT SOW</li>
+</ol>
+<hr>
+<h2 id="8-build-order-practical-sequencing">8. Build order (practical sequencing)</h2>
+<p>Not a moral ranking — a dependency ranking for a civilian practitioner building toward defensible work:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Build</th>
+<th>Why this order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Enablers 4.1–4.4 + OSINT Tier 1</td>
+<td>Without evidence/OPSEC, other branches just create liability faster</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CORPINT + FININT (public) + GEOINT verification</td>
+<td>Highest decision value per legal risk</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SOCMINT logged-out + breach exposure (query, don’t use)</td>
+<td>Powerful; ToS/privacy landmines</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CTI feeds + passive CYBINT</td>
+<td>Natural extension of infra OSINT</td>
+</tr>
+<tr>
+<td>5</td>
+<td>OSINT Tier 2 (Hunchly-class, case system, Maltego/SpiderFoot)</td>
+<td>Makes all of the above defensible</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Continuous collection (Tier 3) only on branches you will maintain</td>
+<td>Archive gaps are permanent</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Footing B surfaces (ASM, DFIR) only with written auth and separate playbooks</td>
+<td>Different legal animal</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Never “pick up” SIGINT/HUMINT/TECHINT casually</td>
+<td>Own docs, own counsel, or leave closed</td>
+</tr>
+</tbody>
+</table>
+<p>Certifications (GOSI, GSOA, SANS SEC497/587, etc.) signal procurement readiness; Trace Labs CTFs and Bellingcat-grade verification practice signal actual skill. Buy credentials when a contract requires them.</p>
+<hr>
+<h2 id="9-relationship-to-the-osint-capability-ladder">9. Relationship to the OSINT Capability Ladder</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Lives in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSINT tiers 0–5, cost bands, move-up triggers</td>
+<td>OSINT ladder §2</td>
+</tr>
+<tr>
+<td>OSINT tool stack (PD, Shodan, Maltego, Hunchly, …)</td>
+<td>OSINT ladder §4</td>
+</tr>
+<tr>
+<td>OSINT training path</td>
+<td>OSINT ladder §5</td>
+</tr>
+<tr>
+<td>Full branch map, footings, mission surfaces</td>
+<td><strong>This tree</strong></td>
+</tr>
+<tr>
+<td>Devices, phone apps, software, accounts, desk layout by tier</td>
+<td><strong>Capability Kit</strong></td>
+</tr>
+<tr>
+<td>Passive vs active / A vs B line for recon tools</td>
+<td>Tree for footing; ladder + kit for tools</td>
+</tr>
+<tr>
+<td>SIGINT / HUMINT / exploitation playbooks</td>
+<td><strong>Not here</strong> — separate counsel-backed docs</td>
+</tr>
+</tbody>
+</table>
+<p>When the OSINT ladder’s volatile layer updates, update §5–6 pointers here only if a branch boundary moved (e.g. a platform shift that turns SOCMINT from A-default to D-required).</p>
+<hr>
+<h2 id="10-update-protocol">10. Update protocol</h2>
+<p>Quarterly, in order:</p>
+<ol>
+<li><strong>Boundary drift</strong> — did any platform, statute, or case move a technique across footings A→B/D?  </li>
+<li><strong>Branch coverage</strong> — new mission surface or analysis method worth a stable node?  </li>
+<li><strong>Companion sync</strong> — pull tier/tool/legal changes from the OSINT ladder changelog; refresh kit gear lists from vendor pages.  </li>
+<li><strong>Closed branches</strong> — confirm SIGINT/HUMINT/exploitation still explicitly out of improvisation scope.  </li>
+<li><strong>AI layer</strong> — rewrite, don’t edit, anything about agentic collection.</li>
+</ol>
+<p><strong>Standing sources:</strong> Bellingcat toolkit, Trace Labs Field Manual/CTFs, ProjectDiscovery release notes (passive vs active discipline), SANS SEC497/587 syllabi as practice-signal, primary case texts over aggregator blogs.</p>
+<hr>
+<h2 id="changelog">Changelog</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Aug 2026</td>
+<td>Initial tree: collection × analysis × mission × enablers × altitude; four footings; companion to OSINT ladder v1.0</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td>Aug 2026</td>
+<td>Link <em>Intelligence Capability Kit</em> for full tier gear / phone / setup inventories</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="source-posture">Source posture</h2>
+<p>Prices, vendor tiers, and case dockets belong in the OSINT ladder’s source appendix and vendor pages — not duplicated here. This document’s claims are structural. If a structural claim depends on a volatile fact (e.g. “open-API era is over”), re-verify at review cadence against primary platform developer docs and the ladder changelog.</p>
+</body>
+</html>
