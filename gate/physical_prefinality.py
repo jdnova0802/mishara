@@ -387,20 +387,76 @@ def evaluate(
     }
 
 
+def _persist_park(ticket: dict) -> None:
+    """Best-effort durable write so multi-worker verify works."""
+    try:
+        from gate import db as db_mod
+    except ImportError:
+        try:
+            import db as db_mod
+        except ImportError:
+            return
+    try:
+        db_mod.save_physical_park(ticket)
+    except Exception:
+        return
+
+
 def get_park(park_id: str) -> dict | None:
+    pid = (park_id or "").strip()
+    if not pid:
+        return None
     with _lock:
-        row = _parks.get(park_id)
-        return dict(row) if row else None
+        row = _parks.get(pid)
+        if row:
+            return dict(row)
+    try:
+        from gate import db as db_mod
+    except ImportError:
+        try:
+            import db as db_mod
+        except ImportError:
+            return None
+    try:
+        durable = db_mod.get_physical_park(pid)
+    except Exception:
+        durable = None
+    if durable:
+        with _lock:
+            _parks[pid] = dict(durable)
+        return dict(durable)
+    return None
 
 
 def list_parks(limit: int = 50) -> list[dict]:
+    lim = max(1, min(int(limit or 50), 200))
+    durable: list[dict] = []
+    try:
+        from gate import db as db_mod
+    except ImportError:
+        try:
+            import db as db_mod
+        except ImportError:
+            db_mod = None
+    if db_mod is not None:
+        try:
+            durable = db_mod.list_physical_parks(lim)
+        except Exception:
+            durable = []
+    if durable:
+        with _lock:
+            for row in durable:
+                pid = str(row.get("park_id") or "")
+                if pid:
+                    _parks[pid] = dict(row)
+        return [dict(r) for r in durable[:lim]]
     with _lock:
         rows = sorted(
             _parks.values(),
             key=lambda r: int(r.get("parked_at_unix") or 0),
             reverse=True,
         )
-    return [dict(r) for r in rows[: max(1, min(int(limit), 200))]]
+    return [dict(r) for r in rows[:lim]]
 
 
 def verify_park(park_id: str | None = None, ticket: dict | None = None) -> dict:
@@ -502,6 +558,7 @@ def _out(
     if outcome == "PARKED":
         with _lock:
             _parks[park_id] = dict(body)
+        _persist_park(body)
 
     if outcome == "PARKED":
         meter = _meter(
