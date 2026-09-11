@@ -636,6 +636,62 @@ Reply DEPOSIT.
 
 ---
 
+# A-TIER NEW-WORLD SCOUT (#27–28)
+
+Same diligence SKU. No confirmed generic security/BD inbox — **LinkedIn DM primary**, site contact form fallback. **Do not guess addresses.** Slot into A-tier wave (not S-tier). No new page/infra.
+
+---
+
+### 27. Aurionpro / Fintra — LI primary (Fintra/Aurionpro product or security lead)  
+Fallback: aurionpro.com contact form — **no guessed inbox**
+
+**Subject:** DEPOSIT — Fintra CGHP halt, verified by a stranger
+
+```
+Fintra / Aurionpro —
+
+CGHP is the right idea: confidence, value, and pattern history gating when an AI decision needs a human. That's your may layer.
+
+The gap: in a dispute, a bank's counterparty has to trust that CGHP held — on your word, from your logs. No outside party can open that proof without your cooperation.
+
+Mouth / finality diligence — Nisaba LLC
+Where can an LC write complete without may, and can a stranger verify the halt after the fact?
+
+$2,500 deposit · 72h written find
+https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence/one-pager.txt
+
+Not a competing product. Not replacing CGHP. Reply DEPOSIT.
+```
+
+**LI:** Fintra / Aurionpro product or security lead — DM first  
+
+---
+
+### 28. beatBread — LI primary (founders/product)  
+Fallback: website contact form — **no guessed inbox**
+
+**Subject:** DEPOSIT — ChordCashAI advance write without may
+
+```
+beatBread —
+
+ChordCashAI forecasts, then the advance pays out — real cash against a model's projection of future royalties. That's the mouth: once it pays, it's not coming back if the forecast was wrong.
+
+Mouth / finality diligence — Nisaba LLC
+Where can an advance write complete without may on your path?
+
+$2,500 deposit · 72h written find
+https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence/one-pager.txt
+
+Not a lending audit. Not a forecasting critique. Reply DEPOSIT.
+```
+
+**LI:** Founders / product — DM first  
+
+---
+
 # Friday runbook
 
 1. **Pay → deploy → curl**
@@ -646,7 +702,7 @@ Reply DEPOSIT.
 2. Set **slot date** in all bodies (one find-replace).
 3. Send **#1–12** first wave (morning).
 4. Same-day **LI DMs** on S-tier.
-5. Afternoon: **#13–25** only if S-tier is fully out.
+5. Afternoon: **#13–25** then **#27–28** (LI/form only) only if S-tier is fully out.
 6. Calendar **D3** and **D5** nudges — no new names until this batch is worked.
 7. Quit trigger unchanged: **paid clear**, not replies.
 
