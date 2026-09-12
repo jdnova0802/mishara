@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent / "commerce"
 @lru_cache(maxsize=1)
 def _load() -> dict[str, Any]:
     out: dict[str, Any] = {}
-    for name in ("ladder", "doctrine", "entities", "hosts", "faces"):
+    for name in ("ladder", "doctrine", "entities", "hosts", "faces", "erra_sprints"):
         path = ROOT / f"{name}.json"
         with path.open(encoding="utf-8") as f:
             out[name] = json.load(f)
@@ -45,6 +45,10 @@ def hosts() -> dict[str, Any]:
 
 def faces_raw() -> dict[str, Any]:
     return _load()["faces"]
+
+
+def erra_sprints() -> dict[str, Any]:
+    return _load()["erra_sprints"]
 
 
 def sku(sku_id: str) -> dict[str, Any]:
@@ -126,12 +130,18 @@ def manifest(public_url: str = "") -> dict[str, Any]:
         "rails": ladder().get("rails"),
         "doctrine": doctrine()["brands"],
         "hosts": hosts(),
+        "erra_sprints": erra_sprints(),
+        "hustle_board": f"{base}/outbound/HUSTLE_BOARD.md" if base else None,
         "claims_forbidden": entities().get("claims_forbidden"),
         "links": {
             "json": f"{base}/.well-known/commerce.json" if base else None,
             "ladder": f"{base}/pricing" if base else None,
             "faces": f"{base}/.well-known/faces.json" if base else None,
             "faces_index": f"{base}/faces" if base else None,
+            "diligence": f"{base}/diligence" if base else None,
+            "refusal": f"{base}/refusal" if base else None,
+            "erra_hub": (hosts().get("canonical") or {}).get("erra"),
+            "hustle_board": f"{base}/outbound/HUSTLE_BOARD.md" if base else None,
             "security_txt": f"{base}/.well-known/security.txt" if base else None,
         },
     }

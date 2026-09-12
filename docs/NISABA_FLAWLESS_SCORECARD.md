@@ -13,7 +13,7 @@
 **Diff vs prior institutional run:** NEW — Boss Receipt, Find My Agents, Renewal Packet, Denial Receipt as display doors on existing SKUs (`gate/commerce/faces.json` SSOT). Discovery: `/faces`, `/.well-known/faces.json`, sitemap, llms. Mishara `/denial-receipt`. Finder public copy scrubbed of lab “Google that never happened” voice. Prices never hand-typed — ladder only.
 
 
-**Diff vs prior run:** NEW — faces SSOT + Gate pages + Mishara `/denial-receipt`; Finder public copy scrubbed of lab “Google that never happened” voice. Unchanged fails: Velaru Instant DTCC / pricing fork / privacy·terms / Erra health.
+**Diff vs prior run:** NEW — faces SSOT + Gate pages + Mishara `/denial-receipt`; Finder public copy scrubbed of lab “Google that never happened” voice. Unchanged fails: Velaru **/verify** nav+footer still ships **DTCC** (not Instant — Instant was cleaned) · privacy·terms · Erra health. Gate hustle doors (Refusal/diligence/Erra links) packaged under SSOT on `cursor/hustle-doors-25ad`.
 
 ---
 
@@ -135,7 +135,7 @@ CI greps ban lab enums; live OpenAPI uses EXIST/NONEXIST/HOLD vocabulary.
 | Check | Result | Evidence |
 |---|---|---|
 | Gate stranger chrome | PASS | No DTCC/SWIFT (CI) |
-| Velaru Instant footer **“DTCC integration”** | **FAIL** | Still live on `https://velaru.xyz/instant` — **BLOCKED** (rename to NAIC Exhibit D pack or remove) |
+| Velaru **/verify** primary nav + footer **“DTCC”** / `/dtcc` (Instant cleaned earlier; leak moved) | **FAIL** | Still live on `https://velaru.xyz/instant` — **BLOCKED** (rename to NAIC Exhibit D pack or remove) |
 
 ---
 

@@ -4,14 +4,19 @@ Surfaces (must stay live for hustle outbound):
   GET  /diligence
   GET  /diligence/one-pager.txt
   GET  /diligence/offer.json
-  POST /diligence/checkout  — $2,500 deposit
+  POST /diligence/checkout  — deposit from commerce SSOT
 """
 from __future__ import annotations
 
 from typing import Any
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 SPEC = "gate-diligence-offer-v1"
-DEPOSIT_LABEL = "$2,500"
+DEPOSIT_LABEL = commerce_mod.price_label("diligence_deposit")
 REVIEW_BAND = "$5,000–$8,000"
 RETAINER_BAND = "$10,000–$40,000/mo"
 DELIVERY = "72h"

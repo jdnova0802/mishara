@@ -11,7 +11,32 @@
       "cadence": "one_time",
       "public": true,
       "path": "/bind-room",
+      "hustle": "cold_ok",
       "summary": "Officer pack and halt pattern before irreversible bind."
+    },
+    {
+      "id": "diligence_deposit",
+      "brand": "gate",
+      "label": "Mouth diligence deposit",
+      "price_label": "$2,500",
+      "price_cents": 250000,
+      "cadence": "one_time",
+      "public": true,
+      "path": "/diligence",
+      "hustle": "cold_ok",
+      "summary": "Deposit to start a 72h find where an irreversible write can complete without may. Review band separate."
+    },
+    {
+      "id": "refusal",
+      "brand": "gate",
+      "label": "Refusal",
+      "price_label": "$7,500",
+      "price_cents": 750000,
+      "cadence": "one_time",
+      "public": true,
+      "path": "/refusal",
+      "hustle": "cold_ok",
+      "summary": "Paid certificate that an agent will not be built — signed proof of absence, not a weld."
     },
     {
       "id": "operator_weld",
@@ -85,9 +110,11 @@
     }
   },
   "notes": [
-    "Gate public ladder is Bind Room \u2192 Operator weld + management + 10 bps.",
-    "Operator fee_schedule (hop + carry) is part of the same SSOT \u2014 do not retype on stranger pages.",
-    "Velaru HOLD/Monitor and Erra signal SKUs live in the Velaru repo \u2014 keep them aligned there; do not invent mid-ladder Gate SKUs here."
+    "Gate public cash doors: Bind Room, mouth diligence deposit, Refusal, then Operator weld + management + 10 bps.",
+    "Cold hustles: Bind Room + diligence. Refusal is an existing live SKU brought onto the board — not a new mid-ladder invention.",
+    "Standing / path retainers are reply-path after Bind yes — not cold.",
+    "Operator fee_schedule (hop + carry) is part of the same SSOT — do not retype on stranger pages.",
+    "Erra signal sprints live on Velaru (see erra_sprints.json) — link them; do not fork prices into Gate pages by hand."
   ],
   "fee_schedule": {
     "operator_hop": {

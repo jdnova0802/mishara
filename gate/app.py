@@ -5,6 +5,7 @@ Metered proxy: identity, billing, docs, 402 on limit.
 import hashlib
 import json
 import os
+from pathlib import Path
 import re
 import secrets
 import uuid
@@ -341,12 +342,20 @@ BIND_ROOM_PRICE_LABEL = os.getenv(
 BIND_ROOM_PRICE_CENTS = int(
     os.getenv("GATE_BIND_ROOM_PRICE_CENTS", str(commerce_mod.price_cents("bind_room")))
 )
-DILIGENCE_DEPOSIT_LABEL = os.getenv("GATE_DILIGENCE_DEPOSIT_LABEL", "$2,500")
-DILIGENCE_DEPOSIT_CENTS = int(os.getenv("GATE_DILIGENCE_DEPOSIT_CENTS", "250000"))
+DILIGENCE_DEPOSIT_LABEL = os.getenv(
+    "GATE_DILIGENCE_DEPOSIT_LABEL", commerce_mod.price_label("diligence_deposit")
+)
+DILIGENCE_DEPOSIT_CENTS = int(
+    os.getenv("GATE_DILIGENCE_DEPOSIT_CENTS", str(commerce_mod.price_cents("diligence_deposit")))
+)
 DILIGENCE_REVIEW_BAND = os.getenv("GATE_DILIGENCE_REVIEW_BAND", "$5,000–$8,000")
 DILIGENCE_RETAINER_BAND = os.getenv("GATE_DILIGENCE_RETAINER_BAND", "$10,000–$40,000/mo")
-REFUSAL_PRICE_LABEL = os.getenv("GATE_REFUSAL_PRICE_LABEL", "$7,500")
-REFUSAL_PRICE_CENTS = int(os.getenv("GATE_REFUSAL_PRICE_CENTS", "750000"))
+REFUSAL_PRICE_LABEL = os.getenv(
+    "GATE_REFUSAL_PRICE_LABEL", commerce_mod.price_label("refusal")
+)
+REFUSAL_PRICE_CENTS = int(
+    os.getenv("GATE_REFUSAL_PRICE_CENTS", str(commerce_mod.price_cents("refusal")))
+)
 WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LABEL)
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
@@ -410,7 +419,7 @@ def _ops_authorized() -> bool:
 
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
-    "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
+    "/inhabitant", "/afterward", "/capture", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/nisaba", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
@@ -448,6 +457,7 @@ def inject_globals():
         "install_price": INSTALL_PRICE_LABEL,
         "bind_room_price": BIND_ROOM_PRICE_LABEL,
         "refusal_price": REFUSAL_PRICE_LABEL,
+        "diligence_deposit_price": DILIGENCE_DEPOSIT_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
         "flow_bps_label": commerce_mod.price_label("operator_flow_bps"),
@@ -1933,6 +1943,12 @@ def scorecard_page():
 @app.route("/.well-known/nisaba.json")
 def well_known_nisaba():
     return jsonify(brand_map_mod.manifest(advertised_url()))
+
+
+@app.route("/outbound/HUSTLE_BOARD.md")
+def hustle_board():
+    path = Path(__file__).resolve().parent / "outbound" / "HUSTLE_BOARD.md"
+    return path.read_text(encoding="utf-8"), 200, {"Content-Type": "text/markdown; charset=utf-8"}
 
 
 @app.route("/.well-known/commerce.json")
@@ -3476,6 +3492,7 @@ def refusal_page():
         public_url=advertised_url(),
         refusal_price=REFUSAL_PRICE_LABEL,
         bind_room_price=BIND_ROOM_PRICE_LABEL,
+        diligence_deposit_price=DILIGENCE_DEPOSIT_LABEL,
         stripe_refusal=bool(STRIPE_REFUSAL_PRICE_ID or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
     )
@@ -4467,7 +4484,6 @@ def robots():
             "Disallow: /inhabitant",
             "Disallow: /afterward",
             "Disallow: /capture",
-            "Disallow: /refusal",
             "Disallow: /signup",
             "Disallow: /login",
             "Disallow: /dashboard",
@@ -4497,6 +4513,9 @@ def sitemap():
         "/boss-receipt",
         "/find-my-agents",
         "/renewal-packet",
+        "/diligence",
+        "/refusal",
+        "/outbound/HUSTLE_BOARD.md",
         "/.well-known/faces.json",
         "/.well-known/commerce.json",
         "/audit",
@@ -4561,6 +4580,10 @@ def llms_txt():
         f"- Boss Receipt: {advertised_url()}/boss-receipt",
         f"- Find My Agents: {advertised_url()}/find-my-agents",
         f"- Renewal Packet: {advertised_url()}/renewal-packet",
+        f"- Diligence (mouth deposit): {advertised_url()}/diligence · {commerce_mod.price_label('diligence_deposit')}",
+        f"- Refusal: {advertised_url()}/refusal · {commerce_mod.price_label('refusal')}",
+        f"- Hustle board: {advertised_url()}/outbound/HUSTLE_BOARD.md",
+        f"- Erra signal sprints (Velaru twin): https://velaru.xyz/erra · $4,500–$9,500",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- Commerce SSOT: {advertised_url()}/.well-known/commerce.json",
@@ -4579,7 +4602,9 @@ def llms_txt():
         f"- Physical Prefinality / Park: {advertised_url()}/physical · {advertised_url()}/.well-known/physical-prefinality.json",
         "",
         (
-            f"Public cash ladder: Bind Room {commerce_mod.price_label('bind_room')} → "
+            f"Public cash doors: Bind Room {commerce_mod.price_label('bind_room')} · "
+            f"Diligence deposit {commerce_mod.price_label('diligence_deposit')} · "
+            f"Refusal {commerce_mod.price_label('refusal')} · "
             f"Operator weld {commerce_mod.price_label('operator_weld')} + "
             f"{commerce_mod.price_label('operator_floor')} management + "
             f"{commerce_mod.price_label('operator_flow_bps')} on cleared flow."
