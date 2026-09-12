@@ -1,0 +1,138 @@
+{
+  "spec": "nisaba-commerce-ladder-v1",
+  "currency": "USD",
+  "public_ladder": [
+    {
+      "id": "bind_room",
+      "brand": "gate",
+      "label": "Bind Room",
+      "price_label": "$1,750",
+      "price_cents": 175000,
+      "cadence": "one_time",
+      "public": true,
+      "path": "/bind-room",
+      "hustle": "cold_ok",
+      "summary": "Officer pack and halt pattern before irreversible bind."
+    },
+    {
+      "id": "diligence_deposit",
+      "brand": "gate",
+      "label": "Mouth diligence deposit",
+      "price_label": "$2,500",
+      "price_cents": 250000,
+      "cadence": "one_time",
+      "public": true,
+      "path": "/diligence",
+      "hustle": "cold_ok",
+      "summary": "Deposit to start a 72h find where an irreversible write can complete without may. Review band separate."
+    },
+    {
+      "id": "refusal",
+      "brand": "gate",
+      "label": "Refusal",
+      "price_label": "$7,500",
+      "price_cents": 750000,
+      "cadence": "one_time",
+      "public": true,
+      "path": "/refusal",
+      "hustle": "cold_ok",
+      "summary": "Paid certificate that an agent will not be built — signed proof of absence, not a weld."
+    },
+    {
+      "id": "operator_weld",
+      "brand": "gate",
+      "label": "Operator weld",
+      "price_label": "$25,000",
+      "price_cents": 2500000,
+      "cadence": "one_time",
+      "public": true,
+      "path": "/operator",
+      "summary": "One irreversible write welded fail-closed into the operator system."
+    },
+    {
+      "id": "operator_floor",
+      "brand": "gate",
+      "label": "Path management",
+      "price_label": "$5,000/mo",
+      "price_cents": 500000,
+      "cadence": "monthly",
+      "public": true,
+      "path": "/operator",
+      "summary": "Management per welded path and active parent license."
+    },
+    {
+      "id": "operator_flow_bps",
+      "brand": "gate",
+      "label": "Cleared-flow register",
+      "price_label": "10 bps",
+      "bps": 10,
+      "cadence": "on_cleared_flow",
+      "public": true,
+      "path": "/register",
+      "summary": "Ten basis points on cleared flow; carry above hurdle on the fee schedule."
+    },
+    {
+      "id": "mishara_harm_receipt",
+      "brand": "mishara",
+      "label": "Harm Receipt",
+      "price_label": "Free",
+      "price_cents": 0,
+      "cadence": "one_time",
+      "public": true,
+      "summary": "Velaru-signed receipt after an AI denial already caused harm."
+    },
+    {
+      "id": "mishara_demand_pack",
+      "brand": "mishara",
+      "label": "Demand Pack",
+      "price_label": "$99",
+      "price_cents": 9900,
+      "cadence": "one_time",
+      "public": true,
+      "summary": "Demand letter pack on top of a Harm Receipt."
+    },
+    {
+      "id": "mishara_advocate_bundle",
+      "brand": "mishara",
+      "label": "Advocate Bundle",
+      "price_label": "$499",
+      "price_cents": 49900,
+      "cadence": "one_time",
+      "public": true,
+      "summary": "Advocate export bundle for counsel or advocates."
+    }
+  ],
+  "rails": {
+    "x402": {
+      "advertised_when": "GATE_X402_PAYTO configured",
+      "public_when_unconfigured": false,
+      "note": "Do not publish USDC prices on buyer pages until payto is live."
+    }
+  },
+  "notes": [
+    "Gate public cash doors: Bind Room, mouth diligence deposit, Refusal, then Operator weld + management + 10 bps.",
+    "Cold hustles: Bind Room + diligence. Refusal is an existing live SKU brought onto the board — not a new mid-ladder invention.",
+    "Standing / path retainers are reply-path after Bind yes — not cold.",
+    "Operator fee_schedule (hop + carry) is part of the same SSOT — do not retype on stranger pages.",
+    "Erra signal sprints live on Velaru (see erra_sprints.json) — link them; do not fork prices into Gate pages by hand."
+  ],
+  "fee_schedule": {
+    "operator_hop": {
+      "id": "operator_hop",
+      "label": "Metered hop",
+      "price_label": "$0.10/hop",
+      "price_cents": 10,
+      "public": true,
+      "summary": "When hops bill on a welded path."
+    },
+    "operator_carry": {
+      "id": "operator_carry",
+      "label": "Flow carry above hurdle",
+      "price_label": "+5 bps",
+      "bps": 5,
+      "hurdle_label": "$500M/mo cleared",
+      "public": true,
+      "summary": "Additional basis points on cleared flow above the hurdle."
+    }
+  }
+}

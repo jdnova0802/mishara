@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ description }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">{{ kicker }}</p>
+  <h1>{{ title }}</h1>
+  <p class="audience-sub" style="max-width: 40rem;">{{ blurb }}</p>
+
+  <div class="card" style="margin-top: 1.25rem;">
+    <h2 style="margin-bottom: 0.5rem;">Machine surface</h2>
+    <ul class="check-list">
+      {% for item in links %}
+      <li><a href="{{ item.href }}">{{ item.label }}</a>{% if item.note %} — {{ item.note }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% if bullets %}
+  <div class="card" style="margin-top: 1rem;">
+    <h2 style="margin-bottom: 0.5rem;">Invariant</h2>
+    <ul class="check-list">
+      {% for b in bullets %}
+      <li>{{ b }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.9rem;">
+    Related:
+    <a href="{{ url_for('physical_page') }}">Physical</a> ·
+    <a href="{{ url_for('admittance_page') }}">Admittance</a> ·
+    <a href="{{ url_for('finder_page') }}">Finder</a> ·
+    <a href="{{ advertised_url }}/.well-known/gate.json">gate.json</a>
+  </p>
+</div>
+{% endblock %}

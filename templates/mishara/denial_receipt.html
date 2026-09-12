@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Denial Receipt — Mishara</title>
+<meta name="description" content="An AI already denied you. Get a free Velaru-signed Denial Receipt a stranger can verify. Same product as Harm Receipt — not a second SKU.">
+<meta property="og:title" content="Denial Receipt — Mishara">
+<meta property="og:description" content="Free Velaru-signed receipt after an AI denial already caused harm. Same Harm Receipt product. Nisaba LLC.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3EEE4;--surface:#FFFDF9;--ink:#1A1714;--muted:#5C564E;--teal:#0A5C5F;--teal-dark:#084246;--ember:#B85A2A;--line:#E2D9CC;--shadow:0 10px 40px rgba(26,23,20,0.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 480px at 8% -10%,rgba(10,92,95,.12),transparent 55%),radial-gradient(700px 420px at 100% 0%,rgba(184,90,42,.10),transparent 50%),linear-gradient(180deg,#EFE8DC 0%,var(--bg) 40%,#EDE6DA 100%)}
+a{color:var(--teal)}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px 80px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);background:rgba(255,253,249,.88);border-bottom:1px solid var(--line)}
+.nav{max-width:720px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.4rem;letter-spacing:.03em;color:var(--teal);text-decoration:none}
+.brand span{display:block;font-family:'IBM Plex Sans',sans-serif;font-size:.68rem;font-weight:500;color:var(--muted);letter-spacing:.02em}
+nav a{margin-left:14px;font-size:.9rem;color:var(--muted);text-decoration:none;font-weight:500}
+nav a:hover{color:var(--teal)}
+.hero{padding:42px 0 18px}
+.tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600;color:var(--teal);margin-bottom:10px}
+.hero h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(2rem,6vw,2.75rem);line-height:1.12;margin-bottom:14px}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:38rem}
+.price{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;color:var(--ember);margin:18px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow);margin-top:22px}
+.card ul{margin:8px 0 0 1.1rem;color:var(--ink);font-size:.92rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border:0;border-radius:12px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+.note{font-size:.85rem;color:var(--muted);margin-top:16px}
+footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem;text-align:center;line-height:1.7}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="/">Mishara<span>When the act already hurt someone</span></a>
+    <nav>
+      <a href="/#products">Products</a>
+      <a href="/denial-receipt">Denial Receipt</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="{{ velaru_verify }}" target="_blank" rel="noopener">Verify</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="tag">Denial Receipt · {{ face.price_label }}</p>
+    <h1>{{ face.question }}</h1>
+    <p>{{ face.one_line }}</p>
+    <div class="price">{{ face.price_label }} · same product as Harm Receipt</div>
+  </section>
+
+  <div class="card">
+    <p><strong>Who it’s for:</strong> {{ face.for_whom }}</p>
+    <p style="margin-top:12px"><strong>What you get</strong></p>
+    <ul>
+      {% for item in face.what_you_get %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    <p class="note"><strong>Proof:</strong> Issue the receipt on the home form, then open the verify URL — no login required. <a href="{{ velaru_verify }}" target="_blank" rel="noopener">{{ velaru_verify }}</a></p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/#form">Get a Denial Receipt</a>
+      <a class="btn btn-ghost" href="{{ velaru_verify }}" target="_blank" rel="noopener">Stranger verify</a>
+    </div>
+  </div>
+
+  <p class="note">Demand Pack ({{ products.demand_pack.price_label }}) and Advocate Bundle ({{ products.advocate_bundle.price_label }}) sit on top of this receipt. Prices from the Nisaba commerce ladder — not hand-typed here.</p>
+
+  <footer>
+    Nisaba LLC · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+  </footer>
+</main>
+</body>
+</html>

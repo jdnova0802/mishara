@@ -1,0 +1,120 @@
+{
+  "spec": "nisaba-commerce-faces-v1",
+  "note": "Display faces on existing SKUs and desks. Not new ladder rows. Prices resolve via sku_id \u2192 ladder.json only.",
+  "faces": [
+    {
+      "id": "boss_receipt",
+      "host": "gate",
+      "path": "/boss-receipt",
+      "label": "Boss Receipt",
+      "sku_id": "bind_room",
+      "canonical_product_path": "/bind-room",
+      "question": "Can I show my boss the write stopped?",
+      "one_line": "One link that proves the irreversible write halted \u2014 before counsel asks.",
+      "for_whom": "Boards, GCs, and operators who need stranger-openable stop proof without a dashboard login.",
+      "what_you_get": [
+        "Same Bind Room officer pack \u2014 not a second SKU",
+        "Demo hop that returns BLOCK plus a verify URL",
+        "Officer pack JSON counsel can open"
+      ],
+      "proof": {
+        "label": "Public bind-check (returns BLOCK + verify URL)",
+        "path": "/demo/pas/bind-check",
+        "method": "POST"
+      },
+      "cta": {
+        "label": "Open Bind Room",
+        "path": "/bind-room"
+      },
+      "secondary": {
+        "label": "Stranger verify",
+        "href": "https://velaru.xyz/verify"
+      }
+    },
+    {
+      "id": "find_my_agents",
+      "host": "gate",
+      "path": "/find-my-agents",
+      "label": "Find My Agents",
+      "sku_id": null,
+      "price_label": "Free to search",
+      "canonical_product_path": "/finder",
+      "question": "Which agents can still act?",
+      "one_line": "Search refusals, death certificates, and typed sinks \u2014 a consequence index, not page search.",
+      "for_whom": "Operators and compliance who need to find every authority still live after a revoke.",
+      "what_you_get": [
+        "Public Finder desk",
+        "API: GET/POST /v1/finder/search",
+        "Manifest at /.well-known/finder.json"
+      ],
+      "proof": {
+        "label": "Finder manifest",
+        "path": "/.well-known/finder.json"
+      },
+      "cta": {
+        "label": "Open Finder",
+        "path": "/finder"
+      },
+      "secondary": {
+        "label": "Finder API stats",
+        "path": "/v1/finder/stats"
+      }
+    },
+    {
+      "id": "renewal_packet",
+      "host": "gate",
+      "path": "/renewal-packet",
+      "label": "Renewal Packet",
+      "sku_id": "bind_room",
+      "canonical_product_path": "/bind-room",
+      "question": "What do I hand the carrier for CGL / AI-exclusion renewal?",
+      "one_line": "Officer halt narrative plus renewal pre-bind paste \u2014 CGL will not cover the agent; prove the halt before submit.",
+      "for_whom": "Brokers and MGAs facing AI-exclusion questions at renewal.",
+      "what_you_get": [
+        "Bind Room officer pack at the locked ladder price",
+        "Renewal pre-bind listing paste for midnight bind paths",
+        "Independent verify appendix"
+      ],
+      "proof": {
+        "label": "Renewal pre-bind listing",
+        "path": "/listings/guidewire-renewal-prebind.gs"
+      },
+      "cta": {
+        "label": "Open Bind Room",
+        "path": "/bind-room"
+      },
+      "secondary": {
+        "label": "For brokers",
+        "path": "/for/brokers"
+      }
+    },
+    {
+      "id": "denial_receipt",
+      "host": "mishara",
+      "path": "/denial-receipt",
+      "label": "Denial Receipt",
+      "sku_id": "mishara_harm_receipt",
+      "canonical_product_path": "/",
+      "question": "An AI already denied me \u2014 what proof do I have?",
+      "one_line": "Free Velaru-signed receipt after an AI denial already caused harm \u2014 then demand or advocate export if you need them.",
+      "for_whom": "People hit by hiring, housing, credit, or account denials driven by automated decisions.",
+      "what_you_get": [
+        "Same Harm Receipt product \u2014 not a second SKU",
+        "Stranger verify URL",
+        "Optional Demand Pack and Advocate Bundle on the Mishara ladder"
+      ],
+      "proof": {
+        "label": "Issue a receipt on Mishara home",
+        "path": "/"
+      },
+      "cta": {
+        "label": "Get a Denial Receipt",
+        "path": "/"
+      },
+      "secondary": {
+        "label": "Stranger verify",
+        "href": "https://velaru.xyz/verify"
+      }
+    }
+  ]
+}
