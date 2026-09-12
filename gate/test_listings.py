@@ -1499,10 +1499,10 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn("/action-os", home)
         self.assertNotIn(">Action OS</a>", home)
         self.assertNotIn("scarcity is the DENY", home)
-        self.assertIn("If money is about to leave", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Bind Room", home)
         self.assertNotIn("/science", home)
         self.assertIn("/trust", home)
-        self.assertIn("Parent revoked", home)
         self.assertIn("their_production", home)
 
         import db as gate_db
@@ -1709,12 +1709,14 @@ class OperatorInvoiceTests(unittest.TestCase):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Weld a path", body)
+        self.assertIn("Bind Room", body)
+        self.assertIn("Your CGL will not cover the agent", body)
         self.assertIn("/register", body)
-        self.assertIn("Fee schedule", body)
+        self.assertIn("/operator", body)
         self.assertNotIn("scarcity is the DENY", body)
         self.assertNotIn("Weld a door", body)
         self.assertNotIn("Own the DENY", body)
+        self.assertNotIn("$3,500", body)
 
     def test_no_momo_and_archive_buried(self):
         import db as gate_db
@@ -1791,8 +1793,9 @@ class OperatorInvoiceTests(unittest.TestCase):
             for phrase in banned:
                 self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("If money is about to leave and should not", home)
-        self.assertIn("Weld a path", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Bind Room", home)
+        self.assertNotIn("$3,500", home)
         chrome = home.split("<footer>", 1)[0]
         for phrase in (
             "Lab docs",
@@ -1804,11 +1807,11 @@ class OperatorInvoiceTests(unittest.TestCase):
             "Action OS",
         ):
             self.assertNotIn(phrase, chrome, f"chrome still shows {phrase}")
-        # Lean chrome: doctrine links are footer-only
+        # Lean chrome: doctrine links are footer-only. Bind Room may appear in nav.
         self.assertNotIn(">Family</a>", chrome)
         self.assertNotIn(">Stack</a>", chrome)
         self.assertNotIn(">Status</a>", chrome)
-        self.assertNotIn(">Bind Room</a>", chrome)
+        self.assertNotIn("Assessment", chrome)
         pricing = self.client.get("/pricing").get_data(as_text=True)
         self.assertIn("Weld", pricing)
         self.assertIn("bps", pricing.lower())
@@ -1816,6 +1819,21 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn(">Pro</h3>", pricing)
         self.assertNotIn("Open lab account", pricing)
         self.assertNotIn("Lab hop docs", pricing)
+        self.assertNotIn("$3,500", pricing)
+        self.assertNotRegex(pricing, r"(?i)assessment from \$")
+        for path in ("/subject", "/right-to-act", "/mandate", "/sinks"):
+            self.assertEqual(self.client.get(path).status_code, 200, path)
+        llms = self.client.get("/llms.txt").get_data(as_text=True)
+        self.assertIn("/physical", llms)
+        self.assertIn("/subject", llms)
+        self.assertIn("/.well-known/gate.json", llms)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertTrue(gate.get("pricing"))
+        self.assertTrue(gate.get("opportunities"))
+        self.assertTrue(gate.get("subject_page"))
+        oa = self.client.get("/openapi.json").get_json()
+        self.assertIn("/v1/physical/evaluate", oa.get("paths") or {})
+        self.assertIn("/v1/subject/clear", oa.get("paths") or {})
         self.assertNotIn("Get API key", home)
         opp = self.client.get("/.well-known/opportunities.json")
         if opp.status_code == 200:
@@ -1833,6 +1851,11 @@ class OperatorInvoiceTests(unittest.TestCase):
             self.assertNotIn("scarcity is the DENY", blob)
             self.assertNotIn("Own the DENY", blob)
             self.assertNotIn("Weld a door", blob)
+            self.assertNotIn("$3,500", blob)
+            self.assertNotRegex(blob, r"(?i)assessment from")
+            self.assertNotRegex(blob, r"(?i)^assessment$")
+            if (plate.get("price") or "").strip().lower() == "assessment":
+                self.fail(f"{plate.get('slug')} still has Assessment as price")
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db

@@ -1399,6 +1399,19 @@ def well_known_gate():
             ),
             "version": "1.0.0",
             "openapi": f"{advertised_url()}/openapi.json",
+            "openapi_full": f"{advertised_url()}/openapi.full.json",
+            "llms": f"{advertised_url()}/llms.txt",
+            "pricing": f"{advertised_url()}/pricing",
+            "start": f"{advertised_url()}/start",
+            "trust": f"{advertised_url()}/trust",
+            "register_page": f"{advertised_url()}/register",
+            "live_page": f"{advertised_url()}/live",
+            "opportunities": f"{advertised_url()}/.well-known/opportunities.json",
+            "audiences_hub": f"{advertised_url()}/start",
+            "for_operators": f"{advertised_url()}/for/operators",
+            "for_carriers": f"{advertised_url()}/for/carriers",
+            "for_compliance": f"{advertised_url()}/for/compliance",
+            "for_legal": f"{advertised_url()}/for/legal",
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
@@ -1473,15 +1486,18 @@ def well_known_gate():
             "right_to_act": f"{advertised_url()}/.well-known/right-to-act.json",
             "right_to_act_evaluate": f"{advertised_url()}/v1/right-to-act/evaluate",
             "right_to_act_demo": f"{advertised_url()}/demo/right-to-act/evaluate",
+            "right_to_act_page": f"{advertised_url()}/right-to-act",
             "mandate": f"{advertised_url()}/.well-known/mandate.json",
             "mandate_issue": f"{advertised_url()}/v1/mandate/issue",
             "mandate_reconstruct": f"{advertised_url()}/v1/mandate/reconstruct",
             "mandate_die": f"{advertised_url()}/v1/mandate/die",
             "mandate_death_verify": f"{advertised_url()}/v1/mandate/death/verify",
+            "mandate_page": f"{advertised_url()}/mandate",
             "deaths_well_known": f"{advertised_url()}/.well-known/deaths/{{death_id}}.json",
             "mortality_export": f"{advertised_url()}/v1/mandate/deaths/export",
             "mortality_ingest": f"{advertised_url()}/v1/mandate/deaths/ingest",
             "sinks": f"{advertised_url()}/.well-known/sinks.json",
+            "sinks_page": f"{advertised_url()}/sinks",
             "continuity": f"{advertised_url()}/.well-known/continuity.json",
             "finder": f"{advertised_url()}/.well-known/finder.json",
             "finder_page": f"{advertised_url()}/finder",
@@ -1494,6 +1510,7 @@ def well_known_gate():
             "subject_clear": f"{advertised_url()}/v1/subject/clear",
             "subject_refuse": f"{advertised_url()}/v1/subject/refuse",
             "subject_verify": f"{advertised_url()}/v1/subject/verify",
+            "subject_page": f"{advertised_url()}/subject",
             "physical_prefinality": f"{advertised_url()}/.well-known/physical-prefinality.json",
             "physical_evaluate": f"{advertised_url()}/v1/physical/evaluate",
             "physical_verify": f"{advertised_url()}/v1/physical/verify",
@@ -1509,7 +1526,7 @@ def well_known_gate():
                 "pip": "pip install -r requirements.txt  # sdk in-repo",
             },
             "patent": "64/124,027",
-            "operator": "Nisaba LLC",
+            "operated_by": "Nisaba LLC",
         }
     )
 
@@ -2807,6 +2824,101 @@ def physical_page():
         manifest=physical_mod.manifest(advertised_url()),
         parks=physical_mod.list_parks(12),
         sinks=sinks_mod.list_sinks(sink_class="physical", irreversibility="absolute"),
+    )
+
+
+@app.route("/subject")
+def subject_page():
+    base = advertised_url()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · subject sovereignty",
+        title="Subject",
+        description="Subject clear / refuse / verify — meterable right not to be the object of a write.",
+        blurb="Actors need Right-to-Act. Subjects need stranger-verifiable power to deny the write. Clear, refuse, and verify are billable events.",
+        links=[
+            {"href": f"{base}/.well-known/subject.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/subject/clear", "label": "POST /v1/subject/clear", "note": "meterable"},
+            {"href": f"{base}/v1/subject/refuse", "label": "POST /v1/subject/refuse", "note": "meterable"},
+            {"href": f"{base}/v1/subject/verify", "label": "POST /v1/subject/verify", "note": "meterable"},
+        ],
+        bullets=[
+            "No living subject clearance ⇒ no admittance against that subject.",
+            "Refusal digests are stranger-verifiable.",
+        ],
+    )
+
+
+@app.route("/right-to-act")
+def right_to_act_page():
+    base = advertised_url()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · right-to-act",
+        title="Right-to-Act",
+        description="EXIST / NONEXIST / HOLD — actor authority before irreversible effectuation.",
+        blurb="Computation may propose. Right-to-Act decides whether the actor may cause. Fail closed under uncertainty.",
+        links=[
+            {"href": f"{base}/.well-known/right-to-act.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/right-to-act/evaluate", "label": "POST /v1/right-to-act/evaluate", "note": ""},
+            {"href": f"{base}/demo/right-to-act/evaluate", "label": "POST /demo/right-to-act/evaluate", "note": "demo"},
+            {"href": f"{base}/v1/right-to-act/verify", "label": "POST /v1/right-to-act/verify", "note": ""},
+            {"href": f"{base}/v1/right-to-act/burn", "label": "POST /v1/right-to-act/burn", "note": ""},
+        ],
+        bullets=[
+            "EXIST / NONEXIST / HOLD.",
+            "Unknown sink → fail closed.",
+        ],
+    )
+
+
+@app.route("/mandate")
+def mandate_page():
+    base = advertised_url()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · mandate + mortality",
+        title="Mandate",
+        description="Human-rooted attenuating mandates with death certificates and federation export/ingest.",
+        blurb="Authority narrows, never widens. Dead lineages cannot authorize. Mortality federates.",
+        links=[
+            {"href": f"{base}/.well-known/mandate.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/mandate/issue", "label": "POST /v1/mandate/issue", "note": ""},
+            {"href": f"{base}/v1/mandate/reconstruct", "label": "POST /v1/mandate/reconstruct", "note": ""},
+            {"href": f"{base}/v1/mandate/die", "label": "POST /v1/mandate/die", "note": ""},
+            {"href": f"{base}/v1/mandate/death/verify", "label": "POST /v1/mandate/death/verify", "note": ""},
+            {"href": f"{base}/v1/mandate/deaths/export", "label": "GET/POST deaths/export", "note": "federation"},
+            {"href": f"{base}/v1/mandate/deaths/ingest", "label": "POST deaths/ingest", "note": "federation"},
+        ],
+        bullets=[
+            "Human root required.",
+            "Attenuate only.",
+            "Death is stranger-verifiable.",
+        ],
+    )
+
+
+@app.route("/sinks")
+def sinks_page():
+    base = advertised_url()
+    rows = sinks_mod.list_sinks()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · sink registry",
+        title="Sinks",
+        description="Typed irreversible effect classes — money ≠ legal ≠ physical ≠ reputational ≠ destroy.",
+        blurb="The boom typed transport and documents. It never typed consequence. Unknown sink → fail closed as hard irreversible.",
+        links=[
+            {"href": f"{base}/.well-known/sinks.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/sinks", "label": "GET /v1/sinks", "note": "list"},
+            {"href": f"{base}/v1/sinks/register", "label": "POST /v1/sinks/register", "note": "register"},
+            {"href": f"{base}/physical", "label": "/physical", "note": "absolute physical lane"},
+        ],
+        bullets=[f"{r.get('sink_id')}: {r.get('class')}/{r.get('irreversibility')}" for r in rows[:16]],
     )
 
 
@@ -4244,12 +4356,21 @@ def sitemap():
         "/admittance",
         "/physical",
         "/finder",
+        "/subject",
+        "/right-to-act",
+        "/mandate",
+        "/sinks",
         "/.well-known/gate.json",
+        "/.well-known/opportunities.json",
+        "/.well-known/physical-prefinality.json",
+        "/.well-known/subject.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
         "/.well-known/live.json",
         "/.well-known/legal.json",
         "/openapi.json",
+        "/openapi.full.json",
+        "/llms.txt",
     ]
     urls = "".join(
         f"<url><loc>{advertised_url()}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
@@ -4266,6 +4387,9 @@ def llms_txt():
         "> Clearance before withdraw, payout, or bind. Fail closed under uncertainty. Independent verify.",
         "",
         f"- Home: {advertised_url()}/",
+        f"- Discovery: {advertised_url()}/.well-known/gate.json",
+        f"- Opportunities: {advertised_url()}/.well-known/opportunities.json",
+        f"- Start hub: {advertised_url()}/start",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -4274,11 +4398,23 @@ def llms_txt():
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
+        f"- OpenAPI (full): {advertised_url()}/openapi.full.json",
         f"- Verify: https://velaru.xyz/verify",
         "",
-        "Not a seat product. Not Free/Pro. Weld + path management + bps on cleared flow.",
-        "their_production stays false until a recorded third-party production weld.",
+        "## Law stack (authority for consequence)",
+        f"- Right-to-Act: {advertised_url()}/right-to-act · {advertised_url()}/.well-known/right-to-act.json",
+        f"- Mandate + mortality: {advertised_url()}/mandate · {advertised_url()}/.well-known/mandate.json",
+        f"- Sinks: {advertised_url()}/sinks · {advertised_url()}/.well-known/sinks.json",
+        f"- Continuity: {advertised_url()}/.well-known/continuity.json",
+        f"- Finder: {advertised_url()}/finder · {advertised_url()}/.well-known/finder.json",
+        f"- Admittance: {advertised_url()}/admittance · {advertised_url()}/.well-known/admittance.json",
+        f"- Subject: {advertised_url()}/subject · {advertised_url()}/.well-known/subject.json",
+        f"- Physical Prefinality / Park: {advertised_url()}/physical · {advertised_url()}/.well-known/physical-prefinality.json",
         "",
+        "Public cash ladder: Bind Room $1,750 → Operator weld $25,000 + $5,000/mo management + 10 bps on cleared flow.",
+        "No assessment SKU. Not Free/Pro seats. their_production stays false until a recorded third-party production weld.",
+        "",
+        "## Audience doors",
     ]
     for slug, plate in audiences.all_plates().items():
         if slug in GONE_AUDIENCE_SLUGS:

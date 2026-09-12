@@ -1,18 +1,27 @@
 {% extends "base.html" %}
 {% block title %}Pricing{% endblock %}
 {% block meta %}
-<meta name="description" content="Weld one irreversible write path. Monthly management + 10 bps on cleared flow. Licensed operators.">
+<meta name="description" content="Gate public ladder: Bind Room $1,750, then Operator weld $25,000 + $5,000/mo management + 10 bps on cleared flow. Licensed operators. No assessment SKU.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Licensed operators</p>
+  <p class="audience-tag">Licensed operators · public ladder</p>
   <h1 style="text-align: center;">Pricing</h1>
-  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
-    Pay to weld one irreversible path, then monthly management plus bps on cleared flow.
+  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem; max-width: 40rem; margin-left: auto; margin-right: auto;">
+    Two cash doors on the public site. Bind Room first when you need the officer pack.
+    Operator weld when you need one irreversible write cleared in their house.
+    No “assessment” SKU. No seat tiers.
   </p>
 
   <div class="card" style="margin-bottom: 1.5rem;">
-    <p class="audience-tag">Production path</p>
+    <p class="audience-tag">Step 1 · officer pack</p>
+    <h2>Bind Room — {{ bind_room_price }}</h2>
+    <p>Officer pack + ticket schema for bind workflows. Stranger-verifiable halt pattern. Production still requires a weld into the operator’s system.</p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
+  </div>
+
+  <div class="card" style="margin-bottom: 1.5rem;">
+    <p class="audience-tag">Step 2 · production path</p>
     <h2>Operator weld — {{ weld_price }}</h2>
     <p>One irreversible write (withdraw / payout clear, or bind-only), fail closed, delivered in 48hr. Then <strong>10 bps of what clears</strong>. Quiet path still pays <strong>{{ floor_price }}</strong> management. Extra write = another {{ weld_price }}.</p>
     <ul class="check-list" style="margin: 0.75rem 0;">
@@ -35,15 +44,9 @@
     </div>
   </div>
 
-  <div class="card" style="margin-bottom: 1.5rem;">
-    <h2>Bind Room — {{ bind_room_price }}</h2>
-    <p>Officer pack + ticket schema for bind workflows. Production still requires a weld into the operator’s system.</p>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
-  </div>
-
   <div class="card">
     <h2>Program embeds</h2>
-    <p>Same fee schedule: weld count + path management + bps on cleared flow. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
+    <p>Same fee schedule: weld count + path management + bps on cleared flow. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>. Custom program pricing is not a third public SKU on this page.</p>
   </div>
 </div>
 {% endblock %}
