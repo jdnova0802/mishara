@@ -1,6 +1,6 @@
 {
   "spec": "nisaba-erra-sprints-v1",
-  "note": "Erra money doors live on Velaru. This file is the Gate-side SSOT for outbound copy — do not invent Gate SKUs that mirror these.",
+  "note": "Erra money doors live on Velaru. Paths below are absolute so Gate manifests never advertise dead Gate-local routes.",
   "host": "https://velaru.xyz",
   "hub": "https://velaru.xyz/erra",
   "hustle": "different_icp_cold_ok",
@@ -10,7 +10,7 @@
       "label": "Signal relay desk",
       "price_label": "$4,500",
       "price_cents": 450000,
-      "path": "/erra/signal-relay-desk",
+      "path": "https://velaru.xyz/erra",
       "summary": "Wholesale signal sprint — their logo, Erra signal rail."
     },
     {
@@ -18,7 +18,7 @@
       "label": "Claims signal sprint",
       "price_label": "$7,500",
       "price_cents": 750000,
-      "path": "/erra/claims-signal",
+      "path": "https://velaru.xyz/erra",
       "summary": "Claims AI cluster pattern under threshold-gate."
     },
     {
@@ -26,7 +26,7 @@
       "label": "Hiring signal sprint",
       "price_label": "$7,500",
       "price_cents": 750000,
-      "path": "/erra/hiring-signal",
+      "path": "https://velaru.xyz/erra",
       "summary": "Workforce pattern sprint — stranger-auditable signal snapshot."
     },
     {
@@ -34,7 +34,7 @@
       "label": "Signal diligence sprint",
       "price_label": "$8,500",
       "price_cents": 850000,
-      "path": "/erra/signal-diligence",
+      "path": "https://velaru.xyz/erra",
       "summary": "One-vertical signal diligence — ACT/HOLD under frozen threshold."
     },
     {
@@ -42,7 +42,7 @@
       "label": "Public signal sprint",
       "price_label": "$8,500",
       "price_cents": 850000,
-      "path": "/erra/public-signal",
+      "path": "https://velaru.xyz/erra",
       "summary": "Public-sector feed sprint."
     },
     {
@@ -50,7 +50,7 @@
       "label": "Insurance signal sprint",
       "price_label": "$9,000",
       "price_cents": 900000,
-      "path": "/erra/insurance-signal",
+      "path": "https://velaru.xyz/erra",
       "summary": "Underwriting AI signal sprint."
     },
     {
@@ -58,7 +58,7 @@
       "label": "Reinsurance signal sprint",
       "price_label": "$9,500",
       "price_cents": 950000,
-      "path": "/erra/reinsurance-signal",
+      "path": "https://velaru.xyz/erra",
       "summary": "Treaty pattern signal sprint."
     }
   ]

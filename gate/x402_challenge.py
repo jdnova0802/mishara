@@ -17,14 +17,21 @@ def payto() -> str | None:
     raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip().strip('"').strip("'")
     if raw.startswith("0x") and len(raw) == 42:
         return raw
+    # Explicit demo receive address — never silent. Founder replaces with treasury.
+    if (os.getenv("GATE_X402_DEMO") or "").strip() in {"1", "true", "yes"}:
+        demo = (os.getenv("GATE_X402_DEMO_PAYTO") or "0x00000000000000000000000000000000000000aa").strip()
+        if demo.startswith("0x") and len(demo) == 42:
+            return demo
     return None
 
 
 def payto_debug() -> dict:
     raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip()
     configured = payto() is not None
+    demo = (os.getenv("GATE_X402_DEMO") or "").strip() in {"1", "true", "yes"}
     return {
         "configured": configured,
+        "demo": demo and configured and not bool(raw),
         "env_set": bool(raw),
         "env_len": len(raw),
         "valid_len": len(raw.strip('"').strip("'")) == 42 if raw else False,

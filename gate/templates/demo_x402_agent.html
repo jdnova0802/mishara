@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}x402 agent payment demo · Gate{% endblock %}
+{% block content %}
+<section class="container section">
+  <p class="eyebrow">Demo · x402 / agentic payments</p>
+  <h1>Agent attempts payment. Gate decides.</h1>
+  <p class="lede">An autonomous agent proposes an irreversible USDC transfer. Gate fail-closes or clears and returns a receipt. This closes the near-term x402 gap — rails exist; clearance did not.</p>
+  <p class="muted">x402 configured: <strong>{{ 'yes' if x402.configured else 'no' }}</strong>{% if x402.demo %} (demo payto — replace with treasury){% endif %}</p>
+  <button id="run" class="btn btn-primary" type="button">Run agent payment attempt</button>
+  <pre id="out" class="code-block" style="margin-top:1.5rem;white-space:pre-wrap;"></pre>
+</section>
+<script>
+document.getElementById('run').onclick = async () => {
+  const out = document.getElementById('out');
+  out.textContent = 'evaluating…';
+  const r = await fetch('/demo/x402/agent-pay', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      agent_id: 'demo-agent-01',
+      amount_usdc: '0.25',
+      destination: '0x0000000000000000000000000000000000000001',
+      memo: 'autonomous_checkout'
+    })
+  });
+  out.textContent = JSON.stringify(await r.json(), null, 2);
+};
+</script>
+{% endblock %}

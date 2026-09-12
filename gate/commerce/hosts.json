@@ -12,11 +12,10 @@
     "https://erra.xyz",
     "https://erra.onrender.com",
     "https://verra.xyz",
-    "https://nisaba.xyz",
-    "https://dtcc.com"
+    "https://nisaba.xyz"
   ],
   "health": {
-    "erra_probe": "/healthz",
+    "erra_probe": "https://erra-jf6a.onrender.com/healthz",
     "erra_dedicated": "https://erra-jf6a.onrender.com"
   }
 }
