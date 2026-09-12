@@ -1,6 +1,15 @@
 /**
  * wrapWithPrefinality — fail-closed pre-sign gate for x402 fetch flows.
  *
+ * failOpen is intentionally absent. Gate unreachable / non-GO / missing receipt
+ * / failed one-shot verify always blocks. There is no production case where
+ * "sign anyway when the gate is down" is compatible with pre-commit clearance.
+ *
+ * GO receipts are single-use. After evaluate returns GO, this wrapper redeems
+ * the receipt via POST /v1/prefinality/verify (server consume=True by default)
+ * before the paid retry. If the paid fetch then fails on the network, call
+ * evaluate again for a new jti — replaying the same receipt is rejected.
+ *
  * Usage:
  *   import { wrapWithPrefinality } from "./wrap.mjs";
  *   const secureFetch = wrapWithPrefinality(fetchWithPayment, {
@@ -41,7 +50,6 @@ async function evaluatePrefinality({
   mandate,
   transfer,
   context,
-  failOpen = false,
 }) {
   const base = (gateUrl || "https://gate.velaru.xyz").replace(/\/$/, "");
   const path = apiKey ? "/v1/prefinality/evaluate" : "/demo/prefinality/evaluate";
@@ -61,26 +69,84 @@ async function evaluatePrefinality({
       }),
     });
   } catch (err) {
-    if (failOpen) return { decision: "GO", fail_open: true, error: String(err) };
     throw new PrefinalityBlockedError("Prefinality gate unreachable — fail closed", {
       decision: "NO_GO",
       reason: "gate_unreachable",
+      error: String(err),
     });
   }
 
   const data = await res.json().catch(() => ({}));
-  if (!res.ok && data?.decision !== "HOLD") {
-    if (failOpen) return { decision: "GO", fail_open: true, evaluation: data };
+  if (!res.ok && data?.decision !== "HOLD" && data?.decision !== "GO" && data?.decision !== "NO_GO") {
+    throw new PrefinalityBlockedError("Prefinality gate returned an error — fail closed", {
+      decision: "NO_GO",
+      reason: "gate_http_error",
+      status: res.status,
+      evaluation: data,
+    });
   }
   return data;
 }
 
 /**
- * Wrap an x402-enabled fetch. Before the underlying fetch pays/signs, calls Gate evaluate.
+ * Redeem (consume) the GO receipt before paying. Server verify defaults to
+ * consume=True, so this is the one-shot commit gate for x402 wrap.
+ */
+async function redeemPrefinalityReceipt({
+  gateUrl,
+  apiKey,
+  receipt,
+  transfer,
+}) {
+  const base = (gateUrl || "https://gate.velaru.xyz").replace(/\/$/, "");
+  const headers = { "Content-Type": "application/json" };
+  if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
+
+  let res;
+  try {
+    res = await fetch(`${base}/v1/prefinality/verify`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        receipt,
+        rail: "x402",
+        transfer,
+        // Informative for operators; server verify_receipt_jwt defaults consume=True.
+        consume: true,
+      }),
+    });
+  } catch (err) {
+    throw new PrefinalityBlockedError(
+      "Prefinality receipt redeem unreachable — fail closed",
+      { decision: "NO_GO", reason: "redeem_unreachable", error: String(err) },
+    );
+  }
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data?.valid || data?.decision !== "GO") {
+    throw new PrefinalityBlockedError(
+      `Prefinality receipt redeem blocked: ${data?.reason || data?.decision || res.status}`,
+      { decision: "NO_GO", reason: data?.reason || "redeem_rejected", verification: data },
+    );
+  }
+  return data;
+}
+
+/**
+ * Wrap an x402-enabled fetch. Before the paid/sign retry, calls Gate evaluate
+ * and redeems the GO receipt (one-shot).
  */
 export function wrapWithPrefinality(fetchWithPayment, config = {}) {
   if (typeof fetchWithPayment !== "function") {
     throw new TypeError("fetchWithPayment must be a function");
+  }
+
+  for (const banned of ["failOpen", "fail_open", "fail-open"]) {
+    if (Object.prototype.hasOwnProperty.call(config, banned)) {
+      throw new TypeError(
+        `${banned} is not supported. Prefinality is fail-closed; remove it from config.`,
+      );
+    }
   }
 
   const {
@@ -88,7 +154,6 @@ export function wrapWithPrefinality(fetchWithPayment, config = {}) {
     apiKey,
     agentId,
     mandate = {},
-    failOpen = false,
     extractPayment = null,
   } = config;
 
@@ -111,10 +176,17 @@ export function wrapWithPrefinality(fetchWithPayment, config = {}) {
     const payTo = extractPayment?.(paymentRequired)?.payTo ?? pickPayTo(paymentRequired);
     const amount = extractPayment?.(paymentRequired)?.amount ?? pickAmount(paymentRequired);
 
+    if (!payTo || amount == null) {
+      throw new PrefinalityBlockedError(
+        "Prefinality cannot clear — 402 challenge missing payTo/amount",
+        { decision: "NO_GO", reason: "incomplete_402_challenge" },
+      );
+    }
+
     const transfer = {
-      amount: amount != null ? String(amount) : mandate.amount || "0",
+      amount: String(amount),
       currency: "USDC",
-      counterparty: payTo || mandate.expected_payto || "",
+      counterparty: payTo,
       resource_url: url,
     };
 
@@ -129,7 +201,6 @@ export function wrapWithPrefinality(fetchWithPayment, config = {}) {
         untrusted_text: init?.headers?.["X-Untrusted-Context"] || config.untrustedText,
         intended: mandate.intent,
       },
-      failOpen,
     });
 
     if (evaluation.decision !== "GO") {
@@ -139,11 +210,24 @@ export function wrapWithPrefinality(fetchWithPayment, config = {}) {
       );
     }
 
+    if (!evaluation.receipt) {
+      throw new PrefinalityBlockedError(
+        "Prefinality GO without receipt — fail closed",
+        { decision: "NO_GO", reason: "missing_receipt", evaluation },
+      );
+    }
+
+    // One-shot redeem before signing/paying. Replay or verify failure blocks.
+    await redeemPrefinalityReceipt({
+      gateUrl,
+      apiKey,
+      receipt: evaluation.receipt,
+      transfer,
+    });
+
     const nextInit = { ...(init || {}) };
     const hdrs = new Headers(nextInit.headers || {});
-    if (evaluation.receipt) {
-      hdrs.set("X-Gate-Prefinality-Receipt", evaluation.receipt);
-    }
+    hdrs.set("X-Gate-Prefinality-Receipt", evaluation.receipt);
     nextInit.headers = hdrs;
 
     return fetchWithPayment(input, nextInit);
