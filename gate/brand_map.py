@@ -8,6 +8,11 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 SPEC = "nisaba-brand-map-v1"
 INVENTOR = "Nisaba LLC"
 
@@ -30,7 +35,9 @@ BRANDS: list[dict[str, Any]] = [
         "canonical": "https://gate.velaru.xyz",
         "status": "live",
         "notes": [
-            "Money door: Bind Room $1,750 → operator weld $25k + $5k/mo + 10 bps.",
+            f"Money door: Bind Room {commerce_mod.price_label('bind_room')} → operator weld "
+            f"{commerce_mod.price_label('operator_weld')} + {commerce_mod.price_label('operator_floor')} + "
+            f"{commerce_mod.price_label('operator_flow_bps')}.",
             "x402 USDC prices stay offline until GATE_X402_PAYTO is set.",
         ],
     },

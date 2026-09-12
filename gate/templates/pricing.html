@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Pricing{% endblock %}
 {% block meta %}
-<meta name="description" content="Gate public ladder: Bind Room $1,750, then Operator weld $25,000 + $5,000/mo management + 10 bps on cleared flow. Licensed operators. No assessment SKU.">
+<meta name="description" content="Gate public ladder: Bind Room {{ bind_room_price }}, then Operator weld {{ weld_price }} + {{ floor_price }} management + {{ flow_bps_label }} on cleared flow. Licensed operators. No assessment SKU.">
+<meta property="og:title" content="Pricing — Gate">
+<meta property="og:description" content="Bind Room {{ bind_room_price }} → Operator weld {{ weld_price }} + {{ floor_price }} + {{ flow_bps_label }}.">
 {% endblock %}
 {% block content %}
 <div class="container section">

@@ -8,14 +8,19 @@ One married write per weld. Licensed payout / bind only. Not a second engine.
 """
 from __future__ import annotations
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 SPEC = "gate-operator-invoice-v1"
 REGISTER_FEES_SPEC = "gate-register-fees-v1"
 
-WELD_PRICE_LABEL = "$25,000"
-WELD_PRICE_CENTS = 2_500_000
-FLOOR_PRICE_LABEL = "$5,000/mo"
-FLOOR_PRICE_CENTS = 500_000
-BPS = 10
+WELD_PRICE_LABEL = commerce_mod.price_label("operator_weld")
+WELD_PRICE_CENTS = commerce_mod.price_cents("operator_weld")
+FLOOR_PRICE_LABEL = commerce_mod.price_label("operator_floor")
+FLOOR_PRICE_CENTS = commerce_mod.price_cents("operator_floor")
+BPS = commerce_mod.bps("operator_flow_bps")
 BPS_CARRY = 5  # additional bps on cleared above hurdle (15 total on marginal)
 HURDLE_CLEARED_CENTS = 50_000_000_000  # $500M/mo — carry analog kicks in above this
 HURDLE_CLEARED_MONTH_LABEL = f"${HURDLE_CLEARED_CENTS // 100 // 1_000_000}M/mo"  # $500M/mo

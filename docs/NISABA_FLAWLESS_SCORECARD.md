@@ -301,16 +301,32 @@ Endpoints are `/v1/*` but no published deprecation / v2 policy page or manifest 
 
 ---
 
-## Priority queue (audit only — do not start until you prioritize)
+## Diff vs baseline — institutional pass (founder: professionalism)
 
-1. **DECISION:** Approve `commerce/` SSOT shape (Dim 14) before any price copy edits.
-2. **QUICK:** Remove/rename Velaru Instant “DTCC integration” link (Dim 13).
-3. **QUICK:** Publish or unlink Velaru + Mishara Privacy/Terms (Dim 6).
-4. **QUICK:** Add `/.well-known/security.txt` + HSTS/CSP on Gate (Dim 17/7).
-5. **ENG:** CI link checker + Gate pytest + jargon/institution greps (Dims 10–13).
-6. **DECISION:** Instant `$25`/`$49` — add to Pricing or remove from Instant/llms (Dim 5).
-7. **DECISION:** Support SLA + named accountability + API deprecation policy (Dims 23–24).
-8. **ENG (Velaru repo):** Erra `/health` 500; Instant/Pricing fork; Erra discovery files.
+Founder answers to decisions 1–5: **institutional grade**. Implemented on Gate + Mishara in this branch:
+
+| Area | Status |
+|---|---|
+| Dim 14 commerce SSOT | **DONE** — `gate/commerce/{ladder,doctrine,entities,hosts}.json` + `commerce.py`; `/.well-known/commerce.json` |
+| Dim 1 OG + 404 | **DONE (Gate)** — OG/Twitter tags, `og-gate.png`, designed 404 |
+| Dim 6 Mishara legal | **DONE** — `/privacy` + `/terms` live in Mishara app |
+| Dim 7 / 17 security | **DONE (Gate + Mishara)** — HSTS, CSP, `/.well-known/security.txt` |
+| Dim 18 / 23 / 24 | **DONE (Gate)** — patent string, support SLA, accountability, API deprecation in entities + footer |
+| Dim 10 / 12 CI | **DONE** — `.github/workflows/gate.yml` runs commerce + listings + borrowed-cred / jargon greps |
+| Dim 13 Gate buyer chrome | **DONE** — no DTCC/SWIFT on stranger templates (CI-enforced) |
+| Shared design system | **OPEN** — Velaru private |
+| Velaru Instant DTCC link / Instant↔Pricing fork / Velaru legal | **BLOCKED** — needs Velaru repo access |
+| Erra `/health` 500 | **BLOCKED** — probe on `/healthz`; source fix needs Velaru repo |
+
+---
+
+## Priority queue (remaining)
+
+1. **BLOCKED (Velaru repo):** Instant “DTCC integration” link; Instant `$25`/`$49` vs Pricing; Velaru Privacy/Terms; Erra `/health` crash.
+2. **ENG:** Shared design tokens across Gate / Velaru / Mishara (Dim 1).
+3. **ENG:** Full manifest link crawler in CI (Dim 11).
+4. **FOUNDER:** Registered address for legal pages (Dim 18).
+5. **FOUNDER/DNS:** Raise DMARC; CWV measurement (Dims 16, 21).
 
 ---
 
@@ -319,3 +335,4 @@ Endpoints are `/v1/*` but no published deprecation / v2 policy page or manifest 
 - `/subject`, `/right-to-act`, `/mandate`, `/sinks` are **live 200** and listed in manifests (no longer missing).
 - Lab enums (`HAUNTED_CRITICAL`, `CHOKE`, …) are **not** in the live Gate OpenAPI contract.
 - Erra dedicated host is up on `/healthz`; Gate brand map `/nisaba` documents host honesty.
+- Gate/Mishara now ship commerce SSOT, OG, security.txt, HSTS/CSP, support SLA, patent string, and Gate CI.

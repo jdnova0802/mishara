@@ -30,6 +30,21 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("MISHARA_SECRET_KEY", secrets.token_hex(24))
 
+
+@app.after_request
+def _security_headers(resp):
+    resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; "
+        "connect-src 'self' https:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    )
+    return resp
+
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.xyz").rstrip("/")
 VELARU_VERIFY = os.getenv("VELARU_VERIFY_URL", "https://velaru.xyz/verify").rstrip("/")
 DB_PATH = os.getenv("MISHARA_DB_PATH", os.path.join(os.path.dirname(__file__), "mishara.db"))
@@ -778,6 +793,78 @@ def about():
     )
 
 
+@app.route("/privacy")
+def privacy():
+    return render_template(
+        "mishara/legal.html",
+        title="Privacy",
+        description="How Mishara handles personal data for Harm Receipts and paid packs.",
+        contact_email=CONTACT_EMAIL,
+        support_sla="We respond to hello@velaru.xyz within one business day on business days (US Eastern).",
+        sections=[
+            {
+                "heading": "What we collect",
+                "paragraphs": [
+                    "Mishara is the human door after an AI decision already caused harm. We collect the minimum needed to issue a receipt and fulfill a paid pack.",
+                ],
+                "bullets": [
+                    "Your description of the incident, platform, approximate date, and harm type",
+                    "Email only when required for checkout, unlock, or pattern alerts",
+                    "Server logs (IP, user-agent, path, time) for abuse and uptime",
+                ],
+            },
+            {
+                "heading": "What we do not do",
+                "paragraphs": [],
+                "bullets": [
+                    "Sell personal data",
+                    "Claim Gate operator welds or Erra signal products",
+                    "Provide legal advice",
+                ],
+            },
+            {
+                "heading": "Contact",
+                "paragraphs": [
+                    "Operator: Nisaba LLC. Questions and deletion requests: hello@velaru.xyz. We respond within one business day on business days (US Eastern).",
+                ],
+                "bullets": [],
+            },
+        ],
+    )
+
+
+@app.route("/terms")
+def terms():
+    return render_template(
+        "mishara/legal.html",
+        title="Terms",
+        description="Terms for using Mishara Harm Receipt, Demand Pack, and Advocate Bundle.",
+        contact_email=CONTACT_EMAIL,
+        support_sla="We respond to hello@velaru.xyz within one business day on business days (US Eastern).",
+        sections=[
+            {
+                "heading": "Service",
+                "paragraphs": [
+                    "Mishara provides receipts and document packs after an AI decision already caused harm. It is not Gate, not Erra, and not legal advice.",
+                ],
+                "bullets": [
+                    "Harm Receipt is free",
+                    "Demand Pack and Advocate Bundle are paid one-time products",
+                    "Velaru powers stranger-verifiable receipts",
+                    "Operator of record: Nisaba LLC",
+                ],
+            },
+            {
+                "heading": "Support",
+                "paragraphs": [
+                    "Contact hello@velaru.xyz. We respond within one business day on business days (US Eastern).",
+                ],
+                "bullets": [],
+            },
+        ],
+    )
+
+
 @app.route("/products.json")
 def products_json():
     return jsonify(
@@ -809,6 +896,8 @@ def well_known_mishara():
             "not": ["Gate", "Erra", "operator weld desk"],
             "home": f"{base}/",
             "about": f"{base}/about",
+            "privacy": f"{base}/privacy",
+            "terms": f"{base}/terms",
             "products": f"{base}/products.json",
             "health": f"{base}/health",
             "llms": f"{base}/llms.txt",
@@ -874,7 +963,7 @@ def robots_txt():
 @app.route("/sitemap.xml")
 def sitemap_xml():
     base = _public_base()
-    paths = ["/", "/about", "/products.json", "/.well-known/mishara.json", "/llms.txt", "/health"]
+    paths = ["/", "/about", "/privacy", "/terms", "/products.json", "/.well-known/mishara.json", "/llms.txt", "/health"]
     urls = "".join(
         f"<url><loc>{base}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
     )

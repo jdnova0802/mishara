@@ -145,6 +145,7 @@ class ManifestTests(unittest.TestCase):
                 "pas_bind_check",
                 "policycenter_pre_bind",
                 "mga_authority",
+                "prefinality_evaluate",
             },
         )
 
@@ -2673,6 +2674,10 @@ class LiveDeskTests(unittest.TestCase):
         import db as gate_db
 
         gate_db.init_db()
+        # Isolate from earlier suite welds that flip their_production.
+        with gate_db.db() as conn:
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM third_party_welds")
         gate_app.GATE_DEV_MODE = True
         gate_app.app.config["TESTING"] = True
         cls.client = gate_app.app.test_client()

@@ -325,8 +325,17 @@ STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
 INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
-BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
-BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
+BIND_ROOM_PRICE_LABEL = os.getenv(
+    "GATE_BIND_ROOM_PRICE_LABEL", commerce_mod.price_label("bind_room")
+)
+BIND_ROOM_PRICE_CENTS = int(
+    os.getenv("GATE_BIND_ROOM_PRICE_CENTS", str(commerce_mod.price_cents("bind_room")))
+)
 DILIGENCE_DEPOSIT_LABEL = os.getenv("GATE_DILIGENCE_DEPOSIT_LABEL", "$2,500")
 DILIGENCE_DEPOSIT_CENTS = int(os.getenv("GATE_DILIGENCE_DEPOSIT_CENTS", "250000"))
 DILIGENCE_REVIEW_BAND = os.getenv("GATE_DILIGENCE_REVIEW_BAND", "$5,000–$8,000")
@@ -337,7 +346,13 @@ WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LA
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
 FLOOR_PRICE_CENTS = int(os.getenv("GATE_FLOOR_PRICE_CENTS", str(operator_mod.FLOOR_PRICE_CENTS)))
-CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
+CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", commerce_mod.support_email())
+SUPPORT_SLA = commerce_mod.support_sla()
+LEGAL_NAME = commerce_mod.legal_name()
+PATENT_DISPLAY = commerce_mod.patent_display()
+API_POLICY = commerce_mod.api_policy()
+ACCOUNTABILITY = commerce_mod.accountability()
+GATE_DOCTRINE = commerce_mod.brand_line("gate")
 META_PIXEL_ID = (os.getenv("GATE_META_PIXEL_ID") or "").strip()
 # Google Ads / gtag id. Off unless GATE_GA_ID is set in env (no hardcoded default).
 GA_ID = (os.getenv("GATE_GA_ID") or "").strip()
@@ -418,12 +433,48 @@ def inject_globals():
         "refusal_price": REFUSAL_PRICE_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
+        "flow_bps_label": commerce_mod.price_label("operator_flow_bps"),
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
+        "support_sla": SUPPORT_SLA,
+        "legal_name": LEGAL_NAME,
+        "patent_display": PATENT_DISPLAY,
+        "accountability": ACCOUNTABILITY,
+        "gate_one_line": (GATE_DOCTRINE or {}).get("one_line") or "",
         "meta_pixel_id": META_PIXEL_ID,
         "ga_id": GA_ID,
         "bind_surface": bind_surface,
+        "og_image": f"{advertised_url()}/static/og-gate.png",
     }
+
+
+@app.after_request
+def institutional_security_headers(resp):
+    resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; "
+        "connect-src 'self' https://www.google-analytics.com https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    )
+    return resp
+
+
+@app.errorhandler(404)
+def not_found(err):
+    if (request.path or "").startswith("/v1/") or (request.path or "").startswith("/.well-known/"):
+        return jsonify({"error": "not_found", "path": request.path}), 404
+    return (
+        render_template(
+            "404.html",
+            public_url=advertised_url(),
+            contact_email=CONTACT_EMAIL,
+        ),
+        404,
+    )
 
 
 @app.after_request
@@ -1474,6 +1525,8 @@ def well_known_gate():
             "family_page": f"{advertised_url()}/family",
             "nisaba": f"{advertised_url()}/.well-known/nisaba.json",
             "nisaba_page": f"{advertised_url()}/nisaba",
+            "commerce": f"{advertised_url()}/.well-known/commerce.json",
+            "security_txt": f"{advertised_url()}/.well-known/security.txt",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
@@ -1857,6 +1910,18 @@ def scorecard_page():
 @app.route("/.well-known/nisaba.json")
 def well_known_nisaba():
     return jsonify(brand_map_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/commerce.json")
+def well_known_commerce():
+    return jsonify(commerce_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/security.txt")
+@app.route("/security.txt")
+def security_txt():
+    body = commerce_mod.security_txt(canonical_url=advertised_url())
+    return Response(body, mimetype="text/plain; charset=utf-8")
 
 
 @app.route("/nisaba")
