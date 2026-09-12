@@ -172,6 +172,6 @@ def well_known_fanout(public_url: str) -> dict:
         out["instructions"] = (
             "x402 payto is not configured. Do not send USDC. "
             "Free: GET /audit?url=... · POST /demo/prefinality/evaluate · Gate API key routes. "
-            "Paid $497 wire / $0.002 evaluate prices stay offline until GATE_X402_PAYTO is set."
+            "Paid wire / evaluate USDC prices stay offline until GATE_X402_PAYTO is set."
         )
     return out

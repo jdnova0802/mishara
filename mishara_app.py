@@ -30,7 +30,7 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("MISHARA_SECRET_KEY", secrets.token_hex(24))
 
-VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
+VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.xyz").rstrip("/")
 VELARU_VERIFY = os.getenv("VELARU_VERIFY_URL", "https://velaru.xyz/verify").rstrip("/")
 DB_PATH = os.getenv("MISHARA_DB_PATH", os.path.join(os.path.dirname(__file__), "mishara.db"))
 PAYMENTS_MODE = (os.getenv("MISHARA_PAYMENTS") or "stripe").strip().lower()
@@ -790,6 +790,100 @@ def products_json():
             "their_production": False,
         }
     )
+
+
+def _public_base() -> str:
+    if PUBLIC_BASE:
+        return PUBLIC_BASE
+    return (request.url_root or "").rstrip("/")
+
+
+@app.route("/.well-known/mishara.json")
+def well_known_mishara():
+    base = _public_base()
+    return jsonify(
+        {
+            "name": "Mishara",
+            "firm": "Nisaba LLC",
+            "description": "Consumer door when an AI decision already hurt you. Powered by Velaru.",
+            "not": ["Gate", "Erra", "operator weld desk"],
+            "home": f"{base}/",
+            "about": f"{base}/about",
+            "products": f"{base}/products.json",
+            "health": f"{base}/health",
+            "llms": f"{base}/llms.txt",
+            "engine": VELARU_BASE,
+            "verify": VELARU_VERIFY,
+            "contact": CONTACT_EMAIL,
+            "pricing": [
+                {"id": p["id"], "name": p["name"], "price_label": p["price_label"], "price_cents": p["price_cents"]}
+                for p in PRODUCTS.values()
+            ],
+            "their_production": False,
+        }
+    )
+
+
+@app.route("/llms.txt")
+def llms_txt():
+    base = _public_base()
+    lines = [
+        "# Mishara — Nisaba LLC",
+        "",
+        "> When an AI decision already hurt you. Velaru-signed receipts. Not Gate. Not an operator weld desk.",
+        "",
+        f"- Home: {base}/",
+        f"- About: {base}/about",
+        f"- Products: {base}/products.json",
+        f"- Discovery: {base}/.well-known/mishara.json",
+        f"- Health: {base}/health",
+        f"- Verify engine: {VELARU_VERIFY}",
+        f"- Contact: {CONTACT_EMAIL}",
+        "",
+        "## Public ladder (this brand only)",
+    ]
+    for p in PRODUCTS.values():
+        lines.append(f"- {p['name']}: {p['price_label']} — {p['blurb']}")
+    lines.extend(
+        [
+            "",
+            "Not Free/Pro seats. Not Gate Bind Room / operator weld pricing.",
+            f"Sibling brands: Velaru ({VELARU_BASE}) · Gate (clearance before irreversible write).",
+            "",
+        ]
+    )
+    return "\n".join(lines), 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    base = _public_base()
+    body = "\n".join(
+        [
+            "User-agent: *",
+            "Allow: /",
+            "Disallow: /unlock/",
+            "Disallow: /checkout",
+            f"Sitemap: {base}/sitemap.xml",
+            "",
+        ]
+    )
+    return body, 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    base = _public_base()
+    paths = ["/", "/about", "/products.json", "/.well-known/mishara.json", "/llms.txt", "/health"]
+    urls = "".join(
+        f"<url><loc>{base}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        f"{urls}</urlset>"
+    )
+    return xml, 200, {"Content-Type": "application/xml; charset=utf-8"}
 
 
 @app.route("/receipt/<receipt_hash>")

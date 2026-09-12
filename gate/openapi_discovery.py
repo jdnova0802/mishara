@@ -81,7 +81,7 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
         wire_get = {
             "summary": "x402 wire bundle (OFFLINE until payto configured)",
             "description": (
-                "Paid $497 USDC wire is offline while GATE_X402_PAYTO is unset. "
+                "Paid USDC wire is offline while GATE_X402_PAYTO is unset. "
                 "Use Stripe /pricing or wait for payto."
             ),
             "responses": {

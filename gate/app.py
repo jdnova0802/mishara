@@ -3134,6 +3134,7 @@ def audit_page():
         result=result,
         result_json=json.dumps(result, indent=2) if result else "",
         wire_domain=wire_domain,
+        x402_configured=x402_challenge_mod.payto_configured(),
     )
 
 

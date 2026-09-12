@@ -338,7 +338,7 @@ def x402_catalog(public_url: str, *, payto_configured: bool = False) -> dict:
             "note": (
                 "x402 payto is not configured on this host. "
                 "Do not send USDC. Use free /demo/prefinality/evaluate or a Gate API key. "
-                "Paid $497 wire and $0.002 evaluate prices are offline until GATE_X402_PAYTO is set."
+                "Paid wire and evaluate USDC prices stay offline until GATE_X402_PAYTO is set."
             ),
             "prices": None,
         }
