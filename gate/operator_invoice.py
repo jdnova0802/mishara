@@ -8,16 +8,22 @@ One married write per weld. Licensed payout / bind only. Not a second engine.
 """
 from __future__ import annotations
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 SPEC = "gate-operator-invoice-v1"
 REGISTER_FEES_SPEC = "gate-register-fees-v1"
 
-WELD_PRICE_LABEL = "$25,000"
-WELD_PRICE_CENTS = 2_500_000
-FLOOR_PRICE_LABEL = "$5,000/mo"
-FLOOR_PRICE_CENTS = 500_000
-BPS = 10
+WELD_PRICE_LABEL = commerce_mod.price_label("operator_weld")
+WELD_PRICE_CENTS = commerce_mod.price_cents("operator_weld")
+FLOOR_PRICE_LABEL = commerce_mod.price_label("operator_floor")
+FLOOR_PRICE_CENTS = commerce_mod.price_cents("operator_floor")
+BPS = commerce_mod.bps("operator_flow_bps")
 BPS_CARRY = 5  # additional bps on cleared above hurdle (15 total on marginal)
 HURDLE_CLEARED_CENTS = 50_000_000_000  # $500M/mo — carry analog kicks in above this
+HURDLE_CLEARED_MONTH_LABEL = f"${HURDLE_CLEARED_CENTS // 100 // 1_000_000}M/mo"  # $500M/mo
 HOP_CENTS = 10
 EXTRA_WRITE_CENTS = WELD_PRICE_CENTS
 
@@ -36,7 +42,7 @@ COMMITTED_FLOW_TIERS = (
     {"band": "rail", "through_month": "$10B", "cleared_cents": 1_000_000_000_000, "bps": BPS},
     {
         "band": "carry",
-        "through_month": f"above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo",
+        "through_month": f"above {HURDLE_CLEARED_MONTH_LABEL}",
         "cleared_cents": HURDLE_CLEARED_CENTS,
         "bps_base": BPS,
         "bps_carry": BPS_CARRY,
@@ -278,7 +284,7 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "default": "the only door on one irreversible write",
             "bps": BPS,
             "carry_bps_above_hurdle": BPS_CARRY,
-            "hurdle_cleared_month": f"${HURDLE_CLEARED_CENTS // 100_000_000}/mo",
+            "hurdle_cleared_month": HURDLE_CLEARED_MONTH_LABEL,
             "volume": "cleared flow through welded mouths",
             "not_the_product": "one lonely $5,000/mo line",
         },
@@ -286,7 +292,7 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "spec": REGISTER_FEES_SPEC,
             "fund_analog": {
                 "management": f"{FLOOR_PRICE_LABEL} per welded write + {FLOOR_PRICE_LABEL} per LIVE license parent",
-                "flow": f"{BPS} bps on cleared + {BPS_CARRY} bps on cleared above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo",
+                "flow": f"{BPS} bps on cleared + {BPS_CARRY} bps on cleared above {HURDLE_CLEARED_MONTH_LABEL}",
                 "per_hop": f"${HOP_CENTS / 100:.2f}/hop when hops win the flow leg",
             },
             "formula": "management + flow (not max — both legs apply at scale)",
@@ -372,7 +378,7 @@ WHAT IT IS
 CHECKOUT
   Weld:       {WELD_PRICE_LABEL} one-time — one irreversible write (48hr delivery)
   Management: {FLOOR_PRICE_LABEL} per welded path + per active parent license
-  Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo
+  Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above {HURDLE_CLEARED_MONTH_LABEL}
   Checkout:   {base}/operator
   Honesty:    their_production stays false until a recorded third-party production weld
 

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Bind Room · $1,750{% endblock %}
+{% block title %}Bind Room · {{ bind_room_price }}{% endblock %}
 {% block meta %}
-<meta name="description" content="Your CGL will not cover the agent. $1,750 officer pack — halt before bind-and-issue with stranger-verifiable proof.">
+<meta name="description" content="Your CGL will not cover the agent. {{ bind_room_price }} officer pack — halt before bind-and-issue with stranger-verifiable proof.">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Bind Room · officer pack</p>
   <h1>Your CGL will not cover the agent.</h1>
-  <p class="audience-sub">General liability excludes AI agent acts. If bind-and-issue runs without a governed halt, you are selling coverage you cannot pay. This pack is the assessment path: officer narrative + on-request verify appendix + public demo hop — <strong>not</strong> a rating model, not a wholesale partner desk.</p>
+  <p class="audience-sub">General liability excludes AI agent acts. If bind-and-issue runs without a governed halt, you are selling coverage you cannot pay. This pack is the officer path: officer narrative + on-request verify appendix + public demo hop — <strong>not</strong> a rating model, not a wholesale partner desk.</p>
   <div class="install-price">{{ bind_room_price }} <span>officer pack · due now</span></div>
-  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">Full assessment is $3,500 · this deposit starts the officer pack and bind-room pattern. Production weld in their house is a separate operator path — ask after the pack lands.</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">{{ bind_room_price }} is the officer pack — not an “assessment” SKU. Production weld in their house is a separate operator path on the fee schedule — ask after the pack lands.</p>
 
   <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
     {% if stripe_bind_room %}

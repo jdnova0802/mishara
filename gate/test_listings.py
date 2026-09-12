@@ -145,6 +145,7 @@ class ManifestTests(unittest.TestCase):
                 "pas_bind_check",
                 "policycenter_pre_bind",
                 "mga_authority",
+                "prefinality_evaluate",
             },
         )
 
@@ -1499,10 +1500,10 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn("/action-os", home)
         self.assertNotIn(">Action OS</a>", home)
         self.assertNotIn("scarcity is the DENY", home)
-        self.assertIn("If money is about to leave", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Bind Room", home)
         self.assertNotIn("/science", home)
         self.assertIn("/trust", home)
-        self.assertIn("Parent revoked", home)
         self.assertIn("their_production", home)
 
         import db as gate_db
@@ -1564,6 +1565,23 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("Should we act?", paste.get_data(as_text=True))
         self.assertEqual(self.client.get("/family").status_code, 200)
         self.assertEqual(self.client.get("/family/verra").status_code, 200)
+
+        nisaba = self.client.get("/.well-known/nisaba.json")
+        self.assertEqual(nisaba.status_code, 200)
+        nisaba_data = nisaba.get_json()
+        self.assertEqual(nisaba_data["spec"], "nisaba-brand-map-v1")
+        self.assertGreaterEqual(len(nisaba_data["brands"]), 5)
+        self.assertIn("https://verra.xyz", nisaba_data["do_not_advertise"])
+        self.assertIn("https://erra.xyz", nisaba_data["do_not_advertise"])
+        erra_brand = next(b for b in nisaba_data["brands"] if b["id"] == "erra")
+        self.assertEqual(erra_brand["canonical"], "https://velaru.xyz/erra")
+        verra_brand = next(b for b in nisaba_data["brands"] if b["id"] == "verra")
+        self.assertEqual(verra_brand["status"], "live_as_bind_room")
+        self.assertEqual(self.client.get("/nisaba").status_code, 200)
+        gate_json = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("nisaba", gate_json)
+        self.assertIn("/.well-known/nisaba.json", gate_json["nisaba"])
+        self.assertIn("nisaba_page", gate_json)
 
         skin = self.client.get("/.well-known/production-skin.json")
         self.assertEqual(skin.status_code, 200)
@@ -1709,12 +1727,14 @@ class OperatorInvoiceTests(unittest.TestCase):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Weld a path", body)
+        self.assertIn("Bind Room", body)
+        self.assertIn("Your CGL will not cover the agent", body)
         self.assertIn("/register", body)
-        self.assertIn("Fee schedule", body)
+        self.assertIn("/operator", body)
         self.assertNotIn("scarcity is the DENY", body)
         self.assertNotIn("Weld a door", body)
         self.assertNotIn("Own the DENY", body)
+        self.assertNotIn("$3,500", body)
 
     def test_no_momo_and_archive_buried(self):
         import db as gate_db
@@ -1791,8 +1811,9 @@ class OperatorInvoiceTests(unittest.TestCase):
             for phrase in banned:
                 self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("If money is about to leave and should not", home)
-        self.assertIn("Weld a path", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Bind Room", home)
+        self.assertNotIn("$3,500", home)
         chrome = home.split("<footer>", 1)[0]
         for phrase in (
             "Lab docs",
@@ -1804,11 +1825,11 @@ class OperatorInvoiceTests(unittest.TestCase):
             "Action OS",
         ):
             self.assertNotIn(phrase, chrome, f"chrome still shows {phrase}")
-        # Lean chrome: doctrine links are footer-only
+        # Lean chrome: doctrine links are footer-only. Bind Room may appear in nav.
         self.assertNotIn(">Family</a>", chrome)
         self.assertNotIn(">Stack</a>", chrome)
         self.assertNotIn(">Status</a>", chrome)
-        self.assertNotIn(">Bind Room</a>", chrome)
+        self.assertNotIn("Assessment", chrome)
         pricing = self.client.get("/pricing").get_data(as_text=True)
         self.assertIn("Weld", pricing)
         self.assertIn("bps", pricing.lower())
@@ -1816,6 +1837,21 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn(">Pro</h3>", pricing)
         self.assertNotIn("Open lab account", pricing)
         self.assertNotIn("Lab hop docs", pricing)
+        self.assertNotIn("$3,500", pricing)
+        self.assertNotRegex(pricing, r"(?i)assessment from \$")
+        for path in ("/subject", "/right-to-act", "/mandate", "/sinks"):
+            self.assertEqual(self.client.get(path).status_code, 200, path)
+        llms = self.client.get("/llms.txt").get_data(as_text=True)
+        self.assertIn("/physical", llms)
+        self.assertIn("/subject", llms)
+        self.assertIn("/.well-known/gate.json", llms)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertTrue(gate.get("pricing"))
+        self.assertTrue(gate.get("opportunities"))
+        self.assertTrue(gate.get("subject_page"))
+        oa = self.client.get("/openapi.json").get_json()
+        self.assertIn("/v1/physical/evaluate", oa.get("paths") or {})
+        self.assertIn("/v1/subject/clear", oa.get("paths") or {})
         self.assertNotIn("Get API key", home)
         opp = self.client.get("/.well-known/opportunities.json")
         if opp.status_code == 200:
@@ -1833,6 +1869,66 @@ class OperatorInvoiceTests(unittest.TestCase):
             self.assertNotIn("scarcity is the DENY", blob)
             self.assertNotIn("Own the DENY", blob)
             self.assertNotIn("Weld a door", blob)
+            self.assertNotIn("$3,500", blob)
+            self.assertNotRegex(blob, r"(?i)assessment from")
+            self.assertNotRegex(blob, r"(?i)^assessment$")
+            if (plate.get("price") or "").strip().lower() == "assessment":
+                self.fail(f"{plate.get('slug')} still has Assessment as price")
+            self.assertNotIn("Charge packs from $500", blob)
+            self.assertNotRegex(blob, r"(?i)charge packs from \$500")
+
+        reg = self.client.get("/.well-known/register.json").get_json()
+        blob = json.dumps(reg)
+        self.assertIn("above $500M/mo", blob)
+        self.assertNotIn("above $500/mo", blob)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        for slug in (
+            "developers",
+            "agents",
+            "startups",
+            "operators",
+            "legal",
+            "compliance",
+            "carriers",
+            "brokers",
+            "enterprise",
+            "boards",
+            "defense",
+            "hiring",
+            "consumers",
+            "investors",
+        ):
+            self.assertIn(f"for_{slug}", gate, slug)
+            self.assertTrue(str(gate[f"for_{slug}"]).endswith(f"/for/{slug}"))
+
+        oa = self.client.get("/openapi.json").get_json()
+        paths = oa.get("paths") or {}
+        for p in (
+            "/v1/pas/bind-check",
+            "/v1/act",
+            "/v1/fuse/lookup",
+            "/v1/canary/bypass",
+            "/demo/pas/bind-check",
+        ):
+            self.assertIn(p, paths, p)
+        self.assertFalse((oa.get("x-discovery") or {}).get("x402_configured"))
+        self.assertNotIn("/api/x402/wire", paths)
+        pre = (paths.get("/v1/prefinality/evaluate") or {}).get("post") or {}
+        self.assertNotIn("x-payment-info", pre)
+
+        x402 = self.client.get("/.well-known/x402.json").get_json()
+        payment = x402.get("payment") or {}
+        self.assertFalse(payment.get("configured"))
+        self.assertIsNone(payment.get("prices"))
+        self.assertTrue(any("OFFLINE" in (r.get("description") or "") for r in x402.get("resources") or []))
+        boards = next(
+            (e for e in (self.client.get("/.well-known/opportunities.json").get_json() or {}).get("opportunities") or [] if e.get("slug") == "boards"),
+            None,
+        )
+        self.assertIsNotNone(boards)
+        self.assertNotIn("$500", boards.get("price") or "")
+        self.assertIn("1,750", boards.get("price") or "")
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
@@ -2579,6 +2675,10 @@ class LiveDeskTests(unittest.TestCase):
         import db as gate_db
 
         gate_db.init_db()
+        # Isolate from earlier suite welds that flip their_production.
+        with gate_db.db() as conn:
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM third_party_welds")
         gate_app.GATE_DEV_MODE = True
         gate_app.app.config["TESTING"] = True
         cls.client = gate_app.app.test_client()
@@ -2761,8 +2861,21 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(r.status_code, 200)
         body = r.get_json()
         self.assertEqual(body.get("version"), 1)
-        resources = body.get("resources") or []
+        # Unconfigured host: do not advertise paid USDC resources.
+        self.assertFalse(body.get("x402_configured"))
+        self.assertEqual(body.get("resources") or [], [])
+        free = body.get("free_resources") or []
+        self.assertTrue(any("prefinality/evaluate" in u for u in free))
+        self.assertIn("Do not send USDC", body.get("instructions") or "")
+
+        payto = "0x00000000000000000000000000000000000000aa"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                live = self.client.get("/.well-known/x402").get_json()
+        self.assertTrue(live.get("x402_configured"))
+        resources = live.get("resources") or []
         self.assertTrue(any("prefinality/evaluate" in u for u in resources))
+        self.assertTrue(any("/api/x402/wire" in u for u in resources))
 
     def test_prefinality_evaluate_402_when_payto_configured(self):
         payto = "0x00000000000000000000000000000000000000aa"
@@ -2867,11 +2980,19 @@ class X402AuditWireTests(unittest.TestCase):
     def test_x402_fanout_lists_audit_and_wire(self):
         r = self.client.get("/.well-known/x402")
         body = r.get_json()
-        resources = body.get("resources") or []
-        self.assertTrue(any("/api/x402/wire" in u for u in resources))
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
+        self.assertFalse(body.get("x402_configured"))
+        self.assertEqual(body.get("resources") or [], [])
+
+        payto = "0x00000000000000000000000000000000000000bb"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                live = self.client.get("/.well-known/x402").get_json()
+        resources = live.get("resources") or []
+        self.assertTrue(any("/api/x402/wire" in u for u in resources))
+        self.assertTrue(live.get("x402_configured"))
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Free x402 endpoint audit{% endblock %}
 {% block meta %}
-<meta name="description" content="Free x402 endpoint audit. Grade any HTTP 402 pay envelope — payTo, amount, network. Paid $497 wire bundle if you want it deployed tonight.">
+<meta name="description" content="Free x402 endpoint audit. Grade any HTTP 402 pay envelope — payTo, amount, network.">
 <meta property="og:title" content="Gate — Free x402 endpoint audit">
 <meta property="og:description" content="Paste any x402 endpoint URL. Get a grade in seconds. No account.">
 {% endblock %}
@@ -46,7 +46,11 @@
     </ul>
     {% endif %}
     <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+      {% if x402_configured %}
       <a href="{{ url_for('x402_wire_paid') }}?domain={{ wire_domain }}&amp;email=you@example.com&amp;audit_url={{ result.url | urlencode }}" class="btn btn-primary">$497 wire bundle</a>
+      {% else %}
+      <a href="{{ public_url }}/pricing" class="btn btn-primary">Pricing</a>
+      {% endif %}
       <a href="{{ public_url }}/install" class="btn btn-ghost">$2,500 install sprint</a>
     </div>
     <details style="margin-top: 1rem;">

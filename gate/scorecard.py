@@ -89,6 +89,8 @@ FAMILY_BITES: dict[str, dict[str, Any]] = {
         "gaps_honest": [
             "Paste /family/erra into live chrome when convenient — Gate-hosted voice is canonical",
             "Auto post-outcome re-score remains SOW (surfaces + doctrine maxed)",
+            "GET /health 500s on diligence profile — keep Render probe on /healthz; fix in Velaru repo",
+            "erra.xyz is for sale (Spaceship) — not product; canonical is velaru.xyz/erra",
         ],
     },
     "verra": {
@@ -107,6 +109,8 @@ FAMILY_BITES: dict[str, dict[str, Any]] = {
         "gaps_honest": [
             "Paste /family/verra hero when live TOC is replaced — doctrine maxed here",
             "Post-ALLOW ops queue remains production SOW",
+            "velaru.xyz/verra aliases Bind Room — voice chrome still pending",
+            "verra.xyz is unrelated third-party — never advertise as Nisaba",
         ],
     },
     "gate": {

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Bind Room — halt before the agent binds{% endblock %}
 {% block meta %}
-<meta name="description" content="Your CGL will not cover the agent. $1,750 Bind Room officer pack — stranger-verifiable halt before bind-and-issue.">
+<meta name="description" content="Your CGL will not cover the agent. {{ bind_room_price }} Bind Room officer pack — stranger-verifiable halt before bind-and-issue.">
 {% endblock %}
 {% block content %}
 <section class="hero container">
   <p class="audience-tag" style="margin-bottom: 0.75rem;">Bind Room · GC / carrier / compliance</p>
   <h1>Your CGL will not cover the agent.</h1>
-  <p class="hero-sub">Before bind-and-issue, the hop must HALT with a receipt anyone can verify — no login, no trust-me dashboard. {{ bind_room_price }} starts the officer pack. Full assessment $3,500.</p>
+  <p class="hero-sub">Before bind-and-issue, the hop must HALT with a receipt anyone can verify — no login, no trust-me dashboard. {{ bind_room_price }} is the officer pack. Production is a weld on the fee schedule — not a separate “assessment” SKU.</p>
   <div class="hero-actions">
     <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room · {{ bind_room_price }}</a>
     <a href="https://velaru.xyz/verify" class="btn btn-ghost" target="_blank" rel="noopener">Verify a receipt</a>
