@@ -23,8 +23,20 @@ a{color:var(--teal)}
 </style>
 </head>
 <body>
+<header>
+  <div class="nav" style="max-width:640px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <a class="brand" href="/">Mishara</a>
+    <nav style="display:flex;flex-wrap:wrap;gap:12px">
+      <a href="/#products">Products</a>
+      <a href="/denial-receipt">Denial Receipt</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="{{ velaru_verify }}" target="_blank" rel="noopener">Verify</a>
+    </nav>
+  </div>
+</header>
 <main class="wrap">
-  <a class="brand" href="/">Mishara</a>
   <h1>About Mishara</h1>
   <p>Mishara is the human door after an AI decision already hurt someone — hiring, housing, credit, gig work, benefits. It is not Gate and not Erra.</p>
   <p>Powered by Velaru for stranger-verifiable receipts. Nisaba LLC.</p>

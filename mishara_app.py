@@ -1263,7 +1263,15 @@ def pattern():
     platform = normalize_platform(request.args.get("platform", ""))
     domain = (request.args.get("domain") or "").strip()
     if not platform or not domain:
-        return jsonify({"error": True, "message": "platform and domain required"}), 400
+        # Bare GET must not 400 — counsel/tools probe the door first.
+        return jsonify(
+            {
+                "ok": True,
+                "usage": "GET /pattern?platform=<slug>&domain=<slug>",
+                "example": "/pattern?platform=openai&domain=hiring",
+                "note": "Anonymous pattern counts only. No narratives. No PII.",
+            }
+        ), 200
     with get_db() as conn:
         row = conn.execute(
             "SELECT count, last_updated FROM patterns WHERE platform = ? AND domain = ?",

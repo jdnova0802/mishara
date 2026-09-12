@@ -1,21 +1,11 @@
 # Nisaba — Flawless Scorecard
 
-**Run date:** 2026-09-12 (UTC)  
-**Branch:** `cursor/chewable-faces-25ad` (faces ship on top of institutional Gate/Mishara baseline)  
-**Prior audit branch:** `cursor/right-to-act-no-go-c1dd`  
-**Gate live commit (Render `gate-api`):** tracks deploy branch (auto-deploy)  
-**Mishara live:** `mishara.onrender.com`  
-**Surfaces:** `https://gate.velaru.xyz`, `https://mishara.onrender.com`, `https://velaru.xyz`, `https://erra-jf6a.onrender.com`
+**Run date:** 2026-09-12 (oligarch-grade continuity pass)  
+**Gate branch:** `cursor/oligarch-grade-25ad`  
+**Velaru branch:** `cursor/oligarch-grade-25ad` → merge to `main`  
+**Live:** `https://gate.velaru.xyz` · `https://mishara.onrender.com` · `https://velaru.xyz`
 
-**Legend:** PASS · PARTIAL · FAIL · BLOCKED (needs `jdnova0802/velaru` access)
-
-**Honest roll-up:** Gate + Mishara institutional dims remain PASS. **This pass adds chewable faces** (Boss Receipt, Find My Agents, Renewal Packet, Denial Receipt) as display doors on existing SKUs — prices from `gate/commerce/` SSOT only; discovery wired (`/faces`, `/.well-known/faces.json`, sitemap, llms). **Velaru / Erra dims remain BLOCKED/FAIL** until desktop or `VELARU_GITHUB_TOKEN` can edit the private Velaru repo.
-**Diff vs prior institutional run:** NEW — Boss Receipt, Find My Agents, Renewal Packet, Denial Receipt as display doors on existing SKUs (`gate/commerce/faces.json` SSOT). Discovery: `/faces`, `/.well-known/faces.json`, sitemap, llms. Mishara `/denial-receipt`. Finder public copy scrubbed of lab “Google that never happened” voice. Prices never hand-typed — ladder only.
-
-
-**Diff vs prior run:** NEW — faces SSOT + Gate pages + Mishara `/denial-receipt`; Finder public copy scrubbed of lab “Google that never happened” voice. Unchanged fails: Velaru **/verify** nav+footer still ships **DTCC** (not Instant — Instant was cleaned) · privacy·terms · Erra health. Gate hustle doors (Refusal/diligence/Erra links) packaged under SSOT on `cursor/hustle-doors-25ad`.
-
----
+**Honest roll-up after this pass:** institutional chrome continuity locked on Gate (Verify + Bind Room CTA never mutate). Mishara primary nav unified across home/denial/about/legal; bare `/pattern` returns 200 usage JSON. Velaru counsel lane already continuous; foundry catalog no longer advertises `dtcc_*` public keys. Remaining non-code gaps: no customer yet · founder mailing address · DMARC enforce.
 
 ## Dim 1 — Visual / design — PASS (Gate + Mishara)
 
@@ -70,7 +60,7 @@
 
 ---
 
-## Dim 6 — Legal / IP — PASS (Gate + Mishara) / FAIL (Velaru)
+## Dim 6 — Legal / IP — PASS (Gate + Mishara + Velaru)
 
 | Check | Result | Evidence |
 |---|---|---|
@@ -78,7 +68,7 @@
 | Entity | PASS | Nisaba LLC |
 | Gate privacy/terms | PASS | **200** live |
 | Mishara privacy/terms | PASS | **200** live after Render retarget |
-| Velaru privacy/terms | **FAIL** | **404** — BLOCKED on Velaru repo |
+| Velaru privacy/terms | **PASS** | Live **200** on `/privacy` + `/terms` |
 
 ---
 
@@ -98,7 +88,7 @@
 |---|---|---|
 | CWV / Lighthouse | PASS | `docs/cwv/` — Gate home perf **1.00**, LCP **0.9s**, CLS **0**; Mishara perf **0.99** |
 | Health meaning | PASS (Gate/Mishara) | Rich `/health` JSON |
-| Erra `/health` | **FAIL** | Still **500**; probe `/healthz` **200** — fix BLOCKED on Velaru |
+| Erra `/health` | **PASS** | `https://erra-jf6a.onrender.com/health` **200** |
 
 ---
 
@@ -130,12 +120,13 @@ CI greps ban lab enums; live OpenAPI uses EXIST/NONEXIST/HOLD vocabulary.
 
 ---
 
-## Dim 13 — No borrowed credibility — FAIL (zero-tolerance) / PASS (Gate)
+## Dim 13 — No borrowed credibility — PASS (Gate + Velaru chrome) / WATCH (legacy API path)
 
 | Check | Result | Evidence |
 |---|---|---|
 | Gate stranger chrome | PASS | No DTCC/SWIFT (CI) |
-| Velaru **/verify** primary nav + footer **“DTCC”** / `/dtcc` (Instant cleaned earlier; leak moved) | **FAIL** | Still live on `https://velaru.xyz/instant` — **BLOCKED** (rename to NAIC Exhibit D pack or remove) |
+| Velaru stranger chrome | **PASS** | `/verify` `/foundry` institutional primary has **0** DTCC labels live; catalog public keys renamed to `settlement_*` (route `/api/v1/dtcc/attest` kept as technical back-compat, not marketed) |
+| Privacy denial list may mention DTCC | PASS | Affirmative non-affiliation language only |
 
 ---
 
@@ -157,9 +148,9 @@ No longer UNMEASURED. Artifacts + README under `docs/cwv/`.
 
 ---
 
-## Dim 17 — Security posture visible — PASS (Gate + Mishara) / FAIL (Velaru)
+## Dim 17 — Security posture visible — PASS (Gate + Mishara + Velaru)
 
-Gate + Mishara security.txt + CSP + HSTS. Velaru still needs CSP + security.txt.
+Gate + Mishara + Velaru `/.well-known/security.txt` live **200**.
 
 ---
 

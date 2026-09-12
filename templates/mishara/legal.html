@@ -24,8 +24,20 @@ a{color:var(--teal)}
 </style>
 </head>
 <body>
+<header>
+  <div style="max-width:640px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);background:rgba(255,253,249,.92)">
+    <a class="brand" href="/">Mishara</a>
+    <nav style="display:flex;flex-wrap:wrap;gap:12px;font-size:.9rem">
+      <a href="/#products" style="color:var(--muted);text-decoration:none">Products</a>
+      <a href="/denial-receipt" style="color:var(--muted);text-decoration:none">Denial Receipt</a>
+      <a href="/about" style="color:var(--muted);text-decoration:none">About</a>
+      <a href="/privacy" style="color:var(--muted);text-decoration:none">Privacy</a>
+      <a href="/terms" style="color:var(--muted);text-decoration:none">Terms</a>
+      <a href="https://velaru.xyz/verify" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none">Verify</a>
+    </nav>
+  </div>
+</header>
 <main class="wrap">
-  <a class="brand" href="/">Mishara</a>
   <h1>{{ title }}</h1>
   {% for section in sections %}
   <h2>{{ section.heading }}</h2>
