@@ -92,6 +92,31 @@ def http_status(url: str, method: str = "GET") -> int:
         return -1
 
 
+# Dim 11 API liveness — NOT "anything except 404".
+# Pages: final HTTP 200 only (redirects followed by urllib / Flask follow_redirects).
+# API under /v1|/api|/demo may prove the route is mounted via a *documented* response:
+#   GET 401/403  → auth challenge (endpoint exists, gated)
+#   GET 405      → wrong method (endpoint exists)
+#   GET 404 + POST in {200,400,401,403,405,415,422}
+#                → POST-only rule that accepts/validates/auth-challenges
+# Rejected: bare GET 404, POST 404, 5xx, connection errors (-1), or any other code.
+API_GET_LIVE = frozenset({401, 403, 405})
+API_POST_LIVE = frozenset({200, 400, 401, 403, 405, 415, 422})
+
+
+def api_path_is_live(get_code: int, post_code: int | None = None) -> tuple[bool, int, str]:
+    """Return (ok, reported_code, reason)."""
+    if get_code == 200:
+        return True, get_code, "GET 200"
+    if get_code in API_GET_LIVE:
+        return True, get_code, f"GET {get_code} auth/method challenge"
+    if get_code == 404 and post_code is not None:
+        if post_code in API_POST_LIVE:
+            return True, post_code, f"POST-only live ({post_code})"
+        return False, post_code if post_code != -1 else 404, f"POST not sensible ({post_code})"
+    return False, get_code, f"not a live page/API response ({get_code})"
+
+
 def extract_urls(obj, base: str, found: set[str]) -> None:
     if isinstance(obj, str):
         if obj.startswith("http") and "{" not in obj:
@@ -133,21 +158,24 @@ def check_dim11_live(base_url: str | None = None) -> int:
                 urls.add(m.group(0).rstrip(".,;"))
     for path in ("/", "/pricing", "/bind-room", "/privacy", "/terms"):
         urls.add(f"{base}{path}")
-    bad: list[tuple[str, int]] = []
+    bad: list[tuple[str, int, str]] = []
     for url in sorted(urls):
-        code = http_status(url)
-        ok = code == 200
         path = urlparse(url).path or "/"
-        if not ok and code in {401, 403, 405} and path.startswith(("/v1/", "/api/", "/demo/")):
-            ok = True
-        if not ok and code == 404 and path.startswith(("/v1/", "/api/", "/demo/")):
+        get_code = http_status(url)
+        post_code = None
+        if (
+            get_code != 200
+            and get_code not in API_GET_LIVE
+            and path.startswith(("/v1/", "/api/", "/demo/"))
+        ):
             post_code = http_status(url, "POST")
-            if post_code not in (-1, 404):
-                ok = True
-                code = post_code
-        print(f"  {'OK' if ok else 'BAD'} {code:4}  {url}")
+        if path.startswith(("/v1/", "/api/", "/demo/")):
+            ok, code, why = api_path_is_live(get_code, post_code)
+        else:
+            ok, code, why = (get_code == 200, get_code, "page GET 200" if get_code == 200 else f"page {get_code}")
+        print(f"  {'OK' if ok else 'BAD'} {code:4}  {url}  ({why})")
         if not ok:
-            bad.append((url, code))
+            bad.append((url, code, why))
     if bad:
         print(f"FAIL Dim 11: {bad[:12]}")
         return 1
@@ -198,22 +226,28 @@ def check_dim11_offline() -> int:
         for p in path_set
         if p.startswith("/") and "{" not in p and " " not in p and not p.startswith("//")
     )
-    bad: list[tuple[str, int]] = []
+    bad: list[tuple[str, int, str]] = []
     for path in check:
         r = client.get(path, follow_redirects=True)
-        code = r.status_code
-        ok = code == 200
-        if not ok and code in {401, 403, 405} and path.startswith(("/v1/", "/api/", "/demo/")):
-            ok = True
-        # Flask may 404 GET on POST-only rules; POST proving the route is mounted counts.
-        if not ok and code == 404 and path.startswith(("/v1/", "/api/", "/demo/")):
-            post = client.post(path, json={})
-            if post.status_code != 404 and post.status_code != -1:
-                ok = True
-                code = post.status_code
-        print(f"  {'OK' if ok else 'BAD'} {code:4}  {path}")
+        get_code = r.status_code
+        post_code = None
+        if (
+            get_code != 200
+            and get_code not in API_GET_LIVE
+            and path.startswith(("/v1/", "/api/", "/demo/"))
+        ):
+            post_code = client.post(path, json={}).status_code
+        if path.startswith(("/v1/", "/api/", "/demo/")):
+            ok, code, why = api_path_is_live(get_code, post_code)
+        else:
+            ok, code, why = (
+                get_code == 200,
+                get_code,
+                "page GET 200" if get_code == 200 else f"page {get_code}",
+            )
+        print(f"  {'OK' if ok else 'BAD'} {code:4}  {path}  ({why})")
         if not ok:
-            bad.append((path, code))
+            bad.append((path, code, why))
     if bad:
         print(f"FAIL Dim 11 offline: {bad[:20]}")
         return 1
@@ -260,8 +294,54 @@ def check_dim12(extra: list[Path] | None = None) -> int:
     return scan_terms(iter_scan_files(product_roots(extra)), load_terms(BANNED_LAB), 12)
 
 
-def check_dim13(extra: list[Path] | None = None) -> int:
+def check_dim13_velaru_routes(velaru_root: Path) -> int:
+    """Dim 13 path floor for Velaru: no /dtcc or /api/v1/dtcc route registrations.
+
+    Full borrowed-cred term purge across Velaru modules/filenames is a follow-on.
+    This gate closes the silent-redirect loophole Claude called out.
+    """
+    print(f"Dim 13 — Velaru /dtcc route absence ({velaru_root})")
+    if not velaru_root.exists():
+        print(f"FAIL Dim 13 Velaru routes: missing root {velaru_root}")
+        return 1
+    route_pat = re.compile(
+        r"""@app\.route\(\s*['"][^'"]*(?:/api/v1/dtcc\b|/dtcc(?:/|['"]))""",
+        re.I,
+    )
+    # Also catch FastAPI-style and plain path string registrations.
+    path_lit = re.compile(r"""['"]/(?:api/v1/)?dtcc(?:/|['"?])""", re.I)
+    hits: list[str] = []
+    for path in sorted(velaru_root.rglob("*.py")):
+        if any(part in SKIP_DIRS for part in path.parts):
+            continue
+        if path.name.startswith("test_") or path.name.endswith("_test.py"):
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        if route_pat.search(text) or (
+            "route" in text.lower() and path_lit.search(text) and "@app.route" in text
+        ):
+            # Narrow: only flag lines that look like route registrations containing /dtcc
+            for i, line in enumerate(text.splitlines(), 1):
+                if "/dtcc" not in line.lower():
+                    continue
+                if "@app.route" in line or "@router." in line or ".add_url_rule" in line:
+                    hits.append(f"{path.relative_to(velaru_root)}:{i}: {line.strip()}")
+    if hits:
+        print("FAIL Dim 13 Velaru routes still registered:")
+        for h in hits[:40]:
+            print(f"  {h}")
+        return 1
+    print("PASS Dim 13 Velaru routes — no /dtcc registrations")
+    return 0
+
+
+def check_dim13(extra: list[Path] | None = None, *, velaru_routes_only: bool = False) -> int:
     print("Dim 13 — borrowed credibility")
+    if velaru_routes_only:
+        if not extra:
+            print("FAIL Dim 13: --velaru-routes-only requires --velaru-root")
+            return 1
+        return check_dim13_velaru_routes(extra[0])
     return scan_terms(iter_scan_files(product_roots(extra)), load_terms(BORROWED), 13)
 
 
@@ -354,6 +434,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--prove-fail", type=int, choices=(11, 12, 13, 14), dest="prove")
     ap.add_argument("--live", action="store_true")
     ap.add_argument("--velaru-root", type=Path)
+    ap.add_argument(
+        "--velaru-routes-only",
+        action="store_true",
+        help="Dim 13: only assert Velaru has no /dtcc route registrations (path floor).",
+    )
     args = ap.parse_args(argv)
     extra = [args.velaru_root] if args.velaru_root else None
     if args.prove:
@@ -366,7 +451,7 @@ def main(argv: list[str] | None = None) -> int:
         elif d == 12:
             rc |= check_dim12(extra)
         elif d == 13:
-            rc |= check_dim13(extra)
+            rc |= check_dim13(extra, velaru_routes_only=args.velaru_routes_only)
         else:
             rc |= check_dim14()
     return rc
