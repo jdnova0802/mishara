@@ -1,0 +1,67 @@
+name: Gate institutional checks
+
+on:
+  push:
+    paths:
+      - "gate/**"
+      - ".github/workflows/gate.yml"
+      - "docs/NISABA_FLAWLESS_SCORECARD.md"
+  pull_request:
+    paths:
+      - "gate/**"
+      - ".github/workflows/gate.yml"
+      - "docs/NISABA_FLAWLESS_SCORECARD.md"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install flask python-dotenv stripe bcrypt requests pytest
+          sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep
+      - name: Commerce + institutional surface tests
+        env:
+          GATE_DEV_MODE: "1"
+        run: python -m pytest test_commerce.py test_listings.py -q
+      - name: Ban borrowed-cred tokens in stranger templates
+        run: |
+          ! rg -n "\\bDTCC\\b|\\bSWIFT\\b|\\bFedwire\\b" templates --glob '*.html'
+      - name: Ban lab jargon in OpenAPI builder strings
+        run: |
+          ! rg -n "HAUNTED_CRITICAL|CHOKE|ghost-bind|stick-meter|charge-bride|hop-tattoo|soft-yes-snare" --glob '*.py' .
+      - name: Ban dead Erra host advertisement
+        run: |
+          ! rg -n "erra\\.onrender\\.com" templates --glob '*.html'
+      - name: Commerce SSOT present
+        run: |
+          test -f commerce/ladder.json
+          test -f commerce/doctrine.json
+          test -f commerce/entities.json
+          test -f commerce/hosts.json
+          test -f static/nisaba-tokens.css
+      - name: OpenAPI omits x402 wire when payto unset
+        env:
+          GATE_DEV_MODE: "1"
+        run: |
+          python - <<'PY'
+          import openapi_discovery as oa
+          s = oa.spec("https://gate.example", contact_email="hello@velaru.xyz", payto=None)
+          assert "/api/x402/wire" not in s["paths"]
+          assert s["x-discovery"]["x402_configured"] is False
+          s2 = oa.spec("https://gate.example", contact_email="hello@velaru.xyz", payto="0xabc")
+          assert "/api/x402/wire" in s2["paths"]
+          print("openapi fail-closed ok")
+          PY
+      - name: Manifest link crawl (live Gate)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'live-crawl')
+        env:
+          GATE_PUBLIC_URL: https://gate.velaru.xyz
+        run: python scripts/check_manifest_links.py
