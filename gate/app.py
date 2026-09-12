@@ -150,6 +150,11 @@ except ImportError:
     import family_voices as family_voices_mod
 
 try:
+    from gate import brand_map as brand_map_mod
+except ImportError:
+    import brand_map as brand_map_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -220,6 +225,46 @@ except ImportError:
     import prefinality as prefinality_mod
 
 try:
+    from gate import right_to_act as right_to_act_mod
+except ImportError:
+    import right_to_act as right_to_act_mod
+
+try:
+    from gate import mandate as mandate_mod
+except ImportError:
+    import mandate as mandate_mod
+
+try:
+    from gate import sinks as sinks_mod
+except ImportError:
+    import sinks as sinks_mod
+
+try:
+    from gate import continuity as continuity_mod
+except ImportError:
+    import continuity as continuity_mod
+
+try:
+    from gate import finder as finder_mod
+except ImportError:
+    import finder as finder_mod
+
+try:
+    from gate import admittance as admittance_mod
+except ImportError:
+    import admittance as admittance_mod
+
+try:
+    from gate import subject as subject_mod
+except ImportError:
+    import subject as subject_mod
+
+try:
+    from gate import physical_prefinality as physical_mod
+except ImportError:
+    import physical_prefinality as physical_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -246,7 +291,7 @@ except ImportError:
 
 load_dotenv()
 
-VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
+VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.xyz").rstrip("/")
 GATE_PUBLIC_URL = public_url_mod.resolve_public_url()
 GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
@@ -280,8 +325,17 @@ STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 PRO_PRICE_LABEL = os.getenv("GATE_PRO_PRICE_LABEL", "$99/mo")
 INSTALL_PRICE_LABEL = os.getenv("GATE_INSTALL_PRICE_LABEL", "$2,500")
 INSTALL_PRICE_CENTS = int(os.getenv("GATE_INSTALL_PRICE_CENTS", "250000"))
-BIND_ROOM_PRICE_LABEL = os.getenv("GATE_BIND_ROOM_PRICE_LABEL", "$1,750")
-BIND_ROOM_PRICE_CENTS = int(os.getenv("GATE_BIND_ROOM_PRICE_CENTS", "175000"))
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
+BIND_ROOM_PRICE_LABEL = os.getenv(
+    "GATE_BIND_ROOM_PRICE_LABEL", commerce_mod.price_label("bind_room")
+)
+BIND_ROOM_PRICE_CENTS = int(
+    os.getenv("GATE_BIND_ROOM_PRICE_CENTS", str(commerce_mod.price_cents("bind_room")))
+)
 DILIGENCE_DEPOSIT_LABEL = os.getenv("GATE_DILIGENCE_DEPOSIT_LABEL", "$2,500")
 DILIGENCE_DEPOSIT_CENTS = int(os.getenv("GATE_DILIGENCE_DEPOSIT_CENTS", "250000"))
 DILIGENCE_REVIEW_BAND = os.getenv("GATE_DILIGENCE_REVIEW_BAND", "$5,000–$8,000")
@@ -292,7 +346,25 @@ WELD_PRICE_LABEL = os.getenv("GATE_WELD_PRICE_LABEL", operator_mod.WELD_PRICE_LA
 WELD_PRICE_CENTS = int(os.getenv("GATE_WELD_PRICE_CENTS", str(operator_mod.WELD_PRICE_CENTS)))
 FLOOR_PRICE_LABEL = os.getenv("GATE_FLOOR_PRICE_LABEL", operator_mod.FLOOR_PRICE_LABEL)
 FLOOR_PRICE_CENTS = int(os.getenv("GATE_FLOOR_PRICE_CENTS", str(operator_mod.FLOOR_PRICE_CENTS)))
-CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", "hello@velaru.xyz")
+CONTACT_EMAIL = os.getenv("GATE_CONTACT_EMAIL", commerce_mod.support_email())
+SUPPORT_SLA = commerce_mod.support_sla()
+LEGAL_NAME = commerce_mod.legal_name()
+PATENT_DISPLAY = commerce_mod.patent_display()
+API_POLICY = commerce_mod.api_policy()
+
+
+def rate_limited_response(msg: str, *, limit: int = 60, remaining: int = 0, retry_after: int = 3600):
+    """429 with RateLimit-* headers (RFC 6585 / draft-ietf-httpapi-ratelimit-headers)."""
+    resp = jsonify({"error": {"code": "rate_limited", "message": msg}})
+    resp.status_code = 429
+    resp.headers["Retry-After"] = str(int(retry_after))
+    resp.headers["RateLimit-Limit"] = str(int(limit))
+    resp.headers["RateLimit-Remaining"] = str(max(0, int(remaining)))
+    resp.headers["RateLimit-Reset"] = str(int(retry_after))
+    return resp
+
+ACCOUNTABILITY = commerce_mod.accountability()
+GATE_DOCTRINE = commerce_mod.brand_line("gate")
 META_PIXEL_ID = (os.getenv("GATE_META_PIXEL_ID") or "").strip()
 # Google Ads / gtag id. Off unless GATE_GA_ID is set in env (no hardcoded default).
 GA_ID = (os.getenv("GATE_GA_ID") or "").strip()
@@ -335,7 +407,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
-    "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
+    "/action-os", "/family", "/scorecard", "/nisaba", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
 )
 PUBLIC_WELLKNOWN = frozenset(
@@ -373,12 +445,48 @@ def inject_globals():
         "refusal_price": REFUSAL_PRICE_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
+        "flow_bps_label": commerce_mod.price_label("operator_flow_bps"),
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
+        "support_sla": SUPPORT_SLA,
+        "legal_name": LEGAL_NAME,
+        "patent_display": PATENT_DISPLAY,
+        "accountability": ACCOUNTABILITY,
+        "gate_one_line": (GATE_DOCTRINE or {}).get("one_line") or "",
         "meta_pixel_id": META_PIXEL_ID,
         "ga_id": GA_ID,
         "bind_surface": bind_surface,
+        "og_image": f"{advertised_url()}/static/og-gate.png",
     }
+
+
+@app.after_request
+def institutional_security_headers(resp):
+    resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://connect.facebook.net https://www.googletagmanager.com; "
+        "connect-src 'self' https://www.google-analytics.com https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    )
+    return resp
+
+
+@app.errorhandler(404)
+def not_found(err):
+    if (request.path or "").startswith("/v1/") or (request.path or "").startswith("/.well-known/"):
+        return jsonify({"error": "not_found", "path": request.path}), 404
+    return (
+        render_template(
+            "404.html",
+            public_url=advertised_url(),
+            contact_email=CONTACT_EMAIL,
+        ),
+        404,
+    )
 
 
 @app.after_request
@@ -793,7 +901,7 @@ def well_known_opportunities():
 def demo_hop():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
@@ -812,7 +920,7 @@ def demo_hop():
 def demo_lookup():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     fuse_id = request.args.get("fuse_id", "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
@@ -827,7 +935,7 @@ def demo_lookup():
 def _demo_gate():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return None, (jsonify({"error": {"code": "rate_limited", "message": msg}}), 429)
+        return None, rate_limited_response(msg)
     return True, None
 
 
@@ -1359,6 +1467,29 @@ def well_known_gate():
             ),
             "version": "1.0.0",
             "openapi": f"{advertised_url()}/openapi.json",
+            "openapi_full": f"{advertised_url()}/openapi.full.json",
+            "llms": f"{advertised_url()}/llms.txt",
+            "pricing": f"{advertised_url()}/pricing",
+            "start": f"{advertised_url()}/start",
+            "trust": f"{advertised_url()}/trust",
+            "register_page": f"{advertised_url()}/register",
+            "live_page": f"{advertised_url()}/live",
+            "opportunities": f"{advertised_url()}/.well-known/opportunities.json",
+            "audiences_hub": f"{advertised_url()}/start",
+            "for_developers": f"{advertised_url()}/for/developers",
+            "for_agents": f"{advertised_url()}/for/agents",
+            "for_startups": f"{advertised_url()}/for/startups",
+            "for_operators": f"{advertised_url()}/for/operators",
+            "for_legal": f"{advertised_url()}/for/legal",
+            "for_compliance": f"{advertised_url()}/for/compliance",
+            "for_carriers": f"{advertised_url()}/for/carriers",
+            "for_brokers": f"{advertised_url()}/for/brokers",
+            "for_enterprise": f"{advertised_url()}/for/enterprise",
+            "for_boards": f"{advertised_url()}/for/boards",
+            "for_defense": f"{advertised_url()}/for/defense",
+            "for_hiring": f"{advertised_url()}/for/hiring",
+            "for_consumers": f"{advertised_url()}/for/consumers",
+            "for_investors": f"{advertised_url()}/for/investors",
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
@@ -1404,6 +1535,10 @@ def well_known_gate():
             "scorecard_page": f"{advertised_url()}/scorecard",
             "family": f"{advertised_url()}/.well-known/family.json",
             "family_page": f"{advertised_url()}/family",
+            "nisaba": f"{advertised_url()}/.well-known/nisaba.json",
+            "nisaba_page": f"{advertised_url()}/nisaba",
+            "commerce": f"{advertised_url()}/.well-known/commerce.json",
+            "security_txt": f"{advertised_url()}/.well-known/security.txt",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
@@ -1430,6 +1565,39 @@ def well_known_gate():
             "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
             "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
             "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
+            "right_to_act": f"{advertised_url()}/.well-known/right-to-act.json",
+            "right_to_act_evaluate": f"{advertised_url()}/v1/right-to-act/evaluate",
+            "right_to_act_demo": f"{advertised_url()}/demo/right-to-act/evaluate",
+            "right_to_act_page": f"{advertised_url()}/right-to-act",
+            "mandate": f"{advertised_url()}/.well-known/mandate.json",
+            "mandate_issue": f"{advertised_url()}/v1/mandate/issue",
+            "mandate_reconstruct": f"{advertised_url()}/v1/mandate/reconstruct",
+            "mandate_die": f"{advertised_url()}/v1/mandate/die",
+            "mandate_death_verify": f"{advertised_url()}/v1/mandate/death/verify",
+            "mandate_page": f"{advertised_url()}/mandate",
+            "deaths_well_known": f"{advertised_url()}/.well-known/deaths/{{death_id}}.json",
+            "mortality_export": f"{advertised_url()}/v1/mandate/deaths/export",
+            "mortality_ingest": f"{advertised_url()}/v1/mandate/deaths/ingest",
+            "sinks": f"{advertised_url()}/.well-known/sinks.json",
+            "sinks_page": f"{advertised_url()}/sinks",
+            "continuity": f"{advertised_url()}/.well-known/continuity.json",
+            "finder": f"{advertised_url()}/.well-known/finder.json",
+            "finder_page": f"{advertised_url()}/finder",
+            "finder_search": f"{advertised_url()}/v1/finder/search",
+            "admittance": f"{advertised_url()}/.well-known/admittance.json",
+            "admittance_admit": f"{advertised_url()}/v1/admittance/admit",
+            "admittance_page": f"{advertised_url()}/admittance",
+            "facts_well_known": f"{advertised_url()}/.well-known/facts/{{fact_id}}.json",
+            "subject": f"{advertised_url()}/.well-known/subject.json",
+            "subject_clear": f"{advertised_url()}/v1/subject/clear",
+            "subject_refuse": f"{advertised_url()}/v1/subject/refuse",
+            "subject_verify": f"{advertised_url()}/v1/subject/verify",
+            "subject_page": f"{advertised_url()}/subject",
+            "physical_prefinality": f"{advertised_url()}/.well-known/physical-prefinality.json",
+            "physical_evaluate": f"{advertised_url()}/v1/physical/evaluate",
+            "physical_verify": f"{advertised_url()}/v1/physical/verify",
+            "physical_page": f"{advertised_url()}/physical",
+            "physical_park_sku": "gate.physical.park",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -1440,7 +1608,8 @@ def well_known_gate():
                 "pip": "pip install -r requirements.txt  # sdk in-repo",
             },
             "patent": "64/124,027",
-            "operator": "Nisaba LLC",
+            "operated_by": "Nisaba LLC",
+            "api_policy": API_POLICY,
         }
     )
 
@@ -1452,7 +1621,12 @@ def well_known_mcp():
 
 @app.route("/.well-known/x402.json")
 def well_known_x402():
-    return jsonify(listings_mod.x402_catalog(advertised_url()))
+    return jsonify(
+        listings_mod.x402_catalog(
+            advertised_url(),
+            payto_configured=x402_challenge_mod.payto_configured(),
+        )
+    )
 
 
 @app.route("/.well-known/x402")
@@ -1744,6 +1918,29 @@ def family_paste(slug: str):
 def scorecard_page():
     m = scorecard_mod.manifest(advertised_url())
     return render_template("scorecard.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/.well-known/nisaba.json")
+def well_known_nisaba():
+    return jsonify(brand_map_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/commerce.json")
+def well_known_commerce():
+    return jsonify(commerce_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/security.txt")
+@app.route("/security.txt")
+def security_txt():
+    body = commerce_mod.security_txt(canonical_url=advertised_url())
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/nisaba")
+def nisaba_page():
+    m = brand_map_mod.manifest(advertised_url())
+    return render_template("nisaba.html", manifest=m, public_url=advertised_url())
 
 
 @app.route("/production-skin")
@@ -2198,6 +2395,725 @@ def well_known_prefinality_jwks():
     return jsonify(prefinality_mod.jwks())
 
 
+@app.route("/.well-known/right-to-act.json")
+def well_known_right_to_act():
+    return jsonify(right_to_act_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/right-to-act-jwks.json")
+def well_known_right_to_act_jwks():
+    return jsonify(right_to_act_mod.jwks())
+
+
+@app.route("/.well-known/mandate.json")
+def well_known_mandate():
+    return jsonify(mandate_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/mandate-jwks.json")
+def well_known_mandate_jwks():
+    return jsonify(mandate_mod.jwks())
+
+
+@app.route("/v1/mandate/issue", methods=["POST"])
+def mandate_issue():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    out = mandate_mod.issue_root(
+        human_principal_id=str(body.get("human_principal_id") or body.get("principal_id") or ""),
+        agent_id=str(body.get("agent_id") or body.get("actor") or ""),
+        scope=body.get("scope") if isinstance(body.get("scope"), dict) else {},
+        ttl_seconds=int(body.get("ttl_seconds") or 86400),
+        approval_bytes=body.get("approval_bytes"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/mandate/attenuate", methods=["POST"])
+def mandate_attenuate():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.attenuate(
+        parent_id=str(body.get("parent_id") or body.get("mandate_id") or ""),
+        agent_id=body.get("agent_id"),
+        scope=body.get("scope") if isinstance(body.get("scope"), dict) else None,
+        ttl_seconds=body.get("ttl_seconds"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/mandate/revoke", methods=["POST"])
+def mandate_revoke():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.revoke(
+        str(body.get("mandate_id") or ""),
+        reason=body.get("reason"),
+    )
+    return jsonify(out), 200 if out.get("ok") else 404
+
+
+@app.route("/v1/mandate/reconstruct", methods=["POST"])
+def mandate_reconstruct():
+    body = request.get_json(silent=True) or {}
+    amount = body.get("amount")
+    try:
+        amount_f = float(amount) if amount is not None else None
+    except (TypeError, ValueError):
+        return jsonify({"outcome": "HALT", "reason": "invalid_amount", "admitted": False}), 400
+    out = mandate_mod.reconstruct(
+        mandate_id=body.get("mandate_id"),
+        mandate=body.get("mandate") if isinstance(body.get("mandate"), dict) else None,
+        action=str(body.get("action") or ""),
+        sink=str(body.get("sink") or ""),
+        amount=amount_f,
+        resource=str(body.get("resource") or body.get("target") or ""),
+        agent_id=body.get("agent_id") or body.get("actor"),
+    )
+    code = 200 if out.get("outcome") in ("ADMIT", "DENY", "HALT") else 400
+    return jsonify(out), code
+
+
+@app.route("/v1/mandate/die", methods=["POST"])
+def mandate_die():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.die(
+        mandate_id=body.get("mandate_id"),
+        human_principal_id=body.get("human_principal_id") or body.get("principal_id"),
+        human_root_digest=body.get("human_root_digest"),
+        agent_id=body.get("agent_id") or body.get("actor"),
+        reason=str(body.get("reason") or "mortality"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/mandate/death/verify", methods=["POST"])
+def mandate_death_verify():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.verify_death(
+        body.get("death_certificate") or body.get("certificate"),
+        death_id=body.get("death_id"),
+    )
+    return jsonify(out), 200 if out.get("valid") else 400
+
+
+@app.route("/v1/mandate/death/<death_id>", methods=["GET"])
+@app.route("/.well-known/deaths/<death_id>.json", methods=["GET"])
+def mandate_death_get(death_id: str):
+    cert = mandate_mod.get_death(death_id)
+    if not cert:
+        return jsonify({"error": "unknown_death", "death_id": death_id}), 404
+    return jsonify(cert), 200
+
+
+@app.route("/v1/mandate/is-dead", methods=["POST"])
+def mandate_is_dead():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.is_dead(
+        mandate_id=body.get("mandate_id"),
+        human_root_digest=body.get("human_root_digest"),
+        agent_id=body.get("agent_id") or body.get("actor"),
+    )
+    return jsonify(out), 200
+
+
+@app.route("/v1/mandate/deaths/export", methods=["GET", "POST"])
+def mandate_deaths_export():
+    body = request.get_json(silent=True) or {}
+    since_epoch = request.args.get("since_epoch", body.get("since_epoch") or 0)
+    since_unix = request.args.get("since_unix", body.get("since_unix") or 0)
+    try:
+        since_epoch_i = int(since_epoch or 0)
+        since_unix_i = int(since_unix or 0)
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "reason": "invalid_since"}), 400
+    return jsonify(mandate_mod.export_deaths(since_epoch=since_epoch_i, since_unix=since_unix_i))
+
+
+@app.route("/v1/mandate/deaths/ingest", methods=["POST"])
+def mandate_deaths_ingest():
+    body = request.get_json(silent=True) or {}
+    out = mandate_mod.ingest_death(
+        body.get("death_certificate") or body.get("certificate"),
+        peer=body.get("peer") or request.headers.get("X-Gate-Peer"),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/.well-known/sinks.json")
+def well_known_sinks():
+    return jsonify(sinks_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/sinks", methods=["GET"])
+def sinks_list():
+    return jsonify(
+        {
+            "spec": sinks_mod.SPEC,
+            "sinks": sinks_mod.list_sinks(
+                sink_class=request.args.get("class"),
+                irreversibility=request.args.get("irreversibility"),
+            ),
+        }
+    )
+
+
+@app.route("/v1/sinks/<path:sink_id>", methods=["GET"])
+def sinks_get(sink_id: str):
+    row = sinks_mod.get(sink_id)
+    if not row:
+        return jsonify({"error": "unknown_sink", "sink_id": sink_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/sinks/register", methods=["POST"])
+def sinks_register():
+    body = request.get_json(silent=True) or {}
+    out = sinks_mod.register(
+        sink_id=str(body.get("sink_id") or ""),
+        sink_class=str(body.get("class") or body.get("sink_class") or ""),
+        irreversibility=str(body.get("irreversibility") or "hard"),
+        burn_required=bool(body.get("burn_required", True)),
+        mandate_required=bool(body.get("mandate_required", True)),
+        description=str(body.get("description") or ""),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/.well-known/continuity.json")
+def well_known_continuity():
+    return jsonify(continuity_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/continuity/record", methods=["POST"])
+def continuity_record():
+    body = request.get_json(silent=True) or {}
+    out = continuity_mod.record(
+        human_principal_id=str(body.get("human_principal_id") or body.get("principal_id") or ""),
+        event=str(body.get("event") or ""),
+        reason=str(body.get("reason") or ""),
+        human_root_digest=body.get("human_root_digest"),
+        agent_id=body.get("agent_id") or body.get("actor"),
+        cascade_die=bool(body.get("cascade_die", True)),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/continuity/<continuity_id>", methods=["GET"])
+def continuity_get(continuity_id: str):
+    row = continuity_mod.get(continuity_id)
+    if not row:
+        return jsonify({"error": "unknown_continuity", "continuity_id": continuity_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/continuity/principal/<path:human_principal_id>", methods=["GET"])
+def continuity_for_principal(human_principal_id: str):
+    return jsonify(
+        {
+            "human_principal_id": human_principal_id,
+            "events": continuity_mod.for_principal(human_principal_id),
+            "status": continuity_mod.is_non_authorizing(human_principal_id),
+        }
+    )
+
+
+@app.route("/.well-known/finder.json")
+def well_known_finder():
+    return jsonify(finder_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/finder/search", methods=["GET", "POST"])
+def finder_search():
+    body = request.get_json(silent=True) or {}
+    q = request.args.get("q", body.get("q") or "")
+    kind = request.args.get("kind", body.get("kind"))
+    limit = request.args.get("limit", body.get("limit") or 25)
+    try:
+        limit_i = int(limit)
+    except (TypeError, ValueError):
+        limit_i = 25
+    return jsonify(finder_mod.search(q, kind=kind, limit=limit_i))
+
+
+@app.route("/v1/finder/stats", methods=["GET"])
+def finder_stats():
+    return jsonify(finder_mod.stats())
+
+
+@app.route("/v1/finder/doc/<path:doc_id>", methods=["GET"])
+def finder_doc(doc_id: str):
+    row = finder_mod.get(doc_id)
+    if not row:
+        return jsonify({"error": "unknown_doc", "id": doc_id}), 404
+    return jsonify(row)
+
+
+@app.route("/finder")
+def finder_page():
+    stats = finder_mod.stats()
+    return render_template(
+        "finder.html",
+        public_url=advertised_url(),
+        stats=stats,
+        thesis=finder_mod.manifest(advertised_url()).get("tagline"),
+    )
+
+
+@app.route("/.well-known/admittance.json")
+def well_known_admittance():
+    return jsonify(admittance_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/admittance/admit", methods=["POST"])
+def admittance_admit():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    account_id = None
+    row = authenticate_api_key()
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        account_id = row["account_id"]
+    out = admittance_mod.admit(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+        account_id=account_id,
+    )
+    code = 200 if out.get("outcome") in ("ADMITTED", "REFUSED", "HALTED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/demo/admittance/admit", methods=["POST"])
+def demo_admittance_admit():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return rate_limited_response(msg)
+    body = request.get_json(silent=True) or {}
+    out = admittance_mod.admit(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+        account_id=None,
+    )
+    out["demo"] = True
+    out["signup_url"] = f"{advertised_url()}/signup"
+    code = 200 if out.get("outcome") in ("ADMITTED", "REFUSED", "HALTED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/v1/admittance/fact/<fact_id>", methods=["GET"])
+@app.route("/.well-known/facts/<fact_id>.json", methods=["GET"])
+def admittance_fact(fact_id: str):
+    row = admittance_mod.get_fact(fact_id)
+    if not row:
+        return jsonify({"error": "unknown_fact", "fact_id": fact_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/admittance/facts", methods=["GET"])
+def admittance_facts_list():
+    try:
+        limit = int(request.args.get("limit") or 50)
+    except (TypeError, ValueError):
+        limit = 50
+    return jsonify({"spec": admittance_mod.SPEC, "facts": admittance_mod.list_facts(limit)})
+
+
+@app.route("/admittance")
+def admittance_page():
+    return render_template(
+        "admittance.html",
+        public_url=advertised_url(),
+        manifest=admittance_mod.manifest(advertised_url()),
+        facts=admittance_mod.list_facts(12),
+    )
+
+
+@app.route("/.well-known/subject.json")
+def well_known_subject():
+    return jsonify(subject_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/subject/register", methods=["POST"])
+def subject_register():
+    body = request.get_json(silent=True) or {}
+    out = subject_mod.register(
+        subject_id=str(body.get("subject_id") or body.get("principal_id") or ""),
+        display_name=str(body.get("display_name") or ""),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/subject/clear", methods=["POST"])
+def subject_clear():
+    body = request.get_json(silent=True) or {}
+    amount = body.get("amount")
+    try:
+        amount_f = float(amount) if amount is not None else None
+    except (TypeError, ValueError):
+        amount_f = None
+    out = subject_mod.clear(
+        subject_id=str(body.get("subject_id") or ""),
+        action=str(body.get("action") or ""),
+        sink=str(body.get("sink") or ""),
+        actor=str(body.get("actor") or body.get("agent_id") or ""),
+        amount=amount_f,
+        ttl_seconds=int(body.get("ttl_seconds") or 300),
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/subject/refuse", methods=["POST"])
+def subject_refuse():
+    body = request.get_json(silent=True) or {}
+    out = subject_mod.refuse(
+        subject_id=str(body.get("subject_id") or ""),
+        action=str(body.get("action") or ""),
+        sink=str(body.get("sink") or ""),
+        actor=str(body.get("actor") or body.get("agent_id") or ""),
+        reason=str(body.get("reason") or "subject_refuse"),
+        scope=body.get("scope") if isinstance(body.get("scope"), dict) else None,
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 400
+
+
+@app.route("/v1/subject/verify", methods=["POST"])
+def subject_verify():
+    body = request.get_json(silent=True) or {}
+    out = subject_mod.verify(
+        body.get("refusal") or body.get("certificate"),
+        digest=body.get("digest") or body.get("refusal_digest"),
+    )
+    return jsonify(out), 200 if out.get("valid") else 400
+
+
+@app.route("/v1/subject/<path:subject_id>", methods=["GET"])
+def subject_get(subject_id: str):
+    row = subject_mod.get(subject_id)
+    if not row:
+        return jsonify({"error": "unknown_subject", "subject_id": subject_id}), 404
+    listing = subject_mod.list_for_subject(subject_id)
+    return jsonify({"subject": row, **listing})
+
+
+@app.route("/.well-known/subjects/<path:subject_id>.json", methods=["GET"])
+def well_known_subject_id(subject_id: str):
+    row = subject_mod.get(subject_id)
+    if not row:
+        return jsonify({"error": "unknown_subject", "subject_id": subject_id}), 404
+    return jsonify(row)
+
+
+@app.route("/.well-known/subject-refusals/<digest>.json", methods=["GET"])
+def well_known_subject_refusal(digest: str):
+    row = subject_mod.get_refusal_by_digest(digest)
+    if not row:
+        return jsonify({"error": "unknown_refusal", "digest": digest}), 404
+    return jsonify(row)
+
+
+@app.route("/.well-known/physical-prefinality.json")
+def well_known_physical_prefinality():
+    return jsonify(physical_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/physical/evaluate", methods=["POST"])
+def physical_evaluate():
+    """Metered Physical Park product. API key counts a hop; anonymous still parks."""
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    row = authenticate_api_key()
+    account_id = None
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        account_id = row["account_id"]
+        usage = db.get_usage(account_id)
+        if usage["hops"] >= db.hop_limit(row["plan"]):
+            return payment_required_response(account_id, row["plan"])
+    out = physical_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+    )
+    if account_id and out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD"):
+        # Bill the hop when a park/clear/refuse/dead meter fires.
+        meter = out.get("meter") or {}
+        if meter.get("billable"):
+            updated = db.increment_usage(account_id, "hops")
+            out["usage"] = {
+                "hops": updated["hops"],
+                "hop_limit": db.hop_limit(row["plan"]),
+                "plan": row["plan"],
+                "metered_event": meter.get("event"),
+            }
+    if not account_id:
+        out["auth"] = "anonymous"
+        out["signup_url"] = f"{advertised_url()}/signup"
+    code = 200 if out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/demo/physical/evaluate", methods=["POST"])
+def demo_physical_evaluate():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return rate_limited_response(msg)
+    body = request.get_json(silent=True) or {}
+    out = physical_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        public_url=advertised_url(),
+    )
+    out["demo"] = True
+    out["signup_url"] = f"{advertised_url()}/signup"
+    code = 200 if out.get("outcome") in ("CLEARED", "PARKED", "REFUSED", "DEAD") else 400
+    return jsonify(out), code
+
+
+@app.route("/v1/physical/verify", methods=["POST"])
+def physical_verify():
+    """Meterable stranger-verify of a park ticket."""
+    body = request.get_json(silent=True) or {}
+    out = physical_mod.verify_park(
+        park_id=str(body.get("park_id") or "").strip() or None,
+        ticket=body.get("park") or body.get("ticket") if isinstance(body.get("park") or body.get("ticket"), dict) else None,
+    )
+    row = authenticate_api_key()
+    if row and out.get("meter", {}).get("billable"):
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        usage = db.get_usage(row["account_id"])
+        if usage["hops"] >= db.hop_limit(row["plan"]):
+            return payment_required_response(row["account_id"], row["plan"])
+        updated = db.increment_usage(row["account_id"], "hops")
+        out["usage"] = {
+            "hops": updated["hops"],
+            "hop_limit": db.hop_limit(row["plan"]),
+            "plan": row["plan"],
+            "metered_event": "physical.verify",
+        }
+    return jsonify(out), 200 if out.get("valid") else 400
+
+
+@app.route("/v1/physical/park/<park_id>", methods=["GET"])
+@app.route("/.well-known/physical-parks/<park_id>.json", methods=["GET"])
+def physical_park(park_id: str):
+    row = physical_mod.get_park(park_id)
+    if not row:
+        return jsonify({"error": "unknown_park", "park_id": park_id}), 404
+    return jsonify(row)
+
+
+@app.route("/v1/physical/parks", methods=["GET"])
+def physical_parks_list():
+    try:
+        limit = int(request.args.get("limit") or 50)
+    except (TypeError, ValueError):
+        limit = 50
+    return jsonify({"spec": physical_mod.SPEC, "parks": physical_mod.list_parks(limit)})
+
+
+@app.route("/physical")
+def physical_page():
+    return render_template(
+        "physical.html",
+        public_url=advertised_url(),
+        manifest=physical_mod.manifest(advertised_url()),
+        parks=physical_mod.list_parks(12),
+        sinks=sinks_mod.list_sinks(sink_class="physical", irreversibility="absolute"),
+    )
+
+
+@app.route("/subject")
+def subject_page():
+    base = advertised_url()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · subject sovereignty",
+        title="Subject",
+        description="Subject clear / refuse / verify — meterable right not to be the object of a write.",
+        blurb="Actors need Right-to-Act. Subjects need stranger-verifiable power to deny the write. Clear, refuse, and verify are billable events.",
+        links=[
+            {"href": f"{base}/.well-known/subject.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/subject/clear", "label": "POST /v1/subject/clear", "note": "meterable"},
+            {"href": f"{base}/v1/subject/refuse", "label": "POST /v1/subject/refuse", "note": "meterable"},
+            {"href": f"{base}/v1/subject/verify", "label": "POST /v1/subject/verify", "note": "meterable"},
+        ],
+        bullets=[
+            "No living subject clearance ⇒ no admittance against that subject.",
+            "Refusal digests are stranger-verifiable.",
+        ],
+    )
+
+
+@app.route("/right-to-act")
+def right_to_act_page():
+    base = advertised_url()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · right-to-act",
+        title="Right-to-Act",
+        description="EXIST / NONEXIST / HOLD — actor authority before irreversible effectuation.",
+        blurb="Computation may propose. Right-to-Act decides whether the actor may cause. Fail closed under uncertainty.",
+        links=[
+            {"href": f"{base}/.well-known/right-to-act.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/right-to-act/evaluate", "label": "POST /v1/right-to-act/evaluate", "note": ""},
+            {"href": f"{base}/demo/right-to-act/evaluate", "label": "POST /demo/right-to-act/evaluate", "note": "demo"},
+            {"href": f"{base}/v1/right-to-act/verify", "label": "POST /v1/right-to-act/verify", "note": ""},
+            {"href": f"{base}/v1/right-to-act/burn", "label": "POST /v1/right-to-act/burn", "note": ""},
+        ],
+        bullets=[
+            "EXIST / NONEXIST / HOLD.",
+            "Unknown sink → fail closed.",
+        ],
+    )
+
+
+@app.route("/mandate")
+def mandate_page():
+    base = advertised_url()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · mandate + mortality",
+        title="Mandate",
+        description="Human-rooted attenuating mandates with death certificates and federation export/ingest.",
+        blurb="Authority narrows, never widens. Dead lineages cannot authorize. Mortality federates.",
+        links=[
+            {"href": f"{base}/.well-known/mandate.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/mandate/issue", "label": "POST /v1/mandate/issue", "note": ""},
+            {"href": f"{base}/v1/mandate/reconstruct", "label": "POST /v1/mandate/reconstruct", "note": ""},
+            {"href": f"{base}/v1/mandate/die", "label": "POST /v1/mandate/die", "note": ""},
+            {"href": f"{base}/v1/mandate/death/verify", "label": "POST /v1/mandate/death/verify", "note": ""},
+            {"href": f"{base}/v1/mandate/deaths/export", "label": "GET/POST deaths/export", "note": "federation"},
+            {"href": f"{base}/v1/mandate/deaths/ingest", "label": "POST deaths/ingest", "note": "federation"},
+        ],
+        bullets=[
+            "Human root required.",
+            "Attenuate only.",
+            "Death is stranger-verifiable.",
+        ],
+    )
+
+
+@app.route("/sinks")
+def sinks_page():
+    base = advertised_url()
+    rows = sinks_mod.list_sinks()
+    return render_template(
+        "law_surface.html",
+        advertised_url=base,
+        kicker="law · sink registry",
+        title="Sinks",
+        description="Typed irreversible effect classes — money ≠ legal ≠ physical ≠ reputational ≠ destroy.",
+        blurb="The boom typed transport and documents. It never typed consequence. Unknown sink → fail closed as hard irreversible.",
+        links=[
+            {"href": f"{base}/.well-known/sinks.json", "label": "Manifest", "note": "well-known"},
+            {"href": f"{base}/v1/sinks", "label": "GET /v1/sinks", "note": "list"},
+            {"href": f"{base}/v1/sinks/register", "label": "POST /v1/sinks/register", "note": "register"},
+            {"href": f"{base}/physical", "label": "/physical", "note": "absolute physical lane"},
+        ],
+        bullets=[f"{r.get('sink_id')}: {r.get('class')}/{r.get('irreversibility')}" for r in rows[:16]],
+    )
+
+
+def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> dict:
+    return right_to_act_mod.evaluate(
+        body if isinstance(body, dict) else {},
+        account_id=account_id,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/demo/right-to-act/evaluate", methods=["POST"])
+def demo_right_to_act_evaluate():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return rate_limited_response(msg)
+    body = request.get_json(silent=True) or {}
+    data = run_right_to_act_evaluate(body, account_id=None)
+    data["demo"] = True
+    data["signup_url"] = f"{advertised_url()}/signup"
+    bound.attach(data, 200, demo=True)
+    return jsonify(data), 200
+
+
+@app.route("/v1/right-to-act/evaluate", methods=["POST"])
+def right_to_act_evaluate():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    row = authenticate_api_key()
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        data = run_right_to_act_evaluate(body, account_id=row["account_id"])
+        bound.attach(data, 200, demo=False)
+        return jsonify(data), 200
+    data = run_right_to_act_evaluate(body, account_id=None)
+    data["auth"] = "anonymous"
+    bound.attach(data, 200, demo=True)
+    return jsonify(data), 200
+
+
+@app.route("/v1/right-to-act/verify", methods=["POST"])
+def right_to_act_verify():
+    body = request.get_json(silent=True) or {}
+    receipt = body.get("receipt") or body.get("token") or ""
+    expected = body.get("fingerprint") or body.get("expected_fingerprint")
+    verified = right_to_act_mod.verify_receipt_jwt(
+        receipt, expected_fingerprint=expected if expected else None
+    )
+    return jsonify({"spec": right_to_act_mod.SPEC, **verified}), 200 if verified.get("valid") else 400
+
+
+@app.route("/v1/right-to-act/burn", methods=["POST"])
+def right_to_act_burn():
+    body = request.get_json(silent=True) or {}
+    ticket_id = (body.get("ticket_id") or "").strip()
+    fingerprint = (body.get("fingerprint") or "").strip()
+    sink = (body.get("sink") or "").strip()
+    if not ticket_id or not fingerprint or not sink:
+        return jsonify(
+            {
+                "ok": False,
+                "reason": "ticket_id_fingerprint_sink_required",
+                "invariant": "Sink must present exact ticket + fingerprint + sink to burn.",
+            }
+        ), 400
+    result = right_to_act_mod.burn_ticket(ticket_id, fingerprint=fingerprint, sink=sink)
+    return jsonify(result), 200 if result.get("ok") else 409
+
+
+@app.route("/sdk/right-to-act/wrap.mjs")
+def sdk_right_to_act_wrap():
+    path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "sdk", "right-to-act", "wrap.mjs"
+    )
+    if not os.path.isfile(path):
+        abort(404)
+    with open(path, "r", encoding="utf-8") as fh:
+        return Response(fh.read(), mimetype="text/javascript")
+
+
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
     data, status, _ = velaru_fuse(
         "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
@@ -2221,7 +3137,7 @@ def run_prefinality_evaluate(body: dict, *, account_id: str | None = None) -> di
 def demo_prefinality_evaluate():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     data = run_prefinality_evaluate(body, account_id=None)
     data["demo"] = True
@@ -2314,6 +3230,7 @@ def audit_page():
         result=result,
         result_json=json.dumps(result, indent=2) if result else "",
         wire_domain=wire_domain,
+        x402_configured=x402_challenge_mod.payto_configured(),
     )
 
 
@@ -3542,18 +4459,38 @@ def sitemap():
         "/bind-room",
         "/audit",
         "/start",
+        "/for/developers",
+        "/for/agents",
+        "/for/startups",
         "/for/operators",
-        "/for/carriers",
-        "/for/compliance",
-        "/for/defense",
         "/for/legal",
+        "/for/compliance",
+        "/for/carriers",
+        "/for/brokers",
         "/for/enterprise",
+        "/for/boards",
+        "/for/defense",
+        "/for/hiring",
+        "/for/consumers",
+        "/for/investors",
+        "/admittance",
+        "/physical",
+        "/finder",
+        "/subject",
+        "/right-to-act",
+        "/mandate",
+        "/sinks",
         "/.well-known/gate.json",
+        "/.well-known/opportunities.json",
+        "/.well-known/physical-prefinality.json",
+        "/.well-known/subject.json",
         "/.well-known/operator.json",
         "/.well-known/register.json",
         "/.well-known/live.json",
         "/.well-known/legal.json",
         "/openapi.json",
+        "/openapi.full.json",
+        "/llms.txt",
     ]
     urls = "".join(
         f"<url><loc>{advertised_url()}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
@@ -3570,6 +4507,9 @@ def llms_txt():
         "> Clearance before withdraw, payout, or bind. Fail closed under uncertainty. Independent verify.",
         "",
         f"- Home: {advertised_url()}/",
+        f"- Discovery: {advertised_url()}/.well-known/gate.json",
+        f"- Opportunities: {advertised_url()}/.well-known/opportunities.json",
+        f"- Start hub: {advertised_url()}/start",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -3578,11 +4518,23 @@ def llms_txt():
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
+        f"- OpenAPI (full): {advertised_url()}/openapi.full.json",
         f"- Verify: https://velaru.xyz/verify",
         "",
-        "Not a seat product. Not Free/Pro. Weld + path management + bps on cleared flow.",
-        "their_production stays false until a recorded third-party production weld.",
+        "## Law stack (authority for consequence)",
+        f"- Right-to-Act: {advertised_url()}/right-to-act · {advertised_url()}/.well-known/right-to-act.json",
+        f"- Mandate + mortality: {advertised_url()}/mandate · {advertised_url()}/.well-known/mandate.json",
+        f"- Sinks: {advertised_url()}/sinks · {advertised_url()}/.well-known/sinks.json",
+        f"- Continuity: {advertised_url()}/.well-known/continuity.json",
+        f"- Finder: {advertised_url()}/finder · {advertised_url()}/.well-known/finder.json",
+        f"- Admittance: {advertised_url()}/admittance · {advertised_url()}/.well-known/admittance.json",
+        f"- Subject: {advertised_url()}/subject · {advertised_url()}/.well-known/subject.json",
+        f"- Physical Prefinality / Park: {advertised_url()}/physical · {advertised_url()}/.well-known/physical-prefinality.json",
         "",
+        "Public cash ladder: Bind Room $1,750 → Operator weld $25,000 + $5,000/mo management + 10 bps on cleared flow.",
+        "No assessment SKU. Not Free/Pro seats. their_production stays false until a recorded third-party production weld.",
+        "",
+        "## Audience doors",
     ]
     for slug, plate in audiences.all_plates().items():
         if slug in GONE_AUDIENCE_SLUGS:
@@ -3621,6 +4573,11 @@ def openapi_full():
             "x-discovery": {
                 "ownershipProofs": [x402_challenge_mod.payto()] if x402_challenge_mod.payto() else [],
                 "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
+                "x402_configured": bool(x402_challenge_mod.payto()),
+                "note": (
+                    "Paid USDC prices apply only when x402_configured is true; "
+                    "otherwise use API key or free demos."
+                ),
             },
             "components": {
                 "securitySchemes": {
@@ -3680,12 +4637,22 @@ def openapi_full():
                         "summary": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
                         "description": (
                             "Rail-agnostic clearance before irreversible commit. "
-                            "Pay $0.002 USDC on Base via x402, or use Gate API key."
+                            + (
+                                "Pay $0.002 USDC on Base via x402, or use Gate API key."
+                                if x402_challenge_mod.payto()
+                                else "x402 USDC offline — use Gate API key or /demo/prefinality/evaluate."
+                            )
                         ),
-                        "x-payment-info": {
-                            "protocols": ["x402"],
-                            "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
-                        },
+                        **(
+                            {
+                                "x-payment-info": {
+                                    "protocols": ["x402"],
+                                    "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
+                                }
+                            }
+                            if x402_challenge_mod.payto()
+                            else {}
+                        ),
                         "requestBody": {
                             "required": True,
                             "content": {

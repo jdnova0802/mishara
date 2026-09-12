@@ -148,18 +148,30 @@ def payment_required_response(
 
 def well_known_fanout(public_url: str) -> dict:
     base = (public_url or "").rstrip("/")
-    resources = [
-        f"{base}/v1/prefinality/evaluate",
-        f"{base}/api/x402/wire",
-    ]
-    out: dict[str, Any] = {"version": 1, "resources": resources}
+    configured = payto_configured()
+    free = [f"{base}/audit", f"{base}/api/x402/audit", f"{base}/demo/prefinality/evaluate"]
+    out: dict[str, Any] = {
+        "version": 1,
+        "x402_configured": configured,
+        "free_resources": free,
+    }
     pt = payto()
     if pt:
         out["ownershipProofs"] = [pt]
-    out["free_resources"] = [f"{base}/audit", f"{base}/api/x402/audit"]
-    out["instructions"] = (
-        "Free: GET /audit?url=... or /api/x402/audit?url=... — probe any x402 endpoint. "
-        "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
-        "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
-    )
+        out["resources"] = [
+            f"{base}/v1/prefinality/evaluate",
+            f"{base}/api/x402/wire",
+        ]
+        out["instructions"] = (
+            "Free: GET /audit?url=... or /api/x402/audit?url=... — probe any x402 endpoint. "
+            "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
+            "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
+        )
+    else:
+        out["resources"] = []
+        out["instructions"] = (
+            "x402 payto is not configured. Do not send USDC. "
+            "Free: GET /audit?url=... · POST /demo/prefinality/evaluate · Gate API key routes. "
+            "Paid wire / evaluate USDC prices stay offline until GATE_X402_PAYTO is set."
+        )
     return out

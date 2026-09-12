@@ -1,4 +1,4 @@
-"""Settlement engine — DTCC-shaped clearing for Gate.
+"""Settlement engine — clearing-shaped netting for Gate.
 
 Architectural components:
   1. Netting: collapse gross bind events into net positions per member per window.
@@ -472,14 +472,14 @@ def spec(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Gate Settlement Engine",
-        "architecture": "DTCC-shaped: netting + settlement windows + default waterfall + margin + multi-asset",
+        "architecture": "Clearing-shaped: netting + settlement windows + default waterfall + margin + multi-asset",
         "components": {
             "member_registry": member_registry_manifest(),
             "cutoff_schedule": cutoff_schedule_manifest(),
             "netting": {
                 "spec": NETTING_SPEC,
                 "what": "Collapse gross obligations into net positions per member per asset class",
-                "goal": "98%+ reduction ratio at scale (same target as DTCC/NSCC)",
+                "goal": "High netting reduction at scale (clearing-industry benchmark)",
             },
             "settlement_windows": {
                 "cycle": f"{WINDOW_DURATION_MINUTES} minutes (T+0 intraday)",

@@ -92,7 +92,7 @@ SITUATIONIST_NEW_BABYLON = {
 
 ANTHROPOPHAGY = {
     "borrowed_from": "Oswald de Andrade — anthropophagy; digest foreign forms, excrete something native",
-    "gate_meaning": "Eat DTCC, SWIFT, Visa, CLS — do not photocopy US SaaS.",
+    "gate_meaning": "Clear irreversible writes under fail-closed law — do not photocopy soft-yes SaaS.",
     "shipped_as": [
         "GP register (2-and-20 shape) on infrastructure, not seat tiers",
         "Netting + settlement windows + default waterfall — digested, not cloned Stripe Billing",
@@ -207,8 +207,8 @@ def page_cards() -> list[dict]:
             "tag": "Brand",
             "title": "Anthropophagy",
             "body": (
-                "Digest DTCC, SWIFT, Visa. Excrete something that is not another US SaaS clone — "
-                "GP register, .well-known manifests, one welded door."
+                "Study clearing and settlement as problems. Ship an independent fail-closed mouth — "
+                "GP register, .well-known manifests, one welded door — not another soft-yes SaaS clone."
             ),
             "ref": "Anthropophagy",
         },

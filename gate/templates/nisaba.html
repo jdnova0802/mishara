@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Nisaba brand map{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block meta %}
+<meta name="description" content="Internal host map. Not a buyer surface.">
+{% endblock %}
+{% block content %}
+<div class="top-banner">
+  <span>Internal host honesty. Public door: Weld / Fees / Trust.</span>
+  <a href="{{ url_for('operator_page') }}" class="btn btn-ghost btn-sm">Weld →</a>
+</div>
+
+<section class="hero container">
+  <p class="audience-tag">Internal · brand map</p>
+  <h1>Nisaba hosts</h1>
+  <p class="hero-sub">{{ manifest.thesis }}</p>
+  <div class="hero-actions">
+    <a href="{{ url_for('well_known_nisaba') }}" class="btn btn-primary">nisaba.json</a>
+    <a href="{{ url_for('family_hub') }}" class="btn btn-accent-outline">Family voices</a>
+    <a href="{{ url_for('scorecard_page') }}" class="btn btn-ghost">Scorecard</a>
+  </div>
+</section>
+
+<section class="container section">
+  <h2 style="margin-bottom: 1rem;">Brands</h2>
+  {% for b in manifest.brands %}
+  <div class="card" style="margin-bottom: 1rem;">
+    <p class="audience-tag">{{ b.role }} · {{ b.status }}</p>
+    <h3>{{ b.name }}</h3>
+    <p style="margin-top: 0.5rem;"><strong>Canonical:</strong>
+      {% if b.canonical %}<a href="{{ b.canonical }}">{{ b.canonical }}</a>{% else %}—{% endif %}
+    </p>
+    {% if b.product_urls %}
+    <p style="margin-top: 0.5rem; color: var(--muted);"><strong>Product URLs:</strong>
+      {{ b.product_urls | join(' · ') }}</p>
+    {% endif %}
+    {% if b.notes %}
+    <ul class="check-list" style="margin-top: 0.75rem;">
+      {% for note in b.notes %}<li>{{ note }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if b.domains %}
+    <p style="margin-top: 0.75rem;"><strong>Domains:</strong></p>
+    <ul class="check-list">
+      {% for host, meta in b.domains.items() %}
+      <li>{{ host }} — {{ meta.status }}{% if meta.detail %}: {{ meta.detail }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if b.open_forks %}
+    <p style="margin-top: 0.75rem;"><strong>Open forks:</strong></p>
+    <ul class="check-list">
+      {% for fork in b.open_forks %}
+      <li>[{{ fork.severity }}] {{ fork.detail }} <span style="color: var(--muted);">({{ fork.fix }})</span></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+
+<section class="container section">
+  <div class="card">
+    <h2>Do not advertise</h2>
+    <ul class="check-list">
+      {% for url in manifest.do_not_advertise %}
+      <li>{{ url }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% if manifest.open_forks %}
+<section class="container section">
+  <div class="card">
+    <h2>Open forks (all brands)</h2>
+    <ul class="check-list">
+      {% for fork in manifest.open_forks %}
+      <li><strong>{{ fork.brand }}</strong> · {{ fork.severity }} — {{ fork.detail }}
+        <span style="color: var(--muted);">({{ fork.fix }})</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

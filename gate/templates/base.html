@@ -5,8 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Gate{% endblock %} — clearance before irreversible payout</title>
   {% block meta %}
-  <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.">
+  <meta name="description" content="{{ gate_one_line or 'Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.' }}">
   {% endblock %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Gate · {{ legal_name }}">
+  <meta property="og:title" content="{% block og_title %}Gate — clearance before irreversible payout{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ gate_one_line or 'Fail-closed clearance before irreversible payout, withdraw, or bind.' }}{% endblock %}">
+  <meta property="og:url" content="{{ gate_public_url }}{{ request.path }}">
+  <meta property="og:image" content="{{ og_image }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% block tw_title %}Gate — clearance before irreversible payout{% endblock %}">
+  <meta name="twitter:description" content="{% block tw_description %}{{ gate_one_line or 'Fail-closed clearance before irreversible payout, withdraw, or bind.' }}{% endblock %}">
+  <meta name="twitter:image" content="{{ og_image }}">
   {% block robots %}{% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% if meta_pixel_id %}
@@ -28,9 +38,10 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Nisaba LLC",
+    "name": "{{ legal_name }}",
     "url": "{{ gate_public_url }}",
-    "description": "Clearance before irreversible payout, withdraw, and bind. Weld + path management + bps on cleared flow.",
+    "email": "{{ contact_email }}",
+    "description": "{{ gate_one_line or 'Clearance before irreversible payout, withdraw, and bind.' }}",
     "brand": {"@type": "Brand", "name": "Gate"}
   }
   </script>
@@ -40,21 +51,21 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
-        {% if bind_surface %}
-        <a href="{{ url_for('bind_room') }}">Bind Room</a>
-        <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
-        <a href="{{ url_for('trust') }}">Trust</a>
-        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
-        {% else %}
         <a href="{{ url_for('bind_room') }}">Bind Room</a>
         <a href="{{ url_for('operator_page') }}">Weld</a>
         <a href="{{ url_for('live_page') }}">Live</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
+        {% if bind_surface %}
+        <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
+        {% endif %}
         <a href="{{ url_for('trust') }}">Trust</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
         {% endif %}
+        {% if bind_surface %}
+        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
+        {% else %}
         <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Bind Room · {{ bind_room_price }}</a>
         {% endif %}
       </div>
@@ -75,7 +86,7 @@
 
   <footer>
     <div class="container">
-      Nisaba LLC · clearance before irreversible write ·
+      {{ legal_name }} · {{ patent_display }} · clearance before irreversible write ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
       <a href="{{ url_for('live_page') }}">Live</a> ·
       <a href="{{ url_for('register_page') }}">Fees</a> ·
@@ -87,6 +98,10 @@
       {% if session.get('account_id') %}
         · <a href="{{ url_for('dashboard') }}">Drill desk</a>
       {% endif %}
+      <div style="margin-top:0.65rem;color:var(--muted);font-size:0.9em;">
+        <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+        — {{ support_sla }}
+      </div>
     </div>
   </footer>
 </body>
