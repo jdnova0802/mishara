@@ -85,7 +85,27 @@
     }
   },
   "notes": [
-    "Gate public ladder is Bind Room → Operator weld + management + 10 bps.",
-    "Velaru HOLD/Monitor and Erra signal SKUs live in the Velaru repo — keep them aligned there; do not invent mid-ladder Gate SKUs here."
-  ]
+    "Gate public ladder is Bind Room \u2192 Operator weld + management + 10 bps.",
+    "Operator fee_schedule (hop + carry) is part of the same SSOT \u2014 do not retype on stranger pages.",
+    "Velaru HOLD/Monitor and Erra signal SKUs live in the Velaru repo \u2014 keep them aligned there; do not invent mid-ladder Gate SKUs here."
+  ],
+  "fee_schedule": {
+    "operator_hop": {
+      "id": "operator_hop",
+      "label": "Metered hop",
+      "price_label": "$0.10/hop",
+      "price_cents": 10,
+      "public": true,
+      "summary": "When hops bill on a welded path."
+    },
+    "operator_carry": {
+      "id": "operator_carry",
+      "label": "Flow carry above hurdle",
+      "price_label": "+5 bps",
+      "bps": 5,
+      "hurdle_label": "$500M/mo cleared",
+      "public": true,
+      "summary": "Additional basis points on cleared flow above the hurdle."
+    }
+  }
 }

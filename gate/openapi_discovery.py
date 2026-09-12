@@ -78,20 +78,10 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
                 "403": {"description": "NO_GO — fail closed"},
             },
         }
-        wire_get = {
-            "summary": "x402 wire bundle (OFFLINE until payto configured)",
-            "description": (
-                "Paid USDC wire is offline while GATE_X402_PAYTO is unset. "
-                "Use Stripe /pricing or wait for payto."
-            ),
-            "responses": {
-                "503": {"description": "x402 payto not configured"},
-                "402": {"description": "Would require x402 when configured"},
-            },
-        }
+        wire_get = None
         x402_note = (
             "x402.configured is false until GATE_X402_PAYTO is set. "
-            "Paid USDC prices are not collectible; use API key or free demos."
+            "Paid USDC prices are omitted from OpenAPI until payto is live."
         )
 
     paths = {
@@ -103,7 +93,6 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
                 "responses": {"200": {"description": "Evaluate result"}},
             }
         },
-        "/api/x402/wire": {"get": wire_get},
         # Law stack
         "/v1/right-to-act/evaluate": _post(
             "Right-to-Act evaluate",
@@ -164,6 +153,10 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
         "/.well-known/opportunities.json": _get("Audience opportunity surfaces"),
         "/health": _get("Health + durability flags"),
     }
+    # Fail-closed catalog: omit paid USDC wire until payto is live.
+    if x402_live and wire_get is not None:
+        paths["/api/x402/wire"] = {"get": wire_get}
+
     return {
         "openapi": "3.1.0",
         "info": {

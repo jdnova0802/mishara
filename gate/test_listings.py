@@ -1913,6 +1913,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         ):
             self.assertIn(p, paths, p)
         self.assertFalse((oa.get("x-discovery") or {}).get("x402_configured"))
+        self.assertNotIn("/api/x402/wire", paths)
         pre = (paths.get("/v1/prefinality/evaluate") or {}).get("post") or {}
         self.assertNotIn("x-payment-info", pre)
 

@@ -901,6 +901,9 @@ def well_known_mishara():
             "products": f"{base}/products.json",
             "health": f"{base}/health",
             "llms": f"{base}/llms.txt",
+            "security_txt": f"{base}/.well-known/security.txt",
+            "privacy": f"{base}/privacy",
+            "terms": f"{base}/terms",
             "engine": VELARU_BASE,
             "verify": VELARU_VERIFY,
             "contact": CONTACT_EMAIL,
@@ -923,6 +926,8 @@ def llms_txt():
         "",
         f"- Home: {base}/",
         f"- About: {base}/about",
+        f"- Privacy: {base}/privacy",
+        f"- Terms: {base}/terms",
         f"- Products: {base}/products.json",
         f"- Discovery: {base}/.well-known/mishara.json",
         f"- Health: {base}/health",
@@ -1244,6 +1249,62 @@ def join_pattern():
             (hash_email(email), normalize_platform(platform), domain, utc_now_iso()),
         )
     return jsonify({"ok": True, "message": "Joined. We will notify you if advocate or regulatory action moves."})
+
+
+
+@app.route("/.well-known/security.txt")
+@app.route("/security.txt")
+def security_txt():
+    base = _public_base()
+    body = "\n".join(
+        [
+            f"Contact: mailto:{CONTACT_EMAIL}",
+            "Expires: 2027-09-12T00:00:00.000Z",
+            "Preferred-Languages: en",
+            f"Canonical: {base}/.well-known/security.txt",
+            "Policy: Report suspected vulnerabilities to hello@velaru.xyz with subject Security. Do not request payment. We acknowledge within two business days.",
+            f"Acknowledgments: {base}/about",
+            "",
+        ]
+    )
+    return body, 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.errorhandler(404)
+def not_found(_err):
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not found — Mishara</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{{--bg:#F3EEE4;--ink:#1A1714;--muted:#5C564E;--teal:#0A5C5F;--line:#E2D9CC}}
+body{{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);margin:0;padding:48px 20px}}
+main{{max-width:520px;margin:0 auto}}
+h1{{font-family:'Fraunces',Georgia,serif;color:var(--teal);font-size:2rem;margin:0 0 12px}}
+p{{color:var(--muted);line-height:1.6}}
+a{{color:var(--teal)}}
+nav a{{margin-right:14px}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Page not found</h1>
+  <p>That path is not a Mishara door. Harm receipts and demand packs start on the home page.</p>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </nav>
+  <p style="margin-top:28px;font-size:.9rem">Operator: Nisaba LLC · {CONTACT_EMAIL}</p>
+</main>
+</body>
+</html>"""
+    return html, 404
 
 
 init_db()

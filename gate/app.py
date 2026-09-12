@@ -351,6 +351,18 @@ SUPPORT_SLA = commerce_mod.support_sla()
 LEGAL_NAME = commerce_mod.legal_name()
 PATENT_DISPLAY = commerce_mod.patent_display()
 API_POLICY = commerce_mod.api_policy()
+
+
+def rate_limited_response(msg: str, *, limit: int = 60, remaining: int = 0, retry_after: int = 3600):
+    """429 with RateLimit-* headers (RFC 6585 / draft-ietf-httpapi-ratelimit-headers)."""
+    resp = jsonify({"error": {"code": "rate_limited", "message": msg}})
+    resp.status_code = 429
+    resp.headers["Retry-After"] = str(int(retry_after))
+    resp.headers["RateLimit-Limit"] = str(int(limit))
+    resp.headers["RateLimit-Remaining"] = str(max(0, int(remaining)))
+    resp.headers["RateLimit-Reset"] = str(int(retry_after))
+    return resp
+
 ACCOUNTABILITY = commerce_mod.accountability()
 GATE_DOCTRINE = commerce_mod.brand_line("gate")
 META_PIXEL_ID = (os.getenv("GATE_META_PIXEL_ID") or "").strip()
@@ -889,7 +901,7 @@ def well_known_opportunities():
 def demo_hop():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
@@ -908,7 +920,7 @@ def demo_hop():
 def demo_lookup():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     fuse_id = request.args.get("fuse_id", "fuse_velaru_drill").strip()
     if not demo_limit.validate_demo_fuse(fuse_id):
         return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
@@ -923,7 +935,7 @@ def demo_lookup():
 def _demo_gate():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return None, (jsonify({"error": {"code": "rate_limited", "message": msg}}), 429)
+        return None, rate_limited_response(msg)
     return True, None
 
 
@@ -1597,6 +1609,7 @@ def well_known_gate():
             },
             "patent": "64/124,027",
             "operated_by": "Nisaba LLC",
+            "api_policy": API_POLICY,
         }
     )
 
@@ -2683,7 +2696,7 @@ def admittance_admit():
 def demo_admittance_admit():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     out = admittance_mod.admit(
         body if isinstance(body, dict) else {},
@@ -2858,7 +2871,7 @@ def physical_evaluate():
 def demo_physical_evaluate():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     out = physical_mod.evaluate(
         body if isinstance(body, dict) else {},
@@ -3032,7 +3045,7 @@ def run_right_to_act_evaluate(body: dict, *, account_id: str | None = None) -> d
 def demo_right_to_act_evaluate():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     data = run_right_to_act_evaluate(body, account_id=None)
     data["demo"] = True
@@ -3124,7 +3137,7 @@ def run_prefinality_evaluate(body: dict, *, account_id: str | None = None) -> di
 def demo_prefinality_evaluate():
     ok, msg = demo_limit.allow_demo(request)
     if not ok:
-        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+        return rate_limited_response(msg)
     body = request.get_json(silent=True) or {}
     data = run_prefinality_evaluate(body, account_id=None)
     data["demo"] = True
