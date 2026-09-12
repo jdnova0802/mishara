@@ -150,6 +150,11 @@ except ImportError:
     import family_voices as family_voices_mod
 
 try:
+    from gate import brand_map as brand_map_mod
+except ImportError:
+    import brand_map as brand_map_mod
+
+try:
     from gate import bound
 except ImportError:
     import bound
@@ -375,7 +380,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
-    "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
+    "/action-os", "/family", "/scorecard", "/nisaba", "/proof", "/stack", "/status", "/focus",
     "/signup", "/login", "/dashboard",
 )
 PUBLIC_WELLKNOWN = frozenset(
@@ -1467,6 +1472,8 @@ def well_known_gate():
             "scorecard_page": f"{advertised_url()}/scorecard",
             "family": f"{advertised_url()}/.well-known/family.json",
             "family_page": f"{advertised_url()}/family",
+            "nisaba": f"{advertised_url()}/.well-known/nisaba.json",
+            "nisaba_page": f"{advertised_url()}/nisaba",
             "production_skin": f"{advertised_url()}/.well-known/production-skin.json",
             "proof_suite": f"{advertised_url()}/.well-known/proof-suite.json",
             "science_pri": f"{advertised_url()}/.well-known/science-pri.json",
@@ -1845,6 +1852,17 @@ def family_paste(slug: str):
 def scorecard_page():
     m = scorecard_mod.manifest(advertised_url())
     return render_template("scorecard.html", manifest=m, public_url=advertised_url())
+
+
+@app.route("/.well-known/nisaba.json")
+def well_known_nisaba():
+    return jsonify(brand_map_mod.manifest(advertised_url()))
+
+
+@app.route("/nisaba")
+def nisaba_page():
+    m = brand_map_mod.manifest(advertised_url())
+    return render_template("nisaba.html", manifest=m, public_url=advertised_url())
 
 
 @app.route("/production-skin")
