@@ -29,11 +29,27 @@
 
 <section class="container section">
   <div class="card">
+    <h2>Plain-language faces</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Same products. Shorter doors. Prices from commerce SSOT.</p>
+    <p>
+      <a href="{{ url_for('faces_index') }}">All faces</a> ·
+      <a href="/boss-receipt">Boss Receipt</a> ·
+      <a href="/find-my-agents">Find My Agents</a> ·
+      <a href="/renewal-packet">Renewal Packet</a>
+    </p>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="card">
     <h2>For outbound</h2>
     <p style="color: var(--muted); margin-bottom: 1rem;">Paste the path that matches the human. Each URL is a full landing.</p>
     <pre>{{ public_url }}/for/operators
 {{ public_url }}/for/carriers
 {{ public_url }}/for/compliance
+{{ public_url }}/boss-receipt
+{{ public_url }}/find-my-agents
+{{ public_url }}/renewal-packet
 {{ public_url }}/operator
 {{ public_url }}/.well-known/opportunities.json</pre>
   </div>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Buyer faces{% endblock %}
+{% block meta %}
+<meta name="description" content="Plain-language doors on Gate and Mishara — same ladder prices, stranger-verifiable proof.">
+{% endblock %}
+{% block content %}
+<section class="hero container" style="padding-bottom: 2rem;">
+  <p class="audience-tag">Faces · not new SKUs</p>
+  <h1>Four doors. Same rails.</h1>
+  <p class="hero-sub">Each face is a plain-language entry on an existing product. Prices come from one commerce file — never hand-typed twice.</p>
+  <div class="hero-actions" style="justify-content: flex-start;">
+    <a href="{{ url_for('well_known_faces') }}" class="btn btn-ghost btn-sm">faces.json →</a>
+    <a href="{{ url_for('well_known_commerce') }}" class="btn btn-ghost btn-sm">commerce.json →</a>
+  </div>
+</section>
+
+<section class="container-wide section" style="padding-top: 0;">
+  <div class="plate-grid">
+    {% for face in faces %}
+    <a href="{% if face.host == 'mishara' %}{{ face.page_url }}{% else %}{{ face.path }}{% endif %}" class="card plate-card"{% if face.host == 'mishara' %} target="_blank" rel="noopener"{% endif %}>
+      <h3>{{ face.label }}</h3>
+      <p class="plate-headline">{{ face.question }}</p>
+      <p class="plate-price">{{ face.price_label }}</p>
+      <span class="plate-cta">{% if face.host == 'mishara' %}Mishara →{% else %}Enter →{% endif %}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
