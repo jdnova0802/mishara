@@ -1,11 +1,11 @@
 # Nisaba — Flawless Scorecard
 
-**Run date:** 2026-09-12 (oligarch-grade continuity pass)  
-**Gate branch:** `cursor/oligarch-grade-25ad`  
-**Velaru branch:** `cursor/oligarch-grade-25ad` → merge to `main`  
+**Run date:** 2026-09-12 (post–Claude gate on PR #50)  
+**Gate branch:** `cursor/price-ssot-purge-25ad` (stacks on `cursor/oligarch-grade-25ad` / PR #50)  
+**Velaru:** `main` @ `97d7fe6` (settlement route rename)  
 **Live:** `https://gate.velaru.xyz` · `https://mishara.onrender.com` · `https://velaru.xyz`
 
-**Honest roll-up after this pass:** institutional chrome continuity locked on Gate (Verify + Bind Room CTA never mutate). Mishara primary nav unified across home/denial/about/legal; bare `/pattern` returns 200 usage JSON. Velaru counsel lane already continuous; foundry catalog no longer advertises `dtcc_*` public keys. Remaining non-code gaps: no customer yet · founder mailing address · DMARC enforce.
+**Honest posture:** PR #50 (nav/CTA SSOT + `/pattern`) is mergeable on evidence. **No portfolio “8.”** Dim 14 is not closed until the residual hardcode list is empty and re-verified. Dims 8/11/12/16/19 need fresh measured runs — see `docs/VERIFICATION_QUEUE.md`.
 
 ## Dim 1 — Visual / design — PASS (Gate + Mishara)
 
@@ -82,13 +82,9 @@
 
 ---
 
-## Dim 8 — Performance — PASS (measured)
+## Dim 8 — Performance — RE-VERIFY QUEUED
 
-| Check | Result | Evidence |
-|---|---|---|
-| CWV / Lighthouse | PASS | `docs/cwv/` — Gate home perf **1.00**, LCP **0.9s**, CLS **0**; Mishara perf **0.99** |
-| Health meaning | PASS (Gate/Mishara) | Rich `/health` JSON |
-| Erra `/health` | **PASS** | `https://erra-jf6a.onrender.com/health` **200** |
+Prior `docs/cwv/` artifacts exist but are **not** accepted as closing this turn. Fresh Lighthouse/CWV required — `docs/VERIFICATION_QUEUE.md`.
 
 ---
 
@@ -104,35 +100,32 @@ Gate workflow: commerce + listings + DTCC/SWIFT ban + lab-jargon ban + dead `err
 
 ---
 
-## Dim 11 — Link liveness — PASS
+## Dim 11 — Link liveness — RE-VERIFY QUEUED
 
-| Check | Result | Evidence |
-|---|---|---|
-| Manifest crawler | PASS | `gate/scripts/check_manifest_links.py` (405 on POST-only = OK) |
-| Dead Erra host | PASS | CI bans `erra.onrender.com` in stranger templates; hosts.json `do_not_advertise` |
-| Core law pages | PASS | 200 live |
+Prior manifest crawler PASS is stale for this close. Full-site link crawl required — `docs/VERIFICATION_QUEUE.md`.
 
 ---
 
-## Dim 12 — Institutional tone — PASS
+## Dim 12 — Institutional tone — RE-VERIFY QUEUED
 
-CI greps ban lab enums; live OpenAPI uses EXIST/NONEXIST/HOLD vocabulary.
+CI greps remain; full stranger-HTML re-grep still queued this close — `docs/VERIFICATION_QUEUE.md`.
 
 ---
 
-## Dim 13 — No borrowed credibility — PASS (Gate + Velaru chrome) / WATCH (legacy API path)
+## Dim 13 — No borrowed credibility — PASS (route rename live)
 
 | Check | Result | Evidence |
 |---|---|---|
 | Gate stranger chrome | PASS | No DTCC/SWIFT (CI) |
-| Velaru stranger chrome | **PASS** | `/verify` `/foundry` institutional primary has **0** DTCC labels live; catalog public keys renamed to `settlement_*` (route `/api/v1/dtcc/attest` kept as technical back-compat, not marketed) |
-| Privacy denial list may mention DTCC | PASS | Affirmative non-affiliation language only |
+| Velaru OpenAPI / catalog | **PASS** | Live OpenAPI has **0** `/api/v1/dtcc/*` paths; catalog has no `dtcc` |
+| Velaru canonical attest | **PASS** | `GET /api/v1/settlement/attest` **200** |
+| Legacy path | **308 only** | `GET /api/v1/dtcc/attest` → `Location: /api/v1/settlement/attest` (silent relocate; not advertised) |
 
 ---
 
-## Dim 14 — Single source of truth — PASS
+## Dim 14 — Single source of truth — IN PROGRESS (residual purge)
 
-`gate/commerce/{ladder,doctrine,entities,hosts}.json` + `commerce.py` + `/.well-known/commerce.json` live.
+`ladder.json` + `commerce.py` + live `commerce.json` are the spine. Residual hand-typed `$1,750` purge is this branch (`cursor/price-ssot-purge-25ad`). **Do not mark Dim 14 PASS until residual list is empty and `test_residual_bind_room_price_not_hand_typed` is green on main.**
 
 ---
 
@@ -142,9 +135,9 @@ Gate ladder/labels normalized via SSOT. Velaru Instant/Pricing copyedit BLOCKED.
 
 ---
 
-## Dim 16 — Measured performance — PASS
+## Dim 16 — Measured performance — RE-VERIFY QUEUED
 
-No longer UNMEASURED. Artifacts + README under `docs/cwv/`.
+Same as Dim 8 — fresh CWV run required this close.
 
 ---
 
@@ -164,9 +157,9 @@ Gate + Mishara + Velaru `/.well-known/security.txt` live **200**.
 
 ---
 
-## Dim 19 — 10-second stranger test — PASS (engineering bar)
+## Dim 19 — 10-second stranger test — UNVERIFIED (human timer required)
 
-Gate Bind Room first viewport states dollars + irreversible bind without lab jargon. Full human timer still recommended; engineering bar met.
+Protocol: `docs/STRANGER_TEST_DIM19.md`. Cold human, stopwatch, homepage + `/bind-room` + one `/for/*`. Engineering bar is not a substitute.
 
 ---
 
@@ -203,11 +196,13 @@ Support email + SLA + operator accountability string in entities / legal / foote
 
 ---
 
-## Priority queue (remaining — Velaru / founder only)
+## Priority queue (remaining)
 
-1. **BLOCKED — Velaru repo (`jdnova0802/velaru`):** Instant “DTCC integration” link; Instant `$25`/`$49` vs Pricing; Velaru `/privacy` `/terms`; CSP + security.txt; Erra `/health` 500.
-2. **FOUNDER:** Registered mailing address for legal pages (Dim 18).
-3. **FOUNDER/DNS:** DMARC enforce (Dim 21).
+1. **Merge PR #50** (nav/CTA SSOT + `/pattern`) — evidenced; Dim 13 route catch cleared on Velaru live.
+2. **Land price SSOT purge** (`cursor/price-ssot-purge-25ad`) — empty residual hardcode list → then re-score Dim 14.
+3. **Measured re-verify:** Dim 8/16 CWV, Dim 11 link crawl, Dim 12 jargon grep, Dim 19 human stranger test — `docs/VERIFICATION_QUEUE.md`.
+4. **FOUNDER only (do not touch in agent):** mailing address (Dim 18), DMARC enforce (Dim 21).
+5. **Velaru Instant SKU copy** still BLOCKED if Instant `$25`/`$49` fork remains.
 
 ---
 

@@ -1948,7 +1948,18 @@ def well_known_nisaba():
 @app.route("/outbound/HUSTLE_BOARD.md")
 def hustle_board():
     path = Path(__file__).resolve().parent / "outbound" / "HUSTLE_BOARD.md"
-    return path.read_text(encoding="utf-8"), 200, {"Content-Type": "text/markdown; charset=utf-8"}
+    text = path.read_text(encoding="utf-8")
+    # Placeholders keep the markdown file free of hand-typed ladder dollars.
+    for sku_id in (
+        "bind_room",
+        "diligence_deposit",
+        "refusal",
+        "operator_weld",
+        "operator_floor",
+        "operator_flow_bps",
+    ):
+        text = text.replace("{" + sku_id + "}", commerce_mod.price_label(sku_id))
+    return text, 200, {"Content-Type": "text/markdown; charset=utf-8"}
 
 
 @app.route("/.well-known/commerce.json")
@@ -3198,6 +3209,55 @@ def demo_prefinality_evaluate():
     return jsonify(data), 200
 
 
+@app.route("/demo/x402/agent-pay", methods=["GET", "POST"])
+def demo_x402_agent_pay():
+    """Agent attempts an autonomous payment; Gate evaluates and issues a receipt."""
+    try:
+        from gate import x402_agent_demo as agent_demo_mod
+    except ImportError:
+        import x402_agent_demo as agent_demo_mod  # type: ignore
+
+    if request.method == "GET":
+        return render_template(
+            "demo_x402_agent.html",
+            public_url=advertised_url(),
+            x402=x402_challenge_mod.payto_debug(),
+        )
+
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return rate_limited_response(msg)
+    body = request.get_json(silent=True) or {}
+    intent = agent_demo_mod.agent_intent(
+        agent_id=str(body.get("agent_id") or "demo-agent-01"),
+        amount_usdc=str(body.get("amount_usdc") or "0.25"),
+        destination=str(body.get("destination") or "0x0000000000000000000000000000000000000001"),
+        memo=str(body.get("memo") or "autonomous_checkout"),
+    )
+    # Prefer real payto; demo flag enables a marked demo receive address.
+    configured = x402_challenge_mod.payto_configured()
+    result = agent_demo_mod.evaluate_intent(intent, payto_configured=configured)
+    result["demo"] = True
+    result["health_x402"] = x402_challenge_mod.payto_debug()
+    result["next"] = {
+        "if_go": "Present Payment-Signature against POST /v1/prefinality/evaluate or GET /api/x402/wire",
+        "if_no_go": "Do not sign wallet — Gate halted the autonomous payment",
+        "challenge": f"{advertised_url()}/.well-known/x402.json",
+    }
+    status = 200 if result["decision"] == "GO" else 403
+    if (
+        configured
+        and result["decision"] == "GO"
+        and not x402_challenge_mod.payment_header_present(request.headers)
+    ):
+        result["x402_challenge"] = x402_challenge_mod.challenge_payload(
+            resource_url=f"{advertised_url()}/demo/x402/agent-pay",
+            description="Agent autonomous payment clearance receipt",
+        )
+    bound.attach(result, status, demo=True)
+    return jsonify(result), status
+
+
 @app.route("/v1/prefinality/evaluate", methods=["POST"])
 def prefinality_evaluate():
     body = request.get_json(silent=True) or {}
@@ -4018,7 +4078,7 @@ def operator_checkout():
         flash("Management checkout is not configured yet. Email us — weld requires management.", "error")
         return redirect(url_for("operator_page"))
 
-    # DTCC-style immovability for ops: avoid duplicate checkout submissions.
+    # Clearinghouse-style immovability for ops: avoid duplicate checkout submissions.
     idempotency_key = (request.form.get("idempotency_key") or request.headers.get("Idempotency-Key") or "").strip()[:128]
     request_fingerprint = None
     if idempotency_key:
@@ -4824,8 +4884,8 @@ def openapi_full():
                 "/demo/pas/bind-check": {"post": {"summary": "Public PAS BIND/BLOCK demo (no key)", "security": []}},
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
-                "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
-                "/diligence": {"get": {"summary": "Mouth / finality diligence — $2,500 deposit"}},
+                "/bind-room": {"get": {"summary": f"Officer pack + appendix + weld — {BIND_ROOM_PRICE_LABEL}"}},
+                "/diligence": {"get": {"summary": f"Mouth / finality diligence — {DILIGENCE_DEPOSIT_LABEL} deposit"}},
                 "/diligence/offer.json": {"get": {"summary": "Diligence offer machine-readable"}},
                 "/diligence/one-pager.txt": {"get": {"summary": "Diligence one-pager plaintext"}},
                 "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},
