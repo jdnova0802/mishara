@@ -10,6 +10,15 @@ Queued after PR #50 (nav/CTA SSOT + `/pattern`) and the Dim 13 settlement route 
 | 12 | Full HTML re-grep for jargon | CI lab-enum bans + live OpenAPI EXIST/NONEXIST/HOLD; stranger HTML free of DTCC/SWIFT/lab enums |
 | 19 | Timed human stranger test | See `docs/STRANGER_TEST_DIM19.md` — cold, no context, stopwatch |
 
+## Partial runs this agent turn (not a close)
+
+| Dim | Status | Note |
+|---|---|---|
+| 11 | Manifest crawl **OK 131 URLs** against live Gate (`gate/scripts/check_manifest_links.py`) | Full HTML `<a href>` stranger crawl still outstanding |
+| 12 | Gate `templates/*.html` grep: **0** DTCC/SWIFT/Fedwire hits | Full live HTML re-grep + OpenAPI EXIST vocabulary check still outstanding |
+| 8/16 | Not re-run | Need fresh Lighthouse JSON under `docs/cwv/` |
+| 19 | Protocol filed | Human timer not yet executed |
+
 ## Dim 13 evidence (route rename — already live)
 
 ```bash
