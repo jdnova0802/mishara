@@ -1,9 +1,23 @@
 """Dating manifests — list everywhere, weld one write path."""
 from __future__ import annotations
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 
 def listings_manifest(public_url: str, contact_email: str) -> dict:
     mcp = f"{public_url}/mcp"
+    bind_room_price = commerce_mod.price_label("bind_room")
+    weld_price = commerce_mod.price_label("operator_weld")
+    floor_price = commerce_mod.price_label("operator_floor")
+    flow_bps = commerce_mod.bps("operator_flow_bps")
+    flow_label = commerce_mod.price_label("operator_flow_bps")
+    hop_label = commerce_mod.fee_label("operator_hop")
+    carry = commerce_mod.fee("operator_carry")
+    carry_label = str(carry["price_label"])
+    carry_hurdle = str(carry.get("hurdle_label") or "")
     return {
         "spec": "gate-listings-v1",
         "rule": "Date all. Marry one write path.",
@@ -148,25 +162,25 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",
             "appendix": f"{public_url}/bind-room/appendix.schema.json",
-            "price": "$1,750",
+            "price": bind_room_price,
         },
         "register": {
             "page": f"{public_url}/register",
             "manifest": f"{public_url}/.well-known/register.json",
             "what": "Infrastructure on irreversible spend. Not SaaS.",
             "asset": "default x permission x welded mouths",
-            "cash": "max(floor, 10 bps of cleared, $0.10/hop)",
+            "cash": f"max(floor, {flow_bps} bps of cleared, {hop_label})",
             "checkout": f"{public_url}/operator",
         },
         "operator_invoice": {
             "page": f"{public_url}/operator",
             "manifest": f"{public_url}/.well-known/operator.json",
             "listing": f"{public_url}/listings/operator.json",
-            "weld": "$25,000",
-            "bps": 10,
+            "weld": weld_price,
+            "bps": flow_bps,
             "product": "default x permission x welded mouths",
-            "management": "$5,000/mo per welded write + per LIVE parent",
-            "flow": "10 bps + 5 bps carry above $500M/mo cleared",
+            "management": f"{floor_price} per welded write + per LIVE parent",
+            "flow": f"{flow_label} {carry_label} carry above {carry_hurdle}",
             "formula": "management + flow (fund-style register)",
             "one_write_per_weld": True,
             "licensed_only": True,

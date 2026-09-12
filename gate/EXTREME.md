@@ -20,7 +20,7 @@ Bind Room + PolicyCenter/MGA weld + no-PII contract are in this repo. **You stil
 - Particular: `/this` · name one, let it try. Demo hop without a job is still philosophizing. `tuesday_moved` is never claimed from Gate. Appendix is the dated instance.
 - Production capture: `/capture` · wrap **bind-only** (already Bound) not only bind-and-issue. UW type must BlocksBind. UI bind + auto-renewal remain other doors.
 - Spend protocol: `/scanner` · `/.well-known/spend-protocol.json` · ticket is bound to one write fingerprint. Worker hashes the request it forwards.
-- Bind Room: `/bind-room` · officer-pack.json · appendix.schema.json · Exhibit C HITL · `$1,750`
+- Bind Room: `/bind-room` · officer-pack.json · appendix.schema.json · Exhibit C HITL · price from `commerce/ladder.json` (`bind_room`)
 - No PII: PAS paths reject SSN / ACORD / named insured / ECDIS with `400 no_pii`
 - Contract: `/listings/control-not-model.json`
 - Bind-only Cloudflare worker: `/listings/cloudflare-worker-bind.js`
@@ -40,7 +40,7 @@ cd gate
 
 That script **fails** if you pass localhost. Then:
 
-1. Stripe: Pro `$99`, install `$2,500`, Bind Room `$1,750`, operator weld `$25,000` + floor `$5,000/mo` → `STRIPE_PRICE_ID`, `STRIPE_INSTALL_PRICE_ID`, `STRIPE_BIND_ROOM_PRICE_ID`, `STRIPE_WELD_PRICE_ID`, `STRIPE_FLOOR_PRICE_ID`
+1. Stripe: create prices matching `commerce/ladder.json` (Pro / install / Bind Room / weld / floor) → `STRIPE_PRICE_ID`, `STRIPE_INSTALL_PRICE_ID`, `STRIPE_BIND_ROOM_PRICE_ID`, `STRIPE_WELD_PRICE_ID`, `STRIPE_FLOOR_PRICE_ID` — do not retype dollars here
 2. `GATE_PUBLIC_URL` (or leave unset — Render hostname is used). Disk `/var/data`.
 3. Paste `https://YOUR_GATE/for/carriers` or `/bind-room` to **one** human
 4. Optional paperwork: Guidewire + Duck Creek packets (forms, not a weld)
