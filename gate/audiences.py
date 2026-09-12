@@ -147,7 +147,7 @@ PLATES: dict[str, dict] = {
         "subhead": "No AI literacy required. Clearance states with independent verify.",
         "pain": "Director asks: 'Can it still run?' You need an answer in 30 seconds.",
         "offer": "Public check · board-ready verify permalink",
-        "price": "Charge packs from $500",
+        "price": "$1,750 Bind Room",
         "cta_label": "Run public check",
         "cta_href": f"{VELARU_PUBLIC}/check",
         "secondary_label": "Trust limits",

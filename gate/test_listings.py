@@ -1856,6 +1856,60 @@ class OperatorInvoiceTests(unittest.TestCase):
             self.assertNotRegex(blob, r"(?i)^assessment$")
             if (plate.get("price") or "").strip().lower() == "assessment":
                 self.fail(f"{plate.get('slug')} still has Assessment as price")
+            self.assertNotIn("Charge packs from $500", blob)
+            self.assertNotRegex(blob, r"(?i)charge packs from \$500")
+
+        reg = self.client.get("/.well-known/register.json").get_json()
+        blob = json.dumps(reg)
+        self.assertIn("above $500M/mo", blob)
+        self.assertNotIn("above $500/mo", blob)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        for slug in (
+            "developers",
+            "agents",
+            "startups",
+            "operators",
+            "legal",
+            "compliance",
+            "carriers",
+            "brokers",
+            "enterprise",
+            "boards",
+            "defense",
+            "hiring",
+            "consumers",
+            "investors",
+        ):
+            self.assertIn(f"for_{slug}", gate, slug)
+            self.assertTrue(str(gate[f"for_{slug}"]).endswith(f"/for/{slug}"))
+
+        oa = self.client.get("/openapi.json").get_json()
+        paths = oa.get("paths") or {}
+        for p in (
+            "/v1/pas/bind-check",
+            "/v1/act",
+            "/v1/fuse/lookup",
+            "/v1/canary/bypass",
+            "/demo/pas/bind-check",
+        ):
+            self.assertIn(p, paths, p)
+        self.assertFalse((oa.get("x-discovery") or {}).get("x402_configured"))
+        pre = (paths.get("/v1/prefinality/evaluate") or {}).get("post") or {}
+        self.assertNotIn("x-payment-info", pre)
+
+        x402 = self.client.get("/.well-known/x402.json").get_json()
+        payment = x402.get("payment") or {}
+        self.assertFalse(payment.get("configured"))
+        self.assertIsNone(payment.get("prices"))
+        self.assertTrue(any("OFFLINE" in (r.get("description") or "") for r in x402.get("resources") or []))
+        boards = next(
+            (e for e in (self.client.get("/.well-known/opportunities.json").get_json() or {}).get("opportunities") or [] if e.get("slug") == "boards"),
+            None,
+        )
+        self.assertIsNotNone(boards)
+        self.assertNotIn("$500", boards.get("price") or "")
+        self.assertIn("1,750", boards.get("price") or "")
 
     def test_dev_checkout_weld_does_not_eat_install_slots(self):
         import db as gate_db
@@ -2784,8 +2838,21 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(r.status_code, 200)
         body = r.get_json()
         self.assertEqual(body.get("version"), 1)
-        resources = body.get("resources") or []
+        # Unconfigured host: do not advertise paid USDC resources.
+        self.assertFalse(body.get("x402_configured"))
+        self.assertEqual(body.get("resources") or [], [])
+        free = body.get("free_resources") or []
+        self.assertTrue(any("prefinality/evaluate" in u for u in free))
+        self.assertIn("Do not send USDC", body.get("instructions") or "")
+
+        payto = "0x00000000000000000000000000000000000000aa"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                live = self.client.get("/.well-known/x402").get_json()
+        self.assertTrue(live.get("x402_configured"))
+        resources = live.get("resources") or []
         self.assertTrue(any("prefinality/evaluate" in u for u in resources))
+        self.assertTrue(any("/api/x402/wire" in u for u in resources))
 
     def test_prefinality_evaluate_402_when_payto_configured(self):
         payto = "0x00000000000000000000000000000000000000aa"
@@ -2890,11 +2957,19 @@ class X402AuditWireTests(unittest.TestCase):
     def test_x402_fanout_lists_audit_and_wire(self):
         r = self.client.get("/.well-known/x402")
         body = r.get_json()
-        resources = body.get("resources") or []
-        self.assertTrue(any("/api/x402/wire" in u for u in resources))
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
+        self.assertFalse(body.get("x402_configured"))
+        self.assertEqual(body.get("resources") or [], [])
+
+        payto = "0x00000000000000000000000000000000000000bb"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                live = self.client.get("/.well-known/x402").get_json()
+        resources = live.get("resources") or []
+        self.assertTrue(any("/api/x402/wire" in u for u in resources))
+        self.assertTrue(live.get("x402_configured"))
 
 
 if __name__ == "__main__":

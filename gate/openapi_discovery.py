@@ -30,25 +30,72 @@ def _get(summary: str, *, description: str = "") -> dict:
 
 def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
     base = (public_url or "").rstrip("/")
+    x402_live = bool(payto)
+    if x402_live:
+        prefinal_post = {
+            "summary": "Pre-finality GO/NO-GO + signed JWT receipt",
+            "description": (
+                "Rail-agnostic clearance before irreversible commit. "
+                "Pay $0.002 USDC on Base via x402, or use Gate API key."
+            ),
+            "x-payment-info": {
+                "protocols": ["x402"],
+                "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
+            },
+            "responses": {
+                "200": {"description": "GO + signed receipt JWT"},
+                "402": {"description": "x402 USDC payment required on Base"},
+                "403": {"description": "NO_GO — fail closed"},
+            },
+        }
+        wire_get = {
+            "summary": "Paid x402 deploy wire bundle ($497 USDC)",
+            "description": (
+                "Instant delivery after USDC pay: Cloudflare worker, wrangler, "
+                "openapi pattern, bazaar listing checklist."
+            ),
+            "x-payment-info": {
+                "protocols": ["x402"],
+                "price": {"mode": "fixed", "currency": "USDC", "amount": "497.00"},
+            },
+            "responses": {
+                "200": {"description": "Paid wire bundle JSON"},
+                "402": {"description": "x402 USDC payment required on Base"},
+            },
+        }
+        x402_note = "x402 payto configured — USDC prices are live."
+    else:
+        prefinal_post = {
+            "summary": "Pre-finality GO/NO-GO + signed JWT receipt",
+            "description": (
+                "Rail-agnostic clearance before irreversible commit. "
+                "x402 USDC is NOT configured on this host — use Gate API key "
+                "or POST /demo/prefinality/evaluate. Do not send USDC."
+            ),
+            "responses": {
+                "200": {"description": "GO + signed receipt JWT"},
+                "401": {"description": "API key required when x402 offline"},
+                "403": {"description": "NO_GO — fail closed"},
+            },
+        }
+        wire_get = {
+            "summary": "x402 wire bundle (OFFLINE until payto configured)",
+            "description": (
+                "Paid $497 USDC wire is offline while GATE_X402_PAYTO is unset. "
+                "Use Stripe /pricing or wait for payto."
+            ),
+            "responses": {
+                "503": {"description": "x402 payto not configured"},
+                "402": {"description": "Would require x402 when configured"},
+            },
+        }
+        x402_note = (
+            "x402.configured is false until GATE_X402_PAYTO is set. "
+            "Paid USDC prices are not collectible; use API key or free demos."
+        )
+
     paths = {
-        "/v1/prefinality/evaluate": {
-            "post": {
-                "summary": "Pre-finality GO/NO-GO + signed JWT receipt",
-                "description": (
-                    "Rail-agnostic clearance before irreversible commit. "
-                    "Pay $0.002 USDC on Base via x402, or use Gate API key."
-                ),
-                "x-payment-info": {
-                    "protocols": ["x402"],
-                    "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
-                },
-                "responses": {
-                    "200": {"description": "GO + signed receipt JWT"},
-                    "402": {"description": "x402 USDC payment required on Base"},
-                    "403": {"description": "NO_GO — fail closed"},
-                },
-            }
-        },
+        "/v1/prefinality/evaluate": {"post": prefinal_post},
         "/demo/prefinality/evaluate": {
             "post": {
                 "summary": "Free pre-finality demo (no payment)",
@@ -56,23 +103,7 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
                 "responses": {"200": {"description": "Evaluate result"}},
             }
         },
-        "/api/x402/wire": {
-            "get": {
-                "summary": "Paid x402 deploy wire bundle ($497 USDC)",
-                "description": (
-                    "Instant delivery after USDC pay: Cloudflare worker, wrangler, "
-                    "openapi pattern, bazaar listing checklist."
-                ),
-                "x-payment-info": {
-                    "protocols": ["x402"],
-                    "price": {"mode": "fixed", "currency": "USDC", "amount": "497.00"},
-                },
-                "responses": {
-                    "200": {"description": "Paid wire bundle JSON"},
-                    "402": {"description": "x402 USDC payment required on Base"},
-                },
-            }
-        },
+        "/api/x402/wire": {"get": wire_get},
         # Law stack
         "/v1/right-to-act/evaluate": _post(
             "Right-to-Act evaluate",
@@ -111,6 +142,18 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
         "/demo/physical/evaluate": _post("Physical Prefinality demo"),
         "/v1/physical/verify": _post("Verify park ticket (meterable)"),
         "/v1/physical/parks": _get("List recent parks"),
+        # Fuse / PAS / act (also in openapi.full.json)
+        "/v1/fuse/lookup": _get("Fuse existence lookup", description="Metered. API key."),
+        "/v1/fuse/hop": _post("Pre-exec fuse hop — DEAD fails closed", paid=True),
+        "/v1/act": _post("Welded closed-world act — hop first, DEAD never acts", paid=True),
+        "/v1/pas/bind-check": _post("PAS bind ALLOW/BLOCK. fuse_id + job ids only.", paid=True),
+        "/v1/pas/bind-ticket/redeem": _post("Redeem PAS bind ticket", paid=True),
+        "/v1/pas/mga-authority": _post("MGA authority check", paid=True),
+        "/v1/pas/policycenter/pre-bind": _post("PolicyCenter pre-bind clearance", paid=True),
+        "/v1/canary/bypass": _post("Canary bypass probe", paid=True),
+        "/demo/act": _post("Public act demo (no key)"),
+        "/demo/hop": _post("Public hop demo (no key)"),
+        "/demo/pas/bind-check": _post("Public PAS BIND/BLOCK demo (no key)"),
         "/.well-known/gate.json": _get("Agent discovery manifest"),
         "/.well-known/physical-prefinality.json": _get("Physical Prefinality manifest"),
         "/.well-known/subject.json": _get("Subject Sovereignty manifest"),
@@ -125,10 +168,10 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
         "openapi": "3.1.0",
         "info": {
             "title": "Gate API",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "description": (
                 "Authority for consequence before irreversible writes. "
-                "Law stack + fuse hop + x402 payables. Fail closed under uncertainty."
+                "Law stack + fuse hop + PAS + x402 payables. Fail closed under uncertainty."
             ),
             "contact": {"email": contact_email, "url": base},
         },
@@ -138,10 +181,11 @@ def spec(public_url: str, *, contact_email: str, payto: str | None) -> dict:
             "gate": f"{base}/.well-known/gate.json",
             "prefinality": f"{base}/.well-known/prefinality.json",
             "physical_park_sku": "gate.physical.park",
+            "x402_configured": x402_live,
             "note": (
-                "openapi.json now includes law endpoints. "
-                "openapi.full.json remains the broader fuse/PAS catalog. "
-                "x402.configured may be false in /health until payto env is set."
+                "openapi.json includes law + fuse/PAS paths. "
+                "openapi.full.json remains the broader catalog. "
+                + x402_note
             ),
         },
         "components": {

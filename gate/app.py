@@ -286,7 +286,7 @@ except ImportError:
 
 load_dotenv()
 
-VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
+VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.xyz").rstrip("/")
 GATE_PUBLIC_URL = public_url_mod.resolve_public_url()
 GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
@@ -1408,10 +1408,20 @@ def well_known_gate():
             "live_page": f"{advertised_url()}/live",
             "opportunities": f"{advertised_url()}/.well-known/opportunities.json",
             "audiences_hub": f"{advertised_url()}/start",
+            "for_developers": f"{advertised_url()}/for/developers",
+            "for_agents": f"{advertised_url()}/for/agents",
+            "for_startups": f"{advertised_url()}/for/startups",
             "for_operators": f"{advertised_url()}/for/operators",
-            "for_carriers": f"{advertised_url()}/for/carriers",
-            "for_compliance": f"{advertised_url()}/for/compliance",
             "for_legal": f"{advertised_url()}/for/legal",
+            "for_compliance": f"{advertised_url()}/for/compliance",
+            "for_carriers": f"{advertised_url()}/for/carriers",
+            "for_brokers": f"{advertised_url()}/for/brokers",
+            "for_enterprise": f"{advertised_url()}/for/enterprise",
+            "for_boards": f"{advertised_url()}/for/boards",
+            "for_defense": f"{advertised_url()}/for/defense",
+            "for_hiring": f"{advertised_url()}/for/hiring",
+            "for_consumers": f"{advertised_url()}/for/consumers",
+            "for_investors": f"{advertised_url()}/for/investors",
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
@@ -1538,7 +1548,12 @@ def well_known_mcp():
 
 @app.route("/.well-known/x402.json")
 def well_known_x402():
-    return jsonify(listings_mod.x402_catalog(advertised_url()))
+    return jsonify(
+        listings_mod.x402_catalog(
+            advertised_url(),
+            payto_configured=x402_challenge_mod.payto_configured(),
+        )
+    )
 
 
 @app.route("/.well-known/x402")
@@ -4347,12 +4362,20 @@ def sitemap():
         "/bind-room",
         "/audit",
         "/start",
+        "/for/developers",
+        "/for/agents",
+        "/for/startups",
         "/for/operators",
-        "/for/carriers",
-        "/for/compliance",
-        "/for/defense",
         "/for/legal",
+        "/for/compliance",
+        "/for/carriers",
+        "/for/brokers",
         "/for/enterprise",
+        "/for/boards",
+        "/for/defense",
+        "/for/hiring",
+        "/for/consumers",
+        "/for/investors",
         "/admittance",
         "/physical",
         "/finder",
@@ -4453,6 +4476,11 @@ def openapi_full():
             "x-discovery": {
                 "ownershipProofs": [x402_challenge_mod.payto()] if x402_challenge_mod.payto() else [],
                 "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
+                "x402_configured": bool(x402_challenge_mod.payto()),
+                "note": (
+                    "Paid USDC prices apply only when x402_configured is true; "
+                    "otherwise use API key or free demos."
+                ),
             },
             "components": {
                 "securitySchemes": {
@@ -4512,12 +4540,22 @@ def openapi_full():
                         "summary": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
                         "description": (
                             "Rail-agnostic clearance before irreversible commit. "
-                            "Pay $0.002 USDC on Base via x402, or use Gate API key."
+                            + (
+                                "Pay $0.002 USDC on Base via x402, or use Gate API key."
+                                if x402_challenge_mod.payto()
+                                else "x402 USDC offline — use Gate API key or /demo/prefinality/evaluate."
+                            )
                         ),
-                        "x-payment-info": {
-                            "protocols": ["x402"],
-                            "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
-                        },
+                        **(
+                            {
+                                "x-payment-info": {
+                                    "protocols": ["x402"],
+                                    "price": {"mode": "fixed", "currency": "USDC", "amount": "0.002"},
+                                }
+                            }
+                            if x402_challenge_mod.payto()
+                            else {}
+                        ),
                         "requestBody": {
                             "required": True,
                             "content": {
