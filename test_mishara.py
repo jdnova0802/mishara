@@ -133,6 +133,19 @@ class MisharaProductsTest(unittest.TestCase):
         r = self.c.post("/demand-letter", json={"unlock_token": "nope", "description": "x" * 40})
         self.assertEqual(r.status_code, 402)
 
+    def test_denial_receipt_face(self):
+        r = self.c.get("/denial-receipt")
+        self.assertEqual(r.status_code, 200)
+        html = r.get_data(as_text=True)
+        self.assertIn("Denial Receipt", html)
+        self.assertIn("Free", html)
+        self.assertNotIn("DTCC", html)
+        self.assertNotIn("SWIFT", html)
+        sm = self.c.get("/sitemap.xml").get_data(as_text=True)
+        self.assertIn("/denial-receipt", sm)
+        llms = self.c.get("/llms.txt").get_data(as_text=True)
+        self.assertIn("denial-receipt", llms)
+
 
 if __name__ == "__main__":
     unittest.main()

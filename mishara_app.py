@@ -30,7 +30,22 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("MISHARA_SECRET_KEY", secrets.token_hex(24))
 
-VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
+
+@app.after_request
+def _security_headers(resp):
+    resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline'; "
+        "connect-src 'self' https:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    )
+    return resp
+
+VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.xyz").rstrip("/")
 VELARU_VERIFY = os.getenv("VELARU_VERIFY_URL", "https://velaru.xyz/verify").rstrip("/")
 DB_PATH = os.getenv("MISHARA_DB_PATH", os.path.join(os.path.dirname(__file__), "mishara.db"))
 PAYMENTS_MODE = (os.getenv("MISHARA_PAYMENTS") or "stripe").strip().lower()
@@ -38,20 +53,19 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "").strip()
 PUBLIC_BASE = os.getenv("MISHARA_PUBLIC_URL", "").rstrip("/")
 CONTACT_EMAIL = os.getenv("MISHARA_CONTACT_EMAIL", "hello@velaru.xyz")
 
-PRODUCTS = {
+# Copy/includes stay here; dollars resolve from gate/commerce/ladder.json (SSOT).
+_PRODUCT_COPY = {
     "harm_receipt": {
         "id": "harm_receipt",
+        "commerce_sku": "mishara_harm_receipt",
         "name": "Harm Receipt",
-        "price_cents": 0,
-        "price_label": "Free",
         "blurb": "Describe the denial. Get a Velaru-signed receipt and verify URL.",
         "includes": ["Velaru-signed receipt", "Stranger verify URL", "Plain-English next step"],
     },
     "demand_pack": {
         "id": "demand_pack",
+        "commerce_sku": "mishara_demand_pack",
         "name": "Demand Pack",
-        "price_cents": 9900,
-        "price_label": "$99",
         "blurb": "Receipt + rights map + demand letter you can send.",
         "includes": [
             "Everything in Harm Receipt",
@@ -61,9 +75,8 @@ PRODUCTS = {
     },
     "advocate_bundle": {
         "id": "advocate_bundle",
+        "commerce_sku": "mishara_advocate_bundle",
         "name": "Advocate Bundle",
-        "price_cents": 49900,
-        "price_label": "$499",
         "blurb": "Demand Pack plus pattern join and advocate export.",
         "includes": [
             "Everything in Demand Pack",
@@ -72,6 +85,37 @@ PRODUCTS = {
         ],
     },
 }
+
+
+def _commerce():
+    try:
+        from gate import commerce as commerce_mod
+
+        return commerce_mod
+    except ImportError:
+        import sys
+        from pathlib import Path
+
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "gate"))
+        import commerce as commerce_mod  # type: ignore
+
+        return commerce_mod
+
+
+def _products_from_ssot() -> dict[str, dict[str, Any]]:
+    c = _commerce()
+    out: dict[str, dict[str, Any]] = {}
+    for key, row in _PRODUCT_COPY.items():
+        sku = c.sku(row["commerce_sku"])
+        out[key] = {
+            **row,
+            "price_cents": int(sku.get("price_cents") or 0),
+            "price_label": str(sku["price_label"]),
+        }
+    return out
+
+
+PRODUCTS = _products_from_ssot()
 
 HARM_TYPES = {
     "hiring": {"label": "Hiring & Employment", "hint": "Application rejected, interview denied, wrongful termination", "velaru_domain": "hiring"},
@@ -778,6 +822,95 @@ def about():
     )
 
 
+@app.route("/denial-receipt")
+def denial_receipt():
+    try:
+        from gate import faces as faces_mod
+    except ImportError:
+        import faces as faces_mod  # type: ignore
+
+    face = faces_mod.face_by_id("denial_receipt", mishara_url=_public_base())
+    return render_template(
+        "mishara/denial_receipt.html",
+        face=face,
+        products=PRODUCTS,
+        velaru_verify=VELARU_VERIFY,
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/privacy")
+def privacy():
+    return render_template(
+        "mishara/legal.html",
+        title="Privacy",
+        description="How Mishara handles personal data for Harm Receipts and paid packs.",
+        contact_email=CONTACT_EMAIL,
+        support_sla="We respond to hello@velaru.xyz within one business day on business days (US Eastern).",
+        sections=[
+            {
+                "heading": "What we collect",
+                "paragraphs": [
+                    "Mishara is the human door after an AI decision already caused harm. We collect the minimum needed to issue a receipt and fulfill a paid pack.",
+                ],
+                "bullets": [
+                    "Your description of the incident, platform, approximate date, and harm type",
+                    "Email only when required for checkout, unlock, or pattern alerts",
+                    "Server logs (IP, user-agent, path, time) for abuse and uptime",
+                ],
+            },
+            {
+                "heading": "What we do not do",
+                "paragraphs": [],
+                "bullets": [
+                    "Sell personal data",
+                    "Claim Gate operator welds or Erra signal products",
+                    "Provide legal advice",
+                ],
+            },
+            {
+                "heading": "Contact",
+                "paragraphs": [
+                    "Operator: Nisaba LLC. Questions and deletion requests: hello@velaru.xyz. We respond within one business day on business days (US Eastern).",
+                ],
+                "bullets": [],
+            },
+        ],
+    )
+
+
+@app.route("/terms")
+def terms():
+    return render_template(
+        "mishara/legal.html",
+        title="Terms",
+        description="Terms for using Mishara Harm Receipt, Demand Pack, and Advocate Bundle.",
+        contact_email=CONTACT_EMAIL,
+        support_sla="We respond to hello@velaru.xyz within one business day on business days (US Eastern).",
+        sections=[
+            {
+                "heading": "Service",
+                "paragraphs": [
+                    "Mishara provides receipts and document packs after an AI decision already caused harm. It is not Gate, not Erra, and not legal advice.",
+                ],
+                "bullets": [
+                    "Harm Receipt is free",
+                    "Demand Pack and Advocate Bundle are paid one-time products",
+                    "Velaru powers stranger-verifiable receipts",
+                    "Operator of record: Nisaba LLC",
+                ],
+            },
+            {
+                "heading": "Support",
+                "paragraphs": [
+                    "Contact hello@velaru.xyz. We respond within one business day on business days (US Eastern).",
+                ],
+                "bullets": [],
+            },
+        ],
+    )
+
+
 @app.route("/products.json")
 def products_json():
     return jsonify(
@@ -790,6 +923,117 @@ def products_json():
             "their_production": False,
         }
     )
+
+
+def _public_base() -> str:
+    if PUBLIC_BASE:
+        return PUBLIC_BASE
+    return (request.url_root or "").rstrip("/")
+
+
+@app.route("/.well-known/mishara.json")
+def well_known_mishara():
+    base = _public_base()
+    return jsonify(
+        {
+            "name": "Mishara",
+            "firm": "Nisaba LLC",
+            "description": "Consumer door when an AI decision already hurt you. Powered by Velaru.",
+            "not": ["Gate", "Erra", "operator weld desk"],
+            "home": f"{base}/",
+            "about": f"{base}/about",
+            "denial_receipt": f"{base}/denial-receipt",
+            "privacy": f"{base}/privacy",
+            "terms": f"{base}/terms",
+            "products": f"{base}/products.json",
+            "health": f"{base}/health",
+            "llms": f"{base}/llms.txt",
+            "security_txt": f"{base}/.well-known/security.txt",
+            "engine": VELARU_BASE,
+            "verify": VELARU_VERIFY,
+            "contact": CONTACT_EMAIL,
+            "pricing": [
+                {"id": p["id"], "name": p["name"], "price_label": p["price_label"], "price_cents": p["price_cents"]}
+                for p in PRODUCTS.values()
+            ],
+            "their_production": False,
+        }
+    )
+
+
+@app.route("/llms.txt")
+def llms_txt():
+    base = _public_base()
+    lines = [
+        "# Mishara — Nisaba LLC",
+        "",
+        "> When an AI decision already hurt you. Velaru-signed receipts. Not Gate. Not an operator weld desk.",
+        "",
+        f"- Home: {base}/",
+        f"- About: {base}/about",
+        f"- Denial Receipt (Harm Receipt face): {base}/denial-receipt",
+        f"- Privacy: {base}/privacy",
+        f"- Terms: {base}/terms",
+        f"- Products: {base}/products.json",
+        f"- Discovery: {base}/.well-known/mishara.json",
+        f"- Health: {base}/health",
+        f"- Verify engine: {VELARU_VERIFY}",
+        f"- Contact: {CONTACT_EMAIL}",
+        "",
+        "## Public ladder (this brand only)",
+    ]
+    for p in PRODUCTS.values():
+        lines.append(f"- {p['name']}: {p['price_label']} — {p['blurb']}")
+    lines.extend(
+        [
+            "",
+            "Not Free/Pro seats. Not Gate Bind Room / operator weld pricing.",
+            f"Sibling brands: Velaru ({VELARU_BASE}) · Gate (clearance before irreversible write).",
+            "",
+        ]
+    )
+    return "\n".join(lines), 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    base = _public_base()
+    body = "\n".join(
+        [
+            "User-agent: *",
+            "Allow: /",
+            "Disallow: /unlock/",
+            "Disallow: /checkout",
+            f"Sitemap: {base}/sitemap.xml",
+            "",
+        ]
+    )
+    return body, 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    base = _public_base()
+    paths = [
+        "/",
+        "/about",
+        "/denial-receipt",
+        "/privacy",
+        "/terms",
+        "/products.json",
+        "/.well-known/mishara.json",
+        "/llms.txt",
+        "/health",
+    ]
+    urls = "".join(
+        f"<url><loc>{base}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+        f"{urls}</urlset>"
+    )
+    return xml, 200, {"Content-Type": "application/xml; charset=utf-8"}
 
 
 @app.route("/receipt/<receipt_hash>")
@@ -1061,6 +1305,62 @@ def join_pattern():
             (hash_email(email), normalize_platform(platform), domain, utc_now_iso()),
         )
     return jsonify({"ok": True, "message": "Joined. We will notify you if advocate or regulatory action moves."})
+
+
+
+@app.route("/.well-known/security.txt")
+@app.route("/security.txt")
+def security_txt():
+    base = _public_base()
+    body = "\n".join(
+        [
+            f"Contact: mailto:{CONTACT_EMAIL}",
+            "Expires: 2027-09-12T00:00:00.000Z",
+            "Preferred-Languages: en",
+            f"Canonical: {base}/.well-known/security.txt",
+            "Policy: Report suspected vulnerabilities to hello@velaru.xyz with subject Security. Do not request payment. We acknowledge within two business days.",
+            f"Acknowledgments: {base}/about",
+            "",
+        ]
+    )
+    return body, 200, {"Content-Type": "text/plain; charset=utf-8"}
+
+
+@app.errorhandler(404)
+def not_found(_err):
+    html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not found — Mishara</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{{--bg:#F3EEE4;--ink:#1A1714;--muted:#5C564E;--teal:#0A5C5F;--line:#E2D9CC}}
+body{{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);margin:0;padding:48px 20px}}
+main{{max-width:520px;margin:0 auto}}
+h1{{font-family:'Fraunces',Georgia,serif;color:var(--teal);font-size:2rem;margin:0 0 12px}}
+p{{color:var(--muted);line-height:1.6}}
+a{{color:var(--teal)}}
+nav a{{margin-right:14px}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Page not found</h1>
+  <p>That path is not a Mishara door. Harm receipts and demand packs start on the home page.</p>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </nav>
+  <p style="margin-top:28px;font-size:.9rem">Operator: Nisaba LLC · {CONTACT_EMAIL}</p>
+</main>
+</body>
+</html>"""
+    return html, 404
 
 
 init_db()

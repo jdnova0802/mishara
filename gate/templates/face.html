@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}{{ face.label }}{% endblock %}
+{% block og_title %}{{ face.label }} — {{ face.one_line }}{% endblock %}
+{% block tw_title %}{{ face.label }} — Gate{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ face.one_line }}">
+{% endblock %}
+{% block og_description %}{{ face.one_line }}{% endblock %}
+{% block tw_description %}{{ face.one_line }}{% endblock %}
+{% block content %}
+<div class="container section audience-page">
+  <a href="{{ url_for('faces_index') }}" class="back-link">← All faces</a>
+  <p class="audience-tag">{{ face.label }}{% if face.price_label %} · {{ face.price_label }}{% endif %}</p>
+  <h1>{{ face.question }}</h1>
+  <p class="audience-sub">{{ face.one_line }}</p>
+
+  <div class="card audience-offer">
+    {% if face.price_label %}
+    <div class="offer-price">{{ face.price_label }}</div>
+    {% endif %}
+    <p><strong>Who it’s for:</strong> {{ face.for_whom }}</p>
+    <p style="margin-top: 0.75rem;"><strong>What you get:</strong></p>
+    <ul style="margin: 0.5rem 0 0 1.1rem;">
+      {% for item in face.what_you_get %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    <p style="margin-top: 0.75rem; color: var(--muted);">
+      <strong>Proof:</strong>
+      {% if face.proof.method == 'POST' %}
+      <code class="inline">curl -s -X POST "{{ face.proof.url }}" -H "Content-Type: application/json" -d '{}'</code>
+      {% elif face.proof.url %}
+      <a href="{{ face.proof.url }}">{{ face.proof.label }}</a>
+      {% else %}
+      {{ face.proof.label }}
+      {% endif %}
+    </p>
+    <div class="hero-actions" style="margin-top: 1.5rem; justify-content: flex-start;">
+      <a href="{{ face.cta.url }}" class="btn btn-primary">{{ face.cta.label }}</a>
+      {% if face.secondary.url %}
+      <a href="{{ face.secondary.url }}" class="btn btn-ghost"{% if face.secondary.href %} target="_blank" rel="noopener"{% endif %}>{{ face.secondary.label }}</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <p style="margin-top: 1.5rem; color: var(--muted); font-size: 0.9rem;">
+    Same product as <a href="{{ face.canonical_product_url }}">{{ face.canonical_product_path }}</a> —
+    this page is the plain-language door. Ladder: <a href="{{ url_for('well_known_commerce') }}">commerce.json</a>.
+  </p>
+  <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--muted);">
+    Share: <code class="inline">{{ public_url }}{{ face.path }}</code>
+  </p>
+</div>
+{% endblock %}

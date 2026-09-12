@@ -12,7 +12,7 @@ import urllib.parse
 import urllib.request
 
 API = "https://api.render.com/v1"
-SERVICE_ID = os.getenv("RENDER_GATE_SERVICE_ID", "srv-d9romc2jnfac7385gn80")
+SERVICE_ID = os.getenv("RENDER_GATE_SERVICE_ID", "srv-dai3n0u1egvs73dbd94g")
 GATE_PUBLIC = os.getenv("GATE_PUBLIC_URL", "https://gate.velaru.xyz").rstrip("/")
 
 START = (
@@ -117,6 +117,11 @@ def main() -> None:
     )
 
     priv, pub = receipt_keys()
+    # Never invent receipt keys into production: if local env lacks them, skip overwrite.
+    have_receipts = bool(
+        os.getenv("GATE_RECEIPT_PRIVATE_KEY", "").strip()
+        and os.getenv("GATE_RECEIPT_PUBLIC_KEY", "").strip()
+    )
     fixed = {
         "PYTHON_VERSION": "3.13.0",
         "GATE_DB_PATH": "/var/data/gate.db",
@@ -134,11 +139,16 @@ def main() -> None:
         "GATE_CONTACT_EMAIL": "hello@velaru.xyz",
         "GATE_BIND_TICKET_TTL": "15",
         "GATE_PUBLIC_URL": GATE_PUBLIC,
-        "GATE_SECRET_KEY": os.getenv("GATE_SECRET_KEY") or secrets.token_hex(32),
-        "GATE_OPS_TOKEN": os.getenv("GATE_OPS_TOKEN") or secrets.token_hex(24),
-        "GATE_RECEIPT_PRIVATE_KEY": priv,
-        "GATE_RECEIPT_PUBLIC_KEY": pub,
     }
+    if os.getenv("GATE_SECRET_KEY", "").strip():
+        fixed["GATE_SECRET_KEY"] = os.environ["GATE_SECRET_KEY"].strip()
+    if os.getenv("GATE_OPS_TOKEN", "").strip():
+        fixed["GATE_OPS_TOKEN"] = os.environ["GATE_OPS_TOKEN"].strip()
+    if have_receipts:
+        fixed["GATE_RECEIPT_PRIVATE_KEY"] = priv
+        fixed["GATE_RECEIPT_PUBLIC_KEY"] = pub
+    else:
+        print("  skip GATE_RECEIPT_* (not in env — leaving Render values alone)")
     print("env vars")
     for k, v in fixed.items():
         set_env(SERVICE_ID, k, v)

@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% block title %}Finder — consequence index{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Finder indexes refusals, death certificates, typed sinks, and human continuity — a consequence index, not page search. Plain door: Find My Agents.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --f-ink: #0a1210;
+    --f-panel: #0f1a17;
+    --f-line: #1e332c;
+    --f-fog: #8aa399;
+    --f-paper: #e8f0ea;
+    --f-acid: #c6f54c;
+    --f-ember: #ff6b3d;
+    --f-serif: "Instrument Serif", Georgia, serif;
+    --f-display: "Syne", sans-serif;
+    --f-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  .finder-desk {
+    background:
+      radial-gradient(900px 480px at 12% -8%, #1a3a2888, transparent 55%),
+      radial-gradient(700px 420px at 92% 8%, #3a1a1288, transparent 50%),
+      linear-gradient(165deg, #07110e 0%, var(--f-ink) 42%, #050908 100%);
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    border-top: 1px solid var(--f-line);
+    color: var(--f-paper);
+  }
+  .finder-shell { max-width: 920px; margin: 0 auto; padding: 2.5rem 1.25rem 0; }
+  .finder-brand {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: clamp(3.2rem, 12vw, 6.2rem);
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    margin: 0 0 0.6rem;
+  }
+  .finder-brand em {
+    font-style: normal;
+    color: var(--f-acid);
+  }
+  .finder-thesis {
+    font-family: var(--f-serif);
+    font-size: clamp(1.25rem, 3.2vw, 1.75rem);
+    font-style: italic;
+    color: var(--f-fog);
+    max-width: 34rem;
+    margin: 0 0 1.75rem;
+    line-height: 1.35;
+  }
+  .finder-search {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .finder-search input,
+  .finder-search select {
+    font-family: var(--f-mono);
+    font-size: 0.92rem;
+    background: var(--f-panel);
+    border: 1px solid var(--f-line);
+    color: var(--f-paper);
+    padding: 0.85rem 1rem;
+    border-radius: 2px;
+  }
+  .finder-search input { flex: 1 1 16rem; min-width: 12rem; }
+  .finder-search input:focus,
+  .finder-search select:focus {
+    outline: 1px solid var(--f-acid);
+    border-color: var(--f-acid);
+  }
+  .finder-search button {
+    font-family: var(--f-display);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: var(--f-acid);
+    color: #0a1210;
+    border: 0;
+    padding: 0.85rem 1.35rem;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .finder-search button:hover { filter: brightness(1.06); }
+  .finder-meta {
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    color: var(--f-fog);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.75rem;
+  }
+  .finder-meta strong { color: var(--f-acid); font-weight: 500; }
+  .finder-results { display: flex; flex-direction: column; gap: 0.75rem; }
+  .finder-hit {
+    border-left: 3px solid var(--f-line);
+    padding: 0.85rem 1rem;
+    background: linear-gradient(90deg, #0f1a1788, transparent);
+    animation: finder-in 0.45s ease both;
+  }
+  .finder-hit[data-kind="refusal"] { border-color: var(--f-ember); }
+  .finder-hit[data-kind="death"] { border-color: #ff3d5a; }
+  .finder-hit[data-kind="sink"] { border-color: var(--f-acid); }
+  .finder-hit[data-kind="continuity"] { border-color: #5ec8ff; }
+  .finder-hit .kind {
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--f-fog);
+    margin-bottom: 0.35rem;
+  }
+  .finder-hit h2 {
+    font-family: var(--f-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.35rem;
+    letter-spacing: -0.02em;
+  }
+  .finder-hit p {
+    font-family: var(--f-serif);
+    font-size: 1.02rem;
+    color: var(--f-fog);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .finder-empty {
+    font-family: var(--f-serif);
+    font-style: italic;
+    color: var(--f-fog);
+    padding: 1.5rem 0;
+  }
+  .finder-foot {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--f-line);
+    font-family: var(--f-mono);
+    font-size: 0.72rem;
+    color: var(--f-fog);
+    line-height: 1.6;
+  }
+  .finder-foot a { color: var(--f-acid); }
+  @keyframes finder-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>
+
+<div class="finder-desk">
+  <div class="finder-shell">
+    <h1 class="finder-brand">Find<em>er</em></h1>
+    <p class="finder-thesis">{{ thesis or "Search authorities that can still act — refusals, death certificates, typed sinks." }}</p>
+
+    <form class="finder-search" id="finder-form" action="javascript:void(0)">
+      <input id="finder-q" type="search" placeholder="refusal · death · bank.rtp · incapacity…" autocomplete="off" autofocus>
+      <select id="finder-kind">
+        <option value="">all kinds</option>
+        <option value="refusal">refusal</option>
+        <option value="death">death</option>
+        <option value="sink">sink</option>
+        <option value="continuity">continuity</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+
+    <p class="finder-meta" id="finder-meta">
+      index <strong>{{ stats.total if stats else 0 }}</strong>
+      · sinks {{ (stats.by_kind.sink if stats and stats.by_kind else 0) }}
+      · refusals {{ (stats.by_kind.refusal if stats and stats.by_kind else 0) }}
+      · deaths {{ (stats.by_kind.death if stats and stats.by_kind else 0) }}
+      · continuity {{ (stats.by_kind.continuity if stats and stats.by_kind else 0) }}
+    </p>
+
+    <div class="finder-results" id="finder-results" aria-live="polite"></div>
+
+    <div class="finder-foot">
+      Google ranked documents by who linked to whom.<br>
+      Finder indexes whether an act may become real — and when that right is dead.<br>
+      <a href="{{ public_url }}/.well-known/finder.json">/.well-known/finder.json</a>
+      · <a href="{{ public_url }}/.well-known/sinks.json">sinks</a>
+      · <a href="{{ public_url }}/.well-known/continuity.json">continuity</a>
+      · <a href="{{ public_url }}/.well-known/mandate.json">mandate</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById("finder-form");
+  const qEl = document.getElementById("finder-q");
+  const kindEl = document.getElementById("finder-kind");
+  const out = document.getElementById("finder-results");
+  const meta = document.getElementById("finder-meta");
+  const base = {{ public_url|tojson }};
+
+  function render(data) {
+    const results = (data && data.results) || [];
+    meta.innerHTML = "hits <strong>" + results.length + "</strong> · q " + (data.q || "∅") +
+      (data.kind ? " · kind " + data.kind : "");
+    if (!results.length) {
+      out.innerHTML = '<p class="finder-empty">No consequence matches. The boom would have shrugged and returned pages.</p>';
+      return;
+    }
+    out.innerHTML = results.map(function (r, i) {
+      return (
+        '<article class="finder-hit" data-kind="' + (r.kind || "") + '" style="animation-delay:' + (i * 0.04) + 's">' +
+          '<div class="kind">' + (r.kind || "doc") + "</div>" +
+          "<h2>" + (r.title || r.id) + "</h2>" +
+          "<p>" + (r.summary || "") + "</p>" +
+        "</article>"
+      );
+    }).join("");
+  }
+
+  async function run() {
+    const q = qEl.value.trim();
+    const kind = kindEl.value;
+    const url = new URL(base + "/v1/finder/search");
+    if (q) url.searchParams.set("q", q);
+    if (kind) url.searchParams.set("kind", kind);
+    out.innerHTML = '<p class="finder-empty">Searching the consequence web…</p>';
+    try {
+      const res = await fetch(url.toString());
+      const data = await res.json();
+      render(data);
+    } catch (e) {
+      out.innerHTML = '<p class="finder-empty">Search failed closed.</p>';
+    }
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    run();
+  });
+  // Initial: show sinks (the typed consequence nouns).
+  kindEl.value = "sink";
+  run().then(function () { kindEl.value = ""; });
+})();
+</script>
+{% endblock %}
