@@ -15,10 +15,11 @@
 | Offer | https://gate.velaru.xyz/diligence/offer.json |
 | Verify | https://velaru.xyz/verify |
 | Reply token | `DEPOSIT` |
+| **SLOT_DEADLINE** | **Thu 17 Sep 2026 23:59 ET** — edit this cell only; D1/D3/D5 scarcity lines must match |
 
-**Rules:** no calls · no soft CTA · no bounty framing · no “hope you’re well” · scarcity must be real (you hold ≤2 review slots through the date you name) · D1/D3/D5 only on this list.
+**Rules:** no calls · no soft CTA · no bounty framing · no “hope you’re well” · scarcity must be real (you hold ≤2 review slots through SLOT_DEADLINE) · D1/D3/D5 only on this list.
 
-**Slot line (edit date once):** holding **2** diligence seats through **Wed 17 Sep 2026 23:59 ET** — then the list rolls.
+**Slot line (must match SLOT_DEADLINE):** holding **2** diligence seats through **Thu 17 Sep 2026 23:59 ET** — then the list rolls.
 
 ### THIS WAVE (send these)
 
@@ -80,7 +81,7 @@ Reply DEPOSIT or close the thread.
 ```
 Last note from me on this seat.
 
-Two diligence slots held through Wed 17 Sep 2026 23:59 ET.
+Two diligence slots held through Thu 17 Sep 2026 23:59 ET.
 After that I roll the list.
 
 https://gate.velaru.xyz/diligence
@@ -113,7 +114,7 @@ https://gate.velaru.xyz/diligence
 https://gate.velaru.xyz/diligence/one-pager.txt
 https://gate.velaru.xyz/diligence/offer.json
 
-Holding 2 seats through Wed 17 Sep 2026 23:59 ET.
+Holding 2 seats through Thu 17 Sep 2026 23:59 ET.
 Reply DEPOSIT — invoice same day — or pay the link.
 ```
 
