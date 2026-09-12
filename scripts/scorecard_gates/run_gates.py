@@ -295,21 +295,11 @@ def check_dim12(extra: list[Path] | None = None) -> int:
 
 
 def check_dim13_velaru_routes(velaru_root: Path) -> int:
-    """Dim 13 path floor for Velaru: no /dtcc or /api/v1/dtcc route registrations.
-
-    Full borrowed-cred term purge across Velaru modules/filenames is a follow-on.
-    This gate closes the silent-redirect loophole Claude called out.
-    """
+    """Dim 13 path floor for a local Velaru checkout (optional local/dev use)."""
     print(f"Dim 13 — Velaru /dtcc route absence ({velaru_root})")
     if not velaru_root.exists():
         print(f"FAIL Dim 13 Velaru routes: missing root {velaru_root}")
         return 1
-    route_pat = re.compile(
-        r"""@app\.route\(\s*['"][^'"]*(?:/api/v1/dtcc\b|/dtcc(?:/|['"]))""",
-        re.I,
-    )
-    # Also catch FastAPI-style and plain path string registrations.
-    path_lit = re.compile(r"""['"]/(?:api/v1/)?dtcc(?:/|['"?])""", re.I)
     hits: list[str] = []
     for path in sorted(velaru_root.rglob("*.py")):
         if any(part in SKIP_DIRS for part in path.parts):
@@ -317,15 +307,11 @@ def check_dim13_velaru_routes(velaru_root: Path) -> int:
         if path.name.startswith("test_") or path.name.endswith("_test.py"):
             continue
         text = path.read_text(encoding="utf-8", errors="replace")
-        if route_pat.search(text) or (
-            "route" in text.lower() and path_lit.search(text) and "@app.route" in text
-        ):
-            # Narrow: only flag lines that look like route registrations containing /dtcc
-            for i, line in enumerate(text.splitlines(), 1):
-                if "/dtcc" not in line.lower():
-                    continue
-                if "@app.route" in line or "@router." in line or ".add_url_rule" in line:
-                    hits.append(f"{path.relative_to(velaru_root)}:{i}: {line.strip()}")
+        for i, line in enumerate(text.splitlines(), 1):
+            if "/dtcc" not in line.lower():
+                continue
+            if "@app.route" in line or "@router." in line or ".add_url_rule" in line:
+                hits.append(f"{path.relative_to(velaru_root)}:{i}: {line.strip()}")
     if hits:
         print("FAIL Dim 13 Velaru routes still registered:")
         for h in hits[:40]:
@@ -335,8 +321,84 @@ def check_dim13_velaru_routes(velaru_root: Path) -> int:
     return 0
 
 
-def check_dim13(extra: list[Path] | None = None, *, velaru_routes_only: bool = False) -> int:
+# Production hosts that must not serve /dtcc (even as redirects).
+VELARU_LIVE_BASES = (
+    "https://velaru.xyz",
+    "https://velaru.onrender.com",
+)
+VELARU_DTCC_PATHS = (
+    "/dtcc",
+    "/foundry/dtcc",
+    "/api/v1/dtcc/events.json",
+    "/api/v1/dtcc/attest",
+    "/api/v1/dtcc/production/status.json",
+)
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: ANN001
+        return None
+
+
+_NO_REDIRECT = urllib.request.build_opener(_NoRedirect)
+
+
+def http_status_no_follow(url: str, method: str = "GET") -> int:
+    """Return status without following redirects — 302/308 still advertise the path."""
+    req = urllib.request.Request(
+        url, method=method, headers={"User-Agent": "nisaba-scorecard-gate/1"}
+    )
+    try:
+        with _NO_REDIRECT.open(req, timeout=20) as resp:
+            return int(resp.status)
+    except urllib.error.HTTPError as e:
+        return int(e.code)
+    except Exception as e:
+        print(f"ERR {method} {url}: {e}")
+        return -1
+
+
+def check_dim13_velaru_live(bases: tuple[str, ...] | None = None) -> int:
+    """Dim 13 Velaru path floor via live HTTP — no checkout token required.
+
+    Source ownership lives in Velaru CI (`scripts/dim13_dtcc_route_floor.py`).
+    This probe proves production actually returns 404 (not 302/308).
+    """
+    print("Dim 13 — Velaru live /dtcc path floor")
+    bad: list[str] = []
+    for base in bases or VELARU_LIVE_BASES:
+        for path in VELARU_DTCC_PATHS:
+            url = f"{base.rstrip('/')}{path}"
+            code = http_status_no_follow(url)
+            ok = code == 404
+            print(f"  {'OK' if ok else 'BAD'} {code:4}  {url}")
+            if not ok:
+                bad.append(f"{url} → {code} (need 404, not redirect/live)")
+        # POST-only legacy webhook must also be gone
+        post_url = f"{base.rstrip('/')}/api/v1/dtcc/production/webhook"
+        post_code = http_status_no_follow(post_url, "POST")
+        ok = post_code == 404
+        print(f"  {'OK' if ok else 'BAD'} {post_code:4}  POST {post_url}")
+        if not ok:
+            bad.append(f"POST {post_url} → {post_code}")
+    if bad:
+        print("FAIL Dim 13 Velaru live:")
+        for b in bad:
+            print(f"  {b}")
+        return 1
+    print("PASS Dim 13 Velaru live — all /dtcc paths 404")
+    return 0
+
+
+def check_dim13(
+    extra: list[Path] | None = None,
+    *,
+    velaru_routes_only: bool = False,
+    velaru_live: bool = False,
+) -> int:
     print("Dim 13 — borrowed credibility")
+    if velaru_live:
+        return check_dim13_velaru_live()
     if velaru_routes_only:
         if not extra:
             print("FAIL Dim 13: --velaru-routes-only requires --velaru-root")
@@ -437,7 +499,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--velaru-routes-only",
         action="store_true",
-        help="Dim 13: only assert Velaru has no /dtcc route registrations (path floor).",
+        help="Dim 13: local Velaru checkout route scan (dev only).",
+    )
+    ap.add_argument(
+        "--velaru-live",
+        action="store_true",
+        help="Dim 13: live HTTP path floor against velaru.xyz (no token).",
     )
     args = ap.parse_args(argv)
     extra = [args.velaru_root] if args.velaru_root else None
@@ -451,7 +518,11 @@ def main(argv: list[str] | None = None) -> int:
         elif d == 12:
             rc |= check_dim12(extra)
         elif d == 13:
-            rc |= check_dim13(extra, velaru_routes_only=args.velaru_routes_only)
+            rc |= check_dim13(
+                extra,
+                velaru_routes_only=args.velaru_routes_only,
+                velaru_live=args.velaru_live,
+            )
         else:
             rc |= check_dim14()
     return rc

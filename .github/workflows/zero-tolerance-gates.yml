@@ -45,30 +45,14 @@ jobs:
           GATE_PUBLIC_URL: https://gate.velaru.xyz
         run: python scripts/scorecard_gates/run_gates.py --dim 11 --live
 
-  # Dim 13 is closed for Gate/Mishara in `gates` above. It is NOT closed portfolio-wide
-  # until Velaru /dtcc paths are gone AND this scan runs. Token is required — not optional.
+  # No VELARU_GITHUB_TOKEN. Source floor is owned by Velaru CI; Mishara proves
+  # production /dtcc paths are actually gone (404, not 302/308 redirects).
   velaru-surface:
     runs-on: ubuntu-latest
     steps:
-      - name: Require VELARU_GITHUB_TOKEN
-        env:
-          TOKEN_PRESENT: ${{ secrets.VELARU_GITHUB_TOKEN != '' }}
-        run: |
-          if [ "$TOKEN_PRESENT" != "true" ]; then
-            echo "::error::Repo secret VELARU_GITHUB_TOKEN is unset. Dim 13 Velaru path scan is required (not a nice-to-have). Set it under Settings → Secrets → Actions, then re-run."
-            exit 1
-          fi
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: jdnova0802/velaru
-          token: ${{ secrets.VELARU_GITHUB_TOKEN }}
-          # Pin until drop-legacy-dtcc-routes lands on velaru main; then switch ref to main.
-          ref: cursor/drop-legacy-dtcc-routes-25ad
-          path: _velaru
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Dim 13 Velaru /dtcc route floor
-        run: |
-          python scripts/scorecard_gates/run_gates.py --dim 13 --velaru-root _velaru --velaru-routes-only
+      - name: Dim 13 Velaru live /dtcc path floor
+        run: python scripts/scorecard_gates/run_gates.py --dim 13 --velaru-live
