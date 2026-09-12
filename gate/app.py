@@ -1948,7 +1948,18 @@ def well_known_nisaba():
 @app.route("/outbound/HUSTLE_BOARD.md")
 def hustle_board():
     path = Path(__file__).resolve().parent / "outbound" / "HUSTLE_BOARD.md"
-    return path.read_text(encoding="utf-8"), 200, {"Content-Type": "text/markdown; charset=utf-8"}
+    text = path.read_text(encoding="utf-8")
+    # Placeholders keep the markdown file free of hand-typed ladder dollars.
+    for sku_id in (
+        "bind_room",
+        "diligence_deposit",
+        "refusal",
+        "operator_weld",
+        "operator_floor",
+        "operator_flow_bps",
+    ):
+        text = text.replace("{" + sku_id + "}", commerce_mod.price_label(sku_id))
+    return text, 200, {"Content-Type": "text/markdown; charset=utf-8"}
 
 
 @app.route("/.well-known/commerce.json")
@@ -4824,8 +4835,8 @@ def openapi_full():
                 "/demo/pas/bind-check": {"post": {"summary": "Public PAS BIND/BLOCK demo (no key)", "security": []}},
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
-                "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
-                "/diligence": {"get": {"summary": "Mouth / finality diligence — $2,500 deposit"}},
+                "/bind-room": {"get": {"summary": f"Officer pack + appendix + weld — {BIND_ROOM_PRICE_LABEL}"}},
+                "/diligence": {"get": {"summary": f"Mouth / finality diligence — {DILIGENCE_DEPOSIT_LABEL} deposit"}},
                 "/diligence/offer.json": {"get": {"summary": "Diligence offer machine-readable"}},
                 "/diligence/one-pager.txt": {"get": {"summary": "Diligence one-pager plaintext"}},
                 "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},

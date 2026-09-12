@@ -48,10 +48,8 @@ services:
         sync: false
       - key: STRIPE_FLOOR_PRICE_ID
         sync: false
-      - key: GATE_BIND_ROOM_PRICE_LABEL
-        value: "$1,750"
-      - key: GATE_BIND_ROOM_PRICE_CENTS
-        value: "175000"
+      # Public prices: gate/commerce/ladder.json only (app reads via commerce.py).
+      # Do not set GATE_*_PRICE_* here — that forks the ladder.
       - key: GATE_INSTALL_SLOTS
         value: "2"
       - key: GATE_CONTACT_EMAIL

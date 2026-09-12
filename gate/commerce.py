@@ -70,6 +70,17 @@ def bps(sku_id: str = "operator_flow_bps") -> int:
     return int(sku(sku_id).get("bps") or 0)
 
 
+def fee(row_id: str) -> dict[str, Any]:
+    row = (ladder().get("fee_schedule") or {}).get(row_id)
+    if not row:
+        raise KeyError(row_id)
+    return dict(row)
+
+
+def fee_label(row_id: str) -> str:
+    return str(fee(row_id)["price_label"])
+
+
 def legal_name() -> str:
     return str(entities()["legal_name"])
 
