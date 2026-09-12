@@ -77,6 +77,17 @@ class ZeroToleranceGateTests(unittest.TestCase):
         proc = _run("--prove-fail", "13")
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
 
+    def test_dim13_velaru_live_prove_fail(self):
+        """Live probe must fail loud on unreachable + 308 — not silently pass."""
+        proc = _run("--prove-fail-velaru-live")
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        gates = _load_runner()
+        self.assertEqual(
+            gates.check_dim13_velaru_live(bases=("https://127.0.0.1:1",)),
+            1,
+            "unreachable host must fail Dim 13 live probe",
+        )
+
     def test_dim14_prove_fail(self):
         proc = _run("--prove-fail", "14")
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)

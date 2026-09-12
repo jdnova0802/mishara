@@ -490,10 +490,65 @@ def prove_fail(dim: int) -> int:
     return 1
 
 
+def prove_fail_velaru_live() -> int:
+    """Prove the live /dtcc probe fails loud on unreachable + non-404 responses.
+
+    Live-network checks introduce an edge repo-scans don't: a hung/unreachable
+    host must not silently pass. Same bar as Dim 11–14 prove-fail.
+    """
+    import threading
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+    print("PROVE-FAIL Dim 13 Velaru live")
+
+    # 1) Unreachable — connection error must FAIL (not skip/pass).
+    unreachable_rc = check_dim13_velaru_live(bases=("https://127.0.0.1:1",))
+    if unreachable_rc == 0:
+        print("PROVE-FAIL Velaru live inert: unreachable host silently passed")
+        return 1
+    print("PROVE-FAIL Velaru live — unreachable fails loud OK")
+
+    # 2) Reachable but wrong — silent 308 redirect must FAIL (not count as gone).
+    class _LegacyRedirect(BaseHTTPRequestHandler):
+        def log_message(self, fmt: str, *args) -> None:  # noqa: A003
+            return
+
+        def do_GET(self) -> None:  # noqa: N802
+            self.send_response(308)
+            self.send_header("Location", "/api/v1/settlement/attest")
+            self.end_headers()
+
+        def do_POST(self) -> None:  # noqa: N802
+            self.send_response(308)
+            self.send_header("Location", "/api/v1/settlement/production/webhook")
+            self.end_headers()
+
+    server = ThreadingHTTPServer(("127.0.0.1", 0), _LegacyRedirect)
+    port = server.server_address[1]
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        redirect_rc = check_dim13_velaru_live(bases=(f"http://127.0.0.1:{port}",))
+    finally:
+        server.shutdown()
+        server.server_close()
+    if redirect_rc == 0:
+        print("PROVE-FAIL Velaru live inert: 308 redirect silently passed")
+        return 1
+    print("PROVE-FAIL Velaru live — non-404/308 fails loud OK")
+    print("PROVE-FAIL Dim 13 Velaru live OK")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dim", type=int, choices=(11, 12, 13, 14))
     ap.add_argument("--prove-fail", type=int, choices=(11, 12, 13, 14), dest="prove")
+    ap.add_argument(
+        "--prove-fail-velaru-live",
+        action="store_true",
+        help="Prove Dim 13 live probe fails on unreachable + non-404 (308) hosts.",
+    )
     ap.add_argument("--live", action="store_true")
     ap.add_argument("--velaru-root", type=Path)
     ap.add_argument(
@@ -508,6 +563,8 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = ap.parse_args(argv)
     extra = [args.velaru_root] if args.velaru_root else None
+    if args.prove_fail_velaru_live:
+        return prove_fail_velaru_live()
     if args.prove:
         return prove_fail(args.prove)
     dims = (args.dim,) if args.dim else (11, 12, 13, 14)

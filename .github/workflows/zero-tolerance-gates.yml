@@ -54,5 +54,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Dim 13 Velaru live /dtcc path floor
-        run: python scripts/scorecard_gates/run_gates.py --dim 13 --velaru-live
+      - name: Dim 13 Velaru live /dtcc path floor + prove-fail
+        run: |
+          python scripts/scorecard_gates/run_gates.py --dim 13 --velaru-live
+          python scripts/scorecard_gates/run_gates.py --prove-fail-velaru-live
