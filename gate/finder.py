@@ -1,11 +1,4 @@
-"""Finder — the Google that never happened.
-
-Google indexed documents by link authority.
-Finder indexes consequence: refusals, deaths, sinks, continuity —
-whether an act may become real, was denied existence, or is dead.
-
-The boom searched for pages. This searches for authority and its absence.
-"""
+"""Finder — consequence index. Public door: Find My Agents (/find-my-agents)."""
 from __future__ import annotations
 
 import re
@@ -301,10 +294,10 @@ def search(
         "count": len(results),
         "results": results,
         "thesis": (
-            "Google indexed documents by who linked to whom. "
-            "Finder indexes whether an act may become real — and when that right is dead."
+            "Finder indexes whether an act may become real — and when that right is dead. "
+            "Public door: Find My Agents."
         ),
-        "invariant": "The boom searched for pages. This searches for authority and its absence.",
+        "invariant": "Search authority and its absence — not pages.",
     }
 
 
@@ -328,7 +321,7 @@ def stats() -> dict:
         "spec": SPEC,
         "total": total,
         "by_kind": counts,
-        "thesis": "The Google that never happened — an index of consequence, not pages.",
+        "thesis": "Consequence index — refusals, death certificates, typed sinks. Not page search.",
     }
 
 
@@ -337,13 +330,13 @@ def manifest(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Gate Finder",
-        "tagline": "The Google that never happened",
+        "tagline": "Find authorities that can still act",
         "description": (
             "Search refusals, death certificates, typed sinks, and human continuity. "
-            "Not pages — whether an act may become real."
+            "Not pages — whether an act may become real. Public door: /find-my-agents."
         ),
         "invariant": (
-            "Google ranked documents by link authority. "
+            ""
             "Finder ranks consequence by living authority and its absence."
         ),
         "kinds": list(KINDS),

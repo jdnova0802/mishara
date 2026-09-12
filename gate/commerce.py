@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent / "commerce"
 @lru_cache(maxsize=1)
 def _load() -> dict[str, Any]:
     out: dict[str, Any] = {}
-    for name in ("ladder", "doctrine", "entities", "hosts"):
+    for name in ("ladder", "doctrine", "entities", "hosts", "faces"):
         path = ROOT / f"{name}.json"
         with path.open(encoding="utf-8") as f:
             out[name] = json.load(f)
@@ -41,6 +41,10 @@ def entities() -> dict[str, Any]:
 
 def hosts() -> dict[str, Any]:
     return _load()["hosts"]
+
+
+def faces_raw() -> dict[str, Any]:
+    return _load()["faces"]
 
 
 def sku(sku_id: str) -> dict[str, Any]:
@@ -126,6 +130,8 @@ def manifest(public_url: str = "") -> dict[str, Any]:
         "links": {
             "json": f"{base}/.well-known/commerce.json" if base else None,
             "ladder": f"{base}/pricing" if base else None,
+            "faces": f"{base}/.well-known/faces.json" if base else None,
+            "faces_index": f"{base}/faces" if base else None,
             "security_txt": f"{base}/.well-known/security.txt" if base else None,
         },
     }

@@ -330,6 +330,11 @@ try:
 except ImportError:
     import commerce as commerce_mod  # type: ignore
 
+try:
+    from gate import faces as faces_mod
+except ImportError:
+    import faces as faces_mod  # type: ignore
+
 BIND_ROOM_PRICE_LABEL = os.getenv(
     "GATE_BIND_ROOM_PRICE_LABEL", commerce_mod.price_label("bind_room")
 )
@@ -1493,6 +1498,11 @@ def well_known_gate():
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
+            "faces": f"{advertised_url()}/faces",
+            "faces_manifest": f"{advertised_url()}/.well-known/faces.json",
+            "boss_receipt": f"{advertised_url()}/boss-receipt",
+            "find_my_agents": f"{advertised_url()}/find-my-agents",
+            "renewal_packet": f"{advertised_url()}/renewal-packet",
             "operator": f"{advertised_url()}/operator",
             "register": f"{advertised_url()}/register",
             "register_manifest": f"{advertised_url()}/.well-known/register.json",
@@ -1928,6 +1938,32 @@ def well_known_nisaba():
 @app.route("/.well-known/commerce.json")
 def well_known_commerce():
     return jsonify(commerce_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/faces.json")
+def well_known_faces():
+    return jsonify(faces_mod.manifest(public_url=advertised_url()))
+
+
+@app.route("/faces")
+def faces_index():
+    return render_template(
+        "faces.html",
+        faces=faces_mod.all_faces(public_url=advertised_url()),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/boss-receipt")
+@app.route("/find-my-agents")
+@app.route("/renewal-packet")
+def gate_face_page():
+    face = faces_mod.face_by_path(request.path, public_url=advertised_url())
+    return render_template(
+        "face.html",
+        face=face,
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/.well-known/security.txt")
@@ -4457,6 +4493,12 @@ def sitemap():
         "/privacy",
         "/terms",
         "/bind-room",
+        "/faces",
+        "/boss-receipt",
+        "/find-my-agents",
+        "/renewal-packet",
+        "/.well-known/faces.json",
+        "/.well-known/commerce.json",
         "/audit",
         "/start",
         "/for/developers",
@@ -4515,8 +4557,13 @@ def llms_txt():
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
         f"- Bind Room: {advertised_url()}/bind-room",
+        f"- Faces (plain-language doors): {advertised_url()}/faces · {advertised_url()}/.well-known/faces.json",
+        f"- Boss Receipt: {advertised_url()}/boss-receipt",
+        f"- Find My Agents: {advertised_url()}/find-my-agents",
+        f"- Renewal Packet: {advertised_url()}/renewal-packet",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
+        f"- Commerce SSOT: {advertised_url()}/.well-known/commerce.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- OpenAPI (full): {advertised_url()}/openapi.full.json",
         f"- Verify: https://velaru.xyz/verify",
@@ -4531,7 +4578,12 @@ def llms_txt():
         f"- Subject: {advertised_url()}/subject · {advertised_url()}/.well-known/subject.json",
         f"- Physical Prefinality / Park: {advertised_url()}/physical · {advertised_url()}/.well-known/physical-prefinality.json",
         "",
-        "Public cash ladder: Bind Room $1,750 → Operator weld $25,000 + $5,000/mo management + 10 bps on cleared flow.",
+        (
+            f"Public cash ladder: Bind Room {commerce_mod.price_label('bind_room')} → "
+            f"Operator weld {commerce_mod.price_label('operator_weld')} + "
+            f"{commerce_mod.price_label('operator_floor')} management + "
+            f"{commerce_mod.price_label('operator_flow_bps')} on cleared flow."
+        ),
         "No assessment SKU. Not Free/Pro seats. their_production stays false until a recorded third-party production weld.",
         "",
         "## Audience doors",

@@ -53,20 +53,19 @@ STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "").strip()
 PUBLIC_BASE = os.getenv("MISHARA_PUBLIC_URL", "").rstrip("/")
 CONTACT_EMAIL = os.getenv("MISHARA_CONTACT_EMAIL", "hello@velaru.xyz")
 
-PRODUCTS = {
+# Copy/includes stay here; dollars resolve from gate/commerce/ladder.json (SSOT).
+_PRODUCT_COPY = {
     "harm_receipt": {
         "id": "harm_receipt",
+        "commerce_sku": "mishara_harm_receipt",
         "name": "Harm Receipt",
-        "price_cents": 0,
-        "price_label": "Free",
         "blurb": "Describe the denial. Get a Velaru-signed receipt and verify URL.",
         "includes": ["Velaru-signed receipt", "Stranger verify URL", "Plain-English next step"],
     },
     "demand_pack": {
         "id": "demand_pack",
+        "commerce_sku": "mishara_demand_pack",
         "name": "Demand Pack",
-        "price_cents": 9900,
-        "price_label": "$99",
         "blurb": "Receipt + rights map + demand letter you can send.",
         "includes": [
             "Everything in Harm Receipt",
@@ -76,9 +75,8 @@ PRODUCTS = {
     },
     "advocate_bundle": {
         "id": "advocate_bundle",
+        "commerce_sku": "mishara_advocate_bundle",
         "name": "Advocate Bundle",
-        "price_cents": 49900,
-        "price_label": "$499",
         "blurb": "Demand Pack plus pattern join and advocate export.",
         "includes": [
             "Everything in Demand Pack",
@@ -87,6 +85,37 @@ PRODUCTS = {
         ],
     },
 }
+
+
+def _commerce():
+    try:
+        from gate import commerce as commerce_mod
+
+        return commerce_mod
+    except ImportError:
+        import sys
+        from pathlib import Path
+
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "gate"))
+        import commerce as commerce_mod  # type: ignore
+
+        return commerce_mod
+
+
+def _products_from_ssot() -> dict[str, dict[str, Any]]:
+    c = _commerce()
+    out: dict[str, dict[str, Any]] = {}
+    for key, row in _PRODUCT_COPY.items():
+        sku = c.sku(row["commerce_sku"])
+        out[key] = {
+            **row,
+            "price_cents": int(sku.get("price_cents") or 0),
+            "price_label": str(sku["price_label"]),
+        }
+    return out
+
+
+PRODUCTS = _products_from_ssot()
 
 HARM_TYPES = {
     "hiring": {"label": "Hiring & Employment", "hint": "Application rejected, interview denied, wrongful termination", "velaru_domain": "hiring"},
@@ -793,6 +822,23 @@ def about():
     )
 
 
+@app.route("/denial-receipt")
+def denial_receipt():
+    try:
+        from gate import faces as faces_mod
+    except ImportError:
+        import faces as faces_mod  # type: ignore
+
+    face = faces_mod.face_by_id("denial_receipt", mishara_url=_public_base())
+    return render_template(
+        "mishara/denial_receipt.html",
+        face=face,
+        products=PRODUCTS,
+        velaru_verify=VELARU_VERIFY,
+        contact_email=CONTACT_EMAIL,
+    )
+
+
 @app.route("/privacy")
 def privacy():
     return render_template(
@@ -896,14 +942,13 @@ def well_known_mishara():
             "not": ["Gate", "Erra", "operator weld desk"],
             "home": f"{base}/",
             "about": f"{base}/about",
+            "denial_receipt": f"{base}/denial-receipt",
             "privacy": f"{base}/privacy",
             "terms": f"{base}/terms",
             "products": f"{base}/products.json",
             "health": f"{base}/health",
             "llms": f"{base}/llms.txt",
             "security_txt": f"{base}/.well-known/security.txt",
-            "privacy": f"{base}/privacy",
-            "terms": f"{base}/terms",
             "engine": VELARU_BASE,
             "verify": VELARU_VERIFY,
             "contact": CONTACT_EMAIL,
@@ -926,6 +971,7 @@ def llms_txt():
         "",
         f"- Home: {base}/",
         f"- About: {base}/about",
+        f"- Denial Receipt (Harm Receipt face): {base}/denial-receipt",
         f"- Privacy: {base}/privacy",
         f"- Terms: {base}/terms",
         f"- Products: {base}/products.json",
@@ -968,7 +1014,17 @@ def robots_txt():
 @app.route("/sitemap.xml")
 def sitemap_xml():
     base = _public_base()
-    paths = ["/", "/about", "/privacy", "/terms", "/products.json", "/.well-known/mishara.json", "/llms.txt", "/health"]
+    paths = [
+        "/",
+        "/about",
+        "/denial-receipt",
+        "/privacy",
+        "/terms",
+        "/products.json",
+        "/.well-known/mishara.json",
+        "/llms.txt",
+        "/health",
+    ]
     urls = "".join(
         f"<url><loc>{base}{p}</loc><changefreq>weekly</changefreq></url>" for p in paths
     )

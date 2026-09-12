@@ -1,14 +1,19 @@
 # Nisaba — Flawless Scorecard
 
 **Run date:** 2026-09-12 (UTC)  
-**Branch:** `cursor/right-to-act-no-go-c1dd`  
-**Gate live commit (Render `gate-api`):** tracks this branch (auto-deploy)  
-**Mishara live:** `mishara.onrender.com` retargeted to this branch @ institutional ship + follow-ups  
+**Branch:** `cursor/chewable-faces-25ad` (faces ship on top of institutional Gate/Mishara baseline)  
+**Prior audit branch:** `cursor/right-to-act-no-go-c1dd`  
+**Gate live commit (Render `gate-api`):** tracks deploy branch (auto-deploy)  
+**Mishara live:** `mishara.onrender.com`  
 **Surfaces:** `https://gate.velaru.xyz`, `https://mishara.onrender.com`, `https://velaru.xyz`, `https://erra-jf6a.onrender.com`
 
 **Legend:** PASS · PARTIAL · FAIL · BLOCKED (needs `jdnova0802/velaru` access)
 
-**Honest roll-up:** Gate + Mishara institutional dims are PASS with live evidence below. **Velaru / Erra dims remain BLOCKED/FAIL** until desktop or `VELARU_GITHUB_TOKEN` can edit the private Velaru repo. Priority queue is Velaru-only.
+**Honest roll-up:** Gate + Mishara institutional dims remain PASS. **This pass adds chewable faces** (Boss Receipt, Find My Agents, Renewal Packet, Denial Receipt) as display doors on existing SKUs — prices from `gate/commerce/` SSOT only; discovery wired (`/faces`, `/.well-known/faces.json`, sitemap, llms). **Velaru / Erra dims remain BLOCKED/FAIL** until desktop or `VELARU_GITHUB_TOKEN` can edit the private Velaru repo.
+**Diff vs prior institutional run:** NEW — Boss Receipt, Find My Agents, Renewal Packet, Denial Receipt as display doors on existing SKUs (`gate/commerce/faces.json` SSOT). Discovery: `/faces`, `/.well-known/faces.json`, sitemap, llms. Mishara `/denial-receipt`. Finder public copy scrubbed of lab “Google that never happened” voice. Prices never hand-typed — ladder only.
+
+
+**Diff vs prior run:** NEW — faces SSOT + Gate pages + Mishara `/denial-receipt`; Finder public copy scrubbed of lab “Google that never happened” voice. Unchanged fails: Velaru Instant DTCC / pricing fork / privacy·terms / Erra health.
 
 ---
 
