@@ -1,0 +1,64 @@
+name: Zero-tolerance scorecard gates
+
+on:
+  push:
+    paths:
+      - "gate/**"
+      - "mishara_app.py"
+      - "templates/**"
+      - "docs/scorecard/**"
+      - "scripts/scorecard_gates/**"
+      - ".github/workflows/zero-tolerance-gates.yml"
+  pull_request:
+    paths:
+      - "gate/**"
+      - "mishara_app.py"
+      - "templates/**"
+      - "docs/scorecard/**"
+      - "scripts/scorecard_gates/**"
+      - ".github/workflows/zero-tolerance-gates.yml"
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install flask python-dotenv stripe bcrypt requests pytest
+      - name: Dims 11–14 (offline + prove-fail)
+        env:
+          GATE_DEV_MODE: "1"
+        run: |
+          python scripts/scorecard_gates/run_gates.py
+          python scripts/scorecard_gates/run_gates.py --prove-fail 11
+          python scripts/scorecard_gates/run_gates.py --prove-fail 12
+          python scripts/scorecard_gates/run_gates.py --prove-fail 13
+          python scripts/scorecard_gates/run_gates.py --prove-fail 14
+          python -m pytest gate/test_zero_tolerance_gates.py -q
+      - name: Dim 11 live crawl (main or live-crawl label)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'live-crawl')
+        env:
+          GATE_PUBLIC_URL: https://gate.velaru.xyz
+        run: python scripts/scorecard_gates/run_gates.py --dim 11 --live
+
+  velaru-surface:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.VELARU_GITHUB_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: jdnova0802/velaru
+          token: ${{ secrets.VELARU_GITHUB_TOKEN }}
+          path: _velaru
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dim 12/13 against Velaru checkout
+        run: |
+          python scripts/scorecard_gates/run_gates.py --dim 12 --velaru-root _velaru
+          python scripts/scorecard_gates/run_gates.py --dim 13 --velaru-root _velaru

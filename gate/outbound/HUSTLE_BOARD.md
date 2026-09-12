@@ -1,6 +1,6 @@
 # Hustle board — cash doors only
 
-**Flawless constraints:** SSOT prices from `gate/commerce/ladder.json` (placeholders `{sku_id}` filled at serve time by `GET /outbound/HUSTLE_BOARD.md`). No DTCC/SWIFT proximity. No invented mid-ladder Gate SKUs. Institutional tone. Standing is not cold.
+**Flawless constraints:** SSOT prices from `gate/commerce/ladder.json` (placeholders `{sku_id}` filled at serve time by `GET /outbound/HUSTLE_BOARD.md`). No borrowed clearinghouse or messaging-network proximity. No invented mid-ladder Gate SKUs. Institutional tone. Standing is not cold.
 
 Updated: 2026-09-12 · branch `cursor/price-ssot-purge-25ad`
 
