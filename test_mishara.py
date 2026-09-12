@@ -147,5 +147,93 @@ class MisharaProductsTest(unittest.TestCase):
         self.assertIn("denial-receipt", llms)
 
 
+
+    def test_paid_query_param_does_not_unlock_without_stripe(self):
+        """Live vulnerability regression: ?paid=1 must not mark stripe unlocks paid."""
+        receipt = self._submit().get_json()["receipt"]
+        token = app.mint_unlock_token(receipt["hash"], "demand_pack")
+        app.store_unlock(
+            token,
+            receipt["hash"],
+            "demand_pack",
+            "checkout_open",
+            stripe_session_id="cs_test_fake_session_001",
+        )
+        app.PAYMENTS_MODE = "stripe"
+        app.STRIPE_SECRET_KEY = "sk_test_dummy"
+        page = self.c.get(f"/unlock/{token}?paid=1")
+        self.assertEqual(page.status_code, 200)
+        self.assertNotIn("Generate deliverable", page.get_data(as_text=True))
+        self.assertEqual(app.get_unlock(token)["status"], "checkout_open")
+        blocked = self.c.post(
+            f"/unlock/{token}",
+            json={"description": "Automated tenant screening denied my rental with no adverse action notice."},
+            headers={"Accept": "application/json"},
+        )
+        body = blocked.get_json(silent=True) or {}
+        self.assertNotIn("letter", body)
+
+    def test_stripe_session_id_unlocks_only_when_paid(self):
+        receipt = self._submit().get_json()["receipt"]
+        token = app.mint_unlock_token(receipt["hash"], "demand_pack")
+        app.store_unlock(
+            token,
+            receipt["hash"],
+            "demand_pack",
+            "checkout_open",
+            stripe_session_id="cs_test_real_session_001",
+        )
+        app.PAYMENTS_MODE = "stripe"
+        app.STRIPE_SECRET_KEY = "sk_test_dummy"
+        unpaid = {
+            "id": "cs_test_real_session_001",
+            "payment_status": "unpaid",
+            "metadata": {"unlock_token": token, "product_id": "demand_pack", "receipt_hash": receipt["hash"]},
+            "client_reference_id": token,
+        }
+        with mock.patch.object(app, "fetch_stripe_checkout_session", return_value=unpaid):
+            self.c.get(f"/unlock/{token}?session_id=cs_test_real_session_001")
+            self.assertEqual(app.get_unlock(token)["status"], "checkout_open")
+        paid = {
+            "id": "cs_test_real_session_001",
+            "payment_status": "paid",
+            "metadata": {"unlock_token": token, "product_id": "demand_pack", "receipt_hash": receipt["hash"]},
+            "client_reference_id": token,
+        }
+        with mock.patch.object(app, "fetch_stripe_checkout_session", return_value=paid):
+            with mock.patch.object(app, "generate_demand_letter", return_value="DEMAND LETTER"):
+                self.c.get(f"/unlock/{token}?session_id=cs_test_real_session_001")
+                self.assertEqual(app.get_unlock(token)["status"], "paid")
+                fulfilled = self.c.post(
+                    f"/unlock/{token}",
+                    json={"description": "Automated tenant screening denied my rental with no adverse action notice."},
+                    headers={"Accept": "application/json"},
+                )
+                self.assertEqual(fulfilled.status_code, 200, fulfilled.get_data(as_text=True))
+                self.assertEqual(fulfilled.get_json()["letter"], "DEMAND LETTER")
+
+    def test_stripe_session_for_other_token_rejected(self):
+        receipt = self._submit().get_json()["receipt"]
+        token = app.mint_unlock_token(receipt["hash"], "demand_pack")
+        app.store_unlock(
+            token,
+            receipt["hash"],
+            "demand_pack",
+            "checkout_open",
+            stripe_session_id="cs_test_bound_session",
+        )
+        app.PAYMENTS_MODE = "stripe"
+        app.STRIPE_SECRET_KEY = "sk_test_dummy"
+        foreign = {
+            "id": "cs_test_foreign_session",
+            "payment_status": "paid",
+            "metadata": {"unlock_token": "someone-else", "product_id": "demand_pack", "receipt_hash": receipt["hash"]},
+            "client_reference_id": "someone-else",
+        }
+        with mock.patch.object(app, "fetch_stripe_checkout_session", return_value=foreign):
+            self.c.get(f"/unlock/{token}?session_id=cs_test_foreign_session")
+            self.assertEqual(app.get_unlock(token)["status"], "checkout_open")
+
+
 if __name__ == "__main__":
     unittest.main()

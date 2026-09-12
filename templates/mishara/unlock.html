@@ -58,7 +58,7 @@ pre{white-space:pre-wrap;background:#F7F2EA;border:1px solid var(--line);border-
   {% elif not paid %}
   <div class="card">
     <p>This unlock is not paid yet (status: {{ status }}).</p>
-    <p class="muted" style="margin-top:8px">If you already paid, refresh with <code>?paid=1</code> or email {{ contact_email }}.</p>
+    <p class="muted" style="margin-top:8px">If you already paid, return from Stripe checkout (session is verified server-side) or email {{ contact_email }}.</p>
   </div>
   {% endif %}
   {% endif %}
