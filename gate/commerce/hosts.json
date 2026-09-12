@@ -8,11 +8,19 @@
     "mishara": "https://mishara.onrender.com",
     "nisaba": "https://gate.velaru.xyz/nisaba"
   },
+  "notes": {
+    "erra": "Sibling voice; buyer URL is Velaru twin path. Ops probe: health.erra_dedicated /healthz — not a public brand host.",
+    "verra": "Sibling voice; URL is Gate Bind Room. https://velaru.xyz/verra 302/alias → bind-room.",
+    "mishara": "Canonical stranger host is the Render subdomain until a custom domain points at the Mishara deploy. mishara.app / www.mishara.app are Namecheap parking (not the product) as of 2026-09-12 — do not list as production.",
+    "nisaba": "Hub page on Gate — live 200 at /nisaba (verified 2026-09-12)."
+  },
   "do_not_advertise": [
     "https://erra.xyz",
     "https://erra.onrender.com",
     "https://verra.xyz",
-    "https://nisaba.xyz"
+    "https://nisaba.xyz",
+    "https://mishara.app",
+    "https://www.mishara.app"
   ],
   "health": {
     "erra_probe": "https://erra-jf6a.onrender.com/healthz",

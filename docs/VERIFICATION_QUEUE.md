@@ -22,6 +22,19 @@ curl -sI https://velaru.xyz/dtcc | head -1                  # expect 404
 curl -s https://gate.velaru.xyz/.well-known/live.json | jq .their_production  # expect false
 ```
 
+## Host truth (checked 2026-09-12)
+
+| Host | Status |
+|---|---|
+| `https://gate.velaru.xyz/nisaba` | **200** — Nisaba hub page (safe to cite) |
+| `https://velaru.xyz/erra` | **200** — Erra buyer surface (Velaru twin path) |
+| `https://velaru.xyz/verra` | aliases → Gate `/bind-room` |
+| `https://mishara.onrender.com` | **200** — canonical Mishara product host |
+| `https://www.mishara.app` | **Namecheap parking** — not the product; do not advertise |
+| `https://mishara.app` | apex SSL broken / not product |
+
+**Doctrine vs deploy (resolved):** five sibling **voices** (equal questions). Unequal **deploys**: Gate / Velaru / Mishara own services; Erra = twin path on Velaru (+ ops healthz); Verra = Bind Room session alias. See `gate/commerce/doctrine.json` → `topology`.
+
 ## BACKLOG — Gate institutional suite (NOT a tonight emergency)
 
 Filed after live check: `their_production` is **`false`** on live
