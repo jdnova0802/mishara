@@ -10,6 +10,14 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+from pathlib import Path
+
+# Prices always read from gate/commerce/ladder.json — never retyped here.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
 
 API = "https://api.render.com/v1"
 SERVICE_ID = os.getenv("RENDER_GATE_SERVICE_ID", "srv-dai3n0u1egvs73dbd94g")
@@ -130,13 +138,18 @@ def main() -> None:
         "GATE_ALLOW_LOCAL": "0",
         "GATE_OCSP_TIMEOUT": "5",
         "GATE_INSTALL_SLOTS": "2",
-        "GATE_PRO_PRICE_LABEL": "$99/mo",
-        "GATE_INSTALL_PRICE_LABEL": "$2,500",
-        "GATE_INSTALL_PRICE_CENTS": "250000",
-        "GATE_BIND_ROOM_PRICE_LABEL": "$1,750",
-        "GATE_BIND_ROOM_PRICE_CENTS": "175000",
-        "GATE_REFUSAL_PRICE_LABEL": "$7,500",
-        "GATE_CONTACT_EMAIL": "hello@velaru.xyz",
+        # Mirror ladder.json into env for ops visibility; runtime also falls back to commerce.
+        "GATE_BIND_ROOM_PRICE_LABEL": commerce_mod.price_label("bind_room"),
+        "GATE_BIND_ROOM_PRICE_CENTS": str(commerce_mod.price_cents("bind_room")),
+        "GATE_DILIGENCE_DEPOSIT_LABEL": commerce_mod.price_label("diligence_deposit"),
+        "GATE_DILIGENCE_DEPOSIT_CENTS": str(commerce_mod.price_cents("diligence_deposit")),
+        "GATE_REFUSAL_PRICE_LABEL": commerce_mod.price_label("refusal"),
+        "GATE_REFUSAL_PRICE_CENTS": str(commerce_mod.price_cents("refusal")),
+        "GATE_WELD_PRICE_LABEL": commerce_mod.price_label("operator_weld"),
+        "GATE_WELD_PRICE_CENTS": str(commerce_mod.price_cents("operator_weld")),
+        "GATE_FLOOR_PRICE_LABEL": commerce_mod.price_label("operator_floor"),
+        "GATE_FLOOR_PRICE_CENTS": str(commerce_mod.price_cents("operator_floor")),
+        "GATE_CONTACT_EMAIL": commerce_mod.support_email(),
         "GATE_BIND_TICKET_TTL": "15",
         "GATE_PUBLIC_URL": GATE_PUBLIC,
     }

@@ -45,7 +45,11 @@ class HustleDoorTests(unittest.TestCase):
         self.assertIn("Bind Room", body)
         self.assertIn("Refusal", body)
         self.assertIn("Erra", body)
+        self.assertIn("$1,750", body)
+        self.assertIn("$2,500", body)
         self.assertIn("$7,500", body)
+        self.assertNotIn("{bind_room}", body)
+        self.assertNotIn("{refusal}", body)
 
         sm = self.c.get("/sitemap.xml").get_data(as_text=True)
         for path in ("/diligence", "/refusal", "/outbound/HUSTLE_BOARD.md"):

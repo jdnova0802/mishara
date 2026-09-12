@@ -20,6 +20,8 @@ class CommerceSSOTTests(unittest.TestCase):
         self.assertEqual(commerce_mod.price_cents("bind_room"), 175000)
         self.assertEqual(commerce_mod.price_label("operator_weld"), "$25,000")
         self.assertEqual(commerce_mod.bps("operator_flow_bps"), 10)
+        self.assertEqual(commerce_mod.fee_label("operator_hop"), "$0.10/hop")
+        self.assertEqual(commerce_mod.fee("operator_carry")["bps"], 5)
 
     def test_entity_patent_and_support(self):
         self.assertEqual(commerce_mod.legal_name(), "Nisaba LLC")
@@ -63,6 +65,51 @@ class CommerceSSOTTests(unittest.TestCase):
             html = self.c.get(path).get_data(as_text=True)
             self.assertNotIn("DTCC", html, path)
             self.assertNotIn("SWIFT", html, path)
+
+    def test_residual_bind_room_price_not_hand_typed(self):
+        """Dim 14 residual list — dollars live only in ladder.json (and tests asserting SSOT)."""
+        from pathlib import Path
+        import re
+
+        root = Path(__file__).resolve().parent
+        allowed = {
+            root / "commerce" / "ladder.json",
+            root / "test_commerce.py",
+            root / "test_faces.py",
+            root / "test_hustle_doors.py",
+            root / "test_listings.py",
+        }
+        # CWV artifacts are historical measurements; not product copy.
+        skip_dirs = {"__pycache__", ".git", "cwv"}
+        pattern = re.compile(r"\$1,?750|175000")
+        offenders = []
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            if any(part in skip_dirs for part in path.parts):
+                continue
+            if path.suffix.lower() not in {".py", ".html", ".md", ".yml", ".yaml", ".json", ".txt", ".example"}:
+                continue
+            # .env.example must not carry ladder dollars either (Stripe IDs only).
+            if path.name.startswith(".env") and path.suffix == ".example":
+                pass  # still scanned
+            elif path.name.startswith(".env"):
+                continue
+            if path.resolve() in {p.resolve() for p in allowed}:
+                continue
+            text = path.read_text(encoding="utf-8", errors="replace")
+            if pattern.search(text):
+                offenders.append(str(path.relative_to(root)))
+        self.assertEqual(offenders, [], f"hand-typed Bind Room price: {offenders}")
+
+    def test_bind_room_meta_uses_ssot_label(self):
+        html = self.c.get("/bind-room").get_data(as_text=True)
+        label = commerce_mod.price_label("bind_room")
+        self.assertIn(f"Bind Room · {label}", html)
+        self.assertIn(f"{label} officer pack", html)
+        openapi = self.c.get("/openapi.full.json").get_json()
+        summary = openapi["paths"]["/bind-room"]["get"]["summary"]
+        self.assertIn(label, summary)
 
 
 if __name__ == "__main__":
