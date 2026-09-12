@@ -1,0 +1,41 @@
+{
+  "spec": "nisaba-commerce-doctrine-v1",
+  "brands": {
+    "gate": {
+      "name": "Gate",
+      "question": "Does the irreversible write complete?",
+      "one_line": "Clearance before irreversible payout, withdraw, or bind — fail closed.",
+      "not": "Not a model dashboard. Not soft-yes theater."
+    },
+    "velaru": {
+      "name": "Velaru",
+      "question": "Did we commit correctly?",
+      "one_line": "Stranger-verifiable proof of governed attempts — receipt neither side forges alone.",
+      "not": "Not the classifier. Not a trust-me log."
+    },
+    "erra": {
+      "name": "Erra",
+      "question": "Should we act?",
+      "one_line": "Independent signal grade before capital moves — ACT or HOLD on the cluster.",
+      "not": "Not a Velaru reskin. Not proof of what happened."
+    },
+    "verra": {
+      "name": "Verra",
+      "question": "Did both rails clear before bind?",
+      "one_line": "The Bind Room session where signal and proof must clear before capital, coverage, or force moves.",
+      "not": "Not a fourth deploy. Not Verra.xyz."
+    },
+    "mishara": {
+      "name": "Mishara",
+      "question": "Was a person already harmed?",
+      "one_line": "Human door after an AI decision already hurt someone — receipt, demand, advocate export.",
+      "not": "Not Gate. Not Erra. Not an operator weld desk."
+    },
+    "nisaba": {
+      "name": "Nisaba LLC",
+      "question": "Who holds the law?",
+      "one_line": "Inventor and operator of the family rails.",
+      "not": "Not a parked domain lander."
+    }
+  }
+}

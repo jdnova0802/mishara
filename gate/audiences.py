@@ -1,6 +1,14 @@
 """Audience plates — one door per buyer type. Boring clearance language. No emoji."""
 from __future__ import annotations
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
+BIND_ROOM = commerce_mod.price_label("bind_room")
+OPERATOR_WELD = commerce_mod.price_label("operator_weld")
+
 VELARU_PUBLIC = "https://velaru.xyz"
 
 # slug → plate config
@@ -71,8 +79,8 @@ PLATES: dict[str, dict] = {
         "headline": "Prove the write could not run when you said it couldn't",
         "subhead": "Independent verify — no login, no trust-me dashboard.",
         "pain": "Board asks for proof. You have logs. They want independent verification.",
-        "offer": "Bind Room assessment · pattern + gate export before bind",
-        "price": "$1,750 due now",
+        "offer": "Bind Room · pattern + gate export before bind",
+        "price": f"{BIND_ROOM} Bind Room",
         "cta_label": "Start Bind Room",
         "cta_route": "bind_room",
         "secondary_label": "Officer pack JSON",
@@ -87,7 +95,7 @@ PLATES: dict[str, dict] = {
         "subhead": "Signed clearance receipts at the moment of irreversible action. Bind Room and weld — not a scan product.",
         "pain": "Regulators want proof at decision time. You have policy docs from last year.",
         "offer": "Bind Room · Exhibit pack · session receipts via weld",
-        "price": "Assessment from $3,500 · Bind Room $1,750",
+        "price": f"{BIND_ROOM} Bind Room · weld for production",
         "cta_label": "Open Bind Room",
         "cta_route": "bind_room",
         "secondary_label": "Operator weld",
@@ -102,7 +110,7 @@ PLATES: dict[str, dict] = {
         "subhead": "Clearance before irreversible bind. Fail closed. Independent verify. Same hop family as PAS bind-check.",
         "pain": "Bind went through on an agent you can't prove was cleared.",
         "offer": "Bind Room officer pack + PolicyCenter pre-bind weld. Control, not a rating model.",
-        "price": "$1,750 Bind Room · $25,000 operator weld",
+        "price": f"{BIND_ROOM} Bind Room · {OPERATOR_WELD} operator weld",
         "cta_label": "Open Bind Room",
         "cta_route": "bind_room",
         "secondary_label": "Operator weld",
@@ -117,7 +125,7 @@ PLATES: dict[str, dict] = {
         "subhead": "Renewal desk gets verify links — not another AI trust slide deck. No forced national spend claim.",
         "pain": "Carrier wants AI controls proof at renewal. Your insured has nothing stranger-verifiable.",
         "offer": "Bind Room officer pack — halt narrative + verify appendix",
-        "price": "$1,750 Bind Room",
+        "price": f"{BIND_ROOM} Bind Room",
         "cta_label": "Open Bind Room",
         "cta_route": "bind_room",
         "secondary_label": "Officer pack JSON",
@@ -137,7 +145,7 @@ PLATES: dict[str, dict] = {
         "cta_mailto": "subject=Enterprise%20%E2%80%94%20Org%20root",
         "secondary_label": "Trust & limits",
         "secondary_route": "trust",
-        "proof": "Patent #64/124,027 · hash-chained receipts · parent→child halt",
+        "proof": f"{commerce_mod.patent_short()} · hash-chained receipts · parent→child halt",
         "tags": ["enterprise", "procurement", "soc2-path"],
     },
     "boards": {
@@ -147,7 +155,7 @@ PLATES: dict[str, dict] = {
         "subhead": "No AI literacy required. Clearance states with independent verify.",
         "pain": "Director asks: 'Can it still run?' You need an answer in 30 seconds.",
         "offer": "Public check · board-ready verify permalink",
-        "price": "Charge packs from $500",
+        "price": f"{BIND_ROOM} Bind Room",
         "cta_label": "Run public check",
         "cta_href": f"{VELARU_PUBLIC}/check",
         "secondary_label": "Trust limits",
@@ -177,7 +185,7 @@ PLATES: dict[str, dict] = {
         "subhead": "Classify + seal hiring decisions with independent verify receipts.",
         "pain": "AEDT audit asks what the agent decided and when. Spreadsheets won't cut it.",
         "offer": "Hiring domain classify · signed receipt · verify URL",
-        "price": "Assessment",
+        "price": "Bind Room · weld for production",
         "cta_label": "Pricing",
         "cta_route": "pricing",
         "secondary_label": "CT compliance",
@@ -212,7 +220,7 @@ PLATES: dict[str, dict] = {
         "cta_route": "status_page",
         "secondary_label": "Fee schedule",
         "secondary_route": "register_page",
-        "proof": "Patent #64/124,027 · public verify · hop meter",
+        "proof": f"{commerce_mod.patent_short()} · public verify · hop meter",
         "tags": ["investor", "deck", "metrics"],
     },
     "partners": {
