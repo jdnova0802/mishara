@@ -110,6 +110,16 @@ def require_live(license_id: str | None) -> dict:
     }
 
 
+def require_live_at_effect(license_id: str | None) -> dict:
+    """Standing rule: re-check LIVE at the durability boundary, not from a prior clearance bit.
+
+    Call this in the same transaction / atomic moment as any consequence-bearing
+    write (spend, bind, unlock, receipt issue). A prior allow_bind / redeem OK
+    is not authority for a later write if the parent has since gone DEAD.
+    """
+    return require_live(license_id)
+
+
 def charge(*, license_id: str | None, charge_id: str | None) -> dict:
     """The only path UNSIGNED/DEAD → LIVE. Verified charge authority required."""
     try:
