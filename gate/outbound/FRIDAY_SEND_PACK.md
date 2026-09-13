@@ -30,18 +30,42 @@ Do **not** type a calendar date into any individual email body, D3/D5 template, 
 
 **Slot line (template):** holding **2** diligence seats through **`SLOT_DATE`** — then the list rolls.
 
-### THIS WAVE — SENT (Thu/Fri) · do not re-spray
+### WAVE A — SENT (Thu/Fri) · do not re-spray
 
-| Status | Slots | Channel |
+| Status | slots | Channel |
 |--------|-------|---------|
 | **SENT** | **#14–23, #25** | email only |
 | **SENT** | **#27–28** | website contact form only |
 | **SKIP cold** | **#24 Retell** | already in human thread — see WAITING |
-| **PARKED** | **#1–13** | later wave only |
 
-**LinkedIn: OFF.** Free LI messages exhausted — skip all LI DMs. Do not burn guesses. Email or form only.
+### WAVE B — #1–13 S-tier · status check (Sun 13 Sep)
 
-**Next:** D3 / D5 on names actually hit above. Fill scarcity from `SLOT_DATE`. No new cold names until this batch is worked. Quit trigger = **paid clear**, not replies.
+| Status | Slots | Channel |
+|--------|-------|---------|
+| **FULLY UNSENT** | **#1–13** | email (all have To: addresses) — **LI never touched; LI was never required** |
+
+**LinkedIn: OFF.** Free LI messages exhausted — does **not** block email. Email alone is enough.
+
+**Send sheet (SLOT_DATE expanded):** `gate/outbound/SEND_SHEET_1_13.md`  
+Agent has **no SMTP** from this environment — human sends from `hello@velaru.xyz`, then mark SENT below.
+
+| # | Entity | To | Sent? |
+|---|--------|-----|-------|
+| 1 | Column | `security@column.com` | ☐ |
+| 2 | Unit | `security@unit.co` | ☐ |
+| 3 | Treasury Prime | `security@treasuryprime.com` | ☐ |
+| 4 | Increase | `security@increase.com` | ☐ |
+| 5 | BitGo | `security@bitgo.com` | ☐ |
+| 6 | Threshold | `security@threshold.network` | ☐ |
+| 7 | Synctera | `security@synctera.com` | ☐ |
+| 8 | Gemini | `psirt@gemini.com` | ☐ |
+| 9 | Wise | `soc@wise.com` | ☐ |
+| 10 | Adyen | `responsibledisclosure@adyen.com` | ☐ |
+| 11 | Lithic | `vdp@lithic.com` | ☐ |
+| 12 | Persona | `security@withpersona.com` | ☐ |
+| 13 | SideSwap | `hello@sideswap.io` | ☐ |
+
+**Next after Wave B fires:** D3 / D5 on names actually hit. Fill scarcity from `SLOT_DATE`. Quit trigger = **paid clear**, not replies.
 
 ### WAITING (do not re-spray)
 
@@ -101,9 +125,9 @@ Reply DEPOSIT if you want the find.
 
 ---
 
-# PARKED — first half (#1–13) — DO NOT SEND THIS WAVE
+# WAVE B — #1–13 (was PARKED Fri; fully unsent — email OK with LI off)
 
-S-tier #1–12 + A-tier #13 held for a later wave. Copy stays below for reuse. **This Friday: start at #14.**
+S-tier #1–12 + A-tier #13 were held back Fri so Wave A (#14+) could go first. **None of #1–13 were emailed or LI’d.** LI missing ≠ partial send. Copy below; filled paste pack = `SEND_SHEET_1_13.md`.
 
 ---
 
@@ -734,15 +758,19 @@ Not a lending audit. Not a forecasting critique. Reply DEPOSIT.
 2. Set **`SLOT_DATE` once** in the table at the top — nowhere else  
 3. Expand `` `SLOT_DATE` `` into bodies from that table only; rewrite any draft that still has a literal date  
 
-### This wave (already done — archive)
+### Wave A (done — archive)
 4. **SENT #14–23 + #25** (email). **Skipped #24 Retell cold.** LI off.  
 5. **SENT #27–28** via site contact forms  
-6. **Did not send #1–13**  
 
-### Now
-7. Check **Retell** + **My AskAI** inboxes — human reply changes next move; else let sit  
-8. **D3 / D5** only on names actually hit (Retell = Lawrance thread only); scarcity lines use `SLOT_DATE`  
-9. Quit trigger unchanged: **paid clear**, not replies
+### Wave B — #1–13 (Sun)
+6. Confirm #1–13 **fully unsent** (they were). LI off does not block.  
+7. Send email for #1–13 from `SEND_SHEET_1_13.md` (SLOT_DATE already expanded).  
+8. Tick the checklist in the header when each leaves the outbox.  
+
+### Always
+9. Check **Retell** + **My AskAI** inboxes — human reply changes next move; else let sit  
+10. **D3 / D5** only on names actually hit (Retell = Lawrance thread only); scarcity uses `SLOT_DATE`  
+11. Quit trigger unchanged: **paid clear**, not replies
 
 ---
 
