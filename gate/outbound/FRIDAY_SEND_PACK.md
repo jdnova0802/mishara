@@ -1,6 +1,16 @@
-# Friday send pack — mouth diligence (async 8)
+# Friday send pack — mouth diligence (async 8) · v2
 
-**Do not send until:** `https://gate.velaru.xyz/diligence` + one-pager + offer.json + checkout return **200** and deposit pays.
+**Do not send until:** `https://gate.velaru.xyz/diligence` + one-pager + offer.json + checkout return **200** and deposit pays. Confirm fresh every wave — a URL that was live last week is not guaranteed live now.
+
+## ⚠️ SLOT_DATE — set once, here only
+
+| Field | Value |
+|-------|--------|
+| **SLOT_DATE** | **Thu 17 Sep 2026 23:59 ET** |
+
+Do **not** type a calendar date into any individual email body, D3/D5 template, or saved draft. Every scarcity line uses the token `` `SLOT_DATE` `` and is filled from **this table only** — same discipline as `ladder.json` for price. Rolling the list = change **SLOT_DATE** here, then regenerate sends. Any draft that still has a literal date in the body is **stale — rewrite, don’t send**.
+
+(`SLOT_DEADLINE` in older notes = `SLOT_DATE`. One name going forward.)
 
 | Field | Value |
 |-------|--------|
@@ -15,22 +25,23 @@
 | Offer | https://gate.velaru.xyz/diligence/offer.json |
 | Verify | https://velaru.xyz/verify |
 | Reply token | `DEPOSIT` |
-| **SLOT_DEADLINE** | **Thu 17 Sep 2026 23:59 ET** — edit this cell only; D1/D3/D5 scarcity lines must match |
 
-**Rules:** no calls · no soft CTA · no bounty framing · no “hope you’re well” · scarcity must be real (you hold ≤2 review slots through SLOT_DEADLINE) · D1/D3/D5 only on this list.
+**Rules:** no calls · no soft CTA · no bounty framing · no “hope you’re well” · scarcity must be real (you hold ≤2 review slots through `SLOT_DATE`) · D1/D3/D5 only on this list.
 
-**Slot line (must match SLOT_DEADLINE):** holding **2** diligence seats through **Thu 17 Sep 2026 23:59 ET** — then the list rolls.
+**Slot line (template):** holding **2** diligence seats through **`SLOT_DATE`** — then the list rolls.
 
-### THIS WAVE (send these)
+### THIS WAVE — SENT (Thu/Fri) · do not re-spray
 
 | Status | Slots | Channel |
 |--------|-------|---------|
-| **SEND** | **#14–23, #25** | email only |
-| **SEND** | **#27–28** | **website contact form only** |
+| **SENT** | **#14–23, #25** | email only |
+| **SENT** | **#27–28** | website contact form only |
 | **SKIP cold** | **#24 Retell** | already in human thread — see WAITING |
-| **PARKED** | **#1–13** | do not send this wave |
+| **PARKED** | **#1–13** | later wave only |
 
 **LinkedIn: OFF.** Free LI messages exhausted — skip all LI DMs. Do not burn guesses. Email or form only.
+
+**Next:** D3 / D5 on names actually hit above. Fill scarcity from `SLOT_DATE`. No new cold names until this batch is worked. Quit trigger = **paid clear**, not replies.
 
 ### WAITING (do not re-spray)
 
@@ -81,7 +92,7 @@ Reply DEPOSIT or close the thread.
 ```
 Last note from me on this seat.
 
-Two diligence slots held through Thu 17 Sep 2026 23:59 ET.
+Two diligence slots held through `SLOT_DATE`.
 After that I roll the list.
 
 https://gate.velaru.xyz/diligence
@@ -114,7 +125,7 @@ https://gate.velaru.xyz/diligence
 https://gate.velaru.xyz/diligence/one-pager.txt
 https://gate.velaru.xyz/diligence/offer.json
 
-Holding 2 seats through Thu 17 Sep 2026 23:59 ET.
+Holding 2 seats through `SLOT_DATE`.
 Reply DEPOSIT — invoice same day — or pay the link.
 ```
 
@@ -716,16 +727,22 @@ Not a lending audit. Not a forecasting critique. Reply DEPOSIT.
 
 ---
 
-# Friday runbook (this wave)
+# Runbook
 
-1. **Pay → deploy → curl** diligence page / one-pager / offer.json → 200  
-2. Set **slot date** once in bodies you actually send  
-3. **Send #14–23 + #25** (email). **Skip #24 Retell cold.** Skip every LI line.  
-4. **#27–28** via site contact forms only — paste the body, no guessed To:  
-5. **Do not send #1–13** this wave  
-6. After forms: check **Retell** + **My AskAI** inboxes — human reply changes next move; else let sit  
-7. D3 / D5 only on names you actually hit (Retell = that Lawrance thread only)  
-8. Quit trigger unchanged: **paid clear**, not replies
+### Pre-send (any new wave)
+1. **Pay → deploy → curl** diligence page / one-pager / offer.json → 200 (and deposit pays)  
+2. Set **`SLOT_DATE` once** in the table at the top — nowhere else  
+3. Expand `` `SLOT_DATE` `` into bodies from that table only; rewrite any draft that still has a literal date  
+
+### This wave (already done — archive)
+4. **SENT #14–23 + #25** (email). **Skipped #24 Retell cold.** LI off.  
+5. **SENT #27–28** via site contact forms  
+6. **Did not send #1–13**  
+
+### Now
+7. Check **Retell** + **My AskAI** inboxes — human reply changes next move; else let sit  
+8. **D3 / D5** only on names actually hit (Retell = Lawrance thread only); scarcity lines use `SLOT_DATE`  
+9. Quit trigger unchanged: **paid clear**, not replies
 
 ---
 
