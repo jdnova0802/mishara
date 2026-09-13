@@ -4,11 +4,8 @@ Method (arXiv:2607.10487 Temporary Authority, Permanent Effects):
   Pass the authorizing check, invalidate the authorizing condition before the
   durable write, observe whether the write still completes.
 
-Here the authorizing check is license_fuse.require_live() inside ticket.redeem().
-The durable write is db.consume_bind_ticket() (ticket consumed → allow_bind=True).
-consume_bind_ticket does not re-check parent LIVE (see gate/db.py).
-
-This file reports the measured outcome. It does not self-grade significance.
+Durable boundary: db.consume_bind_ticket() must re-check parent LIVE in the
+same transaction as the consume UPDATE. Mid-flight DEAD must refuse allow_bind.
 """
 from __future__ import annotations
 
@@ -89,8 +86,8 @@ class CommitGuardRaceTests(unittest.TestCase):
     def test_midflight_parent_dead_after_require_live_before_consume(self):
         """CommitGuard race: require_live passes, parent flips DEAD, then consume runs.
 
-        Injection point mirrors the paper's mid-flight invalidation: authorizing
-        condition was true at check time and false before the durable write.
+        After the fix, consume_bind_ticket must refuse: ok=False, allow_bind=False,
+        ticket not consumed, reason=license_parent_not_live.
         """
         real_require_live = license_fuse_mod.require_live
         flipped = {"done": False}
@@ -101,7 +98,6 @@ class CommitGuardRaceTests(unittest.TestCase):
                 flipped["done"] = True
                 dead = license_fuse_mod.dead(license_id=license_id)
                 assert dead.get("state") == "DEAD", dead
-                # Confirm stored state is DEAD before redeem continues to consume.
                 snap = license_fuse_mod.snapshot(license_id)
                 assert snap.get("stored") == "DEAD", snap
             return result
@@ -111,49 +107,21 @@ class CommitGuardRaceTests(unittest.TestCase):
 
         self.assertTrue(flipped["done"], "mid-flight DEAD injection did not run")
 
-        # Measured outcome — do not soft-pass. Print for the night's evidence bar.
-        print(
-            "COMMITGUARD_RACE_RESULT",
-            {
-                "ok": out.get("ok"),
-                "allow_bind": out.get("allow_bind"),
-                "reason": out.get("reason"),
-                "parent_stored_after": license_fuse_mod.snapshot(self.lid).get("stored"),
-                "ticket_consumed": bool(
-                    (db.get_bind_ticket(self.bearer["ticket_id"]) or {}).get("consumed_at")
-                ),
-            },
-        )
+        ticket_row = db.get_bind_ticket(self.bearer["ticket_id"]) or {}
+        result = {
+            "ok": out.get("ok"),
+            "allow_bind": out.get("allow_bind"),
+            "reason": out.get("reason"),
+            "parent_stored_after": license_fuse_mod.snapshot(self.lid).get("stored"),
+            "ticket_consumed": bool(ticket_row.get("consumed_at")),
+        }
+        print("COMMITGUARD_RACE_RESULT_AFTER_FIX", result)
 
-        # Gap is open if durable consume succeeded while parent is DEAD.
-        parent_dead = license_fuse_mod.snapshot(self.lid).get("stored") == "DEAD"
-        write_completed = bool(out.get("ok")) and bool(out.get("allow_bind"))
-        self.assertTrue(parent_dead)
-
-        # Explicit boolean the night can cite: race_write_completed_while_parent_dead
-        if write_completed:
-            self.assertTrue(
-                write_completed and parent_dead,
-                "durable redeem completed after mid-flight parent DEAD — CommitGuard-shaped gap",
-            )
-        else:
-            self.assertFalse(
-                write_completed,
-                "redeem halted after mid-flight DEAD — race closed at this boundary",
-            )
-            self.assertNotEqual(out.get("reason"), None)
-
-        # Documents the open race in current code. If this assertion ever fails
-        # because write_completed is False, the gap at this boundary was closed —
-        # update this expectation deliberately; do not soft-pass.
-        self.assertTrue(
-            write_completed,
-            msg=(
-                "OPEN GAP (CommitGuard-shaped): after require_live OK, parent flipped "
-                "DEAD, yet consume_bind_ticket still succeeded (allow_bind=True). "
-                f"actual={out}"
-            ),
-        )
+        self.assertEqual(result["parent_stored_after"], "DEAD")
+        self.assertFalse(result["ok"], result)
+        self.assertFalse(result["allow_bind"], result)
+        self.assertFalse(result["ticket_consumed"], result)
+        self.assertEqual(result["reason"], license_fuse_mod.REASON_NOT_LIVE)
 
 
 if __name__ == "__main__":

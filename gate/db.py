@@ -695,13 +695,26 @@ def consume_bind_ticket(
     spend_fingerprint: str | None = None,
     counterpart_fingerprint: str | None = None,
 ) -> dict:
-    with db() as conn:
+    """Consume a bind ticket at the durability boundary.
+
+    If the ticket names a license_id, parent LIVE is re-checked in this same
+    transaction immediately before the consume UPDATE — not only earlier in
+    ticket.redeem(). Mid-flight parent death must refuse the write.
+    """
+    # Immediate lock so a concurrent parent DEAD cannot sneak between the LIVE
+    # re-check and the consume UPDATE (CommitGuard-shaped check/commit race).
+    conn = _connect()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
         row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (ticket_id,)).fetchone()
         if not row:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_not_found"}
         if row["token_hash"] != token_hash:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_token_mismatch"}
         if row["job_id"] != job_id:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_job_mismatch"}
         issued_fp = ""
         try:
@@ -711,8 +724,10 @@ def consume_bind_ticket(
         presented_fp = (spend_fingerprint or "").strip()
         if issued_fp:
             if not presented_fp:
+                conn.rollback()
                 return {"ok": False, "reason": "ticket_spend_mismatch"}
             if issued_fp.lower() != presented_fp.lower():
+                conn.rollback()
                 return {"ok": False, "reason": "ticket_spend_mismatch"}
         issued_cp = ""
         try:
@@ -722,23 +737,50 @@ def consume_bind_ticket(
         presented_cp = (counterpart_fingerprint or "").strip()
         if issued_cp:
             if not presented_cp:
+                conn.rollback()
                 return {"ok": False, "reason": "counterpart_mismatch"}
             if issued_cp.lower() != presented_cp.lower():
+                conn.rollback()
                 return {"ok": False, "reason": "counterpart_mismatch"}
         if row["consumed_at"]:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_replay"}
         if row["not_after"] < now:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_expired"}
         if row["not_before"] > now:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_not_yet_valid"}
+
+        try:
+            lid = (row["license_id"] or "").strip()
+        except (IndexError, KeyError):
+            lid = ""
+        if lid:
+            parent = conn.execute(
+                "SELECT state FROM license_parents WHERE license_id = ?",
+                (lid,),
+            ).fetchone()
+            state = ((parent["state"] if parent else "") or "").strip().upper()
+            if state != "LIVE":
+                conn.rollback()
+                return {"ok": False, "reason": "license_parent_not_live"}
+
         cur = conn.execute(
             """UPDATE bind_tickets SET consumed_at = ?
                WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
             (now, ticket_id, token_hash),
         )
         if cur.rowcount != 1:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_replay"}
-    return {"ok": True}
+        conn.commit()
+        return {"ok": True}
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
 
 def get_license_parent(license_id: str) -> dict | None:
