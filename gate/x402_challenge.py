@@ -17,14 +17,21 @@ def payto() -> str | None:
     raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip().strip('"').strip("'")
     if raw.startswith("0x") and len(raw) == 42:
         return raw
+    # Explicit demo receive address — never silent. Founder replaces with treasury.
+    if (os.getenv("GATE_X402_DEMO") or "").strip() in {"1", "true", "yes"}:
+        demo = (os.getenv("GATE_X402_DEMO_PAYTO") or "0x00000000000000000000000000000000000000aa").strip()
+        if demo.startswith("0x") and len(demo) == 42:
+            return demo
     return None
 
 
 def payto_debug() -> dict:
     raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip()
     configured = payto() is not None
+    demo = (os.getenv("GATE_X402_DEMO") or "").strip() in {"1", "true", "yes"}
     return {
         "configured": configured,
+        "demo": demo and configured and not bool(raw),
         "env_set": bool(raw),
         "env_len": len(raw),
         "valid_len": len(raw.strip('"').strip("'")) == 42 if raw else False,
@@ -148,18 +155,30 @@ def payment_required_response(
 
 def well_known_fanout(public_url: str) -> dict:
     base = (public_url or "").rstrip("/")
-    resources = [
-        f"{base}/v1/prefinality/evaluate",
-        f"{base}/api/x402/wire",
-    ]
-    out: dict[str, Any] = {"version": 1, "resources": resources}
+    configured = payto_configured()
+    free = [f"{base}/audit", f"{base}/api/x402/audit", f"{base}/demo/prefinality/evaluate"]
+    out: dict[str, Any] = {
+        "version": 1,
+        "x402_configured": configured,
+        "free_resources": free,
+    }
     pt = payto()
     if pt:
         out["ownershipProofs"] = [pt]
-    out["free_resources"] = [f"{base}/audit", f"{base}/api/x402/audit"]
-    out["instructions"] = (
-        "Free: GET /audit?url=... or /api/x402/audit?url=... — probe any x402 endpoint. "
-        "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
-        "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
-    )
+        out["resources"] = [
+            f"{base}/v1/prefinality/evaluate",
+            f"{base}/api/x402/wire",
+        ]
+        out["instructions"] = (
+            "Free: GET /audit?url=... or /api/x402/audit?url=... — probe any x402 endpoint. "
+            "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
+            "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
+        )
+    else:
+        out["resources"] = []
+        out["instructions"] = (
+            "x402 payto is not configured. Do not send USDC. "
+            "Free: GET /audit?url=... · POST /demo/prefinality/evaluate · Gate API key routes. "
+            "Paid wire / evaluate USDC prices stay offline until GATE_X402_PAYTO is set."
+        )
     return out

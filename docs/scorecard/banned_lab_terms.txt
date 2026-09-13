@@ -1,0 +1,24 @@
+# Dim 12 — institutional tone / lab-jargon ban list
+# One term per line. Lines starting with # are comments.
+# CI fails if any of these appear in rendered HTML, API JSON, or enum values
+# across Gate, Velaru, and Mishara stranger-facing surfaces.
+#
+# Add new coinages here — do not bury them in workflow YAML.
+
+CHOKE
+HAUNTED_CRITICAL
+ghost-bind
+stick-meter
+soft-yes-snare
+L29
+L30
+L31
+IMP-0
+LOGOS-0
+GENESIS-0
+charge-bride
+hop-tattoo
+HAUNTED
+ghost bind
+stick meter
+soft yes snare

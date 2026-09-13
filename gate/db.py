@@ -695,13 +695,26 @@ def consume_bind_ticket(
     spend_fingerprint: str | None = None,
     counterpart_fingerprint: str | None = None,
 ) -> dict:
-    with db() as conn:
+    """Consume a bind ticket at the durability boundary.
+
+    If the ticket names a license_id, parent LIVE is re-checked in this same
+    transaction immediately before the consume UPDATE — not only earlier in
+    ticket.redeem(). Mid-flight parent death must refuse the write.
+    """
+    # Immediate lock so a concurrent parent DEAD cannot sneak between the LIVE
+    # re-check and the consume UPDATE (CommitGuard-shaped check/commit race).
+    conn = _connect()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
         row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (ticket_id,)).fetchone()
         if not row:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_not_found"}
         if row["token_hash"] != token_hash:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_token_mismatch"}
         if row["job_id"] != job_id:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_job_mismatch"}
         issued_fp = ""
         try:
@@ -711,8 +724,10 @@ def consume_bind_ticket(
         presented_fp = (spend_fingerprint or "").strip()
         if issued_fp:
             if not presented_fp:
+                conn.rollback()
                 return {"ok": False, "reason": "ticket_spend_mismatch"}
             if issued_fp.lower() != presented_fp.lower():
+                conn.rollback()
                 return {"ok": False, "reason": "ticket_spend_mismatch"}
         issued_cp = ""
         try:
@@ -722,23 +737,50 @@ def consume_bind_ticket(
         presented_cp = (counterpart_fingerprint or "").strip()
         if issued_cp:
             if not presented_cp:
+                conn.rollback()
                 return {"ok": False, "reason": "counterpart_mismatch"}
             if issued_cp.lower() != presented_cp.lower():
+                conn.rollback()
                 return {"ok": False, "reason": "counterpart_mismatch"}
         if row["consumed_at"]:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_replay"}
         if row["not_after"] < now:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_expired"}
         if row["not_before"] > now:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_not_yet_valid"}
+
+        try:
+            lid = (row["license_id"] or "").strip()
+        except (IndexError, KeyError):
+            lid = ""
+        if lid:
+            parent = conn.execute(
+                "SELECT state FROM license_parents WHERE license_id = ?",
+                (lid,),
+            ).fetchone()
+            state = ((parent["state"] if parent else "") or "").strip().upper()
+            if state != "LIVE":
+                conn.rollback()
+                return {"ok": False, "reason": "license_parent_not_live"}
+
         cur = conn.execute(
             """UPDATE bind_tickets SET consumed_at = ?
                WHERE id = ? AND consumed_at IS NULL AND token_hash = ?""",
             (now, ticket_id, token_hash),
         )
         if cur.rowcount != 1:
+            conn.rollback()
             return {"ok": False, "reason": "ticket_replay"}
-    return {"ok": True}
+        conn.commit()
+        return {"ok": True}
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
 
 def get_license_parent(license_id: str) -> dict | None:
@@ -934,6 +976,106 @@ def get_prefinality_evaluation(evaluation_id: str) -> dict | None:
             item["signals"] = []
     item.pop("signals_json", None)
     return item
+
+
+def _ensure_physical_parks_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS physical_parks (
+            park_id TEXT PRIMARY KEY,
+            park_json TEXT NOT NULL,
+            parked_at_unix INTEGER NOT NULL,
+            sink TEXT,
+            action TEXT,
+            outcome TEXT,
+            reason TEXT
+        )
+        """
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_physical_parks_parked ON physical_parks(parked_at_unix DESC)"
+    )
+
+
+def save_physical_park(ticket: dict) -> None:
+    """Durable park ticket — survives multi-worker / restart."""
+    import json
+
+    if not isinstance(ticket, dict):
+        return
+    park_id = str(ticket.get("park_id") or "").strip()
+    if not park_id:
+        return
+    with db() as conn:
+        _ensure_physical_parks_table(conn)
+        conn.execute(
+            """
+            INSERT INTO physical_parks (park_id, park_json, parked_at_unix, sink, action, outcome, reason)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(park_id) DO UPDATE SET
+              park_json=excluded.park_json,
+              parked_at_unix=excluded.parked_at_unix,
+              sink=excluded.sink,
+              action=excluded.action,
+              outcome=excluded.outcome,
+              reason=excluded.reason
+            """,
+            (
+                park_id,
+                json.dumps(ticket, sort_keys=True, separators=(",", ":"), ensure_ascii=False),
+                int(ticket.get("parked_at_unix") or 0),
+                ticket.get("sink"),
+                ticket.get("action"),
+                ticket.get("outcome"),
+                ticket.get("reason"),
+            ),
+        )
+
+
+def get_physical_park(park_id: str) -> dict | None:
+    import json
+
+    pid = (park_id or "").strip()
+    if not pid:
+        return None
+    with db() as conn:
+        _ensure_physical_parks_table(conn)
+        row = conn.execute(
+            "SELECT park_json FROM physical_parks WHERE park_id = ?", (pid,)
+        ).fetchone()
+    if not row:
+        return None
+    try:
+        data = json.loads(row["park_json"] if isinstance(row, sqlite3.Row) else row[0])
+    except (TypeError, ValueError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def list_physical_parks(limit: int = 50) -> list[dict]:
+    import json
+
+    lim = max(1, min(int(limit or 50), 200))
+    with db() as conn:
+        _ensure_physical_parks_table(conn)
+        rows = conn.execute(
+            """
+            SELECT park_json FROM physical_parks
+            ORDER BY parked_at_unix DESC
+            LIMIT ?
+            """,
+            (lim,),
+        ).fetchall()
+    out: list[dict] = []
+    for row in rows:
+        raw = row["park_json"] if isinstance(row, sqlite3.Row) else row[0]
+        try:
+            data = json.loads(raw)
+        except (TypeError, ValueError):
+            continue
+        if isinstance(data, dict):
+            out.append(data)
+    return out
 
 
 def _ensure_charge_authority_table(conn) -> None:

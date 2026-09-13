@@ -1,4 +1,4 @@
-"""Settlement engine — DTCC-shaped clearing for Gate.
+"""Settlement engine — clearing-shaped netting for Gate.
 
 Architectural components:
   1. Netting: collapse gross bind events into net positions per member per window.
@@ -98,7 +98,7 @@ class WaterfallStep:
 
 @dataclass
 class MemberProfile:
-    """Member risk profile (DTCC-style: limits + suspension/default states)."""
+    """Member risk profile (CCP-style: limits + suspension/default states)."""
 
     member_id: str
     state: str = MemberState.ACTIVE.value
@@ -219,7 +219,7 @@ class SettlementWindow:
 def compute_net_positions(obligations: list[Obligation]) -> list[NetPosition]:
     """Collapse gross obligations into net positions per member per asset class.
 
-    This is the core DTCC-shaped netting algorithm: many bilateral obligations
+    This is the core CCP-shaped netting algorithm: many bilateral obligations
     become fewer net settlement amounts.
     """
     positions: dict[tuple[str, str], NetPosition] = {}
@@ -242,7 +242,7 @@ def compute_net_positions(obligations: list[Obligation]) -> list[NetPosition]:
 
 
 def netting_ratio(positions: list[NetPosition]) -> dict:
-    """How much netting reduced the gross to net (DTCC typically achieves 98%+)."""
+    """How much netting reduced the gross to net (mature CCPs typically achieve 98%+)."""
     gross = sum(p.gross_pay_cents + p.gross_receive_cents for p in positions)
     net = sum(abs(p.net_cents) for p in positions)
     ratio = 1.0 - (net / gross) if gross > 0 else 0.0
@@ -391,7 +391,7 @@ def run_waterfall(
     gate_capital_cents: int = GATE_CAPITAL_CENTS,
     surviving_net_exposures_cents: dict[str, int] | None = None,
 ) -> list[WaterfallStep]:
-    """DTCC-shaped default waterfall: defaulter margin → mutualized fund → Gate capital → loss allocation.
+    """CCP-shaped default waterfall: defaulter margin → mutualized fund → Gate capital → loss allocation.
 
     Each layer absorbs loss in order. Remaining loss after all layers = allocated to surviving members.
     """
@@ -472,14 +472,14 @@ def spec(public_url: str) -> dict:
     return {
         "spec": SPEC,
         "name": "Gate Settlement Engine",
-        "architecture": "DTCC-shaped: netting + settlement windows + default waterfall + margin + multi-asset",
+        "architecture": "Clearing-shaped: netting + settlement windows + default waterfall + margin + multi-asset",
         "components": {
             "member_registry": member_registry_manifest(),
             "cutoff_schedule": cutoff_schedule_manifest(),
             "netting": {
                 "spec": NETTING_SPEC,
                 "what": "Collapse gross obligations into net positions per member per asset class",
-                "goal": "98%+ reduction ratio at scale (same target as DTCC/NSCC)",
+                "goal": "High netting reduction at scale (clearing-industry benchmark)",
             },
             "settlement_windows": {
                 "cycle": f"{WINDOW_DURATION_MINUTES} minutes (T+0 intraday)",

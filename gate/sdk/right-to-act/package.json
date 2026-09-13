@@ -1,0 +1,12 @@
+{
+  "name": "@gate/right-to-act",
+  "version": "0.1.0",
+  "description": "Fail-closed Right-to-Act wrap — EXIST ticket burn before irreversible sinks",
+  "type": "module",
+  "main": "wrap.mjs",
+  "exports": {
+    ".": "./wrap.mjs",
+    "./wrap.mjs": "./wrap.mjs"
+  },
+  "license": "MIT"
+}

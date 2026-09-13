@@ -1,9 +1,23 @@
 """Dating manifests — list everywhere, weld one write path."""
 from __future__ import annotations
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 
 def listings_manifest(public_url: str, contact_email: str) -> dict:
     mcp = f"{public_url}/mcp"
+    bind_room_price = commerce_mod.price_label("bind_room")
+    weld_price = commerce_mod.price_label("operator_weld")
+    floor_price = commerce_mod.price_label("operator_floor")
+    flow_bps = commerce_mod.bps("operator_flow_bps")
+    flow_label = commerce_mod.price_label("operator_flow_bps")
+    hop_label = commerce_mod.fee_label("operator_hop")
+    carry = commerce_mod.fee("operator_carry")
+    carry_label = str(carry["price_label"])
+    carry_hurdle = str(carry.get("hurdle_label") or "")
     return {
         "spec": "gate-listings-v1",
         "rule": "Date all. Marry one write path.",
@@ -148,25 +162,25 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "url": f"{public_url}/bind-room",
             "officer_pack": f"{public_url}/bind-room/officer-pack.json",
             "appendix": f"{public_url}/bind-room/appendix.schema.json",
-            "price": "$1,750",
+            "price": bind_room_price,
         },
         "register": {
             "page": f"{public_url}/register",
             "manifest": f"{public_url}/.well-known/register.json",
             "what": "Infrastructure on irreversible spend. Not SaaS.",
             "asset": "default x permission x welded mouths",
-            "cash": "max(floor, 10 bps of cleared, $0.10/hop)",
+            "cash": f"max(floor, {flow_bps} bps of cleared, {hop_label})",
             "checkout": f"{public_url}/operator",
         },
         "operator_invoice": {
             "page": f"{public_url}/operator",
             "manifest": f"{public_url}/.well-known/operator.json",
             "listing": f"{public_url}/listings/operator.json",
-            "weld": "$25,000",
-            "bps": 10,
+            "weld": weld_price,
+            "bps": flow_bps,
             "product": "default x permission x welded mouths",
-            "management": "$5,000/mo per welded write + per LIVE parent",
-            "flow": "10 bps + 5 bps carry above $500M/mo cleared",
+            "management": f"{floor_price} per welded write + per LIVE parent",
+            "flow": f"{flow_label} {carry_label} carry above {carry_hurdle}",
             "formula": "management + flow (fund-style register)",
             "one_write_per_weld": True,
             "licensed_only": True,
@@ -292,161 +306,222 @@ def mcp_discovery(public_url: str) -> dict:
     }
 
 
-def x402_catalog(public_url: str) -> dict:
+def x402_catalog(public_url: str, *, payto_configured: bool = False) -> dict:
+    """Machine catalog for x402 discovery.
+
+    When payto is not configured, do not advertise payable USDC prices.
+    Free audit + API-key/demo paths remain listed; paid wire is marked offline.
+    """
     hop = f"{public_url}/v1/fuse/hop"
     act = f"{public_url}/v1/act"
     bind = f"{public_url}/v1/pas/bind-check"
     prefinal = f"{public_url}/v1/prefinality/evaluate"
     audit_free = f"{public_url}/api/x402/audit"
     wire_paid = f"{public_url}/api/x402/wire"
+    demo_prefinal = f"{public_url}/demo/prefinality/evaluate"
+
+    if payto_configured:
+        payment = {
+            "scheme": "x402",
+            "network": "eip155:8453",
+            "asset": "USDC",
+            "upgrade_url": f"{public_url}/pricing",
+            "configured": True,
+            "note": (
+                "USDC on Base via x402. Prefinality evaluate: $0.002. "
+                "Wire bundle: $497. Or use a Gate API key."
+            ),
+            "prices": {
+                "prefinality_evaluate_usdc": "0.002",
+                "wire_bundle_usdc": "497.00",
+            },
+        }
+        wire_description = "PAID $497 USDC — instant x402 wire bundle (worker + checklist + bazaar steps)"
+        prefinal_description = (
+            "Pre-finality GO/NO-GO + signed JWT receipt ($0.002 USDC via x402, or Gate API key)"
+        )
+        description = (
+            "Pre-finality clearance before irreversible commit. x402 + RTP/FedNow rails. "
+            "Free endpoint audit. Paid wire bundle live."
+        )
+    else:
+        payment = {
+            "scheme": "x402",
+            "upgrade_url": f"{public_url}/pricing",
+            "configured": False,
+            "note": (
+                "x402 payto is not configured on this host. "
+                "Do not send USDC. Use free /demo/prefinality/evaluate or a Gate API key. "
+                "Paid wire and evaluate USDC prices stay offline until GATE_X402_PAYTO is set."
+            ),
+            "prices": None,
+        }
+        wire_description = (
+            "Wire bundle OFFLINE — x402 payto not configured. Use API key paths or /pricing (Stripe)."
+        )
+        prefinal_description = (
+            "Pre-finality GO/NO-GO + signed JWT receipt (API key or free /demo/prefinality/evaluate; "
+            "x402 USDC offline until payto configured)"
+        )
+        description = (
+            "Pre-finality clearance before irreversible commit. "
+            "Free endpoint audit. x402 USDC rail advertised only when payto is configured "
+            f"(currently configured={payto_configured})."
+        )
+
+    resources = [
+        {
+            "resource": audit_free,
+            "type": "http",
+            "x402Version": 2,
+            "description": "FREE — audit any x402 URL (grade, payTo, 402 envelope)",
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {
+                            "type": "http",
+                            "method": "GET",
+                            "queryParams": {"url": "https://example.com/paid-endpoint"},
+                        },
+                        "output": {"type": "json", "example": {"grade": "B", "score": 75, "ok": True}},
+                    }
+                }
+            },
+        },
+        {
+            "resource": wire_paid,
+            "type": "http",
+            "x402Version": 2,
+            "payable": payto_configured,
+            "description": wire_description,
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {
+                            "type": "http",
+                            "method": "GET",
+                            "queryParams": {
+                                "domain": "example.com",
+                                "email": "owner@example.com",
+                            },
+                        },
+                        "output": {"type": "json", "example": {"paid": True, "bundle_id": "abc123"}},
+                    }
+                }
+            },
+        },
+        {
+            "resource": demo_prefinal,
+            "type": "http",
+            "x402Version": 2,
+            "description": "FREE demo — pre-finality evaluate (no payment)",
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {"type": "http", "method": "POST"},
+                        "output": {"type": "json", "example": {"decision": "GO", "halt": False}},
+                    }
+                }
+            },
+        },
+        {
+            "resource": prefinal,
+            "type": "http",
+            "x402Version": 2,
+            "payable": payto_configured,
+            "description": prefinal_description,
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {
+                            "type": "http",
+                            "method": "POST",
+                            "bodyExample": {
+                                "rail": "x402",
+                                "transfer": {
+                                    "amount": "0.002",
+                                    "currency": "USDC",
+                                    "counterparty": "0x0000000000000000000000000000000000000001",
+                                },
+                                "mandate": {"agent_id": "researcher-01", "max_amount": "1.00"},
+                            },
+                        },
+                        "output": {
+                            "type": "json",
+                            "example": {"decision": "GO", "receipt": "eyJ...", "halt": False},
+                        },
+                    }
+                }
+            },
+        },
+        {
+            "resource": hop,
+            "type": "http",
+            "x402Version": 2,
+            "description": "Pre-exec fuse hop",
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {"type": "http", "method": "POST"},
+                        "output": {"type": "json", "example": {"verdict": False, "state": "DEAD"}},
+                    }
+                }
+            },
+        },
+        {
+            "resource": act,
+            "type": "http",
+            "x402Version": 2,
+            "description": "Welded closed-world act",
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {"type": "http", "method": "POST"},
+                        "output": {"type": "json", "example": {"acted": False, "halt": True}},
+                    }
+                }
+            },
+        },
+        {
+            "resource": bind,
+            "type": "http",
+            "x402Version": 2,
+            "description": "PAS bind gate demo",
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {"type": "http", "method": "POST"},
+                        "output": {"type": "json", "example": {"bind_allowed": False, "result": "BLOCK"}},
+                    }
+                }
+            },
+        },
+        {
+            "resource": f"{public_url}/mcp",
+            "type": "mcp",
+            "x402Version": 2,
+            "description": "MCP tools: fuse_lookup, fuse_hop, welded_act, pas_bind_check, policycenter_pre_bind, mga_authority",
+            "extensions": {
+                "bazaar": {
+                    "info": {
+                        "input": {
+                            "type": "mcp",
+                            "toolName": "welded_act",
+                            "transport": "streamable-http",
+                        }
+                    }
+                }
+            },
+        },
+    ]
     return {
         "x402Version": 2,
         "name": "Gate API",
-        "description": (
-            "Pre-finality clearance before irreversible commit. x402 + RTP/FedNow rails. "
-            "Free endpoint audit. Paid wire bundle."
-        ),
+        "description": description,
         "baseUrl": public_url,
-        "payment": {
-            "scheme": "stripe",
-            "upgrade_url": f"{public_url}/pricing",
-            "note": "Lab hop quota via Stripe. Prefinality evaluate accepts x402 rail fingerprinting; USDC sign gate is the evaluate receipt.",
-        },
+        "payment": payment,
         "prefinality": f"{public_url}/.well-known/prefinality.json",
-        "resources": [
-            {
-                "resource": audit_free,
-                "type": "http",
-                "x402Version": 2,
-                "description": "FREE — audit any x402 URL (grade, payTo, 402 envelope)",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {
-                                "type": "http",
-                                "method": "GET",
-                                "queryParams": {"url": "https://example.com/paid-endpoint"},
-                            },
-                            "output": {"type": "json", "example": {"grade": "B", "score": 75, "ok": True}},
-                        }
-                    }
-                },
-            },
-            {
-                "resource": wire_paid,
-                "type": "http",
-                "x402Version": 2,
-                "description": "PAID $497 — instant x402 wire bundle (worker + checklist + bazaar steps)",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {
-                                "type": "http",
-                                "method": "GET",
-                                "queryParams": {
-                                    "domain": "example.com",
-                                    "email": "owner@example.com",
-                                },
-                            },
-                            "output": {"type": "json", "example": {"paid": True, "bundle_id": "abc123"}},
-                        }
-                    }
-                },
-            },
-            {
-                "resource": prefinal,
-                "type": "http",
-                "x402Version": 2,
-                "description": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {
-                                "type": "http",
-                                "method": "POST",
-                                "bodyExample": {
-                                    "rail": "x402",
-                                    "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": "0x0000000000000000000000000000000000000001"},
-                                    "mandate": {"agent_id": "researcher-01", "max_amount": "1.00"},
-                                },
-                            },
-                            "output": {
-                                "type": "json",
-                                "example": {"decision": "GO", "receipt": "eyJ...", "halt": False},
-                            },
-                        }
-                    }
-                },
-            },
-            {
-                "resource": hop,
-                "type": "http",
-                "x402Version": 2,
-                "description": "Pre-exec fuse hop",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {"type": "http", "method": "POST"},
-                            "output": {"type": "json", "example": {"verdict": False, "state": "DEAD"}},
-                        }
-                    }
-                },
-            },
-            {
-                "resource": act,
-                "type": "http",
-                "x402Version": 2,
-                "description": "Welded closed-world act",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {"type": "http", "method": "POST"},
-                            "output": {"type": "json", "example": {"acted": False, "halt": True}},
-                        }
-                    }
-                },
-            },
-            {
-                "resource": bind,
-                "type": "http",
-                "x402Version": 2,
-                "description": "PAS bind gate demo",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {"type": "http", "method": "POST"},
-                            "output": {"type": "json", "example": {"bind_allowed": False, "result": "BLOCK"}},
-                        }
-                    }
-                },
-            },
-            {
-                "resource": f"{public_url}/mcp",
-                "type": "mcp",
-                "x402Version": 2,
-                "description": "MCP tools: fuse_lookup, fuse_hop, welded_act, pas_bind_check, policycenter_pre_bind, mga_authority",
-                "extensions": {
-                    "bazaar": {
-                        "info": {
-                            "input": {
-                                "type": "mcp",
-                                "toolName": "welded_act",
-                                "transport": "streamable-http",
-                                "description": "Closed-world act. Hop first.",
-                                "inputSchema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "fuse_id": {"type": "string"},
-                                        "action": {"type": "string"},
-                                    },
-                                    "required": ["fuse_id"],
-                                },
-                            }
-                        }
-                    }
-                },
-            },
-        ],
+        "resources": resources,
     }
 
 

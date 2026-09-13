@@ -1,0 +1,15 @@
+# Dim 13 — borrowed-credibility ban list
+# Real institutions / rails we do not have a contractual relationship with.
+# CI fails if any token appears in routes, production code, copy, or tab titles.
+# Affirmative non-affiliation copy must name the category, not the brand.
+#
+# Tests and this file are allowlisted by the scanner.
+
+DTCC
+SWIFT
+Fedwire
+NSCC
+DTC
+CHIPS
+TARGET2
+CLS Bank
