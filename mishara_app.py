@@ -602,6 +602,62 @@ def mark_unlock_paid(token: str, stripe_session_id: str | None = None) -> None:
         )
 
 
+def fetch_stripe_checkout_session(session_id: str) -> dict | None:
+    """GET Checkout Session from Stripe. Returns None on any failure."""
+    if not STRIPE_SECRET_KEY or not session_id:
+        return None
+    if not session_id.startswith("cs_"):
+        return None
+    req = urllib.request.Request(
+        f"https://api.stripe.com/v1/checkout/sessions/{urllib.parse.quote(session_id, safe='')}",
+        headers={"Authorization": f"Bearer {STRIPE_SECRET_KEY}"},
+        method="GET",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except Exception:
+        return None
+
+
+def stripe_session_authorizes_unlock(session: dict, token: str, row: sqlite3.Row) -> bool:
+    """True only when Stripe says this session paid for this unlock token."""
+    if not session or not isinstance(session, dict):
+        return False
+    if session.get("payment_status") != "paid":
+        return False
+    meta = session.get("metadata") or {}
+    session_token = meta.get("unlock_token") or session.get("client_reference_id") or ""
+    if session_token != token:
+        return False
+    stored = row["stripe_session_id"] if "stripe_session_id" in row.keys() else None
+    sid = session.get("id")
+    if stored and sid and stored != sid:
+        return False
+    if meta.get("product_id") and meta.get("product_id") != row["product_id"]:
+        return False
+    if meta.get("receipt_hash") and meta.get("receipt_hash") != row["receipt_hash"]:
+        return False
+    return True
+
+
+def confirm_unlock_paid_via_stripe(token: str, session_id: str | None = None) -> bool:
+    """Mark unlock paid only after Stripe confirms payment. Never trust query flags."""
+    row = get_unlock(token)
+    if not row:
+        return False
+    if row["status"] == "paid":
+        return True
+    sid = (session_id or "").strip() or (row["stripe_session_id"] or "")
+    if not sid:
+        return False
+    session = fetch_stripe_checkout_session(sid)
+    if not session or not stripe_session_authorizes_unlock(session, token, row):
+        return False
+    mark_unlock_paid(token, stripe_session_id=session.get("id") or sid)
+    return True
+
+
 def extract_velaru_receipt(
     velaru_data: dict,
     platform: str,
@@ -714,7 +770,7 @@ def create_stripe_checkout(product_id: str, receipt_hash: str, unlock_token: str
         return None, "Stripe is not configured"
     body = {
         "mode": "payment",
-        "success_url": public_url(f"/unlock/{unlock_token}?paid=1"),
+        "success_url": public_url(f"/unlock/{unlock_token}?session_id={{CHECKOUT_SESSION_ID}}"),
         "cancel_url": public_url(f"/receipt/{receipt_hash}?checkout=cancel"),
         "line_items[0][price_data][currency]": "usd",
         "line_items[0][price_data][product_data][name]": f"Mishara — {product['name']}",
@@ -1181,7 +1237,6 @@ def checkout():
             "ok": True,
             "mode": "stripe",
             "checkout_url": url,
-            "unlock_token": token,
             "product": PRODUCTS[product_id],
         }
     )
@@ -1196,8 +1251,10 @@ def unlock_page(token: str):
             404,
         )
 
-    if request.args.get("paid") == "1" and row["status"] != "paid":
-        mark_unlock_paid(token)
+    # Never trust ?paid=1 — confirm with Stripe Checkout Session only.
+    if row["status"] != "paid":
+        session_id = (request.args.get("session_id") or "").strip() or None
+        confirm_unlock_paid_via_stripe(token, session_id=session_id)
         row = get_unlock(token)
 
     receipt = load_receipt(row["receipt_hash"])
