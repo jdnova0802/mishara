@@ -132,6 +132,14 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "worker": f"{public_url}/listings/cloudflare-worker-skip.js",
             "their_production": False,
         },
+        "civilizational_kind": {
+            "page": f"{public_url}/kind",
+            "manifest": f"{public_url}/.well-known/civilizational-kind.json",
+            "atom": "K1 remaining calculus / K2 office / K3 mortmain",
+            "their_production": False,
+            "not_outbound": True,
+            "action_os_still_seated": True,
+        },
         "command_radiation": {
             "page": f"{public_url}/uplink",
             "manifest": f"{public_url}/.well-known/command-radiation.json",
