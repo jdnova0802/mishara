@@ -100,6 +100,21 @@ except ImportError:
     import enterprise_mouths as enterprise_mouths_mod
 
 try:
+    from gate import deny_meter as deny_meter_mod
+except ImportError:
+    import deny_meter as deny_meter_mod
+
+try:
+    from gate import diplomatics as diplomatics_mod
+except ImportError:
+    import diplomatics as diplomatics_mod
+
+try:
+    from gate import documentary_protest as documentary_protest_mod
+except ImportError:
+    import documentary_protest as documentary_protest_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -1452,6 +1467,9 @@ def well_known_gate():
             "oracle_classify": f"{advertised_url()}/v1/oracle/classify",
             "oracle_demo": f"{advertised_url()}/demo/oracle/classify",
             "enterprise_mouths": f"{advertised_url()}/.well-known/enterprise-mouths.json",
+            "deny_meter": f"{advertised_url()}/.well-known/deny-meter.json",
+            "diplomatics": f"{advertised_url()}/.well-known/diplomatics.json",
+            "documentary_protest": f"{advertised_url()}/.well-known/documentary-protest.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2311,6 +2329,67 @@ def oracle_classify():
 def well_known_enterprise_mouths():
     """Nvidia / IBM / Microsoft atomic mouths — on-card map only."""
     return jsonify(enterprise_mouths_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/deny-meter.json")
+def well_known_deny_meter():
+    return jsonify(deny_meter_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/deny/quote", methods=["POST"])
+def demo_deny_quote():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    data = deny_meter_mod.quote(
+        unit=body.get("unit"),
+        notional_cents=body.get("notional_cents"),
+        bps=float(body.get("bps") or 10),
+    )
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/.well-known/diplomatics.json")
+def well_known_diplomatics():
+    return jsonify(diplomatics_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/diplomatics/challenge", methods=["POST"])
+def demo_diplomatics_challenge():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    data = diplomatics_mod.challenge(receipt_hint=body.get("receipt_hint") or body.get("receipt"))
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/.well-known/documentary-protest.json")
+def well_known_documentary_protest():
+    return jsonify(documentary_protest_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/documentary/present", methods=["POST"])
+def demo_documentary_present():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = documentary_protest_mod.present(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/demo/documentary/protest", methods=["POST"])
+def demo_documentary_protest():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = documentary_protest_mod.protest(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
