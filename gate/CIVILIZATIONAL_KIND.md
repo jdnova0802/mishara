@@ -204,6 +204,48 @@ That is not Action OS. Action OS asks *may this act run?* A bill of lading does 
 
 ---
 
+## Beyond HTTPS — authenticity of the non-event
+
+HTTPS is a **10/10 pipe**. It answers: this channel, this peer, this now, bytes not silently changed in transit. It does not answer what the far end *is*. TLS people already say this (2026): the handshake proves a key participated; it does not prove the process is honest or the world-after the session. Attestation drafts try “this machine looked like X at T.” They cannot prove it stays that way. They do not log what was **not** chosen.
+
+What civilization already shipped on top of the pipe, and stopped too early:
+
+| Layer | Object | Padlock | Status |
+|-------|--------|---------|--------|
+| HTTPS / TLS | Channel | Is this pipe the peer I think? | **10/10** |
+| Certificate Transparency (RFC 6962; Chrome ~2018) | Positive issuance | Was this certificate logged? | **10** for Web PKI. RFC 9162 said the log could take *any binary*. They only logged certs. CTv2 is dead. |
+| eIDAS qualified timestamp / seal (Arts. 41, 35; Sept 2025 implementing rules) | Bytes + UTC | Did these bytes exist at this time, intact, from this origin? | **9** in EU. **Not** that the content is true. |
+| DigiLocker (India DPI, March 2026) | Issued document | Is this the authentic issued record? | **67.63 crore** users, **950+ crore** documents. Still winner rows. |
+| MLETR exclusive control | Unique original | Who holds the one title? | Kind **10**. Electronic ~**11%**. |
+| §892 public faith | Institutional fact | May a stranger rely? | **10/10** land. Not machine silence. |
+
+Searle: **X counts as Y in context C**. HTTPS is a C for the session. A bill of lading is an X that counts as title. Bank money is often a free-standing Y (a blip). The skipped name, the DENY, the never-spend, the bind that did not happen: **no X that counts**. Absence is not an institutional fact. HTTPS authenticates the messenger. It cannot make a non-event into a being.
+
+Notaries authenticated presence. *Isnād* chained who said it. Grundbuch made the book reliable. CT made issuance public. Chrome’s trick — the only modern 10-shipped method that is not a king — is that **the client refused** anything not in the log. Nobody has done that to **silence**.
+
+### The invention — Remaining Transparency of the negative
+
+**Kind:** Remaining of what was not chosen (skip, DENY, discarded field, jumped name) is a first-class authentic object: singular, time-bound, inclusion-logged, stranger-fetchable, and **the client fail-closes the irreversible write if it is missing** — the way a browser fail-closes a cert with no Signed Certificate Timestamp.
+
+Not “HTTPS for remaining.” One layer **above** the lock icon: authenticity of the world-after, including the void.
+
+**Atomic technical object:** a **Signed Remaining Timestamp (SRT)** — edition hash + jumped IDs + UTC + log inclusion proof — presented at the write. No SRT → 403. Same muscle as a bind ticket. Applied to the negative.
+
+**Never done:** CT logs what was issued. eIDAS timestamps what exists. DigiLocker issues what was granted. ISO rejects dump to NARR. Nobody makes honor of the winner depend on public authenticity of the loser.
+
+**How it becomes 10 shipped:** one client class refuses, like Chrome 2018. The write-client (scanner, worker, MX validator) treats missing remaining like a missing SCT. Years, not a landing page.
+
+**Thesis rewrite:** “May this act run?” becomes “**Is remaining still true, including what did not happen?**” HTTPS stays as the pipe under that question.
+
+**Score:** **10 as kind** if that is the padlock. **0 as civilization default.** A seed is shippable on the skip plant. Claiming 10/10 today is fraud.
+
+**Upside:** every irreversible write that 200-OKs a winner and garbage-collects the skip. Ontology of absence, not a product line.
+
+**Not:** become a CA, Chrome, DigiLocker, or a qualified trust service. They occupy positives. The unpaid type is the non-event as Y.
+
+---
+
+
 ## Verified plants (Elon/Su — snorefest first)
 
 Do not lead with an AI Action OS keynote.
