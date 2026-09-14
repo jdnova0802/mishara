@@ -2,7 +2,7 @@
 
 **Status:** designation blast — 29 August 2026. **Not outbound. Not L2. Not freeze lift. Not Mouth Ceiling waiver.**  
 **Intent:** Twenty-five **S-class** inventions aimed at **cosmically specific gaps** (present + near-future). Each is a **compression invention**: owns the loop from *irreversible act → single-use may → stranger prove → meter* so incumbents face-palm and **old Path B/N/S/Ω numbers look like village math**.  
-**Companions:** `OMEGA_AMBITION_BRIEF.md` · `WEALTH_SCOREBOARD_MAP_22.md` · `EXTERNAL_S_TIER_INVENTIONS.md` · `FORBES_TOP10_FACEPALM_INVENTIONS.md` · `S25_GAP_CRAWL_FOUR_MOUTHS.md` (14 Sep 2026 — four candidate mouths; no S26 minted)
+**Companions:** `OMEGA_AMBITION_BRIEF.md` · `WEALTH_SCOREBOARD_MAP_22.md` · `EXTERNAL_S_TIER_INVENTIONS.md` · `FORBES_TOP10_FACEPALM_INVENTIONS.md` · `S25_GAP_CRAWL_FOUR_MOUTHS.md` (14 Sep 2026 — four candidate mouths; no S26 minted) · `ATOM_DISCOVERY_VERIFIED.md` (discovery vs verified atoms; skip register)
 
 **Hard rule:** throat intact. Rent the rail. Never sell may.
 

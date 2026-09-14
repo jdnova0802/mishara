@@ -3,7 +3,8 @@
 **Status:** designation crawl — 14 September 2026. **Not outbound. Not L2. Not freeze lift. Not Mouth Ceiling waiver. Not a 26th slot.**  
 **Method:** same as `EXTREME_S25_INVENTIONS.md` — public 2025–26 fact, staffing test, stranger-verifiable object, compression latch, existing tier ladder.  
 **Hard rule:** throat intact. Rent the rail. Never sell may.  
-**Pad rule:** if already an S-number under other language, or a court / accredited verifier already occupies *this act*, **kill**. Do not mint S26–S29 to fill a hole in the list.
+**Pad rule:** if already an S-number under other language, or a court / accredited verifier already occupies *this act*, **kill**. Do not mint S26–S29 to fill a hole in the list.  
+**Atom pass:** `ATOM_DISCOVERY_VERIFIED.md` — D1 skip-as-type; V1 OAT plant; V2 PolicyCenter `oos-conflicts/resolve` + `handle-preemptions` (same foothill, unpaid discard).
 
 ---
 
