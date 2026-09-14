@@ -85,6 +85,36 @@ except ImportError:
     import diligence as diligence_mod
 
 try:
+    from gate import finality_compiler as finality_compiler_mod
+except ImportError:
+    import finality_compiler as finality_compiler_mod
+
+try:
+    from gate import oracle_compiler as oracle_compiler_mod
+except ImportError:
+    import oracle_compiler as oracle_compiler_mod
+
+try:
+    from gate import enterprise_mouths as enterprise_mouths_mod
+except ImportError:
+    import enterprise_mouths as enterprise_mouths_mod
+
+try:
+    from gate import deny_meter as deny_meter_mod
+except ImportError:
+    import deny_meter as deny_meter_mod
+
+try:
+    from gate import diplomatics as diplomatics_mod
+except ImportError:
+    import diplomatics as diplomatics_mod
+
+try:
+    from gate import documentary_protest as documentary_protest_mod
+except ImportError:
+    import documentary_protest as documentary_protest_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -1430,6 +1460,16 @@ def well_known_gate():
             "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
             "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
             "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
+            "finality_compiler": f"{advertised_url()}/.well-known/finality-compiler.json",
+            "finality_classify": f"{advertised_url()}/v1/finality/classify",
+            "finality_demo": f"{advertised_url()}/demo/finality/classify",
+            "oracle_compiler": f"{advertised_url()}/.well-known/oracle-compiler.json",
+            "oracle_classify": f"{advertised_url()}/v1/oracle/classify",
+            "oracle_demo": f"{advertised_url()}/demo/oracle/classify",
+            "enterprise_mouths": f"{advertised_url()}/.well-known/enterprise-mouths.json",
+            "deny_meter": f"{advertised_url()}/.well-known/deny-meter.json",
+            "diplomatics": f"{advertised_url()}/.well-known/diplomatics.json",
+            "documentary_protest": f"{advertised_url()}/.well-known/documentary-protest.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2196,6 +2236,160 @@ def well_known_prefinality():
 @app.route("/.well-known/prefinality-jwks.json")
 def well_known_prefinality_jwks():
     return jsonify(prefinality_mod.jwks())
+
+
+@app.route("/.well-known/finality-compiler.json")
+def well_known_finality_compiler():
+    """On-card Finality Compiler v0 — not a sister company."""
+    body = finality_compiler_mod.manifest(advertised_url())
+    body["taxonomy"] = finality_compiler_mod.taxonomy_table()
+    return jsonify(body)
+
+
+def run_finality_classify(body: dict) -> dict:
+    b = body if isinstance(body, dict) else {}
+    return finality_compiler_mod.classify(
+        rail=b.get("rail"),
+        status=b.get("status"),
+        raw_event=b.get("raw_event") or b.get("event"),
+        notes=b.get("notes"),
+    )
+
+
+@app.route("/demo/finality/classify", methods=["POST"])
+def demo_finality_classify():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = run_finality_classify(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/v1/finality/classify", methods=["POST"])
+def finality_classify():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    data = run_finality_classify(body)
+    # UNKNOWN is still 200 — compiler always answers; Prefinality fails closed on UNKNOWN
+    return jsonify(data), 200
+
+
+@app.route("/.well-known/oracle-compiler.json")
+def well_known_oracle_compiler():
+    """On-card Oracle Compiler v0 — not a sister company."""
+    body = oracle_compiler_mod.manifest(advertised_url())
+    body["taxonomy"] = oracle_compiler_mod.taxonomy_table()
+    return jsonify(body)
+
+
+def run_oracle_classify(body: dict) -> dict:
+    b = body if isinstance(body, dict) else {}
+    age = b.get("age_seconds")
+    hb = b.get("heartbeat_seconds")
+    try:
+        age_f = float(age) if age is not None else None
+    except (TypeError, ValueError):
+        age_f = None
+    try:
+        hb_f = float(hb) if hb is not None else None
+    except (TypeError, ValueError):
+        hb_f = None
+    return oracle_compiler_mod.classify(
+        claim_type=b.get("claim_type") or b.get("type"),
+        source=b.get("source"),
+        age_seconds=age_f,
+        heartbeat_seconds=hb_f,
+        notes=b.get("notes"),
+    )
+
+
+@app.route("/demo/oracle/classify", methods=["POST"])
+def demo_oracle_classify():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = run_oracle_classify(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/v1/oracle/classify", methods=["POST"])
+def oracle_classify():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    return jsonify(run_oracle_classify(body)), 200
+
+
+@app.route("/.well-known/enterprise-mouths.json")
+def well_known_enterprise_mouths():
+    """Nvidia / IBM / Microsoft atomic mouths — on-card map only."""
+    return jsonify(enterprise_mouths_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/deny-meter.json")
+def well_known_deny_meter():
+    return jsonify(deny_meter_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/deny/quote", methods=["POST"])
+def demo_deny_quote():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    data = deny_meter_mod.quote(
+        unit=body.get("unit"),
+        notional_cents=body.get("notional_cents"),
+        bps=float(body.get("bps") or 10),
+    )
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/.well-known/diplomatics.json")
+def well_known_diplomatics():
+    return jsonify(diplomatics_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/diplomatics/challenge", methods=["POST"])
+def demo_diplomatics_challenge():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    data = diplomatics_mod.challenge(receipt_hint=body.get("receipt_hint") or body.get("receipt"))
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/.well-known/documentary-protest.json")
+def well_known_documentary_protest():
+    return jsonify(documentary_protest_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/documentary/present", methods=["POST"])
+def demo_documentary_present():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = documentary_protest_mod.present(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/demo/documentary/protest", methods=["POST"])
+def demo_documentary_protest():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = documentary_protest_mod.protest(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
@@ -3726,6 +3920,48 @@ def openapi_full():
                     "post": {"summary": "RTP adapter — verify receipt matches payment_order before PSP create", "security": [{"BearerAuth": []}]}
                 },
                 "/demo/prefinality/evaluate": {"post": {"summary": "Public pre-finality demo (no key)", "security": []}},
+                "/.well-known/finality-compiler.json": {
+                    "get": {
+                        "summary": "Finality Compiler v0 manifest + taxonomy (on-card; not a sister co)",
+                        "security": [],
+                    }
+                },
+                "/demo/finality/classify": {
+                    "post": {
+                        "summary": "Public finality class demo — rail+status → finality_class",
+                        "security": [],
+                    }
+                },
+                "/v1/finality/classify": {
+                    "post": {
+                        "summary": "Classify rail+status into finality class (receipt≠rail-final)",
+                        "security": [],
+                    }
+                },
+                "/.well-known/oracle-compiler.json": {
+                    "get": {
+                        "summary": "Oracle Compiler v0 — claim+source → oracle class (on-card)",
+                        "security": [],
+                    }
+                },
+                "/demo/oracle/classify": {
+                    "post": {
+                        "summary": "Public oracle class demo",
+                        "security": [],
+                    }
+                },
+                "/v1/oracle/classify": {
+                    "post": {
+                        "summary": "Classify claim_type+source into oracle class",
+                        "security": [],
+                    }
+                },
+                "/.well-known/enterprise-mouths.json": {
+                    "get": {
+                        "summary": "Nvidia/IBM/Microsoft atomic mouths map (on-card)",
+                        "security": [],
+                    }
+                },
                 "/.well-known/prefinality.json": {"get": {"summary": "Pre-finality manifest (x402 + rtp rails)"}},
                 "/.well-known/prefinality-jwks.json": {"get": {"summary": "Ed25519 JWKS for receipt verification"}},
                 "/v1/pas/policycenter/pre-bind": {

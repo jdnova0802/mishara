@@ -46,8 +46,11 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
         ],
         "deliverable": (
             "Written map of mouths where an irreversible write can complete without may, "
-            "with stranger-openable halt gap named. Deposit starts the clock."
+            "with stranger-openable halt gap named. Spine: Finality Compiler classes "
+            "(software receipt ≠ rail-final). Deposit starts the clock."
         ),
+        "finality_compiler": "gate-finality-compiler-v0",
+        "oracle_compiler": "gate-oracle-compiler-v0",
         "ask": "Reply DEPOSIT — invoice same day.",
         "halt": "We will not sell may. We will not implement the rail on this SKU.",
         "urls": {
@@ -56,6 +59,9 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "offer": f"{base}/diligence/offer.json",
             "checkout": f"{base}/diligence/checkout",
             "bind_room": f"{base}/bind-room",
+            "finality_compiler": f"{base}/.well-known/finality-compiler.json",
+            "oracle_compiler": f"{base}/.well-known/oracle-compiler.json",
+            "enterprise_mouths": f"{base}/.well-known/enterprise-mouths.json",
             "verify": "https://velaru.xyz/verify",
         },
         "contact": contact_email,
@@ -80,6 +86,7 @@ Price
 What you get
   A written find on your irreversible path (peg-out, withdraw, payout, bind, ACH credit):
   where the write can still complete when Clear / stranger-openable halt is missing.
+  Includes Finality Compiler classes (receipt vs hold vs soft-settle vs rail-hard).
   Keys, SOC, and policy answers are not the deliverable — the may-gap is.
 
 What this is not
