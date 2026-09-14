@@ -85,6 +85,11 @@ except ImportError:
     import diligence as diligence_mod
 
 try:
+    from gate import finality_compiler as finality_compiler_mod
+except ImportError:
+    import finality_compiler as finality_compiler_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -1430,6 +1435,9 @@ def well_known_gate():
             "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
             "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
             "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
+            "finality_compiler": f"{advertised_url()}/.well-known/finality-compiler.json",
+            "finality_classify": f"{advertised_url()}/v1/finality/classify",
+            "finality_demo": f"{advertised_url()}/demo/finality/classify",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2196,6 +2204,45 @@ def well_known_prefinality():
 @app.route("/.well-known/prefinality-jwks.json")
 def well_known_prefinality_jwks():
     return jsonify(prefinality_mod.jwks())
+
+
+@app.route("/.well-known/finality-compiler.json")
+def well_known_finality_compiler():
+    """On-card Finality Compiler v0 — not a sister company."""
+    body = finality_compiler_mod.manifest(advertised_url())
+    body["taxonomy"] = finality_compiler_mod.taxonomy_table()
+    return jsonify(body)
+
+
+def run_finality_classify(body: dict) -> dict:
+    b = body if isinstance(body, dict) else {}
+    return finality_compiler_mod.classify(
+        rail=b.get("rail"),
+        status=b.get("status"),
+        raw_event=b.get("raw_event") or b.get("event"),
+        notes=b.get("notes"),
+    )
+
+
+@app.route("/demo/finality/classify", methods=["POST"])
+def demo_finality_classify():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = run_finality_classify(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/v1/finality/classify", methods=["POST"])
+def finality_classify():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    data = run_finality_classify(body)
+    # UNKNOWN is still 200 — compiler always answers; Prefinality fails closed on UNKNOWN
+    return jsonify(data), 200
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
@@ -3726,6 +3773,24 @@ def openapi_full():
                     "post": {"summary": "RTP adapter — verify receipt matches payment_order before PSP create", "security": [{"BearerAuth": []}]}
                 },
                 "/demo/prefinality/evaluate": {"post": {"summary": "Public pre-finality demo (no key)", "security": []}},
+                "/.well-known/finality-compiler.json": {
+                    "get": {
+                        "summary": "Finality Compiler v0 manifest + taxonomy (on-card; not a sister co)",
+                        "security": [],
+                    }
+                },
+                "/demo/finality/classify": {
+                    "post": {
+                        "summary": "Public finality class demo — rail+status → finality_class",
+                        "security": [],
+                    }
+                },
+                "/v1/finality/classify": {
+                    "post": {
+                        "summary": "Classify rail+status into finality class (receipt≠rail-final)",
+                        "security": [],
+                    }
+                },
                 "/.well-known/prefinality.json": {"get": {"summary": "Pre-finality manifest (x402 + rtp rails)"}},
                 "/.well-known/prefinality-jwks.json": {"get": {"summary": "Ed25519 JWKS for receipt verification"}},
                 "/v1/pas/policycenter/pre-bind": {
