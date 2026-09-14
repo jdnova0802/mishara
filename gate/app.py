@@ -190,6 +190,11 @@ except ImportError:
     import skip_remaining as skip_remaining_mod
 
 try:
+    from gate import civilizational_kind as civilizational_kind_mod
+except ImportError:
+    import civilizational_kind as civilizational_kind_mod
+
+try:
     from gate import command_radiation as command_radiation_mod
 except ImportError:
     import command_radiation as command_radiation_mod
@@ -323,7 +328,7 @@ def _ops_authorized() -> bool:
 
 
 ARCHIVE_NOINDEX_PREFIXES = (
-    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/skip", "/uplink",
+    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/skip", "/kind", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
@@ -1420,6 +1425,7 @@ def well_known_gate():
             "skip_page": f"{advertised_url()}/skip",
             "skip_dated_write": f"{advertised_url()}/v1/skip/dated-write",
             "skip_worker": f"{advertised_url()}/listings/cloudflare-worker-skip.js",
+            "civilizational_kind": f"{advertised_url()}/.well-known/civilizational-kind.json",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
             "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
             "restraint": f"{advertised_url()}/.well-known/restraint.json",
@@ -2168,6 +2174,20 @@ def well_known_spend_protocol():
 @app.route("/.well-known/skip-remaining.json")
 def well_known_skip_remaining():
     return jsonify(skip_remaining_mod.spec(advertised_url()))
+
+
+@app.route("/.well-known/civilizational-kind.json")
+def well_known_civilizational_kind():
+    return jsonify(civilizational_kind_mod.spec(advertised_url()))
+
+
+@app.route("/kind")
+def kind_page():
+    return render_template(
+        "kind.html",
+        public_url=advertised_url(),
+        protocol=civilizational_kind_mod.spec(advertised_url()),
+    )
 
 
 @app.route("/v1/skip/mint", methods=["POST"])
@@ -3516,6 +3536,7 @@ def robots():
             "Disallow: /tattoo",
             "Disallow: /scanner",
             "Disallow: /skip",
+            "Disallow: /kind",
             "Disallow: /uplink",
             "Disallow: /inhabitant",
             "Disallow: /afterward",
@@ -3800,6 +3821,8 @@ def openapi_full():
                 "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
                 "/scanner": {"get": {"summary": "Spend protocol — the scanner. One write. Fingerprint or no print."}},
                 "/skip": {"get": {"summary": "Skip remaining — ranked write mint + CASP. Winner-only diaries score 0."}},
+                "/kind": {"get": {"summary": "Civilizational kind yellow paper. Action OS still seated. Not outbound."}},
+                "/.well-known/civilizational-kind.json": {"get": {"summary": "Remaining calculus / office / mortmain. Designation only."}},
                 "/v1/skip/mint": {"post": {"summary": "Mint skip remaining for a synthetic ranked sequence. fixture=organ|policycenter|winner-only"}},
                 "/v1/skip/casp": {"post": {"summary": "Score a diary: jumped names must have skip receipts."}},
                 "/v1/skip/dated-write": {"post": {"summary": "V2 plant. Intercept PolicyCenter oos-conflicts/resolve or handle-preemptions. Winner-only HALTs."}},
