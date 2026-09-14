@@ -158,6 +158,52 @@ Until that second sentence is true in the world, **do not change the live thesis
 
 ---
 
+## 2026 hunt — the 10/10 that would actually rewrite the thesis
+
+Nothing Nisaba ships is **10 kind and 10 shipped**. That score is already taken by writing, UTC, double-entry, HTTPS, the **paper** bill of lading, and German **public faith** in the land book (§§ 892–893 BGB: a stranger may rely on what is entered). Do not pretend a demo CASP is that.
+
+Three live rails in 2025–26 sit at that altitude. The unpaid hole is their **intersection**.
+
+### Rail A — Unique original / exclusive control (MLETR)
+
+Paper bill of lading: **10/10 for ~400 years**. Possession of the unique original *is* title to the goods. UNCITRAL MLETR (2017) is the digital kind: **exclusive control** of a singular electronic record = possession. Not a log. Not a permission fuse. One authoritative remaining.
+
+Shipped electronic: **not 10**. DCSA: ~**1.2%** eBL in 2021 → ~**11%** by mid/Aug 2025. **13** jurisdictions on UNCITRAL’s enactment list (China / Marshall Islands / Mauritius 2025; UK ETDA 2023). Carrier CEOs committed to **100% by 2030**. A corridor needs **both** ends; counting countries is the wrong object (Standage, Aug 2026).
+
+Staffing: DCSA, P&I clubs, eBL platforms occupy the **shipping** original. They do not occupy skip / DENY / never-spend as a transferable original.
+
+### Rail B — Public faith (öffentlicher Glaube)
+
+Already **10/10** for German land. If it is in the book, a good-faith acquirer may rely, even if the book was wrong — unless they knew or a contradiction is entered. Digital Grundbuch 2026 is scanning and e-filing; the structured database of ~36 million books has slipped years. The doctrine did not change. The factory is late.
+
+Staffing: states occupy title of land and persons (koseki). They do not give public faith to a machine DENY or a jumped name.
+
+### Rail C — ISO 20022 as money’s compile target
+
+Huang-class, already landing. SWIFT CBPR+ **MT/MX coexistence ended 22 November 2025**. ISO 20022 is the language cross-border payments must speak. Rejects exist (`pain.002` RJCT, AC04 closed account, NARR dump). There is **no unique original of remaining**: no first-class skipped beneficiary, no stranger-holdable DENY, no mortmain.
+
+Staffing: SWIFT/ISO occupy the language. A codeset fight is UN-slow. The hole is still a hole.
+
+### Rail D — Time (do not own this)
+
+CGPM Oct 2026 Draft Resolution C: continuous UTC from **20 May 2027**, max |UT1−UTC| **3600 seconds**. Leap seconds die. Time is already 10/10. Nisaba does not become BIPM. Command-radiation `now` is a clerk of this, not the kind.
+
+### The intersection (K0) — remaining as a unique original
+
+**Kind:** A remaining (skip, DENY, never-spend, jumped name) that is a **singular electronic transferable record**: exclusive control, integrity, one authoritative version, public faith so a stranger may rely, expressible in the language money already uses.
+
+That is not Action OS. Action OS asks *may this act run?* A bill of lading does not ask permission. It **is** the remaining of the goods. Public faith does not ask permission. It **is** what a stranger may trust. ISO 20022 is not a weld. It is the Latin of the payment.
+
+**Thesis rewrite if it lands:** Nisaba compiles unique originals of remaining. Gate is a fuse on an instrument. The instrument is the world — goods, title, skipped humans, dedicated never-spend — holdable, pledgeable, stranger-true.
+
+**Score:** **10 as kind. 0 shipped by us.** To become 10 shipped you need an office with public faith (state), a corridor law (MLETR), and a slot in the money IR (ISO). Until then, claiming 10/10 is Ellison-cosplay.
+
+**Upside if it ever were 10/10:** not one carrier weld. Trade documents (tens of millions of bills of lading a year), land-class reliance, and every MX payment. Monumental because the object is **title**, not software.
+
+**Not:** become Maersk, SWIFT, or Grundbuchamt. They occupy goods, messages, parcels. The unpaid type is **machine remaining as the original they did not list** (MLETR’s examples: bills of lading, bills of exchange, promissory notes, warehouse receipts — skip/DENY is not on that list).
+
+---
+
 ## Verified plants (Elon/Su — snorefest first)
 
 Do not lead with an AI Action OS keynote.
