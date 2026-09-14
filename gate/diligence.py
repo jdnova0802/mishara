@@ -50,6 +50,7 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "(software receipt ≠ rail-final). Deposit starts the clock."
         ),
         "finality_compiler": "gate-finality-compiler-v0",
+        "oracle_compiler": "gate-oracle-compiler-v0",
         "ask": "Reply DEPOSIT — invoice same day.",
         "halt": "We will not sell may. We will not implement the rail on this SKU.",
         "urls": {
@@ -59,6 +60,8 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "checkout": f"{base}/diligence/checkout",
             "bind_room": f"{base}/bind-room",
             "finality_compiler": f"{base}/.well-known/finality-compiler.json",
+            "oracle_compiler": f"{base}/.well-known/oracle-compiler.json",
+            "enterprise_mouths": f"{base}/.well-known/enterprise-mouths.json",
             "verify": "https://velaru.xyz/verify",
         },
         "contact": contact_email,

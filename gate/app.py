@@ -90,6 +90,16 @@ except ImportError:
     import finality_compiler as finality_compiler_mod
 
 try:
+    from gate import oracle_compiler as oracle_compiler_mod
+except ImportError:
+    import oracle_compiler as oracle_compiler_mod
+
+try:
+    from gate import enterprise_mouths as enterprise_mouths_mod
+except ImportError:
+    import enterprise_mouths as enterprise_mouths_mod
+
+try:
     from gate import operator_invoice as operator_mod
 except ImportError:
     import operator_invoice as operator_mod
@@ -1438,6 +1448,10 @@ def well_known_gate():
             "finality_compiler": f"{advertised_url()}/.well-known/finality-compiler.json",
             "finality_classify": f"{advertised_url()}/v1/finality/classify",
             "finality_demo": f"{advertised_url()}/demo/finality/classify",
+            "oracle_compiler": f"{advertised_url()}/.well-known/oracle-compiler.json",
+            "oracle_classify": f"{advertised_url()}/v1/oracle/classify",
+            "oracle_demo": f"{advertised_url()}/demo/oracle/classify",
+            "enterprise_mouths": f"{advertised_url()}/.well-known/enterprise-mouths.json",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2243,6 +2257,60 @@ def finality_classify():
     data = run_finality_classify(body)
     # UNKNOWN is still 200 — compiler always answers; Prefinality fails closed on UNKNOWN
     return jsonify(data), 200
+
+
+@app.route("/.well-known/oracle-compiler.json")
+def well_known_oracle_compiler():
+    """On-card Oracle Compiler v0 — not a sister company."""
+    body = oracle_compiler_mod.manifest(advertised_url())
+    body["taxonomy"] = oracle_compiler_mod.taxonomy_table()
+    return jsonify(body)
+
+
+def run_oracle_classify(body: dict) -> dict:
+    b = body if isinstance(body, dict) else {}
+    age = b.get("age_seconds")
+    hb = b.get("heartbeat_seconds")
+    try:
+        age_f = float(age) if age is not None else None
+    except (TypeError, ValueError):
+        age_f = None
+    try:
+        hb_f = float(hb) if hb is not None else None
+    except (TypeError, ValueError):
+        hb_f = None
+    return oracle_compiler_mod.classify(
+        claim_type=b.get("claim_type") or b.get("type"),
+        source=b.get("source"),
+        age_seconds=age_f,
+        heartbeat_seconds=hb_f,
+        notes=b.get("notes"),
+    )
+
+
+@app.route("/demo/oracle/classify", methods=["POST"])
+def demo_oracle_classify():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    data = run_oracle_classify(request.get_json(silent=True) or {})
+    data["demo"] = True
+    return jsonify(data), 200
+
+
+@app.route("/v1/oracle/classify", methods=["POST"])
+def oracle_classify():
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    return jsonify(run_oracle_classify(body)), 200
+
+
+@app.route("/.well-known/enterprise-mouths.json")
+def well_known_enterprise_mouths():
+    """Nvidia / IBM / Microsoft atomic mouths — on-card map only."""
+    return jsonify(enterprise_mouths_mod.manifest(advertised_url()))
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
@@ -3788,6 +3856,30 @@ def openapi_full():
                 "/v1/finality/classify": {
                     "post": {
                         "summary": "Classify rail+status into finality class (receipt≠rail-final)",
+                        "security": [],
+                    }
+                },
+                "/.well-known/oracle-compiler.json": {
+                    "get": {
+                        "summary": "Oracle Compiler v0 — claim+source → oracle class (on-card)",
+                        "security": [],
+                    }
+                },
+                "/demo/oracle/classify": {
+                    "post": {
+                        "summary": "Public oracle class demo",
+                        "security": [],
+                    }
+                },
+                "/v1/oracle/classify": {
+                    "post": {
+                        "summary": "Classify claim_type+source into oracle class",
+                        "security": [],
+                    }
+                },
+                "/.well-known/enterprise-mouths.json": {
+                    "get": {
+                        "summary": "Nvidia/IBM/Microsoft atomic mouths map (on-card)",
                         "security": [],
                     }
                 },
