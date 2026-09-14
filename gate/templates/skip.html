@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Skip remaining{% endblock %}
+{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
+{% block content %}
+<style>
+  .skip-hero { max-width: 1040px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+  .skip-kicker { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .skip-hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.05; margin: 0.4rem 0 0.8rem; }
+  .skip-hero h1 em { font-style: normal; color: var(--danger); }
+  .meter { height: 0.55rem; background: #1a1d27; border: 1px solid var(--border); margin: 0.6rem 0 1.2rem; }
+  .meter > span { display: block; height: 100%; background: var(--danger); width: 0; }
+  .meter.pass > span { background: var(--success); }
+  .ladder { display: grid; gap: 0.45rem; margin: 1.5rem 0; }
+  .rung { display: grid; grid-template-columns: 3.2rem 1fr auto; gap: 0.75rem; align-items: center;
+          padding: 0.7rem 0.9rem; border: 1px solid var(--border); background: var(--surface); font-family: var(--mono); font-size: 0.85rem; }
+  .rung.placed { border-color: var(--success); box-shadow: 0 0 0 1px var(--success); }
+  .rung.ghost { opacity: 0.42; text-decoration: line-through; border-style: dashed; }
+  .rung.hole { border-color: var(--danger); color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
+  .rung .n { color: var(--muted); }
+  .casp { font-size: 4.5rem; font-weight: 700; font-family: var(--mono); line-height: 1; }
+  .casp.fail { color: var(--danger); }
+  .casp.pass { color: var(--success); }
+  .btns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0 0.4rem; }
+  .btns button { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 0.55rem 0.9rem; cursor: pointer; font: inherit; }
+  .btns button:hover { background: var(--accent-dim); }
+  .out { background: #07080c; border: 1px solid var(--border); padding: 1rem; overflow: auto; max-height: 28rem; font-size: 0.78rem; }
+  .corpses a { display: block; margin: 0.2rem 0; }
+</style>
+<div class="skip-hero">
+  <p class="skip-kicker">Yellow paper · D1 · not a weld</p>
+  <h1>The names they <em>jumped</em> are the remaining.</h1>
+  <p style="color: var(--muted); max-width: 42rem;">
+    Ranked writes have offer / accept / execute. Skip is not a type in their diaries.
+    Winner-only scores <strong>0</strong>. Minted skip remaining scores <strong>1</strong>.
+    Synthetic IDs only. <code class="inline">their_production</code> false.
+  </p>
+  <p style="margin-top: 0.6rem; font-size: 0.9rem;">
+    Spec: <a href="/.well-known/skip-remaining.json">/.well-known/skip-remaining.json</a>
+  </p>
+
+  <div class="btns">
+    <button type="button" data-fix="organ">Land organ OAT (mint skips)</button>
+    <button type="button" data-fix="winner-only">Winner-only diary — should zero</button>
+    <button type="button" data-fix="policycenter">PolicyCenter acceptYours silent</button>
+    <button type="button" data-fix="policycenter-full">PolicyCenter with discard remaining</button>
+  </div>
+
+  <p class="casp fail" id="casp-n">—</p>
+  <div class="meter fail" id="casp-m"><span></span></div>
+  <p id="casp-r" style="color: var(--muted); font-family: var(--mono);"></p>
+  <div class="ladder" id="ladder"></div>
+  <div class="corpses" id="corpses"></div>
+  <pre class="out" id="out">Mint a fixture. CASP scores the jumped names, not the winner. Red UNCOUNTED means they jumped and kept no remaining.</pre>
+</div>
+<script>
+const existing = {{ edition|tojson }};
+
+function paint(body) {
+  const casp = (body && body.casp) || {};
+  const n = document.getElementById("casp-n");
+  const score = Number(casp.score);
+  n.textContent = (casp.score === 0 || casp.score) ? score.toFixed(2) : "—";
+  n.className = "casp " + (casp.pass ? "pass" : "fail");
+  const meter = document.getElementById("casp-m");
+  meter.className = "meter " + (casp.pass ? "pass" : "fail");
+  meter.firstElementChild.style.width = (Number.isFinite(score) ? (score * 100) : 0) + "%";
+  document.getElementById("casp-r").textContent = casp.reason ? (casp.reason + " · jumped " + casp.jumped + " · receipts " + casp.receipts) : "";
+  const seq = (body && body.sequence) || [];
+  const placed = body && body.placed_id;
+  const skipSet = new Set(((body && body.skips) || []).map(s => s.id));
+  const placedIdx = seq.findIndex(row => row.id === placed);
+  const ladder = document.getElementById("ladder");
+  ladder.innerHTML = "";
+  seq.forEach((row, i) => {
+    const div = document.createElement("div");
+    const ahead = placedIdx >= 0 && i < placedIdx;
+    const counted = skipSet.has(row.id);
+    let cls = "rung";
+    let tag = "";
+    if (row.id === placed) { cls += " placed"; tag = "PLACED"; }
+    else if (ahead && counted) { cls += " ghost"; tag = "SKIP"; }
+    else if (ahead && !counted) { cls += " hole"; tag = "UNCOUNTED"; }
+    div.className = cls;
+    div.innerHTML = "<span class='n'>" + String(i+1).padStart(2,"0") + "</span><span>" + (row.label || row.id) + "</span><span>" + tag + "</span>";
+    ladder.appendChild(div);
+  });
+  const corpses = document.getElementById("corpses");
+  corpses.innerHTML = "";
+  if (body && body.id) {
+    const a = document.createElement("a");
+    a.href = "/.well-known/skip/" + body.id + ".json";
+    a.textContent = "Stranger verify this edition →";
+    corpses.appendChild(a);
+    const p = document.createElement("a");
+    p.href = "/skip/" + body.id;
+    p.textContent = "Permalink /skip/" + body.id;
+    corpses.appendChild(p);
+  }
+  document.getElementById("out").textContent = JSON.stringify(body, null, 2);
+}
+
+async function mint(fixture, mintSkips) {
+  const r = await fetch("/demo/skip/mint", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ fixture, mint_skips: mintSkips !== false })
+  });
+  const body = await r.json();
+  paint(body);
+  if (body && body.id) history.replaceState({}, "", "/skip/" + body.id);
+}
+
+document.querySelectorAll(".btns button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const fix = btn.getAttribute("data-fix");
+    if (fix === "policycenter-full") mint("policycenter", true);
+    else if (fix === "policycenter") mint("policycenter", false);
+    else if (fix === "winner-only") mint("winner-only", false);
+    else mint(fix, true);
+  });
+});
+if (existing && existing.id) paint(existing);
+</script>
+{% endblock %}

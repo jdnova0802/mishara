@@ -186,6 +186,7 @@ class FlaskListingTests(unittest.TestCase):
         data = r.get_json()
         self.assertIn("dates", data)
         self.assertIn("guidewire", data["dates"])
+        self.assertIn("skip_remaining", data["dates"])
 
     def test_mcp_initialize_and_tools(self):
         r = self.client.post(
@@ -1704,7 +1705,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         op = self.client.get("/operator").get_data(as_text=True)
         self.assertNotIn("/mo/mo", op)
         self.assertIn("their_production: false", op)
-        for path in ("/this", "/bound", "/positioning", "/scanner", "/science", "/dogfood"):
+        for path in ("/this", "/bound", "/positioning", "/scanner", "/skip", "/science", "/dogfood"):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
             blob = r.headers.get("X-Robots-Tag", "") + r.get_data(as_text=True)

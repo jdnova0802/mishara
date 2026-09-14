@@ -119,6 +119,14 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "married_write": "POST /job/v1/jobs/{job_id}/bind-only",
             "worker": f"{public_url}/listings/cloudflare-worker-bind.js",
         },
+        "skip_remaining": {
+            "page": f"{public_url}/skip",
+            "manifest": f"{public_url}/.well-known/skip-remaining.json",
+            "atom": "D1 skip as conserved register",
+            "casp": f"{public_url}/v1/skip/casp",
+            "mint": f"{public_url}/v1/skip/mint",
+            "their_production": False,
+        },
         "command_radiation": {
             "page": f"{public_url}/uplink",
             "manifest": f"{public_url}/.well-known/command-radiation.json",

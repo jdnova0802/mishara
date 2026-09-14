@@ -222,6 +222,22 @@ def init_db():
                     utc_now(),
                 ),
             )
+        _ensure_skip_editions(conn)
+
+
+def _ensure_skip_editions(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS skip_editions (
+            id TEXT PRIMARY KEY,
+            kind TEXT NOT NULL,
+            edition_hash TEXT NOT NULL,
+            body_json TEXT NOT NULL,
+            casp_score REAL,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
 
 
 @contextmanager
