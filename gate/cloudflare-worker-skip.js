@@ -2,6 +2,7 @@
  * Skip-path scanner. Same Job API family as bind-only.
  * Intercept oos-conflicts/resolve and handle-preemptions.
  * Winner-only resolve HALTs. Skip remaining must exist for every discarded value.
+ * Missing Signed Remaining Timestamp HALTs even if CASP would pass.
  * wrangler secret put GATE_KEY
  * GATE_URL = live https Gate — never localhost.
  * This is not a production weld. their_production stays false.
@@ -61,6 +62,9 @@ export default {
     const body = await hop.json().catch(() => ({ halt: true, allow: false }));
     if (!hop.ok || body.halt || body.allow === false) {
       return haltResponse(body, env, null, hop.status === 503 ? 503 : 403);
+    }
+    if (!body.srt || !body.srt.signature) {
+      return haltResponse(body, env, { reason: "srt_missing", casp_passed: !!body.casp }, 403);
     }
     return fetch(request);
   },

@@ -237,7 +237,7 @@ Not “HTTPS for remaining.” One layer **above** the lock icon: authenticity o
 
 **Thesis rewrite:** “May this act run?” becomes “**Is remaining still true, including what did not happen?**” HTTPS stays as the pipe under that question.
 
-**Score:** **10 as kind** if that is the padlock. **0 as civilization default.** A seed is shippable on the skip plant. Claiming 10/10 today is fraud.
+**Score:** **10 as kind** if that is the padlock. **Seed shipped** on the skip plant (`gate-srt-v1`, `/.well-known/srt.json`). **0 as civilization default.** Claiming 10/10 today is fraud. Thesis unchanged.
 
 **Upside:** every irreversible write that 200-OKs a winner and garbage-collects the skip. Ontology of absence, not a product line.
 
@@ -251,9 +251,11 @@ Not “HTTPS for remaining.” One layer **above** the lock icon: authenticity o
 Do not lead with an AI Action OS keynote.
 
 1. **Yellow paper** while agentic writes are folk (this spec). Public domain.
-2. **Office, not account** — remaining ID bound to an office that can rotate officers; vendor death does not delete the fact. First metal: one notary-class or registry-class clerk, years, Lisa Su.
-3. **Mortmain bit** on a dedicated remaining that CHARGE cannot resurrect into spend. Park, not payout.
-4. **CASP-2400** — bakeoff: can a stranger fetch jumped + dedicated + office without `nisaba` in the URL. Fail = still Oracle.
+2. **SRT seed (shipped on skip plant, not a default)** — `gate-srt-v1`. Dated write 403s without a Signed Remaining Timestamp even if CASP would pass. Worker fail-closes on missing `srt`. Not Chrome 2018. Not outbound.
+3. **P9 act-idempotency remaining (bit)** — stranger URL that this irreversible write already happened. Not Stripe’s 24h charge key.
+4. **Mortmain bit (shipped as remaining, not as a board)** — `spendable: false`; CHARGE cannot resurrect into spend. Park, not payout. Do not become a Waqf Board.
+5. **Office, not account** — remaining ID bound to an office that can rotate officers. Still years of metal. Not this seed.
+6. **CASP-2400** — bakeoff: can a stranger fetch jumped + dedicated + office without `nisaba` in the URL. Fail = still Oracle.
 
 Fee (Simons): rent on the tape of remaining offices keep. Do not buy Guidewire. Do not become UNOS. Do not become Grundbuchamt. They already occupy title of land and persons. The unpaid tape is **machine remaining** (skip, DENY, dedicated digital).
 

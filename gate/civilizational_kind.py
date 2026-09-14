@@ -63,8 +63,17 @@ def spec(public_url: str) -> dict:
             "in 2400 does not need Nisaba LLC."
         ),
         "skip_remaining_does_not_change_thesis": True,
-        "crown_not_reminted": ["Remaining as world-after", "coffin", "H0", "Afterweb"],
+        "srt_seed_does_not_change_thesis": True,
+        "srt": {
+            "spec": "gate-srt-v1",
+            "kind": "authenticity of the non-event",
+            "shipped": "seed",
+            "civilization_default": False,
+            "thesis_unchanged": True,
+        },
         "page": f"{base}/kind",
         "skip": f"{base}/skip",
+        "srt_url": f"{base}/.well-known/srt.json",
+        "crown_not_reminted": ["Remaining as world-after", "coffin", "H0", "Afterweb"],
         "action_os": f"{base}/.well-known/action-os.json",
     }

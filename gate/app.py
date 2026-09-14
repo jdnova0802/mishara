@@ -190,6 +190,11 @@ except ImportError:
     import skip_remaining as skip_remaining_mod
 
 try:
+    from gate import signed_remaining as signed_remaining_mod
+except ImportError:
+    import signed_remaining as signed_remaining_mod
+
+try:
     from gate import civilizational_kind as civilizational_kind_mod
 except ImportError:
     import civilizational_kind as civilizational_kind_mod
@@ -1425,6 +1430,8 @@ def well_known_gate():
             "skip_page": f"{advertised_url()}/skip",
             "skip_dated_write": f"{advertised_url()}/v1/skip/dated-write",
             "skip_worker": f"{advertised_url()}/listings/cloudflare-worker-skip.js",
+            "srt": f"{advertised_url()}/.well-known/srt.json",
+            "srt_present": f"{advertised_url()}/v1/skip/srt",
             "civilizational_kind": f"{advertised_url()}/.well-known/civilizational-kind.json",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
             "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
@@ -2234,6 +2241,12 @@ def skip_dated_write():
             "path": "/job/v1/jobs/pc:BIND-SYN/bind-only",
             "mint_skips": False,
         }
+    elif fixture in {"srt-missing", "missing-srt"}:
+        data = skip_remaining_mod.oos_fixture(mint_skips=True, job_id="pc:SRT-MISS")
+        data["omit_srt"] = True
+    elif fixture in {"mortmain"}:
+        data = skip_remaining_mod.oos_fixture(mint_skips=True, job_id="pc:MORTMAIN-SYN")
+        data["mortmain"] = True
     out = skip_remaining_mod.evaluate_dated_write(data, public_url=advertised_url())
     status = 200 if out.get("allow") else 403
     return jsonify(out), status
@@ -2245,6 +2258,57 @@ def well_known_skip_edition(eid):
     if not body:
         return jsonify({"ok": False, "reason": "skip_edition_not_found"}), 404
     return jsonify(body)
+
+
+@app.route("/.well-known/srt.json")
+def well_known_srt_spec():
+    return jsonify(signed_remaining_mod.spec(advertised_url()))
+
+
+@app.route("/.well-known/srt-head.json")
+def well_known_srt_head():
+    return jsonify(signed_remaining_mod.tree_head())
+
+
+@app.route("/.well-known/srt/<sid>.json")
+def well_known_srt(sid):
+    body = signed_remaining_mod.get_srt((sid or "").strip())
+    if not body:
+        return jsonify({"ok": False, "reason": "srt_not_found"}), 404
+    return jsonify(body)
+
+
+@app.route("/.well-known/act/<fp>.json")
+def well_known_act_remaining(fp):
+    body = signed_remaining_mod.get_act((fp or "").strip())
+    if not body:
+        return jsonify({"ok": False, "reason": "act_remaining_not_found"}), 404
+    return jsonify(body)
+
+
+@app.route("/.well-known/mortmain/<mid>.json")
+def well_known_mortmain(mid):
+    body = signed_remaining_mod.get_mortmain((mid or "").strip())
+    if not body:
+        return jsonify({"ok": False, "reason": "mortmain_not_found"}), 404
+    return jsonify(body)
+
+
+@app.route("/v1/skip/srt", methods=["POST"])
+@app.route("/demo/skip/srt", methods=["POST"])
+def skip_srt_present():
+    data = request.get_json(silent=True) or {}
+    out = signed_remaining_mod.present(data)
+    status = 200 if out.get("allow") else 403
+    return jsonify(out), status
+
+
+@app.route("/v1/skip/mortmain/charge", methods=["POST"])
+@app.route("/demo/skip/mortmain/charge", methods=["POST"])
+def skip_mortmain_charge():
+    data = request.get_json(silent=True) or {}
+    out = signed_remaining_mod.charge_mortmain(data)
+    return jsonify(out), 403
 
 
 @app.route("/skip")
@@ -3825,8 +3889,11 @@ def openapi_full():
                 "/.well-known/civilizational-kind.json": {"get": {"summary": "Remaining calculus / office / mortmain. Designation only."}},
                 "/v1/skip/mint": {"post": {"summary": "Mint skip remaining for a synthetic ranked sequence. fixture=organ|policycenter|winner-only"}},
                 "/v1/skip/casp": {"post": {"summary": "Score a diary: jumped names must have skip receipts."}},
-                "/v1/skip/dated-write": {"post": {"summary": "V2 plant. Intercept PolicyCenter oos-conflicts/resolve or handle-preemptions. Winner-only HALTs."}},
+                "/v1/skip/dated-write": {"post": {"summary": "V2 plant. Intercept PolicyCenter oos-conflicts/resolve or handle-preemptions. Winner-only HALTs. Missing SRT HALTs after CASP."}},
+                "/v1/skip/srt": {"post": {"summary": "Present a Signed Remaining Timestamp. Empty body is 403 srt_missing."}},
+                "/v1/skip/mortmain/charge": {"post": {"summary": "CHARGE cannot spend mortmain remaining."}},
                 "/.well-known/skip-remaining.json": {"get": {"summary": "Yellow paper. Skip is a conserved register. Married write is OOS resolve."}},
+                "/.well-known/srt.json": {"get": {"summary": "Signed Remaining Timestamp seed. Authenticity of the non-event. Not a 10/10 padlock."}},
                 "/uplink": {"get": {"summary": "Command radiation — may this CLTU still be radiated, in this now?"}},
                 "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
                 "/.well-known/command-radiation.json": {"get": {"summary": "Public command-radiation spec. Redeem must present UTC now."}},
