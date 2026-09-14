@@ -119,6 +119,9 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("inhabitant", m["floor"])
         self.assertIn("commit_auth", m)
         self.assertIn("spend_protocol", m)
+        self.assertIn("skip_remaining", m)
+        self.assertFalse(m["skip_remaining"]["their_production"])
+        self.assertIn("oos-conflicts/resolve", m["skip_remaining"]["married_write"])
         self.assertIn("command_radiation", m)
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
@@ -186,6 +189,7 @@ class FlaskListingTests(unittest.TestCase):
         data = r.get_json()
         self.assertIn("dates", data)
         self.assertIn("guidewire", data["dates"])
+        self.assertIn("skip_remaining", data)
 
     def test_mcp_initialize_and_tools(self):
         r = self.client.post(
@@ -1704,7 +1708,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         op = self.client.get("/operator").get_data(as_text=True)
         self.assertNotIn("/mo/mo", op)
         self.assertIn("their_production: false", op)
-        for path in ("/this", "/bound", "/positioning", "/scanner", "/science", "/dogfood"):
+        for path in ("/this", "/bound", "/positioning", "/scanner", "/skip", "/science", "/dogfood"):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
             blob = r.headers.get("X-Robots-Tag", "") + r.get_data(as_text=True)

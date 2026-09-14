@@ -185,6 +185,11 @@ except ImportError:
     import spend_protocol as spend_protocol_mod
 
 try:
+    from gate import skip_remaining as skip_remaining_mod
+except ImportError:
+    import skip_remaining as skip_remaining_mod
+
+try:
     from gate import command_radiation as command_radiation_mod
 except ImportError:
     import command_radiation as command_radiation_mod
@@ -318,7 +323,7 @@ def _ops_authorized() -> bool:
 
 
 ARCHIVE_NOINDEX_PREFIXES = (
-    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
+    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/skip", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
@@ -332,6 +337,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/legal.json",
         "/.well-known/mcp.json",
         "/.well-known/opportunities.json",
+        "/.well-known/skip-remaining.json",
         "/.well-known/live.json",
         "/.well-known/canary.json",
     }
@@ -641,6 +647,7 @@ def health():
         "this": f"{pub}/this",
         "capture": f"{pub}/capture",
         "scanner": f"{pub}/scanner",
+        "skip": f"{pub}/skip",
         "uplink": f"{pub}/uplink",
         "inhabitant": f"{pub}/inhabitant",
         "afterward": f"{pub}/afterward",
@@ -1409,6 +1416,10 @@ def well_known_gate():
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
+            "skip_remaining": f"{advertised_url()}/.well-known/skip-remaining.json",
+            "skip_page": f"{advertised_url()}/skip",
+            "skip_dated_write": f"{advertised_url()}/v1/skip/dated-write",
+            "skip_worker": f"{advertised_url()}/listings/cloudflare-worker-skip.js",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
             "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
             "restraint": f"{advertised_url()}/.well-known/restraint.json",
@@ -2154,6 +2165,81 @@ def well_known_spend_protocol():
     return jsonify(spend_protocol_mod.spec(advertised_url()))
 
 
+@app.route("/.well-known/skip-remaining.json")
+def well_known_skip_remaining():
+    return jsonify(skip_remaining_mod.spec(advertised_url()))
+
+
+@app.route("/v1/skip/mint", methods=["POST"])
+@app.route("/demo/skip/mint", methods=["POST"])
+def skip_mint():
+    data = request.get_json(silent=True) or {}
+    fixture = (data.get("fixture") or "").strip().lower()
+    if fixture == "organ":
+        payload = skip_remaining_mod.organ_fixture(mint_skips=data.get("mint_skips", True))
+    elif fixture in {"policycenter", "pc", "oos"}:
+        payload = skip_remaining_mod.policycenter_fixture(mint_skips=data.get("mint_skips", True))
+    elif fixture in {"winner-only", "winner_only", "silent"}:
+        payload = skip_remaining_mod.organ_fixture(mint_skips=False)
+    else:
+        payload = data
+    out = skip_remaining_mod.mint(payload, public_url=advertised_url())
+    status = 200 if out.get("ok") else 400
+    return jsonify(out), status
+
+
+@app.route("/v1/skip/casp", methods=["POST"])
+@app.route("/demo/skip/casp", methods=["POST"])
+def skip_casp():
+    data = request.get_json(silent=True) or {}
+    return jsonify(skip_remaining_mod.casp_body(data))
+
+
+@app.route("/v1/skip/dated-write", methods=["POST"])
+@app.route("/demo/skip/dated-write", methods=["POST"])
+def skip_dated_write():
+    data = request.get_json(silent=True) or {}
+    fixture = (data.get("fixture") or "").strip().lower()
+    if fixture in {"oos", "policycenter", "pc", "resolve"}:
+        data = skip_remaining_mod.oos_fixture(mint_skips=bool(data.get("mint_skips", False)))
+    elif fixture in {"oos-mint", "resolve-mint"}:
+        data = skip_remaining_mod.oos_fixture(mint_skips=True)
+    elif fixture in {"preempt", "preemption", "handle-preemptions"}:
+        data = skip_remaining_mod.preempt_fixture(mint_skips=bool(data.get("mint_skips", False)))
+    elif fixture in {"preempt-mint"}:
+        data = skip_remaining_mod.preempt_fixture(mint_skips=True)
+    elif fixture in {"bind-only", "wrong-write"}:
+        data = {
+            "job_id": "pc:BIND-SYN",
+            "path": "/job/v1/jobs/pc:BIND-SYN/bind-only",
+            "mint_skips": False,
+        }
+    out = skip_remaining_mod.evaluate_dated_write(data, public_url=advertised_url())
+    status = 200 if out.get("allow") else 403
+    return jsonify(out), status
+
+
+@app.route("/.well-known/skip/<eid>.json")
+def well_known_skip_edition(eid):
+    body = skip_remaining_mod.get((eid or "").strip())
+    if not body:
+        return jsonify({"ok": False, "reason": "skip_edition_not_found"}), 404
+    return jsonify(body)
+
+
+@app.route("/skip")
+@app.route("/skip/<eid>")
+def skip_page(eid=None):
+    body = skip_remaining_mod.get((eid or "").strip()) if eid else None
+    return render_template(
+        "skip.html",
+        public_url=advertised_url(),
+        protocol=skip_remaining_mod.spec(advertised_url()),
+        edition=body,
+        edition_id=eid,
+    )
+
+
 @app.route("/.well-known/command-radiation.json")
 def well_known_command_radiation():
     return jsonify(command_radiation_mod.spec(advertised_url()))
@@ -2752,6 +2838,7 @@ LISTING_FILES = {
     "duckcreek-partner.json": lambda: listings_mod.duckcreek_packet(advertised_url(), CONTACT_EMAIL),
     "wrangler.toml": lambda: listings_mod.wrangler_toml(advertised_url()),
     "wrangler-bind.toml": lambda: listings_mod.wrangler_bind_toml(advertised_url()),
+    "wrangler-skip.toml": lambda: listings_mod.wrangler_skip_toml(advertised_url()),
     "control-not-model.json": lambda: listings_mod.control_not_model(advertised_url(), CONTACT_EMAIL),
     "operator.json": lambda: operator_mod.manifest(advertised_url(), CONTACT_EMAIL),
     "register.json": lambda: register_mod.manifest(advertised_url(), CONTACT_EMAIL),
@@ -2760,6 +2847,7 @@ LISTING_FILES = {
 LISTING_STATIC = {
     "cloudflare-worker.js": "application/javascript; charset=utf-8",
     "cloudflare-worker-bind.js": "application/javascript; charset=utf-8",
+    "cloudflare-worker-skip.js": "application/javascript; charset=utf-8",
     "guidewire-gosu-prebind.gs": "text/plain; charset=utf-8",
     "guidewire-renewal-prebind.gs": "text/plain; charset=utf-8",
 }
@@ -3427,6 +3515,7 @@ def robots():
             "Disallow: /mass",
             "Disallow: /tattoo",
             "Disallow: /scanner",
+            "Disallow: /skip",
             "Disallow: /uplink",
             "Disallow: /inhabitant",
             "Disallow: /afterward",
@@ -3710,6 +3799,11 @@ def openapi_full():
                 "/afterward": {"get": {"summary": "Including later. Missing letter is a hole, not a spared world."}},
                 "/capture": {"get": {"summary": "PolicyCenter spend writes. bind-only is already Bound."}},
                 "/scanner": {"get": {"summary": "Spend protocol — the scanner. One write. Fingerprint or no print."}},
+                "/skip": {"get": {"summary": "Skip remaining — ranked write mint + CASP. Winner-only diaries score 0."}},
+                "/v1/skip/mint": {"post": {"summary": "Mint skip remaining for a synthetic ranked sequence. fixture=organ|policycenter|winner-only"}},
+                "/v1/skip/casp": {"post": {"summary": "Score a diary: jumped names must have skip receipts."}},
+                "/v1/skip/dated-write": {"post": {"summary": "V2 plant. Intercept PolicyCenter oos-conflicts/resolve or handle-preemptions. Winner-only HALTs."}},
+                "/.well-known/skip-remaining.json": {"get": {"summary": "Yellow paper. Skip is a conserved register. Married write is OOS resolve."}},
                 "/uplink": {"get": {"summary": "Command radiation — may this CLTU still be radiated, in this now?"}},
                 "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
                 "/.well-known/command-radiation.json": {"get": {"summary": "Public command-radiation spec. Redeem must present UTC now."}},
