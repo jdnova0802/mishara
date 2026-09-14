@@ -119,6 +119,8 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("inhabitant", m["floor"])
         self.assertIn("commit_auth", m)
         self.assertIn("spend_protocol", m)
+        self.assertIn("skip_remaining", m)
+        self.assertFalse(m["skip_remaining"]["their_production"])
         self.assertIn("command_radiation", m)
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
@@ -186,7 +188,7 @@ class FlaskListingTests(unittest.TestCase):
         data = r.get_json()
         self.assertIn("dates", data)
         self.assertIn("guidewire", data["dates"])
-        self.assertIn("skip_remaining", data["dates"])
+        self.assertIn("skip_remaining", data)
 
     def test_mcp_initialize_and_tools(self):
         r = self.client.post(

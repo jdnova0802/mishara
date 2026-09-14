@@ -96,7 +96,7 @@ class LiveMint(unittest.TestCase):
 
     def test_listings_dates_skip(self):
         r = self.client.get("/.well-known/listings.json")
-        self.assertIn("skip_remaining", r.get_json()["dates"])
+        self.assertIn("skip_remaining", r.get_json())
 
     def test_edition_page_and_robots(self):
         minted = self.client.post("/demo/skip/mint", json={"fixture": "organ"}).get_json()
