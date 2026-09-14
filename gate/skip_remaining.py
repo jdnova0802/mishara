@@ -17,8 +17,10 @@ SPEC = "gate-skip-remaining-v1"
 
 try:
     from gate import db
+    from gate import signed_remaining as srt_mod
 except ImportError:
     import db  # type: ignore
+    import signed_remaining as srt_mod  # type: ignore
 
 
 def _canonical(obj: Any) -> str:
@@ -81,10 +83,14 @@ def spec(public_url: str) -> dict:
         "mint": f"{base}/v1/skip/mint",
         "casp_url": f"{base}/v1/skip/casp",
         "dated_write": f"{base}/v1/skip/dated-write",
+        "srt": f"{base}/.well-known/srt.json",
+        "srt_present": f"{base}/v1/skip/srt",
         "page": f"{base}/skip",
         "stranger": f"{base}/.well-known/skip/{{id}}.json",
         "implementor": f"{base}/listings/cloudflare-worker-skip.js",
         "their_production": False,
+        "srt_required_after_casp": True,
+        "civilization_default": False,
         "not": [
             "authorization to transplant, bind, or pay",
             "a 26th S-number",
@@ -413,8 +419,7 @@ def parse_preemption(payload: dict) -> dict:
     }
 
 
-def oos_fixture(*, mint_skips: bool = False, resolution: str = "acceptYours") -> dict:
-    job_id = "pc:OOS-SYN"
+def oos_fixture(*, mint_skips: bool = False, resolution: str = "acceptYours", job_id: str = "pc:OOS-SYN") -> dict:
     return {
         "job_id": job_id,
         "method": "POST",
@@ -453,12 +458,14 @@ def evaluate_dated_write(payload: dict, *, public_url: str) -> dict:
     write_obj = skip_write(job_id=parsed["job_id"] or job_id, path=parsed["path"])
     fp = skip_fingerprint(write_obj)
     casp = minted.get("casp") or {}
-    allow = bool(minted.get("ok") and casp.get("pass"))
-    return {
+    casp_ok = bool(minted.get("ok") and casp.get("pass"))
+    allow = casp_ok
+    reason = None if allow else (casp.get("reason") or minted.get("reason") or "winner_only")
+    out = {
         "ok": allow,
         "halt": not allow,
         "allow": allow,
-        "reason": None if allow else (casp.get("reason") or minted.get("reason") or "winner_only"),
+        "reason": reason,
         "spec": SPEC,
         "plant": "V2",
         "married_write": oos_resolve_path("{job_id}"),
@@ -468,5 +475,29 @@ def evaluate_dated_write(payload: dict, *, public_url: str) -> dict:
         "skip": minted if minted.get("ok") else None,
         "verify_url": minted.get("verify_url") if allow else None,
         "their_production": False,
+        "civilization_default": False,
         "not": "a production weld. Synthetic PolicyCenter Job API plant.",
     }
+    extra = srt_mod.attach_to_dated_write(
+        payload=payload,
+        minted=minted if minted.get("ok") else {},
+        write_obj=write_obj,
+        fingerprint=fp,
+        public_url=public_url,
+        casp_ok=casp_ok,
+    )
+    out.update(extra)
+    if extra.get("allow") is False:
+        out["ok"] = False
+        out["halt"] = True
+        out["allow"] = False
+        out["reason"] = extra.get("reason") or out["reason"]
+        out["verify_url"] = None
+    elif extra.get("allow") is True:
+        out["ok"] = True
+        out["halt"] = False
+        out["allow"] = True
+        if extra.get("reason") == srt_mod.REASON_ALREADY:
+            out["reason"] = srt_mod.REASON_ALREADY
+        out["verify_url"] = (extra.get("srt") or {}).get("verify_url") or out.get("verify_url")
+    return out

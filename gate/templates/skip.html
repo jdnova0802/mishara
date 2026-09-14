@@ -36,12 +36,16 @@
     Ranked writes have offer / accept / execute. Skip is not a type in their diaries.
     Winner-only scores <strong>0</strong> and the V2 plant <strong>HALTs</strong>
     <code class="inline">POST /job/v1/jobs/{id}/oos-conflicts/resolve</code>.
-    Minted skip remaining scores <strong>1</strong> and the write may proceed.
+    Minted skip remaining scores <strong>1</strong> and the write may proceed
+    only with a <strong>Signed Remaining Timestamp</strong>. No SRT is a 403
+    even when CASP would pass. Replay of the same write is remaining, not a second act.
+    Mortmain remaining stays <code class="inline">spendable: false</code> under CHARGE.
     Synthetic IDs only. <code class="inline">their_production</code> false.
-    Bind-only stays the spend door. This scanner is the discard.
+    Bind-only stays the spend door. This scanner is the discard. Not a 10/10 padlock.
   </p>
   <p style="margin-top: 0.6rem; font-size: 0.9rem;">
     Spec: <a href="/.well-known/skip-remaining.json">/.well-known/skip-remaining.json</a>
+    · SRT: <a href="/.well-known/srt.json">/.well-known/srt.json</a>
   </p>
 
   <div class="btns">
@@ -54,6 +58,12 @@
     <button type="button" data-weld="preempt">Intercept preemption — silent HALT</button>
     <button type="button" data-weld="preempt-mint">Intercept preemption — mint remaining</button>
     <button type="button" data-weld="bind-only">Wrong write bind-only — not this scanner</button>
+    <button type="button" data-weld="srt-missing">CASP pass, no SRT — 403</button>
+    <button type="button" data-weld="mortmain">Mint mortmain remaining</button>
+    <button type="button" id="replay">Replay last write — already written</button>
+    <button type="button" id="present-empty">Present empty SRT — 403</button>
+    <button type="button" id="present-last">Present last SRT</button>
+    <button type="button" id="charge-mortmain">CHARGE mortmain — still not spend</button>
   </div>
 
   <p class="casp fail" id="casp-n">—</p>
@@ -80,7 +90,11 @@ function paint(body) {
   document.getElementById("casp-r").textContent = casp.reason ? (casp.reason + " · jumped " + casp.jumped + " · receipts " + casp.receipts) : "";
   const verdict = document.getElementById("verdict");
   if (body && (body.halt === true || body.allow === false || body.allow === true)) {
-    verdict.textContent = body.allow ? "ALLOW · skip remaining present" : ("HALT · " + (body.reason || "winner_only"));
+    let msg = body.allow ? "ALLOW · skip remaining present" : ("HALT · " + (body.reason || "winner_only"));
+    if (body.already_written) msg = "ALLOW · already written remaining";
+    if (body.reason === "srt_missing") msg = "HALT · SRT missing (CASP is not enough)";
+    if (body.reason === "mortmain_not_spendable") msg = "HALT · mortmain not spendable";
+    verdict.textContent = msg;
     verdict.className = "verdict " + (body.allow ? "allow" : "halt");
   } else {
     verdict.textContent = "";
@@ -125,6 +139,26 @@ function paint(body) {
     f.textContent = "skip fingerprint " + body.spend_fingerprint.slice(0, 16) + "… · " + ((body.spend_write && body.spend_write.path) || "");
     corpses.appendChild(f);
   }
+  if (body && body.srt && body.srt.id) {
+    const s = document.createElement("a");
+    s.href = "/.well-known/srt/" + body.srt.id + ".json";
+    s.textContent = "SRT stranger verify →";
+    corpses.appendChild(s);
+    window.__lastSrt = body.srt;
+  }
+  if (body && body.act_remaining && body.act_remaining.verify_url) {
+    const a = document.createElement("a");
+    a.href = body.act_remaining.verify_url.replace(/^https?:\/\/[^/]+/, "") || body.act_remaining.verify_url;
+    a.textContent = body.already_written ? "Already written remaining →" : "Act remaining →";
+    corpses.appendChild(a);
+  }
+  if (body && body.mortmain && body.mortmain.id) {
+    const m = document.createElement("a");
+    m.href = "/.well-known/mortmain/" + body.mortmain.id + ".json";
+    m.textContent = "Mortmain remaining (spendable false) →";
+    corpses.appendChild(m);
+    window.__lastMortmain = body.mortmain.id;
+  }
   document.getElementById("out").textContent = JSON.stringify(body, null, 2);
 }
 
@@ -159,8 +193,33 @@ document.querySelectorAll(".btns button").forEach(btn => {
     if (fix === "policycenter-full") mint("policycenter", true);
     else if (fix === "policycenter") mint("policycenter", false);
     else if (fix === "winner-only") mint("winner-only", false);
-    else mint(fix, true);
+    else if (fix) mint(fix, true);
   });
+});
+const replayBtn = document.getElementById("replay");
+if (replayBtn) replayBtn.addEventListener("click", () => weld("oos-mint"));
+const presentEmpty = document.getElementById("present-empty");
+if (presentEmpty) presentEmpty.addEventListener("click", async () => {
+  const r = await fetch("/demo/skip/srt", { method: "POST", headers: {"Content-Type": "application/json"}, body: "{}" });
+  paint(await r.json());
+});
+const presentLast = document.getElementById("present-last");
+if (presentLast) presentLast.addEventListener("click", async () => {
+  const r = await fetch("/demo/skip/srt", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ srt: window.__lastSrt || null })
+  });
+  paint(await r.json());
+});
+const chargeBtn = document.getElementById("charge-mortmain");
+if (chargeBtn) chargeBtn.addEventListener("click", async () => {
+  const r = await fetch("/demo/skip/mortmain/charge", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ remaining_id: window.__lastMortmain, charge_id: "chg_synthetic" })
+  });
+  paint(await r.json());
 });
 if (existing && existing.id) paint(existing);
 </script>

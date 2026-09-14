@@ -36,6 +36,9 @@ class KindPaper(unittest.TestCase):
         self.assertTrue(data["action_os_still_seated"])
         self.assertTrue(data["not_outbound"])
         self.assertTrue(data["skip_remaining_does_not_change_thesis"])
+        self.assertTrue(data["srt_seed_does_not_change_thesis"])
+        self.assertEqual(data["srt"]["shipped"], "seed")
+        self.assertFalse(data["srt"]["civilization_default"])
         self.assertIn("K1", data["kinds"])
         self.assertIn("office", data["kinds"]["K2"]["name"].lower())
 
