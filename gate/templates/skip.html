@@ -16,6 +16,9 @@
   .rung.placed { border-color: var(--success); box-shadow: 0 0 0 1px var(--success); }
   .rung.ghost { opacity: 0.42; text-decoration: line-through; border-style: dashed; }
   .rung.hole { border-color: var(--danger); color: var(--danger); box-shadow: 0 0 0 1px var(--danger); }
+  .verdict { font-family: var(--mono); font-size: 1.1rem; margin: 0.4rem 0 0; }
+  .verdict.halt { color: var(--danger); }
+  .verdict.allow { color: var(--success); }
   .rung .n { color: var(--muted); }
   .casp { font-size: 4.5rem; font-weight: 700; font-family: var(--mono); line-height: 1; }
   .casp.fail { color: var(--danger); }
@@ -31,8 +34,11 @@
   <h1>The names they <em>jumped</em> are the remaining.</h1>
   <p style="color: var(--muted); max-width: 42rem;">
     Ranked writes have offer / accept / execute. Skip is not a type in their diaries.
-    Winner-only scores <strong>0</strong>. Minted skip remaining scores <strong>1</strong>.
+    Winner-only scores <strong>0</strong> and the V2 plant <strong>HALTs</strong>
+    <code class="inline">POST /job/v1/jobs/{id}/oos-conflicts/resolve</code>.
+    Minted skip remaining scores <strong>1</strong> and the write may proceed.
     Synthetic IDs only. <code class="inline">their_production</code> false.
+    Bind-only stays the spend door. This scanner is the discard.
   </p>
   <p style="margin-top: 0.6rem; font-size: 0.9rem;">
     Spec: <a href="/.well-known/skip-remaining.json">/.well-known/skip-remaining.json</a>
@@ -43,9 +49,15 @@
     <button type="button" data-fix="winner-only">Winner-only diary — should zero</button>
     <button type="button" data-fix="policycenter">PolicyCenter acceptYours silent</button>
     <button type="button" data-fix="policycenter-full">PolicyCenter with discard remaining</button>
+    <button type="button" data-weld="oos">Intercept PC resolve — silent HALT</button>
+    <button type="button" data-weld="oos-mint">Intercept PC resolve — mint remaining</button>
+    <button type="button" data-weld="preempt">Intercept preemption — silent HALT</button>
+    <button type="button" data-weld="preempt-mint">Intercept preemption — mint remaining</button>
+    <button type="button" data-weld="bind-only">Wrong write bind-only — not this scanner</button>
   </div>
 
   <p class="casp fail" id="casp-n">—</p>
+  <p class="verdict halt" id="verdict"></p>
   <div class="meter fail" id="casp-m"><span></span></div>
   <p id="casp-r" style="color: var(--muted); font-family: var(--mono);"></p>
   <div class="ladder" id="ladder"></div>
@@ -56,7 +68,8 @@
 const existing = {{ edition|tojson }};
 
 function paint(body) {
-  const casp = (body && body.casp) || {};
+  const inner = (body && body.skip) || body || {};
+  const casp = (inner.casp) || (body && body.casp) || {};
   const n = document.getElementById("casp-n");
   const score = Number(casp.score);
   n.textContent = (casp.score === 0 || casp.score) ? score.toFixed(2) : "—";
@@ -65,9 +78,17 @@ function paint(body) {
   meter.className = "meter " + (casp.pass ? "pass" : "fail");
   meter.firstElementChild.style.width = (Number.isFinite(score) ? (score * 100) : 0) + "%";
   document.getElementById("casp-r").textContent = casp.reason ? (casp.reason + " · jumped " + casp.jumped + " · receipts " + casp.receipts) : "";
-  const seq = (body && body.sequence) || [];
-  const placed = body && body.placed_id;
-  const skipSet = new Set(((body && body.skips) || []).map(s => s.id));
+  const verdict = document.getElementById("verdict");
+  if (body && (body.halt === true || body.allow === false || body.allow === true)) {
+    verdict.textContent = body.allow ? "ALLOW · skip remaining present" : ("HALT · " + (body.reason || "winner_only"));
+    verdict.className = "verdict " + (body.allow ? "allow" : "halt");
+  } else {
+    verdict.textContent = "";
+  }
+  const seq = inner.sequence || (body && body.sequence) || [];
+  const placed = inner.placed_id || (body && body.placed_id);
+  const skipSet = new Set((inner.skips || (body && body.skips) || []).map(s => s.id));
+  const missing = new Set(casp.missing || []);
   const placedIdx = seq.findIndex(row => row.id === placed);
   const ladder = document.getElementById("ladder");
   ladder.innerHTML = "";
@@ -78,23 +99,31 @@ function paint(body) {
     let cls = "rung";
     let tag = "";
     if (row.id === placed) { cls += " placed"; tag = "PLACED"; }
-    else if (ahead && counted) { cls += " ghost"; tag = "SKIP"; }
-    else if (ahead && !counted) { cls += " hole"; tag = "UNCOUNTED"; }
+    else if (counted) { cls += " ghost"; tag = "SKIP"; }
+    else if (missing.has(row.id) || (ahead && !counted)) { cls += " hole"; tag = "UNCOUNTED"; }
     div.className = cls;
     div.innerHTML = "<span class='n'>" + String(i+1).padStart(2,"0") + "</span><span>" + (row.label || row.id) + "</span><span>" + tag + "</span>";
     ladder.appendChild(div);
   });
   const corpses = document.getElementById("corpses");
   corpses.innerHTML = "";
-  if (body && body.id) {
+  if (inner.id || (body && body.id)) {
+    const eid = inner.id || body.id;
     const a = document.createElement("a");
-    a.href = "/.well-known/skip/" + body.id + ".json";
+    a.href = "/.well-known/skip/" + eid + ".json";
     a.textContent = "Stranger verify this edition →";
     corpses.appendChild(a);
     const p = document.createElement("a");
-    p.href = "/skip/" + body.id;
-    p.textContent = "Permalink /skip/" + body.id;
+    p.href = "/skip/" + eid;
+    p.textContent = "Permalink /skip/" + eid;
     corpses.appendChild(p);
+  }
+  if (body && body.spend_fingerprint) {
+    const f = document.createElement("p");
+    f.style.fontFamily = "var(--mono)";
+    f.style.color = "var(--muted)";
+    f.textContent = "skip fingerprint " + body.spend_fingerprint.slice(0, 16) + "… · " + ((body.spend_write && body.spend_write.path) || "");
+    corpses.appendChild(f);
   }
   document.getElementById("out").textContent = JSON.stringify(body, null, 2);
 }
@@ -110,8 +139,22 @@ async function mint(fixture, mintSkips) {
   if (body && body.id) history.replaceState({}, "", "/skip/" + body.id);
 }
 
+async function weld(fixture) {
+  const r = await fetch("/demo/skip/dated-write", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ fixture })
+  });
+  const body = await r.json();
+  paint(body);
+  const eid = body && body.skip && body.skip.id;
+  if (eid) history.replaceState({}, "", "/skip/" + eid);
+}
+
 document.querySelectorAll(".btns button").forEach(btn => {
   btn.addEventListener("click", () => {
+    const weldFix = btn.getAttribute("data-weld");
+    if (weldFix) { weld(weldFix); return; }
     const fix = btn.getAttribute("data-fix");
     if (fix === "policycenter-full") mint("policycenter", true);
     else if (fix === "policycenter") mint("policycenter", false);

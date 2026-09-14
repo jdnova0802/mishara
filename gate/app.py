@@ -1418,6 +1418,8 @@ def well_known_gate():
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
             "skip_remaining": f"{advertised_url()}/.well-known/skip-remaining.json",
             "skip_page": f"{advertised_url()}/skip",
+            "skip_dated_write": f"{advertised_url()}/v1/skip/dated-write",
+            "skip_worker": f"{advertised_url()}/listings/cloudflare-worker-skip.js",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
             "license_fuse": f"{advertised_url()}/.well-known/license-fuse.json",
             "restraint": f"{advertised_url()}/.well-known/restraint.json",
@@ -2193,6 +2195,30 @@ def skip_casp():
     return jsonify(skip_remaining_mod.casp_body(data))
 
 
+@app.route("/v1/skip/dated-write", methods=["POST"])
+@app.route("/demo/skip/dated-write", methods=["POST"])
+def skip_dated_write():
+    data = request.get_json(silent=True) or {}
+    fixture = (data.get("fixture") or "").strip().lower()
+    if fixture in {"oos", "policycenter", "pc", "resolve"}:
+        data = skip_remaining_mod.oos_fixture(mint_skips=bool(data.get("mint_skips", False)))
+    elif fixture in {"oos-mint", "resolve-mint"}:
+        data = skip_remaining_mod.oos_fixture(mint_skips=True)
+    elif fixture in {"preempt", "preemption", "handle-preemptions"}:
+        data = skip_remaining_mod.preempt_fixture(mint_skips=bool(data.get("mint_skips", False)))
+    elif fixture in {"preempt-mint"}:
+        data = skip_remaining_mod.preempt_fixture(mint_skips=True)
+    elif fixture in {"bind-only", "wrong-write"}:
+        data = {
+            "job_id": "pc:BIND-SYN",
+            "path": "/job/v1/jobs/pc:BIND-SYN/bind-only",
+            "mint_skips": False,
+        }
+    out = skip_remaining_mod.evaluate_dated_write(data, public_url=advertised_url())
+    status = 200 if out.get("allow") else 403
+    return jsonify(out), status
+
+
 @app.route("/.well-known/skip/<eid>.json")
 def well_known_skip_edition(eid):
     body = skip_remaining_mod.get((eid or "").strip())
@@ -2812,6 +2838,7 @@ LISTING_FILES = {
     "duckcreek-partner.json": lambda: listings_mod.duckcreek_packet(advertised_url(), CONTACT_EMAIL),
     "wrangler.toml": lambda: listings_mod.wrangler_toml(advertised_url()),
     "wrangler-bind.toml": lambda: listings_mod.wrangler_bind_toml(advertised_url()),
+    "wrangler-skip.toml": lambda: listings_mod.wrangler_skip_toml(advertised_url()),
     "control-not-model.json": lambda: listings_mod.control_not_model(advertised_url(), CONTACT_EMAIL),
     "operator.json": lambda: operator_mod.manifest(advertised_url(), CONTACT_EMAIL),
     "register.json": lambda: register_mod.manifest(advertised_url(), CONTACT_EMAIL),
@@ -2820,6 +2847,7 @@ LISTING_FILES = {
 LISTING_STATIC = {
     "cloudflare-worker.js": "application/javascript; charset=utf-8",
     "cloudflare-worker-bind.js": "application/javascript; charset=utf-8",
+    "cloudflare-worker-skip.js": "application/javascript; charset=utf-8",
     "guidewire-gosu-prebind.gs": "text/plain; charset=utf-8",
     "guidewire-renewal-prebind.gs": "text/plain; charset=utf-8",
 }
@@ -3774,7 +3802,8 @@ def openapi_full():
                 "/skip": {"get": {"summary": "Skip remaining — ranked write mint + CASP. Winner-only diaries score 0."}},
                 "/v1/skip/mint": {"post": {"summary": "Mint skip remaining for a synthetic ranked sequence. fixture=organ|policycenter|winner-only"}},
                 "/v1/skip/casp": {"post": {"summary": "Score a diary: jumped names must have skip receipts."}},
-                "/.well-known/skip-remaining.json": {"get": {"summary": "Yellow paper. Skip is a conserved register."}},
+                "/v1/skip/dated-write": {"post": {"summary": "V2 plant. Intercept PolicyCenter oos-conflicts/resolve or handle-preemptions. Winner-only HALTs."}},
+                "/.well-known/skip-remaining.json": {"get": {"summary": "Yellow paper. Skip is a conserved register. Married write is OOS resolve."}},
                 "/uplink": {"get": {"summary": "Command radiation — may this CLTU still be radiated, in this now?"}},
                 "/.well-known/spend-protocol.json": {"get": {"summary": "Public spend protocol. Implementors hash the write they forward."}},
                 "/.well-known/command-radiation.json": {"get": {"summary": "Public command-radiation spec. Redeem must present UTC now."}},

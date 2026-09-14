@@ -96,7 +96,52 @@ class LiveMint(unittest.TestCase):
 
     def test_listings_dates_skip(self):
         r = self.client.get("/.well-known/listings.json")
-        self.assertIn("skip_remaining", r.get_json())
+        data = r.get_json()
+        self.assertIn("skip_remaining", data)
+        self.assertIn("oos-conflicts/resolve", data["skip_remaining"]["married_write"])
+
+    def test_silent_oos_resolve_halts(self):
+        r = self.client.post("/demo/skip/dated-write", json={"fixture": "oos"})
+        self.assertEqual(r.status_code, 403)
+        body = r.get_json()
+        self.assertTrue(body["halt"])
+        self.assertFalse(body["allow"])
+        self.assertEqual(body["casp"]["reason"], "winner_only")
+        self.assertFalse(body["their_production"])
+        self.assertIn("oos-conflicts/resolve", body["spend_write"]["path"])
+
+    def test_oos_resolve_with_skips_allows(self):
+        r = self.client.post("/demo/skip/dated-write", json={"fixture": "oos-mint"})
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["allow"])
+        self.assertEqual(body["casp"]["score"], 1.0)
+        self.assertTrue(body["verify_url"])
+        eid = body["skip"]["id"]
+        v = self.client.get(f"/.well-known/skip/{eid}.json")
+        self.assertEqual(v.status_code, 200)
+        self.assertEqual(len(v.get_json()["skips"]), 1)
+
+    def test_preempt_silent_halts_and_mint_allows(self):
+        silent = self.client.post("/demo/skip/dated-write", json={"fixture": "preempt"})
+        self.assertEqual(silent.status_code, 403)
+        minted = self.client.post("/demo/skip/dated-write", json={"fixture": "preempt-mint"})
+        self.assertEqual(minted.status_code, 200)
+        self.assertTrue(minted.get_json()["allow"])
+
+    def test_bind_only_is_not_this_scanner(self):
+        r = self.client.post("/demo/skip/dated-write", json={"fixture": "bind-only"})
+        self.assertEqual(r.status_code, 403)
+        self.assertEqual(r.get_json()["reason"], "skip_write_not_in_protocol")
+
+    def test_skip_worker_is_listed(self):
+        w = self.client.get("/listings/cloudflare-worker-skip.js")
+        self.assertEqual(w.status_code, 200)
+        self.assertIn(b"oos-conflicts/resolve", w.data)
+        self.assertIn(b"/v1/skip/dated-write", w.data)
+        spec = self.client.get("/.well-known/skip-remaining.json").get_json()
+        self.assertIn("oos-conflicts/resolve", spec["married_write"]["path"])
+        self.assertIn("cloudflare-worker-skip.js", spec["implementor"])
 
     def test_edition_page_and_robots(self):
         minted = self.client.post("/demo/skip/mint", json={"fixture": "organ"}).get_json()

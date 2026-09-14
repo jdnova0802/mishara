@@ -123,8 +123,13 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "page": f"{public_url}/skip",
             "manifest": f"{public_url}/.well-known/skip-remaining.json",
             "atom": "D1 skip as conserved register",
+            "plant": "V2 PolicyCenter discard",
+            "married_write": "POST /job/v1/jobs/{job_id}/oos-conflicts/resolve",
+            "also_in_protocol": "POST /job/v1/jobs/{job_id}/handle-preemptions",
             "casp": f"{public_url}/v1/skip/casp",
             "mint": f"{public_url}/v1/skip/mint",
+            "dated_write": f"{public_url}/v1/skip/dated-write",
+            "worker": f"{public_url}/listings/cloudflare-worker-skip.js",
             "their_production": False,
         },
         "command_radiation": {
@@ -648,4 +653,22 @@ compatibility_date = "2026-08-18"
 GATE_URL = "{public_url}"
 FUSE_ID = "fuse_velaru_drill"
 ALLOW_LOCAL = "0"
+"""
+
+
+def wrangler_skip_toml(public_url: str) -> str:
+    return f"""# Skip-path scanner. Intercept oos-conflicts/resolve + handle-preemptions.
+# Winner-only HALTs. wrangler secret put GATE_KEY
+# GATE_URL = live https Gate — never localhost.
+# Not a production weld.
+
+name = "gate-skip-weld"
+main = "cloudflare-worker-skip.js"
+compatibility_date = "2026-08-18"
+
+[vars]
+GATE_URL = "{public_url}"
+FUSE_ID = "fuse_velaru_drill"
+ALLOW_LOCAL = "0"
+MINT_SKIPS = "0"
 """

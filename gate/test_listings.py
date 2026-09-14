@@ -121,6 +121,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("spend_protocol", m)
         self.assertIn("skip_remaining", m)
         self.assertFalse(m["skip_remaining"]["their_production"])
+        self.assertIn("oos-conflicts/resolve", m["skip_remaining"]["married_write"])
         self.assertIn("command_radiation", m)
         self.assertIn("license_fuse", m)
         self.assertIn("restraint", m)
