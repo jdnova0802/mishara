@@ -196,6 +196,124 @@ Hardware can **cut the wire**. Industry reports ask for **kill switches**. Almos
 
 ---
 
+## Pass 2 — Uncrowded only (explicit filter)
+
+**Filter applied:** exclude AI-agent governance, permit-receipt patent thicket, insurance/finance, NAIC, generic kill-switch hardware, and anything already rated crowding ≥4 in Pass 1. Prefer domains where Nisaba’s triad is load-bearing and almost nobody is selling that framing.
+
+### Track 1U — software / systems (uncrowded domains)
+
+#### T1U-A — Irrigation-district canal-gate SCADA (SMALL-NOW, low crowding)
+
+| | |
+|---|---|
+| **Domain** | Western ag water OT (distinct from municipal drinking-water T1-A) |
+| **Dated fact** | **2026-06:** Pixley Irrigation District (CA Central Valley) — unauthorized access left main Deer Creek turnout gate stuck in **manual** instead of remote-auto; discovered **2026-06-22**; FBI investigation open as of **2026-07-15** reporting. No delivery outage claimed; programming restored. Source: [SJV Water, 2026-07-15](https://sjvwater.org/pixley-irrigation-district-hacking-incident-still-under-investigation/). Concurrent: Yuma-area districts racing toward fully autonomous canal gates (2026 reporting). |
+| **Why now** | SGMA + drought automation wave put **remote gate commit** online just as attackers showed they can flip mode. Clearance (water order / schedule) ≠ execution (actuator move) is the exact failure surface. |
+| **Buildability** | **Yes for a thin edge.** One district, one turnout class, LIVE/DENY before gate write + stranger-verifiable receipt. Not “own California water.” Crowding among *permit-receipt AI vendors* here is near zero; traditional SCADA vendors do not sell independent DENY proof. |
+| **Upside** | 3–4 | **Buildability** | 4 | **Crowding** | **1** |
+| **File as** | **Best uncrowded small-now OT wedge** after/alongside municipal water. Start with one Friant/Kern-adjacent district integrator relationship. |
+
+#### T1U-B — EAS false-alert path: signature-mandatory CAP reject (WAIT software / NOW policy)
+
+| | |
+|---|---|
+| **Domain** | Broadcast emergency alerting (not AI agents) |
+| **Dated fact** | FCC **FCC 26-38** R&O + FNPRM (**2026-06-25/29**), FR **2026-07-31**. R&O: baseline EAS cyber hygiene (passwords, patches, firewall/segmentation), effective **2026-09-29**. FNPRM: require EAS Participants to **reject all CAP messages lacking a valid digital signature** (today: only reject *invalid* signatures; unsigned still pass). Comments due **2026-08-31**; **replies due 2026-09-29**. Dockets PS **15-91, 15-94, 25-224**. Sources: [91 FR 48320](https://www.federalregister.gov/documents/2026/07/31/2026-15600/wireless-emergency-alerts-the-emergency-alert-system-modernization-of-the-nations-alerting-systems); [FCC 26-38](https://docs.fcc.gov/public/attachments/FCC-26-38A1.pdf). |
+| **Why it matters** | False EAS is an **irreversible public panic act**. Authentication today is fail-open on missing signature. Nisaba frame: originator clearance ≠ station execution; DENY must hold without self-attestation. |
+| **Buildability** | Building a national EAS stack = not small-team. A **verifier sidecar / receipt for CAP-before-air** for one station group could be small — but market is niche and OEMs (Sage, Monroe, etc.) own the box. |
+| **Upside** | 4 | **Buildability** | 2 | **Crowding** | **1–2** (broadcast OEMs; almost no “independent DENY receipt” players) |
+| **File as** | **Policy-now** (reply comments still open through **2026-09-29**). Software later only with a named EAS OEM/partner. |
+
+#### T1U-C — 503B sterile batch *release* gate (knowledge → narrow SaaS)
+
+| | |
+|---|---|
+| **Domain** | Compounding / sterile drug release (pharma ops, not AI) |
+| **Dated facts** | Cluster of 503B warning letters **2025–2026** where Quality Unit **released** despite ISO-5 EM hits or weak investigation — e.g. Empower Pharma **2025-04-02** (release after ISO-5 recovery; later recalled); GenoGenix **2026-01-20**; RC Outsourcing **2026-03-20**; Fagron Sterile **2026-05-12**. Sources: FDA WL pages. FDA CGMP 503B guidance: QU must be **independent**; release is a governed irreversible act. |
+| **Old idea newly sharp** | “Independent Quality Unit” is decades old. Semaglutide/GLP-1 503B boom + repeated WL pattern makes **fail-closed release** (no ship without independent, replayable release permit bound to EM/sterility evidence) a concrete product, not a SOP paragraph. |
+| **Buildability** | Small team can build a **release mouth** (DENY ship/label print unless signed evidence bundle). Selling into 503B requires validation theater and sales cycles — medium friction, not nation-state. Crowding: LIMS/QMS vendors (MasterControl, etc.) exist but sell workflows/self-attestation, not stranger-verifiable DENY. |
+| **Upside** | 3 | **Buildability** | 3 | **Crowding** | **2** |
+| **File as** | Real small-now *if* one 503B operator welds it; otherwise authorship/consulting on release fail-open autopsies. |
+
+#### T1U-D — OPTN organ allocation commit (knowledge / nation-scale)
+
+| | |
+|---|---|
+| **Domain** | Organ matching / allocation |
+| **Dated fact** | GAO-26-107434 (2026): OPTN IT outdated; HHS OIG Dec 2024 found moderate attacker could compromise matching system; HRSA modernization assessments received Dec 2025, next-phase plans thin; AOOS (allocation out of sequence) dashboards rolled 2026; continuity contracts with UNOS in 3-month increments. Source: [GAO-26-107434](https://www.gao.gov/assets/gao-26-107434.pdf); HRSA AOOS pages. |
+| **Honest read** | Perfect PRI shape (match clearance ≠ organ ship/accept). **Not** small-team buildable. Multi-vendor federal program. |
+| **Upside** | 5 | **Buildability** | 0–1 | **Crowding** | n/a (HRSA/UNOS) |
+| **File as** | Knowledge only. Possible future expert/standards voice — never product target. |
+
+#### T1U-E — RMP Stop-Work Authority for ammonia refrigeration (consulting/process, not product)
+
+| | |
+|---|---|
+| **Domain** | Industrial chemical / cold storage |
+| **Dated fact** | EPA Safer Communities RMP amendments (**2024-03-11** FR); employee **Stop Work Authority** + qualified operator shutdown authority due **2026-05-10** (later pushed/reopened under 2026 “Common Sense” RMP proposal, comments closed **2026-05-11** — status fluid). Source: [EPA RMP](https://www.epa.gov/rmp); IIAR tech paper 2025. |
+| **Buildability** | Documented SWA is process/compliance, not a software mouth. Productizing “stop-work proof” is possible but buyers are PSM consultants, not startups’ sweet spot. |
+| **Upside** | 2 | **Buildability** | 2 | **Crowding** | 2 (PSM consultants) |
+| **File as** | Knowledge / niche consulting. Not a Gate SKU. |
+
+### Track 2U — non-software (uncrowded)
+
+#### T2U-A — Expert witness: automated *benefits denial* (not chatbot torts)
+
+| Case | Docket | Framing fit | Crowding |
+|---|---|---|---|
+| **Holmes v. Bax** (Missouri SNAP auto-deny for missed interview despite applicant effort) | W.D. Mo. **2:22-cv-04026**; 8th Cir. **25-1987** (op. **2026-08-19** — SJ affirmed in part, statewide injunction vacated, remanded) | System **executes denial** on timer; clearance/eligibility never reached. Fail-open-to-deny. Independent proof of interview availability vs self-attested “applicant no-show.” | Low for *architecture* experts; poverty-law counsel abundant |
+| **Chianne D. v. Harris / Hatch** (Florida Medicaid termination notices via ACCESS/FLORIDA EDBC) | M.D. Fla. **3:23-cv-00985-MMH-LLL**; FOFs after 2024 bench trial | Automated eligibility module deletes failed determination; notice fails to show basis. Clearance calculation ≠ explained execution of cut-off. | Low for Nisaba triad |
+| **Cincinnati ECC / Amir Jordan** wrongful death (filed ~**2026-08**) | Hamilton Cty. Common Pleas (news; get complaint) | CAD **Priority-1 misclassification** → irreversible emergency response → pedestrian death. Classification clearance ≠ dispatch execution; alleged concealment. | Almost empty for fail-closed dispatch experts |
+
+**Honest rating:** These are **live, non-OpenAI** matters where clearance≠execution / fail-open execution is the theory of harm. Expert market for this framing is **uncrowded**. Bar: need counsel introductions; not docket-shopping from a blog.
+
+#### T2U-B — Authorship gaps (uncrowded topics)
+
+| Gap | Why empty | Nisaba report that would land |
+|---|---|---|
+| **False EAS / missing-signature fail-open** | Broadcast trade press covers passwords; almost nothing on stranger-verifiable “why this alert aired” | *Unsigned CAP Still Airs: Fail-Open Alerting After FCC 26-38* |
+| **503B release-despite-EM** | Warning letters exist; no cross-facility autopsy of **release-as-irreversible-act** | *Quality Unit That Couldn’t DENY: 503B Release Fail-Open 2024–2026* |
+| **Irrigation SCADA mode flip** | One local story (Pixley); no national doctrine | *Manual Mode Is Not Safe Mode: Canal-Gate Clearance≠Execution* |
+| **SNAP/Medicaid auto-deny clocks** | Legal orgs write due-process briefs; thin on technical independent proof of “interview was available” | *Timer DENY: When Systems Execute Rejection Without Clearance* |
+
+Crowding on these four titles: **~1**. Do not write another agent-governance white paper.
+
+#### T2U-C — Convening (uncrowded)
+
+No standing group found on **irreversible public-safety / benefits / OT acts** (alerts, gates, batch release, benefit cuts). Closest are FCC CSRIC (broad), IIAR (ammonia), irrigation district associations (ops).
+
+**Smallest real first version:** “Irreversible Public Acts Clinic” — 6 people, quarterly, one vertical each time (EAS / canal gate / 503B release / benefits timer). Artifact: one DENY or fail-open autopsy note. Avoid calling it AI.
+
+#### T2U-D — Policy openings still live (non-NAIC, lower AI-governance density)
+
+| Opening | Deadline | Crowding | Nisaba insert |
+|---|---|---|---|
+| **FCC FNPRM reply comments** — CAP must have valid signature or reject | **2026-09-29** | Low (broadcast engineers; few “proof of DENY” voices) | Fail-closed on missing signature; independent air-chain receipt; clearance≠transmit |
+| **DOE Bulk-Power System RFI** (E.O. 14421 implementation) | **2026-10-09**; webinar was **2026-09-16** | Medium-high (utilities, OEMs) — **file carefully**; not uncrowded for product, OK for one RFI answer on disconnect/isolation proof | Only if framed as *effect-boundary permit*, not competing with CIP vendors |
+| **Colorado ADMT / Chatbot rules** (4 CCR 904-6) | Comments through **2026-10-26**; hearing same day | **Crowded with AI counsel** — *skip for uncrowded filter* or one short comment solely on **adverse-action execution proof** |
+| **NHTSA AV Framework interim guidance** | Extended to **2026-09-30** | Crowded (OEMs) — skip for product; optional one-pager on irreversible maneuver commit |
+
+**Uncrowded immediate:** FCC reply by **2026-09-29**. Colorado/NHTSA are noisier.
+
+#### T2U-E — Hardware note (uncrowded angle only)
+
+Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have almost no marketed “physical + proof receipt” bundles. Partner story ≠ build relays.
+
+### Pass 2 verdict (uncrowded shortlist)
+
+| Rank | Item | Type | Crowding | Move |
+|---|---|---|---|---|
+| 1 | **FCC EAS reply comment** (signature-mandatory reject) | Policy | 1–2 | File before **2026-09-29** |
+| 2 | **Pixley-class irrigation gate DENY weld** | Software/OT | 1 | One district integrator conversation |
+| 3 | **Fail-open autopsy report: 503B release / EAS / timer-DENY benefits** | Authorship | 1 | Publish openly |
+| 4 | **Expert intros on Holmes/Chianne/Jordan** | Litigation | 1–2 | Via counsel only |
+| 5 | **503B release mouth** | Software | 2 | Only with a paying 503B weld |
+| — | OPTN / RMP / DOE RFI product | — | — | Knowledge or skip |
+
+**Still excluded as crowded:** agent permit-receipt patents, NIST AI 200-2 (useful but crowded), Colorado ADMT (crowded), H.R. 9917, OpenAI tort pile, generic kill-switch hardware claims.
+
+---
+
 ## Source index (primary-leaning)
 
 | ID | Source |
@@ -217,3 +335,13 @@ Hardware can **cut the wire**. Industry reports ask for **kill switches**. Almos
 | S15 | Goldilock / Cypher-Drive / SCHLEGEL 2BSecure / Seclab hardware |
 | S16 | FCC Part 100 Order 2026-07-22; Stanford Space Law report 2026-09 |
 | S17 | Parallax + ToolMaze / Bench2Robust / AgentCheck / ToolMisuseBench preprints 2026 |
+| S18 | Pixley Irrigation District gate hack, SJV Water 2026-07-15; FBI inquiry |
+| S19 | FCC 26-38 / 91 FR 48320–48345; EAS R&O + FNPRM; replies due 2026-09-29 |
+| S20 | FDA WLs: Empower 2025-04-02; GenoGenix 2026-01-20; RC Outsourcing 2026-03-20; Fagron 2026-05-12 |
+| S21 | Holmes v. Bax, 2:22-cv-04026 (W.D. Mo.); 8th Cir. 25-1987 (2026-08-19) |
+| S22 | Chianne D. v. Harris/Hatch, 3:23-cv-00985 (M.D. Fla.) |
+| S23 | Cincinnati ECC / Amir Jordan wrongful death (~2026-08 filing) |
+| S24 | GAO-26-107434 OPTN; HRSA AOOS dashboards 2026 |
+| S25 | EPA RMP Safer Communities 2024; Stop Work Authority; 2026 Common Sense RMP proposal |
+| S26 | DOE Bulk-Power System RFI, 91 FR ~2026-09-09; comments due 2026-10-09 |
+| S27 | Colorado ADMT rules 4 CCR 904-6; comments through 2026-10-26 (crowded — listed for exclusion) |
