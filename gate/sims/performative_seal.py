@@ -1,31 +1,28 @@
 """S3 Performative Seal — lab mouth: draft ≠ filed speech-act.
 
 Lab only. their_production is always False.
-Not Westlaw/Lexis Quick Check — those check. This gates FILE.
+Not Westlaw/Lexis Quick Check — those check. This gates FILE / EFSP transmit.
+Weld-shape: EFSP block-transmit — no LIVE seal ⇒ cannot transmit.
 """
 
 from __future__ import annotations
 
 import hashlib
-import json
 import time
 import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
 from gate.sims.lab_invariant import stamp_lab_flag
+from gate.sims.logos import canonical
 
 
 SPEC = "nisaba-performative-seal-lab-v1"
 THEIR_PRODUCTION = False
 
 
-def _canonical(obj: Any) -> str:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
-
 def brief_hash(citations: list[dict[str, Any]]) -> str:
-    return hashlib.sha256(_canonical({"citations": citations}).encode("utf-8")).hexdigest()
+    return hashlib.sha256(canonical({"citations": citations}).encode("utf-8")).hexdigest()
 
 
 # Fixture grounding store — real-shaped keys vs planted fakes for proves.
@@ -35,7 +32,7 @@ GROUNDING_STORE: dict[str, dict[str, str]] = {
         "quote": "The Court therefore imposes sanctions",
     },
     "Fed. R. Civ. P. 11": {
-        "holding": "representations certifications",
+        "holding": "attorney certifications",
         "quote": "By presenting to the court a pleading",
     },
     "28 U.S.C. § 1927": {
@@ -66,6 +63,7 @@ class Store:
     seals: dict[str, Seal] = field(default_factory=dict)
     receipts: dict[str, dict[str, Any]] = field(default_factory=dict)
     filings: dict[str, dict[str, Any]] = field(default_factory=dict)
+    transmits: dict[str, dict[str, Any]] = field(default_factory=dict)
 
 
 STORE = Store()
@@ -76,6 +74,7 @@ def reset() -> None:
     STORE.seals.clear()
     STORE.receipts.clear()
     STORE.filings.clear()
+    STORE.transmits.clear()
 
 
 def _receipt(
@@ -92,6 +91,7 @@ def _receipt(
     payload = {
         "spec": SPEC,
         "receipt_id": rid,
+        "receipt_class": "clearance",  # file/transmit mouth decision
         "decision": decision,
         "reason_code": reason_code,
         "brief_id": brief_id,
@@ -102,7 +102,7 @@ def _receipt(
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="performative_seal"),
         "ts": time.time(),
     }
-    payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+    payload["receipt_hash"] = hashlib.sha256(canonical(payload).encode("utf-8")).hexdigest()
     STORE.receipts[rid] = payload
     return {**payload, "receipt_url": f"/v1/performative/receipts/{rid}"}
 
@@ -170,30 +170,38 @@ def seal_brief(brief_id: str) -> dict[str, Any]:
     )
 
 
-def file_brief(brief_id: str, seal_id: str | None = None) -> dict[str, Any]:
+def _require_live_seal(
+    brief_id: str,
+    seal_id: str | None,
+    *,
+    no_seal_reason: str,
+) -> tuple[Brief | None, Seal | None, dict[str, Any] | None]:
+    """Shared LIVE-seal gate for file and EFSP transmit. Third value = DENY receipt."""
     b = STORE.briefs.get(brief_id)
     if b is None:
-        return _receipt("DENY", "no_brief", brief_id=brief_id)
+        return None, None, _receipt("DENY", "no_brief", brief_id=brief_id)
 
     if not seal_id:
-        return _receipt(
+        return b, None, _receipt(
             "DENY",
-            "no_seal",
+            no_seal_reason,
             brief_id=brief_id,
             content_hash=b.content_hash,
+            result={"efsp_block": no_seal_reason == "efsp_block_no_seal"},
         )
 
     s = STORE.seals.get(seal_id)
     if s is None:
-        return _receipt(
+        return b, None, _receipt(
             "DENY",
-            "no_seal",
+            no_seal_reason,
             brief_id=brief_id,
             seal_id=seal_id,
             content_hash=b.content_hash,
+            result={"efsp_block": no_seal_reason == "efsp_block_no_seal"},
         )
     if s.brief_id != brief_id:
-        return _receipt(
+        return b, None, _receipt(
             "DENY",
             "seal_brief_mismatch",
             brief_id=brief_id,
@@ -201,13 +209,21 @@ def file_brief(brief_id: str, seal_id: str | None = None) -> dict[str, Any]:
             content_hash=b.content_hash,
         )
     if s.content_hash != b.content_hash:
-        return _receipt(
+        return b, None, _receipt(
             "DENY",
             "seal_stale",
             brief_id=brief_id,
             seal_id=seal_id,
             content_hash=b.content_hash,
         )
+    return b, s, None
+
+
+def file_brief(brief_id: str, seal_id: str | None = None) -> dict[str, Any]:
+    b, s, denied = _require_live_seal(brief_id, seal_id, no_seal_reason="no_seal")
+    if denied is not None:
+        return denied
+    assert b is not None and s is not None
 
     fid = str(uuid.uuid4())
     filing = {
@@ -226,6 +242,45 @@ def file_brief(brief_id: str, seal_id: str | None = None) -> dict[str, Any]:
         seal_id=seal_id,
         content_hash=b.content_hash,
         result=filing,
+    )
+
+
+def transmit_efsp(
+    brief_id: str,
+    seal_id: str | None = None,
+    *,
+    court_id: str = "US-SDNY",
+    case_number: str = "1:26-cv-0001",
+) -> dict[str, Any]:
+    """EFSP-shaped block-transmit mouth.
+
+    No LIVE seal ⇒ cannot transmit. Lab fixture only — no real CM/ECF.
+    """
+    b, s, denied = _require_live_seal(brief_id, seal_id, no_seal_reason="efsp_block_no_seal")
+    if denied is not None:
+        return denied
+    assert b is not None and s is not None
+
+    tid = str(uuid.uuid4())
+    transmit = {
+        "transmit_id": tid,
+        "brief_id": brief_id,
+        "seal_id": seal_id,
+        "content_hash": b.content_hash,
+        "court_id": court_id,
+        "case_number": case_number,
+        "efsp": "lab_fixture",
+        "real_cm_ecf": False,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="performative_seal"),
+    }
+    STORE.transmits[tid] = transmit
+    return _receipt(
+        "ALLOW",
+        "efsp_transmitted",
+        brief_id=brief_id,
+        seal_id=seal_id,
+        content_hash=b.content_hash,
+        result=transmit,
     )
 
 

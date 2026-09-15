@@ -1,17 +1,27 @@
 # Lab sims — concrescence mouths (S1/S3 + S6/S7/S8 + S9 watchman)
 
 **Status:** Lab only. `their_production: false` always — **enforced**, not aspirational (`lab_invariant.py`, `prove_lab_invariant`).  
+**P0 weld-shape:** S1 bank-send + stranger HTTP verify; S3 EFSP block-transmit — green in `prove_all`.  
 **Edge pass:** `../EDGE_PASS_2026-09-15.md`  
 **S-tier+:** `../S_TIER_PLUS_THREE_2026-09-15.md`  
 **Prove template:** `PROVE_SEQUENCE.md` — `prove_mouth_watch` + `prove_lab_invariant` required for every mouth
+
+## Shared unlocks (not intelligences)
+
+| Module | Role |
+|---|---|
+| `logos.py` | Shared mandate → grant → digest grammar (amount/rail-bound actus) |
+| `verify_http.py` | Local stranger GET by `receipt_url` — clearance **and** linked threat |
 
 ## Receipt classes (bank-branchable — not reason-string parsing)
 
 | `receipt_class` | Emitter | Meaning |
 |---|---|---|
-| `clearance` | Mouths (S1…) | This actus authorized or not |
+| `clearance` | Mouths (S1, S3…) | This actus authorized or not |
 | `threat` | S9 Mouth Watch only | Canary / session integrity / trajectory compromise |
 | `watch_clear` | S9 | Sense layer clear for this check |
+| `preflight` | S10 | Simulated delta match? |
+| `epoch` | S16 | Policy epoch fresh? |
 
 S9 block on S1 → clearance DENY (`watch_block: true`, `threat_receipt_id`, `threat_class`) **linking** to a separate threat object.
 
@@ -35,10 +45,10 @@ DENY **this** proposed actus + emit threat receipt. **No** session lockout, aler
 ## Crowding honesty
 
 ### S1 — not Fidacy / Visa TAP
-Digest-bound DENY + stranger receipt incl. non-pay actus. Weld later = bank-send + verify URL.
+Digest-bound DENY + stranger receipt incl. non-pay actus. **P0:** FedNow/RTP-*shaped* `bank_send` / `fednow_push` / `rtp_push` DENY fixtures + HTTP verify of clearance **and** linked threat.
 
 ### S3 — not Westlaw/Lexis checkers
-**File mouth** — no LIVE seal ⇒ cannot file.
+**File mouth** — no LIVE seal ⇒ cannot file. **P0:** `transmit_efsp` block-transmit (`efsp_block_no_seal`); fake cite cannot seal ⇒ cannot transmit; stranger HTTP seal/file/transmit receipts.
 
 ### S7 — not Workiva
 **Submit mouth** — ungrounded quantity ⇒ cannot submit.

@@ -1,13 +1,13 @@
-"""S1 Actus Fence — lab mouth: logos-before-actus for agent tools/pay.
+"""S1 Actus Fence — lab mouth: logos-before-actus for agent tools/pay/bank-send.
 
 Lab only. their_production is always False.
 Not Fidacy/Visa — those exist. This proves digest-bound DENY + stranger receipt.
+Weld-shape: FedNow/RTP-shaped bank_send DENY fixtures (not real rails).
 """
 
 from __future__ import annotations
 
 import hashlib
-import json
 import secrets
 import time
 import uuid
@@ -15,37 +15,21 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from gate.sims.lab_invariant import stamp_lab_flag
+from gate.sims.logos import (
+    AMOUNT_BOUND_ACTIONS,
+    ALLOWED_RAILS,
+    BANK_SEND_ACTIONS,
+    Grant,
+    Mandate,
+    action_digest,
+    canonical,
+    creditor_from_payload,
+    rail_from_payload,
+)
 
 
 SPEC = "nisaba-actus-fence-lab-v1"
 THEIR_PRODUCTION = False
-
-
-def _canonical(obj: Any) -> str:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
-
-def action_digest(action_type: str, payload: dict[str, Any]) -> str:
-    body = {"action_type": action_type, "payload": payload}
-    return hashlib.sha256(_canonical(body).encode("utf-8")).hexdigest()
-
-
-@dataclass
-class Mandate:
-    mandate_id: str
-    scope: list[str]
-    max_amount_cents: int | None
-    payee_allowlist: list[str]
-    expires_at: float
-    revoked: bool = False
-
-
-@dataclass
-class Grant:
-    grant_id: str
-    mandate_id: str
-    digest: str
-    expires_at: float
 
 
 @dataclass
@@ -96,7 +80,7 @@ def _receipt(
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
         "ts": time.time(),
     }
-    payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+    payload["receipt_hash"] = hashlib.sha256(canonical(payload).encode("utf-8")).hexdigest()
     STORE.receipts[rid] = payload
     return {
         **payload,
@@ -109,14 +93,17 @@ def create_mandate(
     *,
     max_amount_cents: int | None = None,
     payee_allowlist: list[str] | None = None,
+    allowed_rails: list[str] | None = None,
     ttl_sec: float = 3600,
 ) -> dict[str, Any]:
     mid = str(uuid.uuid4())
+    rails = list(allowed_rails) if allowed_rails is not None else list(ALLOWED_RAILS)
     m = Mandate(
         mandate_id=mid,
         scope=list(scope),
         max_amount_cents=max_amount_cents,
         payee_allowlist=list(payee_allowlist or []),
+        allowed_rails=rails,
         expires_at=time.time() + ttl_sec,
     )
     STORE.mandates[mid] = m
@@ -125,6 +112,7 @@ def create_mandate(
         "scope": m.scope,
         "max_amount_cents": m.max_amount_cents,
         "payee_allowlist": m.payee_allowlist,
+        "allowed_rails": m.allowed_rails,
         "expires_at": m.expires_at,
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
     }
@@ -134,7 +122,7 @@ def create_grant(mandate_id: str, digest: str, *, ttl_sec: float = 300) -> dict[
     m = STORE.mandates.get(mandate_id)
     if m is None:
         return _receipt("DENY", "no_mandate", mandate_id=mandate_id, digest=digest)
-    if m.revoked or m.expires_at < time.time():
+    if not m.is_live():
         return _receipt("DENY", "mandate_not_live", mandate_id=mandate_id, digest=digest)
     if not digest or len(digest) != 64:
         return _receipt("DENY", "malformed_digest", mandate_id=mandate_id, digest=digest)
@@ -170,6 +158,81 @@ def revoke_mandate(mandate_id: str) -> dict[str, Any]:
         "revoked": True,
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
     }
+
+
+def _check_amount_bound(
+    m: Mandate,
+    action_type: str,
+    payload: dict[str, Any],
+    *,
+    mandate_id: str,
+    digest: str,
+) -> dict[str, Any] | None:
+    """Shared money/rail constraints for pay + bank-send-shaped actus. None = pass."""
+    creditor = creditor_from_payload(payload)
+    amount = payload.get("amount_cents")
+
+    if m.payee_allowlist and creditor not in m.payee_allowlist:
+        return _receipt(
+            "DENY",
+            "payee_not_allowlisted",
+            mandate_id=mandate_id,
+            digest=digest,
+            action_type=action_type,
+            result={"creditor": creditor, "rail": rail_from_payload(action_type, payload)},
+        )
+
+    if m.max_amount_cents is not None:
+        try:
+            cents = int(amount)
+        except (TypeError, ValueError):
+            return _receipt(
+                "DENY",
+                "malformed_amount",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+            )
+        if cents > m.max_amount_cents:
+            return _receipt(
+                "DENY",
+                "over_cap",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+            )
+
+    if action_type in BANK_SEND_ACTIONS:
+        rail = rail_from_payload(action_type, payload)
+        if rail is None or rail not in ALLOWED_RAILS:
+            return _receipt(
+                "DENY",
+                "rail_unknown",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+                result={"rail": rail, "fixture": "fednow_rtp_shaped"},
+            )
+        if m.allowed_rails and rail not in m.allowed_rails:
+            return _receipt(
+                "DENY",
+                "rail_not_allowlisted",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+                result={"rail": rail, "allowed_rails": list(m.allowed_rails)},
+            )
+        if not creditor:
+            return _receipt(
+                "DENY",
+                "creditor_missing",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+                result={"rail": rail},
+            )
+
+    return None
 
 
 def execute(
@@ -249,7 +312,7 @@ def execute(
     m = STORE.mandates.get(mandate_id)
     if m is None:
         return _receipt("DENY", "no_mandate", mandate_id=mandate_id, digest=digest, action_type=action_type)
-    if m.revoked or m.expires_at < time.time():
+    if not m.is_live():
         return _receipt(
             "DENY",
             "mandate_not_live",
@@ -266,36 +329,12 @@ def execute(
             action_type=action_type,
         )
 
-    if action_type == "pay":
-        payee = str(payload.get("payee") or "")
-        amount = payload.get("amount_cents")
-        if m.payee_allowlist and payee not in m.payee_allowlist:
-            return _receipt(
-                "DENY",
-                "payee_not_allowlisted",
-                mandate_id=mandate_id,
-                digest=digest,
-                action_type=action_type,
-            )
-        if m.max_amount_cents is not None:
-            try:
-                cents = int(amount)
-            except (TypeError, ValueError):
-                return _receipt(
-                    "DENY",
-                    "malformed_amount",
-                    mandate_id=mandate_id,
-                    digest=digest,
-                    action_type=action_type,
-                )
-            if cents > m.max_amount_cents:
-                return _receipt(
-                    "DENY",
-                    "over_cap",
-                    mandate_id=mandate_id,
-                    digest=digest,
-                    action_type=action_type,
-                )
+    if action_type in AMOUNT_BOUND_ACTIONS:
+        denied = _check_amount_bound(
+            m, action_type, payload, mandate_id=mandate_id, digest=digest
+        )
+        if denied is not None:
+            return denied
 
     if not grant_id:
         return _receipt(
@@ -325,7 +364,7 @@ def execute(
             digest=digest,
             action_type=action_type,
         )
-    if g.expires_at < time.time():
+    if not g.is_live():
         return _receipt(
             "DENY",
             "grant_expired",
@@ -344,12 +383,20 @@ def execute(
             action_type=action_type,
         )
 
-    result = {
+    result: dict[str, Any] = {
         "executed": True,
         "action_type": action_type,
         "digest": digest,
         "sim_result_id": str(uuid.uuid4()),
     }
+    if action_type in BANK_SEND_ACTIONS:
+        result["bank_send"] = {
+            "rail": rail_from_payload(action_type, payload),
+            "creditor": creditor_from_payload(payload),
+            "amount_cents": payload.get("amount_cents"),
+            "fixture": "fednow_rtp_shaped",
+            "real_rail": False,
+        }
     return _receipt(
         "ALLOW",
         "ok",

@@ -53,6 +53,11 @@ def main() -> None:
             "sequence": ran,
             "required_always": ["prove_mouth_watch", "prove_lab_invariant"],
             "s10_scenario_x": "S9 clear + preflight_delta_mismatch DENY (independent)",
+            "p0_weld": {
+                "s1": "bank_send + stranger HTTP clearance/threat",
+                "s3": "transmit_efsp + efsp_block_no_seal + stranger HTTP",
+                "logos": "shared mandate/grant/digest",
+            },
         }
     )
 

@@ -20,6 +20,16 @@ Current `prove_all` order:
 10. `prove_ron_attest_refuse`
 11. `prove_lab_invariant` ← **required last**
 
+## P0 weld gates (Orders 1–2)
+
+| Prove | Must show |
+|---|---|
+| `prove_actus_fence` | bank-send DENYs (`rail_not_allowlisted`, `rail_unknown`, …); stranger HTTP clearance + linked threat |
+| `prove_performative_seal` | fake cite → seal DENY → `efsp_block_no_seal`; LIVE seal → `efsp_transmitted`; stranger HTTP |
+| `prove_actus_s9_wire` | A canary ≠ B hostile (still required before calling S1 extend done) |
+
+Shared: `logos.py` (mandate/grant/digest), `verify_http.py` (127.0.0.1 stranger GET).
+
 ## Receipt classes
 
 | `receipt_class` | Emitter | Meaning |

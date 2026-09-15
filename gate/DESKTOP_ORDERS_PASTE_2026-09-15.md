@@ -57,9 +57,10 @@ S1↔S9 WIRE (separate scenarios — both green before S1 extend called done):
   Do not merge A+B into one checkmark.
 
 === ORDER 1 — P0 — S1 Actus Fence (extend) ===
-Files: gate/sims/actus_fence.py, prove_actus_fence.py
+Files: gate/sims/actus_fence.py, prove_actus_fence.py, logos.py, verify_http.py
 Gate: prove_actus_s9_wire must already be green (A and B separate).
-Do:
+Status: **DONE in cloud** — bank-send DENYs + stranger HTTP clearance/threat green in prove_all.
+Do (if extending further):
 - Local HTTP stranger-verify for receipts (GET by receipt_id) — clearance AND linked threat
 - FedNow/RTP-shaped bank-send DENY fixtures (not real rails)
 - Keep non-pay consequential actus (prod_mutate etc.)
@@ -67,8 +68,9 @@ Do:
 Prove: bank-send-shaped DENY; stranger fetch clearance + threat; prove_actus_s9_wire still OK.
 
 === ORDER 2 — P0 — S3 Performative Seal (extend) ===
-Files: gate/sims/performative_seal.py, prove_performative_seal.py
-Do:
+Files: gate/sims/performative_seal.py, prove_performative_seal.py, verify_http.py
+Status: **DONE in cloud** — transmit_efsp + efsp_block_no_seal + stranger HTTP green in prove_all.
+Do (if extending further):
 - EFSP-shaped block-transmit: no LIVE seal ⇒ cannot transmit/file
 - Plant fake cite ⇒ seal DENY ⇒ file DENY
 - Stranger seal/file receipt via HTTP verify
