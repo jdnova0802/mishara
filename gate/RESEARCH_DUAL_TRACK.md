@@ -312,6 +312,10 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 **Still excluded as crowded:** agent permit-receipt patents, NIST AI 200-2 (useful but crowded), Colorado ADMT (crowded), H.R. 9917, OpenAI tort pile, generic kill-switch hardware claims.
 
+### Open-field formula pass (new bindings OK)
+
+`FORMULA_HUNT_OPEN_2026-09-15.md` — web force-scan for finds **outside** existing Nisaba rails. New connections allowed (not every row forced onto payout/DER). Top non-remap: **reality provenance survive-to-publish**; long-cycle: **distributed pharma spoke release**.
+
 ---
 
 ## Source index (primary-leaning)

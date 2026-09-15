@@ -74,3 +74,9 @@ First commercial prove can still be **payout**; this is the **civilizational twi
 1. Keep **payout DENY** as the first *prove* (money edge, fastest stranger demo).
 2. Treat **DER/VPP actuate DENY + receipt** as the named civilizational twin — second weld / thesis for coordinators (utilities, aggregators, PUCs).
 3. Do not confuse VPP optimization startups with this binding — they are spice merchants.
+
+---
+
+## Open-field pass (new bindings allowed)
+
+See **`FORMULA_HUNT_OPEN_2026-09-15.md`** — findings Nisaba did not already own; not every row remapped to Gate rails. Top new binding: **reality provenance survive-to-publish** (authenticity-of-record, not PRI).
