@@ -320,6 +320,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md` — **metaphysical First** (logos-before-actus / concrescence mouth) → **5 S-tier** products with vertical interrogation: Actus Fence, Presence Threshold, Performative Seal, Afterlife Mandate, Body Archive Gate.
 
+`DESKTOP_PASTES_S_TIER_2026-09-15.md` — **buildable desktop Cursor pastes** for all five (sim mouths, DENY proves, stranger receipts).
+
 ---
 
 ## Source index (primary-leaning)

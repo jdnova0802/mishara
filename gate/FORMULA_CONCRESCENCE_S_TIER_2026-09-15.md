@@ -241,7 +241,13 @@ Do **not** collapse these into “another DER sim.” They are five faces of **l
 
 ---
 
-## X. Paste for desktop Cursor (S1 first)
+## X. Paste for desktop Cursor
+
+**All five buildable pastes:** `DESKTOP_PASTES_S_TIER_2026-09-15.md`
+
+Run order: **S1 → S3 → S2 → S4 → S5**. Each is a lab mouth with DENY proves + stranger receipt; `their_production: false`.
+
+### S1 quick paste (start here)
 
 Build **Actus Fence** sim:
 
