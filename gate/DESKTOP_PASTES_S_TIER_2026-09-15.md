@@ -29,7 +29,7 @@ python3 -m gate.sims.prove_all
 | **Done** | S6/S7 weld-shape | Cloud green | Leave |
 | **Done** | Shock Z1–Z8 | Cloud green | Pitch ammo (Z1–Z4), not more code |
 | **Done** | Z9/Z10 | Generality demo only | Do not productize; no Z11 |
-| **Now** | Human outbound OR stop | — | **First door: S1 or S3** desk + stranger-GET; Z1–Z3 ammo only |
+| **Now** | **Hold** (hustles + bind first) | — | Main push after hustles+bind; warm intro only if it appears; no builds/hunts |
 
 **Do not start:** S2/S4/S5, museum S11–S17, Z11+, dashboards.
 

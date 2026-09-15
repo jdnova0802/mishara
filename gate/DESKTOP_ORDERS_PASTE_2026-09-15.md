@@ -1,82 +1,92 @@
 # Desktop orders — paste this into Cursor
 
-**Date:** 2026-09-15 (amended: first-door = S1/S3; research hunt **paused**)  
+**Date:** 2026-09-15 (final posture: research pause; push after hustles + bind)  
 **Branch:** `cursor/civilizational-research-dual-track-0d63` · PR #62  
 **Law:** logos-before-actus. Fail-closed. Stranger-verifiable receipt. `their_production: false` always. No dashboard theater. No real money/court/EDGAR/county/KYC/grief/biometric production.
 
-**Shock ship paste:** `SHOCK_TIER_SHIP_PASTE_2026-09-15.md`  
-**Stopping rule:** `SHOCK_TIER_HUNT_2026-09-15.md` § Stopping rule — **no Z11+** without named weld/pitch.  
-**Outbound research (1+2):** `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md` — receipt-as-product vs Fidacy/IntentFence/Visa TAP + Z1–Z3/S1/S3 desk map.  
-**More wedges (shippable only):** `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md` — S7 / escrow disburse / credentialed-publish; museum ignored.  
-**Research pause:** First institutional wedges found (S1/S3). **No more formula/shock/wedge hunts** until a human desk answers or a named partner asks for a weld.
+**Cloud is current.** Desktop does not rebuild. Desktop does not invent.
+
+| Doc | Role |
+|---|---|
+| `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md` | Receipt-as-product + desk map; first door S1/S3 |
+| `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md` | Backlog only (S7 / escrow / credentialed-publish) |
+| `SHOCK_TIER_HUNT_2026-09-15.md` | Stopping rule — no Z11+ |
+| `SHOCK_TIER_SHIP_PASTE_2026-09-15.md` | What Z1–Z10 are (ammo) |
 
 ---
 
 ## PASTE — current desktop posture
 
 ```
-You are on mishara gate/. Cloud already shipped lab spines + P0/tier-2 welds + shock Z1–Z10.
-Do NOT re-discover cores. Do NOT build Z11+ or museum intelligences. Prove stays green:
+You are on mishara gate/. Cloud already shipped lab spines + P0/tier-2 welds + shock Z1–Z10 + outbound notes.
+Research pause is ON. Institutional wedges found (S1/S3). Do NOT hunt. Do NOT rebuild. Do NOT ship new sims.
 
+Confirm green:
   python3 -m gate.sims.prove_all
 
 === ALREADY DONE IN CLOUD (do not rebuild) ===
 P0 S1: bank_send / fednow_push DENYs + stranger HTTP clearance+threat
 P0 S3: transmit_efsp + efsp_block_no_seal + stranger HTTP
-S9: mouth_watch + prove_actus_s9_wire (A canary ≠ B hostile) + S8 watch wire
-S6/S7: watch_session on record; submit_edgar_gateway + edgar_block_no_seal
-Shared: logos.py, verify_http.py (all mouth receipt routes)
+S9 mouth_watch + prove_actus_s9_wire (A canary ≠ B hostile) + S8 watch wire
+S6/S7 watch_session; submit_edgar_gateway + edgar_block_no_seal
+Shared: logos.py, verify_http.py
 Intelligences: S10 Scenario X, S16 epoch, S13 in-process stub
-Shock Z1–Z10: ISDA DC, CLS, IANA, Lloyd's, ITU, ISA, KP, Freeport, Peerage, Arms
-  — all DENY-first, stranger-fetchable, their_production: false
-  — Z9/Z10 = generality demo ONLY, not commercial queue
+Shock Z1–Z10 sealed (Z9/Z10 = generality demo only)
+Outbound research + shippable-wedge backlog docs exist
 
-=== HARD RULES (unchanged) ===
-THEIR_PRODUCTION identically False — stamp_lab_flag raises on mutation
+=== HARD RULES ===
+their_production identically False
 Receipt classes: clearance | threat | watch_clear | preflight | epoch
-S9 trip = deny_this_actus only (no lockout / alert fanout / quarantine)
+S9 trip = deny_this_actus only
 Scenario X: S9 clear + S10 DENY alone must stay green
-Empty > filler. Shock tier SEALED — no Z11 without named real-world use.
+Empty > filler. No Z11. No museum S11–S17.
 
-=== WHAT DESKTOP SHOULD DO NOW ===
-Not more mouths. Not more hunts. Pick ONE:
+=== SEQUENCE (pinned) ===
+Main institutional push = AFTER hustles + bind.
+Until then: do not start outbound campaign; do not build code for the wedge.
+Exception: a warm S1/S3 intro appears → take the call with stranger-GET demo (lab JSON is fine).
 
-A) OUTBOUND / PITCH (human) — stranger-verify demo
+=== WHAT DESKTOP SHOULD DO RIGHT NOW ===
+Pick ONE:
+
+A) STOP / HOLD — default
+   - Sit on the graph. Keep prove_all green if you touch anything.
+   - Do hustles + bind elsewhere. Do not invent Gate product.
+
+B) WARM INTRO ONLY (human) — if a real desk appears early
    - Read: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
-   - FIRST DOOR: S1 bank-send DENY (+ optional linked threat) OR S3 efsp_block_no_seal
-     — pick whichever warm path exists; if both cold prefer S3 institutional wedge
-   - Target the ROLE from the map (payments ops / EFSP-or-firm-risk) — not "fintech AI" / "legal tech BD"
-   - Z1/Z2/Z3 = briefcase ammo only (generality proof). Do not cold-open CLS/ISDA/IANA.
+   - Demo: S1 bank-send DENY (+ optional linked threat) OR S3 efsp_block_no_seal
+   - Role from map (payments ops / EFSP-or-firm-risk) — not "fintech AI" BD
+   - Z1–Z3 = briefcase ammo only
    Talking point: "stranger GET + machine receipt_class — not a compliance dashboard"
 
-B) DEEPEN EXISTING WELDS (code) — only if a partner path exists
-   - S1: bank-send fixture closer to real FedNow/RTP instruction shape (still lab)
-   - S3: EFSP transmit fixture closer to one court/EFSP conversation (still lab)
-   - Keep prove_all green; do not invent greenfield products
+C) DEEPEN WELD (code) — only if a named partner path exists
+   - S1 FedNow/RTP-shaped fixture or S3 one-court/EFSP fixture (still lab)
+   - Keep prove_all green
 
-C) STOP — sit on the graph until a buyer names which mouth they need
+=== DO NOT BUILD NOW ===
+- HTML receipt page / JWKS / hosted verify (wait until a desk call needs it, or after bind)
+- Escrow / credentialed-publish sims
+- New mouths, Z11+, S2/S4/S5, museum intelligences
+- Dashboards, crest generators, genealogy AI, CDS UIs
+- Another formula / shock / wedge hunt
 
-=== DO NOT ===
-- Rebuild S1–S8 cores or Z1–Z10 fixtures
-- Start Z11+ / S11–S17 museum / S2 liveness / S4 grief / S5 biometrics
-- Run another formula / shock / wedge hunt (research pause — wedges found)
-- Build escrow/credentialed-publish sims unless a named partner asks
-- Build dashboards, crest generators, genealogy AI, CDS trading UIs
-- Conflate S9 threat with S10 preflight (Scenario X must remain independent)
-- Treat any sim as production DC/CLS/IANA/Lloyd's/ITU/ISA/KP/freeport/Crown
+=== GAPS (known — not homework) ===
+1. Bind (production DENY weld) — biggest credibility jump; in sequence after hustles
+2. Human receipt page — nice for ops; not required before first warm call
+3. Named warm desk — human graph, not code
+4. JWKS-signed receipts — optional later
 
 === POINTERS ===
-Outbound research: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
-More wedges:       gate/INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md
-Shock paste:       gate/SHOCK_TIER_SHIP_PASTE_2026-09-15.md
-Stopping rule:     gate/SHOCK_TIER_HUNT_2026-09-15.md
-Prove sequence:    gate/sims/PROVE_SEQUENCE.md
-Intelligence:      gate/INTELLIGENCE_PASS_2026-09-15.md
-Edge / crowding:   gate/EDGE_PASS_2026-09-15.md
+Outbound:     gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
+Wedge backlog: gate/INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md
+Shock paste:  gate/SHOCK_TIER_SHIP_PASTE_2026-09-15.md
+Stop rule:    gate/SHOCK_TIER_HUNT_2026-09-15.md
+Prove:        gate/sims/PROVE_SEQUENCE.md
 ```
 
 ---
 
 ## One-liner for chat
 
-> Research pause. Institutional wedges found (S1/S3 first door). No more hunts. Next = one human stranger-GET conversation, deepen if partner, or stop. `python3 -m gate.sims.prove_all`
+> Cloud sealed. Research pause. First doors = S1/S3. Main push after hustles + bind. Desktop: hold (or take a warm intro). No builds, no hunts. `python3 -m gate.sims.prove_all`
