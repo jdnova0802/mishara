@@ -318,6 +318,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `FORMULA_HUNT_VERTICAL_2026-09-15.md` — same hunt **verticalized** into massive SKUs: instant-push DENY, EV/V2G curb actuate DENY, credentialed-publish DENY; harder welds (RA vehicle, ADC dispense).
 
+`FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md` — **metaphysical First** (logos-before-actus / concrescence mouth) → **5 S-tier** products with vertical interrogation: Actus Fence, Presence Threshold, Performative Seal, Afterlife Mandate, Body Archive Gate.
+
 ---
 
 ## Source index (primary-leaning)
