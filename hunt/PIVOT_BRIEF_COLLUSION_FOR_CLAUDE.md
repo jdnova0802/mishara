@@ -41,4 +41,12 @@ SEPARATE NISABA BUILD (already scoped, not the field study):
 
 If asked “what’s the company”: there isn’t one. Fail-sale: the tripwire feed, not a CV, not a collusion SDK for attackers.
 
+FUSE INTO THIS LANE (same warden-problem, not a new hunt). You will not be the only researcher in MASEC forever. Uniqueness is the JOIN. Full note: hunt/COLLUSION_FUSE.md
+0. Identity: DataDome 7.9B agent requests Jan–Feb 2026; millions of spoofed ChatGPT/Meta UAs; A2A drops principal across hops (A2ABreak); ~2000 MCP servers with no auth. Authenticate then collusion-test. Don’t found IETF AIP.
+1. Channel zoo: tools/timing/seeds/latents, not just English. 2606.28425: bottleneck is Schelling coordination on a scheme. Don’t build the hide.
+2. Tacit collusion with no memo: LLM pricing/auctions (VLA’s own bench). Focal points. S03-adjacent money, not a trading firm.
+3. Warden-gaming: HF scorer/transcript games; Apollo scheming/sandbagging/log-fake. Same game.
+4. A2A/MCP as the highway. Read. Don’t become the Foundation.
+Gray Swan/Apollo monitor single-agent policy. They do not seat “these N agents hid a channel.” Tripwire still fail-open.
+
 END PASTE.
