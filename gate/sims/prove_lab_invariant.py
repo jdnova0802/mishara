@@ -17,17 +17,23 @@ if str(ROOT) not in sys.path:
 from gate.sims import (  # noqa: E402
     actus_fence,
     deed_record_gate,
+    deny_federation,
     edgar_disclose_seal,
+    epoch_decay,
     lab_invariant as lab,
     mouth_watch,
     performative_seal,
+    preflight_diff,
     ron_attest_refuse,
 )
 from gate.sims.prove_actus_fence import main as prove_s1  # noqa: E402
 from gate.sims.prove_deed_record_gate import main as prove_s6  # noqa: E402
+from gate.sims.prove_deny_federation_stub import main as prove_s13  # noqa: E402
 from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
+from gate.sims.prove_epoch_decay import main as prove_s16  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
+from gate.sims.prove_preflight_diff import main as prove_s10  # noqa: E402
 from gate.sims.prove_ron_attest_refuse import main as prove_s8  # noqa: E402
 
 
@@ -38,6 +44,9 @@ MOUTHS = (
     deed_record_gate,
     ron_attest_refuse,
     mouth_watch,
+    preflight_diff,
+    epoch_decay,
+    deny_federation,
 )
 
 
@@ -71,6 +80,9 @@ def main() -> None:
     prove_s6()
     prove_s8()
     prove_s9()
+    prove_s10()
+    prove_s16()
+    prove_s13()
 
     for m in MOUTHS:
         lab.assert_all_receipts_lab(m)
