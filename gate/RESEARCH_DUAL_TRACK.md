@@ -324,7 +324,9 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `EDGE_PASS_2026-09-15.md` — **weld/docket/teardown**: crowding map; S3 file-mouth + S1 grant+receipt survive; grief UX / liveness R&D killed.
 
-`sims/` — **lab welds proved:** Actus Fence + Performative Seal (`python3 -m gate.sims.prove_actus_fence` / `prove_performative_seal`).
+`S_TIER_PLUS_THREE_2026-09-15.md` — **why Visa is everywhere** + three more mouths at S or above: Deed Record Gate (S6), EDGAR Disclose Seal (S7), RON Attest Refuse (S8).
+
+`sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest (`python3 -m gate.sims.prove_*`).
 
 ---
 

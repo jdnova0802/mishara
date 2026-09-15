@@ -1,10 +1,35 @@
-# Desktop Cursor pastes — 5 S-tier concrescence builds
+# Desktop Cursor pastes — S-tier concrescence builds
 
 **Date:** 2026-09-15  
 **Law:** logos-before-actus (`FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md`)  
 **Rule:** All sims. `their_production: false`. Fail-closed. Stranger-verifiable receipt on every DENY/ALLOW. No dashboard theater. No real money, court, KYC vendor, dead person, or biometric production weld.
 
-Paste **one block at a time** into desktop Cursor. Prove DENY first on each.
+---
+
+## DESKTOP — DO THIS FIRST (huge mouths)
+
+Cloud already proved lab spines in `gate/sims/`:
+
+```bash
+python3 -m gate.sims.prove_actus_fence           # S1
+python3 -m gate.sims.prove_performative_seal      # S3
+python3 -m gate.sims.prove_edgar_disclose_seal    # S7
+python3 -m gate.sims.prove_deed_record_gate       # S6
+python3 -m gate.sims.prove_ron_attest_refuse      # S8
+```
+
+**Desktop job is not re-discover — extend toward weld shape:**
+
+| Priority | Mouth | Why huge | Desktop next |
+|---|---|---|---|
+| **P0** | **S1 Actus Fence** | Agent commerce ocean (~$8–41B GMV ’26 → ~$1–1.5T ’30). Visa owns *card-agent recognition*; you own **digest-bound DENY + stranger receipt** incl. **non-pay** actus + bank-send shape. | HTTP verify route; FedNow/RTP-*shaped* DENY fixtures; README: not competing with Fidacy/Visa head-on |
+| **P0** | **S3 Performative Seal** | File-accept open; checkers crowded. ~340k+ federal civil filings/yr; ~2k hallucination sanctions. | EFSP-*shaped* block-transmit; plant fake cite cannot file; stranger seal receipt |
+
+**Do not start on desktop until S1+S3 extensions are green:** S2 liveness R&D, S4 grief UX, S5 matcher.
+
+**Next tier (after P0):** S6–S8 pastes in `S_TIER_PLUS_THREE_2026-09-15.md` (deed record, EDGAR disclose, RON refuse).
+
+Paste **one block at a time**. Prove DENY first on each.
 
 ---
 
