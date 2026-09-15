@@ -66,3 +66,5 @@ Ceiling: misses sophisticated stego **and** shared-weight tacit collusion. Floor
 **Nisaba, no:** identity registry, A2A/MCP, behavioral-certification bureau, on-chain “proof of behavior,” Palantir seat, auto-block, selling may. Those are clerk or someone else’s protocol.
 
 **Not Nisaba — the years object:** public assay of independence (recomputable Δ / correlation / undisclosed tests on **acts**). You do not schedule a product date for that. You study now. You only *build* it if/when a stranger can recompute the number without sitting in Wendy’s chair. If that day comes, it is a different vehicle, not Gate, not S26. Nisaba does not need to own it.
+
+**Syllabus:** `hunt/YEARS_SYLLABUS.md`.
