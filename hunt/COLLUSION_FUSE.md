@@ -58,3 +58,5 @@ Four questions, one desk, in order:
 That’s the Board that isn’t Gotham: not more dots — **dots that are secretly one animal.** Palantir-shaped later. Homework now.
 
 **Once-in-a-lifetime** = early at that join, 2026 founding incident on tape, open literature, no clearance door. **Not** “the field stays empty forever.”
+
+**Generational missing pieces** (same plant, 15 Sep 2026): shared-model correlating device; conspiracy-evidence collapse; check-without-Wendy; public assay of independence on acts. Full note: `hunt/GENERATIONAL_COMPONENTS.md`. Paste: `hunt/PIVOT_BRIEF_COLLUSION_FOR_CLAUDE.md`.
