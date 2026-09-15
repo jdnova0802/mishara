@@ -50,6 +50,28 @@ One line: **hard-tech nuclear (fuel + forensics), dual-use, wait-years; software
 
 ---
 
+## Altitude map (the family’s category list)
+
+Source: Business Categories altitude map (Aug 28, 2026). Nisaba home = infrastructure. Ban = sovereignty cosplay.
+
+**What this desk fulfills**
+
+| Map category | Fulfill? | Why |
+|--------------|----------|-----|
+| **2 · Scarce base** | **Yes — this is the category** | Tritium, bomb-grade uranium, plutonium pits: cannot photocopy them. ~20–25 kg civilian T on Earth. Same job as land / minerals / fab. |
+| **Critical manufacturing** (peer) | **Yes if you make the lump** | Pits, HALEU, tritium jugs. NNSA/Centrus already sit here. Hunt does not found this. |
+| **Extractor** (peer) | **Yes if you pull it** | CANDU / Watts Bar tritium, Li-6 for breeding. Commodity + offtake. Not the study desk. |
+| **1 · Rule / sovereignty** | **The gap lives here. The company must not.** | Missing Iran cylinder, launch button, IAEA access. Map forbids sovereignty cosplay. Study the lump; don’t play UN. |
+| **4 · Forced protocol** | **Not yours** | Safeguards SQ, NNSA directives. Implementers follow. You don’t write them. |
+| **5 · Infrastructure** (pin / registry / meter / stamp) | **Only as later skin, same class as form-edition pin** | “This gram’s fingerprint / this jug’s remaining” is a pin, not a higher altitude. Going microscopic ≠ climbing to #1. Don’t sell the throat. |
+| **8 · Product / app** | **Later interface** | Consumable feed. Not the bet. |
+| **9 · Service / agency** | **Lab / weld** | Forensics as a service if you never own the material. |
+| **6 Platform · 7 Institution · 3 Capital · Brand · Utility** | **No** | Not demand aggregation, not a charter, not a fund, not a logo war, not a rate-base pipe. |
+
+**Strengthen Nisaba?** Only if a **gram pin** (section-9 twin of pharma CoA at release) latches as infra — mandate/registry/meter, throat intact. Weakens if it is a second vertical before Gate 1, or #1 cosplay.
+
+---
+
 ## First: quarks are the wrong zoom
 
 A quark is not a missing king. QCD **confines** them; you never hold one; nobody issues a ticket for a gluon. That is a Feynman lecture (**6/10** sci-comm, **1/10** Palantir). Kill it as a hunt.
