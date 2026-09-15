@@ -5,37 +5,33 @@
 **Rule:** All sims. `their_production: false`. Fail-closed. Stranger-verifiable receipt on every DENY/ALLOW. No dashboard theater. No real money, court, KYC vendor, dead person, or biometric production weld.
 
 **→ Full run order (copy-paste into Cursor):** `DESKTOP_ORDERS_PASTE_2026-09-15.md`  
+**→ Shock Z1–Z10 ship paste:** `SHOCK_TIER_SHIP_PASTE_2026-09-15.md`  
+**→ Stopping rule (no Z11 collection):** `SHOCK_TIER_HUNT_2026-09-15.md`  
 **→ Next intelligences + Claude paste:** `INTELLIGENCE_PASS_2026-09-15.md`
 
 ---
 
-## DESKTOP — DO THIS FIRST (huge mouths)
+## DESKTOP — CURRENT POSTURE (cloud already shipped)
 
-Cloud already proved lab spines in `gate/sims/`:
+Cloud proved lab spines + P0/tier-2 welds + shock Z1–Z10. Desktop does **not** re-build.
 
 ```bash
-python3 -m gate.sims.prove_actus_fence           # S1
-python3 -m gate.sims.prove_performative_seal      # S3
-python3 -m gate.sims.prove_mouth_watch            # S9 watchman
-python3 -m gate.sims.prove_edgar_disclose_seal    # S7
-python3 -m gate.sims.prove_deed_record_gate       # S6
-python3 -m gate.sims.prove_ron_attest_refuse      # S8
-python3 -m gate.sims.prove_lab_invariant          # hard their_production
+python3 -m gate.sims.prove_all
 ```
 
-**Desktop job is not re-discover — extend toward weld shape:**
-
-| Priority | Mouth | Why huge | Desktop next |
+| Priority | Mouth / layer | Status | Desktop next |
 |---|---|---|---|
-| **P0** | **S1 Actus Fence** | Agent commerce ocean (~$8–41B GMV ’26 → ~$1–1.5T ’30). Visa owns *card-agent recognition*; you own **digest-bound DENY + stranger receipt** incl. **non-pay** actus + bank-send shape. | HTTP verify route; FedNow/RTP-*shaped* DENY fixtures; README: not competing with Fidacy/Visa head-on |
-| **P0** | **S3 Performative Seal** | File-accept open; checkers crowded. ~340k+ federal civil filings/yr; ~2k hallucination sanctions. | EFSP-*shaped* block-transmit; plant fake cite cannot file; stranger seal receipt |
-| **P0′** | **S9 Mouth Watch** | Lock without watchman = blind. Sense layer (canary / trajectory / session) stamps threat receipts into mouths. | Wire feeds into S1 execute + S8 attest; HTTP threat-receipt verify; not a SOC dashboard |
+| **Done** | S1 bank-send + HTTP verify | Cloud green | Outbound / deepen only if partner |
+| **Done** | S3 EFSP block-transmit + HTTP | Cloud green | Outbound / deepen only if partner |
+| **Done** | S9 + S1/S8 wire | Cloud green | Leave |
+| **Done** | S6/S7 weld-shape | Cloud green | Leave |
+| **Done** | Shock Z1–Z8 | Cloud green | Pitch ammo (Z1–Z4), not more code |
+| **Done** | Z9/Z10 | Generality demo only | Do not productize; no Z11 |
+| **Now** | Human outbound OR stop | — | Buyer names mouth; or stranger-receipt demo |
 
-**Do not start on desktop until S1+S3 extensions are green:** S2 liveness R&D, S4 grief UX, S5 matcher.
+**Do not start:** S2/S4/S5, museum S11–S17, Z11+, dashboards.
 
-**Next tier (after P0):** S9 wire, then S7→S6→S8 pastes in `S_TIER_PLUS_THREE_2026-09-15.md`.
-
-Paste **one block at a time**. Prove DENY first on each.
+Paste **DESKTOP_ORDERS_PASTE** for the full current order. Older S1/S2/S3 paste blocks below are historical scaffold notes — cores already exist.
 
 ---
 
