@@ -1,13 +1,14 @@
 # Desktop orders — paste this into Cursor
 
-**Date:** 2026-09-15 (refreshed after shock Z1–Z10 + stopping rule)  
+**Date:** 2026-09-15 (amended: first-door = S1/S3; research hunt **paused**)  
 **Branch:** `cursor/civilizational-research-dual-track-0d63` · PR #62  
 **Law:** logos-before-actus. Fail-closed. Stranger-verifiable receipt. `their_production: false` always. No dashboard theater. No real money/court/EDGAR/county/KYC/grief/biometric production.
 
 **Shock ship paste:** `SHOCK_TIER_SHIP_PASTE_2026-09-15.md`  
 **Stopping rule:** `SHOCK_TIER_HUNT_2026-09-15.md` § Stopping rule — **no Z11+** without named weld/pitch.  
 **Outbound research (1+2):** `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md` — receipt-as-product vs Fidacy/IntentFence/Visa TAP + Z1–Z3/S1/S3 desk map.  
-**More wedges (shippable only):** `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md` — S7 / escrow disburse / credentialed-publish; museum ignored.
+**More wedges (shippable only):** `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md` — S7 / escrow disburse / credentialed-publish; museum ignored.  
+**Research pause:** First institutional wedges found (S1/S3). **No more formula/shock/wedge hunts** until a human desk answers or a named partner asks for a weld.
 
 ---
 
@@ -38,7 +39,7 @@ Scenario X: S9 clear + S10 DENY alone must stay green
 Empty > filler. Shock tier SEALED — no Z11 without named real-world use.
 
 === WHAT DESKTOP SHOULD DO NOW ===
-Not more mouths. Pick ONE:
+Not more mouths. Not more hunts. Pick ONE:
 
 A) OUTBOUND / PITCH (human) — stranger-verify demo
    - Read: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
@@ -58,6 +59,8 @@ C) STOP — sit on the graph until a buyer names which mouth they need
 === DO NOT ===
 - Rebuild S1–S8 cores or Z1–Z10 fixtures
 - Start Z11+ / S11–S17 museum / S2 liveness / S4 grief / S5 biometrics
+- Run another formula / shock / wedge hunt (research pause — wedges found)
+- Build escrow/credentialed-publish sims unless a named partner asks
 - Build dashboards, crest generators, genealogy AI, CDS trading UIs
 - Conflate S9 threat with S10 preflight (Scenario X must remain independent)
 - Treat any sim as production DC/CLS/IANA/Lloyd's/ITU/ISA/KP/freeport/Crown
@@ -76,4 +79,4 @@ Edge / crowding:   gate/EDGE_PASS_2026-09-15.md
 
 ## One-liner for chat
 
-> Cloud sealed. First door = S1 or S3. More shippable wedges mapped (S7, escrow disburse, credentialed-publish) — do not build until outbound moves or a named partner asks. Z = ammo. Or stop. `python3 -m gate.sims.prove_all`
+> Research pause. Institutional wedges found (S1/S3 first door). No more hunts. Next = one human stranger-GET conversation, deepen if partner, or stop. `python3 -m gate.sims.prove_all`

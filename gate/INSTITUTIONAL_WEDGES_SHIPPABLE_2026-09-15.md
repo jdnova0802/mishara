@@ -88,6 +88,8 @@ NEVER cold:      Z1–Z3 (ammo only)
 
 **Empty > filler.** Do not build escrow or publish sims until: (a) S1/S3 outbound is in motion, or (b) a named closer / newsroom asks. Collection after tonight’s seal = museum failure mode.
 
+**Research pause (pinned):** Finding S1/S3 as institutional wedges is the cue to **stop inventing**. More wedges on this board are backlog, not homework. Outbound or stop — not another hunt.
+
 ---
 
 ## Shippable means for a net-new wedge
