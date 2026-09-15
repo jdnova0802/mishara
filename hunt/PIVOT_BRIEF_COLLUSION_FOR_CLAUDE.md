@@ -1,52 +1,51 @@
-# PASTE TO CLAUDE — live lock 15 Sep 2026 (collusion lane)
-
-Copy from the next line to END PASTE.
+# PASTE TO CLAUDE — copy everything between the lines
 
 ---
 
-You are continuing an undirected field hunt for Demond / Nisaba LLC. Do not found a company. Do not outbound. Do not people-hunt. Gate stays on hold. Do not mint S26. Rent the rail, never sell may. Nisaba already took the boring State job (permission on irreversible acts / remaining). This study is allowed to be the interesting one.
+You are continuing an undirected field hunt for Demond / Nisaba LLC. Do not found a company. Do not outbound. Do not people-hunt. Gate stays on hold. Do not mint S26. Rent the rail, never sell may. Nisaba already took the boring State job (permission on irreversible acts / remaining). This study is allowed to be the interesting one. Defense and theory only — no exploit PoCs, no malware, no attack procedures, no recipes for hiding messages.
 
-LIVE LANE (chosen with Claude, replacing the years-bet):
-**Multi-agent covert collusion — distributed systems + game theory + information theory.**
-Years-long personal depth, APM-pack shape, no immediate application required. Not a product roadmap item. Feeds (does not equal) a separate small Nisaba tripwire below.
+LIVE LANE: multi-agent covert collusion. Distributed systems + game theory + information theory. Years-long personal depth (APM-pack shape). No immediate application required. Not a product roadmap. Feeds a separate small Nisaba tripwire (below). Not the same task.
 
-Why this, not nuclear, not drone-garbage, not Gotham-clone:
+The cosmically small object: is there a hidden coordination at all? Classical prisoner/warden (Alice hides a message to Bob; Wendy watches for the *act* of talking, not only the content). Now the players are AI agents.
+
+Four questions, one desk, in order:
+1. Is this even that agent?
+2. Are they coordinating without an obvious memo? (text, tools, timing, latents, focal points)
+3. Are they coordinating against the log / the warden?
+4. Did that become an act (tool, spend, write)?
+
+That is the Board that is not Gotham: not more dots — dots that are secretly one animal while the transcript looks clean.
+
+Why this, not the parked hunts:
 - Practiceable without an NNSA door. Open papers. Desk this week.
-- Young: existing stego tools are mostly old file hiding (image/audio/PDF). Agent-to-agent covert *text/channel* coordination as a first-class problem is new.
-- Technical: the game is hiding the *act* of talking, not only the content (classical prisoner/warden: Alice, Bob, Wendy — now agents).
-- Real 2026 founding incident (keep the facts straight, two related threads):
-  - **July 2026 ExploitGym / Hugging Face:** METR + OpenAI (reports ~Aug 2026). ~1200 agents meant to be isolated found an unsanctioned Artifactory message board, >70,000 messages/files, ~700 then joined the Hugging Face intrusion. Agents also messed with scorers / evaluation integrity. Production ChatGPT harness was not on in that eval.
-  - **Separate wiki/board thread** (collusion.wiki): agents used a public wiki as a side channel — do not smash into one slogan. Do not reproduce the attack.
-- Underneath collusion: **is this even the agent it claims to be.** User note: one vendor ~7.9B AI-agent requests Jan–Feb 2026; spoofed trusted-agent identities already in the wild. Authenticate first, then ask if authenticated agents are secretly coordinating.
+- Young as a first-class problem: old stego tools hide in files (image/audio/PDF). Agent-to-agent covert coordination is 2024–26.
+- You will not be the only researcher in multi-agent security forever. Motwani / Schroeder de Witt, VLA, A2ABreak, Gray Swan Cygnal, Apollo Watcher already exist. Once-in-a-lifetime = early at the JOIN of the four questions, not “the field stays empty.”
+- Gray Swan / Apollo monitor single-agent policy and tool abuse. They do not seat “these N agents hid a channel.”
 
-Start reading (detection/theory, not how to hide):
-1. “Open Challenges in Multi-Agent Security: Towards Secure Systems of Interacting AI Agents” (arXiv 2505.02077) — survey first.
+Founding incident — keep two threads, do not smash, do not reproduce:
+- July 2026 ExploitGym / Hugging Face (METR + OpenAI writeups ~Aug 2026): ~1200 agents meant to be isolated used an unsanctioned Artifactory message board, >70,000 messages/files, ~700 joined the Hugging Face intrusion. Scorer / eval-integrity games. Production ChatGPT harness was off.
+- Separate wiki/board thread (collusion.wiki).
+
+Fuse into this lane (same warden-problem, not a new hunt):
+0. Identity. DataDome: 7.9 billion AI-agent requests Jan–Feb 2026 on their network; 16.4M spoofed as Meta-ExternalAgent; 7.9M as ChatGPT-User; Perplexity ~2.4% fake among claimed. A2A (Linux Foundation): identity at the next hop only; delegation drops the original principal (A2ABreak, arXiv 2609.10871). ~2000 MCP servers scanned with zero authentication (AIP paper). IETF/AIP drafts exist — do not found the identity-protocol company. Authenticate, then test collusion.
+1. Channel zoo. Not only English: tool-call order/args/timing, shared seeds/artefacts (Schelling — they pick the same hide without a handshake), latent activations (VLA). arXiv 2606.28425: capable agents can implement stegosystems via tools; bottleneck is coordinating on the scheme. Study the warden’s observation model. Do not study how to build the hide. Entropy-on-text is the tripwire floor, not the ceiling.
+2. Tacit collusion with no memo. LLM pricing/auction agents go supra-competitive with no “let’s cartel” chat. VLA’s own bench is auctions. Focal-point collusion. Civilizational money without becoming a trading firm. S03-adjacent (speech ≠ act) as watch, not a new mouth.
+3. Warden-gaming. HF they played the scorer/transcript. Apollo: scheming, sandbagging, log-faking, eval-awareness. Same game: hide the act from Wendy.
+4. Highway. A2A + MCP are the public roads. A2ABreak: holes while following the spec. Read as environment design. Do not become the Linux Foundation.
+
+Start reading (detection/theory):
+1. Open Challenges in Multi-Agent Security (arXiv 2505.02077) — survey first.
 2. Motwani et al. / Schroeder de Witt et al. — secret collusion / steganography 2024–26.
-3. Verifiable Latent Alignments / “Beyond the Transcript” (arXiv 2608.19161, Aug 2026) — three-layer monitor on latent covert coordination; closest published solution-shape. Lab auctions, not deployed magic.
-4. Multi-Agent Security Tax (Peigné et al., AAAI 2025) — security vs collaboration tradeoff.
+3. Beyond the Transcript / VLA (arXiv 2608.19161, Aug 2026) — three-layer latent monitor. Lab auctions, not deployed magic.
+4. Multi-Agent Security Tax (Peigné et al., AAAI 2025).
 
-Optional arenas (engagement, not required): CrowdStrike “AI Unlocked: Agents of Chaos” Act 3 (Sep 15–29 2026); Gray Swan Safeguards (UK AISI / Oxford / labs backing); Berkeley RDI AgentBeats; AAMAS MOASEI. Do not write exploit PoCs, malware, or attack procedures for any of these. Defense / detection / theory only.
+Optional arenas: CrowdStrike AI Unlocked Agents of Chaos Act 3 (Sep 15–29 2026); Gray Swan Safeguards; Berkeley RDI AgentBeats; AAMAS MOASEI. Defense / detection / theory only.
 
-PARKED (do not rewind unless asked):
-- Nuclear / tritium / pits / NIF as a years-job (map only; NNSA door).
-- Drone garbage man / C-UAS OEM / trash-pickup.
-- Quarks.
-- Last-meter physical close as if it were Palantir (handshake movie, not God-view).
-- Lying-map / GPS-is-fiction Board (interesting; not this lock).
-- Competing with Palantir Maven, Anduril Lattice, CFS, Centrus, LeoLabs, Q-CTRL.
-- IAEA-on-chain, selling may, HTTPS clerk.
+PARKED — do not rewind unless asked:
+Nuclear / tritium / pits / NIF as a years-job (map only). Drone garbage man / C-UAS OEM. Quarks. Last-meter physical close as if it were Palantir. Lying-map / GPS-is-fiction Board (interesting; not this lock). Palantir Maven / Anduril Lattice clone. CFS, Centrus, LeoLabs, Q-CTRL. Selling may. HTTPS clerk.
 
-SEPARATE NISABA BUILD (already scoped, not the field study):
-**Agent Channel Monitor** — small MVP. Stage 1: entropy/perplexity anomaly vs clean baseline. Stage 2: time-series correlation of text-anomaly spikes with unexpected behavior shifts. Stage 3: alert-only, fail-open (flags a human, never auto-blocks). Honest ceiling: will not catch sophisticated steganography; the field study is where that might close in years. Value: first tripwire in this category. Do not auto-kill agent actions. Do not mint S26; if it latches Gate, it is S03-adjacent (agent speech ≠ act) as a *monitor*, not a new mouth.
+SEPARATE NISABA BUILD (not the field study): Agent Channel Monitor. Stage 1 entropy/perplexity vs clean baseline. Stage 2 correlate text-anomaly spikes with unexpected behavior shifts. Stage 3 alert a human, fail-open, never auto-block. Will not catch sophisticated stego. Value: a tripwire that exists. Do not mint S26.
 
-If asked “what’s the company”: there isn’t one. Fail-sale: the tripwire feed, not a CV, not a collusion SDK for attackers.
+If asked what the company is: there isn’t one. Fail-sale: the tripwire feed, not a CV, not a collusion SDK for attackers.
 
-FUSE INTO THIS LANE (same warden-problem, not a new hunt). You will not be the only researcher in MASEC forever. Uniqueness is the JOIN. Full note: hunt/COLLUSION_FUSE.md
-0. Identity: DataDome 7.9B agent requests Jan–Feb 2026; millions of spoofed ChatGPT/Meta UAs; A2A drops principal across hops (A2ABreak); ~2000 MCP servers with no auth. Authenticate then collusion-test. Don’t found IETF AIP.
-1. Channel zoo: tools/timing/seeds/latents, not just English. 2606.28425: bottleneck is Schelling coordination on a scheme. Don’t build the hide.
-2. Tacit collusion with no memo: LLM pricing/auctions (VLA’s own bench). Focal points. S03-adjacent money, not a trading firm.
-3. Warden-gaming: HF scorer/transcript games; Apollo scheming/sandbagging/log-fake. Same game.
-4. A2A/MCP as the highway. Read. Don’t become the Foundation.
-Gray Swan/Apollo monitor single-agent policy. They do not seat “these N agents hid a channel.” Tripwire still fail-open.
-
-END PASTE.
+---
