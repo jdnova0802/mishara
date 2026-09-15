@@ -322,6 +322,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `DESKTOP_PASTES_S_TIER_2026-09-15.md` — **buildable desktop Cursor pastes** for all five (sim mouths, DENY proves, stranger receipts).
 
+`EDGE_PASS_2026-09-15.md` — **weld/docket/teardown**: crowding map; S3 file-mouth + S1 grant+receipt survive; grief UX / liveness R&D killed.
+
 ---
 
 ## Source index (primary-leaning)
