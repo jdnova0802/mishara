@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from gate.sims import ron_attest_refuse as ron  # noqa: E402
+from gate.sims.lab_invariant import assert_all_receipts_lab  # noqa: E402
 
 
 def expect(cond: bool, msg: str) -> None:
@@ -60,6 +61,8 @@ def main() -> None:
     expect(a4["result"]["doc_hash"] == "deed-hash-4", "a4 doc")
     expect(a4["their_production"] is False, "a4 production")
     expect(ron.get_receipt(a4["receipt_id"]) is not None, "a4 stranger receipt")
+
+    assert_all_receipts_lab(ron)
 
     print("RON_ATTEST_REFUSE_PROVE_OK")
     print(

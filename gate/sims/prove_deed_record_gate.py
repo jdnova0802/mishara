@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from gate.sims import deed_record_gate as dr  # noqa: E402
+from gate.sims.lab_invariant import assert_all_receipts_lab  # noqa: E402
 
 
 def expect(cond: bool, msg: str) -> None:
@@ -80,6 +81,8 @@ def main() -> None:
     )
     r5 = dr.record_instrument(i5["instrument_id"], id_assurance="unknown")
     expect(r5["decision"] == "DENY" and r5["reason_code"] == "id_assurance_unknown", f"r5 {r5}")
+
+    assert_all_receipts_lab(dr)
 
     print("DEED_RECORD_GATE_PROVE_OK")
     print(

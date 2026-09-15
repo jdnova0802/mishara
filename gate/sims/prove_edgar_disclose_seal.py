@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from gate.sims import edgar_disclose_seal as ed  # noqa: E402
+from gate.sims.lab_invariant import assert_all_receipts_lab  # noqa: E402
 
 
 def expect(cond: bool, msg: str) -> None:
@@ -94,6 +95,8 @@ def main() -> None:
     )
     sub4 = ed.submit_filing(bare["filing_id"])
     expect(sub4["decision"] == "DENY" and sub4["reason_code"] == "no_seal", f"sub4 {sub4}")
+
+    assert_all_receipts_lab(ed)
 
     print("EDGAR_DISCLOSE_SEAL_PROVE_OK")
     print(

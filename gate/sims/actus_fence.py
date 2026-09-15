@@ -14,6 +14,8 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
+from gate.sims.lab_invariant import stamp_lab_flag
+
 
 SPEC = "nisaba-actus-fence-lab-v1"
 THEIR_PRODUCTION = False
@@ -83,7 +85,7 @@ def _receipt(
         "digest": digest,
         "action_type": action_type,
         "result": result,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
         "ts": time.time(),
     }
     payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
@@ -116,7 +118,7 @@ def create_mandate(
         "max_amount_cents": m.max_amount_cents,
         "payee_allowlist": m.payee_allowlist,
         "expires_at": m.expires_at,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
     }
 
 
@@ -141,16 +143,25 @@ def create_grant(mandate_id: str, digest: str, *, ttl_sec: float = 300) -> dict[
         "mandate_id": mandate_id,
         "digest": digest,
         "expires_at": g.expires_at,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
     }
 
 
 def revoke_mandate(mandate_id: str) -> dict[str, Any]:
     m = STORE.mandates.get(mandate_id)
     if m is None:
-        return {"ok": False, "reason_code": "no_mandate", "their_production": THEIR_PRODUCTION}
+        return {
+            "ok": False,
+            "reason_code": "no_mandate",
+            "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
+        }
     m.revoked = True
-    return {"ok": True, "mandate_id": mandate_id, "revoked": True, "their_production": THEIR_PRODUCTION}
+    return {
+        "ok": True,
+        "mandate_id": mandate_id,
+        "revoked": True,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
+    }
 
 
 def execute(

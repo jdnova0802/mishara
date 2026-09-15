@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from gate.sims import actus_fence as af  # noqa: E402
+from gate.sims.lab_invariant import assert_all_receipts_lab  # noqa: E402
 
 
 def expect(cond: bool, msg: str) -> None:
@@ -79,6 +80,8 @@ def main() -> None:
     m2 = af.create_mandate(["prod_mutate", "delete"])
     r6 = af.execute("prod_mutate", {"resource": "db.users"}, mandate_id=m2["mandate_id"])
     expect(r6["reason_code"] == "no_grant", f"r6 {r6}")
+
+    assert_all_receipts_lab(af)
 
     print("ACTUS_FENCE_PROVE_OK")
     print(

@@ -13,6 +13,8 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
+from gate.sims.lab_invariant import stamp_lab_flag
+
 
 SPEC = "nisaba-performative-seal-lab-v1"
 THEIR_PRODUCTION = False
@@ -97,7 +99,7 @@ def _receipt(
         "content_hash": content_hash,
         "failures": failures or [],
         "result": result,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="performative_seal"),
         "ts": time.time(),
     }
     payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
@@ -110,7 +112,7 @@ def create_brief(citations: list[dict[str, Any]]) -> dict[str, Any]:
         return {
             "ok": False,
             "reason_code": "malformed_brief",
-            "their_production": THEIR_PRODUCTION,
+            "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="performative_seal"),
         }
     bid = str(uuid.uuid4())
     ch = brief_hash(citations)
@@ -119,7 +121,7 @@ def create_brief(citations: list[dict[str, Any]]) -> dict[str, Any]:
         "brief_id": bid,
         "content_hash": ch,
         "citation_count": len(citations),
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="performative_seal"),
     }
 
 
@@ -214,7 +216,7 @@ def file_brief(brief_id: str, seal_id: str | None = None) -> dict[str, Any]:
         "seal_id": seal_id,
         "content_hash": b.content_hash,
         "docket_sim": f"SIM-DOCKET-{fid[:8]}",
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="performative_seal"),
     }
     STORE.filings[fid] = filing
     return _receipt(

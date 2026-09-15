@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from gate.sims import performative_seal as ps  # noqa: E402
+from gate.sims.lab_invariant import assert_all_receipts_lab  # noqa: E402
 
 
 def expect(cond: bool, msg: str) -> None:
@@ -82,6 +83,8 @@ def main() -> None:
     )
     f4 = ps.file_brief(bare["brief_id"])
     expect(f4["decision"] == "DENY" and f4["reason_code"] == "no_seal", f"f4 {f4}")
+
+    assert_all_receipts_lab(ps)
 
     print("PERFORMATIVE_SEAL_PROVE_OK")
     print(

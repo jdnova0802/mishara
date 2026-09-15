@@ -14,6 +14,8 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
+from gate.sims.lab_invariant import stamp_lab_flag
+
 
 SPEC = "nisaba-edgar-disclose-seal-lab-v1"
 THEIR_PRODUCTION = False
@@ -92,7 +94,7 @@ def _receipt(
         "content_hash": content_hash,
         "failures": failures or [],
         "result": result,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
         "ts": time.time(),
     }
     payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
@@ -105,13 +107,13 @@ def create_filing(form: str, claims: list[dict[str, Any]]) -> dict[str, Any]:
         return {
             "ok": False,
             "reason_code": "unsupported_form",
-            "their_production": THEIR_PRODUCTION,
+            "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
         }
     if not isinstance(claims, list) or not claims:
         return {
             "ok": False,
             "reason_code": "malformed_filing",
-            "their_production": THEIR_PRODUCTION,
+            "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
         }
     fid = str(uuid.uuid4())
     ch = filing_hash(form, claims)
@@ -120,7 +122,7 @@ def create_filing(form: str, claims: list[dict[str, Any]]) -> dict[str, Any]:
         "filing_id": fid,
         "content_hash": ch,
         "claim_count": len(claims),
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
     }
 
 
@@ -237,7 +239,7 @@ def submit_filing(filing_id: str, seal_id: str | None = None) -> dict[str, Any]:
         "form": f.form,
         "content_hash": f.content_hash,
         "edgar_sim": f"SIM-EDGAR-{sid[:8]}",
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
     }
     STORE.submissions[sid] = submission
     return _receipt(

@@ -13,6 +13,8 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
+from gate.sims.lab_invariant import stamp_lab_flag
+
 
 SPEC = "nisaba-ron-attest-refuse-lab-v1"
 THEIR_PRODUCTION = False
@@ -65,7 +67,7 @@ def _receipt(
         "signatory_id": signatory_id,
         "doc_hash": doc_hash,
         "result": result,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="ron_attest_refuse"),
         "ts": time.time(),
     }
     payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
@@ -83,7 +85,7 @@ def open_session(
         return {
             "ok": False,
             "reason_code": "malformed_session",
-            "their_production": THEIR_PRODUCTION,
+            "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="ron_attest_refuse"),
         }
     sid = str(uuid.uuid4())
     STORE.sessions[sid] = Session(
@@ -97,7 +99,7 @@ def open_session(
         "signatory_id": signatory_id,
         "doc_hash": doc_hash,
         "appearance": appearance,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="ron_attest_refuse"),
     }
 
 
@@ -147,7 +149,7 @@ def attest(session_id: str, *, expected_doc_hash: str | None = None) -> dict[str
         "signatory_id": s.signatory_id,
         "doc_hash": s.doc_hash,
         "notarial_stub": f"SIM-RON-{aid[:8]}",
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="ron_attest_refuse"),
     }
     STORE.attestations[aid] = stub
     return _receipt(

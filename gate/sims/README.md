@@ -1,6 +1,6 @@
 # Lab sims — concrescence mouths (S1/S3 + S6/S7/S8)
 
-**Status:** Lab only. `their_production: false` always.  
+**Status:** Lab only. `their_production: false` always — **enforced**, not aspirational (`lab_invariant.py`, `prove_lab_invariant`).  
 **Edge pass:** `../EDGE_PASS_2026-09-15.md`  
 **S-tier+ three:** `../S_TIER_PLUS_THREE_2026-09-15.md`
 
@@ -13,6 +13,7 @@
 | `edgar_disclose_seal.py` | Filing needs seal before EDGAR-shaped submit | `python3 -m gate.sims.prove_edgar_disclose_seal` |
 | `deed_record_gate.py` | Instrument needs LIVE logos before record | `python3 -m gate.sims.prove_deed_record_gate` |
 | `ron_attest_refuse.py` | Remote appearance ≠ notarial act; refuse + receipt | `python3 -m gate.sims.prove_ron_attest_refuse` |
+| `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
 
 ## Crowding honesty (do not forget)
 
@@ -51,9 +52,10 @@ python3 -m gate.sims.prove_performative_seal
 python3 -m gate.sims.prove_edgar_disclose_seal
 python3 -m gate.sims.prove_deed_record_gate
 python3 -m gate.sims.prove_ron_attest_refuse
+python3 -m gate.sims.prove_lab_invariant
 ```
 
-All must print `*_PROVE_OK`.
+All must print `*_PROVE_OK` / `LAB_INVARIANT_PROVE_OK`.
 
 ## Out of scope here
 

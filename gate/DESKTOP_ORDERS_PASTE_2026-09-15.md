@@ -18,15 +18,22 @@ Cloud already green (run to confirm):
   python3 -m gate.sims.prove_edgar_disclose_seal
   python3 -m gate.sims.prove_deed_record_gate
   python3 -m gate.sims.prove_ron_attest_refuse
+  python3 -m gate.sims.prove_lab_invariant   # REQUIRED: their_production hard-false across all mouths
 
 Shared spine every mouth:
   CONSEQUENTIAL_ACTION proposed
     → require LIVE logos/mandate/seal bound to digest
     → missing / stale / mismatch / over-scope / uncertainty ⇒ DENY + receipt_url
     → valid ⇒ ALLOW + receipt_url linking logos ↔ digest ↔ result
-    → their_production: false always
+    → their_production: false always (enforced by stamp_lab_flag + assert_all_receipts_lab — not aspirational)
 
 Receipt must be fetchable by a stranger (HTTP verify route or signed JSON) without trusting the actor UI.
+
+HARD INVARIANT (CommitGuard-class):
+  THEIR_PRODUCTION is identically False on every module and every receipt.
+  Mutating it to True must raise at stamp time (prove_lab_invariant catches this).
+  After every mouth prove, assert_all_receipts_lab(module) must pass.
+  Treat a missing/True their_production as a ship-blocker, same as a failed DENY prove.
 
 === ORDER 1 — P0 — S1 Actus Fence (extend) ===
 Files: gate/sims/actus_fence.py, prove_actus_fence.py

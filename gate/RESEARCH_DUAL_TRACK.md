@@ -328,7 +328,7 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `S_TIER_PLUS_THREE_2026-09-15.md` — **why Visa is everywhere** + three more mouths at S or above: Deed Record Gate (S6), EDGAR Disclose Seal (S7), RON Attest Refuse (S8).
 
-`sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest (`python3 -m gate.sims.prove_*`).
+`sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest + **`prove_lab_invariant`** (`their_production is False` hard-enforced, mutation caught).
 
 ---
 

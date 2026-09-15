@@ -13,6 +13,8 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
+from gate.sims.lab_invariant import stamp_lab_flag
+
 
 SPEC = "nisaba-deed-record-gate-lab-v1"
 THEIR_PRODUCTION = False
@@ -92,7 +94,7 @@ def _receipt(
         "doc_hash": doc_hash,
         "content_hash": content_hash,
         "result": result,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="deed_record_gate"),
         "ts": time.time(),
     }
     payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
@@ -129,7 +131,7 @@ def create_instrument(
         return {
             "ok": False,
             "reason_code": "malformed_instrument",
-            "their_production": THEIR_PRODUCTION,
+            "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="deed_record_gate"),
         }
     iid = str(uuid.uuid4())
     body = {
@@ -151,7 +153,7 @@ def create_instrument(
         "instrument_id": iid,
         "content_hash": ch,
         "parcel_id": parcel_id,
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="deed_record_gate"),
     }
 
 
@@ -238,7 +240,7 @@ def record_instrument(
         "content_hash": inst.content_hash,
         "logos_epoch": "LIVE",
         "county_sim": f"SIM-RECORDER-{rid[:8]}",
-        "their_production": THEIR_PRODUCTION,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="deed_record_gate"),
     }
     STORE.records[rid] = record
     return _receipt(
