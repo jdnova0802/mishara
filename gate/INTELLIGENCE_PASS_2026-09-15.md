@@ -44,13 +44,18 @@ After P0 S1/S3 extend + S9 wire stay green (`prove_all` / `prove_actus_s9_wire`)
 
 ---
 
-## Hard traps
+## Claude confirmation gate (locked in)
 
-- Do not build a SOC / agent-security dashboard.  
-- Do not beat Visa at recognition.  
-- Do not conflate S10 preflight with S9 threat (different objects / jobs).  
-- Do not turn S13 stub into a shared ledger product before mouths weld.  
-- Standard prove template still required: `prove_<mouth>` + `prove_mouth_watch` + `prove_lab_invariant` (or `prove_all`).
+Before calling S10 done, `prove_preflight_diff` **must** include **Scenario X**:
+
+> S9 trust check passes cleanly (no threat) **and** preflight still DENYs solely because simulated delta ≠ actual delta.
+
+Proved: `scenario_x.s9_clear=true`, `preflight_deny_reason=preflight_delta_mismatch`, `independent_of_threat=true`.
+
+S13 stub proved `in_process_only=true` (no network imports in module).
+
+S16 proved epoch rotate → prior grant DENY at actus time (`epoch_decayed`).
+
 
 ---
 
