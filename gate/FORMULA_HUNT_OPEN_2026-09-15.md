@@ -2,7 +2,7 @@
 
 **Rule for this pass:** Find forces and constraints Nisaba does **not** already own. **New bindings are allowed.** Do not force every find onto `clearance ≠ execution` / payout / DER. Grade honestly: era-formula / knowledge / empire / skip.
 
-Companion to `FORMULA_HUNT_2026-09-15.md` (Columbus = VPP/DER) and `FORMULA_CIVILIZATIONAL.md`.
+Companion to `FORMULA_HUNT_2026-09-15.md` (Columbus = VPP/DER), `FORMULA_HUNT_VERTICAL_2026-09-15.md` (massive SKUs + verticals), and `FORMULA_CIVILIZATIONAL.md`.
 
 ---
 
