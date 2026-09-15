@@ -17,7 +17,9 @@ Does it score on shocking trailer, or can you **personally practice it** without
 
 **What we looked at and why it tempted:** handfuls of tritium/uranium/plutonium are scarce base; missing Iran 60% stock and NIF flashes are 9–10/10 tape. Homework ~3/10. Category on the family map is scarce base; sovereignty is the hole, not the job. Software as later skin was a story, not a path.
 
-**Do not reopen C-UAS as “the answer” just to have one.** Re-hunt only with the practice-without-clearance test on. Wait for the human; don’t bounce to the next 10/10 shock field to match momentum.
+**Do not reopen C-UAS as “the answer” just to have one.** Re-hunt only with the practice-without-clearance test on.
+
+**Still-open crawl (15 Sep, not a lock):** the practiceable plant is **6D pose + last-meter close on a rigid body that will not help you** — datasets/webcam/table/arm this week; CR3BP on a laptop as space homework; cheap ROV as water twin. Not Anduril. Not trash pickup. Grid-forming inverters are an Earth-massive alternate with clerk risk. Timing/CSAC and isotope-years stay closed as desks. See `hunt/OPEN_DESK_CRAWL.md`.
 
 ---
 
