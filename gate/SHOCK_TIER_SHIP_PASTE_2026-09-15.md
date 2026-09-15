@@ -89,13 +89,16 @@ Shared: logos.py mandate→grant→digest
 - Build recognition dashboards / crest generators / genealogy AI
 - Start museum intelligences or S2/S4/S5
 - Conflate binding publish with news scrape
+- **Start Z11+** — shock tier sealed. Z9/Z10 = generality demo, not commercial queue.
+  Empty > filler. Next = real weld/outbound/pitch, not more fixture mouths.
 
 Hunt + crowding: gate/SHOCK_TIER_HUNT_2026-09-15.md
 Prove sequence: gate/sims/PROVE_SEQUENCE.md
+Stopping rule: SHOCK_TIER_HUNT § Stopping rule (pinned after Z10)
 ```
 
 ---
 
 ## One-liner
 
-> Shock Z1–Z10 shipped: ISDA DC, CLS PvP, IANA root, Lloyd’s stamp, ITU BIU, ISA exploit, KP export, freeport ingress, Peerage Roll, College of Arms — all DENY-first, stranger-verifiable, `their_production: false`. `python3 -m gate.sims.prove_all`
+> Shock Z1–Z10 shipped — DENY-first, stranger-verifiable. Z9/Z10 prove the pattern isn't finance-shaped; further Z* is museum. Next = weld/outbound, not collection. `python3 -m gate.sims.prove_all`

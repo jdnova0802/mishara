@@ -98,6 +98,30 @@ python3 -m gate.sims.prove_all
 
 ---
 
+## Stopping rule (pinned after Z10)
+
+Z9/Z10 bought one real thing: **proof the abstraction generalizes** past finance into ceremonial status (claimed ≠ recognized). They are **not** commercial queue.
+
+| Layer | Role | Next move |
+|---|---|---|
+| **Z1–Z5** | Serious priesthood mouths (DC, CLS, root, Lloyd's, ITU) | Keep as lab spines; outbound only with a real partner |
+| **Z6–Z8** | Timing / object commerce (ISA, KP, freeport) | Same — partner-gated, not more fixtures |
+| **Z9–Z10** | **Generality demonstration** — ceremonial status | Done. Do not sell as product. Do not extend into Z11+ |
+| **S11–S17 museum** | Named and refused | Still museum |
+
+**Empty > filler.** Enough Z* to know the pattern is not accidentally finance-shaped. **Not** enough to cosplay every desk on earth.
+
+**Do not start Z11** (or any new shock mouth) unless it serves a **named real-world use**: a pitch, a weld partner, or a DENY path that unblocks S1/S3 outbound. Proving the same ontological cut in a new domain is no longer a sufficient reason.
+
+**Actual next real-world use of this breadth:**
+1. Pitch / outbound using Z1–Z3 (or Z4) as “we already refuse at priesthood edges” — stranger receipt demo
+2. Or deepen welds on S1 bank-send / S3 EFSP already green — not more mouths
+3. Or stop and sit on the human graph until a buyer names which mouth they need
+
+Collection for its own sake = the museum failure mode the intelligence pass already named. Shock tier is **sealed**.
+
+---
+
 ## Lab spine sketch (if Desktop takes Z1 first)
 
 ```
