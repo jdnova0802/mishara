@@ -1,11 +1,60 @@
 # Chase stack gap crawl — S01/S03 method, off-Gate
 
 **Status:** 15 September 2026. **Not outbound. Not a company. Not S26. Gate count stays 25.**  
-**Lane:** undirected field hunt. Study object, not founding.  
-**Method:** same six gates as `gate/S25_GAP_CRAWL_FOUR_MOUTHS.md` / `EXTREME_S25_INVENTIONS.md` — public 2025–26 fact with a sting, irreversible act, empty mouth, staffing kill, stranger-verifiable object, latch don’t clone.  
-**Hard rule:** do not mint a 26th S-number. If the act is already S02, say so. If Anduril / LeoLabs / Astroscale / TraCSS / Windward already *signs this event*, kill. A dashboard or a paper is not a seated mouth.
+**Lane:** undirected field hunt. Study object, not founding.
 
-This crawl is the same *web-search style* used to find S01 (cable cut / 95–99% / one-anchor ~25% Europe–Asia) and S03 (IMF 2026 + MAS SAFR agents initiating wire). It is not a vibe table.
+---
+
+## Final lock — what to study
+
+**One subject:** how to chase and close on a thing in 3D that will not help you. It does not send you a radio lock, it does not hold still, it does not present a docking port. You estimate where it is and how it is spinning or jinking, then you fly the last meters yourself.
+
+That is the whole curriculum. Space and Earth are two addresses for the same notes. Dual-use is a later hope, not the product. Fail-sale is Earth: if nothing in orbit ever pays, the same plant still sits under counter-drone.
+
+### Technical stack (study these, in this order)
+
+1. **Rigid-body relative motion** — six degrees of freedom: where the target is, how it is rotating, how you close without matching its spin by brute force. Clohessy–Wiltshire is the LEO homework; the same last-meter math is a dogfight in air.
+2. **Pose and spin from sensors the target did not give you** — cameras, infrared, maybe radar. No GPS from the object. Survive lost features, glare, night, clutter, a body that looks different every frame because it is tumbling or banking.
+3. **Last-meter guidance** — visual/IR servoing that still works when the picture breaks up. Intercept vs rendezvous is a gain schedule, not a different science.
+4. **The end-effector is a detail** — space: a grab or a bump after you matched rotation (still unflown). Earth: a hit, a net, or a microwave pulse after you held a track. Do not start as an interceptor OEM or a capture-arm company.
+5. **Earth-only extra: finding the silent one** — fuse radar / camera / IR / sound to keep custody of a drone that is not talking on radio (fiber-optic or fully autonomous). This is not “build Anduril.” It is the track that makes the last-meter plant usable on Earth.
+
+**Do not study as the bet:** subsea, agent payments, TraCSS/dashboards, GEO telescopes, cislunar Oracle, AIS dark fleet, chip physics, health, or “who is allowed to shoot over a stadium.”
+
+---
+
+## Case — space version
+
+**The fact:** as of 7 September 2026, no robot has grabbed an uncontrolled satellite. NASA dropped Katalyst LINK’s capture in August after the chaser itself started tumbling. Astroscale has inspected dead rockets from 15 meters and has patents for clever mass-shifting; they have not completed a tumbling grab. ClearSpace-1 has not flown. The Pentagon is still buying the unsolved act.
+
+**The case:** every dead satellite and every piece of lethal junk that is too small to catalog is a body that will not cooperate. Starlink already dodges **~356,000** times a year against things we *can* see. The CRASH Clock is **2.5 days** if those dodges stop — and that clock **does not even count** the **~1.2 million** 1–10 cm fragments. The prestige arc is “first close on a tumbler,” Lockheed-tape energy, years of waiting. You do not compete with LeoLabs (catalog) or True Anomaly Jackal (2026 LEO inspector sport). You study the close.
+
+**How it dies:** capture stays a national program; you never get a vehicle; cislunar traffic stays a briefing. Then you still have Earth.
+
+---
+
+## Case — Earth version
+
+**The fact:** cheap drones that do not emit a control radio (fiber spool to the pilot, or full autonomy) beat the jammer. Ukraine is now buying fiber FPV to a ministry spec (22 August 2026). IEEE 2025 still says automated detect-and-mitigate of “dark” drones is open. Anduril and Coyote already own shooting the drones you *can* hear on RF. Epirus showed a microwave kill of a fiber drone **once you already have it in the beam**. The hole is find-in-clutter plus last meters with no radio lock — city, birds, buildings, night.
+
+**The case:** counter-drone spend is **billions this year** (~$9–14B in 2026 depending on the house). That market does not need the Moon. Same last-meter plant as the tumbler: see it, hold relative pose, close. The sellable fail-sale is a **track + close** tool/feed, not a résumé. SAFER SKIES (Dec 2025) is who *may* fire; ignore that as the product (State clerk).
+
+**How it dies:** Anduril/Dedrone absorb dark-find too. Then you still have the space close as the long wait — weaker Earth, not zero.
+
+---
+
+## How the two versions share a desk
+
+| | Space | Earth |
+|---|--------|--------|
+| Target | Dead / tumbling sat | Fiber or autonomous drone |
+| Why it won’t help | No radio, wild spin, no dock | No C2 RF, small, in clutter |
+| Last meters | Match spin, grab or bump | Hold pose, hit / net / HPM |
+| Already taken | Catalogs, inspectors, CDMs | RF detect, jam, Roadrunner |
+| Still empty | Uncooperative capture GNC | Dark track + no-RF intercept GNC |
+| If this side fails | Earth TAM remains | Prestige close remains |
+
+Study the middle row of “last meters.” Pick an address later. Do not found either company now.
 
 ---
 
