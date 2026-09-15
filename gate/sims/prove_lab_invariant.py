@@ -21,9 +21,12 @@ from gate.sims import (  # noqa: E402
     deny_federation,
     edgar_disclose_seal,
     epoch_decay,
+    freeport_ingress,
     iana_root_change,
     isda_dc_publish,
+    isa_exploit,
     itu_biu_mifr,
+    kp_export,
     lab_invariant as lab,
     lloyds_bind_stamp,
     mouth_watch,
@@ -37,9 +40,12 @@ from gate.sims.prove_deed_record_gate import main as prove_s6  # noqa: E402
 from gate.sims.prove_deny_federation_stub import main as prove_s13  # noqa: E402
 from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
 from gate.sims.prove_epoch_decay import main as prove_s16  # noqa: E402
+from gate.sims.prove_freeport_ingress import main as prove_z8  # noqa: E402
 from gate.sims.prove_iana_root_change import main as prove_z3  # noqa: E402
 from gate.sims.prove_isda_dc_publish import main as prove_z1  # noqa: E402
+from gate.sims.prove_isa_exploit import main as prove_z6  # noqa: E402
 from gate.sims.prove_itu_biu_mifr import main as prove_z5  # noqa: E402
+from gate.sims.prove_kp_export import main as prove_z7  # noqa: E402
 from gate.sims.prove_lloyds_bind_stamp import main as prove_z4  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
@@ -62,6 +68,9 @@ MOUTHS = (
     iana_root_change,
     lloyds_bind_stamp,
     itu_biu_mifr,
+    isa_exploit,
+    kp_export,
+    freeport_ingress,
 )
 
 
@@ -103,6 +112,9 @@ def main() -> None:
     prove_z3()
     prove_z4()
     prove_z5()
+    prove_z6()
+    prove_z7()
+    prove_z8()
 
     for m in MOUTHS:
         lab.assert_all_receipts_lab(m)

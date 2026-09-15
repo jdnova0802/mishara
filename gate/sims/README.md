@@ -44,6 +44,9 @@ DENY **this** proposed actus + emit threat receipt. **No** session lockout, aler
 | `iana_root_change.py` | Intent ≠ root-zone write (Z3) | `python3 -m gate.sims.prove_iana_root_change` |
 | `lloyds_bind_stamp.py` | Paperwork ≠ registered BAA bind (Z4) | `python3 -m gate.sims.prove_lloyds_bind_stamp` |
 | `itu_biu_mifr.py` | Paper filing ≠ MIFR record (Z5) | `python3 -m gate.sims.prove_itu_biu_mifr` |
+| `isa_exploit.py` | Exploration ≠ exploitation (Z6) | `python3 -m gate.sims.prove_isa_exploit` |
+| `kp_export.py` | Parcel ≠ KP-certified export (Z7) | `python3 -m gate.sims.prove_kp_export` |
+| `freeport_ingress.py` | CoA/ALR ≠ licit freeport admit (Z8) | `python3 -m gate.sims.prove_freeport_ingress` |
 | S1↔S9 wire | Canary vs hostile-session as **separate** scenarios | `python3 -m gate.sims.prove_actus_s9_wire` |
 | S8↔S9 wire | Hostile watch vs local synthetic appearance | `python3 -m gate.sims.prove_ron_s9_wire` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
@@ -82,6 +85,15 @@ Digest-bound DENY + stranger receipt incl. non-pay actus. **P0:** FedNow/RTP-*sh
 
 ### Z5 — not constellation planning SaaS
 **ITU BIU/MIFR mouth** — API filing ≠ recorded assignment.
+
+### Z6 — not deep-sea mining CRM
+**ISA exploitation mouth** — exploration ≠ exploitation; Code negotiating → DENY.
+
+### Z7 — not diamond marketplace
+**KP export mouth** — parcel ≠ certified export.
+
+### Z8 — not art provenance chatbot
+**Freeport ingress** — CoA/ALR ≠ licit admit.
 
 ## Run (standard sequence — required)
 

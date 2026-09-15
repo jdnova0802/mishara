@@ -2,7 +2,7 @@
 """Standard prove sequence — mouths + intelligences + shock tier + lab invariant.
 
 Required always: prove_mouth_watch, prove_lab_invariant.
-Shock P0: Z1–Z5 (ISDA DC, CLS, IANA root, Lloyd's bind, ITU BIU/MIFR).
+Shock P0–P1: Z1–Z8 (ISDA, CLS, IANA, Lloyd's, ITU, ISA, KP, Freeport).
 """
 
 from __future__ import annotations
@@ -21,9 +21,12 @@ from gate.sims.prove_deed_record_gate import main as prove_s6  # noqa: E402
 from gate.sims.prove_deny_federation_stub import main as prove_s13  # noqa: E402
 from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
 from gate.sims.prove_epoch_decay import main as prove_s16  # noqa: E402
+from gate.sims.prove_freeport_ingress import main as prove_z8  # noqa: E402
 from gate.sims.prove_iana_root_change import main as prove_z3  # noqa: E402
 from gate.sims.prove_isda_dc_publish import main as prove_z1  # noqa: E402
+from gate.sims.prove_isa_exploit import main as prove_z6  # noqa: E402
 from gate.sims.prove_itu_biu_mifr import main as prove_z5  # noqa: E402
+from gate.sims.prove_kp_export import main as prove_z7  # noqa: E402
 from gate.sims.prove_lab_invariant import main as prove_lab  # noqa: E402
 from gate.sims.prove_lloyds_bind_stamp import main as prove_z4  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
@@ -50,6 +53,9 @@ STANDARD_SEQUENCE = (
     ("prove_iana_root_change", prove_z3),
     ("prove_lloyds_bind_stamp", prove_z4),
     ("prove_itu_biu_mifr", prove_z5),
+    ("prove_isa_exploit", prove_z6),
+    ("prove_kp_export", prove_z7),
+    ("prove_freeport_ingress", prove_z8),
     ("prove_lab_invariant", prove_lab),
 )
 
@@ -71,6 +77,9 @@ def main() -> None:
                 "z3": "IANA — intent ≠ root-zone write",
                 "z4": "Lloyd's — paperwork ≠ registered bind",
                 "z5": "ITU — paper filing ≠ MIFR record",
+                "z6": "ISA — exploration ≠ exploitation",
+                "z7": "KP — parcel ≠ certified export",
+                "z8": "Freeport — CoA/ALR ≠ licit admit",
             },
         }
     )

@@ -86,13 +86,13 @@ These are *how* you sell the prestige layer — subjects that are also models:
 
 | Build posture | IDs | Why |
 |---|---|---|
-| **Lab spines DONE (shock P0)** | **Z1–Z5** | ISDA DC, CLS, IANA, Lloyd's bind, ITU BIU/MIFR — proves + stranger HTTP green in `prove_all` |
-| **Timing / prestige** | **Z6, Z9, Z10** | ISA when Code adopts; peerage/arms as brand-shock lab spines |
-| **Object commerce** | **Z7, Z8** | KP + freeport — real, but need institutional partner more than more sim scroll |
+| **Lab spines DONE** | **Z1–Z8** | ISDA, CLS, IANA, Lloyd's, ITU, ISA, KP, Freeport — green in `prove_all` |
+| **Prestige brand** | **Z9, Z10** | Peerage Roll / College of Arms — optional jaw-drop lab spines |
 
 ```bash
-python3 -m gate.sims.prove_lloyds_bind_stamp
-python3 -m gate.sims.prove_itu_biu_mifr
+python3 -m gate.sims.prove_isa_exploit
+python3 -m gate.sims.prove_kp_export
+python3 -m gate.sims.prove_freeport_ingress
 python3 -m gate.sims.prove_all
 ```
 

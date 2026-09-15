@@ -24,9 +24,12 @@ Current `prove_all` order:
 14. `prove_iana_root_change` ← **Z3: intent ≠ root-zone write**
 15. `prove_lloyds_bind_stamp` ← **Z4: paperwork ≠ registered bind**
 16. `prove_itu_biu_mifr` ← **Z5: paper filing ≠ MIFR record**
-17. `prove_lab_invariant` ← **required last**
+17. `prove_isa_exploit` ← **Z6: exploration ≠ exploitation**
+18. `prove_kp_export` ← **Z7: parcel ≠ KP-certified export**
+19. `prove_freeport_ingress` ← **Z8: CoA/ALR ≠ licit admit**
+20. `prove_lab_invariant` ← **required last**
 
-## Shock P0 gates (Z1–Z5)
+## Shock gates (Z1–Z8)
 
 | Prove | Must show |
 |---|---|
@@ -35,6 +38,9 @@ Current `prove_all` order:
 | `prove_iana_root_change` | `tech_check_failed` DENY; `maintainer_nack` DENY; `root_zone_updated` ALLOW |
 | `prove_lloyds_bind_stamp` | `no_baa` / `baa_not_registered` DENY; `bound_under_authority` ALLOW |
 | `prove_itu_biu_mifr` | `api_only_paper` / `biu_*` DENY; `mifr_recorded` ALLOW |
+| `prove_isa_exploit` | `mining_code_not_live` while negotiating; LIVE+PoW ALLOW |
+| `prove_kp_export` | `no_certificate` / `seal_tampered` DENY; authenticated ALLOW |
+| `prove_freeport_ingress` | `coa_or_alr_insufficient` DENY; full provenance ALLOW |
 
 ## P0 weld gates (Orders 1–2)
 
