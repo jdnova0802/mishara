@@ -73,11 +73,16 @@ def _receipt(
     digest: str | None = None,
     action_type: str | None = None,
     result: dict[str, Any] | None = None,
+    watch_block: bool = False,
+    threat_receipt_id: str | None = None,
+    threat_class: str | None = None,
 ) -> dict[str, Any]:
     rid = str(uuid.uuid4())
     payload = {
         "spec": SPEC,
         "receipt_id": rid,
+        # Clearance object — never "threat". Banks branch on receipt_class.
+        "receipt_class": "clearance",
         "decision": decision,
         "reason_code": reason_code,
         "mandate_id": mandate_id,
@@ -85,6 +90,9 @@ def _receipt(
         "digest": digest,
         "action_type": action_type,
         "result": result,
+        "watch_block": watch_block,
+        "threat_receipt_id": threat_receipt_id,
+        "threat_class": threat_class,
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="actus_fence"),
         "ts": time.time(),
     }
@@ -170,11 +178,70 @@ def execute(
     *,
     mandate_id: str | None = None,
     grant_id: str | None = None,
+    watch_session: dict[str, str] | None = None,
+    watch_mandate_id: str | None = None,
 ) -> dict[str, Any]:
+    """Execute actus behind optional S9 Mouth Watch.
+
+    watch_session: appearance/device_trust/network_risk for score_session
+    watch_mandate_id: S9 mandate used for canary/trajectory evaluate_actus
+
+    On watch DENY: emits clearance DENY (receipt_class=clearance) that *links*
+    to a separate threat receipt (receipt_class=threat). No session lockout.
+    """
+    from gate.sims import mouth_watch as mw
+
     if not action_type or not isinstance(payload, dict):
         return _receipt("DENY", "malformed", action_type=action_type)
 
     digest = action_digest(action_type, payload)
+
+    # --- S9 watchman (before clearance checks) ---
+    if watch_session is not None:
+        scored = mw.score_session(
+            appearance=watch_session.get("appearance", "live"),
+            device_trust=watch_session.get("device_trust", "known"),
+            network_risk=watch_session.get("network_risk", "low"),
+        )
+        if scored["decision"] == "DENY":
+            return _receipt(
+                "DENY",
+                "watch_blocked",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+                watch_block=True,
+                threat_receipt_id=scored["receipt_id"],
+                threat_class=scored.get("threat_class"),
+                result={
+                    "watch_block": True,
+                    "threat_receipt_id": scored["receipt_id"],
+                    "threat_receipt_url": scored.get("receipt_url"),
+                    "threat_class": scored.get("threat_class"),
+                    "effect": scored.get("effect"),
+                },
+            )
+
+    if watch_mandate_id is not None:
+        watched = mw.evaluate_actus(watch_mandate_id, action_type, payload)
+        if watched["decision"] == "DENY":
+            return _receipt(
+                "DENY",
+                "watch_blocked",
+                mandate_id=mandate_id,
+                digest=digest,
+                action_type=action_type,
+                watch_block=True,
+                threat_receipt_id=watched["receipt_id"],
+                threat_class=watched.get("threat_class"),
+                result={
+                    "watch_block": True,
+                    "threat_receipt_id": watched["receipt_id"],
+                    "threat_receipt_url": watched.get("receipt_url"),
+                    "threat_class": watched.get("threat_class"),
+                    "effect": watched.get("effect"),
+                },
+            )
 
     if not mandate_id:
         return _receipt("DENY", "no_mandate", digest=digest, action_type=action_type)

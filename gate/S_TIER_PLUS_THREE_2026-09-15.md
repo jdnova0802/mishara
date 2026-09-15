@@ -250,4 +250,5 @@ python3 -m gate.sims.prove_lab_invariant
 - Deed fraud / alerts / Frozen Deed — ALTA on IC3 2025; Harris County alerts; VA §17.1-258.3:1; Mason County Frozen Deed  
 - EDGAR — SEC Filer Manual Vol I/II; 2026 AI review reporting  
 - RON refuse — Alabama SB292 enrolled text (artificial image refuse)  
-- Mouth Watch / defensive layer — Visa TAP recognition; OWASP/MS ACS runtime hooks; ADR/canary literature; Proof/title deepfake detection beside RON
+- Mouth Watch / defensive layer — Visa TAP recognition; OWASP/MS ACS runtime hooks; ADR/canary literature; Proof/title deepfake detection beside RON  
+- S9 pins — distinct `receipt_class=threat` vs `clearance`; trip effect deny-this-only; `prove_actus_s9_wire` separates canary vs hostile-session; `prove_all` requires mouth_watch + lab_invariant

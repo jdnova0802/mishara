@@ -2,9 +2,16 @@
 
 Lab only. their_production is always False.
 Not Visa TAP recognition. Not a SOC dashboard.
-Sibling to the gates: sense / canary / trajectory intel that forces DENY before actus.
 
 Ontological cut: authorized-looking trajectory ≠ trusted mouth context.
+
+TRIP EFFECT (pinned — machine-readable on every threat receipt):
+  - DENY this proposed actus only
+  - Emit stranger-fetchable threat receipt
+  - NO session lockout
+  - NO alert fanout
+  - NO quarantine / SOC ticket
+  Broader effects only if a mouth re-queries Watch on a later actus.
 """
 
 from __future__ import annotations
@@ -14,13 +21,24 @@ import json
 import time
 import uuid
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, Literal
 
 from gate.sims.lab_invariant import stamp_lab_flag
 
 
 SPEC = "nisaba-mouth-watch-lab-v1"
 THEIR_PRODUCTION = False
+
+# Pinned trip semantics — not a SOC. Bank/integrations read this field.
+TRIP_EFFECT: dict[str, bool] = {
+    "deny_this_actus": True,
+    "session_lockout": False,
+    "alert_fanout": False,
+    "quarantine": False,
+}
+
+ReceiptClass = Literal["threat", "watch_clear"]
+ThreatClass = Literal["canary", "session_integrity", "trajectory"]
 
 
 def _canonical(obj: Any) -> str:
@@ -61,8 +79,8 @@ def reset() -> None:
     STORE.trips.clear()
 
 
-def _receipt(
-    decision: str,
+def _threat_receipt(
+    threat_class: ThreatClass,
     reason_code: str,
     *,
     mandate_id: str | None = None,
@@ -71,12 +89,48 @@ def _receipt(
     signals: list[dict[str, Any]] | None = None,
     result: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Stranger-fetchable THREAT object — distinct from clearance DENY receipts."""
     rid = str(uuid.uuid4())
     payload = {
         "spec": SPEC,
         "receipt_id": rid,
-        "decision": decision,
+        "receipt_class": "threat",  # programmatic discriminator (not a reason string)
+        "threat_class": threat_class,  # canary | session_integrity | trajectory
+        "decision": "DENY",
         "reason_code": reason_code,
+        "effect": dict(TRIP_EFFECT),
+        "mandate_id": mandate_id,
+        "action_type": action_type,
+        "digest": digest,
+        "signals": signals or [],
+        "result": result,
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="mouth_watch"),
+        "ts": time.time(),
+    }
+    payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+    STORE.receipts[rid] = payload
+    return {**payload, "receipt_url": f"/v1/mouth-watch/threats/{rid}"}
+
+
+def _clear_receipt(
+    reason_code: str,
+    *,
+    mandate_id: str | None = None,
+    action_type: str | None = None,
+    digest: str | None = None,
+    signals: list[dict[str, Any]] | None = None,
+    result: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Watch ALLOW — also labeled so it cannot be confused with clearance or threat."""
+    rid = str(uuid.uuid4())
+    payload = {
+        "spec": SPEC,
+        "receipt_id": rid,
+        "receipt_class": "watch_clear",
+        "threat_class": None,
+        "decision": "ALLOW",
+        "reason_code": reason_code,
+        "effect": None,
         "mandate_id": mandate_id,
         "action_type": action_type,
         "digest": digest,
@@ -126,7 +180,7 @@ def score_session(
     device_trust: str = "known",
     network_risk: str = "low",
 ) -> dict[str, Any]:
-    """Integrity score feeding S8/S6-shaped mouths. Uncertainty → hostile."""
+    """Session integrity. Hostile → threat receipt (session_integrity), not clearance DENY."""
     signals: list[dict[str, Any]] = []
     hostile = False
 
@@ -154,13 +208,17 @@ def score_session(
     else:
         signals.append({"signal": "network_risk", "value": network_risk, "hostile": False})
 
-    decision = "DENY" if hostile else "ALLOW"
-    reason = "session_hostile" if hostile else "session_clear"
-    return _receipt(
-        decision,
-        reason,
+    if hostile:
+        return _threat_receipt(
+            "session_integrity",
+            "session_hostile",
+            signals=signals,
+            result={"hostile": True, "feed": "mouth_context"},
+        )
+    return _clear_receipt(
+        "session_clear",
         signals=signals,
-        result={"hostile": hostile, "feed": "mouth_context"},
+        result={"hostile": False, "feed": "mouth_context"},
     )
 
 
@@ -169,12 +227,12 @@ def evaluate_actus(
     action_type: str,
     payload: dict[str, Any],
 ) -> dict[str, Any]:
-    """Watchman before the mouth: canary / scope drift / overrun ⇒ DENY."""
+    """Watch before actus. Canary/trajectory fail → threat receipt. Clear → watch_clear."""
     digest = action_digest(action_type, payload)
     m = STORE.mandates.get(mandate_id)
     if m is None:
-        return _receipt(
-            "DENY",
+        return _threat_receipt(
+            "trajectory",
             "no_mandate",
             mandate_id=mandate_id,
             action_type=action_type,
@@ -193,8 +251,8 @@ def evaluate_actus(
                 "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="mouth_watch"),
             }
             STORE.trips[trip["trip_id"]] = trip
-            return _receipt(
-                "DENY",
+            return _threat_receipt(
+                "canary",
                 "canary_tripped",
                 mandate_id=mandate_id,
                 action_type=action_type,
@@ -204,8 +262,8 @@ def evaluate_actus(
             )
 
     if action_type not in m.scope:
-        return _receipt(
-            "DENY",
+        return _threat_receipt(
+            "trajectory",
             "trajectory_scope_drift",
             mandate_id=mandate_id,
             action_type=action_type,
@@ -215,8 +273,8 @@ def evaluate_actus(
 
     traj = STORE.trajectories.setdefault(mandate_id, [])
     if len(traj) >= m.max_steps:
-        return _receipt(
-            "DENY",
+        return _threat_receipt(
+            "trajectory",
             "trajectory_overrun",
             mandate_id=mandate_id,
             action_type=action_type,
@@ -227,8 +285,7 @@ def evaluate_actus(
         )
 
     traj.append(action_type)
-    return _receipt(
-        "ALLOW",
+    return _clear_receipt(
         "watch_clear",
         mandate_id=mandate_id,
         action_type=action_type,
@@ -242,4 +299,5 @@ def get_receipt(receipt_id: str) -> dict[str, Any] | None:
     r = STORE.receipts.get(receipt_id)
     if r is None:
         return None
-    return {**r, "receipt_url": f"/v1/mouth-watch/receipts/{receipt_id}"}
+    kind = "threats" if r.get("receipt_class") == "threat" else "receipts"
+    return {**r, "receipt_url": f"/v1/mouth-watch/{kind}/{receipt_id}"}
