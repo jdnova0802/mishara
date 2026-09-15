@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
 
 from gate.sims import ron_attest_refuse as ron  # noqa: E402
 from gate.sims.lab_invariant import assert_all_receipts_lab  # noqa: E402
+from gate.sims.verify_http import stranger_fetch, stranger_verify  # noqa: E402
 
 
 def expect(cond: bool, msg: str) -> None:
@@ -60,7 +61,14 @@ def main() -> None:
     expect(a4["decision"] == "ALLOW" and a4["reason_code"] == "attested", f"a4 {a4}")
     expect(a4["result"]["doc_hash"] == "deed-hash-4", "a4 doc")
     expect(a4["their_production"] is False, "a4 production")
+    expect(a4["receipt_class"] == "clearance", "a4 class")
     expect(ron.get_receipt(a4["receipt_id"]) is not None, "a4 stranger receipt")
+
+    with stranger_verify() as srv:
+        http_refuse = stranger_fetch(srv.base_url, a1["receipt_url"])
+        expect(http_refuse["reason_code"] == "appearance_synthetic_suspect", "http refuse")
+        http_allow = stranger_fetch(srv.base_url, a4["receipt_url"])
+        expect(http_allow["decision"] == "ALLOW", "http allow")
 
     assert_all_receipts_lab(ron)
 
@@ -69,6 +77,7 @@ def main() -> None:
         {
             "refuses": [a1["reason_code"], a2["reason_code"], a3["reason_code"]],
             "attested_receipt": a4["receipt_id"],
+            "stranger_http_verify": True,
             "their_production": False,
         }
     )

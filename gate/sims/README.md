@@ -11,7 +11,7 @@
 | Module | Role |
 |---|---|
 | `logos.py` | Shared mandate → grant → digest grammar (amount/rail-bound actus) |
-| `verify_http.py` | Local stranger GET by `receipt_url` — clearance **and** linked threat |
+| `verify_http.py` | Local stranger GET — actus, performative, edgar, deed, ron, mouth-watch |
 
 ## Receipt classes (bank-branchable — not reason-string parsing)
 
@@ -40,6 +40,7 @@ DENY **this** proposed actus + emit threat receipt. **No** session lockout, aler
 | `ron_attest_refuse.py` | Remote appearance ≠ notarial act; refuse + receipt | `python3 -m gate.sims.prove_ron_attest_refuse` |
 | `mouth_watch.py` | Authorized-looking trajectory ≠ trusted mouth context | `python3 -m gate.sims.prove_mouth_watch` |
 | S1↔S9 wire | Canary vs hostile-session as **separate** scenarios | `python3 -m gate.sims.prove_actus_s9_wire` |
+| S8↔S9 wire | Hostile watch vs local synthetic appearance | `python3 -m gate.sims.prove_ron_s9_wire` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
 
 ## Crowding honesty

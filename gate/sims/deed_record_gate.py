@@ -14,14 +14,11 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from gate.sims.lab_invariant import stamp_lab_flag
+from gate.sims.logos import canonical
 
 
 SPEC = "nisaba-deed-record-gate-lab-v1"
 THEIR_PRODUCTION = False
-
-
-def _canonical(obj: Any) -> str:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
 def instrument_hash(instrument: dict[str, Any]) -> str:
@@ -31,7 +28,7 @@ def instrument_hash(instrument: dict[str, Any]) -> str:
         "grantee": instrument.get("grantee"),
         "doc_hash": instrument.get("doc_hash"),
     }
-    return hashlib.sha256(_canonical(body).encode("utf-8")).hexdigest()
+    return hashlib.sha256(canonical(body).encode("utf-8")).hexdigest()
 
 
 @dataclass
@@ -82,11 +79,15 @@ def _receipt(
     doc_hash: str | None = None,
     content_hash: str | None = None,
     result: dict[str, Any] | None = None,
+    watch_block: bool = False,
+    threat_receipt_id: str | None = None,
+    threat_class: str | None = None,
 ) -> dict[str, Any]:
     rid = str(uuid.uuid4())
     payload = {
         "spec": SPEC,
         "receipt_id": rid,
+        "receipt_class": "clearance",
         "decision": decision,
         "reason_code": reason_code,
         "instrument_id": instrument_id,
@@ -94,10 +95,13 @@ def _receipt(
         "doc_hash": doc_hash,
         "content_hash": content_hash,
         "result": result,
+        "watch_block": watch_block,
+        "threat_receipt_id": threat_receipt_id,
+        "threat_class": threat_class,
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="deed_record_gate"),
         "ts": time.time(),
     }
-    payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+    payload["receipt_hash"] = hashlib.sha256(canonical(payload).encode("utf-8")).hexdigest()
     STORE.receipts[rid] = payload
     return {**payload, "receipt_url": f"/v1/deed-record/receipts/{rid}"}
 
@@ -163,10 +167,39 @@ def record_instrument(
     id_assurance: str,
     unlock_grant: str | None = None,
     notary_seal_id: str | None = None,
+    watch_session: dict[str, str] | None = None,
 ) -> dict[str, Any]:
+    from gate.sims import mouth_watch as mw
+
     inst = STORE.instruments.get(instrument_id)
     if inst is None:
         return _receipt("DENY", "no_instrument", instrument_id=instrument_id)
+
+    if watch_session is not None:
+        scored = mw.score_session(
+            appearance=watch_session.get("appearance", "live"),
+            device_trust=watch_session.get("device_trust", "known"),
+            network_risk=watch_session.get("network_risk", "low"),
+        )
+        if scored["decision"] == "DENY":
+            return _receipt(
+                "DENY",
+                "watch_blocked",
+                instrument_id=instrument_id,
+                parcel_id=inst.parcel_id,
+                doc_hash=inst.doc_hash,
+                content_hash=inst.content_hash,
+                watch_block=True,
+                threat_receipt_id=scored["receipt_id"],
+                threat_class=scored.get("threat_class"),
+                result={
+                    "watch_block": True,
+                    "threat_receipt_id": scored["receipt_id"],
+                    "threat_receipt_url": scored.get("receipt_url"),
+                    "threat_class": scored.get("threat_class"),
+                    "effect": scored.get("effect"),
+                },
+            )
 
     if id_assurance in ("", "unknown") or id_assurance is None:
         return _receipt(

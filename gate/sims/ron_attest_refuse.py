@@ -2,26 +2,23 @@
 
 Lab only. their_production is always False.
 Not a notary marketplace — this gates ATTEST / refuse with stranger receipt.
+S9 Mouth Watch feeds session score before attest (watch_session on attest).
 """
 
 from __future__ import annotations
 
 import hashlib
-import json
 import time
 import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
 from gate.sims.lab_invariant import stamp_lab_flag
+from gate.sims.logos import canonical
 
 
 SPEC = "nisaba-ron-attest-refuse-lab-v1"
 THEIR_PRODUCTION = False
-
-
-def _canonical(obj: Any) -> str:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
 @dataclass
@@ -56,21 +53,28 @@ def _receipt(
     signatory_id: str | None = None,
     doc_hash: str | None = None,
     result: dict[str, Any] | None = None,
+    watch_block: bool = False,
+    threat_receipt_id: str | None = None,
+    threat_class: str | None = None,
 ) -> dict[str, Any]:
     rid = str(uuid.uuid4())
     payload = {
         "spec": SPEC,
         "receipt_id": rid,
+        "receipt_class": "clearance",
         "decision": decision,
         "reason_code": reason_code,
         "session_id": session_id,
         "signatory_id": signatory_id,
         "doc_hash": doc_hash,
         "result": result,
+        "watch_block": bool(watch_block),
+        "threat_receipt_id": threat_receipt_id,
+        "threat_class": threat_class,
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="ron_attest_refuse"),
         "ts": time.time(),
     }
-    payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+    payload["receipt_hash"] = hashlib.sha256(canonical(payload).encode("utf-8")).hexdigest()
     STORE.receipts[rid] = payload
     return {**payload, "receipt_url": f"/v1/ron-attest/receipts/{rid}"}
 
@@ -103,10 +107,43 @@ def open_session(
     }
 
 
-def attest(session_id: str, *, expected_doc_hash: str | None = None) -> dict[str, Any]:
+def attest(
+    session_id: str,
+    *,
+    expected_doc_hash: str | None = None,
+    watch_session: dict[str, str] | None = None,
+) -> dict[str, Any]:
+    """Attest behind optional S9 session score (same linking pattern as S1)."""
+    from gate.sims import mouth_watch as mw
+
     s = STORE.sessions.get(session_id)
     if s is None:
         return _receipt("REFUSE", "no_session", session_id=session_id)
+
+    if watch_session is not None:
+        scored = mw.score_session(
+            appearance=watch_session.get("appearance", "live"),
+            device_trust=watch_session.get("device_trust", "known"),
+            network_risk=watch_session.get("network_risk", "low"),
+        )
+        if scored["decision"] == "DENY":
+            return _receipt(
+                "REFUSE",
+                "watch_blocked",
+                session_id=session_id,
+                signatory_id=s.signatory_id,
+                doc_hash=s.doc_hash,
+                watch_block=True,
+                threat_receipt_id=scored["receipt_id"],
+                threat_class=scored.get("threat_class"),
+                result={
+                    "watch_block": True,
+                    "threat_receipt_id": scored["receipt_id"],
+                    "threat_receipt_url": scored.get("receipt_url"),
+                    "threat_class": scored.get("threat_class"),
+                    "effect": scored.get("effect"),
+                },
+            )
 
     if s.appearance in ("", "unknown") or s.appearance is None:
         return _receipt(

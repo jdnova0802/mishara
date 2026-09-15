@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from gate.sims.lab_invariant import stamp_lab_flag
+from gate.sims.logos import canonical
 
 
 SPEC = "nisaba-edgar-disclose-seal-lab-v1"
@@ -28,12 +29,8 @@ FACT_STORE: dict[str, dict[str, Any]] = {
 }
 
 
-def _canonical(obj: Any) -> str:
-    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-
-
 def filing_hash(form: str, claims: list[dict[str, Any]]) -> str:
-    return hashlib.sha256(_canonical({"form": form, "claims": claims}).encode("utf-8")).hexdigest()
+    return hashlib.sha256(canonical({"form": form, "claims": claims}).encode("utf-8")).hexdigest()
 
 
 _NUMBER = re.compile(r"[\d,]+(?:\.\d+)?")
@@ -87,6 +84,7 @@ def _receipt(
     payload = {
         "spec": SPEC,
         "receipt_id": rid,
+        "receipt_class": "clearance",
         "decision": decision,
         "reason_code": reason_code,
         "filing_id": filing_id,
@@ -97,7 +95,7 @@ def _receipt(
         "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
         "ts": time.time(),
     }
-    payload["receipt_hash"] = hashlib.sha256(_canonical(payload).encode("utf-8")).hexdigest()
+    payload["receipt_hash"] = hashlib.sha256(canonical(payload).encode("utf-8")).hexdigest()
     STORE.receipts[rid] = payload
     return {**payload, "receipt_url": f"/v1/edgar-disclose/receipts/{rid}"}
 
@@ -192,30 +190,37 @@ def seal_filing(filing_id: str) -> dict[str, Any]:
     )
 
 
-def submit_filing(filing_id: str, seal_id: str | None = None) -> dict[str, Any]:
+def _require_live_seal(
+    filing_id: str,
+    seal_id: str | None,
+    *,
+    no_seal_reason: str,
+) -> tuple[Filing | None, Seal | None, dict[str, Any] | None]:
     f = STORE.filings.get(filing_id)
     if f is None:
-        return _receipt("DENY", "no_filing", filing_id=filing_id)
+        return None, None, _receipt("DENY", "no_filing", filing_id=filing_id)
 
     if not seal_id:
-        return _receipt(
+        return f, None, _receipt(
             "DENY",
-            "no_seal",
+            no_seal_reason,
             filing_id=filing_id,
             content_hash=f.content_hash,
+            result={"edgar_block": no_seal_reason == "edgar_block_no_seal"},
         )
 
     s = STORE.seals.get(seal_id)
     if s is None:
-        return _receipt(
+        return f, None, _receipt(
             "DENY",
-            "no_seal",
+            no_seal_reason,
             filing_id=filing_id,
             seal_id=seal_id,
             content_hash=f.content_hash,
+            result={"edgar_block": no_seal_reason == "edgar_block_no_seal"},
         )
     if s.filing_id != filing_id:
-        return _receipt(
+        return f, None, _receipt(
             "DENY",
             "seal_filing_mismatch",
             filing_id=filing_id,
@@ -223,13 +228,21 @@ def submit_filing(filing_id: str, seal_id: str | None = None) -> dict[str, Any]:
             content_hash=f.content_hash,
         )
     if s.content_hash != f.content_hash:
-        return _receipt(
+        return f, None, _receipt(
             "DENY",
             "seal_stale",
             filing_id=filing_id,
             seal_id=seal_id,
             content_hash=f.content_hash,
         )
+    return f, s, None
+
+
+def submit_filing(filing_id: str, seal_id: str | None = None) -> dict[str, Any]:
+    f, s, denied = _require_live_seal(filing_id, seal_id, no_seal_reason="no_seal")
+    if denied is not None:
+        return denied
+    assert f is not None and s is not None
 
     sid = str(uuid.uuid4())
     submission = {
@@ -245,6 +258,38 @@ def submit_filing(filing_id: str, seal_id: str | None = None) -> dict[str, Any]:
     return _receipt(
         "ALLOW",
         "submitted",
+        filing_id=filing_id,
+        seal_id=seal_id,
+        content_hash=f.content_hash,
+        result=submission,
+    )
+
+
+def submit_edgar_gateway(filing_id: str, seal_id: str | None = None) -> dict[str, Any]:
+    """EDGAR gateway weld-shape — no LIVE seal ⇒ cannot submit (lab fixture)."""
+    f, s, denied = _require_live_seal(
+        filing_id, seal_id, no_seal_reason="edgar_block_no_seal"
+    )
+    if denied is not None:
+        return denied
+    assert f is not None and s is not None
+
+    sid = str(uuid.uuid4())
+    submission = {
+        "submission_id": sid,
+        "filing_id": filing_id,
+        "seal_id": seal_id,
+        "form": f.form,
+        "content_hash": f.content_hash,
+        "edgar_gateway": "lab_fixture",
+        "real_edgar": False,
+        "edgar_sim": f"SIM-EDGAR-GW-{sid[:8]}",
+        "their_production": stamp_lab_flag(THEIR_PRODUCTION, module="edgar_disclose_seal"),
+    }
+    STORE.submissions[sid] = submission
+    return _receipt(
+        "ALLOW",
+        "edgar_submitted",
         filing_id=filing_id,
         seal_id=seal_id,
         content_hash=f.content_hash,

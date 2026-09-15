@@ -20,8 +20,11 @@ Lookup = Callable[[str], dict[str, Any] | None]
 def _lookups() -> dict[str, Lookup]:
     """Late-bind so proves can reset stores before starting the server."""
     from gate.sims import actus_fence as af
+    from gate.sims import deed_record_gate as dr
+    from gate.sims import edgar_disclose_seal as ed
     from gate.sims import mouth_watch as mw
     from gate.sims import performative_seal as ps
+    from gate.sims import ron_attest_refuse as ron
 
     def actus(rid: str) -> dict[str, Any] | None:
         return af.get_receipt(rid)
@@ -32,9 +35,21 @@ def _lookups() -> dict[str, Lookup]:
     def watch(rid: str) -> dict[str, Any] | None:
         return mw.get_receipt(rid)
 
+    def edgar(rid: str) -> dict[str, Any] | None:
+        return ed.get_receipt(rid)
+
+    def deed(rid: str) -> dict[str, Any] | None:
+        return dr.get_receipt(rid)
+
+    def ron_attest(rid: str) -> dict[str, Any] | None:
+        return ron.get_receipt(rid)
+
     return {
         "/v1/actus/receipts/": actus,
         "/v1/performative/receipts/": performative,
+        "/v1/edgar-disclose/receipts/": edgar,
+        "/v1/deed-record/receipts/": deed,
+        "/v1/ron-attest/receipts/": ron_attest,
         "/v1/mouth-watch/threats/": watch,
         "/v1/mouth-watch/receipts/": watch,
     }

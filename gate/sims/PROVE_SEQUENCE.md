@@ -18,7 +18,8 @@ Current `prove_all` order:
 8. `prove_edgar_disclose_seal`
 9. `prove_deed_record_gate`
 10. `prove_ron_attest_refuse`
-11. `prove_lab_invariant` ← **required last**
+11. `prove_ron_s9_wire` ← S8 attest + S9 session (hostile watch vs local synthetic)
+12. `prove_lab_invariant` ← **required last**
 
 ## P0 weld gates (Orders 1–2)
 
@@ -29,6 +30,14 @@ Current `prove_all` order:
 | `prove_actus_s9_wire` | A canary ≠ B hostile (still required before calling S1 extend done) |
 
 Shared: `logos.py` (mandate/grant/digest), `verify_http.py` (127.0.0.1 stranger GET).
+
+## Tier 2 weld gates (Orders 4–6)
+
+| Prove | Must show |
+|---|---|
+| `prove_edgar_disclose_seal` | `edgar_block_no_seal`; `submit_edgar_gateway` ALLOW fixture; stranger HTTP |
+| `prove_deed_record_gate` | `watch_session` hostile → `watch_blocked` + threat link; stranger HTTP |
+| `prove_ron_s9_wire` | live session + hostile watch → REFUSE + threat; clean watch → ALLOW after |
 
 ## Receipt classes
 

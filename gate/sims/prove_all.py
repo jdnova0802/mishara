@@ -25,6 +25,7 @@ from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
 from gate.sims.prove_preflight_diff import main as prove_s10  # noqa: E402
 from gate.sims.prove_ron_attest_refuse import main as prove_s8  # noqa: E402
+from gate.sims.prove_ron_s9_wire import main as prove_s8_s9  # noqa: E402
 
 
 STANDARD_SEQUENCE = (
@@ -38,6 +39,7 @@ STANDARD_SEQUENCE = (
     ("prove_edgar_disclose_seal", prove_s7),
     ("prove_deed_record_gate", prove_s6),
     ("prove_ron_attest_refuse", prove_s8),
+    ("prove_ron_s9_wire", prove_s8_s9),
     ("prove_lab_invariant", prove_lab),
 )
 
@@ -57,6 +59,12 @@ def main() -> None:
                 "s1": "bank_send + stranger HTTP clearance/threat",
                 "s3": "transmit_efsp + efsp_block_no_seal + stranger HTTP",
                 "logos": "shared mandate/grant/digest",
+            },
+            "tier2_weld": {
+                "s8_s9": "prove_ron_s9_wire",
+                "s7": "submit_edgar_gateway + edgar_block_no_seal",
+                "s6": "record watch_session + stranger HTTP",
+                "verify": "edgar/deed/ron routes on verify_http",
             },
         }
     )
