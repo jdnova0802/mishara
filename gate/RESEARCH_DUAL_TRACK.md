@@ -330,6 +330,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `INTELLIGENCE_PASS_2026-09-15.md` — **next intelligences:** immediate S10 Preflight / S16 Epoch / S13 Deny-Fed stub; museum S11/S12/S14/S15/S17. Includes **Claude paste**.
 
+`SHOCK_TIER_HUNT_2026-09-15.md` — **prestige / insider niches past S1–S17:** ISDA DC Resolution publish, CLS PvP settle, IANA root-zone change, Lloyd’s registered bind, ITU BIU/MIFR, ISA exploitation timing, KP export, freeport ingress, Peerage Roll. SSS = binding publish / settlement finality / apex write.
+
 `sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest, **S9 Mouth Watch** + **`prove_lab_invariant`** (`their_production is False` hard-enforced, mutation caught).
 
 ---
