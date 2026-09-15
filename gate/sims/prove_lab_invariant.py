@@ -16,10 +16,13 @@ if str(ROOT) not in sys.path:
 
 from gate.sims import (  # noqa: E402
     actus_fence,
+    cls_settle,
     deed_record_gate,
     deny_federation,
     edgar_disclose_seal,
     epoch_decay,
+    iana_root_change,
+    isda_dc_publish,
     lab_invariant as lab,
     mouth_watch,
     performative_seal,
@@ -27,10 +30,13 @@ from gate.sims import (  # noqa: E402
     ron_attest_refuse,
 )
 from gate.sims.prove_actus_fence import main as prove_s1  # noqa: E402
+from gate.sims.prove_cls_settle import main as prove_z2  # noqa: E402
 from gate.sims.prove_deed_record_gate import main as prove_s6  # noqa: E402
 from gate.sims.prove_deny_federation_stub import main as prove_s13  # noqa: E402
 from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
 from gate.sims.prove_epoch_decay import main as prove_s16  # noqa: E402
+from gate.sims.prove_iana_root_change import main as prove_z3  # noqa: E402
+from gate.sims.prove_isda_dc_publish import main as prove_z1  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
 from gate.sims.prove_preflight_diff import main as prove_s10  # noqa: E402
@@ -47,6 +53,9 @@ MOUTHS = (
     preflight_diff,
     epoch_decay,
     deny_federation,
+    isda_dc_publish,
+    cls_settle,
+    iana_root_change,
 )
 
 
@@ -83,6 +92,9 @@ def main() -> None:
     prove_s10()
     prove_s16()
     prove_s13()
+    prove_z1()
+    prove_z2()
+    prove_z3()
 
     for m in MOUTHS:
         lab.assert_all_receipts_lab(m)

@@ -19,7 +19,18 @@ Current `prove_all` order:
 9. `prove_deed_record_gate`
 10. `prove_ron_attest_refuse`
 11. `prove_ron_s9_wire` ← S8 attest + S9 session (hostile watch vs local synthetic)
-12. `prove_lab_invariant` ← **required last**
+12. `prove_isda_dc_publish` ← **Z1: headline ≠ DC Resolution**
+13. `prove_cls_settle` ← **Z2: matched ≠ settled PvP**
+14. `prove_iana_root_change` ← **Z3: intent ≠ root-zone write**
+15. `prove_lab_invariant` ← **required last**
+
+## Shock P0 gates (Z1–Z3)
+
+| Prove | Must show |
+|---|---|
+| `prove_isda_dc_publish` | `headline_only` DENY; `draft_only` DENY; LIVE Resolution ALLOW; stranger HTTP |
+| `prove_cls_settle` | `unmatched` DENY; `risk_test_failed` / `pay_in_shortage` DENY; `settled_pvp` ALLOW |
+| `prove_iana_root_change` | `tech_check_failed` DENY; `maintainer_nack` DENY; `root_zone_updated` ALLOW |
 
 ## P0 weld gates (Orders 1–2)
 

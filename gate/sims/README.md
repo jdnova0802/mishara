@@ -39,6 +39,9 @@ DENY **this** proposed actus + emit threat receipt. **No** session lockout, aler
 | `deed_record_gate.py` | Instrument needs LIVE logos before record | `python3 -m gate.sims.prove_deed_record_gate` |
 | `ron_attest_refuse.py` | Remote appearance ≠ notarial act; refuse + receipt | `python3 -m gate.sims.prove_ron_attest_refuse` |
 | `mouth_watch.py` | Authorized-looking trajectory ≠ trusted mouth context | `python3 -m gate.sims.prove_mouth_watch` |
+| `isda_dc_publish.py` | Headline ≠ LIVE DC Resolution (Z1) | `python3 -m gate.sims.prove_isda_dc_publish` |
+| `cls_settle.py` | Matched FX ≠ settled PvP (Z2) | `python3 -m gate.sims.prove_cls_settle` |
+| `iana_root_change.py` | Intent ≠ root-zone write (Z3) | `python3 -m gate.sims.prove_iana_root_change` |
 | S1↔S9 wire | Canary vs hostile-session as **separate** scenarios | `python3 -m gate.sims.prove_actus_s9_wire` |
 | S8↔S9 wire | Hostile watch vs local synthetic appearance | `python3 -m gate.sims.prove_ron_s9_wire` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
@@ -62,6 +65,15 @@ Digest-bound DENY + stranger receipt incl. non-pay actus. **P0:** FedNow/RTP-*sh
 
 ### S9 — not Visa TAP / not SOC dashboard
 **Watchman** — threat receipts feeding mouths. DENY-this-actus only.
+
+### Z1 — not CDS trading / not news AI
+**DC Resolution publish mouth** — headline ≠ Credit Event.
+
+### Z2 — not FX risk dashboard
+**CLS-shaped settle mouth** — matched ≠ PvP settled.
+
+### Z3 — not DNSSEC monitoring SaaS
+**Root-zone change mouth** — intent ≠ applied DS/NS write.
 
 ## Run (standard sequence — required)
 

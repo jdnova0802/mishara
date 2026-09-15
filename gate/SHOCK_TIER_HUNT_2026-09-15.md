@@ -86,12 +86,20 @@ These are *how* you sell the prestige layer — subjects that are also models:
 
 | Build posture | IDs | Why |
 |---|---|---|
-| **Study + paste for Desktop (shock P0)** | **Z1, Z2, Z3** | Binding publish / settlement finality / apex write — clearest ontological cuts; stranger receipts map to existing Gate discipline |
+| **Lab spines DONE (shock P0)** | **Z1, Z2, Z3** | `isda_dc_publish`, `cls_settle`, `iana_root_change` + proves + stranger HTTP — green in `prove_all` |
 | **Weld-shape after P0** | **Z4, Z5** | Lloyd’s stamp + ITU BIU — same seal/stamp grammar as S3/S7 |
 | **Timing / prestige** | **Z6, Z9, Z10** | ISA when Code adopts; peerage/arms as brand-shock lab spines |
 | **Object commerce** | **Z7, Z8** | KP + freeport — real, but need institutional partner more than more sim scroll |
 
-**Do not** start Z-tier until current Gate P0/tier-2 stays green (`python3 -m gate.sims.prove_all`). Shock is additive prestige, not a rewrite of S1/S3.
+```bash
+python3 -m gate.sims.prove_isda_dc_publish
+python3 -m gate.sims.prove_cls_settle
+python3 -m gate.sims.prove_iana_root_change
+# or:
+python3 -m gate.sims.prove_all
+```
+
+**Do not** treat Z-tier as a rewrite of S1/S3 — additive prestige priesthoods on the same spine.
 
 ---
 
