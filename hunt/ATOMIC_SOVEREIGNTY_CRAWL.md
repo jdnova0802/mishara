@@ -22,6 +22,34 @@ Chase / silent-drone / trash-drone is **parked**. Quarks are **killed**. The des
 
 ---
 
+## Business categories (not a company yet)
+
+What this **is**, on a normal industry map:
+
+| Category | What you actually sit in | Fit |
+|----------|--------------------------|-----|
+| **Nuclear fuel cycle** | Tritium, special nuclear material, inventory of named isotopes | **Primary** |
+| **Fusion energy — fuel, not the tokamak** | Breeding, start-up inventory, decay, civilian vs weapons jug | **Primary** (do not be CFS) |
+| **Nuclear security / nonproliferation** | Forensics of a gram; “is this the same pile” | **Primary** |
+| **Metrology / analytical instruments** | Mass spec, age-dating, matching spectra | How a lab sells it |
+| **Defense / stockpile stewardship** | Pits, ignition as weapons physics | **Door is NNSA.** Job only if they open it |
+| **Climate / clean energy** | Only if you lie and say “we are a fusion plant” | **Weak.** That’s the 2026 company race |
+| **GovTech / “safeguards SaaS”** | Ticketing who may move the cylinder | **Trap.** Clerk. Don’t |
+
+What this is **not:** consumer app, marketplace, C-UAS, trash drones, chips, payments, chatbots.
+
+### Combine software?
+
+**Later, as the skin. Not now, as the company.**
+
+- **Yes:** a feed or tool a stranger can use — “this gram’s fingerprint,” “this tritium jug’s remaining,” a digital twin of a fuel loop. That is the fail-sale (sellable interface, not a CV). Same rule as before: make it consumable; don’t name the paper.
+- **No:** software that *is* the ruling — “allow this cylinder to move,” blockchain IAEA, remaining-as-the-product. That is the State clerk they already own elsewhere and already rejected as the hunt.
+- **Do not merge the physics desk into a fintech/Gate mouth** and call it the business. Study the isotope for years. Software is how the measurement gets a face.
+
+One line: **hard-tech nuclear (fuel + forensics), dual-use, wait-years; software is the later interface, not the category.**
+
+---
+
 ## First: quarks are the wrong zoom
 
 A quark is not a missing king. QCD **confines** them; you never hold one; nobody issues a ticket for a gluon. That is a Feynman lecture (**6/10** sci-comm, **1/10** Palantir). Kill it as a hunt.
