@@ -12,13 +12,13 @@
 
 Chase / silent-drone / trash-drone stays **parked**. Quarks stay **killed**. Next candidate must pass: **practice without clearance, without a 2026 OEM, without selling may.**
 
-**Three technical subjects, in this order:**
+**What we looked at (map only — not a years-bet):**
 
 1. **Tritium (and the hydrogen-isotope fuel loop)** — how a few kilograms of radioactive hydrogen boost a warhead *and* feed a fusion machine; why it decays ~5% per year; breeding blankets; where civilian vs weapons inventory actually sits. This is the only subject that is both study-able at a desk and still a live shortage.
 2. **Nuclear forensics of a gram** — how you tell *this* uranium/plutonium from *that* pile (isotopes, impurities, age). That is the science under “where did the missing cylinder come from / who made this pit.” You will not get the Iran stock; you study the measurement.
 3. **Burning plasma / ignition metrics** — what NIF actually did (gain, yield, hohlraum), so you can read the flash instead of the press release. Do **not** found a tokamak company.
 
-**Do not study as the bet:** QCD, centrifuges as a business, IAEA-as-an-app, pit manufacturing, the launch button (already named S06), HALEU vs Centrus.
+**Do not study these as the bet.** QCD, centrifuges, IAEA-as-an-app, pit manufacturing, launch button (S06), HALEU vs Centrus stay killed.
 
 **How huge (one page of numbers):** ~20–25 kg civilian tritium on Earth vs ~55 kg/year sketched for one gigawatt DT plant; 440.9 kg of Iran’s 60% uranium unverified for 8+ months after June 2025; IAEA “bomb-possible” piles are 25 kg U-235 / 8 kg Pu; NIF has ignited 11 times, record 8.6 MJ; US is remaking plutonium pits on a 30→80/year law. Civilization’s violence and its fake-star both hang on **handfuls of the same elements**.
 
