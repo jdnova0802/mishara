@@ -25,6 +25,8 @@ def _lookups() -> dict[str, Lookup]:
     from gate.sims import edgar_disclose_seal as ed
     from gate.sims import iana_root_change as rz
     from gate.sims import isda_dc_publish as dc
+    from gate.sims import itu_biu_mifr as itu
+    from gate.sims import lloyds_bind_stamp as lb
     from gate.sims import mouth_watch as mw
     from gate.sims import performative_seal as ps
     from gate.sims import ron_attest_refuse as ron
@@ -56,6 +58,12 @@ def _lookups() -> dict[str, Lookup]:
     def iana(rid: str) -> dict[str, Any] | None:
         return rz.get_receipt(rid)
 
+    def lloyds(rid: str) -> dict[str, Any] | None:
+        return lb.get_receipt(rid)
+
+    def itu_rcpt(rid: str) -> dict[str, Any] | None:
+        return itu.get_receipt(rid)
+
     return {
         "/v1/actus/receipts/": actus,
         "/v1/performative/receipts/": performative,
@@ -65,6 +73,8 @@ def _lookups() -> dict[str, Lookup]:
         "/v1/isda-dc/receipts/": isda,
         "/v1/cls-settle/receipts/": cls_rcpt,
         "/v1/iana-root/receipts/": iana,
+        "/v1/lloyds-bind/receipts/": lloyds,
+        "/v1/itu-biu/receipts/": itu_rcpt,
         "/v1/mouth-watch/threats/": watch,
         "/v1/mouth-watch/receipts/": watch,
     }

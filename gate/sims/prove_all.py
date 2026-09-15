@@ -2,7 +2,7 @@
 """Standard prove sequence — mouths + intelligences + shock tier + lab invariant.
 
 Required always: prove_mouth_watch, prove_lab_invariant.
-Shock P0: isda_dc_publish (Z1), cls_settle (Z2), iana_root_change (Z3).
+Shock P0: Z1–Z5 (ISDA DC, CLS, IANA root, Lloyd's bind, ITU BIU/MIFR).
 """
 
 from __future__ import annotations
@@ -23,7 +23,9 @@ from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
 from gate.sims.prove_epoch_decay import main as prove_s16  # noqa: E402
 from gate.sims.prove_iana_root_change import main as prove_z3  # noqa: E402
 from gate.sims.prove_isda_dc_publish import main as prove_z1  # noqa: E402
+from gate.sims.prove_itu_biu_mifr import main as prove_z5  # noqa: E402
 from gate.sims.prove_lab_invariant import main as prove_lab  # noqa: E402
+from gate.sims.prove_lloyds_bind_stamp import main as prove_z4  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
 from gate.sims.prove_preflight_diff import main as prove_s10  # noqa: E402
@@ -46,6 +48,8 @@ STANDARD_SEQUENCE = (
     ("prove_isda_dc_publish", prove_z1),
     ("prove_cls_settle", prove_z2),
     ("prove_iana_root_change", prove_z3),
+    ("prove_lloyds_bind_stamp", prove_z4),
+    ("prove_itu_biu_mifr", prove_z5),
     ("prove_lab_invariant", prove_lab),
 )
 
@@ -65,6 +69,8 @@ def main() -> None:
                 "z1": "ISDA DC — headline ≠ Credit Event",
                 "z2": "CLS — matched ≠ settled PvP",
                 "z3": "IANA — intent ≠ root-zone write",
+                "z4": "Lloyd's — paperwork ≠ registered bind",
+                "z5": "ITU — paper filing ≠ MIFR record",
             },
         }
     )

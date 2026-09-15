@@ -42,6 +42,8 @@ DENY **this** proposed actus + emit threat receipt. **No** session lockout, aler
 | `isda_dc_publish.py` | Headline ≠ LIVE DC Resolution (Z1) | `python3 -m gate.sims.prove_isda_dc_publish` |
 | `cls_settle.py` | Matched FX ≠ settled PvP (Z2) | `python3 -m gate.sims.prove_cls_settle` |
 | `iana_root_change.py` | Intent ≠ root-zone write (Z3) | `python3 -m gate.sims.prove_iana_root_change` |
+| `lloyds_bind_stamp.py` | Paperwork ≠ registered BAA bind (Z4) | `python3 -m gate.sims.prove_lloyds_bind_stamp` |
+| `itu_biu_mifr.py` | Paper filing ≠ MIFR record (Z5) | `python3 -m gate.sims.prove_itu_biu_mifr` |
 | S1↔S9 wire | Canary vs hostile-session as **separate** scenarios | `python3 -m gate.sims.prove_actus_s9_wire` |
 | S8↔S9 wire | Hostile watch vs local synthetic appearance | `python3 -m gate.sims.prove_ron_s9_wire` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
@@ -74,6 +76,12 @@ Digest-bound DENY + stranger receipt incl. non-pay actus. **P0:** FedNow/RTP-*sh
 
 ### Z3 — not DNSSEC monitoring SaaS
 **Root-zone change mouth** — intent ≠ applied DS/NS write.
+
+### Z4 — not Lloyd's market analytics
+**Registered bind stamp** — paperwork ≠ LIVE BAA bind.
+
+### Z5 — not constellation planning SaaS
+**ITU BIU/MIFR mouth** — API filing ≠ recorded assignment.
 
 ## Run (standard sequence — required)
 

@@ -23,7 +23,9 @@ from gate.sims import (  # noqa: E402
     epoch_decay,
     iana_root_change,
     isda_dc_publish,
+    itu_biu_mifr,
     lab_invariant as lab,
+    lloyds_bind_stamp,
     mouth_watch,
     performative_seal,
     preflight_diff,
@@ -37,6 +39,8 @@ from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
 from gate.sims.prove_epoch_decay import main as prove_s16  # noqa: E402
 from gate.sims.prove_iana_root_change import main as prove_z3  # noqa: E402
 from gate.sims.prove_isda_dc_publish import main as prove_z1  # noqa: E402
+from gate.sims.prove_itu_biu_mifr import main as prove_z5  # noqa: E402
+from gate.sims.prove_lloyds_bind_stamp import main as prove_z4  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
 from gate.sims.prove_preflight_diff import main as prove_s10  # noqa: E402
@@ -56,6 +60,8 @@ MOUTHS = (
     isda_dc_publish,
     cls_settle,
     iana_root_change,
+    lloyds_bind_stamp,
+    itu_biu_mifr,
 )
 
 
@@ -95,6 +101,8 @@ def main() -> None:
     prove_z1()
     prove_z2()
     prove_z3()
+    prove_z4()
+    prove_z5()
 
     for m in MOUTHS:
         lab.assert_all_receipts_lab(m)

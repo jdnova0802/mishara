@@ -22,15 +22,19 @@ Current `prove_all` order:
 12. `prove_isda_dc_publish` ← **Z1: headline ≠ DC Resolution**
 13. `prove_cls_settle` ← **Z2: matched ≠ settled PvP**
 14. `prove_iana_root_change` ← **Z3: intent ≠ root-zone write**
-15. `prove_lab_invariant` ← **required last**
+15. `prove_lloyds_bind_stamp` ← **Z4: paperwork ≠ registered bind**
+16. `prove_itu_biu_mifr` ← **Z5: paper filing ≠ MIFR record**
+17. `prove_lab_invariant` ← **required last**
 
-## Shock P0 gates (Z1–Z3)
+## Shock P0 gates (Z1–Z5)
 
 | Prove | Must show |
 |---|---|
 | `prove_isda_dc_publish` | `headline_only` DENY; `draft_only` DENY; LIVE Resolution ALLOW; stranger HTTP |
 | `prove_cls_settle` | `unmatched` DENY; `risk_test_failed` / `pay_in_shortage` DENY; `settled_pvp` ALLOW |
 | `prove_iana_root_change` | `tech_check_failed` DENY; `maintainer_nack` DENY; `root_zone_updated` ALLOW |
+| `prove_lloyds_bind_stamp` | `no_baa` / `baa_not_registered` DENY; `bound_under_authority` ALLOW |
+| `prove_itu_biu_mifr` | `api_only_paper` / `biu_*` DENY; `mifr_recorded` ALLOW |
 
 ## P0 weld gates (Orders 1–2)
 
