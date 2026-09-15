@@ -3,7 +3,7 @@
 **Date:** 2026-09-15  
 **Mode:** Same hunt as edge pass — mouth scarcity, not dashboard TAM. Academic spine: Austin/Searle speech acts + Barry Smith **document acts** (*X counts as Y in context C*).
 
-Companions: `FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md`, `EDGE_PASS_2026-09-15.md`, `DESKTOP_PASTES_S_TIER_2026-09-15.md`.
+Companions: `FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md`, `EDGE_PASS_2026-09-15.md`, `DESKTOP_PASTES_S_TIER_2026-09-15.md`, **`DESKTOP_ORDERS_PASTE_2026-09-15.md`** (single paste run order).
 
 ---
 

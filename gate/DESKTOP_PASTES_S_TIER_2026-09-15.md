@@ -4,6 +4,8 @@
 **Law:** logos-before-actus (`FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md`)  
 **Rule:** All sims. `their_production: false`. Fail-closed. Stranger-verifiable receipt on every DENY/ALLOW. No dashboard theater. No real money, court, KYC vendor, dead person, or biometric production weld.
 
+**→ Full run order (copy-paste into Cursor):** `DESKTOP_ORDERS_PASTE_2026-09-15.md`
+
 ---
 
 ## DESKTOP — DO THIS FIRST (huge mouths)

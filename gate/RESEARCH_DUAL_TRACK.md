@@ -322,6 +322,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `DESKTOP_PASTES_S_TIER_2026-09-15.md` — **buildable desktop Cursor pastes** for all five (sim mouths, DENY proves, stranger receipts).
 
+`DESKTOP_ORDERS_PASTE_2026-09-15.md` — **single copy-paste desktop run order** (P0 S1/S3 extend → S7/S6/S8 weld-shape; defer S2/S4/S5).
+
 `EDGE_PASS_2026-09-15.md` — **weld/docket/teardown**: crowding map; S3 file-mouth + S1 grant+receipt survive; grief UX / liveness R&D killed.
 
 `S_TIER_PLUS_THREE_2026-09-15.md` — **why Visa is everywhere** + three more mouths at S or above: Deed Record Gate (S6), EDGAR Disclose Seal (S7), RON Attest Refuse (S8).
