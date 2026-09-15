@@ -2,7 +2,22 @@
 
 **Status:** Lab only. `their_production: false` always — **enforced**, not aspirational (`lab_invariant.py`, `prove_lab_invariant`).  
 **Edge pass:** `../EDGE_PASS_2026-09-15.md`  
-**S-tier+ three:** `../S_TIER_PLUS_THREE_2026-09-15.md`
+**S-tier+:** `../S_TIER_PLUS_THREE_2026-09-15.md`  
+**Prove template:** `PROVE_SEQUENCE.md` — `prove_mouth_watch` + `prove_lab_invariant` required for every mouth
+
+## Receipt classes (bank-branchable — not reason-string parsing)
+
+| `receipt_class` | Emitter | Meaning |
+|---|---|---|
+| `clearance` | Mouths (S1…) | This actus authorized or not |
+| `threat` | S9 Mouth Watch only | Canary / session integrity / trajectory compromise |
+| `watch_clear` | S9 | Sense layer clear for this check |
+
+S9 block on S1 → clearance DENY (`watch_block: true`, `threat_receipt_id`, `threat_class`) **linking** to a separate threat object.
+
+## S9 trip effect (pinned)
+
+DENY **this** proposed actus + emit threat receipt. **No** session lockout, alert fanout, or quarantine. Machine field: `effect` on every threat receipt.
 
 ## What these are
 
@@ -13,58 +28,41 @@
 | `edgar_disclose_seal.py` | Filing needs seal before EDGAR-shaped submit | `python3 -m gate.sims.prove_edgar_disclose_seal` |
 | `deed_record_gate.py` | Instrument needs LIVE logos before record | `python3 -m gate.sims.prove_deed_record_gate` |
 | `ron_attest_refuse.py` | Remote appearance ≠ notarial act; refuse + receipt | `python3 -m gate.sims.prove_ron_attest_refuse` |
-| `mouth_watch.py` | Authorized-looking trajectory ≠ trusted mouth context (canary / session / drift) | `python3 -m gate.sims.prove_mouth_watch` |
+| `mouth_watch.py` | Authorized-looking trajectory ≠ trusted mouth context | `python3 -m gate.sims.prove_mouth_watch` |
+| S1↔S9 wire | Canary vs hostile-session as **separate** scenarios | `python3 -m gate.sims.prove_actus_s9_wire` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
 
-## Crowding honesty (do not forget)
+## Crowding honesty
 
-### S1 — not competing with
-- **Fidacy / IntentFence** — already ship grants/receipts for agent pay
-- **Visa Intelligent Commerce / Trusted Agent Protocol** — network-scale agent commerce
+### S1 — not Fidacy / Visa TAP
+Digest-bound DENY + stranger receipt incl. non-pay actus. Weld later = bank-send + verify URL.
 
-**Our lab claim:** digest-bound DENY + stranger receipt grammar, including **non-pay** actus (`prod_mutate`). Differentiation later = bank-send weld + public verify URL — not “invented grants.”
+### S3 — not Westlaw/Lexis checkers
+**File mouth** — no LIVE seal ⇒ cannot file.
 
-### S3 — not competing with
-- **Westlaw Quick Check / Lexis Brief Analysis / PelAIkan** — citation *checkers*
+### S7 — not Workiva
+**Submit mouth** — ungrounded quantity ⇒ cannot submit.
 
-**Our lab claim:** **file mouth** — no LIVE seal ⇒ cannot file. Check ≠ speech-act.
+### S6 — not title insurance / post-record alerts
+**Record accept** mouth.
 
-### S7 — not competing with
-- **Workiva / disclosure workstations / XBRL validators** — format & workflow
+### S8 — not notary marketplace
+**Refuse** mouth + stranger receipt.
 
-**Our lab claim:** **submit mouth** — ungrounded quantity ⇒ no seal ⇒ cannot submit.
+### S9 — not Visa TAP / not SOC dashboard
+**Watchman** — threat receipts feeding mouths. DENY-this-actus only.
 
-### S6 — not competing with
-- **Post-record property alerts / title insurance UIs**
-
-**Our lab claim:** **record accept** — inject/lock/notary fail ⇒ DENY before title remade.
-
-### S8 — not competing with
-- **RON marketplaces / commission platforms**
-
-**Our lab claim:** **refuse mouth** — synthetic/unknown appearance ⇒ REFUSE + stranger receipt.
-
-### S9 — not competing with
-- **Visa TAP / bot recognition** — “is this an approved agent?”
-- **SOC / agent-security dashboards / raw deepfake ML vendors**
-
-**Our lab claim:** **watchman** — canary + trajectory + session score that stamps stranger **threat receipts** and feeds DENY into S1/S8 (and later S6/S7). Sense layer beside the lock — not a monitoring UI.
-
-## Run
+## Run (standard sequence — required)
 
 ```bash
-cd /path/to/repo
-python3 -m gate.sims.prove_actus_fence
-python3 -m gate.sims.prove_performative_seal
-python3 -m gate.sims.prove_mouth_watch
-python3 -m gate.sims.prove_edgar_disclose_seal
-python3 -m gate.sims.prove_deed_record_gate
-python3 -m gate.sims.prove_ron_attest_refuse
-python3 -m gate.sims.prove_lab_invariant
+python3 -m gate.sims.prove_all
+# always includes:
+#   prove_mouth_watch
+#   prove_lab_invariant
 ```
 
-All must print `*_PROVE_OK` / `LAB_INVARIANT_PROVE_OK`.
+See `PROVE_SEQUENCE.md` for the template every future mouth must follow.
 
-## Out of scope here
+## Out of scope
 
-Real wallets, CM/ECF, EDGAR, county recorders, KYC vendors, grief UX, biometric capture, notary commissions.
+Real wallets, CM/ECF, EDGAR, county recorders, KYC, grief UX, biometrics, notary commissions, SOC dashboards, session lockout fanout.
