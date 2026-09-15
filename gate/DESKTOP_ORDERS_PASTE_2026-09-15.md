@@ -64,6 +64,7 @@ C) STOP — sit on the graph until a buyer names which mouth they need
 
 === POINTERS ===
 Outbound research: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
+More wedges:       gate/INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md
 Shock paste:       gate/SHOCK_TIER_SHIP_PASTE_2026-09-15.md
 Stopping rule:     gate/SHOCK_TIER_HUNT_2026-09-15.md
 Prove sequence:    gate/sims/PROVE_SEQUENCE.md
@@ -75,4 +76,4 @@ Edge / crowding:   gate/EDGE_PASS_2026-09-15.md
 
 ## One-liner for chat
 
-> Cloud sealed. Outbound note: receipt-as-product (anti-dashboard) + desk map. First door = S1 or S3; Z1–Z3 = ammo not cold-open. Next = one human conversation with stranger-GET — or stop. `python3 -m gate.sims.prove_all`
+> Cloud sealed. First door = S1 or S3. More shippable wedges mapped (S7, escrow disburse, credentialed-publish) — do not build until outbound moves or a named partner asks. Z = ammo. Or stop. `python3 -m gate.sims.prove_all`
