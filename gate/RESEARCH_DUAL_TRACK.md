@@ -316,6 +316,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `FORMULA_HUNT_OPEN_2026-09-15.md` — web force-scan for finds **outside** existing Nisaba rails. New connections allowed (not every row forced onto payout/DER). Top non-remap: **reality provenance survive-to-publish**; long-cycle: **distributed pharma spoke release**.
 
+`FORMULA_HUNT_VERTICAL_2026-09-15.md` — same hunt **verticalized** into massive SKUs: instant-push DENY, EV/V2G curb actuate DENY, credentialed-publish DENY; harder welds (RA vehicle, ADC dispense).
+
 ---
 
 ## Source index (primary-leaning)
