@@ -39,13 +39,13 @@ Empty > filler. Shock tier SEALED — no Z11 without named real-world use.
 === WHAT DESKTOP SHOULD DO NOW ===
 Not more mouths. Pick ONE:
 
-A) OUTBOUND / PITCH (human) — use stranger-verify demo
+A) OUTBOUND / PITCH (human) — stranger-verify demo
    - Read: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
-   - Show Z1 or Z2 or Z4 receipt fetch (bank/risk-shaped outsider)
-   - Or S1 bank-send DENY + linked threat fetch
-   - Or S3 efsp_block_no_seal fetch
-   - Target desks from the counterparty map (not abstract "banks")
-   Talking point: "we refuse at priesthood edges; stranger can GET the receipt"
+   - FIRST DOOR: S1 bank-send DENY (+ optional linked threat) OR S3 efsp_block_no_seal
+     — pick whichever warm path exists; if both cold prefer S3 institutional wedge
+   - Target the ROLE from the map (payments ops / EFSP-or-firm-risk) — not "fintech AI" / "legal tech BD"
+   - Z1/Z2/Z3 = briefcase ammo only (generality proof). Do not cold-open CLS/ISDA/IANA.
+   Talking point: "stranger GET + machine receipt_class — not a compliance dashboard"
 
 B) DEEPEN EXISTING WELDS (code) — only if a partner path exists
    - S1: bank-send fixture closer to real FedNow/RTP instruction shape (still lab)
@@ -74,4 +74,4 @@ Edge / crowding:   gate/EDGE_PASS_2026-09-15.md
 
 ## One-liner for chat
 
-> Cloud sealed shock Z1–Z10 + P0/tier-2. Outbound research note ready: receipt-as-product + named desks (Z1–Z3/S1/S3). Desktop: do not rebuild; do not Z11. Next = pitch a desk from the map, deepen weld if partner, or stop. `python3 -m gate.sims.prove_all`
+> Cloud sealed. Outbound note: receipt-as-product (anti-dashboard) + desk map. First door = S1 or S3; Z1–Z3 = ammo not cold-open. Next = one human conversation with stranger-GET — or stop. `python3 -m gate.sims.prove_all`

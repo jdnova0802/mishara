@@ -1,9 +1,29 @@
 # Outbound research — receipt as product + priesthood counterparties
 
-**Date:** 2026-09-15  
+**Date:** 2026-09-15 (amended: first-door = S1/S3)  
 **Mode:** Pitch ammo. No new sims. No Z11.  
 **Law:** logos-before-actus. Fail-closed. Stranger-verifiable. `their_production: false`.  
 **Confirm lab still green:** `python3 -m gate.sims.prove_all`
+
+---
+
+## Why this note (not more sims)
+
+Tonight’s code only becomes real when **one person at one desk** can say yes or no. This note converts proved mouths into something that person can understand on a phone call:
+
+1. **Receipt as product** — answers the honest catch of looking like Vanta/Verisk (another compliance dashboard). The difference is checkable in ~30s: stranger GET + machine `receipt_class` / `decision` / `reason_code` + digest bind — not log prose they must trust.
+2. **Desk map** — names the **role**, not the department. Outreach usually dies talking to the wrong person at the right company (“fintech AI BD” instead of CDS MO; “algo desk” instead of CLS settlement ops).
+
+**Landing frame:** the demo exists → next move is a human conversation, not another sim. Pick one desk and run the stranger-GET — **or stop**.
+
+### First door (pinned)
+
+| Priority | Mouth | Why |
+|---|---|---|
+| **1st cold open** | **S1 or S3** | Reachable desks; current pain (agent/BEC-shaped wire push; e-file integrity / post-file sanctions). Less gatekept than Z priesthoods. |
+| **Ammo, not first call** | **Z1 / Z2 / Z3** | Prestige proofs of generality. Highest-stakes, most gatekept cold doors. Use *inside* an S1/S3 conversation (“same grammar already refuses at DC/CLS/root”) — do not lead with cold CLS/ISDA/IANA. |
+
+Practical pick between S1 and S3: whichever warm path exists. If both cold — **S3** still ranks as the strongest institutional wedge (file mouth open; checkers crowded); **S1** if the contact is payments/agent-channel risk.
 
 ---
 
@@ -21,6 +41,8 @@ Authorization systems already exist. What is still thin: a **stranger can fetch 
 | **Stranger GET receipt** (`receipt_class` + `decision` + digest bind) | Any outsider with the URL | **Yes** — machine fields |
 
 **Bank-branchable** means: an outsider (ops, risk, auditor, counterparty, court clerk, journalist) can `GET` a stable object and switch on **`receipt_class` + `decision` + `reason_code`**, not parse English.
+
+That is the concrete anti-dashboard claim. Vanta/Verisk-class products sell *visibility and attestation theater*. A skeptical ops person does not have to believe a narrative — they hit the URL and branch on machine fields. If the GET does not work without the actor’s login, it is still a log.
 
 ### Gate receipt classes (already pinned in lab)
 
@@ -70,12 +92,13 @@ IntentFence and Fidacy already clear several of these for *payment* callers. Gat
 > We refuse at irreversible edges, and a stranger can GET the receipt.  
 > Clearance answers “may this actus?” Threat answers “is the mouth compromised?” Preflight answers “does the delta match?” Different objects. Banks branch on class, not prose.
 
-### Demo order (human)
+### Demo order (human) — S1/S3 first
 
-1. Trigger S1 `bank_send` DENY (no LIVE grant) → fetch clearance URL  
-2. Optional: S9 hostile → clearance DENY + fetch linked threat  
-3. S3 `efsp_block_no_seal` → fetch transmit/seal receipt  
-4. Shock ammo: Z1 headline-only DENY or Z2 unmatched settle DENY → fetch  
+1. **Lead:** S1 `bank_send` DENY (no LIVE grant) → fetch clearance URL  
+   — or S3 `efsp_block_no_seal` → fetch transmit/seal receipt (pick the warm desk)  
+2. Optional: S9 hostile → clearance DENY + fetch linked threat (Scenario X setup)  
+3. **Ammo only if asked / if rapport:** Z1 headline-only or Z2 unmatched settle → fetch  
+   — proves the grammar is not accidentally finance-agent shaped; not the cold-open
 
 No dashboard. The product surface in the room is the **GET**.
 
@@ -169,24 +192,26 @@ Named owners > “banks.” Lab fixtures only — we do **not** claim production
 
 ## Who fetches the stranger receipt (summary)
 
-| Mouth | Priesthood commit | Outsider fetcher |
-|---|---|---|
-| Z1 | DC Resolution publish | CDS MO / CCP risk / eligible market participant ops |
-| Z2 | CLS PvP settle | Settlement-member FX settlement ops |
-| Z3 | Root-zone write | TLD tech contact / registry compliance |
-| S1 | FedNow/RTP push | Bank payments ops / agent-channel risk |
-| S3 | EFSP/CM-ECF transmit | Court e-file admin / EFSP / firm GC risk |
+| Mouth | Priesthood commit | Outsider fetcher | Cold-open? |
+|---|---|---|---|
+| **S1** | FedNow/RTP push | Bank payments ops / agent-channel risk | **Yes — first door** |
+| **S3** | EFSP/CM-ECF transmit | Court e-file admin / EFSP / firm GC risk | **Yes — first door** |
+| Z1 | DC Resolution publish | CDS MO / CCP risk / eligible market participant ops | No — ammo / warm intro only |
+| Z2 | CLS PvP settle | Settlement-member FX settlement ops | No — ammo / warm intro only |
+| Z3 | Root-zone write | TLD tech contact / registry compliance | No — ammo / warm intro only |
 
 Gate is not the club. Gate is the **fetchable refusal surface** the club’s outsiders hit.
+
+Role discipline (where outreach dies): talk to **CDS MO**, not “fintech AI”; **CLS settlement ops**, not the algo desk; **EFSP compliance / firm risk who can block transmit**, not “legal tech BD”; **payments ops who own agent push**, not “digital innovation.”
 
 ---
 
 ## What this note does / does not authorize
 
-**Do:** Use for outbound scripts, desk targeting, demo order.  
-**Do not:** Build Z11+, pretend production DC/CLS/IANA/FedNow/EFSP, start museum S11–S17, conflate TAP recognition with clearance.
+**Do:** Use for outbound scripts, desk targeting, S1/S3-first demo order.  
+**Do not:** Build Z11+, pretend production DC/CLS/IANA/FedNow/EFSP, start museum S11–S17, conflate TAP recognition with clearance, cold-call Z1–Z3 as the first conversation.
 
-**Next after this note:** human picks a desk from the map and runs the stranger-GET demo — or stops.
+**Next after this note:** human picks **one S1 or S3 desk** and runs the stranger-GET demo — **or stops**. Z ammo stays in the briefcase.
 
 ---
 
