@@ -4,6 +4,8 @@
 **Branch/context:** `gate/` on mishara — cloud proved lab spines; you extend toward weld shape.  
 **Law:** logos-before-actus. Fail-closed. Stranger-verifiable receipt on every DENY/ALLOW. `their_production: false` always. No dashboard theater. No real money, court, EDGAR, county, KYC, grief UX, or biometric production.
 
+**Next intelligences (S10/S16/S13 + museum + Claude paste):** `INTELLIGENCE_PASS_2026-09-15.md`
+
 ---
 
 ## PASTE — full desktop run order

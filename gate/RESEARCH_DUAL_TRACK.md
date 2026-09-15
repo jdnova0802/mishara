@@ -328,6 +328,8 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `S_TIER_PLUS_THREE_2026-09-15.md` — **why Visa is everywhere** + mouths at S or above: Deed Record (S6), EDGAR Disclose (S7), RON Attest Refuse (S8), **Mouth Watch (S9)** defensive sibling.
 
+`INTELLIGENCE_PASS_2026-09-15.md` — **next intelligences:** immediate S10 Preflight / S16 Epoch / S13 Deny-Fed stub; museum S11/S12/S14/S15/S17. Includes **Claude paste**.
+
 `sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest, **S9 Mouth Watch** + **`prove_lab_invariant`** (`their_production is False` hard-enforced, mutation caught).
 
 ---
