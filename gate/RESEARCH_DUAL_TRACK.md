@@ -322,13 +322,13 @@ Pass 1 already listed Goldilock/etc. Uncrowded add: **irrigation and EAS** have 
 
 `DESKTOP_PASTES_S_TIER_2026-09-15.md` — **buildable desktop Cursor pastes** for all five (sim mouths, DENY proves, stranger receipts).
 
-`DESKTOP_ORDERS_PASTE_2026-09-15.md` — **single copy-paste desktop run order** (P0 S1/S3 extend → S7/S6/S8 weld-shape; defer S2/S4/S5).
+`DESKTOP_ORDERS_PASTE_2026-09-15.md` — **single copy-paste desktop run order** (P0 S1/S3 → S9 watchman wire → S7/S6/S8; defer S2/S4/S5).
 
 `EDGE_PASS_2026-09-15.md` — **weld/docket/teardown**: crowding map; S3 file-mouth + S1 grant+receipt survive; grief UX / liveness R&D killed.
 
-`S_TIER_PLUS_THREE_2026-09-15.md` — **why Visa is everywhere** + three more mouths at S or above: Deed Record Gate (S6), EDGAR Disclose Seal (S7), RON Attest Refuse (S8).
+`S_TIER_PLUS_THREE_2026-09-15.md` — **why Visa is everywhere** + mouths at S or above: Deed Record (S6), EDGAR Disclose (S7), RON Attest Refuse (S8), **Mouth Watch (S9)** defensive sibling.
 
-`sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest + **`prove_lab_invariant`** (`their_production is False` hard-enforced, mutation caught).
+`sims/` — **lab welds proved:** S1 Actus Fence, S3 Performative Seal, S6 Deed Record, S7 EDGAR Disclose, S8 RON Attest, **S9 Mouth Watch** + **`prove_lab_invariant`** (`their_production is False` hard-enforced, mutation caught).
 
 ---
 

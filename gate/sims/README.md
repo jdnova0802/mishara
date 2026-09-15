@@ -1,4 +1,4 @@
-# Lab sims — concrescence mouths (S1/S3 + S6/S7/S8)
+# Lab sims — concrescence mouths (S1/S3 + S6/S7/S8 + S9 watchman)
 
 **Status:** Lab only. `their_production: false` always — **enforced**, not aspirational (`lab_invariant.py`, `prove_lab_invariant`).  
 **Edge pass:** `../EDGE_PASS_2026-09-15.md`  
@@ -13,6 +13,7 @@
 | `edgar_disclose_seal.py` | Filing needs seal before EDGAR-shaped submit | `python3 -m gate.sims.prove_edgar_disclose_seal` |
 | `deed_record_gate.py` | Instrument needs LIVE logos before record | `python3 -m gate.sims.prove_deed_record_gate` |
 | `ron_attest_refuse.py` | Remote appearance ≠ notarial act; refuse + receipt | `python3 -m gate.sims.prove_ron_attest_refuse` |
+| `mouth_watch.py` | Authorized-looking trajectory ≠ trusted mouth context (canary / session / drift) | `python3 -m gate.sims.prove_mouth_watch` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
 
 ## Crowding honesty (do not forget)
@@ -43,12 +44,19 @@
 
 **Our lab claim:** **refuse mouth** — synthetic/unknown appearance ⇒ REFUSE + stranger receipt.
 
+### S9 — not competing with
+- **Visa TAP / bot recognition** — “is this an approved agent?”
+- **SOC / agent-security dashboards / raw deepfake ML vendors**
+
+**Our lab claim:** **watchman** — canary + trajectory + session score that stamps stranger **threat receipts** and feeds DENY into S1/S8 (and later S6/S7). Sense layer beside the lock — not a monitoring UI.
+
 ## Run
 
 ```bash
 cd /path/to/repo
 python3 -m gate.sims.prove_actus_fence
 python3 -m gate.sims.prove_performative_seal
+python3 -m gate.sims.prove_mouth_watch
 python3 -m gate.sims.prove_edgar_disclose_seal
 python3 -m gate.sims.prove_deed_record_gate
 python3 -m gate.sims.prove_ron_attest_refuse

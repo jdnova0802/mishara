@@ -45,15 +45,16 @@ Visa is hunting the **same scarcity** as Nisaba — but only inside **card comme
 
 ---
 
-## Scoreboard — three new (S or above)
+## Scoreboard — three new (S or above) + defensive sibling
 
 | ID | Product | Ontological cut | Ocean signal | Crowding | Grade vs S1/S3 |
 |---|---|---|---|---|---|
 | **S6** | **Deed Record Gate** | Instrument presented ≠ title remade | ~300k docs/day through US recorders; FBI RE fraud complaints up; alerts are mostly *after* record; Frozen Deed = pre-record lock niche | SoftID/alerts rising; **accept-time logos+receipt** thinner | **≥ S3** (property civilization); sales = counties/title |
 | **S7** | **EDGAR Disclose Seal** | Draft deck ≠ filed disclosure | Public-company disclosure remakes markets; EDGAR suspends *format*, not semantic hallucination; SEC AI review 2026 | Workiva/disclosure mgmt crowded; **submit-gate seal** open | **≥ S3** (capital-markets twin of Performative Seal) |
 | **S8** | **RON Attest Refuse** | Video presence ≠ notarial act | RON + deepfakes; AL SB292-class: refuse if image appears artificially generated | Notary platforms exist; **fail-closed refuse + stranger receipt** thin | **S / S+** (upstream of S6 deeds + many document acts) |
+| **S9** | **Mouth Watch** | Authorized-looking trajectory ≠ trusted mouth context | Visa TAP = recognition; ACS/MCP = runtime hooks; Proof/title = deepfake *detection*; ADR/canaries = sense layer | Crowded as “agent security dashboards”; **thin as canary+trajectory+session intel that stamps stranger threat receipts into the mouths** | **S / S+** (defensive sibling — watchman for S1/S3/S6/S7/S8) |
 
-**Rank among giants:** S1 (agent actus) ≥ S7 (EDGAR) ≈ S6 (deed) ≥ S3 (court file) ≥ S8 (notary) — S8 is smaller alone but **multiplies** S6/S3.
+**Rank among giants:** S1 (agent actus) ≥ S7 (EDGAR) ≈ S6 (deed) ≥ S3 (court file) ≥ S8 (notary) — S8 is smaller alone but **multiplies** S6/S3. **S9 is not a seventh ocean; it is the watchman** that stops mouths from being blind locks.
 
 ---
 
@@ -160,21 +161,71 @@ No grief/celebrity likeness. Attest mouth only.
 
 ---
 
+## S9 — Mouth Watch (defensive logos / mouth intel)
+
+### Binding
+**Authorized-looking trajectory ≠ trusted mouth context.** Recognition (Visa TAP) and fail-closed grants (S1–S8) are not enough. Without a sense layer, the lock is blind. Mouth Watch feeds DENY into the mouths via:
+
+1. **Session integrity score** (appearance / device / network) → S8/S6  
+2. **Trajectory anomaly** vs mandate (scope drift, overrun) → S1  
+3. **Canary / decoy actus** that must never ALLOW  
+4. **Stranger-verifiable threat receipt** (not a SOC dashboard)
+
+### Dated cracks
+- Visa TAP + Cloudflare = agent *recognition*, not watchman.  
+- OWASP/MS ACS + MCP gateways = runtime hooks; ADR/canary literature says **policy gate alone misses novel trajectories**.  
+- Proof / title ops = deepfake *detection* beside RON — proves market wants sense, not only refuse.
+
+### Desktop paste
+
+```
+Build Mouth Watch sim — defensive logos feeding the mouths.
+
+Goal: prove DENY when session is hostile, canary trips, or trajectory drifts/overruns.
+
+Lab only. their_production: false. No SOC UI. No real deepfake ML.
+
+Model:
+- Mandate: { mandate_id, scope[], max_steps }
+- Canary: decoy action_type + digest that must never ALLOW
+- score_session(appearance, device_trust, network_risk) → ALLOW|DENY + signals
+- evaluate_actus(mandate_id, action_type, payload) → ALLOW|DENY + threat receipt
+
+Hard DENY when any:
+1. appearance synthetic_suspect / unknown
+2. device_trust unknown / spoof_suspect
+3. network_risk high / unknown
+4. canary digest or canary-marked payload
+5. action_type not in mandate.scope
+6. steps >= max_steps
+7. uncertainty → DENY
+
+ALLOW only when session clear + in-scope + under step cap; emit stranger receipt.
+
+Prove: synthetic session DENY; canary trip DENY; scope drift DENY; overrun DENY; clear ALLOW + receipt.
+Not Visa TAP. Not a dashboard. Watchman only — feeds S1/S3/S6/S7/S8.
+```
+
+---
+
 ## Desktop run order (updated)
 
 | Order | Item | Status |
 |---|---|---|
 | 1 | Extend **S1** (HTTP receipt + bank-send-shaped DENY) | Cloud prove done; desktop extend |
 | 2 | Extend **S3** (block-transmit shape) | Cloud prove done; desktop extend |
-| 3 | **S7** EDGAR Disclose Seal sim | Cloud lab prove done (`prove_edgar_disclose_seal`); desktop → weld shape |
-| 4 | **S6** Deed Record Gate sim | Cloud lab prove done (`prove_deed_record_gate`); desktop → weld shape |
-| 5 | **S8** RON Attest Refuse sim | Cloud lab prove done (`prove_ron_attest_refuse`); desktop → weld shape |
+| 3 | **S9** Mouth Watch sim | Cloud lab prove done (`prove_mouth_watch`); desktop → wire feeds into S1/S8 |
+| 4 | **S7** EDGAR Disclose Seal sim | Cloud lab prove done; desktop → weld shape |
+| 5 | **S6** Deed Record Gate sim | Cloud lab prove done; desktop → weld shape |
+| 6 | **S8** RON Attest Refuse sim | Cloud lab prove done; desktop → weld shape + S9 session feed |
 | — | S2/S4/S5 | Defer (edge pass kills / later) |
 
 ```bash
+python3 -m gate.sims.prove_mouth_watch
 python3 -m gate.sims.prove_edgar_disclose_seal
 python3 -m gate.sims.prove_deed_record_gate
 python3 -m gate.sims.prove_ron_attest_refuse
+python3 -m gate.sims.prove_lab_invariant
 ```
 
 ---
@@ -187,6 +238,7 @@ python3 -m gate.sims.prove_ron_attest_refuse
 | “Build title insurance” | No — **record accept** mouth |
 | “Build Workiva” | No — **disclose submit** mouth |
 | “Build notary marketplace” | No — **refuse** mouth with receipt |
+| “Build a SOC / agent security dashboard” | No — **Mouth Watch** threat receipts feeding mouths |
 
 ---
 
@@ -197,4 +249,5 @@ python3 -m gate.sims.prove_ron_attest_refuse
 - Searle institutional facts — SEP Speech Acts; *Making the Social World*  
 - Deed fraud / alerts / Frozen Deed — ALTA on IC3 2025; Harris County alerts; VA §17.1-258.3:1; Mason County Frozen Deed  
 - EDGAR — SEC Filer Manual Vol I/II; 2026 AI review reporting  
-- RON refuse — Alabama SB292 enrolled text (artificial image refuse)
+- RON refuse — Alabama SB292 enrolled text (artificial image refuse)  
+- Mouth Watch / defensive layer — Visa TAP recognition; OWASP/MS ACS runtime hooks; ADR/canary literature; Proof/title deepfake detection beside RON
