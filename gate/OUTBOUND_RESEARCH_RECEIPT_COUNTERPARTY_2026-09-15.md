@@ -211,7 +211,7 @@ Role discipline (where outreach dies): talk to **CDS MO**, not “fintech AI”;
 **Do:** Use for outbound scripts, desk targeting, S1/S3-first demo order.  
 **Do not:** Build Z11+, pretend production DC/CLS/IANA/FedNow/EFSP, start museum S11–S17, conflate TAP recognition with clearance, cold-call Z1–Z3 as the first conversation.
 
-**Next after this note:** human picks **one S1 or S3 desk** and runs the stranger-GET demo — **or stops**. Z ammo stays in the briefcase.
+**Next after this note:** human picks **one S1 or S3 desk** and runs the stranger-GET demo — **or stops**. Z ammo stays in the briefcase. More shippable wedges (S7 / escrow / credentialed-publish) live in `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md` — build only if outbound needs them or a named partner asks.
 
 ---
 

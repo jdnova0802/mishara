@@ -6,7 +6,8 @@
 
 **Shock ship paste:** `SHOCK_TIER_SHIP_PASTE_2026-09-15.md`  
 **Stopping rule:** `SHOCK_TIER_HUNT_2026-09-15.md` § Stopping rule — **no Z11+** without named weld/pitch.  
-**Outbound research (1+2):** `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md` — receipt-as-product vs Fidacy/IntentFence/Visa TAP + Z1–Z3/S1/S3 desk map.
+**Outbound research (1+2):** `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md` — receipt-as-product vs Fidacy/IntentFence/Visa TAP + Z1–Z3/S1/S3 desk map.  
+**More wedges (shippable only):** `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md` — S7 / escrow disburse / credentialed-publish; museum ignored.
 
 ---
 

@@ -8,6 +8,7 @@
 **→ Shock Z1–Z10 ship paste:** `SHOCK_TIER_SHIP_PASTE_2026-09-15.md`  
 **→ Stopping rule (no Z11 collection):** `SHOCK_TIER_HUNT_2026-09-15.md`  
 **→ Outbound research (receipt + counterparties):** `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md`  
+**→ Shippable wedges only:** `INSTITUTIONAL_WEDGES_SHIPPABLE_2026-09-15.md`  
 **→ Next intelligences + Claude paste:** `INTELLIGENCE_PASS_2026-09-15.md`
 
 ---
