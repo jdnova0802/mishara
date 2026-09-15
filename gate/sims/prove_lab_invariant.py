@@ -17,6 +17,7 @@ if str(ROOT) not in sys.path:
 from gate.sims import (  # noqa: E402
     actus_fence,
     cls_settle,
+    college_arms,
     deed_record_gate,
     deny_federation,
     edgar_disclose_seal,
@@ -30,12 +31,14 @@ from gate.sims import (  # noqa: E402
     lab_invariant as lab,
     lloyds_bind_stamp,
     mouth_watch,
+    peerage_roll,
     performative_seal,
     preflight_diff,
     ron_attest_refuse,
 )
 from gate.sims.prove_actus_fence import main as prove_s1  # noqa: E402
 from gate.sims.prove_cls_settle import main as prove_z2  # noqa: E402
+from gate.sims.prove_college_arms import main as prove_z10  # noqa: E402
 from gate.sims.prove_deed_record_gate import main as prove_s6  # noqa: E402
 from gate.sims.prove_deny_federation_stub import main as prove_s13  # noqa: E402
 from gate.sims.prove_edgar_disclose_seal import main as prove_s7  # noqa: E402
@@ -48,6 +51,7 @@ from gate.sims.prove_itu_biu_mifr import main as prove_z5  # noqa: E402
 from gate.sims.prove_kp_export import main as prove_z7  # noqa: E402
 from gate.sims.prove_lloyds_bind_stamp import main as prove_z4  # noqa: E402
 from gate.sims.prove_mouth_watch import main as prove_s9  # noqa: E402
+from gate.sims.prove_peerage_roll import main as prove_z9  # noqa: E402
 from gate.sims.prove_performative_seal import main as prove_s3  # noqa: E402
 from gate.sims.prove_preflight_diff import main as prove_s10  # noqa: E402
 from gate.sims.prove_ron_attest_refuse import main as prove_s8  # noqa: E402
@@ -71,6 +75,8 @@ MOUTHS = (
     isa_exploit,
     kp_export,
     freeport_ingress,
+    peerage_roll,
+    college_arms,
 )
 
 
@@ -115,6 +121,8 @@ def main() -> None:
     prove_z6()
     prove_z7()
     prove_z8()
+    prove_z9()
+    prove_z10()
 
     for m in MOUTHS:
         lab.assert_all_receipts_lab(m)

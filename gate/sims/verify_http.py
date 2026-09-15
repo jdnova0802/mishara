@@ -21,6 +21,7 @@ def _lookups() -> dict[str, Lookup]:
     """Late-bind so proves can reset stores before starting the server."""
     from gate.sims import actus_fence as af
     from gate.sims import cls_settle as cls
+    from gate.sims import college_arms as arms
     from gate.sims import deed_record_gate as dr
     from gate.sims import edgar_disclose_seal as ed
     from gate.sims import freeport_ingress as fp
@@ -31,6 +32,7 @@ def _lookups() -> dict[str, Lookup]:
     from gate.sims import kp_export as kp
     from gate.sims import lloyds_bind_stamp as lb
     from gate.sims import mouth_watch as mw
+    from gate.sims import peerage_roll as peer
     from gate.sims import performative_seal as ps
     from gate.sims import ron_attest_refuse as ron
 
@@ -76,6 +78,12 @@ def _lookups() -> dict[str, Lookup]:
     def fp_rcpt(rid: str) -> dict[str, Any] | None:
         return fp.get_receipt(rid)
 
+    def peer_rcpt(rid: str) -> dict[str, Any] | None:
+        return peer.get_receipt(rid)
+
+    def arms_rcpt(rid: str) -> dict[str, Any] | None:
+        return arms.get_receipt(rid)
+
     return {
         "/v1/actus/receipts/": actus,
         "/v1/performative/receipts/": performative,
@@ -90,6 +98,8 @@ def _lookups() -> dict[str, Lookup]:
         "/v1/isa-exploit/receipts/": isa_rcpt,
         "/v1/kp-export/receipts/": kp_rcpt,
         "/v1/freeport/receipts/": fp_rcpt,
+        "/v1/peerage-roll/receipts/": peer_rcpt,
+        "/v1/college-arms/receipts/": arms_rcpt,
         "/v1/mouth-watch/threats/": watch,
         "/v1/mouth-watch/receipts/": watch,
     }

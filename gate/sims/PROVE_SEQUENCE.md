@@ -27,9 +27,11 @@ Current `prove_all` order:
 17. `prove_isa_exploit` ← **Z6: exploration ≠ exploitation**
 18. `prove_kp_export` ← **Z7: parcel ≠ KP-certified export**
 19. `prove_freeport_ingress` ← **Z8: CoA/ALR ≠ licit admit**
-20. `prove_lab_invariant` ← **required last**
+20. `prove_peerage_roll` ← **Z9: claimed title ≠ Roll entry**
+21. `prove_college_arms` ← **Z10: generative crest ≠ letters patent**
+22. `prove_lab_invariant` ← **required last**
 
-## Shock gates (Z1–Z8)
+## Shock gates (Z1–Z10)
 
 | Prove | Must show |
 |---|---|
@@ -41,6 +43,8 @@ Current `prove_all` order:
 | `prove_isa_exploit` | `mining_code_not_live` while negotiating; LIVE+PoW ALLOW |
 | `prove_kp_export` | `no_certificate` / `seal_tampered` DENY; authenticated ALLOW |
 | `prove_freeport_ingress` | `coa_or_alr_insufficient` DENY; full provenance ALLOW |
+| `prove_peerage_roll` | `self_style_insufficient` / evidence DENYs; `entered_on_roll` ALLOW |
+| `prove_college_arms` | `generative_crest_refused` / collision DENYs; `letters_patent_sealed` ALLOW |
 
 ## P0 weld gates (Orders 1–2)
 

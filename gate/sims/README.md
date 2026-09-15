@@ -47,6 +47,8 @@ DENY **this** proposed actus + emit threat receipt. **No** session lockout, aler
 | `isa_exploit.py` | Exploration ≠ exploitation (Z6) | `python3 -m gate.sims.prove_isa_exploit` |
 | `kp_export.py` | Parcel ≠ KP-certified export (Z7) | `python3 -m gate.sims.prove_kp_export` |
 | `freeport_ingress.py` | CoA/ALR ≠ licit freeport admit (Z8) | `python3 -m gate.sims.prove_freeport_ingress` |
+| `peerage_roll.py` | Claimed title ≠ Crown Roll entry (Z9) | `python3 -m gate.sims.prove_peerage_roll` |
+| `college_arms.py` | Generative crest ≠ letters patent (Z10) | `python3 -m gate.sims.prove_college_arms` |
 | S1↔S9 wire | Canary vs hostile-session as **separate** scenarios | `python3 -m gate.sims.prove_actus_s9_wire` |
 | S8↔S9 wire | Hostile watch vs local synthetic appearance | `python3 -m gate.sims.prove_ron_s9_wire` |
 | `lab_invariant.py` | `their_production is False` on every stamp + stored receipt | `python3 -m gate.sims.prove_lab_invariant` |
@@ -94,6 +96,12 @@ Digest-bound DENY + stranger receipt incl. non-pay actus. **P0:** FedNow/RTP-*sh
 
 ### Z8 — not art provenance chatbot
 **Freeport ingress** — CoA/ALR ≠ licit admit.
+
+### Z9 — not genealogy AI
+**Peerage Roll mouth** — claimed title ≠ Crown recognition.
+
+### Z10 — not generative crest shop
+**College of Arms grant** — petition ≠ sealed letters patent.
 
 ## Run (standard sequence — required)
 

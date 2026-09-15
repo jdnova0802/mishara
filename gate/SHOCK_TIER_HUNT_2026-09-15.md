@@ -86,17 +86,15 @@ These are *how* you sell the prestige layer — subjects that are also models:
 
 | Build posture | IDs | Why |
 |---|---|---|
-| **Lab spines DONE** | **Z1–Z8** | ISDA, CLS, IANA, Lloyd's, ITU, ISA, KP, Freeport — green in `prove_all` |
-| **Prestige brand** | **Z9, Z10** | Peerage Roll / College of Arms — optional jaw-drop lab spines |
+| **Lab spines DONE** | **Z1–Z10** | Full shock set incl. Peerage Roll + College of Arms — green in `prove_all` |
 
 ```bash
-python3 -m gate.sims.prove_isa_exploit
-python3 -m gate.sims.prove_kp_export
-python3 -m gate.sims.prove_freeport_ingress
+python3 -m gate.sims.prove_peerage_roll
+python3 -m gate.sims.prove_college_arms
 python3 -m gate.sims.prove_all
 ```
 
-**Do not** treat Z-tier as a rewrite of S1/S3 — additive prestige priesthoods on the same spine.
+**Shock tier complete.** Additive prestige priesthoods on the same spine as S1/S3 — not a rewrite.
 
 ---
 
