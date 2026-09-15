@@ -27,3 +27,18 @@ Timing chips, quarks, trash-drones, 2026 OEM clones: still off.
 **Category:** skill that becomes a tool/feed in the 2030s (infra-adjacent plant + product skin). Not sovereignty. Not scarce-base ownership.
 
 **One line:** study the close you can do in 2026 with a camera; keep fusion-fuel as reading; leave the bomb factory closed.
+
+---
+
+## What it actually is (not a drone garbage man)
+
+**The job is not** picking up drones, tidying orbit, or municipal airspace.
+
+**The job is:** know, in real time, **where one solid thing is and how it is spinning**, when that thing is **not helping you** — no beacon, no barcode, no “hold still,” no docking port — then get yourself to the **last meters** and make contact (or match its motion) without smashing.
+
+The cosmically small object is **six numbers on one body**: three for place, three for spin. That’s the whole era-thinks-we-peaked trick. 2026 already has cameras, GPS, Anduril trailers, NIF flashes. People will say the problem is done. Same as “we already have banks” before Bitcoin, “we already have the internet” before the boring lock on the pipe. The remaining sci-fi is not a bigger explosion. It’s **one uncooperative close** that still doesn’t work.
+
+Sci-fi picture (years later, if it ever films): a dead machine tumbling; a hand or a probe going in; they become one thing. Not a garbage truck. Not a stadium jammer.
+
+Practice now looks ugly (webcam, table, math). That’s the 2010-Bitcoin shape, not the 2026 Super Bowl shape.
+
