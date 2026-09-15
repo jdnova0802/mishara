@@ -114,7 +114,8 @@ Z9/Z10 bought one real thing: **proof the abstraction generalizes** past finance
 **Do not start Z11** (or any new shock mouth) unless it serves a **named real-world use**: a pitch, a weld partner, or a DENY path that unblocks S1/S3 outbound. Proving the same ontological cut in a new domain is no longer a sufficient reason.
 
 **Actual next real-world use of this breadth:**
-1. Pitch / outbound using Z1–Z3 (or Z4) as “we already refuse at priesthood edges” — stranger receipt demo
+1. Pitch / outbound using Z1–Z3 (or Z4) as “we already refuse at priesthood edges” — stranger receipt demo  
+   → Desk map + receipt-vs-Fidacy/IntentFence/Visa: `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md`
 2. Or deepen welds on S1 bank-send / S3 EFSP already green — not more mouths
 3. Or stop and sit on the human graph until a buyer names which mouth they need
 

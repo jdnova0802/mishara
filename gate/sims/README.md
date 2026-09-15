@@ -3,6 +3,7 @@
 **Status:** Lab only. `their_production: false` always — **enforced**, not aspirational (`lab_invariant.py`, `prove_lab_invariant`).  
 **P0 weld-shape:** S1 bank-send + stranger HTTP verify; S3 EFSP block-transmit — green in `prove_all`.  
 **Edge pass:** `../EDGE_PASS_2026-09-15.md`  
+**Outbound research:** `../OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md`  
 **S-tier+:** `../S_TIER_PLUS_THREE_2026-09-15.md`  
 **Prove template:** `PROVE_SEQUENCE.md` — `prove_mouth_watch` + `prove_lab_invariant` required for every mouth
 

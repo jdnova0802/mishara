@@ -5,7 +5,8 @@
 **Law:** logos-before-actus. Fail-closed. Stranger-verifiable receipt. `their_production: false` always. No dashboard theater. No real money/court/EDGAR/county/KYC/grief/biometric production.
 
 **Shock ship paste:** `SHOCK_TIER_SHIP_PASTE_2026-09-15.md`  
-**Stopping rule:** `SHOCK_TIER_HUNT_2026-09-15.md` § Stopping rule — **no Z11+** without named weld/pitch.
+**Stopping rule:** `SHOCK_TIER_HUNT_2026-09-15.md` § Stopping rule — **no Z11+** without named weld/pitch.  
+**Outbound research (1+2):** `OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md` — receipt-as-product vs Fidacy/IntentFence/Visa TAP + Z1–Z3/S1/S3 desk map.
 
 ---
 
@@ -39,9 +40,11 @@ Empty > filler. Shock tier SEALED — no Z11 without named real-world use.
 Not more mouths. Pick ONE:
 
 A) OUTBOUND / PITCH (human) — use stranger-verify demo
+   - Read: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
    - Show Z1 or Z2 or Z4 receipt fetch (bank/risk-shaped outsider)
    - Or S1 bank-send DENY + linked threat fetch
    - Or S3 efsp_block_no_seal fetch
+   - Target desks from the counterparty map (not abstract "banks")
    Talking point: "we refuse at priesthood edges; stranger can GET the receipt"
 
 B) DEEPEN EXISTING WELDS (code) — only if a partner path exists
@@ -59,15 +62,16 @@ C) STOP — sit on the graph until a buyer names which mouth they need
 - Treat any sim as production DC/CLS/IANA/Lloyd's/ITU/ISA/KP/freeport/Crown
 
 === POINTERS ===
-Shock paste:     gate/SHOCK_TIER_SHIP_PASTE_2026-09-15.md
-Stopping rule:   gate/SHOCK_TIER_HUNT_2026-09-15.md
-Prove sequence:  gate/sims/PROVE_SEQUENCE.md
-Intelligence:    gate/INTELLIGENCE_PASS_2026-09-15.md
-Edge / crowding: gate/EDGE_PASS_2026-09-15.md
+Outbound research: gate/OUTBOUND_RESEARCH_RECEIPT_COUNTERPARTY_2026-09-15.md
+Shock paste:       gate/SHOCK_TIER_SHIP_PASTE_2026-09-15.md
+Stopping rule:     gate/SHOCK_TIER_HUNT_2026-09-15.md
+Prove sequence:    gate/sims/PROVE_SEQUENCE.md
+Intelligence:      gate/INTELLIGENCE_PASS_2026-09-15.md
+Edge / crowding:   gate/EDGE_PASS_2026-09-15.md
 ```
 
 ---
 
 ## One-liner for chat
 
-> Cloud sealed shock Z1–Z10 + P0/tier-2 welds. Desktop: do not rebuild; do not Z11. Next = outbound/pitch on stranger receipts, deepen S1/S3 welds if partner exists, or stop. `python3 -m gate.sims.prove_all`
+> Cloud sealed shock Z1–Z10 + P0/tier-2. Outbound research note ready: receipt-as-product + named desks (Z1–Z3/S1/S3). Desktop: do not rebuild; do not Z11. Next = pitch a desk from the map, deepen weld if partner, or stop. `python3 -m gate.sims.prove_all`
