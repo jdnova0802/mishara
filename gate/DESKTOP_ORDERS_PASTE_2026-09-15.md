@@ -75,17 +75,16 @@ Prove: fake cite cannot file; no-seal cannot transmit; prior proves OK.
 Do NOT start S2/S4/S5 until Orders 1–2 are green.
 
 === ORDER 3 — P0′ — S9 Mouth Watch (defensive intel) ===
-Files: gate/sims/mouth_watch.py, prove_mouth_watch.py
+Files: gate/sims/mouth_watch.py, prove_mouth_watch.py, prove_actus_s9_wire.py
 Pastes: gate/S_TIER_PLUS_THREE_2026-09-15.md (S9)
 Why: lock without watchman = blind. Industry split = recognize (Visa) / gate (you) / sense (this).
 Do:
-- Keep canary + trajectory + session score DENYs (already proved)
-- Wire watch feeds into S1 execute path (hostile session or canary ⇒ DENY before grant)
-- Wire session score into S8 attest path (synthetic/unknown ⇒ REFUSE with watch receipt linked)
-- HTTP stranger-verify for threat receipts
-- README: not a SOC dashboard; not Visa TAP; watchman only
-Prove: canary still trips; S1 denies on watch DENY; S8 refuses on hostile session score;
-       prove_mouth_watch + prove_actus_fence + prove_ron_attest_refuse + prove_lab_invariant green.
+- Keep canary + trajectory + session score threat receipts (already proved)
+- Wire already in S1 execute (hostile session OR canary ⇒ clearance DENY linking threat)
+- Wire session score into S8 attest path (synthetic/unknown ⇒ REFUSE with threat receipt linked)
+- HTTP stranger-verify for threat receipts (distinct URL/object from clearance)
+- README: not a SOC; trip = deny-this-actus only; not Visa TAP
+Prove: prove_mouth_watch; prove_actus_s9_wire (A canary ≠ B hostile); prove_lab_invariant green.
 
 === ORDER 4 — S7 EDGAR Disclose Seal (weld-shape) ===
 Files: gate/sims/edgar_disclose_seal.py, prove_edgar_disclose_seal.py
