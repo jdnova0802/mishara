@@ -4,6 +4,23 @@ Copy everything below the line. This is the hunt lock, not a company, not outbou
 
 ---
 
+**PAUSE — isotope desk is NOT settled as a multi-year personal specialization.**
+
+A second model called this correctly: public nuclear-material science exists; **years of personal study aimed at tritium loops / fissile forensics / ignition metrics, with no clearance, no lab, no institution, is not the same thing.** The brief itself said **“NNSA door only.”** Almost every serious application of *this specific* knowledge sits inside government programs. That fails the hunt’s own fail-sale (a tool you can actually ship, not a CV) and the earlier filter (don’t pick chip-physics you can’t flex).
+
+**Unlock.** Treat named-isotope / scarce-base as a **map of how huge the world is**, not as “this is what you study for years.” Do not help design, synthesize, or specialize toward weapons, pits, centrifuges, or getting around safeguards. Do not push enthusiasm past this pause.
+
+**The check to apply to the next candidate (Claude’s question, keep it):**
+Does it score on shocking trailer, or can you **personally practice it** without a black door and without founding a 2026 OEM? Trailer without a desk is how we overfit TikTok tonight.
+
+**Still true, still parked:** no company, no outbound, no S26, no HTTPS clerk, no trash-drone, no quark hunt, no competing with Anduril/CFS/Centrus/LeoLabs. Gate on hold. Nisaba owns State remaining; don’t sell may.
+
+**What we looked at and why it tempted:** handfuls of tritium/uranium/plutonium are scarce base; missing Iran 60% stock and NIF flashes are 9–10/10 tape. Homework ~3/10. Category on the family map is scarce base; sovereignty is the hole, not the job. Software as later skin was a story, not a path.
+
+**Do not reopen C-UAS as “the answer” just to have one.** Re-hunt only with the practice-without-clearance test on. Wait for the human; don’t bounce to the next 10/10 shock field to match momentum.
+
+---
+
 You are continuing an **undirected field hunt** for Demond / Nisaba LLC context. **Do not found a company. Do not outbound. Do not people-hunt. Gate stays on hold.** Do not mint **S26**. Rent the rail, never sell may. Nisaba already owns **State**: permission on irreversible acts / remaining calculus — do **not** become the HTTPS clerk.
 
 **What we pivoted FROM (parked, do not reopen unless asked):**

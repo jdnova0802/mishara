@@ -6,9 +6,11 @@
 
 ---
 
-## Final lock — what to study (English)
+## Final lock — UNLOCKED (15 Sep 2026, second-model pause)
 
-Chase / silent-drone / trash-drone is **parked**. Quarks are **killed**. The desk is **named isotopes that can end a city or light a star**.
+**Do not treat tritium / gram-forensics / ignition as the years-bet.** The tape is real. The personal path is not. NNSA door only. Fails fail-sale and “can you flex this without a black program.” Map-knowledge, not specialization. Do not push weapons-adjacent study.
+
+Chase / silent-drone / trash-drone stays **parked**. Quarks stay **killed**. Next candidate must pass: **practice without clearance, without a 2026 OEM, without selling may.**
 
 **Three technical subjects, in this order:**
 
