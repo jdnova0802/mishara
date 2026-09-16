@@ -30,3 +30,5 @@ One subject at a time. In order. Monetizable means the *product* is consumable, 
 ---
 
 Still one question: **sovereignty of what, for the average person?** Their yes. Their file. Their name. Their money. Pick one. The books stay; the build points at that.
+
+**Superseded as the vision question.** Ruling class = state + platforms, vendor they cannot fire, two SKUs. See `hunt/PAIRING_LOCK.md`. Personal keys were the wrong sovereignty. Muscle still unnamed.
