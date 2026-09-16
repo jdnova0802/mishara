@@ -27,3 +27,5 @@ Code: `check/pack.py`. Verify: `python -m check.pack verify path.json`.
 **Attach it to Nisaba / Gate:** not because it rhymes with fail-closed. Only if a **paying** remaining job is “this agent write may not land until a stranger can recompute the pack,” and they rent that mouth. Conceptual overlap is not a weld. No CHARGE, no listing, no import until that job exists.
 
 **Sell it as its own SKU:** when someone will pay for YES/NO on agent work, not for a chatbot LGTM. The hunger (review fire) already shipped. A buyer has not. Don’t found on the hunger alone.
+
+Potential (habit / rent / ceiling / death): `hunt/CHECK_POTENTIAL.md`.
