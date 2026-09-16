@@ -132,7 +132,7 @@ The thing that is **FOMO + functional + architecturally excellent** is not a bot
 
 **Survivors:** (1) grocery circular SKU-week-market. (2) legally posted wage ranges vs OEWS.
 
-Deeper cut (staffing, S vs Δ vs Λ, tape rows): `hunt/INDUSTRY_DEEP.md`.
+**Winner (this hunt):** grocery **S**. Wage is clerk-second. See `hunt/INDUSTRY_DEEP.md`.
 
 **Feel but do not build:** rent. The correlating device already had a name (RealPage). HUD is not asking. Portals are priests.
 
