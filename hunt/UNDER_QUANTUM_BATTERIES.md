@@ -21,3 +21,5 @@ There is no future bet under that word that is a laptop and two people. Charge-a
 ---
 
 **The accessible future bet under these two umbrellas is one thing: the new lock.**
+
+The actual piles of work (not the slogan): `hunt/PQC_CATEGORIES.md`.
