@@ -21,9 +21,7 @@ First pass said grocery circulars and legally posted wage ranges survive. Deeper
 | Fail-sale if you are not the priest | Thin: one metro AG / journalist Δ receipt. Shoppers already have Flipp. CPG already pays Numerator. | Clerk: hash of **employer-hosted** required ranges vs OEWS. HR in CO/NY/CA. Complements 6-1-1703 employment class. |
 | Empty mouth | Public **join file** with frozen promo grammar, not another deals app. | Public **archive of legally required postings** you did not buy from Indeed. |
 
-If you need one subject that is still Desk A: **grocery.**  
-If you need one mouth that looks like the Colorado clerk you already built: **wage postings.**  
-Do not smash them into one app.
+**Winner: grocery S.** Same mass sticker, homogeneous UPC, public post, seller-side join. Wage is the clerk cousin (Λ / cartoon-range packet). Do not smash them into one app. Do not call wage the architecture winner.
 
 ---
 
@@ -172,12 +170,12 @@ Cover → Osborne → Tirole Δ stays the night work. This memo is the industry 
 
 ---
 
-## 4. Pick (not found)
+## 4. Winner (not found)
 
-**Closer to Desk A (architecture):** grocery **S** on a 20-UPC, 3-chain, 1-metro circular tape. You will look small next to Flipp/Numerator. That is correct.
+**Grocery S.** One metro, three chains, ~20 national UPCs, 12 weeks, frozen promo grammar, hashed source bytes. You will look small next to Flipp/Numerator. That is the tell you are on the join, not the app.
 
-**Closer to a quit-the-cleaning-job clerk:** CO **range packet** vs OEWS, employer-hosted URLs, fail-closed blanks. Same family as 6-1-1703 assessment. Still not Mishara.
+Wage range packet is **second**: real money-shaped clerk, wrong sign for Desk A, Lightcast already sold the scrape. Keep it as Colorado paper if assessment needs a sibling. It is not the industry winner.
 
 **Do not:** Flipp clone, Lightcast clone, Instacart price experiments, Revionics, people-hunt salaries, mixing S and Λ in one dashboard, pivoting T1–T3.
 
-Tape formats above are the quark. If you pick one, the next object is a **schema + fixture rows**, not a Twitter account.
+Next object: **schema + fixture rows** for S, not a Twitter account.
