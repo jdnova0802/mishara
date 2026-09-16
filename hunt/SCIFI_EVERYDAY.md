@@ -31,8 +31,8 @@ PFMI / UCC 4A is **not** the spine for this menu. If you pick A/S/H/R/K, study f
 
 Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
 
-**The sentence:**
+**The sentence (now — factory later):**
 
-> The same brain bolted onto the hardware that runs the mission is the city app people tap on Tuesday.
+> The city pays for eyes. Cops and the street tap what those eyes see. Help and yes ride on that. We make the kit later.
 
-That is the everyday tap (city app) and the sci-fi (brain on the kit). Ruling: Five Eyes, classified hangar. Mass: unclassified street. Muscle: defense hardware. Slot: brain they bolt on.
+Kernel **now** is **see**. Help and yes are doors. Police in. City writes the check. Factory sentence stays in `INDUSTRY_LOCK.md`.
