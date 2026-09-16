@@ -12,8 +12,8 @@ Nisaba stays the old house (including standards). A new brand under it is not th
 
 **Now:** lock only. No name. No entity. No build.
 
-Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. Four families, Five Eyes, masses get a consumerized version. Muscle still unnamed.
+Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. Muscle = defense hardware. Slot = brain they bolt on. Mass door = city app. Pipes / clearing are **off** for this shop.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 
-Books: FINAL executable `hunt/PIPES_EXECUTABLE.txt`.
+Books: pipes stack is stale for this object. Study follows the kit + the brain, not PFMI.

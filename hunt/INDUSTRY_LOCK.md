@@ -48,3 +48,26 @@ Hangar: classified. Street: unclassified. One brain. Hardware is the body.
 > Five Eyes already flies the kit. The city opens the same brain as an app. Nothing in the mission or the street runs if that brain is gone.
 
 Pick one mouth. Don’t stack all three in a pitch. Engineer lock: the sentence is the product, not a valuation.
+
+---
+
+## How this actually sits
+
+The **sentence is strong**. One object: brain on kit = city tap. That is sci-fi and Tuesday.
+
+The **company-as-sketched is still soggy**. Factory + Palantir brain + classified + catalog of four doors is an Anduril-sized animal. That is not a laptop. Catalog wants a CEO. Your lock is engineer of one mechanism.
+
+**Better than clearing** for what you said you want (sci-fi, ruling + masses, not capital-as-the-job). **Worse as something you can sit this week.** Occupancy on “city app that is consumer Palantir” is ugly (Axon, Flock, RapidSOS, every smart-city dashboard). It only stays one company if the city tap is the unclassified twin of **that kit’s brain**, not a civic Super App.
+
+Hardware muscle + bolt-on brain is coherent. Hardware muscle + four families + a random city app is a holding company.
+
+---
+
+## Still open (English)
+
+1. **Tuesday’s tap does what?** Call for help. See the street. Get a yes. Prove it happened. Something else — name the verb.
+2. **What is the physical kit?** Drone, radio, sensor, vehicle, a box on a pole — or none yet.
+3. **Who pays for the city app?** The city, or a person who downloads it. Those are different shops.
+4. **Police — in or out?** Public safety + city app usually means cops. You said competitors and enemies out. Police is its own fork.
+5. **What does the brain do?** See. Decide. Allow (may). Shoot. Pick one verb. Palantir is mostly decide. Hardware that shoots is a different animal.
+6. **Factory means this is not you-and-a-laptop.** Still the picture, or the factory is later and the brain is first?
