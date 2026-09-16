@@ -21,3 +21,5 @@ ChatGPT knows words. The next stack is a model that knows **what happens when a 
 Those four can all be true. Occupancy already has names on the thrones (Meta, 1X, NVIDIA, World Labs). The Day-1 bet is still **after** chat, **after** teleop, **after** the first ugly glasses.
 
 **What this is not:** a $0 company tonight. Zero-capital work is living in those primitives (film the puppet house, first week of a glasses API, check that an agent actually did the thing). Weekend auction sites are a different sport.
+
+From *this* chair (laptop, not factory): `hunt/MY_POSITION_BETS.md`.
