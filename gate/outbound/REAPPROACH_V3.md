@@ -6,17 +6,16 @@
 
 **T4 Increase is dead.** Arnav mailed from the security alias, not as a named business contact. No named human at Increase. Do not invent a To:. Do not mail `security@increase.com` again.
 
-## SEND LOCK — live page is still dirty (checked 16 Sep 2026)
+## SEND LOCK — **GO** (checked 16 Sep 2026 after gate-api deploy)
 
-Fetched `https://gate.velaru.xyz/diligence`, `offer.json`, `one-pager.txt`. Production still serves **`gate-diligence-offer-v1`**: headline “Where can an irreversible write complete without may?”, ask **Reply DEPOSIT — invoice same day**, deposit due now. The v2 copy exists on this branch only. It is **not** what that hostname returns.
+`python3 gate/outbound/check_live_diligence.py` printed **GO**.
 
-**Do not paste T1–T3 until all three are true:**
+- `https://gate.velaru.xyz/diligence/offer.json` → `spec=gate-ops-review-v2`, ask **Reply REVIEW — no invoice until after the free review.**
+- HTML has **Free 72-hour review**. No `Reply DEPOSIT`.
 
-1. `GET https://gate.velaru.xyz/diligence/offer.json` has `"spec": "gate-ops-review-v2"`
-2. The HTML does **not** say `Reply DEPOSIT`
-3. The HTML **does** say free 72-hour review
+T1–T3 may paste from `hello@velaru.xyz`. Agent has no SMTP. **T4 stays dead** (Arnav = security alias, not a business decision-maker).
 
-A clean email at a dirty page undoes the fix. Agent has no SMTP and no Render deploy from here. Human: merge/deploy this diligence change to whatever `gate-api` tracks, then re-fetch, then send.
+Render `gate-api` was pointed at `cursor/diligence-ops-review-25ad` so this would stay live. It previously tracked `cursor/oligarch-grade-25ad`. Merge this into oligarch-grade before you switch the service branch back, or the old DEPOSIT page returns.
 
 ---
 
