@@ -2,6 +2,8 @@
 
 Occupancy-of-this-year is how you **avoid fools**. It is not how Gates, Bezos, or Huang got paid. They bet **where the computer would live next**, while the present still looked taken.
 
+Plain list of the four bets: `hunt/THE_BETS.md`.
+
 ---
 
 ## Past (the pattern, not the myth)
