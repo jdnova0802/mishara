@@ -2,9 +2,9 @@
 
 Not a name. Not a filing. Engineer of the mechanism, not the face.
 
-**Now:** bolt onto other people’s kit. City **pays**. Police **in**. Kernel is **see coordinated suspicious behavior**. **Yes** ships second (act does not go until that see is allowed). Help does **not** ship with see. Factory later.
+**Now:** bolt onto other people’s kit. City **pays**. Police **in**. Kernel is **see people coordinating** (suspicious behavior that lines up). **Yes** ships second. The yes gates **dispatch**, and **detain** if that is the act. You do **not** dispatch or detain. You are the yes they cannot skip. Help waits. Factory later.
 
-**Still:** Five Eyes. Military and civil gov. Classified and unclassified. Competitors and enemies out. They can’t run the mission or the city if the eyes are gone.
+**Still:** Five Eyes. Military and civil gov. Classified and unclassified. Competitors and enemies out. They can’t run the mission or the city if this see+yes is gone.
 
 ---
 
@@ -12,38 +12,33 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 | Ask | Lock |
 | --- | --- |
-| Muscle **today** | **See coordination** (suspicious behavior that lines up) |
+| Muscle **today** | See **people** coordinating |
 | Muscle **later** | Defense hardware (the body) |
-| What “see” is | **Suspicious behavior. Coordination is the key.** (you said coordinance — locked as coordination) |
-| Second ship | **Yes** — not help |
-| Help | Later door, not with see |
-| Physical kit | All of them — factory later |
+| Who lines up | **People** — not cars-as-the-job, not agents-as-the-job |
+| Second ship | **Yes** |
+| Gated acts | **Dispatch** and **detain** (if possible — same mouth, two acts) |
+| You perform the act? | **No.** Customer does. You own the yes. |
+| Help | Later, not with see |
+| Kit / factory | Their atoms now. Factory later. |
 | Who pays | The city |
 | Police | In |
-| Brain verb | See — not shoot, not decide-as-the-job |
-| Factory | Later |
 
-**One company:** see is the kernel. Yes is see that is allowed to act. Street window is how cops and the city look at that see. Help is a third mouth — keep it off the first two ships.
+**One company:** one see (people lining up). One mouth (live yes). Two irreversible acts the *customer* takes: send units, hold a person. Dispatch is the Tuesday city act. Detain is the heavier cop/mission act. Two dashboards would be two companies. Two acts behind one see+yes is one shop.
 
-**Occupancy (cold):** Palantir’s actual pitch to the same cop shop **is** link analysis — coordination across feeds. Flock is plates. Axon is the body and the help button. If you ship “a graph of suspicious,” you are Palantir with less money. The leftover, if any, is not another dashboard. It is **see the coordination, then a live yes** before something happens. Stranger can check both.
+**Occupancy (cold):** Palantir already graphs people for the cop shop. CAD already dispatches (Motorola, CentralSquare). Predictive-policing names already burned. If you ship “flag the group, here’s a map,” you are occupancy. Leftover is only **stranger-checkable see that people coordinated, then a yes the dispatch/detain cannot skip.** Not a score. Not a vibe.
 
-**Rhyme, not a weld:** Desk A was coordination on a **posted-price tape**. This is coordination on the **street / mission**. Same shape (more than one actor lining up). Different object. Not Nisaba. Not the grocery clerk. Do not paste Δ onto cameras.
+**Role flag:** detain+people+cops is a face product. Your lock is still the engineer of the gate, not the chief, not the pitch.
 
-**Role flag:** engineer of that see+yes, not CEO of every sensor.
+**Not a how-to:** this file does not describe how to detect, track, or pick people. It names the vendor slot.
 
 ---
 
 ## The Tuesday sentence
 
-> The city pays to see when bad things line up. Nothing happens until a yes. We make the kit later.
-
-Factory later, still true:
-
-> The same brain bolted onto the hardware that runs the mission is the city app people tap on Tuesday.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until a yes. We don’t run the street. We make the kit later.
 
 ---
 
 ## Still open
 
-1. **Coordination of what?** People, cars, agents, all three. If “all,” you are Palantir again. Name the actors.
-2. **Yes of what act?** Dispatch, unlock, shoot, detain, post — pick the act the yes gates. See without a gated act is a dashboard.
+1. **Who clicks the yes?** A dispatcher, a cop, a judge-shaped window, or nobody (automatic). Automatic detain is a different animal and fights the live-yes lock. If a human must click, name which human.

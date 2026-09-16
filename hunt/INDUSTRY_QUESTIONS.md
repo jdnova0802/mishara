@@ -21,3 +21,5 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 
 12. **See what?** → **suspicious behavior; coordination is the key.**
 13. **Second skin?** → **yes.** Help does not ship with see.
+14. **Who lines up?** → **people.**
+15. **Yes gates which act?** → **dispatch and detain.** You do not perform them. You own the yes.

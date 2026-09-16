@@ -12,7 +12,7 @@ Nisaba stays the old house (including standards). A new brand under it is not th
 
 **Now:** lock only. No name. No entity. No build.
 
-Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. **Now:** see **coordination** of suspicious behavior, on their atoms, city pays, police in. **Yes** ships second. Help waits. **Later:** factory. Pipes / clearing are **off**. Desk A tape is a rhyme, not this shop.
+Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. **Now:** see **people coordinating**, city pays, police in, yes before **dispatch** and **detain**. You don’t run those acts. Help waits. **Later:** factory. Pipes / clearing **off**. Desk A is a rhyme, not this shop.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 

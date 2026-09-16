@@ -33,6 +33,6 @@ Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
 
 **The sentence (now):**
 
-> The city pays to see when bad things line up. Nothing happens until a yes. We make the kit later.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until a yes. We don’t run the street. We make the kit later.
 
-Kernel is **see coordination**. Second ship is **yes**. Help waits. Police in. City writes the check. Not another suspicion dashboard.
+Kernel is **see people coordinating**. Second ship is **yes**. Gated acts: dispatch and detain. Help waits. Police in. City writes the check. Not a how-to. Not a suspicion dashboard.
