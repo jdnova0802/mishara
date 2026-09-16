@@ -2,11 +2,9 @@
 
 Not a name. Not a filing. Engineer of the mechanism, not the face.
 
-**Now (software first):** the weld is **see**. Bolt onto **other people’s** drones, radios, sensors, vehicles, poles. City **pays**. Police **in**. People tap a **city app**. Help and yes are **doors on see**, not two extra brains.
+**Now:** bolt onto other people’s kit. City **pays**. Police **in**. Kernel is **see coordinated suspicious behavior**. **Yes** ships second (act does not go until that see is allowed). Help does **not** ship with see. Factory later.
 
-**Later:** factory. You make the kit. Defense hardware becomes the body. Same brain.
-
-**Still:** Five Eyes. Military and civil gov. Classified and unclassified. Will not sell to competitors and enemies. They can’t run the mission or the city if the eyes are gone.
+**Still:** Five Eyes. Military and civil gov. Classified and unclassified. Competitors and enemies out. They can’t run the mission or the city if the eyes are gone.
 
 ---
 
@@ -14,40 +12,38 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 | Ask | Lock |
 | --- | --- |
-| Muscle **today** | **See** (the brain they bolt on) |
+| Muscle **today** | **See coordination** (suspicious behavior that lines up) |
 | Muscle **later** | Defense hardware (the body) |
-| Tuesday tap | **Help + see the street + yes** — only if they sit on see |
-| Physical kit | **All of them** — that is why factory is later |
-| Who pays | **The city** (people tap; city writes the check) |
-| Police | **In** |
-| Brain verb | **See** — not decide-as-the-job, not allow-as-the-job, not shoot |
-| Factory | **Later** |
+| What “see” is | **Suspicious behavior. Coordination is the key.** (you said coordinance — locked as coordination) |
+| Second ship | **Yes** — not help |
+| Help | Later door, not with see |
+| Physical kit | All of them — factory later |
+| Who pays | The city |
+| Police | In |
+| Brain verb | See — not shoot, not decide-as-the-job |
+| Factory | Later |
 
-**Reconciliation:** you asked for three taps. Three taps as three kernels is three companies. **See is the kernel.** Help is see that dispatches. Yes is see that is allowed to act. Street is see with a civilian window. Catalog of kit is later atoms under one pair of eyes.
+**One company:** see is the kernel. Yes is see that is allowed to act. Street window is how cops and the city look at that see. Help is a third mouth — keep it off the first two ships.
 
-**What changed:** “both factory and software” is no longer present tense. Present tense is Palantir-shaped: software on their atoms. Anduril-shaped factory is a sequel. If you keep saying hardware is the muscle **this year**, you are lying to the chair.
+**Occupancy (cold):** Palantir’s actual pitch to the same cop shop **is** link analysis — coordination across feeds. Flock is plates. Axon is the body and the help button. If you ship “a graph of suspicious,” you are Palantir with less money. The leftover, if any, is not another dashboard. It is **see the coordination, then a live yes** before something happens. Stranger can check both.
 
-**Occupancy (cold):** city pays + police in + see the street is Flock / Axon / Palantir Gotham for cops. Help is Axon / RapidSOS. You only exist if **see** is a stranger-checkable thing those three don’t already sell to the same shop. Do not found on vibes.
+**Rhyme, not a weld:** Desk A was coordination on a **posted-price tape**. This is coordination on the **street / mission**. Same shape (more than one actor lining up). Different object. Not Nisaba. Not the grocery clerk. Do not paste Δ onto cameras.
 
-**Role flag:** “all the kit, later factory, catalog” wants a CEO. Your lock is still the engineer of **see**.
+**Role flag:** engineer of that see+yes, not CEO of every sensor.
 
 ---
 
 ## The Tuesday sentence
 
-**Say this now (factory later):**
+> The city pays to see when bad things line up. Nothing happens until a yes. We make the kit later.
 
-> The city pays for eyes. Cops and the street tap what those eyes see. Help and yes ride on that. We make the kit later.
-
-**Still true when the factory exists:**
+Factory later, still true:
 
 > The same brain bolted onto the hardware that runs the mission is the city app people tap on Tuesday.
-
-Don’t pitch both in one breath until there is a factory.
 
 ---
 
 ## Still open
 
-1. **See what, that the cop shop doesn’t already buy?** If you can’t name that, this is occupancy.
-2. **Help and yes — which skin ships after see, not with it?** Shipping three mouths on day one is a catalog again.
+1. **Coordination of what?** People, cars, agents, all three. If “all,” you are Palantir again. Name the actors.
+2. **Yes of what act?** Dispatch, unlock, shoot, detain, post — pick the act the yes gates. See without a gated act is a dashboard.

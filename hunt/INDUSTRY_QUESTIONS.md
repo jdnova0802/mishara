@@ -18,3 +18,6 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 9. **What does “embedded” mean in that industry?** → they can’t run the **mission** or the **city** without you.
 10. **Five-year picture:** still an engineer with one weld in one industry, or already a catalog? → **catalog**, one muscle.
 11. **Sci-fi word** for that industry, in one sentence, that a normal person would still *do* on a Tuesday. → locked in `INDUSTRY_LOCK.md`.
+
+12. **See what?** → **suspicious behavior; coordination is the key.**
+13. **Second skin?** → **yes.** Help does not ship with see.
