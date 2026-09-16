@@ -12,7 +12,7 @@ Nisaba stays the old house (including standards). A new brand under it is not th
 
 **Now:** lock only. No name. No entity. No build.
 
-**In question:** vendor-to-nations-and-masses / be-the-pipes may move after the Jeff Dean lock. Role is mechanism cold, not the vendor pitch.
+**In question:** clearing / be-the-pipes is **off** until put back. Other objects: `hunt/OPTIONS_NOT_CLEARING.md`.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 
