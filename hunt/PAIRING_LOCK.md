@@ -12,7 +12,7 @@ Nisaba stays the old house (including standards). A new brand under it is not th
 
 **Now:** lock only. No name. No entity. No build.
 
-**In question:** clearing / be-the-pipes is **off** until put back. Other objects: `hunt/OPTIONS_NOT_CLEARING.md`.
+**In question:** capital/clearing is **off**. Sci-fi + everyday + state + masses: `hunt/SCIFI_EVERYDAY.md`.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 
