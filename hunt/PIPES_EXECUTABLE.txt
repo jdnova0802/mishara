@@ -48,6 +48,8 @@ A stranger checks that a send did or did not have a live yes. Same bytes, two pe
 If only you can see it, this stays theater.
 Mass door: send. You are the pipes. Live yes every time.
 
+Vendor from the lineup (ruling vs mass): hunt/VENDOR_FROM_STACK.md.
+
 
 SHOP B — courts (not this lineup)
 Do not study as 1–6. Do not jam into the pipes.
