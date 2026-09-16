@@ -105,4 +105,12 @@ Grocery was (3) wearing a (1) costume after a tape filter. Drop it as the dream 
 
 If you still want “they come back all week,” you are picking a **parasite on Uber, the book, or the stub** — and you are late. If you still want a **massive** gap, you are picking something they open when they’re scared or due (assessment, diligence, a packet), not a habit.
 
-Both can be true. They are **different hunts**. Mixing them is how we ended up in the cereal aisle.
+## Winner (this hunt)
+
+**None as a daily app.** Daily + massive empty + not a ruse + unstaffed do not coexist here.
+
+The *dream* that wins the category is **enough + not the sucker**. The *loop* they already reopen is gig / stub / book / bank. Those anti-ruse mouths are late (GigDecider, ShiftAudit, Juice, the bank).
+
+The *find* that still isn’t a ruse and still has a mouth is the **rare honest clerk** you already have in motion (diligence review, Colorado packet) — they will not live in it all week. That is the trade. Do not mint a habit to bribe a dream. That is the ruse.
+
+Grocery is not this winner. A DoorDash/DraftKings clone is not this winner.
