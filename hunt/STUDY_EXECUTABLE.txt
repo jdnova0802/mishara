@@ -1,41 +1,86 @@
-DESK A — what you are specifically learning (the 9-cut)
-Subject = the technical thing. Study = the book/paper. One at a time, in order.
-Not this morning's diligence mail. Desk B is not a lineup.
+DESK A — what you learn (engine)
+Subject = the technical field. Study = the exact source. One subject at a time, in order.
+Not diligence mail. Desk B is not a stack.
 
 1. Subject: Information theory
-   Study: Cover & Thomas, Elements of Information Theory.
+   Study: Thomas M. Cover and Joy A. Thomas, Elements of Information Theory (Wiley). Use the 2nd edition if you can.
 
 2. Subject: Game theory
-   Study: Osborne, An Introduction to Game Theory.
-   Or: Fudenberg & Tirole, Game Theory.
+   Study: Martin J. Osborne, An Introduction to Game Theory (Oxford).
+   Or: Drew Fudenberg and Jean Tirole, Game Theory (MIT Press).
+   Pick one book and finish it. Don’t split both at once.
 
 3. Subject: Oligopoly and tacit collusion
-   Study: Tirole, The Theory of Industrial Organization (oligopoly chapters).
-   Learn: Δ = (π̄ − πN) / (πM − πN).
+   Study: Jean Tirole, The Theory of Industrial Organization (MIT Press) — oligopoly / collusion chapters.
+   Learn: Δ = (π̄ − πN) / (πM − πN)
+   π̄ = observed profit, πN = Nash (competition), πM = monopoly. Δ near 0 = competitive. Δ near 1 = collusive.
 
 4. Subject: Focal points
-   Study: Schelling, The Strategy of Conflict (1960).
+   Study: Thomas C. Schelling, The Strategy of Conflict (Harvard, 1960).
 
 5. Subject: Correlated equilibrium
-   Study: Aumann 1974, Subjectivity and Correlation in Randomized Strategies.
+   Study: Robert J. Aumann, “Subjectivity and Correlation in Randomized Strategies,” Journal of Mathematical Economics, 1974.
 
-6. Subject: Algorithmic pricing collusion
-   Study: Calvano et al., AER 2020.
-   Then stop. Later LLM papers are extra, not the engine.
+6. Subject: Algorithmic pricing collusion (before LLMs)
+   Study: Emilio Calvano, Giacomo Calzolari, Vincenzo Denicolò, Sergio Pastorello, “Artificial Intelligence, Algorithmic Pricing, and Collusion,” American Economic Review, 2020.
+   Study: Joseph E. Harrington Jr., “Developing Competition Law for Collusion by Autonomous Price-Setting Agents” (2018) and later Harrington notes on algorithmic collusion.
 
-JOIN (not a seventh class — the thing that makes the stack a 9)
-Anyone can recompute Δ from a public posted-price tape and get the same number.
-If only you can print Δ, the stack stays a 6.
+JOIN (not a class)
+Anyone recomputes Δ from a public posted-price tape and gets the same number.
+If only you can print Δ, this stays a 6.
 
-APPENDICES (do not study these until 1–6 are in your bones)
-- Algorithmic monoculture — Bommasani et al. (2022)
-- Prisoner/warden — Simmons 1984, Cachin 1998, arXiv 2210.14889 theorems only
-- Collusion-free cryptography — Alwen/shelat/Visconti; Lepinski/Micali/shelat
-- LLM pricing/auctions — arXiv 2404.00806, 2608.18078, 2601.01279, Jo NeurIPS 2025
-- Secret collusion — arXiv 2402.07510
-- Multi-agent security — arXiv 2505.02077, Peigné AAAI 2025
-- Latent channels — arXiv 2608.19161, 2606.28425, 2609.10871; A2A/MCP once
-- 2026 incidents — observe only, do not reproduce
+
+APPENDICES — same format, after 1–6 only
+
+7. Subject: Algorithmic monoculture
+   Study: Rishi Bommasani et al., “On the Opportunities and Risks of Foundation Models” (2022), Stanford CRFM — monoculture / homogenization sections.
+
+8. Subject: Prisoner / warden (steganography as theory, not a how-to)
+   Study: Gustavus J. Simmons, “The Prisoners’ Problem and the Subliminal Channel” (1984).
+   Study: Christian Cachin, “An Information-Theoretic Model for Steganography” (1998).
+   Study: arXiv 2210.14889 — theorems only. Do not implement a channel.
+
+9. Subject: Collusion-free cryptography
+   Study: Joël Alwen, abhi shelat, Ivan Visconti — collusion-free protocols papers.
+   Study: Matt Lepinski, Silvio Micali, abhi shelat, collusion-free protocols (STOC).
+
+10. Subject: LLM pricing and auction collusion
+    Study: arXiv 2404.00806 — Fish, Gonczarowski, Shorrer (LLM pricing agents).
+    Study: arXiv 2608.18078 — Riemer et al.
+    Study: arXiv 2601.01279 — Cao & Hu.
+    Study: Jo, Wilson, Creel, Raghavan, NeurIPS 2025 (homogeneous algorithms / correlation).
+
+11. Subject: Secret collusion among AI agents
+    Study: arXiv 2402.07510 — Motwani / Schroeder de Witt et al.
+
+12. Subject: Multi-agent security
+    Study: arXiv 2505.02077 — Open Challenges in Multi-Agent Security.
+    Study: Peigné et al., “Multi-Agent Security Tax,” AAAI 2025 (arXiv 2502.19145).
+
+13. Subject: Latent / non-text channels (observation model only)
+    Study: arXiv 2608.19161 — VLA / latent activations.
+    Study: arXiv 2606.28425 — tool-channel paper.
+    Study: arXiv 2609.10871 — A2ABreak.
+    Study: A2A spec — read once.
+    Study: MCP spec — read once.
+    Do not build a hidden channel.
+
+14. Subject: 2026 incidents (observe only — do not reproduce)
+    Study: METR + OpenAI ExploitGym / Hugging Face writeups.
+    Study: collusion.wiki — second thread.
+    Study: Apollo Research scheming papers.
+
 
 DESK B — not a subject stack
-Oct 13–15 2026 calendar glance only.
+Phone reminder only: CGPM 13–15 October 2026.
+If you ever glance: CGPM Resolution 4 (2022); ITU-R 655 Rev.WRC-23; Draft Res C + CCTF report; IAU 2024 LCRS/TCL; Draft Res D; Nosske et al. QST 2025; Phys. Rev. Applied 2024; CCTF SI-second roadmap → 29th CGPM 2030.
+Do not study this as lineup. Do not found a clock company.
+
+
+FOOTNOTES — not Desk A
+15. Subject: Exclusive control as possession
+    Study: UCC §12-105.
+    Study: UK Electronic Trade Documents Act 2023, ss. 2–3.
+
+16. Subject: Phone network as sensor
+    Study: ITU-R M.2160.
