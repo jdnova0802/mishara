@@ -15,3 +15,5 @@
 **Courts shop:** different reading later (filing ≠ draft). Don’t mix it into this list. Don’t congest the pipes with legal procedure.
 
 One book at a time. No company tonight. This only answers “do I still read the old 1–6.” You don’t, as a spine.
+
+Full list: `hunt/PIPES_STACK.md`.
