@@ -1,4 +1,6 @@
 DESK A — what you learn (engine)
+If you are on the pipes hold (new company, later): stop. Use hunt/PIPES_EXECUTABLE.txt. This file is the old tape spear. Do not run it as that spine.
+
 Subject = the technical field. Study = the exact source. One subject at a time, in order.
 Not diligence mail. Desk B is not a stack.
 

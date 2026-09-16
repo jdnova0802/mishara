@@ -12,4 +12,4 @@ Nisaba stays the old house (including standards). A new brand under it is not th
 
 **Now:** lock only. No name. No entity. No build.
 
-Books: this **does** change the spine. `hunt/STUDY_FOLLOWS_PIPES.md`.
+Books: FINAL executable `hunt/PIPES_EXECUTABLE.txt`.
