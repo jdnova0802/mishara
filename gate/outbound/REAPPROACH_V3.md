@@ -15,7 +15,7 @@
 
 T1–T3 may paste from `hello@velaru.xyz`. Agent has no SMTP. **T4 stays dead** (Arnav = security alias, not a business decision-maker).
 
-Render `gate-api` was pointed at `cursor/diligence-ops-review-25ad` so this would stay live. It previously tracked `cursor/oligarch-grade-25ad`. Merge this into oligarch-grade before you switch the service branch back, or the old DEPOSIT page returns.
+Render `gate-api` tracks `cursor/oligarch-grade-25ad` again, with v2 on that branch (PR #64 fast-forwarded). Switching the service back will not restore DEPOSIT-now.
 
 ---
 
@@ -51,11 +51,11 @@ Render `gate-api` was pointed at `cursor/diligence-ops-review-25ad` so this woul
 ```
 Payments / payouts ops — Tipalti
 
-Nisaba LLC. Vendor review, not a security report.
+Nisaba LLC. Vendor review of one named payout path.
 
 Your public payout flow is: create the payee, confirm they are payable, then create a payment batch (Tipalti REST: onboard payees and create payments). We will spend 72 hours writing a short memo on where that payable check is supposed to sit relative to batch create — from those docs plus anything you want to send.
 
-No deposit. No invoice. No obligation. If the memo is useless, delete it.
+No charge. No invoice. No obligation. If the memo is useless, delete it.
 
 Reply REVIEW with the right ops owner if this should not sit with Contact, or ignore.
 
@@ -76,11 +76,11 @@ Page: https://gate.velaru.xyz/diligence
 ```
 Payments / transfer ops — Fireblocks
 
-Nisaba LLC. This is a vendor review of one named path, not a disclosure.
+Nisaba LLC. Vendor review of one named transfer path.
 
 You already productize approval before a transfer is broadcast. We will spend 72 hours writing a short memo on how that approval is supposed to sit relative to broadcast, from your public product pages plus anything you send.
 
-No deposit. No invoice. If it should go to a named transfer-ops owner, forward once.
+No charge. No invoice. If it should go to a named transfer-ops owner, forward once.
 
 Reply REVIEW or ignore.
 
@@ -101,11 +101,11 @@ https://gate.velaru.xyz/diligence
 ```
 Bank / payments ops — Anchorage Digital
 
-Nisaba LLC. Vendor review, not a security filing.
+Nisaba LLC. Vendor review of withdrawal versus settlement.
 
 You are a qualified custodian. The path we would read in 72 hours is withdrawal versus settlement: where permission is supposed to sit before assets leave, from your public bank/custody pages plus anything you send.
 
-No deposit. No invoice. No obligation.
+No charge. No invoice. No obligation.
 
 If Contact is the wrong desk, one forward to payments ops is enough. Reply REVIEW or ignore.
 
