@@ -11,3 +11,5 @@ Draft is not a filing. Don’t mix this into the pipes. Congestion stays out.
 Nisaba stays the old house (including standards). A new brand under it is not this. Separate owner when you actually form it.
 
 **Now:** lock only. No name. No entity. No build.
+
+Books: this **does** change the spine. `hunt/STUDY_FOLLOWS_PIPES.md`.
