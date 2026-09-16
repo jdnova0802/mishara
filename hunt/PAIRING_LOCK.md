@@ -1,9 +1,14 @@
 # Pairing lock (16 Sep 2026) — revised
 
-**Who:** R1 state + R3 **clearing** (not insurers — that’s already the house).  
-**Not:** R2 platforms (feature). R4 standards (Nisaba).  
-**How:** E4 unfireable / catastrophic. Also: they may **build it inside** if you are **credited and paid for as long as it runs**. That is a license wall, not a feature wall.  
-**Mass:** M2 — serious door for the state, dumb door for the crowd. Separate from the standards mouth.  
-**Muscle:** still unnamed (“the core of whatever it is”). Closest named thing already in the house: **may before it lands** (SCIENCE S1 payout-clear, S3 named in coordinator COOP). Confirm or reject.
+**Job:** **clearing**, not insurance. Insurers are the old house. Do not redo them.  
+**Who:** state + clearing capital. Platforms off. Standards stay Nisaba.  
+**How:** unfireable; they may build inside if named and paid for the life of the run.  
+**Mass:** serious door for the state, dumb door for the crowd.
 
-Insurers: already. Do not photocopy a clearinghouse name. Sit **before** the wire, not as the wire.
+**S1 / S3 (in-repo, not SCIENCE ladder 1 and 3):**  
+See `gate/EDGE_PASS_2026-09-15.md` / `gate/FORMULA_CONCRESCENCE_S_TIER_2026-09-15.md` (S-tier commits; not on this hunt branch).
+
+- **S1 Actus Fence** — thought ≠ the act. Agent tool-fire / pay needs a live yes before the world changes. Crowded at pay (Fidacy, Visa). Thin leftover: stranger receipt, non-pay acts, **bank-rail weld**.  
+- **S3 Performative Seal** — draft ≠ filed. Checkers are crowded; **the file-gate is open**. Called the **best institutional wedge of the five**. That is **courts**, not clearing.
+
+Clearing is **not S3**. Closest named leftover to clearing is S1’s **bank-rail weld** (in front of the wire, not the wire).
