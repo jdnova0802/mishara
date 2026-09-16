@@ -4023,7 +4023,7 @@ def diligence_checkout():
         return redirect(url_for("install_success", session_id=fake_session))
     if not stripe.api_key or not STRIPE_DILIGENCE_PRICE_ID:
         flash(
-            f"Checkout not configured. Email {CONTACT_EMAIL} with subject DEPOSIT — mouth diligence.",
+            f"Checkout not configured. Email {CONTACT_EMAIL} with subject REVIEW — payment ops.",
             "error",
         )
         return redirect(url_for("diligence_page"))
@@ -4885,7 +4885,7 @@ def openapi_full():
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": f"Officer pack + appendix + weld — {BIND_ROOM_PRICE_LABEL}"}},
-                "/diligence": {"get": {"summary": f"Mouth / finality diligence — {DILIGENCE_DEPOSIT_LABEL} deposit"}},
+                "/diligence": {"get": {"summary": "Payment-ops review — free 72h first"}},
                 "/diligence/offer.json": {"get": {"summary": "Diligence offer machine-readable"}},
                 "/diligence/one-pager.txt": {"get": {"summary": "Diligence one-pager plaintext"}},
                 "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},
