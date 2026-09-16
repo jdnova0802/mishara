@@ -30,6 +30,7 @@ Anyone recomputes Δ from a public posted-price tape and gets the same number.
 If only you can print Δ, this stays a 6.
 Mass fields (rent / house / fare / ticket / grocery / wage): hunt/INDUSTRY_SCAN.md — not a second stack.
 Deeper (circular vs wage, S ≠ Δ ≠ Λ): hunt/INDUSTRY_DEEP.md.
+Wants/needs, smaller cuts: hunt/DESIRE_WEDGES.md.
 
 
 APPENDICES — same format, after 1–6 only
