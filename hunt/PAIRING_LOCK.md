@@ -5,14 +5,14 @@
 **Shop A — pipes (new company, later).**  
 Money runs through you. Live yes every time. Send is the simple button. State + money people. Too big for the old house. Don’t jam other products into this pipe.
 
-**Shop B — courts (different shop).**  
-Draft is not a filing. Don’t mix this into the pipes. Congestion stays out.
+**Shop B — courts (different shop from pipes).**  
+Draft is not a filing. Don’t mix this into the pipes.
 
-Nisaba stays the old house (including standards). A new brand under it is not this. Separate owner when you actually form it.
+The second-company **yes** is that mouth on the street (judge-shaped window). Rhyme, not one filing with Shop B’s lawsuit product.
 
-**Now:** lock only. No name. No entity. No build.
+Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. See people coordinating. City pays. Police in. Judge-shaped yes before dispatch and detain. Factory later. Pipes / clearing **off**.
 
-Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. **Now:** see **people coordinating**, city pays, police in, yes before **dispatch** and **detain**. You don’t run those acts. Help waits. **Later:** factory. Pipes / clearing **off**. Desk A is a rhyme, not this shop.
+Nisaba stays the old house. Separate owner when you actually form this. **Now:** lock only. No name. No entity. No build.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 

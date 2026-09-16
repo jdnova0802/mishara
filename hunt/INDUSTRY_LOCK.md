@@ -2,7 +2,7 @@
 
 Not a name. Not a filing. Engineer of the mechanism, not the face.
 
-**Now:** bolt onto other people’s kit. City **pays**. Police **in**. Kernel is **see people coordinating** (suspicious behavior that lines up). **Yes** ships second. The yes gates **dispatch**, and **detain** if that is the act. You do **not** dispatch or detain. You are the yes they cannot skip. Help waits. Factory later.
+**Now:** bolt onto other people’s kit. City **pays**. Police **in**. Kernel is **see people coordinating**. **Yes** ships second, in a **judge-shaped window**. That yes gates **dispatch** and **detain**. You do not dispatch, detain, or sit as the judge. You own the window they cannot skip. Help waits. Factory later.
 
 **Still:** Five Eyes. Military and civil gov. Classified and unclassified. Competitors and enemies out. They can’t run the mission or the city if this see+yes is gone.
 
@@ -14,31 +14,34 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 | --- | --- |
 | Muscle **today** | See **people** coordinating |
 | Muscle **later** | Defense hardware (the body) |
-| Who lines up | **People** — not cars-as-the-job, not agents-as-the-job |
+| Who lines up | **People** |
 | Second ship | **Yes** |
-| Gated acts | **Dispatch** and **detain** (if possible — same mouth, two acts) |
-| You perform the act? | **No.** Customer does. You own the yes. |
-| Help | Later, not with see |
-| Kit / factory | Their atoms now. Factory later. |
-| Who pays | The city |
-| Police | In |
+| Gated acts | **Dispatch** and **detain** |
+| Who clicks | **Judge-shaped window** — not cop-vibe, not dispatcher-vibe, not automatic |
+| You perform the act? | **No.** You own the window. |
+| Help / factory | Help later. Factory later. Their atoms now. |
+| Who pays / police | City pays. Police in. |
 
-**One company:** one see (people lining up). One mouth (live yes). Two irreversible acts the *customer* takes: send units, hold a person. Dispatch is the Tuesday city act. Detain is the heavier cop/mission act. Two dashboards would be two companies. Two acts behind one see+yes is one shop.
+**One company:** see (people lining up) + a court-form yes before the street moves. Dispatch is Tuesday. Detain is the heavier act. Same window.
 
-**Occupancy (cold):** Palantir already graphs people for the cop shop. CAD already dispatches (Motorola, CentralSquare). Predictive-policing names already burned. If you ship “flag the group, here’s a map,” you are occupancy. Leftover is only **stranger-checkable see that people coordinated, then a yes the dispatch/detain cannot skip.** Not a score. Not a vibe.
+**Speed flag:** CAD does not wait for a courtroom to send a car. If every dispatch needs a real judge, they will not buy you. Detain-as-warrant-form is the fit. Dispatch may be a thinner stamp in the **same window**, not a second product. If you insist both acts wait for the same full judge, Tuesday dies.
 
-**Role flag:** detain+people+cops is a face product. Your lock is still the engineer of the gate, not the chief, not the pitch.
+**Occupancy (cold):** Palantir graphs people. CAD dispatches. Warrant tools and e-filing already exist. Leftover is only **stranger-checkable see that people coordinated, then a judge-form yes dispatch/detain cannot skip.** Draft is not the act. A cop checkbox is not the window.
 
-**Not a how-to:** this file does not describe how to detect, track, or pick people. It names the vendor slot.
+**Rhyme, not a weld:** S3 / Shop B was draft ≠ filing. This yes is that mouth on the street. Not Nisaba. Not a lawsuit company jammed into CAD. Same shape: the window makes it real.
+
+**Role flag:** “judge window for detain” wants a legal-tech CEO. Your lock is the engineer of the window.
+
+**Not a how-to:** no detection, no targeting, no warrant recipe. Vendor slot only.
 
 ---
 
 ## The Tuesday sentence
 
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until a yes. We don’t run the street. We make the kit later.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until a judge-shaped yes. We don’t run the street. We don’t sit the bench. We make the kit later.
 
 ---
 
 ## Still open
 
-1. **Who clicks the yes?** A dispatcher, a cop, a judge-shaped window, or nobody (automatic). Automatic detain is a different animal and fights the live-yes lock. If a human must click, name which human.
+1. **Is a real judge (or magistrate) in that window, or only the form?** Real bench = warrant-speed, detain fits, dispatch fights Tuesday. Form-only = cop/dispatcher still clicks a court-looking seal — that can rot into a checkbox. Pick one.
