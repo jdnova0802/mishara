@@ -24,3 +24,15 @@ Same Gate mouth — live yes before irreversible — but **not** withdraw/payout
 **Out:** the wire, insurance, a new coin, fighting face-scan vendors, PQC-as-a-company, the folder (not sci-fi), the Friday appointment (not sci-fi).
 
 PFMI / UCC 4A is **not** the spine for this menu. If you pick A/S/H/R/K, study follows the kernel (yes, crypto, systems, speech-acts) — not settlement.
+
+---
+
+## Second-company sentence (industry lock)
+
+Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
+
+**The sentence:**
+
+> The same brain bolted onto the hardware that runs the mission is the city app people tap on Tuesday.
+
+That is the everyday tap (city app) and the sci-fi (brain on the kit). Ruling: Five Eyes, classified hangar. Mass: unclassified street. Muscle: defense hardware. Slot: brain they bolt on.
