@@ -31,6 +31,7 @@ If only you can print Δ, this stays a 6.
 Mass fields (rent / house / fare / ticket / grocery / wage): hunt/INDUSTRY_SCAN.md — not a second stack.
 Deeper (circular vs wage, S ≠ Δ ≠ Λ): hunt/INDUSTRY_DEEP.md.
 Wants/needs, smaller cuts: hunt/DESIRE_WEDGES.md.
+Dreams, high-frequency, no ruse: hunt/DREAM_LOOPS.md. Grocery is not this hunt.
 
 
 APPENDICES — same format, after 1–6 only
