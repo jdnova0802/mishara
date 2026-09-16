@@ -90,3 +90,30 @@ Web search aimed at bottlenecks, not empty apps. Occupancy honest. Independent.
 **Glamour that isn’t 30-years-dead:** 1, 2, 3, 6 are *this year’s* physics. 4–5 are *this year’s* software, already named.
 
 There is still no empty consumer app sitting on top. The massive ideas are **thrones and primitives with owners**.
+
+---
+
+## $0 winner (laptop, two people, no factory)
+
+Robots, glass, megawatts, world models, the orb: **capital.** Out.
+
+The only child of this cook you can build with **zero dollars** is sitting in **#5**: agents already write the code; humans drown in “looks fine.” Another coding agent is a fool. What’s left is the **check**.
+
+**Object:** an evidence pack the agent must emit before a human says yes.
+
+Fail-closed file, same bytes for two people:
+
+```
+task, git_sha_before, git_sha_after,
+commands_run[], tests_run[], tests_pass,
+files_touched[], claims[],
+what_it_did_not_do[],
+pack_sha256
+```
+
+Blanks don’t print “done.” Rubber-stamp of a chat summary doesn’t count. You and the model both check the **pack**, not the vibe.
+
+That’s “me and you check.” No GPU cluster. No robot. No orb. Not a 14th Copilot. The hunger is the review fire that already shipped.
+
+Fool version: a chatbot that says “LGTM.”
+Winner version: no pack, no yes.
