@@ -28,6 +28,7 @@ Not diligence mail. Desk B is not a stack.
 JOIN (not a class)
 Anyone recomputes Δ from a public posted-price tape and gets the same number.
 If only you can print Δ, this stays a 6.
+Mass fields (rent / house / fare / ticket / grocery / wage): hunt/INDUSTRY_SCAN.md — not a second stack.
 
 
 APPENDICES — same format, after 1–6 only
