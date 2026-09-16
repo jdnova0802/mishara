@@ -117,3 +117,34 @@ That’s “me and you check.” No GPU cluster. No robot. No orb. Not a 14th Co
 
 Fool version: a chatbot that says “LGTM.”
 Winner version: no pack, no yes.
+
+---
+
+## Rabbit hole — still glamorous, still $0? (complaints + reports)
+
+Went looking for rage, rotting apps, and things two people actually shipped this year with a laptop.
+
+**What people are screaming about**
+
+- Agent had the card, booked $2,200 / bought $8k of courses, chargeback says “you authorized it.” Sci-fi fear. The *product* people ask for is a hard cap **outside** the model. That’s a wallet, not a movie.
+- 1X NEO: WSJ — *every* chore was a VR human. Reddit: “biggest privacy nightmare,” “this will make a good horror movie.” CEO: if you don’t like the social contract, don’t buy it.
+- Luma 3D Capture: scans stuck in “processing” for days; r/GaussianSplatting (2026) — people think capture got **abandoned** (Play Store gone, Interactive Scenes vanished). Hunger “walk this room later” is still there. Matterport/Polycam/Scaniverse already do realtor twins. Marble (World Labs) makes **imagined** worlds that dissolve when you walk.
+
+**What actually went glamorous on $0 this year**
+
+- **Outbid.lol** (Aug 2026): one page, pay-to-rank, ~3 hours in Cursor, million visitors (founder-reported). Then **100–170 clones**. Format eaten. Clone = fool.
+- **Erly**: push-up alarm, rode **iOS AlarmKit** the week it opened, influencer POV, real money. Lesson: **new OS hole, days not months.** Next hole might be **Connect 23–24 Sep 2026** (glasses / Horizon / controller-free). Don’t invent the API before they show it.
+
+**Splat-from-phone** is now a pile of open tools (Splatline, Brush, SuperSplat). Not empty science. Empty-*feeling* because Luma’s capture path is rotting. Still not a blank category.
+
+### Glamorous things we could actually cook (not a new planet)
+
+| Cook | Why it’s glamorous | $0? | Fool? |
+|------|--------------------|-----|--------|
+| **A 90-second film of the ghost in the house** | Reddit already named it. Veo is live. The robot is the set. | Yes | Only if you pretend it’s a startup |
+| **Sit Connect with a repo open** | Erly pattern: first week of a new surface | Yes if they ship an API | Building “glasses app” *now* with no SDK = fanfic |
+| **One kitchen, filmed tonight, walkable splat** | Magic in a room without $20k. Luma’s corpse. | Almost (open tools; maybe $5 GPU) | “Polycam but AI” copy |
+| **Outbid for X** | Status, screenshots | Yes | Format already cloned to death |
+| Evidence pack | Only empty *tool* | Yes | Not glamorous. Still true. |
+
+**Straight:** there is still no glamorous **untaken product aisle** for a laptop. There **are** glamorous **artifacts** two people can cook this week, and **one calendar** (Connect) that might open an Erly-window. Searching complaints did not reveal a secret consumer app. It revealed a horror movie, a rotting capture app, and a leaderboard that already cloned itself.
