@@ -1,5 +1,6 @@
-DESK A — years object: independence of agent decisions
-Do this in order. One subject at a time. Not this morning's diligence mail.
+DESK A — what you are specifically learning (the 9-cut)
+Subject = the technical thing. Study = the book/paper. One at a time, in order.
+Not this morning's diligence mail. Desk B is not a lineup.
 
 1. Subject: Information theory
    Study: Cover & Thomas, Elements of Information Theory.
@@ -18,76 +19,23 @@ Do this in order. One subject at a time. Not this morning's diligence mail.
 5. Subject: Correlated equilibrium
    Study: Aumann 1974, Subjectivity and Correlation in Randomized Strategies.
 
-6. Subject: Algorithmic monoculture
-   Study: Bommasani et al. (2022).
-
-7. Subject: The prisoner / warden game
-   Study: Simmons 1984.
-   Study: Cachin 1998.
-   Study: arXiv 2210.14889 (theorems only).
-
-8. Subject: Collusion-free cryptography
-   Study: Alwen / shelat / Visconti.
-   Study: Lepinski, Micali, shelat (STOC).
-
-9. Subject: Algorithmic pricing collusion (before LLMs)
+6. Subject: Algorithmic pricing collusion
    Study: Calvano et al., AER 2020.
-   Study: Harrington 2018.
+   Then stop. Later LLM papers are extra, not the engine.
 
-10. Subject: LLM pricing and auction collusion
-    Study: arXiv 2404.00806
-    Study: arXiv 2608.18078
-    Study: arXiv 2601.01279
-    Study: Jo et al., NeurIPS 2025.
+JOIN (not a seventh class — the thing that makes the stack a 9)
+Anyone can recompute Δ from a public posted-price tape and get the same number.
+If only you can print Δ, the stack stays a 6.
 
-11. Subject: Secret collusion among AI agents
-    Study: arXiv 2402.07510
+APPENDICES (do not study these until 1–6 are in your bones)
+- Algorithmic monoculture — Bommasani et al. (2022)
+- Prisoner/warden — Simmons 1984, Cachin 1998, arXiv 2210.14889 theorems only
+- Collusion-free cryptography — Alwen/shelat/Visconti; Lepinski/Micali/shelat
+- LLM pricing/auctions — arXiv 2404.00806, 2608.18078, 2601.01279, Jo NeurIPS 2025
+- Secret collusion — arXiv 2402.07510
+- Multi-agent security — arXiv 2505.02077, Peigné AAAI 2025
+- Latent channels — arXiv 2608.19161, 2606.28425, 2609.10871; A2A/MCP once
+- 2026 incidents — observe only, do not reproduce
 
-12. Subject: Multi-agent security
-    Study: arXiv 2505.02077
-    Study: Peigné et al., AAAI 2025.
-
-13. Subject: Latent / non-text channels
-    Study: arXiv 2608.19161
-    Study: arXiv 2606.28425
-    Study: arXiv 2609.10871
-    Study: A2A spec — read once.
-    Study: MCP spec — read once.
-
-14. Subject: The 2026 incidents (observe only — do not reproduce)
-    Study: METR + OpenAI ExploitGym / Hugging Face writeups.
-    Study: collusion.wiki — second thread.
-    Study: Apollo scheming papers.
-
-
-DESK B — years watch: time as a geoid family
-Re-score after CGPM 13–15 October 2026. Drafts are not law. Do not found a lunar-time company.
-
-15. Subject: Continuous UTC
-    Study: CGPM Resolution 4 (2022).
-    Study: ITU-R Resolution 655 (Rev. WRC-23).
-    Study: Draft Resolution C + CCTF report on C (bipm.org).
-
-16. Subject: Lunar reference time
-    Study: IAU 2024 LCRS / TCL.
-    Study: Draft Resolution D (one scale, several realizations).
-
-17. Subject: Optical clocks as height meters
-    Study: Nosske et al., Quantum Science and Technology 2025.
-    Study: Physical Review Applied 2024.
-    Learn: gravitational redshift ΔU/c².
-
-18. Subject: Redefinition of the SI second
-    Study: CCTF roadmap → 29th CGPM, 2030.
-    Study: Mise en pratique of the SI second.
-
-
-FOOTNOTES — not the years object
-Do not promote these over Desk A or Desk B.
-
-19. Subject: Exclusive control as possession
-    Study: UCC §12-105.
-    Study: UK Electronic Trade Documents Act 2023, sections 2–3.
-
-20. Subject: Phone network as sensor
-    Study: ITU-R M.2160.
+DESK B — not a subject stack
+Oct 13–15 2026 calendar glance only.
