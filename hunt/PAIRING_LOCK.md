@@ -1,10 +1,13 @@
-# Pairing lock (16 Sep 2026) — revised
+# Pairing lock (16 Sep 2026) — hold
 
-**Not insurance.**  
-**State:** courts (draft is not a filing).  
-**Capital:** clearing — **the pipes**, not only a yes in front of someone else’s wire.  
-**Live yes every time** they use the pipes.  
-**Mass button:** send.  
-**Vehicle:** likely a **new company**. Too big to be another object in the old house. A **new brand under Nisaba** is allowed if you want one owner and a hard wall. Not blocked. Not auto-filed.
+**Not insurance. Not naming a company tonight.**
 
-Do not photocopy an existing pipe. Do not mix this with the insurance house.
+**Shop A — pipes (new company, later).**  
+Money runs through you. Live yes every time. Send is the simple button. State + money people. Too big for the old house. Don’t jam other products into this pipe.
+
+**Shop B — courts (different shop).**  
+Draft is not a filing. Don’t mix this into the pipes. Congestion stays out.
+
+Nisaba stays the old house (including standards). A new brand under it is not this. Separate owner when you actually form it.
+
+**Now:** lock only. No name. No entity. No build.
