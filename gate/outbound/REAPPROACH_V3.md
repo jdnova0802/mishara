@@ -138,6 +138,42 @@ Arnav’s mail came from the **security alias**, not a named person who engaged 
 
 ---
 
-## After send
+## After send — stop vs keep going (decided before the 9am paste)
 
-Mark SENT on this file only. **T1–T3, after the live page check passes.** Quit trigger = **one human treating it as a vendor**, not paid-clear. If all three are silence or “we filed this with security,” stop. Do not scale.
+The question is **did this land as a business email**, not **did they pay**. D3/D5 deposit nudges stay dead. No same-day follow-up. No “still the same ask.”
+
+**Clock (business days, US Eastern):**
+
+| When | What you are allowed to conclude |
+|------|----------------------------------|
+| Same day / next morning | Nothing. Auto-acks and “we’ll get back to you” are not a yes or a no. |
+| Through **3 business days** | Slow is the default. A REVIEW-shaped reply, a forward, or “looping in ops” is **pending**, not a win. Sit. Do not send names 4+. |
+| End of day **3** with **no human** on all three | Read as **silence**. Stop. Do not scale the remaining 22. |
+| End of day **5** on a thread that forwarded internally with still no named ops owner | Read that name as **no decision**. Do not chase. Do not expand the list on the hope they’ll come back. |
+
+**Stop that name immediately (do not wait 3 days):**
+
+- “Filed with security,” VDP, PSIRT, Bugcrowd, responsible disclosure
+- Reply from `security@` / `psirt@` / `vdp@` / `soc@` even if a real first name is on it (Arnav rule: functional inbox ≠ business contact)
+- “Please do not contact us” / bounce to the disclosure queue
+
+If **any** of the three dies that way, do **not** treat the other two as permission to spray the rest of the 25. Finish sitting the ones that are still pending. Then stop.
+
+**Keep going (add more names, same form: public object + business To: + REVIEW, never security@)** only if:
+
+- A **named payments / payouts / transfer / bank-ops person** answers as a vendor: REVIEW, “send the memo,” or an intro to that desk
+- Not a ticket bot, not a security alias, not “I forwarded it” with no owner
+
+One such reply is enough to justify **the next small batch** (same size: three, not the leftover 22). Zero such replies after the 3-day silence read = the categorization fix failed or did not get a chance. Either way, **do not scale**.
+
+**Middle cases, decided now:**
+
+| What happens | Call |
+|--------------|------|
+| REVIEW-shaped but slow (“next week,” “after quarter close”) | Pending. Wait. Do not send more names while you wait. |
+| “Forwarded to the right team” / internal CC, no yes/no | Pending vendor landing. Sit **5 business days**. If no named owner appears, that name is done. |
+| Contact/info auto-ack only | Not a human. Still silence until day 3. |
+| Asks a real question about the memo or the public path | Vendor. Write the 72h memo. Charge still only after they want to keep it. |
+| Asks to talk to security | Stop that name. Do not “correct” them into ops. |
+
+Mark SENT on this file when the three actually go out. Quit trigger for **this test** is the table above, not paid-clear.
