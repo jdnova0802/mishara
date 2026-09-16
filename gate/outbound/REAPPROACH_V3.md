@@ -173,7 +173,15 @@ One such reply is enough to justify **the next small batch** (same size: three, 
 | REVIEW-shaped but slow (“next week,” “after quarter close”) | Pending. Wait. Do not send more names while you wait. |
 | “Forwarded to the right team” / internal CC, no yes/no | Pending vendor landing. Sit **5 business days**. If no named owner appears, that name is done. |
 | Contact/info auto-ack only | Not a human. Still silence until day 3. |
-| Asks a real question about the memo or the public path | Vendor. Write the 72h memo. Charge still only after they want to keep it. |
+| Asks a real question about the memo or the public path | Vendor. Write the 72h memo. Default next ask is **paid diligence**, not Bind Room (see conversion below). |
 | Asks to talk to security | Stop that name. Do not “correct” them into ops. |
+
+**Conversion after a liked free memo (T1–T3 and any later diligence-framed send)**
+
+The free 72h review is the **mouth / finality diligence** lane: paid review **$5,000–$8,000**, then retainer **$10,000–$40,000/mo**. Same Prefinality/Clear doctrine as Gate, **different SKU**. It does **not** map to Bind Room (**$1,750**).
+
+When they like the memo and want to continue, the ask is: convert the free review into the **paid diligence review**, or the **retainer** if they want it ongoing. Deposit/charge only after they want to keep that work. Do not pitch Bind Room as the default next step.
+
+Bind Room stays a separate, lower-friction motion (GC / compliance / carrier / broker). Mention it only if that desk is actually who answered and the memo is a bind/officer-pack fit. If they answered on payouts, custody, RTP, book transfer, or mass pay, stay on diligence.
 
 Mark SENT on this file when the three actually go out. Quit trigger for **this test** is the table above, not paid-clear.
