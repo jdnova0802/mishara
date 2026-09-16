@@ -2,13 +2,11 @@
 
 Not a name. Not a filing. Engineer of the mechanism, not the face.
 
-**In:** intelligence software, defense hardware, public safety / emergency, cyber defense.  
-**Customer:** military **and** civil government.  
-**Geography:** Five Eyes.  
-**Mass:** consumerized version of the same thing — **city app**, not a jet in their pocket.  
-**Will not sell to:** competitors and enemies.  
-**Embedded:** they can’t run the **mission** or the **city** without you.  
-**Shape of the line:** **catalog**, not one weld — **one muscle** so it is not four companies.
+**Now (software first):** the weld is **see**. Bolt onto **other people’s** drones, radios, sensors, vehicles, poles. City **pays**. Police **in**. People tap a **city app**. Help and yes are **doors on see**, not two extra brains.
+
+**Later:** factory. You make the kit. Defense hardware becomes the body. Same brain.
+
+**Still:** Five Eyes. Military and civil gov. Classified and unclassified. Will not sell to competitors and enemies. They can’t run the mission or the city if the eyes are gone.
 
 ---
 
@@ -16,58 +14,40 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 | Ask | Lock |
 | --- | --- |
-| Muscle that makes the four families one shop | **Defense hardware** |
-| Classified? | **Both** classified and unclassified |
-| Factory or software-on-their-atoms? | **Both** |
-| Slot in the chain | **Brain they bolt on** (Palantir slot), not a Lockheed-prime-by-revenue, not metal-only |
-| Mass Tuesday tap | **City app** |
+| Muscle **today** | **See** (the brain they bolt on) |
+| Muscle **later** | Defense hardware (the body) |
+| Tuesday tap | **Help + see the street + yes** — only if they sit on see |
+| Physical kit | **All of them** — that is why factory is later |
+| Who pays | **The city** (people tap; city writes the check) |
+| Police | **In** |
+| Brain verb | **See** — not decide-as-the-job, not allow-as-the-job, not shoot |
+| Factory | **Later** |
 
-Intel software, public safety, and cyber defense are **doors on that muscle**, not sister conglomerates. The hardware is what the mission sits on. The brain is what they cannot unplug. The city app is the unclassified tap of the same brain.
+**Reconciliation:** you asked for three taps. Three taps as three kernels is three companies. **See is the kernel.** Help is see that dispatches. Yes is see that is allowed to act. Street is see with a civilian window. Catalog of kit is later atoms under one pair of eyes.
 
-**Reconciliation (so this is one company):**  
-You are not RTX. You are not a Palantir clone with no atoms. You are **Anduril-shaped in the factory** (you make / own the kit) and **Palantir-shaped in the weld** (the brain they bolt onto that kit is the thing they cannot run without). Catalog = mission SKUs + civil SKUs + the city app. Same muscle.
+**What changed:** “both factory and software” is no longer present tense. Present tense is Palantir-shaped: software on their atoms. Anduril-shaped factory is a sequel. If you keep saying hardware is the muscle **this year**, you are lying to the chair.
 
-**Flag:** factory + classified + Five Eyes is not a laptop aisle. This is the second-company picture, not tonight’s $0 chair. Catalog without that one muscle was four companies; the muscle is now named.
+**Occupancy (cold):** city pays + police in + see the street is Flock / Axon / Palantir Gotham for cops. Help is Axon / RapidSOS. You only exist if **see** is a stranger-checkable thing those three don’t already sell to the same shop. Do not found on vibes.
+
+**Role flag:** “all the kit, later factory, catalog” wants a CEO. Your lock is still the engineer of **see**.
 
 ---
 
 ## The Tuesday sentence
 
-**Say this:**
+**Say this now (factory later):**
+
+> The city pays for eyes. Cops and the street tap what those eyes see. Help and yes ride on that. We make the kit later.
+
+**Still true when the factory exists:**
 
 > The same brain bolted onto the hardware that runs the mission is the city app people tap on Tuesday.
 
-Hangar: classified. Street: unclassified. One brain. Hardware is the body.
-
-**If you want it more sci-fi:**
-
-> Hardware is the body. We are the brain they bolt on. Tuesday the city taps it.
-
-**If you want it more functional (no poetry):**
-
-> Five Eyes already flies the kit. The city opens the same brain as an app. Nothing in the mission or the street runs if that brain is gone.
-
-Pick one mouth. Don’t stack all three in a pitch. Engineer lock: the sentence is the product, not a valuation.
+Don’t pitch both in one breath until there is a factory.
 
 ---
 
-## How this actually sits
+## Still open
 
-The **sentence is strong**. One object: brain on kit = city tap. That is sci-fi and Tuesday.
-
-The **company-as-sketched is still soggy**. Factory + Palantir brain + classified + catalog of four doors is an Anduril-sized animal. That is not a laptop. Catalog wants a CEO. Your lock is engineer of one mechanism.
-
-**Better than clearing** for what you said you want (sci-fi, ruling + masses, not capital-as-the-job). **Worse as something you can sit this week.** Occupancy on “city app that is consumer Palantir” is ugly (Axon, Flock, RapidSOS, every smart-city dashboard). It only stays one company if the city tap is the unclassified twin of **that kit’s brain**, not a civic Super App.
-
-Hardware muscle + bolt-on brain is coherent. Hardware muscle + four families + a random city app is a holding company.
-
----
-
-## Still open (English)
-
-1. **Tuesday’s tap does what?** Call for help. See the street. Get a yes. Prove it happened. Something else — name the verb.
-2. **What is the physical kit?** Drone, radio, sensor, vehicle, a box on a pole — or none yet.
-3. **Who pays for the city app?** The city, or a person who downloads it. Those are different shops.
-4. **Police — in or out?** Public safety + city app usually means cops. You said competitors and enemies out. Police is its own fork.
-5. **What does the brain do?** See. Decide. Allow (may). Shoot. Pick one verb. Palantir is mostly decide. Hardware that shoots is a different animal.
-6. **Factory means this is not you-and-a-laptop.** Still the picture, or the factory is later and the brain is first?
+1. **See what, that the cop shop doesn’t already buy?** If you can’t name that, this is occupancy.
+2. **Help and yes — which skin ships after see, not with it?** Shipping three mouths on day one is a catalog again.

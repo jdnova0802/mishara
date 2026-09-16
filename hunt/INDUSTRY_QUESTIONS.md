@@ -11,10 +11,10 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 2. **Military, civil government, or both?** → **both.**
 3. **Do you sell into classified programs**, or only unclassified? → **both.**
 4. **US only, Five Eyes, or any allied state?** → **Five Eyes.**
-5. **Factory / atoms required**, or software that sits on other people’s atoms? → **both.**
+5. **Factory / atoms required**, or software that sits on other people’s atoms? → **their atoms now. Factory later.** All kit types, so you don’t pick an atom tonight.
 6. If masses stay: **what industry is the everyday tap?** → **city app.**
-7. **Who you will not sell to** — other states, police, advertisers, nobody? → **competitors and enemies.**
-8. **In the chain, are you a prime** (Lockheed), **a brain they bolt on** (Palantir), or **a new hardware name** (Anduril)? → **brain they bolt on**, on hardware you also make.
+7. **Who you will not sell to** — other states, police, advertisers, nobody? → **competitors and enemies. Police in.**
+8. **In the chain, are you a prime** (Lockheed), **a brain they bolt on** (Palantir), or **a new hardware name** (Anduril)? → **brain they bolt on, now.** Factory / Anduril body later.
 9. **What does “embedded” mean in that industry?** → they can’t run the **mission** or the **city** without you.
 10. **Five-year picture:** still an engineer with one weld in one industry, or already a catalog? → **catalog**, one muscle.
 11. **Sci-fi word** for that industry, in one sentence, that a normal person would still *do* on a Tuesday. → locked in `INDUSTRY_LOCK.md`.
