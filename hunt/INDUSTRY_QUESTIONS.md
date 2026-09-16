@@ -23,4 +23,5 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 13. **Second skin?** → **yes.** Help does not ship with see.
 14. **Who lines up?** → **people.**
 15. **Yes gates which act?** → **dispatch and detain.** You do not perform them. You own the window.
-16. **Who clicks the yes?** → **judge-shaped window.** Not cop, not dispatcher, not automatic.
+16. **Who clicks the yes?** → **judge-shaped window.** Not cop-vibe, not dispatcher-vibe, not automatic.
+17. **Real judge or form?** → **Form.** Form is the power. Rot if it is a checkbox with a robe.
