@@ -1,13 +1,15 @@
 PIPES — what you learn (engine)
 FINAL. Subject = the field name. Study = the exact source. One subject at a time, in order. Finish it before the next.
 Not insurance. Not Desk A. Not a company tonight. Not the court shop.
-Role: hunt/ROLE_SUBSTANCE.md — mechanism cold, not the face. Strict definitions, not kid versions.
+Role: hunt/ROLE_SUBSTANCE.md — engineer of the mechanism, not CEO/face. Kid warmup allowed; then strict text.
 
 You are on 1 until 1 is finished.
 
 
 1. Subject: Clearing and settlement
-   Study: CPMI-IOSCO, Principles for Financial Market Infrastructures (April 2012).
+   Warmup (allowed, finish fast): CPMI, A glossary of terms used in payments and settlement systems.
+   https://www.bis.org/cpmi/publ/d00b.htm
+   Then (strict): CPMI-IOSCO, Principles for Financial Market Infrastructures (April 2012).
    https://www.bis.org/cpmi/publ/d101.htm
    Read the principles and the key considerations. Not a press deck.
    Then: David Loader, Clearing, Settlement and Custody (Elsevier / Butterworth-Heinemann, 3rd ed. 2019 or later if you have it).
