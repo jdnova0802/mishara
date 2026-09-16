@@ -2,11 +2,21 @@
 
 **Decision: (b), smaller than the 12.** Do not rebuild the remaining 25. Do not re-spray the 12 S-tier `security@` / `psirt@` / `vdp@` / `soc@` / `responsibledisclosure@` inboxes. Those addresses **are** the disclosure queue. New copy on the same To: still gets the playbook.
 
-**Test set: 3 business inboxes + 1 named-human correction if Increase already replied.** Stop after those four unless a human answers as a vendor, not as a VDP.
+**Test set: T1–T3 only (Tipalti, Fireblocks, Anchorage).** Stop after those three unless a human answers as a vendor, not as a VDP.
 
-**Page must ship first.** Old emails pointed at `/diligence` with DEPOSIT-now. If that URL still looks like a shakedown, the new email fails even when the body is clean.
+**T4 Increase is dead.** Arnav mailed from the security alias, not as a named business contact. No named human at Increase. Do not invent a To:. Do not mail `security@increase.com` again.
 
-Agent has no SMTP. Human sends from `hello@velaru.xyz` after the page is live.
+## SEND LOCK — live page is still dirty (checked 16 Sep 2026)
+
+Fetched `https://gate.velaru.xyz/diligence`, `offer.json`, `one-pager.txt`. Production still serves **`gate-diligence-offer-v1`**: headline “Where can an irreversible write complete without may?”, ask **Reply DEPOSIT — invoice same day**, deposit due now. The v2 copy exists on this branch only. It is **not** what that hostname returns.
+
+**Do not paste T1–T3 until all three are true:**
+
+1. `GET https://gate.velaru.xyz/diligence/offer.json` has `"spec": "gate-ops-review-v2"`
+2. The HTML does **not** say `Reply DEPOSIT`
+3. The HTML **does** say free 72-hour review
+
+A clean email at a dirty page undoes the fix. Agent has no SMTP and no Render deploy from here. Human: merge/deploy this diligence change to whatever `gate-api` tracks, then re-fetch, then send.
 
 ---
 
@@ -105,28 +115,14 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## #T4 — Increase — **only if a named human already answered** (do not mail `security@increase.com` again)
+## #T4 — Increase — **DEAD**
 
-**Public object:** Real-Time Payments: `POST /real_time_payments_transfers` → `pending_submission` → `submitted` → `complete` after The Clearing House ack. `require_approval` is optional. Docs: https://www.increase.com/documentation/sending-real-time-payments and https://increase.com/documentation/api/real-time-payments-transfers
+Arnav’s mail came from the **security alias**, not a named person who engaged as a business contact. Cursor’s own rule was: if Increase never produced a named human, skip T4. That is the case.
 
-**To:** the named person (e.g. the ops owner who replied). **Never** `security@increase.com` a second time.
-
-**Subject:** Sorry — that was a vendor review, not a disclosure
-
-```
-[Name] —
-
-The last note used the wrong inbox and the wrong shape (deposit token, “without may”). That was on us. It was meant as a payment-ops review, not a vulnerability report.
-
-The object is public: RTP transfers go pending_submission → submitted → complete after The Clearing House ack, and require_approval is optional on create (Increase RTP docs).
-
-Offer: 72-hour written memo on where approval is supposed to sit before TCH sees the payment. Free. No deposit. No obligation. If you want it, reply REVIEW. If not, this is the last note.
-
-Nisaba LLC
-https://gate.velaru.xyz/diligence
-```
-
-If Increase never produced a named human, **skip T4**. Do not invent `arnav@` or any other person.
+- Do not send T4.
+- Do not address Arnav.
+- Do not mail `security@increase.com` again with nicer copy.
+- RTP `require_approval` remains a public object for later **if** a real payments-ops To: appears. It is not a send.
 
 ---
 
@@ -139,9 +135,10 @@ If Increase never produced a named human, **skip T4**. Do not invent `arnav@` or
 | Column book-transfer hold/clear | Strong public object (`hold=true` then `POST /transfers/book/{id}/clear`, docs.column.com) — **no business To:** on the sheet. Do not send `security@column.com`. |
 | Modern Treasury `needs_approval` → `completed` (posted) | Strong public object — To: was `privacy@`. Do not send. |
 | D3/D5 DEPOSIT templates | Dead. |
+| **T4 Increase** | Arnav = security alias, not a named business contact. **DEAD.** |
 
 ---
 
 ## After send
 
-Mark SENT on this file only. Quit trigger for this test = **one human treating it as a vendor**, not paid-clear. If all four are silence or “we filed this with security,” stop. Do not scale.
+Mark SENT on this file only. **T1–T3, after the live page check passes.** Quit trigger = **one human treating it as a vendor**, not paid-clear. If all three are silence or “we filed this with security,” stop. Do not scale.
