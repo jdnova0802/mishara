@@ -1,15 +1,21 @@
 # Role — substance, not the face
 
-Standing. All study tracks. Nisaba. Pipes company later.
+Standing. Confirmed path, not a preference. All study tracks. Nisaba. Pipes later.
 
-You would rather be the engineer in the room with the real mechanism than the CEO one layer removed. You want to **be the substance**.
+**Shape:** staff / principal engineer or technical co-founder. Enormous say in direction. Never the performative CEO. Reference: **Jeff Dean at Google** — technical influence, real weight in decisions, not the CEO chair.
 
-**Pipes company (when it exists):** you are the engineer who owns the definitions. **Someone else is CEO.** You are not that chair.
+**Already true at Gate:** you are the one who understands the clearance kernel, atomic authority, the actual mechanism. Not someone managing people who understand it for you. Keep that **on purpose**.
 
-**Nisaba:** someone else is the face. You stay the person who actually knows the mouth.
+**Pipes company (when it exists):** same. You own the definitions. **Someone else is CEO.** You are not that chair. Name still on the entity.
 
-**Unfireable = both:** they cannot replace your understanding, **and** your name is on the entity (owner of the substance, not the talking head).
+**Nisaba:** someone else is the face.
 
-**Study:** kid version allowed as a **warmup**. Then you own the **strict text**. Warmup is not the destination.
+**Unfireable = both:** they cannot replace your understanding, and your name is on the entity.
+
+**Study:** kid warmup allowed. Then strict text. Warmup is not the destination.
+
+**Failure mode (flag it):** work that pulls you into pitching, face, “leadership,” valuation-max, or letting the mechanism become someone else’s job. If a suggestion or a task starts trending that way, **say so and stop**.
+
+**Do not default to:** maximize valuation; step back into pure leadership; become the face.
 
 Ignore dry-APM as a track here.

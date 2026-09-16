@@ -1,7 +1,7 @@
 PIPES — what you learn (engine)
 FINAL. Subject = the field name. Study = the exact source. One subject at a time, in order. Finish it before the next.
 Not insurance. Not Desk A. Not a company tonight. Not the court shop.
-Role: hunt/ROLE_SUBSTANCE.md — engineer of the mechanism, not CEO/face. Kid warmup allowed; then strict text.
+Role: hunt/ROLE_SUBSTANCE.md — technical co-founder / principal engineer, not CEO. Flag performative drift.
 
 You are on 1 until 1 is finished.
 
