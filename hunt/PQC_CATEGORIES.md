@@ -27,4 +27,6 @@ Email and old chat that still uses the old lock. Signal-class chat already moved
 
 What two people with a laptop actually sit: **1, 3, 4, 5** on *your* stuff. (2) and (6) are mostly other people’s browsers and CAs. (7) is ugly and slow.
 
+Occupancy / is any pile massive: `hunt/PQC_OCCUPANCY.md`.
+
 Fool: invent a new algorithm. That’s not a category you own.
