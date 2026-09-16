@@ -12,7 +12,7 @@ Nisaba stays the old house (including standards). A new brand under it is not th
 
 **Now:** lock only. No name. No entity. No build.
 
-Nothing here is Nisaba. Second company. See `hunt/SECOND_COMPANY_VENDOR.md`. Capital/clearing off. Sci-fi everyday still on the table as the *mass* door.
+Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. Four families, Five Eyes, masses get a consumerized version. Muscle still unnamed.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 
