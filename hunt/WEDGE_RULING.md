@@ -21,7 +21,7 @@
 
 **Money.** B2B. Clerk. Complements remaining: remaining is halt the write; this is **the paper that says they used care**. Do not sell halt. Do not DEPOSIT to banks. Sell to Colorado deployers (insurers, lenders, HR, housing) who need the file by **30 Jun**.
 
-**Code if picked.** Generator + evidence index that emits the statutory sections. Not a fuse. Not a bias-science startup. Brand can stay Nisaba/Velaru **assessment**.
+**Code.** `assessment/` — fail-closed generator that emits markdown + JSON with 6-1-1703(3)(b)(I)–(VII), (3)(g), and the (3)(c) rider on modification. Blanks do not print a packet. Not a fuse. Not a bias-science startup. Brand stays Velaru assessment.
 
 ---
 
