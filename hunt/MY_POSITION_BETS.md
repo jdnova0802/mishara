@@ -32,4 +32,6 @@ No land, no interconnect, no transformer. Do not dress a spreadsheet as this bet
 
 **If you asked for most upside:** the face, this month. `hunt/MOST_UPSIDE.md`. Not the check (that’s the floor). Not founding a robot company.
 
+**Picked the better product instead:** the check. `hunt/THE_CHECK.md`. Code: `check/`.
+
 Two sports. Don’t mix them: weekend spectacle (Outbid) vs ten-year stack (Huang). This chair can do the first in a night and only *apprentice* the second.

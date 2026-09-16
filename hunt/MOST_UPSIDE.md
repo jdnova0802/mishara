@@ -10,4 +10,6 @@ The check is the better *product* (empty, $0, you can ship). Its ceiling is “f
 
 Ghost film / kitchen splat: attention, no capture. Watts: you can’t buy the land.
 
-**Pick:** sit Connect with a repo open. That is the upside bet. The check is the floor if the keynote is vapor.
+**Pick if you asked for upside:** sit Connect with a repo open. The check is the floor if the keynote is vapor.
+
+**Picked instead (better product):** the check. `hunt/THE_CHECK.md`.
