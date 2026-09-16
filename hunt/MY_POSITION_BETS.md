@@ -30,4 +30,6 @@ No land, no interconnect, no transformer. Do not dress a spreadsheet as this bet
 **If you have to pick one *move* this month:** Connect week.  
 **If you have to pick the decade:** still hands/face/contact — as a place you live, not a company you found tonight.
 
+**If you asked for most upside:** the face, this month. `hunt/MOST_UPSIDE.md`. Not the check (that’s the floor). Not founding a robot company.
+
 Two sports. Don’t mix them: weekend spectacle (Outbid) vs ten-year stack (Huang). This chair can do the first in a night and only *apprentice* the second.
