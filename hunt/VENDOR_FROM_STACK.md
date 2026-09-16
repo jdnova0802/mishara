@@ -18,6 +18,13 @@ Not insurance. Not a named pipe photocopy. Not a company tonight.
 Ruling door: the pipe + live yes + stranger receipt (serious).  
 Mass door: **send**.
 
+**Named object:** clearing of **payouts** — money that is supposed to leave.  
+Ruling nations: treasury / official payouts don’t become final without the live yes.  
+Masses: they tap send.  
+Various = kinds of leaving-money (pay, remit, official disburse), not six other products jammed in the pipe. Not insurance claims. Not a photocopy of an existing national pipe.
+
+Shop B (courts) is a **different vendor**: file-gate, not send. Do not jam it in.
+
 Shop B (courts) is a **different vendor**: file-gate, not send. Do not jam it in.
 
 Crowding you already wrote down: pay-fences at the agent/card layer are taken. What’s still a mouth is **finality on the send**, not another checkout bot.
