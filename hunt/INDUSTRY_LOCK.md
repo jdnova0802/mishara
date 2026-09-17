@@ -71,7 +71,24 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 | You really **are** the clutch on the path that already makes it go (window, two people, in the gear) | **8** |
 | Perfect 10 | **No.** They always own another motor, another vendor, a war. 10 is a fantasy. |
 
-A live **window** is less annoying and a bit easier to work around when the window is already open. That’s the trade for not being a mother-may-I. Still not a padlock on a screen.
+**Max unpluggable on this scale:** **8–9**, only if **you are the kit** (or the only go-path the machine ships with). Factory is not “later.” Bolt-on stays a **5**. A 10 is still a cartoon (another country, another motor).
+
+Same scale for the big names — **can the car / plane / city still go if they are gone**, not “is it annoying to switch.”
+
+| Name | Unpluggable | Why |
+| --- | --- | --- |
+| Palantir | **3** | They see and decide. Unplug them, wheels still roll. Painful. Not a clutch. |
+| Motorola / city CAD | **4** | Dispatch gets stupid. Cars still physically go. |
+| Microsoft (office / Army IT) | **3** | The mission can still move. Ugly week. |
+| Anduril | **6–7** | On *their* kit, closer to a clutch. On someone else’s truck, closer to Palantir. |
+| Lockheed / RTX (the actual airframe / missile) | **8–9** | You cannot unplug the plane from being a plane. That is the prime. |
+| A website “approve” | **2** | Ignore it. |
+
+Sticky is a different score. Palantir is **sticky ~7** and **unpluggable ~3**. Do not mix those.
+
+To get **max** without becoming RTX: you make the moving body, or you are welded into the go-path so there is no “their kit” without you. That is capital and a factory. The window-yes stays so you are not extra red tape. You still don’t fly it.
+
+---
 
 ---
 
