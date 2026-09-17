@@ -22,6 +22,14 @@ Physical kit: boom, wedge, pad. Software is **not** a map of people. Software is
 
 **Stations:** two apps or two boxes, not one phone with two toggles. Join is a meeting of halves.
 
-Unpluggable: software-only = 2–5. Software **plus** sitting in the gear = the 5. Factory = 8.
+**Benchable now (coding, no harbor):**
 
-Separate company. Face of the object. No filing tonight. No how-to for grabbing a vehicle.
+- A **join pack**: two halves, live window, draft vs seal, a hash a stranger recomputes. CLI says NO unless both fit and now is inside the window.
+- A **toy boom**: a fake door in software that only prints GO if the pack verifies. Not a real boom. Not a car. Proves the mouth.
+- Tests. Separate folder from Gate. Don’t import Nisaba.
+
+**Not benchable without a door:** adapters into real PLC / pad / vessel. That’s the 5, later.
+
+`check/` is a cousin (fail-closed pack) for git/tasks. Different object. Don’t glue it on unless you mean to.
+
+If you want the bench, say so. That’s the only code worth writing before a real go-path.
