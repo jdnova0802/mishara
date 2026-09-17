@@ -85,4 +85,12 @@ Both products:
 
 Mechanism is named for both products.
 
-**Opinion (fit, not a new vote):** **Go** is the best fit. Fire is more power and the wrong company shape. Look matches “see” and is not imposing enough. Speak is Tell in a radio. Speak+Go is two piles. Novelty is the form **in the gear**, not a new verb. Go stays unless you veto.
+**Go confirmed.** Not a veto window. Military kit will not move / take off until the form, lock in the gear, saw-it starts, boss seals.
+
+**How it sits now:** this is a real pair. City stops the car. Military stops the kit. Same kind of lock. Different programs. The dream minus grandma, minus Fire’s weapons-shop face.
+
+**Still not empty.** Palantir/CAD on the city door. C2 / “won’t go without permission” on the military door. You only exist if skip is impossible and a stranger can check the form.
+
+**I like this more than Tell-in-a-tab and more than Fire.** Tell was weak. Fire was the wrong company. Go fits. Don’t found on the sentence.
+
+Nothing else changes the company tonight. No how-to. No name. You build the lock. Someone else is the face.

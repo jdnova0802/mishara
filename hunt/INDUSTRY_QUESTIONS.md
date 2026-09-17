@@ -15,7 +15,7 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 6. If masses stay: **everyday tap?** → **City is enough.** No regular-person app.
 7. **Who you will not sell to?** → **competitors and enemies. Police in** (city product).
 8. **Prime, brain, or new hardware name?** → **Brain they bolt on.** Two programs. Not a Lockheed prime. Not Anduril-as-the-whole-company.
-9. **Embedded?** → City cannot dispatch/detain without the form. Military cannot **Tell** (pass intel along) without their form.
+9. **Embedded?** → City cannot dispatch/detain without the form. Military kit cannot **Go** without the form in the gear.
 10. **Five-year picture?** → **one lock, two products.**
 11. **Tuesday sentence?** → `INDUSTRY_LOCK.md`. City is the Tuesday. Military is the other product.
 
@@ -30,4 +30,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 20. **Dream vs this filing?** → **Option 2.** City is enough (no grandma button).
 21. **Military form stops?** → **Tell.** Intel does not get passed along until the form says yes.
 22. **Who starts / seals Tell?** → **Person who saw it starts. Their boss seals.** Starter cannot seal their own.
-23. **Imposing military?** → **Lock in the gear. Go.** Overlap of most powerful and least crowded. Not Fire (crowded). Not Look (weaker).
+23. **Imposing military?** → **Lock in the gear. Go. Confirmed.** Kit will not move / take off until form yes.
