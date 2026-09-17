@@ -33,6 +33,6 @@ Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
 
 **The sentence (now):**
 
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The robe is the shape. The form is the power. This brain is the city’s. Not the mission’s.
+> Nothing important moves until the form says yes. The city has one program. The military has another. Same kind of lock. Not the same program. People on the street don’t get an app.
 
-Kernel: **see people coordinating**. Yes is the **form**. City-only. Not the hangar brain. Offices: dispatcher / sworn officer / supervisor-seal. Not a how-to.
+City product: see people coordinating; dispatch and detain; three offices. Military product: same kind of lock, acts not named yet. Not a how-to.

@@ -7,17 +7,17 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 
 ---
 
-1. After crossing off: **which family is left?** One. If two, they must share one muscle. → **this shop: city public-safety form.** Not defense hardware as this company’s muscle.
-2. **Military, civil government, or both?** → **City / civil. Not military for this shop.**
-3. **Do you sell into classified programs**, or only unclassified? → **Not the mission SKU.** City product. Don’t reuse this brain for classified hangar.
-4. **US only, Five Eyes, or any allied state?** → **Allied cities if at all — not a mission twin.** This shop is city-only.
-5. **Factory / atoms required**, or software that sits on other people’s atoms? → **city’s atoms.** Hangar factory is not this shop.
-6. If masses stay: **what industry is the everyday tap?** → **city worker tool the city buys.** Not a public download.
-7. **Who you will not sell to** — other states, police, advertisers, nobody? → **competitors and enemies. Police in.**
-8. **In the chain, are you a prime** (Lockheed), **a brain they bolt on** (Palantir), or **a new hardware name** (Anduril)? → **brain they bolt on — city’s kit.** Not the hangar. Not Anduril-as-this-company.
-9. **What does “embedded” mean in that industry?** → they can’t run **the city** (dispatch/detain) without the form. Not the mission.
-10. **Five-year picture:** still an engineer with one weld in one industry, or already a catalog? → **one city weld.** Catalog/hangar is another shop.
-11. **Sci-fi word** for that industry, in one sentence, that a normal person would still *do* on a Tuesday. → locked in `INDUSTRY_LOCK.md`.
+1. After crossing off: **which family is left?** → **the form** (nothing goes until yes). City product + military product.
+2. **Military, civil government, or both?** → **Both as two products.** Same kind of lock. Not the same program.
+3. **Classified?** → **Military product may be.** City product is the cop shop. Not a copy-paste of city software.
+4. **US only, Five Eyes, or any allied state?** → **City + military customers.** Geography not the mechanism. Fine to name later.
+5. **Factory / atoms?** → **Their kit** (city kit, military kit). You bolt on. You do not copy one program onto both.
+6. If masses stay: **everyday tap?** → **City is enough.** No regular-person app.
+7. **Who you will not sell to?** → **competitors and enemies. Police in** (city product).
+8. **Prime, brain, or new hardware name?** → **Brain they bolt on.** Two programs. Not a Lockheed prime. Not Anduril-as-the-whole-company.
+9. **Embedded?** → City cannot dispatch/detain without the form. Military cannot run their gated acts without their form.
+10. **Five-year picture?** → **one lock, two products.**
+11. **Tuesday sentence?** → `INDUSTRY_LOCK.md`. City is the Tuesday. Military is the other product.
 
 12. **See what?** → **suspicious behavior; coordination is the key.**
 13. **Second skin?** → **yes.** Help does not ship with see.
@@ -26,5 +26,5 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 16. **Who clicks the yes?** → **judge-shaped window.** Not cop-vibe, not dispatcher-vibe, not automatic.
 17. **Real judge or form?** → **Form.** Form is the power. Rot if it is a checkbox with a robe.
 18. **Which offices?** → **Kept.** Dispatcher submits dispatch, sworn officer submits detain, shift supervisor seals. Submitter ≠ sealer. Not a public app.
-19. **Mission twin?** → **City only. Not the same brain.** Hangar is a different shop if ever.
-20. **Dream vs this filing?** → open. A two shops / B one form two brains / C undo city-only. Masses: third door or city-as-customer.
+19. **Mission twin?** → **Same kind of lock, different program.** Not a copy of the city tool. Not a second company.
+20. **Dream vs this filing?** → **Option 2.** City is enough (no grandma button).

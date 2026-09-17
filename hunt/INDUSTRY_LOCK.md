@@ -1,14 +1,18 @@
 # Industry lock (second company — not Nisaba)
 
-Not a name. Not a filing. Engineer of the mechanism, not the face.
+Not a name. Not a filing. You build the lock. Someone else is the face.
 
-**This shop is city-only.** Not the hangar. Not the same brain as a mission product. If a defense/Five Eyes mission brain exists, it is a **different shop, different brain**, later or never. Do not reuse this form for that.
+**The power (both products):** nothing important happens until the form says yes. Judge-shaped. Not a real judge. Not a checkbox with a robe. Cannot skip. A stranger can tell a draft from a yes.
 
-**Now:** bolt onto **the city’s** kit (other people’s poles, radios, cars). City **pays**. Police **in**. Kernel is **see people coordinating**. **Yes** is the **form** — judge-shaped, not a real bench. That form gates **dispatch** and **detain**. You do not dispatch, detain, or sit as the judge. You own the form they cannot skip. Help waits.
+**Product 1 — city (locked).** City pays. Police in. Sees when **people** are coordinating. Gates **dispatch** and **detain**. Dispatcher starts dispatch. Sworn officer starts detain. Shift supervisor seals. Submitter cannot seal their own. Worker tool. Not grandma’s phone. Bolt onto the city’s kit.
 
-**Cut from this shop:** military customer, classified mission SKU, “can’t run the mission,” Anduril-body as this company’s sequel. Ruling embed here is the **city** (CAD, PD, the shift), not JSOC.
+**Product 2 — military.** Same kind of lock. **Different program.** Do not copy the city tool onto their gear. They cannot run their side without this form. What the form stops (their version of dispatch/detain) is **not named yet**.
 
-**Still:** competitors and enemies out. They can’t run **the city** (dispatch/detain) if this form is gone. Geography can stay allied **cities**; that is not a mission twin.
+**Customers:** city government and military. Regular people are **not** customers. The city is enough for that side of the dream.
+
+**Out:** competitors and enemies. You do not send the car, hold the person, fly the mission, or sit the bench.
+
+**Not two companies.** One company, two products, one kind of lock.
 
 ---
 
@@ -16,82 +20,43 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 | Ask | Lock |
 | --- | --- |
-| Customer | **City only** |
-| Same brain as mission? | **No.** Different brain if that ever exists. |
-| Muscle **today** | See **people** coordinating |
-| Who lines up | **People** |
-| Second ship | **Yes** = **the form** |
-| Gated acts | **Dispatch** and **detain** |
-| Bench or form? | **Form.** Not a real judge in the window. |
-| Offices | Dispatcher submits dispatch. Sworn officer submits detain. Supervisor seals. Submitter ≠ sealer. **Kept.** |
-| You perform the act? | **No.** You own the form. |
-| Who pays / police | City pays. Police in. |
-| Public tap | **No.** Worker tool the city buys. |
-| Factory / defense hardware | **Not this shop’s sequel.** City may still sit on their atoms. Hangar kit is another company. |
+| How many companies | **One** (not Nisaba) |
+| How many products | **Two** |
+| The lock | **Form** — nothing goes until yes |
+| Same software copied? | **No** |
+| City product | See people coordinating. Dispatch + detain. Three offices. |
+| Military product | Same kind of lock, different program, on their gear |
+| Regular person app | **No.** City is enough. |
+| Who you sell to | City + military. Not the public. Not enemies. |
 
-**Offices (kept):**
+**City offices (kept):**
 
-| Office | What they do in the form |
+| Office | Form |
 | --- | --- |
-| **Public-safety dispatcher** (911 / CAD) | Submits **dispatch** |
-| **Sworn officer** | Submits **detain** |
-| **Shift supervisor** (watch commander / sergeant-shaped — city may rename) | **Seals.** Submitter cannot seal their own. |
-
-**Rule:** enumerated public-safety offices; **submitter ≠ sealer**; public, random logins, your company, the graph: **out**.
-
-**Why form is the power:** rank does not make the act real. The form does. Unskippable and stranger-checkable, or it is a robe on a checkbox.
-
-**Occupancy:** Palantir + CAD + e-warrant skins in the cop shop. Leftover is the unskippable form on **see that people coordinated**, not a map.
-
-**Rhyme, not a weld:** S3 draft ≠ filing. Street mouth. Not Nisaba. Not a lawsuit company. Not a mission OS.
-
-**Role flag:** engineer of the city form. Not the face of detain. Not a prime.
-
-**Not a how-to:** vendor slot only.
-
----
-
-## The Tuesday sentence
-
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The robe is the shape. The form is the power. This brain is the city’s. Not the mission’s.
-
----
-
-## How this sits
-
-**Better than the catalog.** City-only + one form is a company. Four families + hangar + factory was a holding company. Cutting the mission brain was the right cut *for one filing*.
-
-**The leftover is the form, not the eyes.** Palantir already sees people for cop shops. CAD already dispatches. If the form can be skipped, this is paint. If it cannot, that is the weld.
-
-**The dream you actually said:** embedded in the **ruling class** (mission / Five Eyes / hangar) **and** Tuesday for **masses**. Sci-fi. They cannot run it without you. Engineer of the mechanism, not the face.
-
-**What this filing is:** the city shift. Not the hangar. Not grandma. So it matches Tuesday and a **municipal** ruling class. It does not match the full dream. That is the gap. Not a vibe. You cut the mission brain on purpose so this shop would not be soup.
-
-**Not a laptop proof.** Occupancy is the wound. Do not found on the sentence.
+| Public-safety dispatcher | Submits dispatch |
+| Sworn officer | Submits detain |
+| Shift supervisor | Seals |
 
 ---
 
 ## English
 
-You wanted something the **government cannot run without**, that also shows up in **normal life**. Jets and cities and a Tuesday button. That is the dream.
+The dream was: government cannot run without you, and it still feels like real life, not a cartoon.
 
-What we locked is smaller: a tool **the city police shop** buys. It sees when people are coordinating. Cars don’t roll and people don’t get held until a special form says yes. A dispatcher starts a dispatch. A cop starts a detain. A boss signs. Not a real judge. Not an app on grandma’s phone. Not the military.
+You picked: **one company, two products, same kind of lock.** City tool is built. Military tool is the same idea on their gear, not a copy-paste. Regular people do not get a button. The city buying the cop-shop tool is enough.
 
-That can be a company. It is not the whole dream. You also said the military version is **not the same product**. So we cannot honestly call this one company “Palantir plus Lockheed plus a city app.”
+City sentence:
 
-To get the dream back, pick one:
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The robe is the shape. The form is the power.
 
-1. **Two companies.** This one is the city tool. Later, a different one is the military tool. You build the insides of both. The dream is your life’s work, not one logo.
-2. **Same kind of lock, two products.** The power is “nothing happens until the form says yes.” City product: dispatch and detain. Military product: whatever their version of that lock is, on their gear. Two programs. Same idea. Not one copy-paste brain.
-3. **Shove the military into this company anyway.** That gets big and messy unless you really mean option 2.
+Both products:
 
-Normal people: right now they are **not customers**. The city is. If you still want a thing a regular person does on Tuesday, that is a **different button** (the form on ordinary life), not the cop screen. Or you drop that part of the dream.
-
-No name tonight. You are the person who builds the lock, not the face on TV.
+> Nothing important moves until the form says yes. The city has one program. The military has another. Same kind of lock. Not the same program. People on the street don’t get an app.
 
 ---
 
 ## Still open
 
-1. Two companies, two products with the same kind of lock, or one messy company?
-2. Does a regular person get their own Tuesday button, or is the city the only customer?
+1. **On the military side, what does the form stop until yes?** Do not copy “dispatch and detain.” Name their acts, or this product is a poster.
+
+Occupancy vs Palantir/CAD is still a later check for the city side. No how-to. No name tonight.
