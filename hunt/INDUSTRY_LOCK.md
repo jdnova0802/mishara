@@ -45,7 +45,26 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 ---
 
-## Mainstream English
+## How you are not a padlock (mainstream)
+
+“Unpluggable” does **not** mean extra red tape. Extra red tape they will rip out. Then they unplug you.
+
+**Genius move:** you are not a second lock on top of going. You **are** how going works — like a clutch. A car without a clutch is not “restricted.” It just doesn’t go. Unplug you = no clutch. That is not more permission. That is the machine.
+
+**Less restrictive, still real:**
+
+- Do **not** add a new chain of people. Use the two they already have (starter + boss). Faster than today’s pile of signatures, not slower.
+- Seal a **window**, not every inch of road. “This kit may go until 6.” Inside the window they drive. Outside it, the machine won’t. One yes, not a mother-may-I every second.
+- An old window dies by itself. No forever permission. Not a million tiny nos.
+- You do not sit on the 911 screen saying “deny.” Their tools can still talk. The wheels are what listen to you.
+
+**Not genius:** hiding, bricking, punishing them for removing a box, AI that says no more often. That’s a parasite. They will hate it and skip it.
+
+**The picture:** the drawbridge motor only answers a live window. Traffic isn’t “permission culture.” The span either has a live yes or it doesn’t move. Same for the military kit.
+
+No how-to for hiding in machines. Vendor idea only. You build that clutch. Someone else is the face.
+
+---
 
 Nothing big moves until two people say yes in a way that actually counts — and that yes is built into the machine, not a website you can ignore.
 
