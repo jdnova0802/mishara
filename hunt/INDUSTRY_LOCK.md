@@ -14,7 +14,7 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 ---
 
-**Out:** competitors and enemies. You do not send the car, hold the person, fly the mission, or sit the bench.
+**Out:** competitors and enemies. You do not send the car, hold the person, fly the mission, or sit the bench. **Out:** watching people online for “threats,” coded talk, or spelling tricks. That’s a picture of people. Palantir’s aisle. Not this clutch.
 
 **Not two companies vs Nisaba:** this shop is **not** a Nisaba addition brand. Separate company when it exists. Rhyme (yes before the act). Not the same house.
 
