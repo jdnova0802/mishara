@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Final modernized drop: `hunt/FINAL_SHOW.md`. Boom, wedge, pad, join, horn.
+Software: `hunt/SOFTWARE_SIDE.md`. Join, window, draft vs seal, horn event, adapters. Not a people-map.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
