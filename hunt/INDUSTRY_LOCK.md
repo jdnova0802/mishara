@@ -86,7 +86,9 @@ Same scale for the big names — **can the car / plane / city still go if they a
 
 Sticky is a different score. Palantir is **sticky ~7** and **unpluggable ~3**. Do not mix those.
 
-To get **max** without becoming RTX: you make the moving body, or you are welded into the go-path so there is no “their kit” without you. That is capital and a factory. The window-yes stays so you are not extra red tape. You still don’t fly it.
+**Buildable:** the **5** is buildable as a **module in the go-path they already have** — form, two people, time window — if a city or a kit-maker lets you sit there. That is an integration, not a weekend app, and not an 8. The **form itself** (draft vs yes, two stations, expiry) is buildable on a bench now. **8–9** is not buildable without being the kit. No how-to for grabbing a car. Vendor slot only.
+
+---
 
 ---
 
