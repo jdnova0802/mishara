@@ -8,9 +8,9 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 ---
 
 1. After crossing off: **which family is left?** One. If two, they must share one muscle. → **muscle = defense hardware**; other three families are doors on it.
-2. **Military, civil government, or both?** → **both.**
-3. **Do you sell into classified programs**, or only unclassified? → **both.**
-4. **US only, Five Eyes, or any allied state?** → **Five Eyes.**
+2. **Military, civil government, or both?** → **City / civil. Not military for this shop.**
+3. **Do you sell into classified programs**, or only unclassified? → **Not the mission SKU.** City product. Don’t reuse this brain for classified hangar.
+4. **US only, Five Eyes, or any allied state?** → **Allied cities if at all — not a mission twin.** This shop is city-only.
 5. **Factory / atoms required**, or software that sits on other people’s atoms? → **their atoms now. Factory later.** All kit types, so you don’t pick an atom tonight.
 6. If masses stay: **what industry is the everyday tap?** → **city app.**
 7. **Who you will not sell to** — other states, police, advertisers, nobody? → **competitors and enemies. Police in.**
@@ -26,3 +26,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 16. **Who clicks the yes?** → **judge-shaped window.** Not cop-vibe, not dispatcher-vibe, not automatic.
 17. **Real judge or form?** → **Form.** Form is the power. Rot if it is a checkbox with a robe.
 18. **Which offices?** → **Kept.** Dispatcher submits dispatch, sworn officer submits detain, shift supervisor seals. Submitter ≠ sealer. Not a public app.
+19. **Mission twin?** → **City only. Not the same brain.** Hangar is a different shop if ever.

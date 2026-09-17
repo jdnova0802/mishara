@@ -33,6 +33,6 @@ Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
 
 **The sentence (now):**
 
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The robe is the shape. The form is the power. We don’t sit the bench. We make the kit later.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The robe is the shape. The form is the power. This brain is the city’s. Not the mission’s.
 
-Kernel: **see people coordinating**. Yes is the **form** (judge-shaped, not a bench). Gated acts: dispatch and detain. Offices: dispatcher / sworn officer / supervisor-seal. Submitter ≠ sealer. Unskippable or it is paint. Help waits. Not a how-to.
+Kernel: **see people coordinating**. Yes is the **form**. City-only. Not the hangar brain. Offices: dispatcher / sworn officer / supervisor-seal. Not a how-to.
