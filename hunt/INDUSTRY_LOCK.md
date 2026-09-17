@@ -6,11 +6,9 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 **Product 1 — city (locked).** City pays. Police in. Sees when **people** are coordinating. Gates **dispatch** and **detain**. Dispatcher starts dispatch. Sworn officer starts detain. Shift supervisor seals. Submitter cannot seal their own. Worker tool. Not grandma’s phone. Bolt onto the city’s kit.
 
-**Product 2 — military (being made stronger).** Same kind of lock. **Different program.** Saw-it starts, boss seals, still. **Tell as a share button is not enough.** You want this side as strong or stronger than the city, **new**, and **imposing in the room and on the screen.**
+**Product 2 — military (locked where).** Same kind of lock. **Different program.** Saw-it starts, boss seals. **The lock lives in the gear.** Not a tab. The kit will not do the thing until the form says yes. If they pull a cable and it still works, you are paint. Digital = the form. Physical = the box is in the loop. Factory later is fine if you bolt onto **their** kit now — the lock still has to sit in that kit.
 
-The strong version is not a website they can ignore. **The gear itself will not do the thing until the form says yes.** Skip is impossible in the box, not in a policy. That is digital (the form) and physical (the kit sits there; without it the thing does not happen). Factory can still be later if you bolt this lock onto **their** radios, vehicles, sensors — the lock has to live in the loop, not in a tab.
-
-“No one has done this” is the bar, not a fact yet. Two-person “boss says yes” already exists. Weapons that wait for a code already exist. Share buttons already exist. The empty-looking slot is: **stranger can check the form, and the physical kit cannot go around it.** If they can pull a cable and still Tell/Go/Fire, you are paint.
+**Customers:** city government and military. Regular people are **not** customers. The city is enough for that side of the dream.
 
 ---
 
@@ -29,7 +27,7 @@ The strong version is not a website they can ignore. **The gear itself will not 
 | The lock | **Form** — nothing goes until yes |
 | Same software copied? | **No** |
 | City product | See people coordinating. Dispatch + detain. Three offices. |
-| Military product | **Being strengthened.** Lock must live in the kit, not a tab. Act still Tell unless you pick a harder act below. |
+| Military product | **Lock in the gear.** Kit refuses the act until form yes. Act still to pick (Speak / Go / Look / Fire). Saw-it starts, boss seals. |
 | Regular person app | **No.** City is enough. |
 | Who you sell to | City + military. Not the public. Not enemies. |
 
@@ -49,7 +47,7 @@ The strong version is not a website they can ignore. **The gear itself will not 
 
 The dream was: government cannot run without you, and it still feels like real life, not a cartoon.
 
-You picked: **one company, two products, same kind of lock.** City: cars and holding people wait on the form. Military: **passing intel along** waits on their form. Not a copy-paste. Regular people do not get a button.
+You picked: **one company, two products, same kind of lock.** City: cars and holding people wait on the form. Military: the **gear** waits. Not a copy-paste. Not a share tab. Regular people do not get a button.
 
 City sentence:
 
@@ -57,7 +55,7 @@ City sentence:
 
 Both products:
 
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The military does not pass intel along until their form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. On the military side the lock is **in the gear** — the kit will not do the thing until the form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
 
 ---
 

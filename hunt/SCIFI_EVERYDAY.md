@@ -33,6 +33,6 @@ Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
 
 **The sentence (now):**
 
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The military does not pass intel along until their form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. On the military side the lock is in the gear — the kit will not do the thing until the form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
 
-City: dispatch and detain (dispatcher / officer / supervisor). Military: Tell (saw-it starts, boss seals). Not a how-to.
+City: dispatch and detain. Military: lock in the gear; act the kit refuses still open. Not a how-to.

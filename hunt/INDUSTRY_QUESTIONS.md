@@ -30,4 +30,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 20. **Dream vs this filing?** → **Option 2.** City is enough (no grandma button).
 21. **Military form stops?** → **Tell.** Intel does not get passed along until the form says yes.
 22. **Who starts / seals Tell?** → **Person who saw it starts. Their boss seals.** Starter cannot seal their own.
-23. **Imposing military?** → **open.** Lock must live in the kit. Options: Speak (strong Tell) / Go / Look / Fire / Speak+Go. Tab-Tell is not enough.
+23. **Imposing military?** → **Lock in the gear.** Tab is not enough. Act the kit refuses still open (Speak / Go / Look / Fire / Speak+Go).
