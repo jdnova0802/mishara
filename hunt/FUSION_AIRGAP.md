@@ -12,4 +12,8 @@ Same mouth. Sharper *target* if we don’t lie about physics.
 
 **Locked (you said bet):** same clutch, aimed at **malware cannot authorize go / restart / release** without two halves. Not cut-the-power. Not the tape. Bench is dual-control on one box, **not** air-gap until halves don’t share a wire. Toy boom stays the demo. Next real step: **physical halves**, not a nicer website.
 
-Separate company. Not Nisaba. No PLC how-to.
+**Claude confirm (locked):** dual-control ≠ air-gap. `join_sha256` on one laptop = two inputs, **one reachable checker**. Compromised box eats both “independent” halves. Air-gap = halves **do not share a wire** (separate hardware, power, network; join only by a thing you cannot remote: connector, hands, one-way). Harder, more expensive, the only version that is not a simulation.
+
+**Scope:** authorize **go / restart / release**. Not a kill of something already running. Not the tape. Not a smaller dream — an honest one.
+
+Bench stays the toy. Next real step still physical halves. No filing.
