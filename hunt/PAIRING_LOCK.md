@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. One company, two products, same kind of lock. City: dispatch/detain, three offices. Military: **lock in the gear.** Kit will not do the thing until form yes. Act still open. Saw-it / boss. Pipes / clearing **off**.
+Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. One company, two products, same kind of lock. City: dispatch/detain, three offices. Military: **lock in the gear, Fire.** Kit will not shoot until form yes. Saw-it / boss. Pipes / clearing **off**.
 
 Nisaba stays the old house. Separate owner when you actually form this. **Now:** lock only. No name. No entity. No build.
 
