@@ -33,6 +33,6 @@ Not A/S/H/R/K. Not Nisaba. Locked in `INDUSTRY_LOCK.md`.
 
 **The sentence (now):**
 
-> Nothing important moves until the form says yes. The city has one program. The military has another. Same kind of lock. Not the same program. People on the street don’t get an app.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. The military does not pass intel along until their form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
 
-City product: see people coordinating; dispatch and detain; three offices. Military product: same kind of lock, acts not named yet. Not a how-to.
+City: dispatch and detain. Military: Tell. Not a how-to.
