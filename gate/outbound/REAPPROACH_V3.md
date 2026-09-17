@@ -2,7 +2,7 @@
 
 **Decision: (b), smaller than the 12.** Do not rebuild the remaining 25. Do not re-spray the 12 S-tier `security@` / `psirt@` / `vdp@` / `soc@` / `responsibledisclosure@` inboxes. Those addresses **are** the disclosure queue. New copy on the same To: still gets the playbook.
 
-**Test set: T1–T3 only (Tipalti, Fireblocks, Anchorage).** Stop after those three unless a human answers as a vendor, not as a VDP.
+**Wave 1: T1–T3 only (Tipalti, Fireblocks, Anchorage).** Sit three business days. Do not dump the leftover 22 or re-spray the 12 `security@` names. After the sit, **silence does not kill this layout.** Next send is another **three NEW people**, same form (public object + business To: + REVIEW). Still never `security@`. Still not one 25-name night.
 
 **T4 Increase is dead.** Arnav mailed from the security alias, not as a named business contact. No named human at Increase. Do not invent a To:. Do not mail `security@increase.com` again.
 
@@ -130,7 +130,7 @@ Arnav’s mail came from the **security alias**, not a named person who engaged 
 | Slot | Why parked |
 |------|------------|
 | S-tier #1–13 `security@` / `psirt@` / `vdp@` / `soc@` / `responsibledisclosure@` | Inbox class is the bug. |
-| Remaining unsent of the 25 | Do not research 20 more until T1–T3 teach whether Contact/Info replies as vendors. |
+| Remaining unsent of the 25 | Do not dump as one spray. After T1–T3 sit, next wave is **three NEW** names with this layout — not this leftover pile as a 22-send. |
 | Column book-transfer hold/clear | Strong public object (`hold=true` then `POST /transfers/book/{id}/clear`, docs.column.com) — **no business To:** on the sheet. Do not send `security@column.com`. |
 | Modern Treasury `needs_approval` → `completed` (posted) | Strong public object — To: was `privacy@`. Do not send. |
 | D3/D5 DEPOSIT templates | Dead. |
@@ -142,15 +142,15 @@ Arnav’s mail came from the **security alias**, not a named person who engaged 
 
 The question is **did this land as a business email**, not **did they pay**. D3/D5 deposit nudges stay dead. No same-day follow-up. No “still the same ask.”
 
-**Claude cadence (locked — do not fire):** Friday follow-up does **not** go out on T1–T3. That D3/D5 clock was the old deposit-nudge on **sit-queue threads** (Checkbook / Marqeta / Retell / My AskAI). Those templates are dead for this test. A second touch that is “still the same ask” is hope with a calendar. Stavan / Munich Re / a patent thread are **not** a license to mail names 4+ after silence. Quit trigger for **this** test is the table below, **not** “H1 needs a cleared deposit so the next batch ships anyway.” Quiet T1–T3 is not a verdict on Gate. It is also not a next To: **on this 25**.
+**Claude cadence (locked — do not fire):** Friday follow-up does **not** go out on T1–T3. That D3/D5 clock was the old deposit-nudge on **sit-queue threads** (Checkbook / Marqeta / Retell / My AskAI). Those templates are dead. A second touch that is “still the same ask” is hope with a calendar. Stavan / Munich Re / a patent thread are **not** a license to dump names 4+ **during** the sit. Quit trigger is not “H1 needs a cleared deposit so mail 22 tonight.” Quiet T1–T3 is not a verdict on Gate and not a verdict on this layout. It is a verdict on **these three inboxes**. The leftover 25-sheet stays dead. **New people, same layout, next three** is allowed after the clock.
 
 **Clock (business days, US Eastern):**
 
 | When | What you are allowed to conclude |
 |------|----------------------------------|
 | Same day / next morning | Nothing. Auto-acks and “we’ll get back to you” are not a yes or a no. |
-| Through **3 business days** | Slow is the default. A REVIEW-shaped reply, a forward, or “looping in ops” is **pending**, not a win. Sit. Do not send names 4+. |
-| End of day **3** with **no human** on all three | Read as **silence**. Stop. Do not scale the remaining 22. |
+| Through **3 business days** | Slow is the default. A REVIEW-shaped reply, a forward, or “looping in ops” is **pending**, not a win. Sit. Do not send names 4+ **yet**. |
+| End of day **3** with **no human** on all three | These three are silent. Do **not** scale the remaining 22. Do **not** nudge T1–T3. **Do** pick the next **three NEW** names (same layout). A decline on a later wave is signal. Silence on three `contact@` is not a layout funeral. |
 | End of day **5** on a thread that forwarded internally with still no named ops owner | Read that name as **no decision**. Do not chase. Do not expand the list on the hope they’ll come back. |
 
 **Stop that name immediately (do not wait 3 days):**
@@ -159,16 +159,16 @@ The question is **did this land as a business email**, not **did they pay**. D3/
 - Reply from `security@` / `psirt@` / `vdp@` / `soc@` even if a real first name is on it (Arnav rule: functional inbox ≠ business contact)
 - “Please do not contact us” / bounce to the disclosure queue
 
-If **any** of the three dies that way, do **not** treat the other two as permission to spray the rest of the 25. Finish sitting the ones that are still pending. Then stop.
+If **any** of the three dies that way, do **not** treat the other two as permission to spray the rest of the 25. Finish sitting the ones that are still pending. If **all three** file as VDP from this letter, the layout still smells like disclosure — stop **this letter**, not just the sheet.
 
-**Keep going (add more names, same form: public object + business To: + REVIEW, never security@)** only if:
+**Keep going (next three NEW names, same form: public object + business To: + REVIEW, never security@)** when:
 
-- A **named payments / payouts / transfer / bank-ops person** answers as a vendor: REVIEW, “send the memo,” or an intro to that desk
-- Not a ticket bot, not a security alias, not “I forwarded it” with no owner
+- The 3-day sit on the current wave is done, **even if all three were silent**, or
+- A **named** payments / payouts / transfer / bank-ops person answers as a vendor (REVIEW, “send the memo,” intro) — that is a hit; still batch-size three, not twenty-two
 
-One such reply is enough to justify **the next small batch** (same size: three, not the leftover 22). Zero such replies after the 3-day silence read = the categorization fix failed or did not get a chance. Either way, **do not scale**.
+Not a ticket bot. Not a security alias. Prefer a named human when you can find one. `contact@` / `info@` is allowed for the layout test; it is a weak inbox, not proof the letter is dead.
 
-**Silence ≠ company over. Silence ≠ never outbound again.** It kills **this sheet**: leftover 22, Friday/D3/D5 on T1–T3, more `contact@` / `info@` with the same letter. Buyer talk after that is a **named human** (warm intro, someone who already answers, or a different door like Bind Room to an actual GC) — not volume as the fix. Do not invent that list tonight. Do not quit W2 on these three.
+**Volume, honestly:** the 12-to-`security@` was volume at the **wrong To:**. That is how you get a decline from a disclosure desk and a VDP week. Volume of **this** layout is waves of three **new** people, not one night of 22 leftovers. Do not invent the next three tonight. Do not quit W2 on T1–T3.
 
 **Middle cases, decided now:**
 
