@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Before modernizing: `hunt/BEFORE_MODERNIZE.md`. Mood board ≠ SKUs. Three bodies: boom, wedge, pad.
+Modern kit pics: `hunt/MODERN_KIT.md`. Boom, wedge, pad, hangar-doors, two stations, horn.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
