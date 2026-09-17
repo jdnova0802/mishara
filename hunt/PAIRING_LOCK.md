@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Godly gates: `hunt/KIT_GODLY.md`. Ishtar, Karnak, Colossus, Pharos, Petra, Persepolis.
+Physics map (one lock, earth/water/air/light/sound/time/info): `hunt/KIT_PHYSICS.md`. Hidden gem: Hero’s temple doors.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
