@@ -119,6 +119,12 @@ Test-range safety. Movable bridges. Port pilots + engine telegraph. EOD robot th
 
 Not “AI.” The weird-useful pile: **speech-act** (when a yes becomes the world), **control of a moving body** (the thing that rolls or flies), **two-person control**, **fail-closed**. That is distinctive. Link-analysis and dispatch UI are not.
 
-**Opinion:** stay city + military. Change what you *are*. You are not the map. You are the reason the kit will not go. If you want even weirder customers later, pick one physical cousin (bridge, canal, range) — same lock, not a fourth brain.
+**Highly recommend (not discussed before):** the **drawbridge / canal lock** as the picture people remember. The span does not move until the form. City pays. Tuesday: traffic waits. Not a 911 map. Palantir does not come up. Same lock as military **Go** (body in the world).
+
+**Second, if you want more teeth:** the **ship that will not leave** (harbor boom / engine will not answer). More imposing. More military-shaped. Still not a crime map.
+
+Do not pick observatory shutter (weak). Do not pick sally port (you land back in cops). Do not pick mine conveyor or jet bridge (no dream). Dam gate is imposing and looks like industrial-safety OEMs.
+
+Stay one lock. These are cousins of Go, not a fourth brain. No how-to. No name.
 
 ---
