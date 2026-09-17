@@ -1,4 +1,7 @@
 DESK A — what you learn (engine)
+If you are on the pipes hold (new company, later): stop. Use hunt/PIPES_EXECUTABLE.txt. This file is the old tape spear. Do not run it as that spine.
+Role going forward: hunt/ROLE_SUBSTANCE.md — not the face; the mechanism cold.
+
 Subject = the technical field. Study = the exact source. One subject at a time, in order.
 Not diligence mail. Desk B is not a stack.
 
@@ -28,6 +31,10 @@ Not diligence mail. Desk B is not a stack.
 JOIN (not a class)
 Anyone recomputes Δ from a public posted-price tape and gets the same number.
 If only you can print Δ, this stays a 6.
+Mass fields (rent / house / fare / ticket / grocery / wage): hunt/INDUSTRY_SCAN.md — not a second stack.
+Deeper (circular vs wage, S ≠ Δ ≠ Λ): hunt/INDUSTRY_DEEP.md.
+Wants/needs, smaller cuts: hunt/DESIRE_WEDGES.md.
+Dreams, high-frequency, no ruse: hunt/DREAM_LOOPS.md. Grocery is not this hunt.
 
 
 APPENDICES — same format, after 1–6 only

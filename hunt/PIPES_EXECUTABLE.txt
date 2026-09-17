@@ -1,0 +1,65 @@
+PIPES — what you learn (engine)
+FINAL. Subject = the field name. Study = the exact source. One subject at a time, in order. Finish it before the next.
+Not insurance. Not Desk A. Not a company tonight. Not the court shop.
+Role: hunt/ROLE_SUBSTANCE.md — technical co-founder / principal engineer, not CEO. Flag performative drift.
+
+You are on 1 until 1 is finished.
+
+
+1. Subject: Clearing and settlement
+   Warmup (allowed, finish fast): CPMI, A glossary of terms used in payments and settlement systems.
+   https://www.bis.org/cpmi/publ/d00b.htm
+   Then (strict): CPMI-IOSCO, Principles for Financial Market Infrastructures (April 2012).
+   https://www.bis.org/cpmi/publ/d101.htm
+   Read the principles and the key considerations. Not a press deck.
+   Then: David Loader, Clearing, Settlement and Custody (Elsevier / Butterworth-Heinemann, 3rd ed. 2019 or later if you have it).
+   Then: UCC Article 4A (Funds Transfers) + Official Comments.
+   https://www.law.cornell.edu/ucc/4A
+   Object: when a send is final, who is on the hook, what fails closed. Do not photocopy a named pipe.
+
+2. Subject: Game theory
+   Study: Martin J. Osborne, An Introduction to Game Theory (Oxford University Press).
+   Finish the book. Do not start Fudenberg & Tirole at the same time.
+
+3. Subject: Focal points
+   Study: Thomas C. Schelling, The Strategy of Conflict (Harvard University Press, 1960).
+   How a room of institutions picks a default without a meeting.
+
+4. Subject: Information theory
+   Study: David J.C. MacKay, Information Theory, Inference, and Learning Algorithms (Cambridge University Press, 2003).
+   Free: https://www.inference.org.uk/mackay/itila/
+   Finish it. What’s known, when, at the moment a send is final.
+
+5. Subject: Cryptography
+   Study: Jonathan Katz and Yehuda Lindell, Introduction to Modern Cryptography (CRC Press, 3rd ed. 2021).
+   Not a coin. Not a chain. Live yes = signed grant, every time, stranger-checkable.
+
+6. Subject: Distributed systems
+   Study: Martin Kleppmann, Designing Data-Intensive Applications (O’Reilly, 2017).
+   Clocks, replication, what “it landed” means when you are the pipe.
+
+
+AFTER 1–6 ONLY
+
+7. Subject: Information theory
+   Study: Thomas M. Cover and Joy A. Thomas, Elements of Information Theory (Wiley, 2nd ed. 2006).
+   Same field as 4, denser. Do not start this until MacKay is actually finished. Unfinished Cover is a prop.
+
+
+JOIN (not a class)
+A stranger checks that a send did or did not have a live yes. Same bytes, two people.
+If only you can see it, this stays theater.
+Mass door: send. You are the pipes. Live yes every time.
+
+Vendor from the lineup (ruling vs mass): hunt/VENDOR_FROM_STACK.md.
+
+
+SHOP B — courts (not this lineup)
+Do not study as 1–6. Do not jam into the pipes.
+1. Subject: Speech-act theory
+   Study: J.L. Austin, How to Do Things with Words (Oxford, 2nd ed. 1975, Urmson & Sbisà).
+   Draft is not a filing.
+2. Subject: Performative Seal
+   Study: gate/EDGE_PASS_2026-09-15.md — S3 (S-tier commits if missing on this branch).
+   Checkers are crowded. The file-gate is open.
+No more court books until you open Shop B on purpose.
