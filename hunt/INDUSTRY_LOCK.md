@@ -141,4 +141,33 @@ Do not pick observatory shutter (weak). Do not pick sally port (you land back in
 
 Stay one lock. These are cousins of Go, not a fourth brain. No how-to. No name.
 
+### More elements (brainstorm — keep a few, not a catalog)
+
+Distinctive is a **small ritual that repeats**. If you add twelve gimmicks you look like a startup. Same lock on bridge, city car, military kit.
+
+**Keep (image):**
+
+1. **The wait is the product.** Cars, boats, a kit on the pad. People can *see* nothing is happening. Palantir is a screen. You are a pause in the world.
+2. **Two bodies, two places.** Starter and sealer are not two clicks on one phone. Two stations. If they’re in the same chair, it’s CAD with extra steps.
+3. **Draft is ugly. Yes is the only pretty state.** Lights / horn / arm only on a real yes. A draft does nothing. The structure stays dead. That’s draft ≠ filing on a bridge.
+4. **A stranger can check.** A receipt on the structure or a public “yes happened” that isn’t a map of people. Anyone can tell a fake from a yes. No faces. No suspects.
+5. **Rest state is stopped.** Bridge down/closed, kit still, until yes. Fail-closed. You are the default no.
+6. **No picture of people.** If a face or a cluster of dots is on the glass, you lose. The glass if any only shows the form: draft or yes.
+7. **The same mouth everywhere.** Bridge, patrol car, military kit: one sentence. “It will not go until the form.” That’s the distinctive brand without a name.
+8. **Yes expires.** A stale yes does not move a span at 3am. Time is part of the form. Screenshots don’t open bridges.
+9. **Sound as the speech-act.** A horn/bell that *only* sounds when the form seals — not when someone mashes a button. The city hears the yes. Weird. Memorable. Very not Palantir.
+10. **Physical token optional.** A thing you can hold that is not the yes (the draft) until it seals. Cute if it serves the form. Kitsch if it’s merch.
+
+**Kill (looks distinctive, makes you smaller):**
+
+- AI that “suggests” when to open. That’s CAD.
+- A social app for watching bridges. That’s grandma-as-user, you already cut.
+- Painting the bridge a weird color as the company. That’s a logo, not a lock.
+- Observatory, stadium roof, jet bridge as extra products tonight. Cousins later.
+- Showing who is in the cars. That’s a map of people again.
+
+**Opinion:** keep 1, 2, 3, 4, 5, 7, 8. Add 9 if you want it *weird* in public. Token (10) only if it is the form, not a souvenir.
+
+---
+
 ---
