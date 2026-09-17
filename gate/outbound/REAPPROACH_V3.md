@@ -4,7 +4,7 @@
 
 **Wave 1: T1–T3** (Tipalti, Fireblocks, Anchorage) already in flight. Sit them. Do not dump the leftover 22 or re-spray the 12 `security@` names.
 
-**Cadence:** three **new** people every **three business days** (US Eastern) while the current wave is silent. That is “till a real response,” not till an auto-ack. A real response = named ops / REVIEW / “send the memo” / a question about the public path → **stop the metronome**, write the 72h memo, convert to $5–8k if they like it. Do not keep mailing new names in parallel with a live trial. Whole wave files VDP → stop **this letter**. Out of real To: + public objects → stop inventing. Never nudge the previous wave. Never `security@`.
+**Cadence (you said Deal):** three **new** people every **three business days** (US Eastern) while the current wave is silent. That is “till a real response,” not till an auto-ack. A real response = named ops / REVIEW / “send the memo” / a question about the public path → **stop the metronome**, write the 72h memo, convert to $5–8k if they like it. Do not keep mailing new names in parallel with a live trial. Whole wave files VDP → stop **this letter**. Out of real To: + public objects → stop inventing. Never nudge the previous wave. Never `security@`.
 
 **T4 Increase is dead.** Arnav mailed from the security alias, not as a named business contact. No named human at Increase. Do not invent a To:. Do not mail `security@increase.com` again.
 
