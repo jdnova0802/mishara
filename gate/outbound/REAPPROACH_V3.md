@@ -142,6 +142,8 @@ Arnav’s mail came from the **security alias**, not a named person who engaged 
 
 The question is **did this land as a business email**, not **did they pay**. D3/D5 deposit nudges stay dead. No same-day follow-up. No “still the same ask.”
 
+**Claude cadence (locked — do not fire):** Friday follow-up does **not** go out on T1–T3. That D3/D5 clock was the old deposit-nudge on **sit-queue threads** (Checkbook / Marqeta / Retell / My AskAI). Those templates are dead for this test. A second touch that is “still the same ask” is hope with a calendar. Stavan / Munich Re / a patent thread are **not** a license to mail names 4+ after silence. Quit trigger for **this** test is the table below, **not** “H1 needs a cleared deposit so the next batch ships anyway.” Quiet T1–T3 is not a verdict on Gate. It is also not a next To:.
+
 **Clock (business days, US Eastern):**
 
 | When | What you are allowed to conclude |
