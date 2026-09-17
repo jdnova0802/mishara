@@ -88,13 +88,9 @@ Sticky is a different score. Palantir is **sticky ~7** and **unpluggable ~3**. D
 
 **Exciting vs taken:** Palantir ate the *god-view* (see everyone, know everything). Anduril ate the *cool robot*. The leftover that is still a movie is the **spell on the gate**: the span will not lift, the kit will not leave the pad, the city waits, a horn is the yes. That is exciting if you sell the pause in the world. It is boring if you sell a permission PDF. God-view is taken. Gate-spell is not their product.
 
----
+**Buildable:** the **5** is an integration if they let you into the go-path. The form is bench-buildable. **8–9** needs you to be the kit.
 
----
-
----
-
----
+**When to build:** not tonight. Bench the form when you want proof of the mouth. Sit the 5 when a real go-path lets you in.
 
 ---
 
