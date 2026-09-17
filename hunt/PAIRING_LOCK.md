@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Claude fusion (kill-switch air-gap): `hunt/FUSION_AIRGAP.md`. Same clutch. Bench is not air-gap yet. Don’t pitch cutting power.
+Fusion locked: go/restart auth, not kill. Physical halves next. `hunt/FUSION_AIRGAP.md`.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 

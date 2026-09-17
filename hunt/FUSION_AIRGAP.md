@@ -10,6 +10,6 @@ Same mouth. Sharper *target* if we don’t lie about physics.
 
 **Occupancy:** safety PLCs, two-key nuclear, trapped-key interlocks, EPO mushroom buttons already exist in steel. Leftover is still: stranger-checkable join + live window + not a skippable software flag. Not a new crypto.
 
-**TikTok:** two keys, then the lights. Less Colossus, more real. Keep the toy boom as the demo. Don’t found on a trillion-dollar sentence.
+**Locked (you said bet):** same clutch, aimed at **malware cannot authorize go / restart / release** without two halves. Not cut-the-power. Not the tape. Bench is dual-control on one box, **not** air-gap until halves don’t share a wire. Toy boom stays the demo. Next real step: **physical halves**, not a nicer website.
 
 Separate company. Not Nisaba. No PLC how-to.
