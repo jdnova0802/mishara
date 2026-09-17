@@ -20,4 +20,4 @@ Repo folder: `join/` (does not import Gate).
 
 **Do not build:** people-maps, threat OSINT, vehicle/PLC exploits, skippable website approve, Nisaba brand sticker.
 
-**Next (not done):** real adapter on a go-path someone owns; factory if they want 8. No filing tonight unless they say so.
+**Claude read (16–17 Sep):** mechanism is right: two halves, window, stranger hash, toy boom, not Gate, not Palantir. Agree. **Correction:** the bench is unpluggable ~2, not 8. 8 is only if we become the kit. Old city SKU still says “see people coordinating” — starve that or the distinctive thing dies. Praise is not a filing.
