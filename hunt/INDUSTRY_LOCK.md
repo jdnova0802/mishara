@@ -93,4 +93,32 @@ Mechanism is named for both products.
 
 **I like this more than Tell-in-a-tab and more than Fire.** Tell was weak. Fire was the wrong company. Go fits. Don’t found on the sentence.
 
-Nothing else changes the company tonight. No how-to. No name. You build the lock. Someone else is the face.
+---
+
+## Distinctive vs CAD / Palantir (English)
+
+You get those names because the **city sentence still sounds like them.** “See people coordinating, then dispatch.” Palantir is the seeing. CAD is the sending. Poetry on top will not save that.
+
+**The distinctive thing you already have** is not a weirder crime map. It is: **the act is not real until the form, and the body in the world will not move without it.** Palantir does not stop an axle. CAD types a ticket. You own the axle (city car / military kit) plus detain on the city side.
+
+To stop the comparison: **do not sell a picture of people.** Sell the lock in the gear. Their CAD and Palantir can stay on the glass. If the car still rolls when those are open and you are unplugged, you are them.
+
+### Weird
+
+Canal lock. Drawbridge. Sally port. Harbor boom. Ferry ramp. Range gate on a test track. Observatory shutter. Quarantine flag on a hull. Things that are already “this physical thing does not move until a yes,” but nobody sold that yes as a stranger-checkable form in the kit.
+
+### Niche
+
+Test-range safety. Movable bridges. Port pilots + engine telegraph. EOD robot that will not roll. Grain / mine conveyor. Stadium roof. Jet bridge. Dam gate. Not cop software. Same lock: body waits.
+
+### Mainstream (the trap)
+
+911 screens. Intel maps. Slack “approve.” DocuSign. Airplane “cleared for takeoff” as a webpage. Car kill-switches in the news. These *sound* big and they dump you back into CAD / Palantir / OEM.
+
+### Other (the actual subjects)
+
+Not “AI.” The weird-useful pile: **speech-act** (when a yes becomes the world), **control of a moving body** (the thing that rolls or flies), **two-person control**, **fail-closed**. That is distinctive. Link-analysis and dispatch UI are not.
+
+**Opinion:** stay city + military. Change what you *are*. You are not the map. You are the reason the kit will not go. If you want even weirder customers later, pick one physical cousin (bridge, canal, range) — same lock, not a fourth brain.
+
+---
