@@ -32,4 +32,4 @@ Inventions that **mint a face** (people point at the thing, then at you):
 
 **Opinion:** **A** is the S-tier invention that makes a distinctive face. B is the runner-up myth. Don’t brew ten more god-views.
 
-Do not found tonight. You build the object. The face is of the object.
+**Kill switch:** no company two without a filmable machine-that-won’t-go. PDF doesn’t count. Their jet/drone/glass edits are not yours to steal. If that’s the bar, this shop is off.

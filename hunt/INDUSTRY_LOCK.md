@@ -92,7 +92,9 @@ The clutch’s glow is **the gate** — old as kings, not a spreadsheet. Pad wil
 
 **Buildable:** the **5** is an integration if they let you into the go-path. The form is bench-buildable. **8–9** needs you to be the kit.
 
-**When to build:** not tonight. Bench the form when you want proof of the mouth. Sit the 5 when a real go-path lets you in.
+**Kill switch (you just said it):** do not do company two if there is no **filmable product**. Nisaba is already the boring house. A permission screen does not count. Palantir/Anduril/Lockheed *edits* (glass, drones, jets) are their objects. You only get an edit if **a machine refuses to go on camera** (span, pad, horn). If that still isn’t enough because you want *their* footage, **don’t found this shop.** Don’t build a people-map to steal their movie.
+
+---
 
 ---
 
