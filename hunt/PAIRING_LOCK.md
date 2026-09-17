@@ -12,7 +12,11 @@ The second-company **yes** is **form** (judge-shaped, not a real bench). Draft i
 
 Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. One company, two products, same kind of lock. City: dispatch/detain, three offices. Military: **lock in the gear, Go.** Kit will not move / take off until form yes. Saw-it / boss. Pipes / clearing **off**.
 
-Nisaba stays the old house. Separate owner when you actually form this. **Now:** lock only. No name. No entity. No build.
+**This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
+
+Same *shape* of mouth (nothing real until yes). Different object, different buyers, different heat (cops, kit that will not go). Put it under Nisaba and you stain the old house and you look like a feature. Too big, too armed, too city-hall. Rhyme is enough. One LLC is congestion.
+
+Nisaba stays the old house. Someone else is the face here too. **Now:** lock only. No name. No entity. No build.
 
 Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
 
