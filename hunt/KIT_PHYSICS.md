@@ -19,4 +19,11 @@ Not ten companies. Same yes in the gear. Different physics so the picture isn’
 
 **Qanat + windcatcher:** air and water as civilizational kit, not a dashboard.
 
-One lock. Multiple physics. Separate company. No filing. No how-to on dams.
+**TikTok, almost the biggest:**
+
+Biggest wow you don’t ship: **Colossus** (a god for legs).  
+Biggest color: **Ishtar**.  
+Biggest *you can film as the product:* **the boom opening** — pause, then the hull moves.  
+Biggest godly mechanism: **Hero’s doors** — the offering was real, the mouth opens.
+
+Almost-the-biggest that is still a company: **boom-opens + temple-doors as the myth.** Don’t try to own a bronze giant.
