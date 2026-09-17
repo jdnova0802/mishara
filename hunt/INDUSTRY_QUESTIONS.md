@@ -30,4 +30,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 20. **Dream vs this filing?** → **Option 2.** City is enough (no grandma button).
 21. **Military form stops?** → **Tell.** Intel does not get passed along until the form says yes.
 22. **Who starts / seals Tell?** → **Person who saw it starts. Their boss seals.** Starter cannot seal their own.
-23. **Imposing military?** → **Lock in the gear. Fire.** Most powerful act. Most crowded door. Kit will not shoot until form yes.
+23. **Imposing military?** → **Lock in the gear. Go.** Overlap of most powerful and least crowded. Not Fire (crowded). Not Look (weaker).

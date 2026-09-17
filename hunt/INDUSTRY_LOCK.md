@@ -6,9 +6,9 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 **Product 1 — city (locked).** City pays. Police in. Sees when **people** are coordinating. Gates **dispatch** and **detain**. Dispatcher starts dispatch. Sworn officer starts detain. Shift supervisor seals. Submitter cannot seal their own. Worker tool. Not grandma’s phone. Bolt onto the city’s kit.
 
-**Product 2 — military (locked).** Same kind of lock. **Different program.** Saw-it starts, boss seals. **The lock lives in the gear.** The kit will not **Fire** until the form says yes. The shot does not leave. If they pull a cable and it still fires, you are paint. You do not shoot. You own the yes in the box. Factory later is fine if you bolt onto **their** kit now.
+**Product 2 — military (locked).** Same kind of lock. **Different program.** Saw-it starts, boss seals. **The lock lives in the gear.** The kit will not **Go** until the form says yes. It does not move / does not take off. If they pull a cable and it still goes, you are paint. You do not drive it. You own the yes in the box. Factory later is fine if you bolt onto **their** kit now.
 
-This is the most powerful act. It is also the most already-owned (weapons-release, two-person, codes). Leftover only if a stranger can check the form **and** the kit cannot skip it. Not a tab. Not Tell-as-email.
+**Why Go:** you asked for **most powerful and least crowded.** Fire is the most powerful and the most crowded. Look is emptier and weaker. Speak is a quiet radio — COMSEC already owns it. **Go** is the overlap: the body in the world waits (imposing) without walking into weapons-release. C2 still exists. Leftover only if the kit itself cannot move without the form, stranger-checkable. Not a tab.
 
 **Customers:** city government and military. Regular people are **not** customers. The city is enough for that side of the dream.
 
@@ -29,7 +29,7 @@ This is the most powerful act. It is also the most already-owned (weapons-releas
 | The lock | **Form** — nothing goes until yes |
 | Same software copied? | **No** |
 | City product | See people coordinating. Dispatch + detain. Three offices. |
-| Military product | **Lock in the gear. Fire.** Kit will not shoot until form yes. Saw-it starts, boss seals. |
+| Military product | **Lock in the gear. Go.** Kit will not move / take off until form yes. Saw-it starts, boss seals. Least-crowded × most-powerful overlap. Not Fire. |
 | Regular person app | **No.** City is enough. |
 | Who you sell to | City + military. Not the public. Not enemies. |
 
@@ -41,7 +41,7 @@ This is the most powerful act. It is also the most already-owned (weapons-releas
 | Sworn officer | Submits detain |
 | Shift supervisor | Seals |
 
-**Military (kept):** person who **saw** it starts. Their **boss** seals. The kit will not **Fire** until that yes. Starter cannot seal their own.
+**Military (kept):** person who **saw** it starts. Their **boss** seals. The kit will not **Go** until that yes. Starter cannot seal their own.
 
 ---
 
@@ -49,7 +49,7 @@ This is the most powerful act. It is also the most already-owned (weapons-releas
 
 The dream was: government cannot run without you, and it still feels like real life, not a cartoon.
 
-You picked: **one company, two products, same kind of lock.** City: cars and holding people wait on the form. Military: the **gear will not fire** until the form. Most powerful act. Not a copy-paste. Not a share tab. Regular people do not get a button.
+You picked: **one company, two products, same kind of lock.** City: cars and holding people wait on the form. Military: the **gear will not go** until the form. Most powerful *and* least crowded of the four is a split — **Go is the overlap.** Not Fire (too crowded). Not Look (too weak). Not a share tab. Regular people do not get a button.
 
 City sentence:
 
@@ -57,7 +57,7 @@ City sentence:
 
 Both products:
 
-> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. On the military side the lock is in the gear — the kit will not fire until the form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
+> The city pays to see when people line up to mean it. Dispatch and detain don’t go until the form says yes. On the military side the lock is in the gear — the kit will not go until the form says yes. Same kind of lock. Not the same program. People on the street don’t get an app.
 
 ---
 
@@ -67,13 +67,13 @@ Both products:
 
 **The city side is the clearer Tuesday.** Sending a car and holding someone waiting on a form is something a shift actually does. Palantir and CAD still sit on that door. It only exists if they cannot skip it.
 
-**The military side is Fire in the gear.** Most powerful. Most crowded. Weapons already wait for a yes. You only exist if the kit cannot fire with you gone, and a stranger can check the form. Not new-to-earth by default. Imposing if skip is physically impossible.
+**The military side is Go in the gear.** Body in the world waits. Stronger than Speak/Look. Emptier than Fire. Still C2 in the aisle. You only exist if the kit cannot move with you gone.
 
-**Physically and digitally:** digital = the form. Physical = the shot does not leave the box. Unplug the lock and it does not fire.
+**Physically and digitally:** digital = the form. Physical = it does not take off / does not roll. Unplug the lock and it stays put.
 
-**Role:** Fire wants a weapons-company face. Your lock is still the person who builds the lock in the kit, not the TV general. You do not shoot.
+**Role:** Go still wants a prime-shaped sales motion. You build the lock in the kit. You do not fly it. Someone else is the face.
 
-**The dream minus grandma.** City: cars and holding people. Military: the kit will not fire. Regular people are not customers. Don’t call it a phone app.
+**The dream minus grandma.** City: cars and holding people. Military: the kit will not go. Regular people are not customers. Don’t call it a phone app.
 
 **Two sales, one engineer.** City police shops and military intel are different buyers. That wants a face and a catalog team. Your lock is still: you build the lock, someone else is the face.
 
@@ -85,4 +85,4 @@ Both products:
 
 Mechanism is named for both products.
 
-Nothing else changes the company tonight. Later: cold check that a kit can still fire with you unplugged. If yes, you have nothing. Fire is the most crowded door. No how-to. No name. You build the lock. Someone else is the face.
+Nothing else changes the company tonight. Later: cold check that a kit can still move with you unplugged. If yes, you have nothing. Go is less crowded than Fire, not empty. No how-to. No name. You build the lock. Someone else is the face.
