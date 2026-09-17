@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Kit pictures (ancient / filmable): `hunt/KIT_BREW.md`. Opinion: harbor chain or portcullis.
+Godly gates: `hunt/KIT_GODLY.md`. Ishtar, Karnak, Colossus, Pharos, Petra, Persepolis.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
