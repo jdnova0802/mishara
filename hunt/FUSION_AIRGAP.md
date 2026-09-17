@@ -16,4 +16,6 @@ Same mouth. Sharper *target* if we don’t lie about physics.
 
 **Scope:** authorize **go / restart / release**. Not a kill of something already running. Not the tape. Not a smaller dream — an honest one.
 
-Bench stays the toy. Next real step still physical halves. No filing.
+**Human vs LLC:** Dual-control already is two humans (starter / sealer). Air-gap next is **physical halves** — often a **hand join** so a remote agent cannot complete it. That’s a human *action*, not “hire the face.” The face is still the object.
+
+**When to start:** the **bench** already started (no LLC needed). A **proper LLC** before you sell, take a partner’s boom/pad, or build halves that sit on real go/restart. Don’t file tonight. Don’t wait on a filing to keep the toy. Don’t wire a plant as a person with a GitHub folder.
