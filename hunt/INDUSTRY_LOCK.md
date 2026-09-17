@@ -6,9 +6,13 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 **Product 1 — city (locked).** City pays. Police in. Sees when **people** are coordinating. Gates **dispatch** and **detain**. Dispatcher starts dispatch. Sworn officer starts detain. Shift supervisor seals. Submitter cannot seal their own. Worker tool. Not grandma’s phone. Bolt onto the city’s kit.
 
-**Product 2 — military (locked).** Same kind of lock. **Different program.** Do not copy the city tool onto their gear. The form stops **Tell**: they do not pass the intel along until the form says yes. The person who **saw** it starts. Their **boss** seals. Submitter cannot seal their own. You do not fly, shoot, or brief. You own the yes on telling.
+**Product 2 — military (being made stronger).** Same kind of lock. **Different program.** Saw-it starts, boss seals, still. **Tell as a share button is not enough.** You want this side as strong or stronger than the city, **new**, and **imposing in the room and on the screen.**
 
-**Customers:** city government and military. Regular people are **not** customers. The city is enough for that side of the dream.
+The strong version is not a website they can ignore. **The gear itself will not do the thing until the form says yes.** Skip is impossible in the box, not in a policy. That is digital (the form) and physical (the kit sits there; without it the thing does not happen). Factory can still be later if you bolt this lock onto **their** radios, vehicles, sensors — the lock has to live in the loop, not in a tab.
+
+“No one has done this” is the bar, not a fact yet. Two-person “boss says yes” already exists. Weapons that wait for a code already exist. Share buttons already exist. The empty-looking slot is: **stranger can check the form, and the physical kit cannot go around it.** If they can pull a cable and still Tell/Go/Fire, you are paint.
+
+---
 
 **Out:** competitors and enemies. You do not send the car, hold the person, fly the mission, or sit the bench.
 
@@ -25,7 +29,7 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 | The lock | **Form** — nothing goes until yes |
 | Same software copied? | **No** |
 | City product | See people coordinating. Dispatch + detain. Three offices. |
-| Military product | **Tell.** Person who saw it starts. Their boss seals. Different program. |
+| Military product | **Being strengthened.** Lock must live in the kit, not a tab. Act still Tell unless you pick a harder act below. |
 | Regular person app | **No.** City is enough. |
 | Who you sell to | City + military. Not the public. Not enemies. |
 
@@ -63,7 +67,11 @@ Both products:
 
 **The city side is the clearer Tuesday.** Sending a car and holding someone waiting on a form is something a shift actually does. Palantir and CAD still sit on that door. It only exists if they cannot skip it.
 
-**The military side is the weaker leftover.** “Don’t pass intel until the boss says yes” is already how a lot of intel works. Need-to-know, release authority, share buttons. Tell plus saw-it-plus-boss is the most normal military habit we could have picked. That’s honest. It also means occupancy is ugly unless the form is a different kind of real than the share button they already have.
+**The military side as a tab is the weaker leftover.** You just said you will not accept that. Strong means the **kit** will not Speak / Go / Look / Fire until the form. That is imposing. “Brand new to earth” is not automatic. The honest empty slot is fail-closed **in the gear**, stranger-checkable, not another policy.
+
+**Physically and digitally:** digital = the form. Physical = the box is in the loop; unplug the lock and the thing does not work. Factory later still works if their kit is the body and your lock is what it cannot skip.
+
+**Role:** imposing wants a prime and a face. Your lock is still the person who builds the lock in the kit, not the TV general.
 
 **The dream minus grandma.** Government cannot run without the form (city move/hold, military tell). Regular people are not customers. That’s the size you picked. Don’t call it a phone app.
 
@@ -73,6 +81,14 @@ Both products:
 
 ---
 
-Mechanism is locked for both products.
+## Still open
 
-Nothing else changes the company tonight. Later: cold check that Tell cannot skip the form (they already have share buttons). No how-to. No name. You build the lock. Someone else is the face.
+**What may the military kit not do until the form — and the kit itself refuses?** Pick one or two. Saw-it still starts. Boss still seals. You still do not fly, shoot, or brief. You own the yes **in the box**.
+
+1. **Speak (strong Tell)** — the radio / the net will not send the intel until yes. Not a share button. The box stays quiet.
+2. **Go** — it does not move / does not take off until yes. The body in the world waits.
+3. **Look** — the sensors stay dark toward a person or a place until yes.
+4. **Fire** — it does not shoot until yes. Strongest and most already-owned by weapons-release. Different animal.
+5. **Speak + Go** — quiet and still until yes. Physically and digitally imposing without copying city dispatch/detain.
+
+If you keep Tell only as a screen, it will not be as strong as the city. If you want imposing, the lock is **in the gear**.
