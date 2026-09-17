@@ -57,8 +57,21 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 ---
 
+## How this sits
+
+**Better than the catalog.** City-only + one form is a company. Four families + hangar + factory was a holding company. Cutting the mission brain was the right cut.
+
+**The leftover is the form, not the eyes.** Palantir already sees people for cop shops. CAD already dispatches. If the form can be skipped, this is paint. If it cannot, that is the weld.
+
+**Smaller than the dream you started with.** Ruling class here is the city shift, not Five Eyes. Masses are not users. Detain+people+cops is a face product; your lock is still not the face. That tension stays.
+
+**Not a laptop proof.** Occupancy is the wound. Cold check later: unskippable city form vs Palantir approve-chip vs CAD vs e-warrant skin. Do not found on the sentence.
+
+---
+
 ## Still open
 
-City door is locked. Mission is **not this brain**.
+Mechanism is locked. Mission is **not this brain**.
 
-Nothing else changes this company tonight. Occupancy vs Palantir/CAD is a later cold check. Study follows the form — not PFMI, not a how-to on people. No name. No filing.
+1. **US cities only, or allied cities too?** Does not change the form. Changes who you sell to. Fine to leave.
+2. Occupancy vs Palantir/CAD/e-warrant is a later cold check, not a vibe. Study follows the form. No name. No filing.
