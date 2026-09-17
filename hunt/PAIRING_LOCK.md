@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Palantir what-they-do: `hunt/PALANTIR_WHAT.md`. See/link/decide on other people’s data. Not the clutch.
+S-tier brew (invest like Nisaba = one mouth): `hunt/S_TIER_BREW.md`. Not a Palantir pile.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
