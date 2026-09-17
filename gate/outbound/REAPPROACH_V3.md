@@ -2,7 +2,9 @@
 
 **Decision: (b), smaller than the 12.** Do not rebuild the remaining 25. Do not re-spray the 12 S-tier `security@` / `psirt@` / `vdp@` / `soc@` / `responsibledisclosure@` inboxes. Those addresses **are** the disclosure queue. New copy on the same To: still gets the playbook.
 
-**Wave 1: T1–T3 only (Tipalti, Fireblocks, Anchorage).** Sit three business days. Do not dump the leftover 22 or re-spray the 12 `security@` names. After the sit, **silence does not kill this layout.** Next send is another **three NEW people**, same form (public object + business To: + REVIEW). Still never `security@`. Still not one 25-name night.
+**Wave 1: T1–T3** (Tipalti, Fireblocks, Anchorage) already in flight. Sit them. Do not dump the leftover 22 or re-spray the 12 `security@` names.
+
+**Cadence:** three **new** people every **three business days** (US Eastern) while the current wave is silent. That is “till a real response,” not till an auto-ack. A real response = named ops / REVIEW / “send the memo” / a question about the public path → **stop the metronome**, write the 72h memo, convert to $5–8k if they like it. Do not keep mailing new names in parallel with a live trial. Whole wave files VDP → stop **this letter**. Out of real To: + public objects → stop inventing. Never nudge the previous wave. Never `security@`.
 
 **T4 Increase is dead.** Arnav mailed from the security alias, not as a named business contact. No named human at Increase. Do not invent a To:. Do not mail `security@increase.com` again.
 
@@ -161,10 +163,7 @@ The question is **did this land as a business email**, not **did they pay**. D3/
 
 If **any** of the three dies that way, do **not** treat the other two as permission to spray the rest of the 25. Finish sitting the ones that are still pending. If **all three** file as VDP from this letter, the layout still smells like disclosure — stop **this letter**, not just the sheet.
 
-**Keep going (next three NEW names, same form: public object + business To: + REVIEW, never security@)** when:
-
-- The 3-day sit on the current wave is done, **even if all three were silent**, or
-- A **named** payments / payouts / transfer / bank-ops person answers as a vendor (REVIEW, “send the memo,” intro) — that is a hit; still batch-size three, not twenty-two
+**Keep going (next three NEW names, same form)** when the 3-business-day sit is done and the wave was silent. If a vendor hit lands, **do not** keep the metronome running — write the memo.
 
 Not a ticket bot. Not a security alias. Prefer a named human when you can find one. `contact@` / `info@` is allowed for the layout test; it is a weak inbox, not proof the letter is dead.
 
