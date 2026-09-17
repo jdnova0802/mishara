@@ -119,7 +119,21 @@ Test-range safety. Movable bridges. Port pilots + engine telegraph. EOD robot th
 
 Not “AI.” The weird-useful pile: **speech-act** (when a yes becomes the world), **control of a moving body** (the thing that rolls or flies), **two-person control**, **fail-closed**. That is distinctive. Link-analysis and dispatch UI are not.
 
-**Highly recommend (not discussed before):** the **drawbridge / canal lock** as the picture people remember. The span does not move until the form. City pays. Tuesday: traffic waits. Not a 911 map. Palantir does not come up. Same lock as military **Go** (body in the world).
+### Drawbridge, in English
+
+A drawbridge (or a canal lock gate) is a huge moving piece of the city. Road up, boats through, road down. People sit in their cars and wait. That wait is Tuesday. Nobody opens Palantir for it.
+
+**What you are not:** the city worker who leans on the lever. The camera company. The 911 screen. The map of who is on the boat.
+
+**What you are:** the span **will not move** until the form says yes. The lock lives **in the gear** — in the machinery — not in a website they can ignore. Someone starts (the person who saw the river / the road). A boss seals. They cannot seal their own. If they pull your box out and the bridge still opens, you are paint.
+
+**Why it matches the rest:** military kit will not **Go** until the form. The drawbridge is the same sentence in public: this body in the world will not go. City still pays. You can still sell the cop-shop form if you want. The *picture* people remember is the bridge that waits, not a crime map. That is how you stop sounding like CAD.
+
+**Canal lock is the same trick on water:** the gate will not lift, the chamber will not fill, until the form. Boats wait. Very old. Very visible. Very not Palantir.
+
+**Honest crowding:** companies already build bridge motors and city control rooms. The leftover is the same leftover as the tank that will not roll: skip is impossible, a stranger can check the yes. Not a new kind of steel.
+
+You do not operate the river. You own the yes in the machinery. No name tonight.
 
 **Second, if you want more teeth:** the **ship that will not leave** (harbor boom / engine will not answer). More imposing. More military-shaped. Still not a crime map.
 
