@@ -71,23 +71,27 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 ---
 
-## Match the dream without soup
+## English
 
-Do not paste hangar + city + public app into one brain. You already said those are not the same brain.
+You wanted something the **government cannot run without**, that also shows up in **normal life**. Jets and cities and a Tuesday button. That is the dream.
 
-**A. Two shops, one life.** This company stays city-form. A later company is the mission brain. You engineer both mouths. The dream is your stack, not one LLC. Hangar does not pollute CAD.
+What we locked is smaller: a tool **the city police shop** buys. It sees when people are coordinating. Cars don’t roll and people don’t get held until a special form says yes. A dispatcher starts a dispatch. A cop starts a detain. A boss signs. Not a real judge. Not an app on grandma’s phone. Not the military.
 
-**B. One weld, two brains.** The weld is the **form** (unskippable yes). City brain sees people / gates dispatch-detain. Mission brain is a **different** see on hangar kit, same mouth. Not the same software. Same power. Catalog of SKUs, not four industries.
+That can be a company. It is not the whole dream. You also said the military version is **not the same product**. So we cannot honestly call this one company “Palantir plus Lockheed plus a city app.”
 
-**C. Undo city-only.** Put hangar back in this filing. That is the pile again unless B is true.
+To get the dream back, pick one:
 
-Masses still missing in A/B/C unless a **third door**: ordinary people use the **form** on everyday acts (not the cop tool). That is the consumerized version. Different window, same mouth. Or masses stay “city as customer” and the dream’s mass door is dropped.
+1. **Two companies.** This one is the city tool. Later, a different one is the military tool. You build the insides of both. The dream is your life’s work, not one logo.
+2. **Same kind of lock, two products.** The power is “nothing happens until the form says yes.” City product: dispatch and detain. Military product: whatever their version of that lock is, on their gear. Two programs. Same idea. Not one copy-paste brain.
+3. **Shove the military into this company anyway.** That gets big and messy unless you really mean option 2.
+
+Normal people: right now they are **not customers**. The city is. If you still want a thing a regular person does on Tuesday, that is a **different button** (the form on ordinary life), not the cop screen. Or you drop that part of the dream.
+
+No name tonight. You are the person who builds the lock, not the face on TV.
 
 ---
 
 ## Still open
 
-Pick how the dream comes back:
-
-1. **A, B, or C?** Two shops / one weld-two-brains / undo city-only.
-2. **Masses:** third door (everyday form) or city-as-customer is enough?
+1. Two companies, two products with the same kind of lock, or one messy company?
+2. Does a regular person get their own Tuesday button, or is the city the only customer?
