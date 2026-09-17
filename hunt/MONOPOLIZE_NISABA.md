@@ -6,4 +6,4 @@
 
 **Nisaba already is that rhyme on:** agent write / pay-adjacent Gate / harm receipt / diligence memo. That’s monopolizing the *mouth* for clerks, desks, and software acts. Fine. That’s the old house.
 
-**Do not stuff into Nisaba:** kit that will not go, cops, city hall, household hands, glasses camera. Same equation, **different heat, different buyer, different fail-sale.** One LLC makes it a feature of a boring house and stains the quiet invoice. Pairing lock stays: clutch shop separate. Rhyme is the monopoly. Letterhead is not.
+**Locked (you said bet):** monopolize the **rhyme** for Nisaba — nothing irreversible without a live yes — on clerks, desks, software acts (Gate / receipt / diligence). Not the kit, not cops, not household hands. Those stay a different invoice. The equation is the brain. Nisaba is that mouth on the quiet machine. Empty-aisle / poster blueprints are the tourist path; they can keep running them.
