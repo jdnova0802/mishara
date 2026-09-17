@@ -18,4 +18,6 @@ Standing. Confirmed path, not a preference. All study tracks. Nisaba. Pipes late
 
 **Do not default to:** maximize valuation; step back into pure leadership; become the face.
 
+**Aura vs face:** Palantir’s glow is Karp on the glass. That chair is the face. You locked **not that chair.** The gate-spell can still be cinematic. You are the one who made it, name on the entity, they cannot replace the understanding. History’s Dean is not a nobody. If you actually want the Karp chair, say so — that reverses this file. Don’t sneak into face by chasing Palantir’s movie.
+
 Ignore dry-APM as a track here.
