@@ -19,3 +19,14 @@ Same mouth. Sharper *target* if we don’t lie about physics.
 **Human vs LLC:** Dual-control already is two humans (starter / sealer). Air-gap next is **physical halves** — often a **hand join** so a remote agent cannot complete it. That’s a human *action*, not “hire the face.” The face is still the object.
 
 **When to start:** the **bench** already started (no LLC needed). A **proper LLC** before you sell, take a partner’s boom/pad, or build halves that sit on real go/restart. Don’t file tonight. Don’t wait on a filing to keep the toy. Don’t wire a plant as a person with a GitHub folder.
+
+**Claude HDL (locked — not next required skill):** Verilog/VHDL is **not** what air-gap means, and it is **not** the next required skill.
+
+Claude mixed two upgrades:
+
+1. **Air-gap** = halves do not share a wire / power / network / process. Join is a thing you cannot remote (connector, hands, one-way). Each side *may* still have a dumb box. Two programs on **one** OS is dual-control. Two programs that **talk over a network** is still not air-gap. Two tokens that only meet at a booth **is** air-gap even if nobody wrote a chip.
+2. **No CPU in the checker** = the *join logic itself* is not a general-purpose computer. Discrete AND of two dry contacts, trapped-key, safety relay, later an FPGA. That is a *harder* object. Occupancy is already thick here (SIL relays, two-key, trapped-key, EPO). Leftover is still stranger-checkable join + live window, not “invent Verilog.”
+
+**Next real thing (unchanged):** two physical halves that don’t share a wire. Cheap path: two air-gapped holders + a dumb join (contacts / optical coupler / key transfer). That is electronics and procedure, not HDL. Do **not** skip that for a prettier page, Nisaba, or a semester of FPGA.
+
+**HDL later, optional face:** if the distinctive object is “the checker is a chip, not a laptop,” then Verilog/VHDL is the language of that later bench (FPGA sim of windowed two-half join, still a toy, still not a plant). DNA sequences and formal proofs stay interesting and still have no near-term reason on this mouth. Don’t file an LLC to learn `always @`. Don’t wire a harbor because a testbench went green.
