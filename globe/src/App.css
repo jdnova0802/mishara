@@ -4,6 +4,11 @@
   overflow: hidden;
 }
 
+.map {
+  position: absolute;
+  inset: 0;
+}
+
 .hud {
   position: absolute;
   top: 12px;

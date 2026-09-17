@@ -1,3 +1,3 @@
 # Live Globe (Claude) — toy, not a lane
 
-Not a company. Code: `globe/` — tap a country, spin stops, 3D fly-in + scroll zoom. Wikipedia is latest-available. Occupied poster if you tried to sell it. Unpluggable ~2.
+Not a company. Code: `globe/` — MapLibre `projection: globe`, OpenFreeMap, GeoJSON country/state/city click. One renderer; no react-globe.gl. Wikipedia latest-available. Unpluggable ~2.
