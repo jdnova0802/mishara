@@ -57,7 +57,21 @@ Both products:
 
 ---
 
-## Still open
+## How this sits (English)
+
+**Better than the pile, and better than city-only.** One lock, two programs is a company that can match the dream without pretending a cop screen is a jet.
+
+**The city side is the clearer Tuesday.** Sending a car and holding someone waiting on a form is something a shift actually does. Palantir and CAD still sit on that door. It only exists if they cannot skip it.
+
+**The military side is the weaker leftover.** “Don’t pass intel until the boss says yes” is already how a lot of intel works. Need-to-know, release authority, share buttons. Tell plus saw-it-plus-boss is the most normal military habit we could have picked. That’s honest. It also means occupancy is ugly unless the form is a different kind of real than the share button they already have.
+
+**The dream minus grandma.** Government cannot run without the form (city move/hold, military tell). Regular people are not customers. That’s the size you picked. Don’t call it a phone app.
+
+**Two sales, one engineer.** City police shops and military intel are different buyers. That wants a face and a catalog team. Your lock is still: you build the lock, someone else is the face.
+
+**Not proved.** Do not name a company on the sentence. Later check: can they skip the form today? If yes, you have nothing.
+
+---
 
 Mechanism is locked for both products.
 
