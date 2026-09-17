@@ -6,7 +6,7 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 **Product 1 — city (locked).** City pays. Police in. Sees when **people** are coordinating. Gates **dispatch** and **detain**. Dispatcher starts dispatch. Sworn officer starts detain. Shift supervisor seals. Submitter cannot seal their own. Worker tool. Not grandma’s phone. Bolt onto the city’s kit.
 
-**Product 2 — military (locked act).** Same kind of lock. **Different program.** Do not copy the city tool onto their gear. The form stops **Tell**: they do not pass the intel along until the form says yes. You do not fly, shoot, or brief. You own the yes on telling.
+**Product 2 — military (locked).** Same kind of lock. **Different program.** Do not copy the city tool onto their gear. The form stops **Tell**: they do not pass the intel along until the form says yes. The person who **saw** it starts. Their **boss** seals. Submitter cannot seal their own. You do not fly, shoot, or brief. You own the yes on telling.
 
 **Customers:** city government and military. Regular people are **not** customers. The city is enough for that side of the dream.
 
@@ -25,7 +25,7 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 | The lock | **Form** — nothing goes until yes |
 | Same software copied? | **No** |
 | City product | See people coordinating. Dispatch + detain. Three offices. |
-| Military product | **Tell** — intel does not get passed along until the form says yes. Different program. |
+| Military product | **Tell.** Person who saw it starts. Their boss seals. Different program. |
 | Regular person app | **No.** City is enough. |
 | Who you sell to | City + military. Not the public. Not enemies. |
 
@@ -36,6 +36,8 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 | Public-safety dispatcher | Submits dispatch |
 | Sworn officer | Submits detain |
 | Shift supervisor | Seals |
+
+**Military (kept):** the person who **saw** it starts Tell. Their **boss** seals. Starter cannot seal their own.
 
 ---
 
@@ -57,12 +59,6 @@ Both products:
 
 ## Still open
 
-City side has three offices. Military **Tell** needs the same kind of rule or it becomes one person hitting send.
+Mechanism is locked for both products.
 
-**Who, on the military side, puts it in the form, and who seals?** Pick. Do not copy dispatcher / cop / city boss.
-
-1. The person who **saw** it starts. Their **boss** seals.
-2. The person who **saw** it starts. A **second shop** (the people allowed to hear it) seals.
-3. Only a **boss** may start and seal — one office. (Weaker. Can rot into a checkbox.)
-
-Occupancy later: they already have “need to know” and share buttons. Leftover is only if Tell cannot skip the form. No how-to. No name tonight.
+Nothing else changes the company tonight. Later: cold check that Tell cannot skip the form (they already have share buttons). No how-to. No name. You build the lock. Someone else is the face.

@@ -29,3 +29,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 19. **Mission twin?** → **Same kind of lock, different program.** Not a copy of the city tool. Not a second company.
 20. **Dream vs this filing?** → **Option 2.** City is enough (no grandma button).
 21. **Military form stops?** → **Tell.** Intel does not get passed along until the form says yes.
+22. **Who starts / seals Tell?** → **Person who saw it starts. Their boss seals.** Starter cannot seal their own.
