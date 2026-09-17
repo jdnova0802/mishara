@@ -57,6 +57,10 @@ Both products:
 
 ## Still open
 
-1. **On the military side, what does the form stop until yes?** Do not copy “dispatch and detain.” Name their acts, or this product is a poster.
+**On the military side, what does the form stop until yes?** Pick from the English list (one, or two like the city had two). Do not copy “dispatch and detain.” Occupancy check later. No how-to. No name tonight.
 
-Occupancy vs Palantir/CAD is still a later check for the city side. No how-to. No name tonight.
+1. **Go** — the unit does not move / the thing does not take off until the form says yes.
+2. **Fire** — a weapon does not shoot until the form says yes.
+3. **Hold** — they do not take a person until the form says yes.
+4. **Tell** — they do not pass the intel along until the form says yes.
+5. **Look** — they do not turn the sensors on a person or a place until the form says yes.
