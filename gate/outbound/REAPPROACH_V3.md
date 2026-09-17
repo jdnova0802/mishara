@@ -142,7 +142,7 @@ Arnav’s mail came from the **security alias**, not a named person who engaged 
 
 The question is **did this land as a business email**, not **did they pay**. D3/D5 deposit nudges stay dead. No same-day follow-up. No “still the same ask.”
 
-**Claude cadence (locked — do not fire):** Friday follow-up does **not** go out on T1–T3. That D3/D5 clock was the old deposit-nudge on **sit-queue threads** (Checkbook / Marqeta / Retell / My AskAI). Those templates are dead for this test. A second touch that is “still the same ask” is hope with a calendar. Stavan / Munich Re / a patent thread are **not** a license to mail names 4+ after silence. Quit trigger for **this** test is the table below, **not** “H1 needs a cleared deposit so the next batch ships anyway.” Quiet T1–T3 is not a verdict on Gate. It is also not a next To:.
+**Claude cadence (locked — do not fire):** Friday follow-up does **not** go out on T1–T3. That D3/D5 clock was the old deposit-nudge on **sit-queue threads** (Checkbook / Marqeta / Retell / My AskAI). Those templates are dead for this test. A second touch that is “still the same ask” is hope with a calendar. Stavan / Munich Re / a patent thread are **not** a license to mail names 4+ after silence. Quit trigger for **this** test is the table below, **not** “H1 needs a cleared deposit so the next batch ships anyway.” Quiet T1–T3 is not a verdict on Gate. It is also not a next To: **on this 25**.
 
 **Clock (business days, US Eastern):**
 
@@ -167,6 +167,8 @@ If **any** of the three dies that way, do **not** treat the other two as permiss
 - Not a ticket bot, not a security alias, not “I forwarded it” with no owner
 
 One such reply is enough to justify **the next small batch** (same size: three, not the leftover 22). Zero such replies after the 3-day silence read = the categorization fix failed or did not get a chance. Either way, **do not scale**.
+
+**Silence ≠ company over. Silence ≠ never outbound again.** It kills **this sheet**: leftover 22, Friday/D3/D5 on T1–T3, more `contact@` / `info@` with the same letter. Buyer talk after that is a **named human** (warm intro, someone who already answers, or a different door like Bind Room to an actual GC) — not volume as the fix. Do not invent that list tonight. Do not quit W2 on these three.
 
 **Middle cases, decided now:**
 
