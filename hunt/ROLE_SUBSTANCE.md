@@ -10,4 +10,8 @@ You want **both**: you still understand the mechanism (not a manager of people w
 
 **Failure:** stealing Palantir’s movie (god-view, people-maps) to get aura. That’s a clone face. Distinctive face needs a distinctive invention.
 
-**Aura vs face:** Palantir glow is Karp. Your glow is “the person whose machines will not go without a real yes” / the gate-spell. If you want Gotham-face, you reverse the product too.
+**TikTok edits:** Palantir gets Karp + glass + “they see you.” Anduril gets drones in the desert. Lockheed/RTX get **the jet itself**. You will not get F-35 footage unless you are the jet.
+
+Your edit is not their edit. It’s **the pause**: span won’t lift, kit on the pad, horn is the yes, two rooms, traffic waits. That’s already a video if you film the object, not a PDF. If the product is a permission screen, you get zero edits. Don’t steal night-vision god-view — that’s their movie. Shoot the gate.
+
+---
