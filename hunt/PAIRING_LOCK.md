@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Handoff paste for another model: `hunt/JOIN_HANDOFF.md`.
+Claude fusion (kill-switch air-gap): `hunt/FUSION_AIRGAP.md`. Same clutch. Bench is not air-gap yet. Don’t pitch cutting power.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
