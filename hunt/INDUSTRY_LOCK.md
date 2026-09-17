@@ -62,9 +62,22 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 **The picture:** the drawbridge motor only answers a live window. Traffic isn’t “permission culture.” The span either has a live yes or it doesn’t move. Same for the military kit.
 
-No how-to for hiding in machines. Vendor idea only. You build that clutch. Someone else is the face.
+**Unpluggable, out of 10 (honest):**
+
+| Shape | Score |
+| --- | --- |
+| Website yes they can ignore | **2** |
+| What you can sit **now** (bolt onto their kit, factory later) | **5** |
+| You really **are** the clutch on the path that already makes it go (window, two people, in the gear) | **8** |
+| Perfect 10 | **No.** They always own another motor, another vendor, a war. 10 is a fantasy. |
+
+A live **window** is less annoying and a bit easier to work around when the window is already open. That’s the trade for not being a mother-may-I. Still not a padlock on a screen.
 
 ---
+
+---
+
+## Mainstream English
 
 Nothing big moves until two people say yes in a way that actually counts — and that yes is built into the machine, not a website you can ignore.
 
