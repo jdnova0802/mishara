@@ -86,7 +86,9 @@ Same scale for the big names — **can the car / plane / city still go if they a
 
 Sticky is a different score. Palantir is **sticky ~7** and **unpluggable ~3**. Do not mix those.
 
-**Exciting vs taken:** Palantir ate the *god-view* (see everyone, know everything). Anduril ate the *cool robot*. The leftover that is still a movie is the **spell on the gate**: the span will not lift, the kit will not leave the pad, the city waits, a horn is the yes. That is exciting if you sell the pause in the world. It is boring if you sell a permission PDF. God-view is taken. Gate-spell is not their product.
+**Aura:** Palantir’s glow is **god-view** (Karp, the glass, we see everything). That glow is taken. Chasing it is becoming them, and it wants a **face**. Your lock is not the face.
+
+The clutch’s glow is **the gate** — old as kings, not a spreadsheet. Pad will not leave. Span will not lift. City waits. Horn is the yes. That is aura if you sell the spell. It is Nisaba-boring if you sell a PDF. Company two exists so you are not stuck in house-one quiet. Don’t steal Palantir’s movie. Play the gate movie.
 
 **Buildable:** the **5** is an integration if they let you into the go-path. The form is bench-buildable. **8–9** needs you to be the kit.
 
