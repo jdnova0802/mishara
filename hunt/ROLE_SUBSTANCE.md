@@ -1,23 +1,13 @@
-# Role — substance, not the face
+# Role — inventor of a distinctive thing, and the face of *that*
 
-Standing. Confirmed path, not a preference. All study tracks. Nisaba. Pipes later.
+You want **both**: you still understand the mechanism (not a manager of people who do), **and** you are the face — but a **distinctive** face, not Karp on a god-glass.
 
-**Shape:** staff / principal engineer or technical co-founder. Enormous say in direction. Never the performative CEO. Reference: **Jeff Dean at Google** — technical influence, real weight in decisions, not the CEO chair.
+**Shape:** Palmer-shaped, not Karp-shaped, not Dean-hiding. You built the weird object. People point at **the object**, then at you. If there is no object, “face” is just CEO cosplay.
 
-**Already true at Gate:** you are the one who understands the clearance kernel, atomic authority, the actual mechanism. Not someone managing people who understand it for you. Keep that **on purpose**.
+**Still true:** name on the entity. They cannot replace your understanding. Someone else can still run the calendar / raise / ops. You are not required to be performative CEO of vibes.
 
-**Pipes company (when it exists):** same. You own the definitions. **Someone else is CEO.** You are not that chair. Name still on the entity.
+**Nisaba / Gate:** old house can stay quiet. Face lives on **company two’s invention**, not on Gate PDFs.
 
-**Nisaba:** someone else is the face.
+**Failure:** stealing Palantir’s movie (god-view, people-maps) to get aura. That’s a clone face. Distinctive face needs a distinctive invention.
 
-**Unfireable = both:** they cannot replace your understanding, and your name is on the entity.
-
-**Study:** kid warmup allowed. Then strict text. Warmup is not the destination.
-
-**Failure mode (flag it):** work that pulls you into pitching, face, “leadership,” valuation-max, or letting the mechanism become someone else’s job. If a suggestion or a task starts trending that way, **say so and stop**.
-
-**Do not default to:** maximize valuation; step back into pure leadership; become the face.
-
-**Aura vs face:** Palantir’s glow is Karp on the glass. That chair is the face. You locked **not that chair.** The gate-spell can still be cinematic. You are the one who made it, name on the entity, they cannot replace the understanding. History’s Dean is not a nobody. If you actually want the Karp chair, say so — that reverses this file. Don’t sneak into face by chasing Palantir’s movie.
-
-Ignore dry-APM as a track here.
+**Aura vs face:** Palantir glow is Karp. Your glow is “the person whose machines will not go without a real yes” / the gate-spell. If you want Gotham-face, you reverse the product too.

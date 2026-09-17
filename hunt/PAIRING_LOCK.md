@@ -18,6 +18,6 @@ Same *shape* of mouth (nothing real until yes). Different object, different buye
 
 Nisaba stays the old house. Someone else is the face here too. **Now:** lock only. No name. No entity. No build.
 
-Role: `hunt/ROLE_SUBSTANCE.md` — substance, not the face.
+Face of a distinctive invention: `hunt/ROLE_SUBSTANCE.md`. Palmer-shaped on the object, not Karp on a glass. Someone else can still run ops.
 
 Books: pipes stack is stale for this object. Study follows the kit + the brain, not PFMI.
