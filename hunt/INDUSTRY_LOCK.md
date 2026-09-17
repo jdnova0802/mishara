@@ -45,7 +45,19 @@ Not a name. Not a filing. You build the lock. Someone else is the face.
 
 ---
 
-## English
+## Mainstream English
+
+Nothing big moves until two people say yes in a way that actually counts — and that yes is built into the machine, not a website you can ignore.
+
+**City:** a cop car doesn’t roll, and they don’t hold someone, until that yes. A dispatcher can start one thing. A cop can start the other. A boss has to sign off. The starter cannot be the signer.
+
+**Military:** the vehicle or the aircraft does not leave until that yes. Same idea. Different machine. The lock is in the gear.
+
+**The picture:** a drawbridge that will not lift until yes. Traffic waits. That’s how a normal person understands it. Not a detective map. Not a 911 chat screen.
+
+You don’t drive. You don’t fly. You don’t run the bridge. You make it so the machine **cannot go** without that yes. If they unplug you and it still goes, you don’t have a product.
+
+Two different people, two different places. An old yes dies; you can’t use yesterday’s permission. Nobody needs a picture of faces on a screen. That’s the whole company.
 
 The dream was: government cannot run without you, and it still feels like real life, not a cartoon.
 
