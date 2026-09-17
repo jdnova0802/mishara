@@ -21,9 +21,9 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 | You perform the act? | **No.** You own the form. |
 | Help / factory | Help later. Factory later. Their atoms now. |
 | Who pays / police | City pays. Police in. |
-| Who may use the form | **Named offices only.** Not anyone. Titles below are the working slate until you veto. |
+| Who may use the form | **Named offices only.** Dispatcher submits dispatch. Sworn officer submits detain. Supervisor seals. Submitter ≠ sealer. Slate **kept** (consumer/city door). |
 
-**Offices (working slate — you didn’t know which, so these three, not a catalog):**
+**Offices (kept):**
 
 | Office | What they do in the form |
 | --- | --- |
@@ -59,6 +59,15 @@ Form stays powerful only if **the act cannot skip it** and a stranger can tell d
 
 ---
 
-## Still open
+## City door (kept)
 
-1. **Veto the slate or keep it?** Dispatcher submits dispatch. Sworn officer submits detain. Supervisor seals. If you hate one title, swap that title — don’t add a fourth office tonight.
+City pays. Police in. Named offices. Form gates dispatch and detain. That is the Tuesday product. It is a **worker tool the city buys**, not a public download. If “masses” meant grandma taps the app, that got cut when offices were named. Masses now = the city as customer, people on the street as the *object of see*, not as users.
+
+---
+
+## Still open (not consumer)
+
+Consumer/city offices are out of the way. These still change the company:
+
+1. **Mission twin.** Same see+form for Five Eyes, or city-only until the factory? If same muscle, classified is a second SKU of the same form, not a new brain. Don’t name intel offices tonight.
+2. **That’s the question list.** Occupancy vs Palantir/CAD is a later cold check, not a vibe. Study follows the form (speech-act, fail-closed, systems on their atoms) — not PFMI, not a how-to on people. No name. No filing. Engineer of the form, not the face.

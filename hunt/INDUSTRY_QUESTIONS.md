@@ -25,4 +25,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 15. **Yes gates which act?** → **dispatch and detain.** You do not perform them. You own the window.
 16. **Who clicks the yes?** → **judge-shaped window.** Not cop-vibe, not dispatcher-vibe, not automatic.
 17. **Real judge or form?** → **Form.** Form is the power. Rot if it is a checkbox with a robe.
-18. **Which offices?** → **Not anyone.** Working slate: dispatcher submits dispatch, sworn officer submits detain, shift supervisor seals. Submitter ≠ sealer. Veto a title; don’t add a catalog.
+18. **Which offices?** → **Kept.** Dispatcher submits dispatch, sworn officer submits detain, shift supervisor seals. Submitter ≠ sealer. Not a public app.
