@@ -15,4 +15,5 @@ python3 -m join.pack boom starter.half sealer.half pack.json
 
 `body.json` fields: `spec` (`join-pack-v1`), `what`, `not_before`, `not_after`, `starter_id`, `sealer_id`. Halves live in files, not in the pack. Same person cannot be both ids. Same half cannot seal itself.
 
-Toy boom only prints GO/NO. It does not talk to a ship, a car, or a PLC.
+python3 -m join.web
+# open http://127.0.0.1:8765/
