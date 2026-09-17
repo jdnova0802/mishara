@@ -86,7 +86,9 @@ Same scale for the big names — **can the car / plane / city still go if they a
 
 Sticky is a different score. Palantir is **sticky ~7** and **unpluggable ~3**. Do not mix those.
 
-**Buildable:** the **5** is buildable as a **module in the go-path they already have** — form, two people, time window — if a city or a kit-maker lets you sit there. That is an integration, not a weekend app, and not an 8. The **form itself** (draft vs yes, two stations, expiry) is buildable on a bench now. **8–9** is not buildable without being the kit. No how-to for grabbing a car. Vendor slot only.
+**When to build:** not tonight. No city, no kit-maker, no name. **Bench the form first** (two stations, window, draft ≠ go, stranger can check) when you want proof of the mouth — separate repo from Gate, not a Nisaba brand. **Sit the 5** only when someone with a real go-path lets you in. **8** only if you are making the kit. Building the clutch with no door is a toy CAD.
+
+---
 
 ---
 
