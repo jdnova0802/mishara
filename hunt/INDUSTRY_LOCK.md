@@ -59,19 +59,35 @@ Not a name. Not a filing. Engineer of the mechanism, not the face.
 
 ## How this sits
 
-**Better than the catalog.** City-only + one form is a company. Four families + hangar + factory was a holding company. Cutting the mission brain was the right cut.
+**Better than the catalog.** City-only + one form is a company. Four families + hangar + factory was a holding company. Cutting the mission brain was the right cut *for one filing*.
 
 **The leftover is the form, not the eyes.** Palantir already sees people for cop shops. CAD already dispatches. If the form can be skipped, this is paint. If it cannot, that is the weld.
 
-**Smaller than the dream you started with.** Ruling class here is the city shift, not Five Eyes. Masses are not users. Detain+people+cops is a face product; your lock is still not the face. That tension stays.
+**The dream you actually said:** embedded in the **ruling class** (mission / Five Eyes / hangar) **and** Tuesday for **masses**. Sci-fi. They cannot run it without you. Engineer of the mechanism, not the face.
 
-**Not a laptop proof.** Occupancy is the wound. Cold check later: unskippable city form vs Palantir approve-chip vs CAD vs e-warrant skin. Do not found on the sentence.
+**What this filing is:** the city shift. Not the hangar. Not grandma. So it matches Tuesday and a **municipal** ruling class. It does not match the full dream. That is the gap. Not a vibe. You cut the mission brain on purpose so this shop would not be soup.
+
+**Not a laptop proof.** Occupancy is the wound. Do not found on the sentence.
+
+---
+
+## Match the dream without soup
+
+Do not paste hangar + city + public app into one brain. You already said those are not the same brain.
+
+**A. Two shops, one life.** This company stays city-form. A later company is the mission brain. You engineer both mouths. The dream is your stack, not one LLC. Hangar does not pollute CAD.
+
+**B. One weld, two brains.** The weld is the **form** (unskippable yes). City brain sees people / gates dispatch-detain. Mission brain is a **different** see on hangar kit, same mouth. Not the same software. Same power. Catalog of SKUs, not four industries.
+
+**C. Undo city-only.** Put hangar back in this filing. That is the pile again unless B is true.
+
+Masses still missing in A/B/C unless a **third door**: ordinary people use the **form** on everyday acts (not the cop tool). That is the consumerized version. Different window, same mouth. Or masses stay “city as customer” and the dream’s mass door is dropped.
 
 ---
 
 ## Still open
 
-Mechanism is locked. Mission is **not this brain**.
+Pick how the dream comes back:
 
-1. **US cities only, or allied cities too?** Does not change the form. Changes who you sell to. Fine to leave.
-2. Occupancy vs Palantir/CAD/e-warrant is a later cold check, not a vibe. Study follows the form. No name. No filing.
+1. **A, B, or C?** Two shops / one weld-two-brains / undo city-only.
+2. **Masses:** third door (everyday form) or city-as-customer is enough?

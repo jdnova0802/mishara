@@ -27,3 +27,4 @@ Defense hardware. Intelligence software. Autonomy / drones. Aerospace. Space. Ma
 17. **Real judge or form?** → **Form.** Form is the power. Rot if it is a checkbox with a robe.
 18. **Which offices?** → **Kept.** Dispatcher submits dispatch, sworn officer submits detain, shift supervisor seals. Submitter ≠ sealer. Not a public app.
 19. **Mission twin?** → **City only. Not the same brain.** Hangar is a different shop if ever.
+20. **Dream vs this filing?** → open. A two shops / B one form two brains / C undo city-only. Masses: third door or city-as-customer.
