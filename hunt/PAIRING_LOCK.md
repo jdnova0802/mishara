@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Physics map (one lock, earth/water/air/light/sound/time/info): `hunt/KIT_PHYSICS.md`. Hidden gem: Hero’s temple doors.
+Before modernizing: `hunt/BEFORE_MODERNIZE.md`. Mood board ≠ SKUs. Three bodies: boom, wedge, pad.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
