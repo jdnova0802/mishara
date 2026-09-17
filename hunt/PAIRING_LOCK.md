@@ -10,7 +10,7 @@ Draft is not a filing. Don’t mix this into the pipes.
 
 The second-company **yes** is **form** (judge-shaped, not a real bench). Draft is not the act. Rhyme with Shop B, not one filing.
 
-Industry pick: `hunt/INDUSTRY_LOCK.md`. Not Nisaba. One company, two products, same kind of lock. City: dispatch/detain, three offices. Military: **lock in the gear, Go.** Kit will not move / take off until form yes. Saw-it / boss. Pipes / clearing **off**.
+Palantir what-they-do: `hunt/PALANTIR_WHAT.md`. See/link/decide on other people’s data. Not the clutch.
 
 **This clutch / Go / city-form shop: separate company. Not a Nisaba brand.**
 
