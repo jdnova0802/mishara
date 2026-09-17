@@ -32,4 +32,4 @@ Physical kit: boom, wedge, pad. Software is **not** a map of people. Software is
 
 `check/` is a cousin (fail-closed pack) for git/tasks. Different object. Don’t glue it on unless you mean to.
 
-If you want the bench, say so. That’s the only code worth writing before a real go-path.
+**Code:** `join/` — `python3 -m join.test_pack`. README in that folder. Toy boom, not a harbor.
