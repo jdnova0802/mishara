@@ -85,4 +85,4 @@ Both products:
 
 Mechanism is named for both products.
 
-Nothing else changes the company tonight. Later: cold check that a kit can still move with you unplugged. If yes, you have nothing. Go is less crowded than Fire, not empty. No how-to. No name. You build the lock. Someone else is the face.
+**Opinion (fit, not a new vote):** **Go** is the best fit. Fire is more power and the wrong company shape. Look matches “see” and is not imposing enough. Speak is Tell in a radio. Speak+Go is two piles. Novelty is the form **in the gear**, not a new verb. Go stays unless you veto.
