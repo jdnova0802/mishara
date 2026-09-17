@@ -89,9 +89,11 @@ Mechanism is named for both products.
 
 **How it sits now:** this is a real pair. City stops the car. Military stops the kit. Same kind of lock. Different programs. The dream minus grandma, minus Fire’s weapons-shop face.
 
-**Still not empty.** Palantir/CAD on the city door. C2 / “won’t go without permission” on the military door. You only exist if skip is impossible and a stranger can check the form.
+**With the ritual:** I like this **more** — if the wait, two stations, dead-until-yes, stranger check, expired yes, and no people-map **are the product**, not a skin on a crime screen. The horn is optional weird. Cute if it is the yes. Kitsch if it is branding.
 
-**I like this more than Tell-in-a-tab and more than Fire.** Tell was weak. Fire was the wrong company. Go fits. Don’t found on the sentence.
+**Still the wound:** if the city SKU is still “see people coordinating + dispatch,” CAD and Palantir come back. The drawbridge is the picture that saves you only if you actually sell that picture (span / kit / car will not go). Seeing people is the magnet you have to starve.
+
+**Don’t add more elements.** Ten was brainstorm. Ship the small ritual. Don’t found on the sentence. Later: can they skip you. If yes, you have nothing.
 
 ---
 
