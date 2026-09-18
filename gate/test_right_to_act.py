@@ -243,6 +243,92 @@ class RightToActTests(unittest.TestCase):
         self.assertEqual(verified["payload"]["iaa"], "OUT")
         self.assertEqual(verified["payload"]["mut"], "SAME")
 
+    def test_unpinned_operator_is_gap_still_exist(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "args": {"amount": 5},
+                "policy": {"max_amount": 10, "allowed_actions": ["wire.send", "wire.hold"]},
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "EXIST")
+        self.assertEqual(out["cosign"]["status"], "GAP")
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified["payload"]["ops"], "GAP")
+
+    def test_pinned_operator_holds_then_exist(self):
+        from gate import cosign as cosign_mod
+
+        op = Ed25519PrivateKey.generate()
+        op_priv = op.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption())
+        op_pub = op.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+        prev = os.environ.get("GATE_OPERATOR_PUBLIC_KEY")
+        os.environ["GATE_OPERATOR_PUBLIC_KEY"] = base64.b64encode(op_pub).decode()
+        body = {
+            "action": "wire.send",
+            "sink": "bank.rtp",
+            "actor": "agent-1",
+            "args": {"amount": 5},
+            "policy": {
+                "max_amount": 10,
+                "allowed_actions": ["wire.send", "wire.hold"],
+            },
+        }
+        try:
+            held = rta.evaluate(body, public_url="https://gate.test")
+            self.assertEqual(held["decision"], "HOLD")
+            self.assertIsNone(held["ticket_id"])
+            self.assertIn("operator_unsigned", held["signals"])
+            sig = cosign_mod.sign_preimage(
+                bytes.fromhex(held["cosign"]["sign_over"]), op_priv
+            )
+            body["operator_sig"] = sig
+            ok = rta.evaluate(body, public_url="https://gate.test")
+            self.assertEqual(ok["decision"], "EXIST")
+            self.assertEqual(ok["cosign"]["status"], "OK")
+            self.assertTrue(ok["ticket_id"])
+            verified = rta.verify_receipt_jwt(ok["receipt"])
+            self.assertTrue(verified["valid"])
+            self.assertEqual(verified["payload"]["ops"], "OK")
+        finally:
+            if prev is None:
+                os.environ.pop("GATE_OPERATOR_PUBLIC_KEY", None)
+            else:
+                os.environ["GATE_OPERATOR_PUBLIC_KEY"] = prev
+
+    def test_machine_key_cannot_be_operator(self):
+        from gate import cosign as cosign_mod
+
+        machine_pub = base64.b64decode(os.environ["GATE_RECEIPT_PUBLIC_KEY"] + "==")
+        machine_priv = base64.b64decode(os.environ["GATE_RECEIPT_PRIVATE_KEY"] + "==")
+        prev = os.environ.get("GATE_OPERATOR_PUBLIC_KEY")
+        os.environ["GATE_OPERATOR_PUBLIC_KEY"] = os.environ["GATE_RECEIPT_PUBLIC_KEY"]
+        body = {
+            "action": "wire.send",
+            "sink": "bank.rtp",
+            "args": {"amount": 5},
+            "policy": {"max_amount": 10, "allowed_actions": ["wire.send", "wire.hold"]},
+        }
+        try:
+            held = rta.evaluate(body, public_url="https://gate.test")
+            sig = cosign_mod.sign_preimage(
+                bytes.fromhex(held["cosign"]["sign_over"]), machine_priv
+            )
+            body["operator_sig"] = sig
+            out = rta.evaluate(body, public_url="https://gate.test")
+            self.assertEqual(out["decision"], "NONEXIST")
+            self.assertEqual(out["cosign"]["reason"], "role_substitution")
+            self.assertIn("role_substitution", out["signals"])
+            self.assertIsNone(out["ticket_id"])
+        finally:
+            if prev is None:
+                os.environ.pop("GATE_OPERATOR_PUBLIC_KEY", None)
+            else:
+                os.environ["GATE_OPERATOR_PUBLIC_KEY"] = prev
+            _ = machine_pub
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,6 +12,7 @@ Invariant: **Computation does not confer authority for consequence.**
 - `settler` → when `agency` is `NON-ACT`, who collapsed the otherwise (named `settler_id`, else allowlist/policy). The bag does not vanish.
 - `signed_line` → written-line hash vs signed-line hash. `mut` is `SAME|DOWN|UP|DIFF|UNSIGNED|UNWRITTEN|ABSENT`. `iaa` is `IN|OUT|UNKNOWN` at the bind second. `iau` is `valid_until`. OUT → NONEXIST. Signing down is not NONEXIST by itself. Not an MGA allowlist and not a placing rail.
 - `chain` → inherits the weakest upstream claim. `chn` is `CLEAN|STAINED|ROTTEN`. `cma` is min agency. `ugp` is `OK|GAP`. ROTTEN (parent NONEXIST / OUT / unverified) → NONEXIST. Stain (parent NON-ACT or `mut=DOWN`) is honest, not a halt.
+- `cosign` → second mouth. Pin `GATE_OPERATOR_PUBLIC_KEY`; private key never on the box. EXIST is `HOLD` until `operator_sig` over the hop preimage. Machine key used as operator → `ops=BAD` / `role_substitution`. Unpinned operator is `ops=GAP` (honest: not durable yet).
 
 ## Wrap
 

@@ -49,6 +49,11 @@ try:
 except ImportError:
     import chain as chain_mod
 
+try:
+    from gate import cosign as cosign_mod
+except ImportError:
+    import cosign as cosign_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -294,6 +299,9 @@ def mint_receipt_jwt(
     chain_grade: str | None = None,
     chain_min_agency: str | None = None,
     upstream_gap: str | None = None,
+    operator_status: str | None = None,
+    operator_sig: str | None = None,
+    operator_kid: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -341,6 +349,12 @@ def mint_receipt_jwt(
         payload["cma"] = chain_min_agency
     if upstream_gap:
         payload["ugp"] = upstream_gap
+    if operator_status:
+        payload["ops"] = operator_status
+    if operator_sig:
+        payload["osg"] = operator_sig
+    if operator_kid:
+        payload["okd"] = operator_kid
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -421,6 +435,29 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         meta["reason"] = "invalid_decision"
         meta["payload"] = payload
         return meta
+
+    if payload.get("ops") == "OK":
+        op_pub = None
+        try:
+            op_pub = cosign_mod._pub_from_env()
+        except Exception:
+            op_pub = None
+        if not op_pub or not payload.get("osg"):
+            meta["reason"] = "operator_sig_missing"
+            meta["payload"] = payload
+            return meta
+        if not cosign_mod.verify_sig(
+            claims=payload, signature=str(payload.get("osg")), public_key=op_pub
+        ):
+            meta["reason"] = "operator_bad_sig"
+            meta["payload"] = payload
+            return meta
+        machine_fpr = (key_id() or "").replace("gate-rta-", "")
+        op_fpr = cosign_mod.operator_fingerprint(op_pub)
+        if machine_fpr and op_fpr and machine_fpr == op_fpr:
+            meta["reason"] = "role_substitution"
+            meta["payload"] = payload
+            return meta
 
     meta.update(
         {
@@ -627,20 +664,6 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         if "chain_rotten" not in signals:
             signals.append("chain_rotten")
 
-    ticket_id = None
-    if decision == "EXIST" and mint_ticket:
-        ticket_id = _mint_ticket(
-            evaluation_id=evaluation_id,
-            fingerprint=fingerprint,
-            sink=str(candidate.get("sink") or "").strip(),
-            ttl_seconds=ttl,
-            mandate_id=str(mandate_id) if mandate_id else None,
-            action=str(candidate.get("action") or "").strip() or None,
-            agent_id=str(candidate.get("actor") or "").strip() or None,
-            amount=amount,
-            resource=str(candidate.get("resource") or candidate.get("target") or ""),
-        )
-
     live: list[dict[str, Any]] = []
     for row, source in consideration_set(candidate, policy, body):
         fp = candidate_fingerprint(row)
@@ -701,6 +724,68 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         upstream=upstream,
     )
 
+    hop_decision = decision
+    stl_claim = (
+        str(settler.get("settler_id"))
+        if settler and settler.get("owned")
+        else ("GAP" if settler and settler.get("gap") else None)
+    )
+    nst_claim = "UNSAT" if not nested.get("nested_possible") else "SAT"
+    cosign_claims = {
+        "fp": fingerprint,
+        "dec": hop_decision,
+        "act": str(candidate.get("action") or "").strip(),
+        "sink": str(candidate.get("sink") or "").strip(),
+        "owh": str(otherwise.get("open_hash") or ""),
+        "agc": str(otherwise.get("agency") or ""),
+        "nst": nst_claim,
+        "stl": stl_claim,
+        "mut": str(signed_line.get("mutation") or ""),
+        "iaa": str(signed_line.get("in_authority") or ""),
+        "chn": str(chain.get("grade") or ""),
+        "cma": str(chain.get("min_agency") or ""),
+        "ugp": "GAP" if chain.get("upstream_gap") else "OK",
+    }
+    op_pub, op_sig, op_required = cosign_mod.from_env_and_body(policy, body)
+    op_verified = cosign_mod.verify_sig(
+        claims=cosign_claims, signature=op_sig, public_key=op_pub
+    )
+    machine_fpr = key_id().replace("gate-rta-", "") if key_id() else None
+    op_fpr = cosign_mod.operator_fingerprint(op_pub)
+    need_operator = bool(op_required and hop_decision == "EXIST")
+    cosign = cosign_mod.witness(
+        machine_fpr=machine_fpr,
+        operator_fpr=op_fpr,
+        verified=op_verified,
+        required=need_operator,
+        signature_present=bool(op_sig),
+    )
+    cosign["preimage_hash"] = cosign_mod.preimage_hash(cosign_claims)
+    cosign["sign_over"] = cosign_mod.preimage(cosign_claims).hex()
+    if cosign.get("halt") and cosign.get("reason") == "operator_unsigned":
+        decision = "HOLD"
+        if "operator_unsigned" not in signals:
+            signals.append("operator_unsigned")
+    elif cosign.get("halt"):
+        decision = "NONEXIST"
+        reason = str(cosign.get("reason") or "operator_halt")
+        if reason not in signals:
+            signals.append(reason)
+
+    ticket_id = None
+    if decision == "EXIST" and mint_ticket:
+        ticket_id = _mint_ticket(
+            evaluation_id=evaluation_id,
+            fingerprint=fingerprint,
+            sink=str(candidate.get("sink") or "").strip(),
+            ttl_seconds=ttl,
+            mandate_id=str(mandate_id) if mandate_id else None,
+            action=str(candidate.get("action") or "").strip() or None,
+            agent_id=str(candidate.get("actor") or "").strip() or None,
+            amount=amount,
+            resource=str(candidate.get("resource") or candidate.get("target") or ""),
+        )
+
     issuer = (
         (public_url or "").replace("https://", "").replace("http://", "").split("/")[0]
         or "gate.velaru.xyz"
@@ -732,6 +817,9 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         chain_grade=str(chain.get("grade") or ""),
         chain_min_agency=str(chain.get("min_agency") or ""),
         upstream_gap="GAP" if chain.get("upstream_gap") else "OK",
+        operator_status=str(cosign.get("status") or ""),
+        operator_sig=op_sig if cosign.get("status") == "OK" else None,
+        operator_kid=f"gate-op-{op_fpr}" if op_fpr else None,
     )
 
     if signing_required() and not receipt:
@@ -787,6 +875,7 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "settler": settler,
         "signed_line": signed_line,
         "chain": chain,
+        "cosign": cosign,
         "invariant": "Computation does not confer authority for consequence.",
     }
     if decision == "EXIST":
@@ -796,8 +885,8 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         )
     elif decision == "HOLD":
         out["message"] = (
-            "Right-to-Act HOLD — living authority could not be determined (HALT). "
-            "Act remains non-effective."
+            "Right-to-Act HOLD — operator mouth has not signed the hop "
+            "(or living authority could not be determined). Act remains non-effective."
         )
     else:
         out["message"] = (
@@ -832,10 +921,9 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
 def jwks() -> dict:
     pub = _public_key_bytes()
     kid = key_id()
-    if not pub or not kid:
-        return {"keys": []}
-    return {
-        "keys": [
+    keys = []
+    if pub and kid:
+        keys.append(
             {
                 "kty": "OKP",
                 "crv": "Ed25519",
@@ -843,9 +931,24 @@ def jwks() -> dict:
                 "x": _b64url(pub),
                 "use": "sig",
                 "alg": "EdDSA",
+                "role": "machine",
             }
-        ]
-    }
+        )
+    op_pub = cosign_mod._pub_from_env()
+    op_fpr = cosign_mod.operator_fingerprint(op_pub)
+    if op_pub and op_fpr:
+        keys.append(
+            {
+                "kty": "OKP",
+                "crv": "Ed25519",
+                "kid": f"gate-op-{op_fpr}",
+                "x": _b64url(op_pub),
+                "use": "sig",
+                "alg": "EdDSA",
+                "role": "operator",
+            }
+        )
+    return {"keys": keys}
 
 
 def manifest(public_url: str) -> dict:
@@ -888,6 +991,11 @@ def manifest(public_url: str) -> dict:
             "A clean hop on a rotten upstream is still rotten. "
             "chn=CLEAN|STAINED|ROTTEN inherits the weakest parent claim."
         ),
+        "cosign": (
+            "The machine key cannot wear the operator mouth. "
+            "Pin GATE_OPERATOR_PUBLIC_KEY off-box; EXIST waits on operator_sig. "
+            "ops=OK|GAP|HOLD|BAD."
+        ),
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
             "mandate": f"{base}/.well-known/mandate.json",
@@ -896,6 +1004,7 @@ def manifest(public_url: str) -> dict:
                 "Otherwise = was another write live; "
                 "Signed-line = did the share mutate, was power in at the second; "
                 "Chain = weakest parent claim; "
+                "Cosign = operator mouth, not the machine key; "
                 "Prefinality = payment-rail specialization."
             ),
         },
