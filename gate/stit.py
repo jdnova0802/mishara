@@ -67,26 +67,44 @@ def settler(
         or b.get("settler_id")
         or pol.get("settler_id")
         or ctx.get("charge_id")
+        or pol.get("owner_id")
+        or pol.get("authored_by")
     )
     if named:
         kind = "named"
         settler_id = named
+        owned = True
+        gap = False
+        gap_reason = None
     elif int(open_count or 0) == 1:
         kind = "allowlist"
         allowed = pol.get("allowed_actions") or pol.get("actions") or []
         settler_id = "policy:allowlist:" + ",".join(
             str(x).strip() for x in allowed if str(x).strip()
         ) or "policy:allowlist"
+        owned = False
+        gap = True
+        gap_reason = "unowned_policy"
     elif int(open_count or 0) == 0:
         kind = "policy"
         settler_id = "policy:no_open_write"
+        owned = False
+        gap = True
+        gap_reason = "unowned_policy"
     else:
         kind = "unknown"
         settler_id = "unknown"
+        owned = False
+        gap = True
+        gap_reason = "nobody"
     return {
         "spec": SPEC_SETTLER,
         "kind": kind,
         "settler_id": settler_id,
+        "owned": owned,
+        "gap": gap,
+        "gap_reason": gap_reason,
         "open_count": int(open_count or 0),
         "invariant": INVARIANT_SETTLER,
+        "not": "A vendor default, inherited allowlist, or 'the policy' as a person.",
     }

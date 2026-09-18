@@ -630,7 +630,11 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         otherwise_hash=str(otherwise.get("open_hash") or ""),
         agency=str(otherwise.get("agency") or ""),
         nested_stit="UNSAT" if not nested.get("nested_possible") else "SAT",
-        settler_id=str((settler or {}).get("settler_id") or "") or None,
+        settler_id=(
+            str(settler.get("settler_id"))
+            if settler and settler.get("owned")
+            else ("GAP" if settler and settler.get("gap") else None)
+        ),
     )
 
     if signing_required() and not receipt:

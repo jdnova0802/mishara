@@ -50,6 +50,8 @@ class SettlerTests(unittest.TestCase):
         )
         self.assertEqual(out["kind"], "named")
         self.assertEqual(out["settler_id"], "charge:abc")
+        self.assertTrue(out["owned"])
+        self.assertFalse(out["gap"])
 
     def test_allowlist_settler(self):
         out = stit_mod.settler(
@@ -61,6 +63,9 @@ class SettlerTests(unittest.TestCase):
         )
         self.assertEqual(out["kind"], "allowlist")
         self.assertIn("wire.send", out["settler_id"])
+        self.assertFalse(out["owned"])
+        self.assertTrue(out["gap"])
+        self.assertEqual(out["gap_reason"], "unowned_policy")
 
 
 if __name__ == "__main__":

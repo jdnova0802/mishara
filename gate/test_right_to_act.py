@@ -42,6 +42,9 @@ class RightToActTests(unittest.TestCase):
         self.assertTrue(out["nested_stit"]["nested_possible"])
         self.assertIsNotNone(out["settler"])
         self.assertEqual(out["settler"]["kind"], "allowlist")
+        self.assertFalse(out["settler"]["owned"])
+        verified_gap = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified_gap["payload"]["stl"], "GAP")
 
         burned = rta.burn_ticket(
             out["ticket_id"], fingerprint=out["fingerprint"], sink="bank.rtp"
@@ -145,6 +148,7 @@ class RightToActTests(unittest.TestCase):
         self.assertEqual(out["agency"], "NON-ACT")
         self.assertEqual(out["otherwise"]["open_count"], 0)
         self.assertEqual(out["settler"]["kind"], "policy")
+        self.assertTrue(out["settler"]["gap"])
 
     def test_nested_stit_two_agents_is_misfire(self):
         out = rta.evaluate(
@@ -186,6 +190,8 @@ class RightToActTests(unittest.TestCase):
         self.assertEqual(out["settler"]["settler_id"], "charge:bind-1")
         verified = rta.verify_receipt_jwt(out["receipt"])
         self.assertEqual(verified["payload"]["stl"], "charge:bind-1")
+        self.assertTrue(out["settler"]["owned"])
+        self.assertFalse(out["settler"]["gap"])
 
 
 if __name__ == "__main__":
