@@ -38,6 +38,10 @@ class RightToActTests(unittest.TestCase):
         self.assertEqual(out["agency"], "NON-ACT")
         self.assertTrue(out["otherwise"]["settled"])
         self.assertEqual(out["otherwise"]["open_count"], 1)
+        self.assertFalse(out["delegated"])
+        self.assertTrue(out["nested_stit"]["nested_possible"])
+        self.assertIsNotNone(out["settler"])
+        self.assertEqual(out["settler"]["kind"], "allowlist")
 
         burned = rta.burn_ticket(
             out["ticket_id"], fingerprint=out["fingerprint"], sink="bank.rtp"
@@ -101,6 +105,8 @@ class RightToActTests(unittest.TestCase):
         self.assertTrue(verified["valid"])
         self.assertEqual(verified["payload"]["agc"], "ACT")
         self.assertEqual(verified["payload"]["owh"], out["otherwise"]["open_hash"])
+        self.assertIsNone(out["settler"])
+        self.assertEqual(verified["payload"]["nst"], "SAT")
 
     def test_open_writes_must_be_executable_not_thoughts(self):
         out = rta.evaluate(
@@ -138,6 +144,48 @@ class RightToActTests(unittest.TestCase):
         self.assertEqual(out["decision"], "NONEXIST")
         self.assertEqual(out["agency"], "NON-ACT")
         self.assertEqual(out["otherwise"]["open_count"], 0)
+        self.assertEqual(out["settler"]["kind"], "policy")
+
+    def test_nested_stit_two_agents_is_misfire(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "actor": "agent-1",
+                "human_principal_id": "human:uw",
+                "nested_stit": True,
+                "args": {"amount": 5},
+                "policy": {
+                    "max_amount": 10,
+                    "allowed_actions": ["wire.send", "wire.hold"],
+                },
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "EXIST")
+        self.assertEqual(out["agency"], "ACT")
+        self.assertFalse(out["delegated"])
+        self.assertTrue(out["nested_stit"]["misfire"])
+        self.assertFalse(out["nested_stit"]["nested_possible"])
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified["payload"]["nst"], "UNSAT")
+
+    def test_named_settler_on_non_act(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "actor": "agent-1",
+                "args": {"amount": 5},
+                "settler_id": "charge:bind-1",
+                "policy": {"max_amount": 10, "allowed_actions": ["wire.send"]},
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["agency"], "NON-ACT")
+        self.assertEqual(out["settler"]["settler_id"], "charge:bind-1")
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified["payload"]["stl"], "charge:bind-1")
 
 
 if __name__ == "__main__":
