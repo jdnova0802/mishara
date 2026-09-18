@@ -45,3 +45,6 @@ File as: leftover is the Commission’s sharing form, not a Nisaba SKU.
 5. NORS push: **no**.
 
 Claude’s “small scoped extensions of existing Velaru infra” is true as **shape** and false as **priority**. Filing these as found.
+
+Pharmacy PA “human last click” (follow-up): see `PA_HUMAN_MOUTH.md`. Closest shape of the set. CMS-0057-F excludes **drugs**. Still not a 9am. Health SKU stays out.
+
