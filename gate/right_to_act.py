@@ -29,6 +29,11 @@ try:
 except ImportError:
     import mandate as mandate_mod
 
+try:
+    from gate import otherwise as otherwise_mod
+except ImportError:
+    import otherwise as otherwise_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -172,6 +177,64 @@ def _policy_decide(candidate: dict, policy: dict | None, context: dict | None) -
     return "EXIST", signals
 
 
+def _as_candidate(raw: dict, *, fallback: dict) -> dict:
+    fb = fallback if isinstance(fallback, dict) else {}
+    c = raw if isinstance(raw, dict) else {}
+    return {
+        "action": str(c.get("action") or fb.get("action") or "").strip(),
+        "sink": str(c.get("sink") or fb.get("sink") or "").strip(),
+        "actor": str(c.get("actor") or fb.get("actor") or "").strip(),
+        "args": c["args"] if "args" in c else fb.get("args"),
+        "args_hash": c.get("args_hash") or fb.get("args_hash"),
+        "resource": str(c.get("resource") or c.get("target") or fb.get("resource") or "").strip(),
+    }
+
+
+def consideration_set(candidate: dict, policy: dict, body: dict) -> list[tuple[dict, str]]:
+    """Presented write + caller-attested open writes + other allowed_actions.
+
+    Each row is (candidate, source) where source is presented | open_write | allowed.
+    """
+    presented = _as_candidate(candidate, fallback=candidate)
+    rows: list[tuple[dict, str]] = [(presented, "presented")]
+    for item in otherwise_mod.normalize_open_writes(
+        body.get("open_writes") if "open_writes" in body else body.get("otherwise")
+    ):
+        rows.append((_as_candidate(item, fallback=candidate), "open_write"))
+    allowed = policy.get("allowed_actions") or policy.get("actions") or []
+    if isinstance(allowed, list):
+        for action in allowed:
+            a = str(action or "").strip()
+            if not a:
+                continue
+            sib = dict(presented)
+            sib["action"] = a
+            rows.append((sib, "allowed"))
+    seen: set[str] = set()
+    unique: list[tuple[dict, str]] = []
+    for row, source in rows:
+        fp = candidate_fingerprint(row)
+        if fp in seen:
+            continue
+        seen.add(fp)
+        unique.append((row, source))
+        if len(unique) >= otherwise_mod.MAX_LIVE:
+            break
+    return unique
+
+
+def _sibling_exists(row: dict, policy: dict, context: dict, *, source: str) -> bool:
+    p = policy if isinstance(policy, dict) else {}
+    if source == "open_write":
+        p = dict(p)
+        act = str(row.get("action") or "").strip()
+        allowed = list(p.get("allowed_actions") or p.get("actions") or [])
+        if act and act not in {str(a).strip() for a in allowed}:
+            allowed.append(act)
+            p["allowed_actions"] = allowed
+    return _policy_decide(row, p, context)[0] == "EXIST"
+
+
 def mint_receipt_jwt(
     *,
     evaluation_id: str,
@@ -184,6 +247,8 @@ def mint_receipt_jwt(
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
     issuer: str | None = None,
     ticket_id: str | None = None,
+    otherwise_hash: str | None = None,
+    agency: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -207,6 +272,10 @@ def mint_receipt_jwt(
     }
     if ticket_id:
         payload["tid"] = ticket_id
+    if otherwise_hash:
+        payload["owh"] = otherwise_hash
+    if agency:
+        payload["agc"] = agency
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -489,6 +558,23 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
             resource=str(candidate.get("resource") or candidate.get("target") or ""),
         )
 
+    live: list[dict[str, Any]] = []
+    for row, source in consideration_set(candidate, policy, body):
+        fp = candidate_fingerprint(row)
+        if source == "presented" or fp == fingerprint:
+            exists = decision == "EXIST"
+        else:
+            exists = _sibling_exists(row, policy, context, source=source)
+        live.append(
+            {
+                "action": str(row.get("action") or "").strip(),
+                "sink": str(row.get("sink") or "").strip(),
+                "fingerprint": fp,
+                "exists": exists,
+            }
+        )
+    otherwise = otherwise_mod.witness(live=live)
+
     issuer = (
         (public_url or "").replace("https://", "").replace("http://", "").split("/")[0]
         or "gate.velaru.xyz"
@@ -504,6 +590,8 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         ttl_seconds=ttl,
         issuer=issuer,
         ticket_id=ticket_id,
+        otherwise_hash=str(otherwise.get("open_hash") or ""),
+        agency=str(otherwise.get("agency") or ""),
     )
 
     if signing_required() and not receipt:
@@ -552,6 +640,8 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "manifest": f"{base}/.well-known/right-to-act.json",
         "clearance_only": True,
         "write_executed": False,
+        "otherwise": otherwise,
+        "agency": otherwise.get("agency"),
         "invariant": "Computation does not confer authority for consequence.",
     }
     if decision == "EXIST":
@@ -633,11 +723,16 @@ def manifest(public_url: str) -> dict:
         "sdk": f"{base}/sdk/right-to-act/wrap.mjs",
         "fail_closed": True,
         "receipt_ttl_seconds_default": DEFAULT_TTL_SECONDS,
+        "otherwise": (
+            "EXIST with no live other executable write is not an act. "
+            "Branch witness is on evaluate; token samples are not histories."
+        ),
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
             "mandate": f"{base}/.well-known/mandate.json",
             "note": (
                 "Mandate = living who; Right-to-Act = may this act EXIST; "
+                "Otherwise = was another write live; "
                 "Prefinality = payment-rail specialization."
             ),
         },

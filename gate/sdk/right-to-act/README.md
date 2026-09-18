@@ -7,6 +7,7 @@ Invariant: **Computation does not confer authority for consequence.**
 - `EXIST` → single-use ticket → sink burns ticket → effect may run
 - `NONEXIST` → signed **refusal digest** (the product, not a log line)
 - `HOLD` → human review; act stays non-effective
+- `otherwise` → branch witness: `agency` is `ACT` only if another **executable** write was live (`open_count >= 2`). Token samples are not histories. EXIST with one open write is `NON-ACT`.
 
 ## Wrap
 
