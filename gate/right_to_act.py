@@ -42,9 +42,24 @@ DECISION_ALIASES = {
     "NONEXIST": "NONEXIST",
 }
 DEFAULT_TTL_SECONDS = 300
+POLICY_PRECEDENCE = ("deny", "require_approval", "allow", "default_deny")
+_SENSITIVE_ARG_KEYS = {
+    "password",
+    "secret",
+    "token",
+    "api_key",
+    "apikey",
+    "authorization",
+    "cookie",
+    "private_key",
+    "credit_card",
+    "ssn",
+}
 
 _ticket_lock = threading.Lock()
 _tickets: dict[str, dict[str, Any]] = {}
+_chain_lock = threading.Lock()
+_prev_decision_hash: str | None = None
 
 
 def _utc_now() -> datetime:
@@ -99,6 +114,22 @@ def _args_hash(candidate: dict) -> str:
     return hashlib.sha256(_canonical_json(args).encode("utf-8")).hexdigest()
 
 
+def redact_args(args: Any) -> dict:
+    """Keep correlatable hashes; never echo credential-bearing values."""
+    if not isinstance(args, dict):
+        return {}
+    out: dict[str, Any] = {}
+    for key, value in args.items():
+        low = str(key).lower().replace("-", "_")
+        sensitive = low in _SENSITIVE_ARG_KEYS or any(s in low for s in ("secret", "token", "password", "key"))
+        if sensitive:
+            material = value if isinstance(value, (bytes, bytearray)) else str(value).encode("utf-8")
+            out[key] = "sha256:" + hashlib.sha256(material).hexdigest()
+        else:
+            out[key] = value
+    return out
+
+
 def candidate_fingerprint(candidate: dict) -> str:
     c = candidate if isinstance(candidate, dict) else {}
     body = {
@@ -126,19 +157,14 @@ def _policy_decide(candidate: dict, policy: dict | None, context: dict | None) -
     if not sink:
         return "NONEXIST", ["missing_sink"]
 
-    allowed_actions = policy.get("allowed_actions") or policy.get("actions")
-    if isinstance(allowed_actions, list) and allowed_actions:
-        if action not in {str(a).strip() for a in allowed_actions}:
-            return "NONEXIST", ["action_not_allowed"]
-
-    denied_actions = policy.get("denied_actions") or policy.get("deny")
+    # Precedence (exact): deny → require_approval → allow → default-deny.
+    denied_actions = policy.get("denied_actions") or policy.get("deny") or []
     if isinstance(denied_actions, list) and action in {str(a).strip() for a in denied_actions}:
         return "NONEXIST", ["action_denied"]
 
-    allowed_sinks = policy.get("allowed_sinks") or policy.get("sinks")
-    if isinstance(allowed_sinks, list) and allowed_sinks:
-        if sink not in {str(s).strip() for s in allowed_sinks}:
-            return "NONEXIST", ["sink_not_allowed"]
+    denied_sinks = policy.get("denied_sinks") or []
+    if isinstance(denied_sinks, list) and sink in {str(s).strip() for s in denied_sinks}:
+        return "NONEXIST", ["sink_denied"]
 
     if policy.get("require_args_hash") and not (c.get("args_hash") or c.get("args") is not None):
         return "NONEXIST", ["args_uncommitted"]
@@ -162,12 +188,28 @@ def _policy_decide(candidate: dict, policy: dict | None, context: dict | None) -
     if policy.get("require_actor") and not str(c.get("actor") or "").strip():
         return "NONEXIST", ["missing_actor"]
 
-    hold_actions = policy.get("hold_actions") or []
+    hold_actions = policy.get("hold_actions") or policy.get("require_approval") or []
     if isinstance(hold_actions, list) and action in {str(a).strip() for a in hold_actions}:
         return "HOLD", ["human_review"]
 
     if context.get("force_nonexist"):
         return "NONEXIST", ["forced_nonexist"]
+
+    allowed_actions = policy.get("allowed_actions") or policy.get("actions")
+    if isinstance(allowed_actions, list) and allowed_actions:
+        if action not in {str(a).strip() for a in allowed_actions}:
+            return "NONEXIST", ["action_not_allowed"]
+    elif not (
+        policy.get("require_mandate")
+        or context.get("require_mandate")
+        or policy.get("default") == "allow"
+    ):
+        return "NONEXIST", ["default_deny"]
+
+    allowed_sinks = policy.get("allowed_sinks") or policy.get("sinks")
+    if isinstance(allowed_sinks, list) and allowed_sinks:
+        if sink not in {str(s).strip() for s in allowed_sinks}:
+            return "NONEXIST", ["sink_not_allowed"]
 
     return "EXIST", signals
 
@@ -184,6 +226,10 @@ def mint_receipt_jwt(
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
     issuer: str | None = None,
     ticket_id: str | None = None,
+    agent_id: str | None = None,
+    human_principal_id: str | None = None,
+    args_hash: str | None = None,
+    prev_decision_hash: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -204,7 +250,13 @@ def mint_receipt_jwt(
         "sink": sink,
         "exists": decision == "EXIST",
         "refusal": decision == "NONEXIST",
+        "agt": agent_id or actor or "anonymous",
+        "prn": human_principal_id or "",
     }
+    if args_hash:
+        payload["args_hash"] = args_hash
+    if prev_decision_hash:
+        payload["prev"] = prev_decision_hash
     if ticket_id:
         payload["tid"] = ticket_id
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
@@ -313,8 +365,9 @@ def _mint_ticket(
     agent_id: str | None = None,
     amount: float | None = None,
     resource: str | None = None,
+    ticket_id: str | None = None,
 ) -> str:
-    tid = f"rta_{secrets.token_hex(16)}"
+    tid = ticket_id or f"rta_{secrets.token_hex(16)}"
     with _ticket_lock:
         _tickets[tid] = {
             "evaluation_id": evaluation_id,
@@ -411,6 +464,7 @@ def burn_ticket(ticket_id: str, *, fingerprint: str, sink: str) -> dict:
 
 
 def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> dict:
+    global _prev_decision_hash
     _ = account_id
     candidate = body.get("candidate") if isinstance(body.get("candidate"), dict) else {}
     if not candidate:
@@ -418,6 +472,11 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
             "action": body.get("action"),
             "sink": body.get("sink"),
             "actor": body.get("actor") or body.get("agent_id"),
+            "human_principal_id": (
+                body.get("human_principal_id")
+                or body.get("principal_id")
+                or body.get("delegator")
+            ),
             "args": body.get("args"),
             "args_hash": body.get("args_hash"),
             "resource": body.get("resource") or body.get("target"),
@@ -470,46 +529,76 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         else:
             mandate_id = reconstruction.get("mandate_id") or mandate_id
 
+    agent_id = str(candidate.get("actor") or body.get("agent_id") or "").strip() or None
+    human_principal_id = str(
+        candidate.get("human_principal_id")
+        or body.get("human_principal_id")
+        or body.get("principal_id")
+        or body.get("delegator")
+        or (reconstruction or {}).get("human_principal_id")
+        or (mandate_obj or {}).get("human_principal_id")
+        or ""
+    ).strip() or None
+    args_hash = _args_hash(candidate)
+
     if signing_required() and not _signing_key():
         decision = "NONEXIST"
         if "unsigned_halt" not in signals:
             signals.append("unsigned_halt")
 
+    # Audit-first: sign the decision (with a reserved ticket id) before the
+    # ticket becomes burnable. Crash between these steps still leaves a receipt.
     ticket_id = None
     if decision == "EXIST" and mint_ticket:
-        ticket_id = _mint_ticket(
-            evaluation_id=evaluation_id,
-            fingerprint=fingerprint,
-            sink=str(candidate.get("sink") or "").strip(),
-            ttl_seconds=ttl,
-            mandate_id=str(mandate_id) if mandate_id else None,
-            action=str(candidate.get("action") or "").strip() or None,
-            agent_id=str(candidate.get("actor") or "").strip() or None,
-            amount=amount,
-            resource=str(candidate.get("resource") or candidate.get("target") or ""),
-        )
+        ticket_id = f"rta_{secrets.token_hex(16)}"
 
     issuer = (
         (public_url or "").replace("https://", "").replace("http://", "").split("/")[0]
         or "gate.velaru.xyz"
     )
+    with _chain_lock:
+        prev = _prev_decision_hash
     receipt = mint_receipt_jwt(
         evaluation_id=evaluation_id,
         decision=decision,
         fingerprint=fingerprint,
         signals=signals,
-        actor=str(candidate.get("actor") or "").strip() or None,
+        actor=agent_id,
         action=str(candidate.get("action") or "").strip(),
         sink=str(candidate.get("sink") or "").strip(),
         ttl_seconds=ttl,
         issuer=issuer,
         ticket_id=ticket_id,
+        agent_id=agent_id,
+        human_principal_id=human_principal_id,
+        args_hash=args_hash,
+        prev_decision_hash=prev,
     )
 
     if signing_required() and not receipt:
         decision = "NONEXIST"
         signals = list(signals) + ["unsigned_halt"]
         ticket_id = None
+
+    if decision == "EXIST" and mint_ticket and ticket_id:
+        _mint_ticket(
+            evaluation_id=evaluation_id,
+            fingerprint=fingerprint,
+            sink=str(candidate.get("sink") or "").strip(),
+            ttl_seconds=ttl,
+            mandate_id=str(mandate_id) if mandate_id else None,
+            action=str(candidate.get("action") or "").strip() or None,
+            agent_id=agent_id,
+            amount=amount,
+            resource=str(candidate.get("resource") or candidate.get("target") or ""),
+            ticket_id=ticket_id,
+        )
+
+    decision_hash = hashlib.sha256(
+        (receipt or evaluation_id).encode("utf-8")
+    ).hexdigest()
+    with _chain_lock:
+        _prev_decision_hash = decision_hash
 
     refusal = None
     if decision == "NONEXIST":
@@ -539,7 +628,11 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "exists": decision == "EXIST",
         "signals": signals,
         "fingerprint": fingerprint,
-        "args_hash": _args_hash(candidate),
+        "args_hash": args_hash,
+        "agent_id": agent_id,
+        "human_principal_id": human_principal_id,
+        "decision_hash": decision_hash,
+        "prev_decision_hash": prev,
         "receipt": receipt,
         "ticket_id": ticket_id,
         "mandate_id": mandate_id,
@@ -553,6 +646,8 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "clearance_only": True,
         "write_executed": False,
         "invariant": "Computation does not confer authority for consequence.",
+        "policy_precedence": list(POLICY_PRECEDENCE),
+        "args_redacted": redact_args(args),
     }
     if decision == "EXIST":
         out["message"] = (

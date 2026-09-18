@@ -29,7 +29,7 @@ jobs:
           python-version: "3.12"
       - name: Install
         run: |
-          pip install flask python-dotenv stripe bcrypt requests pytest
+          pip install flask python-dotenv stripe bcrypt requests pytest cryptography
           sudo apt-get update -qq && sudo apt-get install -y -qq ripgrep
       - name: Zero-tolerance scorecard gates (Dims 11–14)
         env:
@@ -39,7 +39,7 @@ jobs:
           python ../scripts/scorecard_gates/run_gates.py --prove-fail 12
           python ../scripts/scorecard_gates/run_gates.py --prove-fail 13
           python ../scripts/scorecard_gates/run_gates.py --prove-fail 14
-          python -m pytest test_zero_tolerance_gates.py test_x402_agent_demo.py -q
+          python -m pytest test_zero_tolerance_gates.py test_x402_agent_demo.py test_right_to_act.py test_mandate.py test_policy_as_code.py -q
       - name: Commerce + institutional surface tests
         env:
           GATE_DEV_MODE: "1"
