@@ -23,17 +23,29 @@ def _id(raw: Any) -> str:
     return str(raw or "").strip()
 
 
+def _self_named(named: str) -> bool:
+    n = named.strip().lower()
+    if n in {"unknown", "nobody", "policy", "allowlist", "gap", "the policy"}:
+        return True
+    return n.startswith("policy:") or n.startswith("allowlist:")
+
+
 def nested_stit(
     *,
     actor: str | None,
     principal: str | None,
     claims_nested: bool = False,
+    principals: list | None = None,
 ) -> dict[str, Any]:
-    """Principal cannot wear the agent's seeing-to-it as their own act."""
+    """Principal cannot wear the agent's seeing-to-it as their own act.
+
+    Org charts are not two-deep. Any second distinct mouth on the hop is unsat.
+    """
     a = _id(actor)
     p = _id(principal)
-    distinct = bool(a and p and a != p)
-    # Nested STIT is unsat whenever two different agents are on the hop.
+    extra = [_id(x) for x in (principals or []) if _id(x)]
+    mouths = [x for x in [a, p, *extra] if x]
+    distinct = len(set(mouths)) > 1
     unsat = distinct
     claimed = bool(claims_nested) or distinct
     return {
@@ -43,6 +55,8 @@ def nested_stit(
         "misfire": unsat and claimed,
         "actor": a or None,
         "principal": p or None,
+        "principals": extra or None,
+        "depth": len(set(mouths)),
         "invariant": INVARIANT_NESTED,
         "not": "A mandate, wrap SDK, or 'we delegated to the agent' board slide.",
     }
@@ -70,7 +84,13 @@ def settler(
         or pol.get("owner_id")
         or pol.get("authored_by")
     )
-    if named:
+    if named and _self_named(named):
+        kind = "spoof"
+        settler_id = named
+        owned = False
+        gap = True
+        gap_reason = "self_named"
+    elif named:
         kind = "named"
         settler_id = named
         owned = True

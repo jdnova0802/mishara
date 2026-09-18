@@ -44,6 +44,11 @@ try:
 except ImportError:
     import signed_line as signed_line_mod
 
+try:
+    from gate import chain as chain_mod
+except ImportError:
+    import chain as chain_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -57,6 +62,17 @@ DECISION_ALIASES = {
     "NONEXIST": "NONEXIST",
 }
 DEFAULT_TTL_SECONDS = 300
+_NON_EXECUTABLE_PREFIXES = (
+    "thought.",
+    "model.",
+    "sample.",
+    "diary.",
+    "n-best.",
+    "nbest.",
+)
+_NON_EXECUTABLE_ACTIONS = frozenset(
+    {"thought", "consider", "n-best", "nbest", "sample", "diary"}
+)
 
 _ticket_lock = threading.Lock()
 _tickets: dict[str, dict[str, Any]] = {}
@@ -103,6 +119,13 @@ def key_id() -> str | None:
 def normalize_decision(raw: str | None) -> str:
     s = (raw or "").strip().upper().replace("-", "_")
     return DECISION_ALIASES.get(s, s if s in DECISIONS else "NONEXIST")
+
+
+def _executable_action(action: str) -> bool:
+    a = (action or "").strip().lower()
+    if not a or a in _NON_EXECUTABLE_ACTIONS:
+        return False
+    return not any(a.startswith(p) for p in _NON_EXECUTABLE_PREFIXES)
 
 
 def _args_hash(candidate: dict) -> str:
@@ -242,6 +265,8 @@ def _sibling_exists(row: dict, policy: dict, context: dict, *, source: str) -> b
         if act and act not in {str(a).strip() for a in allowed}:
             allowed.append(act)
             p["allowed_actions"] = allowed
+    if not _executable_action(str(row.get("action") or "")):
+        return False
     return _policy_decide(row, p, context)[0] == "EXIST"
 
 
@@ -265,6 +290,10 @@ def mint_receipt_jwt(
     signed_hash: str | None = None,
     mutation: str | None = None,
     in_authority: str | None = None,
+    valid_until: str | None = None,
+    chain_grade: str | None = None,
+    chain_min_agency: str | None = None,
+    upstream_gap: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -304,6 +333,14 @@ def mint_receipt_jwt(
         payload["mut"] = mutation
     if in_authority:
         payload["iaa"] = in_authority
+    if valid_until:
+        payload["iau"] = valid_until
+    if chain_grade:
+        payload["chn"] = chain_grade
+    if chain_min_agency:
+        payload["cma"] = chain_min_agency
+    if upstream_gap:
+        payload["ugp"] = upstream_gap
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -578,6 +615,18 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         if "signed_line_out_of_authority" not in signals:
             signals.append("signed_line_out_of_authority")
 
+    upstream = chain_mod.collect(
+        body.get("upstream")
+        if body.get("upstream") is not None
+        else (context.get("upstream") if context.get("upstream") is not None else body.get("depends_on")),
+        decode=verify_receipt_jwt,
+    )
+    chain_floor = chain_mod.floor(upstream)
+    if chain_floor.get("halt"):
+        decision = "NONEXIST"
+        if "chain_rotten" not in signals:
+            signals.append("chain_rotten")
+
     ticket_id = None
     if decision == "EXIST" and mint_ticket:
         ticket_id = _mint_ticket(
@@ -615,6 +664,11 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         or context.get("principal")
         or ""
     ).strip()
+    raw_principals = body.get("principals") or context.get("principals") or []
+    if isinstance(raw_principals, str):
+        raw_principals = [raw_principals]
+    if not isinstance(raw_principals, list):
+        raw_principals = []
     claims_nested = bool(
         body.get("nested_stit")
         or body.get("delegated")
@@ -626,6 +680,7 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         actor=str(candidate.get("actor") or "").strip() or None,
         principal=principal or None,
         claims_nested=claims_nested,
+        principals=raw_principals,
     )
     settler = stit_mod.settler(
         agency=str(otherwise.get("agency") or ""),
@@ -633,6 +688,17 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         policy=policy,
         context=context,
         body=body,
+    )
+    chain = chain_mod.witness(
+        current={
+            "agency": otherwise.get("agency"),
+            "gap": bool((settler or {}).get("gap") or signed_line.get("gap")),
+            "mutation": signed_line.get("mutation"),
+            "in_authority": signed_line.get("in_authority"),
+            "decision": decision,
+            "halt": decision != "EXIST" or bool(signed_line.get("halt")),
+        },
+        upstream=upstream,
     )
 
     issuer = (
@@ -662,6 +728,10 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         signed_hash=str(signed_line.get("signed_hash") or ""),
         mutation=str(signed_line.get("mutation") or ""),
         in_authority=str(signed_line.get("in_authority") or ""),
+        valid_until=str(signed_line.get("valid_until") or "") or None,
+        chain_grade=str(chain.get("grade") or ""),
+        chain_min_agency=str(chain.get("min_agency") or ""),
+        upstream_gap="GAP" if chain.get("upstream_gap") else "OK",
     )
 
     if signing_required() and not receipt:
@@ -716,6 +786,7 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "delegated": False,
         "settler": settler,
         "signed_line": signed_line,
+        "chain": chain,
         "invariant": "Computation does not confer authority for consequence.",
     }
     if decision == "EXIST":
@@ -810,7 +881,12 @@ def manifest(public_url: str) -> dict:
         ),
         "signed_line": (
             "Written line is not the signed line. Mutation after the hop is measured. "
-            "In-authority is at the bind second, not an MGA allowlist."
+            "In-authority is at the bind second, not an MGA allowlist. "
+            "valid_until is how long that claim may be read as still live."
+        ),
+        "chain": (
+            "A clean hop on a rotten upstream is still rotten. "
+            "chn=CLEAN|STAINED|ROTTEN inherits the weakest parent claim."
         ),
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
@@ -819,6 +895,7 @@ def manifest(public_url: str) -> dict:
                 "Mandate = living who; Right-to-Act = may this act EXIST; "
                 "Otherwise = was another write live; "
                 "Signed-line = did the share mutate, was power in at the second; "
+                "Chain = weakest parent claim; "
                 "Prefinality = payment-rail specialization."
             ),
         },

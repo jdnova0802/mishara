@@ -106,17 +106,23 @@ def _parse_iso(raw: Any) -> datetime | None:
     return dt
 
 
-def _authority_at(authority: dict | None) -> tuple[str, str | None, bool, str | None]:
-    """Return (IN|OUT|UNKNOWN, at_iso, gap, gap_reason)."""
+def _iso_z(dt: datetime | None) -> str | None:
+    if dt is None:
+        return None
+    return dt.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def _authority_at(
+    authority: dict | None,
+) -> tuple[str, str | None, bool, str | None, str | None]:
+    """Return (IN|OUT|UNKNOWN, at_iso, gap, gap_reason, valid_until)."""
     auth = authority if isinstance(authority, dict) else {}
     at_raw = auth.get("at") or auth.get("bind_at") or auth.get("signed_at")
     at_dt = _parse_iso(at_raw)
-    at_iso = (
-        at_dt.replace(microsecond=0).isoformat().replace("+00:00", "Z") if at_dt else None
-    )
+    at_iso = _iso_z(at_dt)
 
     start = _parse_iso(auth.get("window_start") or auth.get("effective"))
-    end = _parse_iso(auth.get("window_end") or auth.get("expires"))
+    end = _parse_iso(auth.get("window_end") or auth.get("expires") or auth.get("valid_until"))
     inside = auth.get("inside")
     if inside is None:
         inside = auth.get("in_authority")
@@ -130,16 +136,18 @@ def _authority_at(authority: dict | None) -> tuple[str, str | None, bool, str | 
     else:
         iaa = "UNKNOWN"
 
-    if at_dt and start and at_dt < start:
+    clock = at_dt or datetime.now(timezone.utc)
+    if start and clock < start:
         iaa = "OUT"
-    if at_dt and end and at_dt > end:
+    if end and clock > end:
         iaa = "OUT"
 
+    valid_until = _iso_z(end)
     if iaa == "OUT":
-        return iaa, at_iso, False, None
+        return iaa, at_iso, False, None, valid_until
     if iaa == "IN":
-        return iaa, at_iso, False, None
-    return "UNKNOWN", at_iso, True, "missing_authority"
+        return iaa, at_iso, False, None, valid_until
+    return "UNKNOWN", at_iso, True, "missing_authority", valid_until
 
 
 def witness(
@@ -150,7 +158,7 @@ def witness(
 ) -> dict[str, Any]:
     """Measure written vs signed; whether power held at the pen second."""
     mut = _mutation(written, signed)
-    iaa, at_iso, gap, gap_reason = _authority_at(authority)
+    iaa, at_iso, gap, gap_reason, valid_until = _authority_at(authority)
     if mut == "UNWRITTEN":
         gap = True
         gap_reason = "unwritten"
@@ -162,6 +170,7 @@ def witness(
         "mutation": mut,
         "in_authority": iaa,
         "authority_at": at_iso,
+        "valid_until": valid_until,
         "gap": gap,
         "gap_reason": gap_reason,
         "halt": halt,

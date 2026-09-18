@@ -53,6 +53,30 @@ class SettlerTests(unittest.TestCase):
         self.assertTrue(out["owned"])
         self.assertFalse(out["gap"])
 
+    def test_policy_prefix_cannot_self_name(self):
+        out = stit_mod.settler(
+            agency="NON-ACT",
+            open_count=1,
+            policy={"allowed_actions": ["wire.send"]},
+            context={"settler_id": "policy:allowlist:wire.send"},
+            body={},
+        )
+        self.assertEqual(out["kind"], "spoof")
+        self.assertFalse(out["owned"])
+        self.assertTrue(out["gap"])
+        self.assertEqual(out["gap_reason"], "self_named")
+
+    def test_three_mouths_unsat(self):
+        out = stit_mod.nested_stit(
+            actor="agent-1",
+            principal="human:uw",
+            principals=["agent-2"],
+        )
+        self.assertFalse(out["nested_possible"])
+        self.assertTrue(out["misfire"])
+        self.assertFalse(out["delegated"])
+        self.assertEqual(out["depth"], 3)
+
     def test_allowlist_settler(self):
         out = stit_mod.settler(
             agency="NON-ACT",
