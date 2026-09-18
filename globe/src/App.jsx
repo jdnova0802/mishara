@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { Map, NavigationControl } from 'maplibre-gl'
+import { Map, NavigationControl, config } from 'maplibre-gl'
+import maplibreWorker from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import './App.css'
+
+config.WORKER_URL = maplibreWorker
 
 const STYLE = 'https://tiles.openfreemap.org/styles/liberty'
 const COUNTRIES = '/geo/countries.geojson'
