@@ -1,0 +1,79 @@
+{
+  "precedence": ["deny", "require_approval", "allow", "default_deny"],
+  "cases": [
+    {
+      "name": "deny_wins_over_allow",
+      "action": "wire.send",
+      "sink": "bank.rtp",
+      "actor": "agent:ops",
+      "human_principal_id": "human:demond",
+      "policy": {
+        "denied_actions": ["wire.send"],
+        "allowed_actions": ["wire.send"]
+      },
+      "expect": "NONEXIST",
+      "signal": "action_denied"
+    },
+    {
+      "name": "hold_is_require_approval",
+      "action": "wire.send",
+      "sink": "bank.rtp",
+      "actor": "agent:ops",
+      "human_principal_id": "human:demond",
+      "args": {"amount": 1},
+      "policy": {
+        "allowed_actions": ["wire.send"],
+        "hold_actions": ["wire.send"],
+        "max_amount": 10
+      },
+      "expect": "HOLD",
+      "signal": "human_review"
+    },
+    {
+      "name": "deny_wins_over_hold",
+      "action": "wire.send",
+      "sink": "bank.rtp",
+      "actor": "agent:ops",
+      "policy": {
+        "denied_actions": ["wire.send"],
+        "hold_actions": ["wire.send"],
+        "allowed_actions": ["wire.send"]
+      },
+      "expect": "NONEXIST",
+      "signal": "action_denied"
+    },
+    {
+      "name": "allow_when_listed",
+      "action": "wire.send",
+      "sink": "bank.rtp",
+      "actor": "agent:ops",
+      "human_principal_id": "human:demond",
+      "args": {"amount": 2},
+      "policy": {
+        "allowed_actions": ["wire.send"],
+        "max_amount": 10
+      },
+      "expect": "EXIST"
+    },
+    {
+      "name": "default_deny_when_unlisted",
+      "action": "wire.send",
+      "sink": "bank.rtp",
+      "actor": "agent:ops",
+      "policy": {},
+      "expect": "NONEXIST",
+      "signal": "default_deny"
+    },
+    {
+      "name": "sensitive_args_hashed_not_echoed",
+      "action": "wire.send",
+      "sink": "bank.rtp",
+      "actor": "agent:ops",
+      "human_principal_id": "human:demond",
+      "args": {"amount": 1, "api_key": "sk-live-not-for-logs"},
+      "policy": {"allowed_actions": ["wire.send"], "max_amount": 10},
+      "expect": "EXIST",
+      "forbid_in_receipt": "sk-live-not-for-logs"
+    }
+  ]
+}

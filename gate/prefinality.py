@@ -217,6 +217,7 @@ def mint_receipt_jwt(
     fingerprint: str,
     signals: list[str],
     agent_id: str | None,
+    human_principal_id: str | None = None,
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
     issuer: str | None = None,
 ) -> str | None:
@@ -231,6 +232,8 @@ def mint_receipt_jwt(
         "jti": evaluation_id,
         "iss": issuer or "gate.velaru.xyz",
         "sub": agent_id or "anonymous",
+        "agt": agent_id or "anonymous",
+        "prn": human_principal_id or "",
         "iat": int(now.timestamp()),
         "exp": int(exp.timestamp()),
         "rail": rail,
@@ -323,6 +326,14 @@ def evaluate(
     context = body.get("context") if isinstance(body.get("context"), dict) else {}
     ttl = int(body.get("ttl_seconds") or mandate.get("ttl_seconds") or DEFAULT_TTL_SECONDS)
     agent_id = (mandate.get("agent_id") or body.get("agent_id") or context.get("agent_id") or "").strip() or None
+    human_principal_id = (
+        mandate.get("human_principal_id")
+        or body.get("human_principal_id")
+        or body.get("principal_id")
+        or context.get("human_principal_id")
+        or ""
+    )
+    human_principal_id = str(human_principal_id).strip() or None
     fuse_id = (mandate.get("fuse_id") or body.get("fuse_id") or "").strip() or None
 
     evaluation_id = f"pf_{uuid.uuid4().hex}"
@@ -365,6 +376,7 @@ def evaluate(
         fingerprint=fingerprint,
         signals=signals,
         agent_id=agent_id,
+        human_principal_id=human_principal_id,
         ttl_seconds=ttl,
         issuer=public_url.replace("https://", "").replace("http://", "").split("/")[0] or "gate.velaru.xyz",
     )
@@ -403,6 +415,7 @@ def evaluate(
         halt=halt,
         hop=hop_meta,
         agent_id=agent_id,
+        human_principal_id=human_principal_id,
         ttl_seconds=ttl,
     )
 
@@ -421,6 +434,7 @@ def _response(
     reason: str | None = None,
     hop: dict | None = None,
     agent_id: str | None = None,
+    human_principal_id: str | None = None,
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
 ) -> dict:
     base = (public_url or "").rstrip("/")
@@ -444,6 +458,8 @@ def _response(
     }
     if agent_id:
         out["agent_id"] = agent_id
+    if human_principal_id:
+        out["human_principal_id"] = human_principal_id
     if reason:
         out["reason"] = reason
     if hop:
