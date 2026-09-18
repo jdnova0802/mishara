@@ -10,7 +10,8 @@ Invariant: **Computation does not confer authority for consequence.**
 - `otherwise` → branch witness: `agency` is `ACT` only if another **executable** write was live (`open_count >= 2`). Token samples are not histories. EXIST with one open write is `NON-ACT`.
 - `nested_stit` → independent agents cannot nested-STIT. `delegated` is always false. Two different actor/principal IDs → `nst=UNSAT` on the receipt.
 - `settler` → when `agency` is `NON-ACT`, who collapsed the otherwise (named `settler_id`, else allowlist/policy). The bag does not vanish.
-- `signed_line` → written-line hash vs signed-line hash. `mut` is `SAME|DOWN|UP|DIFF|UNSIGNED|UNWRITTEN|ABSENT`. `iaa` is `IN|OUT|UNKNOWN` at the bind second. OUT → NONEXIST. Signing down is not NONEXIST by itself. Not an MGA allowlist and not a placing rail.
+- `signed_line` → written-line hash vs signed-line hash. `mut` is `SAME|DOWN|UP|DIFF|UNSIGNED|UNWRITTEN|ABSENT`. `iaa` is `IN|OUT|UNKNOWN` at the bind second. `iau` is `valid_until`. OUT → NONEXIST. Signing down is not NONEXIST by itself. Not an MGA allowlist and not a placing rail.
+- `chain` → inherits the weakest upstream claim. `chn` is `CLEAN|STAINED|ROTTEN`. `cma` is min agency. `ugp` is `OK|GAP`. ROTTEN (parent NONEXIST / OUT / unverified) → NONEXIST. Stain (parent NON-ACT or `mut=DOWN`) is honest, not a halt.
 
 ## Wrap
 

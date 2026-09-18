@@ -97,6 +97,20 @@ class SignedLineWitnessTests(unittest.TestCase):
         self.assertEqual(out["mutation"], "DOWN")
         self.assertEqual(out["in_authority"], "IN")
 
+    def test_valid_until_published(self):
+        out = sl.witness(
+            written={"share": 25},
+            signed={"share": 25},
+            authority={
+                "inside": True,
+                "at": "2026-03-01T00:00:00Z",
+                "window_end": "2026-12-01T00:00:00Z",
+            },
+        )
+        self.assertEqual(out["in_authority"], "IN")
+        self.assertEqual(out["valid_until"], "2026-12-01T00:00:00Z")
+        self.assertFalse(out["halt"])
+
 
 if __name__ == "__main__":
     unittest.main()
