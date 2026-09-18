@@ -193,6 +193,56 @@ class RightToActTests(unittest.TestCase):
         self.assertTrue(out["settler"]["owned"])
         self.assertFalse(out["settler"]["gap"])
 
+    def test_signing_down_still_exist(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "actor": "agent-1",
+                "args": {"amount": 5},
+                "written_line": {"share": 40, "class": "cargo"},
+                "signed_line": {"share": 15, "class": "cargo"},
+                "authority": {"inside": True, "at": "2026-09-18T12:00:00Z"},
+                "policy": {
+                    "max_amount": 10,
+                    "allowed_actions": ["wire.send", "wire.hold"],
+                },
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "EXIST")
+        self.assertEqual(out["signed_line"]["mutation"], "DOWN")
+        self.assertEqual(out["signed_line"]["in_authority"], "IN")
+        self.assertFalse(out["signed_line"]["halt"])
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified["payload"]["mut"], "DOWN")
+        self.assertEqual(verified["payload"]["iaa"], "IN")
+        self.assertEqual(verified["payload"]["wlh"], out["signed_line"]["written_hash"])
+        self.assertEqual(verified["payload"]["slh"], out["signed_line"]["signed_hash"])
+        self.assertNotEqual(verified["payload"]["wlh"], verified["payload"]["slh"])
+
+    def test_out_of_authority_is_nonexist(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "actor": "agent-1",
+                "args": {"amount": 5},
+                "written_line": {"share": 25},
+                "signed_line": {"share": 25},
+                "authority": {"inside": False, "at": "2026-09-18T12:00:00Z"},
+                "policy": {"max_amount": 10, "allowed_actions": ["wire.send"]},
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "NONEXIST")
+        self.assertIn("signed_line_out_of_authority", out["signals"])
+        self.assertIsNone(out["ticket_id"])
+        self.assertTrue(out["signed_line"]["halt"])
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified["payload"]["iaa"], "OUT")
+        self.assertEqual(verified["payload"]["mut"], "SAME")
+
 
 if __name__ == "__main__":
     unittest.main()

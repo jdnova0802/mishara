@@ -39,6 +39,11 @@ try:
 except ImportError:
     import stit as stit_mod
 
+try:
+    from gate import signed_line as signed_line_mod
+except ImportError:
+    import signed_line as signed_line_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -256,6 +261,10 @@ def mint_receipt_jwt(
     agency: str | None = None,
     nested_stit: str | None = None,
     settler_id: str | None = None,
+    written_hash: str | None = None,
+    signed_hash: str | None = None,
+    mutation: str | None = None,
+    in_authority: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -287,6 +296,14 @@ def mint_receipt_jwt(
         payload["nst"] = nested_stit
     if settler_id:
         payload["stl"] = settler_id
+    if written_hash:
+        payload["wlh"] = written_hash
+    if signed_hash:
+        payload["slh"] = signed_hash
+    if mutation:
+        payload["mut"] = mutation
+    if in_authority:
+        payload["iaa"] = in_authority
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -555,6 +572,12 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         if "unsigned_halt" not in signals:
             signals.append("unsigned_halt")
 
+    signed_line = signed_line_mod.from_body(body, context)
+    if signed_line.get("halt"):
+        decision = "NONEXIST"
+        if "signed_line_out_of_authority" not in signals:
+            signals.append("signed_line_out_of_authority")
+
     ticket_id = None
     if decision == "EXIST" and mint_ticket:
         ticket_id = _mint_ticket(
@@ -635,6 +658,10 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
             if settler and settler.get("owned")
             else ("GAP" if settler and settler.get("gap") else None)
         ),
+        written_hash=str(signed_line.get("written_hash") or ""),
+        signed_hash=str(signed_line.get("signed_hash") or ""),
+        mutation=str(signed_line.get("mutation") or ""),
+        in_authority=str(signed_line.get("in_authority") or ""),
     )
 
     if signing_required() and not receipt:
@@ -688,6 +715,7 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "nested_stit": nested,
         "delegated": False,
         "settler": settler,
+        "signed_line": signed_line,
         "invariant": "Computation does not confer authority for consequence.",
     }
     if decision == "EXIST":
@@ -780,12 +808,17 @@ def manifest(public_url: str) -> dict:
         "settler": (
             "NON-ACT does not erase the bag. settler_id is who collapsed the otherwise."
         ),
+        "signed_line": (
+            "Written line is not the signed line. Mutation after the hop is measured. "
+            "In-authority is at the bind second, not an MGA allowlist."
+        ),
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
             "mandate": f"{base}/.well-known/mandate.json",
             "note": (
                 "Mandate = living who; Right-to-Act = may this act EXIST; "
                 "Otherwise = was another write live; "
+                "Signed-line = did the share mutate, was power in at the second; "
                 "Prefinality = payment-rail specialization."
             ),
         },
