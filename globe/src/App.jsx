@@ -1,12 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
-import { Map, NavigationControl } from 'maplibre-gl'
+import { Map, NavigationControl, config } from 'maplibre-gl'
+import maplibreWorker from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import './App.css'
+
+config.WORKER_URL = maplibreWorker
 
 const STYLE = 'https://tiles.openfreemap.org/styles/liberty'
 const COUNTRIES = '/geo/countries.geojson'
 const STATES = '/geo/states.geojson'
 const CITIES = '/geo/cities.geojson'
+
+// Stay on the globe until street zoom, then morph to mercator so vector
+// tiles actually paint (pure globe at z12+ looks into the sphere / goes black).
+const PROJECTION = {
+  type: ['interpolate', ['linear'], ['zoom'], 10, 'vertical-perspective', 12, 'mercator'],
+}
 
 const WIKI_ALIAS = {
   'United States of America': 'United States',
@@ -83,47 +92,175 @@ function pointInPolygonFeature(lng, lat, feature) {
   )
 }
 
-function addFill(map, id, source, minzoom, maxzoom) {
-  map.addLayer({
-    id,
-    type: 'fill',
-    source,
-    minzoom,
-    maxzoom,
-    paint: {
-      'fill-color': [
-        'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        '#7cd2ff',
-        '#1a5aa0',
-      ],
-      'fill-opacity': [
-        'case',
-        ['boolean', ['feature-state', 'selected'], false],
-        0.45,
-        0.22,
-      ],
-    },
+function withIds(collection) {
+  collection.features.forEach((f, i) => {
+    f.id = i
   })
-  map.addLayer({
-    id: `${id}-line`,
-    type: 'line',
-    source,
-    minzoom,
-    maxzoom,
-    paint: {
-      'line-color': 'rgba(180, 220, 255, 0.55)',
-      'line-width': 0.8,
+  return collection
+}
+
+function overlayBeforeId(map) {
+  const layers = map.getStyle().layers || []
+  const road = layers.find((l) => /^(tunnel_|road_|bridge_)/.test(l.id))
+  if (road) return road.id
+  return layers.find((l) => l.type === 'symbol')?.id
+}
+
+const SKY = {
+  'sky-color': '#02040a',
+  'horizon-color': '#3a6cb0',
+  'fog-color': '#07101c',
+  'fog-ground-blend': 0.55,
+  'horizon-fog-blend': 0.8,
+  'sky-horizon-blend': 0.85,
+  'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 0.85, 4, 0.5, 7, 0],
+}
+
+function applyAtmosphere(map) {
+  try {
+    map.setSky(SKY)
+  } catch {
+    /* sky optional */
+  }
+}
+
+function clearSky(map) {
+  try {
+    map.setSky(undefined)
+  } catch {
+    /* ignore */
+  }
+}
+
+function restyleBase(map) {
+  try {
+    map.setPaintProperty('water', 'fill-color', '#0a2744')
+  } catch {
+    /* ignore */
+  }
+}
+
+async function libertyStyle() {
+  const style = await fetch(STYLE).then((r) => r.json())
+  style.projection = PROJECTION
+  style.sky = SKY
+  const water = style.layers?.find((l) => l.id === 'water')
+  if (water?.paint) water.paint['fill-color'] = '#0a2744'
+  return style
+}
+
+function syncView(map) {
+  const z = map.getZoom() ?? 0
+  const street = z >= 11
+  if (map._streetMode === street) return
+  map._streetMode = street
+  if (street) {
+    try {
+      map.setProjection({ type: 'mercator' })
+    } catch {
+      /* ignore */
+    }
+    clearSky(map)
+  } else {
+    try {
+      map.setProjection(PROJECTION)
+    } catch {
+      try {
+        map.setProjection({ type: 'globe' })
+      } catch {
+        /* ignore */
+      }
+    }
+    applyAtmosphere(map)
+  }
+}
+
+function addFill(map, id, source, minzoom, maxzoom, beforeId) {
+  map.addLayer(
+    {
+      id,
+      type: 'fill',
+      source,
+      minzoom,
+      maxzoom,
+      paint: {
+        'fill-color': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          '#7cd2ff',
+          '#1a5aa0',
+        ],
+        'fill-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          0.2,
+          0.04,
+        ],
+      },
     },
-  })
+    beforeId,
+  )
+  map.addLayer(
+    {
+      id: `${id}-line`,
+      type: 'line',
+      source,
+      minzoom,
+      maxzoom,
+      paint: {
+        'line-color': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          '#b9f0ff',
+          'rgba(180, 220, 255, 0.22)',
+        ],
+        'line-width': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          1.8,
+          0.6,
+        ],
+        'line-blur': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          0.4,
+          0,
+        ],
+        'line-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'selected'], false],
+          0.95,
+          0.7,
+        ],
+      },
+    },
+    beforeId,
+  )
+  map.addLayer(
+    {
+      id: `${id}-glow`,
+      type: 'line',
+      source,
+      minzoom,
+      maxzoom,
+      paint: {
+        'line-color': '#7cd2ff',
+        'line-width': 6,
+        'line-blur': 4.5,
+        'line-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 0.55, 0],
+      },
+    },
+    beforeId,
+  )
 }
 
 export default function App() {
   const hostRef = useRef(null)
   const mapRef = useRef(null)
-  const spinningRef = useRef(false)
+  const spinningRef = useRef(true)
   const selectedRef = useRef(null)
-  const [spinning, setSpinning] = useState(false)
+  const pickedRef = useRef(null)
+  const [spinning, setSpinning] = useState(true)
   const [picked, setPicked] = useState(null)
   const [wiki, setWiki] = useState({ status: 'idle', extract: '', url: '' })
 
@@ -164,164 +301,205 @@ export default function App() {
   }, [picked])
 
   useEffect(() => {
-    const map = new Map({
-      container: hostRef.current,
-      style: STYLE,
-      center: [10, 18],
-      zoom: 1.6,
-      clickTolerance: 16,
-      canvasContextAttributes: { antialias: true },
-    })
-    mapRef.current = map
-    map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
-
-    const stopOnTouch = () => stopSpin()
-    map.on('mousedown', stopOnTouch)
-    map.on('touchstart', stopOnTouch)
-    map.on('wheel', stopOnTouch)
-    map.on('dragstart', stopOnTouch)
-
+    let map
+    let cancelled = false
+    let idleTimer = 0
     let raf = 0
-    const spin = () => {
-      if (spinningRef.current && mapRef.current) {
-        const c = map.getCenter()
-        map.setCenter([c.lng + 0.08, c.lat])
-      }
-      raf = requestAnimationFrame(spin)
-    }
-    raf = requestAnimationFrame(spin)
-
-    const clearSelected = () => {
-      const prev = selectedRef.current
-      if (prev) {
-        try {
-          map.setFeatureState(prev, { selected: false })
-        } catch {
-          /* source may be gone */
-        }
-      }
-      selectedRef.current = null
-    }
 
     const collections = { countries: null, states: null, cities: null }
-    Promise.all([
-      fetch(COUNTRIES).then((r) => r.json()),
-      fetch(STATES).then((r) => r.json()),
-      fetch(CITIES).then((r) => r.json()),
+    const geoReady = Promise.all([
+      fetch(COUNTRIES).then((r) => r.json()).then(withIds),
+      fetch(STATES).then((r) => r.json()).then(withIds),
+      fetch(CITIES).then((r) => r.json()).then(withIds),
     ]).then(([countries, states, cities]) => {
       collections.countries = countries
       collections.states = states
       collections.cities = cities
+      return collections
     })
 
-    const pick = (feature, maxZoom, sourceId) => {
-      const name = placeName(feature.properties)
-      if (!name) return
-      stopSpin()
-      clearSelected()
-      if (sourceId != null && feature.id != null) {
-        const key = { source: sourceId, id: feature.id }
-        selectedRef.current = key
-        try {
-          map.setFeatureState(key, { selected: true })
-        } catch {
-          /* ignore */
+    libertyStyle().then((style) => {
+      if (cancelled || !hostRef.current) return
+      map = new Map({
+        container: hostRef.current,
+        style,
+        center: [10, 18],
+        zoom: 1.55,
+        minZoom: 0.8,
+        maxZoom: 18,
+        clickTolerance: 16,
+        canvasContextAttributes: { antialias: true },
+      })
+      mapRef.current = map
+      if (typeof window !== 'undefined') window.__globeMap = map
+      map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
+
+      const bumpIdle = () => {
+        spinningRef.current = false
+        setSpinning(false)
+        window.clearTimeout(idleTimer)
+        idleTimer = window.setTimeout(() => {
+          const z = mapRef.current?.getZoom?.() ?? 0
+          if (!pickedRef.current && z < 2.7) {
+            spinningRef.current = true
+            setSpinning(true)
+          }
+        }, 7000)
+      }
+      map.on('mousedown', bumpIdle)
+      map.on('touchstart', bumpIdle)
+      map.on('wheel', bumpIdle)
+      map.on('zoom', () => {
+        const z = map.getZoom() ?? 0
+        if (z >= 2.8) {
+          spinningRef.current = false
+          setSpinning(false)
         }
-      }
-      setPicked(name)
-      if (feature.geometry.type === 'Point') {
-        map.flyTo({
-          center: feature.geometry.coordinates,
-          zoom: maxZoom,
-          duration: 1100,
-        })
-        return
-      }
-      try {
-        map.fitBounds(featureBbox(feature), {
-          padding: 56,
-          duration: 1100,
-          maxZoom,
-        })
-      } catch {
-        map.flyTo({ center: map.getCenter(), zoom: maxZoom, duration: 1100 })
-      }
-    }
-
-    map.on('style.load', () => {
-      map.setProjection({ type: 'globe' })
-      map.addSource('countries', { type: 'geojson', data: COUNTRIES, generateId: true })
-      map.addSource('states', { type: 'geojson', data: STATES, generateId: true })
-      map.addSource('cities', { type: 'geojson', data: CITIES, generateId: true })
-      addFill(map, 'countries-fill', 'countries', 0, 4.5)
-      addFill(map, 'states-fill', 'states', 3.2, 8.5)
-      map.addLayer({
-        id: 'cities-circle',
-        type: 'circle',
-        source: 'cities',
-        minzoom: 4.2,
-        paint: {
-          'circle-radius': ['interpolate', ['linear'], ['zoom'], 4, 3, 8, 7],
-          'circle-color': '#7cd2ff',
-          'circle-stroke-color': '#041018',
-          'circle-stroke-width': 1,
-        },
+        syncView(map)
       })
-      map.addLayer({
-        id: 'cities-label',
-        type: 'symbol',
-        source: 'cities',
-        minzoom: 5,
-        layout: {
-          'text-field': ['coalesce', ['get', 'NAME'], ['get', 'name']],
-          'text-size': 12,
-          'text-offset': [0, 1],
-        },
-        paint: {
-          'text-color': '#e8eef7',
-          'text-halo-color': '#041018',
-          'text-halo-width': 1.2,
-        },
-      })
-    })
+      map.on('zoomend', () => syncView(map))
 
-    map.on('click', (e) => {
-      const { lng, lat } = e.lngLat
-      const z = map.getZoom()
-      if (z >= 4.2 && collections.cities?.features) {
-        const pt = e.point
-        let best = null
-        let bestD = 18
-        for (const f of collections.cities.features) {
-          if (f.geometry?.type !== 'Point') continue
-          const p = map.project(f.geometry.coordinates)
-          const d = Math.hypot(p.x - pt.x, p.y - pt.y)
-          if (d < bestD) {
-            bestD = d
-            best = f
+      const spin = () => {
+        if (cancelled) return
+        if (spinningRef.current && mapRef.current) {
+          const c = map.getCenter()
+          map.setCenter([c.lng + 0.025, c.lat])
+        }
+        raf = requestAnimationFrame(spin)
+      }
+      raf = requestAnimationFrame(spin)
+
+      const clearSelected = () => {
+        const prev = selectedRef.current
+        if (prev) {
+          try {
+            map.setFeatureState(prev, { selected: false })
+          } catch {
+            /* source may be gone */
           }
         }
-        if (best) {
-          pick(best, 9, 'cities')
+        selectedRef.current = null
+      }
+
+      const pick = (feature, maxZoom, sourceId) => {
+        const name = placeName(feature.properties)
+        if (!name) return
+        pickedRef.current = name
+        stopSpin()
+        clearSelected()
+        if (sourceId != null && feature.id != null) {
+          const key = { source: sourceId, id: feature.id }
+          selectedRef.current = key
+          try {
+            map.setFeatureState(key, { selected: true })
+          } catch {
+            /* ignore */
+          }
+        }
+        setPicked(name)
+        if (feature.geometry.type === 'Point') {
+          map.flyTo({
+            center: feature.geometry.coordinates,
+            zoom: maxZoom,
+            duration: 1100,
+          })
           return
         }
-      }
-      if (z >= 3.2 && collections.states?.features) {
-        const st = collections.states.features.find((f) => pointInPolygonFeature(lng, lat, f))
-        if (st) {
-          pick(st, 6.2, 'states')
-          return
+        try {
+          map.fitBounds(featureBbox(feature), {
+            padding: 56,
+            duration: 1100,
+            maxZoom,
+          })
+        } catch {
+          map.flyTo({ center: map.getCenter(), zoom: maxZoom, duration: 1100 })
         }
       }
-      const country = collections.countries?.features.find((f) =>
-        pointInPolygonFeature(lng, lat, f),
-      )
-      if (country) pick(country, 4.2, 'countries')
+
+      map.on('style.load', () => {
+        syncView(map)
+        restyleBase(map)
+        const beforeId = overlayBeforeId(map)
+        geoReady.then(({ countries, states, cities }) => {
+          if (cancelled || !map.getStyle()) return
+          if (!map.getSource('countries')) {
+            map.addSource('countries', { type: 'geojson', data: countries })
+            map.addSource('states', { type: 'geojson', data: states })
+            map.addSource('cities', { type: 'geojson', data: cities })
+          }
+          if (!map.getLayer('countries-fill')) {
+            addFill(map, 'countries-fill', 'countries', 0, 4.2, beforeId)
+            addFill(map, 'states-fill', 'states', 3.2, 6.2, beforeId)
+            map.addLayer(
+              {
+                id: 'cities-circle',
+                type: 'circle',
+                source: 'cities',
+                minzoom: 4.2,
+                maxzoom: 12,
+                paint: {
+                  'circle-radius': ['interpolate', ['linear'], ['zoom'], 4, 3, 10, 5],
+                  'circle-color': [
+                    'case',
+                    ['boolean', ['feature-state', 'selected'], false],
+                    '#e8f9ff',
+                    '#7cd2ff',
+                  ],
+                  'circle-stroke-color': '#041018',
+                  'circle-stroke-width': 1,
+                  'circle-opacity': 0.9,
+                  'circle-blur': ['case', ['boolean', ['feature-state', 'selected'], false], 0.35, 0],
+                },
+              },
+              beforeId,
+            )
+          }
+        })
+      })
+
+      map.on('click', (e) => {
+        const { lng, lat } = e.lngLat
+        const z = map.getZoom()
+        if (z >= 4.2 && collections.cities?.features) {
+          const pt = e.point
+          let best = null
+          let bestD = 18
+          for (const f of collections.cities.features) {
+            if (f.geometry?.type !== 'Point') continue
+            const p = map.project(f.geometry.coordinates)
+            const d = Math.hypot(p.x - pt.x, p.y - pt.y)
+            if (d < bestD) {
+              bestD = d
+              best = f
+            }
+          }
+          if (best) {
+            pick(best, 14.2, 'cities')
+            return
+          }
+        }
+        if (z >= 3.2 && collections.states?.features) {
+          const st = collections.states.features.find((f) => pointInPolygonFeature(lng, lat, f))
+          if (st) {
+            pick(st, 8, 'states')
+            return
+          }
+        }
+        const country = collections.countries?.features.find((f) =>
+          pointInPolygonFeature(lng, lat, f),
+        )
+        if (country) pick(country, 5.2, 'countries')
+      })
     })
 
     return () => {
+      cancelled = true
+      window.clearTimeout(idleTimer)
       cancelAnimationFrame(raf)
-      map.remove()
+      if (map) {
+        map.remove()
+        if (typeof window !== 'undefined' && window.__globeMap === map) delete window.__globeMap
+      }
       mapRef.current = null
     }
   }, [])
@@ -332,7 +510,7 @@ export default function App() {
       <div className="hud">
         <div className="brand">
           <strong>Live Globe</strong>
-          <span>MapLibre globe · tap country / state / city</span>
+          <span>OpenFreeMap streets · tap country / state / city</span>
         </div>
         <div className="row">
           <button type="button" onClick={() => (spinning ? stopSpin() : startSpin())}>
@@ -342,9 +520,21 @@ export default function App() {
             <button
               type="button"
               onClick={() => {
+                const map = mapRef.current
+                const prev = selectedRef.current
+                if (map && prev) {
+                  try {
+                    map.setFeatureState(prev, { selected: false })
+                  } catch {
+                    /* ignore */
+                  }
+                }
                 setPicked(null)
+                pickedRef.current = null
                 selectedRef.current = null
-                mapRef.current?.flyTo({ center: [10, 18], zoom: 1.6, duration: 1000 })
+                map?.flyTo({ center: [10, 18], zoom: 1.55, duration: 1000 })
+                spinningRef.current = true
+                setSpinning(true)
               }}
             >
               Back out
@@ -367,7 +557,7 @@ export default function App() {
         </aside>
       ) : (
         <p className="hint">
-          Tap a country. Keep zooming — US states then cities show up. Spin is a button. Globe morphs to a map as you go in.
+          Tap a country, then keep zooming — streets and city labels come from OpenFreeMap vector tiles. Idle spin resumes if nothing is picked.
         </p>
       )}
     </div>
