@@ -8,6 +8,12 @@ const COUNTRIES = '/geo/countries.geojson'
 const STATES = '/geo/states.geojson'
 const CITIES = '/geo/cities.geojson'
 
+// Stay on the globe until street zoom, then morph to mercator so vector
+// tiles actually paint (pure globe at z12+ looks into the sphere / goes black).
+const PROJECTION = {
+  type: ['interpolate', ['linear'], ['zoom'], 10, 'vertical-perspective', 12, 'mercator'],
+}
+
 const WIKI_ALIAS = {
   'United States of America': 'United States',
   'Russian Federation': 'Russia',
@@ -276,6 +282,7 @@ export default function App() {
       canvasContextAttributes: { antialias: true },
     })
     mapRef.current = map
+    if (typeof window !== 'undefined') window.__globeMap = map
     map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right')
 
     let idleTimer = 0
@@ -299,6 +306,20 @@ export default function App() {
       if (z >= 2.8) {
         spinningRef.current = false
         setSpinning(false)
+      }
+    })
+    map.on('zoomend', () => {
+      const z = map.getZoom() ?? 0
+      try {
+        const t = map.getProjection()?.type
+        if (z >= 12 && (t === 'globe' || t === 'vertical-perspective')) {
+          map.setProjection({ type: 'mercator' })
+        } else if (z < 10 && t === 'mercator') {
+          map.setProjection(PROJECTION)
+          applyAtmosphere(map)
+        }
+      } catch {
+        /* projection switch optional */
       }
     })
 
@@ -372,7 +393,11 @@ export default function App() {
     }
 
     map.on('style.load', () => {
-      map.setProjection({ type: 'globe' })
+      try {
+        map.setProjection(PROJECTION)
+      } catch {
+        map.setProjection({ type: 'globe' })
+      }
       applyAtmosphere(map)
       restyleBase(map)
       const beforeId = overlayBeforeId(map)
@@ -429,7 +454,7 @@ export default function App() {
           }
         }
         if (best) {
-          pick(best, 15, 'cities')
+          pick(best, 14.2, 'cities')
           return
         }
       }
@@ -451,6 +476,7 @@ export default function App() {
       cancelAnimationFrame(raf)
       map.remove()
       mapRef.current = null
+      if (typeof window !== 'undefined' && window.__globeMap === map) delete window.__globeMap
     }
   }, [])
 
