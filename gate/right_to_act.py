@@ -34,6 +34,11 @@ try:
 except ImportError:
     import otherwise as otherwise_mod
 
+try:
+    from gate import stit as stit_mod
+except ImportError:
+    import stit as stit_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -249,6 +254,8 @@ def mint_receipt_jwt(
     ticket_id: str | None = None,
     otherwise_hash: str | None = None,
     agency: str | None = None,
+    nested_stit: str | None = None,
+    settler_id: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -276,6 +283,10 @@ def mint_receipt_jwt(
         payload["owh"] = otherwise_hash
     if agency:
         payload["agc"] = agency
+    if nested_stit:
+        payload["nst"] = nested_stit
+    if settler_id:
+        payload["stl"] = settler_id
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -574,6 +585,32 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
             }
         )
     otherwise = otherwise_mod.witness(live=live)
+    principal = str(
+        body.get("human_principal_id")
+        or body.get("principal")
+        or context.get("human_principal_id")
+        or context.get("principal")
+        or ""
+    ).strip()
+    claims_nested = bool(
+        body.get("nested_stit")
+        or body.get("delegated")
+        or body.get("i_stit_j")
+        or context.get("nested_stit")
+        or context.get("delegated")
+    )
+    nested = stit_mod.nested_stit(
+        actor=str(candidate.get("actor") or "").strip() or None,
+        principal=principal or None,
+        claims_nested=claims_nested,
+    )
+    settler = stit_mod.settler(
+        agency=str(otherwise.get("agency") or ""),
+        open_count=int(otherwise.get("open_count") or 0),
+        policy=policy,
+        context=context,
+        body=body,
+    )
 
     issuer = (
         (public_url or "").replace("https://", "").replace("http://", "").split("/")[0]
@@ -592,6 +629,12 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         ticket_id=ticket_id,
         otherwise_hash=str(otherwise.get("open_hash") or ""),
         agency=str(otherwise.get("agency") or ""),
+        nested_stit="UNSAT" if not nested.get("nested_possible") else "SAT",
+        settler_id=(
+            str(settler.get("settler_id"))
+            if settler and settler.get("owned")
+            else ("GAP" if settler and settler.get("gap") else None)
+        ),
     )
 
     if signing_required() and not receipt:
@@ -642,6 +685,9 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "write_executed": False,
         "otherwise": otherwise,
         "agency": otherwise.get("agency"),
+        "nested_stit": nested,
+        "delegated": False,
+        "settler": settler,
         "invariant": "Computation does not confer authority for consequence.",
     }
     if decision == "EXIST":
@@ -726,6 +772,13 @@ def manifest(public_url: str) -> dict:
         "otherwise": (
             "EXIST with no live other executable write is not an act. "
             "Branch witness is on evaluate; token samples are not histories."
+        ),
+        "nested_stit": (
+            "Independent agents cannot nested-STIT. "
+            "Principal cannot wear the agent's seeing-to-it as delegation."
+        ),
+        "settler": (
+            "NON-ACT does not erase the bag. settler_id is who collapsed the otherwise."
         ),
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
