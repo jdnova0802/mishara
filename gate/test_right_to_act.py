@@ -35,6 +35,9 @@ class RightToActTests(unittest.TestCase):
         self.assertTrue(out["receipt"])
         self.assertTrue(out["ticket_id"])
         self.assertIsNone(out["refusal_digest"])
+        self.assertEqual(out["agency"], "NON-ACT")
+        self.assertTrue(out["otherwise"]["settled"])
+        self.assertEqual(out["otherwise"]["open_count"], 1)
 
         burned = rta.burn_ticket(
             out["ticket_id"], fingerprint=out["fingerprint"], sink="bank.rtp"
@@ -74,6 +77,67 @@ class RightToActTests(unittest.TestCase):
         )
         self.assertEqual(out["decision"], "NONEXIST")
         self.assertIn("missing_sink", out["signals"])
+
+
+    def test_two_live_writes_is_an_act(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "actor": "agent-1",
+                "args": {"amount": 5},
+                "policy": {
+                    "max_amount": 10,
+                    "allowed_actions": ["wire.send", "wire.hold"],
+                },
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "EXIST")
+        self.assertEqual(out["agency"], "ACT")
+        self.assertFalse(out["otherwise"]["settled"])
+        self.assertEqual(out["otherwise"]["open_count"], 2)
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertTrue(verified["valid"])
+        self.assertEqual(verified["payload"]["agc"], "ACT")
+        self.assertEqual(verified["payload"]["owh"], out["otherwise"]["open_hash"])
+
+    def test_open_writes_must_be_executable_not_thoughts(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "args": {"amount": 5},
+                "policy": {"max_amount": 10, "allowed_actions": ["wire.send"]},
+                "open_writes": [
+                    "the model also considered refund",
+                    {
+                        "action": "wire.refund",
+                        "sink": "bank.rtp",
+                        "args": {"amount": 5},
+                    },
+                ],
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "EXIST")
+        self.assertEqual(out["agency"], "ACT")
+        actions = {row["action"] for row in out["otherwise"]["live"]}
+        self.assertEqual(actions, {"wire.send", "wire.refund"})
+
+    def test_settled_nonexist_is_not_an_act(self):
+        out = rta.evaluate(
+            {
+                "action": "wire.send",
+                "sink": "bank.rtp",
+                "args": {"amount": 500},
+                "policy": {"max_amount": 1, "allowed_actions": ["wire.send"]},
+            },
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "NONEXIST")
+        self.assertEqual(out["agency"], "NON-ACT")
+        self.assertEqual(out["otherwise"]["open_count"], 0)
 
 
 if __name__ == "__main__":
