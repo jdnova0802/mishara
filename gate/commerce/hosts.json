@@ -1,0 +1,22 @@
+{
+  "spec": "nisaba-commerce-hosts-v1",
+  "canonical": {
+    "gate": "https://gate.velaru.xyz",
+    "velaru": "https://velaru.xyz",
+    "erra": "https://velaru.xyz/erra",
+    "verra": "https://gate.velaru.xyz/bind-room",
+    "mishara": "https://mishara.onrender.com",
+    "nisaba": "https://gate.velaru.xyz/nisaba"
+  },
+  "do_not_advertise": [
+    "https://erra.xyz",
+    "https://erra.onrender.com",
+    "https://verra.xyz",
+    "https://nisaba.xyz",
+    "https://dtcc.com"
+  ],
+  "health": {
+    "erra_probe": "/healthz",
+    "erra_dedicated": "https://erra-jf6a.onrender.com"
+  }
+}

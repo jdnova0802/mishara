@@ -35,8 +35,14 @@ PRIVACY = {
         "Require PII on the clearance hop",
         "Claim stranger-facing production weld status from marketing alone",
     ],
-    "retention": "Checkout and weld records retained for billing, audit, and DENY evidence. Contact to request deletion of account-scoped PII where law requires.",
+    "retention": (
+        "Checkout and weld records retained for billing, audit, and DENY evidence. "
+        "Contact hello@velaru.xyz to request deletion of account-scoped PII where law requires. "
+        "We respond within one business day on business days (US Eastern)."
+    ),
     "contact_path": "email",
+    "response_expectation": "We respond to hello@velaru.xyz within one business day on business days (US Eastern).",
+    "accountability": "Operator: Nisaba LLC. Product questions and receipt disputes: hello@velaru.xyz.",
 }
 
 TERMS = {
@@ -56,6 +62,8 @@ TERMS = {
         "their_production stays false until a recorded third-party production weld (L4)",
         "Dogfood and first-party drills are not customer production",
         "Not legal advice; counsel reviews before enterprise embed",
+        "Support: hello@velaru.xyz — response within one business day (US Eastern)",
+        "Operator of record: Nisaba LLC",
     ],
 }
 
