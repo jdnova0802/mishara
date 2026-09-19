@@ -166,6 +166,30 @@ class ReceiptAdversaryTests(unittest.TestCase):
         self.assertEqual(verified["payload"]["iaa"], "OUT")
         self.assertEqual(verified["payload"]["iau"], "2020-01-01T00:00:00Z")
 
+    def test_machine_cannot_wear_supplier_mouth(self):
+        out = rta.evaluate(
+            _body(
+                rely={
+                    "cert": {
+                        "id": "cert-1",
+                        "supplier_id": "acme",
+                        "ein": "12-3456789",
+                        "signed_under_penalty": True,
+                        "determination": "compliant",
+                    },
+                    "questionnaire": {"asked": True},
+                    "sourcing_map": {"tier1": "acme"},
+                }
+            ),
+            public_url="https://gate.test",
+        )
+        self.assertEqual(out["decision"], "NONEXIST")
+        self.assertEqual(out["rely"]["reason"], "mouth_substitution")
+        self.assertIsNone(out["ticket_id"])
+        verified = rta.verify_receipt_jwt(out["receipt"])
+        self.assertEqual(verified["payload"]["rly"], "NONEXIST")
+        self.assertEqual(verified["payload"]["rtk"], "TRIP")
+
 
 if __name__ == "__main__":
     unittest.main()

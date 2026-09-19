@@ -54,6 +54,11 @@ try:
 except ImportError:
     import cosign as cosign_mod
 
+try:
+    from gate import rely as rely_mod
+except ImportError:
+    import rely as rely_mod
+
 SPEC = "gate-right-to-act-v1"
 DECISIONS = ("EXIST", "NONEXIST", "HOLD")
 DECISION_ALIASES = {
@@ -302,6 +307,9 @@ def mint_receipt_jwt(
     operator_status: str | None = None,
     operator_sig: str | None = None,
     operator_kid: str | None = None,
+    rely_status: str | None = None,
+    rely_cert_hash: str | None = None,
+    rely_rtk: str | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -355,6 +363,12 @@ def mint_receipt_jwt(
         payload["osg"] = operator_sig
     if operator_kid:
         payload["okd"] = operator_kid
+    if rely_status:
+        payload["rly"] = rely_status
+    if rely_cert_hash:
+        payload["rch"] = rely_cert_hash
+    if rely_rtk:
+        payload["rtk"] = rely_rtk
     header = {"alg": "EdDSA", "typ": "JWT", "kid": key_id()}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -652,6 +666,18 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         if "signed_line_out_of_authority" not in signals:
             signals.append("signed_line_out_of_authority")
 
+    rely = rely_mod.from_body(body, context, policy)
+    if rely.get("decision") == "HOLD":
+        decision = "HOLD"
+        reason = str(rely.get("reason") or "rely_hold")
+        if reason not in signals:
+            signals.append(reason)
+    elif rely.get("decision") == "NONEXIST":
+        decision = "NONEXIST"
+        reason = str(rely.get("reason") or "rely_nonexist")
+        if reason not in signals:
+            signals.append(reason)
+
     upstream = chain_mod.collect(
         body.get("upstream")
         if body.get("upstream") is not None
@@ -820,6 +846,9 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         operator_status=str(cosign.get("status") or ""),
         operator_sig=op_sig if cosign.get("status") == "OK" else None,
         operator_kid=f"gate-op-{op_fpr}" if op_fpr else None,
+        rely_status=str(rely.get("status") or ""),
+        rely_cert_hash=str(rely.get("cert_hash") or "") or None,
+        rely_rtk=str(rely.get("rtk") or "") or None,
     )
 
     if signing_required() and not receipt:
@@ -876,6 +905,7 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         "signed_line": signed_line,
         "chain": chain,
         "cosign": cosign,
+        "rely": rely,
         "invariant": "Computation does not confer authority for consequence.",
     }
     if decision == "EXIST":
@@ -885,8 +915,8 @@ def evaluate(body: dict, *, account_id: str | None = None, public_url: str) -> d
         )
     elif decision == "HOLD":
         out["message"] = (
-            "Right-to-Act HOLD — operator mouth has not signed the hop "
-            "(or living authority could not be determined). Act remains non-effective."
+            "Right-to-Act HOLD — a required mouth or named-cert reliance "
+            "file is incomplete. Act remains non-effective."
         )
     else:
         out["message"] = (
@@ -996,6 +1026,11 @@ def manifest(public_url: str) -> dict:
             "Pin GATE_OPERATOR_PUBLIC_KEY off-box; EXIST waits on operator_sig. "
             "ops=OK|GAP|HOLD|BAD."
         ),
+        "rely": (
+            "May the taxpayer still rely on this named cert. "
+            "rly=EXIST|HOLD|NONEXIST|GAP is not a PFE determination. "
+            "The machine cannot wear the supplier mouth."
+        ),
         "related": {
             "prefinality": f"{base}/.well-known/prefinality.json",
             "mandate": f"{base}/.well-known/mandate.json",
@@ -1005,6 +1040,7 @@ def manifest(public_url: str) -> dict:
                 "Signed-line = did the share mutate, was power in at the second; "
                 "Chain = weakest parent claim; "
                 "Cosign = operator mouth, not the machine key; "
+                "Rely = named-cert reliance, not a credit-clean stamp; "
                 "Prefinality = payment-rail specialization."
             ),
         },
