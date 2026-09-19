@@ -1,0 +1,26 @@
+name: Release MAY
+
+on:
+  push:
+    paths:
+      - "rel/**"
+      - ".github/workflows/rel.yml"
+  pull_request:
+    paths:
+      - "rel/**"
+      - ".github/workflows/rel.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install cryptography pytest
+      - name: Witness + film fixtures
+        env:
+          GATE_DEV_MODE: "0"
+        run: python -m pytest rel/test_rel.py -q
