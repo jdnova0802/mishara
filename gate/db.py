@@ -936,6 +936,106 @@ def get_prefinality_evaluation(evaluation_id: str) -> dict | None:
     return item
 
 
+def _ensure_physical_parks_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS physical_parks (
+            park_id TEXT PRIMARY KEY,
+            park_json TEXT NOT NULL,
+            parked_at_unix INTEGER NOT NULL,
+            sink TEXT,
+            action TEXT,
+            outcome TEXT,
+            reason TEXT
+        )
+        """
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_physical_parks_parked ON physical_parks(parked_at_unix DESC)"
+    )
+
+
+def save_physical_park(ticket: dict) -> None:
+    """Durable park ticket — survives multi-worker / restart."""
+    import json
+
+    if not isinstance(ticket, dict):
+        return
+    park_id = str(ticket.get("park_id") or "").strip()
+    if not park_id:
+        return
+    with db() as conn:
+        _ensure_physical_parks_table(conn)
+        conn.execute(
+            """
+            INSERT INTO physical_parks (park_id, park_json, parked_at_unix, sink, action, outcome, reason)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(park_id) DO UPDATE SET
+              park_json=excluded.park_json,
+              parked_at_unix=excluded.parked_at_unix,
+              sink=excluded.sink,
+              action=excluded.action,
+              outcome=excluded.outcome,
+              reason=excluded.reason
+            """,
+            (
+                park_id,
+                json.dumps(ticket, sort_keys=True, separators=(",", ":"), ensure_ascii=False),
+                int(ticket.get("parked_at_unix") or 0),
+                ticket.get("sink"),
+                ticket.get("action"),
+                ticket.get("outcome"),
+                ticket.get("reason"),
+            ),
+        )
+
+
+def get_physical_park(park_id: str) -> dict | None:
+    import json
+
+    pid = (park_id or "").strip()
+    if not pid:
+        return None
+    with db() as conn:
+        _ensure_physical_parks_table(conn)
+        row = conn.execute(
+            "SELECT park_json FROM physical_parks WHERE park_id = ?", (pid,)
+        ).fetchone()
+    if not row:
+        return None
+    try:
+        data = json.loads(row["park_json"] if isinstance(row, sqlite3.Row) else row[0])
+    except (TypeError, ValueError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def list_physical_parks(limit: int = 50) -> list[dict]:
+    import json
+
+    lim = max(1, min(int(limit or 50), 200))
+    with db() as conn:
+        _ensure_physical_parks_table(conn)
+        rows = conn.execute(
+            """
+            SELECT park_json FROM physical_parks
+            ORDER BY parked_at_unix DESC
+            LIMIT ?
+            """,
+            (lim,),
+        ).fetchall()
+    out: list[dict] = []
+    for row in rows:
+        raw = row["park_json"] if isinstance(row, sqlite3.Row) else row[0]
+        try:
+            data = json.loads(raw)
+        except (TypeError, ValueError):
+            continue
+        if isinstance(data, dict):
+            out.append(data)
+    return out
+
+
 def _ensure_charge_authority_table(conn) -> None:
     conn.execute(
         """

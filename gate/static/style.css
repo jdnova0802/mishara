@@ -3,7 +3,7 @@
   --surface: #12141c;
   --border: #252836;
   --text: #e8eaf0;
-  --muted: #8b92a8;
+  --muted: #b6bdd0;
   --accent: #5eead4;
   --accent-dim: #2dd4bf33;
   --danger: #f87171;
@@ -22,8 +22,13 @@ body {
   min-height: 100vh;
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+.nav-links a,
+.logo,
+.btn,
+.btn-primary,
+.btn-ghost { text-decoration: none; }
 
 .container { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
 .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
