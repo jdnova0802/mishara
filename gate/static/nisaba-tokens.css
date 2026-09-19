@@ -1,0 +1,17 @@
+/* Nisaba shared tokens — Gate / Mishara (Velaru adopts when repo accessible) */
+:root {
+  --nisaba-ink: #1A1714;
+  --nisaba-muted: #5C564E;
+  --nisaba-line: #E2D9CC;
+  --nisaba-paper: #F3EEE4;
+  --nisaba-surface: #FFFDF9;
+  --nisaba-teal: #0A5C5F;
+  --nisaba-gate-bg: #0a0b0f;
+  --nisaba-gate-ink: #e8eaef;
+  --nisaba-gate-accent: #7dd3c0;
+  --nisaba-font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+  --nisaba-font-body: "IBM Plex Sans", "Source Sans 3", system-ui, sans-serif;
+  --nisaba-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --nisaba-radius: 10px;
+  --nisaba-max: 720px;
+}

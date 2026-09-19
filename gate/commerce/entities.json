@@ -1,0 +1,30 @@
+{
+  "spec": "nisaba-commerce-entities-v1",
+  "legal_name": "Nisaba LLC",
+  "dba": [],
+  "operator_name": "Nisaba LLC",
+  "patent": {
+    "display": "Patent application No. 64/124,027",
+    "short": "No. 64/124,027",
+    "number": "64/124,027"
+  },
+  "support": {
+    "email": "hello@velaru.xyz",
+    "response_expectation": "We respond to hello@velaru.xyz within one business day on business days (US Eastern).",
+    "accountability": "Operator: Nisaba LLC. Product questions and receipt disputes: hello@velaru.xyz."
+  },
+  "security": {
+    "contact_email": "hello@velaru.xyz",
+    "security_txt_policy": "Report suspected vulnerabilities to hello@velaru.xyz with subject Security. Do not request payment. We acknowledge within two business days.",
+    "preferred_languages": ["en"]
+  },
+  "api_policy": {
+    "current": "v1",
+    "deprecation": "Breaking changes ship under a new major path (/v2). /v1 remains available for at least 12 months after a superseding major is published, with notice on /.well-known/gate.json."
+  },
+  "claims_forbidden": [
+    "Production weld complete without a recorded third-party weld",
+    "Certification or endorsement by any clearinghouse, regulator, or carrier we do not have a contract with",
+    "Institution name-dropping as proximity theater"
+  ]
+}

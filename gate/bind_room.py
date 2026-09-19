@@ -5,6 +5,11 @@ B) On-request appendix — each bind event → verify_url + hop. Not the SERFF f
 """
 from __future__ import annotations
 
+try:
+    from gate import commerce as commerce_mod
+except ImportError:
+    import commerce as commerce_mod  # type: ignore
+
 
 SECTION_5 = [
     ("5.A.1", "Governing principles", "ECDIS/algorithms designed and monitored to prevent unfair discrimination."),
@@ -26,7 +31,7 @@ SECTION_5 = [
 def officer_pack(public_url: str, contact_email: str) -> dict:
     return {
         "spec": "gate-bind-room-officer-pack-v1",
-        "price": "$1,750",
+        "price": commerce_mod.price_label("bind_room"),
         "filing": "Colorado Regulation 10-1-1 Section 6 — SERFF Annual Report, ≤10 pages, officer attestation",
         "not_the_filing": "Appendix B (verify permalinks) is on-request, not the SERFF body.",
         "also_maps": [
