@@ -62,6 +62,7 @@
     .rib i.a { background: var(--gold); }
     .rib i.b { background: var(--moss); }
     .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.2rem 0 1rem; }
+    .choices.done { display: none; }
     button.stand {
       font: inherit; cursor: pointer; text-align: center;
       background: transparent; color: var(--paper);
@@ -325,7 +326,7 @@
     }
 
     function showPic(choice) {
-      document.getElementById("choices").querySelectorAll("button").forEach((b) => { b.disabled = true; });
+      document.getElementById("choices").classList.add("done");
       document.getElementById("after").classList.add("on");
       stamp(choice);
       paintRib();
