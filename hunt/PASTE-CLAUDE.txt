@@ -1,0 +1,62 @@
+COPY FROM HERE — paste to Claude as the whole first message
+════════════════════════════════════
+You are continuing Demond / Nisaba LLC. Hunt, do not found unless he asks.
+Date now: 20 Sep 2026, ~02:00 US Eastern. Night is over.
+
+DO NOT OPEN WITH: Tuesday emails, T1–T3 remaining, Gate remaining CHARGE, expert consulting, Colorado Bind Room, rel/eBL/4A, ET13, CRA GRC, leftover-22, security@. Those exist in the repo. They are not tonight’s answer.
+
+TONIGHT’S STATE (this is the lead)
+
+A. LIVE — $7 Muse halt, 7-day kill
+  Page: hunt/willnot/index.html (WebAuthn / passkey principal)
+  Pay: https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
+  Stripe (existing Nisaba, not a new co):
+    prod_VIC23xiEqok0q7
+    price_1UHbeC3b5zsnE0zsYSTawiOW
+    plink_1UHbeC3b5zsnE0zsZKgzYSFr
+  SKU: one-time $7 signed halt receipt. Human attests “I did not authorize this agent action.”
+  Not legal standing. Not a bank stop. Typed name without passkey = HOLD.
+  Kill: 27 Sep 2026. If Stripe still $0, deactivate the Payment Link. No addendum. No doctrine memo.
+  Checkout copy is honest. Operator kill date is still on the public SKU; do not stay up rewriting.
+
+  POSTED: HN reply as demonddavis under simonw
+    https://news.ycombinator.com/item?id=49619026
+    parent https://news.ycombinator.com/item?id=49615537
+  NOT POSTED: X. Handle OrangeTajin. Do not reply to Wang/dps with a $7 Stripe link from that account. Do not mint a second X account tonight.
+  DO NOT: App Store reviews, r/iphone OP, r/Muse (the BAND), Meta Help, MacRumors Muse Code threads.
+  Cursor does not post. He posts.
+
+B. MAPPED — merchant 10.4 mandate-to-order exhibit
+  Chargeback.io 21 Aug 2026: nobody holds tamper-resistant mandate↔order.
+  Visa TAP authenticates the agent, not the consumer mandate.
+  Zero named TAP/SPT merchant with agent-checkout chargebacks.
+  Hours: zero until that name exists. Allowed if it never does.
+  Do not build a second product this weekend.
+
+WHAT TO DO NEXT
+  Default: nothing. Wait for a Stripe session or the 27 Sep kill.
+  If he asks “what’s next” at morning: check whether anyone paid. If $0, do not hunt a third lane unless he explicitly asks for a new universe.
+  Successor must not answer “Tuesday is still the best shot.”
+
+HARD NOS (standing)
+  Fail-closed / CHARGE-only. Rent-the-rail. No people-hunt / surveillance. No exploit PoCs.
+  Fail-sale = sellable tool/feed, not only a CV.
+  Not: AI chatbots, crypto/L1, fertility/IVG, health SKU, chip-physics we can’t flex, competing 2026 OEMs.
+  Dual-use later. Hunt is not minting Gate S26.
+  Inventor-face of a distinctive object (Palmer-shaped).
+  Kill switch: no company two without a filmable will-not-go machine.
+  Separate company, not a Nisaba brand. Clearing/pipes/insurance off for clutch shop.
+  Don’t found tonight. Don’t weld join/ to Gate or check/.
+  Don’t build PLC/vehicle/power-cut adapters. Don’t add people-map.
+  Don’t ship museum SKUs this week. Don’t spray leftover-22 or security@.
+  D3/D5 Friday follow-up does NOT fire.
+
+FILES
+  hunt/PASTE-CLOCKS.txt
+  hunt/PASTE-WHERE.txt
+  hunt/CLOCKS.md
+  hunt/willnot/index.html
+  PR: https://github.com/jdnova0802/mishara/pull/81  branch cursor/willnot-cra-25ad
+
+If he says go/bet: check Stripe for sessions first. Do not invent a new SKU to soothe the wait.
+END COPY
