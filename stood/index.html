@@ -32,31 +32,38 @@
       background: var(--paper);
       color: var(--ink);
       aspect-ratio: 1200 / 675;
-      padding: 1.35rem 1.4rem 1.1rem;
+      padding: 1.2rem 1.35rem 1rem;
       display: flex;
       flex-direction: column;
       margin: 0 0 1rem;
     }
+    .pic.a { background: var(--gold); color: var(--ink); }
+    .pic.b { background: var(--moss); color: var(--paper); }
     .pic-bar { display: flex; justify-content: space-between; font-size: 0.72rem; letter-spacing: 0.22em; font-weight: 700; }
     .pic-bar .d { letter-spacing: 0.04em; font-weight: 500; color: #5c584c; }
+    .pic.a .pic-bar .d { color: #3d3420; }
+    .pic.b .pic-bar .d { color: #d5ddd2; }
     .pic-q {
-      margin: 1.1rem 0 0.6rem;
-      font-size: clamp(1.35rem, 4.6vw, 2.05rem);
+      margin: 0.85rem 0 0;
+      font-size: clamp(1.15rem, 3.6vw, 1.55rem);
       font-weight: 500;
       letter-spacing: -0.02em;
       line-height: 1.15;
-      flex: 1;
     }
     .pic-ans {
-      font-size: clamp(2.2rem, 8vw, 3.4rem);
+      font-size: clamp(5rem, 22vw, 8.2rem);
       font-weight: 600;
-      letter-spacing: -0.03em;
-      min-height: 1.1em;
+      letter-spacing: -0.04em;
+      line-height: 0.82;
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
       color: transparent;
     }
-    .pic-ans.a { color: #8a7340; }
-    .pic-ans.b { color: var(--moss); }
+    .pic-ans.a, .pic-ans.b { color: inherit; }
     .pic-foot { display: flex; justify-content: space-between; align-items: flex-end; color: #8a8578; font-size: 0.72rem; }
+    .pic.a .pic-foot { color: #3d3420; }
+    .pic.b .pic-foot { color: #d5ddd2; }
     .rib { display: flex; gap: 0.28rem; }
     .rib i { width: 0.7rem; height: 0.7rem; background: #d4ccb8; display: block; }
     .rib i.a { background: var(--gold); }
@@ -103,7 +110,7 @@
       <div class="date" id="when">20 Sep 2026</div>
     </header>
 
-    <p class="lede">This is the pic. Tap. Post it.</p>
+    <p class="lede">Tap. The whole card is the pic.</p>
 
     <div class="pic" id="pic">
       <div class="pic-bar">
@@ -228,7 +235,9 @@
     }
 
     function stamp(choice) {
+      const card = document.getElementById("pic");
       const el = document.getElementById("pic-ans");
+      card.className = choice ? "pic " + choice : "pic";
       if (!choice) {
         el.textContent = "";
         el.className = "pic-ans";
@@ -258,32 +267,36 @@
     function drawGlyph(choice) {
       const c = document.getElementById("glyph").getContext("2d");
       const w = 1200, h = 675;
-      c.fillStyle = paper;
+      const onA = choice === "a";
+      const onB = choice === "b";
+      c.fillStyle = onA ? gold : onB ? moss : paper;
       c.fillRect(0, 0, w, h);
-      c.fillStyle = ink;
+      const fg = onB ? paper : ink;
+      const mute = onB ? "#d5ddd2" : onA ? "#3d3420" : "#5c584c";
+      c.fillStyle = fg;
       c.font = "700 28px Georgia, serif";
       c.fillText("STOOD", 72, 78);
-      c.fillStyle = "#5c584c";
+      c.fillStyle = mute;
       c.font = "22px Georgia, serif";
-      c.fillText(pretty(today), 920, 78);
-      c.fillStyle = ink;
-      c.font = "500 52px Georgia, serif";
-      const qEnd = wrapText(c, kase.q, 72, 180, 1050, 64);
+      c.fillText(pretty(today), 900, 78);
+      c.fillStyle = fg;
+      c.font = "500 36px Georgia, serif";
+      wrapText(c, kase.q, 72, 150, 1050, 46);
       if (choice) {
-        c.fillStyle = choice === "b" ? moss : "#8a7340";
-        c.font = "600 96px Georgia, serif";
-        c.fillText(choice === "b" ? kase.b : kase.a, 72, Math.min(qEnd + 120, 520));
+        c.fillStyle = fg;
+        c.font = "600 210px Georgia, serif";
+        c.fillText(choice === "b" ? kase.b : kase.a, 56, 470);
       }
       ribbon().forEach((ch, i) => {
-        c.fillStyle = !ch ? "#d4ccb8" : ch === "b" ? moss : gold;
-        c.fillRect(72 + i * 44, 580, 32, 32);
+        c.fillStyle = !ch ? (onB ? "#5a6a58" : "#d4ccb8") : ch === "b" ? (onB ? paper : moss) : (onA ? ink : gold);
+        c.fillRect(72 + i * 44, 560, 32, 32);
       });
-      c.fillStyle = "#8a8578";
+      c.fillStyle = mute;
       c.font = "18px Georgia, serif";
-      c.fillText("one a day", 72, 640);
-      c.fillStyle = ink;
+      c.fillText("one a day", 72, 630);
+      c.fillStyle = fg;
       c.font = "20px Georgia, serif";
-      c.fillText("STOOD", 980, 640);
+      c.fillText("STOOD", 980, 630);
     }
 
     function drawRelic(text) {
