@@ -1,39 +1,134 @@
-ET13 — NEW UNIVERSE (not Gate, not expert, not Tuesday)
-20 Sep 2026. Do not found. Do not file entries. Do not weld to gate/.
-
-THE CLOCK
-Tue 22 Sep 2026 (2 days): CBP ACE PROD turns on Entry Type 13 (Informal—Mail). INT-057 / CBP-290. CSMS 69289734. FR 2026-12668, 91 FR 38007. No separate application.
-Wed 7 Oct 2026 13:00 ET: CBP TTO post-deploy call. Listen. Do not pitch.
-Wed 22 Oct 2026 (32 days): PGA, HTSUS Ch.98/99, FTA claims kicked off postal informal IMDW. Must be ET13 or formal. 19 CFR 145.12(a)(2)(v)–(vi).
-1 Jul 2027: OBBBA kills de minimis in statute. Bridge ends.
-
-THE VOLUME
-CBP FY2024: 1.36 billion de minimis shipments (~4M/day). Postal de minimis BOLs 74.8M. Type 86 948M. IFR paperwork model: ~100 IMDW filers. That ratio is the bottleneck.
-
-THE LAW (cite these)
-Right to make entry: 19 CFR 143.26(a) — owner, purchaser, or licensed broker designated by owner/purchaser/consignee.
-Consignee who is not owner/purchaser (USPS, FPO, forwarder, carrier) CANNOT file; broker must be IOR.
-Bond: 19 CFR 145.15 / 113.62 activity 1 in ACE eBond before activity. No bond → CBP will not release (CBP FAQ, modified 2 Sep 2026).
-Rail A: monthly IMDW email to CBPDM@cbp.dhs.gov + Pay.gov by the 7th. Ch.1–97, ≤$2,500, mail, informal-eligible.
-Rail B: ET13 in ACE. S-10 tracking SE15 + shipper name/address SE30/SE35 or reject. Manifest issuer = SFP. Errors 325/331.
-Rail C: formal for >$2,500, quota, AD/CVD.
-
-CREDENTIAL GAP — READ THIS OR THE HUNT IS A FELONY FANTASY
-Filing for others = customs business = broker license 19 USC 1641.
-Next CBLE 28 Oct 2026; registration closed 16 Sep 2026. We are not sitting it. Filer code is weeks after a license, not a weekend.
-Owner/purchaser may self-file their own goods. We do not become their IOR.
-
-THE OBJECT (CHARGE)
-WILL-NOT-SHIP / WILL-NOT-RELEASE a postal inbound carton unless:
-(1) 143.26(a) party named, (2) eBond # or explicit halt, (3) S-10, (4) shipper name+address, (5) 10-digit HTS, (6) 22 Oct route flag (PGA/98/99/FTA → ET13 or formal; AD/CVD/quota → formal), (7) optional ACE ET13 entry number.
-We sell the hold + the pack a licensed broker or self-filing owner pastes. We do not transmit the entry. We do not take POAs.
-
-WHO PAYS IN 32 DAYS (new list only)
-Foreign DTC still on US inbound post; US purchasers who just became IOR; licensed brokers who need ACE-clean intake; 3PLs who lost third-party filing. Not leftover-22. Not random GCs.
-
-THIS WEEK
-Read FR 2026-12668 and 2026-12669. Internal fail-closed spec. If a NAMED seller or NAMED licensed broker is already in the room, sell the hold. If nobody is named, this is a map not an invoice. Sit 7 Oct TTO as listener.
-Do not: found, filer-code, spray leftover-22, D3/D5, Tuesday remaining CHARGE, museum SKU, join/ or check/ weld.
+COPY FROM HERE
+════════════════════════════════════
+ET13 / POSTAL DE MINIMIS — NEW UNIVERSE
+20 Sep 2026. Not Gate. Not expert. Not Tuesday leftover-22.
+Do not found. Do not file entries. Do not take POAs. Do not weld to gate/.
 
 ONE LINE
-ACE ET13 goes live 22 Sep; PGA/Ch.98/99/FTA mail falls off the worksheet 22 Oct; CBP will not release without standing + bond; we sell the will-not, we do not file.
+ACE Entry Type 13 goes live 22 Sep 2026. PGA / Ch.98 / Ch.99 / FTA mail falls off the monthly worksheet 22 Oct 2026. CBP will not release without 143.26(a) standing and an activity-1 eBond. We sell the will-not. We do not file.
+
+════════════════════════════════════
+CLOCK
+Tue 22 Sep 2026 (2 days) — CBP ACE PROD turns on Entry Type 13 (Informal—Mail). No separate application.
+Wed 7 Oct 2026, 1:00 p.m. ET — CBP TTO post-deploy support call. Listen. Do not pitch.
+Wed 22 Oct 2026 (32 days) — PGA, HTSUS Ch.98/99, FTA claims ineligible for postal informal IMDW. Must be ET13 or formal.
+28 Oct 2026 — CBLE. Registration closed 16 Sep 2026. We are not sitting it.
+1 Jul 2027 — OBBBA kills de minimis in statute. Bridge ends.
+
+════════════════════════════════════
+VOLUME
+CBP FY2024: 1.36 billion de minimis shipments (~4 million/day).
+Postal de minimis BOLs FY2024: 74.8 million.
+Type 86 BOLs FY2024: 948 million.
+IFR paperwork model: ~100 IMDW filers. That ratio is the bottleneck.
+
+════════════════════════════════════
+LAW — CITE THESE, NOT BLOGS
+Right to make entry: 19 CFR 143.26(a)
+  Owner or purchaser of the merchandise, or a licensed customs broker designated by the owner, purchaser, or consignee.
+  Consignee who is not owner/purchaser (USPS, foreign postal operator, freight forwarder, carrier) CANNOT file. Broker must be IOR.
+
+Bond / no-release: 19 CFR 145.15; 19 CFR 113.62 activity code 1; 19 USC 1623
+  Basic importation and entry bond (STB or continuous) in ACE eBond BEFORE any activity.
+  CBP FAQ (modified 2 Sep 2026): no standing or no bond → shipment not released from CBP custody.
+
+ET13 test: 91 Fed. Reg. 38007 (24 Jun 2026), FR Doc. 2026-12668
+  https://www.federalregister.gov/documents/2026/06/24/2026-12668/test-of-the-new-electronic-informal-entry-process-for-mail
+  Commences 22 Sep 2026. Continues until FR announcement. Comments: cbpdm@cbp.dhs.gov subject “Comments on the Entry Type 13 Test”.
+
+Postal de minimis IFR + IMDW: FR Doc. 2026-12669
+  https://www.federalregister.gov/documents/2026/06/24/2026-12669/indefinite-suspension-of-the-de-minimis-exemption-for-mail-shipments-and-new-postal-informal-entry
+  New 19 CFR 145.12 (postal informal) and 145.15 (bond). Compliance date for 145.12(a)(2)(v)–(vi): 22 Oct 2026.
+
+Non-postal de minimis IFR (all modes other than international post): FR Doc. 2026-12667
+ACE deploy: CSMS # 69289734 — INT-057 / CBP-290. CERT 24 Jul 2026. PROD 22 Sep 2026.
+  https://content.govdelivery.com/accounts/USDHSCBP/bulletins/4214706
+Trade Information Notice INT-057 (updated 30 Jul 2026)
+  https://www.cbp.gov/sites/default/files/2026-08/trade_information_notice_-_int-057_508.pdf
+CBP e-commerce FAQ (modified 2 Sep 2026)
+  https://www.cbp.gov/trade/basic-import-export/e-commerce/faqs
+ACE Cargo Release error codes (17 Jul 2026): 253, 323, 324, 325, 327, 330, 331
+Statutory kill: Pub. L. 119-21 (OBBBA) — de minimis exemption gone 1 Jul 2027.
+EO trail (already done, do not relitigate): EO 14324; EO 14388; Proclamation 11012 §122 10% — confirm still in force before using in duty math (150-day statutory limit).
+
+════════════════════════════════════
+THREE RAILS
+Rail A — Postal informal (IMDW email). Live since 24 Jul 2026.
+  Monthly Excel/CSV to CBPDM@cbp.dhs.gov
+  Filename: [FilerCode]_[MM]_[YYYY]_Payment  e.g. 12345_07_2026_Payment
+  Pay.gov ACH “International Mail Duties” by the 7th of the month following arrival.
+  Eligible: ≤ $2,500, international mail, HTSUS Chapters 1–97 only, otherwise informal-eligible under 19 CFR 143.21.
+  Until 22 Oct 2026, PGA / Ch.98 / Ch.99 / FTA may still ride Rail A if extra data is stuffed in the worksheet. After 22 Oct they cannot.
+
+Rail B — Entry Type 13 in ACE. PROD 22 Sep 2026. Voluntary test. No application.
+  Same 143.26(a) filer class. Needs ACE filer code + IOR + activity-1 eBond.
+  Required or ACE rejects: foreign postal operator tracking SE15 (S-10); shipper name SE30 and address SE35.
+  Manifest Component Issuer Code = Secure Filing Postal (SFP).
+  Eligible: all international-mail shipments ≤ $2,500 except quota / AD/CVD (those are formal). Includes PGA / Ch.98 / Ch.99 / FTA — this is where 22 Oct traffic goes.
+  Error 325 = invalid USPS tracking. Error 331 = shipper required. Error 323 = value exceeded.
+
+Rail C — Formal entry. Always for > $2,500, quota, AD/CVD. Alcohol/tobacco off Rail A.
+
+════════════════════════════════════
+CREDENTIAL GAP — IGNORE THIS AND THE HUNT IS A FELONY FANTASY
+Filing for others = customs business = broker license (19 USC 1641 / 19 CFR 111).
+Next CBLE: 28 Oct 2026. Registration closed 16 Sep 2026. We are not sitting it.
+  https://www.cbp.gov/trade/programs-administration/customs-brokers/license-examination-notice-examination
+License + filer code + ABI client rep = weeks to months after a pass. Not this quarter.
+Owner/purchaser may self-file THEIR OWN goods in ACE. That is not a product we sell as “we’ll enter your mail.”
+WILL-NOT: do not advise, build, or operate unlicensed brokerage. Do not take POAs. Do not transmit IMDWs or ET13 as IOR for third parties. Do not tell a forwarder they can file without a broker.
+If the only SKU you can picture is “we become the broker,” this universe is closed until a license exists.
+
+════════════════════════════════════
+THE OBJECT (CHARGE — HOLD, NOT FILING)
+WILL-NOT-SHIP / WILL-NOT-RELEASE a postal inbound carton unless:
+(1) 143.26(a) party named — owner, purchaser, or already-licensed broker with POA. We do not become that broker.
+(2) ACE eBond activity-1 number present, or explicit halt: no bond → CBP will not release.
+(3) UPU S-10 / foreign postal tracking present.
+(4) Shipper name + address present.
+(5) 10-digit HTSUS on every line.
+(6) 22 Oct route flag: PGA / Ch.98 / Ch.99 / FTA claim → Rail B (ET13) or formal. AD/CVD or quota → formal only. ≤$2,500 Ch.1–97 clean → Rail A still legal until CBP ends the test / 1 Jul 2027.
+(7) Optional: ACE ET13 entry number. Rule = do not tender to inbound post without that number.
+
+What we sell: the hold + the pack a licensed broker or self-filing owner pastes into ACE or IMDW.
+What we do not sell: the entry.
+Price analog (do not invent a checkout tonight): completeness install in the $2,500 band; 22 Oct catalog-routing audit in the $1,750 band. No named buyer, no cash.
+
+════════════════════════════════════
+WHO PAYS IN 32 DAYS (NEW LIST ONLY)
+1. Foreign DTC / marketplace sellers still using international post into the US — especially PGA, Ch.99 stacks, FTA claims.
+2. US purchasers of recurring foreign mail (samples, parts, small industrial SKUs) who just became IOR and do not know 143.26(a) applies to them.
+3. Licensed brokers drowning in new small POAs. They buy ACE-clean intake so 325/331 stop firing. They already have the license. We feed it. We do not compete with filing.
+4. 3PLs / forwarders / USPS-adjacent consolidators who used to be “qualified third parties” and are now legally mute.
+
+Do not spray leftover-22. Do not email random GCs. If pursued, list is new: postal inbound SKU owners + brokers already in ACE. Built from public importer/broker directories and the 7 Oct TTO call, not the Tuesday stack.
+
+════════════════════════════════════
+CBP CONTACTS (THEIRS, NOT OURS)
+IMDW / comments: CBPDM@cbp.dhs.gov
+Pay.gov international mail setup: IntlMailDutyHelp@cbp.dhs.gov
+Cargo Release / Manifest: CREM@cbp.dhs.gov
+Entry Summary / Accounts / Revenue: ESAR@cbp.dhs.gov
+ACE tech: ace.support@cbp.dhs.gov / 866-530-4172
+Bond questions (non-eBond sureties): bondquestions@cbp.dhs.gov
+
+TTO post-deploy call — Wed 7 Oct 2026, 1:00 p.m. ET
+Meeting ID: 238 099 770 592 787
+Passcode: Eh9Ad2fE
+(from INT-057 notice; confirm on CSMS before joining)
+
+════════════════════════════════════
+THIS WEEK
+Do: read FR 2026-12668 and 2026-12669. Read 19 CFR 143.26(a) and 145.15. Keep the fail-closed checklist as an internal spec. If a NAMED postal-inbound seller or NAMED licensed broker is already in the room, sell the hold. If nobody is named, this is a map not an invoice. Sit 7 Oct TTO as listener.
+
+Do not: found a company. Apply for a filer code we cannot hold. Build PLC/vehicle adapters. Weld join/ or check/ to this. Spray leftover-22. D3/D5 Friday follow-up. Lead with Tuesday remaining CHARGE. Ship a museum SKU. File anyone’s entry.
+
+════════════════════════════════════
+PARKED (SAME SEARCH, NOT THIS HUNT)
+CIRCIA RIN 1670-AA04 — slipped; wait for FR.
+CA Delete Act DROP — privacy SaaS crowded.
+OZ Notice 2026-40 31 Dec 2026 — tax counsel crowded.
+NY LLC Transparency 31 Dec 2026 — formation mills crowded.
+CBAM certificates 1 Feb 2027 — not this quarter.
+
+END COPY
