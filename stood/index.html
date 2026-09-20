@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STOOD</title>
+  <meta name="description" content="One stand a day. A card the square can read. No face." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <style>
+    :root {
+      --bg: #0e0f0c;
+      --paper: #e8e1d1;
+      --ink: #14140f;
+      --mute: #8a8578;
+      --a: #c4b48a;
+      --b: #6e7f6b;
+      --line: #2a2a24;
+      --pay: #c4b48a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--paper); }
+    body {
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      min-height: 100vh;
+      line-height: 1.4;
+    }
+    .wrap { max-width: 42rem; margin: 0 auto; padding: 2rem 1.1rem 5rem; }
+    header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.2rem; }
+    .mark { letter-spacing: 0.28em; font-size: 0.78rem; font-weight: 700; }
+    .date { font-size: 0.8rem; color: var(--mute); letter-spacing: 0.06em; }
+    h1 { font-size: 1.65rem; font-weight: 500; margin: 0 0 0.75rem; letter-spacing: -0.02em; }
+    .lede { color: var(--mute); margin: 0 0 1.6rem; font-size: 0.98rem; }
+    .sealed {
+      border: 1px solid var(--line);
+      padding: 1.1rem 1rem;
+      margin-bottom: 1rem;
+      color: var(--mute);
+      font-size: 0.92rem;
+    }
+    .choices { display: grid; gap: 0.7rem; margin: 1.2rem 0 1.4rem; }
+    button.stand {
+      font: inherit; cursor: pointer; text-align: left;
+      background: transparent; color: var(--paper);
+      border: 1px solid var(--paper); padding: 0.95rem 1rem;
+    }
+    button.stand:hover { background: #1a1b16; }
+    button.stand small { display: block; color: var(--mute); font-size: 0.78rem; margin-top: 0.2rem; letter-spacing: 0.08em; }
+    button.stand:disabled { opacity: 0.4; cursor: not-allowed; }
+    .row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.8rem 0 1.6rem; }
+    button.ghost, a.pay {
+      font: inherit; cursor: pointer; border: 1px solid var(--line);
+      background: transparent; color: var(--paper); padding: 0.65rem 0.9rem;
+      text-decoration: none; display: inline-block;
+    }
+    a.pay { border-color: var(--pay); color: var(--pay); }
+    canvas { width: 100%; height: auto; background: var(--paper); display: block; }
+    .card-slot { margin: 1rem 0; border: 1px solid var(--line); }
+    textarea {
+      width: 100%; min-height: 8rem; font: inherit; padding: 0.8rem;
+      background: #16170f; color: var(--paper); border: 1px solid var(--line);
+      resize: vertical;
+    }
+    h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 2.4rem 0 0.6rem; }
+    .money { color: var(--mute); font-size: 0.9rem; }
+    .fine { color: var(--mute); font-size: 0.78rem; margin-top: 2rem; }
+    .split { display: none; margin: 0.4rem 0 1rem; color: var(--mute); font-size: 0.9rem; }
+    .split.on { display: block; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="mark">STOOD</div>
+      <div class="date" id="when"></div>
+    </header>
+
+    <p class="lede">City Hall, one case a day. Same for the planet. You don’t speak. You stand. The card is the tweet.</p>
+
+    <h1 id="q"></h1>
+    <div class="sealed" id="seal">The hall is sealed until you stand. Then you get a glyph. Come back tomorrow for the next case. No second board.</div>
+    <div class="choices" id="choices"></div>
+    <p class="split" id="split">You stood. The share does not say which way — only that you were in the room.</p>
+
+    <div class="card-slot"><canvas id="glyph" width="1200" height="675"></canvas></div>
+    <div class="row">
+      <button class="ghost" type="button" id="dl-glyph">Download stand</button>
+      <button class="ghost" type="button" id="copy-glyph">Copy glyph text</button>
+    </div>
+
+    <h2>Relic</h2>
+    <p class="lede" style="margin-bottom:0.6rem">Paste what Grok / Muse / ChatGPT said. Get a card the square can pass. Ugly screenshots are the present. This is the clean relic.</p>
+    <textarea id="blob" placeholder="Paste the chat. No account."></textarea>
+    <div class="row">
+      <button class="ghost" type="button" id="make-relic">Make relic</button>
+      <button class="ghost" type="button" id="dl-relic">Download relic</button>
+    </div>
+    <div class="card-slot"><canvas id="relic" width="1200" height="675"></canvas></div>
+    <p class="money">Free cards carry a small STOOD mark. HQ / no mark: $19 for 20, or $29/mo unlimited.</p>
+    <div class="row">
+      <a class="pay" id="pay19" href="#pay">$19 · 20 HQ</a>
+      <a class="pay" id="pay29" href="#pay">$29/mo unlimited</a>
+    </div>
+    <p class="fine" id="payhint">Paste Stripe Payment Links on the two pay anchors before you post. Not the Muse $7 link. Not Nisaba.</p>
+    <p class="fine">Not a personality. Not a feed. One stand per day. Faceless on purpose.</p>
+  </div>
+  <script>
+    const CASES = {
+      "2026-09-20": {
+        q: "Grok sits in the square now. Keep the chorus public, or cage it?",
+        a: "Keep it in the hall",
+        b: "Cage it"
+      },
+      "2026-09-21": {
+        q: "Muse can mail and spend if you let it. Open the door, or keep the keys?",
+        a: "Open the door",
+        b: "Keep the keys"
+      }
+    };
+
+    const isoDay = () => {
+      const d = new Date();
+      const z = (n) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+    };
+    const pretty = (iso) => {
+      const [y, m, dd] = iso.split("-").map(Number);
+      const months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
+      return `${dd} ${months[m - 1]} ${y}`;
+    };
+    const today = isoDay();
+    const kase = CASES[today] || CASES["2026-09-20"];
+    const storeKey = "stood.v1";
+    const load = () => {
+      try { return JSON.parse(localStorage.getItem(storeKey) || "{}"); }
+      catch { return {}; }
+    };
+    const save = (s) => localStorage.setItem(storeKey, JSON.stringify(s));
+    const state = load();
+    const ribbon = () => {
+      const out = [];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const z = (n) => String(n).padStart(2, "0");
+        const id = `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+        out.push((state.stands && state.stands[id]) || null);
+      }
+      return out;
+    };
+
+    document.getElementById("when").textContent = pretty(today);
+    document.getElementById("q").textContent = kase.q;
+
+    const paper = "#e8e1d1";
+    const ink = "#14140f";
+    const gold = "#c4b48a";
+    const moss = "#6e7f6b";
+
+    function drawGlyph(choice) {
+      const c = document.getElementById("glyph").getContext("2d");
+      const w = 1200, h = 675;
+      c.fillStyle = paper;
+      c.fillRect(0, 0, w, h);
+      c.fillStyle = ink;
+      c.font = "600 28px Georgia, serif";
+      c.fillText("STOOD", 72, 88);
+      c.font = "22px Georgia, serif";
+      c.fillStyle = "#5c584c";
+      c.fillText(pretty(today), 72, 128);
+
+      if (choice) {
+        c.fillStyle = choice === "b" ? moss : gold;
+        c.fillRect(72, 200, 220, 220);
+      } else {
+        c.strokeStyle = "#c4bcae";
+        c.lineWidth = 2;
+        c.strokeRect(72, 200, 220, 220);
+        c.fillStyle = "#8a8578";
+        c.font = "22px Georgia, serif";
+        c.fillText("sealed", 130, 320);
+      }
+
+      const rib = ribbon();
+      rib.forEach((ch, i) => {
+        c.fillStyle = !ch ? "#d4ccb8" : ch === "b" ? moss : gold;
+        c.fillRect(72 + i * 44, 460, 32, 32);
+      });
+
+      c.fillStyle = "#8a8578";
+      c.font = "18px Georgia, serif";
+      c.fillText("the hall · one case · no throat", 72, 620);
+      c.fillStyle = ink;
+      c.font = "20px Georgia, serif";
+      c.fillText("STOOD", 980, 620);
+    }
+
+    function wrapText(c, text, x, y, max, lh) {
+      const words = text.split(/\s+/);
+      let line = "";
+      let yy = y;
+      for (const word of words) {
+        const test = line ? line + " " + word : word;
+        if (c.measureText(test).width > max) {
+          c.fillText(line, x, yy);
+          line = word;
+          yy += lh;
+          if (yy > 560) break;
+        } else line = test;
+      }
+      if (line) c.fillText(line, x, yy);
+    }
+
+    function drawRelic(text, hq) {
+      const c = document.getElementById("relic").getContext("2d");
+      const w = 1200, h = 675;
+      c.fillStyle = paper;
+      c.fillRect(0, 0, w, h);
+      c.fillStyle = ink;
+      c.font = "600 26px Georgia, serif";
+      c.fillText("STOOD · relic", 72, 80);
+      c.font = "28px Georgia, serif";
+      const body = (text || "").trim().replace(/\s+/g, " ");
+      wrapText(c, body ? `“${body}”` : "Paste a chat.", 72, 180, 1050, 40);
+      c.fillStyle = hq ? ink : "#8a8578";
+      c.font = "18px Georgia, serif";
+      c.fillText(hq ? pretty(today) : "STOOD · free mark", 72, 620);
+    }
+
+    function glyphText(choice) {
+      const block = choice === "b" ? "🟩" : "🟨";
+      const rib = ribbon().map((ch) => (ch === "b" ? "🟩" : ch === "a" ? "🟨" : "⬜")).join("");
+      return `STOOD ${pretty(today)}\n${block}\n${rib}`;
+    }
+
+    function unlock(choice) {
+      if (!state.stands) state.stands = {};
+      if (state.stands[today]) return;
+      state.stands[today] = choice;
+      save(state);
+      document.getElementById("choices").querySelectorAll("button").forEach((b) => { b.disabled = true; });
+      document.getElementById("seal").textContent = "You stood. Tomorrow there is another case. The share stays spoiler-free.";
+      document.getElementById("split").classList.add("on");
+      drawGlyph(choice);
+    }
+
+    const already = state.stands && state.stands[today];
+    const box = document.getElementById("choices");
+    [["a", kase.a], ["b", kase.b]].forEach(([id, label]) => {
+      const btn = document.createElement("button");
+      btn.className = "stand";
+      btn.type = "button";
+      btn.innerHTML = label + "<small>" + (id === "a" ? "A" : "B") + "</small>";
+      if (already) btn.disabled = true;
+      btn.addEventListener("click", () => unlock(id));
+      box.appendChild(btn);
+    });
+    drawGlyph(already || null);
+    if (already) {
+      document.getElementById("seal").textContent = "You already stood today. The wall is up until midnight.";
+      document.getElementById("split").classList.add("on");
+    }
+    drawRelic("", false);
+
+    document.getElementById("dl-glyph").onclick = () => {
+      const a = document.createElement("a");
+      a.download = `stood-${today}.png`;
+      a.href = document.getElementById("glyph").toDataURL("image/png");
+      a.click();
+    };
+    document.getElementById("copy-glyph").onclick = async () => {
+      const ch = state.stands && state.stands[today];
+      if (!ch) return;
+      await navigator.clipboard.writeText(glyphText(ch));
+    };
+    document.getElementById("make-relic").onclick = () => {
+      drawRelic(document.getElementById("blob").value, false);
+    };
+    document.getElementById("dl-relic").onclick = () => {
+      const a = document.createElement("a");
+      a.download = `stood-relic-${today}.png`;
+      a.href = document.getElementById("relic").toDataURL("image/png");
+      a.click();
+    };
+  </script>
+</body>
+</html>
