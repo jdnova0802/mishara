@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>STOOD</title>
-  <meta name="description" content="One stand a day. A card the square can read. No face." />
+  <meta name="description" content="Tap yes or no. Get a pic. Post it." />
   <style>
     :root {
       --bg: #0e0f0c;
@@ -27,13 +27,6 @@
     .date { font-size: 0.8rem; color: var(--mute); letter-spacing: 0.06em; }
     h1 { font-size: 1.65rem; font-weight: 500; margin: 0 0 0.75rem; letter-spacing: -0.02em; }
     .lede { color: var(--mute); margin: 0 0 1.6rem; font-size: 0.98rem; }
-    .sealed {
-      border: 1px solid var(--line);
-      padding: 1.1rem 1rem;
-      margin-bottom: 1rem;
-      color: var(--mute);
-      font-size: 0.92rem;
-    }
     .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 1.2rem 0 1.4rem; }
     button.stand {
       font: inherit; cursor: pointer; text-align: center;
@@ -54,6 +47,8 @@
     a.pay.dead { opacity: 0.45; pointer-events: none; }
     canvas { width: 100%; height: auto; background: var(--paper); display: block; }
     .card-slot { margin: 1rem 0; border: 1px solid var(--line); }
+    .hide { display: none; }
+    .hide.on { display: block; }
     textarea {
       width: 100%; min-height: 8rem; font: inherit; padding: 0.8rem;
       background: #16170f; color: var(--paper); border: 1px solid var(--line);
@@ -62,8 +57,7 @@
     h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 2.4rem 0 0.6rem; }
     .money, .fine { color: var(--mute); font-size: 0.9rem; }
     .fine { font-size: 0.78rem; margin-top: 2rem; }
-    .split { display: none; margin: 0.4rem 0 1rem; color: var(--mute); font-size: 0.9rem; }
-    .split.on { display: block; }
+    .split { margin: 0.4rem 0 1rem; color: var(--mute); font-size: 0.9rem; }
     .ok { color: var(--pay); font-size: 0.85rem; min-height: 1.2em; }
   </style>
 </head>
@@ -80,32 +74,32 @@
     <div class="choices" id="choices"></div>
 
     <div class="after" id="after">
-    <p class="split on">Post this. People will ask what it is.</p>
-    <div class="card-slot"><canvas id="glyph" width="1200" height="675"></canvas></div>
-    <div class="row">
-      <button class="ghost" type="button" id="dl-glyph">Save pic</button>
-      <button class="ghost" type="button" id="copy-glyph">Copy text</button>
-      <button class="ghost" type="button" id="share-glyph">Share</button>
-    </div>
-    <p class="ok" id="gmsg"></p>
-    </div>
+      <p class="split">Here’s your pic. Post it.</p>
+      <div class="card-slot"><canvas id="glyph" width="1200" height="675"></canvas></div>
+      <div class="row">
+        <button class="ghost" type="button" id="dl-glyph">Save pic</button>
+        <button class="ghost" type="button" id="copy-glyph">Copy text</button>
+        <button class="ghost" type="button" id="share-glyph">Share</button>
+      </div>
+      <p class="ok" id="gmsg"></p>
 
-    <h2>Grok said what</h2>
-    <p class="lede" style="margin-bottom:0.6rem">Paste the chat. Make a pic. Reply with the pic.</p>
-    <textarea id="blob" placeholder="Paste the chat. No account."></textarea>
-    <div class="row">
-      <button class="ghost" type="button" id="make-relic">Make pic</button>
-      <button class="ghost" type="button" id="dl-relic">Save pic</button>
-      <button class="ghost" type="button" id="share-relic">Share</button>
+      <h2>Paste a Grok</h2>
+      <p class="lede" style="margin-bottom:0.6rem">Paste. Make a pic. Reply with the pic.</p>
+      <textarea id="blob" placeholder="Paste the chat. No account."></textarea>
+      <div class="row">
+        <button class="ghost" type="button" id="make-relic">Make pic</button>
+        <button class="ghost" type="button" id="dl-relic">Save pic</button>
+        <button class="ghost" type="button" id="share-relic">Share</button>
+      </div>
+      <div class="card-slot hide" id="relic-slot"><canvas id="relic" width="1200" height="675"></canvas></div>
+      <p class="ok" id="rmsg"></p>
+      <p class="money">No mark in the corner: $19 or $29/mo.</p>
+      <div class="row">
+        <a class="pay" id="pay19" href="#pay">$19</a>
+        <a class="pay" id="pay29" href="#pay">$29/mo</a>
+      </div>
+      <p class="fine">One tap a day. Come back tomorrow.</p>
     </div>
-    <div class="card-slot"><canvas id="relic" width="1200" height="675"></canvas></div>
-    <p class="ok" id="rmsg"></p>
-    <p class="money">Clean pic, no mark: $19 or $29/mo.</p>
-    <div class="row">
-      <a class="pay" id="pay19" href="#pay">$19 · 20 HQ</a>
-      <a class="pay" id="pay29" href="#pay">$29/mo unlimited</a>
-    </div>
-    <p class="fine">One tap a day. Come back tomorrow.</p>
   </div>
   <script src="config.js"></script>
   <script>
@@ -124,7 +118,7 @@
     const POOL = [
       { q: "Trust a screenshot?", a: "Yes", b: "No" },
       { q: "Is X still the news?", a: "Yes", b: "No" },
-      { q: "Click a GTA 6 “beta” link?", a: "No", b: "Hell no" },
+      { q: "Click a GTA 6 beta link?", a: "Yes", b: "No" },
       { q: "Should bots post as people?", a: "Yes", b: "No" },
       { q: "Prediction apps on the home screen: good?", a: "Yes", b: "No" },
       { q: "One more agent on your phone?", a: "Yes", b: "No" },
@@ -226,7 +220,7 @@
       if (line) c.fillText(line, x, yy);
     }
 
-    function drawRelic(text, hq) {
+    function drawRelic(text) {
       const c = document.getElementById("relic").getContext("2d");
       const w = 1200, h = 675;
       c.fillStyle = paper;
@@ -237,9 +231,9 @@
       c.font = "28px Georgia, serif";
       const body = (text || "").trim().replace(/\s+/g, " ");
       wrapText(c, body ? `“${body}”` : "Paste a chat.", 72, 180, 1050, 40);
-      c.fillStyle = hq ? ink : "#8a8578";
+      c.fillStyle = "#8a8578";
       c.font = "18px Georgia, serif";
-      c.fillText(hq ? pretty(today) : "STOOD", 72, 620);
+      c.fillText("STOOD", 72, 620);
     }
 
     function glyphText(choice) {
@@ -265,14 +259,18 @@
       return false;
     }
 
+    function showPic(choice) {
+      document.getElementById("choices").querySelectorAll("button").forEach((b) => { b.disabled = true; });
+      document.getElementById("after").classList.add("on");
+      drawGlyph(choice);
+    }
+
     function unlock(choice) {
       if (!state.stands) state.stands = {};
       if (state.stands[today]) return;
       state.stands[today] = choice;
       save(state);
-      document.getElementById("choices").querySelectorAll("button").forEach((b) => { b.disabled = true; });
-      document.getElementById("after").classList.add("on");
-      drawGlyph(choice);
+      showPic(choice);
     }
 
     const already = state.stands && state.stands[today];
@@ -286,9 +284,7 @@
       btn.addEventListener("click", () => unlock(id));
       box.appendChild(btn);
     });
-    drawGlyph(already || null);
-    if (already) document.getElementById("after").classList.add("on");
-    drawRelic("", false);
+    if (already) showPic(already);
 
     document.getElementById("dl-glyph").onclick = () => {
       const a = document.createElement("a");
@@ -309,16 +305,30 @@
       document.getElementById("gmsg").textContent = ok ? "Sent." : "Saved. Post the pic.";
     };
     document.getElementById("make-relic").onclick = () => {
-      drawRelic(document.getElementById("blob").value, false);
+      const text = document.getElementById("blob").value;
+      if (!text.trim()) {
+        document.getElementById("rmsg").textContent = "Paste first.";
+        return;
+      }
+      drawRelic(text);
+      document.getElementById("relic-slot").classList.add("on");
     };
     document.getElementById("dl-relic").onclick = () => {
+      if (!document.getElementById("relic-slot").classList.contains("on")) {
+        document.getElementById("rmsg").textContent = "Make the pic first.";
+        return;
+      }
       const a = document.createElement("a");
       a.download = `stood-relic-${today}.png`;
       a.href = canvasPng("relic");
       a.click();
     };
     document.getElementById("share-relic").onclick = async () => {
-      const ok = await shareCanvas("relic", `stood-relic-${today}.png`, "STOOD relic");
+      if (!document.getElementById("relic-slot").classList.contains("on")) {
+        document.getElementById("rmsg").textContent = "Make the pic first.";
+        return;
+      }
+      const ok = await shareCanvas("relic", `stood-relic-${today}.png`, "STOOD");
       document.getElementById("rmsg").textContent = ok ? "Sent." : "Saved. Reply with the pic.";
     };
   </script>
