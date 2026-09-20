@@ -15,12 +15,13 @@ Serve locally to sign: cd hunt/willnot && python3 -m http.server 8765
   http://127.0.0.1:8765
 Public pay URL is Stripe-hosted; the receipt still needs localhost/https for WebAuthn.
 
-POST TONIGHT (you post, Cursor does not):
+POST TONIGHT (you post, Cursor does not). Places: hunt/PASTE-WHERE.txt
+  Do not: App Store Stripe, r/iphone OP, r/Muse (band), Meta Help.
+  Do: reply on HN 49619026, then X 2097410373221773355.
   Muse just hit #1 free US. It can message / book / change settings once you grant access.
   I shipped a $7 passkey halt receipt: you attest “I did not authorize this agent action.”
   Not a bank stop. Not legal standing. Typed name without a passkey is a HOLD.
   Pay: https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
-  Where: Muse App Store reviews, r/iphone, X replies on the #1 chart posts. Sit in the thread.
 
 B. MERCHANT 10.4 MANDATE EXHIBIT — MAPPED, WAITING ON A NAME
 Chargeback.io 21 Aug 2026: nobody holds the tamper-resistant mandate-to-order record.
