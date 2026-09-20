@@ -1,0 +1,55 @@
+PAPER CHECK — run this on every PDF. Same order. No vibe.
+
+You are not a bank, surety, carrier, or broker.
+Never write: authentic, verified with SWIFT, good to wire, we bind.
+Fail language: Don't wire. Don't mobilize. Don't start. Get it from the carrier/broker portal or letterhead.
+
+0. Take payment first ($49). No check without a Stripe receipt.
+
+1. HASH
+   Customer should have sent SHA-256 of the file. Hash the attachment. Mismatch = DENY.
+
+2. PDF HYGIENE → DENY if
+   - Screenshot-in-PDF / phone photo of a screen as the only artifact when they claimed an original
+   - Obvious layer smash, mismatched fonts on letterhead vs body
+   - Producer/carrier logo that is a stretch-JPEG on a vector page
+   - Fields that look edited (baseline jump, different compression on one line)
+   Hygiene fail is not "forged in court." It is enough to DENY this write.
+
+3. DATES → DENY if
+   - Policy period ended
+   - Effective date in the future for a job that already started (flag HOLD + ask)
+   - Blank dates
+
+4. NAMES → DENY if
+   - Named insured blank or clearly not the sub/vendor they claimed
+   - Additional insured / certificate holder missing when they required it in the order
+   - Certificate holder is "to whom it may concern" when they required a specific GC/owner
+
+5. LIMITS → DENY if
+   - Customer pasted required limits and occ/agg/GL/auto/WC are below
+   - Limits blank
+
+6. PARTIES → DENY if
+   - Insurer / producer / NAIC blank
+   - Insurer name is cartoon / misspelled major (e.g. "Travlers")
+   Public lookup (when a public page exists): NAIC / AM Best / state producer. No public hit + unknown name = DENY or HOLD with "couldn't confirm carrier exists."
+
+7. INSTRUMENT TYPE
+   COI/Acord-like: use 2–6.
+   "SBLC/LOC": you do NOT authenticate. Default DENY for wire on a PDF of an SBLC unless they only asked "is this a photo of a letter" hygiene. Reply: We don't clear wires on SBLC PDFs. Don't wire.
+
+8. REPLY TEMPLATE — FAIL
+   PAPER CHECK: DENY
+   Don't wire. Don't mobilize. Don't start.
+   Why: [one line from the list]
+   Hash: [sha256]
+   Not a bank. Not a surety.
+
+9. REPLY TEMPLATE — CHECKS DID NOT FAIL
+   PAPER CHECK: HOLD
+   These checks did not fail. That is not authenticity. That is not a bind.
+   Hash: [sha256]
+   If you need certainty, get it from the carrier/broker official portal.
+
+Inbox SLA: same calendar day if they paid before 6pm your time; next morning otherwise.
