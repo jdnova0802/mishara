@@ -1,0 +1,71 @@
+COPY FROM HERE
+════════════════════════════════════
+WAVE — BIGGER THAN $7, FASTER THAN FR
+20 Sep 2026. In addition to the 7-day Muse $7 test. Not instead of it.
+Not Cymphony. Not another Federal Register. Not leftover-22.
+
+════════════════════════════════════
+1. WHAT IS STEEP THIS MONTH THAT ISN’T APP-CHART NOISE
+
+Capital, not downloads (this month specifically):
+
+  1 Sep 2026 — AIR Security, $50M SEED (Sequoia $10M + Greenoaks $40M). Inline firewall for agent skills / plugins / MCP. Forkast: $435M into agent-security across 12 deals in five months. 20+ customers, ~27% of add-ons blocked, demand from FIs and pharma.
+  9 Sep 2026 — Cymphony, $25M Series A (Sequoia + SMBC Fin Atlas), $30M total, >$100M post. TechCrunch same day. Workforce graph of humans + AI agents. Seven-figure ARR in year one. Named customers: KKR, Syngenta, Cass Information Systems, Athennian. Sequoia uses it internally. Third Sequoia agent-sec bet in three weeks (AIR, Zenity, Cymphony).
+  15 Sep 2026 — Eve Security, $4.5M seed extension to $7.5M (Run Ventures). Runtime allow/block/interrogate/taint for Copilot Studio, Bedrock, AgentCore, Databricks, Glean, MCP, A2A.
+
+Also already in the stack this summer (not “this month,” named so we don’t pretend we found them): Zenity $125M Series C 3 Aug; Glow $180M Series A 22 Jul.
+
+Picks-and-shovels on the SAME Muse week:
+  Muse (consumer #1 free US, launched 8 Sep) has no tenant, no MDM, no SIEM export. Agent acts under the employee’s own tokens. IT cannot tell agent from human. Forkast / Meta research (Sentinel is user-level, not org-level). Shadow-AI on work machines is the enterprise side of this week’s chart.
+  Visa TAP + Cloudflare managed rules: merchants can allow trusted-agent HTTP signatures at the edge without rebuilding checkout. Stripe Shared Payment Tokens already processing agentic network tokens; Stripe named Etsy and URBN (Anthropologie / Free People / Urban Outfitters). TAP authenticates the AGENT. It does not carry the consumer’s mandate.
+  Mastercard + Google Verifiable Intent, announced 5 Mar 2026, spec at verifiableintent.dev (draft 0.1). Tamper-resistant chain: identity → user instruction → agent action. “Coming months” into Agent Pay APIs. Chargeback.io (21 Aug 2026) still: processors do not pass a mandate field; merchants do not receive it.
+
+════════════════════════════════════
+2. BIGGER-THAN-$7 VERSION OF THE RECEIPT, RIDING MUSE
+
+Do NOT found an agent-firewall company. AIR/Cymphony/Eve/Zenity/Glow/Okta/Microsoft are that lane. Sequoia is stuffing it this month. That is the massive category and it is occupied. Entering it is a forced fit.
+
+The hole that is still empty for a company (not a consumer):
+
+Chargeback.io, 21 Aug 2026, three evidence items for an agent 10.4:
+
+  Mandate that authorized the agent     — held by the agent platform — merchant does not get it
+  Identity of the agent                 — held by the agent platform — merchant does not get it
+  Tamper-resistant record tying the two — “Nobody yet”
+
+Visa has not published an agent-specific dispute code. Disputes land as 10.4 / 13.1 / 13.3. Cardholder can truthfully say they don’t recognize the charge while their Muse/agent placed it. TAP proves “a Visa-approved agent hit the site.” It does not prove “this human authorized THIS SKU at THIS amount.”
+
+That is prin-hash with a buyer class that already pays:
+
+  Object: EXIST only if human_principal + written mandate hashed in-process, bound to TAP key id / agent tag + order id. Stuffed instruction_hash = NONEXIST. Missing principal = HOLD. Same machine as rel/. Not a $7 screenshot for a person. A representment exhibit for a merchant’s 10.4 packet.
+
+  Buyer: chargeback / risk at a Stripe or TAP merchant already taking agent checkouts (SPT is live; Cloudflare TAP rules are the on-ramp). They already buy Ethoca/Verifi. They do not have the mandate.
+
+  Price analog (do not invent checkout tonight): same band as $1,750 Bind Room / $2,500 install — a dated packet, not a Sequoia ARR graph.
+
+  Why this week is different from March: Muse made agent-permission a consumer headline (19 Sep #1). That is the demand shock. The spec (Verifiable Intent) is six months old and still not in the processor payload. Window = until Adyen/Stripe/Worldpay emit the mandate field. Then the network eats the SKU.
+
+Runs IN ADDITION TO the $7 consumer halt. Consumer page is the principal surface demo. Merchant pack is the same hash with an order id and a TAP header. Do not weld either into gate/. Do not found. Do not spray leftover-22.
+
+Named buyer tonight: still none. Buyer CLASS is named. Same honesty as every other memo. Do not email KKR. Do not pitch Sequoia.
+
+════════════════════════════════════
+3. FORCE-FIT CHECK
+
+Is the third lane “become Cymphony”? NO. Occupied, funded this month, wrong pedigree race.
+
+Is the third lane “Verifiable Intent but us”? NO. Mastercard/Google already open-sourced it. Don’t compete with a network spec.
+
+Is the third lane empty? NO. The merchant 10.4 mandate exhibit is independently documented as missing (Chargeback.io), independently timed to this week’s Muse chart, and is the doctrine stack on a payment evidence job instead of a cargo job.
+
+If no named TAP/SPT merchant is in the room in 7 days, this sits behind the $7 test the same way ET13 sat behind Tuesday: clock real, invoice empty. Allowed.
+
+════════════════════════════════════
+THIS WEEK (TWO CLOCKS, NOT A FIFTH LANE)
+A. $7 Muse halt page — 7-day kill if $0. Speed register.
+B. If a NAMED merchant with agent checkout / chargebacks is already reachable from some other conversation, sell the 10.4 mandate exhibit. If not, do not build a second product this weekend.
+
+ONE LINE
+This month’s non-chart massive is Sequoia stuffing agent-identity security (AIR $50M seed 1 Sep, Cymphony $25M A 9 Sep, Eve $4.5M 15 Sep) — occupied. The unoccupied ride on the Muse wave is the merchant mandate-to-order receipt for Visa 10.4, which TAP does not carry and processors do not yet emit. Same prin-hash. Not a third company. Not instead of the $7 test.
+
+END COPY
