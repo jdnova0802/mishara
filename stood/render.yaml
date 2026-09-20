@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: stood
+    runtime: static
+    plan: starter
+    buildCommand: "true"
+    staticPublishPath: stood

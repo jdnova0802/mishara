@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>STOOD</title>
   <meta name="description" content="One stand a day. A card the square can read. No face." />
-  <meta name="twitter:card" content="summary_large_image" />
   <style>
     :root {
       --bg: #0e0f0c;
       --paper: #e8e1d1;
       --ink: #14140f;
       --mute: #8a8578;
-      --a: #c4b48a;
-      --b: #6e7f6b;
       --line: #2a2a24;
       --pay: #c4b48a;
     }
@@ -53,6 +50,7 @@
       text-decoration: none; display: inline-block;
     }
     a.pay { border-color: var(--pay); color: var(--pay); }
+    a.pay.dead { opacity: 0.45; pointer-events: none; }
     canvas { width: 100%; height: auto; background: var(--paper); display: block; }
     .card-slot { margin: 1rem 0; border: 1px solid var(--line); }
     textarea {
@@ -61,10 +59,11 @@
       resize: vertical;
     }
     h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 2.4rem 0 0.6rem; }
-    .money { color: var(--mute); font-size: 0.9rem; }
-    .fine { color: var(--mute); font-size: 0.78rem; margin-top: 2rem; }
+    .money, .fine { color: var(--mute); font-size: 0.9rem; }
+    .fine { font-size: 0.78rem; margin-top: 2rem; }
     .split { display: none; margin: 0.4rem 0 1rem; color: var(--mute); font-size: 0.9rem; }
     .split.on { display: block; }
+    .ok { color: var(--pay); font-size: 0.85rem; min-height: 1.2em; }
   </style>
 </head>
 <body>
@@ -77,7 +76,7 @@
     <p class="lede">City Hall, one case a day. Same for the planet. You don’t speak. You stand. The card is the tweet.</p>
 
     <h1 id="q"></h1>
-    <div class="sealed" id="seal">The hall is sealed until you stand. Then you get a glyph. Come back tomorrow for the next case. No second board.</div>
+    <div class="sealed" id="seal">The hall is sealed until you stand. Then you get a glyph. Come back tomorrow. No second board.</div>
     <div class="choices" id="choices"></div>
     <p class="split" id="split">You stood. The share does not say which way — only that you were in the room.</p>
 
@@ -85,26 +84,30 @@
     <div class="row">
       <button class="ghost" type="button" id="dl-glyph">Download stand</button>
       <button class="ghost" type="button" id="copy-glyph">Copy glyph text</button>
+      <button class="ghost" type="button" id="share-glyph">Share stand</button>
     </div>
+    <p class="ok" id="gmsg"></p>
 
     <h2>Relic</h2>
-    <p class="lede" style="margin-bottom:0.6rem">Paste what Grok / Muse / ChatGPT said. Get a card the square can pass. Ugly screenshots are the present. This is the clean relic.</p>
+    <p class="lede" style="margin-bottom:0.6rem">Paste what Grok / Muse / ChatGPT said. Clean card. Reply with the image, not a link.</p>
     <textarea id="blob" placeholder="Paste the chat. No account."></textarea>
     <div class="row">
       <button class="ghost" type="button" id="make-relic">Make relic</button>
       <button class="ghost" type="button" id="dl-relic">Download relic</button>
+      <button class="ghost" type="button" id="share-relic">Share relic</button>
     </div>
     <div class="card-slot"><canvas id="relic" width="1200" height="675"></canvas></div>
+    <p class="ok" id="rmsg"></p>
     <p class="money">Free cards carry a small STOOD mark. HQ / no mark: $19 for 20, or $29/mo unlimited.</p>
     <div class="row">
       <a class="pay" id="pay19" href="#pay">$19 · 20 HQ</a>
       <a class="pay" id="pay29" href="#pay">$29/mo unlimited</a>
     </div>
-    <p class="fine" id="payhint">Paste Stripe Payment Links on the two pay anchors before you post. Not the Muse $7 link. Not Nisaba.</p>
     <p class="fine">Not a personality. Not a feed. One stand per day. Faceless on purpose.</p>
   </div>
+  <script src="config.js"></script>
   <script>
-    const CASES = {
+    const FIXED = {
       "2026-09-20": {
         q: "Grok sits in the square now. Keep the chorus public, or cage it?",
         a: "Keep it in the hall",
@@ -116,6 +119,15 @@
         b: "Keep the keys"
       }
     };
+    const POOL = [
+      { q: "The square prices feelings now. Is that weather, or a book you shouldn’t open?", a: "It’s weather", b: "Keep it a book" },
+      { q: "A screenshot travels farther than the post. Trust the relic, or refuse it?", a: "Trust the relic", b: "Refuse it" },
+      { q: "Agents will talk forever. Human stance: scarce, or already gone?", a: "Still scarce", b: "Already gone" },
+      { q: "City Hall on a phone. Stay in the room, or walk out?", a: "Stay", b: "Walk out" },
+      { q: "One-word traps in public. Let the chorus play, or shut the game?", a: "Let it play", b: "Shut the game" },
+      { q: "November 19 will be a flood of fake doors. Wait for the real one, or hunt early?", a: "Wait", b: "Don’t hunt" },
+      { q: "A take with no throat. Is that honest, or hiding?", a: "Honest", b: "Hiding" }
+    ];
 
     const isoDay = () => {
       const d = new Date();
@@ -128,7 +140,7 @@
       return `${dd} ${months[m - 1]} ${y}`;
     };
     const today = isoDay();
-    const kase = CASES[today] || CASES["2026-09-20"];
+    const kase = FIXED[today] || POOL[Number(today.replaceAll("-", "")) % POOL.length];
     const storeKey = "stood.v1";
     const load = () => {
       try { return JSON.parse(localStorage.getItem(storeKey) || "{}"); }
@@ -147,6 +159,12 @@
       }
       return out;
     };
+
+    const pay = window.STOOD_PAY || {};
+    const a19 = document.getElementById("pay19");
+    const a29 = document.getElementById("pay29");
+    if (pay.p19) a19.href = pay.p19; else a19.classList.add("dead");
+    if (pay.p29) a29.href = pay.p29; else a29.classList.add("dead");
 
     document.getElementById("when").textContent = pretty(today);
     document.getElementById("q").textContent = kase.q;
@@ -167,7 +185,6 @@
       c.font = "22px Georgia, serif";
       c.fillStyle = "#5c584c";
       c.fillText(pretty(today), 72, 128);
-
       if (choice) {
         c.fillStyle = choice === "b" ? moss : gold;
         c.fillRect(72, 200, 220, 220);
@@ -179,13 +196,10 @@
         c.font = "22px Georgia, serif";
         c.fillText("sealed", 130, 320);
       }
-
-      const rib = ribbon();
-      rib.forEach((ch, i) => {
+      ribbon().forEach((ch, i) => {
         c.fillStyle = !ch ? "#d4ccb8" : ch === "b" ? moss : gold;
         c.fillRect(72 + i * 44, 460, 32, 32);
       });
-
       c.fillStyle = "#8a8578";
       c.font = "18px Georgia, serif";
       c.fillText("the hall · one case · no throat", 72, 620);
@@ -232,6 +246,23 @@
       return `STOOD ${pretty(today)}\n${block}\n${rib}`;
     }
 
+    function canvasPng(id) {
+      return document.getElementById(id).toDataURL("image/png");
+    }
+    async function shareCanvas(id, name, text) {
+      const blob = await (await fetch(canvasPng(id))).blob();
+      const file = new File([blob], name, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text });
+        return true;
+      }
+      const a = document.createElement("a");
+      a.download = name;
+      a.href = canvasPng(id);
+      a.click();
+      return false;
+    }
+
     function unlock(choice) {
       if (!state.stands) state.stands = {};
       if (state.stands[today]) return;
@@ -264,13 +295,20 @@
     document.getElementById("dl-glyph").onclick = () => {
       const a = document.createElement("a");
       a.download = `stood-${today}.png`;
-      a.href = document.getElementById("glyph").toDataURL("image/png");
+      a.href = canvasPng("glyph");
       a.click();
     };
     document.getElementById("copy-glyph").onclick = async () => {
       const ch = state.stands && state.stands[today];
-      if (!ch) return;
+      if (!ch) { document.getElementById("gmsg").textContent = "Stand first."; return; }
       await navigator.clipboard.writeText(glyphText(ch));
+      document.getElementById("gmsg").textContent = "Copied. Paste under a live hall post. Attach the PNG.";
+    };
+    document.getElementById("share-glyph").onclick = async () => {
+      const ch = state.stands && state.stands[today];
+      if (!ch) { document.getElementById("gmsg").textContent = "Stand first."; return; }
+      const ok = await shareCanvas("glyph", `stood-${today}.png`, glyphText(ch));
+      document.getElementById("gmsg").textContent = ok ? "Shared." : "Downloaded. Reply with the image.";
     };
     document.getElementById("make-relic").onclick = () => {
       drawRelic(document.getElementById("blob").value, false);
@@ -278,8 +316,12 @@
     document.getElementById("dl-relic").onclick = () => {
       const a = document.createElement("a");
       a.download = `stood-relic-${today}.png`;
-      a.href = document.getElementById("relic").toDataURL("image/png");
+      a.href = canvasPng("relic");
       a.click();
+    };
+    document.getElementById("share-relic").onclick = async () => {
+      const ok = await shareCanvas("relic", `stood-relic-${today}.png`, "STOOD relic");
+      document.getElementById("rmsg").textContent = ok ? "Shared." : "Downloaded. Reply with the image, not a URL.";
     };
   </script>
 </body>

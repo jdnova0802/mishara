@@ -1,0 +1,24 @@
+STOOD — DO THIS NOW
+Not Nisaba. Not OrangeTajin. Not the $7 Muse link.
+
+1. STRIPE (2 minutes)
+   Dashboard → Product “STOOD HQ pack” $19 one-time.
+   Product “STOOD unlimited” $29/month.
+   Payment Links for each.
+   Paste the two URLs into stood/config.js as p19 and p29.
+   Commit. Until then the gold buttons stay dead on purpose.
+
+2. OPEN THE PAGE
+   Local: stood/index.html
+   After this branch is on GitHub:
+   https://htmlpreview.github.io/?https://github.com/jdnova0802/mishara/blob/cursor/willnot-cra-25ad/stood/index.html
+   Real host later: Render static from /stood or a nameless domain. Not velaru.xyz.
+
+3. FIRST BLOOD (money ASAP)
+   New X account. No face. No bio essay. Not OrangeTajin.
+   Stand today. Download the PNG.
+   Reply with THE IMAGE under a live Grok or Muse post.
+   Caption = the glyph text only. No Stripe in the first reply.
+
+4. KILL
+   27 Sep 2026 if no cards in the wild and $0. Same clock family as A. Different SKU.
