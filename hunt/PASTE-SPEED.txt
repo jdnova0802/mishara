@@ -1,0 +1,87 @@
+COPY FROM HERE
+════════════════════════════════════
+SPEED REGISTER — 20 Sep 2026
+Not Federal Register. Not doctrine. Not ET13. Not CRA GRC.
+Different search: charts, this-month downloads, last-6-month 18–24 mechanics, weekend Venmo.
+
+════════════════════════════════════
+1. WHAT IS ACTUALLY STEEP THIS MONTH (NOT THIS YEAR)
+
+US iPhone free chart, this week (Mac Observer 19 Sep 2026; AppStoreStatistics / anerg archive 18–19 Sep):
+  Muse from Meta — launched 8 Sep 2026. Hit #1 free US, ahead of ChatGPT. 11 consecutive days on the board by 19 Sep. Personal AI AGENT that acts across connected services when you grant access. Chart = downloads, not retention. Still the steepest new thing on the phone this month.
+  Polymarket + Kalshi — both sitting top-10 free. World Cup residue + NFL. Prediction-market apps are a chart fact, not a SKU for us (don’t build a book).
+  PineDrama / StoryReel / short-drama — ByteDance and clones. Category heat, not a weekend build.
+  Netflix Game Controller — +67 ranks in a day (18 Sep). Platform, not ours.
+  Nota AI: Meeting Recorder (旭东 饶) — 29 country #1 placements in the Sep pulse. Indie meeting-notes, local-first. The category is crowded (Otter/Notta/Fireflies); the signal is “one job, ship, ASO.”
+  Detect My Owner (JAAP VERBEKE) — 33 country #1s. It is a 1.0 dog-follows-light GAME with ~18 ratings. Treat as ASO noise, not a market.
+
+Sensor Tower games (August, closest public “growth” list): Mystery Dumpling 11M+ downloads in launch month; Gangstar Mirage City #1 download growth. Console-scale, not a weekend.
+
+Claude: Sensor Tower State of AI 2026 — True Audience +452% YoY by May; US share 4.4% → ~14%. Challenger curve, not a product hole.
+
+Discord/Reddit “fastest server this month”: no clean public velocity series that isn’t crypto-spam or join-our-server posts. Do not treat that register as verified this pass.
+
+What NOT to do with this list: clone Muse, clone Kalshi, clone short-drama, clone a 1-star dog game.
+
+════════════════════════════════════
+2. 18–24 WITH REAL TRACTION — LAST 6 MONTHS — THE MECHANIC, NOT THE STORY
+
+Verified-enough public writeups (treat revenue as self-reported, the mechanic is the extract):
+
+Giulio, 17 — ForgeGUI, shipped 12 Mar 2026, ~$100k ARR by week 6 (self-reported).
+  Mechanic: already-screaming Roblox/UEFN GUI community → MVP in public → credit pack → product visibly better every week. Distribution = the community that already wanted the thing.
+
+Emanuele Di Pietro, 22, Naples CS — Remodex (Codex remote on iOS). Midnight 8 Mar 2026 “ship before OpenAI does.” ~$10k first month (self-reported). MacStories review did the funnel.
+  Mechanic: race an official gap, ship overnight, sit in Product Hunt comments, get one trusted blog.
+
+Cedric Roberge, 22, UOregon — Pep AI. First paid subscriber in hour one from peptide Discord/Reddit. Later revenue claims are loud.
+  Mechanic: post in the Discord the night it goes live. Do NOT copy the SKU (health / peptide — off). Copy the distribution: one existing room, same night.
+
+Benjamin Chen, 20, NYU — Snag. 45 apps in a year, then one lock-in. Self-reported $30k MRR.
+  Mechanic: volume of ships until one converts; paywall is “a few dollars for stuff worth hundreds.”
+
+Shared mechanic (not a vibe):
+  1. The users already exist in a room and are already complaining.
+  2. The first version is embarrassing and public within days, not a quarter.
+  3. Charge on day one ($7–$20 or credits). First stranger payment is the test, not a memo.
+  4. Iterate in that same room. Do not start a new list.
+
+What they did NOT do: Federal Register, moat memos, wait for a named enterprise buyer.
+
+════════════════════════════════════
+3. SMALLEST UGLY THING SOMEONE WOULD VENMO THIS WEEK
+
+Kill list (crowded or wrong):
+  Receipt→Venmo split: Splitty / Checkify / Easy Check Split / Venmo native Split. Dead as a weekend original.
+  GTA 6 “queue / beta / cheap key”: Lemonlama documented 47 fake listings; NordVPN/Guardian on “Build Vice City” infostealer. Building a paid queue is how you become the scam. Off.
+  Meeting-notes clone of Nota: 29-country chart means the beach is full.
+  Peptide tracker: mechanic yes, SKU no.
+
+THE ONE THAT FITS THIS MONTH’S CURVE + A WEEKEND + EXISTING STEEL
+
+Muse is #1 free US this week. It is an agent that can message, book, and change account settings once permissions are on. Mac Observer’s own user warning (19 Sep): read each permission; review before it sends.
+
+Ugly job, specific group, pays today:
+  Group = people who just installed Muse (or any agent) and are about to connect Gmail / calendar / cards, OR who already think it did something they didn’t want.
+  Job = a one-screen signed “I DID NOT AUTHORIZE THIS AGENT ACTION” they can screenshot / email a bank or merchant.
+  Price = $7 one-time on the existing Stripe. No app store. No accounts if you can avoid them.
+  Build time = the page already exists: hunt/willnot/index.html (passkey = principal; typed name alone HOLDs). Weekend = put a Stripe Payment Link on it and a one-line “for Muse / ChatGPT agent / Claude actions I did not start.”
+  Distribution = tonight, not a list: Muse App Store reviews, r/iphone, X replies under Muse #1 posts. Same mechanic as Pep AI’s Discord post. Sit in the thread.
+
+What it is not: legal standing, Ocean Frost, a bank stop-payment, competing with Meta.
+What the first Venmo/Stripe tests: will a stranger pay $7 for a halt receipt this week. If nobody pays in 7 days, kill it. That is the speed register’s fail-closed, not a memo.
+
+If Muse is refused as “too close to Track 1,” the backup ugly job (still this season, still not FR):
+  Free GTA-6 scam-link checker until 19 Nov 2026. Paste the Discord DM / URL. Output: “Rockstar has never sold beta access, crypto keys, or Build Vice City.” Tip jar optional. Do not charge panic. Do not sell keys.
+
+════════════════════════════════════
+THIS WEEKEND (IF HOURS MOVE AT ALL)
+1. python3 -m http.server in hunt/willnot (localhost).
+2. Stripe Payment Link $7 on that page. Existing Nisaba Stripe. Do not found a company.
+3. One public post where Muse downloaders already are. Sit in comments.
+4. If $0 in 7 days: stop. Do not write a doctrine addendum. Do not weld to gate/.
+
+ONE LINE
+This month’s steep curve is Muse (#1 free US, launched 8 Sep). 18–24 who got paid shipped into a screaming room in days and charged immediately. The weekend object is a $7 agent-halt receipt on the page that already HOLDs without a passkey — not another legal hunt.
+
+END COPY
