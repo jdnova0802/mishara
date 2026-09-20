@@ -9,5 +9,6 @@ Three one-pagers for paid expert opinion / consulting this quarter. Working exhi
 | [03-4a-207-actual-knowledge.md](03-4a-207-actual-knowledge.md) | Studco actual knowledge (133 F.4th 264, cert. denied No. 25-80, 6 Oct 2025) | 4A / ACH / BEC litigation partners |
 | [CHANNELS.md](CHANNELS.md) | Named people, emails, directories, MLA/CMI/IG/ABA, this-quarter sequence | — |
 | [PASTE.txt](PASTE.txt) | Same pack, plain text, copy-paste into email/Slack | — |
+| [CADENCE.md](CADENCE.md) | Honest time-to-retain / rate / credential / cash / bandwidth check | — |
 
 **Price:** written opinion $15k–$75k; $650 / $800 / $900 hourly; workshop day $5k–$15k.
