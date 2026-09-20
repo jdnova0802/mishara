@@ -148,10 +148,10 @@
       </div>
       <div class="card-slot hide" id="relic-slot"><canvas id="relic" width="1200" height="675"></canvas></div>
       <p class="ok" id="rmsg"></p>
-      <p class="money">No mark in the corner: $19 or $29/mo.</p>
+      <p class="money">20 Grok pics $19. Unlimited $29/mo.</p>
       <div class="row">
-        <a class="pay" id="pay19" href="#pay">$19</a>
-        <a class="pay" id="pay29" href="#pay">$29/mo</a>
+        <a class="pay" id="pay19" href="https://buy.stripe.com/4gMbIUgf88h6eLt3EE8Vi0P" target="_blank" rel="noopener">$19</a>
+        <a class="pay" id="pay29" href="https://buy.stripe.com/9B628k3smfJyavd3EE8Vi0Q" target="_blank" rel="noopener">$29/mo</a>
       </div>
       <p class="fine">One tap a day. Come back tomorrow.</p>
     </div>
@@ -212,11 +212,21 @@
       return out;
     };
 
-    const pay = window.STOOD_PAY || {};
+    const FALLBACK_PAY = {
+      p19: "https://buy.stripe.com/4gMbIUgf88h6eLt3EE8Vi0P",
+      p29: "https://buy.stripe.com/9B628k3smfJyavd3EE8Vi0Q"
+    };
+    const extra = window.STOOD_PAY || {};
+    const pay = {
+      p19: extra.p19 || FALLBACK_PAY.p19,
+      p29: extra.p29 || FALLBACK_PAY.p29
+    };
     const a19 = document.getElementById("pay19");
     const a29 = document.getElementById("pay29");
-    if (pay.p19) a19.href = pay.p19; else a19.classList.add("dead");
-    if (pay.p29) a29.href = pay.p29; else a29.classList.add("dead");
+    a19.href = pay.p19;
+    a29.href = pay.p29;
+    a19.classList.remove("dead");
+    a29.classList.remove("dead");
 
     document.getElementById("when").textContent = pretty(today);
     document.getElementById("pic-when").textContent = pretty(today);
