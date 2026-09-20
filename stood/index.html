@@ -13,6 +13,8 @@
       --mute: #8a8578;
       --line: #2a2a24;
       --pay: #c4b48a;
+      --gold: #c4b48a;
+      --moss: #6e7f6b;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; background: var(--bg); color: var(--paper); }
@@ -22,12 +24,44 @@
       line-height: 1.4;
     }
     .wrap { max-width: 42rem; margin: 0 auto; padding: 2rem 1.1rem 5rem; }
-    header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.2rem; }
+    header.top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.4rem; }
     .mark { letter-spacing: 0.28em; font-size: 0.78rem; font-weight: 700; }
     .date { font-size: 0.8rem; color: var(--mute); letter-spacing: 0.06em; }
-    h1 { font-size: 1.65rem; font-weight: 500; margin: 0 0 0.75rem; letter-spacing: -0.02em; }
-    .lede { color: var(--mute); margin: 0 0 1.6rem; font-size: 0.98rem; }
-    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 1.2rem 0 1.4rem; }
+    .lede { color: var(--mute); margin: 0 0 1rem; font-size: 0.98rem; }
+    .pic {
+      background: var(--paper);
+      color: var(--ink);
+      aspect-ratio: 1200 / 675;
+      padding: 1.35rem 1.4rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 1rem;
+    }
+    .pic-bar { display: flex; justify-content: space-between; font-size: 0.72rem; letter-spacing: 0.22em; font-weight: 700; }
+    .pic-bar .d { letter-spacing: 0.04em; font-weight: 500; color: #5c584c; }
+    .pic-q {
+      margin: 1.1rem 0 0.6rem;
+      font-size: clamp(1.35rem, 4.6vw, 2.05rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      flex: 1;
+    }
+    .pic-ans {
+      font-size: clamp(2.2rem, 8vw, 3.4rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      min-height: 1.1em;
+      color: transparent;
+    }
+    .pic-ans.a { color: #8a7340; }
+    .pic-ans.b { color: var(--moss); }
+    .pic-foot { display: flex; justify-content: space-between; align-items: flex-end; color: #8a8578; font-size: 0.72rem; }
+    .rib { display: flex; gap: 0.28rem; }
+    .rib i { width: 0.7rem; height: 0.7rem; background: #d4ccb8; display: block; }
+    .rib i.a { background: var(--gold); }
+    .rib i.b { background: var(--moss); }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.2rem 0 1rem; }
     button.stand {
       font: inherit; cursor: pointer; text-align: center;
       background: transparent; color: var(--paper);
@@ -37,7 +71,7 @@
     button.stand:disabled { opacity: 0.4; cursor: not-allowed; }
     .after { display: none; }
     .after.on { display: block; }
-    .row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.8rem 0 1.6rem; }
+    .row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.4rem 0 1.4rem; }
     button.ghost, a.pay {
       font: inherit; cursor: pointer; border: 1px solid var(--line);
       background: transparent; color: var(--paper); padding: 0.65rem 0.9rem;
@@ -45,10 +79,11 @@
     }
     a.pay { border-color: var(--pay); color: var(--pay); }
     a.pay.dead { opacity: 0.45; pointer-events: none; }
-    canvas { width: 100%; height: auto; background: var(--paper); display: block; }
-    .card-slot { margin: 1rem 0; border: 1px solid var(--line); }
+    canvas { position: absolute; left: -9999px; width: 1200px; height: 675px; }
     .hide { display: none; }
     .hide.on { display: block; }
+    .card-slot { margin: 1rem 0; border: 1px solid var(--line); }
+    .card-slot canvas { position: static; width: 100%; height: auto; left: auto; background: var(--paper); display: block; }
     textarea {
       width: 100%; min-height: 8rem; font: inherit; padding: 0.8rem;
       background: #16170f; color: var(--paper); border: 1px solid var(--line);
@@ -57,25 +92,37 @@
     h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 2.4rem 0 0.6rem; }
     .money, .fine { color: var(--mute); font-size: 0.9rem; }
     .fine { font-size: 0.78rem; margin-top: 2rem; }
-    .split { margin: 0.4rem 0 1rem; color: var(--mute); font-size: 0.9rem; }
     .ok { color: var(--pay); font-size: 0.85rem; min-height: 1.2em; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
+    <header class="top">
       <div class="mark">STOOD</div>
-      <div class="date" id="when"></div>
+      <div class="date" id="when">20 Sep 2026</div>
     </header>
 
-    <p class="lede">Tap. Get a pic. Post the pic. One a day.</p>
+    <p class="lede">This is the pic. Tap. Post it.</p>
 
-    <h1 id="q"></h1>
+    <div class="pic" id="pic">
+      <div class="pic-bar">
+        <span>STOOD</span>
+        <span class="d" id="pic-when">20 Sep 2026</span>
+      </div>
+      <div class="pic-q" id="pic-q">Should Grok stay in the replies?</div>
+      <div class="pic-ans" id="pic-ans"></div>
+      <div class="pic-foot">
+        <div>
+          <div class="rib" id="rib"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div style="margin-top:0.45rem">one a day</div>
+        </div>
+        <div>STOOD</div>
+      </div>
+    </div>
+
     <div class="choices" id="choices"></div>
 
     <div class="after" id="after">
-      <p class="split">Here’s your pic. Post it.</p>
-      <div class="card-slot"><canvas id="glyph" width="1200" height="675"></canvas></div>
       <div class="row">
         <button class="ghost" type="button" id="dl-glyph">Save pic</button>
         <button class="ghost" type="button" id="copy-glyph">Copy text</button>
@@ -101,6 +148,7 @@
       <p class="fine">One tap a day. Come back tomorrow.</p>
     </div>
   </div>
+  <canvas id="glyph" width="1200" height="675"></canvas>
   <script src="config.js"></script>
   <script>
     const FIXED = {
@@ -163,45 +211,30 @@
     if (pay.p29) a29.href = pay.p29; else a29.classList.add("dead");
 
     document.getElementById("when").textContent = pretty(today);
-    document.getElementById("q").textContent = kase.q;
+    document.getElementById("pic-when").textContent = pretty(today);
+    document.getElementById("pic-q").textContent = kase.q;
 
     const paper = "#e8e1d1";
     const ink = "#14140f";
     const gold = "#c4b48a";
     const moss = "#6e7f6b";
 
-    function drawGlyph(choice) {
-      const c = document.getElementById("glyph").getContext("2d");
-      const w = 1200, h = 675;
-      c.fillStyle = paper;
-      c.fillRect(0, 0, w, h);
-      c.fillStyle = ink;
-      c.font = "600 28px Georgia, serif";
-      c.fillText("STOOD", 72, 88);
-      c.font = "22px Georgia, serif";
-      c.fillStyle = "#5c584c";
-      c.fillText(pretty(today), 72, 128);
-      if (choice) {
-        c.fillStyle = choice === "b" ? moss : gold;
-        c.fillRect(72, 200, 220, 220);
-      } else {
-        c.strokeStyle = "#c4bcae";
-        c.lineWidth = 2;
-        c.strokeRect(72, 200, 220, 220);
-        c.fillStyle = "#8a8578";
-        c.font = "22px Georgia, serif";
-        c.fillText("sealed", 130, 320);
-      }
+    function paintRib() {
+      const nodes = document.getElementById("rib").querySelectorAll("i");
       ribbon().forEach((ch, i) => {
-        c.fillStyle = !ch ? "#d4ccb8" : ch === "b" ? moss : gold;
-        c.fillRect(72 + i * 44, 460, 32, 32);
+        nodes[i].className = ch === "a" ? "a" : ch === "b" ? "b" : "";
       });
-      c.fillStyle = "#8a8578";
-      c.font = "18px Georgia, serif";
-      c.fillText("one a day", 72, 620);
-      c.fillStyle = ink;
-      c.font = "20px Georgia, serif";
-      c.fillText("STOOD", 980, 620);
+    }
+
+    function stamp(choice) {
+      const el = document.getElementById("pic-ans");
+      if (!choice) {
+        el.textContent = "";
+        el.className = "pic-ans";
+        return;
+      }
+      el.textContent = choice === "b" ? kase.b : kase.a;
+      el.className = "pic-ans " + choice;
     }
 
     function wrapText(c, text, x, y, max, lh) {
@@ -214,10 +247,42 @@
           c.fillText(line, x, yy);
           line = word;
           yy += lh;
-          if (yy > 560) break;
+          if (yy > 520) break;
         } else line = test;
       }
       if (line) c.fillText(line, x, yy);
+      return yy;
+    }
+
+    function drawGlyph(choice) {
+      const c = document.getElementById("glyph").getContext("2d");
+      const w = 1200, h = 675;
+      c.fillStyle = paper;
+      c.fillRect(0, 0, w, h);
+      c.fillStyle = ink;
+      c.font = "700 28px Georgia, serif";
+      c.fillText("STOOD", 72, 78);
+      c.fillStyle = "#5c584c";
+      c.font = "22px Georgia, serif";
+      c.fillText(pretty(today), 920, 78);
+      c.fillStyle = ink;
+      c.font = "500 52px Georgia, serif";
+      const qEnd = wrapText(c, kase.q, 72, 180, 1050, 64);
+      if (choice) {
+        c.fillStyle = choice === "b" ? moss : "#8a7340";
+        c.font = "600 96px Georgia, serif";
+        c.fillText(choice === "b" ? kase.b : kase.a, 72, Math.min(qEnd + 120, 520));
+      }
+      ribbon().forEach((ch, i) => {
+        c.fillStyle = !ch ? "#d4ccb8" : ch === "b" ? moss : gold;
+        c.fillRect(72 + i * 44, 580, 32, 32);
+      });
+      c.fillStyle = "#8a8578";
+      c.font = "18px Georgia, serif";
+      c.fillText("one a day", 72, 640);
+      c.fillStyle = ink;
+      c.font = "20px Georgia, serif";
+      c.fillText("STOOD", 980, 640);
     }
 
     function drawRelic(text) {
@@ -237,9 +302,9 @@
     }
 
     function glyphText(choice) {
-      const block = choice === "b" ? "🟩" : "🟨";
+      const word = choice === "b" ? kase.b : kase.a;
       const rib = ribbon().map((ch) => (ch === "b" ? "🟩" : ch === "a" ? "🟨" : "⬜")).join("");
-      return `STOOD ${pretty(today)}\n${block}\n${rib}`;
+      return `STOOD ${pretty(today)}\n${kase.q}\n${word}\n${rib}`;
     }
 
     function canvasPng(id) {
@@ -262,6 +327,8 @@
     function showPic(choice) {
       document.getElementById("choices").querySelectorAll("button").forEach((b) => { b.disabled = true; });
       document.getElementById("after").classList.add("on");
+      stamp(choice);
+      paintRib();
       drawGlyph(choice);
     }
 
@@ -272,6 +339,10 @@
       save(state);
       showPic(choice);
     }
+
+    paintRib();
+    stamp(null);
+    drawGlyph(null);
 
     const already = state.stands && state.stands[today];
     const box = document.getElementById("choices");
@@ -287,6 +358,7 @@
     if (already) showPic(already);
 
     document.getElementById("dl-glyph").onclick = () => {
+      drawGlyph(state.stands && state.stands[today]);
       const a = document.createElement("a");
       a.download = `stood-${today}.png`;
       a.href = canvasPng("glyph");
@@ -301,6 +373,7 @@
     document.getElementById("share-glyph").onclick = async () => {
       const ch = state.stands && state.stands[today];
       if (!ch) { document.getElementById("gmsg").textContent = "Tap first."; return; }
+      drawGlyph(ch);
       const ok = await shareCanvas("glyph", `stood-${today}.png`, glyphText(ch));
       document.getElementById("gmsg").textContent = ok ? "Sent." : "Saved. Post the pic.";
     };
