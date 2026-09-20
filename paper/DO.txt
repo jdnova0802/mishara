@@ -6,8 +6,8 @@ Not Gate. Not Muse $7. Not STOOD gold card. Not OrangeTajin.
    Product PAPER CHECK on Nisaba LLC Stripe.
 
 2. INBOX
-   Put the operator email in paper/config.js as inbox.
-   Commit. Until then the page still takes pay; they need somewhere to send the PDF.
+   Wired: demonddavis000@gmail.com (paper/config.js).
+   Watch that inbox. Paid PDF + hash lands there. Run CHECKLIST.txt. Reply DENY or HOLD.
 
 3. PAGE
    https://raw.githack.com/jdnova0802/mishara/cursor/paper-check-25ad/paper/index.html
