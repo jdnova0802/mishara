@@ -2925,6 +2925,11 @@ class X402RadarTests(unittest.TestCase):
         self.assertIn(entry["grade"], svg)
         self.assertIn("<svg", svg)
 
+        # Card page must serve a same-origin badge preview (relative url_for),
+        # not a broken absolute GATE_PUBLIC_URL when ports differ.
+        self.assertIn(f"/radar/badge/{entry['id']}.svg", html)
+        self.assertIn('class="radar-badge-preview"', html)
+
     def test_radar_page_with_url_indexes(self):
         r = self.client.get(
             "/radar",

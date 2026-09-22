@@ -2381,13 +2381,17 @@ def radar_card(entry_id):
     entry = x402_radar_mod.get_entry(entry_id)
     if not entry:
         abort(404)
-    card = x402_radar_mod.card_payload(entry, advertised_url())
+    # Prefer the host the browser actually hit so badge/share links resolve
+    # when GATE_PUBLIC_URL differs from the local/dev bind address.
+    page_origin = (request.url_root or advertised_url()).rstrip("/")
+    card = x402_radar_mod.card_payload(entry, page_origin)
     return render_template(
         "radar_card.html",
-        public_url=advertised_url(),
+        public_url=page_origin,
         entry=entry,
         card_url=card["card_url"],
-        badge_url=card["badge_url"],
+        badge_url=url_for("radar_badge_svg", entry_id=entry["id"]),
+        badge_absolute=card["badge_url"],
         wire_url=card["wire_url"],
         weld_url=card["weld_url"],
         share_text=card["share_text"],
