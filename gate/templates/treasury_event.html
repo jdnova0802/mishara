@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ event.state }} · {{ event.display }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ event.display }} {{ event.state }} {{ event.amount_label }} — clear-before-leave card.">
+<meta property="og:title" content="{{ event.state }} {{ event.amount_label }} — {{ event.display }}">
+<meta property="og:description" content="Rail {{ event.rail }}. Clearance only — write_executed false.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<div class="treasury-desk">
+  <div class="treasury-shell">
+    <a class="back-link" href="{{ url_for('treasury_feed_page') }}">← Feed</a>
+    <div class="treasury-card-hero state-{{ event.state|lower }}">
+      <span class="treasury-state treasury-state-xl">{{ event.state }}</span>
+      <div>
+        <h1 class="treasury-brand" style="font-size:2rem;">{{ event.display }}</h1>
+        <p class="treasury-amount" style="margin-top:0.35rem;">{{ event.amount_label }}</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1.5rem;">
+      <ul class="check-list">
+        <li>Rail: {{ event.rail }}</li>
+        <li>Counterparty: {{ event.counterparty or '—' }}</li>
+        <li>Memo: {{ event.memo or '—' }}</li>
+        <li>Fuse: <code class="inline">{{ event.fuse_id }}</code></li>
+        <li>When: {{ event.created_at }}</li>
+        <li>write_executed: false · clearance only</li>
+      </ul>
+      <div class="hero-actions" style="justify-content:flex-start;margin-top:1.25rem;">
+        <a class="btn btn-primary" href="{{ url_for('treasury_handle_page', handle=event.handle) }}">{{ event.display }}</a>
+        {% if event.verify_url %}
+        <a class="btn btn-ghost" href="{{ event.verify_url }}" target="_blank" rel="noopener">Verify</a>
+        {% endif %}
+        <a class="btn btn-ghost" href="{{ url_for('operator_page') }}">Operator weld</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

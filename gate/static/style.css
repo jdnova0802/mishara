@@ -402,6 +402,109 @@ footer a { color: var(--muted); }
 
 .subtle-banner .btn-ghost { border-color: var(--border); }
 
+/* Agent treasury crossover */
+.treasury-desk {
+  background:
+    radial-gradient(1000px 500px at 20% -10%, #1a221855, transparent 55%),
+    radial-gradient(800px 400px at 90% 0%, #2a1a0c33, transparent 50%),
+    linear-gradient(180deg, #0a0b0f 0%, #060708 45%, #050607 100%);
+  min-height: 78vh;
+  margin: -2rem 0 0;
+  padding: 0 0 4rem;
+  border-top: 1px solid #1c222c;
+}
+.treasury-shell { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 0; }
+.treasury-mast {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+}
+.treasury-mast-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.treasury-eyebrow {
+  color: #e0b34a; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 0.35rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+.treasury-brand {
+  font-family: "Fraunces", "Times New Roman", serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700; letter-spacing: -0.03em; color: #e7e2d6;
+  line-height: 1; margin: 0;
+}
+.treasury-brand em { font-style: normal; color: #e0b34a; font-weight: 500; }
+.treasury-question {
+  font-family: "Fraunces", "Times New Roman", serif;
+  font-size: clamp(1.2rem, 2.8vw, 1.65rem);
+  color: #e7e2d6; max-width: 28ch; line-height: 1.25; margin: 0 0 0.75rem;
+}
+.treasury-sub {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.8rem; color: #8a93a3; max-width: 62ch; line-height: 1.55;
+  margin: 0 0 2rem;
+}
+.treasury-sub em { color: #e7e2d6; font-style: normal; }
+.treasury-feed { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.treasury-event {
+  border: 1px solid #1c222c; border-radius: 10px; padding: 1rem 1.1rem;
+  background: #0c0e12;
+}
+.treasury-event.state-cleared { border-color: #1f3d2e; }
+.treasury-event.state-halted { border-color: #3d1f1c; }
+.treasury-event-top {
+  display: flex; justify-content: space-between; align-items: center; gap: 0.75rem;
+}
+.treasury-handle {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-weight: 600; color: #e0b34a; text-decoration: none;
+}
+.treasury-handle:hover { text-decoration: underline; }
+.treasury-state {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  padding: 0.2rem 0.45rem; border-radius: 4px;
+  background: #1c222c; color: #8a93a3;
+}
+.state-cleared .treasury-state { background: #143024; color: #4ade80; }
+.state-halted .treasury-state { background: #3a1814; color: #e85d4c; }
+.treasury-state-xl { font-size: 0.95rem; padding: 0.45rem 0.7rem; }
+.treasury-amount {
+  font-family: "Fraunces", "Times New Roman", serif;
+  font-size: 1.45rem; color: #e7e2d6; margin-top: 0.45rem;
+}
+.treasury-meta {
+  display: flex; flex-wrap: wrap; gap: 0.65rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.75rem; color: #8a93a3; margin-top: 0.45rem;
+}
+.treasury-event-foot {
+  display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;
+  margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px solid #1c222c;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.72rem; color: #8a93a3;
+}
+.treasury-event-foot a { color: #e0b34a; }
+.treasury-empty { color: #8a93a3; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.85rem; }
+.treasury-section {
+  font-family: "Fraunces", serif; color: #e7e2d6; font-size: 1.25rem; margin: 2rem 0 1rem;
+}
+.treasury-mandate {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.8rem; color: #e0b34a; margin: -0.5rem 0 1.5rem;
+}
+.treasury-card-hero {
+  display: flex; gap: 1.25rem; align-items: center; margin-top: 1rem;
+}
+.treasury-token {
+  display: block; word-break: break-all; padding: 0.75rem;
+  background: #0c0e12; border: 1px solid #1c222c; border-radius: 6px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.85rem;
+  color: #4ade80; margin-top: 0.5rem;
+}
+.treasury-curl {
+  margin-top: 1rem; padding: 0.85rem; overflow-x: auto;
+  background: #0c0e12; border: 1px solid #1c222c; border-radius: 6px;
+  font-size: 0.72rem; color: #8a93a3; white-space: pre-wrap;
+}
+
 @media (max-width: 640px) {
   .nav-links { gap: 0.75rem; font-size: 0.85rem; }
   .nav-links .nav-install { display: none; }

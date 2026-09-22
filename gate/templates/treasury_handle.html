@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ handle.display }} — treasury{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ handle.display }} agent treasury — public leave stream, clear-before-release.">
+<meta property="og:title" content="{{ handle.display }} on Gate treasury">
+<meta property="og:description" content="{{ handle.display_name }} — clear-before-leave feed.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<div class="treasury-desk">
+  <div class="treasury-shell">
+    <a class="back-link" href="{{ url_for('treasury_feed_page') }}">← Feed</a>
+    <p class="treasury-eyebrow">$handle</p>
+    <h1 class="treasury-brand">{{ handle.display }}</h1>
+    <p class="treasury-sub">{{ handle.display_name }}{% if handle.bio %} — {{ handle.bio }}{% endif %}</p>
+    {% if handle.max_amount_cents %}
+    <p class="treasury-mandate">Mandate max: {{ '%.2f'|format(handle.max_amount_cents / 100) }} (cents: {{ handle.max_amount_cents }})</p>
+    {% endif %}
+
+    <h2 class="treasury-section">Leave stream</h2>
+    {% if events %}
+    <ol class="treasury-feed">
+      {% for e in events %}
+      <li class="treasury-event state-{{ e.state|lower }}">
+        <div class="treasury-event-top">
+          <span class="treasury-state">{{ e.state }}</span>
+          <time>{{ e.created_at }}</time>
+        </div>
+        <div class="treasury-amount">{{ e.amount_label }}</div>
+        <div class="treasury-meta">
+          <span>{{ e.rail }}</span>
+          {% if e.counterparty %}<span>→ {{ e.counterparty }}</span>{% endif %}
+          {% if e.memo %}<span>{{ e.memo }}</span>{% endif %}
+        </div>
+        <div class="treasury-event-foot">
+          <a href="{{ url_for('treasury_event_page', event_id=e.id) }}">Card</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+    <p class="treasury-empty">No leaves yet for this handle.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

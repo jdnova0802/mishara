@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Treasury feed{% endblock %}
+{% block meta %}
+<meta name="description" content="Public agent spend stream. Watch clears and halts. $handles + clear-before-leave. Attention object that is also the pipe.">
+<meta property="og:title" content="Gate — Agent treasury feed">
+<meta property="og:description" content="CLEARED or HALTED before money leaves. Follow $handles. Not another infra dashboard.">
+<meta http-equiv="refresh" content="45">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<div class="treasury-desk">
+  <div class="treasury-shell">
+    <header class="treasury-mast">
+      <div>
+        <p class="treasury-eyebrow">Crossover · attention × leave</p>
+        <h1 class="treasury-brand">Treasury <em>feed</em></h1>
+      </div>
+      <div class="treasury-mast-actions">
+        <a class="btn btn-primary" href="{{ url_for('treasury_claim_page') }}">Claim $handle</a>
+        <a class="btn btn-ghost" href="{{ url_for('treasury_feed_api') }}">JSON</a>
+      </div>
+    </header>
+
+    <p class="treasury-question">What just tried to leave — and did clearance allow it?</p>
+    <p class="treasury-sub">Public stream of agent leave attempts. CLEARED = permitted. HALTED = fail closed. Gate never moves the funds — the exclusive door does. Watching this feed <em>is</em> the product.</p>
+
+    {% if events %}
+    <ol class="treasury-feed">
+      {% for e in events %}
+      <li class="treasury-event state-{{ e.state|lower }}">
+        <div class="treasury-event-top">
+          <a class="treasury-handle" href="{{ url_for('treasury_handle_page', handle=e.handle) }}">{{ e.display }}</a>
+          <span class="treasury-state">{{ e.state }}</span>
+        </div>
+        <div class="treasury-amount">{{ e.amount_label }}</div>
+        <div class="treasury-meta">
+          <span>{{ e.rail }}</span>
+          {% if e.counterparty %}<span>→ {{ e.counterparty }}</span>{% endif %}
+          {% if e.memo %}<span>{{ e.memo }}</span>{% endif %}
+        </div>
+        <div class="treasury-event-foot">
+          <time>{{ e.created_at }}</time>
+          <a href="{{ url_for('treasury_event_page', event_id=e.id) }}">Card</a>
+          {% if e.verify_url %}<a href="{{ e.verify_url }}" target="_blank" rel="noopener">Verify</a>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% else %}
+    <div class="treasury-empty">
+      <p>No leave events yet.</p>
+      <p><a href="{{ url_for('treasury_claim_page') }}">Claim a $handle</a> then POST leave — the feed is the attention surface.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
