@@ -55,52 +55,45 @@ def compute_receipt_hash(canonical_receipt_json: str) -> str:
 
 
 def _ed25519_signing_key():
-    # Env vars:
-    #   - GATE_RECEIPT_PRIVATE_KEY: base64(raw 32-byte Ed25519 private key)
-    #   - GATE_RECEIPT_PUBLIC_KEY:  base64(raw 32-byte Ed25519 public key)
-    #
-    # If keys are missing, signing is disabled (hashes still work).
-    priv_b = _b64decode_raw(os.getenv("GATE_RECEIPT_PRIVATE_KEY"))
-    if not priv_b:
-        return None
-    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-
+    """Back-compat for prefinality — prefer custody.sign; key object only for env/file."""
     try:
-        return Ed25519PrivateKey.from_private_bytes(priv_b)
-    except Exception:
-        return None
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+
+    backend = custody_mod.get_custody()
+    # Env/File expose _priv; KMS does not (sign-only).
+    priv = getattr(backend, "_priv", None)
+    if callable(priv):
+        return priv()
+    return None
 
 
 def _ed25519_public_key_bytes() -> bytes | None:
-    # Prefer env public key; fall back to deriving it from private if possible.
-    pub_b = _b64decode_raw(os.getenv("GATE_RECEIPT_PUBLIC_KEY"))
-    if pub_b:
-        return pub_b
-    key = _ed25519_signing_key()
-    if not key:
-        return None
     try:
-        from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
 
-        return key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
-    except Exception:
-        return None
+    return custody_mod.public_key_bytes()
 
 
 def receipt_public_key_fingerprint() -> str | None:
-    pub_b = _ed25519_public_key_bytes()
-    if not pub_b:
-        return None
-    return hashlib.sha256(pub_b).hexdigest()[:16]
+    try:
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+
+    return custody_mod.public_key_fingerprint()
 
 
 def sign_receipt_hash(receipt_hash_hex: str) -> str | None:
-    key = _ed25519_signing_key()
-    if not key:
-        return None
-    # Sign bytes of the receipt hash (hex string).
-    sig = key.sign(receipt_hash_hex.encode("utf-8"))
-    return _b64encode_raw(sig)
+    try:
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+
+    return custody_mod.sign_receipt_hash(receipt_hash_hex)
 
 
 def build_canonical_receipt(

@@ -16,6 +16,10 @@ from unittest import mock
 os.environ.setdefault("GATE_DEV_MODE", "1")
 os.environ.setdefault("GATE_SECRET_KEY", "test-secret")
 os.environ["GATE_DB_PATH"] = os.path.join(tempfile.gettempdir(), "gate-test-listings.db")
+os.environ["GATE_EVIDENCE_SEAL_PATH"] = os.path.join(
+    tempfile.gettempdir(), "gate-test-listings.seal"
+)
+os.environ.setdefault("GATE_RECEIPT_CUSTODY", "env")
 os.environ.pop("RENDER_EXTERNAL_URL", None)
 os.environ.pop("RENDER_EXTERNAL_HOSTNAME", None)
 
@@ -2569,6 +2573,172 @@ class ArchitectureHardTests(unittest.TestCase):
                 os.environ["GATE_RECEIPT_PRIVATE_KEY"] = priv
             if pub:
                 os.environ["GATE_RECEIPT_PUBLIC_KEY"] = pub
+
+
+class CustodyEngineeringTests(unittest.TestCase):
+    """Receipt custody + fail-closed matrix + evidence seal (institutional eng)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_custody_status_and_matrix_endpoints(self):
+        c = self.client.get("/.well-known/custody.json")
+        self.assertEqual(c.status_code, 200)
+        body = c.get_json()
+        self.assertEqual(body["spec"], "gate-receipt-custody-v1")
+        self.assertEqual(body["backend"], "env")
+        self.assertTrue(body["available"])
+        self.assertTrue(body["fingerprint"])
+
+        m = self.client.get("/.well-known/fail-closed-matrix.json")
+        self.assertEqual(m.status_code, 200)
+        matrix = m.get_json()
+        self.assertEqual(matrix["spec"], "gate-fail-closed-matrix-v1")
+        ids = {r["id"] for r in matrix["rows"]}
+        self.assertIn("custody_unavailable", ids)
+        self.assertIn("velaru_unreachable", ids)
+        self.assertIn("gate_process_down", ids)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("custody", gate)
+        self.assertIn("fail_closed_matrix", gate)
+        self.assertIn("evidence_seal", gate)
+
+    def test_env_custody_signs_and_file_custody_roundtrip(self):
+        import custody as custody_mod
+        import tempfile
+
+        backend = custody_mod.EnvCustody()
+        self.assertTrue(backend.available())
+        sig = backend.sign("abcd" * 16)
+        self.assertIsNotNone(sig)
+        self.assertEqual(len(sig), 64)
+
+        priv = os.environ["GATE_RECEIPT_PRIVATE_KEY"]
+        pub = os.environ["GATE_RECEIPT_PUBLIC_KEY"]
+        path = os.path.join(tempfile.gettempdir(), f"gate-custody-{uuid.uuid4().hex}.key")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(priv + "\n" + pub + "\n")
+        prev_mode = os.environ.get("GATE_RECEIPT_CUSTODY")
+        prev_file = os.environ.get("GATE_RECEIPT_KEY_FILE")
+        try:
+            os.environ["GATE_RECEIPT_CUSTODY"] = "file"
+            os.environ["GATE_RECEIPT_KEY_FILE"] = path
+            file_backend = custody_mod.FileCustody()
+            self.assertTrue(file_backend.available())
+            self.assertEqual(file_backend.public_key_bytes(), backend.public_key_bytes())
+            sig2 = custody_mod.sign_receipt_hash("abcd" * 16)
+            self.assertTrue(sig2)
+        finally:
+            if prev_mode is None:
+                os.environ.pop("GATE_RECEIPT_CUSTODY", None)
+            else:
+                os.environ["GATE_RECEIPT_CUSTODY"] = prev_mode
+            if prev_file is None:
+                os.environ.pop("GATE_RECEIPT_KEY_FILE", None)
+            else:
+                os.environ["GATE_RECEIPT_KEY_FILE"] = prev_file
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+
+    def test_kms_unavailable_without_key_id_fail_closed_shape(self):
+        import custody as custody_mod
+
+        prev = os.environ.get("GATE_RECEIPT_KMS_KEY_ID")
+        try:
+            os.environ.pop("GATE_RECEIPT_KMS_KEY_ID", None)
+            kms = custody_mod.KmsCustody()
+            self.assertFalse(kms.available())
+            self.assertIsNone(kms.sign("abcd" * 16))
+        finally:
+            if prev is not None:
+                os.environ["GATE_RECEIPT_KMS_KEY_ID"] = prev
+
+    def test_evidence_seal_append_only_and_detects_tamper(self):
+        import evidence_seal as seal_mod
+        import tempfile
+
+        path = os.path.join(tempfile.gettempdir(), f"gate-seal-{uuid.uuid4().hex}.seal")
+        prev = os.environ.get("GATE_EVIDENCE_SEAL_PATH")
+        try:
+            os.environ["GATE_EVIDENCE_SEAL_PATH"] = path
+            if os.path.isfile(path):
+                os.remove(path)
+            a = seal_mod.append_receipt_hash("a" * 64)
+            b = seal_mod.append_receipt_hash("b" * 64)
+            self.assertEqual(a["seq"], 1)
+            self.assertEqual(b["seq"], 2)
+            ok = seal_mod.verify_seal(path)
+            self.assertTrue(ok["ok"])
+            self.assertEqual(ok["size"], 2)
+
+            # Truncation / rewrite detection.
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(f"1 {'c' * 64} deadbeef\n")
+            bad = seal_mod.verify_seal(path)
+            self.assertFalse(bad["ok"])
+            self.assertEqual(bad["reason"], "seal_digest_mismatch")
+
+            r = self.client.get("/.well-known/evidence-seal.json")
+            self.assertEqual(r.status_code, 200)
+            self.assertEqual(r.get_json()["spec"], "gate-evidence-seal-v1")
+        finally:
+            if prev is None:
+                os.environ.pop("GATE_EVIDENCE_SEAL_PATH", None)
+            else:
+                os.environ["GATE_EVIDENCE_SEAL_PATH"] = prev
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+
+    def test_unsigned_halt_when_custody_empty_outside_dev(self):
+        import receipt as receipt_mod
+        import custody as custody_mod
+
+        prev_dev = os.environ.get("GATE_DEV_MODE")
+        prev_priv = os.environ.get("GATE_RECEIPT_PRIVATE_KEY")
+        prev_pub = os.environ.get("GATE_RECEIPT_PUBLIC_KEY")
+        prev_mode = os.environ.get("GATE_RECEIPT_CUSTODY")
+        try:
+            os.environ["GATE_DEV_MODE"] = "0"
+            os.environ["GATE_RECEIPT_CUSTODY"] = "env"
+            os.environ.pop("GATE_RECEIPT_PRIVATE_KEY", None)
+            os.environ.pop("GATE_RECEIPT_PUBLIC_KEY", None)
+            self.assertFalse(custody_mod.EnvCustody().available())
+            out = receipt_mod.issue_receipt(
+                event_id="e-custody",
+                fuse_id="fuse_x",
+                job_id="j1",
+                decision="HALT",
+                acted=False,
+                verify_url=None,
+                created_at="2026-01-01T00:00:00+00:00",
+                hop={},
+                prev_receipt_hash=None,
+            )
+            self.assertTrue(out.get("unsigned_halt"))
+        finally:
+            if prev_dev is None:
+                os.environ.pop("GATE_DEV_MODE", None)
+            else:
+                os.environ["GATE_DEV_MODE"] = prev_dev
+            if prev_priv:
+                os.environ["GATE_RECEIPT_PRIVATE_KEY"] = prev_priv
+            if prev_pub:
+                os.environ["GATE_RECEIPT_PUBLIC_KEY"] = prev_pub
+            if prev_mode is None:
+                os.environ.pop("GATE_RECEIPT_CUSTODY", None)
+            else:
+                os.environ["GATE_RECEIPT_CUSTODY"] = prev_mode
 
 
 class LiveDeskTests(unittest.TestCase):
