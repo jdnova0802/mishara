@@ -1782,6 +1782,9 @@ def treasury_leave_api():
     )
 
     def _hop(fuse_id: str):
+        # Deterministic drill fuses in dev — feed demos must show CLEARED vs HALTED.
+        if GATE_DEV_MODE and (fuse_id or "").startswith("fuse_demo_"):
+            return treasury_mod._local_drill_clearance(fuse_id), 200, {}
         return velaru_fuse(
             "POST",
             "/api/v1/fuse/hop",
