@@ -1420,6 +1420,9 @@ def well_known_gate():
             "canary": f"{advertised_url()}/.well-known/canary.json",
             "canary_report": f"{advertised_url()}/v1/canary/bypass",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
+            "evidence_seal": f"{advertised_url()}/.well-known/evidence-seal.json",
+            "custody": f"{advertised_url()}/.well-known/custody.json",
+            "fail_closed_matrix": f"{advertised_url()}/.well-known/fail-closed-matrix.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
@@ -2124,6 +2127,36 @@ def well_known_evidence_head():
     rows = db.list_bind_events_chronological()
     leaves = evidence_log_mod.log_from_rows(rows)
     return jsonify(evidence_log_mod.signed_tree_head(leaves))
+
+
+@app.route("/.well-known/custody.json")
+def well_known_custody():
+    try:
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+
+    return jsonify(custody_mod.custody_status(public_url=advertised_url()))
+
+
+@app.route("/.well-known/fail-closed-matrix.json")
+def well_known_fail_closed_matrix():
+    try:
+        from gate import custody as custody_mod
+    except ImportError:
+        import custody as custody_mod
+
+    return jsonify(custody_mod.failure_matrix())
+
+
+@app.route("/.well-known/evidence-seal.json")
+def well_known_evidence_seal():
+    try:
+        from gate import evidence_seal as evidence_seal_mod
+    except ImportError:
+        import evidence_seal as evidence_seal_mod
+
+    return jsonify(evidence_seal_mod.verify_seal())
 
 
 @app.route("/.well-known/counterfactual-spend.json")
