@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Studco v. 1st Advantage — UCC § 4A-207 doctrine{% endblock %}
+{% block meta %}
+<meta name="description" content="Studco Building Systems v. 1st Advantage (4th Cir. 2025): ACH beneficiary bank may rely on account number under UCC § 4A-207 absent actual knowledge. Not FedNow. Sourced to the opinion.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Studco v. 1st Advantage (4th Cir. 2025) — § 4A-207 actual knowledge">
+<meta property="og:description" content="Doctrine note: ACH only. Unread automated alerts ≠ actual knowledge on this record. Not FedNow/RTP.">
+{% endblock %}
+{% block content %}
+<div class="container section" style="max-width: 760px;">
+  <p class="audience-tag">Doctrine · not legal advice</p>
+  <h1>Studco v. 1st Advantage</h1>
+  <p class="audience-sub"><em>Studco Building Systems US, LLC v. 1st Advantage Federal Credit Union</em>, 133 F.4th 264 (4th Cir. 2025), <em>cert. denied</em>, No. 25-80 (U.S. Oct. 6, 2025).</p>
+
+  <div class="card" style="border-color: var(--warn, #ffb347);">
+    <p><strong>Hard line:</strong> This opinion is about <strong>ACH</strong> under Virginia UCC Article 4A. It does <strong>not</strong> hold that § 4A-207 covers FedNow or RTP. Do not extend the holding to instant-payment rails.</p>
+  </div>
+
+  <h2 style="margin-top: 2rem;">Holding (one sentence)</h2>
+  <p>Under Virginia UCC §&nbsp;8.4A-207(b)(1), as applied in <em>Studco</em>, a beneficiary bank processing an ACH payment order that lists conflicting beneficiary name and account number may rely on the <strong>account number</strong> and is not liable for the misdescription deposit unless it had <strong>actual knowledge</strong> of the mismatch at the time of deposit; unread automated mismatch alerts did not supply that knowledge on this record.</p>
+
+  <h2>What the statute says (as quoted by the court)</h2>
+  <p>If the payment order identifies the beneficiary by both name and account number and those identify different persons, and the beneficiary’s bank does not know that the name and number refer to different persons, the bank “may rely on the number as the proper identification of the beneficiary of the order” and “need not determine whether the name and number refer to the same person.” (Op. Part II, quoting Va. Code Ann. §&nbsp;8.4A-207(b)(1).)</p>
+  <p>“Knowledge” means <strong>actual knowledge</strong>, not constructive or imputed knowledge. (Op. Part II, citing Va. Code Ann. §&nbsp;8.1A-202(b).)</p>
+
+  <h2>Unread alerts ≠ actual knowledge (this record)</h2>
+  <ul class="check-list">
+    <li>1st Advantage’s DataSafe system generated name/number mismatch warnings; no person read them before Studco contacted the credit union. (Op. Parts I–II.)</li>
+    <li>The court rejected substituting negligence / “commercially reasonable routines” / “due diligence” for actual knowledge under §&nbsp;4A-207(b). (Op. Part II.)</li>
+    <li>Beneficiary’s bank has “no duty to determine whether there is a conflict” between name and number. (Op. Part II, Official Commentary.)</li>
+  </ul>
+
+  <h2>Originator-side facts (separate from the §&nbsp;4A-207 bank rule)</h2>
+  <p>Studco accepted spoofed “Olympic is changing banks” emails and ordered ACH payments to the attacker-supplied account without verifying the instruction. The court states Studco dealt with the thieves and could have avoided the loss by not using an account number it was not sure belonged to the intended beneficiary. (Op. Parts I–II.)</p>
+  <p>That is a <strong>spoofed payment-instruction</strong> fact pattern upstream of the beneficiary bank’s deposit. Informal labels like “Ocean Frost-shaped” are not holdings of this case.</p>
+
+  <h2>Sources</h2>
+  <ul class="check-list">
+    <li><a href="https://www.ca4.uscourts.gov/opinions/231148.P.pdf">Fourth Circuit opinion PDF (ca4.uscourts.gov)</a></li>
+    <li>Repo memo (full source map): <code class="inline">gate/doctrine/studco-v-1st-advantage.md</code></li>
+    <li>Local PDF copy: <code class="inline">gate/doctrine/sources/studco-231148.P.pdf</code></li>
+  </ul>
+
+  <p class="fine-print" style="margin-top: 2rem;">Nisaba LLC · not legal advice · no attorney-client relationship · faceless doctrine note. Full memo includes bailment reversal, concurrence note, and claim→opinion source map.</p>
+</div>
+{% endblock %}
