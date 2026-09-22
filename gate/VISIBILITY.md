@@ -10,6 +10,7 @@ Be found by **agents, AI crawlers, and humans you send a URL to.**
 3. Submit sitemap after Gate is on Render: Google Search Console + Bing
 4. Listings: Product Hunt, Indie Hackers, HN, plus live `/.well-known/listings.json` (MCP / x402 / Guidewire / Duck Creek packets — date all, marry one weld)
 5. `https://velaru.xyz/llms.txt` — add the same file on Velaru later; Gate has `/llms.txt` now
+6. **Agent-pay radar** — `/radar` + `/api/x402/radar` — submit x402 URLs, share grade cards (`/radar/e/<id>`), embed badges (`/radar/badge/<id>.svg`). Attention object that routes to $497 wire → weld.
 
 ## Coding that helps (this commit)
 

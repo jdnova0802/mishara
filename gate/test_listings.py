@@ -2872,6 +2872,92 @@ class X402AuditWireTests(unittest.TestCase):
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
+        self.assertTrue(any("/radar" in u for u in free))
+        self.assertTrue(any("/api/x402/radar" in u for u in free))
+
+
+class X402RadarTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_radar_page_empty(self):
+        r = self.client.get("/radar")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Agent-pay radar", body)
+
+    def test_radar_api_manifest(self):
+        r = self.client.get("/api/x402/radar")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body.get("spec"), "gate-x402-radar-v1")
+        self.assertIn("entries", body)
+        self.assertIn("/radar", body.get("human_url", ""))
+
+    def test_radar_probe_indexes_and_card(self):
+        r = self.client.get(
+            "/api/x402/radar",
+            query_string={"url": "http://localhost/v1/prefinality/evaluate"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertIn("audit", body)
+        entry = body.get("entry")
+        self.assertIsNotNone(entry)
+        self.assertIn("id", entry)
+        self.assertIn("grade", entry)
+        self.assertIn("card_url", body)
+
+        card = self.client.get(f"/radar/e/{entry['id']}")
+        self.assertEqual(card.status_code, 200)
+        html = card.get_data(as_text=True)
+        self.assertIn(entry["grade"], html)
+        self.assertIn(entry["host"], html)
+        self.assertIn("Share", html)
+
+        badge = self.client.get(f"/radar/badge/{entry['id']}.svg")
+        self.assertEqual(badge.status_code, 200)
+        self.assertIn("image/svg+xml", badge.headers.get("Content-Type", ""))
+        svg = badge.get_data(as_text=True)
+        self.assertIn(entry["grade"], svg)
+        self.assertIn("<svg", svg)
+
+        # Card page must serve a same-origin badge preview (relative url_for),
+        # not a broken absolute GATE_PUBLIC_URL when ports differ.
+        self.assertIn(f"/radar/badge/{entry['id']}.svg", html)
+        self.assertIn('class="radar-badge-preview"', html)
+
+    def test_radar_page_with_url_indexes(self):
+        r = self.client.get(
+            "/radar",
+            query_string={"url": "http://localhost/v1/prefinality/evaluate"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Share grade card", body)
+
+    def test_audit_api_includes_radar_links(self):
+        r = self.client.get(
+            "/api/x402/audit",
+            query_string={"url": "http://localhost/v1/prefinality/evaluate"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        radar = body.get("radar") or {}
+        self.assertIn("card_url", radar)
+        self.assertIn("badge_url", radar)
+
+    def test_radar_card_404(self):
+        r = self.client.get("/radar/e/doesnotexist00000000")
+        self.assertEqual(r.status_code, 404)
+
+    def test_sitemap_includes_radar(self):
+        r = self.client.get("/sitemap.xml")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("/radar", r.get_data(as_text=True))
 
 
 if __name__ == "__main__":

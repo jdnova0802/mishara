@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Agent-pay radar{% endblock %}
+{% block meta %}
+<meta name="description" content="Public graded directory of x402 / HTTP 402 pay endpoints. Submit a URL, get a shareable grade. Free → $497 wire → weld.">
+<meta property="og:title" content="Gate — Agent-pay radar">
+<meta property="og:description" content="Graded x402 endpoints. Share the card. Fix the leave edge.">
+<meta property="og:url" content="{{ public_url }}/radar">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Attention · trust object</p>
+  <h1>Agent-pay radar</h1>
+  <p class="audience-sub">Public grades for x402 / HTTP 402 pay endpoints. Submit any URL — we probe, score, and index it. Share the card. Wire the deploy. Weld production clear-before-release.</p>
+
+  <div class="card install-checkout-card">
+    <form method="get" action="{{ url_for('radar_page') }}" class="install-form">
+      <div class="form-group">
+        <label for="url">Endpoint URL</label>
+        <input type="url" id="url" name="url" required placeholder="https://your-origin.com/api/paid-route" value="{{ target_url or '' }}" autocomplete="url">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">Probe &amp; index</button>
+      <p class="fine-print">API: <code class="inline">GET /api/x402/radar?url=…</code> · JSON directory: <a href="{{ url_for('x402_radar_api') }}">/api/x402/radar</a></p>
+    </form>
+  </div>
+
+  {% if just_indexed %}
+  <div class="card radar-result" style="margin-top: 1.5rem;">
+    <div class="radar-grade-row">
+      <span class="radar-grade grade-{{ just_indexed.grade }}">{{ just_indexed.grade }}</span>
+      <div>
+        <h2 style="margin:0;">{{ just_indexed.host }} · {{ just_indexed.score }}/100</h2>
+        <p class="muted" style="margin:0.25rem 0 0;">Indexed · {{ just_indexed.probe_count }} probe{% if just_indexed.probe_count != 1 %}s{% endif %}</p>
+      </div>
+    </div>
+    <ul class="check-list" style="margin-top: 1rem;">
+      <li>URL: <code class="inline">{{ just_indexed.url }}</code></li>
+      <li>HTTP: {{ just_indexed.http_status or '—' }} · network: {{ just_indexed.network or '—' }}</li>
+      <li>payTo: <code class="inline">{{ just_indexed.pay_to or '—' }}</code></li>
+    </ul>
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
+      <a href="{{ url_for('radar_card', entry_id=just_indexed.id) }}" class="btn btn-primary">Share grade card</a>
+      <a href="{{ url_for('x402_wire_paid') }}?domain={{ just_indexed.host }}&amp;email=you@example.com&amp;audit_url={{ just_indexed.url | urlencode }}" class="btn btn-ghost">$497 wire</a>
+      <a href="{{ url_for('operator_page') }}" class="btn btn-ghost">Operator weld</a>
+    </div>
+    <p class="fine-print" style="margin-top: 1rem;">
+      Badge: <code class="inline">{{ public_url }}/radar/badge/{{ just_indexed.id }}.svg</code>
+    </p>
+  </div>
+  {% endif %}
+
+  <h2 style="margin-top: 2.5rem;">Directory</h2>
+  {% if entries %}
+  <div class="radar-table-wrap">
+    <table class="radar-table">
+      <thead>
+        <tr>
+          <th>Grade</th>
+          <th>Host</th>
+          <th>Score</th>
+          <th>Network</th>
+          <th>Probes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in entries %}
+        <tr>
+          <td><span class="radar-grade grade-{{ e.grade }} radar-grade-sm">{{ e.grade }}</span></td>
+          <td>
+            <a href="{{ url_for('radar_card', entry_id=e.id) }}">{{ e.host }}</a>
+            <div class="radar-url-muted">{{ e.url }}</div>
+          </td>
+          <td>{{ e.score }}</td>
+          <td>{{ e.network or '—' }}</td>
+          <td>{{ e.probe_count }}</td>
+          <td><a class="btn btn-ghost btn-sm" href="{{ url_for('radar_card', entry_id=e.id) }}">Card</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="muted">No endpoints indexed yet. Submit the first URL above — or probe Gate’s own pre-finality route.</p>
+  <p><a href="{{ url_for('radar_page', url=public_url + '/v1/prefinality/evaluate') }}">Index Gate pre-finality</a></p>
+  {% endif %}
+
+  <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--muted);">
+    Ladder: free grade → <a href="{{ url_for('audit_page') }}">single audit</a> → $497 wire → <a href="{{ url_for('operator_page') }}">production weld</a>.
+  </p>
+</div>
+{% endblock %}
