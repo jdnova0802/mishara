@@ -96,6 +96,33 @@ def sign_receipt_hash(receipt_hash_hex: str) -> str | None:
     return custody_mod.sign_receipt_hash(receipt_hash_hex)
 
 
+def verify_receipt_signature(
+    *,
+    receipt_hash: str,
+    signature_b64: str | None,
+    public_key_b64: str | None = None,
+) -> bool:
+    """Cold verify: Ed25519 over utf-8 receipt_hash hex. Abuse tests depend on this."""
+    if not receipt_hash or not signature_b64:
+        return False
+    pub_b = _b64decode_raw(public_key_b64) if public_key_b64 else _ed25519_public_key_bytes()
+    sig_b = _b64decode_raw(signature_b64)
+    if not pub_b or not sig_b:
+        return False
+    # Raw Ed25519 is 32 bytes; ignore longer SPKI leftovers.
+    if len(pub_b) > 32:
+        pub_b = pub_b[-32:]
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+        Ed25519PublicKey.from_public_bytes(pub_b).verify(
+            sig_b, receipt_hash.encode("utf-8")
+        )
+        return True
+    except Exception:
+        return False
+
+
 def build_canonical_receipt(
     *,
     event_id: str,

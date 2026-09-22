@@ -1423,6 +1423,8 @@ def well_known_gate():
             "evidence_seal": f"{advertised_url()}/.well-known/evidence-seal.json",
             "custody": f"{advertised_url()}/.well-known/custody.json",
             "fail_closed_matrix": f"{advertised_url()}/.well-known/fail-closed-matrix.json",
+            "threat_model": f"{advertised_url()}/.well-known/threat-model.json",
+            "chaos_pack": f"{advertised_url()}/.well-known/chaos-pack.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
@@ -2147,6 +2149,29 @@ def well_known_fail_closed_matrix():
         import custody as custody_mod
 
     return jsonify(custody_mod.failure_matrix())
+
+
+@app.route("/.well-known/threat-model.json")
+def well_known_threat_model():
+    try:
+        from gate import threat_model as threat_model_mod
+    except ImportError:
+        import threat_model as threat_model_mod
+
+    return jsonify(threat_model_mod.threat_model(public_url=advertised_url()))
+
+
+@app.route("/.well-known/chaos-pack.json")
+def well_known_chaos_pack():
+    try:
+        from gate import chaos_fail_closed as chaos_mod
+    except ImportError:
+        import chaos_fail_closed as chaos_mod
+
+    if (request.args.get("run") or "").strip() in ("1", "true", "yes"):
+        # Executable pack — safe local scenarios; does not take prod down.
+        return jsonify(chaos_mod.run_pack())
+    return jsonify(chaos_mod.pack_manifest(public_url=advertised_url()))
 
 
 @app.route("/.well-known/evidence-seal.json")

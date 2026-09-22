@@ -2741,6 +2741,59 @@ class CustodyEngineeringTests(unittest.TestCase):
                 os.environ["GATE_RECEIPT_CUSTODY"] = prev_mode
 
 
+class ChaosThreatTests(unittest.TestCase):
+    """Executable fail-closed chaos pack + threat model (institutional eng)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_threat_model_endpoint(self):
+        r = self.client.get("/.well-known/threat-model.json")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body["spec"], "gate-threat-model-v1")
+        self.assertTrue(body["assets"])
+        self.assertTrue(body["adversaries"])
+        ids = {a["id"] for a in body["abuse_cases"]}
+        self.assertIn("forge_signature", ids)
+        self.assertIn("velaru_down_as_live", ids)
+        self.assertIn("admin_resurrect", ids)
+
+    def test_chaos_pack_manifest_and_run(self):
+        m = self.client.get("/.well-known/chaos-pack.json")
+        self.assertEqual(m.status_code, 200)
+        self.assertEqual(m.get_json()["spec"], "gate-chaos-fail-closed-v1")
+
+        ran = self.client.get("/.well-known/chaos-pack.json?run=1")
+        self.assertEqual(ran.status_code, 200)
+        body = ran.get_json()
+        self.assertTrue(body["all_pass"], body)
+        by_id = {row["id"]: row for row in body["results"]}
+        self.assertTrue(by_id["forge_signature"]["ok"])
+        self.assertTrue(by_id["tamper_receipt_hash"]["ok"])
+        self.assertTrue(by_id["custody_unavailable"]["ok"])
+        self.assertTrue(by_id["seal_tamper"]["ok"])
+        self.assertTrue(by_id["velaru_unreachable"]["ok"])
+        self.assertTrue(by_id["staple_mismatch"]["ok"])
+        self.assertTrue(by_id["no_admin_resurrect"]["ok"])
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("threat_model", gate)
+        self.assertIn("chaos_pack", gate)
+
+    def test_chaos_module_run_pack_direct(self):
+        import chaos_fail_closed as chaos_mod
+
+        out = chaos_mod.run_pack()
+        self.assertTrue(out["all_pass"], out)
+
+
 class LiveDeskTests(unittest.TestCase):
     """Civilizational clearance clock + bypass canaries."""
 
