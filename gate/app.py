@@ -25,6 +25,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_file,
     session,
     url_for,
 )
@@ -2317,6 +2318,32 @@ def audit_page():
     )
 
 
+@app.route("/doctrine/studco")
+def doctrine_studco():
+    """Faceless doctrine: Studco v. 1st Advantage — ACH § 4A-207 actual knowledge."""
+    return render_template("doctrine_studco.html", public_url=advertised_url())
+
+
+@app.route("/doctrine/studco.md")
+def doctrine_studco_md():
+    path = os.path.join(os.path.dirname(__file__), "doctrine", "studco-v-1st-advantage.md")
+    if not os.path.isfile(path):
+        abort(404)
+    with open(path, encoding="utf-8") as fh:
+        body = fh.read()
+    return Response(body, 200, {"Content-Type": "text/markdown; charset=utf-8"})
+
+
+@app.route("/doctrine/sources/studco-231148.P.pdf")
+def doctrine_studco_pdf():
+    path = os.path.join(
+        os.path.dirname(__file__), "doctrine", "sources", "studco-231148.P.pdf"
+    )
+    if not os.path.isfile(path):
+        abort(404)
+    return send_file(path, mimetype="application/pdf", as_attachment=False)
+
+
 @app.route("/api/x402/audit", methods=["GET"])
 def x402_audit_free():
     """Free x402 endpoint probe — agents discover via Bazaar; no email, no account."""
@@ -3541,6 +3568,7 @@ def sitemap():
         "/terms",
         "/bind-room",
         "/audit",
+        "/doctrine/studco",
         "/start",
         "/for/operators",
         "/for/carriers",
@@ -3575,6 +3603,7 @@ def llms_txt():
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
         f"- Bind Room: {advertised_url()}/bind-room",
+        f"- Doctrine (Studco / § 4A-207 ACH): {advertised_url()}/doctrine/studco",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",

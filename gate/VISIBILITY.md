@@ -18,6 +18,7 @@ Be found by **agents, AI crawlers, and humans you send a URL to.**
 - `/llms.txt` — AI answer engines (not classic SEO)
 - JSON-LD SoftwareApplication on every page
 - Already: `/.well-known/gate.json` + `opportunities.json`
+- Faceless doctrine (background track): `/doctrine/studco` — Studco v. 1st Advantage, sourced to ca4 opinion PDF. ACH only; not FedNow.
 
 These only matter **after a public Gate URL**. Until then, distribute **velaru.xyz**.
 

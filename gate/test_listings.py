@@ -2874,5 +2874,39 @@ class X402AuditWireTests(unittest.TestCase):
         self.assertTrue(any("/api/x402/audit" in u for u in free))
 
 
+class DoctrineStudcoTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_doctrine_page(self):
+        r = self.client.get("/doctrine/studco")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("4A-207", body)
+        self.assertIn("ACH", body)
+        self.assertIn("FedNow", body)  # hard-line exclusion
+        self.assertIn("not legal advice", body.lower())
+
+    def test_doctrine_markdown(self):
+        r = self.client.get("/doctrine/studco.md")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("actual knowledge", body)
+        self.assertIn("does **not** extend", body.lower() or body)
+        self.assertIn("8.4A-207", body)
+
+    def test_doctrine_pdf(self):
+        r = self.client.get("/doctrine/sources/studco-231148.P.pdf")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("pdf", (r.headers.get("Content-Type") or "").lower())
+
+    def test_sitemap_includes_doctrine(self):
+        r = self.client.get("/sitemap.xml")
+        self.assertIn("/doctrine/studco", r.get_data(as_text=True))
+
+
 if __name__ == "__main__":
     unittest.main()
