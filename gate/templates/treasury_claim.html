@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Claim $handle{% endblock %}
+{% block meta %}
+<meta name="description" content="Claim an agent treasury $handle. Public feed identity + clear-before-leave token.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<div class="treasury-desk">
+  <div class="treasury-shell" style="max-width:640px;">
+    <a class="back-link" href="{{ url_for('treasury_feed_page') }}">← Feed</a>
+    <p class="treasury-eyebrow">Identity = money address</p>
+    <h1 class="treasury-brand">Claim <em>$handle</em></h1>
+    <p class="treasury-sub">Your handle is the attention object and the leave identity. Store the leave token — it’s shown once.</p>
+
+    {% if result and result.ok %}
+    <div class="card" style="border-color: var(--accent);">
+      <h2>Claimed {{ result.display }}</h2>
+      <p><strong>Leave token (copy now):</strong></p>
+      <code class="treasury-token">{{ result.leave_token }}</code>
+      <ul class="check-list" style="margin-top:1rem;">
+        <li>Fuse: <code class="inline">{{ result.fuse_id }}</code></li>
+        <li>Feed: <a href="{{ url_for('treasury_feed_page') }}">/feed</a></li>
+        <li>Page: <a href="{{ url_for('treasury_handle_page', handle=result.handle) }}">/t/{{ result.handle }}</a></li>
+      </ul>
+      <pre class="treasury-curl">curl -s -X POST {{ public_url }}/v1/treasury/leave \
+  -H 'Content-Type: application/json' \
+  -d '{"handle":"{{ result.handle }}","leave_token":"{{ result.leave_token }}","amount_cents":1500,"rail":"withdraw","memo":"first leave","counterparty":"demo"}'</pre>
+    </div>
+    {% else %}
+    {% if result and not result.ok %}
+    <div class="flash error">{{ result.message or result.error }}</div>
+    {% endif %}
+    <div class="card install-checkout-card">
+      <form method="post" action="{{ url_for('treasury_claim_page') }}" class="install-form">
+        <div class="form-group">
+          <label for="handle">Handle (without $)</label>
+          <input id="handle" name="handle" required pattern="[A-Za-z][A-Za-z0-9_]{2,31}" placeholder="acme_bot" value="{{ form.handle or '' }}">
+        </div>
+        <div class="form-group">
+          <label for="display_name">Display name</label>
+          <input id="display_name" name="display_name" placeholder="Acme agent" value="{{ form.display_name or '' }}">
+        </div>
+        <div class="form-group">
+          <label for="fuse_id">Fuse id</label>
+          <input id="fuse_id" name="fuse_id" placeholder="fuse_demo_live" value="{{ form.fuse_id or 'fuse_demo_live' }}">
+          <p class="fine-print">Use <code class="inline">fuse_demo_dead</code> to demo HALTED leaves.</p>
+        </div>
+        <div class="form-group">
+          <label for="max_amount_cents">Max leave (cents, optional)</label>
+          <input id="max_amount_cents" name="max_amount_cents" type="number" min="0" placeholder="50000" value="{{ form.max_amount_cents or '' }}">
+        </div>
+        <div class="form-group">
+          <label for="bio">Bio</label>
+          <input id="bio" name="bio" maxlength="280" placeholder="Clears before withdraw" value="{{ form.bio or '' }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Claim handle</button>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

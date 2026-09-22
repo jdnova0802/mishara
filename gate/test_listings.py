@@ -2874,5 +2874,127 @@ class X402AuditWireTests(unittest.TestCase):
         self.assertTrue(any("/api/x402/audit" in u for u in free))
 
 
+class TreasuryCrossoverTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_feed_page_renders(self):
+        r = self.client.get("/feed")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Treasury", body)
+        self.assertIn("Claim $handle", body)
+
+    def test_well_known_treasury(self):
+        r = self.client.get("/.well-known/treasury.json")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body.get("spec"), "gate-treasury-v1")
+        self.assertIn("/feed", body.get("feed", ""))
+
+    def test_claim_leave_cleared_and_halted(self):
+        handle = f"bot{uuid.uuid4().hex[:8]}"
+        claim = self.client.post(
+            "/v1/treasury/claim",
+            json={
+                "handle": handle,
+                "display_name": "Test bot",
+                "fuse_id": "fuse_demo_live",
+                "max_amount_cents": 100000,
+                "bio": "drill",
+            },
+        )
+        self.assertEqual(claim.status_code, 200)
+        claimed = claim.get_json()
+        self.assertTrue(claimed.get("ok"))
+        token = claimed["leave_token"]
+        self.assertTrue(token.startswith("trs_"))
+
+        # Force local drill path (upstream may be unreachable).
+        with mock.patch.object(
+            gate_app,
+            "velaru_fuse",
+            return_value=(
+                {"verdict": False, "halt": True, "fail_closed": True, "state": "UNREACHABLE"},
+                503,
+                {},
+            ),
+        ):
+            leave = self.client.post(
+                "/v1/treasury/leave",
+                json={
+                    "handle": handle,
+                    "leave_token": token,
+                    "amount_cents": 2500,
+                    "rail": "withdraw",
+                    "memo": "coffee api",
+                    "counterparty": "merchant.test",
+                },
+            )
+        self.assertEqual(leave.status_code, 200)
+        left = leave.get_json()
+        self.assertEqual(left.get("state"), "CLEARED")
+        self.assertFalse(left.get("write_executed"))
+        event_id = left["event"]["id"]
+
+        feed = self.client.get("/api/treasury/feed")
+        self.assertEqual(feed.status_code, 200)
+        events = feed.get_json().get("events") or []
+        self.assertTrue(any(e.get("id") == event_id for e in events))
+
+        page = self.client.get(f"/t/{handle}")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(f"${handle}", page.get_data(as_text=True))
+
+        card = self.client.get(f"/feed/e/{event_id}")
+        self.assertEqual(card.status_code, 200)
+        self.assertIn("CLEARED", card.get_data(as_text=True))
+
+        # Halt path
+        handle2 = f"dead{uuid.uuid4().hex[:8]}"
+        claim2 = self.client.post(
+            "/v1/treasury/claim",
+            json={"handle": handle2, "fuse_id": "fuse_demo_dead"},
+        )
+        self.assertEqual(claim2.status_code, 200)
+        token2 = claim2.get_json()["leave_token"]
+        with mock.patch.object(
+            gate_app,
+            "velaru_fuse",
+            return_value=(
+                {"verdict": False, "halt": True, "fail_closed": True, "state": "UNREACHABLE"},
+                503,
+                {},
+            ),
+        ):
+            halt = self.client.post(
+                "/v1/treasury/leave",
+                json={"handle": handle2, "leave_token": token2, "amount_cents": 100, "rail": "x402"},
+            )
+        self.assertEqual(halt.status_code, 200)
+        self.assertEqual(halt.get_json().get("state"), "HALTED")
+
+    def test_leave_unauthorized(self):
+        handle = f"x{uuid.uuid4().hex[:8]}"
+        claim = self.client.post(
+            "/v1/treasury/claim",
+            json={"handle": handle, "fuse_id": "fuse_demo_live"},
+        )
+        self.assertEqual(claim.status_code, 200)
+        bad = self.client.post(
+            "/v1/treasury/leave",
+            json={"handle": handle, "leave_token": "trs_wrong", "amount_cents": 100},
+        )
+        self.assertEqual(bad.status_code, 401)
+
+    def test_sitemap_includes_feed(self):
+        r = self.client.get("/sitemap.xml")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("/feed", r.get_data(as_text=True))
+
+
 if __name__ == "__main__":
     unittest.main()

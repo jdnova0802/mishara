@@ -235,6 +235,11 @@ except ImportError:
     import x402_audit as x402_audit_mod
 
 try:
+    from gate import treasury as treasury_mod
+except ImportError:
+    import treasury as treasury_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -1363,6 +1368,8 @@ def well_known_gate():
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
             "operator": f"{advertised_url()}/operator",
+            "treasury_feed": f"{advertised_url()}/feed",
+            "treasury": f"{advertised_url()}/.well-known/treasury.json",
             "register": f"{advertised_url()}/register",
             "register_manifest": f"{advertised_url()}/.well-known/register.json",
             "operator_invoice": f"{advertised_url()}/.well-known/operator.json",
@@ -1619,6 +1626,199 @@ def well_known_canary():
 def live_page():
     desk = live_mod.desk(advertised_url())
     return render_template("live.html", desk=desk, public_url=advertised_url())
+
+
+@app.route("/feed")
+def treasury_feed_page():
+    """Public agent spend feed — attention × clear-before-leave crossover."""
+    raw = treasury_mod.list_feed(limit=80)
+    events = [
+        {**e, "amount_label": treasury_mod.format_amount(e["amount_cents"], e["currency"])}
+        for e in raw
+    ]
+    return render_template(
+        "treasury_feed.html",
+        events=events,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/feed/e/<event_id>")
+def treasury_event_page(event_id):
+    event = treasury_mod.get_event(event_id)
+    if not event:
+        abort(404)
+    event = {
+        **event,
+        "amount_label": treasury_mod.format_amount(event["amount_cents"], event["currency"]),
+    }
+    return render_template(
+        "treasury_event.html",
+        event=event,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/t/<handle>")
+def treasury_handle_page(handle):
+    row = treasury_mod.get_handle(handle)
+    if not row:
+        abort(404)
+    pub = treasury_mod.public_handle(row)
+    raw = treasury_mod.list_feed(handle=pub["handle"], limit=80)
+    events = [
+        {**e, "amount_label": treasury_mod.format_amount(e["amount_cents"], e["currency"])}
+        for e in raw
+    ]
+    return render_template(
+        "treasury_handle.html",
+        handle=pub,
+        events=events,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/treasury/claim", methods=["GET", "POST"])
+def treasury_claim_page():
+    result = None
+    form = {
+        "handle": "",
+        "display_name": "",
+        "fuse_id": "fuse_demo_live",
+        "max_amount_cents": "",
+        "bio": "",
+    }
+    if request.method == "POST":
+        form = {
+            "handle": (request.form.get("handle") or "").strip(),
+            "display_name": (request.form.get("display_name") or "").strip(),
+            "fuse_id": (request.form.get("fuse_id") or "").strip(),
+            "max_amount_cents": (request.form.get("max_amount_cents") or "").strip(),
+            "bio": (request.form.get("bio") or "").strip(),
+        }
+        max_cents = None
+        if form["max_amount_cents"]:
+            try:
+                max_cents = int(form["max_amount_cents"])
+            except ValueError:
+                max_cents = None
+        result = treasury_mod.claim_handle(
+            handle=form["handle"],
+            display_name=form["display_name"] or None,
+            fuse_id=form["fuse_id"] or None,
+            max_amount_cents=max_cents,
+            bio=form["bio"] or None,
+        )
+    return render_template(
+        "treasury_claim.html",
+        result=result,
+        form=form,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/api/treasury/feed", methods=["GET"])
+def treasury_feed_api():
+    handle = (request.args.get("handle") or "").strip() or None
+    try:
+        limit = int(request.args.get("limit") or 50)
+    except ValueError:
+        limit = 50
+    if handle:
+        events = treasury_mod.list_feed(handle=handle, limit=limit)
+        return jsonify(
+            {
+                "spec": treasury_mod.FEED_SPEC,
+                "handle": treasury_mod.normalize_handle(handle),
+                "count": len(events),
+                "events": events,
+            }
+        )
+    return jsonify(treasury_mod.feed_manifest(advertised_url(), limit=limit))
+
+
+@app.route("/api/treasury/handles", methods=["GET"])
+def treasury_handles_api():
+    rows = treasury_mod.list_handles(limit=100)
+    return jsonify(
+        {
+            "spec": treasury_mod.SPEC,
+            "count": len(rows),
+            "handles": [treasury_mod.public_handle(r) for r in rows],
+        }
+    )
+
+
+@app.route("/v1/treasury/claim", methods=["POST"])
+def treasury_claim_api():
+    body = request.get_json(silent=True) or {}
+    max_cents = body.get("max_amount_cents")
+    result = treasury_mod.claim_handle(
+        handle=body.get("handle") or "",
+        display_name=body.get("display_name"),
+        fuse_id=body.get("fuse_id"),
+        max_amount_cents=max_cents,
+        bio=body.get("bio"),
+    )
+    code = 200 if result.get("ok") else 400
+    if result.get("ok"):
+        result = {
+            **result,
+            "feed_url": f"{advertised_url()}/feed",
+            "handle_url": f"{advertised_url()}/t/{result['handle']}",
+            "leave_url": f"{advertised_url()}/v1/treasury/leave",
+        }
+    return jsonify(result), code
+
+
+@app.route("/v1/treasury/leave", methods=["POST"])
+def treasury_leave_api():
+    """Clear-before-leave → public feed event. Clearance only; write_executed false."""
+    body = request.get_json(silent=True) or {}
+    handle = body.get("handle") or ""
+    token = (
+        body.get("leave_token")
+        or (request.headers.get("Authorization") or "").removeprefix("Bearer ").strip()
+    )
+
+    def _hop(fuse_id: str):
+        # Deterministic drill fuses in dev — feed demos must show CLEARED vs HALTED.
+        if GATE_DEV_MODE and (fuse_id or "").startswith("fuse_demo_"):
+            return treasury_mod._local_drill_clearance(fuse_id), 200, {}
+        return velaru_fuse(
+            "POST",
+            "/api/v1/fuse/hop",
+            fuse_id=fuse_id,
+            json={"fuse_id": fuse_id},
+        )
+
+    result = treasury_mod.clear_leave(
+        handle=handle,
+        leave_token=token or "",
+        amount_cents=body.get("amount_cents") or 0,
+        currency=body.get("currency") or "USD",
+        rail=body.get("rail") or "withdraw",
+        memo=body.get("memo"),
+        counterparty=body.get("counterparty"),
+        hop_fn=_hop,
+        allow_local_drill=GATE_DEV_MODE,
+    )
+    if not result.get("ok"):
+        code = 401 if result.get("error") == "unauthorized" else 400
+        return jsonify(result), code
+    event = result.get("event") or {}
+    result = {
+        **result,
+        "feed_url": f"{advertised_url()}/feed",
+        "card_url": f"{advertised_url()}/feed/e/{event.get('id')}",
+        "handle_url": f"{advertised_url()}/t/{event.get('handle')}",
+    }
+    return jsonify(result), 200
+
+
+@app.route("/.well-known/treasury.json")
+def well_known_treasury():
+    return jsonify(treasury_mod.well_known(advertised_url()))
 
 
 @app.route("/v1/canary/bypass", methods=["POST"])
@@ -3534,6 +3734,8 @@ def sitemap():
         "/",
         "/operator",
         "/live",
+        "/feed",
+        "/treasury/claim",
         "/register",
         "/pricing",
         "/trust",
@@ -3571,6 +3773,9 @@ def llms_txt():
         "",
         f"- Home: {advertised_url()}/",
         f"- Weld (checkout): {advertised_url()}/operator",
+        f"- Treasury feed: {advertised_url()}/feed",
+        f"- Claim $handle: {advertised_url()}/treasury/claim",
+        f"- Treasury JSON: {advertised_url()}/.well-known/treasury.json",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",

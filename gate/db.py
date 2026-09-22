@@ -223,6 +223,46 @@ def init_db():
                 ),
             )
 
+        # Agent treasury: $handles + public clear-before-leave feed.
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS treasury_handles (
+                id TEXT PRIMARY KEY,
+                handle TEXT NOT NULL UNIQUE,
+                display_name TEXT NOT NULL,
+                bio TEXT,
+                fuse_id TEXT NOT NULL,
+                max_amount_cents INTEGER,
+                leave_token_hash TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'ACTIVE',
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_treasury_handles_status
+                ON treasury_handles(status, created_at DESC);
+
+            CREATE TABLE IF NOT EXISTS treasury_events (
+                id TEXT PRIMARY KEY,
+                handle TEXT NOT NULL,
+                state TEXT NOT NULL,
+                amount_cents INTEGER NOT NULL,
+                currency TEXT NOT NULL DEFAULT 'USD',
+                rail TEXT NOT NULL,
+                memo TEXT,
+                counterparty TEXT,
+                fuse_id TEXT NOT NULL,
+                verify_url TEXT,
+                hop_json TEXT,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (handle) REFERENCES treasury_handles(handle)
+            );
+            CREATE INDEX IF NOT EXISTS idx_treasury_events_created
+                ON treasury_events(created_at DESC);
+            CREATE INDEX IF NOT EXISTS idx_treasury_events_handle
+                ON treasury_events(handle, created_at DESC);
+            """
+        )
+
 
 @contextmanager
 def db():
