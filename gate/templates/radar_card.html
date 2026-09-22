@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}x402 grade {{ entry.grade }} — {{ entry.host }}{% endblock %}
+{% block meta %}
+<meta name="description" content="x402 grade {{ entry.grade }} ({{ entry.score }}/100) for {{ entry.host }}. Stranger-shareable. Wire deploy or weld clear-before-release.">
+<meta property="og:title" content="x402 grade {{ entry.grade }} · {{ entry.score }}/100 — {{ entry.host }}">
+<meta property="og:description" content="{{ share_text }}">
+<meta property="og:url" content="{{ card_url }}">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="x402 grade {{ entry.grade }} · {{ entry.host }}">
+<meta name="twitter:description" content="Score {{ entry.score }}/100. Probe indexed on Gate agent-pay radar.">
+{% endblock %}
+{% block content %}
+<div class="container section radar-card-page">
+  <a href="{{ url_for('radar_page') }}" class="back-link">← Radar</a>
+  <p class="audience-tag">Shareable grade</p>
+
+  <div class="radar-card-hero">
+    <span class="radar-grade grade-{{ entry.grade }} radar-grade-xl">{{ entry.grade }}</span>
+    <div>
+      <h1>{{ entry.host }}</h1>
+      <p class="audience-sub" style="margin-top: 0.35rem;">{{ entry.score }}/100 · {% if entry.ok %}valid challenge{% else %}needs work{% endif %} · {{ entry.probe_count }} probe{% if entry.probe_count != 1 %}s{% endif %}</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <ul class="check-list">
+      <li>URL: <code class="inline">{{ entry.url }}</code></li>
+      <li>HTTP status: {{ entry.http_status or '—' }}</li>
+      <li>payTo: <code class="inline">{{ entry.pay_to or '—' }}</code></li>
+      <li>amount: {{ entry.amount_atomic or '—' }}</li>
+      <li>network: {{ entry.network or '—' }}</li>
+      <li>Last probed: {{ entry.last_seen_at }}</li>
+    </ul>
+    {% if entry.findings %}
+    <h3 style="margin-top: 1.25rem;">Findings</h3>
+    <ul class="check-list muted-list">
+      {% for f in entry.findings %}
+      <li><code class="inline">{{ f.code }}</code> — {{ f.detail }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.5rem;">
+      <a href="{{ wire_url }}" class="btn btn-primary">$497 wire bundle</a>
+      <a href="{{ weld_url }}" class="btn btn-ghost">Operator weld</a>
+      <a href="{{ url_for('radar_page', url=entry.url) }}" class="btn btn-ghost">Re-probe</a>
+    </div>
+
+    <div class="radar-share-box">
+      <p class="fine-print" style="margin-bottom: 0.5rem;"><strong>Share</strong></p>
+      <code class="radar-share-code">{{ share_text }}</code>
+      <p class="fine-print" style="margin-top: 0.75rem;">
+        Embed badge:<br>
+        <code class="inline">&lt;img alt="x402 grade {{ entry.grade }}" src="{{ badge_url }}" /&gt;</code>
+      </p>
+      <p style="margin-top: 0.75rem;">
+        <img class="radar-badge-preview" src="{{ badge_url }}" alt="x402 grade {{ entry.grade }}" width="200" height="40" />
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

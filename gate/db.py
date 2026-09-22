@@ -223,6 +223,32 @@ def init_db():
                 ),
             )
 
+        # Agent-pay radar: graded public directory of x402 endpoints.
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS x402_radar_entries (
+                id TEXT PRIMARY KEY,
+                host TEXT NOT NULL,
+                url TEXT NOT NULL UNIQUE,
+                grade TEXT NOT NULL,
+                score INTEGER NOT NULL DEFAULT 0,
+                ok INTEGER NOT NULL DEFAULT 0,
+                http_status INTEGER,
+                pay_to TEXT,
+                amount_atomic TEXT,
+                network TEXT,
+                scheme TEXT,
+                findings_json TEXT,
+                probe_count INTEGER NOT NULL DEFAULT 1,
+                first_seen_at TEXT NOT NULL,
+                last_seen_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_radar_score
+                ON x402_radar_entries(score DESC, last_seen_at DESC);
+            CREATE INDEX IF NOT EXISTS idx_radar_host ON x402_radar_entries(host);
+            """
+        )
+
 
 @contextmanager
 def db():

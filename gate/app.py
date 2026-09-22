@@ -235,6 +235,11 @@ except ImportError:
     import x402_audit as x402_audit_mod
 
 try:
+    from gate import x402_radar as x402_radar_mod
+except ImportError:
+    import x402_radar as x402_radar_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -2299,6 +2304,7 @@ def audit_page():
     """Human-friendly x402 audit — paste a URL, get a grade."""
     target = (request.args.get("url") or request.args.get("endpoint") or "").strip()
     result = x402_audit_mod.audit_endpoint(target) if target else None
+    radar_entry = x402_radar_mod.upsert_from_audit(result) if result else None
     wire_domain = ""
     if result and result.get("url"):
         try:
@@ -2314,6 +2320,7 @@ def audit_page():
         result=result,
         result_json=json.dumps(result, indent=2) if result else "",
         wire_domain=wire_domain,
+        radar_entry=radar_entry,
     )
 
 
@@ -2332,12 +2339,104 @@ def x402_audit_free():
                     "message": "GET /api/x402/audit?url=https://your-origin/path",
                     "example": f"{advertised_url()}/audit?url={advertised_url()}/v1/prefinality/evaluate",
                     "human_url": f"{advertised_url()}/audit",
+                    "radar": f"{advertised_url()}/radar",
                 }
             ),
             400,
         )
     result = x402_audit_mod.audit_endpoint(url)
+    entry = x402_radar_mod.upsert_from_audit(result)
+    if entry:
+        result = dict(result)
+        result["radar"] = {
+            "id": entry["id"],
+            "card_url": f"{advertised_url()}/radar/e/{entry['id']}",
+            "badge_url": f"{advertised_url()}/radar/badge/{entry['id']}.svg",
+            "directory": f"{advertised_url()}/radar",
+        }
     return jsonify(result), 200
+
+
+@app.route("/radar")
+def radar_page():
+    """Agent-pay radar — graded public directory of x402 endpoints."""
+    target = (request.args.get("url") or request.args.get("endpoint") or "").strip()
+    just_indexed = None
+    if target:
+        packed = x402_radar_mod.probe_and_index(target)
+        just_indexed = packed.get("entry")
+    entries = x402_radar_mod.list_entries(limit=100)
+    return render_template(
+        "radar.html",
+        public_url=advertised_url(),
+        target_url=target or None,
+        just_indexed=just_indexed,
+        entries=entries,
+    )
+
+
+@app.route("/radar/e/<entry_id>")
+def radar_card(entry_id):
+    """Shareable grade card — OG-ready attention object."""
+    entry = x402_radar_mod.get_entry(entry_id)
+    if not entry:
+        abort(404)
+    card = x402_radar_mod.card_payload(entry, advertised_url())
+    return render_template(
+        "radar_card.html",
+        public_url=advertised_url(),
+        entry=entry,
+        card_url=card["card_url"],
+        badge_url=card["badge_url"],
+        wire_url=card["wire_url"],
+        weld_url=card["weld_url"],
+        share_text=card["share_text"],
+    )
+
+
+@app.route("/radar/badge/<entry_id>.svg")
+def radar_badge_svg(entry_id):
+    """Embeddable SVG grade badge."""
+    eid = (entry_id or "").removesuffix(".svg")
+    entry = x402_radar_mod.get_entry(eid)
+    if not entry:
+        abort(404)
+    svg = x402_radar_mod.badge_svg(entry)
+    return Response(
+        svg,
+        200,
+        {
+            "Content-Type": "image/svg+xml; charset=utf-8",
+            "Cache-Control": "public, max-age=300",
+        },
+    )
+
+
+@app.route("/api/x402/radar", methods=["GET", "POST"])
+def x402_radar_api():
+    """JSON radar directory + optional submit/probe."""
+    url = ""
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+        url = (body.get("url") or body.get("endpoint") or "").strip()
+    if not url:
+        url = (request.args.get("url") or request.args.get("endpoint") or "").strip()
+
+    if url:
+        packed = x402_radar_mod.probe_and_index(url)
+        entry = packed.get("entry")
+        audit = packed.get("audit") or {}
+        out = {
+            "spec": x402_radar_mod.SPEC,
+            "audit": audit,
+            "entry": entry,
+        }
+        if entry:
+            out["card_url"] = f"{advertised_url()}/radar/e/{entry['id']}"
+            out["badge_url"] = f"{advertised_url()}/radar/badge/{entry['id']}.svg"
+        return jsonify(out), 200
+
+    return jsonify(x402_radar_mod.public_manifest(advertised_url())), 200
 
 
 @app.route("/api/x402/wire", methods=["GET"])
@@ -3541,6 +3640,7 @@ def sitemap():
         "/terms",
         "/bind-room",
         "/audit",
+        "/radar",
         "/start",
         "/for/operators",
         "/for/carriers",
@@ -3575,6 +3675,8 @@ def llms_txt():
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
         f"- Bind Room: {advertised_url()}/bind-room",
+        f"- Agent-pay radar: {advertised_url()}/radar",
+        f"- x402 radar JSON: {advertised_url()}/api/x402/radar",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",

@@ -156,9 +156,15 @@ def well_known_fanout(public_url: str) -> dict:
     pt = payto()
     if pt:
         out["ownershipProofs"] = [pt]
-    out["free_resources"] = [f"{base}/audit", f"{base}/api/x402/audit"]
+    out["free_resources"] = [
+        f"{base}/audit",
+        f"{base}/api/x402/audit",
+        f"{base}/radar",
+        f"{base}/api/x402/radar",
+    ]
     out["instructions"] = (
         "Free: GET /audit?url=... or /api/x402/audit?url=... — probe any x402 endpoint. "
+        "Radar: GET /radar or /api/x402/radar?url=... — graded public directory + shareable card. "
         "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
         "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
     )

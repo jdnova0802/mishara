@@ -47,8 +47,14 @@
     {% endif %}
     <div class="hero-actions" style="justify-content: flex-start; margin-top: 1.25rem;">
       <a href="{{ url_for('x402_wire_paid') }}?domain={{ wire_domain }}&amp;email=you@example.com&amp;audit_url={{ result.url | urlencode }}" class="btn btn-primary">$497 wire bundle</a>
+      {% if radar_entry %}
+      <a href="{{ url_for('radar_card', entry_id=radar_entry.id) }}" class="btn btn-ghost">Share grade card</a>
+      {% else %}
+      <a href="{{ url_for('radar_page', url=result.url) }}" class="btn btn-ghost">Index on radar</a>
+      {% endif %}
       <a href="{{ public_url }}/install" class="btn btn-ghost">$2,500 install sprint</a>
     </div>
+    <p class="fine-print" style="margin-top: 0.75rem;">Public grades live on <a href="{{ url_for('radar_page') }}">/radar</a> — shareable card + embed badge.</p>
     <details style="margin-top: 1rem;">
       <summary>Raw JSON</summary>
       <pre style="margin-top: 0.75rem; overflow-x: auto;">{{ result_json }}</pre>
