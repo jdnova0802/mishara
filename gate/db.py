@@ -421,7 +421,8 @@ def record_bind_event(
         )
         if receipt_issue.get("unsigned_halt"):
             raise RuntimeError(
-                "receipt_unsigned_halt: GATE_RECEIPT_PRIVATE_KEY required outside GATE_DEV_MODE"
+                "receipt_unsigned_halt: receipt custody required outside GATE_DEV_MODE "
+                "(GATE_RECEIPT_CUSTODY=env|file|kms)"
             )
 
         conn.execute(
@@ -447,6 +448,19 @@ def record_bind_event(
                 charge_id,
             ),
         )
+    # Append-only seal outside the DB transaction (disk evidence of growth).
+    rh = receipt_issue.get("receipt_hash") if isinstance(receipt_issue, dict) else None
+    if rh:
+        try:
+            from gate import evidence_seal as evidence_seal_mod
+        except ImportError:
+            import evidence_seal as evidence_seal_mod
+
+        try:
+            evidence_seal_mod.append_receipt_hash(rh)
+        except OSError:
+            # Seal failure must not erase the bind_event; diligence checks seal separately.
+            pass
     return event_id
 
 

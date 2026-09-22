@@ -138,6 +138,7 @@ def main() -> None:
         "GATE_OPS_TOKEN": os.getenv("GATE_OPS_TOKEN") or secrets.token_hex(24),
         "GATE_RECEIPT_PRIVATE_KEY": priv,
         "GATE_RECEIPT_PUBLIC_KEY": pub,
+        "GATE_RECEIPT_CUSTODY": os.getenv("GATE_RECEIPT_CUSTODY", "env"),
     }
     print("env vars")
     for k, v in fixed.items():

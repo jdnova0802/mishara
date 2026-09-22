@@ -48,6 +48,13 @@ That script **fails** if you pass localhost. Then:
 
 ## Still later (not tonight)
 
-TPM/HSM staple. Exclusive PAS weld in *their* production. Field hours.
+Exclusive PAS weld in *their* production. Field hours. Cloud WORM object-lock.
+
+**In-repo now (solo max):** receipt **custody** backends (`env|file|kms`) +
+append-only **evidence seal** + published fail-closed matrix +
+**threat model** + executable **chaos pack**
+(`/.well-known/custody.json`, `evidence-seal.json`, `fail-closed-matrix.json`,
+`threat-model.json`, `chaos-pack.json?run=1`). Hardware TPM still later; KMS when
+`GATE_RECEIPT_KMS_KEY_ID` + boto3 are live.
 
 Do not add L12. Date all listings. Marry one write path.
