@@ -823,14 +823,9 @@ def consumed_spend_job_ids() -> list[str]:
     return [r["job_id"] for r in rows]
 
 
-def get_bind_event(event_id: str) -> dict | None:
+def _hydrate_bind_event(row) -> dict | None:
     import json
 
-    with db() as conn:
-        row = conn.execute(
-            "SELECT * FROM bind_events WHERE id = ?",
-            (event_id,),
-        ).fetchone()
     if not row:
         return None
     item = dict(row)
@@ -843,6 +838,29 @@ def get_bind_event(event_id: str) -> dict | None:
     if item.get("acted") is not None:
         item["acted"] = bool(item["acted"])
     return item
+
+
+def get_bind_event(event_id: str) -> dict | None:
+    with db() as conn:
+        row = conn.execute(
+            "SELECT * FROM bind_events WHERE id = ?",
+            (event_id,),
+        ).fetchone()
+    return _hydrate_bind_event(row)
+
+
+def get_bind_event_by_receipt_hash(receipt_hash: str) -> dict | None:
+    """Locate the prior link in the append-only receipt chain."""
+    h = (receipt_hash or "").strip()
+    if not h:
+        return None
+    with db() as conn:
+        row = conn.execute(
+            """SELECT * FROM bind_events WHERE receipt_hash = ?
+               ORDER BY created_at ASC, id ASC LIMIT 1""",
+            (h,),
+        ).fetchone()
+    return _hydrate_bind_event(row)
 
 
 def mark_install_paid(stripe_session_id: str):

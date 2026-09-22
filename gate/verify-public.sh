@@ -100,6 +100,55 @@ check demo_pc POST 200 \
   -H "Content-Type: application/json" \
   -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:DEMO"}'
 
+check receipt_key GET 200 "$URL/.well-known/receipt-key.json"
+if ! curl -sS "$URL/.well-known/receipt-key.json" | grep -Eq '"spec"[[:space:]]*:[[:space:]]*"gate-receipt-key-v1"'; then
+  echo "FAIL receipt-key staple missing gate-receipt-key-v1"
+  fail=1
+else
+  echo "OK   receipt-key staple spec"
+fi
+if curl -sS "$URL/.well-known/receipt-key.json" | grep -Eq '"key_present"[[:space:]]*:[[:space:]]*false'; then
+  echo "FAIL receipt-key key_present=false — set GATE_RECEIPT_PRIVATE_KEY / PUBLIC_KEY"
+  fail=1
+else
+  echo "OK   receipt-key key_present"
+fi
+
+# Mint a demo event, then stranger-audit must all_pass when keys are live.
+pc_body="$(mktemp)"
+pc_code="$(curl -sS -o "$pc_body" -w "%{http_code}" \
+  -X POST "$URL/demo/pas/policycenter/pre-bind" \
+  -H "Content-Type: application/json" \
+  -d '{"fuse_id":"fuse_velaru_drill","job_id":"pc:VERIFY-PUBLIC-RECEIPT"}' || echo err)"
+if [[ "$pc_code" != "200" ]]; then
+  echo "FAIL demo_pc_receipt — HTTP $pc_code"
+  head -c 400 "$pc_body"; echo
+  fail=1
+  latest_id=""
+else
+  echo "OK   demo_pc_receipt — HTTP $pc_code"
+  latest_id="$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print(d.get("event_id") or "")' "$pc_body" 2>/dev/null || true)"
+fi
+rm -f "$pc_body"
+if [[ -z "$latest_id" ]]; then
+  latest_id="$(curl -sS "$URL/.well-known/live.json" \
+    | python3 -c 'import sys,json; d=json.load(sys.stdin); p=d.get("pulse") or {}; print(p.get("id") or "")' 2>/dev/null || true)"
+fi
+if [[ -n "$latest_id" ]]; then
+  check receipt_verify GET 200 "$URL/.well-known/receipt/${latest_id}/verify.json"
+  check receipt_page GET 200 "$URL/receipt/${latest_id}"
+  if ! curl -sS "$URL/.well-known/receipt/${latest_id}/verify.json" | grep -Eq '"all_pass"[[:space:]]*:[[:space:]]*true'; then
+    echo "FAIL stranger receipt audit all_pass!=true for $latest_id"
+    curl -sS "$URL/.well-known/receipt/${latest_id}/verify.json" | head -c 600; echo
+    fail=1
+  else
+    echo "OK   stranger receipt audit all_pass"
+  fi
+else
+  echo "FAIL could not resolve bind event id for stranger receipt audit"
+  fail=1
+fi
+
 check demo_mga POST 200 \
   -X POST "$URL/demo/pas/mga-authority" \
   -H "Content-Type: application/json" \

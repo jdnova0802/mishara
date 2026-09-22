@@ -348,6 +348,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/opportunities.json",
         "/.well-known/live.json",
         "/.well-known/canary.json",
+        "/.well-known/receipt-key.json",
     }
 )
 
@@ -1420,7 +1421,10 @@ def well_known_gate():
             "canary": f"{advertised_url()}/.well-known/canary.json",
             "canary_report": f"{advertised_url()}/v1/canary/bypass",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
+            "receipt_key": f"{advertised_url()}/.well-known/receipt-key.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
+            "receipt_verify": f"{advertised_url()}/.well-known/receipt/{{event_id}}/verify.json",
+            "receipt_page": f"{advertised_url()}/receipt/{{event_id}}",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
@@ -2041,6 +2045,15 @@ def well_known_capture():
     return jsonify(weld.capture_manifest(advertised_url()))
 
 
+@app.route("/.well-known/receipt-key.json")
+def well_known_receipt_key():
+    try:
+        from gate import receipt as receipt_mod
+    except ImportError:
+        import receipt as receipt_mod
+    return jsonify(receipt_mod.public_key_staple(public_url=advertised_url()))
+
+
 @app.route("/.well-known/receipt/<event_id>.json")
 def well_known_receipt(event_id: str):
     row = db.get_bind_event(event_id)
@@ -2051,6 +2064,50 @@ def well_known_receipt(event_id: str):
     except ImportError:
         import receipt as receipt_mod
     return jsonify(receipt_mod.receipt_to_public_payload(receipt_row=row, public_url=advertised_url()))
+
+
+def _receipt_stranger_audit(event_id: str) -> dict:
+    try:
+        from gate import receipt as receipt_mod
+    except ImportError:
+        import receipt as receipt_mod
+    try:
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import evidence_log as evidence_log_mod
+
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+    prev = None
+    prev_hash = row.get("prev_receipt_hash")
+    if prev_hash:
+        prev = db.get_bind_event_by_receipt_hash(prev_hash)
+    rows = db.list_bind_events_chronological()
+    bundle = evidence_log_mod.proof_bundle(rows, event_id)
+    return receipt_mod.stranger_audit(
+        receipt_row=row,
+        prev_row=prev,
+        inclusion_bundle=bundle,
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/.well-known/receipt/<event_id>/verify.json")
+def well_known_receipt_verify(event_id: str):
+    """Cold stranger audit — hash · signature · fingerprint · chain · Merkle."""
+    return jsonify(_receipt_stranger_audit(event_id))
+
+
+@app.route("/receipt/<event_id>")
+def receipt_stranger_page(event_id: str):
+    audit = _receipt_stranger_audit(event_id)
+    return render_template(
+        "receipt_verify.html",
+        audit=audit,
+        event_id=event_id,
+        contact_email=CONTACT_EMAIL,
+    )
 
 
 @app.route("/.well-known/receipt/<event_id>/proof.json")
