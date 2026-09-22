@@ -791,6 +791,78 @@ class BindRoomFlaskTests(unittest.TestCase):
         # Signing key should exist in tests; if it doesn't, receipt_signature can be null.
         self.assertIn("receipt_signature", payload)
         self.assertIn("prev_receipt_hash", payload)
+        self.assertIn("receipt_public_key_b64", payload)
+
+    def test_receipt_staple_and_stranger_audit_all_pass(self):
+        staple = self.client.get("/.well-known/receipt-key.json")
+        self.assertEqual(staple.status_code, 200)
+        body = staple.get_json()
+        self.assertEqual(body["spec"], "gate-receipt-key-v1")
+        self.assertEqual(body["alg"], "Ed25519")
+        self.assertTrue(body["key_present"])
+        self.assertTrue(body.get("public_key_b64"))
+        self.assertTrue(body.get("fingerprint"))
+
+        # Two events so chain link is non-genesis.
+        r1 = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-STAPLE-1"},
+        )
+        self.assertEqual(r1.status_code, 200)
+        r2 = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-STAPLE-2"},
+        )
+        self.assertEqual(r2.status_code, 200)
+        event_id = r2.get_json()["event_id"]
+
+        audit_r = self.client.get(f"/.well-known/receipt/{event_id}/verify.json")
+        self.assertEqual(audit_r.status_code, 200)
+        audit = audit_r.get_json()
+        self.assertEqual(audit["spec"], "gate-receipt-verify-v1")
+        self.assertTrue(audit["all_pass"], audit)
+        self.assertTrue(audit["checks"]["hash_ok"])
+        self.assertTrue(audit["checks"]["signature_ok"])
+        self.assertTrue(audit["checks"]["fingerprint_ok"])
+        self.assertTrue(audit["checks"]["chain_ok"])
+        self.assertTrue(audit["checks"]["inclusion_ok"])
+        self.assertFalse(audit["their_production"])
+
+        page = self.client.get(f"/receipt/{event_id}")
+        self.assertEqual(page.status_code, 200)
+        html = page.get_data(as_text=True)
+        self.assertIn("ALL PASS", html)
+        self.assertIn("Gate", html)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("receipt_key", gate)
+        self.assertIn("receipt_verify", gate)
+        self.assertIn("receipt_page", gate)
+
+    def test_receipt_signature_verify_helper_rejects_tamper(self):
+        import receipt as receipt_mod
+
+        r = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:DEMO-TAMPER"},
+        )
+        self.assertEqual(r.status_code, 200)
+        event_id = r.get_json()["event_id"]
+        payload = self.client.get(f"/.well-known/receipt/{event_id}.json").get_json()
+        self.assertTrue(
+            receipt_mod.verify_receipt_signature(
+                receipt_hash=payload["receipt_hash"],
+                signature_b64=payload["receipt_signature"],
+                public_key_b64=payload["receipt_public_key_b64"],
+            )
+        )
+        self.assertFalse(
+            receipt_mod.verify_receipt_signature(
+                receipt_hash="0" * 64,
+                signature_b64=payload["receipt_signature"],
+                public_key_b64=payload["receipt_public_key_b64"],
+            )
+        )
 
     def test_evidence_packet_bundle_endpoint(self):
         # Create at least one bind event via the demo Pre-Bind door.

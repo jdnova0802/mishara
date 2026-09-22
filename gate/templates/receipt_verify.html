@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Receipt {{ event_id[:8] }}…{% endblock %}
+{% block meta %}
+<meta name="description" content="Stranger verify — hash, Ed25519 signature, fingerprint, chain link, Merkle inclusion. No login.">
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  .rv {
+    --rv-ink: #0a0b0d;
+    --rv-paper: #e8e4d9;
+    --rv-fog: #8b938f;
+    --rv-pass: #3d9a6a;
+    --rv-fail: #c44b3c;
+    --rv-line: #1a1e1c;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    background:
+      radial-gradient(900px 420px at 20% -10%, #1a2a2240, transparent 60%),
+      linear-gradient(165deg, #0c100e 0%, var(--rv-ink) 45%, #070908 100%);
+    min-height: 78vh;
+    margin: -2rem 0 0;
+    padding: 2.5rem 1.25rem 4rem;
+    color: var(--rv-paper);
+  }
+  .rv-shell { max-width: 720px; margin: 0 auto; }
+  .rv-brand {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.35rem;
+  }
+  .rv-sub { color: var(--rv-fog); font-size: 0.85rem; margin: 0 0 2rem; max-width: 36rem; line-height: 1.5; }
+  .rv-verdict {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid currentColor;
+    margin-bottom: 1.75rem;
+  }
+  .rv-verdict.pass { color: var(--rv-pass); }
+  .rv-verdict.fail { color: var(--rv-fail); }
+  .rv-grid {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0 0 2rem;
+  }
+  .rv-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid #1e2421;
+    padding: 0.65rem 0;
+    font-size: 0.9rem;
+  }
+  .rv-row .k { color: var(--rv-fog); }
+  .rv-row .v.ok { color: var(--rv-pass); }
+  .rv-row .v.bad { color: var(--rv-fail); }
+  .rv-meta {
+    font-size: 0.78rem;
+    color: var(--rv-fog);
+    line-height: 1.55;
+    word-break: break-all;
+  }
+  .rv-meta strong { color: var(--rv-paper); font-weight: 600; }
+  .rv-links { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .rv-links a {
+    color: var(--rv-paper);
+    border-bottom: 1px solid #3a4540;
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+  .rv-links a:hover { border-color: var(--rv-paper); }
+  .rv-note { margin-top: 2.5rem; font-size: 0.72rem; color: #5c6661; max-width: 32rem; }
+</style>
+<div class="rv">
+  <div class="rv-shell">
+    <p class="rv-brand">Gate</p>
+    <p class="rv-sub">Stranger verify. No account. Hash · Ed25519 · fingerprint · chain · Merkle inclusion.</p>
+
+    {% if audit.all_pass %}
+    <div class="rv-verdict pass">ALL PASS</div>
+    {% else %}
+    <div class="rv-verdict fail">AUDIT FAIL</div>
+    {% endif %}
+
+    <div class="rv-grid">
+      {% for key, ok in audit.checks.items() %}
+      <div class="rv-row">
+        <span class="k">{{ key }}</span>
+        <span class="v {% if ok %}ok{% else %}bad{% endif %}">{% if ok %}true{% else %}false{% endif %}</span>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="rv-meta">
+      <div><strong>event</strong> {{ audit.event_id }}</div>
+      <div><strong>decision</strong> {{ audit.decision or "—" }} · <strong>state</strong> {{ audit.state or "—" }}</div>
+      <div><strong>receipt_hash</strong> {{ audit.receipt_hash or "—" }}</div>
+      <div><strong>fingerprint</strong> {{ audit.receipt_public_key_fingerprint or "—" }}</div>
+      <div><strong>chain</strong> {{ audit.chain_reason }} · <strong>inclusion</strong> {{ audit.inclusion_reason }}</div>
+      <div><strong>their_production</strong> false · receipt is evidence, not the product</div>
+    </div>
+
+    <div class="rv-links">
+      {% if audit.urls.receipt %}<a href="{{ audit.urls.receipt }}">receipt.json</a>{% endif %}
+      {% if audit.urls.proof %}<a href="{{ audit.urls.proof }}">proof.json</a>{% endif %}
+      {% if audit.urls.staple %}<a href="{{ audit.urls.staple }}">receipt-key staple</a>{% endif %}
+      {% if audit.urls.packet %}<a href="{{ audit.urls.packet }}">evidence packet</a>{% endif %}
+      <a href="{{ url_for('trust') }}">trust &amp; limits</a>
+    </div>
+
+    <p class="rv-note">
+      Recompute offline: fetch the staple, hash the canonical receipt, verify Ed25519 over the hex receipt_hash,
+      walk <code>prev_receipt_hash</code>, check Merkle siblings against <code>evidence-head.json</code>.
+    </p>
+  </div>
+</div>
+{% endblock %}

@@ -50,4 +50,8 @@ That script **fails** if you pass localhost. Then:
 
 TPM/HSM staple. Exclusive PAS weld in *their* production. Field hours.
 
+Software staple (done in-repo): `/.well-known/receipt-key.json` +
+`/.well-known/receipt/{id}/verify.json` + `/receipt/{id}` stranger page.
+Hardware TPM/HSM still later.
+
 Do not add L12. Date all listings. Marry one write path.

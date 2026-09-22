@@ -20,6 +20,7 @@
       <li>Fail closed — uncertain / timeout / unreachable → no write</li>
       <li>Parent license revoked → child spend blocked</li>
       <li>Independent verify — stranger opens the receipt with no login</li>
+      <li>Ed25519 receipt staple + Merkle inclusion — Gate-native stranger audit</li>
       <li><code>their_production: false</code> until a recorded third-party production weld</li>
     </ul>
   </div>
@@ -30,6 +31,7 @@
       <li>Signed clearance state at hop time</li>
       <li>Fail-closed behavior when clearance is denied or unreachable</li>
       <li>Hash-chained receipts a stranger can verify</li>
+      <li>Published receipt-key staple + <code>/receipt/{id}</code> cold audit</li>
       <li>No bypass on the welded write path</li>
     </ul>
   </div>
