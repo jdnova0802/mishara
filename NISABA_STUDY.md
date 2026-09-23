@@ -300,55 +300,84 @@ One-liners for these words are in §3 Tier 9.
 
 ---
 
-## Retrieval — who → does → to whom
+## How you learn anything (retrieval)
 
-You are not bad at memory. You are weak at **roles**.
+Plain English. Works for Gate, code, money, people — any subject. Gate is just the gym.
 
-Thing-definitions stick. **Who-does-what-to-whom** flips (insured/carrier, binder/issue). Keywords stay; the full sentence dies. “I had it” is recognition, not recall.
+### What’s going wrong when you blank
 
-**To whom** = the other side of the relationship (buyer/seller), not “the effect.”
+You are not bad at memory. You mix up **who does what to whom**.
 
-### How to retrieve (phone down)
+- You remember *things* fine (what a quote is, what a page is).
+- You swap **roles** (customer vs company, proof vs “in force”).
+- You keep the buzzwords but lose the **full sentence**.
+- Feeling “I got it” after reading is not the same as saying it cold.
 
-1. Never quiz a lone noun. Always a full line: **who → does what → to whom**.  
-   Bad: “Carrier?”  
-   Good: “The carrier is the insurer on the dec; the insured sues them.”
-2. Minimal pair: same sentence twice, swap the trap word, catch which is wrong.
-3. Walk quote → binder → issue. At each step only ask: who acts, who is acted on, what paper exists.
-4. Emit the line in your head. Silent “yeah I know” does not count. Joking past a blank = restart that line.
-5. When the hard who/does/whom lines come out clean once, **stop**.
+### The machine (do this in order)
 
-### Gate pairs (both ends of the wire)
+**1. Trunk first**  
+One sentence only: *what is this for?*  
+Example for Gate: clearance before an irreversible write — does what they *say* is bound match what a stranger can *check*?  
+Do not hang leaves until the trunk is clear. (This is the “trunk energy.”)
+
+**2. Then both sides of the wire**  
+Never study one word alone. Always a full line:
+
+**who → does what → to whom**
+
+- **Who** = the actor  
+- **Does what** = the action  
+- **To whom** = the other side of the relationship (buyer/seller), **not** “the effect”
+
+Bad: “Carrier?”  
+Good: “The carrier is the insurer on the dec page; the insured sues them.”
+
+**3. Trap pairs (30 seconds)**  
+Say the same sentence twice. Swap the dangerous word. Catch which one is wrong.  
+That is the real drill — telling twins apart, not chanting a list.
+
+**4. Walk time only to place roles**  
+Before → during → after (for Gate: quote → binder → issue).  
+At each step ask only: who acts, who gets acted on, what paper exists.
+
+**5. Say it (phone down)**  
+Out loud or in your head — but you must **emit** the line.  
+Silent “yeah I know” does not count. Joking past a blank = restart that line.  
+(This is the Make It Stick core: pull it out of your head, don’t re-read.)
+
+**6. Use it once, then stop**  
+Drop the line into a fake email, call, or decision once.  
+When the hard who/does/whom lines come out clean, **stop**. Do not invent a second study system.
+
+### Gate cheat sheet (both ends)
 
 | Who | Does | To whom / on what |
 |---|---|---|
-| File / deck / MGA / CUO | **say** is bound | (MAY — claim, not proof) |
-| Stranger | **verifies** | instruments that exist (CAN) |
-| Insured | **buys** coverage / **sues** | carrier’s paper |
+| File / deck / MGA / CUO | **say** is bound | MAY (claim, not proof) |
+| Stranger | **checks** | instruments that exist (CAN) |
+| Insured | **buys** / **sues** | the carrier |
 | Carrier | **is** the legal insurer on | the dec page |
-| Quote | **offers** price/terms | insured (not bound yet) |
+| Quote | **offers** price/terms | not bound yet |
 | Binder | **proves** a bind happened | that path |
-| Issue | **puts** policy/binder | in force |
+| Issue | **puts** the policy/binder | in force |
 
-One-breath (match, not “can they check”):  
+One-breath (match — not “can they check”):  
 *At bind, does the paper a stranger can independently check **match** the paper you think you issued?*
-
-This retrieval machine is **general** (any subject). Gate is just the gym.
 
 ---
 
 ## 8. Drill (do this out loud, then stop)
 
-1. Say the one-breath Gate line (no prin-hash). **Match** both papers. Include **instrument** in plain English.
-2. Say three who→does→to whom lines cold: insured/carrier · binder vs issue · MAY vs CAN.
-3. Recite: REVIEW = email reply + memo, not a call. Call only if they ask.
-4. Recite §3 **Tier 1–4** one-liners only if a desk replied; otherwise stop after steps 1–2.
-5. For each of the four desks (when live): door, date, one quote, the MAY vs CAN miss. tmaner not Tanner.
-6. Recite the money ladder and the quit bar.
-7. Recite: source or cut.
-8. On the next agent patch: explain every changed line before it runs.
+1. **Trunk:** one sentence — what Gate is for.  
+2. **One-breath:** match both papers. Say **instrument** in plain English.  
+3. Three who→does→to whom lines cold: insured/carrier · binder vs issue · MAY vs CAN.  
+4. REVIEW = email reply + memo, not a call. Call only if they ask.  
+5. Tier 1–4 word lists only if a desk replied; otherwise stop after 1–3.  
+6. Fire-four desks (when live): door, date, one quote, MAY vs CAN miss. tmaner not Tanner.  
+7. Money ladder + quit bar. Source or cut.  
+8. Next agent patch: explain every changed line before it runs.
 
-If you pass steps 1–2 cold, you have the retrieval foundation. Anything past this tonight is a class you don’t need.
+If steps 1–3 are clean cold, you have the learning foundation. Anything past that tonight is extra class you don’t need.
 
 ---
 
