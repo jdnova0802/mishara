@@ -103,6 +103,32 @@ def sign_receipt_hash(receipt_hash_hex: str) -> str | None:
     return _b64encode_raw(sig)
 
 
+def verify_receipt_signature(*, receipt_hash: str, signature_b64: str | None) -> bool:
+    """True when Ed25519 signature over receipt_hash verifies with published key."""
+    if not receipt_hash or not signature_b64:
+        return False
+    pub_b = _ed25519_public_key_bytes()
+    sig_b = _b64decode_raw(signature_b64)
+    if not pub_b or not sig_b:
+        return False
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+        Ed25519PublicKey.from_public_bytes(pub_b).verify(
+            sig_b, receipt_hash.encode("utf-8")
+        )
+        return True
+    except Exception:
+        return False
+
+
+def public_key_b64() -> str | None:
+    pub_b = _ed25519_public_key_bytes()
+    if not pub_b:
+        return None
+    return _b64encode_raw(pub_b)
+
+
 def build_canonical_receipt(
     *,
     event_id: str,

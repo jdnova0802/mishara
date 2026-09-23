@@ -245,6 +245,8 @@ class FlaskListingTests(unittest.TestCase):
         home = self.client.get("/").get_data(as_text=True)
         self.assertIn('href="/clear"', home)
         self.assertIn(">Clear</a>", home)
+        self.assertIn('href="/seal"', home)
+        self.assertIn(">Seal</a>", home)
         self.assertIn('href="/trust"', home)
         self.assertNotIn('href="/action-os"', home)
         self.assertNotIn('href="/science"', home)
@@ -256,6 +258,8 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn(">Weld</a>", chrome)
         self.assertIn('href="/clear"', chrome)
         self.assertIn(">Clear</a>", chrome)
+        self.assertIn('href="/seal"', chrome)
+        self.assertIn(">Seal</a>", chrome)
         self.assertIn('href="/live"', chrome)
         self.assertIn(">Live</a>", chrome)
         self.assertIn('href="/register"', chrome)
@@ -282,6 +286,7 @@ class FlaskListingTests(unittest.TestCase):
             "/register",
             "/operator",
             "/clear",
+            "/seal",
             "/live",
             "/privacy",
             "/terms",
@@ -3025,6 +3030,63 @@ class RailTruthAndDenyRegistryTests(unittest.TestCase):
 
         sm = self.client.get("/sitemap.xml").get_data(as_text=True)
         self.assertIn("/clear", sm)
+
+
+class SealUiTests(unittest.TestCase):
+    """Apple-simple seal over signed receipt + Merkle inclusion."""
+
+    @classmethod
+    def setUpClass(cls):
+        os.environ["GATE_DB_PATH"] = os.path.join(
+            tempfile.gettempdir(), f"gate-seal-{uuid.uuid4().hex}.db"
+        )
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_seal_page_manifest_and_holds(self):
+        page = self.client.get("/seal")
+        self.assertEqual(page.status_code, 200)
+        html = page.get_data(as_text=True)
+        self.assertIn("Seal", html)
+        self.assertIn("event id", html.lower())
+
+        man = self.client.get("/.well-known/seal.json")
+        self.assertEqual(man.status_code, 200)
+        self.assertEqual(man.get_json()["spec"], "gate-seal-v1")
+
+        missing = self.client.get("/v1/seal?event_id=not-a-real-event")
+        self.assertEqual(missing.status_code, 200)
+        self.assertEqual(missing.get_json()["word"], "MISSING")
+
+        r = self.client.post(
+            "/demo/pas/policycenter/pre-bind",
+            json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:SEAL-UI"},
+        )
+        self.assertEqual(r.status_code, 200)
+        import db as gate_db
+
+        latest = gate_db.list_bind_events(None, limit=1)[0]
+        event_id = latest["id"]
+        self.assertTrue(latest.get("receipt_hash"))
+
+        sealed = self.client.get(f"/v1/seal?event_id={event_id}")
+        self.assertEqual(sealed.status_code, 200)
+        body = sealed.get_json()
+        self.assertIn(body["word"], ("HOLDS", "UNSIGNED"))
+        self.assertTrue(body["checks"]["hash"])
+        self.assertTrue(body["checks"]["inclusion"])
+        if latest.get("receipt_signature"):
+            self.assertEqual(body["word"], "HOLDS")
+            self.assertTrue(body["checks"]["signature"])
+
+        prefilled = self.client.get(f"/seal?event_id={event_id}")
+        self.assertEqual(prefilled.status_code, 200)
+        self.assertIn(event_id, prefilled.get_data(as_text=True))
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("seal", gate)
+        self.assertIn("seal_api", gate)
 
 
 if __name__ == "__main__":

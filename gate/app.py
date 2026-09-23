@@ -351,6 +351,8 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/clear.json",
         "/.well-known/rail-truth.json",
         "/.well-known/deny-registry.json",
+        "/.well-known/seal.json",
+        "/.well-known/evidence-head.json",
     }
 )
 
@@ -1430,6 +1432,9 @@ def well_known_gate():
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
+            "seal": f"{advertised_url()}/seal",
+            "seal_json": f"{advertised_url()}/.well-known/seal.json",
+            "seal_api": f"{advertised_url()}/v1/seal",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
@@ -2292,6 +2297,37 @@ def well_known_evidence_head():
     rows = db.list_bind_events_chronological()
     leaves = evidence_log_mod.log_from_rows(rows)
     return jsonify(evidence_log_mod.signed_tree_head(leaves))
+
+
+@app.route("/.well-known/seal.json")
+def well_known_seal():
+    try:
+        from gate import seal_ui as seal_mod
+    except ImportError:
+        import seal_ui as seal_mod
+    return jsonify(seal_mod.manifest(advertised_url()))
+
+
+@app.route("/seal")
+def seal_page():
+    return render_template(
+        "seal.html",
+        prefill=(request.args.get("event_id") or "").strip(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/v1/seal")
+def seal_api():
+    """One-word seal over signed receipt + Merkle inclusion."""
+    try:
+        from gate import seal_ui as seal_mod
+    except ImportError:
+        import seal_ui as seal_mod
+    event_id = (request.args.get("event_id") or "").strip()
+    if not event_id:
+        return jsonify(seal_mod.manifest(advertised_url()))
+    return jsonify(seal_mod.seal_event(event_id))
 
 
 @app.route("/.well-known/counterfactual-spend.json")
@@ -3703,6 +3739,7 @@ def sitemap():
         "/operator",
         "/live",
         "/clear",
+        "/seal",
         "/register",
         "/pricing",
         "/trust",
@@ -3722,6 +3759,7 @@ def sitemap():
         "/.well-known/register.json",
         "/.well-known/live.json",
         "/.well-known/clear.json",
+        "/.well-known/seal.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -3741,6 +3779,7 @@ def llms_txt():
         "",
         f"- Home: {advertised_url()}/",
         f"- Clear (one-word settlement): {advertised_url()}/clear",
+        f"- Seal (receipt holds?): {advertised_url()}/seal",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -3748,6 +3787,7 @@ def llms_txt():
         f"- Bind Room: {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Clear JSON: {advertised_url()}/.well-known/clear.json",
+        f"- Seal JSON: {advertised_url()}/.well-known/seal.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Verify: https://velaru.xyz/verify",
@@ -3961,6 +4001,9 @@ def openapi_full():
                 "/clear": {"get": {"summary": "One-word settlement truth — FINAL / REVERSIBLE / DENIED"}},
                 "/v1/clear": {"get": {"summary": "Clear API — ?rail= or ?payout_hash=", "security": []}},
                 "/.well-known/clear.json": {"get": {"summary": "Clear discovery manifest"}},
+                "/seal": {"get": {"summary": "One-word custody — HOLDS / BROKEN / UNSIGNED"}},
+                "/v1/seal": {"get": {"summary": "Seal API — ?event_id=", "security": []}},
+                "/.well-known/seal.json": {"get": {"summary": "Seal discovery manifest"}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},
