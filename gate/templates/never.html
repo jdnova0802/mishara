@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% block title %}Never{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Never — has this job already spent? NEVER or SPENT. Merkle exclusion underneath.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --n-ink: #12141a;
+    --n-mute: #5c6573;
+    --n-line: #d5dae3;
+    --n-never: #0d7a4f;
+    --n-spent: #b42318;
+    --n-broken: #9a6b00;
+    --n-missing: #1d4ed8;
+    --n-serif: "Syne", system-ui, sans-serif;
+    --n-sans: "Figtree", system-ui, sans-serif;
+  }
+  .never-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(880px 400px at 10% -8%, #d8dcef50, transparent 55%),
+      radial-gradient(760px 360px at 90% 85%, #cfe4d840, transparent 50%),
+      linear-gradient(180deg, #f7f8fb 0%, #eef1f6 50%, #e8ecf3 100%);
+    color: var(--n-ink);
+    font-family: var(--n-sans);
+  }
+  .never-inner { max-width: 680px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .never-brand {
+    font-family: var(--n-serif);
+    font-size: clamp(3.1rem, 10vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+    animation: never-rise 0.65s ease-out both;
+  }
+  .never-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.34em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--n-mute);
+    margin-bottom: 0.55rem;
+  }
+  .never-lede {
+    font-size: 1.08rem;
+    color: var(--n-mute);
+    max-width: 28rem;
+    line-height: 1.45;
+    margin: 0 0 2.4rem;
+    animation: never-rise 0.65s ease-out 0.07s both;
+  }
+  .never-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0 0 2.5rem;
+    animation: never-rise 0.65s ease-out 0.12s both;
+  }
+  .never-row input {
+    flex: 1 1 240px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    color: var(--n-ink);
+    background: #fff;
+    border: 1px solid var(--n-line);
+    padding: 0.75rem 0.85rem;
+    outline: none;
+  }
+  .never-row input:focus { border-color: var(--n-ink); }
+  .never-row button {
+    font-family: var(--n-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--n-ink);
+    border: none;
+    padding: 0.75rem 1.15rem;
+    cursor: pointer;
+  }
+  .never-word {
+    font-family: var(--n-serif);
+    font-size: clamp(2.6rem, 10vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    margin: 0 0 0.7rem;
+    min-height: 1.1em;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .never-word.is-in { animation: never-word-in 0.42s ease-out forwards; }
+  .never-word.never { color: var(--n-never); }
+  .never-word.spent { color: var(--n-spent); }
+  .never-word.broken { color: var(--n-broken); }
+  .never-word.missing { color: var(--n-missing); }
+  .never-plain {
+    color: var(--n-mute);
+    font-size: 1.02rem;
+    max-width: 28rem;
+    line-height: 1.5;
+    margin: 0 0 1.15rem;
+    min-height: 3rem;
+  }
+  .never-meta { font-size: 0.8rem; color: #7a8494; line-height: 1.65; }
+  .never-meta strong { color: #3d4654; font-weight: 600; }
+  .never-foot { margin-top: 3rem; font-size: 0.7rem; color: #8b93a1; }
+  @keyframes never-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes never-word-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="never-stage">
+  <div class="never-inner">
+    <h1 class="never-brand"><span>Gate</span>Never</h1>
+    <p class="never-lede">Has this job already spent through the exclusive door?</p>
+
+    <div class="never-row">
+      <input id="never-id" maxlength="128" placeholder="job id" autocomplete="off" spellcheck="false" value="{{ prefill or '' }}">
+      <button type="button" id="never-go">Check</button>
+    </div>
+
+    <div class="never-word" id="never-word" aria-live="polite">—</div>
+    <p class="never-plain" id="never-plain">Paste a job id from a bind ticket.</p>
+    <p class="never-meta" id="never-meta"></p>
+    <p class="never-foot">Nisaba · not legal advice · atoms: sorted Merkle exclusion (absence &gt; HALT line)</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const wordEl = document.getElementById("never-word");
+  const plainEl = document.getElementById("never-plain");
+  const metaEl = document.getElementById("never-meta");
+  const input = document.getElementById("never-id");
+
+  function tone(word) {
+    const w = (word || "").toUpperCase();
+    if (w === "NEVER") return "never";
+    if (w === "SPENT") return "spent";
+    if (w === "BROKEN") return "broken";
+    return "missing";
+  }
+
+  function show(d) {
+    const word = d.word || "MISSING";
+    wordEl.className = "never-word " + tone(word);
+    wordEl.textContent = word;
+    void wordEl.offsetWidth;
+    wordEl.classList.add("is-in");
+    plainEl.textContent = d.plain || "";
+    let meta = "";
+    if (d.claim) meta += "<strong>" + d.claim + "</strong>";
+    if (d.tree_size != null) meta += (meta ? " · " : "") + "map size " + d.tree_size;
+    if (d.verified != null) meta += "<br>proof " + (d.verified ? "verified" : "unverified");
+    metaEl.innerHTML = meta;
+  }
+
+  async function run() {
+    const id = (input.value || "").trim();
+    if (!id) {
+      show({ word: "MISSING", plain: "Paste a job id." });
+      return;
+    }
+    show({ word: "…", plain: "Checking spend map…" });
+    try {
+      const r = await fetch("/v1/never?job_id=" + encodeURIComponent(id));
+      const d = await r.json();
+      show(d);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", "/never?job_id=" + encodeURIComponent(id));
+      }
+    } catch (e) {
+      show({ word: "BROKEN", plain: "Could not reach Never." });
+    }
+  }
+
+  document.getElementById("never-go").addEventListener("click", run);
+  input.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter") run();
+  });
+  if ((input.value || "").trim()) run();
+})();
+</script>
+{% endblock %}

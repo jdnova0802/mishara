@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% block title %}Go{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Go — before money moves, one word. GO. NO GO. HOLD.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --g-ink: #12141a;
+    --g-mute: #5c6573;
+    --g-line: #d5dae3;
+    --g-go: #0d7a4f;
+    --g-nogo: #b42318;
+    --g-hold: #9a6b00;
+    --g-serif: "Syne", system-ui, sans-serif;
+    --g-sans: "Figtree", system-ui, sans-serif;
+  }
+  .go-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(900px 400px at 85% -10%, #c9e8d855, transparent 55%),
+      radial-gradient(720px 360px at 8% 90%, #d5dcf040, transparent 50%),
+      linear-gradient(180deg, #f7f8fb 0%, #eef1f6 50%, #e8ecf3 100%);
+    color: var(--g-ink);
+    font-family: var(--g-sans);
+  }
+  .go-inner { max-width: 680px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .go-brand {
+    font-family: var(--g-serif);
+    font-size: clamp(3.1rem, 10vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+    animation: go-rise 0.65s ease-out both;
+  }
+  .go-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.34em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--g-mute);
+    margin-bottom: 0.55rem;
+  }
+  .go-lede {
+    font-size: 1.08rem;
+    color: var(--g-mute);
+    max-width: 28rem;
+    line-height: 1.45;
+    margin: 0 0 2rem;
+    animation: go-rise 0.65s ease-out 0.07s both;
+  }
+  .go-form {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0 0 2.4rem;
+    animation: go-rise 0.65s ease-out 0.12s both;
+  }
+  .go-form label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a8494;
+  }
+  .go-rails { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+  .go-rails button {
+    font-family: var(--g-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--g-ink);
+    background: transparent;
+    border: 1px solid var(--g-line);
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+  }
+  .go-rails button.is-on, .go-rails button:hover {
+    border-color: var(--g-ink);
+    background: #fff;
+  }
+  .go-form input {
+    font-family: var(--g-sans);
+    font-size: 0.95rem;
+    color: var(--g-ink);
+    background: #fff;
+    border: 1px solid var(--g-line);
+    padding: 0.7rem 0.8rem;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .go-form input:focus { border-color: var(--g-ink); }
+  .go-form .go-submit {
+    font-family: var(--g-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--g-ink);
+    border: none;
+    padding: 0.85rem 1.15rem;
+    cursor: pointer;
+    margin-top: 0.35rem;
+  }
+  .go-word {
+    font-family: var(--g-serif);
+    font-size: clamp(2.6rem, 10vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    margin: 0 0 0.7rem;
+    min-height: 1.1em;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .go-word.is-in { animation: go-word-in 0.42s ease-out forwards; }
+  .go-word.go { color: var(--g-go); }
+  .go-word.nogo { color: var(--g-nogo); }
+  .go-word.hold { color: var(--g-hold); }
+  .go-plain {
+    color: var(--g-mute);
+    font-size: 1.02rem;
+    max-width: 28rem;
+    line-height: 1.5;
+    margin: 0 0 1.15rem;
+    min-height: 3rem;
+  }
+  .go-meta { font-size: 0.8rem; color: #7a8494; line-height: 1.65; }
+  .go-meta strong { color: #3d4654; font-weight: 600; }
+  .go-foot { margin-top: 3rem; font-size: 0.7rem; color: #8b93a1; }
+  @keyframes go-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes go-word-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="go-stage">
+  <div class="go-inner">
+    <h1 class="go-brand"><span>Gate</span>Go</h1>
+    <p class="go-lede">Before money moves — one word. May this commit?</p>
+
+    <form class="go-form" id="go-form">
+      <label>Rail</label>
+      <div class="go-rails" id="go-rails" role="group">
+        <button type="button" data-rail="x402" class="is-on">x402</button>
+        <button type="button" data-rail="rtp">RTP</button>
+      </div>
+      <label for="go-amount">Amount</label>
+      <input id="go-amount" value="0.002" inputmode="decimal" autocomplete="off">
+      <label for="go-currency">Currency</label>
+      <input id="go-currency" value="USDC" autocomplete="off">
+      <label for="go-cp" id="go-cp-label">Counterparty (EVM address)</label>
+      <input id="go-cp" value="0x0000000000000000000000000000000000000001" autocomplete="off" spellcheck="false">
+      <label for="go-cap">Mandate max (optional)</label>
+      <input id="go-cap" value="1.00" inputmode="decimal" autocomplete="off">
+      <button type="submit" class="go-submit">Ask</button>
+    </form>
+
+    <div class="go-word" id="go-word" aria-live="polite">—</div>
+    <p class="go-plain" id="go-plain">Fill the transfer. Ask once.</p>
+    <p class="go-meta" id="go-meta"></p>
+    <p class="go-foot">Nisaba · not legal advice · atoms: prefinality JWT + fail-closed evaluate</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  let rail = "x402";
+  const wordEl = document.getElementById("go-word");
+  const plainEl = document.getElementById("go-plain");
+  const metaEl = document.getElementById("go-meta");
+  const cpLabel = document.getElementById("go-cp-label");
+  const cpInput = document.getElementById("go-cp");
+  const curInput = document.getElementById("go-currency");
+
+  document.getElementById("go-rails").addEventListener("click", function (ev) {
+    const btn = ev.target.closest("button[data-rail]");
+    if (!btn) return;
+    rail = btn.getAttribute("data-rail");
+    document.querySelectorAll("#go-rails button").forEach(function (b) {
+      b.classList.toggle("is-on", b === btn);
+    });
+    if (rail === "rtp") {
+      cpLabel.textContent = "External account id (or use bank fields via API)";
+      cpInput.value = "ext_demo_1";
+      curInput.value = "USD";
+    } else {
+      cpLabel.textContent = "Counterparty (EVM address)";
+      cpInput.value = "0x0000000000000000000000000000000000000001";
+      curInput.value = "USDC";
+    }
+  });
+
+  function tone(word) {
+    const w = (word || "").toUpperCase().replace(/\s+/g, "");
+    if (w === "GO") return "go";
+    if (w === "HOLD") return "hold";
+    return "nogo";
+  }
+
+  function show(d) {
+    const word = d.word || "NO GO";
+    wordEl.className = "go-word " + tone(word);
+    wordEl.textContent = word;
+    void wordEl.offsetWidth;
+    wordEl.classList.add("is-in");
+    plainEl.textContent = d.plain || "";
+    let meta = "";
+    if (d.rail) meta += "<strong>" + d.rail + "</strong>";
+    if (d.signals && d.signals.length) meta += (meta ? " · " : "") + d.signals.join(", ");
+    if (d.fingerprint) meta += "<br>fp " + String(d.fingerprint).slice(0, 16) + "…";
+    if (d.expires_in) meta += "<br>expires in " + d.expires_in + "s";
+    metaEl.innerHTML = meta;
+  }
+
+  document.getElementById("go-form").addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+    show({ word: "…", plain: "Evaluating…" });
+    const amount = document.getElementById("go-amount").value.trim();
+    const currency = curInput.value.trim();
+    const cp = cpInput.value.trim();
+    const cap = document.getElementById("go-cap").value.trim();
+    const transfer = { amount: amount, currency: currency };
+    if (rail === "x402") transfer.counterparty = cp;
+    else transfer.external_account_id = cp;
+    const body = {
+      rail: rail,
+      transfer: transfer,
+      mandate: { agent_id: "go-ui", max_amount: cap || undefined }
+    };
+    try {
+      const r = await fetch("/v1/go", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const d = await r.json();
+      show(d);
+    } catch (e) {
+      show({ word: "NO GO", plain: "Could not reach Go." });
+    }
+  });
+})();
+</script>
+{% endblock %}

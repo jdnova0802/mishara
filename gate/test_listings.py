@@ -241,10 +241,23 @@ class FlaskListingTests(unittest.TestCase):
         self.assertTrue(inner.get("clearance_only") or inner.get("acted") is not None)
 
     def test_nav_and_clickable_pages_are_not_broken(self):
+        # Home uses bind-surface chrome; buyer chrome lives on operator pages.
         home = self.client.get("/").get_data(as_text=True)
-        chrome = home.split("<footer>", 1)[0]
+        self.assertIn('href="/go"', home)
+        self.assertIn(">Go</a>", home)
+        self.assertIn('href="/never"', home)
+        self.assertIn(">Never</a>", home)
+        self.assertIn('href="/trust"', home)
+        self.assertNotIn('href="/action-os"', home)
+        self.assertNotIn('href="/science"', home)
+        self.assertNotIn('href="/family"', home)
+
+        buyer = self.client.get("/pricing").get_data(as_text=True)
+        chrome = buyer.split("<footer>", 1)[0]
         self.assertIn('href="/operator"', chrome)
         self.assertIn(">Weld</a>", chrome)
+        self.assertIn('href="/go"', chrome)
+        self.assertIn('href="/never"', chrome)
         self.assertIn('href="/live"', chrome)
         self.assertIn(">Live</a>", chrome)
         self.assertIn('href="/register"', chrome)
@@ -254,11 +267,6 @@ class FlaskListingTests(unittest.TestCase):
         self.assertNotIn(">Action OS</a>", chrome)
         self.assertNotIn(">Scanner</a>", chrome)
         self.assertNotIn(">Uplink</a>", chrome)
-        self.assertIn('href="/trust"', home)
-        # Spec / Reference / Family stay off buyer chrome
-        self.assertNotIn('href="/action-os"', home)
-        self.assertNotIn('href="/science"', home)
-        self.assertNotIn('href="/family"', home)
         for path in (
             "/",
             "/start",
@@ -275,6 +283,8 @@ class FlaskListingTests(unittest.TestCase):
             "/install",
             "/register",
             "/operator",
+            "/go",
+            "/never",
             "/live",
             "/privacy",
             "/terms",
@@ -2872,6 +2882,124 @@ class X402AuditWireTests(unittest.TestCase):
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))
+
+
+class GoAndNeverUiTests(unittest.TestCase):
+    """Apple-simple Go + Never over prefinality and exclusion."""
+
+    PAYTO = "0x0000000000000000000000000000000000000001"
+
+    @classmethod
+    def setUpClass(cls):
+        os.environ["GATE_DB_PATH"] = os.path.join(
+            tempfile.gettempdir(), f"gate-go-never-{uuid.uuid4().hex}.db"
+        )
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_go_page_and_api(self):
+        page = self.client.get("/go")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn("Go", page.get_data(as_text=True))
+
+        man = self.client.get("/.well-known/go.json")
+        self.assertEqual(man.status_code, 200)
+        self.assertEqual(man.get_json()["spec"], "gate-go-v1")
+
+        go = self.client.post(
+            "/v1/go",
+            json={
+                "rail": "x402",
+                "transfer": {
+                    "amount": "0.002",
+                    "currency": "USDC",
+                    "counterparty": self.PAYTO,
+                },
+                "mandate": {"agent_id": "go-test", "max_amount": "1.00"},
+            },
+        )
+        self.assertEqual(go.status_code, 200)
+        body = go.get_json()
+        self.assertEqual(body["word"], "GO")
+        self.assertEqual(body["decision"], "GO")
+        self.assertFalse(body["their_production"])
+
+        nogo = self.client.post(
+            "/v1/go",
+            json={
+                "rail": "x402",
+                "transfer": {
+                    "amount": "5.00",
+                    "currency": "USDC",
+                    "counterparty": self.PAYTO,
+                },
+                "mandate": {"agent_id": "go-test", "max_amount": "1.00"},
+            },
+        )
+        self.assertEqual(nogo.get_json()["word"], "NO GO")
+        self.assertEqual(nogo.get_json()["decision"], "NO_GO")
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("go", gate)
+        self.assertIn("go_api", gate)
+
+    def test_never_page_and_api(self):
+        page = self.client.get("/never")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn("Never", page.get_data(as_text=True))
+
+        man = self.client.get("/.well-known/never.json")
+        self.assertEqual(man.status_code, 200)
+        self.assertEqual(man.get_json()["spec"], "gate-never-v1")
+
+        bare = self.client.get("/v1/never")
+        self.assertEqual(bare.get_json()["spec"], "gate-never-v1")
+
+        never = self.client.get("/v1/never?job_id=pc:NEVER-FRESH")
+        self.assertEqual(never.status_code, 200)
+        self.assertEqual(never.get_json()["word"], "NEVER")
+        self.assertFalse(never.get_json()["spent"])
+        self.assertTrue(never.get_json()["verified"])
+
+        live = {
+            "ok": True,
+            "verdict": True,
+            "state": "LIVE",
+            "verify_url": "https://velaru.xyz/verify?r=never",
+        }
+        with mock.patch.object(gate_app, "velaru_fuse", return_value=(live, 200, {})):
+            r = self.client.post(
+                "/demo/pas/policycenter/pre-bind",
+                json={"fuse_id": "fuse_velaru_drill", "job_id": "pc:NEVER-SPENT"},
+            )
+        self.assertEqual(r.status_code, 200)
+        ticket = r.get_json()["bind_ticket"]
+        redeem = self.client.post(
+            "/demo/pas/bind-ticket/redeem",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": "pc:NEVER-SPENT",
+                "method": "POST",
+                "path": "/job/v1/jobs/pc:NEVER-SPENT/bind-only",
+                "spend_fingerprint": ticket["spend_fingerprint"],
+                "now": _now(),
+            },
+        )
+        self.assertEqual(redeem.status_code, 200)
+
+        spent = self.client.get("/v1/never?job_id=pc:NEVER-SPENT")
+        self.assertEqual(spent.get_json()["word"], "SPENT")
+        self.assertTrue(spent.get_json()["spent"])
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("never", gate)
+        self.assertIn("never_api", gate)
+
+        sm = self.client.get("/sitemap.xml").get_data(as_text=True)
+        self.assertIn("/go", sm)
+        self.assertIn("/never", sm)
 
 
 if __name__ == "__main__":
