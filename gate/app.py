@@ -353,6 +353,9 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/deny-registry.json",
         "/.well-known/seal.json",
         "/.well-known/evidence-head.json",
+        "/.well-known/go.json",
+        "/.well-known/never.json",
+        "/.well-known/prefinality.json",
     }
 )
 
@@ -1443,6 +1446,12 @@ def well_known_gate():
             "prefinality": f"{advertised_url()}/.well-known/prefinality.json",
             "prefinality_evaluate": f"{advertised_url()}/v1/prefinality/evaluate",
             "prefinality_demo": f"{advertised_url()}/demo/prefinality/evaluate",
+            "go": f"{advertised_url()}/go",
+            "go_json": f"{advertised_url()}/.well-known/go.json",
+            "go_api": f"{advertised_url()}/v1/go",
+            "never": f"{advertised_url()}/never",
+            "never_json": f"{advertised_url()}/.well-known/never.json",
+            "never_api": f"{advertised_url()}/v1/never",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2432,6 +2441,72 @@ def demo_prefinality_evaluate():
     data["signup_url"] = f"{advertised_url()}/signup"
     bound.attach(data, 200, demo=True)
     return jsonify(data), 200
+
+
+@app.route("/.well-known/go.json")
+def well_known_go():
+    try:
+        from gate import go_ui as go_mod
+    except ImportError:
+        import go_ui as go_mod
+    return jsonify(go_mod.manifest(advertised_url()))
+
+
+@app.route("/go")
+def go_page():
+    return render_template("go.html", public_url=advertised_url())
+
+
+@app.route("/v1/go", methods=["POST"])
+def go_api():
+    """One-word pre-finality — public demo path (same atoms as /demo/prefinality/evaluate)."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    try:
+        from gate import go_ui as go_mod
+    except ImportError:
+        import go_ui as go_mod
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    data = go_mod.evaluate_go(
+        body,
+        public_url=advertised_url(),
+        fuse_hop=_prefinality_fuse_hop,
+    )
+    return jsonify(data), 200
+
+
+@app.route("/.well-known/never.json")
+def well_known_never():
+    try:
+        from gate import never_ui as never_mod
+    except ImportError:
+        import never_ui as never_mod
+    return jsonify(never_mod.manifest(advertised_url()))
+
+
+@app.route("/never")
+def never_page():
+    return render_template(
+        "never.html",
+        prefill=(request.args.get("job_id") or "").strip(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/v1/never")
+def never_api():
+    try:
+        from gate import never_ui as never_mod
+    except ImportError:
+        import never_ui as never_mod
+    job_id = (request.args.get("job_id") or "").strip()
+    if not job_id:
+        return jsonify(never_mod.manifest(advertised_url()))
+    return jsonify(never_mod.clear_job(job_id))
 
 
 @app.route("/v1/prefinality/evaluate", methods=["POST"])
@@ -3740,6 +3815,8 @@ def sitemap():
         "/live",
         "/clear",
         "/seal",
+        "/go",
+        "/never",
         "/register",
         "/pricing",
         "/trust",
@@ -3760,6 +3837,8 @@ def sitemap():
         "/.well-known/live.json",
         "/.well-known/clear.json",
         "/.well-known/seal.json",
+        "/.well-known/go.json",
+        "/.well-known/never.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -3780,6 +3859,8 @@ def llms_txt():
         f"- Home: {advertised_url()}/",
         f"- Clear (one-word settlement): {advertised_url()}/clear",
         f"- Seal (receipt holds?): {advertised_url()}/seal",
+        f"- Go (may this commit?): {advertised_url()}/go",
+        f"- Never (already spent?): {advertised_url()}/never",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -3788,6 +3869,8 @@ def llms_txt():
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Clear JSON: {advertised_url()}/.well-known/clear.json",
         f"- Seal JSON: {advertised_url()}/.well-known/seal.json",
+        f"- Go JSON: {advertised_url()}/.well-known/go.json",
+        f"- Never JSON: {advertised_url()}/.well-known/never.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Verify: https://velaru.xyz/verify",
@@ -4004,6 +4087,12 @@ def openapi_full():
                 "/seal": {"get": {"summary": "One-word custody — HOLDS / BROKEN / UNSIGNED"}},
                 "/v1/seal": {"get": {"summary": "Seal API — ?event_id=", "security": []}},
                 "/.well-known/seal.json": {"get": {"summary": "Seal discovery manifest"}},
+                "/go": {"get": {"summary": "One-word pre-finality — GO / NO GO / HOLD"}},
+                "/v1/go": {"post": {"summary": "Go API — public demo evaluate", "security": []}},
+                "/.well-known/go.json": {"get": {"summary": "Go discovery manifest"}},
+                "/never": {"get": {"summary": "One-word spend exclusion — NEVER / SPENT"}},
+                "/v1/never": {"get": {"summary": "Never API — ?job_id=", "security": []}},
+                "/.well-known/never.json": {"get": {"summary": "Never discovery manifest"}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},
