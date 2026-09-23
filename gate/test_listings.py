@@ -2985,6 +2985,8 @@ class RailTruthAndDenyRegistryTests(unittest.TestCase):
         html = page.get_data(as_text=True)
         self.assertIn("Gate", html)
         self.assertIn("Clear", html)
+        self.assertIn("this money can still come back", html.lower())
+        self.assertIn("don't send", html.lower())
         self.assertIn('data-rail="ach"', html)
 
         man = self.client.get("/.well-known/clear.json")
@@ -3000,7 +3002,7 @@ class RailTruthAndDenyRegistryTests(unittest.TestCase):
         self.assertEqual(ach.status_code, 200)
         body = ach.get_json()
         self.assertEqual(body["word"], "REVERSIBLE")
-        self.assertIn("pull", body["plain"].lower())
+        self.assertIn("pulled", body["plain"].lower())
         self.assertFalse(body["their_production"])
 
         wire = self.client.get("/v1/clear?rail=wire")
@@ -3057,7 +3059,7 @@ class SealUiTests(unittest.TestCase):
         self.assertEqual(page.status_code, 200)
         html = page.get_data(as_text=True)
         self.assertIn("Seal", html)
-        self.assertIn("event id", html.lower())
+        self.assertIn("receipt id", html.lower())
 
         man = self.client.get("/.well-known/seal.json")
         self.assertEqual(man.status_code, 200)
@@ -3115,6 +3117,7 @@ class GoAndNeverUiTests(unittest.TestCase):
         page = self.client.get("/go")
         self.assertEqual(page.status_code, 200)
         self.assertIn("Go", page.get_data(as_text=True))
+        self.assertIn("Don't send more than", page.get_data(as_text=True))
 
         man = self.client.get("/.well-known/go.json")
         self.assertEqual(man.status_code, 200)

@@ -149,35 +149,35 @@
 <div class="go-stage">
   <div class="go-inner">
     <h1 class="go-brand"><span>Gate</span>Go</h1>
-    <p class="go-lede">Before money moves — one word. May this commit?</p>
+    <p class="go-lede">You're about to send money. Ask once: allowed or not?</p>
 
     <form class="go-form" id="go-form">
-      <label>Rail</label>
+      <label>How it moves</label>
       <div class="go-rails" id="go-rails" role="group">
-        <button type="button" data-rail="x402" class="is-on">x402</button>
-        <button type="button" data-rail="rtp">RTP</button>
+        <button type="button" data-rail="rtp" class="is-on">Instant bank</button>
+        <button type="button" data-rail="x402">On-chain</button>
       </div>
-      <label for="go-amount">Amount</label>
+      <label for="go-amount">How much</label>
       <input id="go-amount" value="0.002" inputmode="decimal" autocomplete="off">
-      <label for="go-currency">Currency</label>
-      <input id="go-currency" value="USDC" autocomplete="off">
-      <label for="go-cp" id="go-cp-label">Counterparty (EVM address)</label>
-      <input id="go-cp" value="0x0000000000000000000000000000000000000001" autocomplete="off" spellcheck="false">
-      <label for="go-cap">Mandate max (optional)</label>
+      <label for="go-currency">In what</label>
+      <input id="go-currency" value="USD" autocomplete="off">
+      <label for="go-cp" id="go-cp-label">To whom</label>
+      <input id="go-cp" value="ext_demo_1" autocomplete="off" spellcheck="false">
+      <label for="go-cap">Don't send more than</label>
       <input id="go-cap" value="1.00" inputmode="decimal" autocomplete="off">
       <button type="submit" class="go-submit">Ask</button>
     </form>
 
     <div class="go-word" id="go-word" aria-live="polite">—</div>
-    <p class="go-plain" id="go-plain">Fill the transfer. Ask once.</p>
+    <p class="go-plain" id="go-plain">Fill it. Ask. One word.</p>
     <p class="go-meta" id="go-meta"></p>
-    <p class="go-foot">Nisaba · not legal advice · atoms: prefinality JWT + fail-closed evaluate</p>
+    <p class="go-foot">Nisaba · not legal advice</p>
   </div>
 </div>
 
 <script>
 (function () {
-  let rail = "x402";
+  let rail = "rtp";
   const wordEl = document.getElementById("go-word");
   const plainEl = document.getElementById("go-plain");
   const metaEl = document.getElementById("go-meta");
@@ -193,11 +193,11 @@
       b.classList.toggle("is-on", b === btn);
     });
     if (rail === "rtp") {
-      cpLabel.textContent = "External account id (or use bank fields via API)";
+      cpLabel.textContent = "To whom (account id)";
       cpInput.value = "ext_demo_1";
       curInput.value = "USD";
     } else {
-      cpLabel.textContent = "Counterparty (EVM address)";
+      cpLabel.textContent = "To whom (wallet)";
       cpInput.value = "0x0000000000000000000000000000000000000001";
       curInput.value = "USDC";
     }
@@ -219,9 +219,7 @@
     plainEl.textContent = d.plain || "";
     let meta = "";
     if (d.rail) meta += "<strong>" + d.rail + "</strong>";
-    if (d.signals && d.signals.length) meta += (meta ? " · " : "") + d.signals.join(", ");
-    if (d.fingerprint) meta += "<br>fp " + String(d.fingerprint).slice(0, 16) + "…";
-    if (d.expires_in) meta += "<br>expires in " + d.expires_in + "s";
+    if (d.expires_in) meta += (meta ? " · " : "") + "this yes lasts " + d.expires_in + "s";
     metaEl.innerHTML = meta;
   }
 

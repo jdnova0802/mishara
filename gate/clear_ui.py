@@ -23,27 +23,27 @@ SPEC = "gate-clear-v1"
 STATUS_MAP = {
     "treat_as_reversible_until_return_window_closed": {
         "word": "REVERSIBLE",
-        "plain": "Can often still be pulled back for a while.",
+        "plain": "This money can still be pulled back.",
     },
     "treat_as_hard_to_unwind_after_accept": {
         "word": "HARD TO UNWIND",
-        "plain": "Once accepted, getting it back is the exception.",
+        "plain": "Once it goes, getting it back is the exception.",
     },
     "treat_as_final_after_accept": {
         "word": "FINAL",
-        "plain": "Treat as done after the bank accepts it.",
+        "plain": "Once the bank takes it, treat it as gone.",
     },
     "treat_as_reversible_via_chargeback_until_window_closed": {
         "word": "REVERSIBLE",
-        "plain": "Disputes can unwind it until the window closes.",
+        "plain": "A dispute can still pull this money back.",
     },
     "treat_as_ledger_final_after_N_confirmations_issuer_risk_remains": {
         "word": "LEDGER FINAL",
-        "plain": "On-chain it’s done; the issuer can still intervene.",
+        "plain": "On the chain it's done. The issuer can still step in.",
     },
     "resolve_underlying_rail_then_apply_that_finality": {
         "word": "DEPENDS",
-        "plain": "Follow whatever rail actually settles underneath.",
+        "plain": "Follow the rail that actually pays underneath.",
     },
 }
 
@@ -93,9 +93,9 @@ def clear_deny(payout_hash: str) -> dict[str, Any]:
         "payout_hash": hit.get("payout_hash"),
         "word": "DENIED" if denied else "NOT DENIED",
         "plain": (
-            "A deny is on record for this payout fingerprint."
+            "Blocked. Don't send this payout."
             if denied
-            else "No deny on record for this fingerprint."
+            else "Nothing on file blocking this payout."
         ),
         "count": hit.get("count") or 0,
         "their_production": False,
@@ -116,7 +116,7 @@ def manifest(public_url: str) -> dict[str, Any]:
     return {
         "spec": SPEC,
         "name": "Clear",
-        "promise": "One word. Will this settle — and can it come back?",
+        "promise": "Pick how money would move. One word: can it come back, is it gone, or is it blocked?",
         "page": f"{base}/clear",
         "api": f"{base}/v1/clear",
         "rails": [r["id"] for r in rails_for_ui()],

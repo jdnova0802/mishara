@@ -55,14 +55,20 @@
     color: var(--c-mute);
     margin-bottom: 0.55rem;
   }
-  .clear-lede {
-    font-size: 1.08rem;
+  .clear-legend {
+    display: grid;
+    gap: 0.35rem 1.1rem;
+    grid-template-columns: auto 1fr;
+    font-size: 0.92rem;
     color: var(--c-mute);
-    max-width: 26rem;
-    line-height: 1.45;
-    margin: 0 0 2.4rem;
-    animation: clear-rise 0.65s ease-out 0.07s both;
+    line-height: 1.4;
+    margin: 0 0 2.1rem;
+    animation: clear-rise 0.65s ease-out 0.08s both;
   }
+  .clear-legend b { font-weight: 700; font-family: var(--c-serif); letter-spacing: -0.02em; }
+  .clear-legend .final { color: var(--c-final); }
+  .clear-legend .reversible { color: var(--c-rev); }
+  .clear-legend .denied { color: var(--c-deny); }
   .clear-rails {
     display: flex;
     flex-wrap: wrap;
@@ -189,27 +195,32 @@
 <div class="clear-stage">
   <div class="clear-inner">
     <h1 class="clear-brand"><span>Gate</span>Clear</h1>
-    <p class="clear-lede">One word. Will this payout settle — and can it come back?</p>
+    <p class="clear-lede">Pick how the money would move. One word tells you what that means.</p>
+    <div class="clear-legend">
+      <b class="reversible">REVERSIBLE</b><span>This money can still come back.</span>
+      <b class="final">FINAL</b><span>Once it goes, treat it as gone.</span>
+      <b class="denied">DENIED</b><span>Blocked. Don't send.</span>
+    </div>
 
-    <div class="clear-rails" id="clear-rails" role="group" aria-label="Choose a rail">
+    <div class="clear-rails" id="clear-rails" role="group" aria-label="Choose how money would move">
       {% for r in rails %}
-      <button type="button" data-rail="{{ r.id }}">{{ r.id }}</button>
+      <button type="button" data-rail="{{ r.id }}">{{ r.name.split('(')[0].strip() }}</button>
       {% endfor %}
     </div>
 
     <div class="clear-word" id="clear-word" aria-live="polite">—</div>
-    <p class="clear-plain" id="clear-plain">Pick a rail.</p>
+    <p class="clear-plain" id="clear-plain">Tap a way money moves.</p>
     <p class="clear-meta" id="clear-meta"></p>
 
     <div class="clear-deny">
-      <label for="deny-hash">Or check a payout fingerprint</label>
+      <label for="deny-hash">Or: was this payout already blocked?</label>
       <div class="clear-deny-row">
-        <input id="deny-hash" name="deny-hash" maxlength="64" placeholder="64-char sha256 payout hash" autocomplete="off" spellcheck="false">
+        <input id="deny-hash" name="deny-hash" maxlength="64" placeholder="paste the payout id" autocomplete="off" spellcheck="false">
         <button type="button" id="deny-go">Check</button>
       </div>
     </div>
 
-    <p class="clear-foot">Nisaba · not legal advice · atoms: rail finality + loss + deny registry</p>
+    <p class="clear-foot">Nisaba · not legal advice</p>
   </div>
 </div>
 
@@ -254,8 +265,8 @@
       show(
         d.word,
         d.plain,
-        "<strong>" + (d.name || id) + "</strong> · settle " + (d.settle_speed || "—") +
-          "<br>Who usually eats loss: " + (d.who_eats_loss || "—")
+        "<strong>" + (d.name || id) + "</strong> · usually lands in " + (d.settle_speed || "—") +
+          "<br>If it goes wrong, who usually eats it: " + (d.who_eats_loss || "—")
       );
     } catch (e) {
       show("UNKNOWN", "Could not reach Clear.", "");
@@ -271,11 +282,11 @@
   document.getElementById("deny-go").addEventListener("click", async function () {
     const h = (document.getElementById("deny-hash").value || "").trim().toLowerCase();
     if (h.length !== 64) {
-      show("UNKNOWN", "Need a 64-character payout hash.", "");
+      show("UNKNOWN", "Need the 64-character payout id.", "");
       return;
     }
     rails.querySelectorAll("button").forEach(function (b) { b.classList.remove("is-on"); });
-    show("…", "Checking deny registry…", "");
+    show("…", "Checking if it's blocked…", "");
     try {
       const r = await fetch("/v1/clear?payout_hash=" + encodeURIComponent(h));
       const d = await r.json();

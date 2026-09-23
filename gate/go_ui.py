@@ -17,15 +17,15 @@ SPEC = "gate-go-v1"
 WORD_MAP = {
     "GO": {
         "word": "GO",
-        "plain": "May commit — only if the receipt still verifies and hasn’t expired.",
+        "plain": "Yes. You may send this — right now.",
     },
     "NO_GO": {
         "word": "NO GO",
-        "plain": "Do not sign. Do not send. Fail closed.",
+        "plain": "No. Don't send.",
     },
     "HOLD": {
         "word": "HOLD",
-        "plain": "Human review before this can move.",
+        "plain": "Wait. A person has to look first.",
     },
 }
 
@@ -36,7 +36,7 @@ def clear_decision(decision: str) -> dict[str, str]:
         key = "NO_GO"
     return WORD_MAP.get(
         key,
-        {"word": "NO GO", "plain": "Do not send. Fail closed."},
+        {"word": "NO GO", "plain": "No. Don't send."},
     )
 
 
@@ -82,7 +82,7 @@ def manifest(public_url: str) -> dict[str, Any]:
     return {
         "spec": SPEC,
         "name": "Go",
-        "promise": "Before money moves — one word. May this commit?",
+        "promise": "You're about to send money. One word: allowed or not?",
         "words": ["GO", "NO GO", "HOLD"],
         "page": f"{base}/go",
         "api": f"{base}/v1/go",
