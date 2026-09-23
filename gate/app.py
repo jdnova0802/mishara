@@ -1419,6 +1419,8 @@ def well_known_gate():
             "live_json": f"{advertised_url()}/.well-known/live.json",
             "canary": f"{advertised_url()}/.well-known/canary.json",
             "canary_report": f"{advertised_url()}/v1/canary/bypass",
+            "rail_truth": f"{advertised_url()}/.well-known/rail-truth.json",
+            "deny_registry": f"{advertised_url()}/.well-known/deny-registry.json",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1541,6 +1543,123 @@ def well_known_settlement():
     except ImportError:
         import settlement as settlement_mod
     return jsonify(settlement_mod.spec(advertised_url()))
+
+
+@app.route("/.well-known/rail-truth.json")
+def well_known_rail_truth():
+    try:
+        from gate import rail_truth as rail_truth_mod
+    except ImportError:
+        import rail_truth as rail_truth_mod
+    return jsonify(rail_truth_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/rail-truth")
+def rail_truth_list():
+    try:
+        from gate import rail_truth as rail_truth_mod
+    except ImportError:
+        import rail_truth as rail_truth_mod
+    return jsonify(rail_truth_mod.list_rails())
+
+
+@app.route("/v1/rail-truth/<rail>")
+def rail_truth_lookup(rail: str):
+    try:
+        from gate import rail_truth as rail_truth_mod
+    except ImportError:
+        import rail_truth as rail_truth_mod
+    body = rail_truth_mod.lookup(rail)
+    if not body:
+        return jsonify({"error": "unknown_rail", "rail": rail}), 404
+    return jsonify(body)
+
+
+@app.route("/v1/rail-truth/<rail>/finality")
+def rail_truth_finality(rail: str):
+    try:
+        from gate import rail_truth as rail_truth_mod
+    except ImportError:
+        import rail_truth as rail_truth_mod
+    body = rail_truth_mod.finality(rail)
+    if not body:
+        return jsonify({"error": "unknown_rail", "rail": rail}), 404
+    return jsonify(body)
+
+
+@app.route("/v1/rail-truth/<rail>/loss")
+def rail_truth_loss(rail: str):
+    try:
+        from gate import rail_truth as rail_truth_mod
+    except ImportError:
+        import rail_truth as rail_truth_mod
+    body = rail_truth_mod.loss_allocation(rail)
+    if not body:
+        return jsonify({"error": "unknown_rail", "rail": rail}), 404
+    return jsonify(body)
+
+
+@app.route("/.well-known/deny-registry.json")
+def well_known_deny_registry():
+    try:
+        from gate import deny_registry as deny_mod
+    except ImportError:
+        import deny_registry as deny_mod
+    return jsonify(deny_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/deny-registry/fingerprint", methods=["POST"])
+def deny_registry_fingerprint():
+    try:
+        from gate import deny_registry as deny_mod
+    except ImportError:
+        import deny_registry as deny_mod
+    body = request.get_json(silent=True) or {}
+    try:
+        h = deny_mod.payout_fingerprint(
+            rail=str(body.get("rail") or ""),
+            amount=str(body.get("amount") or ""),
+            currency=str(body.get("currency") or ""),
+            destination=str(body.get("destination") or ""),
+            agent_id=(str(body.get("agent_id")) if body.get("agent_id") else None),
+            memo=(str(body.get("memo")) if body.get("memo") else None),
+        )
+    except TypeError:
+        return jsonify({"error": "invalid_fingerprint_parts"}), 400
+    return jsonify({"spec": deny_mod.SPEC, "payout_hash": h, "their_production": False})
+
+
+@app.route("/v1/deny-registry", methods=["POST"])
+def deny_registry_register():
+    try:
+        from gate import deny_registry as deny_mod
+    except ImportError:
+        import deny_registry as deny_mod
+    body = request.get_json(silent=True) or {}
+    try:
+        out = deny_mod.register_deny(
+            payout_hash=(str(body["payout_hash"]) if body.get("payout_hash") else None),
+            reason_code=str(body.get("reason_code") or "denied"),
+            rail=(str(body.get("rail")) if body.get("rail") else None),
+            fingerprint_parts=body.get("fingerprint")
+            if isinstance(body.get("fingerprint"), dict)
+            else None,
+            meta=body.get("meta") if isinstance(body.get("meta"), dict) else None,
+        )
+    except (ValueError, TypeError) as exc:
+        return jsonify({"error": str(exc)}), 400
+    return jsonify(out), 201
+
+
+@app.route("/v1/deny-registry/<payout_hash>")
+def deny_registry_lookup(payout_hash: str):
+    try:
+        from gate import deny_registry as deny_mod
+    except ImportError:
+        import deny_registry as deny_mod
+    if len((payout_hash or "").strip()) != 64:
+        return jsonify({"error": "payout_hash_must_be_sha256_hex"}), 400
+    return jsonify(deny_mod.lookup(payout_hash))
 
 
 @app.route("/.well-known/settlement-members.json")

@@ -2874,5 +2874,91 @@ class X402AuditWireTests(unittest.TestCase):
         self.assertTrue(any("/api/x402/audit" in u for u in free))
 
 
+class RailTruthAndDenyRegistryTests(unittest.TestCase):
+    """Settlement truth atoms: finality oracle, loss allocation, negative deny registry."""
+
+    @classmethod
+    def setUpClass(cls):
+        os.environ["GATE_DB_PATH"] = os.path.join(
+            tempfile.gettempdir(), f"gate-rail-truth-{uuid.uuid4().hex}.db"
+        )
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_rail_truth_manifest_and_lookup(self):
+        m = self.client.get("/.well-known/rail-truth.json")
+        self.assertEqual(m.status_code, 200)
+        body = m.get_json()
+        self.assertEqual(body["spec"], "gate-rail-truth-v1")
+        self.assertIn("ach", body["rails"])
+        self.assertIn("fednow", body["rails"])
+        self.assertIn("wire", body["rails"])
+
+        ach = self.client.get("/v1/rail-truth/ach")
+        self.assertEqual(ach.status_code, 200)
+        data = ach.get_json()
+        self.assertIn("finality", data)
+        self.assertIn("loss", data)
+        self.assertEqual(data["loss"]["machine_label"], "originator_heavy")
+        self.assertEqual(
+            data["finality"]["agent_safe_default"],
+            "treat_as_reversible_until_return_window_closed",
+        )
+
+        fin = self.client.get("/v1/rail-truth/wire/finality")
+        self.assertEqual(fin.status_code, 200)
+        self.assertEqual(fin.get_json()["agent_safe_default"], "treat_as_final_after_accept")
+
+        loss = self.client.get("/v1/rail-truth/card/loss")
+        self.assertEqual(loss.status_code, 200)
+        self.assertEqual(loss.get_json()["machine_label"], "reason_code_split")
+
+        missing = self.client.get("/v1/rail-truth/not-a-rail")
+        self.assertEqual(missing.status_code, 404)
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("rail_truth", gate)
+        self.assertIn("deny_registry", gate)
+
+    def test_deny_registry_fingerprint_register_lookup(self):
+        fp = self.client.post(
+            "/v1/deny-registry/fingerprint",
+            json={
+                "rail": "wire",
+                "amount": "100.00",
+                "currency": "USD",
+                "destination": "acct_demo_1",
+                "agent_id": "agent_x",
+            },
+        )
+        self.assertEqual(fp.status_code, 200)
+        payout_hash = fp.get_json()["payout_hash"]
+        self.assertEqual(len(payout_hash), 64)
+
+        before = self.client.get(f"/v1/deny-registry/{payout_hash}")
+        self.assertEqual(before.status_code, 200)
+        self.assertFalse(before.get_json()["denied"])
+
+        reg = self.client.post(
+            "/v1/deny-registry",
+            json={
+                "payout_hash": payout_hash,
+                "reason_code": "destination_mismatch",
+                "rail": "wire",
+            },
+        )
+        self.assertEqual(reg.status_code, 201)
+        self.assertEqual(reg.get_json()["payout_hash"], payout_hash)
+
+        after = self.client.get(f"/v1/deny-registry/{payout_hash}")
+        self.assertTrue(after.get_json()["denied"])
+        self.assertGreaterEqual(after.get_json()["count"], 1)
+
+        man = self.client.get("/.well-known/deny-registry.json")
+        self.assertEqual(man.status_code, 200)
+        self.assertEqual(man.get_json()["spec"], "gate-deny-registry-v1")
+
+
 if __name__ == "__main__":
     unittest.main()
