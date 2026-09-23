@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% block title %}Seal{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Seal — paste an event id. HOLDS, BROKEN, or UNSIGNED. Stranger-verifiable custody.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --s-ink: #12141a;
+    --s-mute: #5c6573;
+    --s-line: #d5dae3;
+    --s-holds: #0d7a4f;
+    --s-broken: #b42318;
+    --s-unsigned: #9a6b00;
+    --s-missing: #1d4ed8;
+    --s-serif: "Syne", system-ui, sans-serif;
+    --s-sans: "Figtree", system-ui, sans-serif;
+  }
+  .seal-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(900px 400px at 12% -12%, #d4e8dc55, transparent 55%),
+      radial-gradient(780px 360px at 92% 88%, #d0d8ef40, transparent 50%),
+      linear-gradient(180deg, #f7f8fb 0%, #eef1f6 50%, #e8ecf3 100%);
+    color: var(--s-ink);
+    font-family: var(--s-sans);
+  }
+  .seal-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3.75rem 1.35rem 0;
+  }
+  .seal-brand {
+    font-family: var(--s-serif);
+    font-size: clamp(3.1rem, 10vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+    animation: seal-rise 0.65s ease-out both;
+  }
+  .seal-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.34em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--s-mute);
+    margin-bottom: 0.55rem;
+  }
+  .seal-lede {
+    font-size: 1.08rem;
+    color: var(--s-mute);
+    max-width: 28rem;
+    line-height: 1.45;
+    margin: 0 0 2.4rem;
+    animation: seal-rise 0.65s ease-out 0.07s both;
+  }
+  .seal-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0 0 2.5rem;
+    animation: seal-rise 0.65s ease-out 0.12s both;
+  }
+  .seal-row input {
+    flex: 1 1 240px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    color: var(--s-ink);
+    background: #fff;
+    border: 1px solid var(--s-line);
+    padding: 0.75rem 0.85rem;
+    outline: none;
+  }
+  .seal-row input:focus { border-color: var(--s-ink); }
+  .seal-row button {
+    font-family: var(--s-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--s-ink);
+    border: none;
+    padding: 0.75rem 1.15rem;
+    cursor: pointer;
+  }
+  .seal-row button:hover { filter: brightness(1.08); }
+  .seal-word {
+    font-family: var(--s-serif);
+    font-size: clamp(2.6rem, 10vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    margin: 0 0 0.7rem;
+    min-height: 1.1em;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .seal-word.is-in { animation: seal-word-in 0.42s ease-out forwards; }
+  .seal-word.holds { color: var(--s-holds); }
+  .seal-word.broken { color: var(--s-broken); }
+  .seal-word.unsigned { color: var(--s-unsigned); }
+  .seal-word.missing { color: var(--s-missing); }
+  .seal-plain {
+    color: var(--s-mute);
+    font-size: 1.02rem;
+    max-width: 28rem;
+    line-height: 1.5;
+    margin: 0 0 1.15rem;
+    min-height: 3rem;
+  }
+  .seal-meta {
+    font-size: 0.8rem;
+    color: #7a8494;
+    line-height: 1.65;
+  }
+  .seal-meta strong { color: #3d4654; font-weight: 600; }
+  .seal-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1.25rem 0 0;
+  }
+  .seal-checks span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--s-line);
+    padding: 0.35rem 0.55rem;
+    color: #7a8494;
+  }
+  .seal-checks span.ok { color: var(--s-holds); border-color: #b7e4cf; background: #f0faf5; }
+  .seal-checks span.bad { color: var(--s-broken); border-color: #f0c4bf; background: #fdf4f3; }
+  .seal-checks span.skip { color: var(--s-unsigned); border-color: #ead9a8; background: #fbf7ea; }
+  .seal-foot {
+    margin-top: 3rem;
+    font-size: 0.7rem;
+    color: #8b93a1;
+  }
+  @keyframes seal-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes seal-word-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 560px) {
+    .seal-inner { padding-top: 2.35rem; }
+  }
+</style>
+
+<div class="seal-stage">
+  <div class="seal-inner">
+    <h1 class="seal-brand"><span>Gate</span>Seal</h1>
+    <p class="seal-lede">Paste an event. Does the halt still hold for a stranger?</p>
+
+    <div class="seal-row">
+      <input id="seal-id" name="seal-id" maxlength="64" placeholder="event id (uuid)" autocomplete="off" spellcheck="false" value="{{ prefill or '' }}">
+      <button type="button" id="seal-go">Check</button>
+    </div>
+
+    <div class="seal-word" id="seal-word" aria-live="polite">—</div>
+    <p class="seal-plain" id="seal-plain">Enter an event id from a bind receipt.</p>
+    <p class="seal-meta" id="seal-meta"></p>
+    <div class="seal-checks" id="seal-checks" hidden></div>
+
+    <p class="seal-foot">Nisaba · not legal advice · atoms: Ed25519 receipt + Merkle evidence log</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const wordEl = document.getElementById("seal-word");
+  const plainEl = document.getElementById("seal-plain");
+  const metaEl = document.getElementById("seal-meta");
+  const checksEl = document.getElementById("seal-checks");
+  const input = document.getElementById("seal-id");
+
+  function tone(word) {
+    const w = (word || "").toUpperCase();
+    if (w === "HOLDS") return "holds";
+    if (w === "BROKEN") return "broken";
+    if (w === "UNSIGNED") return "unsigned";
+    return "missing";
+  }
+
+  function checkChip(label, val) {
+    let cls = "skip";
+    let text = label + " —";
+    if (val === true) { cls = "ok"; text = label + " ok"; }
+    else if (val === false) { cls = "bad"; text = label + " fail"; }
+    return '<span class="' + cls + '">' + text + "</span>";
+  }
+
+  function show(d) {
+    const word = d.word || "MISSING";
+    wordEl.className = "seal-word " + tone(word);
+    wordEl.textContent = word;
+    void wordEl.offsetWidth;
+    wordEl.classList.add("is-in");
+    plainEl.textContent = d.plain || "";
+    let meta = "";
+    if (d.decision) meta += "<strong>" + d.decision + "</strong>";
+    if (d.fuse_id) meta += (meta ? " · " : "") + d.fuse_id;
+    if (d.job_id) meta += "<br>job " + d.job_id;
+    if (d.receipt_hash) meta += "<br>hash " + d.receipt_hash.slice(0, 16) + "…";
+    metaEl.innerHTML = meta;
+    if (d.checks) {
+      checksEl.hidden = false;
+      checksEl.innerHTML =
+        checkChip("hash", d.checks.hash) +
+        checkChip("signature", d.checks.signature) +
+        checkChip("inclusion", d.checks.inclusion);
+    } else {
+      checksEl.hidden = true;
+      checksEl.innerHTML = "";
+    }
+  }
+
+  async function run() {
+    const id = (input.value || "").trim();
+    if (!id) {
+      show({ word: "MISSING", plain: "Paste an event id." });
+      return;
+    }
+    show({ word: "…", plain: "Checking seal…" });
+    try {
+      const r = await fetch("/v1/seal?event_id=" + encodeURIComponent(id));
+      const d = await r.json();
+      show(d);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", "/seal?event_id=" + encodeURIComponent(id));
+      }
+    } catch (e) {
+      show({ word: "BROKEN", plain: "Could not reach Seal." });
+    }
+  }
+
+  document.getElementById("seal-go").addEventListener("click", run);
+  input.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter") run();
+  });
+
+  if ((input.value || "").trim()) run();
+})();
+</script>
+{% endblock %}
