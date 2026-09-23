@@ -300,15 +300,56 @@ One-liners for these words are in §3 Tier 9.
 
 ---
 
+## Retrieval — who → does → to whom
+
+You are not bad at memory. You are weak at **roles**.
+
+Thing-definitions stick. **Who-does-what-to-whom** flips (insured/carrier, binder/issue). Keywords stay; the full sentence dies. “I had it” is recognition, not recall.
+
+**To whom** = the other side of the relationship (buyer/seller), not “the effect.”
+
+### How to retrieve (phone down)
+
+1. Never quiz a lone noun. Always a full line: **who → does what → to whom**.  
+   Bad: “Carrier?”  
+   Good: “The carrier is the insurer on the dec; the insured sues them.”
+2. Minimal pair: same sentence twice, swap the trap word, catch which is wrong.
+3. Walk quote → binder → issue. At each step only ask: who acts, who is acted on, what paper exists.
+4. Emit the line in your head. Silent “yeah I know” does not count. Joking past a blank = restart that line.
+5. When the hard who/does/whom lines come out clean once, **stop**.
+
+### Gate pairs (both ends of the wire)
+
+| Who | Does | To whom / on what |
+|---|---|---|
+| File / deck / MGA / CUO | **say** is bound | (MAY — claim, not proof) |
+| Stranger | **verifies** | instruments that exist (CAN) |
+| Insured | **buys** coverage / **sues** | carrier’s paper |
+| Carrier | **is** the legal insurer on | the dec page |
+| Quote | **offers** price/terms | insured (not bound yet) |
+| Binder | **proves** a bind happened | that path |
+| Issue | **puts** policy/binder | in force |
+
+One-breath (match, not “can they check”):  
+*At bind, does the paper a stranger can independently check **match** the paper you think you issued?*
+
+This retrieval machine is **general** (any subject). Gate is just the gym.
+
+---
+
 ## 8. Drill (do this out loud, then stop)
 
-1. Say the one-breath Gate line (no prin-hash). Include **instrument** in plain English.
-2. Recite: REVIEW = email reply + memo, not a call. Call only if they ask.
-3. Recite §3 **Tier 1–4** one-liners in order: MAY → CAN → instrument → stranger-verify → bind → named bind path → paper → … through PNOC / deficit / LOC / honor / swap vs extra.
-4. For each of the four desks: door, date, one quote, the MAY vs CAN miss. tmaner not Tanner.
-5. Recite the money ladder and the quit bar.
-6. Recite: source or cut.
-7. Recite §3 Tier 9 code one-liners: frontend, backend, API, env, commit, PR, don’t trust input.
+1. Say the one-breath Gate line (no prin-hash). **Match** both papers. Include **instrument** in plain English.
+2. Say three who→does→to whom lines cold: insured/carrier · binder vs issue · MAY vs CAN.
+3. Recite: REVIEW = email reply + memo, not a call. Call only if they ask.
+4. Recite §3 **Tier 1–4** one-liners only if a desk replied; otherwise stop after steps 1–2.
+5. For each of the four desks (when live): door, date, one quote, the MAY vs CAN miss. tmaner not Tanner.
+6. Recite the money ladder and the quit bar.
+7. Recite: source or cut.
 8. On the next agent patch: explain every changed line before it runs.
 
-If you pass that, you have the foundation. Anything past this is a class you don’t need yet.
+If you pass steps 1–2 cold, you have the retrieval foundation. Anything past this tonight is a class you don’t need.
+
+---
+
+*End of foundation. Do not append chapters.*
