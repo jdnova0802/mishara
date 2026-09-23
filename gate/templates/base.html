@@ -42,12 +42,14 @@
       <div class="nav-links">
         {% if bind_surface %}
         <a href="{{ url_for('bind_room') }}">Bind Room</a>
+        <a href="{{ url_for('clear_page') }}">Clear</a>
         <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         <a href="{{ url_for('trust') }}">Trust</a>
         <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
         {% else %}
         <a href="{{ url_for('bind_room') }}">Bind Room</a>
         <a href="{{ url_for('operator_page') }}">Weld</a>
+        <a href="{{ url_for('clear_page') }}">Clear</a>
         <a href="{{ url_for('live_page') }}">Live</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
@@ -77,6 +79,7 @@
     <div class="container">
       Nisaba LLC · clearance before irreversible write ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
+      <a href="{{ url_for('clear_page') }}">Clear</a> ·
       <a href="{{ url_for('live_page') }}">Live</a> ·
       <a href="{{ url_for('register_page') }}">Fees</a> ·
       <a href="{{ url_for('pricing') }}">Pricing</a> ·

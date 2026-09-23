@@ -241,10 +241,21 @@ class FlaskListingTests(unittest.TestCase):
         self.assertTrue(inner.get("clearance_only") or inner.get("acted") is not None)
 
     def test_nav_and_clickable_pages_are_not_broken(self):
+        # Home uses bind-surface chrome; buyer chrome lives on operator pages.
         home = self.client.get("/").get_data(as_text=True)
-        chrome = home.split("<footer>", 1)[0]
+        self.assertIn('href="/clear"', home)
+        self.assertIn(">Clear</a>", home)
+        self.assertIn('href="/trust"', home)
+        self.assertNotIn('href="/action-os"', home)
+        self.assertNotIn('href="/science"', home)
+        self.assertNotIn('href="/family"', home)
+
+        buyer = self.client.get("/pricing").get_data(as_text=True)
+        chrome = buyer.split("<footer>", 1)[0]
         self.assertIn('href="/operator"', chrome)
         self.assertIn(">Weld</a>", chrome)
+        self.assertIn('href="/clear"', chrome)
+        self.assertIn(">Clear</a>", chrome)
         self.assertIn('href="/live"', chrome)
         self.assertIn(">Live</a>", chrome)
         self.assertIn('href="/register"', chrome)
@@ -254,11 +265,6 @@ class FlaskListingTests(unittest.TestCase):
         self.assertNotIn(">Action OS</a>", chrome)
         self.assertNotIn(">Scanner</a>", chrome)
         self.assertNotIn(">Uplink</a>", chrome)
-        self.assertIn('href="/trust"', home)
-        # Spec / Reference / Family stay off buyer chrome
-        self.assertNotIn('href="/action-os"', home)
-        self.assertNotIn('href="/science"', home)
-        self.assertNotIn('href="/family"', home)
         for path in (
             "/",
             "/start",
@@ -275,6 +281,7 @@ class FlaskListingTests(unittest.TestCase):
             "/install",
             "/register",
             "/operator",
+            "/clear",
             "/live",
             "/privacy",
             "/terms",
@@ -2958,6 +2965,66 @@ class RailTruthAndDenyRegistryTests(unittest.TestCase):
         man = self.client.get("/.well-known/deny-registry.json")
         self.assertEqual(man.status_code, 200)
         self.assertEqual(man.get_json()["spec"], "gate-deny-registry-v1")
+
+    def test_clear_page_and_api(self):
+        page = self.client.get("/clear")
+        self.assertEqual(page.status_code, 200)
+        html = page.get_data(as_text=True)
+        self.assertIn("Gate", html)
+        self.assertIn("Clear", html)
+        self.assertIn('data-rail="ach"', html)
+
+        man = self.client.get("/.well-known/clear.json")
+        self.assertEqual(man.status_code, 200)
+        self.assertEqual(man.get_json()["spec"], "gate-clear-v1")
+        self.assertIn("ach", man.get_json()["rails"])
+
+        bare = self.client.get("/v1/clear")
+        self.assertEqual(bare.status_code, 200)
+        self.assertEqual(bare.get_json()["spec"], "gate-clear-v1")
+
+        ach = self.client.get("/v1/clear?rail=ach")
+        self.assertEqual(ach.status_code, 200)
+        body = ach.get_json()
+        self.assertEqual(body["word"], "REVERSIBLE")
+        self.assertIn("pull", body["plain"].lower())
+        self.assertFalse(body["their_production"])
+
+        wire = self.client.get("/v1/clear?rail=wire")
+        self.assertEqual(wire.status_code, 200)
+        self.assertEqual(wire.get_json()["word"], "FINAL")
+
+        missing = self.client.get("/v1/clear?rail=not-a-rail")
+        self.assertEqual(missing.status_code, 404)
+
+        bad = self.client.get("/v1/clear?payout_hash=abc")
+        self.assertEqual(bad.status_code, 400)
+
+        fp = self.client.post(
+            "/v1/deny-registry/fingerprint",
+            json={
+                "rail": "ach",
+                "amount": "1.00",
+                "currency": "USD",
+                "destination": "acct_clear_demo",
+            },
+        )
+        payout_hash = fp.get_json()["payout_hash"]
+        before = self.client.get(f"/v1/clear?payout_hash={payout_hash}")
+        self.assertEqual(before.get_json()["word"], "NOT DENIED")
+        self.client.post(
+            "/v1/deny-registry",
+            json={"payout_hash": payout_hash, "reason_code": "clear_ui_test", "rail": "ach"},
+        )
+        after = self.client.get(f"/v1/clear?payout_hash={payout_hash}")
+        self.assertEqual(after.get_json()["word"], "DENIED")
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertIn("clear", gate)
+        self.assertIn("clear_api", gate)
+
+        sm = self.client.get("/sitemap.xml").get_data(as_text=True)
+        self.assertIn("/clear", sm)
 
 
 if __name__ == "__main__":

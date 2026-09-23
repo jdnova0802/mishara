@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% block title %}Clear{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Clear — one word on whether a payout settles and sticks. REVERSIBLE. FINAL. DENIED.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --c-ink: #12141a;
+    --c-mute: #5c6573;
+    --c-line: #d5dae3;
+    --c-soft: #eef1f6;
+    --c-final: #0d7a4f;
+    --c-rev: #9a6b00;
+    --c-deny: #b42318;
+    --c-hard: #1d4ed8;
+    --c-serif: "Syne", system-ui, sans-serif;
+    --c-sans: "Figtree", system-ui, sans-serif;
+  }
+  .clear-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(920px 420px at 88% -8%, #c8d8ef55, transparent 58%),
+      radial-gradient(760px 380px at 6% 92%, #c5e4d640, transparent 52%),
+      linear-gradient(180deg, #f7f8fb 0%, #eef1f6 48%, #e8ecf3 100%);
+    color: var(--c-ink);
+    font-family: var(--c-sans);
+    overflow: hidden;
+  }
+  .clear-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3.75rem 1.35rem 0;
+  }
+  .clear-brand {
+    font-family: var(--c-serif);
+    font-size: clamp(3.1rem, 10vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+    animation: clear-rise 0.65s ease-out both;
+  }
+  .clear-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.34em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-mute);
+    margin-bottom: 0.55rem;
+  }
+  .clear-lede {
+    font-size: 1.08rem;
+    color: var(--c-mute);
+    max-width: 26rem;
+    line-height: 1.45;
+    margin: 0 0 2.4rem;
+    animation: clear-rise 0.65s ease-out 0.07s both;
+  }
+  .clear-rails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0 0 2.6rem;
+    animation: clear-rise 0.65s ease-out 0.12s both;
+  }
+  .clear-rails button {
+    font-family: var(--c-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--c-ink);
+    background: transparent;
+    border: 1px solid var(--c-line);
+    padding: 0.55rem 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+  .clear-rails button:hover,
+  .clear-rails button.is-on {
+    border-color: var(--c-ink);
+    background: #fff;
+    transform: translateY(-1px);
+  }
+  .clear-word {
+    font-family: var(--c-serif);
+    font-size: clamp(2.6rem, 10vw, 4.8rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    margin: 0 0 0.7rem;
+    min-height: 1.1em;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .clear-word.is-in {
+    animation: clear-word-in 0.42s ease-out forwards;
+  }
+  .clear-word.final { color: var(--c-final); }
+  .clear-word.reversible { color: var(--c-rev); }
+  .clear-word.denied { color: var(--c-deny); }
+  .clear-word.hard,
+  .clear-word.ledger,
+  .clear-word.depends,
+  .clear-word.unknown { color: var(--c-hard); }
+  .clear-plain {
+    color: var(--c-mute);
+    font-size: 1.02rem;
+    max-width: 28rem;
+    line-height: 1.5;
+    margin: 0 0 1.15rem;
+    min-height: 3rem;
+  }
+  .clear-meta {
+    font-size: 0.8rem;
+    color: #7a8494;
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+  }
+  .clear-meta strong { color: #3d4654; font-weight: 600; }
+  .clear-deny {
+    margin-top: 3.25rem;
+    padding-top: 1.85rem;
+    border-top: 1px solid var(--c-line);
+    animation: clear-rise 0.65s ease-out 0.18s both;
+  }
+  .clear-deny label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a8494;
+    margin-bottom: 0.6rem;
+  }
+  .clear-deny-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .clear-deny input {
+    flex: 1 1 220px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--c-ink);
+    background: #fff;
+    border: 1px solid var(--c-line);
+    padding: 0.7rem 0.8rem;
+    outline: none;
+  }
+  .clear-deny input:focus { border-color: var(--c-ink); }
+  .clear-deny button {
+    font-family: var(--c-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--c-ink);
+    border: none;
+    padding: 0.7rem 1.05rem;
+    cursor: pointer;
+  }
+  .clear-deny button:hover { filter: brightness(1.08); }
+  .clear-foot {
+    margin-top: 2.75rem;
+    font-size: 0.7rem;
+    color: #8b93a1;
+  }
+  @keyframes clear-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes clear-word-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 560px) {
+    .clear-inner { padding-top: 2.35rem; }
+  }
+</style>
+
+<div class="clear-stage">
+  <div class="clear-inner">
+    <h1 class="clear-brand"><span>Gate</span>Clear</h1>
+    <p class="clear-lede">One word. Will this payout settle — and can it come back?</p>
+
+    <div class="clear-rails" id="clear-rails" role="group" aria-label="Choose a rail">
+      {% for r in rails %}
+      <button type="button" data-rail="{{ r.id }}">{{ r.id }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="clear-word" id="clear-word" aria-live="polite">—</div>
+    <p class="clear-plain" id="clear-plain">Pick a rail.</p>
+    <p class="clear-meta" id="clear-meta"></p>
+
+    <div class="clear-deny">
+      <label for="deny-hash">Or check a payout fingerprint</label>
+      <div class="clear-deny-row">
+        <input id="deny-hash" name="deny-hash" maxlength="64" placeholder="64-char sha256 payout hash" autocomplete="off" spellcheck="false">
+        <button type="button" id="deny-go">Check</button>
+      </div>
+    </div>
+
+    <p class="clear-foot">Nisaba · not legal advice · atoms: rail finality + loss + deny registry</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const wordEl = document.getElementById("clear-word");
+  const plainEl = document.getElementById("clear-plain");
+  const metaEl = document.getElementById("clear-meta");
+  const rails = document.getElementById("clear-rails");
+
+  function toneClass(word) {
+    const w = (word || "").toUpperCase();
+    if (w === "FINAL") return "final";
+    if (w === "REVERSIBLE") return "reversible";
+    if (w === "DENIED" || w === "NOT DENIED") return w === "DENIED" ? "denied" : "hard";
+    if (w.indexOf("HARD") === 0) return "hard";
+    if (w.indexOf("LEDGER") === 0) return "ledger";
+    if (w === "DEPENDS") return "depends";
+    return "unknown";
+  }
+
+  function show(word, plain, metaHtml) {
+    wordEl.className = "clear-word " + toneClass(word);
+    wordEl.textContent = word;
+    void wordEl.offsetWidth;
+    wordEl.classList.add("is-in");
+    plainEl.textContent = plain || "";
+    metaEl.innerHTML = metaHtml || "";
+  }
+
+  async function loadRail(id, btn) {
+    rails.querySelectorAll("button").forEach(function (b) { b.classList.remove("is-on"); });
+    if (btn) btn.classList.add("is-on");
+    show("…", "Checking " + id + "…", "");
+    try {
+      const r = await fetch("/v1/clear?rail=" + encodeURIComponent(id));
+      const d = await r.json();
+      if (!r.ok) {
+        show("UNKNOWN", d.error || "Unknown rail", "");
+        return;
+      }
+      show(
+        d.word,
+        d.plain,
+        "<strong>" + (d.name || id) + "</strong> · settle " + (d.settle_speed || "—") +
+          "<br>Who usually eats loss: " + (d.who_eats_loss || "—")
+      );
+    } catch (e) {
+      show("UNKNOWN", "Could not reach Clear.", "");
+    }
+  }
+
+  rails.addEventListener("click", function (ev) {
+    const btn = ev.target.closest("button[data-rail]");
+    if (!btn) return;
+    loadRail(btn.getAttribute("data-rail"), btn);
+  });
+
+  document.getElementById("deny-go").addEventListener("click", async function () {
+    const h = (document.getElementById("deny-hash").value || "").trim().toLowerCase();
+    if (h.length !== 64) {
+      show("UNKNOWN", "Need a 64-character payout hash.", "");
+      return;
+    }
+    rails.querySelectorAll("button").forEach(function (b) { b.classList.remove("is-on"); });
+    show("…", "Checking deny registry…", "");
+    try {
+      const r = await fetch("/v1/clear?payout_hash=" + encodeURIComponent(h));
+      const d = await r.json();
+      show(d.word, d.plain, d.count ? ("Denials on record: " + d.count) : "");
+    } catch (e) {
+      show("UNKNOWN", "Could not reach Clear.", "");
+    }
+  });
+
+  const first = rails.querySelector("button[data-rail]");
+  if (first) loadRail(first.getAttribute("data-rail"), first);
+})();
+</script>
+{% endblock %}

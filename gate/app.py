@@ -348,6 +348,9 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/opportunities.json",
         "/.well-known/live.json",
         "/.well-known/canary.json",
+        "/.well-known/clear.json",
+        "/.well-known/rail-truth.json",
+        "/.well-known/deny-registry.json",
     }
 )
 
@@ -1421,6 +1424,9 @@ def well_known_gate():
             "canary_report": f"{advertised_url()}/v1/canary/bypass",
             "rail_truth": f"{advertised_url()}/.well-known/rail-truth.json",
             "deny_registry": f"{advertised_url()}/.well-known/deny-registry.json",
+            "clear": f"{advertised_url()}/clear",
+            "clear_json": f"{advertised_url()}/.well-known/clear.json",
+            "clear_api": f"{advertised_url()}/v1/clear",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
@@ -1606,6 +1612,49 @@ def well_known_deny_registry():
     except ImportError:
         import deny_registry as deny_mod
     return jsonify(deny_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/clear.json")
+def well_known_clear():
+    try:
+        from gate import clear_ui as clear_mod
+    except ImportError:
+        import clear_ui as clear_mod
+    return jsonify(clear_mod.manifest(advertised_url()))
+
+
+@app.route("/clear")
+def clear_page():
+    try:
+        from gate import clear_ui as clear_mod
+    except ImportError:
+        import clear_ui as clear_mod
+    return render_template(
+        "clear.html",
+        rails=clear_mod.rails_for_ui(),
+        public_url=advertised_url(),
+    )
+
+
+@app.route("/v1/clear")
+def clear_api():
+    """One-word clearance over rail truth + deny registry."""
+    try:
+        from gate import clear_ui as clear_mod
+    except ImportError:
+        import clear_ui as clear_mod
+    rail = (request.args.get("rail") or "").strip()
+    payout_hash = (request.args.get("payout_hash") or "").strip().lower()
+    if rail:
+        body = clear_mod.clear_rail(rail)
+        if not body:
+            return jsonify({"error": "unknown_rail", "rail": rail}), 404
+        return jsonify(body)
+    if payout_hash:
+        if len(payout_hash) != 64:
+            return jsonify({"error": "payout_hash_must_be_sha256_hex"}), 400
+        return jsonify(clear_mod.clear_deny(payout_hash))
+    return jsonify(clear_mod.manifest(advertised_url()))
 
 
 @app.route("/v1/deny-registry/fingerprint", methods=["POST"])
@@ -3653,6 +3702,7 @@ def sitemap():
         "/",
         "/operator",
         "/live",
+        "/clear",
         "/register",
         "/pricing",
         "/trust",
@@ -3671,6 +3721,7 @@ def sitemap():
         "/.well-known/operator.json",
         "/.well-known/register.json",
         "/.well-known/live.json",
+        "/.well-known/clear.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -3689,12 +3740,14 @@ def llms_txt():
         "> Clearance before withdraw, payout, or bind. Fail closed under uncertainty. Independent verify.",
         "",
         f"- Home: {advertised_url()}/",
+        f"- Clear (one-word settlement): {advertised_url()}/clear",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
         f"- Bind Room: {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
+        f"- Clear JSON: {advertised_url()}/.well-known/clear.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Verify: https://velaru.xyz/verify",
@@ -3905,8 +3958,13 @@ def openapi_full():
                 "/diligence/one-pager.txt": {"get": {"summary": "Diligence one-pager plaintext"}},
                 "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},
                 "/operator": {"get": {"summary": "Weld checkout. One production write. Then max(floor, 10 bps, $0.10/hop)."}},
+                "/clear": {"get": {"summary": "One-word settlement truth — FINAL / REVERSIBLE / DENIED"}},
+                "/v1/clear": {"get": {"summary": "Clear API — ?rail= or ?payout_hash=", "security": []}},
+                "/.well-known/clear.json": {"get": {"summary": "Clear discovery manifest"}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
+                "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},
+                "/.well-known/deny-registry.json": {"get": {"summary": "Negative deny registry discovery"}},
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
