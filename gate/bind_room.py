@@ -2,8 +2,16 @@
 
 A) Officer pack (≤10 pages / SERFF-shaped) — titles on each Section 5 duty.
 B) On-request appendix — each bind event → verify_url + hop. Not the SERFF filing.
+
+Paid Bind Room redeems a production bind ticket (not /demo/) so the job_id
+lands on the spend map. Second lookup is SPENT.
 """
 from __future__ import annotations
+
+import os
+import uuid
+from datetime import datetime, timezone
+from typing import Any
 
 
 SECTION_5 = [
@@ -83,3 +91,99 @@ def exhibit_c_hitl(public_url: str) -> dict:
         "evidence_they_did": f"Appendix B verify_url per job_id from {public_url}/v1/pas/bind-appendix",
         "stop_the_system": "AM Best (NAIC 13 Aug 2026, discussion only): permissions, action logs, rollback, ability to stop.",
     }
+
+
+PRODUCT = "bind_room"
+FUSE_ID = "fuse_bind_room"
+FIRST_JOB_ID = "br:bind-room"
+
+
+def job_id_for_order(order: dict | None) -> str | None:
+    if not isinstance(order, dict):
+        return None
+    if (order.get("product") or "").strip() != PRODUCT:
+        return None
+    oid = (order.get("id") or "").strip()
+    if not oid:
+        return None
+    return f"br:{oid}"
+
+
+def commit_spend(*, job_id: str, redeem_url: str, fuse_id: str = FUSE_ID) -> dict[str, Any]:
+    """Issue + redeem on the production ticket path. Idempotent per job_id."""
+    try:
+        from gate import db
+        from gate import spend_protocol
+        from gate import ticket as ticket_mod
+    except ImportError:
+        import db
+        import spend_protocol
+        import ticket as ticket_mod
+
+    jid = (job_id or "").strip()
+    if not jid:
+        return {"ok": False, "reason": "job_id_required", "demo": False}
+    if jid in db.consumed_spend_job_ids():
+        return {
+            "ok": True,
+            "already": True,
+            "job_id": jid,
+            "spent": True,
+            "demo": False,
+            "word": "SPENT",
+        }
+    write = spend_protocol.write(job_id=jid)
+    event_id = str(uuid.uuid4())
+    issued = ticket_mod.issue(
+        job_id=jid,
+        fuse_id=(fuse_id or FUSE_ID),
+        event_id=event_id,
+        receipt_hash=None,
+        redeem_url=redeem_url,
+        spend_write=write,
+    )
+    if not issued or not isinstance(issued.get("bearer"), dict):
+        return {"ok": False, "reason": "ticket_unissued", "job_id": jid, "demo": False}
+    bearer = issued["bearer"]
+    result = ticket_mod.redeem(
+        ticket_id=str(bearer.get("ticket_id") or ""),
+        token=str(bearer.get("token") or ""),
+        job_id=jid,
+        method=write["method"],
+        path=write["path"],
+        spend_fingerprint=str(bearer.get("spend_fingerprint") or ""),
+        now=datetime.now(timezone.utc).isoformat(),
+    )
+    out = dict(result) if isinstance(result, dict) else {"ok": False, "reason": "redeem_failed"}
+    out["demo"] = False
+    out["job_id"] = jid
+    if out.get("ok"):
+        out["spent"] = True
+        out["word"] = "SPENT"
+        out["already"] = False
+    return out
+
+
+def commit_paid_order(order: dict | None, *, redeem_url: str) -> dict[str, Any] | None:
+    if not isinstance(order, dict):
+        return None
+    if (order.get("status") or "").strip() != "paid":
+        return None
+    jid = job_id_for_order(order)
+    if not jid:
+        return None
+    return commit_spend(job_id=jid, redeem_url=redeem_url)
+
+
+def maybe_seed_first_job(*, redeem_url: str) -> dict[str, Any] | None:
+    """First Bind Room leaf on Render when the map is still empty. Not a /demo/ call."""
+    if os.getenv("RENDER") != "true":
+        return None
+    try:
+        from gate import db
+    except ImportError:
+        import db
+
+    if db.consumed_spend_job_ids():
+        return None
+    return commit_spend(job_id=FIRST_JOB_ID, redeem_url=redeem_url)

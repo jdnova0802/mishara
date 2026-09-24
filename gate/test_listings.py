@@ -652,6 +652,39 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r.status_code, 302)
         self.assertIn("/install/success", r.headers.get("Location", ""))
 
+    def test_bind_room_paid_writes_spend_map_never_spent_twice(self):
+        import db as gate_db
+        from urllib.parse import parse_qs, urlparse
+
+        r = self.client.post(
+            "/bind-room/checkout",
+            data={"email": "cuo@example.test"},
+            follow_redirects=False,
+        )
+        self.assertIn(r.status_code, (302, 303))
+        loc = r.headers.get("Location", "")
+        self.assertIn("/install/success", loc)
+        session_id = parse_qs(urlparse(loc).query).get("session_id", [""])[0]
+        self.assertTrue(session_id)
+        order = dict(gate_db.get_install_order_by_session(session_id))
+        job_id = f"br:{order['id']}"
+        first = self.client.get(f"/v1/never?job_id={job_id}")
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(first.get_json()["word"], "SPENT")
+        self.assertTrue(first.get_json()["spent"])
+        self.assertFalse(first.get_json().get("their_production"))
+        second = self.client.get(f"/v1/never?job_id={job_id}")
+        self.assertEqual(second.get_json()["word"], "SPENT")
+        again = self.client.get(f"/v1/never?job_id={job_id}")
+        self.assertEqual(again.get_json()["word"], "SPENT")
+        job = self.client.get("/bind-room/job.json")
+        self.assertEqual(job.status_code, 200)
+        self.assertIn(job_id, job.get_json().get("job_ids") or [])
+        spec = self.client.get("/.well-known/spend-protocol.json").get_json()
+        self.assertEqual(spec["bind_room"]["redeem"].rstrip("/").split("/")[-1], "redeem")
+        self.assertIn("/v1/pas/bind-ticket/redeem", spec["bind_room"]["redeem"])
+        self.assertIn("/demo/", spec["bind_room"]["not_demo"])
+
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")
         self.assertEqual(r.status_code, 200)
@@ -3245,6 +3278,29 @@ class GoAndNeverUiTests(unittest.TestCase):
         sm = self.client.get("/sitemap.xml").get_data(as_text=True)
         self.assertIn("/go", sm)
         self.assertIn("/never", sm)
+
+    def test_bind_room_commit_spend_not_demo_second_lookup_spent(self):
+        import bind_room as bind_room_mod
+
+        job_id = "br:bind-room-isolated"
+        before = self.client.get(f"/v1/never?job_id={job_id}")
+        self.assertEqual(before.get_json()["word"], "NEVER")
+        out = bind_room_mod.commit_spend(
+            job_id=job_id,
+            redeem_url="https://gate.velaru.xyz/v1/pas/bind-ticket/redeem",
+        )
+        self.assertTrue(out.get("ok"))
+        self.assertFalse(out.get("demo"))
+        self.assertEqual(out.get("word"), "SPENT")
+        first = self.client.get(f"/v1/never?job_id={job_id}")
+        self.assertEqual(first.get_json()["word"], "SPENT")
+        second = self.client.get(f"/v1/never?job_id={job_id}")
+        self.assertEqual(second.get_json()["word"], "SPENT")
+        replay = bind_room_mod.commit_spend(
+            job_id=job_id,
+            redeem_url="https://gate.velaru.xyz/v1/pas/bind-ticket/redeem",
+        )
+        self.assertTrue(replay.get("already"))
 
 
 class MouthsPackTests(unittest.TestCase):

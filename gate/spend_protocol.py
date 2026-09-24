@@ -173,6 +173,13 @@ def spec(public_url: str) -> dict:
             "single_use": True,
             "stale_hop_cannot_spend": True,
         },
+        "bind_room": {
+            "job_id": "br:{install_order_id}",
+            "first_job_id": "br:bind-room",
+            "redeem": f"{base}/v1/pas/bind-ticket/redeem",
+            "not_demo": f"{base}/demo/pas/bind-ticket/redeem",
+            "status": f"{base}/bind-room/job.json",
+        },
         "redeem": {
             "path": f"{base}/v1/pas/bind-ticket/redeem",
             "required": ["ticket_id", "token", "job_id", "method", "path", "now"],
