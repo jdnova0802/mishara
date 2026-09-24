@@ -356,6 +356,11 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/go.json",
         "/.well-known/never.json",
         "/.well-known/prefinality.json",
+        "/.well-known/positive-clear.json",
+        "/.well-known/scenario-3.json",
+        "/.well-known/uapa-seal.json",
+        "/.well-known/admt.json",
+        "/.well-known/trusted-contact.json",
     }
 )
 
@@ -1452,6 +1457,11 @@ def well_known_gate():
             "never": f"{advertised_url()}/never",
             "never_json": f"{advertised_url()}/.well-known/never.json",
             "never_api": f"{advertised_url()}/v1/never",
+            "positive_clear": f"{advertised_url()}/positive-clear",
+            "scenario_3": f"{advertised_url()}/scenario-3",
+            "uapa_seal": f"{advertised_url()}/uapa-seal",
+            "admt": f"{advertised_url()}/admt",
+            "trusted_contact": f"{advertised_url()}/trusted-contact",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -2507,6 +2517,47 @@ def never_api():
     if not job_id:
         return jsonify(never_mod.manifest(advertised_url()))
     return jsonify(never_mod.clear_job(job_id))
+
+
+def _register_extra_mouths():
+    try:
+        from gate import mouths as mouths_mod
+    except ImportError:
+        import mouths as mouths_mod
+
+    def _bind(spec):
+        mid = spec["id"]
+
+        def page():
+            return render_template("mouth.html", mouth=spec, public_url=advertised_url())
+
+        def well_known():
+            return jsonify(mouths_mod.manifest(mid, advertised_url()))
+
+        def api():
+            if request.method == "GET":
+                return jsonify(mouths_mod.manifest(mid, advertised_url()))
+            ok, msg = demo_limit.allow_demo(request)
+            if not ok:
+                return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+            body = request.get_json(silent=True) or {}
+            blocked = fields.pii_error(body)
+            if blocked:
+                return blocked, 400
+            return jsonify(mouths_mod.evaluate(mid, body))
+
+        page.__name__ = f"mouth_page_{mid.replace('-', '_')}"
+        well_known.__name__ = f"mouth_wk_{mid.replace('-', '_')}"
+        api.__name__ = f"mouth_api_{mid.replace('-', '_')}"
+        app.add_url_rule(spec["route"], page.__name__, page)
+        app.add_url_rule(spec["wk"], well_known.__name__, well_known)
+        app.add_url_rule(spec["api"], api.__name__, api, methods=["GET", "POST"])
+
+    for spec in mouths_mod.MOUTHS:
+        _bind(spec)
+
+
+_register_extra_mouths()
 
 
 @app.route("/v1/prefinality/evaluate", methods=["POST"])
@@ -3817,6 +3868,11 @@ def sitemap():
         "/seal",
         "/go",
         "/never",
+        "/positive-clear",
+        "/scenario-3",
+        "/uapa-seal",
+        "/admt",
+        "/trusted-contact",
         "/register",
         "/pricing",
         "/trust",
@@ -3839,6 +3895,11 @@ def sitemap():
         "/.well-known/seal.json",
         "/.well-known/go.json",
         "/.well-known/never.json",
+        "/.well-known/positive-clear.json",
+        "/.well-known/scenario-3.json",
+        "/.well-known/uapa-seal.json",
+        "/.well-known/admt.json",
+        "/.well-known/trusted-contact.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -3861,6 +3922,11 @@ def llms_txt():
         f"- Seal (receipt holds?): {advertised_url()}/seal",
         f"- Go (may this commit?): {advertised_url()}/go",
         f"- Never (already spent?): {advertised_url()}/never",
+        f"- Positive Clear (may this unlock?): {advertised_url()}/positive-clear",
+        f"- Scenario 3 (FIN-2016-A003): {advertised_url()}/scenario-3",
+        f"- UAPA Seal (TCH post-send): {advertised_url()}/uapa-seal",
+        f"- ADMT (11 CCR § 7200(b)): {advertised_url()}/admt",
+        f"- Trusted Contact Hold: {advertised_url()}/trusted-contact",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -3871,6 +3937,7 @@ def llms_txt():
         f"- Seal JSON: {advertised_url()}/.well-known/seal.json",
         f"- Go JSON: {advertised_url()}/.well-known/go.json",
         f"- Never JSON: {advertised_url()}/.well-known/never.json",
+        f"- Positive Clear JSON: {advertised_url()}/.well-known/positive-clear.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Verify: https://velaru.xyz/verify",
@@ -4093,6 +4160,11 @@ def openapi_full():
                 "/never": {"get": {"summary": "One-word spend exclusion — NEVER / SPENT"}},
                 "/v1/never": {"get": {"summary": "Never API — ?job_id=", "security": []}},
                 "/.well-known/never.json": {"get": {"summary": "Never discovery manifest"}},
+                "/positive-clear": {"get": {"summary": "May this irreversible unlock proceed?"}},
+                "/scenario-3": {"get": {"summary": "FIN-2016-A003 Scenario 3 check"}},
+                "/uapa-seal": {"get": {"summary": "TCH UAPA post-send classification"}},
+                "/admt": {"get": {"summary": "CPPA ADMT significant-decision notice Seal"}},
+                "/trusted-contact": {"get": {"summary": "Unlock without sealed trusted-contact hold?"}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},

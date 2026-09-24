@@ -295,6 +295,11 @@ class FlaskListingTests(unittest.TestCase):
             "/seal",
             "/go",
             "/never",
+            "/positive-clear",
+            "/scenario-3",
+            "/uapa-seal",
+            "/admt",
+            "/trusted-contact",
             "/live",
             "/privacy",
             "/terms",
@@ -3217,6 +3222,88 @@ class GoAndNeverUiTests(unittest.TestCase):
         self.assertIn("/go", sm)
         self.assertIn("/never", sm)
 
+
+class MouthsPackTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        os.environ["GATE_DB_PATH"] = os.path.join(
+            tempfile.gettempdir(), f"gate-mouths-{uuid.uuid4().hex}.db"
+        )
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_pages_and_words(self):
+        for path in (
+            "/positive-clear",
+            "/scenario-3",
+            "/uapa-seal",
+            "/admt",
+            "/trusted-contact",
+        ):
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+            self.assertIn("Gate", r.get_data(as_text=True))
+
+        pc = self.client.post(
+            "/v1/positive-clear",
+            json={"kind": "mga_bind", "authority_live": "yes"},
+        )
+        self.assertEqual(pc.get_json()["word"], "PROCEED")
+
+        s3 = self.client.post(
+            "/v1/scenario-3",
+            json={
+                "known_supplier": True,
+                "email_only": True,
+                "new_account": True,
+                "name_mismatch": False,
+            },
+        )
+        self.assertEqual(s3.get_json()["word"], "MATCHES")
+        self.assertIn("FIN-2016-A003", s3.get_json()["advisory"])
+
+        uapa = self.client.post(
+            "/v1/uapa-seal",
+            json={
+                "already_sent": "yes",
+                "authorized": "yes",
+                "induced": "yes",
+                "rtp_native": "yes",
+            },
+        )
+        self.assertEqual(uapa.get_json()["word"], "REPORTABLE")
+
+        admt = self.client.post(
+            "/v1/admt",
+            json={
+                "decision_class": "financial",
+                "uses_admt": "yes",
+                "pre_use_notice": "no",
+            },
+        )
+        self.assertEqual(admt.get_json()["word"], "NOTICE DUE")
+        self.assertIn("7200", admt.get_json()["cite"])
+
+        miss = self.client.post("/v1/trusted-contact", json={"account_id": "acct-demo-1"})
+        self.assertEqual(miss.get_json()["word"], "NO HOLD")
+        sealed = self.client.post(
+            "/v1/trusted-contact",
+            json={"account_id": "acct-demo-1", "action": "seal"},
+        )
+        self.assertEqual(sealed.get_json()["word"], "HOLD")
+        again = self.client.post("/v1/trusted-contact", json={"account_id": "acct-demo-1"})
+        self.assertEqual(again.get_json()["word"], "HOLD")
+
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        for k in (
+            "positive_clear",
+            "scenario_3",
+            "uapa_seal",
+            "admt",
+            "trusted_contact",
+        ):
+            self.assertIn(k, gate)
 
 
 if __name__ == "__main__":

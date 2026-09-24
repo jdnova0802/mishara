@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}{{ mouth.title }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ mouth.lede }}">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --m-ink: #12141a;
+    --m-mute: #5c6573;
+    --m-line: #d5dae3;
+    --m-go: #0d7a4f;
+    --m-no: #b42318;
+    --m-hold: #9a6b00;
+    --m-serif: "Syne", system-ui, sans-serif;
+    --m-sans: "Figtree", system-ui, sans-serif;
+  }
+  .m-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(900px 400px at 85% -10%, #c8d8ef55, transparent 55%),
+      linear-gradient(180deg, #f7f8fb 0%, #eef1f6 100%);
+    color: var(--m-ink);
+    font-family: var(--m-sans);
+  }
+  .m-inner { max-width: 680px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .m-brand {
+    font-family: var(--m-serif);
+    font-size: clamp(2.4rem, 8vw, 4.2rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+  }
+  .m-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.34em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--m-mute);
+    margin-bottom: 0.55rem;
+  }
+  .m-lede { font-size: 1.08rem; color: var(--m-mute); max-width: 32rem; line-height: 1.45; margin: 0 0 1.4rem; }
+  .m-legend {
+    display: grid;
+    gap: 0.3rem 1rem;
+    grid-template-columns: auto 1fr;
+    font-size: 0.9rem;
+    color: var(--m-mute);
+    margin: 0 0 1.8rem;
+  }
+  .m-legend b { font-family: var(--m-serif); color: var(--m-ink); }
+  .m-form { display: grid; gap: 0.85rem; margin: 0 0 2rem; }
+  .m-form label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7a8494; }
+  .m-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .m-chips button, .m-check {
+    font-family: var(--m-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--m-ink);
+    background: transparent;
+    border: 1px solid var(--m-line);
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+  }
+  .m-chips button.is-on, .m-check.is-on { border-color: var(--m-ink); background: #fff; }
+  .m-form input[type=text] {
+    font-size: 0.95rem; padding: 0.7rem 0.8rem; border: 1px solid var(--m-line); width: 100%; box-sizing: border-box;
+  }
+  .m-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .m-submit {
+    font-family: var(--m-sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #fff; background: var(--m-ink); border: none; padding: 0.85rem 1.15rem; cursor: pointer;
+  }
+  .m-word {
+    font-family: var(--m-serif);
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    margin: 0 0 0.7rem;
+    min-height: 1.1em;
+  }
+  .m-word.go { color: var(--m-go); }
+  .m-word.no { color: var(--m-no); }
+  .m-word.hold { color: var(--m-hold); }
+  .m-plain { color: var(--m-mute); font-size: 1.02rem; max-width: 32rem; line-height: 1.5; min-height: 3rem; }
+  .m-foot { margin-top: 2.5rem; font-size: 0.75rem; color: #8b93a1; line-height: 1.5; }
+  .m-foot a { color: #5c6573; }
+</style>
+
+<div class="m-stage">
+  <div class="m-inner">
+    <h1 class="m-brand"><span>Gate</span>{{ mouth.brand }}</h1>
+    <p class="m-lede">{{ mouth.lede }}</p>
+    <div class="m-legend">
+      {% for w, p in mouth.legend %}
+      <b>{{ w }}</b><span>{{ p }}</span>
+      {% endfor %}
+    </div>
+
+    <form class="m-form" id="m-form">
+      {% for f in mouth.fields %}
+        <label>{{ f.label }}</label>
+        {% if f.type == 'chips' %}
+        <div class="m-chips" data-field="{{ f.name }}" role="group">
+          {% for o in f.options %}
+          <button type="button" data-val="{{ o.id }}">{{ o.label }}</button>
+          {% endfor %}
+        </div>
+        {% elif f.type == 'checks' %}
+        <div class="m-chips" data-checks="1">
+          {% for o in f.options %}
+          <button type="button" class="m-check" data-flag="{{ o.id }}">{{ o.label }}</button>
+          {% endfor %}
+        </div>
+        {% else %}
+        <input type="text" id="f-{{ f.name }}" name="{{ f.name }}" placeholder="{{ f.placeholder or '' }}" autocomplete="off" spellcheck="false">
+        {% endif %}
+      {% endfor %}
+      <div class="m-row">
+        <button type="submit" class="m-submit">{{ mouth.submit }}</button>
+        {% if mouth.alt_submit %}
+        <button type="button" class="m-submit" id="m-alt" data-action="{{ mouth.alt_submit.action }}">{{ mouth.alt_submit.label }}</button>
+        {% endif %}
+      </div>
+    </form>
+
+    <div class="m-word" id="m-word" aria-live="polite">—</div>
+    <p class="m-plain" id="m-plain">Fill it. One word.</p>
+    <p class="m-foot">
+      Nisaba · not legal advice
+      {% if mouth.source %} · {{ mouth.source }}{% endif %}
+      {% if mouth.source_url %} · <a href="{{ mouth.source_url }}" rel="noopener">source</a>{% endif %}
+    </p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const api = {{ mouth.api | tojson }};
+  const mouthId = {{ mouth.id | tojson }};
+  const chips = {};
+  document.querySelectorAll(".m-chips[data-field]").forEach(function (g) {
+    const name = g.getAttribute("data-field");
+    g.addEventListener("click", function (ev) {
+      const b = ev.target.closest("button[data-val]");
+      if (!b) return;
+      g.querySelectorAll("button").forEach(function (x) { x.classList.toggle("is-on", x === b); });
+      chips[name] = b.getAttribute("data-val");
+    });
+  });
+  document.querySelectorAll(".m-check").forEach(function (b) {
+    b.addEventListener("click", function () { b.classList.toggle("is-on"); });
+  });
+  const wordEl = document.getElementById("m-word");
+  const plainEl = document.getElementById("m-plain");
+  function tone(w) {
+    w = (w || "").toUpperCase();
+    if (mouthId === "trusted-contact" && w === "HOLD") return "go";
+    if (w === "HOLD" || w === "MISSING") return "hold";
+    if (/^(NO|FRAD|NOTICE DUE|DOES NOT MATCH|NO HOLD|NOT UAPA)$/.test(w)) return "no";
+    return "go";
+  }
+  function show(d) {
+    wordEl.className = "m-word " + tone(d.word);
+    wordEl.textContent = d.word || "—";
+    plainEl.textContent = d.plain || "";
+  }
+  function bodyFrom(action) {
+    const body = {};
+    Object.keys(chips).forEach(function (k) { body[k] = chips[k]; });
+    document.querySelectorAll(".m-check").forEach(function (b) {
+      body[b.getAttribute("data-flag")] = b.classList.contains("is-on");
+    });
+    document.querySelectorAll(".m-form input[type=text]").forEach(function (i) {
+      body[i.name] = i.value;
+    });
+    if (action) body.action = action;
+    return body;
+  }
+  async function send(action) {
+    show({ word: "…", plain: "Checking…" });
+    try {
+      const r = await fetch(api, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bodyFrom(action))
+      });
+      show(await r.json());
+    } catch (e) {
+      show({ word: "HOLD", plain: "Could not reach this mouth." });
+    }
+  }
+  document.getElementById("m-form").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    send();
+  });
+  const alt = document.getElementById("m-alt");
+  if (alt) alt.addEventListener("click", function () { send(alt.getAttribute("data-action")); });
+})();
+</script>
+{% endblock %}
