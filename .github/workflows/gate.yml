@@ -1,0 +1,62 @@
+name: Gate
+
+on:
+  push:
+    paths:
+      - "gate/**"
+      - ".github/workflows/gate.yml"
+  pull_request:
+    paths:
+      - "gate/**"
+      - ".github/workflows/gate.yml"
+
+jobs:
+  pre-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: SCVD battery + mouth verdicts + tonight's corrections
+        env:
+          GATE_DEV_MODE: "1"
+          GATE_SECRET_KEY: ci-secret
+          GATE_X402_DEMO_PAYTO: "0x00000000000000000000000000000000000000aa"
+        run: python -m unittest test_internal_verify.py -v
+      - name: Mouth pack + x402 GET 402 + DEMO_PAYTO
+        env:
+          GATE_DEV_MODE: "1"
+          GATE_SECRET_KEY: ci-secret
+        run: >
+          python -m unittest
+          test_listings.MouthsPackTests
+          test_listings.PrefinalityTests.test_prefinality_evaluate_402_when_payto_configured
+          test_listings.PrefinalityTests.test_prefinality_evaluate_get_402_when_payto_configured
+          test_listings.PrefinalityTests.test_payto_reads_demo_env
+          test_listings.BindRoomFlaskTests.test_bind_room_paid_writes_spend_map_never_spent_twice
+          -v
+
+  post-deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: pre-deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Live SCVD + mouth verdicts (retries while Render rolls)
+        env:
+          GATE_PUBLIC_URL: https://gate.velaru.xyz
+        run: python internal_verify.py --live https://gate.velaru.xyz

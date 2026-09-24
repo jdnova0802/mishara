@@ -36,6 +36,14 @@ check() {
   rm -f "$body"
 }
 
+# Verdicts + SCVD battery (not page-200). Catches 401-vs-402.
+if ! python3 "$(dirname "$0")/internal_verify.py" --live "$URL"; then
+  echo "FAIL internal-verify (SCVD battery or mouth verdicts)"
+  fail=1
+else
+  echo "OK   internal-verify"
+fi
+
 check health GET 200 "$URL/health"
 if curl -sS "$URL/health" | grep -Eq '"local"[[:space:]]*:[[:space:]]*true'; then
   echo "FAIL health advertises local=true"
