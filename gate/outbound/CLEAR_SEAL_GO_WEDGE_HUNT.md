@@ -5,9 +5,10 @@
 ## Filter (every candidate)
 
 1. Reduces to **“may this irreversible write proceed”** or **“did this happen / can a stranger verify it”** (Clear / Seal / Go / Never)
-2. Dated **2025–26 primary source** (statute, docket, regulator circular, Nacha/FPC rule, industry standard) — verified
+2. Dated **primary source** (statute, docket, regulator circular, Nacha/FPC rule, industry standard) — verified. **Include forward-effective dates** (rules already published that take effect later) — same class as FedNow/RTP May 2026 and Nacha Mar/Jun 2026. Future-dated *effective* clocks are in-scope; speculative vapor is not.
 3. Named **buyer class** who’d pay for the proof
 4. **No accredited verifier/monitor** already seated for that *exact* stranger-verifiable claim
+5. **Acronym hygiene:** expand on first use when letters collide with another industry (e.g. CL7 **AIS** = Artificial Intelligence Systems, **ECDIS** = External Consumer Data and Information Sources — never bare next to maritime AIS/ECDIS)
 
 **Deprioritize / flag separately:** needs new eng or new core capability → **new product**, not a wedge.
 
@@ -44,18 +45,24 @@ Credit-push fraud monitoring resource center: https://www.nacha.org/content/cred
 
 ---
 
-### 6) NYDFS Circular Letter No. 7 (2024) — AIS/ECDIS underwriting notice (15-day clock)
+### 6) NYDFS Circular Letter No. 7 (2024) — AI Systems / external-data underwriting notice (15-day clock)
 
-**Mouth:** Did the AIS/ECDIS path determine the applicant cannot be approved that way — and was the **written notice** (reasons) sealed within **15 days** so a stranger (DFS / applicant) can verify? Fail-closed = no silent drop to manual without notice.
+**Acronym discipline (do not bare-cite):** In CL7, **AIS = Artificial Intelligence Systems** and **ECDIS = External Consumer Data and Information Sources**.  
+**Not** maritime Automatic Identification System / Electronic Chart Display and Information System. Bare “AIS/ECDIS” is ambiguous — especially next to marine-insurance outbound — and must always be expanded on first use.
+
+**Mouth:** Did the **AI Systems / external-consumer-data** underwriting path determine the applicant cannot be approved that way — and was the **written notice** (reasons) issued within **15 days** so a stranger (DFS / applicant) can verify? Fail-closed = no silent drop to manual underwriting without notice.
 
 **Primary:** NYDFS Insurance Circular Letter No. 7 (2024), Jul 11, 2024 — https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07  
-Verbatim expectation: within 15 days of determination that applicant will not be approved under ECDIS/AIS process and can only obtain insurance via non-ECDIS/AIS process, insurer should provide written notice identifying reasons; failure may be unfair trade practice Art. 24.
+Definitions in letter: AIS = machine-based system for functions associated with human intelligence; ECDIS = data/information used to supplement traditional underwriting/pricing (etc.).  
+**Verbatim transparency clause:** “If an underwriting process utilizing ECDIS or AIS determines that an applicant will not be approved for insurance under this process and can only obtain insurance by submitting to a non ECDIS or AIS-based underwriting process, the applicant has the right to know why. **Within 15-days of such a determination** an insurer should provide notice to the applicant in writing … and the notice should identify the reason or reasons that the applicant cannot be underwritten for insurance using ECDIS or AIS. … An insurer’s failure to provide this notice may be considered an unfair trade practice under Insurance Law Article 24.”
 
-**Buyer:** NY-authorized life/P&C writers using AIS/ECDIS · CUO / compliance · underwriting-workbench vendors.
+**Buyer:** NY-authorized writers using AI Systems / external consumer data · CUO / compliance · underwriting-workbench vendors.
 
-**Verifier seated?** Market conduct exams exist; **no** product that stranger-verifies the 15-day AIS handoff receipt per decision. Adjacent to SB 1120 / insurance Diligence — extend insurance list, don’t invent health stack.
+**Verifier seated?** Market conduct exams exist; **no** product that stranger-verifies the 15-day AI-path handoff receipt per decision. Adjacent to SB 1120 / insurance Diligence — extend insurance list, don’t invent health/maritime stack.
 
-**Cash:** Medium-high — same Diligence SKU; NY writers already in your insurance orbit.
+**Cash:** Medium-high — same Diligence SKU; NY writers already in insurance orbit.
+
+**Correction note (2026-09-24):** A review correctly flagged bare “AIS/ECDIS” as conflatable with maritime nav acronyms. The **15-day mechanic is real in CL7** for insurance AI Systems / ECDIS — it is **not** a maritime provision. Fix = expand acronyms always; do not drop the wedge.
 
 ---
 
