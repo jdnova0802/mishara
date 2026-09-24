@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Trusted Contact Hold{% endblock %}
+{% block meta %}
+<meta name="description" content="Trusted Contact Hold — Seal before elder-fraud unlock. May funds or access release without a stranger-verifiable hold ticket? Reply REVIEW.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Trusted Contact Hold · unlock / elder fraud</p>
+  <h1>{{ copy.headline }}</h1>
+  <p class="audience-sub">{{ copy.sub }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
+    Free 72h memo · Reply <strong>REVIEW</strong> · same unlock mouth as
+    <a href="{{ url_for('positive_clear_page') }}">Positive Clear</a> — named module
+  </p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20Trusted%20Contact%20Hold">Email REVIEW</a>
+    <a class="btn btn-ghost" href="{{ url_for('trusted_contact_one_pager') }}">One-pager.txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('trusted_contact_offer_json') }}">offer.json</a>
+    <a class="btn btn-ghost" href="{{ url_for('positive_clear_page') }}">Positive Clear →</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Hold mouths</h3>
+      <p>Brokerage / RIA trusted-contact holds · bank elder-fraud payout delays · benefits release with nominated contact · family-office treasury unlock.</p>
+    </div>
+    <div class="card">
+      <h3>Architecture</h3>
+      <p>Reuses bind-ticket / Positive Clear unlock mouth. Clear / Seal / Go / Never before the release — not a new engine.</p>
+    </div>
+    <div class="card">
+      <h3>What you get</h3>
+      <p>72h map of one path: where unlock can still fire without a stranger-verifiable hold ticket (who was notified, when, what was blocked).</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

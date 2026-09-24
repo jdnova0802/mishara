@@ -91,6 +91,18 @@ try:
     from gate import scenario_3 as scenario_3_mod
 except ImportError:
     import scenario_3 as scenario_3_mod
+try:
+    from gate import uapa_seal as uapa_seal_mod
+except ImportError:
+    import uapa_seal as uapa_seal_mod
+try:
+    from gate import cppa_admt as cppa_admt_mod
+except ImportError:
+    import cppa_admt as cppa_admt_mod
+try:
+    from gate import trusted_contact as trusted_contact_mod
+except ImportError:
+    import trusted_contact as trusted_contact_mod
 
 try:
     from gate import operator_invoice as operator_mod
@@ -3379,6 +3391,66 @@ def scenario_3_offer_json():
 @app.route("/scenario-3/one-pager.txt")
 def scenario_3_one_pager():
     body = scenario_3_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/uapa-seal")
+def uapa_seal_page():
+    return render_template(
+        "uapa_seal.html",
+        copy=uapa_seal_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/uapa-seal/offer.json")
+def uapa_seal_offer_json():
+    return jsonify(uapa_seal_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/uapa-seal/one-pager.txt")
+def uapa_seal_one_pager():
+    body = uapa_seal_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/admt")
+def admt_page():
+    return render_template(
+        "admt.html",
+        copy=cppa_admt_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/admt/offer.json")
+def admt_offer_json():
+    return jsonify(cppa_admt_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/admt/one-pager.txt")
+def admt_one_pager():
+    body = cppa_admt_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/trusted-contact")
+def trusted_contact_page():
+    return render_template(
+        "trusted_contact.html",
+        copy=trusted_contact_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/trusted-contact/offer.json")
+def trusted_contact_offer_json():
+    return jsonify(trusted_contact_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/trusted-contact/one-pager.txt")
+def trusted_contact_one_pager():
+    body = trusted_contact_mod.one_pager(advertised_url(), CONTACT_EMAIL)
     return Response(body, mimetype="text/plain; charset=utf-8")
 
 

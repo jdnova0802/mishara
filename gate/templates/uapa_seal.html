@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}UAPA Seal · post-send classification{% endblock %}
+{% block meta %}
+<meta name="description" content="UAPA classification Seal — was this RTP transfer reportable under TCH UAPA? Stranger-verifiable receipt. Distinct from pre-push FedNow halt. Reply REVIEW.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">TCH UAPA · post-send Seal</p>
+  <h1>{{ copy.headline }}</h1>
+  <p class="audience-sub">{{ copy.sub }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
+    Free 72h memo · Reply <strong>REVIEW</strong> · code effective <strong>Mar 31, 2026</strong> ·
+    not the pre-push Never SKU
+  </p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20UAPA%20classification%20Seal">Email REVIEW</a>
+    <a class="btn btn-ghost" href="{{ url_for('uapa_seal_one_pager') }}">One-pager.txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('uapa_seal_offer_json') }}">offer.json</a>
+    <a class="btn btn-ghost" href="{{ url_for('diligence_page') }}">Pre-push Diligence →</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>What UAPA is</h3>
+      <p>TCH RTP Rules Interpretation (Oct 29, 2025): reason code <strong>UAPA</strong> = fraudulently induced RTP-native payment (impersonation / social engineering). Post-send reporting — camt.056 taxonomy.</p>
+    </div>
+    <div class="card">
+      <h3>What you get</h3>
+      <p>72h map of one instant-pay path: who decides FRAD vs UAPA vs neither, when, bound to which payment fingerprint — as a stranger-verifiable Seal.</p>
+    </div>
+    <div class="card">
+      <h3>What this is not</h3>
+      <p>Not pre-push Go/Never (FPC gap / halt before send). Not a TCH gateway. Classification Seal ≠ push Seal.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

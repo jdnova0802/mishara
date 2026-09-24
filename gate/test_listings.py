@@ -683,6 +683,44 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(one.status_code, 200)
         self.assertIn(b"REVIEW", one.data)
 
+    def test_uapa_seal_surfaces(self):
+        page = self.client.get("/uapa-seal")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(b"UAPA", page.data)
+        offer = self.client.get("/uapa-seal/offer.json")
+        self.assertEqual(offer.status_code, 200)
+        data = offer.get_json()
+        self.assertEqual(data["primary"]["code"], "UAPA")
+        self.assertEqual(data["direction"], "post_send_classification")
+        one = self.client.get("/uapa-seal/one-pager.txt")
+        self.assertEqual(one.status_code, 200)
+        self.assertIn(b"REVIEW", one.data)
+
+    def test_admt_surfaces(self):
+        page = self.client.get("/admt")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(b"7200", page.data)
+        offer = self.client.get("/admt/offer.json")
+        self.assertEqual(offer.status_code, 200)
+        data = offer.get_json()
+        self.assertEqual(data["tier"], "1")
+        self.assertIn("7200", data["primary"]["pin"])
+        one = self.client.get("/admt/one-pager.txt")
+        self.assertEqual(one.status_code, 200)
+        self.assertIn(b"January 1, 2027", one.data)
+
+    def test_trusted_contact_surfaces(self):
+        page = self.client.get("/trusted-contact")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(b"Trusted Contact", page.data)
+        offer = self.client.get("/trusted-contact/offer.json")
+        self.assertEqual(offer.status_code, 200)
+        data = offer.get_json()
+        self.assertEqual(data["direction"], "unlock_hold")
+        one = self.client.get("/trusted-contact/one-pager.txt")
+        self.assertEqual(one.status_code, 200)
+        self.assertIn(b"REVIEW", one.data)
+
     def test_bound_page_and_manifest(self):
         r = self.client.get("/bound")
         self.assertEqual(r.status_code, 200)
