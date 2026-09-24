@@ -3479,6 +3479,13 @@ class BuyerCredibilityTests(unittest.TestCase):
         self.assertIn("Surface updated", body)
         self.assertNotIn("their_production: false", body.lower())
 
+    def test_live_shows_surface_updated(self):
+        r = self.client.get("/live")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Surface updated", body)
+        self.assertNotIn("their_production: false", body.lower())
+
     def test_security_headers_on_home(self):
         r = self.client.get("/", headers={"X-Forwarded-Proto": "https"})
         self.assertEqual(r.headers.get("X-Content-Type-Options"), "nosniff")
