@@ -219,10 +219,11 @@ def wire_bundle(
         "deploy_checklist": [
             "Set GATE_X402_PAYTO (42-char 0x address) on your host — verify /health x402.configured true.",
             "Protect paid routes: return 402 when no Payment-Signature / X-Payment header.",
+            "Do not treat a bare payment header as paid until facilitator verify is implemented — Gate fail-closes that path.",
             "Publish /.well-known/x402 fan-out listing your paid resource URLs.",
             "Submit origin on x402scan (This URL only — not full openapi with dead routes).",
             "Optional: add AgentCash — npx agentcash add <your-origin>",
-            "Optional: pre-finality — POST /v1/prefinality/evaluate before irreversible commits.",
+            "Optional: pre-finality — POST /v1/prefinality/evaluate before irreversible commits; redeem GO receipt once at commit (replay rejected).",
         ],
         "audit_at_purchase": audit_block,
         "support": f"mailto:hello@velaru.xyz?subject=Wire%20{bundle_id}",
