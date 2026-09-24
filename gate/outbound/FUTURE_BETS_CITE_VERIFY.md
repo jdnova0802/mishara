@@ -16,11 +16,12 @@
 | FB-2 bill `SB 26-189` | **Correct.** Signed Act PDF caption: `SENATE BILL 26-189`. |
 | FB-2 Governor signed May 14, 2026 | **Correct.** leg.colorado.gov history: `05/14/2026 · Governor · Governor Signed`. Session laws: Effective Date `05/14/2026`, Chapter `131`. |
 | FB-2 “≤30 days” notice | **Mechanic correct; quote tighter.** Statute: **“WITHIN THIRTY DAYS AFTER MAKING THE DECISION”** (6-1-1704(3)). Prefer that wording over “≤30 days.” |
+| FB-2 *xAI v. Weiser* enforcement stay | **Real — confirmed on RECAP Doc 24.** Downgrade FB-2 to **Tier 1-contested**. Statute clock on books; AG enforcement stayed as to SB24-205 **and replacement legislation** (SB 26-189) until 14 days after PI ruling. |
 | FB-3 Reg (EU) **2026/1744** | **Correct OJ citation.** Consolidated AI Act lists ►M1: `REGULATION (EU) 2026/1744 … of 8 July 2026 \| L 1744 \| 1 \| 24.7.2026`. |
 | FB-3 Dec 2, 2027 → Annex III / Art 6(2) | **Correct.** |
-| FB-3 Aug 2, 2028 → Annex I / Art 6(1) | **Correct.** |
+| FB-3 Aug 2, 2028 → Annex I / Art 6(1) | **Correct.** (Already closed on primary this session — no open spot-check gap.) |
 
-**Outbound:** all three may stay. Soft-fix CO notice line to “within thirty days.” No drop.
+**Outbound:** FB-1 and FB-3 may ship as settled Tier 1 clocks. **FB-2 only with stay caveat** (or hold off Plan B copy until stay clears). Soft-fix CO notice line to “within thirty days.”
 
 ---
 
@@ -95,6 +96,33 @@ CONSEQUENTIAL DECISION;
 ```
 
 **Memo fix:** replace “≤30 days” with **“within thirty days”** (statutory words).
+
+### FB-2 addendum — *X. AI LLC v. Weiser* stay (2026-09-24)
+
+**Why it matters:** Claude correctly flagged that “Tier 1 = settled clock” overstates FB-2 while AG enforcement is stayed. Core statute facts still hold; **confidence tag must not**.
+
+**Primary:** Minute Order, Doc 24, filed **04/27/26**, D. Colo. **26-cv-01515-DDD-CYC**  
+RECAP: https://storage.courtlistener.com/recap/gov.uscourts.cod.253513/gov.uscourts.cod.253513.24.0.pdf  
+(Local: `/opt/cursor/artifacts/future-bets-verify/xai-weiser/doc24-minute-order.pdf`)
+
+**Verbatim (operative ordered ¶1):**
+
+```
+1. The defendant shall not initiate enforcement, including but not limited to
+the initiation of an investigation, for alleged violations of SB24-205 (or any
+legislation replacing or amending SB24-205 enacted during this legislative
+session) that occurred or may occur on or before 14 days after the date the
+Court issues a ruling on xAI’s forthcoming motion for a preliminary injunction
+in this case.
+```
+
+**Map to SB 26-189:** Signed May 14, 2026 as the repeal/replace of SB 24-205 → falls inside “any legislation replacing or amending SB24-205 enacted during this legislative session.”
+
+**Also ordered:** xAI’s PI motion due within **28 days after final adoption of rulemaking** on the (replacement) statute — enforcement pause can outlast the Jan 1, 2027 effective date.
+
+**Precision vs earlier proposed order (Doc 18-1, denied as moot):** Doc 18-1 limited stay language to enforcement “against Plaintiff X.AI, LLC.” **Doc 24 (granted) drops the party-only limiter** and stays AG initiation of enforcement for alleged violations of the covered statutes generally. Cite **Doc 24**, not Doc 18-1.
+
+**Outbound:** `on the books Jan 1, 2027; AG enforcement stayed pending xAI v. Weiser (1:26-cv-01515)` — or skip CO in copy until stay lifts.
 
 ---
 

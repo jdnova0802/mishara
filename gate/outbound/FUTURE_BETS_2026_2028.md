@@ -40,21 +40,33 @@ Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`
 
 ---
 
-### FB-2) Colorado SB 26-189 (Automated Decision-Making Technology) — **Jan 1, 2027**
+### FB-2) Colorado SB 26-189 (Automated Decision-Making Technology) — **Jan 1, 2027** ⚠️ **Tier 1-contested**
+
+**Confidence (downgraded from clean Tier 1):** Statute is enacted and the Jan 1, 2027 clock is **on the books** — but **AG enforcement is under an active federal stay** that explicitly covers successor legislation. **Not** the same certainty as FB-1 (CA ADMT). Do **not** pitch as a locked enforcement clock without the caveat. Prefer **Tier 1-contested** (or “Tier 1.5”) in any ranking table.
 
 **Mouth:** After covered ADMT materially influences a **consequential decision** with **adverse outcome**, was plain-language notice of ADMT’s role given **within thirty days**? Human review/reconsideration right — Seal the adverse path.
 
-**Primary (verified 2026-09-24 against Signed Act PDF — not the web summary):**  
+**Primary — statute (verified 2026-09-24 against Signed Act PDF):**  
 - Bill: **Senate Bill 26-189** · https://leg.colorado.gov/bills/sb26-189  
 - Signed Act PDF: https://leg.colorado.gov/bill_files/116489/download  
-- Governor Signed **05/14/2026** (bill history) · Session laws Ch. **131**, Effective Date **05/14/2026**  
+- Governor Signed **05/14/2026** (bill history) · Session laws Ch. **131**  
 - **SECTION 5:** act takes effect **January 1, 2027**; applies to consequential decisions on/after that date  
-- **C.R.S. 6-1-1704(3)** verbatim: deployer shall provide **“WITHIN THIRTY DAYS AFTER MAKING THE DECISION”** a plain-language description of the consequential decision and the role the covered ADMT played (adverse outcome).  
+- **C.R.S. 6-1-1704(3):** deployer shall provide **“WITHIN THIRTY DAYS AFTER MAKING THE DECISION”** plain-language description of decision + covered ADMT’s role (adverse outcome).
+
+**Primary — litigation cloud (verified 2026-09-24 against RECAP court PDF):**  
+- Case: *X. AI LLC v. Weiser*, D. Colo. **1:26-cv-01515-DDD-CYC** (US as plaintiff-intervenor)  
+- Docket: https://www.courtlistener.com/docket/73171074/x-ai-llc-v-weiser/  
+- **Minute Order (Doc 24), Apr 27, 2026** — RECAP: https://storage.courtlistener.com/recap/gov.uscourts.cod.253513/gov.uscourts.cod.253513.24.0.pdf  
+- **Ordered:** AG “shall not initiate enforcement, including but not limited to the initiation of an investigation, for alleged violations of **SB24-205 (or any legislation replacing or amending SB24-205 enacted during this legislative session)**” until **14 days after** the court rules on xAI’s forthcoming preliminary-injunction motion.  
+- SB 26-189 (signed May 14, 2026) **is** that replacement legislation → stay language reaches it.  
+- PI motion timing: within **28 days after final adoption of rulemaking** implementing the (replacement) statute — so enforcement can stay paused past the statutory effective date until rulemaking + PI resolve.  
 Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`
 
-**Buyer:** CO deployers of covered ADMT in employment / housing / lending / insurance / healthcare / education / gov benefits · developers selling into CO.
+**Outbound rule:** If used, say **“on the books Jan 1, 2027; AG enforcement stayed pending *xAI v. Weiser* (1:26-cv-01515)”** — never bare “Colorado requires by Jan 2027” as if uncontested.
 
-**Cash path:** Same Diligence ahead of 2027 — notice Seal on one consequential path.
+**Buyer:** CO deployers of covered ADMT · developers selling into CO — **weaker urgency** while stay holds; still useful as prep Diligence if buyer wants ahead-of-clock Seal.
+
+**Cash path:** Deprioritize vs FB-1 / live Nacha·FedNow wedges until stay lifts or PI denied.
 
 ---
 
@@ -114,7 +126,7 @@ https://www.mastercard.com/us/en/news-and-trends/stories/2026/verifiable-intent.
 |---------|----------|
 | **This week** | Insurance Fri bumps → Tue 10 |
 | **Next Plan B (live clocks)** | FedNow · Nacha False Pretenses · vendor-bank |
-| **Future-bet Diligence pipeline** | **FB-1 CA ADMT Jan 2027** · **FB-2 CO SB26-189 Jan 2027** · (EU logging Seal only) |
-| **Watch** | Tier 2 FinCEN final · Mastercard Verifiable Intent seating |
+| **Future-bet Diligence pipeline** | **FB-1 CA ADMT Jan 2027** (clean Tier 1) · FB-3 EU logging Seal · **FB-2 CO only with *xAI v. Weiser* stay caveat** (Tier 1-contested) |
+| **Watch** | *xAI v. Weiser* PI / rulemaking · Tier 2 FinCEN final · Mastercard Verifiable Intent seating |
 
-**Architecture note:** CA ADMT + CO SB26-189 + NYDFS CL7 + SB 1120 = **one decision-notice Seal atom** across states — same Clear/Seal mouth, staggered clocks.
+**Architecture note:** CA ADMT + CO SB26-189 + NYDFS CL7 + SB 1120 = **one decision-notice Seal atom** across states — same Clear/Seal mouth, staggered clocks. **CO urgency discounted** while Doc 24 stay holds.
