@@ -21,7 +21,7 @@
 | Insurance Bind / Diligence | Vesttoo dockets / Artemis | may bind / LOC treat-as-live |
 | Vendor bank-change / BEC | crime-bond callback practice | may ERP write / pay |
 | Agentic chargebacks | Visa Core Rules Apr 2026 | may agent purchase / dispute receipt |
-| FedNow / RTP APP | **U.S. Faster Payments Council** May 15, 2026 PDF | may irrevocable push |
+| FedNow / RTP APP | **U.S. Faster Payments Council** May 15, 2026 PDF + TCH **UAPA** Rules Interp. Oct 29, 2025 (Mar 31, 2026) | may irrevocable push |
 
 ---
 
@@ -95,7 +95,7 @@ Definitions in letter: AIS = machine-based system for functions associated with 
 1. FedNow/RTP (cite verified)  
 2. **Nacha False Pretenses ACH** (this dig)  
 3. Vendor-bank (already)  
-4. NYDFS CL7 / SB 1120 AIS notice (insurance orbit extension)  
+4. NYDFS CL7 / SB 1120 (**AI Systems** notice / UR) — insurance orbit extension  
 5. Chargebacks (mouth strong, cash slower)
 
 **Architecture note:** Nacha + FedNow + vendor-bank = **one atom, three labels**. That’s the high-value find type.

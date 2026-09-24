@@ -4,6 +4,8 @@
 
 **One line:** Before AP updates vendor bank details or releases ACH/wire, prove who authorized the change, what the agent/human was allowed to do, that out-of-band callback happened, and that a stranger can verify the receipt — or the write is NEVER.
 
+**Primary typology (depth pass 2026-09-24):** FinCEN **FIN-2016-A003 Scenario 3 — Criminal Impersonates a Supplier** (email → “new account number” → victim updates vendor payment master → wire to criminal). 2019 FinCEN BEC update still treats 2016 red flags as live. This wedge **is** Scenario 3 as a Clear/Seal/Never control. Details: `DEPTH_LAYER_PASS.md`.
+
 ---
 
 ## Why it fits Nisaba (architecture)

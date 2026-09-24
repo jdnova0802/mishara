@@ -8,6 +8,7 @@
 | Tier | Meaning | Outbound rule |
 |------|---------|----------------|
 | **1 (2026–2027)** | Law/rule **passed or finalized**; staged future effective date. Primary = statute/reg text + date. | May cite as settled clock |
+| **1-contested** | Passed/finalized **and** active litigation / enforcement stay clouds the clock | Cite statute **plus** stay/caveat — never bare “locked by DATE” |
 | **2 (2027–2028)** | Proposed / comment / one-chamber / roadmap. Real + citable. | Must say **proposed** — never pitch as settled |
 
 **Out of scope:** post-2028 · “analysts expect” with no dated primary.
@@ -30,7 +31,8 @@
 - § 7200(b) verbatim: use of ADMT for significant decisions **prior to Jan 1, 2027** → comply **no later than Jan 1, 2027**; use on/after → comply whenever using.  
 Approved text: https://www.cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf  
 Package: https://www.cppa.ca.gov/regulations/ccpa_updates.html  
-Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`
+Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`  
+**Depth (FSOR App. A):** Agency **added § 7200(b)** in response to comments seeking longer postponement — Jan 1, 2027 is the documented compromise date (`DEPTH_LAYER_PASS.md`).
 
 **Buyer:** CA businesses using ADMT for significant decisions · HR / lending / housing platforms · privacy counsel.
 

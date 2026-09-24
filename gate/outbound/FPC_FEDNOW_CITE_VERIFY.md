@@ -26,6 +26,14 @@ Press release title uses “U.S. Faster Payments Council (FPC)” — https://fa
 
 ---
 
+## Depth pass (2026-09-24) — Layer below FPC
+
+**Sibling primary (not a substitute):** The Clearing House *RTP Rules Interpretation — Fraud Reporting and Acting on Alerts* (issued Oct 29, 2025) under Operating Rule II.G. Creates reason code **UAPA** for fraudulently induced RTP-native payments (impersonation / social engineering / deceptive tactics), effective **Mar 31, 2026**; reporting timing tightens **Mar 1, 2027**. Local: `/opt/cursor/artifacts/depth-layer/fednow/`. Full write-up: `DEPTH_LAYER_PASS.md`.
+
+**Bar:** UAPA = **post-send network reporting**. Does **not** close the pre-push Clear/Seal gap FPC describes. Cite both: FPC (gap) + TCH UAPA (taxonomy).
+
+---
+
 ## Load-bearing verbatim (Context: Why Dispute Capabilities Matter)
 
 > Instant payments are credit-push and irrevocable. These characteristics support many valuable use cases but limit the types of recourse familiar from credit cards and other payment channels. Unauthorized fraud is addressed in the RTP® Network and the FedNow® Service rules, including application of Reg E where a consumer is involved. **Fraudulently induced authorized payments fall into regulatory gaps, and dispute handling across providers varies widely.**
