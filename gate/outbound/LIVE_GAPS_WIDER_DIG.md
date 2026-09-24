@@ -21,14 +21,17 @@
 
 ### 1) FedNow / RTP irrevocable push — “authorized but fraudulently induced”
 
-**Gap:** Instant credit-push is final. Faster Payments Council (May 15, 2026) *Instant Payments Fraud Dispute Resolution* principles: unauthorized fraud has rules; **APP / fraudulently induced authorized payments fall into regulatory gaps**; dispute handling varies. Control is **verify before the push**, not chargeback after.
+**Gap:** Instant credit-push is final. **U.S. Faster Payments Council (FPC)** — *not* the UK Bank of England Financial Policy Committee — published *Instant Payments Fraud Dispute Resolution: Guiding Principles for the U.S.* (release **May 15, 2026**; PDF dated May 2026). Primary PDF: https://fasterpaymentscouncil.org/userfiles/2080/FSWG_Instant%20Payments%20Fraud%20Dispute%20Resolution_05-15-2026%20Final.pdf · announce: https://fasterpaymentscouncil.org/blog/17139/U-S-Faster-Payments-Council-Releases-Guiding-Principles-for-Instant-Payments-Fraud-Dispute-Resolution
+
+**Verbatim (Context section):** “Instant payments are credit-push and irrevocable. … Unauthorized fraud is addressed in the RTP Network and the FedNow Service rules, including application of Reg E where a consumer is involved. **Fraudulently induced authorized payments fall into regulatory gaps**, and dispute handling across providers varies widely.” Scope explicitly includes “Authorized but fraudulently induced payments (APP scams)” on RTP + FedNow. Principles are **directional / industry-led**, not a regulator rulebook.
 
 **Gate shape:** Clear (what was authorized) · Seal (callback / account-validation receipt) · Go / Never before the RTP/FedNow send. Same mouth as vendor-bank + wire; `rail_truth` already distinguishes irreversible rails.
 
 **Buyer:** Community / regional banks rolling FedNow · mid-market AP / treasury · payment processors receiving RfP.  
-**Why no verifier seated:** Networks don’t sell stranger-verifiable pre-push mandate receipts; crime-bond still argues procedure, not sealed hop.  
+**Why no verifier seated:** FPC offers principles, not an accredited pre-push receipt product; networks don’t sell stranger-verifiable mandate seals.  
 **Cash fit:** High — same Diligence REVIEW SKU; banks already feel BEC pain.  
-**Recency:** May 2026 FPC principles · RTP rules refresh June 2026.
+**Recency:** May 15, 2026 FPC release · RTP operating rules refresh June 1, 2026.  
+**Outbound cite (safe):** `U.S. Faster Payments Council, Instant Payments Fraud Dispute Resolution (May 15, 2026)` — spell out the body once; never bare “FPC” alone (ambiguous with UK FPC).
 
 ---
 
