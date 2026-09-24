@@ -60,3 +60,12 @@ services:
         sync: false
       - key: GATE_META_PIXEL_ID
         sync: false
+      - key: GATE_RECEIPT_PRIVATE_KEY
+        sync: false
+      - key: GATE_RECEIPT_PUBLIC_KEY
+        sync: false
+      - key: GATE_X402_PAYTO
+        sync: false
+      - key: GATE_X402_FACILITATOR_URL
+        sync: false
+      # Fail closed: do not set GATE_X402_ACCEPT_UNVERIFIED outside GATE_DEV_MODE.

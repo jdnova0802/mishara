@@ -123,6 +123,7 @@ def commit_spend(*, job_id: str, redeem_url: str, fuse_id: str = FUSE_ID) -> dic
     jid = (job_id or "").strip()
     if not jid:
         return {"ok": False, "reason": "job_id_required", "demo": False}
+    # Fast path — still not the lock. Enforcement is consume_bind_ticket BEGIN IMMEDIATE.
     if jid in db.consumed_spend_job_ids():
         return {
             "ok": True,
@@ -161,6 +162,18 @@ def commit_spend(*, job_id: str, redeem_url: str, fuse_id: str = FUSE_ID) -> dic
         out["spent"] = True
         out["word"] = "SPENT"
         out["already"] = False
+        return out
+    # Concurrent commit_spend lost the job-level race — treat as already spent.
+    if out.get("reason") == "job_already_spent":
+        return {
+            "ok": True,
+            "already": True,
+            "job_id": jid,
+            "spent": True,
+            "demo": False,
+            "word": "SPENT",
+            "prior_ticket_id": out.get("prior_ticket_id"),
+        }
     return out
 
 

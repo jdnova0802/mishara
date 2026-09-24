@@ -366,6 +366,9 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/uapa-seal.json",
         "/.well-known/admt.json",
         "/.well-known/trusted-contact.json",
+        "/.well-known/fednow-prepush.json",
+        "/.well-known/nacha-false-pretenses.json",
+        "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
     }
 )
@@ -757,7 +760,10 @@ def health():
         "mass": f"{pub}/mass",
         "refusal": f"{pub}/refusal",
         "tattoo": f"{pub}/tattoo",
-        "x402": x402_challenge_mod.payto_debug(),
+        "x402": {
+            "configured": bool(x402_challenge_mod.payto_configured()),
+            # Do not leak env key names / lengths on public /health.
+        },
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
@@ -1563,6 +1569,9 @@ def well_known_gate():
             "uapa_seal": f"{advertised_url()}/uapa-seal",
             "admt": f"{advertised_url()}/admt",
             "trusted_contact": f"{advertised_url()}/trusted-contact",
+            "fednow_prepush": f"{advertised_url()}/fednow-prepush",
+            "nacha_false_pretenses": f"{advertised_url()}/nacha-false-pretenses",
+            "cl7_handoff": f"{advertised_url()}/cl7-handoff",
             "stair": f"{advertised_url()}/stair",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
@@ -2731,12 +2740,50 @@ def prefinality_evaluate():
             return jsonify(data), status, extra
         return jsonify(data), status
 
-    if x402_challenge_mod.payment_header_present(request.headers):
+    x402_pay = x402_challenge_mod.payment_verified(request.headers)
+    if x402_pay.get("ok"):
         data = run_prefinality_evaluate(body, account_id=None)
-        data["x402"] = {"paid": True, "note": "Payment header accepted; facilitator verify is phase 2."}
+        data["x402"] = {
+            "paid": True,
+            "verified": True,
+            "reason": x402_pay.get("reason"),
+            "note": x402_pay.get("note") or "Payment verified.",
+        }
         status = 200 if data.get("decision") == "GO" else 403 if data.get("decision") == "NO_GO" else 409
         bound.attach(data, status)
         return jsonify(data), status
+    if x402_challenge_mod.payment_header_present(request.headers):
+        # Header without verify — fail closed (do not unlock).
+        if x402_challenge_mod.payto_configured():
+            challenge = _prefinality_x402_challenge()
+            # Annotate why header was rejected.
+            if isinstance(challenge, tuple) and len(challenge) >= 1:
+                resp = challenge[0]
+                try:
+                    payload = resp.get_json(silent=True) if hasattr(resp, "get_json") else None
+                except Exception:
+                    payload = None
+                if isinstance(payload, dict):
+                    payload["x402_verify"] = {
+                        "ok": False,
+                        "reason": x402_pay.get("reason"),
+                        "note": x402_pay.get("note"),
+                    }
+                    return jsonify(payload), challenge[1] if len(challenge) > 1 else 402
+            return challenge
+        return (
+            jsonify(
+                {
+                    "error": {
+                        "type": "payment_error",
+                        "code": x402_pay.get("reason") or "facilitator_verify_required",
+                        "message": x402_pay.get("note")
+                        or "Payment header present but not verified. Fail closed.",
+                    }
+                }
+            ),
+            402,
+        )
 
     if x402_challenge_mod.payto_configured():
         return _prefinality_x402_challenge()
@@ -2826,17 +2873,23 @@ def x402_wire_paid():
         )
 
     resource = f"{advertised_url()}/api/x402/wire"
-    if x402_challenge_mod.payment_header_present(request.headers):
+    x402_pay = x402_challenge_mod.payment_verified(request.headers)
+    if x402_pay.get("ok"):
         bundle = x402_audit_mod.wire_bundle(
             domain=domain,
             email=email,
             public_url=advertised_url(),
             audit_url=audit_url,
         )
+        if isinstance(bundle, dict):
+            bundle["x402_verify"] = {
+                "verified": True,
+                "reason": x402_pay.get("reason"),
+            }
         return jsonify(bundle), 200
 
     if x402_challenge_mod.payto_configured():
-        return x402_challenge_mod.payment_required_response(
+        resp = x402_challenge_mod.payment_required_response(
             resource_url=resource,
             description=(
                 "x402 payment gate install bundle: Cloudflare worker, wrangler, openapi pattern, "
@@ -2845,6 +2898,29 @@ def x402_wire_paid():
             amount_atomic_override=x402_audit_mod.wire_amount_atomic(),
             bazaar_method="GET",
         )
+        # If a forged/unverified header was sent, say so — still 402, never unlock.
+        if x402_challenge_mod.payment_header_present(request.headers):
+            if isinstance(resp, tuple):
+                body = resp[0]
+                code = resp[1] if len(resp) > 1 else 402
+                headers = resp[2] if len(resp) > 2 else None
+            else:
+                body, code, headers = resp, 402, None
+            try:
+                payload = body.get_json(silent=True) if hasattr(body, "get_json") else None
+            except Exception:
+                payload = None
+            if isinstance(payload, dict):
+                payload["x402_verify"] = {
+                    "ok": False,
+                    "reason": x402_pay.get("reason"),
+                    "note": x402_pay.get("note"),
+                }
+                out = (jsonify(payload), code)
+                if headers:
+                    return out[0], out[1], headers
+                return out
+        return resp
 
     return (
         jsonify(
@@ -4042,6 +4118,9 @@ def sitemap():
         "/uapa-seal",
         "/admt",
         "/trusted-contact",
+        "/fednow-prepush",
+        "/nacha-false-pretenses",
+        "/cl7-handoff",
         "/stair",
         "/register",
         "/pricing",
@@ -4071,6 +4150,9 @@ def sitemap():
         "/.well-known/uapa-seal.json",
         "/.well-known/admt.json",
         "/.well-known/trusted-contact.json",
+        "/.well-known/fednow-prepush.json",
+        "/.well-known/nacha-false-pretenses.json",
+        "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/legal.json",
         "/openapi.json",
@@ -4099,6 +4181,9 @@ def llms_txt():
         f"- UAPA Seal (TCH post-send): {advertised_url()}/uapa-seal",
         f"- ADMT (11 CCR § 7200(b)): {advertised_url()}/admt",
         f"- Trusted Contact Hold: {advertised_url()}/trusted-contact",
+        f"- FedNow/RTP Pre-push (FPC May 15 2026): {advertised_url()}/fednow-prepush",
+        f"- Nacha False Pretenses (Phase 1/2 2026): {advertised_url()}/nacha-false-pretenses",
+        f"- CL7 AIS/ECDIS handoff Seal: {advertised_url()}/cl7-handoff",
         f"- Stair (occupied egress — we will not weld): {advertised_url()}/stair",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
@@ -4343,6 +4428,9 @@ def openapi_full():
                 "/uapa-seal": {"get": {"summary": "TCH UAPA post-send classification"}},
                 "/admt": {"get": {"summary": "CPPA ADMT significant-decision notice Seal"}},
                 "/trusted-contact": {"get": {"summary": "Unlock without sealed trusted-contact hold?"}},
+                "/fednow-prepush": {"get": {"summary": "May this irrevocable FedNow/RTP push proceed?"}},
+                "/nacha-false-pretenses": {"get": {"summary": "May this ACH credit proceed under False Pretenses risk?"}},
+                "/cl7-handoff": {"get": {"summary": "Was the AIS/ECDIS handoff noticed within 15 days?"}},
                 "/stair": {"get": {"summary": "Occupied egress — Gate will not weld fail-closed on that door"}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
