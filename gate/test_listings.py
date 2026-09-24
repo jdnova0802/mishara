@@ -2946,7 +2946,25 @@ class X402AuditWireTests(unittest.TestCase):
         self.assertEqual(accepts[0].get("amount"), "497000000")
 
     def test_wire_delivers_bundle_on_payment_header(self):
-        with mock.patch.object(gate_app.x402_challenge_mod, "payment_header_present", return_value=True):
+        # Header presence alone must NOT unlock — facilitator verify required.
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value="0x" + "11" * 20):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                forged = self.client.get(
+                    "/api/x402/wire",
+                    query_string={"domain": "example.com", "email": "a@example.com"},
+                    headers={"X-Payment": "not-a-real-payment"},
+                )
+        self.assertEqual(forged.status_code, 402)
+        self.assertEqual(
+            (forged.get_json() or {}).get("x402_verify", {}).get("ok"),
+            False,
+        )
+        # Verified path (dev escape mocked) still delivers.
+        with mock.patch.object(
+            gate_app.x402_challenge_mod,
+            "payment_verified",
+            return_value={"ok": True, "reason": "test_verified", "paid": True},
+        ):
             r = self.client.get(
                 "/api/x402/wire",
                 query_string={"domain": "example.com", "email": "a@example.com"},
@@ -3492,3 +3510,139 @@ class BuyerCredibilityTests(unittest.TestCase):
         self.assertEqual(r.headers.get("X-Frame-Options"), "DENY")
         self.assertTrue(r.headers.get("Content-Security-Policy"))
         self.assertTrue(r.headers.get("Strict-Transport-Security"))
+
+
+class RedTeamHardeningTests(unittest.TestCase):
+    """Adversarial fixes: x402 fail-closed; job-level single spend."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_x402_forged_header_does_not_unlock_prefinality(self):
+        payto = "0x" + "ab" * 20
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                r = self.client.post(
+                    "/v1/prefinality/evaluate",
+                    json={
+                        "rail": "x402",
+                        "transfer": {
+                            "amount": "0.002",
+                            "currency": "USDC",
+                            "counterparty": payto,
+                        },
+                        "mandate": {"agent_id": "rt", "max_amount": "1.00"},
+                    },
+                    headers={"Payment-Signature": "not-a-real-payment"},
+                )
+        self.assertEqual(r.status_code, 402)
+        body = r.get_json() or {}
+        self.assertNotEqual((body.get("x402") or {}).get("paid"), True)
+
+    def test_second_ticket_same_job_cannot_allow_bind(self):
+        import ticket as ticket_mod
+        import spend_protocol
+
+        jid = f"rt:job-{uuid.uuid4().hex[:10]}"
+        write = spend_protocol.write(job_id=jid)
+        a = ticket_mod.issue(
+            job_id=jid,
+            fuse_id="fuse_velaru_drill",
+            event_id=str(uuid.uuid4()),
+            receipt_hash=None,
+            redeem_url="https://example.test/redeem",
+            spend_write=write,
+        )
+        b = ticket_mod.issue(
+            job_id=jid,
+            fuse_id="fuse_velaru_drill",
+            event_id=str(uuid.uuid4()),
+            receipt_hash=None,
+            redeem_url="https://example.test/redeem",
+            spend_write=write,
+        )
+        now = __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
+        first = ticket_mod.redeem(
+            ticket_id=a["bearer"]["ticket_id"],
+            token=a["bearer"]["token"],
+            job_id=jid,
+            method=write["method"],
+            path=write["path"],
+            spend_fingerprint=a["bearer"]["spend_fingerprint"],
+            now=now,
+        )
+        self.assertTrue(first.get("ok"))
+        self.assertTrue(first.get("allow_bind"))
+        second = ticket_mod.redeem(
+            ticket_id=b["bearer"]["ticket_id"],
+            token=b["bearer"]["token"],
+            job_id=jid,
+            method=write["method"],
+            path=write["path"],
+            spend_fingerprint=b["bearer"]["spend_fingerprint"],
+            now=now,
+        )
+        self.assertFalse(second.get("ok"))
+        self.assertFalse(second.get("allow_bind"))
+        self.assertEqual(second.get("reason"), "job_already_spent")
+
+
+class NewMouthsShipTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_fednow_nacha_cl7_pages_and_evaluate(self):
+        for path in (
+            "/fednow-prepush",
+            "/nacha-false-pretenses",
+            "/cl7-handoff",
+            "/.well-known/fednow-prepush.json",
+            "/.well-known/nacha-false-pretenses.json",
+            "/.well-known/cl7-handoff.json",
+        ):
+            self.assertEqual(self.client.get(path).status_code, 200, path)
+
+        never = self.client.post(
+            "/v1/fednow-prepush",
+            json={
+                "rail": "fednow",
+                "payee_sealed": "no",
+                "first_time_payee": "no",
+                "fraud_suspected": "no",
+            },
+        )
+        self.assertEqual(never.status_code, 200)
+        self.assertEqual(never.get_json()["word"], "NEVER")
+
+        fp = self.client.post(
+            "/v1/nacha-false-pretenses",
+            json={
+                "role": "odfi",
+                "false_pretenses_suspected": "yes",
+                "who_what_payee_sealed": "no",
+            },
+        )
+        self.assertEqual(fp.get_json()["word"], "NEVER")
+
+        cl7 = self.client.post(
+            "/v1/cl7-handoff",
+            json={"ais_ecdis_handoff": "yes", "written_notice_15d": "no"},
+        )
+        self.assertEqual(cl7.get_json()["word"], "NEVER")
+
+        import mouths as mouths_mod
+
+        self.assertEqual(len(mouths_mod.PARKED_MOUTHS), 1)
+        self.assertEqual(mouths_mod.PARKED_MOUTHS[0]["id"], "visa-agentic-chargebacks")

@@ -57,6 +57,7 @@ def payto_configured() -> bool:
 
 
 def payment_header_present(headers) -> bool:
+    """True if a payment header is present. Presence is NOT payment."""
     if not headers:
         return False
     for key in (
@@ -69,6 +70,55 @@ def payment_header_present(headers) -> bool:
         if headers.get(key):
             return True
     return False
+
+
+def payment_verified(headers) -> dict:
+    """Fail closed: a payment header alone never unlocks a paid route.
+
+    Facilitator verify is required. Until GATE_X402_FACILITATOR_URL is wired
+    and returns ok, every call fails closed — including non-empty X-Payment.
+    Dev-only escape: GATE_X402_ACCEPT_UNVERIFIED=1 AND GATE_DEV_MODE=1.
+    """
+    if not payment_header_present(headers):
+        return {
+            "ok": False,
+            "reason": "payment_header_missing",
+            "paid": False,
+        }
+    facilitator = (os.getenv("GATE_X402_FACILITATOR_URL") or "").strip()
+    if facilitator:
+        # Placeholder for facilitator HTTP verify — fail closed if unset/unimplemented.
+        # Do not treat header bytes as proof.
+        return {
+            "ok": False,
+            "reason": "facilitator_verify_not_implemented",
+            "paid": False,
+            "facilitator_configured": True,
+            "note": "Facilitator URL is set but verify is not wired. Fail closed.",
+        }
+    accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
+        "1",
+        "true",
+        "TRUE",
+        "yes",
+    )
+    dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
+    if accept_unverified and dev:
+        return {
+            "ok": True,
+            "reason": "dev_unverified_accepted",
+            "paid": True,
+            "note": "DEV ONLY — header accepted without facilitator verify.",
+        }
+    return {
+        "ok": False,
+        "reason": "facilitator_verify_required",
+        "paid": False,
+        "note": (
+            "Payment header present but not verified. "
+            "Gate will not treat header presence as paid (phase-2 facilitator)."
+        ),
+    }
 
 
 def _bazaar_info(*, method: str = "POST") -> dict:  # noqa: ARG001 — method reserved for GET wire routes

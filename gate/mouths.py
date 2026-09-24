@@ -1,6 +1,8 @@
-"""Five extra Apple mouths — unlock, Scenario 3, UAPA, ADMT, trusted-contact.
+"""Extra Apple mouths — unlock, Scenario 3, UAPA, ADMT, trusted-contact,
+FedNow pre-push, Nacha False Pretenses, CL7 handoff, Stair.
 
-Sourced. One word. their_production stays false.
+Visa agentic chargebacks: PARKED (see PARKED_MOUTHS).
+their_production stays false on manifests; HTTP scrub omits when false.
 """
 
 from __future__ import annotations
@@ -358,6 +360,210 @@ def evaluate_stair(body: dict) -> dict[str, Any]:
     )
 
 
+def evaluate_fednow_prepush(body: dict) -> dict[str, Any]:
+    """FedNow/RTP irrevocable credit-push — pre-transaction Never mouth.
+
+    Cite: U.S. Faster Payments Council, Instant Payments Fraud Dispute Resolution
+    Guiding Principles (May 15, 2026). Directional industry guidance — not a Fed order.
+    """
+    src = (
+        "https://fasterpaymentscouncil.org/blog/17139/"
+        "U-S-Faster-Payments-Council-Releases-Guiding-Principles-for-Instant-Payments-Fraud-Dispute-Resolution"
+    )
+    rail = str(body.get("rail") or "").strip().lower()
+    payee_sealed = str(body.get("payee_sealed") or "").strip().lower()
+    first_time = str(body.get("first_time_payee") or "").strip().lower()
+    suspected = str(body.get("fraud_suspected") or "").strip().lower()
+    if rail not in ("fednow", "rtp"):
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "HOLD",
+            "Name the rail: FedNow or RTP. Empty is not a no.",
+            cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
+            source=src,
+        )
+    if payee_sealed not in ("yes", "no") or first_time not in ("yes", "no") or suspected not in (
+        "yes",
+        "no",
+    ):
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "HOLD",
+            "Need: payee sealed?, first-time payee?, fraud suspected? Unknown fails closed.",
+            rail=rail,
+            cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
+            source=src,
+        )
+    if suspected == "yes":
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "NEVER",
+            "Fraud suspected on an irrevocable credit-push. FPC Principle 6: sending FI may slow, limit, or reject.",
+            rail=rail,
+            cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
+            source=src,
+        )
+    if payee_sealed != "yes":
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "NEVER",
+            "Irrevocable push without a sealed payee/mandate check. Pre-transaction control missing (FPC Principle 5).",
+            rail=rail,
+            cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
+            source=src,
+        )
+    if first_time == "yes":
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "HOLD",
+            "First-time payee on irrevocable rail. Confirm of payee / risk prompt before push.",
+            rail=rail,
+            cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
+            source=src,
+        )
+    return _pack(
+        "gate-fednow-prepush-v1",
+        "CLEAR",
+        "Payee sealed, not first-time, no fraud flag — may this FedNow/RTP push proceed under that seal.",
+        rail=rail,
+        cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
+        source=src,
+        note="FPC principles are directional — not a binding Fed mandate.",
+    )
+
+
+def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
+    """ACH credit under Nacha False Pretenses risk — sibling of Scenario 3.
+
+    Cite: Nacha Risk Management Phase 1 (Mar 20, 2026) / Phase 2 (Jun 19, 2026).
+    Monitoring duty — not a mandatory pre-push Never rule; Gate still fail-closes on blank.
+    """
+    src = "https://www.nacha.org/news/new-nacha-risk-management-rules-now-effect"
+    role = str(body.get("role") or "").strip().lower()
+    suspected = str(body.get("false_pretenses_suspected") or "").strip().lower()
+    who_checked = str(body.get("who_what_payee_sealed") or "").strip().lower()
+    if role not in ("odfi", "rdfi", "originator"):
+        return _pack(
+            "gate-nacha-false-pretenses-v1",
+            "HOLD",
+            "Name the role: ODFI, RDFI, or Originator. Empty is not a no.",
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            source=src,
+        )
+    if suspected not in ("yes", "no") or who_checked not in ("yes", "no"):
+        return _pack(
+            "gate-nacha-false-pretenses-v1",
+            "HOLD",
+            "Need: False Pretenses suspected?, who/what/payee sealed? Unknown fails closed.",
+            role=role,
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            source=src,
+        )
+    if suspected == "yes" and who_checked != "yes":
+        return _pack(
+            "gate-nacha-false-pretenses-v1",
+            "NEVER",
+            "False Pretenses suspected (identity / authority / account ownership lie) without sealed who/what/payee.",
+            role=role,
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            source=src,
+            definition=(
+                "Inducement by misrepresenting identity, association/authority, "
+                "or ownership of the account to be credited."
+            ),
+        )
+    if suspected == "yes":
+        return _pack(
+            "gate-nacha-false-pretenses-v1",
+            "HOLD",
+            "Suspected False Pretenses with a sealed check on file — human review before ACH credit.",
+            role=role,
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            source=src,
+        )
+    return _pack(
+        "gate-nacha-false-pretenses-v1",
+        "CLEAR",
+        "No False Pretenses flag and who/what/payee sealed — may this ACH credit proceed under that seal.",
+        role=role,
+        cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+        source=src,
+        note="Nacha requires risk-based monitoring; it does not itself mandate a pre-posting Never.",
+    )
+
+
+def evaluate_cl7_handoff(body: dict) -> dict[str, Any]:
+    """NYDFS CL7 — AIS/ECDIS path → manual underwriting handoff notice Seal.
+
+    AIS = Artificial Intelligence Systems. ECDIS = External Consumer Data and
+    Information Sources (insurance — not maritime ECDIS).
+    Cite: NYDFS Insurance Circular Letter No. 7 (2024), July 11, 2024.
+    """
+    src = "https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07"
+    handoff = str(body.get("ais_ecdis_handoff") or "").strip().lower()
+    noticed = str(body.get("written_notice_15d") or "").strip().lower()
+    if handoff not in ("yes", "no"):
+        return _pack(
+            "gate-cl7-handoff-v1",
+            "HOLD",
+            "Did an AIS/ECDIS path hand the applicant to non-AIS underwriting? Empty is not a no.",
+            cite="NYDFS Insurance Circular Letter No. 7 (2024)",
+            source=src,
+            expand="AIS=Artificial Intelligence Systems; ECDIS=External Consumer Data and Information Sources (insurance).",
+        )
+    if handoff == "no":
+        return _pack(
+            "gate-cl7-handoff-v1",
+            "NOT THIS",
+            "No AIS/ECDIS → manual handoff. CL7 15-day notice clause does not attach.",
+            cite="NYDFS Insurance Circular Letter No. 7 (2024)",
+            source=src,
+        )
+    if noticed not in ("yes", "no"):
+        return _pack(
+            "gate-cl7-handoff-v1",
+            "HOLD",
+            "Handoff happened. Was written notice given within 15 days with reasons?",
+            cite="NYDFS Insurance Circular Letter No. 7 (2024)",
+            source=src,
+        )
+    if noticed == "yes":
+        return _pack(
+            "gate-cl7-handoff-v1",
+            "SEALED",
+            "AIS/ECDIS handoff noticed in writing within 15 days. Seal holds; continue non-AIS process.",
+            cite="NYDFS Insurance Circular Letter No. 7 (2024)",
+            source=src,
+        )
+    return _pack(
+        "gate-cl7-handoff-v1",
+        "NEVER",
+        "Silent drop from AIS/ECDIS path to manual — no written 15-day notice. CL7 says that may be an unfair trade practice.",
+        cite="NYDFS Insurance Circular Letter No. 7 (2024)",
+        source=src,
+    )
+
+
+# Parked — verified gap, not ready as a dispute SKU.
+# Visa Core Rules Apr 2026 §4.1.24 defines Agentic Payment Provider transactions and
+# cardholder responsibility for APP actions. §11 has no agentic dispute condition.
+# Do not ship a "Visa agentic chargeback" mouth on liability text alone.
+PARKED_MOUTHS = (
+    {
+        "id": "visa-agentic-chargebacks",
+        "status": "parked",
+        "reason": (
+            "Visa Core Rules (April 2026) §4.1.24 covers agentic payment providers and "
+            "cardholder responsibility; no agent-specific dispute/chargeback evidence "
+            "spec in §11. Park until a primary compelling-evidence dig lands — then "
+            "ship as pre-auth mandate Seal, not a fake Visa reason code."
+        ),
+        "cite": "Visa Core Rules / Product & Service Rules, Edition Apr 2026, effective 18 April 2026",
+        "source": "https://usa.visa.com/content/dam/VCOM/download/about-visa/visa-rules-public.pdf",
+    },
+)
+
+
 MOUTHS = (
     {
         "id": "positive-clear",
@@ -540,6 +746,168 @@ MOUTHS = (
         "source": "FINRA Rule 4512 trusted contact person. Same hold shape as a bind ticket.",
     },
     {
+        "id": "fednow-prepush",
+        "route": "/fednow-prepush",
+        "api": "/v1/fednow-prepush",
+        "wk": "/.well-known/fednow-prepush.json",
+        "fn": "evaluate_fednow_prepush",
+        "spec": "gate-fednow-prepush-v1",
+        "title": "FedNow / RTP Pre-push",
+        "brand": "FedNow Pre-push",
+        "lede": "May this irrevocable FedNow or RTP credit-push proceed?",
+        "legend": (
+            ("CLEAR", "Payee sealed, not first-time, no fraud flag."),
+            ("NEVER", "Suspected fraud or no sealed payee — do not push."),
+            ("HOLD", "First-time payee or missing fields. Fail closed."),
+        ),
+        "words": ["CLEAR", "NEVER", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "rail",
+                "label": "Rail",
+                "type": "chips",
+                "options": [
+                    {"id": "fednow", "label": "FedNow"},
+                    {"id": "rtp", "label": "RTP"},
+                ],
+            },
+            {
+                "name": "payee_sealed",
+                "label": "Payee / mandate sealed?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "first_time_payee",
+                "label": "First-time payee?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "fraud_suspected",
+                "label": "Fraud suspected?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+        ],
+        "source": (
+            "U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution "
+            "Guiding Principles (May 15, 2026). Directional — not a Fed order."
+        ),
+        "source_url": (
+            "https://fasterpaymentscouncil.org/blog/17139/"
+            "U-S-Faster-Payments-Council-Releases-Guiding-Principles-for-Instant-Payments-Fraud-Dispute-Resolution"
+        ),
+    },
+    {
+        "id": "nacha-false-pretenses",
+        "route": "/nacha-false-pretenses",
+        "api": "/v1/nacha-false-pretenses",
+        "wk": "/.well-known/nacha-false-pretenses.json",
+        "fn": "evaluate_nacha_false_pretenses",
+        "spec": "gate-nacha-false-pretenses-v1",
+        "title": "Nacha False Pretenses",
+        "brand": "False Pretenses",
+        "lede": "May this ACH credit proceed under False Pretenses risk?",
+        "legend": (
+            ("CLEAR", "No FP flag; who/what/payee sealed."),
+            ("NEVER", "FP suspected without sealed who/what/payee."),
+            ("HOLD", "Suspected with seal — review, or missing fields."),
+        ),
+        "words": ["CLEAR", "NEVER", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "role",
+                "label": "Role",
+                "type": "chips",
+                "options": [
+                    {"id": "odfi", "label": "ODFI"},
+                    {"id": "rdfi", "label": "RDFI"},
+                    {"id": "originator", "label": "Originator"},
+                ],
+            },
+            {
+                "name": "false_pretenses_suspected",
+                "label": "False Pretenses suspected?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "who_what_payee_sealed",
+                "label": "Who / what / payee sealed?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+        ],
+        "source": (
+            "Nacha Risk Management — False Pretenses. Phase 1 live Mar 20 2026; "
+            "Phase 2 Jun 19 2026. Monitoring duty — not itself a pre-push mandate."
+        ),
+        "source_url": "https://www.nacha.org/news/new-nacha-risk-management-rules-now-effect",
+    },
+    {
+        "id": "cl7-handoff",
+        "route": "/cl7-handoff",
+        "api": "/v1/cl7-handoff",
+        "wk": "/.well-known/cl7-handoff.json",
+        "fn": "evaluate_cl7_handoff",
+        "spec": "gate-cl7-handoff-v1",
+        "title": "CL7 AIS/ECDIS Handoff",
+        "brand": "CL7 Handoff",
+        "lede": "Was the AIS/ECDIS → manual handoff noticed in writing within 15 days?",
+        "legend": (
+            ("SEALED", "Written notice within 15 days — seal holds."),
+            ("NEVER", "Silent drop to manual — notice missing."),
+            ("NOT THIS", "No AIS/ECDIS handoff."),
+            ("HOLD", "Missing fields. Fail closed."),
+        ),
+        "words": ["SEALED", "NEVER", "NOT THIS", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "ais_ecdis_handoff",
+                "label": "AIS/ECDIS path handed off to manual?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "written_notice_15d",
+                "label": "Written notice within 15 days?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+        ],
+        "source": (
+            "NYDFS Insurance Circular Letter No. 7 (2024). "
+            "AIS=Artificial Intelligence Systems; ECDIS=External Consumer Data and "
+            "Information Sources (insurance — not maritime)."
+        ),
+        "source_url": "https://www.dfs.ny.gov/industry-guidance/circular-letters/cl2024-07",
+    },
+    {
         "id": "stair",
         "route": "/stair",
         "api": "/v1/stair",
@@ -587,6 +955,9 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "uapa-seal": evaluate_uapa,
         "admt": evaluate_admt,
         "trusted-contact": evaluate_trusted_contact,
+        "fednow-prepush": evaluate_fednow_prepush,
+        "nacha-false-pretenses": evaluate_nacha_false_pretenses,
+        "cl7-handoff": evaluate_cl7_handoff,
         "stair": evaluate_stair,
     }[mid]
     return fn(body if isinstance(body, dict) else {})

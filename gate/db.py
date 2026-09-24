@@ -696,6 +696,8 @@ def consume_bind_ticket(
     counterpart_fingerprint: str | None = None,
 ) -> dict:
     with db() as conn:
+        # Serialize spend races: one job_id, one consumed ticket, ever.
+        conn.execute("BEGIN IMMEDIATE")
         row = conn.execute("SELECT * FROM bind_tickets WHERE id = ?", (ticket_id,)).fetchone()
         if not row:
             return {"ok": False, "reason": "ticket_not_found"}
@@ -703,6 +705,15 @@ def consume_bind_ticket(
             return {"ok": False, "reason": "ticket_token_mismatch"}
         if row["job_id"] != job_id:
             return {"ok": False, "reason": "ticket_job_mismatch"}
+        # Job-level exclusivity — a second ticket for the same job must not allow_bind.
+        prior = conn.execute(
+            """SELECT id FROM bind_tickets
+               WHERE job_id = ? AND consumed_at IS NOT NULL AND id != ?
+               LIMIT 1""",
+            (job_id, ticket_id),
+        ).fetchone()
+        if prior:
+            return {"ok": False, "reason": "job_already_spent", "prior_ticket_id": prior["id"]}
         issued_fp = ""
         try:
             issued_fp = (row["spend_fingerprint"] or "").strip()
