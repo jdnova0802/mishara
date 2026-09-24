@@ -1,7 +1,8 @@
-# Backup wave — 72h diligence (free REVIEW)
+# Backup wave — 72h diligence (free REVIEW) — Plan A four
 
 Use **only if Friday bumps on the Tuesday wave stay silent.**  
 Send order: Porch → Incline → Clear Blue → Gallagher (space Gallagher from Porch — same fact pattern).  
+**Same Tuesday:** also send Plan B six in `PLAN_B_FAST_6.md` → **10 total**. Log in `SENT_TALLY.md`.  
 Offer: free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
 Not legal advice. Public facts only.
 
