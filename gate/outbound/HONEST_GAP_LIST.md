@@ -10,7 +10,7 @@
 | # | SKU | Status |
 |---|-----|--------|
 | 1 | **Positive Clear** (unlock) | `/positive-clear` |
-| 2 | **FIN-2016-A003 Scenario 3 Check** | `/scenario-3` |
+| 2 | **FIN-2016-A003 Scenario 3 Check** | `/scenario-3` + **live gate** `/demo/scenario-3/pre-change` |
 | 3 | **UAPA classification Seal** (post-send) | `/uapa-seal` |
 
 See `POSITIVE_CLEAR_SHIPPED.md` · `PACKAGING_BATCH_SHIPPED.md`.
