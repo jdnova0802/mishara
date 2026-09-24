@@ -13,20 +13,36 @@ NETWORK_BASE = "eip155:8453"
 DEFAULT_AMOUNT_ATOMIC = "2000"  # $0.002 USDC (6 decimals)
 
 
+_PAYTO_ENVS = (
+    "GATE_X402_PAYTO",
+    "GATE_X402_PAY_TO",
+    "GATE_X402_DEMO_PAYTO",  # production currently has this name; crawlers still need a 402
+)
+
+
 def payto() -> str | None:
-    raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip().strip('"').strip("'")
-    if raw.startswith("0x") and len(raw) == 42:
-        return raw
+    for key in _PAYTO_ENVS:
+        raw = (os.getenv(key) or "").strip().strip('"').strip("'")
+        if raw.startswith("0x") and len(raw) == 42:
+            return raw
     return None
 
 
 def payto_debug() -> dict:
-    raw = (os.getenv("GATE_X402_PAYTO") or os.getenv("GATE_X402_PAY_TO") or "").strip()
-    configured = payto() is not None
+    pt = payto()
+    raw = ""
+    source = None
+    for key in _PAYTO_ENVS:
+        candidate = (os.getenv(key) or "").strip()
+        if candidate:
+            raw = candidate
+            source = key
+            break
     return {
-        "configured": configured,
+        "configured": pt is not None,
         "env_set": bool(raw),
         "env_len": len(raw),
+        "env_key": source,
         "valid_len": len(raw.strip('"').strip("'")) == 42 if raw else False,
     }
 

@@ -2815,6 +2815,29 @@ class PrefinalityTests(FlaskListingTests):
         accepts = data.get("accepts") or []
         self.assertTrue(accepts)
         self.assertEqual(accepts[0].get("payTo"), payto)
+        self.assertIn("Payment-Required", r.headers)
+
+    def test_prefinality_evaluate_get_402_when_payto_configured(self):
+        payto = "0x00000000000000000000000000000000000000aa"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                r = self.client.get("/v1/prefinality/evaluate")
+        self.assertEqual(r.status_code, 402)
+        self.assertEqual((r.get_json().get("accepts") or [{}])[0].get("payTo"), payto)
+        self.assertIn("Payment-Required", r.headers)
+
+    def test_payto_reads_demo_env(self):
+        payto = "0x00000000000000000000000000000000000000aa"
+        with mock.patch.dict(
+            os.environ,
+            {"GATE_X402_PAYTO": "", "GATE_X402_PAY_TO": "", "GATE_X402_DEMO_PAYTO": payto},
+            clear=False,
+        ):
+            self.assertEqual(gate_app.x402_challenge_mod.payto(), payto)
+            self.assertTrue(gate_app.x402_challenge_mod.payto_configured())
+            dbg = gate_app.x402_challenge_mod.payto_debug()
+            self.assertTrue(dbg["configured"])
+            self.assertEqual(dbg["env_key"], "GATE_X402_DEMO_PAYTO")
 
 
 class X402AuditWireTests(unittest.TestCase):

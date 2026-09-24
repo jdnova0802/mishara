@@ -2560,8 +2560,40 @@ def _register_extra_mouths():
 _register_extra_mouths()
 
 
-@app.route("/v1/prefinality/evaluate", methods=["POST"])
+def _prefinality_x402_challenge():
+    return x402_challenge_mod.payment_required_response(
+        resource_url=f"{advertised_url()}/v1/prefinality/evaluate",
+        description=(
+            "Pre-finality GO/NO-GO before irreversible commit. "
+            "Returns signed Ed25519 JWT receipt bound to transfer fingerprint. "
+            "Fail closed on routing anomaly, injection destination, amount cap."
+        ),
+    )
+
+
+@app.route("/v1/prefinality/evaluate", methods=["GET", "POST"])
 def prefinality_evaluate():
+    if request.method == "GET":
+        if x402_challenge_mod.payto_configured():
+            return _prefinality_x402_challenge()
+        return (
+            jsonify(
+                {
+                    "error": {
+                        "type": "authentication_error",
+                        "code": "payment_or_api_key_required",
+                        "message": (
+                            "Provide Gate API key (Bearer gate_sk_live_...) or pay via x402. "
+                            "Free demo: POST /demo/prefinality/evaluate"
+                        ),
+                        "demo_url": f"{advertised_url()}/demo/prefinality/evaluate",
+                        "request_id": f"req_{uuid.uuid4().hex[:16]}",
+                    }
+                }
+            ),
+            401,
+        )
+
     body = request.get_json(silent=True) or {}
     blocked = fields.pii_error(body)
     if blocked:
@@ -2596,14 +2628,7 @@ def prefinality_evaluate():
         return jsonify(data), status
 
     if x402_challenge_mod.payto_configured():
-        return x402_challenge_mod.payment_required_response(
-            resource_url=f"{advertised_url()}/v1/prefinality/evaluate",
-            description=(
-                "Pre-finality GO/NO-GO before irreversible commit. "
-                "Returns signed Ed25519 JWT receipt bound to transfer fingerprint. "
-                "Fail closed on routing anomaly, injection destination, amount cap."
-            ),
-        )
+        return _prefinality_x402_challenge()
 
     return (
         jsonify(
@@ -4038,6 +4063,11 @@ def openapi_full():
                 "/v1/act": {"post": {"summary": "Welded closed-world act — hop first, DEAD never acts", "security": [{"BearerAuth": []}]}},
                 "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo. fuse_id + job ids only.", "security": [{"BearerAuth": []}]}},
                 "/v1/prefinality/evaluate": {
+                    "get": {
+                        "summary": "x402 payment challenge (unpaid GET)",
+                        "security": [],
+                        "responses": {"402": {"description": "x402 USDC payment required on Base"}},
+                    },
                     "post": {
                         "summary": "Pre-finality GO/NO-GO + signed JWT receipt (x402 or rtp)",
                         "description": (
