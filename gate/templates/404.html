@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Not found{% endblock %}
+{% block meta %}
+<meta name="description" content="That path is not on Gate. Clearance before irreversible payout, withdraw, and bind.">
+<meta name="robots" content="noindex">
+{% endblock %}
+{% block content %}
+<div class="container section" style="max-width: 36rem; padding-top: 4rem; padding-bottom: 4rem;">
+  <p class="audience-tag">Gate · Nisaba LLC</p>
+  <h1 style="font-size: clamp(2rem, 5vw, 2.75rem); letter-spacing: -0.02em; margin-bottom: 0.75rem;">
+    This path is not on the desk.
+  </h1>
+  <p style="color: var(--muted); line-height: 1.55; margin-bottom: 1.75rem;">
+    <code style="font-size: 0.85em;">{{ path }}</code> does not resolve.
+    Clearance lives on named doors — Bind Room, weld, Live, Trust — not a catch-all.
+  </p>
+  <div class="hero-actions" style="justify-content: flex-start; flex-wrap: wrap; gap: 0.5rem;">
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Home</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-ghost">Bind Room</a>
+    <a href="{{ url_for('live_page') }}" class="btn btn-ghost">Live</a>
+    <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
+  </div>
+  <p style="margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem;">
+    Surface updated {{ surface.updated_label }} ·
+    <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+  </p>
+</div>
+{% endblock %}

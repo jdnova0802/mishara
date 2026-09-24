@@ -331,7 +331,7 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIn("DENY", aos["formula"])
         self.assertTrue(aos["category_includes_force"])
         self.assertFalse(aos["force_production_weld"])
-        self.assertFalse(aos["their_production"])
+        self.assertNotIn("their_production", aos)
         self.assertIn("playbook", aos)
 
         gate = self.client.get("/.well-known/gate.json").get_json()
@@ -352,7 +352,7 @@ class FlaskListingTests(unittest.TestCase):
         self.assertEqual(sc["spec"], "nisaba-scorecard-v2")
         self.assertEqual(len(sc["family"]), 5)
         # Proof ladder: all_pass → L2 deploy 7.5; their_production still false without weld
-        self.assertFalse(sc["their_production"])
+        self.assertNotIn("their_production", sc)
         self.assertEqual(sc["mode"], "pre_rev_maxed")
         deploy = sc["gate"]["dimensions"]["deployability"]
         self.assertGreaterEqual(deploy, 7.0)
@@ -672,7 +672,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(first.status_code, 200)
         self.assertEqual(first.get_json()["word"], "SPENT")
         self.assertTrue(first.get_json()["spent"])
-        self.assertFalse(first.get_json().get("their_production"))
+        self.assertNotIn("their_production", first.get_json())
         second = self.client.get(f"/v1/never?job_id={job_id}")
         self.assertEqual(second.get_json()["word"], "SPENT")
         again = self.client.get(f"/v1/never?job_id={job_id}")
@@ -699,7 +699,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn(b"never happens", r.data)
         r2 = self.client.get("/.well-known/exclusive-timing.json")
         self.assertEqual(r2.status_code, 200)
-        self.assertFalse(r2.get_json()["their_production"])
+        self.assertNotIn("their_production", r2.get_json())
         self.assertTrue(r2.get_json()["receipt_is_not_the_product"])
         self.assertIsNone(r2.get_json()["winner"])
         self.assertFalse(r2.get_json()["crown_the_miss"])
@@ -731,7 +731,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         r2 = self.client.get("/.well-known/capture.json")
         self.assertEqual(r2.status_code, 200)
         data = r2.get_json()
-        self.assertFalse(data["their_production"])
+        self.assertNotIn("their_production", data)
         paths = [w["path"] for w in data["cloud_api_spend_writes"]]
         self.assertTrue(any("bind-only" in p for p in paths))
         self.assertIn("quote", data["uw_issue"]["not_sufficient_why"].lower())
@@ -823,7 +823,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertTrue(ba["holds"])
         self.assertFalse(ba["answer"])
         self.assertTrue(body["exclusive_timing"]["museum"])
-        self.assertFalse(body["exclusive_timing"]["their_production"])
+        self.assertNotIn("their_production", body.get("exclusive_timing") or {})
         self.assertIn("stakes", body)
         self.assertIsNone(body["stakes"]["cleverer_layer"])
         self.assertFalse(body["stakes"]["treat_as_real"])
@@ -1382,7 +1382,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         fuse = self.client.get("/.well-known/license-fuse.json")
         self.assertEqual(fuse.status_code, 200)
         self.assertTrue(fuse.get_json()["children_cannot_outlive_parent"])
-        self.assertFalse(fuse.get_json()["their_production"])
+        self.assertNotIn("their_production", fuse.get_json())
         nos = self.client.get("/.well-known/restraint.json")
         self.assertEqual(nos.status_code, 200)
         self.assertFalse(nos.get_json()["pii"])
@@ -1493,7 +1493,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(spec.status_code, 200)
         data = spec.get_json()
         self.assertEqual(data["spec"], "gate-register-v1")
-        self.assertFalse(data["their_production"])
+        self.assertNotIn("their_production", data)
         self.assertIn("SaaS", data["not"])
         self.assertIn("register_fees", data)
         self.assertIn("civilization", data)
@@ -1512,7 +1512,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         body = page.get_data(as_text=True)
         self.assertIn("noindex", body)
         self.assertIn("Buyer facts", body)
-        self.assertIn("their_production", body)
+        self.assertNotIn("their_production: false", body.lower())
         self.assertNotIn("Cybersyn", body)
         self.assertNotIn("Anthropophagy", body)
 
@@ -1524,7 +1524,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("narrative_brand", data)
         self.assertIn("cybernetics_cybersyn", data["ops_philosophy"])
         self.assertIn("anthropophagy", data["narrative_brand"])
-        self.assertFalse(data["their_production"])
+        self.assertNotIn("their_production", data)
 
         reg = self.client.get("/.well-known/register.json").get_json()
         self.assertIn("positioning", reg)
@@ -1541,7 +1541,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("DENY", aos_data["formula"])
         self.assertTrue(aos_data["category_includes_force"])
         self.assertFalse(aos_data["force_production_weld"])
-        self.assertFalse(aos_data["their_production"])
+        self.assertNotIn("their_production", aos_data)
 
         aos_page = self.client.get("/action-os")
         self.assertEqual(aos_page.status_code, 200)
@@ -1558,11 +1558,11 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn("/action-os", home)
         self.assertNotIn(">Action OS</a>", home)
         self.assertNotIn("scarcity is the DENY", home)
-        self.assertIn("If money is about to leave", home)
+        self.assertIn("Your CGL will not cover the agent", home)
         self.assertNotIn("/science", home)
         self.assertIn("/trust", home)
-        self.assertIn("Parent revoked", home)
-        self.assertIn("their_production", home)
+        self.assertIn("Fail closed", home)
+        self.assertNotIn("their_production: false", home.lower())
 
         import db as gate_db
 
@@ -1576,7 +1576,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertEqual(sc.status_code, 200)
         sc_data = sc.get_json()
         self.assertEqual(sc_data["spec"], "nisaba-scorecard-v2")
-        self.assertFalse(sc_data["their_production"])
+        self.assertNotIn("their_production", sc_data)
         self.assertEqual(sc_data["mode"], "pre_rev_maxed")
         self.assertIn("family", sc_data)
         self.assertEqual(len(sc_data["family"]), 5)
@@ -1627,7 +1627,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         skin = self.client.get("/.well-known/production-skin.json")
         self.assertEqual(skin.status_code, 200)
         skin_data = skin.get_json()
-        self.assertFalse(skin_data["their_production"])
+        self.assertNotIn("their_production", skin_data)
         self.assertEqual(skin_data["spec"], "gate-production-skin-v2")
         self.assertIn("checklist", skin_data)
         self.assertIn("dogfood_weld", skin_data)
@@ -1674,15 +1674,15 @@ class OperatorInvoiceTests(unittest.TestCase):
         privacy_html = self.client.get("/privacy").get_data(as_text=True)
         self.assertIn("What we collect", privacy_html)
         terms_html = self.client.get("/terms").get_data(as_text=True)
-        self.assertIn("their_production", terms_html)
+        self.assertNotIn("their_production: false", terms_html.lower())
         op_html = self.client.get("/operator").get_data(as_text=True)
-        self.assertIn("their_production: false", op_html)
+        self.assertNotIn("their_production: false", op_html.lower())
         self.assertIn("First weld", op_html)
         self.assertIn("href=\"/privacy\"", op_html)
         self.assertIn("href=\"/terms\"", op_html)
         op_json = self.client.get("/.well-known/operator.json").get_json()
         self.assertEqual(op_json["first_weld"]["write"], "withdraw")
-        self.assertFalse(op_json["ads_floor"]["their_production"])
+        self.assertNotIn("their_production", op_json.get("ads_floor") or {})
 
         # Dogfood lifts to L3 without flipping their_production
         dog = self.client.post(
@@ -1698,10 +1698,10 @@ class OperatorInvoiceTests(unittest.TestCase):
         proof2 = self.client.get("/.well-known/proof-suite.json").get_json()
         self.assertEqual(proof2["readiness"]["level"], 3)
         self.assertTrue(proof2["readiness"]["dogfood_weld"])
-        self.assertFalse(proof2["their_production"])
+        self.assertNotIn("their_production", proof2)
         sc2 = self.client.get("/.well-known/scorecard.json").get_json()
         self.assertAlmostEqual(sc2["dimensions"]["deployability"], 8.5, places=1)
-        self.assertFalse(sc2["their_production"])
+        self.assertNotIn("their_production", sc2)
 
         # Production weld without confirm must not flip
         refuse = self.client.post(
@@ -1717,7 +1717,7 @@ class OperatorInvoiceTests(unittest.TestCase):
             follow_redirects=True,
         )
         self.assertEqual(refuse.status_code, 200)
-        self.assertFalse(self.client.get("/.well-known/production-skin.json").get_json()["their_production"])
+        self.assertNotIn("their_production", self.client.get("/.well-known/production-skin.json").get_json())
 
         # Confirmed third-party weld without exclusivity door must not flip
         no_door = self.client.post(
@@ -1732,7 +1732,7 @@ class OperatorInvoiceTests(unittest.TestCase):
             follow_redirects=True,
         )
         self.assertEqual(no_door.status_code, 200)
-        self.assertFalse(self.client.get("/.well-known/production-skin.json").get_json()["their_production"])
+        self.assertNotIn("their_production", self.client.get("/.well-known/production-skin.json").get_json())
 
         # Confirmed third-party weld + exclusivity → L4
         prod = self.client.post(
@@ -1768,12 +1768,14 @@ class OperatorInvoiceTests(unittest.TestCase):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
         body = r.get_data(as_text=True)
-        self.assertIn("Weld a path", body)
-        self.assertIn("/register", body)
-        self.assertIn("Fee schedule", body)
+        self.assertIn("Bind Room", body)
+        self.assertIn("/bind-room", body)
+        self.assertIn("/trust", body)
+        self.assertIn("/operator", body)
         self.assertNotIn("scarcity is the DENY", body)
         self.assertNotIn("Weld a door", body)
         self.assertNotIn("Own the DENY", body)
+        self.assertNotIn("their_production: false", body.lower())
 
     def test_no_momo_and_archive_buried(self):
         import db as gate_db
@@ -1786,7 +1788,7 @@ class OperatorInvoiceTests(unittest.TestCase):
 
         op = self.client.get("/operator").get_data(as_text=True)
         self.assertNotIn("/mo/mo", op)
-        self.assertIn("their_production: false", op)
+        self.assertNotIn("their_production: false", op.lower())
         for path in ("/this", "/bound", "/positioning", "/scanner", "/science", "/dogfood"):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -1813,8 +1815,9 @@ class OperatorInvoiceTests(unittest.TestCase):
             )
             self.assertEqual(refuse.status_code, 200)
             self.assertIn("Ops token required", refuse.get_data(as_text=True))
-            self.assertFalse(
-                self.client.get("/.well-known/production-skin.json").get_json()["their_production"]
+            self.assertNotIn(
+                "their_production",
+                self.client.get("/.well-known/production-skin.json").get_json(),
             )
         finally:
             gate_app.GATE_DEV_MODE = prev
@@ -1850,8 +1853,9 @@ class OperatorInvoiceTests(unittest.TestCase):
             for phrase in banned:
                 self.assertNotIn(phrase, body, f"{path} still has banned phrase: {phrase}")
         home = self.client.get("/").get_data(as_text=True)
-        self.assertIn("If money is about to leave and should not", home)
-        self.assertIn("Weld a path", home)
+        self.assertIn("Your CGL will not cover the agent", home)
+        self.assertIn("Bind Room", home)
+        self.assertIn("Operator path", home)
         chrome = home.split("<footer>", 1)[0]
         for phrase in (
             "Lab docs",
@@ -1867,7 +1871,7 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertNotIn(">Family</a>", chrome)
         self.assertNotIn(">Stack</a>", chrome)
         self.assertNotIn(">Status</a>", chrome)
-        self.assertNotIn(">Bind Room</a>", chrome)
+        self.assertIn(">Bind Room</a>", chrome)
         pricing = self.client.get("/pricing").get_data(as_text=True)
         self.assertIn("Weld", pricing)
         self.assertIn("bps", pricing.lower())
@@ -2177,7 +2181,7 @@ class LicenseFuseTests(unittest.TestCase):
         self.assertEqual(data["spec"], "gate-restraint-v1")
         self.assertFalse(data["pii"])
         self.assertFalse(data["demo"])
-        self.assertFalse(data["their_production"])
+        self.assertNotIn("their_production", data)
         ids = {e["event_id"] for e in data["events"]}
         self.assertIn(prod_id, ids)
         self.assertNotIn(demo_id, ids)
@@ -2643,13 +2647,21 @@ class LiveDeskTests(unittest.TestCase):
         cls.client = gate_app.app.test_client()
 
     def test_live_json_and_page(self):
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
         j = self.client.get("/.well-known/live.json")
         self.assertEqual(j.status_code, 200)
         data = j.get_json()
         self.assertEqual(data["spec"], "gate-live-desk-v1")
         self.assertIn("Can this irreversible write still execute right now?", data["question"])
         self.assertIn("SaaS status page", data["not"])
-        self.assertFalse(data["their_production"])
+        self.assertNotIn("their_production", data)
+        self.assertIn("surface_updated_at", data)
         page = self.client.get("/live")
         self.assertEqual(page.status_code, 200)
         body = page.get_data(as_text=True)
@@ -3065,7 +3077,7 @@ class RailTruthAndDenyRegistryTests(unittest.TestCase):
         body = ach.get_json()
         self.assertEqual(body["word"], "REVERSIBLE")
         self.assertIn("pulled", body["plain"].lower())
-        self.assertFalse(body["their_production"])
+        self.assertNotIn("their_production", body)
 
         wire = self.client.get("/v1/clear?rail=wire")
         self.assertEqual(wire.status_code, 200)
@@ -3201,7 +3213,7 @@ class GoAndNeverUiTests(unittest.TestCase):
         body = go.get_json()
         self.assertEqual(body["word"], "GO")
         self.assertEqual(body["decision"], "GO")
-        self.assertFalse(body["their_production"])
+        self.assertNotIn("their_production", body)
 
         nogo = self.client.post(
             "/v1/go",
@@ -3404,3 +3416,72 @@ class MouthsPackTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BuyerCredibilityTests(unittest.TestCase):
+    """Prospect-facing surface: no demo smell, branded 404, security headers."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_no_their_production_false_on_buyer_surfaces(self):
+        import db as gate_db
+
+        with gate_db.db() as conn:
+            gate_db._ensure_dogfood_table(conn)
+            gate_db._ensure_third_party_welds(conn)
+            conn.execute("DELETE FROM dogfood_welds")
+            conn.execute("DELETE FROM third_party_welds")
+        paths = (
+            "/",
+            "/trust",
+            "/live",
+            "/operator",
+            "/pricing",
+            "/diligence",
+            "/diligence/offer.json",
+            "/diligence/one-pager.txt",
+            "/.well-known/live.json",
+            "/.well-known/production-skin.json",
+            "/.well-known/operator.json",
+            "/.well-known/spend-protocol.json",
+            "/.well-known/clear.json",
+        )
+        for path in paths:
+            r = self.client.get(path)
+            self.assertEqual(r.status_code, 200, path)
+            body = r.get_data(as_text=True)
+            self.assertNotIn("their_production: false", body.lower(), path)
+            if path.endswith(".json"):
+                data = r.get_json()
+                self.assertNotIn("their_production", data, path)
+
+    def test_branded_404(self):
+        r = self.client.get("/this-path-does-not-exist-credibility")
+        self.assertEqual(r.status_code, 404)
+        body = r.get_data(as_text=True)
+        self.assertIn("This path is not on the desk", body)
+        self.assertNotIn("The requested URL was not found on the server", body)
+        self.assertEqual(r.headers.get("X-Content-Type-Options"), "nosniff")
+        self.assertEqual(r.headers.get("X-Frame-Options"), "DENY")
+        self.assertIn("default-src", r.headers.get("Content-Security-Policy", ""))
+
+    def test_trust_shows_surface_updated(self):
+        r = self.client.get("/trust")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("Surface updated", body)
+        self.assertNotIn("their_production: false", body.lower())
+
+    def test_security_headers_on_home(self):
+        r = self.client.get("/", headers={"X-Forwarded-Proto": "https"})
+        self.assertEqual(r.headers.get("X-Content-Type-Options"), "nosniff")
+        self.assertEqual(r.headers.get("X-Frame-Options"), "DENY")
+        self.assertTrue(r.headers.get("Content-Security-Policy"))
+        self.assertTrue(r.headers.get("Strict-Transport-Security"))

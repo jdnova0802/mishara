@@ -13,7 +13,7 @@
   <p style="color: var(--muted);">{{ manifest.tech_thesis }}</p>
   <p>own_tier_s: <strong>{{ manifest.own_tier_s }}</strong>
     · force_production_weld: <strong>{{ manifest.force_production_weld }}</strong>
-    · their_production: <strong>{{ manifest.their_production }}</strong></p>
+    · exclusive weld: <strong>{% if manifest.their_production %}recorded{% else %}pending{% endif %}</strong></p>
 
   <div class="card" style="margin-top: 1.25rem;">
     <p class="audience-tag">First weld · named</p>

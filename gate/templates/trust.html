@@ -6,7 +6,10 @@
 {% block content %}
 <div class="container section">
   <h1>Trust & limits</h1>
-  <p style="color: var(--muted); max-width: 640px; margin-bottom: 2rem;">What Gate proves on irreversible writes, how a stranger checks it, and what we explicitly do not claim.</p>
+  <p style="color: var(--muted); max-width: 640px; margin-bottom: 0.5rem;">What Gate proves on irreversible writes, how a stranger checks it, and what we explicitly do not claim.</p>
+  <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+    Surface updated {{ surface.updated_label }} · {{ surface.note }}
+  </p>
 
   <div class="card">
     <h2>The question</h2>
@@ -20,7 +23,7 @@
       <li>Fail closed — uncertain / timeout / unreachable → no write</li>
       <li>Parent license revoked → child spend blocked</li>
       <li>Independent verify — stranger opens the receipt with no login</li>
-      <li><code>their_production: false</code> until a recorded third-party production weld</li>
+      <li>Third-party production status only after a recorded exclusive-door weld</li>
     </ul>
   </div>
 

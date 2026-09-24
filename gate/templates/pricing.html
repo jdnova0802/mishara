@@ -16,7 +16,7 @@
     <h2>Operator weld — {{ weld_price }}</h2>
     <p>One irreversible write (withdraw / payout clear, or bind-only), fail closed, delivered in 48hr. Then <strong>10 bps of what clears</strong>. Quiet path still pays <strong>{{ floor_price }}</strong> management. Extra write = another {{ weld_price }}.</p>
     <ul class="check-list" style="margin: 0.75rem 0;">
-      <li>their_production stays false until a recorded third-party production weld</li>
+      <li>Checkout does not claim third-party production status</li>
       <li>If uncertain, the write does not run</li>
       <li>Unlicensed gambling voids the path</li>
     </ul>

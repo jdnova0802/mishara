@@ -152,7 +152,7 @@
   <div class="live-shell">
     <div class="live-mast">
       <div class="live-brand">Gate <em>Live</em></div>
-      <div class="live-utc"><span class="tick" aria-hidden="true"></span>UTC {{ desk.evaluated_at }} · refresh 30s</div>
+      <div class="live-utc"><span class="tick" aria-hidden="true"></span>UTC {{ desk.evaluated_at }} · surface {{ surface.updated_label }} · refresh 30s</div>
     </div>
 
     <h1 class="live-question">{{ desk.question }}</h1>
@@ -163,9 +163,9 @@
 
     <div class="live-strip" aria-label="Desk pulse">
       <div>
-        <div class="k">Production</div>
+        <div class="k">Exclusive weld</div>
         <div class="v {% if desk.their_production %}ok{% else %}warn{% endif %}">
-          {% if desk.their_production %}TRUE{% else %}FALSE{% endif %}
+          {% if desk.their_production %}RECORDED{% else %}PENDING{% endif %}
         </div>
       </div>
       <div>
@@ -224,7 +224,6 @@
       <div class="live-empty">
         No exclusive production path on the desk yet.
         <a href="{{ url_for('operator_page') }}">Weld</a> a write — then attest the exclusive door.
-        Until then <code>their_production</code> stays false.
       </div>
     {% endif %}
 

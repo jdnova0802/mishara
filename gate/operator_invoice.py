@@ -375,7 +375,7 @@ CHECKOUT
   Management: {FLOOR_PRICE_LABEL} per welded path + per active parent license
   Flow:       {BPS} bps on cleared + {BPS_CARRY} bps above ${HURDLE_CLEARED_CENTS // 100_000_000}/mo
   Checkout:   {base}/operator
-  Honesty:    their_production stays false until a recorded third-party production weld
+  Honesty:    Checkout starts delivery — it does not claim third-party production status
 
 PROOF
   Fees:    {base}/register

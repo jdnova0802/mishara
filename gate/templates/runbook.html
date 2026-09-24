@@ -2,7 +2,7 @@
 {% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}48hr runbook{% endblock %}
 {% block meta %}
-<meta name="description" content="{{ manifest.thesis }} Proof → dogfood → their_production.">
+<meta name="description" content="{{ manifest.thesis }} Proof → dogfood → exclusive production weld.">
 {% endblock %}
 {% block content %}
 <div class="container section">
@@ -13,7 +13,7 @@
     Proof {{ manifest.proof.pass_count }}/{{ manifest.proof.total }}
     · all_pass {{ manifest.proof.all_pass }}
     · dogfood {{ manifest.skin.dogfood_weld }}
-    · their_production {{ manifest.skin.their_production }}
+    · exclusive weld {% if manifest.skin.their_production %}recorded{% else %}pending{% endif %}
   </p>
   {% for s in manifest.steps %}
   <div class="card" style="margin-top: 0.75rem;">

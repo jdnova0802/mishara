@@ -19,7 +19,7 @@
     · Family {{ manifest.family_overall }} · Ceiling {{ manifest.pre_rev_ceiling }}
     {% if not manifest.their_production %}· Lift on weld +{{ manifest.lift_when_production_welded }}{% endif %}
   </p>
-  <p style="margin-top: 0.75rem;">their_production: <strong>{{ manifest.their_production }}</strong>
+  <p style="margin-top: 0.75rem;">Exclusive weld: <strong>{% if manifest.their_production %}recorded{% else %}pending{% endif %}</strong>
     · proof {{ manifest.proof_pass_count }}/{{ manifest.proof_total }}
     · all_pass {{ manifest.proof_all_pass }}</p>
   <div class="hero-actions">

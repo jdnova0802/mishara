@@ -121,6 +121,7 @@ def desk(public_url: str) -> dict[str, Any]:
         "inventor": INVENTOR,
         "evaluated_at": _now(),
         "time_is_utc": True,
+        "surface_updated_at": None,  # filled by caller / public_surface when served
         "question": "Can this irreversible write still execute right now?",
         "not": [
             "SaaS status page",
