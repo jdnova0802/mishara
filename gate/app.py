@@ -83,6 +83,26 @@ try:
     from gate import diligence as diligence_mod
 except ImportError:
     import diligence as diligence_mod
+try:
+    from gate import positive_clear as positive_clear_mod
+except ImportError:
+    import positive_clear as positive_clear_mod
+try:
+    from gate import scenario_3 as scenario_3_mod
+except ImportError:
+    import scenario_3 as scenario_3_mod
+try:
+    from gate import uapa_seal as uapa_seal_mod
+except ImportError:
+    import uapa_seal as uapa_seal_mod
+try:
+    from gate import cppa_admt as cppa_admt_mod
+except ImportError:
+    import cppa_admt as cppa_admt_mod
+try:
+    from gate import trusted_contact as trusted_contact_mod
+except ImportError:
+    import trusted_contact as trusted_contact_mod
 
 try:
     from gate import operator_invoice as operator_mod
@@ -3288,6 +3308,150 @@ def diligence_checkout():
         email, checkout.id, DILIGENCE_DEPOSIT_CENTS, product="diligence_deposit"
     )
     return redirect(checkout.url, code=303)
+
+
+@app.route("/positive-clear")
+def positive_clear_page():
+    return render_template(
+        "positive_clear.html",
+        public_url=advertised_url(),
+        copy=positive_clear_mod.page_copy(),
+        deposit_price=DILIGENCE_DEPOSIT_LABEL,
+        review_band=DILIGENCE_REVIEW_BAND,
+        retainer_band=DILIGENCE_RETAINER_BAND,
+        stripe_diligence=_diligence_stripe_ready(),
+        diligence_payment_link=DILIGENCE_PAYMENT_LINK if not _diligence_stripe_ready() else "",
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/positive-clear/offer.json")
+def positive_clear_offer_json():
+    return jsonify(positive_clear_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/positive-clear/one-pager.txt")
+def positive_clear_one_pager():
+    body = positive_clear_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/positive-clear/checkout", methods=["POST"])
+def positive_clear_checkout():
+    email = (request.form.get("email") or "").strip()
+    if not EMAIL_RE.match(email):
+        flash("Enter a valid email.", "error")
+        return redirect(url_for("positive_clear_page"))
+    if GATE_DEV_MODE:
+        fake_session = f"dev_{uuid.uuid4().hex}"
+        db.create_install_order(
+            email, fake_session, DILIGENCE_DEPOSIT_CENTS, product="positive_clear_deposit"
+        )
+        db.mark_install_paid(fake_session)
+        notify.money(
+            "Positive Clear deposit (dev)",
+            f"{email} paid {DILIGENCE_DEPOSIT_LABEL}",
+            {"email": email, "session": fake_session},
+        )
+        return redirect(url_for("install_success", session_id=fake_session))
+    if not stripe.api_key or not STRIPE_DILIGENCE_PRICE_ID:
+        flash(
+            f"Checkout not configured. Email {CONTACT_EMAIL} with subject DEPOSIT — Positive Clear.",
+            "error",
+        )
+        return redirect(url_for("positive_clear_page"))
+    checkout = stripe.checkout.Session.create(
+        mode="payment",
+        customer_email=email,
+        line_items=[{"price": STRIPE_DILIGENCE_PRICE_ID, "quantity": 1}],
+        success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{advertised_url()}/positive-clear?canceled=1",
+        metadata={"product": "positive_clear_deposit", "contact_email": email},
+    )
+    db.create_install_order(
+        email, checkout.id, DILIGENCE_DEPOSIT_CENTS, product="positive_clear_deposit"
+    )
+    return redirect(checkout.url, code=303)
+
+
+@app.route("/scenario-3")
+def scenario_3_page():
+    return render_template(
+        "scenario_3.html",
+        copy=scenario_3_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/scenario-3/offer.json")
+def scenario_3_offer_json():
+    return jsonify(scenario_3_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/scenario-3/one-pager.txt")
+def scenario_3_one_pager():
+    body = scenario_3_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/uapa-seal")
+def uapa_seal_page():
+    return render_template(
+        "uapa_seal.html",
+        copy=uapa_seal_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/uapa-seal/offer.json")
+def uapa_seal_offer_json():
+    return jsonify(uapa_seal_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/uapa-seal/one-pager.txt")
+def uapa_seal_one_pager():
+    body = uapa_seal_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/admt")
+def admt_page():
+    return render_template(
+        "admt.html",
+        copy=cppa_admt_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/admt/offer.json")
+def admt_offer_json():
+    return jsonify(cppa_admt_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/admt/one-pager.txt")
+def admt_one_pager():
+    body = cppa_admt_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
+
+
+@app.route("/trusted-contact")
+def trusted_contact_page():
+    return render_template(
+        "trusted_contact.html",
+        copy=trusted_contact_mod.page_copy(),
+        contact_email=CONTACT_EMAIL,
+    )
+
+
+@app.route("/trusted-contact/offer.json")
+def trusted_contact_offer_json():
+    return jsonify(trusted_contact_mod.offer(advertised_url(), CONTACT_EMAIL))
+
+
+@app.route("/trusted-contact/one-pager.txt")
+def trusted_contact_one_pager():
+    body = trusted_contact_mod.one_pager(advertised_url(), CONTACT_EMAIL)
+    return Response(body, mimetype="text/plain; charset=utf-8")
 
 
 def _operator_stripe_ready() -> bool:

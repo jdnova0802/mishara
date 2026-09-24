@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}ADMT Seal · CPPA coming compliance{% endblock %}
+{% block meta %}
+<meta name="description" content="CPPA ADMT decision-notice Seal — 11 CCR § 7200(b), compliance Jan 1, 2027. Free 72h REVIEW of one significant-decision path. Reply REVIEW.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">11 CCR § 7200(b) · Article 11 · Jan 1, 2027</p>
+  <h1>{{ copy.headline }}</h1>
+  <p class="audience-sub">{{ copy.sub }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
+    Free 72h memo · Reply <strong>REVIEW</strong> · coming-compliance Diligence ·
+    <a href="https://www.cppa.ca.gov/regulations/ccpa_updates.html" target="_blank" rel="noopener">CPPA regs →</a>
+  </p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20ADMT%20decision-notice%20path">Email REVIEW</a>
+    <a class="btn btn-ghost" href="{{ url_for('admt_one_pager') }}">One-pager.txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('admt_offer_json') }}">offer.json</a>
+    <a class="btn btn-ghost" href="{{ url_for('diligence_page') }}">Paid Diligence →</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>The clock</h3>
+      <p>Businesses using ADMT for significant decisions prior to Jan 1, 2027 must comply with Article 11 by that date. Pin: <strong>11 CCR § 7200(b)</strong> — not § 7120.</p>
+    </div>
+    <div class="card">
+      <h3>What you get</h3>
+      <p>72h map of one significant-decision path (lend / house / educate / employ / healthcare): where pre-use notice + access/opt-out can still miss a stranger-verifiable Seal.</p>
+    </div>
+    <div class="card">
+      <h3>Do not conflate</h3>
+      <p>Not Colorado SB 26-189 (stayed). Not cybersecurity-audit Article 9. Unstayed California clock only.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
