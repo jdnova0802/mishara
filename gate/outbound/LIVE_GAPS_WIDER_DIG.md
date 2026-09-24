@@ -3,7 +3,8 @@
 **Date:** 2026-09-24  
 **Ask:** Adjacent to Bounded Autonomy insurance · vendor bank-change/BEC · agentic chargebacks.  
 **Filter:** 2025–26 recency · named buyer · no seated accredited verifier for *this* proof · stranger-verifiable fail-closed · fits Gate without new eng.  
-**Ruled out (do not re-surface):** litigation funding / court disclosure · crypto custody.
+**Ruled out (do not re-surface):** litigation funding / court disclosure · crypto custody.  
+**Standing wedge filter + newer finds:** `CLEAR_SEAL_GO_WEDGE_HUNT.md` (Nacha False Pretenses · NYDFS CL7 · deepfake-as-urgency only).
 
 ---
 
