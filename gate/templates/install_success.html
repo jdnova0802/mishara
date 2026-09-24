@@ -20,6 +20,19 @@
         <li>48hr: fail-closed weld + verify demo + invoice line max(floor, 10 bps, $0.10/hop)</li>
       </ol>
     </div>
+  {% elif spend_job_id %}
+    {% if order %}
+      <p>Payment received for <strong>{{ order.email }}</strong>. This Bind Room job is on the spend map.</p>
+    {% else %}
+      <p>Payment received. This Bind Room job is on the spend map.</p>
+    {% endif %}
+    <div class="card" style="text-align: left; margin-top: 2rem;">
+      <h3>Spend map</h3>
+      <p><code>job_id</code> <strong>{{ spend_job_id }}</strong></p>
+      {% if never_url %}
+      <p>Second lookup (should read SPENT): <a href="{{ never_url }}">{{ never_url }}</a></p>
+      {% endif %}
+    </div>
   {% else %}
     {% if order %}
       <p>Payment received for <strong>{{ order.email }}</strong>. Clock starts when I confirm scope by email.</p>

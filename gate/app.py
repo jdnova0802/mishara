@@ -931,6 +931,19 @@ def _redeem_url() -> str:
     return f"{advertised_url()}/v1/pas/bind-ticket/redeem"
 
 
+def _order_dict(order) -> dict | None:
+    if order is None:
+        return None
+    return dict(order)
+
+
+def _commit_bind_room_spend(order) -> dict | None:
+    return bind_room_mod.commit_paid_order(
+        _order_dict(order),
+        redeem_url=_redeem_url(),
+    )
+
+
 def _finalize_spend_plan(
     plan: dict,
     *,
@@ -1376,6 +1389,7 @@ def well_known_gate():
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
+            "bind_room_job": f"{advertised_url()}/bind-room/job.json",
             "operator": f"{advertised_url()}/operator",
             "register": f"{advertised_url()}/register",
             "register_manifest": f"{advertised_url()}/.well-known/register.json",
@@ -3234,15 +3248,24 @@ def install_checkout():
 def install_success():
     session_id = request.args.get("session_id", "")
     order = db.get_install_order_by_session(session_id) if session_id else None
+    spend = _commit_bind_room_spend(order)
+    job_id = (spend or {}).get("job_id") or bind_room_mod.job_id_for_order(_order_dict(order))
     return render_template(
         "install_success.html",
         order=order,
         contact_email=CONTACT_EMAIL,
+        spend_job_id=job_id if spend and spend.get("ok") else None,
+        never_url=(
+            f"{advertised_url()}/v1/never?job_id={job_id}"
+            if spend and spend.get("ok") and job_id
+            else None
+        ),
     )
 
 
 @app.route("/bind-room")
 def bind_room():
+    bind_room_mod.maybe_seed_first_job(redeem_url=_redeem_url())
     return render_template(
         "bind_room.html",
         public_url=advertised_url(),
@@ -3252,6 +3275,28 @@ def bind_room():
         bind_room_payment_link=BIND_ROOM_PAYMENT_LINK if not (STRIPE_BIND_ROOM_PRICE_ID or GATE_DEV_MODE) else "",
         contact_email=CONTACT_EMAIL,
     )
+
+
+@app.route("/bind-room/job.json")
+def bind_room_job():
+    """Public job_id on the spend map for Bind Room. Seed on Render if the map is empty."""
+    seeded = bind_room_mod.maybe_seed_first_job(redeem_url=_redeem_url())
+    jobs = [j for j in db.consumed_spend_job_ids() if str(j).startswith("br:")]
+    body = {
+        "spec": "gate-bind-room-spend-v1",
+        "redeem": _redeem_url(),
+        "demo": False,
+        "their_production": False,
+        "job_ids": jobs,
+        "never": f"{advertised_url()}/v1/never?job_id={{job_id}}",
+        "seeded": bool(seeded and seeded.get("ok") and not seeded.get("already")),
+    }
+    if jobs:
+        body["job_id"] = jobs[0] if bind_room_mod.FIRST_JOB_ID not in jobs else bind_room_mod.FIRST_JOB_ID
+        if bind_room_mod.FIRST_JOB_ID in jobs:
+            body["job_id"] = bind_room_mod.FIRST_JOB_ID
+        body["lookup"] = f"{advertised_url()}/v1/never?job_id={body['job_id']}"
+    return jsonify(body)
 
 
 @app.route("/bind-room/officer-pack.json")
@@ -3279,6 +3324,7 @@ def bind_room_checkout():
         fake_session = f"dev_{uuid.uuid4().hex}"
         db.create_install_order(email, fake_session, BIND_ROOM_PRICE_CENTS, product="bind_room")
         db.mark_install_paid(fake_session)
+        _commit_bind_room_spend(db.get_install_order_by_session(fake_session))
         notify.money(
             "Bind Room booked (dev)",
             f"{email} paid {BIND_ROOM_PRICE_LABEL}",
@@ -3610,6 +3656,7 @@ def billing_webhook():
             )
         elif product == "bind_room":
             db.mark_install_paid(sess["id"])
+            _commit_bind_room_spend(db.get_install_order_by_session(sess["id"]))
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
             notify.money(
                 "CASH — Bind Room",
@@ -3907,6 +3954,7 @@ def sitemap():
         "/privacy",
         "/terms",
         "/bind-room",
+        "/bind-room/job.json",
         "/audit",
         "/start",
         "/for/operators",
