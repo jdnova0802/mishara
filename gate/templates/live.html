@@ -152,7 +152,7 @@
   <div class="live-shell">
     <div class="live-mast">
       <div class="live-brand">Gate <em>Live</em></div>
-      <div class="live-utc"><span class="tick" aria-hidden="true"></span>UTC {{ desk.evaluated_at }} · surface {{ surface.updated_label }} · refresh 30s</div>
+      <div class="live-utc"><span class="tick" aria-hidden="true"></span>UTC {{ desk.evaluated_at }} · Surface updated {{ surface.updated_label }} · refresh 30s</div>
     </div>
 
     <h1 class="live-question">{{ desk.question }}</h1>
@@ -271,7 +271,7 @@
     {% endif %}
 
     <div class="live-foot">
-      <span>Nisaba LLC · {{ desk.spec }} · fail closed</span>
+      <span>Nisaba LLC · {{ desk.spec }} · fail closed · Surface updated {{ surface.updated_label }}</span>
       <span>
         <a href="{{ desk.links.json }}">live.json</a> ·
         <a href="{{ desk.links.canary }}">canary.json</a> ·
@@ -293,7 +293,10 @@
         if (!d || !d.evaluated_at) return;
         var el = document.querySelector(".live-utc");
         if (el) {
-          el.innerHTML = '<span class="tick" aria-hidden="true"></span>UTC ' + d.evaluated_at + " · live.json";
+          var stamp = d.surface_updated_label || "";
+          el.innerHTML = '<span class="tick" aria-hidden="true"></span>UTC ' + d.evaluated_at
+            + (stamp ? " · Surface updated " + stamp : "")
+            + " · live.json";
         }
       })
       .catch(function () {});
