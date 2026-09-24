@@ -24,11 +24,13 @@
 
 **Mouth:** Before / when ADMT makes a **significant decision** (lend / house / educate / employ / compensate / healthcare), can a stranger verify pre-use notice + access/opt-out path? Seal the decision receipt.
 
-**Primary:** Cal. Code Regs. tit. 11, § 7200 (Article 11).  
+**Primary (verified 2026-09-24 against CPPA Approved Regulations Text PDF):**  
+`11 CCR § 7200(b)` — **Article 11** opens at § 7200; (b) is the compliance clock. **Not** § 7120 (§ 7120 = Article 9 cybersecurity audits).  
 - Regs effective Jan 1, 2026 (OAL filed Sep 22, 2025).  
-- § 7200(b): use of ADMT for significant decisions **prior to Jan 1, 2027** → comply **no later than Jan 1, 2027**; use on/after that date → comply whenever using.  
-CPPA package page: https://www.cppa.ca.gov/regulations/ccpa_updates.html  
-Westlaw CCR § 7200: https://govt.westlaw.com/calregs/Document/I038754709FAB11F08837960D0A0033B1
+- § 7200(b) verbatim: use of ADMT for significant decisions **prior to Jan 1, 2027** → comply **no later than Jan 1, 2027**; use on/after → comply whenever using.  
+Approved text: https://www.cppa.ca.gov/regulations/pdf/ccpa_updates_cyber_risk_admt_appr_text.pdf  
+Package: https://www.cppa.ca.gov/regulations/ccpa_updates.html  
+Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`
 
 **Buyer:** CA businesses using ADMT for significant decisions · HR / lending / housing platforms · privacy counsel.
 
@@ -40,12 +42,15 @@ Westlaw CCR § 7200: https://govt.westlaw.com/calregs/Document/I038754709FAB11F0
 
 ### FB-2) Colorado SB 26-189 (Automated Decision-Making Technology) — **Jan 1, 2027**
 
-**Mouth:** After covered ADMT materially influences a **consequential decision** with **adverse outcome**, was plain-language notice of ADMT’s role given within **30 days**? Human review/reconsideration right — Seal the adverse path.
+**Mouth:** After covered ADMT materially influences a **consequential decision** with **adverse outcome**, was plain-language notice of ADMT’s role given **within thirty days**? Human review/reconsideration right — Seal the adverse path.
 
-**Primary:** Colorado SB26-189 — Became Law; Governor signed **May 14, 2026**; chapter 131.  
-https://leg.colorado.gov/bills/sb26-189  
-Bill summary (enacted): developer docs + deployer notice from **Jan 1, 2027**; deployer must provide plain-language description of covered ADMT’s role **within 30 days** after covered ADMT makes consequential decision with adverse outcome; AG rules on post-adverse disclosure by Jan 1, 2027; records ≥ 3 years.  
-Repeals/replaces SB 24-205 Colorado AI Act before that older framework’s obligations fully ran.
+**Primary (verified 2026-09-24 against Signed Act PDF — not the web summary):**  
+- Bill: **Senate Bill 26-189** · https://leg.colorado.gov/bills/sb26-189  
+- Signed Act PDF: https://leg.colorado.gov/bill_files/116489/download  
+- Governor Signed **05/14/2026** (bill history) · Session laws Ch. **131**, Effective Date **05/14/2026**  
+- **SECTION 5:** act takes effect **January 1, 2027**; applies to consequential decisions on/after that date  
+- **C.R.S. 6-1-1704(3)** verbatim: deployer shall provide **“WITHIN THIRTY DAYS AFTER MAKING THE DECISION”** a plain-language description of the consequential decision and the role the covered ADMT played (adverse outcome).  
+Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`
 
 **Buyer:** CO deployers of covered ADMT in employment / housing / lending / insurance / healthcare / education / gov benefits · developers selling into CO.
 
@@ -57,10 +62,11 @@ Repeals/replaces SB 24-205 Colorado AI Act before that older framework’s oblig
 
 **Mouth:** For high-risk AI (Annex III use cases e.g. employment, credit, essential services): may the system run / may the decision stand without documented risk-mgmt, logging, and human oversight artifacts a stranger (market surveillance) can verify?
 
-**Primary:** Regulation (EU) 2024/1689 (AI Act) as amended by **Regulation (EU) 2026/1744** (Digital Omnibus on AI), OJ L 1744, 24 Jul 2026; enters into force 27 Jul 2026.  
-EUR-Lex OJ: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202601744  
-Recital / Art. 113 amendment: Chapter III Sections 1–3 apply from **(i) 2 December 2027** for systems high-risk under Art. 6(2) / Annex III; **(ii) 2 August 2028** for Art. 6(1) / Annex I. General application remains 2 Aug 2026 for other AI Act slices.  
-Consolidated: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R1689-20260727
+**Primary (verified 2026-09-24 against EUR-Lex consolidated + OJ L_202601744 pull):**  
+- Amending act: **Regulation (EU) 2026/1744** of 8 July 2026 (Digital Omnibus on AI) — consolidated “Amended by” table: `►M1 … L 1744 | 1 | 24.7.2026`  
+- Consolidated AI Act (27.07.2026): https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R1689-20260727  
+- Art. 113 (as amended) verbatim map: Ch. III §§1–3 apply from **(i) 2 December 2027** — high-risk under **Art. 6(2) and Annex III**; **(ii) 2 August 2028** — high-risk under **Art. 6(1) and Annex I**.  
+Cite close-out: `FUTURE_BETS_CITE_VERIFY.md`
 
 **Buyer:** EU deployers/providers of Annex III high-risk systems · US vendors selling into EU.
 
