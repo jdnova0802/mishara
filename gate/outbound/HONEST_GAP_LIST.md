@@ -13,7 +13,7 @@
 
 **Why it ranks #1:** Same architecture, **zero new eng**. Every tonight find (insurance Diligence, vendor-bank, FedNow pre-push) reinforces deny-side leverage; the unlock side of that leverage is still unshipped. Closer to what Bind Room already sells than another deny SKU.
 
-**Status:** Flagged earlier tonight · **still sitting unbuilt**.
+**Status:** Flagged earlier tonight · **shipped packaging 2026-09-24** — `/positive-clear` (+ offer.json / one-pager / checkout). See `POSITIVE_CLEAR_SHIPPED.md`.
 
 ---
 
@@ -25,7 +25,7 @@
 
 **Primary:** FinCEN FIN-2016-A003 Scenario 3 · depth in `DEPTH_LAYER_PASS.md` · wedge in `WEDGE_VENDOR_BANK_CHANGE.md`.
 
-**Status:** Citation ready · **no product page / named SKU yet**.
+**Status:** Citation ready · **shipped named page 2026-09-24** — `/scenario-3`. See `POSITIVE_CLEAR_SHIPPED.md`.
 
 ---
 

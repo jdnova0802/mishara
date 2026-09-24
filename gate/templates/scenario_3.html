@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Scenario 3 Check · FIN-2016-A003{% endblock %}
+{% block meta %}
+<meta name="description" content="FIN-2016-A003 Scenario 3 Check — FinCEN named the fraud (supplier email → new bank account). Free 72h REVIEW of one vendor pay path. Reply REVIEW.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">FinCEN FIN-2016-A003 · Scenario 3</p>
+  <h1>{{ copy.headline }}</h1>
+  <p class="audience-sub">{{ copy.sub }}</p>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
+    Free 72h memo · Reply <strong>REVIEW</strong> · no charge, no invoice, no obligation ·
+    <a href="https://www.fincen.gov/resources/advisories/fincen-advisory-fin-2016-a003" target="_blank" rel="noopener">FinCEN primary →</a>
+  </p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20Scenario%203%20vendor%20path">Email REVIEW</a>
+    <a class="btn btn-ghost" href="{{ url_for('scenario_3_one_pager') }}">One-pager.txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('scenario_3_offer_json') }}">offer.json</a>
+    <a class="btn btn-ghost" href="{{ url_for('diligence_page') }}">Paid Diligence →</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>What FinCEN wrote</h3>
+      <p>Criminal impersonates a supplier, emails a <em>new account number</em>, you update the vendor master, the wire leaves. That is Scenario 3 — still the live red-flag baseline (2016 advisory; 2019 update).</p>
+    </div>
+    <div class="card">
+      <h3>What you get</h3>
+      <p>72h map of one supplier bank-change / pay path: where Scenario 3 can still complete without sealed out-of-band callback + dual approve as a stranger-verifiable receipt.</p>
+    </div>
+    <div class="card">
+      <h3>What this is not</h3>
+      <p>Not a new fraud invention. Not an account-validation reseller. The citation <em>is</em> the headline — Clear / Seal / Never before the master-data write.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Ask</h2>
+    <p>Reply <strong>REVIEW</strong>. Point at one vendor pay path. We return the Scenario 3 gap in 72h.</p>
+  </div>
+</div>
+{% endblock %}

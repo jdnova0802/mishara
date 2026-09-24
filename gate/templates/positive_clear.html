@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Positive Clear · unlock diligence{% endblock %}
+{% block meta %}
+<meta name="description" content="May this irreversible unlock proceed? Positive Clear — benefits release, payroll push, access provision. Same Clear/Seal/Go mouth, unlock side. {{ deposit_price }} deposit · 72h.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Positive Clear · unlock diligence</p>
+  <h1>{{ copy.headline }}</h1>
+  <p class="audience-sub">{{ copy.sub }}</p>
+  <div class="install-price">{{ deposit_price }} <span>deposit · due now</span></div>
+  <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
+    Full review {{ review_band }} · retainer band {{ retainer_band }} ·
+    <strong>72h</strong> after deposit. Free path: reply <strong>REVIEW</strong> — one unlock path, no charge.
+  </p>
+
+  <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 2rem;">
+    {% if stripe_diligence %}
+    <form method="post" action="{{ url_for('positive_clear_checkout') }}">
+      <input type="email" name="email" placeholder="work email" required style="margin-right: 0.5rem; padding: 0.5rem;">
+      <button type="submit" class="btn btn-primary">Pay deposit · {{ deposit_price }}</button>
+    </form>
+    {% elif diligence_payment_link %}
+    <a class="btn btn-primary" href="{{ diligence_payment_link }}" target="_blank" rel="noopener">Pay {{ deposit_price }} (Stripe) →</a>
+    {% else %}
+    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=DEPOSIT%20%E2%80%94%20Positive%20Clear">Email DEPOSIT · {{ deposit_price }}</a>
+    {% endif %}
+    <a class="btn btn-ghost" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20Positive%20Clear%20unlock%20path">Email REVIEW</a>
+    <a class="btn btn-ghost" href="{{ url_for('positive_clear_one_pager') }}">One-pager.txt</a>
+    <a class="btn btn-ghost" href="{{ url_for('positive_clear_offer_json') }}">offer.json</a>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>Unlock mouths</h3>
+      <p>Benefits / claims release · payroll or mass-pay push · access provisioning · treasury unlock after hold · Bind Room–shaped release. Where can the unlock still fire without Clear?</p>
+    </div>
+    <div class="card">
+      <h3>Same architecture</h3>
+      <p>Deny-side Diligence asks whether an irreversible <em>write</em> may proceed. Positive Clear asks whether an irreversible <em>unlock</em> may proceed. Clear / Seal / Go / Never — inverted, not reinvented.</p>
+    </div>
+    <div class="card">
+      <h3>Siblings</h3>
+      <p><a href="{{ url_for('diligence_page') }}">Deny-side Diligence</a> · <a href="{{ url_for('bind_room') }}">Bind Room</a> · <a href="{{ url_for('clear_page') }}">Clear</a></p>
+      <p style="margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem;">Ask: reply <strong>REVIEW</strong> or <strong>DEPOSIT</strong>.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Honest ceiling</h2>
+    <ul>
+      <li><code>their_production: false</code> until a recorded third-party weld.</li>
+      <li>This SKU does not ship a new engine — it packages the unlock direction of what already exists.</li>
+      <li>Unlock without Seal is still <strong>Never</strong>.</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
