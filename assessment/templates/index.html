@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorado 6-1-1703 impact assessment — Velaru</title>
+<meta name="description" content="Dated packet a Colorado deployer (or contracted third party) keeps by 30 June 2026. Not Mishara. Not Gate. Not legal advice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3EEE4;--surface:#FFFDF9;--ink:#1A1714;--muted:#5C564E;--teal:#0A5C5F;--teal-dark:#084246;--ember:#B85A2A;--line:#E2D9CC;--shadow:0 10px 40px rgba(26,23,20,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(900px 480px at 8% -10%,rgba(10,92,95,.12),transparent 55%),linear-gradient(180deg,#EFE8DC 0%,var(--bg) 40%)}
+.wrap{max-width:720px;margin:0 auto;padding:28px 20px 80px}
+.brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.3rem;color:var(--teal)}
+.brand span{display:block;font-family:'IBM Plex Sans',sans-serif;font-size:.7rem;font-weight:500;color:var(--muted)}
+h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.15;margin:22px 0 12px}
+.lede{color:var(--muted);margin-bottom:18px}
+.banner{background:#F8EFE6;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.88rem;color:var(--muted);margin-bottom:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
+label{display:block;font-weight:600;font-size:.9rem;margin:14px 0 6px}
+.hint{font-weight:500;color:var(--muted);font-size:.78rem}
+input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit}
+textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row2{grid-template-columns:1fr}}
+.check{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:.9rem}
+.check input{width:auto;margin-top:4px}
+.btn{display:inline-flex;width:100%;margin-top:16px;padding:14px 18px;border:0;border-radius:12px;background:var(--teal);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.btn:hover{background:var(--teal-dark)}
+.error{color:#9B1C1C;background:#FDECEC;border:1px solid #F5C2C2;padding:10px 12px;border-radius:10px;margin-top:12px;display:none}
+.out{margin-top:18px;display:none}
+.out pre{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;font-family:'IBM Plex Mono',monospace;font-size:.78rem;max-height:420px;overflow:auto}
+.dl{display:flex;gap:10px;margin-top:10px}
+.dl a,.dl button{flex:1;text-align:center;padding:10px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;font-weight:600;font-size:.88rem;cursor:pointer}
+footer{margin-top:40px;color:var(--muted);font-size:.82rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Velaru assessment<span>Nisaba LLC · Colorado clerk · not Mishara · not Gate</span></div>
+  <h1>Impact assessment the statute named.</h1>
+  <p class="lede">C.R.S. 6-1-1703(3). A deployer — or a third party they contract — completes this file by <strong>30 June 2026</strong>, then annually, and within 90 days of a substantial modification. Blanks do not emit a packet.</p>
+  <div class="banner">Draft. Not legal advice. Not remaining. Not may. The deployer keeps this three years after final deployment. Completing the form does not mean the Attorney General has blessed the system.</div>
+
+  <form class="card" id="f">
+    <div class="row2">
+      <div>
+        <label>Deployer <span class="hint">who uses the system in Colorado</span></label>
+        <input name="deployer_name" required>
+      </div>
+      <div>
+        <label>Third party (or “self”)</label>
+        <input name="third_party_name" required placeholder="Nisaba LLC or self">
+      </div>
+    </div>
+    <label>System name</label>
+    <input name="system_name" required>
+    <div class="row2">
+      <div>
+        <label>Kind</label>
+        <select name="kind" id="kind" required>
+          <option value="initial">Initial (on deploy)</option>
+          <option value="annual">Annual</option>
+          <option value="modification">After substantial modification</option>
+        </select>
+      </div>
+      <div>
+        <label>Assessment date</label>
+        <input type="date" name="assessment_date" required>
+      </div>
+    </div>
+    <label>Consequential decision</label>
+    <select name="consequential_decision" required>
+      {% for c in consequential %}
+      <option value="{{ c }}">{{ c.replace('_', ' ') }}</option>
+      {% endfor %}
+    </select>
+    <label>Purpose <span class="hint">6-1-1703(3)(b)(I)</span></label>
+    <textarea name="purpose" required></textarea>
+    <label>Intended use cases</label>
+    <textarea name="intended_uses" required></textarea>
+    <label>Deployment context</label>
+    <textarea name="deployment_context" required></textarea>
+    <label>Benefits afforded</label>
+    <textarea name="benefits" required></textarea>
+    <label>Known or reasonably foreseeable algorithmic-discrimination risks <span class="hint">6-1-1703(3)(b)(II)</span></label>
+    <textarea name="discrimination_risks" required></textarea>
+    <label>Steps taken to mitigate those risks</label>
+    <textarea name="discrimination_mitigations" required></textarea>
+    <label>Input categories <span class="hint">6-1-1703(3)(b)(III)</span></label>
+    <textarea name="inputs" required></textarea>
+    <label>Outputs produced</label>
+    <textarea name="outputs" required></textarea>
+    <label class="check"><input type="checkbox" name="used_customization_data" id="cust" value="yes"> Deployer used data to customize the system (then (IV) is required)</label>
+    <div id="custbox" class="hidden" style="display:none">
+      <label>Customization data categories</label>
+      <textarea name="customization_data"></textarea>
+    </div>
+    <label>Metrics used to evaluate performance, and known limitations <span class="hint">(V)</span></label>
+    <textarea name="metrics_limitations" required></textarea>
+    <label>Transparency measures, including consumer disclosure when in use <span class="hint">(VI)</span></label>
+    <textarea name="transparency" required></textarea>
+    <label>Post-deployment monitoring and user safeguards <span class="hint">(VII)</span></label>
+    <textarea name="monitoring_safeguards" required></textarea>
+    <label>Review that the system is not causing algorithmic discrimination <span class="hint">(3)(g)</span></label>
+    <textarea name="discrimination_review" required></textarea>
+    <div id="modbox" style="display:none">
+      <label>How actual use matched or varied from the developer’s intended uses <span class="hint">(3)(c) required on modification</span></label>
+      <textarea name="use_vs_developer_intent"></textarea>
+    </div>
+    <label>Comparable set of systems, if one packet covers several <span class="hint">(3)(d) optional</span></label>
+    <input name="comparable_set">
+    <label>If this is a reasonably similar assessment done for another law <span class="hint">(3)(e) optional</span></label>
+    <input name="other_law_similar">
+    <label>Evidence index (up to three pointers: model card URL, dataset note, monitoring log)</label>
+    <input name="evidence_1" placeholder="Evidence 1">
+    <input name="evidence_2" placeholder="Evidence 2" style="margin-top:8px">
+    <input name="evidence_3" placeholder="Evidence 3" style="margin-top:8px">
+    <button class="btn" type="submit">Build the packet</button>
+    <div class="error" id="err"></div>
+  </form>
+
+  <div class="out" id="out">
+    <div class="dl">
+      <a id="md" download="impact-assessment.md">Download markdown</a>
+      <a id="js" download="impact-assessment.json">Download JSON</a>
+    </div>
+    <pre id="pre"></pre>
+  </div>
+  <footer>Contact {{ contact }}. Spec {{ spec }}. Keep the file. Do not treat a download as AG clearance.</footer>
+</div>
+<script>
+const kind = document.getElementById('kind');
+const modbox = document.getElementById('modbox');
+const cust = document.getElementById('cust');
+const custbox = document.getElementById('custbox');
+kind.addEventListener('change', () => { modbox.style.display = kind.value === 'modification' ? 'block' : 'none'; });
+cust.addEventListener('change', () => { custbox.style.display = cust.checked ? 'block' : 'none'; });
+const today = new Date().toISOString().slice(0,10);
+document.querySelector('[name=assessment_date]').value = today;
+
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = document.getElementById('err');
+  err.style.display = 'none';
+  const fd = new FormData(e.target);
+  const body = Object.fromEntries(fd.entries());
+  body.used_customization_data = cust.checked ? 'yes' : '';
+  const r = await fetch('/packet', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)});
+  const data = await r.json();
+  if (!data.ok) {
+    err.textContent = (data.errors || ['failed']).join(' · ');
+    err.style.display = 'block';
+    document.getElementById('out').style.display = 'none';
+    return;
+  }
+  const md = data.markdown;
+  const js = JSON.stringify(data.packet, null, 2);
+  document.getElementById('pre').textContent = md;
+  document.getElementById('out').style.display = 'block';
+  const mdUrl = URL.createObjectURL(new Blob([md], {type:'text/markdown'}));
+  const jsUrl = URL.createObjectURL(new Blob([js], {type:'application/json'}));
+  const a = document.getElementById('md'); a.href = mdUrl;
+  const b = document.getElementById('js'); b.href = jsUrl;
+});
+</script>
+</body>
+</html>

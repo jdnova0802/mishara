@@ -1,0 +1,88 @@
+DESK A — independence of agent decisions (years object)
+
+Information theory
+Cover & Thomas, Elements of Information Theory.
+
+Game theory
+Osborne, An Introduction to Game Theory, or Fudenberg & Tirole, Game Theory.
+
+Oligopoly / tacit collusion
+Tirole, The Theory of Industrial Organization (oligopoly chapters). Learn Δ = (π̄ − πN) / (πM − πN).
+
+Focal points
+Schelling, The Strategy of Conflict (1960).
+
+Correlated equilibrium
+Aumann 1974, Subjectivity and Correlation in Randomized Strategies.
+
+Algorithmic monoculture
+Bommasani et al. (2022).
+
+The prisoner / warden game
+Simmons 1984.
+Cachin 1998.
+arXiv 2210.14889 (theorems only).
+
+Collusion-free cryptography
+Alwen / shelat / Visconti.
+Lepinski, Micali, shelat (STOC).
+
+Algorithmic pricing collusion (before LLMs)
+Calvano et al., AER 2020.
+Harrington 2018.
+
+LLM pricing / auction collusion
+arXiv 2404.00806
+arXiv 2608.18078
+arXiv 2601.01279
+Jo et al., NeurIPS 2025.
+
+Secret collusion among AI agents
+arXiv 2402.07510
+
+Multi-agent security
+arXiv 2505.02077
+Peigné et al., AAAI 2025.
+
+Latent / non-text channels
+arXiv 2608.19161
+arXiv 2606.28425
+arXiv 2609.10871
+A2A spec and MCP spec — read once.
+
+The 2026 incidents (do not reproduce)
+METR + OpenAI ExploitGym / Hugging Face writeups.
+collusion.wiki — second thread.
+Apollo scheming papers.
+
+
+DESK B — time as a geoid family (early find)
+Re-score after CGPM 13–15 October 2026. Drafts are not law.
+
+Continuous UTC
+CGPM Resolution 4 (2022).
+ITU-R Resolution 655 (Rev. WRC-23).
+Draft Resolution C + CCTF report on C (bipm.org).
+
+Lunar reference time
+IAU 2024 LCRS / TCL.
+Draft Resolution D (one scale, several realizations).
+
+Optical clocks as height meters
+Nosske et al., Quantum Science and Technology 2025.
+Physical Review Applied 2024.
+Gravitational redshift ΔU/c².
+
+Redefinition of the SI second
+CCTF roadmap → 29th CGPM, 2030.
+Mise en pratique of the SI second.
+
+
+FOOTNOTES (not the years object)
+
+Exclusive control as possession
+UCC §12-105.
+UK Electronic Trade Documents Act 2023, sections 2–3.
+
+Phone network as sensor
+ITU-R M.2160.
