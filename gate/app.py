@@ -361,6 +361,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/uapa-seal.json",
         "/.well-known/admt.json",
         "/.well-known/trusted-contact.json",
+        "/.well-known/stair.json",
     }
 )
 
@@ -1462,6 +1463,7 @@ def well_known_gate():
             "uapa_seal": f"{advertised_url()}/uapa-seal",
             "admt": f"{advertised_url()}/admt",
             "trusted_contact": f"{advertised_url()}/trusted-contact",
+            "stair": f"{advertised_url()}/stair",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -3898,6 +3900,7 @@ def sitemap():
         "/uapa-seal",
         "/admt",
         "/trusted-contact",
+        "/stair",
         "/register",
         "/pricing",
         "/trust",
@@ -3925,6 +3928,7 @@ def sitemap():
         "/.well-known/uapa-seal.json",
         "/.well-known/admt.json",
         "/.well-known/trusted-contact.json",
+        "/.well-known/stair.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -3952,6 +3956,7 @@ def llms_txt():
         f"- UAPA Seal (TCH post-send): {advertised_url()}/uapa-seal",
         f"- ADMT (11 CCR § 7200(b)): {advertised_url()}/admt",
         f"- Trusted Contact Hold: {advertised_url()}/trusted-contact",
+        f"- Stair (occupied egress — we will not weld): {advertised_url()}/stair",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -4195,6 +4200,7 @@ def openapi_full():
                 "/uapa-seal": {"get": {"summary": "TCH UAPA post-send classification"}},
                 "/admt": {"get": {"summary": "CPPA ADMT significant-decision notice Seal"}},
                 "/trusted-contact": {"get": {"summary": "Unlock without sealed trusted-contact hold?"}},
+                "/stair": {"get": {"summary": "Occupied egress — Gate will not weld fail-closed on that door"}},
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},

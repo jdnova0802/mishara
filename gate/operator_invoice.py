@@ -306,6 +306,7 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "second married write in the same weld",
             "PII on the hop",
             "SaaS seat pricing as the story",
+            "occupied egress / means-of-egress electric lock (IBC shall-unlock — we will not weld fail-closed)",
         ],
         "skus": {
             "weld": {

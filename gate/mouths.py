@@ -330,6 +330,34 @@ def evaluate_trusted_contact(body: dict) -> dict[str, Any]:
     )
 
 
+def evaluate_stair(body: dict) -> dict[str, Any]:
+    kind = str(body.get("kind") or "").strip()
+    src = "https://up.codes/s/sensor-release-of-electrically-locked-egress-doors"
+    if kind == "egress_lock":
+        return _pack(
+            "gate-stair-v1",
+            "NEVER",
+            "Occupied egress. Power loss and alarm shall unlock. We will not weld fail-closed on that door.",
+            cite="IBC sensor-release of electrically locked egress doors",
+            source=src,
+        )
+    if kind == "money_or_bind":
+        return _pack(
+            "gate-stair-v1",
+            "NOT THIS",
+            "Not a stair. Fail-closed still applies. Use Clear / Go.",
+            cite="IBC sensor-release of electrically locked egress doors",
+            source=src,
+        )
+    return _pack(
+        "gate-stair-v1",
+        "HOLD",
+        "Name the write. Empty is not a no.",
+        cite="IBC sensor-release of electrically locked egress doors",
+        source=src,
+    )
+
+
 MOUTHS = (
     {
         "id": "positive-clear",
@@ -511,6 +539,37 @@ MOUTHS = (
         ],
         "source": "FINRA Rule 4512 trusted contact person. Same hold shape as a bind ticket.",
     },
+    {
+        "id": "stair",
+        "route": "/stair",
+        "api": "/v1/stair",
+        "wk": "/.well-known/stair.json",
+        "fn": "evaluate_stair",
+        "spec": "gate-stair-v1",
+        "title": "Stair",
+        "brand": "Stair",
+        "lede": "Occupied egress is not a Gate write. We will not weld fail-closed on a door the code says shall unlock.",
+        "legend": (
+            ("NEVER", "This is the stair. Gate stays off the path."),
+            ("NOT THIS", "Money or bind. Fail-closed still applies."),
+            ("HOLD", "Name the write."),
+        ),
+        "words": ["NEVER", "NOT THIS", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "kind",
+                "label": "What write",
+                "type": "chips",
+                "options": [
+                    {"id": "egress_lock", "label": "Means-of-egress electric lock"},
+                    {"id": "money_or_bind", "label": "Money / bind / payout"},
+                ],
+            }
+        ],
+        "source": "IBC: loss of power and fire alarm shall unlock. PUSH TO EXIT cuts lock power with no other electronics in the way.",
+        "source_url": "https://up.codes/s/sensor-release-of-electrically-locked-egress-doors",
+    },
 )
 
 
@@ -528,6 +587,7 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "uapa-seal": evaluate_uapa,
         "admt": evaluate_admt,
         "trusted-contact": evaluate_trusted_contact,
+        "stair": evaluate_stair,
     }[mid]
     return fn(body if isinstance(body, dict) else {})
 

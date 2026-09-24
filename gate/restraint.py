@@ -65,4 +65,17 @@ def inventory(public_url: str, *, limit: int = 200) -> dict:
         "license_fuse": f"{base}/.well-known/license-fuse.json",
         "listings": f"{base}/.well-known/listings.json",
         "commit_auth": f"{base}/.well-known/commit-auth.json",
+        "standing": [
+            {
+                "id": "occupied-egress",
+                "word": "NEVER",
+                "plain": (
+                    "Occupied egress is not a Gate write. Loss of power and fire alarm "
+                    "shall unlock. We will not weld fail-closed on that door."
+                ),
+                "page": f"{base}/stair",
+                "cite": "IBC sensor-release of electrically locked egress doors",
+                "source": "https://up.codes/s/sensor-release-of-electrically-locked-egress-doors",
+            }
+        ],
     }

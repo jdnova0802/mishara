@@ -300,6 +300,7 @@ class FlaskListingTests(unittest.TestCase):
             "/uapa-seal",
             "/admt",
             "/trusted-contact",
+            "/stair",
             "/live",
             "/privacy",
             "/terms",
@@ -3263,6 +3264,7 @@ class MouthsPackTests(unittest.TestCase):
             "/uapa-seal",
             "/admt",
             "/trusted-contact",
+            "/stair",
         ):
             r = self.client.get(path)
             self.assertEqual(r.status_code, 200, path)
@@ -3325,8 +3327,23 @@ class MouthsPackTests(unittest.TestCase):
             "uapa_seal",
             "admt",
             "trusted_contact",
+            "stair",
         ):
             self.assertIn(k, gate)
+
+        stair = self.client.post("/v1/stair", json={"kind": "egress_lock"})
+        self.assertEqual(stair.get_json()["word"], "NEVER")
+        money = self.client.post("/v1/stair", json={"kind": "money_or_bind"})
+        self.assertEqual(money.get_json()["word"], "NOT THIS")
+
+        nos = self.client.get("/.well-known/restraint.json").get_json()
+        standing = nos.get("standing") or []
+        self.assertTrue(any(s.get("id") == "occupied-egress" for s in standing))
+
+        op = self.client.get("/operator").get_data(as_text=True)
+        self.assertIn("Not occupied egress", op)
+        inv = self.client.get("/.well-known/operator.json").get_json()
+        self.assertTrue(any("occupied egress" in x for x in inv.get("refuse") or []))
 
 
 if __name__ == "__main__":
