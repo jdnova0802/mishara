@@ -3,5 +3,5 @@ python-dotenv==1.2.2
 gunicorn==23.0.0
 bcrypt==4.2.1
 stripe==11.6.0
-requests==2.32.3
+requests==2.34.2
 cryptography==41.0.7
