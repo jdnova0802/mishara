@@ -140,6 +140,11 @@ except ImportError:
     import live as live_mod
 
 try:
+    from gate import public_surface as public_surface_mod
+except ImportError:
+    import public_surface as public_surface_mod
+
+try:
     from gate import canary as canary_mod
 except ImportError:
     import canary as canary_mod
@@ -376,6 +381,81 @@ def _archive_noindex(resp):
     return resp
 
 
+@app.after_request
+def _harden_buyer_surface(resp):
+    """Security headers + strip prospect-visible their_production:false."""
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault(
+        "Permissions-Policy",
+        "camera=(), microphone=(), geolocation=(), payment=()",
+    )
+    resp.headers.setdefault(
+        "Content-Security-Policy",
+        (
+            "default-src 'self'; "
+            "base-uri 'self'; "
+            "frame-ancestors 'none'; "
+            "form-action 'self' https://checkout.stripe.com mailto:; "
+            "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com "
+            "https://connect.facebook.net; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            "font-src 'self' https://fonts.gstatic.com data:; "
+            "img-src 'self' data: https:; "
+            "connect-src 'self' https://www.google-analytics.com "
+            "https://www.googletagmanager.com https://velaru.xyz https://*.velaru.xyz "
+            "https://checkout.stripe.com; "
+            "frame-src https://js.stripe.com https://checkout.stripe.com"
+        ),
+    )
+    forwarded = (request.headers.get("X-Forwarded-Proto") or "").split(",")[0].strip().lower()
+    host = (request.host or "").split(":")[0].lower()
+    local_host = host in ("localhost", "127.0.0.1", "0.0.0.0", "test") or host.endswith(".local")
+    # Always emit HSTS on HTTPS / production hosts. Skip plain local HTTP only.
+    if request.is_secure or forwarded == "https" or not local_host:
+        resp.headers.setdefault(
+            "Strict-Transport-Security",
+            "max-age=31536000; includeSubDomains",
+        )
+
+    if getattr(resp, "direct_passthrough", False):
+        return resp
+    ctype = ((resp.content_type or "").split(";")[0] or "").strip().lower()
+    try:
+        if ctype == "application/json":
+            scrubbed = public_surface_mod.scrub_json_bytes(resp.get_data())
+            if scrubbed is not None:
+                resp.set_data(scrubbed)
+        elif ctype in ("text/plain", "text/html"):
+            text = resp.get_data(as_text=True)
+            cleaned = public_surface_mod.scrub_text_demo_smell(text)
+            if cleaned != text:
+                resp.set_data(cleaned)
+    except Exception:
+        # Never break a response over scrubbing.
+        pass
+    return resp
+
+
+@app.errorhandler(404)
+def not_found(_err):
+    if request.path.startswith("/.well-known/") or request.path.startswith("/v1/") or (
+        request.accept_mimetypes.best == "application/json"
+        and not request.accept_mimetypes.accept_html
+    ):
+        return jsonify({"error": "not_found", "path": request.path}), 404
+    return (
+        render_template(
+            "404.html",
+            path=request.path,
+            surface=public_surface_mod.surface_clock(),
+            contact_email=CONTACT_EMAIL,
+        ),
+        404,
+    )
+
+
 @app.context_processor
 def inject_globals():
     path = request.path or ""
@@ -387,6 +467,7 @@ def inject_globals():
         "refusal_price": REFUSAL_PRICE_LABEL,
         "weld_price": WELD_PRICE_LABEL,
         "floor_price": FLOOR_PRICE_LABEL,
+        "surface": public_surface_mod.surface_clock(),
         "install_slots": db.install_slots_remaining(),
         "contact_email": CONTACT_EMAIL,
         "meta_pixel_id": META_PIXEL_ID,
@@ -742,7 +823,12 @@ def status_page():
 
 @app.route("/trust")
 def trust():
-    return render_template("trust.html", velaru_base=VELARU_BASE, public_url=advertised_url())
+    return render_template(
+        "trust.html",
+        velaru_base=VELARU_BASE,
+        public_url=advertised_url(),
+        surface=public_surface_mod.surface_clock(),
+    )
 
 
 GONE_AUDIENCE_SLUGS = frozenset({"partners"})
@@ -1815,7 +1901,11 @@ def well_known_scorecard():
 
 @app.route("/.well-known/live.json")
 def well_known_live():
-    return jsonify(live_mod.desk(advertised_url()))
+    desk = live_mod.desk(advertised_url())
+    clock = public_surface_mod.surface_clock()
+    desk["surface_updated_at"] = clock["updated_at"]
+    desk["surface_updated_label"] = clock["updated_label"]
+    return jsonify(desk)
 
 
 @app.route("/.well-known/canary.json")
@@ -1826,7 +1916,12 @@ def well_known_canary():
 @app.route("/live")
 def live_page():
     desk = live_mod.desk(advertised_url())
-    return render_template("live.html", desk=desk, public_url=advertised_url())
+    return render_template(
+        "live.html",
+        desk=desk,
+        public_url=advertised_url(),
+        surface=public_surface_mod.surface_clock(),
+    )
 
 
 @app.route("/v1/canary/bypass", methods=["POST"])

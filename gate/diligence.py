@@ -59,7 +59,6 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "verify": "https://velaru.xyz/verify",
         },
         "contact": contact_email,
-        "their_production": False,
     }
 
 
@@ -99,8 +98,6 @@ Links
 
 Contact
   {contact_email}
-
-their_production: false until a recorded third-party weld.
 """
 
 

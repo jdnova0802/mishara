@@ -46,15 +46,15 @@ TERMS = {
     "summary": (
         "Paying a weld buys a fail-closed mouth on one irreversible write plus the "
         "management leg. It does not buy Tier-S ownership, nuclear/C2 authority, "
-        "or a claim that their_production is true before a real third-party weld."
+        "or third-party production status before a recorded exclusive-door weld."
     ),
     "rules": [
         "One married write per weld (withdraw/payout or bind-only unless contracted otherwise)",
         "Licensed operators only — unlicensed gambling voids the path",
         "Weld fee non-refundable once delivery window starts; management monthly until cancelled",
         "DENY under uncertainty is the product — soft-yes is breach of the mouth",
-        "their_production stays false until a recorded third-party production weld (L4)",
-        "Dogfood and first-party drills are not customer production",
+        "Checkout does not equal third-party production status — that requires a recorded exclusive-door weld",
+        "First-party drills are not customer production",
         "Not legal advice; counsel reviews before enterprise embed",
     ],
 }
@@ -69,7 +69,7 @@ def ads_floor(*, meta_pixel_id: str = "", ga_id: str = "") -> dict[str, Any]:
         "required": [
             "privacy stub live",
             "terms stub live",
-            "operator page states their_production false until L4",
+            "operator page does not claim third-party production from checkout alone",
             "no Tier-S ownership cosplay in creative",
         ],
         "pixels": {
@@ -79,7 +79,7 @@ def ads_floor(*, meta_pixel_id: str = "", ga_id: str = "") -> dict[str, Any]:
             "note": "Pixels stay off unless GATE_META_PIXEL_ID / GATE_GA_ID are set.",
         },
         "claims_forbidden": [
-            "their_production true without third-party weld record",
+            "third-party production status without recorded exclusive-door weld",
             "own nuclear / C2 / grid monopoly",
             "payment rail / move the money",
         ],

@@ -13,7 +13,7 @@
     Readiness <strong>L{{ manifest.readiness.level }}</strong> — {{ manifest.readiness.label }}
     · deploy {{ manifest.readiness.deployability }}
     · dogfood {{ manifest.readiness.dogfood_weld }}
-    · their_production {{ manifest.readiness.their_production }}
+    · exclusive weld {% if manifest.readiness.their_production %}recorded{% else %}pending{% endif %}
   </p>
   <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 1rem;">
     <a href="{{ url_for('runbook_page') }}" class="btn btn-primary btn-sm">48hr runbook</a>

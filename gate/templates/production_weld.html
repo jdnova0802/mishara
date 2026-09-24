@@ -2,15 +2,15 @@
 {% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}Production weld{% endblock %}
 {% block meta %}
-<meta name="description" content="Record a third-party production weld with exclusive-door attestation. Flips their_production.">
+<meta name="description" content="Record a third-party production weld with exclusive-door attestation.">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Third-party only · L4 · exclusivity required</p>
   <h1>Production weld</h1>
-  <p class="audience-sub">Record when <strong>someone else's</strong> irreversible write is welded through Gate <strong>and</strong> an exclusive door is the only mouth. Checkout and demo hops do not flip <code>their_production</code>.</p>
+  <p class="audience-sub">Record when <strong>someone else's</strong> irreversible write is welded through Gate <strong>and</strong> an exclusive door is the only mouth. Checkout and lab hops do not record third-party production status.</p>
   <p style="margin: 0.75rem 0;">
-    Current their_production: <strong>{{ manifest.their_production }}</strong>
+    Exclusive weld: <strong>{% if manifest.their_production %}recorded{% else %}pending{% endif %}</strong>
     · dogfood: <strong>{{ manifest.dogfood_weld }}</strong>
     {% if manifest.readiness %}· readiness L{{ manifest.readiness.level }}{% endif %}
   </p>
