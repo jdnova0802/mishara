@@ -34,6 +34,10 @@ ALLOWED_PAS_KEYS = frozenset(
 
 PII_KEYS = frozenset(
     {
+        "account_number",
+        "routing_number",
+        "iban",
+        "bank_account",
         "ssn",
         "social_security",
         "social_security_number",

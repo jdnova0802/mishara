@@ -126,6 +126,35 @@ def intended_duckcreek(*, job_id: str | None) -> dict | None:
     return write(job_id=jid, path=f"/api/issue/{jid}", spend_kind=SPEND_KIND)
 
 
+VENDOR_BANK_KIND = "vendor_bank_change"
+VENDOR_BANK_PATH_TEMPLATE = "/v1/scenario-3/apply/{change_id}"
+
+
+def vendor_bank_path(change_id: str) -> str:
+    cid = (change_id or "").strip() or "CHANGE_ID"
+    return VENDOR_BANK_PATH_TEMPLATE.format(change_id=cid)
+
+
+def intended_vendor_bank(
+    *,
+    vendor_id: str | None,
+    change_id: str | None,
+) -> dict | None:
+    """Married ERP write: apply one sealed vendor bank-detail change. No raw account numbers."""
+    vid = (vendor_id or "").strip()
+    cid = (change_id or "").strip()
+    if not vid or not cid:
+        return None
+    # job_id binds ticket to this vendor+change; path is the exclusive apply door.
+    jid = f"s3:{vid}:{cid}"
+    return write(
+        job_id=jid,
+        method=METHOD,
+        path=vendor_bank_path(cid),
+        spend_kind=VENDOR_BANK_KIND,
+    )
+
+
 def presented_write(
     *,
     job_id: str | None,
@@ -191,6 +220,11 @@ def spec(public_url: str) -> dict:
             "POST /job/v1/jobs/{job_id}/bind-and-issue",
             "POST /policy/v1/policies/{policy_id}/issue",
         ],
+        "vendor_bank_change": {
+            "spend_kind": VENDOR_BANK_KIND,
+            "path": VENDOR_BANK_PATH_TEMPLATE,
+            "gate": f"{base}/.well-known/scenario-3-gate.json",
+        },
         "implementor": f"{base}/listings/cloudflare-worker-bind.js",
         "commit_auth": f"{base}/.well-known/commit-auth.json",
         "their_production": False,

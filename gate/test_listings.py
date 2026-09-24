@@ -675,13 +675,121 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertIn(b"FIN-2016-A003", page.data)
         self.assertIn(b"Scenario 3", page.data)
+        self.assertIn(b"/demo/scenario-3/pre-change", page.data)
         offer = self.client.get("/scenario-3/offer.json")
         self.assertEqual(offer.status_code, 200)
         data = offer.get_json()
         self.assertEqual(data["primary"]["advisory"], "FIN-2016-A003")
+        self.assertTrue(data.get("live_gate"))
         one = self.client.get("/scenario-3/one-pager.txt")
         self.assertEqual(one.status_code, 200)
         self.assertIn(b"REVIEW", one.data)
+        man = self.client.get("/.well-known/scenario-3-gate.json")
+        self.assertEqual(man.status_code, 200)
+        self.assertEqual(man.get_json()["spec"], "gate-scenario-3-gate-v1")
+
+    def test_scenario_3_live_halt_without_callback(self):
+        r = self.client.post(
+            "/demo/scenario-3/pre-change",
+            json={
+                "fuse_id": "fuse_velaru_drill",
+                "vendor_id": "V-9",
+                "change_id": "CHG-halt",
+                "old_account_fp": "a" * 64,
+                "new_account_fp": "b" * 64,
+                "callback_confirmed": False,
+                "dual_approve": True,
+                "callback_channel": "phone_on_file",
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body.get("halt"))
+        self.assertFalse(body.get("allow_bind"))
+        self.assertEqual(body.get("reason"), "callback_not_confirmed")
+        self.assertNotIn("bind_ticket", body)
+        self.assertTrue(body.get("event_id"))
+        seal = self.client.get("/v1/seal", query_string={"event_id": body["event_id"]})
+        self.assertEqual(seal.status_code, 200)
+        self.assertIn(seal.get_json().get("word"), ("HOLDS", "UNSIGNED", "BROKEN"))
+
+    def test_scenario_3_live_go_ticket_and_apply(self):
+        from datetime import datetime, timezone
+
+        r = self.client.post(
+            "/demo/scenario-3/pre-change",
+            json={
+                "fuse_id": "fuse_velaru_drill",
+                "vendor_id": "V-9",
+                "change_id": "CHG-go",
+                "old_account_fp": "a" * 64,
+                "new_account_fp": "b" * 64,
+                "callback_confirmed": True,
+                "dual_approve": True,
+                "callback_channel": "phone_on_file",
+                "approver_a": "ap.lead",
+                "approver_b": "controller",
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body.get("allow_bind"), body)
+        self.assertFalse(body.get("halt"))
+        ticket = body.get("bind_ticket") or {}
+        self.assertTrue(ticket.get("token"))
+        self.assertEqual((ticket.get("spend_write") or {}).get("spend_kind"), "vendor_bank_change")
+        apply = self.client.post(
+            "/demo/scenario-3/apply",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": ticket["job_id"],
+                "method": ticket["spend_write"]["method"],
+                "path": ticket["spend_write"]["path"],
+                "spend_kind": "vendor_bank_change",
+                "spend_fingerprint": ticket.get("spend_fingerprint"),
+                "now": datetime.now(timezone.utc).isoformat(),
+            },
+        )
+        self.assertEqual(apply.status_code, 200, apply.get_json())
+        applied = apply.get_json()
+        self.assertTrue(applied.get("ok"))
+        self.assertTrue(applied.get("clearance_only"))
+        self.assertFalse(applied.get("write_executed"))
+        # Replay must halt
+        replay = self.client.post(
+            "/demo/scenario-3/apply",
+            json={
+                "ticket_id": ticket["ticket_id"],
+                "token": ticket["token"],
+                "job_id": ticket["job_id"],
+                "method": ticket["spend_write"]["method"],
+                "path": ticket["spend_write"]["path"],
+                "spend_kind": "vendor_bank_change",
+                "now": datetime.now(timezone.utc).isoformat(),
+            },
+        )
+        self.assertEqual(replay.status_code, 403)
+        self.assertTrue(replay.get_json().get("halt"))
+
+    def test_scenario_3_rejects_raw_account_number(self):
+        r = self.client.post(
+            "/demo/scenario-3/pre-change",
+            json={
+                "fuse_id": "fuse_velaru_drill",
+                "vendor_id": "V-9",
+                "change_id": "CHG-pii",
+                "account_number": "123456789",
+                "old_account_fp": "a" * 64,
+                "new_account_fp": "b" * 64,
+                "callback_confirmed": True,
+                "dual_approve": True,
+                "callback_channel": "phone_on_file",
+            },
+        )
+        self.assertEqual(r.status_code, 400)
+        err = r.get_json().get("error") or {}
+        self.assertIn(err.get("code"), ("no_pii", "no_raw_bank"))
 
     def test_uapa_seal_surfaces(self):
         page = self.client.get("/uapa-seal")

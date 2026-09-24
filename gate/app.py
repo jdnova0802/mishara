@@ -92,6 +92,10 @@ try:
 except ImportError:
     import scenario_3 as scenario_3_mod
 try:
+    from gate import scenario_3_gate as scenario_3_gate_mod
+except ImportError:
+    import scenario_3_gate as scenario_3_gate_mod
+try:
     from gate import uapa_seal as uapa_seal_mod
 except ImportError:
     import uapa_seal as uapa_seal_mod
@@ -1192,6 +1196,94 @@ def run_duckcreek_pre_bind(body: dict, account_id=None):
     )
 
 
+def run_scenario3_pre_change(body: dict, account_id=None):
+    """Live Scenario 3 exclusive door — callback + dual approve before vendor bank write."""
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    evaluated = scenario_3_gate_mod.evaluate_change(body)
+    spend_write = evaluated.get("spend_write")
+    job_id = (spend_write or {}).get("job_id") or ""
+    hop, status, extra = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id or None, json={"fuse_id": fuse_id}
+    )
+    extra = dict(extra or {})
+    hop_d = hop if isinstance(hop, dict) else {}
+    hop_d, epoch_meta = epoch_mod.apply(
+        job_id=job_id, hop=hop_d, charge_id=body.get("charge_id")
+    )
+    plan = {
+        "allow_bind": bool(evaluated.get("allow_bind")),
+        "halt": bool(evaluated.get("halt")),
+        "reason": evaluated.get("reason"),
+        "fuse_id": fuse_id,
+        "scenario_3": {
+            k: evaluated.get(k)
+            for k in (
+                "spec",
+                "primary",
+                "vendor_id",
+                "change_id",
+                "old_account_fp",
+                "new_account_fp",
+                "callback_confirmed",
+                "dual_approve",
+                "callback_channel",
+                "clear",
+                "seal_inputs",
+                "apply_path",
+                "spend_kind",
+            )
+        },
+        "write_executed": False,
+    }
+    if hop_d.get("halt") or status >= 400:
+        plan["allow_bind"] = False
+        plan["halt"] = True
+        plan["reason"] = plan.get("reason") or hop_d.get("reason") or "fuse_halt"
+    if plan.get("allow_bind") and spend_write is None:
+        plan["allow_bind"] = False
+        plan["halt"] = True
+        plan["reason"] = spend_protocol_mod.REASON_NOT_IN_PROTOCOL
+    decision = "ALLOW" if plan.get("allow_bind") else ("HALT" if plan.get("halt") else "BLOCK")
+    return _finalize_spend_plan(
+        plan,
+        fuse_id=fuse_id,
+        job_id=job_id,
+        hop_d=hop_d,
+        status=status,
+        extra=extra,
+        account_id=account_id,
+        charge_id=body.get("charge_id"),
+        epoch_meta=epoch_meta,
+        decision=decision,
+        acted=bool(plan.get("allow_bind")),
+        spend_write=spend_write,
+        license_id=body.get("license_id"),
+        counterpart=counterpart_mod.parse(body),
+    )
+
+
+def _scenario3_incoming():
+    raw = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(raw)
+    if blocked:
+        return None, blocked, 400
+    # Reject raw bank fields even if somehow not in PII set
+    for banned in ("account_number", "routing_number", "iban", "bank_account"):
+        if banned in raw:
+            return (
+                None,
+                {
+                    "error": {
+                        "code": "no_raw_bank",
+                        "message": "Send sha256 fingerprints only (old_account_fp / new_account_fp).",
+                        "rejected_keys": [banned],
+                    }
+                },
+                400,
+            )
+    return scenario_3_gate_mod.allowlist(raw), None, 200
+
+
 @app.route("/demo/pas/bind-check", methods=["POST"])
 def demo_pas_bind_check():
     _, err = _demo_gate()
@@ -1227,6 +1319,100 @@ def demo_pc_pre_bind():
         data["demo"] = True
         bound.attach(data, status, demo=True)
     return data, status, extra
+
+
+@app.route("/demo/scenario-3/pre-change", methods=["POST"])
+def demo_scenario3_pre_change():
+    _, err = _demo_gate()
+    if err:
+        return err
+    body, blocked, code = _scenario3_incoming()
+    if blocked:
+        return blocked, code
+    fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
+    if not demo_limit.validate_demo_fuse(fuse_id):
+        return {"error": {"code": "demo_fuse_only"}}, 400
+    body["fuse_id"] = fuse_id
+    data, status, extra = run_scenario3_pre_change(body)
+    if isinstance(data, dict):
+        data["demo"] = True
+        bound.attach(data, status, demo=True)
+    return data, status, extra
+
+
+@app.route("/demo/scenario-3/apply", methods=["POST"])
+def demo_scenario3_apply():
+    """Consume ticket at the exclusive door. Does not execute ERP write."""
+    _, err = _demo_gate()
+    if err:
+        return err
+    body, blocked, code = _scenario3_incoming()
+    if blocked:
+        return blocked, code
+    ticket_id = str(body.get("ticket_id") or "").strip()
+    token = str(body.get("token") or "").strip()
+    job_id = str(body.get("job_id") or "").strip()
+    if not ticket_id or not token or not job_id:
+        payload = {
+            "ok": False,
+            "halt": True,
+            "write_executed": False,
+            "reason": "redeem_ticket_required_before_apply",
+            "demo": True,
+        }
+        bound.attach(payload, 403, demo=True)
+        return payload, 403
+    result = ticket_mod.redeem(
+        ticket_id=ticket_id,
+        token=token,
+        job_id=job_id,
+        method=str(body.get("method") or "POST"),
+        path=str(body.get("path") or ""),
+        spend_fingerprint=str(body.get("spend_fingerprint") or ""),
+        spend_kind=str(body.get("spend_kind") or "") or None,
+        now=str(body.get("now") or ""),
+        license_id=str(body.get("license_id") or "") or None,
+        counterpart=counterpart_mod.parse(body),
+    )
+    if not result.get("ok"):
+        result["write_executed"] = False
+        result["demo"] = True
+        bound.attach(result, 403, demo=True)
+        return result, 403
+    payload = {
+        "ok": True,
+        "halt": False,
+        "write_executed": False,
+        "clearance_only": True,
+        "note": (
+            "Ticket consumed. ERP/AP master-data write is the customer's exclusive door — "
+            "Gate clears the change; Gate does not execute QuickBooks/NetSuite."
+        ),
+        "spend_fingerprint": result.get("spend_fingerprint"),
+        "spend_write": result.get("spend_write"),
+        "ticket_id": ticket_id,
+        "job_id": job_id,
+        "demo": True,
+        "spec": scenario_3_gate_mod.SPEC,
+    }
+    bound.attach(payload, 200, demo=True)
+    return payload, 200
+
+
+@app.route("/v1/scenario-3/pre-change", methods=["POST"])
+def v1_scenario3_pre_change():
+    body, blocked, code = _scenario3_incoming()
+    if blocked:
+        return blocked, code
+    data, status, extra = run_scenario3_pre_change(body, account_id=session.get("account_id"))
+    if isinstance(data, dict):
+        bound.attach(data, status, demo=False)
+    return data, status, extra
+
+
+@app.route("/.well-known/scenario-3-gate.json")
+def well_known_scenario3_gate():
+    return jsonify(scenario_3_gate_mod.manifest(advertised_url()))
 
 
 def _redeem_ticket_view(*, demo: bool = False):
@@ -3380,6 +3566,7 @@ def scenario_3_page():
         "scenario_3.html",
         copy=scenario_3_mod.page_copy(),
         contact_email=CONTACT_EMAIL,
+        public_url=advertised_url(),
     )
 
 
