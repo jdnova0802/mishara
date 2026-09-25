@@ -215,7 +215,13 @@ class FlaskListingTests(unittest.TestCase):
     def test_listing_packets(self):
         r = self.client.get("/listings/guidewire-partnerconnect.json")
         self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.get_json()["company"], "Nisaba LLC")
+        pkt = r.get_json()
+        self.assertIn("qusar", pkt)
+        self.assertIn("/for/qusar", pkt["qusar"]["plate"])
+        self.assertIn("Qusar agents draft", pkt["one_liner"])
+        self.assertEqual(pkt["money"]["bind_room"], "$1,750")
+        self.assertIn("policycenter_pre_bind", pkt["demo"]["mcp_tools"])
+        self.assertEqual(pkt["company"], "Nisaba LLC")
         r2 = self.client.get("/listings/duckcreek-partner.json")
         self.assertIn("Paymentus", r2.get_json()["do_not_confuse"])
         r3 = self.client.get("/listings/kong-mcp.yaml")
@@ -286,6 +292,7 @@ class FlaskListingTests(unittest.TestCase):
             "/this",
             "/docs",
             "/for/carriers",
+            "/for/qusar",
             "/for/consumers",
             "/signup",
             "/login",
@@ -323,7 +330,12 @@ class FlaskListingTests(unittest.TestCase):
             self.assertEqual(r.status_code, 200, path)
         carriers = self.client.get("/for/carriers").get_data(as_text=True)
         self.assertNotIn('href="/v1/pas/policycenter/pre-bind"', carriers)
-        self.assertIn('href="/operator"', carriers)
+        self.assertIn('href="/for/qusar"', carriers)
+        self.assertIn("Qusar", carriers)
+        qusar = self.client.get("/for/qusar").get_data(as_text=True)
+        self.assertIn("Qusar agents draft", qusar)
+        self.assertIn('href="/bind-room"', qusar)
+        self.assertIn("guidewire-partnerconnect.json", qusar)
         consumers = self.client.get("/for/consumers").get_data(as_text=True)
         self.assertNotIn("Open Mishara", consumers)
         self.assertIn("Open Gate", consumers)
