@@ -46,10 +46,15 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                 "packet": f"{public_url}/listings/guidewire-partnerconnect.json",
                 "apply": "https://www.guidewire.com/partners/for-guidewire-partners-partnerconnect/technology-partners/become-a-technology-partner",
                 "demo": f"{public_url}/demo/pas/bind-check",
-                "plate": f"{public_url}/for/carriers",
+                "plate": f"{public_url}/for/qusar",
+                "carriers": f"{public_url}/for/carriers",
                 "ui_bind": f"{public_url}/listings/guidewire-gosu-prebind.gs",
                 "renewal_auto_bind": f"{public_url}/listings/guidewire-renewal-prebind.gs",
-                "note": "Paperwork. Not a production weld until a carrier bind-only path is live. Gosu paste closes UI Bind and midnight renewal.",
+                "note": (
+                    "Qusar wedge: agents draft, Gate owns bind. "
+                    "Paperwork. Not a production weld until a carrier bind-only path is live. "
+                    "Gosu paste closes UI Bind and midnight renewal."
+                ),
             },
             "duckcreek": {
                 "status": "application",
@@ -542,19 +547,44 @@ def guidewire_packet(public_url: str, contact_email: str) -> dict:
         "contact_email": contact_email,
         "category": "Policy administration / bind-and-issue control",
         "integration_target": "Guidewire InsuranceSuite PolicyCenter — bind-only / bind-and-issue",
-        "one_liner": "Agent cannot bind if the fuse is DEAD. ALLOW/BLOCK + stranger-verifiable restraint receipt.",
-        "problem": "Bind can complete on an agent the carrier cannot prove was live.",
+        "qusar": {
+            "release": "Guidewire Qusar (Aug 2026) — Agentic Framework GA + MCP",
+            "wedge": "Qusar agents draft. Gate owns bind.",
+            "plate": f"{public_url}/for/qusar",
+            "note": (
+                "Guidewire Policy Change agents still require human review before bind. "
+                "Third-party Guidewire MCP write/bind harnesses are planned, not shipped. "
+                "Gate is the fail-closed mouth on bind-only / bind-and-issue for Qusar deployments."
+            ),
+        },
+        "one_liner": (
+            "Qusar agents draft; Gate owns bind. "
+            "Agent cannot bind if the fuse is DEAD. ALLOW/BLOCK + stranger-verifiable restraint receipt."
+        ),
+        "problem": (
+            "Qusar / Agentic Framework puts agents on PolicyCenter. "
+            "Bind can complete on an agent the carrier cannot prove was cleared."
+        ),
         "solution": (
             "Pre-commit hop on the bind path. Timeout or DEAD → halt (never LIVE). "
             "CHARGE webhook is the only DEAD→LIVE path. Independent verify at velaru.xyz/verify."
         ),
         "demo": {
-            "plate": f"{public_url}/for/carriers",
+            "plate": f"{public_url}/for/qusar",
+            "carriers": f"{public_url}/for/carriers",
             "bind_room": f"{public_url}/bind-room",
             "no_key": f"POST {public_url}/demo/pas/bind-check",
             "pre_bind": f"POST {public_url}/demo/pas/policycenter/pre-bind",
             "metered": f"POST {public_url}/v1/pas/policycenter/pre-bind",
+            "mcp": f"{public_url}/mcp",
+            "mcp_tools": ["policycenter_pre_bind", "pas_bind_check", "mga_authority"],
             "expected": "allow_bind: false; do_not_call bind-only AND bind-and-issue; UW type must BlocksBind",
+        },
+        "money": {
+            "bind_room": "$1,750",
+            "bind_room_url": f"{public_url}/bind-room",
+            "weld": "$25,000 + $5,000/mo floor",
+            "weld_url": f"{public_url}/operator",
         },
         "weld": {
             "hop": f"POST {public_url}/v1/act",
@@ -569,8 +599,14 @@ def guidewire_packet(public_url: str, contact_email: str) -> dict:
             "ui_bind": f"{public_url}/listings/guidewire-gosu-prebind.gs",
             "renewal_auto_bind": f"{public_url}/listings/guidewire-renewal-prebind.gs",
         },
-        "what_this_is_not": "Not ProNavigator. Not appetite extraction. Control plane on bind-and-issue.",
-        "status": "Application / dating. Code for the weld is live. Exclusive production path is one at a time.",
+        "what_this_is_not": (
+            "Not ProNavigator. Not appetite extraction. Not a Guidewire Agentic Framework replacement. "
+            "Control plane on bind-and-issue when Qusar agents reach the irreversible write."
+        ),
+        "status": (
+            "Application / dating. Code for the weld is live. "
+            "Qusar wedge plate live at /for/qusar. Exclusive production path is one at a time."
+        ),
     }
 
 

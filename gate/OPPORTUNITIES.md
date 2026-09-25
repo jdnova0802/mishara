@@ -20,6 +20,7 @@ Replace `YOUR_GATE_URL` with your live Gate deploy.
 | GC / legal | `/for/legal` | Bind Room, stranger verify |
 | Compliance / NAIC | `/for/compliance` | Exhibit D, Art 12 clocks |
 | Carrier / PAS | `/for/carriers` | Bind demo autorun |
+| Guidewire Qusar SI | `/for/qusar` | Qusar agents draft · Gate owns bind · Bind Room $1,750 |
 | Broker / renewal | `/for/brokers` | CG 4047 rail |
 | Enterprise procurement | `/for/enterprise` | Org reactor $80–150K |
 | Board / director | `/for/boards` | DEAD in one link |

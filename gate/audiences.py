@@ -99,16 +99,38 @@ PLATES: dict[str, dict] = {
         "emoji": "",
         "title": "Carriers & PAS",
         "headline": "Bind ALLOW/BLOCK with a receipt counsel can open",
-        "subhead": "Clearance before irreversible bind. Fail closed. Independent verify. Same hop family as PAS bind-check.",
+        "subhead": "Clearance before irreversible bind. Fail closed. Independent verify. Same hop family as PAS bind-check. Qusar agents draft — Gate owns bind.",
         "pain": "Bind went through on an agent you can't prove was cleared.",
         "offer": "Bind Room officer pack + PolicyCenter pre-bind weld. Control, not a rating model.",
         "price": "$1,750 Bind Room · $25,000 operator weld",
         "cta_label": "Open Bind Room",
         "cta_route": "bind_room",
-        "secondary_label": "Operator weld",
-        "secondary_route": "operator_page",
+        "secondary_label": "Qusar bind mouth",
+        "secondary_href": "/for/qusar",
         "proof": "BLOCK → restraint receipt → independent verify",
-        "tags": ["insurance", "bind", "pas", "guidewire"],
+        "tags": ["insurance", "bind", "pas", "guidewire", "qusar"],
+    },
+    "qusar": {
+        "emoji": "",
+        "title": "Guidewire Qusar implementers",
+        "headline": "Qusar agents draft. Gate owns bind.",
+        "subhead": "Guidewire Agentic Framework + MCP can reach PolicyCenter. Bind is still irreversible. Fail-closed ALLOW/BLOCK + stranger-verifiable receipt before bind-only / bind-and-issue.",
+        "pain": "You are wiring Qusar agents into InsuranceSuite. Guidewire still wants human review before bind. Third-party Guidewire MCPs are read-only. Carriers will ask who owns the bind mouth.",
+        "offer": (
+            "Bind Room officer pack for the SI exhibit, then PolicyCenter pre-bind weld: "
+            "demo + metered pre-bind, Gosu UI/renewal pastes, MCP policycenter_pre_bind / mga_authority. "
+            "Not ProNavigator. Not appetite. Control plane on bind."
+        ),
+        "price": "$1,750 Bind Room · $25,000 operator weld + $5,000/mo floor",
+        "cta_label": "Open Bind Room",
+        "cta_route": "bind_room",
+        "secondary_label": "PartnerConnect packet",
+        "secondary_href": "/listings/guidewire-partnerconnect.json",
+        "proof": (
+            "POST /demo/pas/policycenter/pre-bind → allow_bind false; "
+            "Gosu + RenewalWF pastes; MCP tools live; PartnerConnect packet ready to paste"
+        ),
+        "tags": ["guidewire", "qusar", "si", "partnerconnect", "bind", "mcp"],
     },
     "brokers": {
         "emoji": "",
@@ -278,13 +300,14 @@ def opportunities_manifest(public_url: str, contact_email: str) -> dict:
         )
     return {
         "name": "Gate + Velaru opportunity surfaces",
-        "version": "1.2.0",
+        "version": "1.3.0",
         "not_saas": True,
         "hub": f"{public_url}/start",
         "primary_money": f"{public_url}/operator",
         "economics": f"{public_url}/pricing",
+        "qusar": f"{public_url}/for/qusar",
         "opportunities": entries,
         "contact": contact_email,
         "engine": VELARU_PUBLIC,
-        "gatekeep": "Audience doors point at weld and fee schedule. Lab is footnote.",
+        "gatekeep": "Audience doors point at weld and fee schedule. Lab is footnote. Qusar = Guidewire bind mouth.",
     }
