@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}Sink mouth{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Clear before inbound Visa OCT / Fast Funds lands on the card. Receive fees cited from Visa IRF. Gate never holds float.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --s-ink: #0c1210;
+    --s-mute: #5c6b63;
+    --s-line: #cfd8d2;
+    --s-go: #0f7a4a;
+    --s-no: #b42318;
+    --s-gold: #b8860b;
+    --s-serif: "Instrument Serif", Georgia, serif;
+    --s-sans: "DM Sans", system-ui, sans-serif;
+  }
+  .s-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(880px 400px at 92% -8%, #c8e6d855, transparent 55%),
+      radial-gradient(640px 340px at 4% 88%, #e8d9a840, transparent 50%),
+      linear-gradient(165deg, #f3f7f4 0%, #e8eee9 48%, #f7f4ea 100%);
+    color: var(--s-ink);
+    font-family: var(--s-sans);
+  }
+  .s-inner { max-width: 680px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .s-brand {
+    font-family: var(--s-serif);
+    font-size: clamp(2.6rem, 8.5vw, 4.2rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 0.94;
+    margin: 0 0 0.85rem;
+    animation: s-rise 0.55s ease-out both;
+  }
+  .s-brand span {
+    display: block;
+    font-family: var(--s-sans);
+    font-weight: 600;
+    font-size: 0.28em;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--s-mute);
+    margin-bottom: 0.6rem;
+  }
+  .s-lede {
+    font-size: 1.05rem;
+    color: var(--s-mute);
+    max-width: 34rem;
+    line-height: 1.45;
+    margin: 0 0 1.4rem;
+    animation: s-rise 0.55s ease-out 0.05s both;
+  }
+  .s-fees {
+    display: flex; flex-wrap: wrap; gap: 0.45rem;
+    margin: 0 0 1.6rem;
+    animation: s-rise 0.55s ease-out 0.08s both;
+  }
+  .s-pill {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+    border: 1px solid var(--s-line); padding: 0.4rem 0.7rem; background: #fff;
+  }
+  .s-pill.gold { border-color: var(--s-gold); color: #7a5a00; }
+  .s-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 1.25rem; animation: s-rise 0.55s ease-out 0.12s both; }
+  .s-row button {
+    font-family: var(--s-sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #fff; background: var(--s-ink); border: none;
+    padding: 0.85rem 1.15rem; cursor: pointer;
+  }
+  .s-row button.ghost { background: transparent; color: var(--s-ink); border: 1px solid var(--s-ink); }
+  .s-word {
+    font-family: var(--s-serif);
+    font-size: clamp(2.5rem, 9vw, 4.4rem);
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin: 0 0 0.55rem;
+    min-height: 1.05em;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .s-word.show { opacity: 1; transform: none; transition: opacity 0.35s ease, transform 0.35s ease; }
+  .s-word.go { color: var(--s-go); }
+  .s-word.no { color: var(--s-no); }
+  .s-meta { color: var(--s-mute); font-size: 0.92rem; line-height: 1.45; max-width: 36rem; margin: 0 0 1rem; }
+  .s-meta a { color: var(--s-ink); }
+  .s-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem; background: #fff; border: 1px solid var(--s-line);
+    padding: 0.85rem; overflow: auto; max-height: 240px; white-space: pre-wrap;
+  }
+  .s-steps { margin: 2.2rem 0 0; padding: 0; list-style: none; animation: s-rise 0.55s ease-out 0.16s both; }
+  .s-steps li {
+    border-top: 1px solid var(--s-line); padding: 0.85rem 0;
+    font-size: 0.95rem; color: var(--s-mute);
+  }
+  .s-steps strong { color: var(--s-ink); display: block; font-family: var(--s-serif); font-size: 1.15rem; margin-bottom: 0.2rem; }
+  @keyframes s-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 560px) { .s-inner { padding-top: 2.6rem; } }
+</style>
+
+<section class="s-stage">
+  <div class="s-inner">
+    <h1 class="s-brand"><span>Gate · Visa Direct sink</span>Get paid when money lands</h1>
+    <p class="s-lede">Inbound OCT / Fast Funds hit Gate Clear before the program accepts them. Visa’s own schedule pays the receiving issuer — Gate only GO or NEVER. Float never sits here.</p>
+
+    <div class="s-fees">
+      <span class="s-pill gold">OCT receive · $0.29</span>
+      <span class="s-pill gold">Fast Funds · $0.60</span>
+      <span class="s-pill">AFT (issuer) · 1.75%+$0.20</span>
+      <span class="s-pill">money_real · false until BIN</span>
+    </div>
+
+    <div class="s-row">
+      <button type="button" id="dogfood-go">Dogfood GO · Fast Funds</button>
+      <button type="button" class="ghost" id="dogfood-never">Dogfood NEVER</button>
+      <button type="button" class="ghost" id="dogfood-aft">AFT math · $100</button>
+    </div>
+
+    <div class="s-word" id="word" aria-live="polite"></div>
+    <p class="s-meta" id="meta">Dogfood proves Clear now. Real $0.60/push needs Fast Funds receive on a sponsor BIN (Column: typically 90–120 days). Issuing spend mouth stays separate.</p>
+    <pre class="s-code" id="out" hidden></pre>
+
+    <ol class="s-steps">
+      <li><strong>1. Destination card</strong>Workers enroll this card as payroll / gig payout sink. You earn receive fees when money is pushed here.</li>
+      <li><strong>2. Clear every push</strong><code>POST {{ public_url }}/v1/sink/oct</code> — accepted only on Gate GO. Mandate: sender + max_amount.</li>
+      <li><strong>3. Cite the schedule</strong><a href="{{ cfg.visa_primary }}" rel="noopener">Visa USA IRF PDF</a> — Original Credit $0.29 · Fast Funds $0.60. Gate does not collect network fees.</li>
+      <li><strong>4. Near vs long</strong>Tonight: dogfood + Stripe Issuing auth mouth. Parallel RFQ: Column/sponsor OCT Fast Funds receive.</li>
+    </ol>
+  </div>
+</section>
+
+<script>
+(function () {
+  const word = document.getElementById("word");
+  const meta = document.getElementById("meta");
+  const out = document.getElementById("out");
+  async function fire(forceBreach) {
+    word.className = "s-word";
+    word.textContent = "…";
+    word.classList.add("show");
+    meta.textContent = "Clearing inbound push…";
+    out.hidden = true;
+    try {
+      const r = await fetch("/demo/sink/mouth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          force_breach: !!forceBreach,
+          agent_id: "dogfood_sink",
+          max_amount: "500.00",
+          program: "fast_funds",
+          sender: "ADP Wisely Now",
+        }),
+      });
+      const j = await r.json();
+      const ok = !!j.accepted;
+      word.textContent = ok ? "GO" : "NEVER";
+      word.classList.add(ok ? "go" : "no");
+      const g = j.gate || {};
+      const recv = j.receive || {};
+      meta.innerHTML = (g.verify_url
+        ? 'Verify: <a href="' + g.verify_url + '" rel="noopener">' + g.verify_url + "</a> · "
+        : "") +
+        (recv.receive_fee_usd != null ? ("schedule $" + recv.receive_fee_usd + "/push if BIN live") : "");
+      out.hidden = false;
+      out.textContent = JSON.stringify(j, null, 2);
+    } catch (e) {
+      word.textContent = "NEVER";
+      word.classList.add("no");
+      meta.textContent = String(e);
+    }
+  }
+  async function aft() {
+    word.className = "s-word";
+    word.textContent = "…";
+    word.classList.add("show");
+    meta.textContent = "AFT illustration…";
+    out.hidden = true;
+    try {
+      const r = await fetch("/demo/sink/aft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ load_amount: 100 }),
+      });
+      const j = await r.json();
+      word.textContent = "$" + (j.issuer_interchange_usd || "—");
+      word.classList.add("go");
+      meta.textContent = "Issuer Ix if this card funds a $100 wallet load (" + (j.schedule || "") + "). Flip: wallet originators pay this.";
+      out.hidden = false;
+      out.textContent = JSON.stringify(j, null, 2);
+    } catch (e) {
+      word.textContent = "—";
+      word.classList.add("no");
+      meta.textContent = String(e);
+    }
+  }
+  document.getElementById("dogfood-go").addEventListener("click", function () { fire(false); });
+  document.getElementById("dogfood-never").addEventListener("click", function () { fire(true); });
+  document.getElementById("dogfood-aft").addEventListener("click", aft);
+})();
+</script>
+{% endblock %}
