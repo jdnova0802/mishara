@@ -149,8 +149,9 @@
     <pre class="k-out" id="k-out">// dogfood: open escrow → observe breach → liquidate → bounty</pre>
     <p class="k-note">
       <strong>Demo 100 is not money.</strong> SQLite index only — Gate holds nothing.
-      Massive dollars park in a foreign vault (on-chain USDC escrow / Issuing / bank).
-      Gate signs Clear/Never; the vault pays the bounty.
+      Massive dollars park in ClearanceEscrow only after
+      <a href="{{ public_url }}/.well-known/escrow-preflight.json">four preflight gates</a>
+      (audit · key-path · legal · testnet). Gate signs Clear/Never; the vault pays.
       <a href="{{ public_url }}/.well-known/foreign-custody.json">Custody atoms</a>
     </p>
   </div>

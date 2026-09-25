@@ -101,18 +101,25 @@ def onchain_config() -> dict[str, Any]:
     contract = (os.getenv("GATE_ESCROW_CONTRACT") or "").strip()
     usdc = (os.getenv("GATE_ESCROW_USDC") or "").strip()
     configured = bool(chain_id and contract and usdc)
+    try:
+        from gate import escrow_preflight as preflight
+    except ImportError:
+        import escrow_preflight as preflight
+    pf = preflight.report()
     return {
         "venue": VENUE_ONCHAIN_USDC,
         "configured": configured,
-        "money_can_enter": configured,
+        "preflight_all_passed": pf["all_passed"],
+        "money_can_enter": bool(configured and pf["all_passed"]),
         "chain_id": chain_id or None,
         "contract": contract or None,
         "usdc": usdc or None,
         "gate_holds_funds": False,
         "plain": (
-            "Set GATE_ESCROW_CHAIN_ID + GATE_ESCROW_CONTRACT + GATE_ESCROW_USDC "
-            "after deploy. Until then on-chain venue is a wire, not a vault."
+            "Contract env alone is not enough. All four preflight gates must pass "
+            "before real USDC. See /.well-known/escrow-preflight.json"
         ),
+        "preflight_spec": "gate-escrow-preflight-v1",
     }
 
 

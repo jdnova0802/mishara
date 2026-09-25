@@ -384,6 +384,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/never.json",
         "/.well-known/clearance-keepers.json",
         "/.well-known/foreign-custody.json",
+        "/.well-known/escrow-preflight.json",
         "/.well-known/prefinality.json",
         "/.well-known/positive-clear.json",
         "/.well-known/scenario-3.json",
@@ -1687,6 +1688,7 @@ def well_known_gate():
             "keepers_scan": f"{advertised_url()}/demo/keepers/scan",
             "keepers_dogfood": f"{advertised_url()}/demo/keepers/dogfood",
             "foreign_custody": f"{advertised_url()}/.well-known/foreign-custody.json",
+            "escrow_preflight": f"{advertised_url()}/.well-known/escrow-preflight.json",
             "positive_clear": f"{advertised_url()}/positive-clear",
             "scenario_3": f"{advertised_url()}/scenario-3",
             "uapa_seal": f"{advertised_url()}/uapa-seal",
@@ -2774,6 +2776,15 @@ def well_known_foreign_custody():
     except ImportError:
         import foreign_custody as fc
     return jsonify(fc.catalog())
+
+
+@app.route("/.well-known/escrow-preflight.json")
+def well_known_escrow_preflight():
+    try:
+        from gate import escrow_preflight as pf
+    except ImportError:
+        import escrow_preflight as pf
+    return jsonify(pf.report())
 
 
 @app.route("/keepers")
@@ -4658,6 +4669,9 @@ def openapi_full():
                 },
                 "/.well-known/foreign-custody.json": {
                     "get": {"summary": "Foreign vault catalog — where real money lives (Gate never holds)"}
+                },
+                "/.well-known/escrow-preflight.json": {
+                    "get": {"summary": "Four gates before real USDC — audit, key-path, legal, testnet"}
                 },
                 "/demo/keepers/open": {"post": {"summary": "Open agent escrow position (demo)", "security": []}},
                 "/demo/keepers/observe": {"post": {"summary": "Observe transfer against mandate (demo)", "security": []}},

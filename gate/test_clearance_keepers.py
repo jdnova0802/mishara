@@ -166,6 +166,15 @@ class ClearanceKeepersHttpTests(unittest.TestCase):
         self.assertEqual(fc.get_json()["spec"], "gate-foreign-custody-v1")
         self.assertFalse(fc.get_json()["doctrine"]["demo_is_money"])
 
+        pre = self.client.get("/.well-known/escrow-preflight.json")
+        self.assertEqual(pre.status_code, 200)
+        body = pre.get_json()
+        self.assertEqual(body["spec"], "gate-escrow-preflight-v1")
+        self.assertFalse(body["real_usdc_allowed"])
+        self.assertEqual(len(body["gates"]), 4)
+        self.assertFalse(body["key_path_review"]["gate_is_privileged_caller"])
+        self.assertTrue(body["key_path_review"]["principal_reclaim_after_expiry_without_gate"])
+
     def test_http_open_scan_liquidate(self):
         opened = self.client.post(
             "/demo/keepers/open",
