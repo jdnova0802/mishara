@@ -230,6 +230,15 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
             "filing Gate as a rating/UW model",
             "unlicensed / offshore gambling as a customer",
         ],
+        "track_record": {
+            "page": f"{public_url}/record",
+            "manifest": f"{public_url}/.well-known/record.json",
+            "incidents": f"{public_url}/.well-known/incidents.json",
+            "uptime": f"{public_url}/.well-known/uptime.json",
+            "red_team": f"{public_url}/.well-known/red-team.json",
+            "evidence_watch": f"{public_url}/.well-known/evidence-watch.json",
+            "watch_script": f"{public_url}/watch/evidence-head.py",
+        },
     }
 
 

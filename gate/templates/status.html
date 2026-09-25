@@ -31,7 +31,7 @@
   </div>
   {% endif %}
 
-  <p style="margin-top: 1.5rem;"><a href="{{ url_for('health') }}">JSON health</a> · <a href="{{ url_for('openapi') }}">openapi.json</a> · <a href="/.well-known/gate.json">.well-known/gate.json</a></p>
+  <p style="margin-top: 1.5rem;"><a href="{{ url_for('record_page') }}">Public incident log</a> · <a href="{{ url_for('health') }}">JSON health</a> · <a href="{{ url_for('openapi') }}">openapi.json</a> · <a href="/.well-known/gate.json">.well-known/gate.json</a></p>
   <p style="margin-top: 1rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary btn-sm">Weld a path</a></p>
 </div>
 {% endblock %}

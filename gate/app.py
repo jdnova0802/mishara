@@ -145,6 +145,11 @@ except ImportError:
     import public_surface as public_surface_mod
 
 try:
+    from gate import track_record as track_record_mod
+except ImportError:
+    import track_record as track_record_mod
+
+try:
     from gate import canary as canary_mod
 except ImportError:
     import canary as canary_mod
@@ -358,6 +363,13 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/deny-registry.json",
         "/.well-known/seal.json",
         "/.well-known/evidence-head.json",
+        "/.well-known/record.json",
+        "/.well-known/incidents.json",
+        "/.well-known/red-team.json",
+        "/.well-known/uptime.json",
+        "/.well-known/evidence-watch.json",
+        "/.well-known/evidence-consistency.json",
+        "/.well-known/evidence-leaves.json",
         "/.well-known/go.json",
         "/.well-known/never.json",
         "/.well-known/prefinality.json",
@@ -767,12 +779,23 @@ def health():
     }
     prod_public = (not local) and https_ok
     if GATE_DEV_MODE:
-        return jsonify(payload)
-    if not prod_public:
+        status_code = 200
+    elif not prod_public:
         payload["status"] = "not_public"
         payload["message"] = "GATE_PUBLIC_URL is still local/http. Set https origin or rely on RENDER_EXTERNAL_URL."
+        status_code = 503
+    else:
+        payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
+        status_code = 200
+    try:
+        track_record_mod.maybe_sample_pulse(
+            health_ok=payload.get("status") in ("ok", "degraded"),
+            velaru_ok=velaru_ok,
+        )
+    except Exception:
+        pass
+    if status_code == 503:
         return jsonify(payload), 503
-    payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
     return jsonify(payload)
 
 
@@ -835,6 +858,82 @@ def trust():
         public_url=advertised_url(),
         surface=public_surface_mod.surface_clock(),
     )
+
+
+@app.route("/record")
+def record_page():
+    desk = track_record_mod.manifest(advertised_url())
+    return render_template(
+        "record.html",
+        public_url=advertised_url(),
+        surface=public_surface_mod.surface_clock(),
+        incidents=desk["incidents"],
+        red_team=desk["red_team"],
+        watch=desk["evidence_watch"],
+        uptime=desk["uptime"],
+        shared_failure=desk["shared_failure"],
+        first_bottleneck=desk["first_bottleneck"],
+        thirty_second_trust=desk["thirty_second_trust"],
+        scvd=desk["scvd_invite"],
+    )
+
+
+@app.route("/incidents")
+def incidents_alias():
+    return redirect(url_for("record_page"))
+
+
+@app.route("/incidents/<incident_id>")
+def incident_page(incident_id: str):
+    row = track_record_mod.incident_by_id(incident_id)
+    if not row:
+        abort(404)
+    return redirect(url_for("record_page") + "#" + row["id"])
+
+
+@app.route("/.well-known/record.json")
+def well_known_record():
+    return jsonify(track_record_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/incidents.json")
+def well_known_incidents():
+    return jsonify(
+        {
+            "spec": "gate-incidents-v1",
+            "page": f"{advertised_url()}/record",
+            "incidents": [dict(x) for x in track_record_mod.INCIDENTS],
+        }
+    )
+
+
+@app.route("/.well-known/red-team.json")
+def well_known_red_team():
+    body = dict(track_record_mod.RED_TEAM)
+    body["page"] = f"{advertised_url()}/record"
+    return jsonify(body)
+
+
+@app.route("/.well-known/uptime.json")
+def well_known_uptime():
+    body = db.pulse_summary()
+    body["page"] = f"{advertised_url()}/record"
+    body["health"] = f"{advertised_url()}/health"
+    return jsonify(body)
+
+
+@app.route("/.well-known/evidence-watch.json")
+def well_known_evidence_watch():
+    desk = track_record_mod.manifest(advertised_url())
+    return jsonify(desk["evidence_watch"])
+
+
+@app.route("/watch/evidence-head.py")
+def watch_evidence_head_script():
+    here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "watch_evidence_head.py")
+    with open(here, "r", encoding="utf-8") as fh:
+        text = fh.read()
+    return Response(text, mimetype="text/x-python")
 
 
 GONE_AUDIENCE_SLUGS = frozenset({"partners"})
@@ -1537,6 +1636,12 @@ def well_known_gate():
             "production_weld": f"{advertised_url()}/production-weld",
             "live": f"{advertised_url()}/live",
             "live_json": f"{advertised_url()}/.well-known/live.json",
+            "record": f"{advertised_url()}/record",
+            "record_json": f"{advertised_url()}/.well-known/record.json",
+            "incidents_json": f"{advertised_url()}/.well-known/incidents.json",
+            "uptime_json": f"{advertised_url()}/.well-known/uptime.json",
+            "red_team_json": f"{advertised_url()}/.well-known/red-team.json",
+            "evidence_watch": f"{advertised_url()}/.well-known/evidence-watch.json",
             "canary": f"{advertised_url()}/.well-known/canary.json",
             "canary_report": f"{advertised_url()}/v1/canary/bypass",
             "rail_truth": f"{advertised_url()}/.well-known/rail-truth.json",
@@ -3013,6 +3118,13 @@ def well_known_evidence_consistency():
     leaves = evidence_log_mod.log_from_rows(rows)
     proof = evidence_log_mod.consistency_proof(old_size, leaves)
     proof["tree_head"] = evidence_log_mod.signed_tree_head(leaves)
+    old_root = (request.args.get("old_root") or "").strip()
+    if old_root:
+        proof["cached_old_root"] = old_root
+        proof["cached_old_root_matches"] = proof.get("old_root") == old_root
+        if proof.get("cached_old_root_matches") is False:
+            proof["valid"] = False
+            proof["reason"] = proof.get("reason") or "cached_old_root_mismatch"
     return jsonify(proof)
 
 

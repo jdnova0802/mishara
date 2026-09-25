@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Track record{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate public incident log, monthly red-team cadence, evidence-head watch protocol, and sampled uptime. Closed in code is not a track record.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <h1>Track record</h1>
+  <p style="color: var(--muted); max-width: 640px; margin-bottom: 0.5rem;">
+    What broke, when, who found it, how it was fixed. Monthly red-team results. Evidence-head watch protocol.
+    Uptime samples that start empty and compound — not a fake 90-day 99.9%.
+  </p>
+  <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
+    Surface updated {{ surface.updated_label }} · {{ surface.note }}
+  </p>
+
+  <div class="card">
+    <h2>Incidents</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Closed silently in a commit is not history. These are public.</p>
+    {% for inc in incidents %}
+    <div class="card" style="margin-bottom: 1rem;" id="{{ inc.id }}">
+      <p style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; color: var(--muted);">
+        {{ inc.id }} · {{ inc.severity }} · {{ inc.status }}
+      </p>
+      <h3 style="margin: 0.35rem 0;">{{ inc.title }}</h3>
+      <p><strong>Found by.</strong> {{ inc.found_by }}</p>
+      <p style="margin-top: 0.4rem;"><strong>How.</strong> {{ inc.found_how }}</p>
+      <p style="margin-top: 0.4rem;"><strong>Broke.</strong> {{ inc.broke }}</p>
+      <p style="margin-top: 0.4rem;"><strong>Fix.</strong> {{ inc.fix }}</p>
+      <p style="margin-top: 0.4rem; color: var(--muted); font-size: 0.9rem;">
+        Closed {{ inc.closed_at }} ·
+        {% if inc.fix_pr %}<a href="{{ inc.fix_pr }}">PR</a>{% endif %}
+        · still open: {{ inc.still_open }}
+      </p>
+    </div>
+    {% endfor %}
+    <p style="font-size: 0.85rem;"><a href="/.well-known/incidents.json">incidents.json</a></p>
+  </div>
+
+  <div class="card">
+    <h2>Red-team cadence</h2>
+    <p>Monthly on the 24th. Results posted here each time. One pass is a moment. A published cadence is a state.</p>
+    <p style="margin-top: 0.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem;">
+      Next: {{ red_team.next }} · cadence {{ red_team.cadence }}
+    </p>
+    {% for p in red_team.passes %}
+    <p style="margin-top: 0.75rem;"><strong>{{ p.date }}</strong> — {{ p.scope }}</p>
+    <ul class="check-list">
+      {% for f in p.findings %}<li>{{ f }}</li>{% endfor %}
+    </ul>
+    {% if p.parked %}
+    <p style="margin-top: 0.5rem; color: var(--muted);">Parked: {{ p.parked | join("; ") }}</p>
+    {% endif %}
+    {% endfor %}
+    <p style="font-size: 0.85rem; margin-top: 0.75rem;"><a href="/.well-known/red-team.json">red-team.json</a></p>
+  </div>
+
+  <div class="card">
+    <h2>Evidence-head watch</h2>
+    <p>{{ watch.what }}</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">{{ watch.independent_watchers_note }}</p>
+    <p style="margin-top: 0.5rem;">First-party (not independent): {{ watch.first_party.who }} · {{ watch.first_party.cadence }}.</p>
+    <p style="margin-top: 0.75rem;">
+      <a href="{{ watch.head }}">evidence-head.json</a> ·
+      <a href="{{ watch.consistency }}">consistency</a> ·
+      <a href="{{ watch.script }}">watch script</a> ·
+      <a href="/.well-known/evidence-watch.json">protocol JSON</a>
+    </p>
+    <pre style="margin-top: 1rem; font-size: 0.8rem; overflow: auto;">python3 gate/watch_evidence_head.py --url https://gate.velaru.xyz --cache /tmp/gate-head.json</pre>
+  </div>
+
+  <div class="card">
+    <h2>Uptime samples</h2>
+    <p>
+      {% if uptime.pct_up is not none %}
+      {{ uptime.pct_up }}% of {{ uptime.samples }} stored samples up
+      {% else %}
+      {{ uptime.samples }} samples so far — pct_up stays blank until 20 exist. No 90-day claim yet.
+      {% endif %}
+    </p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">{{ uptime.pct_note }}</p>
+    <p style="font-size: 0.85rem; margin-top: 0.75rem;"><a href="/.well-known/uptime.json">uptime.json</a> · <a href="{{ url_for('health') }}">/health</a></p>
+  </div>
+
+  <div class="card">
+    <h2>Three questions</h2>
+    <h3>{{ shared_failure.question }}</h3>
+    <p>{{ shared_failure.answer }}</p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">Category tested: {{ shared_failure.category_tested }} — {{ shared_failure.category_tested_note }}</p>
+    <h3 style="margin-top: 1.25rem;">{{ first_bottleneck.question }}</h3>
+    <p>{{ first_bottleneck.answer }}</p>
+    <h3 style="margin-top: 1.25rem;">{{ thirty_second_trust.question }}</h3>
+    <p>{{ thirty_second_trust.answer }}</p>
+  </div>
+
+  <div class="card">
+    <h2>SCVD invite</h2>
+    <p>{{ scvd.ask }}</p>
+    <pre style="margin-top: 1rem; font-size: 0.8rem; white-space: pre-wrap;">{{ scvd.pasteable }}</pre>
+    <p style="margin-top: 0.75rem; color: var(--muted);">Send from {{ scvd.from }}. This page is the public invite; we do not claim they accepted.</p>
+  </div>
+
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="{{ url_for('trust') }}" class="btn btn-ghost btn-sm">Trust</a>
+    <a href="{{ url_for('live_page') }}" class="btn btn-ghost btn-sm">Live</a>
+    <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Bind Room</a>
+  </div>
+</div>
+{% endblock %}

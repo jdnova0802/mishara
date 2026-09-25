@@ -127,6 +127,8 @@ class ManifestTests(unittest.TestCase):
         self.assertFalse(m["particular"]["tuesday_moved"])
         self.assertIn("policycenter", m["welds"])
         self.assertIn("PII", " ".join(m["refuse"]))
+        self.assertIn("track_record", m)
+        self.assertTrue(m["track_record"]["page"].endswith("/record"))
 
     def test_mcp_stateless_tools_list(self):
         body, status = mcp_server.handle_message(
@@ -3470,6 +3472,12 @@ class BuyerCredibilityTests(unittest.TestCase):
             "/.well-known/operator.json",
             "/.well-known/spend-protocol.json",
             "/.well-known/clear.json",
+            "/record",
+            "/.well-known/record.json",
+            "/.well-known/incidents.json",
+            "/.well-known/red-team.json",
+            "/.well-known/uptime.json",
+            "/.well-known/evidence-watch.json",
         )
         for path in paths:
             r = self.client.get(path)
@@ -3646,3 +3654,85 @@ class NewMouthsShipTests(unittest.TestCase):
 
         self.assertEqual(len(mouths_mod.PARKED_MOUTHS), 1)
         self.assertEqual(mouths_mod.PARKED_MOUTHS[0]["id"], "visa-agentic-chargebacks")
+
+
+class TrackRecordTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def test_record_page_posts_x402_and_race(self):
+        r = self.client.get("/record")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_data(as_text=True)
+        self.assertIn("x402 treated a payment header as paid", body)
+        self.assertIn("Two tickets could spend the same job_id", body)
+        self.assertIn("Surface updated", body)
+        self.assertIn("Zero independent watchers", body)
+        self.assertIn("hello@velaru.xyz", body)
+        self.assertNotIn("their_production: false", body.lower())
+
+    def test_incidents_json_and_footer(self):
+        data = self.client.get("/.well-known/incidents.json").get_json()
+        ids = {i["id"] for i in data["incidents"]}
+        self.assertIn("2026-09-24-x402-header-paid", ids)
+        self.assertIn("2026-09-24-spend-map-race", ids)
+        home = self.client.get("/").get_data(as_text=True)
+        self.assertIn('href="/record"', home)
+        alias = self.client.get("/incidents")
+        self.assertIn(alias.status_code, (301, 302))
+        watch = self.client.get("/.well-known/evidence-watch.json").get_json()
+        self.assertEqual(watch["first_party"]["independent"], False)
+        self.assertEqual(watch["independent_watchers"], [])
+        cadence = self.client.get("/.well-known/red-team.json").get_json()
+        self.assertEqual(cadence["cadence"], "monthly")
+        self.assertEqual(cadence["next"], "2026-10-24")
+
+    def test_consistency_old_root_mismatch_fails(self):
+        r = self.client.get(
+            "/.well-known/evidence-consistency.json",
+            query_string={"old_size": "0", "old_root": "deadbeef"},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertFalse(body.get("cached_old_root_matches"))
+        self.assertFalse(body.get("valid"))
+
+    def test_watch_check_rejects_shrink(self):
+        import watch_evidence_head as watch
+
+        ok = watch.check_cached_head({"tree_size": 2, "root_hash": "aa"}, None)
+        self.assertTrue(ok["ok"])
+        bad = watch.check_cached_head(
+            {"tree_size": 1, "root_hash": "bb"},
+            {"tree_size": 2, "root_hash": "aa"},
+        )
+        self.assertFalse(bad["ok"])
+        rewrite = watch.check_cached_head(
+            {"tree_size": 2, "root_hash": "cc"},
+            {"tree_size": 2, "root_hash": "aa"},
+        )
+        self.assertFalse(rewrite["ok"])
+
+    def test_uptime_does_not_invent_sla(self):
+        data = self.client.get("/.well-known/uptime.json").get_json()
+        self.assertIn("SLA", " ".join(data["not"]))
+        if data["samples"] < 20:
+            self.assertIsNone(data["pct_up"])
+
+    def test_watch_script_served(self):
+        r = self.client.get("/watch/evidence-head.py")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn("tree only grows", r.get_data(as_text=True).lower())
+
+    def test_shared_failure_named(self):
+        data = self.client.get("/.well-known/record.json").get_json()
+        self.assertIn("sqlite", data["shared_failure"]["answer"].lower())
+        self.assertFalse(data["shared_failure"]["category_tested"])
+        self.assertIn("backup", data["first_bottleneck"]["answer"].lower())
+
