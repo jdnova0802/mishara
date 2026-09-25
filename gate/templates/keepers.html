@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title %}Keepers{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate Clearance Keepers — watch agent escrow, Never-prove breach, liquidate, protocol pays the bounty. Mining-shaped.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --k-ink: #12141a;
+    --k-mute: #5c6573;
+    --k-line: #d5dae3;
+    --k-win: #0d7a4f;
+    --k-hunt: #1a3a5c;
+    --k-serif: "Syne", system-ui, sans-serif;
+    --k-sans: "Figtree", system-ui, sans-serif;
+  }
+  .k-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(920px 420px at 78% -12%, #b8d4e855, transparent 55%),
+      radial-gradient(700px 340px at 6% 88%, #c5d8c840, transparent 50%),
+      linear-gradient(180deg, #f4f6f9 0%, #e9eef4 48%, #e2e8f0 100%);
+    color: var(--k-ink);
+    font-family: var(--k-sans);
+  }
+  .k-inner { max-width: 720px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .k-brand {
+    font-family: var(--k-serif);
+    font-size: clamp(2.8rem, 9vw, 4.6rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+    animation: k-rise 0.65s ease-out both;
+  }
+  .k-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.32em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--k-mute);
+    margin-bottom: 0.55rem;
+  }
+  .k-lede {
+    font-size: 1.08rem;
+    color: var(--k-mute);
+    max-width: 32rem;
+    line-height: 1.45;
+    margin: 0 0 1.75rem;
+    animation: k-rise 0.65s ease-out 0.07s both;
+  }
+  .k-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 0 0 2.5rem;
+    animation: k-rise 0.65s ease-out 0.12s both;
+  }
+  .k-cta button, .k-cta a.btn {
+    font-family: var(--k-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.85rem 1.25rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  .k-cta .primary {
+    background: var(--k-hunt);
+    color: #f4f7fb;
+  }
+  .k-cta .ghost {
+    background: transparent;
+    color: var(--k-ink);
+    border: 1px solid var(--k-line);
+  }
+  .k-word {
+    font-family: var(--k-serif);
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.4rem;
+    min-height: 1.1em;
+    animation: k-rise 0.55s ease-out both;
+  }
+  .k-word.win { color: var(--k-win); }
+  .k-word.idle { color: var(--k-mute); }
+  .k-plain {
+    color: var(--k-mute);
+    margin: 0 0 1.5rem;
+    max-width: 36rem;
+    line-height: 1.5;
+  }
+  .k-out {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    background: #12141a;
+    color: #c8d0dc;
+    padding: 1rem 1.1rem;
+    border-radius: 2px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 8rem;
+    animation: k-fade 0.4s ease-out both;
+  }
+  .k-note {
+    margin-top: 2.5rem;
+    font-size: 0.92rem;
+    color: var(--k-mute);
+    max-width: 34rem;
+    line-height: 1.5;
+    animation: k-rise 0.65s ease-out 0.18s both;
+  }
+  .k-note strong { color: var(--k-ink); font-weight: 600; }
+  @keyframes k-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes k-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+<section class="k-stage">
+  <div class="k-inner">
+    <h1 class="k-brand"><span>Gate</span>Keepers</h1>
+    <p class="k-lede">
+      Bitcoin hashes until the protocol pays. Here you watch agent escrow until it breaches —
+      Never-prove it — liquidate — the protocol pays the bounty. You are the farm.
+    </p>
+    <div class="k-cta">
+      <button type="button" class="primary" id="k-dogfood">Run dogfood drill</button>
+      <button type="button" class="ghost" id="k-scan">Scan liquidatable</button>
+      <a class="btn ghost" href="{{ public_url }}/.well-known/clearance-keepers.json">Manifest</a>
+    </div>
+    <div class="k-word idle" id="k-word">IDLE</div>
+    <p class="k-plain" id="k-plain">No stranger checkout. Lock capital, run keepers, claim bounties when Clear would have said no.</p>
+    <pre class="k-out" id="k-out">// dogfood: open escrow → observe breach → liquidate → bounty</pre>
+    <p class="k-note">
+      <strong>Not a token mine.</strong> Not SaaS. Day-one TVL is yours.
+      Scale is others parking funds because the mouth holds — you earn as the dominant keeper.
+    </p>
+  </div>
+</section>
+<script>
+(function () {
+  const word = document.getElementById("k-word");
+  const plain = document.getElementById("k-plain");
+  const out = document.getElementById("k-out");
+  async function run(path, opts) {
+    const r = await fetch(path, opts || {});
+    const body = await r.json();
+    out.textContent = JSON.stringify(body, null, 2);
+    return body;
+  }
+  document.getElementById("k-dogfood").addEventListener("click", async () => {
+    word.textContent = "…";
+    word.className = "k-word idle";
+    const body = await run("/demo/keepers/dogfood", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+    const liq = body.liquidate || {};
+    if (liq.ok) {
+      word.textContent = "LIQUIDATED";
+      word.className = "k-word win";
+      plain.textContent = liq.plain || body.plain || "Protocol paid the keeper.";
+    } else {
+      word.textContent = "BROKEN";
+      word.className = "k-word idle";
+      plain.textContent = (liq && liq.error) || "Drill failed.";
+    }
+  });
+  document.getElementById("k-scan").addEventListener("click", async () => {
+    word.textContent = "…";
+    word.className = "k-word idle";
+    const body = await run("/demo/keepers/scan");
+    const n = body.count || 0;
+    word.textContent = n ? (n + " OPEN") : "EMPTY";
+    word.className = n ? "k-word win" : "k-word idle";
+    plain.textContent = body.plain || "No liquidatable positions.";
+  });
+})();
+</script>
+{% endblock %}

@@ -25,3 +25,8 @@ jobs:
         env:
           GATE_DEV_MODE: "1"
         run: python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v
+      - name: Clearance keepers
+        working-directory: gate
+        env:
+          GATE_DEV_MODE: "1"
+        run: python3 -m unittest test_clearance_keepers -v

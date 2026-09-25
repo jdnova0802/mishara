@@ -230,6 +230,11 @@ except ImportError:
     import prefinality as prefinality_mod
 
 try:
+    from gate import clearance_keepers as clearance_keepers_mod
+except ImportError:
+    import clearance_keepers as clearance_keepers_mod
+
+try:
     from gate import rtp_adapter as rtp_adapter_mod
 except ImportError:
     import rtp_adapter as rtp_adapter_mod
@@ -377,6 +382,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/evidence-leaves.json",
         "/.well-known/go.json",
         "/.well-known/never.json",
+        "/.well-known/clearance-keepers.json",
         "/.well-known/prefinality.json",
         "/.well-known/positive-clear.json",
         "/.well-known/scenario-3.json",
@@ -1675,6 +1681,10 @@ def well_known_gate():
             "never": f"{advertised_url()}/never",
             "never_json": f"{advertised_url()}/.well-known/never.json",
             "never_api": f"{advertised_url()}/v1/never",
+            "keepers": f"{advertised_url()}/keepers",
+            "keepers_json": f"{advertised_url()}/.well-known/clearance-keepers.json",
+            "keepers_scan": f"{advertised_url()}/demo/keepers/scan",
+            "keepers_dogfood": f"{advertised_url()}/demo/keepers/dogfood",
             "positive_clear": f"{advertised_url()}/positive-clear",
             "scenario_3": f"{advertised_url()}/scenario-3",
             "uapa_seal": f"{advertised_url()}/uapa-seal",
@@ -2748,6 +2758,92 @@ def never_api():
     if not job_id:
         return jsonify(never_mod.manifest(advertised_url()))
     return jsonify(never_mod.clear_job(job_id))
+
+
+@app.route("/.well-known/clearance-keepers.json")
+def well_known_clearance_keepers():
+    return jsonify(clearance_keepers_mod.manifest(advertised_url()))
+
+
+@app.route("/keepers")
+def keepers_page():
+    return render_template("keepers.html", public_url=advertised_url())
+
+
+@app.route("/demo/keepers/open", methods=["POST"])
+def demo_keepers_open():
+    body = request.get_json(silent=True) or {}
+    data = clearance_keepers_mod.open_position(
+        principal_id=body.get("principal_id") or "demo_principal",
+        escrow_amount=body.get("escrow") or body.get("escrow_amount") or "0",
+        mandate=body.get("mandate") if isinstance(body.get("mandate"), dict) else {},
+        rail=body.get("rail") or "x402",
+        agent_id=body.get("agent_id"),
+        bounty_bps=body.get("bounty_bps"),
+        ttl_seconds=body.get("ttl_seconds"),
+        meta=body.get("meta") if isinstance(body.get("meta"), dict) else {"demo": True},
+    )
+    return jsonify(data), (200 if data.get("ok") else 400)
+
+
+@app.route("/demo/keepers/observe", methods=["POST"])
+def demo_keepers_observe():
+    body = request.get_json(silent=True) or {}
+    data = clearance_keepers_mod.observe(
+        position_id=body.get("position_id") or "",
+        transfer=body.get("transfer") if isinstance(body.get("transfer"), dict) else {},
+        executed=bool(body.get("executed", True)),
+    )
+    return jsonify(data), (200 if data.get("ok") else 400)
+
+
+@app.route("/demo/keepers/scan")
+def demo_keepers_scan():
+    try:
+        limit = int(request.args.get("limit") or 50)
+    except (TypeError, ValueError):
+        limit = 50
+    return jsonify(clearance_keepers_mod.scan(limit=limit))
+
+
+@app.route("/demo/keepers/liquidate", methods=["POST"])
+def demo_keepers_liquidate():
+    body = request.get_json(silent=True) or {}
+    data = clearance_keepers_mod.liquidate(
+        position_id=body.get("position_id") or "",
+        keeper_id=body.get("keeper_id") or "demo_keeper",
+        observation_id=body.get("observation_id"),
+    )
+    return jsonify(data), (200 if data.get("ok") else 400)
+
+
+@app.route("/demo/keepers/release", methods=["POST"])
+def demo_keepers_release():
+    body = request.get_json(silent=True) or {}
+    data = clearance_keepers_mod.release_on_clear(
+        position_id=body.get("position_id") or "",
+        transfer=body.get("transfer") if isinstance(body.get("transfer"), dict) else {},
+        go_receipt=body.get("go_receipt") or body.get("receipt"),
+    )
+    return jsonify(data), (200 if data.get("ok") else 400)
+
+
+@app.route("/demo/keepers/dogfood", methods=["POST", "GET"])
+def demo_keepers_dogfood():
+    body = request.get_json(silent=True) or {}
+    keeper_id = (body.get("keeper_id") or request.args.get("keeper_id") or "keeper_dogfood").strip()
+    return jsonify(clearance_keepers_mod.dogfood_drill(keeper_id=keeper_id))
+
+
+@app.route("/demo/keepers/position")
+def demo_keepers_position():
+    pid = (request.args.get("position_id") or "").strip()
+    if not pid:
+        return jsonify({"spec": clearance_keepers_mod.SPEC, "error": "position_id_required"}), 400
+    pos = clearance_keepers_mod.get_position(pid)
+    if not pos:
+        return jsonify({"spec": clearance_keepers_mod.SPEC, "error": "position_not_found"}), 404
+    return jsonify(pos)
 
 
 def _register_extra_mouths():
@@ -4544,6 +4640,15 @@ def openapi_full():
                 "/never": {"get": {"summary": "One-word spend exclusion — NEVER / SPENT"}},
                 "/v1/never": {"get": {"summary": "Never API — ?job_id=", "security": []}},
                 "/.well-known/never.json": {"get": {"summary": "Never discovery manifest"}},
+                "/keepers": {"get": {"summary": "Clearance keepers — Gate-shaped mining on agent escrow"}},
+                "/.well-known/clearance-keepers.json": {
+                    "get": {"summary": "Clearance keepers discovery — watch → Never-prove → liquidate → bounty"}
+                },
+                "/demo/keepers/open": {"post": {"summary": "Open agent escrow position (demo)", "security": []}},
+                "/demo/keepers/observe": {"post": {"summary": "Observe transfer against mandate (demo)", "security": []}},
+                "/demo/keepers/scan": {"get": {"summary": "Mempool of liquidatable positions", "security": []}},
+                "/demo/keepers/liquidate": {"post": {"summary": "Permissionless liquidate + claim bounty", "security": []}},
+                "/demo/keepers/dogfood": {"post": {"summary": "Dogfood drill — you are the farm", "security": []}},
                 "/positive-clear": {"get": {"summary": "May this irreversible unlock proceed?"}},
                 "/scenario-3": {"get": {"summary": "FIN-2016-A003 Scenario 3 check"}},
                 "/uapa-seal": {"get": {"summary": "TCH UAPA post-send classification"}},
