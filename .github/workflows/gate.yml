@@ -1,0 +1,27 @@
+name: Gate
+
+on:
+  push:
+    paths:
+      - "gate/**"
+      - ".github/workflows/gate.yml"
+  pull_request:
+    paths:
+      - "gate/**"
+      - ".github/workflows/gate.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install
+        run: pip install -r gate/requirements.txt
+      - name: x402 + red-team
+        working-directory: gate
+        env:
+          GATE_DEV_MODE: "1"
+        run: python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v
