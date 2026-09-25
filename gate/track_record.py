@@ -47,7 +47,11 @@ INCIDENTS: tuple[dict[str, Any], ...] = (
             "curl POST /v1/prefinality/evaluate with Payment-Signature: not-a-real-payment "
             "must return HTTP 402."
         ),
-        "still_open": "Real facilitator verify is not wired. Paid x402 staying 402 is the correct state.",
+        "still_open": (
+            "CDP facilitator verify+settle is wired in payment_verified(); unlock still needs "
+            "CDP_API_KEY_ID/SECRET on Render and one real $0.002 USDC buyer settle on "
+            "POST /v1/prefinality/evaluate. Forged headers must keep returning 402."
+        ),
     },
     {
         "id": "2026-09-24-spend-map-race",
@@ -121,8 +125,8 @@ FIRST_BOTTLENECK = {
     "answer": (
         "Sqlite single-writer under concurrent redeem on one Render starter instance, "
         "with no automated backup of /var/data/gate.db. Bind Room redeem is the money path; "
-        "a disk wipe or lock storm is the first honest break. Paid x402 cannot take real "
-        "volume yet (fail-closed 402 until facilitator verify). One operator, no on-call rotation."
+        "a disk wipe or lock storm is the first honest break. Paid x402 now has a facilitator "
+        "path but has not taken real USDC volume yet. One operator, no on-call rotation."
     ),
 }
 

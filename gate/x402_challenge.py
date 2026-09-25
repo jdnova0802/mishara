@@ -56,69 +56,148 @@ def payto_configured() -> bool:
     return payto() is not None
 
 
+_PAYMENT_HEADER_KEYS = (
+    "Payment-Signature",
+    "PAYMENT-SIGNATURE",
+    "X-Payment",
+    "X-PAYMENT",
+    "payment-signature",
+    "x-payment",
+)
+
+
+def payment_header_value(headers) -> str | None:
+    """First non-empty payment header value, or None."""
+    if not headers:
+        return None
+    for key in _PAYMENT_HEADER_KEYS:
+        raw = headers.get(key)
+        if raw:
+            return raw if isinstance(raw, str) else str(raw)
+    # Werkzeug / CI may expose only lowercase keys via .get — scan items.
+    try:
+        for key, val in headers.items():
+            if key and key.lower().replace("_", "-") in (
+                "payment-signature",
+                "x-payment",
+            ):
+                if val:
+                    return val if isinstance(val, str) else str(val)
+    except Exception:
+        pass
+    return None
+
+
 def payment_header_present(headers) -> bool:
     """True if a payment header is present. Presence is NOT payment."""
-    if not headers:
+    return payment_header_value(headers) is not None
+
+
+def _addr_eq(a: str | None, b: str | None) -> bool:
+    if not a or not b:
         return False
-    for key in (
-        "Payment-Signature",
-        "PAYMENT-SIGNATURE",
-        "X-Payment",
-        "X-PAYMENT",
-        "payment-signature",
-    ):
-        if headers.get(key):
-            return True
-    return False
+    return a.strip().lower() == b.strip().lower()
 
 
-def payment_verified(headers) -> dict:
+def payment_verified(headers, *, amount_atomic_override: str | None = None) -> dict:
     """Fail closed: a payment header alone never unlocks a paid route.
 
-    Facilitator verify is required. Until GATE_X402_FACILITATOR_URL is wired
-    and returns ok, every call fails closed — including non-empty X-Payment.
+    Requires CDP facilitator verify + settle (CDP_API_KEY_ID/SECRET).
     Dev-only escape: GATE_X402_ACCEPT_UNVERIFIED=1 AND GATE_DEV_MODE=1.
     """
-    if not payment_header_present(headers):
+    try:
+        from gate import x402_facilitator as fac
+    except ImportError:
+        import x402_facilitator as fac
+
+    raw = payment_header_value(headers)
+    if not raw:
         return {
             "ok": False,
             "reason": "payment_header_missing",
             "paid": False,
         }
-    facilitator = (os.getenv("GATE_X402_FACILITATOR_URL") or "").strip()
-    if facilitator:
-        # Placeholder for facilitator HTTP verify — fail closed if unset/unimplemented.
-        # Do not treat header bytes as proof.
+
+    payload = fac.decode_payment_header(raw)
+    if not payload:
+        # Forged / garbage header — still fail closed (never treat as paid).
+        accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
+            "1",
+            "true",
+            "TRUE",
+            "yes",
+        )
+        dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
+        if accept_unverified and dev:
+            return {
+                "ok": True,
+                "reason": "dev_unverified_accepted",
+                "paid": True,
+                "note": "DEV ONLY — header accepted without facilitator verify.",
+            }
         return {
             "ok": False,
-            "reason": "facilitator_verify_not_implemented",
+            "reason": "payment_payload_invalid",
             "paid": False,
-            "facilitator_configured": True,
-            "note": "Facilitator URL is set but verify is not wired. Fail closed.",
+            "note": "PAYMENT-SIGNATURE did not decode to a JSON paymentPayload.",
         }
-    accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
-        "1",
-        "true",
-        "TRUE",
-        "yes",
-    )
-    dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
-    if accept_unverified and dev:
+
+    if not fac.facilitator_ready():
+        accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
+            "1",
+            "true",
+            "TRUE",
+            "yes",
+        )
+        dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
+        if accept_unverified and dev:
+            return {
+                "ok": True,
+                "reason": "dev_unverified_accepted",
+                "paid": True,
+                "note": "DEV ONLY — header accepted without facilitator verify.",
+            }
         return {
-            "ok": True,
-            "reason": "dev_unverified_accepted",
-            "paid": True,
-            "note": "DEV ONLY — header accepted without facilitator verify.",
+            "ok": False,
+            "reason": "facilitator_verify_required",
+            "paid": False,
+            "facilitator": fac.facilitator_debug(),
+            "note": (
+                "Payment header present but CDP facilitator credentials are not set. "
+                "Set CDP_API_KEY_ID and CDP_API_KEY_SECRET (optional GATE_X402_FACILITATOR_URL)."
+            ),
         }
-    return {
-        "ok": False,
-        "reason": "facilitator_verify_required",
-        "paid": False,
-        "note": (
-            "Payment header present but not verified. "
-            "Gate will not treat header presence as paid (phase-2 facilitator)."
-        ),
-    }
+
+    our_payto = payto()
+    reqs = fac.payment_requirements_from_payload(payload)
+    if not reqs:
+        # Reconstruct from Gate challenge defaults when buyer omitted accepted.
+        if not our_payto:
+            return {
+                "ok": False,
+                "reason": "payto_unconfigured",
+                "paid": False,
+            }
+        amt = (amount_atomic_override or amount_atomic()).strip()
+        reqs = fac.local_requirements(
+            pay_to=our_payto,
+            amount=amt,
+            asset=USDC_BASE,
+            network=NETWORK_BASE,
+        )
+
+    # Merchant-side fail-closed: only settle payments aimed at our payTo.
+    if our_payto and not _addr_eq(str(reqs.get("payTo") or ""), our_payto):
+        return {
+            "ok": False,
+            "reason": "payto_mismatch",
+            "paid": False,
+            "note": "paymentRequirements.payTo does not match GATE_X402_PAYTO.",
+        }
+
+    result = fac.verify_and_settle(payment_payload=payload, payment_requirements=reqs)
+    result["facilitator"] = fac.facilitator_debug()
+    return result
 
 
 def _bazaar_info(*, method: str = "POST") -> dict:  # noqa: ARG001 — method reserved for GET wire routes

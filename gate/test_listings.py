@@ -3736,3 +3736,281 @@ class TrackRecordTests(unittest.TestCase):
         self.assertFalse(data["shared_failure"]["category_tested"])
         self.assertIn("backup", data["first_bottleneck"]["answer"].lower())
 
+
+class X402FacilitatorUnlockTests(unittest.TestCase):
+    """CDP facilitator verify+settle unlocks paid routes; forged stays 402."""
+
+    @classmethod
+    def setUpClass(cls):
+        import db as gate_db
+
+        gate_db.init_db()
+        gate_app.GATE_DEV_MODE = True
+        gate_app.app.config["TESTING"] = True
+        cls.client = gate_app.app.test_client()
+
+    def setUp(self):
+        # Isolate facilitator env per test.
+        self._env = mock.patch.dict(
+            os.environ,
+            {
+                "GATE_X402_ACCEPT_UNVERIFIED": "0",
+                "GATE_DEV_MODE": "1",
+                "CDP_API_KEY_ID": "",
+                "CDP_API_KEY_SECRET": "",
+                "GATE_X402_FACILITATOR_URL": "",
+            },
+            clear=False,
+        )
+        self._env.start()
+
+    def tearDown(self):
+        self._env.stop()
+
+    def _ed25519_cdp_secret(self) -> str:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+        from cryptography.hazmat.primitives import serialization
+        import base64
+
+        key = Ed25519PrivateKey.generate()
+        seed = key.private_bytes(
+            encoding=serialization.Encoding.Raw,
+            format=serialization.PrivateFormat.Raw,
+            encryption_algorithm=serialization.NoEncryption(),
+        )
+        pub = key.public_key().public_bytes(
+            encoding=serialization.Encoding.Raw,
+            format=serialization.PublicFormat.Raw,
+        )
+        return base64.b64encode(seed + pub).decode("ascii")
+
+    def _v2_payload(self, payto: str, amount: str = "2000") -> dict:
+        return {
+            "x402Version": 2,
+            "accepted": {
+                "scheme": "exact",
+                "network": "eip155:8453",
+                "amount": amount,
+                "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+                "payTo": payto,
+                "maxTimeoutSeconds": 300,
+                "extra": {"name": "USD Coin", "version": "2"},
+            },
+            "payload": {
+                "signature": "0x" + "ab" * 65,
+                "authorization": {
+                    "from": "0x" + "11" * 20,
+                    "to": payto,
+                    "value": amount,
+                    "validAfter": "0",
+                    "validBefore": "9999999999",
+                    "nonce": "0x" + "cd" * 32,
+                },
+            },
+            "resource": {
+                "url": "https://gate.example/v1/prefinality/evaluate",
+                "description": "test",
+                "mimeType": "application/json",
+            },
+        }
+
+    def test_forged_header_still_402_with_cdp_keys(self):
+        import base64
+        import json
+
+        payto = "0x" + "ab" * 20
+        secret = self._ed25519_cdp_secret()
+        with mock.patch.dict(
+            os.environ,
+            {
+                "CDP_API_KEY_ID": "test-key-id",
+                "CDP_API_KEY_SECRET": secret,
+                "GATE_X402_FACILITATOR_URL": "https://api.cdp.coinbase.com/platform/v2/x402",
+            },
+        ):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+                with mock.patch.object(
+                    gate_app.x402_challenge_mod, "payto_configured", return_value=True
+                ):
+                    # Garbage header must not unlock (decode fails → 402).
+                    r = self.client.post(
+                        "/v1/prefinality/evaluate",
+                        json={
+                            "rail": "x402",
+                            "transfer": {
+                                "amount": "0.002",
+                                "currency": "USDC",
+                                "counterparty": payto,
+                            },
+                            "mandate": {"agent_id": "rt", "max_amount": "1.00"},
+                        },
+                        headers={"Payment-Signature": "not-a-real-payment"},
+                    )
+        self.assertEqual(r.status_code, 402)
+
+        # Valid-shaped payload but facilitator rejects → still 402.
+        payload = self._v2_payload(payto)
+        encoded = base64.b64encode(json.dumps(payload).encode("utf-8")).decode("ascii")
+
+        def fake_post(url, headers=None, json=None, timeout=None):  # noqa: A002
+            class Resp:
+                status_code = 200
+
+                def json(self):
+                    if url.endswith("/verify"):
+                        return {
+                            "isValid": False,
+                            "invalidReason": "invalid_payload",
+                            "invalidMessage": "bad sig",
+                        }
+                    return {"success": False}
+
+            return Resp()
+
+        with mock.patch.dict(
+            os.environ,
+            {
+                "CDP_API_KEY_ID": "test-key-id",
+                "CDP_API_KEY_SECRET": secret,
+            },
+        ):
+            with mock.patch("x402_facilitator.requests.post", side_effect=fake_post):
+                with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+                    with mock.patch.object(
+                        gate_app.x402_challenge_mod, "payto_configured", return_value=True
+                    ):
+                        r2 = self.client.post(
+                            "/v1/prefinality/evaluate",
+                            json={
+                                "rail": "x402",
+                                "transfer": {
+                                    "amount": "0.002",
+                                    "currency": "USDC",
+                                    "counterparty": payto,
+                                },
+                                "mandate": {"agent_id": "rt", "max_amount": "1.00"},
+                            },
+                            headers={"Payment-Signature": encoded},
+                        )
+        self.assertEqual(r2.status_code, 402)
+
+    def test_mocked_facilitator_unlocks_prefinality(self):
+        import base64
+        import json
+
+        payto = "0x" + "cd" * 20
+        secret = self._ed25519_cdp_secret()
+        payload = self._v2_payload(payto)
+        encoded = base64.b64encode(json.dumps(payload).encode("utf-8")).decode("ascii")
+
+        calls = []
+
+        def fake_post(url, headers=None, json=None, timeout=None):  # noqa: A002
+            calls.append(url)
+
+            class Resp:
+                status_code = 200
+
+                def json(self_inner):
+                    if url.rstrip("/").endswith("/verify"):
+                        return {"isValid": True, "payer": "0x" + "11" * 20}
+                    return {
+                        "success": True,
+                        "payer": "0x" + "11" * 20,
+                        "transaction": "0x" + "ee" * 32,
+                        "network": "eip155:8453",
+                        "amount": "2000",
+                    }
+
+            return Resp()
+
+        with mock.patch.dict(
+            os.environ,
+            {
+                "CDP_API_KEY_ID": "test-key-id",
+                "CDP_API_KEY_SECRET": secret,
+                "GATE_X402_FACILITATOR_URL": "https://api.cdp.coinbase.com/platform/v2/x402",
+            },
+        ):
+            with mock.patch("x402_facilitator.requests.post", side_effect=fake_post):
+                with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+                    with mock.patch.object(
+                        gate_app.x402_challenge_mod, "payto_configured", return_value=True
+                    ):
+                        r = self.client.post(
+                            "/v1/prefinality/evaluate",
+                            json={
+                                "rail": "x402",
+                                "transfer": {
+                                    "amount": "0.002",
+                                    "currency": "USDC",
+                                    "counterparty": payto,
+                                },
+                                "mandate": {"agent_id": "buyer", "max_amount": "1.00"},
+                            },
+                            headers={"Payment-Signature": encoded},
+                        )
+        self.assertEqual(r.status_code, 200, r.get_data(as_text=True)[:500])
+        body = r.get_json() or {}
+        self.assertTrue((body.get("x402") or {}).get("paid"))
+        self.assertEqual((body.get("x402") or {}).get("reason"), "facilitator_settled")
+        self.assertTrue(any(u.endswith("/verify") for u in calls))
+        self.assertTrue(any(u.endswith("/settle") for u in calls))
+
+    def test_payto_mismatch_fails_closed(self):
+        import base64
+        import json
+
+        our = "0x" + "aa" * 20
+        other = "0x" + "bb" * 20
+        secret = self._ed25519_cdp_secret()
+        payload = self._v2_payload(other)
+        encoded = base64.b64encode(json.dumps(payload).encode("utf-8")).decode("ascii")
+
+        with mock.patch.dict(
+            os.environ,
+            {"CDP_API_KEY_ID": "test-key-id", "CDP_API_KEY_SECRET": secret},
+        ):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=our):
+                result = gate_app.x402_challenge_mod.payment_verified(
+                    {"Payment-Signature": encoded}
+                )
+        self.assertFalse(result.get("ok"))
+        self.assertEqual(result.get("reason"), "payto_mismatch")
+
+    def test_cdp_jwt_builds_uris_claim(self):
+        import base64
+        import json
+
+        secret = self._ed25519_cdp_secret()
+        with mock.patch.dict(
+            os.environ,
+            {"CDP_API_KEY_ID": "kid-123", "CDP_API_KEY_SECRET": secret},
+        ):
+            import x402_facilitator as fac
+
+            token = fac.build_cdp_jwt(
+                method="POST",
+                host="api.cdp.coinbase.com",
+                path="/platform/v2/x402/verify",
+            )
+        parts = token.split(".")
+        self.assertEqual(len(parts), 3)
+        pad = "=" * (-len(parts[0]) % 4)
+        header = json.loads(base64.urlsafe_b64decode(parts[0] + pad))
+        pad = "=" * (-len(parts[1]) % 4)
+        claims = json.loads(base64.urlsafe_b64decode(parts[1] + pad))
+        self.assertEqual(header.get("alg"), "EdDSA")
+        self.assertEqual(header.get("kid"), "kid-123")
+        self.assertEqual(claims.get("iss"), "cdp")
+        self.assertEqual(
+            claims.get("uris"),
+            ["POST api.cdp.coinbase.com/platform/v2/x402/verify"],
+        )
+
+    def test_health_exposes_facilitator_ready_bool(self):
+        r = self.client.get("/health")
+        body = r.get_json() or {}
+        self.assertIn("facilitator_ready", body.get("x402") or {})
+        self.assertIsInstance((body.get("x402") or {}).get("facilitator_ready"), bool)
+

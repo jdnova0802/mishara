@@ -68,4 +68,9 @@ services:
         sync: false
       - key: GATE_X402_FACILITATOR_URL
         sync: false
+      # CDP facilitator (verify + settle). Defaults to api.cdp.coinbase.com/platform/v2/x402.
+      - key: CDP_API_KEY_ID
+        sync: false
+      - key: CDP_API_KEY_SECRET
+        sync: false
       # Fail closed: do not set GATE_X402_ACCEPT_UNVERIFIED outside GATE_DEV_MODE.
