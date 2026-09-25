@@ -861,7 +861,6 @@ def trust():
 
 
 @app.route("/record")
-@app.route("/incidents")
 def record_page():
     desk = track_record_mod.manifest(advertised_url())
     return render_template(
@@ -877,6 +876,11 @@ def record_page():
         thirty_second_trust=desk["thirty_second_trust"],
         scvd=desk["scvd_invite"],
     )
+
+
+@app.route("/incidents")
+def incidents_alias():
+    return redirect(url_for("record_page"))
 
 
 @app.route("/incidents/<incident_id>")
