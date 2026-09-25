@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% block title %}Issuing mouth{% endblock %}
+{% block meta %}
+<meta name="description" content="Stripe Issuing agent cards → Gate AUTHORIZE/DECLINE. Stranger-verifiable Never on every halt. Gate never holds float.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --i-ink: #10141c;
+    --i-mute: #5a6472;
+    --i-line: #d4dae4;
+    --i-go: #0d7a4f;
+    --i-no: #b42318;
+    --i-serif: "Syne", system-ui, sans-serif;
+    --i-sans: "Figtree", system-ui, sans-serif;
+  }
+  .i-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(920px 420px at 88% -12%, #c5dff555, transparent 55%),
+      radial-gradient(700px 360px at 8% 90%, #d9e8d640, transparent 50%),
+      linear-gradient(180deg, #f6f8fb 0%, #eef2f7 100%);
+    color: var(--i-ink);
+    font-family: var(--i-sans);
+  }
+  .i-inner { max-width: 680px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .i-brand {
+    font-family: var(--i-serif);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    margin: 0 0 0.85rem;
+    animation: i-rise 0.6s ease-out both;
+  }
+  .i-brand span {
+    display: block;
+    font-weight: 500;
+    font-size: 0.32em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--i-mute);
+    margin-bottom: 0.55rem;
+  }
+  .i-lede {
+    font-size: 1.06rem;
+    color: var(--i-mute);
+    max-width: 34rem;
+    line-height: 1.45;
+    margin: 0 0 1.5rem;
+    animation: i-rise 0.6s ease-out 0.06s both;
+  }
+  .i-status {
+    display: flex; flex-wrap: wrap; gap: 0.45rem;
+    margin: 0 0 1.8rem;
+    animation: i-rise 0.6s ease-out 0.1s both;
+  }
+  .i-pill {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1px solid var(--i-line); padding: 0.4rem 0.7rem; background: #fff;
+  }
+  .i-pill.on { border-color: var(--i-go); color: var(--i-go); }
+  .i-pill.off { color: var(--i-mute); }
+  .i-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 1.25rem; animation: i-rise 0.6s ease-out 0.14s both; }
+  .i-row button {
+    font-family: var(--i-sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #fff; background: var(--i-ink); border: none;
+    padding: 0.85rem 1.15rem; cursor: pointer;
+  }
+  .i-row button.ghost { background: transparent; color: var(--i-ink); border: 1px solid var(--i-ink); }
+  .i-word {
+    font-family: var(--i-serif);
+    font-size: clamp(2.4rem, 9vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    margin: 0 0 0.55rem;
+    min-height: 1.05em;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  .i-word.show { opacity: 1; transform: none; transition: opacity 0.35s ease, transform 0.35s ease; }
+  .i-word.go { color: var(--i-go); }
+  .i-word.no { color: var(--i-no); }
+  .i-meta { color: var(--i-mute); font-size: 0.92rem; line-height: 1.45; max-width: 36rem; margin: 0 0 1rem; }
+  .i-meta a { color: var(--i-ink); }
+  .i-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem; background: #fff; border: 1px solid var(--i-line);
+    padding: 0.85rem; overflow: auto; max-height: 220px; white-space: pre-wrap;
+  }
+  .i-steps { margin: 2.2rem 0 0; padding: 0; list-style: none; animation: i-rise 0.6s ease-out 0.18s both; }
+  .i-steps li {
+    border-top: 1px solid var(--i-line); padding: 0.85rem 0;
+    font-size: 0.95rem; color: var(--i-mute);
+  }
+  .i-steps strong { color: var(--i-ink); display: block; font-family: var(--i-serif); font-size: 1.05rem; margin-bottom: 0.2rem; }
+  @keyframes i-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 560px) {
+    .i-inner { padding-top: 2.6rem; }
+  }
+</style>
+
+<section class="i-stage">
+  <div class="i-inner">
+    <h1 class="i-brand"><span>Gate · Stripe Issuing</span>Auth mouth</h1>
+    <p class="i-lede">Every agent card authorization hits Gate Clear. GO settles. NEVER is stranger-openable. Float stays at Stripe — Gate never holds it.</p>
+
+    <div class="i-status">
+      <span class="i-pill {% if cfg.money_real %}on{% else %}off{% endif %}">money_real · {{ 'true' if cfg.money_real else 'false' }}</span>
+      <span class="i-pill {% if cfg.issuing_enabled %}on{% else %}off{% endif %}">GATE_ISSUING_ENABLED · {{ 'on' if cfg.issuing_enabled else 'off' }}</span>
+      <span class="i-pill {% if cfg.webhook_secret_configured %}on{% else %}off{% endif %}">webhook secret · {{ 'set' if cfg.webhook_secret_configured else 'missing' }}</span>
+    </div>
+
+    <div class="i-row">
+      <button type="button" id="dogfood-go">Dogfood GO</button>
+      <button type="button" class="ghost" id="dogfood-never">Dogfood NEVER</button>
+    </div>
+
+    <div class="i-word" id="word" aria-live="polite"></div>
+    <p class="i-meta" id="meta">Dogfood works now. Real cards need Stripe Dashboard → Issuing for agents → own business, then GATE_ISSUING_ENABLED=1 + webhook.</p>
+    <pre class="i-code" id="out" hidden></pre>
+
+    <ol class="i-steps">
+      <li><strong>1. Apply Issuing</strong>Own-business path in Stripe Dashboard — not platform sales. Docs: <a href="https://docs.stripe.com/issuing/agents" rel="noopener">docs.stripe.com/issuing/agents</a></li>
+      <li><strong>2. Point the webhook</strong><code>issuing_authorization.request</code> → <code>{{ public_url }}/v1/issuing/authorization</code></li>
+      <li><strong>3. Put mandate on the card</strong>Metadata: <code>agent_id</code>, <code>max_amount</code>, optional <code>expected_merchant</code></li>
+      <li><strong>4. Meter</strong>Every GO is clearance on live spend. Never receipts are the wedge soft controls can't mint.</li>
+    </ol>
+  </div>
+</section>
+
+<script>
+(function () {
+  const word = document.getElementById("word");
+  const meta = document.getElementById("meta");
+  const out = document.getElementById("out");
+  async function fire(forceBreach) {
+    word.className = "i-word";
+    word.textContent = "…";
+    word.classList.add("show");
+    meta.textContent = "Clearing…";
+    out.hidden = true;
+    try {
+      const r = await fetch("/demo/issuing/mouth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ force_breach: !!forceBreach, agent_id: "dogfood_agent", max_amount: "50.00" }),
+      });
+      const j = await r.json();
+      const approved = !!j.approved;
+      word.textContent = approved ? "GO" : "NEVER";
+      word.classList.add(approved ? "go" : "no");
+      const g = j.gate || {};
+      meta.innerHTML = (g.verify_url
+        ? 'Verify: <a href="' + g.verify_url + '" rel="noopener">' + g.verify_url + "</a> · "
+        : "") +
+        (j.elapsed_ms != null ? j.elapsed_ms + "ms" : "") +
+        (j.within_stripe_timeout === false ? " · OVER 2s TIMEOUT" : "");
+      out.hidden = false;
+      out.textContent = JSON.stringify(j, null, 2);
+    } catch (e) {
+      word.textContent = "NEVER";
+      word.classList.add("no");
+      meta.textContent = String(e);
+    }
+  }
+  document.getElementById("dogfood-go").addEventListener("click", function () { fire(false); });
+  document.getElementById("dogfood-never").addEventListener("click", function () { fire(true); });
+})();
+</script>
+{% endblock %}

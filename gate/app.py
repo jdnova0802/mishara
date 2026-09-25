@@ -250,6 +250,11 @@ except ImportError:
     import x402_audit as x402_audit_mod
 
 try:
+    from gate import issuing_mouth as issuing_mouth_mod
+except ImportError:
+    import issuing_mouth as issuing_mouth_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -351,7 +356,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
-    "/signup", "/login", "/dashboard",
+    "/signup", "/login", "/dashboard", "/issuing-mouth",
 )
 PUBLIC_WELLKNOWN = frozenset(
     {
@@ -387,6 +392,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/nacha-false-pretenses.json",
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
+        "/.well-known/issuing-mouth.json",
     }
 )
 
@@ -781,6 +787,12 @@ def health():
             "configured": bool(x402_challenge_mod.payto_configured()),
             # Ready = CDP credentials present. Do not leak key ids / lengths.
             "facilitator_ready": bool(x402_facilitator_mod.facilitator_ready()),
+        },
+        "issuing_mouth": {
+            "enabled": bool(issuing_mouth_mod.issuing_enabled()),
+            "money_real": bool(issuing_mouth_mod.config().get("money_real")),
+            "webhook": f"{pub}/v1/issuing/authorization",
+            "dogfood": f"{pub}/demo/issuing/mouth",
         },
     }
     prod_public = (not local) and https_ok
@@ -1675,6 +1687,10 @@ def well_known_gate():
             "never": f"{advertised_url()}/never",
             "never_json": f"{advertised_url()}/.well-known/never.json",
             "never_api": f"{advertised_url()}/v1/never",
+            "issuing_mouth": f"{advertised_url()}/issuing-mouth",
+            "issuing_mouth_json": f"{advertised_url()}/.well-known/issuing-mouth.json",
+            "issuing_dogfood": f"{advertised_url()}/demo/issuing/mouth",
+            "issuing_webhook": f"{advertised_url()}/v1/issuing/authorization",
             "positive_clear": f"{advertised_url()}/positive-clear",
             "scenario_3": f"{advertised_url()}/scenario-3",
             "uapa_seal": f"{advertised_url()}/uapa-seal",
@@ -2650,6 +2666,93 @@ def well_known_prefinality():
 @app.route("/.well-known/prefinality-jwks.json")
 def well_known_prefinality_jwks():
     return jsonify(prefinality_mod.jwks())
+
+
+@app.route("/.well-known/issuing-mouth.json")
+def well_known_issuing_mouth():
+    return jsonify(issuing_mouth_mod.manifest(advertised_url()))
+
+
+@app.route("/issuing-mouth")
+def issuing_mouth_page():
+    return render_template(
+        "issuing_mouth.html",
+        public_url=advertised_url(),
+        mouth=issuing_mouth_mod.manifest(advertised_url()),
+        cfg=issuing_mouth_mod.config(),
+    )
+
+
+@app.route("/demo/issuing/mouth", methods=["POST"])
+def demo_issuing_mouth():
+    """Dogfood Issuing auth mouth without Stripe Issuing approval."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    auth = issuing_mouth_mod.dogfood_authorization(
+        amount_cents=int(body.get("amount_cents") or 2500),
+        merchant=(body.get("merchant") or "Acme Supplies").strip() or "Acme Supplies",
+        agent_id=(body.get("agent_id") or "dogfood_agent").strip() or "dogfood_agent",
+        max_amount=(body.get("max_amount") or "50.00").strip() or "50.00",
+        expected_merchant=(body.get("expected_merchant") or None),
+        force_breach=bool(body.get("force_breach")),
+    )
+    if isinstance(body.get("authorization"), dict):
+        auth = body["authorization"]
+
+    def _eval(evaluate_body: dict) -> dict:
+        return run_prefinality_evaluate(evaluate_body, account_id=None)
+
+    out = issuing_mouth_mod.decide(auth, evaluate_fn=_eval)
+    out["demo"] = True
+    out["signup_url"] = f"{advertised_url()}/signup"
+    out["apply_issuing"] = "https://dashboard.stripe.com/issuing"
+    return jsonify(out), 200
+
+
+@app.route("/v1/issuing/authorization", methods=["POST"])
+def issuing_authorization_webhook():
+    """Stripe Issuing realtime auth — respond approved true/false within ~2s."""
+    payload = request.data
+    sig = request.headers.get("Stripe-Signature", "")
+    secret = issuing_mouth_mod.webhook_secret()
+
+    # Dogfood / local: unsigned JSON authorization object when GATE_DEV_MODE=1
+    if not secret and GATE_DEV_MODE:
+        body = request.get_json(silent=True) or {}
+        auth = body.get("data", {}).get("object") if isinstance(body.get("data"), dict) else body
+        if not isinstance(auth, dict):
+            return jsonify({"error": "authorization object required"}), 400
+
+        def _eval_dev(evaluate_body: dict) -> dict:
+            return run_prefinality_evaluate(evaluate_body, account_id=None)
+
+        out = issuing_mouth_mod.decide(auth, evaluate_fn=_eval_dev)
+        return jsonify(out["stripe_response"]), 200
+
+    if not secret:
+        return jsonify({"error": "issuing webhook not configured"}), 500
+    try:
+        event = stripe.Webhook.construct_event(payload, sig, secret)
+    except (ValueError, stripe.error.SignatureVerificationError):
+        return jsonify({"error": "invalid signature"}), 400
+
+    etype = event.get("type") or ""
+    if etype != "issuing_authorization.request":
+        return jsonify({"received": True, "ignored": etype}), 200
+
+    auth = event["data"]["object"]
+
+    def _eval(evaluate_body: dict) -> dict:
+        return run_prefinality_evaluate(evaluate_body, account_id=None)
+
+    out = issuing_mouth_mod.decide(auth if isinstance(auth, dict) else {}, evaluate_fn=_eval)
+    # Stripe realtime auth expects the webhook HTTP body to be the decision.
+    return jsonify(out["stripe_response"]), 200
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:

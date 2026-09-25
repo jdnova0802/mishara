@@ -23,7 +23,7 @@ except ImportError:
     import receipt as receipt_mod
 
 SPEC = "gate-prefinality-v1"
-RAILS = ("x402", "rtp")
+RAILS = ("x402", "rtp", "issuing")
 DECISIONS = ("GO", "NO_GO", "HOLD")
 DEFAULT_TTL_SECONDS = 300
 
@@ -147,6 +147,11 @@ def _validate_transfer(rail: str, transfer: dict) -> list[str]:
             errors.append("invalid_routing_number")
         if transfer.get("account_number") and not _ACCOUNT_RE.match(re.sub(r"\D", "", str(transfer["account_number"]))):
             errors.append("invalid_account_number")
+    elif rail == "issuing":
+        if currency not in ("", "USD", "USDC"):
+            errors.append("unsupported_currency")
+        if not cp:
+            errors.append("invalid_counterparty")
     return errors
 
 
@@ -487,7 +492,8 @@ def manifest(public_url: str) -> dict:
         "name": "Gate pre-finality clearance",
         "description": (
             "Rail-agnostic GO/NO-GO before irreversible commit. "
-            "x402 (agent wallet sign) and RTP/FedNow (instant fiat credit) adapters share one receipt."
+            "x402 (agent wallet sign), RTP/FedNow (instant fiat credit), "
+            "and Stripe Issuing (agent card auth) share one receipt."
         ),
         "rails": [
             {
@@ -506,6 +512,17 @@ def manifest(public_url: str) -> dict:
                 "note": "FedNow and RTP abstract to payment_type=rtp on PSP APIs (e.g. Modern Treasury).",
                 "currencies": ["USD"],
                 "evaluate": f"{base}/v1/prefinality/evaluate",
+                "verify": f"{base}/v1/prefinality/verify",
+            },
+            {
+                "id": "issuing",
+                "status": "live",
+                "hook": "issuing_authorization.request",
+                "note": "Stripe Issuing agent cards — Gate is AUTHORIZE/DECLINE mouth only.",
+                "currencies": ["USD"],
+                "evaluate": f"{base}/v1/prefinality/evaluate",
+                "mouth": f"{base}/v1/issuing/authorization",
+                "dogfood": f"{base}/demo/issuing/mouth",
                 "verify": f"{base}/v1/prefinality/verify",
             },
         ],
