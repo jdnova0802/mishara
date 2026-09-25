@@ -22,11 +22,41 @@ WRONG = "0x00000000000000000000000000000000000000bb"
 class ClearanceKeepersUnitTests(unittest.TestCase):
     def test_dogfood_drill_pays_keeper(self):
         out = ck.dogfood_drill(keeper_id="unit_keeper")
+        self.assertFalse(out["money_real"])
+        self.assertFalse(out["gate_holds_funds"])
         self.assertTrue(out["liquidate"]["ok"])
         self.assertEqual(out["liquidate"]["word"], "LIQUIDATED")
         self.assertEqual(out["liquidate"]["bounty"], "5")
+        self.assertFalse(out["liquidate"]["money_real"])
+        self.assertIn("execution_packet", out["liquidate"])
         self.assertEqual(out["liquidate"]["residual_to_principal"], "95")
         self.assertEqual(out["liquidate"]["position"]["status"], "LIQUIDATED")
+
+    def test_foreign_custody_catalog_and_onchain_binding(self):
+        import foreign_custody as fc
+
+        cat = fc.catalog()
+        self.assertFalse(cat["doctrine"]["demo_is_money"])
+        self.assertFalse(cat["doctrine"]["gate_holds_funds"])
+        rank = cat["massive_ingress"]
+        self.assertEqual(rank[0]["venue"], "onchain_usdc")
+        self.assertFalse(rank[0]["money_can_enter_now"])  # no env deploy yet
+
+        opened = ck.open_position(
+            principal_id="p_onchain",
+            escrow_amount="10",
+            mandate={"max_amount": "1.00", "expected_payto": PAYTO},
+            custody={
+                "venue": "onchain_usdc",
+                "venue_ref": "0x0000000000000000000000000000000000000esc",
+                "escrow_id": "escrow_demo_1",
+            },
+        )
+        # Without GATE_ESCROW_* env, money_real stays false even if venue named onchain
+        self.assertTrue(opened["ok"])
+        self.assertFalse(opened["money_real"])
+        self.assertFalse(opened["gate_holds_funds"])
+        self.assertEqual(opened["position"]["custody"]["venue"], "onchain_usdc")
 
     def test_open_observe_scan_liquidate_race(self):
         opened = ck.open_position(
@@ -128,7 +158,13 @@ class ClearanceKeepersHttpTests(unittest.TestCase):
         self.assertEqual(drill.status_code, 200)
         payload = drill.get_json()
         self.assertTrue(payload["liquidate"]["ok"])
+        self.assertFalse(payload["money_real"])
         self.assertEqual(payload["liquidate"]["bounty"], "5")
+
+        fc = self.client.get("/.well-known/foreign-custody.json")
+        self.assertEqual(fc.status_code, 200)
+        self.assertEqual(fc.get_json()["spec"], "gate-foreign-custody-v1")
+        self.assertFalse(fc.get_json()["doctrine"]["demo_is_money"])
 
     def test_http_open_scan_liquidate(self):
         opened = self.client.post(

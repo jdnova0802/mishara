@@ -1,11 +1,11 @@
-"""Clearance keepers — Gate-shaped mining on agent escrow.
+"""Clearance keepers — Gate-shaped mining on foreign vaults.
 
 Bitcoin: hash until the protocol pays you.
-Gate: watch escrow until mandate breach — Never/NO_GO prove — liquidate — bounty.
+Gate: watch vault-locked escrow until breach — Never/NO_GO prove — liquidate — bounty.
 
-You run keepers. Protocol pays. No stranger checkout.
-Prefinality mandates + Clear/Never atoms are the hash function.
-TVL day-one = your dogfood capital. Scale = others lock because the mechanism holds.
+Atoms: VAULT (not Gate) · MANDATE · CLEAR/NEVER · KEEPER · BOUNTY(from vault).
+Demo ledger is index-only — not real money. Massive ingress = on-chain USDC /
+Issuing / sponsor vault that accepts Gate execution packets.
 """
 from __future__ import annotations
 
@@ -22,6 +22,11 @@ try:
     from gate import prefinality as prefinality_mod
 except ImportError:
     import prefinality as prefinality_mod
+
+try:
+    from gate import foreign_custody as custody_mod
+except ImportError:
+    import foreign_custody as custody_mod
 
 SPEC = "gate-clearance-keepers-v1"
 DEFAULT_BOUNTY_BPS = 500  # 5% of escrow residual to first correct keeper
@@ -65,10 +70,14 @@ def _conn() -> sqlite3.Connection:
             created_at TEXT NOT NULL,
             expires_at TEXT NOT NULL,
             residual_units INTEGER,
-            meta_json TEXT
+            meta_json TEXT,
+            custody_json TEXT
         )
         """
     )
+    cols = {row[1] for row in c.execute("PRAGMA table_info(clearance_positions)").fetchall()}
+    if "custody_json" not in cols:
+        c.execute("ALTER TABLE clearance_positions ADD COLUMN custody_json TEXT")
     c.execute(
         """
         CREATE TABLE IF NOT EXISTS clearance_observations (
@@ -138,6 +147,15 @@ def amount_from_units(units: int | None) -> str:
 def _row_position(row: sqlite3.Row) -> dict[str, Any]:
     mandate = json.loads(row["mandate_json"] or "{}")
     meta = json.loads(row["meta_json"] or "null")
+    custody_raw = None
+    try:
+        custody_raw = json.loads(row["custody_json"] or "null")
+    except (TypeError, KeyError, json.JSONDecodeError):
+        custody_raw = None
+    if not isinstance(custody_raw, dict):
+        custody_raw = custody_mod.normalize_custody(
+            None, escrow_units=int(row["escrow_units"])
+        )
     return {
         "spec": SPEC,
         "position_id": row["id"],
@@ -154,6 +172,9 @@ def _row_position(row: sqlite3.Row) -> dict[str, Any]:
         "residual": amount_from_units(row["residual_units"])
         if row["residual_units"] is not None
         else None,
+        "custody": custody_raw,
+        "money_real": bool(custody_raw.get("money_real")),
+        "gate_holds_funds": False,
         "meta": meta,
         "their_production": False,
     }
@@ -208,6 +229,7 @@ def open_position(
     bounty_bps: int | None = None,
     ttl_seconds: int | None = None,
     meta: dict | None = None,
+    custody: dict | None = None,
 ) -> dict[str, Any]:
     principal = (principal_id or "").strip()
     if not principal:
@@ -228,6 +250,7 @@ def open_position(
     if not mand:
         return {"ok": False, "error": "mandate_required", "spec": SPEC}
     aid = (agent_id or mand.get("agent_id") or "").strip() or None
+    custody_binding = custody_mod.normalize_custody(custody, escrow_units=units)
     now = _utc_now()
     position_id = "ck_" + uuid.uuid4().hex[:20]
     created = _iso(now)
@@ -238,8 +261,9 @@ def open_position(
             c.execute(
                 """INSERT INTO clearance_positions
                    (id, principal_id, agent_id, rail, mandate_json, escrow_units,
-                    bounty_bps, status, created_at, expires_at, residual_units, meta_json)
-                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+                    bounty_bps, status, created_at, expires_at, residual_units,
+                    meta_json, custody_json)
+                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
                 (
                     position_id,
                     principal,
@@ -253,6 +277,7 @@ def open_position(
                     expires,
                     None,
                     _canonical(meta) if meta is not None else None,
+                    _canonical(custody_binding),
                 ),
             )
             c.commit()
@@ -266,10 +291,17 @@ def open_position(
         "ok": True,
         "spec": SPEC,
         "position": pos,
+        "money_real": pos["money_real"],
+        "gate_holds_funds": False,
         "mining": {
             "hash": "Clear/Never over mandate",
             "reward": "first correct liquidate() wins bounty_bps of residual",
-            "payer": "protocol escrow — not a checkout form",
+            "payer": (
+                "foreign vault (real USDC/bank)"
+                if pos["money_real"]
+                else "demo ledger only — not real money"
+            ),
+            "vault": custody_binding.get("venue"),
         },
         "their_production": False,
     }
@@ -492,6 +524,12 @@ def liquidate(
             escrow = int(row["escrow_units"])
             bounty = (escrow * int(row["bounty_bps"])) // 10_000
             residual = escrow - bounty
+            try:
+                custody = json.loads(row["custody_json"] or "null")
+            except (TypeError, KeyError, json.JSONDecodeError):
+                custody = None
+            if not isinstance(custody, dict):
+                custody = custody_mod.normalize_custody(None, escrow_units=escrow)
             evidence = {
                 "spec": SPEC,
                 "type": "mandate_breach_liquidation",
@@ -503,6 +541,8 @@ def liquidate(
                 "mandate": json.loads(row["mandate_json"] or "{}"),
                 "never_shaped": True,
                 "word": "NEVER should have cleared — liquidated",
+                "money_real": bool(custody.get("money_real")),
+                "gate_holds_funds": False,
             }
             evidence_hash = hashlib.sha256(
                 _canonical(evidence).encode("utf-8")
@@ -554,21 +594,40 @@ def liquidate(
             )
         finally:
             c.close()
+    packet = custody_mod.execution_packet(
+        custody=custody,
+        position_id=pid,
+        keeper_id=kid,
+        bounty_units=bounty,
+        residual_units=residual,
+        evidence=evidence,
+    )
+    onchain = None
+    if custody.get("venue") == custody_mod.VENUE_ONCHAIN_USDC:
+        onchain = custody_mod.onchain_liquidate_calldata(packet)
     return {
         "ok": True,
         "spec": SPEC,
         "word": "LIQUIDATED",
-        "plain": "Breach proven. Protocol paid the keeper. Residual returns to principal.",
+        "plain": (
+            "Breach proven. Foreign vault must pay the keeper."
+            if pos["money_real"]
+            else "Breach proven on demo ledger only — bounty is not real money."
+        ),
         "liquidation_id": liq_id,
         "keeper_id": kid,
         "bounty": amount_from_units(bounty),
         "bounty_units": bounty,
         "residual_to_principal": amount_from_units(residual),
         "evidence": evidence,
+        "execution_packet": packet,
+        "onchain_call": onchain,
+        "money_real": pos["money_real"],
+        "gate_holds_funds": False,
         "position": pos,
         "mining": {
             "analogy": "block found",
-            "payer": "escrow protocol",
+            "payer": "foreign vault" if pos["money_real"] else "demo_ledger",
             "competition": "other keepers — first correct tx wins",
         },
         "their_production": False,
@@ -653,7 +712,7 @@ def release_on_clear(
 
 
 def dogfood_drill(*, keeper_id: str = "keeper_dogfood") -> dict[str, Any]:
-    """You are the farm: lock your capital, breach your agent, claim your bounty."""
+    """Mechanics drill on demo ledger. Not real money. Not mining income."""
     payto = "0x00000000000000000000000000000000000000aa"
     wrong = "0x00000000000000000000000000000000000000bb"
     opened = open_position(
@@ -667,7 +726,8 @@ def dogfood_drill(*, keeper_id: str = "keeper_dogfood") -> dict[str, Any]:
             "max_amount": "10.00",
             "expected_payto": payto,
         },
-        meta={"drill": True},
+        custody={"venue": custody_mod.VENUE_DEMO_LEDGER},
+        meta={"drill": True, "money_real": False},
     )
     if not opened.get("ok"):
         return opened
@@ -685,10 +745,16 @@ def dogfood_drill(*, keeper_id: str = "keeper_dogfood") -> dict[str, Any]:
     return {
         "spec": SPEC,
         "drill": "dogfood",
-        "plain": "You locked 100. Agent broke mandate. You liquidated. Protocol paid you 5.",
+        "money_real": False,
+        "gate_holds_funds": False,
+        "plain": (
+            "DEMO ONLY. Locked demo-100, breached, liquidated, demo-bounty 5. "
+            "No dollars moved. Massive money enters via foreign vault (on-chain USDC / Issuing)."
+        ),
         "open": opened,
         "observe": observed,
         "liquidate": claimed,
+        "massive_ingress": custody_mod.massive_ingress_rank(),
         "their_production": False,
     }
 
@@ -698,13 +764,23 @@ def manifest(public_url: str) -> dict[str, Any]:
     return {
         "spec": SPEC,
         "name": "Clearance Keepers",
-        "promise": "Agent escrow that pays keepers who Never-prove breaches — Gate as mining.",
+        "promise": (
+            "Foreign vault holds money. Gate Clear/Never is the hash. "
+            "Keepers liquidate breaches. Vault pays bounty. Gate never holds funds."
+        ),
         "mining": {
             "bitcoin": "hash until protocol pays",
-            "gate": "watch escrow → Never/NO_GO prove → liquidate → bounty",
+            "gate": "watch foreign vault → Never/NO_GO prove → liquidate → vault pays",
             "hash": "Clear/Never over mandate",
-            "farm": "you run keepers + capital; no stranger checkout",
+            "farm": "you run keepers; vault is the protocol payer",
         },
+        "atoms": custody_mod.catalog()["atoms"],
+        "money": {
+            "demo_dogfood_is_real": False,
+            "gate_holds_funds": False,
+            "real_path": "onchain_usdc | stripe_issuing | sponsor_bank",
+        },
+        "custody": custody_mod.catalog(),
         "words": ["OPEN", "BREACHED", "LIQUIDATED", "RELEASED", "EXPIRED"],
         "page": f"{base}/keepers",
         "api": {
@@ -715,18 +791,15 @@ def manifest(public_url: str) -> dict[str, Any]:
             "release": f"{base}/demo/keepers/release",
             "dogfood": f"{base}/demo/keepers/dogfood",
             "position": f"{base}/demo/keepers/position",
+            "custody": f"{base}/.well-known/foreign-custody.json",
         },
         "default_bounty_bps": DEFAULT_BOUNTY_BPS,
         "rails": list(prefinality_mod.RAILS),
-        "atoms": [
-            "Prefinality mandate policy (GO/NO_GO/HOLD)",
-            "Permissionless liquidate race",
-            "Bounty from escrow residual",
-        ],
         "not": [
             "token emissions as mining",
             "SaaS checkout",
-            "Polymarket-scale disputes as the ceiling",
+            "Gate holding customer funds",
+            "demo ledger as real TVL",
         ],
         "their_production": False,
     }
