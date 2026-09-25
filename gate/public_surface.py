@@ -11,11 +11,11 @@ from datetime import datetime, timezone
 from typing import Any
 
 # Bump when buyer-visible surfaces change (trust / live "last updated").
-SURFACE_UPDATED_AT = "2026-09-24T22:30:00+00:00"
-SURFACE_UPDATED_LABEL = "24 Sep 2026"
+SURFACE_UPDATED_AT = "2026-09-25T00:20:00+00:00"
+SURFACE_UPDATED_LABEL = "25 Sep 2026"
 SURFACE_NOTE = (
-    "Buyer-facing credibility pass — production-claim hygiene, "
-    "branded 404, security headers."
+    "Public track record — incidents, monthly red-team cadence, "
+    "evidence-head watch protocol, sampled uptime."
 )
 
 _FALSE_FLAG_LINE = re.compile(

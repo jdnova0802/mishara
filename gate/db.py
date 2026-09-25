@@ -1408,3 +1408,130 @@ def latest_production_weld() -> dict | None:
         ).fetchone()
     return dict(row) if row else None
 
+
+PULSE_MIN_INTERVAL_SEC = 300
+
+
+def _ensure_pulse_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS pulse_samples (
+            id TEXT PRIMARY KEY,
+            sampled_at TEXT NOT NULL,
+            health_ok INTEGER NOT NULL,
+            velaru_ok INTEGER NOT NULL,
+            tree_size INTEGER,
+            root_hash TEXT,
+            tree_shrunk INTEGER NOT NULL DEFAULT 0
+        )
+        """
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_pulse_sampled_at ON pulse_samples(sampled_at)"
+    )
+
+
+def last_pulse_sample() -> dict | None:
+    with db() as conn:
+        _ensure_pulse_table(conn)
+        row = conn.execute(
+            """SELECT id, sampled_at, health_ok, velaru_ok, tree_size, root_hash, tree_shrunk
+               FROM pulse_samples ORDER BY sampled_at DESC LIMIT 1"""
+        ).fetchone()
+    return dict(row) if row else None
+
+
+def record_pulse_sample(
+    *,
+    health_ok: bool,
+    velaru_ok: bool,
+    tree_size: int | None,
+    root_hash: str | None,
+    min_interval_sec: int = PULSE_MIN_INTERVAL_SEC,
+    force: bool = False,
+) -> dict | None:
+    """Append a pulse if the last sample is old enough. Returns the row or None if skipped."""
+    now = datetime.now(timezone.utc)
+    now_iso = now.isoformat()
+    with db() as conn:
+        _ensure_pulse_table(conn)
+        last = conn.execute(
+            """SELECT sampled_at, tree_size FROM pulse_samples
+               ORDER BY sampled_at DESC LIMIT 1"""
+        ).fetchone()
+        if last and not force:
+            try:
+                prev = datetime.fromisoformat(last["sampled_at"].replace("Z", "+00:00"))
+            except ValueError:
+                prev = now
+            if (now - prev).total_seconds() < min_interval_sec:
+                return None
+        prior_size = last["tree_size"] if last else None
+        shrunk = 0
+        if (
+            prior_size is not None
+            and tree_size is not None
+            and tree_size < int(prior_size)
+        ):
+            shrunk = 1
+        row = {
+            "id": str(uuid.uuid4()),
+            "sampled_at": now_iso,
+            "health_ok": 1 if health_ok else 0,
+            "velaru_ok": 1 if velaru_ok else 0,
+            "tree_size": tree_size,
+            "root_hash": root_hash,
+            "tree_shrunk": shrunk,
+        }
+        conn.execute(
+            """INSERT INTO pulse_samples
+               (id, sampled_at, health_ok, velaru_ok, tree_size, root_hash, tree_shrunk)
+               VALUES (:id, :sampled_at, :health_ok, :velaru_ok, :tree_size, :root_hash, :tree_shrunk)""",
+            row,
+        )
+    return row
+
+
+def pulse_history(limit: int = 500) -> list[dict]:
+    with db() as conn:
+        _ensure_pulse_table(conn)
+        rows = conn.execute(
+            """SELECT id, sampled_at, health_ok, velaru_ok, tree_size, root_hash, tree_shrunk
+               FROM pulse_samples ORDER BY sampled_at DESC LIMIT ?""",
+            (int(limit),),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def pulse_summary() -> dict:
+    rows = pulse_history(limit=10000)
+    rows_asc = list(reversed(rows))
+    total = len(rows_asc)
+    up = sum(1 for r in rows_asc if r.get("health_ok"))
+    shrunk = sum(1 for r in rows_asc if r.get("tree_shrunk"))
+    first = rows_asc[0]["sampled_at"] if rows_asc else None
+    last = rows_asc[-1]["sampled_at"] if rows_asc else None
+    pct = None
+    if total >= 20:
+        pct = round(100.0 * up / total, 3)
+    return {
+        "spec": "gate-uptime-v1",
+        "not": [
+            "SLA",
+            "99.9% claim without a sample window",
+            "multi-region availability",
+        ],
+        "samples": total,
+        "up": up,
+        "tree_shrunk_samples": shrunk,
+        "pct_up": pct,
+        "pct_note": (
+            "pct_up is null until 20 samples exist. History starts when this process first samples."
+            if pct is None
+            else "Percent of stored samples with health_ok. Not a contracted SLA."
+        ),
+        "first_sample_at": first,
+        "last_sample_at": last,
+        "sample_interval_sec": PULSE_MIN_INTERVAL_SEC,
+    }
+

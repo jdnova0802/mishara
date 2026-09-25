@@ -1,0 +1,25 @@
+name: Gate evidence watch
+
+# First-party watcher. Not independent. Public check history lives on GitHub Actions.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: .cache/evidence-head.json
+          key: gate-evidence-head-live
+      - name: Health
+        run: |
+          curl -fsS https://gate.velaru.xyz/health | python3 -c "import sys,json; d=json.load(sys.stdin); assert d.get('status') in ('ok','degraded'), d"
+      - name: Evidence head only grows
+        run: python3 gate/watch_evidence_head.py --url https://gate.velaru.xyz --cache .cache/evidence-head.json

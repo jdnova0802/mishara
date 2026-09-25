@@ -48,6 +48,7 @@
         <a href="{{ url_for('never_page') }}">Never</a>
         <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         <a href="{{ url_for('trust') }}">Trust</a>
+        <a href="{{ url_for('record_page') }}">Record</a>
         <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
         {% else %}
         <a href="{{ url_for('bind_room') }}">Bind Room</a>
@@ -57,6 +58,7 @@
         <a href="{{ url_for('go_page') }}">Go</a>
         <a href="{{ url_for('never_page') }}">Never</a>
         <a href="{{ url_for('live_page') }}">Live</a>
+        <a href="{{ url_for('record_page') }}">Record</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('trust') }}">Trust</a>
@@ -99,6 +101,7 @@
       <a href="/cl7-handoff">CL7 Handoff</a> ·
       <a href="/stair">Stair</a> ·
       <a href="{{ url_for('live_page') }}">Live</a> ·
+      <a href="{{ url_for('record_page') }}">Record</a> ·
       <a href="{{ url_for('register_page') }}">Fees</a> ·
       <a href="{{ url_for('pricing') }}">Pricing</a> ·
       <a href="{{ url_for('trust') }}">Trust</a> ·
