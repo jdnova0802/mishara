@@ -73,4 +73,10 @@ services:
         sync: false
       - key: CDP_API_KEY_SECRET
         sync: false
+      # Issuing auth mouth. Do not set GATE_ISSUING_ENABLED=1 until Stripe Issuing
+      # for agents (own business) is approved — money_real follows that flag.
+      - key: GATE_ISSUING_ENABLED
+        sync: false
+      - key: STRIPE_ISSUING_WEBHOOK_SECRET
+        sync: false
       # Fail closed: do not set GATE_X402_ACCEPT_UNVERIFIED outside GATE_DEV_MODE.
