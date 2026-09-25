@@ -240,6 +240,11 @@ except ImportError:
     import x402_challenge as x402_challenge_mod
 
 try:
+    from gate import x402_facilitator as x402_facilitator_mod
+except ImportError:
+    import x402_facilitator as x402_facilitator_mod
+
+try:
     from gate import x402_audit as x402_audit_mod
 except ImportError:
     import x402_audit as x402_audit_mod
@@ -774,7 +779,8 @@ def health():
         "tattoo": f"{pub}/tattoo",
         "x402": {
             "configured": bool(x402_challenge_mod.payto_configured()),
-            # Do not leak env key names / lengths on public /health.
+            # Ready = CDP credentials present. Do not leak key ids / lengths.
+            "facilitator_ready": bool(x402_facilitator_mod.facilitator_ready()),
         },
     }
     prod_public = (not local) and https_ok
@@ -2978,7 +2984,10 @@ def x402_wire_paid():
         )
 
     resource = f"{advertised_url()}/api/x402/wire"
-    x402_pay = x402_challenge_mod.payment_verified(request.headers)
+    x402_pay = x402_challenge_mod.payment_verified(
+        request.headers,
+        amount_atomic_override=x402_audit_mod.wire_amount_atomic(),
+    )
     if x402_pay.get("ok"):
         bundle = x402_audit_mod.wire_bundle(
             domain=domain,
