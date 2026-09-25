@@ -140,8 +140,8 @@
       Never-prove it — liquidate — the protocol pays the bounty. You are the farm.
     </p>
     <div class="k-cta">
-      <button type="button" class="primary" id="k-dogfood">Run dogfood drill</button>
-      <button type="button" class="ghost" id="k-scan">Scan liquidatable</button>
+      <button type="button" class="primary" id="k-dogfood" onclick="window.__gateKeepersDogfood && window.__gateKeepersDogfood()">Run dogfood drill</button>
+      <button type="button" class="ghost" id="k-scan" onclick="window.__gateKeepersScan && window.__gateKeepersScan()">Scan liquidatable</button>
       <a class="btn ghost" href="{{ public_url }}/.well-known/clearance-keepers.json">Manifest</a>
     </div>
     <div class="k-word idle" id="k-word">IDLE</div>
@@ -164,10 +164,14 @@
     out.textContent = JSON.stringify(body, null, 2);
     return body;
   }
-  document.getElementById("k-dogfood").addEventListener("click", async () => {
+  async function dogfood() {
     word.textContent = "…";
     word.className = "k-word idle";
-    const body = await run("/demo/keepers/dogfood", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+    const body = await run("/demo/keepers/dogfood", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{}",
+    });
     const liq = body.liquidate || {};
     if (liq.ok) {
       word.textContent = "LIQUIDATED";
@@ -178,8 +182,8 @@
       word.className = "k-word idle";
       plain.textContent = (liq && liq.error) || "Drill failed.";
     }
-  });
-  document.getElementById("k-scan").addEventListener("click", async () => {
+  }
+  async function scan() {
     word.textContent = "…";
     word.className = "k-word idle";
     const body = await run("/demo/keepers/scan");
@@ -187,7 +191,11 @@
     word.textContent = n ? (n + " OPEN") : "EMPTY";
     word.className = n ? "k-word win" : "k-word idle";
     plain.textContent = body.plain || "No liquidatable positions.";
-  });
+  }
+  window.__gateKeepersDogfood = dogfood;
+  window.__gateKeepersScan = scan;
+  document.getElementById("k-dogfood").addEventListener("click", dogfood);
+  document.getElementById("k-scan").addEventListener("click", scan);
 })();
 </script>
 {% endblock %}
