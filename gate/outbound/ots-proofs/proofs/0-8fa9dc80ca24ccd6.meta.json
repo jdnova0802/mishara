@@ -21,7 +21,7 @@
   "stamped_at": "2026-09-26T14:43:47.929805+00:00",
   "status": "pending",
   "tree_size": 0,
-  "upgrade_stderr": "Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain\nCalendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain\nFailed! Timestamp not complete\n",
+  "upgrade_stderr": "Calendar https://alice.btc.calendar.opentimestamps.org: Timestamped by transaction 97c93db4dd74095022c7c2e9c18289c222c33bcc879a72e98520f105231f5bf4; waiting for 6 confirmations\nCalendar https://bob.btc.calendar.opentimestamps.org: Timestamped by transaction 900cde0b565449143fe8dd0b601f6cfaf3649a5572d64137be56b041f7fcab49; waiting for 6 confirmations\nFailed! Timestamp not complete\n",
   "upgrade_stdout": "",
-  "upgraded_at": "2026-09-26T14:44:24.046410+00:00"
+  "upgraded_at": "2026-09-26T15:45:17.081051+00:00"
 }

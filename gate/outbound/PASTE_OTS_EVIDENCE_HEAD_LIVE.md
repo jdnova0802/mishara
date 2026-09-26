@@ -42,7 +42,14 @@ status: pending
 
 `ots info` on that file shows `PendingAttestation` from public calendars (Alice/Bob/EternityWall/Catallaxy pool). That **is** a real `.ots` from real calendars — not a mock.
 
-**Bitcoin block height:** not yet — calendars aggregate many digests into one tx; confirmation is typically hours. Upgrade command:
+**Bitcoin block height:** not yet — **not** `BitcoinBlockHeaderAttestation`. Progress at upgrade `2026-09-26T15:45:17Z`:
+
+- Alice calendar: tx `97c93db4dd74095022c7c2e9c18289c222c33bcc879a72e98520f105231f5bf4` — waiting for **6 confirmations**
+- Bob calendar: tx `900cde0b565449143fe8dd0b601f6cfaf3649a5572d64137be56b041f7fcab49` — waiting for **6 confirmations**
+
+Status remains **pending** until `ots info` shows `BitcoinBlockHeaderAttestation(HEIGHT)` and `ots verify` succeeds. Do not claim block height yet.
+
+Upgrade command:
 
 ```bash
 export GATE_OTS_DIR=gate/outbound/ots-proofs
