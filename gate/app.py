@@ -255,6 +255,11 @@ except ImportError:
     import issuing_mouth as issuing_mouth_mod
 
 try:
+    from gate import sink_mouth as sink_mouth_mod
+except ImportError:
+    import sink_mouth as sink_mouth_mod
+
+try:
     from gate import exclusion as exclusion_mod
 except ImportError:
     import exclusion as exclusion_mod
@@ -356,7 +361,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
-    "/signup", "/login", "/dashboard", "/issuing-mouth",
+    "/signup", "/login", "/dashboard", "/issuing-mouth", "/sink-mouth",
 )
 PUBLIC_WELLKNOWN = frozenset(
     {
@@ -393,6 +398,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/issuing-mouth.json",
+        "/.well-known/sink-mouth.json",
     }
 )
 
@@ -793,6 +799,13 @@ def health():
             "money_real": bool(issuing_mouth_mod.config().get("money_real")),
             "webhook": f"{pub}/v1/issuing/authorization",
             "dogfood": f"{pub}/demo/issuing/mouth",
+        },
+        "sink_mouth": {
+            "enabled": bool(sink_mouth_mod.sink_enabled()),
+            "money_real": False,
+            "webhook": f"{pub}/v1/sink/oct",
+            "dogfood": f"{pub}/demo/sink/mouth",
+            "page": f"{pub}/sink-mouth",
         },
     }
     prod_public = (not local) and https_ok
@@ -1691,6 +1704,10 @@ def well_known_gate():
             "issuing_mouth_json": f"{advertised_url()}/.well-known/issuing-mouth.json",
             "issuing_dogfood": f"{advertised_url()}/demo/issuing/mouth",
             "issuing_webhook": f"{advertised_url()}/v1/issuing/authorization",
+            "sink_mouth": f"{advertised_url()}/sink-mouth",
+            "sink_mouth_json": f"{advertised_url()}/.well-known/sink-mouth.json",
+            "sink_dogfood": f"{advertised_url()}/demo/sink/mouth",
+            "sink_webhook": f"{advertised_url()}/v1/sink/oct",
             "positive_clear": f"{advertised_url()}/positive-clear",
             "scenario_3": f"{advertised_url()}/scenario-3",
             "uapa_seal": f"{advertised_url()}/uapa-seal",
@@ -2753,6 +2770,89 @@ def issuing_authorization_webhook():
     out = issuing_mouth_mod.decide(auth if isinstance(auth, dict) else {}, evaluate_fn=_eval)
     # Stripe realtime auth expects the webhook HTTP body to be the decision.
     return jsonify(out["stripe_response"]), 200
+
+
+@app.route("/.well-known/sink-mouth.json")
+def well_known_sink_mouth():
+    return jsonify(sink_mouth_mod.manifest(advertised_url()))
+
+
+@app.route("/sink-mouth")
+def sink_mouth_page():
+    return render_template(
+        "sink_mouth.html",
+        public_url=advertised_url(),
+        mouth=sink_mouth_mod.manifest(advertised_url()),
+        cfg=sink_mouth_mod.config(),
+    )
+
+
+@app.route("/demo/sink/mouth", methods=["POST"])
+def demo_sink_mouth():
+    """Dogfood OCT sink mouth without Visa Direct / Fast Funds enrollment."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    push = sink_mouth_mod.dogfood_push(
+        amount=str(body.get("amount") or "125.00"),
+        sender=(body.get("sender") or "ADP Wisely Now").strip() or "ADP Wisely Now",
+        agent_id=(body.get("agent_id") or "dogfood_sink").strip() or "dogfood_sink",
+        max_amount=(body.get("max_amount") or "500.00").strip() or "500.00",
+        expected_sender=(body.get("expected_sender") or None),
+        program=(body.get("program") or "fast_funds").strip() or "fast_funds",
+        force_breach=bool(body.get("force_breach")),
+    )
+    if isinstance(body.get("push"), dict):
+        push = body["push"]
+
+    def _eval(evaluate_body: dict) -> dict:
+        return run_prefinality_evaluate(evaluate_body, account_id=None)
+
+    out = sink_mouth_mod.decide(push, evaluate_fn=_eval)
+    out["demo"] = True
+    out["signup_url"] = f"{advertised_url()}/signup"
+    out["rfq_note"] = (
+        "Real Fast Funds receive needs sponsor BIN enrollment "
+        "(Column docs: typically 90–120 days). Dogfood proves Clear/Never now."
+    )
+    return jsonify(out), 200
+
+
+@app.route("/demo/sink/aft", methods=["POST", "GET"])
+def demo_sink_aft():
+    """Illustrate issuer-side AFT Ix when this card funds an external wallet."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) if request.method == "POST" else {}
+    body = body or {}
+    try:
+        load = float(body.get("load_amount") or request.args.get("load_amount") or 100)
+    except (TypeError, ValueError):
+        load = 100.0
+    out = sink_mouth_mod.aft_illustration(load_amount=load)
+    out["demo"] = True
+    return jsonify(out), 200
+
+
+@app.route("/v1/sink/oct", methods=["POST"])
+def sink_oct_webhook():
+    """Inbound OCT / Fast Funds — accept only on Gate GO. Fail closed otherwise."""
+    body = request.get_json(silent=True) or {}
+    push = body.get("data", {}).get("object") if isinstance(body.get("data"), dict) else body
+    if not isinstance(push, dict):
+        return jsonify({"error": "push object required", "accepted": False}), 400
+
+    def _eval(evaluate_body: dict) -> dict:
+        return run_prefinality_evaluate(evaluate_body, account_id=None)
+
+    out = sink_mouth_mod.decide(push, evaluate_fn=_eval)
+    status = 200 if out.get("accepted") else 403
+    return jsonify({"accepted": bool(out.get("accepted")), "decision": out.get("decision"), "gate": out.get("gate"), "receive": out.get("receive")}), status
 
 
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:

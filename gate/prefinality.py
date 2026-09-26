@@ -23,7 +23,7 @@ except ImportError:
     import receipt as receipt_mod
 
 SPEC = "gate-prefinality-v1"
-RAILS = ("x402", "rtp", "issuing")
+RAILS = ("x402", "rtp", "issuing", "oct")
 DECISIONS = ("GO", "NO_GO", "HOLD")
 DEFAULT_TTL_SECONDS = 300
 
@@ -148,6 +148,11 @@ def _validate_transfer(rail: str, transfer: dict) -> list[str]:
         if transfer.get("account_number") and not _ACCOUNT_RE.match(re.sub(r"\D", "", str(transfer["account_number"]))):
             errors.append("invalid_account_number")
     elif rail == "issuing":
+        if currency not in ("", "USD", "USDC"):
+            errors.append("unsupported_currency")
+        if not cp:
+            errors.append("invalid_counterparty")
+    elif rail == "oct":
         if currency not in ("", "USD", "USDC"):
             errors.append("unsupported_currency")
         if not cp:
@@ -493,7 +498,8 @@ def manifest(public_url: str) -> dict:
         "description": (
             "Rail-agnostic GO/NO-GO before irreversible commit. "
             "x402 (agent wallet sign), RTP/FedNow (instant fiat credit), "
-            "and Stripe Issuing (agent card auth) share one receipt."
+            "Stripe Issuing (agent card auth), and inbound OCT/Fast Funds "
+            "sink clearance share one receipt."
         ),
         "rails": [
             {
@@ -523,6 +529,21 @@ def manifest(public_url: str) -> dict:
                 "evaluate": f"{base}/v1/prefinality/evaluate",
                 "mouth": f"{base}/v1/issuing/authorization",
                 "dogfood": f"{base}/demo/issuing/mouth",
+                "verify": f"{base}/v1/prefinality/verify",
+            },
+            {
+                "id": "oct",
+                "status": "live",
+                "hook": "before_accept_inbound_oct",
+                "note": (
+                    "Visa Original Credit / Fast Funds receive — Gate Clear before "
+                    "the program treats an inbound push as intentional. Receive fees "
+                    "are Visa IRF schedule ($0.29 / Fast Funds $0.60); Gate does not collect."
+                ),
+                "currencies": ["USD"],
+                "evaluate": f"{base}/v1/prefinality/evaluate",
+                "mouth": f"{base}/v1/sink/oct",
+                "dogfood": f"{base}/demo/sink/mouth",
                 "verify": f"{base}/v1/prefinality/verify",
             },
         ],
