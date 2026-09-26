@@ -2734,6 +2734,12 @@ def demo_issuing_mouth():
         agent_id=(body.get("agent_id") or "dogfood_agent").strip() or "dogfood_agent",
         max_amount=(body.get("max_amount") or "50.00").strip() or "50.00",
         expected_merchant=(body.get("expected_merchant") or None),
+        merchant_category=(
+            body.get("merchant_category") or "computer_software_stores"
+        ),
+        allowed_categories=body.get("allowed_categories"),
+        platform_allowed_categories=body.get("platform_allowed_categories"),
+        job_id=(body.get("job_id") or None),
         force_breach=bool(body.get("force_breach")),
     )
     if isinstance(body.get("authorization"), dict):
