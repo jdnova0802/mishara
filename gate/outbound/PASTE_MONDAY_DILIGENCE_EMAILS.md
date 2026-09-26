@@ -205,7 +205,7 @@ Body:
 For Fortegra — specialty / program coverage desk
 Nisaba LLC. Vendor review of one named authority path.
 
-E.D.N.Y. Kimba Industries v. Fortegra Specialty, 2:24-cv-01334 (SJ opinion 1 Oct 2025): court denied Fortegra's summary-judgment bid to escape defending Kimba in the underlying Queens action and held a duty to defend — after an earlier coverage denial letter tied to a Designated Subcontractor Warranty Endorsement.
+E.D.N.Y. Kimba Industries Inc. v. Fortegra Specialty Ins. Co., No. 24-cv-01334 (JMW) (Opinion & Order, Doc. 46, 1 Oct 2025; Justia): court denied Fortegra's SJ bid and held a duty to defend Kimba in the Queens action — after a Jan 10, 2023 denial letter tied to the Designated Subcontractor / Independent Contractor Warranty Endorsement (Fortegra misstated the Schedule as "outside NY"; policy Schedule = work in NY).
 
 The 72-hour memo is only this: on your public specialty / program pages (plus anything you send), where the next bind or claim still runs a deny-to-defend path after that endorsement fight. No charge. No invoice. No obligation. If it is useless, delete it.
 
