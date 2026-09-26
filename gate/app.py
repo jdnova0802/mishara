@@ -960,6 +960,22 @@ def well_known_evidence_watch():
     return jsonify(desk["evidence_watch"])
 
 
+@app.route("/v1/evidence-watch/register", methods=["POST", "GET"])
+def evidence_watch_register():
+    """Self-register as an independent unpaid evidence-head watcher."""
+    try:
+        from gate import independent_watch as iw
+    except ImportError:
+        import independent_watch as iw
+
+    if request.method == "GET":
+        return jsonify(iw.manifest(advertised_url()))
+    payload = request.get_json(silent=True) or {}
+    out = iw.register(payload, user_agent=request.headers.get("User-Agent"))
+    status = 200 if out.get("ok") else 400
+    return jsonify(out), status
+
+
 @app.route("/watch/evidence-head.py")
 def watch_evidence_head_script():
     here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "watch_evidence_head.py")

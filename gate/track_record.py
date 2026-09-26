@@ -179,17 +179,21 @@ WATCH_PROTOCOL = {
         "independent": False,
         "cadence": "every 15 minutes",
     },
+    # independent_watchers filled at desk() from DB — self-register, unpaid.
     "independent_watchers": [],
     "independent_watchers_note": (
-        "Zero independent watchers recorded. A second party running the watch script "
-        "is what turns samples into checkable history. Invite: hello@velaru.xyz."
+        "Self-register at POST /v1/evidence-watch/register (match live head). "
+        "No API key, no partner desk. First-party GHA does not count. "
+        "Stale after 14 days without refresh."
     ),
+    "register": "/v1/evidence-watch/register",
     "how": [
         "GET /.well-known/evidence-head.json — cache tree_size + root_hash",
         "Later GET /.well-known/evidence-consistency.json?old_size={cached_size}&old_root={cached_root}",
         "FAIL if tree_size shrank",
         "FAIL if size equal and root changed",
         "FAIL if consistency old_root does not match cache",
+        "Optional: POST /v1/evidence-watch/register to appear on this roster",
     ],
     "script": "/watch/evidence-head.py",
     "head": "/.well-known/evidence-head.json",
@@ -294,13 +298,43 @@ def manifest(public_url: str) -> dict:
         "first_bottleneck": dict(FIRST_BOTTLENECK),
         "thirty_second_trust": dict(THIRTY_SECOND_TRUST),
         "scvd_invite": dict(SCVD_INVITE),
-        "evidence_watch": {
-            **dict(WATCH_PROTOCOL),
-            "head": f"{base}/.well-known/evidence-head.json",
-            "leaves": f"{base}/.well-known/evidence-leaves.json",
-            "consistency": f"{base}/.well-known/evidence-consistency.json",
-            "script": f"{base}/watch/evidence-head.py",
-            "watch_json": f"{base}/.well-known/evidence-watch.json",
-        },
+        "evidence_watch": _evidence_watch_block(base),
         "evaluated_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+def _evidence_watch_block(base: str) -> dict[str, Any]:
+    try:
+        try:
+            from gate import independent_watch as iw
+        except ImportError:
+            import independent_watch as iw
+
+        watchers = iw.list_watchers(include_stale=False)
+        reg = f"{base}/v1/evidence-watch/register"
+        note = (
+            f"{len(watchers)} fresh independent watcher(s). Self-register at {reg} "
+            f"(match live head; refresh within {iw.STALE_AFTER_DAYS} days). "
+            "First-party GHA does not count. Unpaid."
+            if watchers
+            else (
+                "Zero fresh independent watchers. Self-register at "
+                f"{reg} — match live head; no API key; unpaid. "
+                "First-party GHA does not count."
+            )
+        )
+    except Exception:
+        watchers = []
+        reg = f"{base}/v1/evidence-watch/register"
+        note = WATCH_PROTOCOL["independent_watchers_note"]
+    return {
+        **dict(WATCH_PROTOCOL),
+        "independent_watchers": watchers,
+        "independent_watchers_note": note,
+        "register": reg,
+        "head": f"{base}/.well-known/evidence-head.json",
+        "leaves": f"{base}/.well-known/evidence-leaves.json",
+        "consistency": f"{base}/.well-known/evidence-consistency.json",
+        "script": f"{base}/watch/evidence-head.py",
+        "watch_json": f"{base}/.well-known/evidence-watch.json",
     }
