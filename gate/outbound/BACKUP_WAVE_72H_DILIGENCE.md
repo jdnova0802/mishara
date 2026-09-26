@@ -92,6 +92,6 @@ https://gate.velaru.xyz/diligence
 | # | Desk | To |
 |---|------|-----|
 | 1 | Porch / HOA | partner@porch.com (+ optional matt.ehrlichman@porch.com). IR@ dropped. |
-| 2 | Incline P&C | info@inclinepc.com |
+| 2 | Incline P&C | AHalbrook@InclinePC.com (CLO) |
 | 3 | Clear Blue | contact form / verified firm email · (980) 299-9520 |
 | 4 | Gallagher Re | enquires@gallagherre.com |
