@@ -1,0 +1,27 @@
+{
+  "bitcoin": {
+    "block_height": null,
+    "block_heights": [],
+    "pending_calendars": [
+      "https://alice.btc.calendar.opentimestamps.org",
+      "https://bob.btc.calendar.opentimestamps.org"
+    ]
+  },
+  "commitment_digest": "f78f31a9a4fedfcfe4437c069a7c187928c8736d9defba58b702eac022f8db16",
+  "commitment_path": "/workspace/gate/outbound/ots-proofs/commitments/0-8fa9dc80ca24ccd6.json",
+  "info": "File sha256 hash: f78f31a9a4fedfcfe4437c069a7c187928c8736d9defba58b702eac022f8db16\nTimestamp:\n -> append 68e882715bce5477\n    sha256\n    append 7a7b7689af8d76068383bfbaad2ab9b4\n    sha256\n    append 7f4c843df15be12494c80c5b713c05003875c0997b43a6c17d06a721ffe1922c\n    sha256\n    prepend df04025b72daadf2e8c3b9348c1cdd074a692c294023cfb9e4347926a95dd6df\n    sha256\n    append 9ba02263894bff609bf6dfa4b9e343d6e8a7fa74c8a6552a303167333bd71d19\n    sha256\n    prepend 6ab7da25\n    append d89f8d82bd1ad67c\n    verify PendingAttestation('https://alice.btc.calendar.opentimestamps.org')\n -> append af18f517dc336e63\n    sha256\n    append 4049b6a466c043cc323cf67c0534bb258b7c74304cf33d624017b96187ef15b3\n    sha256\n    append 97ca5e9ddf67730fc03b48fbc456899b\n    sha256\n    prepend 63306dc9022a3caa4a5df4ff0ec0a19416b2fefee2dce5602ab26c7615842067\n    sha256\n    prepend 6ab7da25\n    append 0597cc3c3837bebc\n    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')\n\n",
+  "ots_path": "/workspace/gate/outbound/ots-proofs/proofs/0-8fa9dc80ca24ccd6.ots",
+  "root_hash": "8fa9dc80ca24ccd61bc7715c7d20ff000644fb07179db9eb28a7af55052512cf",
+  "spec": "gate-ots-anchor-v1",
+  "stamp": {
+    "errors": [],
+    "method": "python_opentimestamps",
+    "stamped": 2
+  },
+  "stamped_at": "2026-09-26T14:43:47.929805+00:00",
+  "status": "pending",
+  "tree_size": 0,
+  "upgrade_stderr": "Calendar https://alice.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain\nCalendar https://bob.btc.calendar.opentimestamps.org: Pending confirmation in Bitcoin blockchain\nFailed! Timestamp not complete\n",
+  "upgrade_stdout": "",
+  "upgraded_at": "2026-09-26T14:44:24.046410+00:00"
+}

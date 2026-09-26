@@ -2584,6 +2584,58 @@ def well_known_evidence_head():
     return jsonify(evidence_log_mod.signed_tree_head(leaves))
 
 
+@app.route("/.well-known/evidence-ots.json")
+def well_known_evidence_ots():
+    try:
+        from gate import ots_anchor as ots_anchor_mod
+    except ImportError:
+        import ots_anchor as ots_anchor_mod
+    return jsonify(ots_anchor_mod.status_payload(advertised_url()))
+
+
+@app.route("/.well-known/evidence-ots-commitment.json")
+def well_known_evidence_ots_commitment():
+    try:
+        from gate import ots_anchor as ots_anchor_mod
+    except ImportError:
+        import ots_anchor as ots_anchor_mod
+    latest = ots_anchor_mod.latest_anchor()
+    if not latest:
+        return jsonify({"spec": "gate-ots-commitment-v1", "present": False}), 404
+    raw = ots_anchor_mod.commitment_bytes(
+        tree_size=int(latest["tree_size"]),
+        root_hash=latest["root_hash"],
+    )
+    return Response(raw, mimetype="application/json")
+
+
+@app.route("/.well-known/evidence-head.ots")
+def well_known_evidence_head_ots():
+    try:
+        from gate import ots_anchor as ots_anchor_mod
+    except ImportError:
+        import ots_anchor as ots_anchor_mod
+    latest = ots_anchor_mod.latest_anchor()
+    if not latest:
+        return jsonify({"error": "no_ots_anchor"}), 404
+    blob = ots_anchor_mod.read_ots_bytes_for_head(
+        tree_size=int(latest["tree_size"]),
+        root_hash=latest["root_hash"],
+    )
+    if not blob:
+        return jsonify({"error": "ots_file_missing"}), 404
+    return Response(
+        blob,
+        mimetype="application/vnd.opentimestamps.ots",
+        headers={
+            "Content-Disposition": "attachment; filename=evidence-head.ots",
+            "X-Gate-OTS-Status": str(latest.get("status") or "unknown"),
+            "X-Gate-OTS-Root": str(latest.get("root_hash") or ""),
+            "X-Gate-OTS-Tree-Size": str(latest.get("tree_size") or 0),
+        },
+    )
+
+
 @app.route("/.well-known/seal.json")
 def well_known_seal():
     try:

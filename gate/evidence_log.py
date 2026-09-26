@@ -271,6 +271,22 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
             "Consortium partner optional; capacity is infrastructure now."
         ),
     }
+
+    # Bitcoin publication-hard capacity via OpenTimestamps (optional proofs on disk).
+    try:
+        try:
+            from gate import ots_anchor as ots_anchor_mod
+        except ImportError:
+            import ots_anchor as ots_anchor_mod
+
+        head = ots_anchor_mod.attach_to_tree_head(head)
+    except Exception:
+        head["opentimestamps"] = {
+            "spec": "gate-ots-anchor-v1",
+            "configured": False,
+            "error": "attach_failed",
+            "plain": "OTS attach raised; head still valid without Bitcoin anchor.",
+        }
     return head
 
 
