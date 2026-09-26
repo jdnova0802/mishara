@@ -31,11 +31,11 @@ https://gate.velaru.xyz/diligence
 
 ## 2) Incline P&C
 
-**To:** info@inclinepc.com  
+**To:** AHalbrook@InclinePC.com  
 **Subject:** Free 72-hour review of program bind vs CCB LOCs that did not honor
 
 ```
-For Chris McClellan — President & CEO, and Allen Halbrook — CLO, Incline P&C
+For Allen Halbrook — Chief Legal Officer, Incline P&C (and Chris McClellan — President & CEO)
 Nisaba LLC. Vendor review of one named collateral path.
 
 Incline Casualty and Redpoint’s SDNY action against China Construction Bank (1:24-cv-03591 consol. / 1:24-cv-04392) alleges CCB-linked letters of credit backing Vesttoo-tied reinsurance were forged / not honored — Artemis reported the Incline-linked LOC set above $43 million. Same fraud pattern as the broader Vesttoo collateral break; your shop’s SDNY fight is ongoing.

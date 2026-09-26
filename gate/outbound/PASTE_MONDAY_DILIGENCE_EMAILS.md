@@ -3,31 +3,50 @@
 SEND all 10 Monday. Free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence
 Not legal advice. Public facts only. Log each send in SENT_TALLY.md same day.
 
-Send order: Porch → Incline → Clear Blue → Gallagher → Sutton → MS Transverse → Aon Re → Palomar → Fortegra → Great Divide.
+Send order: Porch → Incline → Clear Blue → Gallagher → Sutton → MS Transverse → Aon/White Rock → Palomar → Fortegra → Great Divide/Nautilus.
 (Space Gallagher from Porch — same Fifth Circuit fact pattern.)
 
-What moved 8→10 (Claude’s remaining dents):
-- Palomar UNHELD — Brandon Loyd, AVP Programs & Fronting, bloyd@plmr.com (live on plmr.com/plmr-front/ + Fronting sell sheet Sep 2025). Not IR.
-- MS Transverse: correct brand + info@mstransverse.com; address David Paulsson (CEO) — Matson is Vice Chairman since May 2024, not CEO.
-- Sutton: ALIRT Aug 2023 numbered exposure (~$9M CCB LOC / ~19.4% YE2022 surplus via Osprey Re), not MarshBerry name-only.
-- Great Divide: add D. Haw. 1:25-cv-00347 (filed 14 Aug 2025).
-- Fortegra: drop marketing@ (spam filter) → fortegra.com/contact program/partner form; cite E.D.N.Y. 2:24-cv-01334 (SJ 1 Oct 2025).
-- Porch: partner@ only (IR@ stays dropped).
+---
+
+FOLLOW-UP CADENCE (in the doc this time)
+
+| Day | Action | Count |
+|-----|--------|-------|
+| Mon 2026-09-29 | Send all 10 below | 10 |
+| Fri 2026-10-03 | Short bump to every desk with no reply / no REVIEW | up to 10 |
+| Next Mon+ | Only if Friday silent AND desk still unburned — do not re-spray the same body | — |
+
+Bump rules: one short nudge, same subject with "Re:" or "following up —", no new cite dump, still log in SENT_TALLY.md. Bumps count toward the day's touch total.
+
+Bump body (paste as-is, swap desk name):
+```
+Following up once on the free 72-hour REVIEW offer for [DESK] — still happy to run it on public pages only. Reply REVIEW, forward once, or ignore.
+https://gate.velaru.xyz/diligence
+```
+
+---
+
+What closed Claude’s 9→10 dents:
+- Incline: AHalbrook@InclinePC.com (CLO — published on FORC.org counsel profile). Not info@.
+- Aon: retargeted to White Rock (Vesttoo vehicle) — Dermot Finnerty, MD White Rock Group, dermot.a.finnerty@aon.com (published on Aon White Rock domicile sheets). Not blank WCC form.
+- Great Divide: Nautilus group claims desk nicclaims@nautilus-ins.com, body to Eric Marler (SVP Chief Claims Officer — live on nautilusinsgroup.com/bios). Not orphan info@greatdivide.
+- Clear Blue: still contact form + phone — only published named email found is media (rvega@cbinsgroup.com). Will not guess jbreslin@ from LeadIQ format.
+- Follow-up cadence now specified above (Mon send → Fri bump).
 
 ---
 
 CHEAT-SHEET
 
-1. Porch / HOA — partner@porch.com (optional Cc: matt.ehrlichman@porch.com). IR@porch.com dropped.
-2. Incline P&C — info@inclinepc.com
-3. Clear Blue — https://www.clearblueinsurancegroup.com/contact/ · (980) 299-9520
+1. Porch / HOA — partner@porch.com (optional Cc: matt.ehrlichman@porch.com). IR@ dropped.
+2. Incline P&C — AHalbrook@InclinePC.com (Allen Halbrook, CLO) · phone (737) 615-4697
+3. Clear Blue — https://www.clearblueinsurancegroup.com/contact/ · (980) 299-9520 — ask for Jerome Breslin’s desk
 4. Gallagher Re — enquires@gallagherre.com (spelling: enquires)
 5. Sutton National — contact@suttonnational.com
-6. MS Transverse — info@mstransverse.com · https://mstransverse.com/contact/ · +1 609-250-7841. CEO: David Paulsson. (Erik Matson = Vice Chairman.)
-7. Aon Re — https://www.aon.com/reinsurance/wcc/contact-us.jsp
-8. Palomar / PLMR-FRONT — Brandon Loyd, AVP Programs & Fronting — bloyd@plmr.com · 858-232-7232
+6. MS Transverse — info@mstransverse.com · CEO: David Paulsson (Matson = Vice Chairman)
+7. Aon / White Rock — dermot.a.finnerty@aon.com (Dermot Finnerty, MD White Rock Group). Optional US Cc: peter.joy@aon.com
+8. Palomar / PLMR-FRONT — bloyd@plmr.com (Brandon Loyd, AVP Programs & Fronting) · 858-232-7232
 9. Fortegra — https://www.fortegra.com/contact (program/partner form — not marketing@)
-10. Great Divide — info@greatdivideinsurancecompany.com
+10. Great Divide / Nautilus — nicclaims@nautilus-ins.com (ask forward to Eric Marler, SVP Chief Claims Officer). Backup: frontdesk@nautilus-ins.com · 800-842-8972
 
 ---
 
@@ -52,11 +71,11 @@ https://gate.velaru.xyz/diligence
 
 EMAIL 2 — Incline P&C
 
-To: info@inclinepc.com
+To: AHalbrook@InclinePC.com
 Subject: Free 72-hour review of program bind vs CCB LOCs that did not honor
 
 Body:
-For Chris McClellan — President & CEO, and Allen Halbrook — CLO, Incline P&C
+For Allen Halbrook — Chief Legal Officer, Incline P&C (and Chris McClellan — President & CEO)
 Nisaba LLC. Vendor review of one named collateral path.
 
 Incline Casualty and Redpoint's SDNY action against China Construction Bank (1:24-cv-03591 consol. / 1:24-cv-04392) alleges CCB-linked letters of credit backing Vesttoo-tied reinsurance were forged / not honored — Artemis reported the Incline-linked LOC set above $43 million. Same fraud pattern as the broader Vesttoo collateral break; your shop's SDNY fight is ongoing.
@@ -70,7 +89,7 @@ https://gate.velaru.xyz/diligence
 
 EMAIL 3 — Clear Blue
 
-To: https://www.clearblueinsurancegroup.com/contact/ (or verified @clearblue… / @cbinsgroup.com). Phone backup: (980) 299-9520 — Jerome Breslin's desk.
+To: https://www.clearblueinsurancegroup.com/contact/ · Phone: (980) 299-9520 — ask for Jerome Breslin's desk.
 Subject: Free 72-hour review of Yachtinsure bind/adjust authority after refusal to defend
 
 Body:
@@ -140,18 +159,19 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 7 — Aon Re
+EMAIL 7 — Aon / White Rock
 
-To: https://www.aon.com/reinsurance/wcc/contact-us.jsp (or verified Aon Re desk email)
-Subject: Free 72-hour review of brokered collateral path after Vesttoo / Clear Blue episode
+To: dermot.a.finnerty@aon.com
+Optional Cc: peter.joy@aon.com (White Rock USA)
+Subject: Free 72-hour review of White Rock / brokered collateral path after Vesttoo
 
 Body:
-For Aon Re — US reinsurance / program desk
+For Dermot Finnerty — Managing Director, White Rock Group (Aon)
 Nisaba LLC. Vendor review of one named collateral path.
 
-Artemis: Clear Blue's Vesttoo-related New York suit against Aon was dismissed with prejudice after an out-of-court settlement (reported 2025) — same fraud pattern as the broader Vesttoo CCB LOC break that hit fronting and brokered collateral paths.
+White Rock cells sat inside the Vesttoo / CCB LOC break (including paths tied to Porch–Gallagher–HOA and the Clear Blue New York suit against Aon, later dismissed with prejudice after settlement — Artemis 2025). Same fraud pattern: purported bank LOC treated as live before issuer confirmation.
 
-The 72-hour memo is only this: on Aon Re's public materials (plus anything the desk sends), where the next brokered placement still treats a collateral letter / purported LOC as live before issuer confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
+The 72-hour memo is only this: on White Rock / Aon public materials (plus anything the desk sends), where the next cell / brokered placement still treats a collateral letter / purported LOC as live before issuer confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once to the right desk if this should not sit here, or ignore.
 https://gate.velaru.xyz/diligence
@@ -194,13 +214,14 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 10 — Great Divide (W. R. Berkley)
+EMAIL 10 — Great Divide / Nautilus (W. R. Berkley)
 
-To: info@greatdivideinsurancecompany.com (backup Berkley WC contact if bounced)
+To: nicclaims@nautilus-ins.com
+Backup: frontdesk@nautilus-ins.com · 800-842-8972
 Subject: Free 72-hour review of primary defend handoff after Great American suit
 
 Body:
-For Great Divide — CGL / primary coverage desk
+For Eric Marler — SVP, Chief Claims Officer, Nautilus Insurance Group (Great Divide paper)
 Nisaba LLC. Vendor review of one named defend path.
 
 D. Haw. Great American Alliance v. Great Divide, 1:25-cv-00347 (filed 14 Aug 2025; Insurance Business coverage): Great American alleges Great Divide walked away from its duty to defend and indemnify AOAO International Colony Club on the primary CGL while excess / umbrella burn continued after a condo-owner renovation suit.

@@ -13,7 +13,8 @@ One row per calendar day you touch desks.
 |------|----------|--------|--------|-------|-----------|-----------------|-------|
 | 2026-09-23 | Send (Tue) | 4 | 0 | 0 | **4** | Buckle, SteadPoint, 1970, Everspan | **GAP** — thought cadence was 10; delivered Plan A only |
 | 2026-09-26 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | same four | Fill when sent |
-| 2026-09-29 | Send (Mon) | 4 | 6 | 0 | **planned 10** | Plan A 4 + Plan B 6 (Palomar = Loyd) | SEND — PASTE_MONDAY_DILIGENCE_EMAILS.md 10/10 cut |
+| 2026-09-29 | Send (Mon) | 4 | 6 | 0 | **planned 10** | Plan A 4 + Plan B 6 (named desks) | SEND — PASTE 10/10 · Fri bump 2026-10-03 |
+| 2026-10-03 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | silent desks from Mon | Short bump template in PASTE |
 
 ## Running check (update weekly)
 

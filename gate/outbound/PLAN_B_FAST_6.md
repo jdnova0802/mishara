@@ -9,7 +9,7 @@ Not legal advice. Public facts only.
 **Excluded (already used):** Buckle, SteadPoint, 1970, Everspan · Porch, Incline, Clear Blue, Gallagher.
 
 Send order after Plan A four:  
-Sutton → MS Transverse → Aon Re → Palomar → Fortegra → Great Divide.
+Sutton → MS Transverse → Aon/White Rock → Palomar → Fortegra → Great Divide/Nautilus.
 
 ---
 
@@ -51,18 +51,19 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## 3) Aon Re
+## 3) Aon / White Rock
 
-**To:** https://www.aon.com/reinsurance/wcc/contact-us.jsp (or a verified Aon Re desk email if you have one).  
-**Subject:** Free 72-hour review of brokered collateral path after Vesttoo / Clear Blue episode
+**To:** dermot.a.finnerty@aon.com  
+**Optional Cc:** peter.joy@aon.com (White Rock USA)  
+**Subject:** Free 72-hour review of White Rock / brokered collateral path after Vesttoo
 
 ```
-For Aon Re — US reinsurance / program desk
+For Dermot Finnerty — Managing Director, White Rock Group (Aon)
 Nisaba LLC. Vendor review of one named collateral path.
 
-Artemis: Clear Blue’s Vesttoo-related New York suit against Aon was dismissed with prejudice after an out-of-court settlement (reported 2025) — same fraud pattern as the broader Vesttoo CCB LOC break that hit fronting and brokered collateral paths.
+White Rock cells sat inside the Vesttoo / CCB LOC break (including paths tied to Porch–Gallagher–HOA and the Clear Blue New York suit against Aon, later dismissed with prejudice after settlement — Artemis 2025). Same fraud pattern: purported bank LOC treated as live before issuer confirmation.
 
-The 72-hour memo is only this: on Aon Re’s public materials (plus anything the desk sends), where the next brokered placement still treats a collateral letter / purported LOC as live before issuer confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
+The 72-hour memo is only this: on White Rock / Aon public materials (plus anything the desk sends), where the next cell / brokered placement still treats a collateral letter / purported LOC as live before issuer confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once to the right desk if this should not sit here, or ignore.
 https://gate.velaru.xyz/diligence
@@ -108,13 +109,13 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## 6) Great Divide (W. R. Berkley)
+## 6) Great Divide / Nautilus (W. R. Berkley)
 
-**To:** info@greatdivideinsurancecompany.com · backup Berkley WC contact path if bounced  
+**To:** nicclaims@nautilus-ins.com · backup frontdesk@nautilus-ins.com · 800-842-8972  
 **Subject:** Free 72-hour review of primary defend handoff after Great American suit
 
 ```
-For Great Divide — CGL / primary coverage desk
+For Eric Marler — SVP, Chief Claims Officer, Nautilus Insurance Group (Great Divide paper)
 Nisaba LLC. Vendor review of one named defend path.
 
 D. Haw. Great American Alliance v. Great Divide, 1:25-cv-00347 (filed 14 Aug 2025; Insurance Business coverage): Great American alleges Great Divide walked away from its duty to defend and indemnify AOAO International Colony Club on the primary CGL while excess / umbrella burn continued after a condo-owner renovation suit.
@@ -133,10 +134,10 @@ https://gate.velaru.xyz/diligence
 |---|------|-----|
 | 1 | Sutton National | contact@suttonnational.com |
 | 2 | MS Transverse | info@mstransverse.com |
-| 3 | Aon Re | aon.com/reinsurance contact form |
+| 3 | Aon / White Rock | dermot.a.finnerty@aon.com |
 | 4 | Palomar / PLMR-FRONT | bloyd@plmr.com |
 | 5 | Fortegra | fortegra.com/contact |
-| 6 | Great Divide | info@greatdivideinsurancecompany.com |
+| 6 | Great Divide / Nautilus | nicclaims@nautilus-ins.com → Eric Marler |
 
 ---
 
@@ -144,8 +145,9 @@ https://gate.velaru.xyz/diligence
 
 | Slot | Wave | Count |
 |------|------|-------|
-| Plan A | Porch, Incline, Clear Blue, Gallagher | 4 |
-| Plan B | Sutton, MS Transverse, Aon Re, Palomar, Fortegra, Great Divide | 6 |
-| **Send** | | **10** |
+| Plan A | Porch, Incline (Halbrook), Clear Blue, Gallagher | 4 |
+| Plan B | Sutton, MS Transverse, White Rock, Palomar, Fortegra, Great Divide/Nautilus | 6 |
+| **Send Mon** | | **10** |
+| **Bump Fri** | silent desks only | up to 10 |
 
-Log every send in `SENT_TALLY.md` the same day.
+Log every send / bump in `SENT_TALLY.md` the same day.

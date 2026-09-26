@@ -1,8 +1,8 @@
 # PASTE — Monday diligence emails = SEND (10 — 10/10 cut)
 
-**Decision:** Send **all 10** Monday. Palomar restored via Brandon Loyd (`bloyd@plmr.com`).
+**Decision:** Send **all 10** Monday. Fri bump cadence locked in the paste.
 
-Full names + drafts: `PASTE_MONDAY_DILIGENCE_EMAILS.md`
+Full names + drafts + bump template: `PASTE_MONDAY_DILIGENCE_EMAILS.md`
 
 ---
 
@@ -11,32 +11,31 @@ Full names + drafts: `PASTE_MONDAY_DILIGENCE_EMAILS.md`
 | # | Desk | To |
 |---|------|-----|
 | 1 | Porch / HOA | partner@porch.com |
-| 2 | Incline P&C | info@inclinepc.com |
+| 2 | Incline P&C | AHalbrook@InclinePC.com |
 | 3 | Clear Blue | contact form · (980) 299-9520 |
 | 4 | Gallagher Re | enquires@gallagherre.com |
 | 5 | Sutton National | contact@suttonnational.com |
 | 6 | MS Transverse | info@mstransverse.com |
-| 7 | Aon Re | aon.com/reinsurance contact form |
+| 7 | Aon / White Rock | dermot.a.finnerty@aon.com |
 | 8 | Palomar / PLMR-FRONT | bloyd@plmr.com |
 | 9 | Fortegra | fortegra.com/contact |
-| 10 | Great Divide | info@greatdivideinsurancecompany.com |
+| 10 | Great Divide / Nautilus | nicclaims@nautilus-ins.com → Eric Marler |
 
 ---
 
-## 8→10 fixes locked in
+## 9→10 fixes (Claude’s remaining dents)
 
-1. Palomar = Brandon Loyd (Programs & Fronting) — not investors@
-2. MS Transverse = Paulsson CEO + info@ — Matson is Vice Chairman
-3. Sutton = ALIRT ~$9M / 19.4% surplus cite
-4. Great Divide = 1:25-cv-00347
-5. Fortegra = contact form + 2:24-cv-01334 (1 Oct 2025 SJ) — not marketing@
-6. Porch = partner@ only
+1. Incline named CLO email (FORC-published)
+2. Aon retargeted to White Rock MD (published Aon sheet)
+3. Great Divide via Nautilus claims desk + named CCO
+4. Clear Blue stays form — won’t guess personal email
+5. Mon send → Fri bump cadence + bump body in paste
 
 ---
 
 ## Monday checklist
 
-1. Send all 10 in paste order (space Gallagher from Porch)
-2. CTA: Reply REVIEW · https://gate.velaru.xyz/diligence
-3. Log every send in `SENT_TALLY.md` same day
+1. Send all 10 in paste order
+2. Fri: bump silent desks with the short template
+3. Log sends + bumps in `SENT_TALLY.md` same day
 4. Do not reuse burned: Buckle · SteadPoint · 1970 · Everspan
