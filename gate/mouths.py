@@ -1,5 +1,5 @@
 """Extra Apple mouths — unlock, Scenario 3, UAPA, ADMT, trusted-contact,
-FedNow pre-push, Nacha False Pretenses, CL7 handoff, Stair.
+FedNow pre-push, Nacha False Pretenses, CL7 handoff, Stair, DSP reject-report.
 
 Visa agentic chargebacks: PARKED (see PARKED_MOUTHS).
 their_production stays false on manifests; HTTP scrub omits when false.
@@ -114,7 +114,7 @@ def _seal_mouth(
         import write_state as write_state_mod
 
     out = dict(body)
-    if advisory:
+    if advisory and "write_state" not in out:
         out["write_state"] = write_state_mod.for_advisory_mouth(mouth_id=mouth_id)
     scope = claim_scope_mod.for_mouth(
         mouth_id=mouth_id,
@@ -578,6 +578,177 @@ def evaluate_cl7_handoff(body: dict) -> dict[str, Any]:
     )
 
 
+# Countries of concern under EO 14117 / 28 CFR Part 202 (DSP) — as listed in the final rule.
+DSP_COUNTRIES_OF_CONCERN = (
+    "china",
+    "cuba",
+    "iran",
+    "north_korea",
+    "russia",
+    "venezuela",
+)
+
+DSP_NSD_EMAIL = "NSD.FIRS.datasecurity@usdoj.gov"
+DSP_OPERATIVE_DATE = "2025-10-06"
+DSP_SOURCE = (
+    "https://www.ecfr.gov/current/title-28/chapter-I/part-202/subpart-K/section-202.1104"
+)
+DSP_FR = (
+    "https://www.federalregister.gov/documents/2025/01/08/2024-31486/"
+    "preventing-access-to-us-sensitive-personal-data-and-government-related-data-by-countries-of-concern"
+)
+
+
+def _dsp_due_at(rejected_at_iso: str) -> str:
+    from datetime import datetime, timedelta, timezone
+
+    raw = (rejected_at_iso or "").strip()
+    try:
+        if len(raw) == 10 and raw[4] == "-" and raw[7] == "-":
+            dt = datetime.fromisoformat(raw).replace(tzinfo=timezone.utc)
+        else:
+            dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+    except ValueError:
+        dt = datetime.now(timezone.utc)
+    return (dt + timedelta(days=14)).replace(microsecond=0).isoformat()
+
+
+def evaluate_dsp_reject(body: dict) -> dict[str, Any]:
+    """DOJ Data Security Program — § 202.1104 rejected prohibited data-brokerage report.
+
+    Live duty (on/after Oct 6, 2025): U.S. person who affirmatively rejects (including
+    via software) an offer for a prohibited data-brokerage transaction must report to
+    NSD within 14 days. Gate classifies + packs; Gate never files.
+    """
+    try:
+        from gate import write_state as write_state_mod
+    except ImportError:
+        import write_state as write_state_mod
+
+    brokerage = str(body.get("data_brokerage_offer") or "").strip().lower()
+    bulk = str(body.get("bulk_sensitive_or_gov_data") or "").strip().lower()
+    covered = str(body.get("counterparty_covered_or_coc") or "").strip().lower()
+    rejected = str(body.get("affirmatively_rejected") or "").strip().lower()
+    operative = str(body.get("rejected_on_or_after_2025_10_06") or "").strip().lower()
+    reject_date = str(body.get("reject_date") or "").strip()
+
+    cite = "28 CFR § 202.1104 — Reports on rejected prohibited transactions"
+    common = dict(cite=cite, source=DSP_SOURCE, fr=DSP_FR, operative_date=DSP_OPERATIVE_DATE)
+
+    if brokerage not in ("yes", "no") or bulk not in ("yes", "no") or covered not in (
+        "yes",
+        "no",
+        "unknown",
+    ):
+        return _pack(
+            "gate-dsp-reject-v1",
+            "HOLD",
+            "Need: data-brokerage offer?, bulk sensitive/gov data?, counterparty covered/CoC? Unknown fails closed.",
+            **common,
+        )
+    if rejected not in ("yes", "no") or operative not in ("yes", "no"):
+        return _pack(
+            "gate-dsp-reject-v1",
+            "HOLD",
+            "Need: affirmatively rejected (incl. auto)?, on/after Oct 6 2025? Empty is not a no.",
+            **common,
+        )
+
+    if brokerage != "yes" or bulk != "yes":
+        return _pack(
+            "gate-dsp-reject-v1",
+            "NOT THIS",
+            "§ 202.1104 attaches to rejected prohibited data-brokerage offers involving "
+            "government-related or bulk U.S. sensitive personal data. This face does not match.",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="dsp-reject"),
+            **common,
+        )
+    if covered == "unknown":
+        return _pack(
+            "gate-dsp-reject-v1",
+            "HOLD",
+            "Counterparty covered-person / country-of-concern status unknown. "
+            "Covered Persons List is non-exhaustive for § 202.211(a)(1)–(4) — fail closed.",
+            covered_persons_list_exhaustive=False,
+            **common,
+        )
+    if covered != "yes":
+        return _pack(
+            "gate-dsp-reject-v1",
+            "NOT THIS",
+            "No covered person / country of concern on this face — not a prohibited DSP "
+            "data-brokerage offer as presented. Still do your own diligence.",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="dsp-reject"),
+            **common,
+        )
+    if operative != "yes":
+        return _pack(
+            "gate-dsp-reject-v1",
+            "NOT THIS",
+            "§ 202.1104 reporting applies to rejections on or after October 6, 2025. "
+            "Earlier rejects are outside this mouth.",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="dsp-reject"),
+            **common,
+        )
+    if rejected != "yes":
+        return _pack(
+            "gate-dsp-reject-v1",
+            "HOLD",
+            "Duty attaches after affirmative reject (including automated reject). "
+            "If you accepted a prohibited deal, that is a different DSP violation — not this mouth.",
+            **common,
+        )
+
+    from datetime import datetime, timezone
+
+    rejected_at = reject_date or datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    due_at = _dsp_due_at(rejected_at)
+    report_pack = {
+        "spec": "gate-dsp-1104-report-pack-v1",
+        "cfr": "28 CFR 202.1104(c)",
+        "submit_to": DSP_NSD_EMAIL,
+        "submit_via": "email per 28 CFR 202.1201 (or official NSD electronic option)",
+        "gate_files_for_you": False,
+        "fields": {
+            "us_person_name_and_address": None,
+            "contact_name_phone_email": None,
+            "date_rejected": rejected_at,
+            "types_and_volumes_of_data": None,
+            "method_of_data_transfer": None,
+            "persons_attempting_and_locations": None,
+            "covered_persons_and_countries_of_concern": None,
+            "relevant_documentation": None,
+            "legal_authority_for_rejection": "28 CFR Part 202 — prohibited data brokerage",
+        },
+        "mailto": (
+            f"mailto:{DSP_NSD_EMAIL}"
+            f"?subject=DSP%20%C2%A7%20202.1104%20rejected%20prohibited%20transaction%20report"
+            f"&body=U.S.%20person%20report%20under%2028%20CFR%20202.1104%0A"
+            f"Date%20rejected%3A%20{rejected_at}%0A"
+            f"Due%20by%3A%20{due_at}%0A"
+            f"%0A%5BAttach%20or%20paste%20%C2%A7%20202.1104(c)%20fields%5D%0A"
+        ),
+        "due_at": due_at,
+        "days": 14,
+    }
+    return _pack(
+        "gate-dsp-reject-v1",
+        "REPORT DUE",
+        "Affirmative reject of a prohibited data-brokerage offer on/after Oct 6 2025. "
+        "File with DOJ NSD within 14 days. Gate packs the fields — you send the email.",
+        report_pack=report_pack,
+        write_state=write_state_mod.for_report_clock(
+            due_at=due_at,
+            rejected_at=rejected_at,
+            filed=False,
+        ),
+        covered_persons_list_exhaustive=False,
+        **common,
+    )
+
+
 # Parked — verified gap, not ready as a dispute SKU.
 # Visa Core Rules Apr 2026 §4.1.24 defines Agentic Payment Provider transactions and
 # cardholder responsibility for APP actions. §11 has no agentic dispute condition.
@@ -972,6 +1143,77 @@ MOUTHS = (
         "source": "IBC: loss of power and fire alarm shall unlock. PUSH TO EXIT cuts lock power with no other electronics in the way.",
         "source_url": "https://up.codes/s/sensor-release-of-electrically-locked-egress-doors",
     },
+    {
+        "id": "dsp-reject",
+        "route": "/dsp-reject",
+        "api": "/v1/dsp-reject",
+        "wk": "/.well-known/dsp-reject.json",
+        "fn": "evaluate_dsp_reject",
+        "spec": "gate-dsp-reject-v1",
+        "title": "DSP Reject Report",
+        "brand": "DSP Reject",
+        "lede": "Did you reject a prohibited data-brokerage offer? Is a DOJ NSD report due in 14 days?",
+        "legend": (
+            ("REPORT DUE", "Rejected prohibited offer on/after Oct 6 2025 — file within 14 days."),
+            ("NOT THIS", "Face does not attach § 202.1104."),
+            ("HOLD", "Missing fields or unknown covered-person status. Fail closed."),
+        ),
+        "words": ["REPORT DUE", "NOT THIS", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "data_brokerage_offer",
+                "label": "Offer was data brokerage (buy/sell/license/transfer data)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "bulk_sensitive_or_gov_data",
+                "label": "Bulk U.S. sensitive personal data or government-related data?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "counterparty_covered_or_coc",
+                "label": "Counterparty a covered person / country of concern?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
+            {
+                "name": "affirmatively_rejected",
+                "label": "Affirmatively rejected (incl. automated reject)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "rejected_on_or_after_2025_10_06",
+                "label": "Rejected on or after Oct 6, 2025?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+        ],
+        "source": (
+            "28 CFR § 202.1104 — DOJ Data Security Program. Affirmative reject of a "
+            "prohibited data-brokerage offer → report to NSD within 14 days. Gate does not file."
+        ),
+        "source_url": DSP_SOURCE,
+    },
 )
 
 
@@ -993,6 +1235,7 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "nacha-false-pretenses": evaluate_nacha_false_pretenses,
         "cl7-handoff": evaluate_cl7_handoff,
         "stair": evaluate_stair,
+        "dsp-reject": evaluate_dsp_reject,
     }[mid]
     raw_body = body if isinstance(body, dict) else {}
     result = fn(raw_body)
@@ -1038,6 +1281,13 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "stair": [
             "presented kind chip (egress vs money/bind)",
             "IBC egress refusal — Gate stays off the stair path",
+        ],
+        "dsp-reject": [
+            "presented data_brokerage_offer / bulk_sensitive_or_gov_data / "
+            "counterparty_covered_or_coc / affirmatively_rejected / "
+            "rejected_on_or_after_2025_10_06 chips",
+            "28 CFR 202.1104 classification only — Covered Persons List not scanned; "
+            "list is non-exhaustive for § 202.211(a)(1)–(4); Gate never emails NSD",
         ],
     }.get(mid)
     return _seal_mouth(

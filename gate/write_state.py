@@ -116,6 +116,42 @@ def for_advisory_mouth(*, mouth_id: str) -> dict:
     )
 
 
+def for_report_clock(
+    *,
+    due_at: str,
+    rejected_at: str,
+    filed: bool = False,
+) -> dict:
+    """Federal report owed after reject — liminal until filed or overdue."""
+    if filed:
+        return snapshot(
+            phase="SPENT",
+            cancellable=False,
+            never_means="Report already characterized as filed — this mouth does not re-file.",
+            plain="§ 202.1104 report marked filed. Gate never emails DOJ for you.",
+            detail={"due_at": due_at, "rejected_at": rejected_at, "filed": True},
+        )
+    return snapshot(
+        phase="IN_FLIGHT",
+        cancellable=False,
+        never_means=(
+            "A Never/NOT THIS during the 14-day clock after reject is wrong if the "
+            "offer was a prohibited data-brokerage deal — the report is still owed."
+        ),
+        plain=(
+            "Rejected. Report due to DOJ NSD within 14 days of reject. "
+            "Clock is running. Gate packs the fields; you send the email."
+        ),
+        detail={
+            "due_at": due_at,
+            "rejected_at": rejected_at,
+            "filed": False,
+            "cfr": "28 CFR 202.1104",
+            "submit_to": "NSD.FIRS.datasecurity@usdoj.gov",
+        },
+    )
+
+
 def for_seal_verify() -> dict:
     return snapshot(
         phase="N_A",
