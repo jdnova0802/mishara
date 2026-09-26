@@ -149,6 +149,31 @@ def decide(
             "signals": result.get("signals") or [],
             "fingerprint": result.get("fingerprint"),
             "message": result.get("message"),
+            "claim_scope": result.get("claim_scope"),
+            "signed_claim": result.get("signed_claim"),
+        },
+        "claim_scope": result.get("claim_scope"),
+        "signed_claim": result.get("signed_claim"),
+        "write_state": result.get("write_state")
+        or {
+            "spec": "gate-write-state-v1",
+            "phase": "CLEARANCE",
+            "cancellable": True if approved else None,
+            "never_during_this_phase": (
+                "NO_GO here is clearance refusal before Stripe auth. "
+                "APPROVED from this mouth is not capture/settlement — Stripe auth stays "
+                "pending until capture; Gate does not collapse that into final."
+            ),
+            "plain": (
+                "Issuing mouth is clearance only. Stripe authorization after approve is "
+                "IN_FLIGHT on the card network until capture/expiry — Gate write_executed=false."
+            ),
+            "detail": {
+                "write_executed": False,
+                "stripe_auth_after_approve": "PENDING_CAPTURE_OR_EXPIRY",
+                "already_handled_clearance": True,
+                "gap_closed": "explicit_pending_vs_settled",
+            },
         },
         "rail": RAIL,
         "authorization_id": (auth.get("id") if isinstance(auth, dict) else None),

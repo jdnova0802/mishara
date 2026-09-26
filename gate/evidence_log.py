@@ -3,13 +3,16 @@
 Strangers verify:
 1. receipt_hash is included in published tree head (inclusion proof)
 2. tree only grew (consistency proof vs prior head — optional client cache)
+3. optional independent witness co-signs the tree head (not Gate's primary key)
 
 RFC 9162 algorithms simplified for Gate's flat receipt list.
 """
 from __future__ import annotations
 
+import base64
 import hashlib
 import json
+import os
 from datetime import datetime, timezone
 from typing import Any
 
@@ -19,7 +22,103 @@ except ImportError:
     import receipt as receipt_mod
 
 SPEC = "gate-evidence-log-v1"
+WITNESS_SPEC = "gate-evidence-witness-v1"
 EMPTY_LEAF = hashlib.sha256(b"gate-evidence-empty").digest()
+
+
+def _b64decode_raw(s: str | None) -> bytes | None:
+    if not s:
+        return None
+    s = s.strip()
+    if not s:
+        return None
+    s = s.replace("-", "+").replace("_", "/")
+    pad = "=" * (-len(s) % 4)
+    try:
+        return base64.b64decode(s + pad, validate=False)
+    except Exception:
+        return None
+
+
+def _b64encode_raw(b: bytes) -> str:
+    return base64.b64encode(b).decode("utf-8")
+
+
+def _witness_private_key():
+    """Independent witness key — air-gapped from GATE_RECEIPT_PRIVATE_KEY.
+
+    Env:
+      GATE_WITNESS_PRIVATE_KEY — base64(raw 32-byte Ed25519 private key)
+      GATE_WITNESS_PUBLIC_KEY  — base64(raw 32-byte Ed25519 public key)
+    """
+    priv_b = _b64decode_raw(os.getenv("GATE_WITNESS_PRIVATE_KEY"))
+    if not priv_b:
+        return None
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+
+        return Ed25519PrivateKey.from_private_bytes(priv_b)
+    except Exception:
+        return None
+
+
+def witness_public_key_bytes() -> bytes | None:
+    pub_b = _b64decode_raw(os.getenv("GATE_WITNESS_PUBLIC_KEY"))
+    if pub_b:
+        return pub_b
+    key = _witness_private_key()
+    if not key:
+        return None
+    try:
+        from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+
+        return key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+    except Exception:
+        return None
+
+
+def witness_public_key_fingerprint() -> str | None:
+    pub_b = witness_public_key_bytes()
+    if not pub_b:
+        return None
+    return hashlib.sha256(pub_b).hexdigest()[:16]
+
+
+def witness_public_key_b64() -> str | None:
+    pub_b = witness_public_key_bytes()
+    if not pub_b:
+        return None
+    return _b64encode_raw(pub_b)
+
+
+def witness_configured() -> bool:
+    return bool(witness_public_key_bytes())
+
+
+def _sign_witness(head_hash_hex: str) -> str | None:
+    key = _witness_private_key()
+    if not key:
+        return None
+    try:
+        return _b64encode_raw(key.sign(head_hash_hex.encode("utf-8")))
+    except Exception:
+        return None
+
+
+def verify_witness_signature(*, head_hash: str, signature_b64: str | None) -> bool:
+    if not head_hash or not signature_b64:
+        return False
+    pub_b = witness_public_key_bytes()
+    sig_b = _b64decode_raw(signature_b64)
+    if not pub_b or not sig_b:
+        return False
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+        Ed25519PublicKey.from_public_bytes(pub_b).verify(sig_b, head_hash.encode("utf-8"))
+        return True
+    except Exception:
+        return False
 
 
 def _d(data: bytes) -> bytes:
@@ -143,9 +242,35 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
         "public_key_fingerprint": receipt_mod.receipt_public_key_fingerprint(),
     }
     canonical = json.dumps(head, sort_keys=True, separators=(",", ":"))
-    sig = receipt_mod.sign_receipt_hash(hashlib.sha256(canonical.encode()).hexdigest())
+    head_hash = hashlib.sha256(canonical.encode()).hexdigest()
+    sig = receipt_mod.sign_receipt_hash(head_hash)
     head["head_signature"] = sig
     head["signed_over"] = "sha256(canonical_head_json)"
+    head["head_hash"] = head_hash
+
+    # Witness co-sign capacity: second independent key over the same head_hash.
+    # Capability exists even when the witness key is not yet configured — strangers
+    # see witness.configured false rather than an implied single-party forever.
+    w_fp = witness_public_key_fingerprint()
+    w_sig = _sign_witness(head_hash) if w_fp else None
+    gate_fp = receipt_mod.receipt_public_key_fingerprint()
+    distinct = bool(w_fp and gate_fp and w_fp != gate_fp)
+    head["witness"] = {
+        "spec": WITNESS_SPEC,
+        "configured": witness_configured(),
+        "signed": bool(w_sig),
+        "distinct_from_gate_key": distinct if w_fp else None,
+        "public_key_fingerprint": w_fp,
+        "public_key_b64": witness_public_key_b64(),
+        "signature": w_sig,
+        "signed_over": "same head_hash as head_signature",
+        "required": False,
+        "plain": (
+            "Independent co-sign of the periodic tree head — not Gate's primary "
+            "receipt key. Air-gap GATE_WITNESS_* from GATE_RECEIPT_*. "
+            "Consortium partner optional; capacity is infrastructure now."
+        ),
+    }
     return head
 
 

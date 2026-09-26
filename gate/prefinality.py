@@ -22,6 +22,16 @@ try:
 except ImportError:
     import receipt as receipt_mod
 
+try:
+    from gate import claim_scope as claim_scope_mod
+except ImportError:
+    import claim_scope as claim_scope_mod
+
+try:
+    from gate import write_state as write_state_mod
+except ImportError:
+    import write_state as write_state_mod
+
 SPEC = "gate-prefinality-v1"
 RAILS = ("x402", "rtp", "issuing", "oct")
 DECISIONS = ("GO", "NO_GO", "HOLD")
@@ -229,6 +239,7 @@ def mint_receipt_jwt(
     agent_id: str | None,
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
     issuer: str | None = None,
+    claim_scope: dict | None = None,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -248,6 +259,9 @@ def mint_receipt_jwt(
         "fp": fingerprint,
         "sig": signals,
     }
+    # Scope of the negative/clearance claim — inside the signed JWT, not implied by endpoint.
+    if claim_scope:
+        payload["scope"] = claim_scope
     header = {"alg": "EdDSA", "typ": "JWT", "kid": kid}
     header_b64 = _b64url(_canonical_json(header).encode("utf-8"))
     payload_b64 = _b64url(_canonical_json(payload).encode("utf-8"))
@@ -339,6 +353,13 @@ def evaluate(
     created_at = _iso(_utc_now())
 
     if rail not in RAILS:
+        scope = claim_scope_mod.for_go(
+            rail=rail or "unknown",
+            decision="NO_GO",
+            signals=["unsupported_rail"],
+            fingerprint="",
+            as_of=created_at,
+        )
         return _response(
             evaluation_id=evaluation_id,
             rail=rail or "unknown",
@@ -350,6 +371,7 @@ def evaluate(
             public_url=public_url,
             halt=True,
             reason="unsupported_rail",
+            claim_scope=scope,
         )
 
     fingerprint = transfer_fingerprint(rail=rail, transfer=transfer)
@@ -368,6 +390,21 @@ def evaluate(
         decision = "NO_GO"
         signals.append("unsigned_halt")
 
+    scope = claim_scope_mod.for_go(
+        rail=rail,
+        decision=decision,
+        signals=signals,
+        fingerprint=fingerprint,
+        as_of=created_at,
+    )
+    # Counterparty boundary when presented — part of signed scope.
+    cp = (transfer.get("counterparty") or transfer.get("payto") or transfer.get("payTo") or "").strip()
+    if cp:
+        scope["counterparties"] = [cp]
+        expected = (mandate.get("expected_counterparty") or "").strip()
+        if expected:
+            scope["keys_checked"]["expected_counterparty"] = expected
+
     receipt = mint_receipt_jwt(
         evaluation_id=evaluation_id,
         rail=rail,
@@ -377,6 +414,7 @@ def evaluate(
         agent_id=agent_id,
         ttl_seconds=ttl,
         issuer=public_url.replace("https://", "").replace("http://", "").split("/")[0] or "gate.velaru.xyz",
+        claim_scope=scope,
     )
 
     if signing_required() and not receipt:
@@ -414,6 +452,7 @@ def evaluate(
         hop=hop_meta,
         agent_id=agent_id,
         ttl_seconds=ttl,
+        claim_scope=scope,
     )
 
 
@@ -432,8 +471,10 @@ def _response(
     hop: dict | None = None,
     agent_id: str | None = None,
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
+    claim_scope: dict | None = None,
 ) -> dict:
     base = (public_url or "").rstrip("/")
+    write_state = write_state_mod.for_clearance_mouth(decision=decision, rail=rail)
     out = {
         "spec": SPEC,
         "evaluation_id": evaluation_id,
@@ -450,8 +491,11 @@ def _response(
         "manifest": f"{base}/.well-known/prefinality.json",
         "clearance_only": True,
         "write_executed": False,
+        "write_state": write_state,
         "their_production": False,
     }
+    if claim_scope:
+        out["claim_scope"] = claim_scope
     if agent_id:
         out["agent_id"] = agent_id
     if reason:
@@ -468,6 +512,13 @@ def _response(
         out["message"] = "Pre-finality HOLD — human review required before commit."
     else:
         out["message"] = "Pre-finality NO_GO — do not sign or send. Fail closed."
+    # Sign negative clearance claims as a stranger-verifiable envelope (JWT already holds scope).
+    if decision in ("NO_GO", "HOLD") and claim_scope:
+        out = claim_scope_mod.attach(
+            {**out, "word": decision},
+            scope=claim_scope,
+            force=True,
+        )
     return out
 
 
