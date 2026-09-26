@@ -3706,6 +3706,7 @@ class TrackRecordTests(unittest.TestCase):
         watch = self.client.get("/.well-known/evidence-watch.json").get_json()
         self.assertEqual(watch["first_party"]["independent"], False)
         self.assertEqual(watch["independent_watchers"], [])
+        self.assertIn("/v1/evidence-watch/register", watch.get("register") or "")
         cadence = self.client.get("/.well-known/red-team.json").get_json()
         self.assertEqual(cadence["cadence"], "monthly")
         self.assertEqual(cadence["next"], "2026-10-24")
