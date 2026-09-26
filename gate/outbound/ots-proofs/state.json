@@ -1,0 +1,31 @@
+{
+  "anchors": [
+    {
+      "bitcoin_block_height": 968706,
+      "commitment_digest": "f78f31a9a4fedfcfe4437c069a7c187928c8736d9defba58b702eac022f8db16",
+      "root_hash": "8fa9dc80ca24ccd61bc7715c7d20ff000644fb07179db9eb28a7af55052512cf",
+      "slug": "0-8fa9dc80ca24ccd6",
+      "stamped_at": "2026-09-26T14:43:47.929805+00:00",
+      "status": "bitcoin_confirmed",
+      "tree_size": 0,
+      "upgraded_at": "2026-09-26T17:46:13.404367+00:00"
+    }
+  ],
+  "last_stamp": {
+    "bitcoin_block_height": 968706,
+    "commitment_digest": "f78f31a9a4fedfcfe4437c069a7c187928c8736d9defba58b702eac022f8db16",
+    "root_hash": "8fa9dc80ca24ccd61bc7715c7d20ff000644fb07179db9eb28a7af55052512cf",
+    "slug": "0-8fa9dc80ca24ccd6",
+    "stamped_at": "2026-09-26T14:43:47.929805+00:00",
+    "status": "bitcoin_confirmed",
+    "tree_size": 0
+  },
+  "last_upgrade": {
+    "at": "2026-09-26T17:46:13.404367+00:00",
+    "bitcoin_block_height": 968706,
+    "slug": "0-8fa9dc80ca24ccd6",
+    "status": "bitcoin_confirmed"
+  },
+  "spec": "gate-ots-anchor-v1",
+  "updated_at": "2026-09-26T17:46:13.404367+00:00"
+}
