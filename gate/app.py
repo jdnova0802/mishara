@@ -150,6 +150,11 @@ except ImportError:
     import track_record as track_record_mod
 
 try:
+    from gate import regulator as regulator_mod
+except ImportError:
+    import regulator as regulator_mod
+
+try:
     from gate import canary as canary_mod
 except ImportError:
     import canary as canary_mod
@@ -400,6 +405,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/dsp-reject.json",
         "/.well-known/issuing-mouth.json",
         "/.well-known/sink-mouth.json",
+        "/.well-known/regulator.json",
     }
 )
 
@@ -890,6 +896,64 @@ def trust():
         public_url=advertised_url(),
         surface=public_surface_mod.surface_clock(),
     )
+
+
+@app.route("/regulator")
+def regulator_page():
+    """Regulator / policy-staff verify surface — not commercial."""
+    desk = regulator_mod.manifest(advertised_url())
+    return render_template(
+        "regulator.html",
+        public_url=advertised_url(),
+        surface=public_surface_mod.surface_clock(),
+        naic_asks=desk["naic_asks"],
+        hmt=desk["hmt_q15"],
+        docket=desk["docket"],
+        live=desk["live"],
+        prefill=(request.args.get("event_id") or "").strip(),
+    )
+
+
+@app.route("/.well-known/regulator.json")
+def well_known_regulator():
+    return jsonify(regulator_mod.manifest(advertised_url()))
+
+
+@app.route("/demo/regulator/mint", methods=["POST"])
+def demo_regulator_mint():
+    """Mint one public NO_GO receipt for stranger E2E verify — no API key."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    try:
+        out = regulator_mod.mint_sample(
+            public_url=advertised_url(),
+            job_id=(body.get("job_id") or None),
+        )
+    except RuntimeError as exc:
+        return jsonify({"error": {"code": "mint_halt", "message": str(exc)}}), 503
+    return jsonify(out), 200
+
+
+@app.route("/v1/regulator/verify", methods=["GET", "POST"])
+def regulator_verify():
+    """Stranger check: receipt signature + Merkle inclusion + OTS probe."""
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+        event_id = (body.get("event_id") or request.args.get("event_id") or "").strip()
+    else:
+        event_id = (request.args.get("event_id") or "").strip()
+    out = regulator_mod.verify_bundle(public_url=advertised_url(), event_id=event_id)
+    status = 200 if out.get("ok") or out.get("error") == "event_not_found" else 200
+    if out.get("error") == "event_id_required":
+        return jsonify(out), 400
+    if out.get("error") == "event_not_found":
+        return jsonify(out), 404
+    return jsonify(out), status
 
 
 @app.route("/record")
@@ -1721,6 +1785,10 @@ def well_known_gate():
             "issuing_mouth_json": f"{advertised_url()}/.well-known/issuing-mouth.json",
             "issuing_dogfood": f"{advertised_url()}/demo/issuing/mouth",
             "issuing_webhook": f"{advertised_url()}/v1/issuing/authorization",
+            "regulator": f"{advertised_url()}/regulator",
+            "regulator_json": f"{advertised_url()}/.well-known/regulator.json",
+            "regulator_mint": f"{advertised_url()}/demo/regulator/mint",
+            "regulator_verify": f"{advertised_url()}/v1/regulator/verify",
             "sink_mouth": f"{advertised_url()}/sink-mouth",
             "sink_mouth_json": f"{advertised_url()}/.well-known/sink-mouth.json",
             "sink_dogfood": f"{advertised_url()}/demo/sink/mouth",
@@ -4486,6 +4554,9 @@ def sitemap():
         "/register",
         "/pricing",
         "/trust",
+        "/regulator",
+        "/record",
+        "/issuing-mouth",
         "/privacy",
         "/terms",
         "/bind-room",
@@ -4516,6 +4587,7 @@ def sitemap():
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
+        "/.well-known/regulator.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -4552,6 +4624,7 @@ def llms_txt():
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
+        f"- Regulator verify (NAIC / HMT mapping): {advertised_url()}/regulator",
         f"- Bind Room: {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
         f"- Clear JSON: {advertised_url()}/.well-known/clear.json",
@@ -4559,6 +4632,7 @@ def llms_txt():
         f"- Go JSON: {advertised_url()}/.well-known/go.json",
         f"- Never JSON: {advertised_url()}/.well-known/never.json",
         f"- Positive Clear JSON: {advertised_url()}/.well-known/positive-clear.json",
+        f"- Regulator JSON: {advertised_url()}/.well-known/regulator.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Verify: https://velaru.xyz/verify",
