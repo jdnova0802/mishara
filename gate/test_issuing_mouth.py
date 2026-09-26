@@ -15,6 +15,23 @@ from gate import prefinality as pf  # noqa: E402
 class IssuingMouthTests(unittest.TestCase):
     def setUp(self):
         self.client = gate_app.app.test_client()
+        self._env_keys = (
+            "GATE_ISSUING_ENABLED",
+            "STRIPE_SECRET_KEY",
+            "STRIPE_ISSUING_WEBHOOK_SECRET",
+            "STRIPE_WEBHOOK_SECRET",
+        )
+        self._env_prev = {k: os.environ.get(k) for k in self._env_keys}
+        # Unsigned webhook dogfood path needs no issuing webhook secret
+        for k in ("STRIPE_ISSUING_WEBHOOK_SECRET", "STRIPE_WEBHOOK_SECRET"):
+            os.environ.pop(k, None)
+
+    def tearDown(self):
+        for k, v in self._env_prev.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
 
     def test_issuing_is_prefinality_rail(self):
         self.assertIn("issuing", pf.RAILS)
@@ -101,6 +118,94 @@ class IssuingMouthTests(unittest.TestCase):
         r = self.client.post("/v1/issuing/authorization", json=auth)
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.get_json(), {"approved": True})
+
+    def test_readiness_not_spendable_without_float(self):
+        class _Bal:
+            issuing = {"available": [{"amount": 0, "currency": "usd"}]}
+
+        class _List:
+            def __init__(self, n):
+                self.data = [{"id": f"x{i}", "status": "active"} for i in range(n)]
+
+        class _Issuing:
+            class Cardholder:
+                @staticmethod
+                def list(limit=100):
+                    return _List(1)
+
+            class Card:
+                @staticmethod
+                def list(limit=100):
+                    return _List(1)
+
+        class _Stripe:
+            class Balance:
+                @staticmethod
+                def retrieve():
+                    return _Bal()
+
+            issuing = _Issuing()
+
+            class Topup:
+                @staticmethod
+                def list(limit=20):
+                    return _List(0)
+
+        os.environ["GATE_ISSUING_ENABLED"] = "1"
+        os.environ["STRIPE_SECRET_KEY"] = "sk_test_x"
+        os.environ["STRIPE_ISSUING_WEBHOOK_SECRET"] = "whsec_x"
+        out = mouth.readiness(stripe_mod=_Stripe)
+        self.assertFalse(out["spendable"])
+        self.assertEqual(out["steps"]["issuing_available_cents"], 0)
+        self.assertTrue(any("Add funds" in s for s in out["next"]))
+
+    def test_readiness_spendable_when_float_and_card(self):
+        class _Bal:
+            issuing = {"available": [{"amount": 500, "currency": "usd"}]}
+
+        class _List:
+            def __init__(self, rows):
+                self.data = rows
+
+        class _Issuing:
+            class Cardholder:
+                @staticmethod
+                def list(limit=100):
+                    return _List([{"id": "ich_1"}])
+
+            class Card:
+                @staticmethod
+                def list(limit=100):
+                    return _List([{"id": "ic_1", "status": "active"}])
+
+        class _Stripe:
+            class Balance:
+                @staticmethod
+                def retrieve():
+                    return _Bal()
+
+            issuing = _Issuing()
+
+            class Topup:
+                @staticmethod
+                def list(limit=20):
+                    return _List([])
+
+        os.environ["GATE_ISSUING_ENABLED"] = "1"
+        os.environ["STRIPE_SECRET_KEY"] = "sk_test_x"
+        os.environ["STRIPE_ISSUING_WEBHOOK_SECRET"] = "whsec_x"
+        out = mouth.readiness(stripe_mod=_Stripe)
+        self.assertTrue(out["spendable"])
+        self.assertEqual(out["steps"]["cards_active"], 1)
+
+    def test_ops_issuing_status_dev_mode(self):
+        r = self.client.get("/ops/issuing-status")
+        # GATE_DEV_MODE=1 → _ops_authorized without token
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body["spec"], "gate-issuing-readiness-v1")
+        self.assertIn("spendable", body)
+        self.assertIn("ops_readiness", mouth.manifest("https://gate.example"))
 
 
 if __name__ == "__main__":
