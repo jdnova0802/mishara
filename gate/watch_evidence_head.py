@@ -4,7 +4,12 @@
 Usage:
   python3 gate/watch_evidence_head.py --url https://gate.velaru.xyz --cache /tmp/gate-head.json
 
+Self-register as an independent unpaid watcher (no API key):
+  python3 gate/watch_evidence_head.py --url https://gate.velaru.xyz \\
+    --register --handle your-handle [--homepage https://example.com]
+
 Exit 0 if ok (or first sample). Exit 2 if the tree shrank or the root was rewritten.
+Exit 3 if --register failed.
 """
 from __future__ import annotations
 
@@ -14,6 +19,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -23,6 +29,29 @@ def _fetch_json(url: str, timeout: int = 20) -> dict:
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+def _post_json(url: str, body: dict, timeout: int = 20) -> tuple[int, dict]:
+    data = json.dumps(body).encode("utf-8")
+    req = urllib.request.Request(
+        url,
+        data=data,
+        method="POST",
+        headers={
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "User-Agent": "gate-evidence-watch/1",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return resp.status, json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        raw = exc.read().decode("utf-8", errors="replace")
+        try:
+            return exc.code, json.loads(raw)
+        except json.JSONDecodeError:
+            return exc.code, {"ok": False, "error": "http_error", "body": raw[:500]}
 
 
 def check_cached_head(current: dict, cached: dict | None) -> dict:
@@ -58,6 +87,14 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Watch Gate evidence-head.json")
     parser.add_argument("--url", default="https://gate.velaru.xyz", help="Gate origin")
     parser.add_argument("--cache", default=".cache/evidence-head.json")
+    parser.add_argument(
+        "--register",
+        action="store_true",
+        help="POST this sample to /v1/evidence-watch/register (independent roster)",
+    )
+    parser.add_argument("--handle", default="", help="Public handle for --register")
+    parser.add_argument("--homepage", default="", help="Optional https homepage")
+    parser.add_argument("--note", default="", help="Optional short note (≤280 chars)")
     args = parser.parse_args(argv)
     origin = args.url.rstrip("/")
     head_url = origin + "/.well-known/evidence-head.json"
@@ -93,7 +130,45 @@ def main(argv: list[str] | None = None) -> int:
             result["ok"] = False
             result["event"] = "consistency_fetch_failed"
             result["error"] = str(exc)
-    print(json.dumps({"check": result, "head": {"tree_size": current.get("tree_size"), "root_hash": current.get("root_hash")}}, indent=2))
+
+    register_out = None
+    if args.register and result.get("ok"):
+        handle = (args.handle or "").strip()
+        if not handle:
+            print("FAIL --register requires --handle", file=sys.stderr)
+            return 3
+        body = {
+            "handle": handle,
+            "tree_size": int(current.get("tree_size") or 0),
+            "root_hash": current.get("root_hash") or "",
+            "sampled_at": datetime.now(timezone.utc).isoformat(),
+        }
+        if args.homepage:
+            body["homepage"] = args.homepage.strip()
+        if args.note:
+            body["note"] = args.note.strip()[:280]
+        try:
+            code, register_out = _post_json(origin + "/v1/evidence-watch/register", body)
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
+            print("FAIL register", exc, file=sys.stderr)
+            return 3
+        if code >= 400 or not register_out.get("ok"):
+            print(json.dumps({"check": result, "register": register_out}, indent=2))
+            return 3
+
+    print(
+        json.dumps(
+            {
+                "check": result,
+                "head": {
+                    "tree_size": current.get("tree_size"),
+                    "root_hash": current.get("root_hash"),
+                },
+                "register": register_out,
+            },
+            indent=2,
+        )
+    )
     if not result.get("ok"):
         return 2
     cache_path.parent.mkdir(parents=True, exist_ok=True)
