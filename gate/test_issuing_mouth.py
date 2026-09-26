@@ -207,6 +207,130 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertIn("spendable", body)
         self.assertIn("ops_readiness", mouth.manifest("https://gate.example"))
 
+    def test_workflow_category_allow_passes_to_clear(self):
+        auth = mouth.dogfood_authorization(
+            amount_cents=2500,
+            max_amount="50.00",
+            merchant_category="computer_software_stores",
+            allowed_categories=["computer_software_stores", "electronic_sales"],
+            platform_allowed_categories=["computer_software_stores"],
+            job_id="job_wf_1",
+        )
+        check = mouth.workflow_category_check(auth)
+        self.assertTrue(check["configured"])
+        self.assertTrue(check["ok"])
+        self.assertEqual(check["spec"], mouth.WORKFLOW_SPEC)
+        self.assertIsNone(check["signal"])
+
+        called = {"n": 0}
+
+        def evaluate_fn(body):
+            called["n"] += 1
+            self.assertEqual(
+                body["mandate"]["allowed_categories"],
+                ["computer_software_stores", "electronic_sales"],
+            )
+            self.assertEqual(body["mandate"]["job_id"], "job_wf_1")
+            self.assertEqual(body["context"]["workflow_lock"], mouth.WORKFLOW_SPEC)
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertEqual(called["n"], 1)
+        self.assertTrue(out["approved"])
+        self.assertTrue(out["workflow_lock"]["ok"])
+        self.assertEqual(out["decision"], "GO")
+
+    def test_workflow_category_deny_before_clear(self):
+        auth = mouth.dogfood_authorization(
+            amount_cents=2500,
+            max_amount="50.00",
+            merchant_category="eating_places_restaurants",
+            allowed_categories=["automated_fuel_dispensers"],
+            platform_allowed_categories=["automated_fuel_dispensers", "eating_places_restaurants"],
+        )
+        called = {"n": 0}
+
+        def evaluate_fn(body):
+            called["n"] += 1
+            return {"decision": "GO"}  # must never run
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertEqual(called["n"], 0)
+        self.assertFalse(out["approved"])
+        self.assertEqual(out["decision"], "NO_GO")
+        self.assertEqual(out["stripe_response"], {"approved": False})
+        self.assertEqual(out["workflow_lock"]["signal"], "workflow_category_denied")
+        self.assertIn("workflow_category_denied", out["gate"]["signals"])
+        self.assertIn("claim_scope", out)
+        scope = out["claim_scope"]
+        self.assertEqual(scope["boundary"], "gate_issuing_workflow_category_lock")
+        self.assertTrue(scope["not_global"])
+        self.assertTrue(scope.get("mcc_is_not_cart"))
+        self.assertIn("signed_claim", out)
+        self.assertEqual(
+            out["signed_claim"]["canonical_claim"]["claim_scope"]["boundary"],
+            "gate_issuing_workflow_category_lock",
+        )
+
+    def test_workflow_category_missing_fail_closed(self):
+        auth = mouth.dogfood_authorization(
+            amount_cents=1000,
+            max_amount="50.00",
+            merchant_category="",
+            allowed_categories=["computer_software_stores"],
+        )
+        # strip category so observed is empty
+        auth["merchant_data"]["category"] = ""
+        auth["merchant_data"]["category_code"] = ""
+
+        def evaluate_fn(body):
+            self.fail("Clear must not run when category missing under allowlist")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertFalse(out["approved"])
+        self.assertEqual(out["workflow_lock"]["signal"], "workflow_category_missing")
+        self.assertEqual(out["claim_scope"]["boundary"], "gate_issuing_workflow_category_lock")
+
+    def test_no_allowlist_skips_workflow_lock(self):
+        auth = mouth.dogfood_authorization(amount_cents=2500, max_amount="50.00")
+        check = mouth.workflow_category_check(auth)
+        self.assertFalse(check["configured"])
+        self.assertTrue(check["ok"])
+
+        def evaluate_fn(body):
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertTrue(out["approved"])
+        self.assertFalse(out["workflow_lock"]["configured"])
+
+    def test_manifest_documents_workflow_lock(self):
+        m = mouth.manifest("https://gate.example")
+        self.assertEqual(m["workflow_lock"]["spec"], mouth.WORKFLOW_SPEC)
+        self.assertIn("allowed_categories", m["workflow_lock"]["metadata_keys"])
+        cfg = mouth.config()
+        self.assertIn("gate_workflow_lock", cfg["layers"])
+        self.assertIn("not_sku_grade", cfg["layers"])
+
+    def test_demo_workflow_category_deny(self):
+        r = self.client.post(
+            "/demo/issuing/mouth",
+            json={
+                "amount_cents": 1200,
+                "max_amount": "50.00",
+                "merchant_category": "eating_places_restaurants",
+                "allowed_categories": ["automated_fuel_dispensers"],
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertFalse(body["approved"])
+        self.assertTrue(body["workflow_lock"]["configured"])
+        self.assertEqual(body["workflow_lock"]["signal"], "workflow_category_denied")
+        self.assertEqual(
+            body["claim_scope"]["boundary"], "gate_issuing_workflow_category_lock"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
