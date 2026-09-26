@@ -2,7 +2,7 @@
 
 Use **only if Friday bumps on the Tuesday wave stay silent.**  
 Send order: Porch → Incline → Clear Blue → Gallagher (space Gallagher from Porch — same fact pattern).  
-**Monday send:** Plan A four + Plan B five (Palomar HOLD) → **9 total**. Canonical paste: `PASTE_MONDAY_DILIGENCE_EMAILS.md`. Log in `SENT_TALLY.md`.  
+**Monday send:** Plan A four + Plan B six → **10 total** (10/10 cut). Canonical paste: `PASTE_MONDAY_DILIGENCE_EMAILS.md`. Log in `SENT_TALLY.md`.  
 Offer: free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
 Not legal advice. Public facts only.
 
