@@ -1,7 +1,7 @@
-# Plan B — 6 fast diligence packs (next Tuesday add-on)
+# Plan B — diligence packs (Monday: 5 send + Palomar HOLD)
 
 **Use with:** backup Plan A four (Porch → Incline → Clear Blue → Gallagher).  
-**Tuesday total:** 4 Plan A + **these 6** = **10**.  
+**Monday total:** 4 Plan A + **5 Plan B** = **9**. Palomar HOLD. Canonical: `PASTE_MONDAY_DILIGENCE_EMAILS.md`.  
 **Depth rule:** one public, verifiable pain line each — Artemis / MarshBerry / court coverage. **No docket deep-dive.**  
 **Offer (same as Plan A):** free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
 Not legal advice. Public facts only.
@@ -9,7 +9,8 @@ Not legal advice. Public facts only.
 **Excluded (already used):** Buckle, SteadPoint, 1970, Everspan · Porch, Incline, Clear Blue, Gallagher.
 
 Send order after Plan A four (or interleaved if time-boxed):  
-Sutton → Transverse → Aon Re → Palomar → Fortegra → Great Divide.
+Sutton → Transverse → Aon Re → Fortegra → Great Divide.  
+**HOLD:** Palomar — do not use investors@plmr.com (IR-only). Send only after a real underwriting/MGA/partnerships contact is found.
 
 ---
 
@@ -70,9 +71,9 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## 4) Palomar Holdings
+## 4) Palomar Holdings — HOLD (do not send Monday)
 
-**To:** investors@plmr.com  
+**To:** _none yet_ — do **not** use investors@plmr.com (IR-only). Find underwriting / MGA / partnerships contact first.  
 **Subject:** Free 72-hour review of fronting / MGA bind collateral confirm after Vesttoo
 
 ```
@@ -127,25 +128,26 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## Recipients cheat-sheet (Plan B six)
+## Recipients cheat-sheet (Plan B — Monday send 5 + HOLD 1)
 
 | # | Desk | To |
 |---|------|-----|
 | 1 | Sutton National | contact@suttonnational.com |
 | 2 | Transverse | transverseinsurance.com contact / verified @transverseinsurance.com |
 | 3 | Aon Re | aon.com/reinsurance contact form |
-| 4 | Palomar | investors@plmr.com |
-| 5 | Fortegra | marketing@fortegra.com |
-| 6 | Great Divide | info@greatdivideinsurancecompany.com |
+| 4 | Fortegra | marketing@fortegra.com |
+| 5 | Great Divide | info@greatdivideinsurancecompany.com |
+| HOLD | Palomar | _find non-IR contact_ — do not use investors@plmr.com |
 
 ---
 
-## Tuesday stack (do not skip the tally)
+## Monday stack (do not skip the tally)
 
 | Slot | Wave | Count |
 |------|------|-------|
 | Plan A | Porch, Incline, Clear Blue, Gallagher | 4 |
-| Plan B | Sutton, Transverse, Aon Re, Palomar, Fortegra, Great Divide | 6 |
-| **Total** | | **10** |
+| Plan B | Sutton, Transverse, Aon Re, Fortegra, Great Divide | 5 |
+| **Send** | | **9** |
+| HOLD | Palomar | 1 |
 
 Log every send in `SENT_TALLY.md` the same day.

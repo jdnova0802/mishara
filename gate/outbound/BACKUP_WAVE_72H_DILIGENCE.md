@@ -2,7 +2,7 @@
 
 Use **only if Friday bumps on the Tuesday wave stay silent.**  
 Send order: Porch → Incline → Clear Blue → Gallagher (space Gallagher from Porch — same fact pattern).  
-**Same Tuesday:** also send Plan B six in `PLAN_B_FAST_6.md` → **10 total**. Log in `SENT_TALLY.md`.  
+**Monday send:** Plan A four + Plan B five (Palomar HOLD) → **9 total**. Canonical paste: `PASTE_MONDAY_DILIGENCE_EMAILS.md`. Log in `SENT_TALLY.md`.  
 Offer: free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
 Not legal advice. Public facts only.
 
@@ -10,7 +10,8 @@ Not legal advice. Public facts only.
 
 ## 1) Porch / HOA
 
-**To:** IR@porch.com, partner@porch.com  
+**To:** partner@porch.com  
+*(Dropped IR@porch.com — shareholder relations, wrong desk.)*  
 **Optional Cc:** matt.ehrlichman@porch.com  
 **Subject:** Free 72-hour review of HOA bind path vs Yu Po letter treated as CCB LOC
 
@@ -90,7 +91,7 @@ https://gate.velaru.xyz/diligence
 
 | # | Desk | To |
 |---|------|-----|
-| 1 | Porch / HOA | IR@porch.com, partner@porch.com (+ optional matt.ehrlichman@porch.com) |
+| 1 | Porch / HOA | partner@porch.com (+ optional matt.ehrlichman@porch.com). IR@ dropped. |
 | 2 | Incline P&C | info@inclinepc.com |
 | 3 | Clear Blue | contact form / verified firm email · (980) 299-9520 |
 | 4 | Gallagher Re | enquires@gallagherre.com |
