@@ -231,6 +231,48 @@ class MisharaProductsTest(unittest.TestCase):
             self.c.get(f"/unlock/{token}?session_id=cs_test_foreign_session")
             self.assertEqual(app.get_unlock(token)["status"], "checkout_open")
 
+    def test_demand_letter_body_includes_draft_disclaimer(self):
+        """Generated letter itself must carry draft/not-legal-advice — not only site footer."""
+        with mock.patch.object(app, "openai_text", return_value=None):
+            letter = app.generate_demand_letter(
+                platform="SafeRent Test",
+                description="Denied rental with no adverse action notice.",
+                classification="VIOLATION",
+                velaru_domain="housing",
+                receipt_hash="testhash001abc",
+                reason="No adverse action notice",
+            )
+        self.assertIn("IMPORTANT — DRAFT ONLY / NOT LEGAL ADVICE", letter)
+        self.assertIn("not legal advice", letter.lower())
+        self.assertIn("does not create an attorney", letter.lower())
+        self.assertTrue(letter.startswith("IMPORTANT — DRAFT ONLY / NOT LEGAL ADVICE"))
+        # Fulfillment path must surface the same body (no stripping).
+        receipt = self._submit().get_json()["receipt"]
+        token = app.mint_unlock_token(receipt["hash"], "demand_pack")
+        app.store_unlock(token, receipt["hash"], "demand_pack", "paid")
+        with mock.patch.object(app, "openai_text", return_value=None):
+            fulfilled = self.c.post(
+                f"/unlock/{token}",
+                json={"description": "Denied rental with no adverse action notice."},
+                headers={"Accept": "application/json"},
+            )
+        self.assertEqual(fulfilled.status_code, 200, fulfilled.get_data(as_text=True))
+        body_letter = fulfilled.get_json()["letter"]
+        self.assertIn("IMPORTANT — DRAFT ONLY / NOT LEGAL ADVICE", body_letter)
+        print("DEMAND_LETTER_DISCLAIMER_EVIDENCE", {"prefix": body_letter[:80], "len": len(body_letter)})
+
+    def test_demand_disclaimer_not_duplicated_when_model_already_includes_it(self):
+        already = (
+            "IMPORTANT — DRAFT ONLY / NOT LEGAL ADVICE\n"
+            "Model already said draft.\n\n"
+            "[DATE]\nSafeRent\n"
+        )
+        with mock.patch.object(app, "openai_text", return_value=already):
+            letter = app.generate_demand_letter(
+                "SafeRent", "x", "VIOLATION", "housing", "hash123", "reason"
+            )
+        self.assertEqual(letter.count("IMPORTANT — DRAFT ONLY / NOT LEGAL ADVICE"), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
