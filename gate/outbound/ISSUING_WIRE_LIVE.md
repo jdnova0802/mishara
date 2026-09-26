@@ -26,3 +26,14 @@
 5. Dogfood without card: `POST https://gate.velaru.xyz/demo/issuing/mouth`
 
 **Do not** paste webhook secrets into chat or commits.
+
+## Ops readiness (after token set)
+
+`GET /ops/issuing-status` is **ops-only**. Without header → 401 `ops_token_required` (correct).
+
+```bash
+curl -sS -H "X-Ops-Token: $GATE_OPS_TOKEN" \
+  https://gate.velaru.xyz/ops/issuing-status | jq .
+```
+
+Token lives on Render `gate-api` → Environment → `GATE_OPS_TOKEN` (not in git).
