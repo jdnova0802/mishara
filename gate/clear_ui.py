@@ -17,6 +17,16 @@ try:
 except ImportError:
     import deny_registry as deny_mod
 
+try:
+    from gate import claim_scope as claim_scope_mod
+except ImportError:
+    import claim_scope as claim_scope_mod
+
+try:
+    from gate import write_state as write_state_mod
+except ImportError:
+    import write_state as write_state_mod
+
 SPEC = "gate-clear-v1"
 
 # Map agent_safe_default → one consumable word for states / civilians.
@@ -66,6 +76,40 @@ def clear_rail(rail: str) -> dict[str, Any] | None:
         fin.get("agent_safe_default") or "",
         {"word": "UNKNOWN", "plain": "No simple label for this rail yet."},
     )
+    # Rail truth already encodes the liminal window (reversible until window closed)
+    # rather than collapsing to binary final/not. Surface that as write_state.
+    agent_default = fin.get("agent_safe_default") or ""
+    if "reversible" in agent_default:
+        phase = write_state_mod.snapshot(
+            phase="IN_FLIGHT",
+            cancellable=True,
+            never_means=(
+                "Clear REVERSIBLE means the rail return/dispute window is still open — "
+                "not final, not absent. A deny on this rail is a separate registry check."
+            ),
+            plain=f"Rail {row['rail']}: {status['plain']} Window: {fin.get('recall_window')}.",
+            detail={
+                "agent_safe_default": agent_default,
+                "recall_window": fin.get("recall_window"),
+                "already_handled": True,
+            },
+        )
+    elif "final" in agent_default or "hard_to_unwind" in agent_default:
+        phase = write_state_mod.snapshot(
+            phase="SPENT",
+            cancellable=False,
+            never_means="After accept, unwind is exception — Clear FINAL/HARD TO UNWIND.",
+            plain=f"Rail {row['rail']}: {status['plain']}",
+            detail={"agent_safe_default": agent_default, "already_handled": True},
+        )
+    else:
+        phase = write_state_mod.snapshot(
+            phase="N_A",
+            cancellable=None,
+            never_means="Depends on underlying rail finality.",
+            plain=status["plain"],
+            detail={"agent_safe_default": agent_default, "already_handled": True},
+        )
     return {
         "spec": SPEC,
         "rail": row["rail"],
@@ -77,6 +121,7 @@ def clear_rail(rail: str) -> dict[str, Any] | None:
             loss.get("rail_default_eater") or "See rail rules.",
         ),
         "settle_speed": fin.get("typical_settle"),
+        "write_state": phase,
         "their_production": False,
         "atoms": {
             "finality": f"/v1/rail-truth/{row['rail']}/finality",
@@ -88,7 +133,8 @@ def clear_rail(rail: str) -> dict[str, Any] | None:
 def clear_deny(payout_hash: str) -> dict[str, Any]:
     hit = deny_mod.lookup(payout_hash)
     denied = bool(hit.get("denied"))
-    return {
+    count = hit.get("count") or 0
+    body = {
         "spec": SPEC,
         "payout_hash": hit.get("payout_hash"),
         "word": "DENIED" if denied else "NOT DENIED",
@@ -97,9 +143,25 @@ def clear_deny(payout_hash: str) -> dict[str, Any]:
             if denied
             else "Nothing on file blocking this payout."
         ),
-        "count": hit.get("count") or 0,
+        "count": count,
+        "write_state": write_state_mod.snapshot(
+            phase="N_A",
+            cancellable=None,
+            never_means=(
+                "NOT DENIED means no matching fingerprint in Gate's deny registry — "
+                "not a claim that the payout is safe or that other registries are empty."
+            ),
+            plain="Deny registry lookup is presence/absence in one Gate log.",
+            detail={"registry": "gate-deny-registry-v1"},
+        ),
         "their_production": False,
     }
+    scope = claim_scope_mod.for_clear_deny(
+        payout_hash=str(hit.get("payout_hash") or payout_hash),
+        denied=denied,
+        count=int(count),
+    )
+    return claim_scope_mod.attach(body, scope=scope, force=True)
 
 
 def rails_for_ui() -> list[dict[str, str]]:

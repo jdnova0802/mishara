@@ -834,6 +834,26 @@ def consumed_spend_job_ids() -> list[str]:
     return [r["job_id"] for r in rows]
 
 
+def unconsumed_tickets_for_job(job_id: str) -> list[dict]:
+    """IN_FLIGHT probe: issued tickets for job_id that have not been redeemed.
+
+    A Never issued while these exist still means 'no redeemed leaf' — but the
+    write is liminal (cancellable via expiry), not ABSENT.
+    """
+    jid = (job_id or "").strip()
+    if not jid:
+        return []
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT id, job_id, not_before, not_after, created_at, consumed_at
+               FROM bind_tickets
+               WHERE job_id = ? AND consumed_at IS NULL
+               ORDER BY created_at ASC""",
+            (jid,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
 def get_bind_event(event_id: str) -> dict | None:
     import json
 

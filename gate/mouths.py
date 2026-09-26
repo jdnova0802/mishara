@@ -94,6 +94,40 @@ def _pack(
     return body
 
 
+def _seal_mouth(
+    *,
+    mouth_id: str,
+    body: dict[str, Any],
+    inputs: dict,
+    logs: list[str] | None = None,
+    counterparties: list[str] | None = None,
+    advisory: bool = True,
+) -> dict[str, Any]:
+    """Attach signed claim_scope + write_state on mouth responses."""
+    try:
+        from gate import claim_scope as claim_scope_mod
+    except ImportError:
+        import claim_scope as claim_scope_mod
+    try:
+        from gate import write_state as write_state_mod
+    except ImportError:
+        import write_state as write_state_mod
+
+    out = dict(body)
+    if advisory:
+        out["write_state"] = write_state_mod.for_advisory_mouth(mouth_id=mouth_id)
+    scope = claim_scope_mod.for_mouth(
+        mouth_id=mouth_id,
+        word=str(out.get("word") or ""),
+        inputs=inputs,
+        logs=logs,
+        counterparties=counterparties,
+    )
+    # Sign every decisive word (including PROCEED/CLEAR/MATCHES) so scope is always
+    # stranger-verifiable; negative words are the critical case.
+    return claim_scope_mod.attach(out, scope=scope, force=True)
+
+
 def evaluate_positive_clear(body: dict) -> dict[str, Any]:
     kind = str(body.get("kind") or "").strip()
     live = str(body.get("authority_live") or "").strip().lower()
@@ -960,7 +994,60 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "cl7-handoff": evaluate_cl7_handoff,
         "stair": evaluate_stair,
     }[mid]
-    return fn(body if isinstance(body, dict) else {})
+    raw_body = body if isinstance(body, dict) else {}
+    result = fn(raw_body)
+    # Strip PII-ish free text from scope inputs — flags/chips only.
+    safe_inputs = {
+        k: v
+        for k, v in raw_body.items()
+        if isinstance(v, (str, bool, int, float)) and k not in ("account_id", "email", "name")
+    }
+    logs = {
+        "positive-clear": [
+            "presented kind + authority_live chips",
+            "no PAS/ledger scanned — Positive Clear is advisory unlock check",
+        ],
+        "scenario-3": [
+            "presented FinCEN Scenario 3 flag chips",
+            "FIN-2016-A003 classification only — no wire log scanned",
+        ],
+        "fednow-prepush": [
+            "presented rail/payee_sealed/first_time_payee/fraud_suspected chips",
+            "FPC May 15 2026 guiding principles — pre-push advisory, no FedNow API call",
+        ],
+        "nacha-false-pretenses": [
+            "presented role/false_pretenses_suspected/who_what_payee_sealed chips",
+            "Nacha Risk Management Phase 1/2 — monitoring duty advisory, no ACH log scanned",
+        ],
+        "cl7-handoff": [
+            "presented ais_ecdis_handoff + written_notice_15d chips",
+            "NYDFS CL7 (2024) notice Seal — no underwriting system scanned",
+        ],
+        "uapa-seal": [
+            "presented already_sent/authorized/induced/rtp_native chips",
+            "TCH UAPA post-send classification — no RTP ledger scanned",
+        ],
+        "admt": [
+            "presented decision_class/uses_admt/pre_use_notice chips",
+            "11 CCR § 7200(b) notice Seal — no ADMT inventory scanned",
+        ],
+        "trusted-contact": [
+            "presented trusted-contact chips",
+            "advisory hold check — local trusted_holds db only when sealed",
+        ],
+        "stair": [
+            "presented kind chip (egress vs money/bind)",
+            "IBC egress refusal — Gate stays off the stair path",
+        ],
+    }.get(mid)
+    return _seal_mouth(
+        mouth_id=mid,
+        body=result,
+        inputs=safe_inputs,
+        logs=logs,
+        counterparties=None,
+        advisory=True,
+    )
 
 
 def manifest(mid: str, public_url: str) -> dict[str, Any]:

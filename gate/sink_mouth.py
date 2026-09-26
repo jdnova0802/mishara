@@ -175,6 +175,29 @@ def decide(
             "signals": result.get("signals") or [],
             "fingerprint": result.get("fingerprint"),
             "message": result.get("message"),
+            "claim_scope": result.get("claim_scope"),
+            "signed_claim": result.get("signed_claim"),
+        },
+        "claim_scope": result.get("claim_scope"),
+        "signed_claim": result.get("signed_claim"),
+        "write_state": result.get("write_state")
+        or {
+            "spec": "gate-write-state-v1",
+            "phase": "CLEARANCE",
+            "cancellable": True if accepted else None,
+            "never_during_this_phase": (
+                "NO_GO here refuses inbound OCT acceptance clearance. "
+                "It does not prove the push never hit the BIN outside Gate."
+            ),
+            "plain": (
+                "Sink mouth is clearance before intentional accept. Real OCT settle "
+                "needs Fast Funds enrollment — money_real stays false. Accepted ≠ settled."
+            ),
+            "detail": {
+                "money_real": False,
+                "accept_vs_settle": "CLEARANCE_NOT_SETTLEMENT",
+                "already_handled_clearance": True,
+            },
         },
         "rail": RAIL,
         "push_id": (push.get("id") if isinstance(push, dict) else None),

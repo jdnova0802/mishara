@@ -67,6 +67,9 @@ def evaluate_go(
         "receipt": raw.get("receipt"),
         "expires_in": raw.get("expires_in"),
         "message": raw.get("message"),
+        "claim_scope": raw.get("claim_scope"),
+        "signed_claim": raw.get("signed_claim"),
+        "write_state": raw.get("write_state"),
         "atoms": {
             "evaluate": "/demo/prefinality/evaluate",
             "verify": "/v1/prefinality/verify",

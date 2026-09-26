@@ -6,6 +6,9 @@ Inclusion proves a HALT is in the log. Exclusion proves the stronger object:
 
 A LIVE hop is not spend. Redeem is commit. Sorted Merkle neighbors bound the
 missing key (Laurie–Kasper revocation transparency).
+
+IN_FLIGHT: an unconsumed ticket means Never (no redeemed leaf) is still true,
+but the write is liminal — not ABSENT. Scope + write_state make that explicit.
 """
 from __future__ import annotations
 
@@ -16,6 +19,16 @@ try:
     from gate import evidence_log as evidence_log_mod
 except ImportError:
     import evidence_log as evidence_log_mod
+
+try:
+    from gate import claim_scope as claim_scope_mod
+except ImportError:
+    import claim_scope as claim_scope_mod
+
+try:
+    from gate import write_state as write_state_mod
+except ImportError:
+    import write_state as write_state_mod
 
 SPEC = "gate-exclusion-v1"
 
@@ -49,6 +62,17 @@ def leaves_for(job_ids: list[str]) -> list[str]:
     return [_leaf_hash(j) for j in job_ids]
 
 
+def _in_flight_tickets(job_id: str) -> list[dict]:
+    try:
+        from gate import db
+    except ImportError:
+        import db
+    try:
+        return db.unconsumed_tickets_for_job(job_id)
+    except Exception:
+        return []
+
+
 def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
     jid = (job_id or "").strip()
     jobs = list(spent_ids) if spent_ids is not None else spent_job_ids(None)
@@ -64,10 +88,28 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
             "reason": "job_id_required",
             "tree_head": head,
         }
+
+    in_flight_rows = _in_flight_tickets(jid) if spent_ids is None else []
+    # When caller injects spent_ids (unit tests), IN_FLIGHT probe is skipped unless
+    # they also hit the live DB — keep spent_ids path deterministic.
+    in_flight = bool(in_flight_rows) and jid not in jobs
+    ticket_ids = [r.get("id") for r in in_flight_rows if r.get("id")]
+    spend_phase = write_state_mod.for_spend_map(
+        spent=jid in jobs,
+        in_flight=in_flight,
+        ticket_ids=ticket_ids,
+    )
+    scope = claim_scope_mod.for_never(
+        job_id=jid,
+        tree_size=len(jobs),
+        spend_phase=spend_phase["phase"],
+        as_of=spend_phase.get("as_of"),
+    )
+
     if jid in jobs:
         idx = jobs.index(jid)
         proof = evidence_log_mod.inclusion_proof(leaves, idx)
-        return {
+        body = {
             "spec": SPEC,
             "job_id": jid,
             "spent": True,
@@ -75,9 +117,13 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
             "leaf_hash": leaves[idx],
             "inclusion": proof,
             "tree_head": head,
+            "write_state": spend_phase,
+            "spend_phase": spend_phase["phase"],
             "not_global": "Spend present in Gate's redeemed-ticket map, not a claim about their PAS.",
             "their_production": False,
         }
+        return claim_scope_mod.attach(body, scope=scope, force=True)
+
     i = 0
     while i < len(jobs) and jobs[i] < jid:
         i += 1
@@ -95,7 +141,7 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
             "leaf_hash": leaves[i],
             "inclusion": evidence_log_mod.inclusion_proof(leaves, i),
         }
-    return {
+    body = {
         "spec": SPEC,
         "job_id": jid,
         "spent": False,
@@ -103,6 +149,9 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
         "neighbors": {"left": left, "right": right},
         "tree_size": len(jobs),
         "tree_head": head,
+        "write_state": spend_phase,
+        "spend_phase": spend_phase["phase"],
+        "in_flight": in_flight,
         "verify": (
             "Confirm left.job_id < job_id < right.job_id (sentinels if missing), "
             "verify both neighbor inclusions against tree_head.root_hash."
@@ -112,6 +161,7 @@ def prove(job_id: str, spent_ids: list[str] | None = None) -> dict:
         "crown_the_miss": False,
         "their_production": False,
     }
+    return claim_scope_mod.attach(body, scope=scope, force=True)
 
 
 def verify_exclusion(proof: dict) -> bool:
@@ -155,5 +205,7 @@ def manifest(public_url: str) -> dict:
             "Laurie–Kasper Revocation Transparency (sorted Merkle non-inclusion)",
             "RFC 9162 Certificate Transparency (inclusion + consistency)",
         ],
+        "claim_scope": "Signed into exclusion proof — boundary is Gate's redeemed-ticket map + IN_FLIGHT probe",
+        "write_state": "ABSENT | IN_FLIGHT | SPENT — Never during IN_FLIGHT ≠ Never during ABSENT",
         "their_production": False,
     }

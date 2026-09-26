@@ -18,6 +18,16 @@ try:
 except ImportError:
     import evidence_log as evidence_log_mod
 
+try:
+    from gate import claim_scope as claim_scope_mod
+except ImportError:
+    import claim_scope as claim_scope_mod
+
+try:
+    from gate import write_state as write_state_mod
+except ImportError:
+    import write_state as write_state_mod
+
 SPEC = "gate-seal-v1"
 
 
@@ -69,13 +79,16 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
 
     row = db.get_bind_event(eid)
     if not row:
-        return {
+        body = {
             "spec": SPEC,
             "event_id": eid,
             "word": "MISSING",
             "plain": "No receipt for this id.",
+            "write_state": write_state_mod.for_seal_verify(),
             "their_production": False,
         }
+        scope = claim_scope_mod.for_seal(event_id=eid, word="MISSING")
+        return claim_scope_mod.attach(body, scope=scope, force=True)
 
     stored_hash = (row.get("receipt_hash") or "").strip()
     recomputed = _canonical_hash(row)
@@ -124,7 +137,7 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
         word = "HOLDS"
         plain = "Signed receipt. Hash matches. In the evidence log."
 
-    return {
+    body = {
         "spec": SPEC,
         "event_id": eid,
         "word": word,
@@ -135,6 +148,7 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
         "receipt_hash": stored_hash or None,
         "root_hash": root_hash,
         "checks": checks,
+        "write_state": write_state_mod.for_seal_verify(),
         "atoms": {
             "receipt": f"/.well-known/receipt/{eid}.json",
             "proof": f"/.well-known/receipt/{eid}/proof.json",
@@ -142,6 +156,9 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
         },
         "their_production": False,
     }
+    # MISSING / BROKEN / UNSIGNED are negative or degraded custody claims — scope them.
+    scope = claim_scope_mod.for_seal(event_id=eid, word=word)
+    return claim_scope_mod.attach(body, scope=scope, force=word != "HOLDS")
 
 
 def manifest(public_url: str) -> dict[str, Any]:
