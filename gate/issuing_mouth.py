@@ -199,6 +199,129 @@ def dogfood_authorization(
     }
 
 
+def readiness(*, stripe_mod: Any | None = None) -> dict[str, Any]:
+    """Ops checklist: mouth on + float available + card exists → spendable.
+
+    Does not expose PAN/CVC. Gate never holds funds — reads Stripe Issuing balance only.
+    """
+    cfg = config()
+    steps: dict[str, Any] = {
+        "mouth_enabled": bool(cfg["issuing_enabled"]),
+        "webhook_secret": bool(cfg["webhook_secret_configured"]),
+        "stripe_secret": bool(cfg["stripe_secret_configured"]),
+        "issuing_available_cents": None,
+        "issuing_currency": None,
+        "cardholders": None,
+        "cards": None,
+        "cards_active": None,
+        "pending_issuing_topups": None,
+        "stripe_error": None,
+    }
+    next_steps: list[str] = []
+
+    if not steps["mouth_enabled"]:
+        next_steps.append("set GATE_ISSUING_ENABLED=1 on Render")
+    if not steps["webhook_secret"]:
+        next_steps.append("set STRIPE_ISSUING_WEBHOOK_SECRET (issuing_authorization.request)")
+    if not steps["stripe_secret"]:
+        next_steps.append("set STRIPE_SECRET_KEY")
+        return {
+            "spec": "gate-issuing-readiness-v1",
+            "rail": RAIL,
+            "config": cfg,
+            "steps": steps,
+            "spendable": False,
+            "next": next_steps,
+            "gate_holds_funds": False,
+        }
+
+    try:
+        import stripe as _stripe
+
+        stripe_lib = stripe_mod or _stripe
+        bal = stripe_lib.Balance.retrieve()
+        issuing = bal.get("issuing") if isinstance(bal, dict) else getattr(bal, "issuing", None)
+        available = []
+        if isinstance(issuing, dict):
+            available = issuing.get("available") or []
+        elif issuing is not None:
+            available = getattr(issuing, "available", None) or []
+        cents = 0
+        currency = "usd"
+        if available:
+            row = available[0]
+            if isinstance(row, dict):
+                cents = int(row.get("amount") or 0)
+                currency = (row.get("currency") or "usd").lower()
+            else:
+                cents = int(getattr(row, "amount", 0) or 0)
+                currency = (getattr(row, "currency", None) or "usd").lower()
+        steps["issuing_available_cents"] = cents
+        steps["issuing_currency"] = currency
+
+        ch = stripe_lib.issuing.Cardholder.list(limit=100)
+        cards = stripe_lib.issuing.Card.list(limit=100)
+        ch_data = ch.get("data") if isinstance(ch, dict) else getattr(ch, "data", []) or []
+        card_data = cards.get("data") if isinstance(cards, dict) else getattr(cards, "data", []) or []
+        steps["cardholders"] = len(ch_data)
+        steps["cards"] = len(card_data)
+        active = 0
+        for c in card_data:
+            status = c.get("status") if isinstance(c, dict) else getattr(c, "status", None)
+            if status == "active":
+                active += 1
+        steps["cards_active"] = active
+
+        try:
+            tops = stripe_lib.Topup.list(limit=20)
+            top_data = tops.get("data") if isinstance(tops, dict) else getattr(tops, "data", []) or []
+            pending = 0
+            for t in top_data:
+                status = t.get("status") if isinstance(t, dict) else getattr(t, "status", None)
+                dest = (
+                    t.get("destination_balance")
+                    if isinstance(t, dict)
+                    else getattr(t, "destination_balance", None)
+                )
+                if status == "pending" and (dest == "issuing" or dest is None):
+                    # destination_balance may be absent on older topups; count pending anyway if amount>0
+                    pending += 1
+            steps["pending_issuing_topups"] = pending
+        except Exception:
+            steps["pending_issuing_topups"] = None
+    except Exception as exc:
+        steps["stripe_error"] = type(exc).__name__
+        next_steps.append(f"Stripe read failed: {type(exc).__name__}")
+
+    if steps["issuing_available_cents"] is not None and steps["issuing_available_cents"] <= 0:
+        next_steps.append("Add funds to Issuing balance (Dashboard → Issuing → Add funds)")
+    if steps["cardholders"] == 0:
+        next_steps.append("Create a cardholder")
+    if (steps["cards_active"] or 0) == 0:
+        next_steps.append("Create an active virtual card")
+
+    spendable = bool(
+        steps["mouth_enabled"]
+        and steps["webhook_secret"]
+        and steps["stripe_secret"]
+        and (steps["issuing_available_cents"] or 0) > 0
+        and (steps["cards_active"] or 0) > 0
+        and not steps["stripe_error"]
+    )
+    if spendable:
+        next_steps = ["One tiny real auth — Gate mouth should AUTHORIZE/DECLINE <2s"]
+
+    return {
+        "spec": "gate-issuing-readiness-v1",
+        "rail": RAIL,
+        "config": cfg,
+        "steps": steps,
+        "spendable": spendable,
+        "next": next_steps,
+        "gate_holds_funds": False,
+    }
+
+
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
     cfg = config()
@@ -219,6 +342,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         },
         "dogfood": f"{base}/demo/issuing/mouth",
         "page": f"{base}/issuing-mouth",
+        "ops_readiness": f"{base}/ops/issuing-status",
         "evaluate_rail": RAIL,
         "primary_docs": "https://docs.stripe.com/issuing/agents",
         "apply": "Stripe Dashboard → Issuing for agents → Cards for your own business",

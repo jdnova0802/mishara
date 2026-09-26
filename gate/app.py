@@ -2755,6 +2755,18 @@ def issuing_authorization_webhook():
     return jsonify(out["stripe_response"]), 200
 
 
+@app.route("/ops/issuing-status")
+def ops_issuing_status():
+    """Ops-only: fund→card→spendable checklist (no PAN). Requires X-Ops-Token."""
+    if not _ops_authorized():
+        return jsonify({"ok": False, "error": {"code": "ops_token_required"}}), 401
+    body = issuing_mouth_mod.readiness()
+    body["ok"] = True
+    body["webhook"] = f"{advertised_url()}/v1/issuing/authorization"
+    body["dogfood"] = f"{advertised_url()}/demo/issuing/mouth"
+    return jsonify(body), 200
+
+
 def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
     data, status, _ = velaru_fuse(
         "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
