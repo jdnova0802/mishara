@@ -164,7 +164,7 @@
     w = (w || "").toUpperCase();
     if (mouthId === "trusted-contact" && w === "HOLD") return "go";
     if (w === "HOLD" || w === "MISSING") return "hold";
-    if (/^(NO|FRAD|NOTICE DUE|DOES NOT MATCH|NO HOLD|NOT UAPA)$/.test(w)) return "no";
+    if (/^(NO|FRAD|NOTICE DUE|DOES NOT MATCH|NO HOLD|NOT UAPA|REPORT DUE|NEVER)$/.test(w)) return "no";
     return "go";
   }
   function show(d) {

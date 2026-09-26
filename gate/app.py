@@ -397,6 +397,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/nacha-false-pretenses.json",
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
+        "/.well-known/dsp-reject.json",
         "/.well-known/issuing-mouth.json",
         "/.well-known/sink-mouth.json",
     }
@@ -1717,6 +1718,7 @@ def well_known_gate():
             "nacha_false_pretenses": f"{advertised_url()}/nacha-false-pretenses",
             "cl7_handoff": f"{advertised_url()}/cl7-handoff",
             "stair": f"{advertised_url()}/stair",
+            "dsp_reject": f"{advertised_url()}/dsp-reject",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -4458,6 +4460,7 @@ def sitemap():
         "/nacha-false-pretenses",
         "/cl7-handoff",
         "/stair",
+        "/dsp-reject",
         "/register",
         "/pricing",
         "/trust",
@@ -4490,6 +4493,7 @@ def sitemap():
         "/.well-known/nacha-false-pretenses.json",
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
+        "/.well-known/dsp-reject.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -4521,6 +4525,7 @@ def llms_txt():
         f"- Nacha False Pretenses (Phase 1/2 2026): {advertised_url()}/nacha-false-pretenses",
         f"- CL7 AIS/ECDIS handoff Seal: {advertised_url()}/cl7-handoff",
         f"- Stair (occupied egress — we will not weld): {advertised_url()}/stair",
+        f"- DSP Reject (§ 202.1104 14-day report): {advertised_url()}/dsp-reject",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -4768,6 +4773,11 @@ def openapi_full():
                 "/nacha-false-pretenses": {"get": {"summary": "May this ACH credit proceed under False Pretenses risk?"}},
                 "/cl7-handoff": {"get": {"summary": "Was the AIS/ECDIS handoff noticed within 15 days?"}},
                 "/stair": {"get": {"summary": "Occupied egress — Gate will not weld fail-closed on that door"}},
+                "/dsp-reject": {
+                    "get": {
+                        "summary": "DOJ DSP § 202.1104 — rejected prohibited data-brokerage → 14-day NSD report?"
+                    }
+                },
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},
