@@ -56,13 +56,13 @@ Honest base case for cold 10: **$0–$2.5k** in 2–4 weeks. Upside case: **one 
 | **Advisory mouths** (Positive Clear, FedNow, Nacha, CL7, UAPA, ADMT, Scenario 3) | Free demos today | **$0** | Only if re-SKU’d into paid diligence / weld | No meter |
 | **Issuing mouth** (card auth Clear/Never) | Platform fee and/or **Ix share / take-rate on book you mouth** | **$0** until float + card + spend | Comp shape: **~$5k/mo + ~1%** (Agentcard-class rent) *or* negotiated Ix % on *your* GMV | Float in transit; no spend book |
 | **Issuing — arithmetic only** | $1M/mo GMV @ 1% = **$10k/mo**; $10M @ 1% = **$100k/mo**; $100M @ 10 bps = **$100k/mo** | Illustration | Needs real book | Not forecast |
-| **Sink / OCT receive** | Visa receive IRF **$0.29** / Fast Funds **$0.60** per push (issuer side) | **$0** (`money_real: false`) | Meaningful only on **your BIN** volume | Sponsor / BIN (90–120d class) |
+| **Sink / OCT receive** | Visa receive IRF **$0.29** / Fast Funds **$0.60** per push (issuer side) | **$0** tonight (`money_real: false`) | Meaningful only on **your BIN** volume | **Column RFQ sent Sat 26 Sep 2026** — 90–120d clock can start on their reply/kickoff |
 | **Treasury / ACH / wire / RTP outbound mouth** | Same as weld: floor + bps on cleared out | **$0** | Same weld register once money_real | Stripe Treasury / FI |
 | **x402 evaluate** | **$0.002**/call | **~$0–$2/mo** at peer Bazaar volumes | Needs 875k calls ≈ 1 Bind Room | Not indexed / no swarm |
 | **x402 wire** | **$497**/bundle | **0–few** | ~3.5 wires = 1 Bind Room | Discovery |
 | **Never Pack** (mandate bind pre-2s) | Bind-Room-class one-shot if shipped | N/A until checkout | Same as Bind Room / weld upsell | Not live paid |
 | **Theory floor** (claim_scope / witness / IN_FLIGHT) | **$0** — integrity of every paid mouth | $0 | Protects price of weld / diligence | Not a product |
-| **DSP §202.1104 reject mouth** | **$0** free classifier tonight | $0 | Paid pack / retainer for data-brokerage reject→14-day NSD if sold | Event rate unknown; Gate never files |
+| **DSP §202.1104 reject mouth** | **$0** free classifier — **LIVE** `/dsp-reject` | $0 | Paid pack / retainer for data-brokerage reject→14-day NSD if sold | Live + verdict-tested; event rate unknown; Gate never files |
 | **Company name** (Neveraux / Marceux / …) | **$0** | $0 | Brand optionality only | Counsel search before file |
 
 ---
@@ -74,68 +74,75 @@ Honest base case for cold 10: **$0–$2.5k** in 2–4 weeks. Upside case: **one 
 3. **Weld $25k + $5k/mo** — biggest ticket; slowest close  
 4. **Refusal $7.5k / Install $2.5k** — rare parallel  
 5. **Issuing take-rate** — $0 until book; then recurring if GMV exists  
-6. **Sink / Treasury** — $0 until institution  
+6. **Sink / Treasury** — clock started (Column RFQ sent); $0 until BIN + volume  
 7. **x402 / advisory / DSP / theory / name** — $0 or micro / optionality  
 
 ---
 
-## Summer 2027 (~9 months from 26 Sep 2026)
+## Summer 2027 — UPDATED after Sat 26 Sep completes
 
-**Horizon:** Jun–Aug 2027. Scenarios assume outbound continues and Stripe paths stay live. **Not a forecast** — what the SKUs *can* print if demand lands.
+**What changed tonight (does not print $ by itself):**
+1. **DSP Reject LIVE** — https://gate.velaru.xyz/dsp-reject (verdict-tested). Still a free mouth unless sold.
+2. **Column Sink/OCT RFQ SENT** — `sales@column.com`. 90–120d BIN clock can start on their reply/kickoff. Previously: clock had not started.
+
+**Horizon:** Jun–Aug 2027 (~9 months). **Not a forecast.**
+
+### Timeline math (Sink only)
+
+| If Column… | BIN / Fast Funds receive roughly | Summer 2027 Sink $? |
+|------------|----------------------------------|---------------------|
+| Ghosts / no kickoff | Never | **$0** (same as before send) |
+| Kickoff ~Oct–Nov 2026 | Live ~**Jan–Mar 2027** (90–120d) | **Can** earn receive fees if volume on *your* cards |
+| Slow kickoff spring 2027 | Live ~summer 2027 | Soft launch only — little cumulative by Jul |
+
+**RFQ sent ≠ revenue.** It only unlocks the path that was blocked on “nobody reached out.”
 
 ### What has to be true for each band
 
-| Band | Must close by summer 2027 |
-|------|---------------------------|
-| **Base** | A few Bind Rooms and/or 1–2 diligence deposits; **no** lasting retainer; **no** weld |
-| **Upside** | **1 retainer** ($15–25k/mo) *or* **1 quiet weld** ($25k + $5k/mo); Bind Room as side cash |
-| **Stretch** | **1–3 welds** with real cleared flow **and/or** Issuing book with take-rate; retainer(s) optional stack |
+| Band | Must be true by summer 2027 |
+|------|-----------------------------|
+| **Base** | Diligence/Bind Room lumpy; Column slow or no volume; no retainer; no weld |
+| **Upside** | **1 retainer** *or* **1 quiet weld**, *and/or* Column BIN live with **pilot** receive volume |
+| **Stretch** | Weld(s) with real cleared flow **and/or** Issuing book **and/or** Sink Fast Funds at meaningful push volume |
 
 ### Run-rate *in* summer 2027 (monthly)
 
-| Band | Diligence / Bind Room | Weld register | Issuing / Sink / Treasury | **Total / mo** |
-|------|------------------------|---------------|---------------------------|----------------|
-| **Base** | $0–$8k (sporadic packs) | $0 | $0 | **~$0–$8k** |
-| **Upside** | $10–25k retainer *or* Bind Rooms ~$3–7k | **$5k** floor (1 quiet weld) | $0–few k (dogfood / tiny book) | **~$15–40k** |
-| **Stretch** | $20–40k (1–2 retainers) | **$30–150k+** (2–3 mouths; some flow above quiet — e.g. tens–low hundreds $M cleared @ 10 bps) | Issuing platform / Ix share **$5–50k** if a real book attaches | **~$50–200k+** |
+| Band | Diligence / Bind | Weld | Issuing | **Sink (new)** | **Total / mo** |
+|------|------------------|------|---------|----------------|----------------|
+| **Base** | $0–8k | $0 | $0 | **$0** | **~$0–8k** *(unchanged)* |
+| **Upside** | $10–25k retainer *or* packs | $5k floor | $0–few k | **~$0–5k** (pilot: low-thousands Fast Funds × ~$0.60) | **~$15–45k** *(was ~$15–40k)* |
+| **Stretch** | $20–40k | $30–150k+ | $5–50k | **~$10–60k+** if ~20k–100k Fast Funds/mo land on your BIN @ ~$0.60 *(illustration)* | **~$60–250k+** *(was ~$50–200k+)* |
 
-Quiet weld alone = **$5k/mo** forever until flow shows up. One mouth clearing **$100M/mo** = **~$105k/mo** register (formula). That is **not** the base case.
+Sink arithmetic (issuer receive IRF, only on **your** BIN):  
+`1k Fast Funds/mo × $0.60 ≈ $600/mo` · `10k × $0.60 ≈ $6k/mo` · `100k × $0.60 ≈ $60k/mo` · `1M × $0.60 ≈ $600k/mo`.  
+Gate Clear/Never does not invent the pushes — platforms must pay *to your cards*.
 
-### Cash *through* summer 2027 (cumulative, rough)
+### Cash *through* summer 2027 (cumulative)
 
-| Band | Cumulative by ~Jul 2027 | How it adds up |
-|------|-------------------------|----------------|
-| **Base** | **~$10–80k** | 4–12 Bind Rooms + 1–3 deposits/reviews; months of $0 in between |
-| **Upside** | **~$150–450k** | Retainer ~6 mo × $20k ≈ $120k **or** weld $25k + 6×$5k floor ≈ $55k, plus Bind Rooms / reviews stacked |
-| **Stretch** | **~$0.5–2M+** | Early weld(s) + months of floor + **some** bps on cleared; and/or Issuing take-rate on seven–eight-figure GMV |
+| Band | Cumulative ~Jul 2027 | Delta vs pre-Column-send |
+|------|----------------------|--------------------------|
+| **Base** | **~$10–80k** | **Same** — email alone doesn’t move base |
+| **Upside** | **~$150–500k** | **+$0–50k** if BIN live + pilot months of receive |
+| **Stretch** | **~$0.5–2.5M+** | **Sink can add low–mid six figures** *if* volume exists for several months; still dominated by weld bps / Issuing GMV |
 
-### Path-by-path — summer 2027 potential (same horizon)
+### Path-by-path — summer 2027 (updated)
 
 | Path | Base | Upside | Stretch |
 |------|------|--------|---------|
-| Diligence free REVIEW | $0 | $0 | $0 (still funnel) |
-| Diligence deposit/review | $5–25k total | $25–80k total | $80–200k total |
-| Diligence retainer | $0 | **$90–200k** (6–9 mo × $15–25k) | **$200–400k** (2 desks or higher band) |
-| Bind Room | **$7–21k** (4–12 packs) | **$20–40k** (~1–2/mo) | **~$60–84k/yr** pace (near cap) |
-| Install / Refusal | $0–10k | $0–15k | Event noise |
-| Operator weld (one-time) | $0 | **$25k** (1) | **$50–75k** (2–3) |
-| Weld management floor | $0 | **$30–45k** (6–9 × $5k) | **$90–180k** (2–3 mouths × months) |
-| Weld flow (10 bps + carry) | $0 | $0–50k (thin cleared) | **$200k–$1M+** if any mouth clears meaningful $ |
-| Issuing mouth | $0 | $0–30k (start of book / fee) | **$50–300k** (platform + % on GMV) |
-| Sink / OCT | $0 | $0 (sponsor still mid-cycle) | **$0–low** unless BIN live early 2027 |
-| Treasury outbound | $0 | $0–small | Stacks into weld if money_real |
-| x402 | ~$0 | ~$0–few k | Still micro vs Bind Room |
-| Theory / DSP / name / advisory | $0 | $0 (or DSP sold as small pack) | Optionality only |
+| Diligence / Bind Room / weld / Issuing | *(same as prior table)* | *(same)* | *(same)* |
+| **Sink / OCT** | **$0** | **$0–30k** cumulative (BIN live spring; pilot volume) | **$50–400k+** cumulative if real push volume for months |
+| **DSP Reject** | $0 | $0–15k if sold as pack/retainer add-on | Still optionality — not the meter |
+| Theory / name / free advisory | $0 | $0 | $0 |
 
-### Honest read for summer 2027
+### Honest read (post-send)
 
-- **Most likely if nothing new sticks:** low five figures total, lumpy — Bind Room + diligence one-shots.  
-- **The year-changer:** **one retainer or one weld before spring 2027.** Everything else is additive.  
-- **Million-class by summer:** needs **bps on real cleared flow** or a **real Issuing book** — not more free mouths.  
-- **$10B-cleared / $14M-mo register math:** still fantasy until a licensed operator puts volume through a welded write.
+- **Base case unchanged.** Sending Column does not fix demand for Bind Room / diligence.
+- **What moved:** Sink is no longer “clock never started.” If Column engages this fall, **summer 2027 can include receive fees** — previously that was mostly a 2028 story.
+- **Year-changer still:** one retainer or one weld before spring. Sink is a **parallel upside**, not a replacement for Monday cash.
+- **Don’t model $600k/mo Sink** until you can name who pushes to your cards at that rate.
 
 ---
 
 ## One-liner for Claude
 
-**Near money = Bind Room ($1,750) + diligence deposit→review→retainer ($2.5k → $5–8k → $10–40k/mo) + weld ($25k + $5k/mo + 10 bps).** By **summer 2027**: base **~$0–8k/mo / $10–80k cumulative**; upside **~$15–40k/mo / $150–450k** if one retainer or quiet weld sticks; stretch **~$50–200k+/mo / $0.5–2M+** only with flow or Issuing GMV. Theory floor / DSP / name / free mouths stay **$0** — they protect price, they are not the meter.
+**Near money unchanged (Bind Room + diligence → retainer + weld).** After **DSP live + Column RFQ sent**: summer 2027 **base still ~$0–8k/mo / $10–80k**; **upside ~$15–45k/mo / $150–500k** (retainer/weld ± pilot Sink); **stretch ~$60–250k+/mo / $0.5–2.5M+** if weld flow / Issuing GMV **and/or** real Fast Funds volume on a live Column BIN. DSP stays ~$0 unless sold. RFQ ≠ revenue — it only started the sponsor clock.
