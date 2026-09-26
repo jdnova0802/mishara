@@ -1,37 +1,34 @@
 # PASTE — Monday diligence send (10 emails)
 
-**Decision:** SEND all 10 on Monday. Free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
-Not legal advice. Public facts only. Log each send in `SENT_TALLY.md` the same day.
+SEND all 10 Monday. Free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence
+Not legal advice. Public facts only. Log each send in SENT_TALLY.md same day.
 
-**Send order:** Plan A four first, then Plan B six.  
-Porch → Incline → Clear Blue → Gallagher → Sutton → Transverse → Aon Re → Palomar → Fortegra → Great Divide.
-
----
-
-## Cheat-sheet (names + To)
-
-| # | Desk | To |
-|---|------|-----|
-| 1 | Porch / HOA | IR@porch.com, partner@porch.com (+ optional matt.ehrlichman@porch.com) |
-| 2 | Incline P&C | info@inclinepc.com |
-| 3 | Clear Blue | contact form https://www.clearblueinsurancegroup.com/contact/ · phone (980) 299-9520 |
-| 4 | Gallagher Re | enquires@gallagherre.com *(spelling: enquires)* |
-| 5 | Sutton National | contact@suttonnational.com |
-| 6 | Transverse | transverseinsurance.com contact / verified @transverseinsurance.com |
-| 7 | Aon Re | https://www.aon.com/reinsurance/wcc/contact-us.jsp |
-| 8 | Palomar | investors@plmr.com |
-| 9 | Fortegra | marketing@fortegra.com |
-| 10 | Great Divide | info@greatdivideinsurancecompany.com |
+Send order: Porch → Incline → Clear Blue → Gallagher → Sutton → Transverse → Aon Re → Palomar → Fortegra → Great Divide.
 
 ---
 
-## 1) Porch / HOA
+CHEAT-SHEET
 
-**To:** IR@porch.com, partner@porch.com  
-**Optional Cc:** matt.ehrlichman@porch.com  
-**Subject:** Free 72-hour review of HOA bind path vs Yu Po letter treated as CCB LOC
+1. Porch / HOA — IR@porch.com, partner@porch.com (optional Cc: matt.ehrlichman@porch.com)
+2. Incline P&C — info@inclinepc.com
+3. Clear Blue — https://www.clearblueinsurancegroup.com/contact/ · (980) 299-9520
+4. Gallagher Re — enquires@gallagherre.com (spelling: enquires)
+5. Sutton National — contact@suttonnational.com
+6. Transverse — https://www.transverseinsurance.com/ contact
+7. Aon Re — https://www.aon.com/reinsurance/wcc/contact-us.jsp
+8. Palomar — investors@plmr.com
+9. Fortegra — marketing@fortegra.com
+10. Great Divide — info@greatdivideinsurancecompany.com
 
-```
+---
+
+EMAIL 1 — Porch / HOA
+
+To: IR@porch.com, partner@porch.com
+Optional Cc: matt.ehrlichman@porch.com
+Subject: Free 72-hour review of HOA bind path vs Yu Po letter treated as CCB LOC
+
+Body:
 For Matt Ehrlichman — CEO, Porch / HOA
 Nisaba LLC. Vendor review of one named collateral path.
 
@@ -41,16 +38,15 @@ The 72-hour memo is only this: on your public pages (plus anything you send), wh
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 2) Incline P&C
+EMAIL 2 — Incline P&C
 
-**To:** info@inclinepc.com  
-**Subject:** Free 72-hour review of program bind vs CCB LOCs that did not honor
+To: info@inclinepc.com
+Subject: Free 72-hour review of program bind vs CCB LOCs that did not honor
 
-```
+Body:
 For Chris McClellan — President & CEO, and Allen Halbrook — CLO, Incline P&C
 Nisaba LLC. Vendor review of one named collateral path.
 
@@ -60,16 +56,15 @@ The 72-hour memo is only this: on your public program pages (plus anything you s
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 3) Clear Blue
+EMAIL 3 — Clear Blue
 
-**To:** https://www.clearblueinsurancegroup.com/contact/ (or verified @clearblue… / @cbinsgroup.com). Phone backup: (980) 299-9520 — ask for Jerome Breslin’s desk.  
-**Subject:** Free 72-hour review of Yachtinsure bind/adjust authority after refusal to defend
+To: https://www.clearblueinsurancegroup.com/contact/ (or verified @clearblue… / @cbinsgroup.com). Phone backup: (980) 299-9520 — Jerome Breslin’s desk.
+Subject: Free 72-hour review of Yachtinsure bind/adjust authority after refusal to defend
 
-```
+Body:
 For Jerome Breslin — President & CEO, Clear Blue
 Nisaba LLC. Vendor review of one named MGA/TPA path.
 
@@ -79,16 +74,15 @@ The 72-hour memo is only this: on your public program pages (plus anything you s
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 4) Gallagher Re
+EMAIL 4 — Gallagher Re
 
-**To:** enquires@gallagherre.com  
-**Subject:** Free 72-hour review of post-placement collateral letter treated as LOC
+To: enquires@gallagherre.com
+Subject: Free 72-hour review of post-placement collateral letter treated as LOC
 
-```
+Body:
 Gallagher Re — reinsurance servicing / US program desk
 Nisaba LLC. Vendor review of one named servicing path.
 
@@ -98,16 +92,15 @@ The 72-hour memo is only this: on Gallagher Re’s public materials (plus anythi
 
 Reply REVIEW, forward once to the right desk if this should not sit here, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 5) Sutton National
+EMAIL 5 — Sutton National
 
-**To:** contact@suttonnational.com  
-**Subject:** Free 72-hour review of program front bind vs Vesttoo-era LOC collateral
+To: contact@suttonnational.com
+Subject: Free 72-hour review of program front bind vs Vesttoo-era LOC collateral
 
-```
+Body:
 For Sutton National — program / fronting desk
 Nisaba LLC. Vendor review of one named collateral path.
 
@@ -117,16 +110,15 @@ The 72-hour memo is only this: on your public program pages (plus anything you s
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 6) Transverse Insurance Group
+EMAIL 6 — Transverse Insurance Group
 
-**To:** https://www.transverseinsurance.com/ contact / info path (or verified @transverseinsurance.com).  
-**Subject:** Free 72-hour review of next fronting bind after Vesttoo collateral scare
+To: https://www.transverseinsurance.com/ contact (or verified @transverseinsurance.com)
+Subject: Free 72-hour review of next fronting bind after Vesttoo collateral scare
 
-```
+Body:
 For Transverse — program / fronting desk
 Nisaba LLC. Vendor review of one named collateral path.
 
@@ -136,16 +128,15 @@ The 72-hour memo is only this: on your public program pages (plus anything you s
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 7) Aon Re
+EMAIL 7 — Aon Re
 
-**To:** https://www.aon.com/reinsurance/wcc/contact-us.jsp (or verified Aon Re desk email).  
-**Subject:** Free 72-hour review of brokered collateral path after Vesttoo / Clear Blue episode
+To: https://www.aon.com/reinsurance/wcc/contact-us.jsp (or verified Aon Re desk email)
+Subject: Free 72-hour review of brokered collateral path after Vesttoo / Clear Blue episode
 
-```
+Body:
 For Aon Re — US reinsurance / program desk
 Nisaba LLC. Vendor review of one named collateral path.
 
@@ -155,16 +146,15 @@ The 72-hour memo is only this: on Aon Re’s public materials (plus anything the
 
 Reply REVIEW, forward once to the right desk if this should not sit here, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 8) Palomar Holdings
+EMAIL 8 — Palomar Holdings
 
-**To:** investors@plmr.com  
-**Subject:** Free 72-hour review of fronting / MGA bind collateral confirm after Vesttoo
+To: investors@plmr.com
+Subject: Free 72-hour review of fronting / MGA bind collateral confirm after Vesttoo
 
-```
+Body:
 For Mac Armstrong — CEO, and Palomar Front / IR desk
 Nisaba LLC. Vendor review of one named collateral path.
 
@@ -174,16 +164,15 @@ The 72-hour memo is only this: on your public fronting / program pages (plus any
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 9) Fortegra
+EMAIL 9 — Fortegra
 
-**To:** marketing@fortegra.com (forward to specialty / program counsel if wrong door)  
-**Subject:** Free 72-hour review of deny-to-defend path after Kimba duty ruling
+To: marketing@fortegra.com (forward to specialty / program counsel if wrong door)
+Subject: Free 72-hour review of deny-to-defend path after Kimba duty ruling
 
-```
+Body:
 For Fortegra — specialty / program coverage desk
 Nisaba LLC. Vendor review of one named authority path.
 
@@ -193,16 +182,15 @@ The 72-hour memo is only this: on your public specialty / program pages (plus an
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
 
 ---
 
-## 10) Great Divide (W. R. Berkley)
+EMAIL 10 — Great Divide (W. R. Berkley)
 
-**To:** info@greatdivideinsurancecompany.com · backup Berkley WC contact path if bounced  
-**Subject:** Free 72-hour review of primary defend handoff after Great American suit
+To: info@greatdivideinsurancecompany.com (backup Berkley WC contact if bounced)
+Subject: Free 72-hour review of primary defend handoff after Great American suit
 
-```
+Body:
 For Great Divide — CGL / primary coverage desk
 Nisaba LLC. Vendor review of one named defend path.
 
@@ -212,12 +200,3 @@ The 72-hour memo is only this: on your public CGL / program pages (plus anything
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
 https://gate.velaru.xyz/diligence
-```
-
----
-
-## Sources
-
-- Plan A four → `BACKUP_WAVE_72H_DILIGENCE.md` (`cursor/incline-docket-confirm-ce84`)
-- Plan B six → `PLAN_B_FAST_6.md` (`cursor/incline-docket-confirm-ce84`)
-- Log sends → `SENT_TALLY.md`
