@@ -3834,8 +3834,14 @@ def bind_room_appendix_schema():
     return jsonify(bind_room_mod.appendix_schema())
 
 
+@app.route("/bind-room/exhibit-b-hitl.json")
+def exhibit_b_hitl():
+    return jsonify(bind_room_mod.exhibit_b_hitl(advertised_url()))
+
+
 @app.route("/bind-room/exhibit-c-hitl.json")
 def exhibit_c_hitl():
+    """Compat: old path mislabeled Exhibit C; same payload as Exhibit B HITL."""
     return jsonify(bind_room_mod.exhibit_c_hitl(advertised_url()))
 
 

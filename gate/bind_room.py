@@ -39,7 +39,8 @@ def officer_pack(public_url: str, contact_email: str) -> dict:
         "not_the_filing": "Appendix B (verify permalinks) is on-request, not the SERFF body.",
         "also_maps": [
             "NYDFS Circular Letter 7 (2024) — board oversight, annual testing, vendor audit rights, 11 NYCRR 243",
-            "NAIC AI Risk Evaluation Supplement Exhibit C — HITL, who can override, that they did",
+            "NAIC AI Risk Evaluation Supplement Exhibit B 4h/4i — HITL consistently contributing; effectiveness of that HITL (not Exhibit C)",
+            "AM Best @ NAIC BDAIWG 13 Aug 2026 (discussion only) — permissions, action logs, kill switch / rollback, person authority to override",
             "ASOP 56 — another actuary can reconstruct the bind-stop",
         ],
         "officer": {
@@ -83,14 +84,37 @@ def appendix_schema() -> dict:
     }
 
 
-def exhibit_c_hitl(public_url: str) -> dict:
+def exhibit_b_hitl(public_url: str) -> dict:
+    """HITL maps to Exhibit B checklist 4h/4i — not Exhibit C (high-risk model details)."""
     return {
-        "spec": "gate-exhibit-c-hitl-v1",
+        "spec": "gate-exhibit-b-hitl-v1",
+        "maps_to": {
+            "exhibit": "B",
+            "items": ["4h", "4i"],
+            "not": "Exhibit C is AI Systems High-Risk Model Details — model fields, not HITL.",
+            "source": "NAIC AI Risk Evaluation Supplement (former AI Systems Evaluation Tool)",
+        },
         "when_review_happens": "Before POST bind-and-issue / issue. Timeout or DEAD → no write.",
         "who_can_override": "CHARGE webhook on Velaru only. PAS UW approve is not an override of DEAD.",
         "evidence_they_did": f"Appendix B verify_url per job_id from {public_url}/v1/pas/bind-appendix",
-        "stop_the_system": "AM Best (NAIC 13 Aug 2026, discussion only): permissions, action logs, rollback, ability to stop.",
+        "stop_the_system": (
+            "AM Best presentation to NAIC BDAIWG Columbus 13 Aug 2026 — discussion only; "
+            "does not change AM Best criteria/methodology/rating guidance. Agentic evidence: "
+            "permissions tested, actions logged for reconstruction, kill switch to a safe state, "
+            "person authority to override."
+        ),
     }
+
+
+def exhibit_c_hitl(public_url: str) -> dict:
+    """Compat alias — old path name was wrong; payload is Exhibit B HITL."""
+    out = exhibit_b_hitl(public_url)
+    out["compat"] = {
+        "old_path": "/bind-room/exhibit-c-hitl.json",
+        "corrected_path": "/bind-room/exhibit-b-hitl.json",
+        "reason": "HITL is Exhibit B 4h/4i; Exhibit C is high-risk model details.",
+    }
+    return out
 
 
 PRODUCT = "bind_room"
