@@ -1,29 +1,28 @@
-# Plan B — diligence packs (Monday: 5 send + Palomar HOLD)
+# Plan B — 6 fast diligence packs (Monday 10/10 cut)
 
 **Use with:** backup Plan A four (Porch → Incline → Clear Blue → Gallagher).  
-**Monday total:** 4 Plan A + **5 Plan B** = **9**. Palomar HOLD. Canonical: `PASTE_MONDAY_DILIGENCE_EMAILS.md`.  
-**Depth rule:** one public, verifiable pain line each — Artemis / MarshBerry / court coverage. **No docket deep-dive.**  
+**Monday total:** 4 Plan A + **these 6** = **10**. Canonical paste: `PASTE_MONDAY_DILIGENCE_EMAILS.md`.  
+**Depth rule:** one public, verifiable pain line each — Artemis / ALIRT / court coverage. **No docket deep-dive.**  
 **Offer (same as Plan A):** free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
 Not legal advice. Public facts only.
 
 **Excluded (already used):** Buckle, SteadPoint, 1970, Everspan · Porch, Incline, Clear Blue, Gallagher.
 
-Send order after Plan A four (or interleaved if time-boxed):  
-Sutton → Transverse → Aon Re → Fortegra → Great Divide.  
-**HOLD:** Palomar — do not use investors@plmr.com (IR-only). Send only after a real underwriting/MGA/partnerships contact is found.
+Send order after Plan A four:  
+Sutton → MS Transverse → Aon Re → Palomar → Fortegra → Great Divide.
 
 ---
 
 ## 1) Sutton National
 
 **To:** contact@suttonnational.com  
-**Subject:** Free 72-hour review of program front bind vs Vesttoo-era LOC collateral
+**Subject:** Free 72-hour review of program front bind vs ~$9M CCB LOC exposure
 
 ```
 For Sutton National — program / fronting desk
 Nisaba LLC. Vendor review of one named collateral path.
 
-MarshBerry (2023) listed Sutton National among fronting carriers potentially impacted by Vesttoo-facilitated reinsurance where purported China Construction Bank LOCs were later treated as forged / not reliable — fronting shops then had to replace collateral under AM Best counterparty review pressure.
+ALIRT Insurance Research (Aug 2023 Vesttoo collateral fallout): Sutton National Insurance Co. listed with ~$8.5–9M purported CCB LOC exposure via Osprey Re — about 19.4% of year-end 2022 surplus. MarshBerry separately named Sutton among fronting carriers replacing Vesttoo-facilitated collateral under AM Best counterparty pressure.
 
 The 72-hour memo is only this: on your public program pages (plus anything you send), where the next program-admin bind still treats a reinsurance LOC / collateral letter as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -33,16 +32,16 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## 2) Transverse Insurance Group
+## 2) MS Transverse Insurance Group
 
-**To:** Use https://www.transverseinsurance.com/ contact / info path (or a verified @transverseinsurance.com).  
+**To:** info@mstransverse.com  
 **Subject:** Free 72-hour review of next fronting bind after Vesttoo collateral scare
 
 ```
-For Transverse — program / fronting desk
+For David Paulsson — CEO, MS Transverse (formerly Transverse; Mitsui Sumitomo acquired Jan 2023)
 Nisaba LLC. Vendor review of one named collateral path.
 
-Artemis / market coverage on the Vesttoo LOC break: Transverse publicly framed direct Vesttoo participation as limited and cash-collateralized (“immaterial”), while AM Best reviewed fronting collateral industry-wide after forged CCB-linked LOCs surfaced.
+Artemis (Jul 2023): MS Transverse publicly framed direct Vesttoo participation as limited to one program and cash-collateralized ("immaterial"), while AM Best reviewed fronting collateral industry-wide after forged CCB-linked LOCs surfaced.
 
 The 72-hour memo is only this: on your public program pages (plus anything you send), where the next MGA / front bind still treats collateral as live without a fresh issuer confirm. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -71,13 +70,13 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## 4) Palomar Holdings — HOLD (do not send Monday)
+## 4) Palomar / PLMR-FRONT
 
-**To:** _none yet_ — do **not** use investors@plmr.com (IR-only). Find underwriting / MGA / partnerships contact first.  
+**To:** bloyd@plmr.com (Brandon Loyd, AVP Programs & Fronting — live on plmr.com/plmr-front/). Do **not** use investors@plmr.com.  
 **Subject:** Free 72-hour review of fronting / MGA bind collateral confirm after Vesttoo
 
 ```
-For Mac Armstrong — CEO, and Palomar Front / IR desk
+For Brandon Loyd — AVP, Programs & Fronting, Palomar (PLMR-FRONT)
 Nisaba LLC. Vendor review of one named collateral path.
 
 Artemis / earnings coverage: Palomar disclosed a single Vesttoo-linked counterparty exposure, called it immaterial, and noted fronting / MGA approaches rose as the collateral break shook the market — AM Best was reviewing fronting collateral industry-wide at the same time.
@@ -92,14 +91,14 @@ https://gate.velaru.xyz/diligence
 
 ## 5) Fortegra
 
-**To:** marketing@fortegra.com (forward to specialty / program counsel if that’s the wrong door)  
+**To:** https://www.fortegra.com/contact (program / partner form — not marketing@)  
 **Subject:** Free 72-hour review of deny-to-defend path after Kimba duty ruling
 
 ```
 For Fortegra — specialty / program coverage desk
 Nisaba LLC. Vendor review of one named authority path.
 
-E.D.N.Y. coverage (Oct 2025 reporting on Kimba Industries v. Fortegra Specialty): court rejected Fortegra’s summary-judgment bid to escape defending Kimba in the underlying Queens action and held a duty to defend — after an earlier coverage denial letter tied to a subcontractor-warranty endorsement.
+E.D.N.Y. Kimba Industries v. Fortegra Specialty, 2:24-cv-01334 (SJ opinion 1 Oct 2025): court denied Fortegra’s summary-judgment bid to escape defending Kimba in the underlying Queens action and held a duty to defend — after an earlier coverage denial letter tied to a Designated Subcontractor Warranty Endorsement.
 
 The 72-hour memo is only this: on your public specialty / program pages (plus anything you send), where the next bind or claim still runs a deny-to-defend path after that endorsement fight. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -118,7 +117,7 @@ https://gate.velaru.xyz/diligence
 For Great Divide — CGL / primary coverage desk
 Nisaba LLC. Vendor review of one named defend path.
 
-Insurance Business / D. Hawaii coverage (filed ~14 Aug 2025): Great American Alliance sued Great Divide alleging Great Divide walked away from its duty to defend and indemnify a condo association (International Colony Club) on the primary CGL while excess / D&O burn continued.
+D. Haw. Great American Alliance v. Great Divide, 1:25-cv-00347 (filed 14 Aug 2025; Insurance Business coverage): Great American alleges Great Divide walked away from its duty to defend and indemnify AOAO International Colony Club on the primary CGL while excess / umbrella burn continued after a condo-owner renovation suit.
 
 The 72-hour memo is only this: on your public CGL / program pages (plus anything you send), where the next primary bind still leaves defend handoff ambiguous when another carrier is already in the fight. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -128,26 +127,25 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-## Recipients cheat-sheet (Plan B — Monday send 5 + HOLD 1)
+## Recipients cheat-sheet (Plan B six)
 
 | # | Desk | To |
 |---|------|-----|
 | 1 | Sutton National | contact@suttonnational.com |
-| 2 | Transverse | transverseinsurance.com contact / verified @transverseinsurance.com |
+| 2 | MS Transverse | info@mstransverse.com |
 | 3 | Aon Re | aon.com/reinsurance contact form |
-| 4 | Fortegra | marketing@fortegra.com |
-| 5 | Great Divide | info@greatdivideinsurancecompany.com |
-| HOLD | Palomar | _find non-IR contact_ — do not use investors@plmr.com |
+| 4 | Palomar / PLMR-FRONT | bloyd@plmr.com |
+| 5 | Fortegra | fortegra.com/contact |
+| 6 | Great Divide | info@greatdivideinsurancecompany.com |
 
 ---
 
-## Monday stack (do not skip the tally)
+## Monday stack
 
 | Slot | Wave | Count |
 |------|------|-------|
 | Plan A | Porch, Incline, Clear Blue, Gallagher | 4 |
-| Plan B | Sutton, Transverse, Aon Re, Fortegra, Great Divide | 5 |
-| **Send** | | **9** |
-| HOLD | Palomar | 1 |
+| Plan B | Sutton, MS Transverse, Aon Re, Palomar, Fortegra, Great Divide | 6 |
+| **Send** | | **10** |
 
 Log every send in `SENT_TALLY.md` the same day.
