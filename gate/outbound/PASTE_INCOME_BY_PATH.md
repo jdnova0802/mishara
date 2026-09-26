@@ -79,6 +79,63 @@ Honest base case for cold 10: **$0–$2.5k** in 2–4 weeks. Upside case: **one 
 
 ---
 
+## Summer 2027 (~9 months from 26 Sep 2026)
+
+**Horizon:** Jun–Aug 2027. Scenarios assume outbound continues and Stripe paths stay live. **Not a forecast** — what the SKUs *can* print if demand lands.
+
+### What has to be true for each band
+
+| Band | Must close by summer 2027 |
+|------|---------------------------|
+| **Base** | A few Bind Rooms and/or 1–2 diligence deposits; **no** lasting retainer; **no** weld |
+| **Upside** | **1 retainer** ($15–25k/mo) *or* **1 quiet weld** ($25k + $5k/mo); Bind Room as side cash |
+| **Stretch** | **1–3 welds** with real cleared flow **and/or** Issuing book with take-rate; retainer(s) optional stack |
+
+### Run-rate *in* summer 2027 (monthly)
+
+| Band | Diligence / Bind Room | Weld register | Issuing / Sink / Treasury | **Total / mo** |
+|------|------------------------|---------------|---------------------------|----------------|
+| **Base** | $0–$8k (sporadic packs) | $0 | $0 | **~$0–$8k** |
+| **Upside** | $10–25k retainer *or* Bind Rooms ~$3–7k | **$5k** floor (1 quiet weld) | $0–few k (dogfood / tiny book) | **~$15–40k** |
+| **Stretch** | $20–40k (1–2 retainers) | **$30–150k+** (2–3 mouths; some flow above quiet — e.g. tens–low hundreds $M cleared @ 10 bps) | Issuing platform / Ix share **$5–50k** if a real book attaches | **~$50–200k+** |
+
+Quiet weld alone = **$5k/mo** forever until flow shows up. One mouth clearing **$100M/mo** = **~$105k/mo** register (formula). That is **not** the base case.
+
+### Cash *through* summer 2027 (cumulative, rough)
+
+| Band | Cumulative by ~Jul 2027 | How it adds up |
+|------|-------------------------|----------------|
+| **Base** | **~$10–80k** | 4–12 Bind Rooms + 1–3 deposits/reviews; months of $0 in between |
+| **Upside** | **~$150–450k** | Retainer ~6 mo × $20k ≈ $120k **or** weld $25k + 6×$5k floor ≈ $55k, plus Bind Rooms / reviews stacked |
+| **Stretch** | **~$0.5–2M+** | Early weld(s) + months of floor + **some** bps on cleared; and/or Issuing take-rate on seven–eight-figure GMV |
+
+### Path-by-path — summer 2027 potential (same horizon)
+
+| Path | Base | Upside | Stretch |
+|------|------|--------|---------|
+| Diligence free REVIEW | $0 | $0 | $0 (still funnel) |
+| Diligence deposit/review | $5–25k total | $25–80k total | $80–200k total |
+| Diligence retainer | $0 | **$90–200k** (6–9 mo × $15–25k) | **$200–400k** (2 desks or higher band) |
+| Bind Room | **$7–21k** (4–12 packs) | **$20–40k** (~1–2/mo) | **~$60–84k/yr** pace (near cap) |
+| Install / Refusal | $0–10k | $0–15k | Event noise |
+| Operator weld (one-time) | $0 | **$25k** (1) | **$50–75k** (2–3) |
+| Weld management floor | $0 | **$30–45k** (6–9 × $5k) | **$90–180k** (2–3 mouths × months) |
+| Weld flow (10 bps + carry) | $0 | $0–50k (thin cleared) | **$200k–$1M+** if any mouth clears meaningful $ |
+| Issuing mouth | $0 | $0–30k (start of book / fee) | **$50–300k** (platform + % on GMV) |
+| Sink / OCT | $0 | $0 (sponsor still mid-cycle) | **$0–low** unless BIN live early 2027 |
+| Treasury outbound | $0 | $0–small | Stacks into weld if money_real |
+| x402 | ~$0 | ~$0–few k | Still micro vs Bind Room |
+| Theory / DSP / name / advisory | $0 | $0 (or DSP sold as small pack) | Optionality only |
+
+### Honest read for summer 2027
+
+- **Most likely if nothing new sticks:** low five figures total, lumpy — Bind Room + diligence one-shots.  
+- **The year-changer:** **one retainer or one weld before spring 2027.** Everything else is additive.  
+- **Million-class by summer:** needs **bps on real cleared flow** or a **real Issuing book** — not more free mouths.  
+- **$10B-cleared / $14M-mo register math:** still fantasy until a licensed operator puts volume through a welded write.
+
+---
+
 ## One-liner for Claude
 
-**Near money = Bind Room ($1,750) + diligence deposit→review→retainer ($2.5k → $5–8k → $10–40k/mo) + weld ($25k + $5k/mo + 10 bps).** Issuing/Sink/Treasury are **recurring ceilings on a book Gate does not have yet**. Theory floor / DSP / name / free mouths are **$0 income** — they protect or open SKUs, they are not the meter.
+**Near money = Bind Room ($1,750) + diligence deposit→review→retainer ($2.5k → $5–8k → $10–40k/mo) + weld ($25k + $5k/mo + 10 bps).** By **summer 2027**: base **~$0–8k/mo / $10–80k cumulative**; upside **~$15–40k/mo / $150–450k** if one retainer or quiet weld sticks; stretch **~$50–200k+/mo / $0.5–2M+** only with flow or Issuing GMV. Theory floor / DSP / name / free mouths stay **$0** — they protect price, they are not the meter.
