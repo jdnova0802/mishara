@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+{% block title %}Regulator verify{% endblock %}
+{% block meta %}
+<meta name="description" content="Gate for regulators and policy staff — NAIC four asks and HM Treasury Q15 mapped to live stranger-verifiable mechanisms. Not Bind Room, not pricing.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --r-ink: #1a1f18;
+    --r-mute: #5e6758;
+    --r-line: #cfd6c8;
+    --r-paper: #f3f5ef;
+    --r-go: #2f6b3a;
+    --r-hold: #8a6a12;
+    --r-no: #9b2f22;
+    --r-serif: "Fraunces", Georgia, serif;
+    --r-sans: "Source Sans 3", system-ui, sans-serif;
+  }
+  .r-stage {
+    min-height: 92vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4.5rem;
+    background:
+      radial-gradient(880px 420px at 90% -8%, #d7e4c855, transparent 58%),
+      radial-gradient(720px 380px at 4% 100%, #c9d5e240, transparent 52%),
+      linear-gradient(165deg, #eef2e8 0%, #e4ebe0 42%, #dfe6e8 100%);
+    color: var(--r-ink);
+    font-family: var(--r-sans);
+  }
+  .r-inner { max-width: 720px; margin: 0 auto; padding: 3.6rem 1.35rem 0; }
+  .r-brand {
+    font-family: var(--r-serif);
+    font-size: clamp(2.7rem, 8vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    margin: 0 0 0.75rem;
+    animation: r-rise 0.55s ease-out both;
+  }
+  .r-brand span {
+    display: block;
+    font-family: var(--r-sans);
+    font-weight: 600;
+    font-size: 0.28em;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--r-mute);
+    margin-bottom: 0.65rem;
+  }
+  .r-lede {
+    font-size: 1.08rem;
+    color: var(--r-mute);
+    max-width: 34rem;
+    line-height: 1.5;
+    margin: 0 0 1.6rem;
+    animation: r-rise 0.55s ease-out 0.06s both;
+  }
+  .r-pills {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin: 0 0 2rem;
+    animation: r-rise 0.55s ease-out 0.1s both;
+  }
+  .r-pill {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    border: 1px solid var(--r-line); padding: 0.38rem 0.65rem; background: #fff;
+  }
+  .r-pill.on { color: var(--r-go); border-color: #a9d0b2; }
+  .r-pill.off { color: var(--r-hold); border-color: #e2d3a0; }
+  .r-pill.dead { color: var(--r-no); border-color: #e4b4ad; }
+  .r-block {
+    border-top: 1px solid var(--r-line);
+    padding: 1.35rem 0 0.4rem;
+    animation: r-rise 0.55s ease-out 0.14s both;
+  }
+  .r-block h2 {
+    font-family: var(--r-serif);
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.45rem;
+  }
+  .r-block p { color: var(--r-mute); line-height: 1.5; margin: 0 0 0.85rem; max-width: 38rem; }
+  .r-ask {
+    margin: 0 0 1.15rem;
+    padding: 0.85rem 0 0;
+    border-top: 1px dashed var(--r-line);
+  }
+  .r-ask:first-of-type { border-top: none; padding-top: 0; }
+  .r-ask .src {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--r-mute); margin-bottom: 0.25rem;
+  }
+  .r-ask .q {
+    font-family: var(--r-serif);
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.35;
+    margin: 0 0 0.45rem;
+  }
+  .r-ask .m { color: var(--r-ink); font-size: 0.95rem; line-height: 1.45; margin: 0 0 0.4rem; }
+  .r-ask .links { font-size: 0.85rem; line-height: 1.7; }
+  .r-ask .links a { color: var(--r-ink); }
+  .r-ask .check {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem; color: var(--r-mute);
+    background: #fff; border: 1px solid var(--r-line);
+    padding: 0.55rem 0.65rem; margin-top: 0.45rem; white-space: pre-wrap;
+  }
+  .r-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 1rem; }
+  .r-row button, .r-row a.btnish {
+    font-family: var(--r-sans); font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: #fff; background: var(--r-ink); border: none;
+    padding: 0.8rem 1.1rem; cursor: pointer; text-decoration: none; display: inline-block;
+  }
+  .r-row button.ghost, .r-row a.ghost {
+    background: transparent; color: var(--r-ink); border: 1px solid var(--r-ink);
+  }
+  .r-word {
+    font-family: var(--r-serif);
+    font-size: clamp(2.2rem, 8vw, 3.6rem);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 0.95;
+    margin: 0 0 0.5rem; min-height: 1.05em;
+    opacity: 0; transform: translateY(8px);
+  }
+  .r-word.show { opacity: 1; transform: none; transition: opacity 0.35s ease, transform 0.35s ease; }
+  .r-word.ok { color: var(--r-go); }
+  .r-word.bad { color: var(--r-no); }
+  .r-word.wait { color: var(--r-hold); }
+  .r-meta { color: var(--r-mute); font-size: 0.92rem; line-height: 1.5; max-width: 38rem; margin: 0 0 0.75rem; }
+  .r-meta a { color: var(--r-ink); }
+  .r-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.7rem; background: #fff; border: 1px solid var(--r-line);
+    padding: 0.75rem; overflow: auto; max-height: 240px; white-space: pre-wrap;
+  }
+  .r-docket li {
+    list-style: none; margin: 0 0 0.85rem; padding: 0.6rem 0 0;
+    border-top: 1px solid var(--r-line); font-size: 0.92rem; color: var(--r-mute);
+  }
+  .r-docket strong { color: var(--r-ink); display: block; font-family: var(--r-serif); font-size: 1.02rem; margin-bottom: 0.15rem; }
+  .r-docket .st {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--r-hold);
+  }
+  .r-foot {
+    margin-top: 2.5rem; font-size: 0.75rem; color: #7a8374;
+    border-top: 1px solid var(--r-line); padding-top: 1rem;
+  }
+  .r-foot a { color: var(--r-ink); }
+  @keyframes r-rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (max-width: 560px) {
+    .r-inner { padding-top: 2.5rem; }
+  }
+</style>
+
+<section class="r-stage">
+  <div class="r-inner">
+    <h1 class="r-brand"><span>Gate · Nisaba LLC</span>Regulator verify</h1>
+    <p class="r-lede">
+      Policy staff surface — not Bind Room, not diligence, not pricing.
+      Each NAIC ask and HM Treasury Question 15 maps to a live mechanism you can open without a login.
+    </p>
+
+    <div class="r-pills">
+      <span class="r-pill {% if live.issuing.money_real %}on{% else %}off{% endif %}">
+        issuing money_real · {{ 'true' if live.issuing.money_real else 'false' }}
+      </span>
+      <span class="r-pill {% if live.inclusion_ready %}on{% else %}off{% endif %}">
+        evidence tree · {{ live.evidence_head.tree_size }}
+      </span>
+      <span class="r-pill {% if live.ots.deployed %}on{% else %}off{% endif %}">
+        OTS · {{ live.ots.status }}
+      </span>
+    </div>
+
+    <div class="r-block">
+      <h2>Verify one receipt</h2>
+      <p>
+        Mint a public NO_GO sample (money_real:false), pull evidence-head, check the Merkle inclusion proof,
+        and read OTS status live. No API key.
+      </p>
+      <div class="r-row">
+        <button type="button" id="r-mint">Mint checkable receipt</button>
+        <button type="button" class="ghost" id="r-recheck" {% if not prefill %}disabled{% endif %}>Recheck</button>
+        <a class="btnish ghost" href="{{ public_url }}/.well-known/evidence-head.json" target="_blank" rel="noopener">evidence-head.json</a>
+      </div>
+      <div class="r-word" id="r-word" aria-live="polite"></div>
+      <p class="r-meta" id="r-plain">{{ live.ots.plain if not live.ots.deployed else 'OTS well-known reachable. Mint to run signature + inclusion.' }}</p>
+      <div class="r-meta" id="r-links"></div>
+      <pre class="r-code" id="r-code" hidden></pre>
+    </div>
+
+    <div class="r-block">
+      <h2>NAIC four asks → live Gate</h2>
+      <p>Exact asks from the Supplement v5.0 written comment — each linked to a checkable mouth.</p>
+      {% for ask in naic_asks %}
+      <div class="r-ask">
+        <div class="src">{{ ask.source }}</div>
+        <p class="q">{{ ask.ask }}</p>
+        <p class="m">{{ ask.mechanism }}</p>
+        <div class="links">
+          {% for key, href in ask.live.items() %}
+            <a href="{{ href }}" target="_blank" rel="noopener">{{ key }}</a>{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </div>
+        <div class="check">{{ ask.check }}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="r-block">
+      <h2>HM Treasury Question 15 → live Gate</h2>
+      <div class="r-ask">
+        <div class="src">{{ hmt.source }} · closes {{ hmt.deadline_label }}</div>
+        <p class="q">{{ hmt.question }}</p>
+        <p class="m">{{ hmt.mechanism }}</p>
+        <div class="links">
+          {% for key, href in hmt.live.items() %}
+            <a href="{{ href }}" target="_blank" rel="noopener">{{ key }}</a>{% if not loop.last %} · {% endif %}
+          {% endfor %}
+          · <a href="{{ hmt.consultation_url }}" target="_blank" rel="noopener">consultation</a>
+        </div>
+        <div class="check">{{ hmt.check }}
+{{ hmt.honest_limit }}</div>
+      </div>
+    </div>
+
+    <div class="r-block">
+      <h2>Docket — filed / draft / open</h2>
+      <p>Independent confirmation for a regulator researching the record. Status labels are honest.</p>
+      <ul class="r-docket">
+        {% for d in docket %}
+        <li>
+          <span class="st">{{ d.status }}</span>
+          <strong>{{ d.label }}</strong>
+          {{ d.plain }}
+          {% if d.url %}<br><a href="{{ d.url }}" target="_blank" rel="noopener">{{ d.url }}</a>{% endif %}
+          {% if d.path %}<br><code>{{ d.path }}</code>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <p class="r-foot">
+      Manifest <a href="{{ public_url }}/.well-known/regulator.json">regulator.json</a>
+      · Issuing dogfood <a href="{{ public_url }}/issuing-mouth">/issuing-mouth</a>
+      · Track record <a href="{{ public_url }}/record">/record</a>
+      · Not commercial: no Bind Room CTA on this page.
+    </p>
+  </div>
+</section>
+
+<script>
+(function () {
+  const mintBtn = document.getElementById("r-mint");
+  const recheckBtn = document.getElementById("r-recheck");
+  const wordEl = document.getElementById("r-word");
+  const plainEl = document.getElementById("r-plain");
+  const linksEl = document.getElementById("r-links");
+  const codeEl = document.getElementById("r-code");
+  let eventId = {{ (prefill or "")|tojson }};
+
+  function showWord(text, klass) {
+    wordEl.className = "r-word show " + (klass || "");
+    wordEl.textContent = text;
+  }
+
+  function renderLinks(urls) {
+    if (!urls) { linksEl.innerHTML = ""; return; }
+    const parts = [];
+    if (urls.receipt) parts.push('<a href="' + urls.receipt + '" target="_blank" rel="noopener">receipt</a>');
+    if (urls.proof) parts.push('<a href="' + urls.proof + '" target="_blank" rel="noopener">inclusion proof</a>');
+    if (urls.packet) parts.push('<a href="' + urls.packet + '" target="_blank" rel="noopener">evidence packet</a>');
+    if (urls.seal) parts.push('<a href="' + urls.seal + '" target="_blank" rel="noopener">seal</a>');
+    if (urls.evidence_head) parts.push('<a href="' + urls.evidence_head + '" target="_blank" rel="noopener">evidence-head</a>');
+    if (urls.evidence_ots) parts.push('<a href="' + urls.evidence_ots + '" target="_blank" rel="noopener">evidence-ots</a>');
+    linksEl.innerHTML = parts.join(" · ");
+  }
+
+  async function verify(id) {
+    showWord("CHECKING", "wait");
+    plainEl.textContent = "Pulling evidence-head, inclusion proof, OTS status…";
+    const r = await fetch("/v1/regulator/verify?event_id=" + encodeURIComponent(id));
+    const body = await r.json();
+    codeEl.hidden = false;
+    codeEl.textContent = JSON.stringify(body, null, 2);
+    renderLinks(body.urls);
+    const c = body.checks || {};
+    const otsLabel = c.ots_deployed ? ("OTS " + (c.ots_status || "live")) : ("OTS " + (c.ots_status || "pending"));
+    if (body.ok) {
+      showWord("HOLDS", "ok");
+      plainEl.textContent = "Signature + inclusion verified. Seal " + (c.seal_word || "") + ". " + otsLabel + ". money_real:false on this sample.";
+    } else if (c.receipt_signature && !c.inclusion_proof) {
+      showWord("UNSIGNED TREE?", "bad");
+      plainEl.textContent = body.plain || "Signature ok but inclusion failed — unexpected.";
+    } else if (!c.receipt_signature) {
+      showWord("BROKEN", "bad");
+      plainEl.textContent = body.error || "Receipt signature did not verify.";
+    } else {
+      showWord("CHECK", "wait");
+      plainEl.textContent = body.plain || JSON.stringify(c);
+    }
+    if (!c.ots_deployed) {
+      plainEl.textContent += " OTS well-known not on this origin yet — labeled pending, not confirmed.";
+    }
+    recheckBtn.disabled = false;
+  }
+
+  async function mint() {
+    mintBtn.disabled = true;
+    showWord("MINTING", "wait");
+    plainEl.textContent = "Writing a public NO_GO sample into the evidence log…";
+    try {
+      const r = await fetch("/demo/regulator/mint", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: "{}"
+      });
+      const body = await r.json();
+      if (!r.ok) {
+        showWord("HALT", "bad");
+        plainEl.textContent = (body.error && body.error.message) || body.error || "Mint failed";
+        codeEl.hidden = false;
+        codeEl.textContent = JSON.stringify(body, null, 2);
+        mintBtn.disabled = false;
+        return;
+      }
+      eventId = body.event_id;
+      history.replaceState(null, "", "/regulator?event_id=" + encodeURIComponent(eventId));
+      await verify(eventId);
+    } catch (err) {
+      showWord("HALT", "bad");
+      plainEl.textContent = String(err);
+    }
+    mintBtn.disabled = false;
+  }
+
+  mintBtn.addEventListener("click", mint);
+  recheckBtn.addEventListener("click", function () {
+    if (eventId) verify(eventId);
+  });
+  if (eventId) verify(eventId);
+})();
+</script>
+{% endblock %}
