@@ -1,20 +1,22 @@
-"""Mouth / finality diligence — paid find where irreversible write completes without may.
+"""Mouth / finality diligence — free REVIEW + paid deposit find.
 
 Surfaces (must stay live for hustle outbound):
-  GET  /diligence
+  GET  /diligence              — free REVIEW hero + paid deposit
   GET  /diligence/one-pager.txt
   GET  /diligence/offer.json
-  POST /diligence/checkout  — $2,500 deposit
+  POST /diligence/checkout     — $2,500 deposit (paid SKU)
 """
 from __future__ import annotations
 
 from typing import Any
 
-SPEC = "gate-diligence-offer-v1"
+SPEC = "gate-diligence-offer-v2"
 DEPOSIT_LABEL = "$2,500"
 REVIEW_BAND = "$5,000–$8,000"
 RETAINER_BAND = "$10,000–$40,000/mo"
 DELIVERY = "72h"
+FREE_ASK = "Reply REVIEW"
+PAID_ASK = "Reply DEPOSIT — invoice same day."
 
 
 def offer(public_url: str, contact_email: str) -> dict[str, Any]:
@@ -30,12 +32,30 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "Not selling may",
             "Not implementing the rail on this SKU",
         ],
+        "paths": {
+            "free_review": {
+                "ask": FREE_ASK,
+                "price": "$0",
+                "scope": "Public pages only (+ anything you send). 72h memo.",
+                "obligation": "None. No invoice.",
+            },
+            "paid_deposit": {
+                "ask": PAID_ASK,
+                "deposit": DEPOSIT_LABEL,
+                "deposit_due": "now",
+                "review": REVIEW_BAND,
+                "retainer": RETAINER_BAND,
+                "delivery": f"{DELIVERY} after deposit clears",
+            },
+        },
+        # Keep legacy price block for older readers; paid path only.
         "price": {
             "deposit": DEPOSIT_LABEL,
             "deposit_due": "now",
             "review": REVIEW_BAND,
             "retainer": RETAINER_BAND,
             "delivery": DELIVERY,
+            "free_review": "$0",
         },
         "targets": [
             "peg-outs / bridges",
@@ -45,10 +65,13 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "bind desks (path review)",
         ],
         "deliverable": (
-            "Written map of mouths where an irreversible write can complete without may, "
-            "with stranger-openable halt gap named. Deposit starts the clock."
+            "Free REVIEW: 72h memo on public pages (and anything you send) naming where "
+            "the next irreversible placement still treats collateral / authority as live "
+            "without confirm. Paid deposit: deeper written map of mouths where an "
+            "irreversible write can complete without may."
         ),
-        "ask": "Reply DEPOSIT — invoice same day.",
+        "ask": FREE_ASK,
+        "ask_paid": PAID_ASK,
         "halt": "We will not sell may. We will not implement the rail on this SKU.",
         "urls": {
             "page": f"{base}/diligence",
@@ -70,24 +93,29 @@ def one_pager(public_url: str, contact_email: str) -> str:
 Offer
   Where can an irreversible write complete without may?
 
-Price
-  Deposit {DEPOSIT_LABEL} due now
-  Review {REVIEW_BAND}
-  Retainer band {RETAINER_BAND}
-  Delivery {DELIVERY} after deposit clears
+PATH 1 — FREE REVIEW (cold outbound / Monday pack)
+  Price     $0 · no invoice · no obligation
+  Scope     Public pages only (+ anything you send)
+  Delivery  72h memo
+  Ask       {FREE_ASK}
+  Contact   {contact_email}
 
-What you get
-  A written find on your irreversible path (peg-out, withdraw, payout, bind, ACH credit):
-  where the write can still complete when Clear / stranger-openable halt is missing.
-  Keys, SOC, and policy answers are not the deliverable — the may-gap is.
+PATH 2 — PAID DEPOSIT (deeper find)
+  Deposit   {DEPOSIT_LABEL} due now
+  Review    {REVIEW_BAND}
+  Retainer  {RETAINER_BAND}
+  Delivery  {DELIVERY} after deposit clears
+  Ask       {PAID_ASK}
+  Or pay    {base}/diligence
+
+What you get (either path)
+  A written find on the irreversible path (peg-out, withdraw, payout, bind, ACH credit /
+  collateral / authority): where the write can still complete when Clear / stranger-openable
+  halt is missing. Keys, SOC, and policy answers are not the deliverable — the may-gap is.
 
 What this is not
   Not a pentest gym. Not a governance PDF. Not selling may.
   Not implementing Gate/Prefinality rail on this SKU.
-
-Ask
-  Reply DEPOSIT — invoice same day.
-  Or pay: {base}/diligence
 
 Links
   {base}/diligence
@@ -105,8 +133,12 @@ def page_copy() -> dict[str, str]:
     return {
         "headline": "Where can an irreversible write complete without may?",
         "sub": (
-            "Mouth / finality diligence. Paid find on peg-out, withdraw, payout, "
-            "BaaS credit, or bind path — the gap between who was allowed and what "
-            "actually halted the write."
+            "Mouth / finality diligence. Free 72h REVIEW on public pages — or a paid "
+            "deposit find on peg-out, withdraw, payout, BaaS credit, or bind path. "
+            "The gap between who was allowed and what actually halted the write."
+        ),
+        "free_blurb": (
+            "Public pages only (+ anything you send). No charge. No invoice. "
+            "No obligation. If it is useless, delete it."
         ),
     }
