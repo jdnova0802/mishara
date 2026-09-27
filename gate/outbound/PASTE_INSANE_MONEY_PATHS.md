@@ -28,11 +28,11 @@ You stop selling a mouth. You **own the pipe** US banks use to share fraud facts
 | Cite | What it says |
 |---|---|
 | USA PATRIOT Act **§314(b)**; **31 C.F.R. §1010.540** | FI↔FI (and associations) voluntary share with liability safe harbor |
-| FinCEN Fact Sheet **12 Jun 2026** | Fraud explicitly in scope; electronic platforms + group sharing OK; **non-FI may form/operate an association of FIs** |
+| FinCEN Fact Sheet **12 Jun 2026** | Exact Q&A: compliance services provider **may form and operate** an association of FIs (primary quote in `PASTE_CLAUDE_314B_PRIMARY_CHECK.md`) |
 | OCC Bulletin **2026-30** | Supervisors highlighting the sheet — banks are being told to use it |
-| Nebraska Bankers Ass’n platform | **State-scale already exists** — national operator seat still open |
+| Nebraska Bankers Ass’n platform | **State-scale trade-body pattern** (NBA = bankers’ association registered for 314(b)) — **not** the same as a vendor-operated association; national non-FI operator seat still open under FinCEN’s Q&A |
 
-FinCEN Q&A (live in the 2026 sheet): a compliance/services company that is **not** itself a BSA FI **may form and operate** an association whose members are FIs, and that association participates in 314(b).
+FinCEN Q&A (printed in the June 12, 2026 sheet; tagged Issued Dec 2020): a compliance services provider that is **not** itself a BSA FI **may form and operate** an association whose members are FIs. Sharing still requires member registration + counterparty verification. Gate-the-SaaS does **not** itself get the safe harbor — the **association** and its FI members do.
 
 ### What Gate sells then
 Not “buy our API.” **Membership** in the Gate-operated association:
