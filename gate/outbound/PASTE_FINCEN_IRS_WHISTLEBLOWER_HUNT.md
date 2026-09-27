@@ -47,7 +47,14 @@ Turning Gate into a bounty-hunting operation would invent a SKU we do not have a
 
 Code anchors: `gate/never_ui.py`, `gate/exclusion.py`, `gate/deny_registry.py`, `gate/counterpart.py`, `gate/go_ui.py`, `gate/claim_scope.py`.
 
-**There is no cross-customer “same counterparty → NEVER” radar today.** NEVER is not counterparty-keyed. Even if you built one over Issuing merchant strings or deny destinations, a cluster of Gate refusals still proves only that **welded writes were refused** — not that a covered statute was violated.
+**Code-level confirmation (explore pass):**
+
+- `claim_scope.for_never()` sets **`counterparties=None` always** — spend Never literally does not name a payee.
+- `bind_events` has **no** merchant/payee column; evidence-head leaves are **receipt hashes only** (“Hashes only. No PII”).
+- Merchant/sender plaintext *can* appear in Issuing/Sink/prefinality `claim_scope` / JWTs for mandate match — that is clearance context, **not** written into evidence-head and **not** aggregated cross-account.
+- Repo scan: FinCEN Scenario 3 advisory mouth exists (`mouths.evaluate_scenario3`, FIN-2016-A003); **no** SAR / BSA / whistleblower outbound or filing pipe.
+
+**There is no cross-customer “same counterparty → NEVER” radar today.** NEVER is not counterparty-keyed. Closest unaggregated residue is prefinality JWT `scope.counterparties` + optional `account_id` on eval rows — still clearance denies, not covered-statute tips. Even if you built clustering over Issuing merchant strings or deny destinations, a refuse-cluster proves only that **welded writes were refused** — not that a covered statute was violated.
 
 ---
 
