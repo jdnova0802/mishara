@@ -11,7 +11,7 @@
 | # | Atom | Size of seat | Legal readiness | Clock | Gate-shaped? |
 |---|---|---|---|---|---|
 | **A1** | **314(b) national association hub** (US Salv) | Own the FI↔FI fraud-share pipe for US banks that already have safe harbor | **LIVE statute + FinCEN yes** | Open now | **Yes — this is Gate’s product at network scale** |
-| **A0** | **EPC FRIDA Central Platform Provider** | Operate SEPA-wide fraud-alert hub for every PSP under forthcoming PSR | RFP **live** | **Submit by 23 Oct 2026 midnight CEST** | Stretch alone; real if consortium |
+| **A0** | **EPC FRIDA Central Platform Provider** | Operate SEPA-wide fraud-alert hub for every PSP under forthcoming PSR | **Separate formal RFP open** (RFI Jan–Feb 2026 already closed) | **RFP response due 23 Oct 2026 midnight CEST** | Stretch alone; real if consortium |
 | **A2** | **TRACE Act fraud-information-sharing system** | Statutory “fraud-information-sharing system” with GLBA + FCRA carve-outs for AI fraud share | Discussion draft (Mar 2026 hearing) — **not law** | Contingent on Congress | Yes *if* enacted — Gate becomes the system |
 | **A3** | **STOP Payments Fraud Act hold-evidence layer** (H.R. 9331) | Every bank’s documented “reasonable suspicion” pack before uncapped check/wire holds | House Union Calendar after **51–0** committee | Contingent on enactment + Fed/CFPB rules | Yes — sealed refuse *is* the indicator pack |
 
@@ -63,27 +63,37 @@ Director Blanco’s Dec 2020 remarks said the same out loud (non-FI / compliance
 
 ## A0 — EPC FRIDA Central Platform Provider *(the open RFP with a hard deadline)*
 
-### What it is
-European Payments Council is selecting **one** service provider to **design, deliver, host, operate, secure, maintain, and support** the **FRIDA Central Platform (FCP)** — the hub in a Hub&Spoke architecture that will distribute **Fraud Alerts** across SEPA PSPs when the Payment Services Regulation fraud-sharing duty lands.
+### Date check (RFI ≠ RFP — both real, both on EPC’s site)
 
-### Primary cites
-- RFP announcement: https://www.europeanpaymentscouncil.eu/document-library/request-proposal/request-proposal-service-provider-epc-fraud-information  
-- Request form / window: https://www.europeanpaymentscouncil.eu/request-info-frida-central-platform-rfp — **25 Sep 2026 → response due 23 Oct 2026, midnight CEST**  
-- Scheme context: FRIDA Rulebook v0.1 EPC108-26 (9 Sep 2026); consultation through 10 Dec 2026; scheme effect expected with PSR ~Q4 2028  
-- FRIDA overview: https://www.europeanpaymentscouncil.eu/what-we-do/other-schemes/fraud-information-distribution-arrangement  
+| Process | What it was | Window | Status |
+|---|---|---|---|
+| **RFI** (market research) | Collect info from orgs interested in providing/operating a FRIDA Central Platform | **28 Jan 2026 → 20 Feb 2026, 18:00 CET** | **Closed** |
+| **RFP** (formal selection) | Select the service provider to deliver and operate the FCP | Interest form **25 Sep 2026 →** response due **23 Oct 2026, midnight CEST** | **Open** |
+
+Your independent confirm of Jan 28 – Feb 20 was correct for the **RFI**. #150’s Oct 23 cite was the **separate later RFP**, not a date error on the RFI.
+
+**EPC primary cites:**
+- RFI news (28 Jan 2026): https://www.europeanpaymentscouncil.eu/news-insights/news/european-payments-council-launches-rfi-frida-central-platform  
+- RFI library page (deadline Fri 20 Feb 2026 18h CET): https://www.europeanpaymentscouncil.eu/document-library/other/request-information-central-platform-fraud-information-sharing  
+- **RFP** library page (template due **23 Oct 2026 midnight CEST**): https://www.europeanpaymentscouncil.eu/document-library/request-proposal/request-proposal-service-provider-epc-fraud-information  
+- RFP interest form (window labeled **25 Sep 2026 – 23 Oct 2026**): https://www.europeanpaymentscouncil.eu/request-info-frida-central-platform-rfp  
+
+### What the RFP is
+European Payments Council selecting **one** service provider to **design, deliver, host, operate, secure, maintain, and support** the **FRIDA Central Platform (FCP)** — hub in a Hub&Spoke architecture for SEPA Fraud Alerts when PSR fraud-sharing lands.
 
 ### Size
-If selected, you are the **operational heart of mandatory EU A2A fraud-data sharing** — not a vendor peddling alerts to one bank. EPC owns the FCP; you operate it. Board approval finalizes selection.
+If selected, operational heart of mandatory EU A2A fraud-data sharing. EPC owns the FCP; provider operates it. Board approval finalizes selection.
 
 ### Brutal Gate fit
 | Factor | Reality |
 |---|---|
 | Magnitude | **Maximum** — continental scheme infrastructure |
-| Alone win probability | **Low** — expect incumbents (MISP operators, large processors, Salv-class) |
-| Honest path | **Consortium bid** (Gate = typology / pre-push / sealed-refuse semantics; partner = hosting, DORA, SEPA ops) **or pass** |
-| Clock | **~26 days from hunt date** to submit |
+| Eligibility to *request the RFP packet* | EPC: “Organisations with a legitimate interest” — **not** “must already be a PSP” |
+| Alone win probability | **Low** — expect incumbents (MISP ops, large processors, Salv-class) |
+| Honest path | **Consortium bid** or consciously pass |
+| Clock | **Response due 23 Oct 2026 midnight CEST** |
 
-**Action if serious:** Completing the EPC request form **this week** costs almost nothing and preserves the option. Ignoring it forever is also a decision — just make it consciously.
+**Not a peer-membership lane.** Bidding to be EPC’s outsourced FCP operator ≠ joining FRIDA as a PSP participant.
 
 ---
 
@@ -150,6 +160,27 @@ Still need House floor + Senate + signature + rulemaking. **Do not ship a `/stop
 | **One lottery ticket at continental infra** | Fill EPC FRIDA FCP request form (**A0**); decide consortium or walk | Pretend Gate alone is the obvious winner |
 | **Legislative upside without betting the company** | Track **A2/A3**; align A1 architecture to TRACE “system” language | Build product on undrafted floor text |
 | **More pack mouths** | Stop | Stop |
+
+---
+
+## Solo / pre-revenue — final eligibility bound (do not re-run)
+
+**Question:** Can a pre-revenue, no-customer, single-founder company be a **first-class peer** today in any live FI↔FI fraud/AML share or prevention **network** — register/join/operate as peer with **zero** existing institutional relationship?
+
+**Answer: No.** That is structural to this domain, not a search gap.
+
+| Lane | Who is first-class | Prerequisite (cite) | Solo Gate today? |
+|---|---|---|---|
+| §314(b) sharer | BSA FI **or** association whose **membership is entirely FIs** | 31 C.F.R. § 1010.540; FinCEN Fact Sheet 12 Jun 2026 | **No** — zero FI members ⇒ no association to register as peer |
+| 314(b) association *operator* | Non-FI may **form/operate** | Same fact sheet (“compliance services provider… Yes”) | Operator role exists **only once FI members exist** — not peer without them |
+| FedNow Participant / App C reporter | FedNow Participant | OC-8 | **No** |
+| Salv Bridge peer | FI/PSP customer on Bridge | Salv product terms / FI network | **No** |
+| FRIDA scheme Participant | PSP | FRIDA Rulebook / PSR | **No** (scheme not even in effect yet) |
+| FRIDA FCP **RFP bidder** | Org with “legitimate interest” | EPC RFP pages | Can **request packet / bid as vendor** — **not** a scheme peer |
+
+Open doors that are **not** peer seats in this space (so they don’t count as a yes): public comment dockets, SAM.gov vendor registration, patent prosecution.
+
+**Stop re-asking variations.** Next moves are relationship-gated (A1 needs a first FI member) or vendor-bid (A0), not “find the secret solo peer program.”
 
 ---
 
