@@ -131,7 +131,7 @@ def clear_gate(
         "transfer": {
             "amount": f"{notional_usd:.2f}",
             "currency": "USDC",
-            "counterparty": "0x00000000000000000000000000000000000000m1",
+            "counterparty": "0x00000000000000000000000000000000000000f1",
         },
         "mandate": {
             "agent_id": f"mine-{mine_id}",

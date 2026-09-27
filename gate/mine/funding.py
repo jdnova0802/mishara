@@ -20,13 +20,35 @@ DEFAULT_EXIT_BPS_8H = 5.0
 
 
 def _fetch_binance_premium(symbol: str = "BTCUSDT") -> dict[str, Any] | None:
-    url = f"https://fapi.binance.com/fapi/v1/premiumIndex?symbol={symbol}"
-    try:
-        req = Request(url, headers={"User-Agent": "gate-mine/1.0"})
-        with urlopen(req, timeout=8) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except Exception as exc:
-        return {"error": str(exc)[:200]}
+    """Try Binance futures, then Bybit linear as fallback (some hosts block 451)."""
+    urls = [
+        f"https://fapi.binance.com/fapi/v1/premiumIndex?symbol={symbol}",
+        f"https://api.bybit.com/v5/market/tickers?category=linear&symbol={symbol}",
+    ]
+    errors: list[str] = []
+    for url in urls:
+        try:
+            req = Request(url, headers={"User-Agent": "gate-mine/1.0"})
+            with urlopen(req, timeout=8) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            if "bybit.com" in url:
+                rows = ((data.get("result") or {}).get("list") or [])
+                if not rows:
+                    errors.append("bybit_empty")
+                    continue
+                row = rows[0]
+                # Bybit fundingRate is decimal per 8h interval (same shape we need)
+                return {
+                    "lastFundingRate": row.get("fundingRate") or "0",
+                    "markPrice": row.get("markPrice"),
+                    "source": "bybit",
+                }
+            data["source"] = "binance"
+            return data
+        except Exception as exc:
+            errors.append(str(exc)[:120])
+            continue
+    return {"error": "; ".join(errors)[:200]}
 
 
 def scan(
