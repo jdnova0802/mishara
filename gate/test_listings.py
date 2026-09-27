@@ -3035,11 +3035,66 @@ class X402AuditWireTests(unittest.TestCase):
         self.assertIn("deploy_checklist", body)
         self.assertIn("bundle_id", body)
 
+    def test_clear_402_when_payto_configured(self):
+        payto = "0x00000000000000000000000000000000000000cc"
+        with mock.patch.object(gate_app.x402_challenge_mod, "payto", return_value=payto):
+            with mock.patch.object(gate_app.x402_challenge_mod, "payto_configured", return_value=True):
+                r = self.client.post(
+                    "/api/x402/clear",
+                    json={
+                        "rail": "x402",
+                        "transfer": {
+                            "amount": "25.00",
+                            "currency": "USDC",
+                            "counterparty": "0x0000000000000000000000000000000000000001",
+                        },
+                        "mandate": {"agent_id": "buyer-01", "max_amount": "50.00"},
+                    },
+                )
+        self.assertEqual(r.status_code, 402)
+        data = r.get_json()
+        accepts = data.get("accepts") or []
+        self.assertEqual(accepts[0].get("amount"), "97000000")
+        self.assertEqual(accepts[0].get("payTo"), payto)
+
+    def test_clear_delivers_receipt_on_verified_payment(self):
+        with mock.patch.object(
+            gate_app.x402_challenge_mod,
+            "payment_verified",
+            return_value={"ok": True, "reason": "test_verified", "paid": True},
+        ):
+            r = self.client.post(
+                "/api/x402/clear",
+                json={
+                    "rail": "x402",
+                    "transfer": {
+                        "amount": "10.00",
+                        "currency": "USDC",
+                        "counterparty": "0x0000000000000000000000000000000000000001",
+                    },
+                    "mandate": {"agent_id": "buyer-01", "max_amount": "20.00"},
+                },
+                headers={"X-Payment": "test"},
+            )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body.get("paid"))
+        self.assertEqual(body.get("spec"), "gate-x402-clear-v1")
+        self.assertEqual(body.get("price_usd"), "97.00")
+        self.assertIn(body.get("decision"), ("GO", "NO_GO", "HOLD"))
+
+    def test_x402_catalog_lists_clear(self):
+        cat = self.client.get("/.well-known/x402.json")
+        self.assertEqual(cat.status_code, 200)
+        resources = [x.get("resource") for x in cat.get_json().get("resources", [])]
+        self.assertTrue(any("/api/x402/clear" in (u or "") for u in resources))
+
     def test_x402_fanout_lists_audit_and_wire(self):
         r = self.client.get("/.well-known/x402")
         body = r.get_json()
         resources = body.get("resources") or []
         self.assertTrue(any("/api/x402/wire" in u for u in resources))
+        self.assertTrue(any("/api/x402/clear" in u for u in resources))
         free = body.get("free_resources") or []
         self.assertTrue(any("/audit" in u for u in free))
         self.assertTrue(any("/api/x402/audit" in u for u in free))

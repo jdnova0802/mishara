@@ -255,6 +255,22 @@ except ImportError:
     import x402_audit as x402_audit_mod
 
 try:
+    from gate import x402_clear as x402_clear_mod
+except ImportError:
+    import x402_clear as x402_clear_mod
+
+try:
+    from gate import mine as mine_mod
+    from gate.mine import funding as mine_funding_mod
+    from gate.mine import spread as mine_spread_mod
+    from gate.mine import risk as mine_risk_mod
+except ImportError:
+    import mine as mine_mod  # type: ignore
+    from mine import funding as mine_funding_mod  # type: ignore
+    from mine import spread as mine_spread_mod  # type: ignore
+    from mine import risk as mine_risk_mod  # type: ignore
+
+try:
     from gate import issuing_mouth as issuing_mouth_mod
 except ImportError:
     import issuing_mouth as issuing_mouth_mod
@@ -803,6 +819,13 @@ def health():
             "configured": bool(x402_challenge_mod.payto_configured()),
             # Ready = CDP credentials present. Do not leak key ids / lengths.
             "facilitator_ready": bool(x402_facilitator_mod.facilitator_ready()),
+        },
+        "mine": {
+            "spec": mine_mod.SPEC,
+            "catalog": f"{pub}/.well-known/mine.json",
+            "funding_scan": f"{pub}/v1/mine/funding/scan",
+            "spread_plan": f"{pub}/v1/mine/spread/plan",
+            "risk_passport": f"{pub}/api/x402/risk",
         },
         "issuing_mouth": {
             "enabled": bool(issuing_mouth_mod.issuing_enabled()),
@@ -3367,6 +3390,202 @@ def x402_wire_paid():
                     "type": "configuration_error",
                     "message": "Wire checkout requires GATE_X402_PAYTO on production.",
                     "install_fallback": f"{advertised_url()}/install",
+                }
+            }
+        ),
+        503,
+    )
+
+
+@app.route("/api/x402/clear", methods=["POST", "GET"])
+def x402_clear_paid():
+    """Paid agent-spend Clear — $97 USDC via x402. Instant signed GO/NO_GO receipt."""
+    body = request.get_json(silent=True) or {}
+    if request.method == "GET":
+        # Allow query-string transfer for crawlers that only GET
+        rail = (request.args.get("rail") or "x402").strip().lower()
+        amount = (request.args.get("amount") or "").strip()
+        currency = (request.args.get("currency") or "USDC").strip()
+        counterparty = (request.args.get("counterparty") or "").strip()
+        agent_id = (request.args.get("agent_id") or "").strip()
+        body = {
+            "rail": rail,
+            "transfer": {
+                "amount": amount or "1.00",
+                "currency": currency,
+                "counterparty": counterparty
+                or "0x0000000000000000000000000000000000000001",
+            },
+            "mandate": {"agent_id": agent_id or "agent-clear", "max_amount": amount or "1.00"},
+        }
+
+    resource = f"{advertised_url()}/api/x402/clear"
+    x402_pay = x402_challenge_mod.payment_verified(
+        request.headers,
+        amount_atomic_override=x402_clear_mod.clear_amount_atomic(),
+    )
+    if x402_pay.get("ok"):
+        cleared = x402_clear_mod.clear_receipt(body=body, public_url=advertised_url())
+        cleared["x402_verify"] = {
+            "verified": True,
+            "reason": x402_pay.get("reason"),
+        }
+        return jsonify(cleared), 200
+
+    if x402_challenge_mod.payto_configured():
+        resp = x402_challenge_mod.payment_required_response(
+            resource_url=resource,
+            description=(
+                "Agent spend Clear: GO/NO_GO + signed receipt before irreversible "
+                "x402/RTP/Issuing commit. $97 USDC. Instant JSON — no email."
+            ),
+            amount_atomic_override=x402_clear_mod.clear_amount_atomic(),
+            bazaar_method=request.method,
+        )
+        if x402_challenge_mod.payment_header_present(request.headers):
+            if isinstance(resp, tuple):
+                body_r = resp[0]
+                code = resp[1] if len(resp) > 1 else 402
+                headers = resp[2] if len(resp) > 2 else None
+            else:
+                body_r, code, headers = resp, 402, None
+            try:
+                payload = body_r.get_json(silent=True) if hasattr(body_r, "get_json") else None
+            except Exception:
+                payload = None
+            if isinstance(payload, dict):
+                payload["x402_verify"] = {
+                    "ok": False,
+                    "reason": x402_pay.get("reason"),
+                    "note": x402_pay.get("note"),
+                }
+                out = (jsonify(payload), code)
+                if headers:
+                    return out[0], out[1], headers
+                return out
+        return resp
+
+    return (
+        jsonify(
+            {
+                "error": {
+                    "type": "configuration_error",
+                    "message": "Clear checkout requires GATE_X402_PAYTO on production.",
+                    "price_usd": x402_clear_mod.clear_price_label(),
+                }
+            }
+        ),
+        503,
+    )
+
+
+@app.route("/.well-known/mine.json")
+def well_known_mine():
+    """Self-money-machine catalog — markets/protocols pay; Gate is the mining OS."""
+    body = mine_mod.catalog()
+    body["public_url"] = advertised_url()
+    return jsonify(body)
+
+
+@app.route("/v1/mine/funding/scan", methods=["GET", "POST"])
+def mine_funding_scan():
+    """Live funding scan + Clear gate. Market pays; you size only on GO."""
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+    else:
+        body = {
+            "symbol": request.args.get("symbol") or "BTCUSDT",
+            "notional_usd": request.args.get("notional_usd") or "10000",
+            "max_loss_usd": request.args.get("max_loss_usd") or "200",
+        }
+    try:
+        notional = float(body.get("notional_usd") or 10000)
+        max_loss = float(body.get("max_loss_usd") or 200)
+    except (TypeError, ValueError):
+        return jsonify({"error": "invalid_notional"}), 400
+    out = mine_funding_mod.scan(
+        symbol=(body.get("symbol") or "BTCUSDT").strip().upper(),
+        notional_usd=notional,
+        max_loss_usd=max_loss,
+        public_url=advertised_url(),
+    )
+    return jsonify(out), 200 if out.get("ok") else 502
+
+
+@app.route("/v1/mine/spread/plan", methods=["GET", "POST"])
+def mine_spread_plan():
+    """Wholesale→x402 retail margin plan + Clear on float."""
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+    else:
+        body = {
+            "sku_id": request.args.get("sku_id") or "hf_risk_passport",
+            "monthly_calls": request.args.get("monthly_calls") or "10000",
+        }
+    try:
+        calls = int(body.get("monthly_calls") or 10000)
+    except (TypeError, ValueError):
+        return jsonify({"error": "invalid_calls"}), 400
+    out = mine_spread_mod.plan(
+        sku_id=(body.get("sku_id") or "hf_risk_passport").strip(),
+        monthly_calls=calls,
+        public_url=advertised_url(),
+    )
+    code = 200 if out.get("ok") else 400
+    return jsonify(out), code
+
+
+@app.route("/api/x402/risk", methods=["POST", "GET"])
+def x402_risk_passport_paid():
+    """Paid HF risk passport — $0.05 USDC. Empty Bazaar niche. Ore detector for liquidation mine."""
+    if request.method == "GET":
+        try:
+            collateral = float(request.args.get("collateral_usd") or 0)
+            debt = float(request.args.get("debt_usd") or 0)
+            lt = float(request.args.get("liquidation_threshold") or 0.825)
+        except (TypeError, ValueError):
+            return jsonify({"error": "invalid_amounts", "spec": mine_risk_mod.SPEC}), 400
+    else:
+        body = request.get_json(silent=True) or {}
+        try:
+            collateral = float(body.get("collateral_usd") or 0)
+            debt = float(body.get("debt_usd") or 0)
+            lt = float(body.get("liquidation_threshold") or 0.825)
+        except (TypeError, ValueError):
+            return jsonify({"error": "invalid_amounts", "spec": mine_risk_mod.SPEC}), 400
+
+    resource = f"{advertised_url()}/api/x402/risk"
+    x402_pay = x402_challenge_mod.payment_verified(
+        request.headers,
+        amount_atomic_override=mine_risk_mod.amount_atomic(),
+    )
+    if x402_pay.get("ok"):
+        card = mine_risk_mod.passport(
+            collateral_usd=collateral,
+            debt_usd=debt,
+            liquidation_threshold=lt,
+        )
+        card["x402_verify"] = {"verified": True, "reason": x402_pay.get("reason")}
+        return jsonify(card), 200
+
+    if x402_challenge_mod.payto_configured():
+        return x402_challenge_mod.payment_required_response(
+            resource_url=resource,
+            description=(
+                "HF / liquidation-candidate risk passport. $0.05 USDC. "
+                "Ore detector for the liquidation mine — agents pay; you also seize."
+            ),
+            amount_atomic_override=mine_risk_mod.amount_atomic(),
+            bazaar_method=request.method,
+        )
+
+    return (
+        jsonify(
+            {
+                "error": {
+                    "type": "configuration_error",
+                    "message": "Risk passport requires GATE_X402_PAYTO on production.",
+                    "price_usd": mine_risk_mod.price_label(),
                 }
             }
         ),
