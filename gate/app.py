@@ -403,6 +403,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
+        "/.well-known/fednow-fraud-report.json",
         "/.well-known/issuing-mouth.json",
         "/.well-known/sink-mouth.json",
         "/.well-known/regulator.json",
@@ -1803,6 +1804,7 @@ def well_known_gate():
             "cl7_handoff": f"{advertised_url()}/cl7-handoff",
             "stair": f"{advertised_url()}/stair",
             "dsp_reject": f"{advertised_url()}/dsp-reject",
+            "fednow_fraud_report": f"{advertised_url()}/fednow-fraud-report",
             "exclusion": f"{advertised_url()}/.well-known/exclusion.json?job_id={{job_id}}",
             "evidence_consistency": f"{advertised_url()}/.well-known/evidence-consistency.json?old_size={{n}}",
             "bind_ticket_redeem": f"{advertised_url()}/v1/pas/bind-ticket/redeem",
@@ -4551,6 +4553,7 @@ def sitemap():
         "/cl7-handoff",
         "/stair",
         "/dsp-reject",
+        "/fednow-fraud-report",
         "/register",
         "/pricing",
         "/trust",
@@ -4587,6 +4590,7 @@ def sitemap():
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
+        "/.well-known/fednow-fraud-report.json",
         "/.well-known/regulator.json",
         "/.well-known/legal.json",
         "/openapi.json",
@@ -4620,6 +4624,7 @@ def llms_txt():
         f"- CL7 AIS/ECDIS handoff Seal: {advertised_url()}/cl7-handoff",
         f"- Stair (occupied egress — we will not weld): {advertised_url()}/stair",
         f"- DSP Reject (§ 202.1104 14-day report): {advertised_url()}/dsp-reject",
+        f"- FedNow Fraud Report Pack (OC-8 App C): {advertised_url()}/fednow-fraud-report",
         f"- Weld (checkout): {advertised_url()}/operator",
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
@@ -4872,6 +4877,11 @@ def openapi_full():
                 "/dsp-reject": {
                     "get": {
                         "summary": "DOJ DSP § 202.1104 — rejected prohibited data-brokerage → 14-day NSD report?"
+                    }
+                },
+                "/fednow-fraud-report": {
+                    "get": {
+                        "summary": "FedNow OC-8 Appendix C — pack Reportable Transfer fraud report?"
                     }
                 },
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
