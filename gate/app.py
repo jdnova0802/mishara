@@ -376,6 +376,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/legal.json",
         "/.well-known/mcp.json",
         "/.well-known/ard.json",
+        "/.well-known/ai-catalog.json",
         "/.well-known/x402.json",
         "/.well-known/opportunities.json",
         "/.well-known/live.json",
@@ -1726,6 +1727,7 @@ def well_known_gate():
             "mcp": f"{advertised_url()}/mcp",
             "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
             "ard": f"{advertised_url()}/.well-known/ard.json",
+            "ai_catalog": f"{advertised_url()}/.well-known/ai-catalog.json",
             "x402": f"{advertised_url()}/.well-known/x402.json",
             "listings": f"{advertised_url()}/.well-known/listings.json",
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
@@ -1828,6 +1830,13 @@ def well_known_mcp():
 
 @app.route("/.well-known/ard.json")
 def well_known_ard():
+    """ARD v0.91 normative path — see listings.ard_manifest docstring."""
+    return jsonify(listings_mod.ard_manifest(advertised_url()))
+
+
+@app.route("/.well-known/ai-catalog.json")
+def well_known_ai_catalog():
+    """Predecessor / Google-announcement path — same body as ard.json."""
     return jsonify(listings_mod.ard_manifest(advertised_url()))
 
 
@@ -4597,6 +4606,7 @@ def sitemap():
         "/.well-known/dsp-reject.json",
         "/.well-known/regulator.json",
         "/.well-known/ard.json",
+        "/.well-known/ai-catalog.json",
         "/.well-known/mcp.json",
         "/.well-known/x402.json",
         "/.well-known/legal.json",
@@ -4644,7 +4654,8 @@ def llms_txt():
         f"- Never JSON: {advertised_url()}/.well-known/never.json",
         f"- Positive Clear JSON: {advertised_url()}/.well-known/positive-clear.json",
         f"- Regulator JSON: {advertised_url()}/.well-known/regulator.json",
-        f"- ARD (agent discovery): {advertised_url()}/.well-known/ard.json",
+        f"- ARD (agent discovery, v0.91): {advertised_url()}/.well-known/ard.json",
+        f"- AI Catalog (ARD predecessor path): {advertised_url()}/.well-known/ai-catalog.json",
         f"- MCP discovery: {advertised_url()}/.well-known/mcp.json",
         f"- x402 catalog: {advertised_url()}/.well-known/x402.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
@@ -4916,6 +4927,7 @@ def openapi_full():
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},
                 "/.well-known/ard.json": {"get": {"summary": "Agentic Resource Discovery (ARD v0.91) — MCP + x402 + prefinality"}},
+                "/.well-known/ai-catalog.json": {"get": {"summary": "ARD predecessor path (same body as ard.json; Google announcement name)"}},
                 "/.well-known/mcp.json": {"get": {"summary": "MCP tool discovery"}},
                 "/.well-known/x402.json": {"get": {"summary": "x402 resource catalog"}},
                 "/.well-known/listings.json": {"get": {"summary": "Date-all listing map (MCP, CF, x402, Guidewire, Duck Creek)"}},

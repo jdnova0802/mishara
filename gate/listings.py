@@ -314,10 +314,21 @@ def _ard_host(public_url: str) -> str:
 
 
 def ard_manifest(public_url: str) -> dict:
-    """Agentic Resource Discovery manifest — /.well-known/ard.json (ARD v0.91).
+    """Agentic Resource Discovery manifest (ARD v0.91).
 
-    Cite: https://agenticresourcediscovery.org/spec/ — publishers serve entries at
-    /.well-known/ard.json; registries crawl. No submission approval required to publish.
+    Normative well-known path (ards-project v0.91, 26 Aug 2026):
+      https://{domain}/.well-known/ard.json
+      Cite: https://agenticresourcediscovery.org/spec/ and
+      https://github.com/ards-project/ard-spec/blob/main/spec/ard.md §5.1
+      — consumer MUST fetch ard.json; predecessor ai-catalog.json is MAY.
+
+    Predecessor / launch announcement path (Google Developers Blog +
+    specification.website still document this):
+      https://{domain}/.well-known/ai-catalog.json
+      Cite: https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/
+
+    Gate serves the same body at both paths so Google-announcement crawlers and
+    v0.91-conformant consumers both find it. Neuronto fetches both.
     """
     host = _ard_host(public_url)
     base = public_url.rstrip("/")

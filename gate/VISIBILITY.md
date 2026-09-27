@@ -16,7 +16,8 @@ Be found by **agents, AI crawlers, and humans you send a URL to.**
 - `/sitemap.xml` — all 14 plates
 - `/robots.txt`
 - `/llms.txt` — AI answer engines (not classic SEO)
-- `/.well-known/ard.json` — Agentic Resource Discovery (MCP + x402 + prefinality entries)
+- `/.well-known/ard.json` — ARD v0.91 normative path (MCP + x402 + prefinality)
+- `/.well-known/ai-catalog.json` — same body; predecessor / Google-announcement path
 - JSON-LD SoftwareApplication on every page
 - Already: `/.well-known/gate.json` + `opportunities.json` + `mcp.json` + `x402.json`
 
