@@ -2868,6 +2868,14 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(len(body.get("entries") or []), 3)
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertTrue(str(gate.get("ard") or "").endswith("/.well-known/ard.json"))
+        self.assertTrue(str(gate.get("ai_catalog") or "").endswith("/.well-known/ai-catalog.json"))
+
+    def test_well_known_ai_catalog_aliases_ard(self):
+        """Predecessor path must return the same body as normative ard.json."""
+        ard = self.client.get("/.well-known/ard.json")
+        cat = self.client.get("/.well-known/ai-catalog.json")
+        self.assertEqual(cat.status_code, 200)
+        self.assertEqual(ard.get_json(), cat.get_json())
 
     def test_x402_catalog_lists_prefinality(self):
         cat = self.client.get("/.well-known/x402.json")
