@@ -295,6 +295,7 @@ def well_known_fanout(public_url: str) -> dict:
     base = (public_url or "").rstrip("/")
     resources = [
         f"{base}/v1/prefinality/evaluate",
+        f"{base}/api/x402/clear",
         f"{base}/api/x402/wire",
     ]
     out: dict[str, Any] = {"version": 1, "resources": resources}
@@ -304,7 +305,8 @@ def well_known_fanout(public_url: str) -> dict:
     out["free_resources"] = [f"{base}/audit", f"{base}/api/x402/audit"]
     out["instructions"] = (
         "Free: GET /audit?url=... or /api/x402/audit?url=... — probe any x402 endpoint. "
-        "Paid: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
+        "Paid Clear: POST /api/x402/clear — $97 USDC GO/NO_GO + signed receipt before agent spend. "
+        "Paid wire: GET /api/x402/wire?domain=...&email=... — $497 USDC deploy bundle. "
         "Prefinality: POST /v1/prefinality/evaluate or free demo /demo/prefinality/evaluate."
     )
     return out

@@ -371,12 +371,18 @@ def ard_manifest(public_url: str) -> dict:
                 "type": "application/json",
                 "url": f"{base}/.well-known/x402.json",
                 "description": (
-                    "Machine-payable Gate resources: free x402 audit, paid wire bundle, "
-                    "prefinality evaluate. Bazaar extensions for agent discovery."
+                    "Machine-payable Gate resources: free x402 audit, paid Clear ($97), "
+                    "paid wire ($497), prefinality evaluate. Bazaar extensions for agent discovery."
                 ),
                 "tags": ["x402", "payments", "agents", "bazaar", "usdc"],
-                "capabilities": ["x402_audit", "x402_wire", "prefinality_evaluate"],
+                "capabilities": [
+                    "x402_audit",
+                    "x402_clear",
+                    "x402_wire",
+                    "prefinality_evaluate",
+                ],
                 "representativeQueries": [
+                    "pay USDC for agent spend clearance before irreversible commit",
                     "pay USDC for pre-finality payment clearance",
                     "x402 discoverable API that refuses irreversible push",
                     "agent payable fuse hop before commit",
@@ -414,12 +420,13 @@ def x402_catalog(public_url: str) -> dict:
     prefinal = f"{public_url}/v1/prefinality/evaluate"
     audit_free = f"{public_url}/api/x402/audit"
     wire_paid = f"{public_url}/api/x402/wire"
+    clear_paid = f"{public_url}/api/x402/clear"
     return {
         "x402Version": 2,
         "name": "Gate API",
         "description": (
             "Pre-finality clearance before irreversible commit. x402 + RTP/FedNow rails. "
-            "Free endpoint audit. Paid wire bundle."
+            "Free endpoint audit. Paid Clear ($97) + wire bundle ($497)."
         ),
         "baseUrl": public_url,
         "payment": {
@@ -443,6 +450,43 @@ def x402_catalog(public_url: str) -> dict:
                                 "queryParams": {"url": "https://example.com/paid-endpoint"},
                             },
                             "output": {"type": "json", "example": {"grade": "B", "score": 75, "ok": True}},
+                        }
+                    }
+                },
+            },
+            {
+                "resource": clear_paid,
+                "type": "http",
+                "x402Version": 2,
+                "description": (
+                    "PAID $97 — agent spend Clear: GO/NO_GO + signed receipt before "
+                    "irreversible x402/RTP/Issuing commit"
+                ),
+                "extensions": {
+                    "bazaar": {
+                        "info": {
+                            "input": {
+                                "type": "http",
+                                "method": "POST",
+                                "bodyExample": {
+                                    "rail": "x402",
+                                    "transfer": {
+                                        "amount": "25.00",
+                                        "currency": "USDC",
+                                        "counterparty": "0x0000000000000000000000000000000000000001",
+                                    },
+                                    "mandate": {"agent_id": "buyer-01", "max_amount": "50.00"},
+                                },
+                            },
+                            "output": {
+                                "type": "json",
+                                "example": {
+                                    "paid": True,
+                                    "decision": "GO",
+                                    "receipt": "eyJ...",
+                                    "price_usd": "97.00",
+                                },
+                            },
                         }
                     }
                 },

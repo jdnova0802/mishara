@@ -255,6 +255,11 @@ except ImportError:
     import x402_audit as x402_audit_mod
 
 try:
+    from gate import x402_clear as x402_clear_mod
+except ImportError:
+    import x402_clear as x402_clear_mod
+
+try:
     from gate import issuing_mouth as issuing_mouth_mod
 except ImportError:
     import issuing_mouth as issuing_mouth_mod
@@ -3367,6 +3372,88 @@ def x402_wire_paid():
                     "type": "configuration_error",
                     "message": "Wire checkout requires GATE_X402_PAYTO on production.",
                     "install_fallback": f"{advertised_url()}/install",
+                }
+            }
+        ),
+        503,
+    )
+
+
+@app.route("/api/x402/clear", methods=["POST", "GET"])
+def x402_clear_paid():
+    """Paid agent-spend Clear — $97 USDC via x402. Instant signed GO/NO_GO receipt."""
+    body = request.get_json(silent=True) or {}
+    if request.method == "GET":
+        # Allow query-string transfer for crawlers that only GET
+        rail = (request.args.get("rail") or "x402").strip().lower()
+        amount = (request.args.get("amount") or "").strip()
+        currency = (request.args.get("currency") or "USDC").strip()
+        counterparty = (request.args.get("counterparty") or "").strip()
+        agent_id = (request.args.get("agent_id") or "").strip()
+        body = {
+            "rail": rail,
+            "transfer": {
+                "amount": amount or "1.00",
+                "currency": currency,
+                "counterparty": counterparty
+                or "0x0000000000000000000000000000000000000001",
+            },
+            "mandate": {"agent_id": agent_id or "agent-clear", "max_amount": amount or "1.00"},
+        }
+
+    resource = f"{advertised_url()}/api/x402/clear"
+    x402_pay = x402_challenge_mod.payment_verified(
+        request.headers,
+        amount_atomic_override=x402_clear_mod.clear_amount_atomic(),
+    )
+    if x402_pay.get("ok"):
+        cleared = x402_clear_mod.clear_receipt(body=body, public_url=advertised_url())
+        cleared["x402_verify"] = {
+            "verified": True,
+            "reason": x402_pay.get("reason"),
+        }
+        return jsonify(cleared), 200
+
+    if x402_challenge_mod.payto_configured():
+        resp = x402_challenge_mod.payment_required_response(
+            resource_url=resource,
+            description=(
+                "Agent spend Clear: GO/NO_GO + signed receipt before irreversible "
+                "x402/RTP/Issuing commit. $97 USDC. Instant JSON — no email."
+            ),
+            amount_atomic_override=x402_clear_mod.clear_amount_atomic(),
+            bazaar_method=request.method,
+        )
+        if x402_challenge_mod.payment_header_present(request.headers):
+            if isinstance(resp, tuple):
+                body_r = resp[0]
+                code = resp[1] if len(resp) > 1 else 402
+                headers = resp[2] if len(resp) > 2 else None
+            else:
+                body_r, code, headers = resp, 402, None
+            try:
+                payload = body_r.get_json(silent=True) if hasattr(body_r, "get_json") else None
+            except Exception:
+                payload = None
+            if isinstance(payload, dict):
+                payload["x402_verify"] = {
+                    "ok": False,
+                    "reason": x402_pay.get("reason"),
+                    "note": x402_pay.get("note"),
+                }
+                out = (jsonify(payload), code)
+                if headers:
+                    return out[0], out[1], headers
+                return out
+        return resp
+
+    return (
+        jsonify(
+            {
+                "error": {
+                    "type": "configuration_error",
+                    "message": "Clear checkout requires GATE_X402_PAYTO on production.",
+                    "price_usd": x402_clear_mod.clear_price_label(),
                 }
             }
         ),
