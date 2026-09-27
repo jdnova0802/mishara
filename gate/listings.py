@@ -378,11 +378,14 @@ def ard_manifest(public_url: str) -> dict:
                 "capabilities": [
                     "x402_audit",
                     "x402_clear",
+                    "x402_risk",
                     "x402_wire",
                     "prefinality_evaluate",
+                    "mine_os",
                 ],
                 "representativeQueries": [
                     "pay USDC for agent spend clearance before irreversible commit",
+                    "health factor liquidation risk passport for DeFi position",
                     "pay USDC for pre-finality payment clearance",
                     "x402 discoverable API that refuses irreversible push",
                     "agent payable fuse hop before commit",
@@ -421,12 +424,13 @@ def x402_catalog(public_url: str) -> dict:
     audit_free = f"{public_url}/api/x402/audit"
     wire_paid = f"{public_url}/api/x402/wire"
     clear_paid = f"{public_url}/api/x402/clear"
+    risk_paid = f"{public_url}/api/x402/risk"
     return {
         "x402Version": 2,
         "name": "Gate API",
         "description": (
             "Pre-finality clearance before irreversible commit. x402 + RTP/FedNow rails. "
-            "Free endpoint audit. Paid Clear ($97) + wire bundle ($497)."
+            "Free endpoint audit. Paid Clear ($97) + risk passport ($0.05) + wire ($497)."
         ),
         "baseUrl": public_url,
         "payment": {
@@ -485,6 +489,38 @@ def x402_catalog(public_url: str) -> dict:
                                     "decision": "GO",
                                     "receipt": "eyJ...",
                                     "price_usd": "97.00",
+                                },
+                            },
+                        }
+                    }
+                },
+            },
+            {
+                "resource": risk_paid,
+                "type": "http",
+                "x402Version": 2,
+                "description": (
+                    "PAID $0.05 — HF / liquidation-candidate risk passport "
+                    "(ore detector for DeFi liquidation mine)"
+                ),
+                "extensions": {
+                    "bazaar": {
+                        "info": {
+                            "input": {
+                                "type": "http",
+                                "method": "POST",
+                                "bodyExample": {
+                                    "collateral_usd": 10000,
+                                    "debt_usd": 9000,
+                                    "liquidation_threshold": 0.825,
+                                },
+                            },
+                            "output": {
+                                "type": "json",
+                                "example": {
+                                    "health_factor": 0.916,
+                                    "status": "LIQUIDATABLE",
+                                    "price_usd": "0.05",
                                 },
                             },
                         }
