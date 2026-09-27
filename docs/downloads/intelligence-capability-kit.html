@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Intelligence Capability Kit — Full Tiers</title>
+<style>
+@page {
+  size: Letter;
+  margin: 0.75in;
+  @bottom-center {
+    content: counter(page);
+    font-size: 9pt;
+    color: #666;
+  }
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+h1 { font-size: 22pt; margin: 0 0 0.4em; border-bottom: 2px solid #222; padding-bottom: 0.25em; }
+h2 { font-size: 14pt; margin: 1.4em 0 0.45em; border-bottom: 1px solid #ccc; padding-bottom: 0.15em; page-break-after: avoid; }
+h3 { font-size: 12pt; margin: 1.1em 0 0.35em; page-break-after: avoid; }
+h4 { font-size: 11pt; margin: 0.9em 0 0.3em; page-break-after: avoid; }
+p, li { orphans: 3; widows: 3; }
+ul, ol { padding-left: 1.3em; }
+li { margin: 0.15em 0; }
+hr { border: none; border-top: 1px solid #ddd; margin: 1.2em 0; }
+code, pre {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 8.5pt;
+}
+code {
+  background: #f4f4f4;
+  padding: 0.05em 0.25em;
+  border-radius: 3px;
+}
+pre {
+  background: #f6f6f6;
+  border: 1px solid #e0e0e0;
+  padding: 0.7em 0.8em;
+  white-space: pre-wrap;
+  word-break: break-word;
+  page-break-inside: avoid;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.6em 0 1em;
+  font-size: 9.5pt;
+  page-break-inside: avoid;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.35em 0.45em;
+  vertical-align: top;
+  text-align: left;
+}
+th { background: #f0f0f0; font-weight: 600; }
+blockquote {
+  margin: 0.6em 0;
+  padding: 0.3em 0.8em;
+  border-left: 3px solid #888;
+  color: #333;
+}
+strong { font-weight: 600; }
+a { color: #1a1a1a; text-decoration: none; }
+.meta {
+  color: #555;
+  font-size: 9.5pt;
+  margin-bottom: 1.2em;
+}
+</style>
+</head>
+<body>
+<h1 id="intelligence-capability-kit-full-tiers">Intelligence Capability Kit — Full Tiers</h1>
+<p>Version 1.0 — August 2026<br>
+Companions: <em>Intelligence Capability Tree</em> · <em>OSINT Capability Ladder</em><br>
+Layer: <strong>volatile</strong> (gear, apps, vendors, prices). Re-check quarterly.<br>
+Footings: <strong>A</strong> open/lawful purchase · <strong>B</strong> written authorization · <strong>C</strong> regulated intercept · <strong>D</strong> human contact<br>
+Default in this kit: <strong>Footing A + no-touch.</strong> Footing B items are marked. C/D are not stocked here.</p>
+<hr>
+<h2 id="0-how-to-read-this">0. How to read this</h2>
+<p>Each tier is a <strong>complete kit snapshot</strong>: what you should physically have, what runs on the phone, what runs on the research machine, which accounts exist, and what the desk/network looks like.</p>
+<p><strong>Inheritance rule:</strong> Tier <em>N</em> includes everything in Tier <em>N−1</em> unless replaced. Lists below are additive.</p>
+<p><strong>Branch rule:</strong> The core kit is cross-branch (enablers + OSINT spine). Branch add-ons appear after the core tiers. Do not buy SIGINT/HUMINT kits from a blog post — those need their own counsel-backed docs.</p>
+<p><strong>Cost bands</strong> are indicative US retail as of Aug 2026 mindset; confirm on vendor pages before committing.</p>
+<hr>
+<h2 id="tier-0-ad-hoc">Tier 0 — Ad hoc</h2>
+<p><strong>Capability:</strong> Answer one question once, by hand.<br>
+<strong>Ceiling:</strong> Not repeatable, not preserved, not defensible.<br>
+<strong>Move up when:</strong> Same shape of question twice, or the answer might matter to someone else.</p>
+<h3 id="devices">Devices</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Spec / note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whatever phone and laptop you already own</td>
+<td>Personal machine — acceptable only at Tier 0</td>
+</tr>
+<tr>
+<td>No dedicated research hardware</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phone-personal-accept-the-risk">Phone (personal — accept the risk)</h3>
+<table>
+<thead>
+<tr>
+<th>App / function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock browser or Firefox Focus</td>
+<td>Quick lookups</td>
+</tr>
+<tr>
+<td>Maps (Google Maps / Apple Maps / Organic Maps)</td>
+<td>Rough geo</td>
+</tr>
+<tr>
+<td>Camera + Files</td>
+<td>Screenshots you will probably lose</td>
+</tr>
+<tr>
+<td>Authenticator you already use</td>
+<td>Only if you must; prefer not mixing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Do not:</strong> install a pile of “OSINT apps,” create research accounts on your daily phone, or SMS-verify anything investigative to your real number.</p>
+<h3 id="laptop-desktop">Laptop / desktop</h3>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser</td>
+<td>Search, whois web UIs, archive.today, Wayback</td>
+</tr>
+<tr>
+<td>Notes app or plain text</td>
+<td>Scratch — not a case system</td>
+</tr>
+<tr>
+<td>PDF reader</td>
+<td>Reports you found</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accounts">Accounts</h3>
+<ul>
+<li>Personal Google/Microsoft/Apple (contamination accepted at Tier 0 only)</li>
+<li>Optional: free Shodan/Censys/Netlas account for curiosity queries</li>
+</ul>
+<h3 id="setup-look">Setup look</h3>
+<p>One browser window, one notes file, no VPN discipline, no evidence hash. Fine for curiosity. Useless for anything you’d stake a claim on.</p>
+<h3 id="explicitly-not-in-tier-0">Explicitly not in Tier 0</h3>
+<p>Dedicated machine, Hunchly, Maltego Graph workflows, burner SIM, VPS, proxies, case vault, active scanners against third parties.</p>
+<hr>
+<h2 id="tier-1-foundation">Tier 1 — Foundation</h2>
+<p><strong>Capability:</strong> Structured, repeatable, compartmented investigation on a single research machine. Every major selector type has a starting playbook.<br>
+<strong>Cost:</strong> roughly $0–100/mo + one-time hardware.<br>
+<strong>Ceiling:</strong> Manual; weak persistence between cases; thin chain of custody.<br>
+<strong>Move up when:</strong> Someone asks “how do you know that?” and you lack a timestamped answer.</p>
+<h3 id="devices_1">Devices</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Spec / note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dedicated research laptop or desktop</strong></td>
+<td>Not your personal daily driver. Full-disk encryption on (BitLocker / FileVault / LUKS).</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td><strong>32 GB minimum</strong> if you run VMs seriously; <strong>64 GB</strong> comfortable</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Fast NVMe; room for VM snapshots (1 TB+ realistic)</td>
+</tr>
+<tr>
+<td>Optional: cheap second USB NIC or travel router</td>
+<td>Beginnings of traffic separation</td>
+</tr>
+<tr>
+<td>Optional: hardware security key</td>
+<td>YubiKey-class for research account MFA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phone-kit-research-physically-separate-if-you-can">Phone kit (research — physically separate if you can)</h3>
+<p>Prefer a <strong>dedicated cheap Android</strong> (GrapheneOS on Pixel if you can swing it; stock Android in a work profile if not) over loading research onto your daily phone.</p>
+<table>
+<thead>
+<tr>
+<th>App / function</th>
+<th>Purpose</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Firefox</strong> + uBlock Origin</td>
+<td>Compartmented browsing</td>
+<td>Separate profile; no Google login</td>
+</tr>
+<tr>
+<td><strong>Organic Maps</strong> or <strong>OsmAnd</strong></td>
+<td>Offline/map work without wrapping every pin in a Google account</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Signal</strong> (research identity only)</td>
+<td>Rare; only if a workflow truly needs it</td>
+<td>Never link to personal contacts</td>
+</tr>
+<tr>
+<td><strong>2FAS / Aegis</strong> (or similar FOSS TOTP)</td>
+<td>MFA for research accounts</td>
+<td>Not your personal Authy backup</td>
+</tr>
+<tr>
+<td><strong>Simple Gallery / Files</strong></td>
+<td>Hold captures offline</td>
+<td>Export to encrypted vault ASAP</td>
+</tr>
+<tr>
+<td><strong>VPN client</strong> (Mullvad / IVPN / Proton — pick one paid)</td>
+<td>Research egress</td>
+<td>Always on for research phone</td>
+</tr>
+<tr>
+<td>SMS: <strong>burner SIM or app number</strong> (TextNow / Hushed / physical prepaid)</td>
+<td>Verification</td>
+<td>Never your real number or iMessage</td>
+</tr>
+<tr>
+<td><strong>Optional:</strong> Camo/secondary cam unused</td>
+<td>Do not give biometrics to research accounts</td>
+<td>FaceID/TouchID off for research IDs</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phone OPSEC rules at Tier 1</strong>
+- No personal Apple/Google ID on the research phone<br>
+- No contacts sync, no fingerprint/face enrolled for research apps<br>
+- No payment cards that touch your real identity<br>
+- Screenshots are not evidence yet — they become evidence when hashed/stored on the research machine</p>
+<h3 id="research-machine-os-and-environment">Research machine — OS and environment</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host OS with FDE</td>
+<td>Debian/Ubuntu/Fedora/macOS/Windows hardened baseline</td>
+</tr>
+<tr>
+<td><strong>Trace Labs OSINT VM</strong> (current default bundle) <strong>or</strong> roll-your-own Debian</td>
+<td>Investigation environment</td>
+</tr>
+<tr>
+<td>Optional: <strong>Tsurugi</strong> or <strong>CSI Linux</strong></td>
+<td>Heavier analysis / forensics-oriented</td>
+</tr>
+<tr>
+<td><strong>VirtualBox / VMware / KVM / UTM</strong></td>
+<td>Snapshot discipline</td>
+</tr>
+<tr>
+<td>Firefox Multi-Account Containers <strong>or</strong> separate Chromium/Brave profiles</td>
+<td>Browser compartmentation</td>
+</tr>
+<tr>
+<td>Host firewall; research VM behind VPN/gateway — not naked home IP</td>
+<td>Attribution basics</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dead — do not follow guides that recommend:</strong> Buscador (discontinued). Treat the rest of that guide as stale.</p>
+<h3 id="core-software-tier-1-spine-footing-a">Core software (Tier 1 spine — Footing A)</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Have these</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Notes / case scratch</td>
+<td><strong>Obsidian</strong> (or Logseq) — one vault per case or strict folder hygiene</td>
+</tr>
+<tr>
+<td>Archive</td>
+<td>Browser bookmarks to <strong>Wayback</strong>, <strong>archive.today</strong>; local save-as when needed</td>
+</tr>
+<tr>
+<td>Infra recon (passive-first)</td>
+<td><strong>subfinder</strong>, <strong>httpx</strong>, <strong>theHarvester</strong>, <strong>Amass</strong> or Sublist3r, <strong>crt.sh</strong> usage, WHOIS/RDAP, dig/drill</td>
+</tr>
+<tr>
+<td>Still useful</td>
+<td><strong>Nmap</strong> — know when it is active; do not point it at third parties without Footing B</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td><strong>ExifTool</strong></td>
+</tr>
+<tr>
+<td>Geo / verify</td>
+<td>Browser + Bellingcat Online Investigation Toolkit index; <strong>InVID / WeVerify</strong> browser plugin</td>
+</tr>
+<tr>
+<td>On-chain (light)</td>
+<td>Browser: <strong>Breadcrumbs</strong>, <strong>MetaSleuth</strong>, <strong>Arkham</strong> free, standard explorers</td>
+</tr>
+<tr>
+<td>Link analysis (light)</td>
+<td><strong>Maltego CE</strong> and/or <strong>SpiderFoot</strong> (self-hosted or local)</td>
+</tr>
+<tr>
+<td>Password manager</td>
+<td><strong>Bitwarden</strong> / KeePassXC — research vault separate from personal</td>
+</tr>
+<tr>
+<td>VPN</td>
+<td>Same provider as phone; kill switch on</td>
+</tr>
+</tbody>
+</table>
+<p><strong>ProjectDiscovery note:</strong> <code>subfinder</code> / passive use = kit OK. <strong><code>naabu</code> / <code>nuclei</code> against third parties = Footing B only.</strong> Keep them installed if you do authorized ASM; do not treat them as default OSINT.</p>
+<h3 id="accounts-to-open-at-tier-1">Accounts to open at Tier 1</h3>
+<table>
+<thead>
+<tr>
+<th>Account</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Free tiers: Shodan, Censys, ZoomEye, FOFA, Netlas, Criminal IP</td>
+<td>Each covers gaps; free is demo-grade</td>
+</tr>
+<tr>
+<td>Have I Been Pwned (or equivalent API)</td>
+<td>Exposure checks — query, don’t use passwords</td>
+</tr>
+<tr>
+<td>GitHub (research)</td>
+<td>Clone tools; not your personal identity if avoidable</td>
+</tr>
+<tr>
+<td>Dedicated research email (Proton / Tuta / separate Google under research OPSEC)</td>
+<td>Sock/account recovery without personal crossover</td>
+</tr>
+<tr>
+<td>archive.today / similar — no login required</td>
+<td>Cite-after-archive habit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>If you spend one dollar on scan data:</strong> Shodan’s one-time membership is still usually the best first paid chip (confirm live pricing).</p>
+<h3 id="network-desk-look-at-tier-1">Network / desk look at Tier 1</h3>
+<pre><code>[Home ISP]
+    └── optional travel router / guest VLAN
+            └── Research laptop (FDE)
+                    ├── Host VPN
+                    └── TL OSINT VM (snapshots)
+                            ├── Firefox containers (case A / case B / sock)
+                            └── Tool CLI + Obsidian vault (encrypted disk)
+[Research phone + burner SIM] —— VPN —— never shares Apple/Google ID with daily phone
+[Daily phone / daily laptop] —— air gap in habits; no research logins
+</code></pre>
+<h3 id="playbook-stubs-you-must-write-even-if-short">Playbook stubs you must write (even if short)</h3>
+<p>Domain · IP · email · username · phone · image · wallet — one page each: first five moves, stop rule, what to archive.</p>
+<h3 id="explicitly-not-required-yet">Explicitly not required yet</h3>
+<p>Hunchly paid, second attribution machine, residential proxy pool, always-on collectors, MISP/OpenCTI, commercial SOCMINT suites, team QA.</p>
+<hr>
+<h2 id="tier-2-defensible-practitioner">Tier 2 — Defensible practitioner</h2>
+<p><strong>Capability:</strong> Evidence discipline. Timestamped hashed capture; case system; source log; confidence-graded reports; graphs bigger than working memory.<br>
+<strong>Cost:</strong> roughly $200–1,000/mo all-in for a serious solo.<br>
+<strong>Ceiling:</strong> Point-in-time; weak “when did this change?”; each case still starts cold.<br>
+<strong>Move up when:</strong> The product shifts from investigation to monitoring.</p>
+<h3 id="devices-add">Devices (add)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Spec / note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Second physical machine</strong> (or strictly isolated mini-PC)</td>
+<td>Attribution-sensitive browsing; VM isolation ≠ fingerprint isolation</td>
+</tr>
+<tr>
+<td><strong>Encrypted external SSD</strong></td>
+<td>Evidence retention with a <em>written</em> retention period</td>
+</tr>
+<tr>
+<td>Dedicated burner phone <strong>with physical prepaid SIM</strong></td>
+<td>Prefer physical over app-numbers for longevity</td>
+</tr>
+<tr>
+<td>Hardware keys (2+)</td>
+<td>Research admin + evidence vault MFA</td>
+</tr>
+<tr>
+<td>Optional: Faraday pouch</td>
+<td>Phone storage when OPSEC moments matter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="phone-kit-add">Phone kit (add)</h3>
+<table>
+<thead>
+<tr>
+<th>App / function</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate research APKs only via F-Droid / Aurora where sane</td>
+<td>Reduce Play Services tether</td>
+</tr>
+<tr>
+<td>Secure camera app that does not auto-cloud</td>
+<td>Field photos of documents/scenes you are allowed to shoot</td>
+</tr>
+<tr>
+<td>Offline password vault client</td>
+<td>Bitwarden/KeePass sync to research vault only</td>
+</tr>
+<tr>
+<td>Optional: session-isolation browsers (Falcon / Mulvad browser if available on your platform)</td>
+<td>Extra compartment</td>
+</tr>
+</tbody>
+</table>
+<p>Still <strong>no</strong> personal banking apps, personal social apps, or real-name SIM on this device.</p>
+<h3 id="research-software-add-highest-leverage-first">Research software (add — highest leverage first)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Why it earns Tier 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hunchly</strong> (or equivalent capture-as-you-browse with hashing)</td>
+<td>Single highest-leverage purchase — browsing becomes evidence</td>
+</tr>
+<tr>
+<td>Maltego <strong>paid</strong> transforms if CE is choking you</td>
+<td>Interactive link analysis at real volume</td>
+</tr>
+<tr>
+<td>SpiderFoot automation sweeps</td>
+<td>Breadth-first collection into a DB</td>
+</tr>
+<tr>
+<td><strong>reNgine</strong> or Faraday</td>
+<td>Consolidation UI / aggregation</td>
+</tr>
+<tr>
+<td>Local WARC tooling (wget/wget2 WARC, browser export discipline)</td>
+<td>Archive you control</td>
+</tr>
+<tr>
+<td>Report template</td>
+<td>Confidence grading (Admiralty or equivalent) baked in</td>
+</tr>
+<tr>
+<td>Optional: Multilogin / GoLogin / AdsPower</td>
+<td>Fingerprint-isolated browser profiles for research identities — still prefer logged-out; no engagement</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sock-puppet-research-identity-stack-minimum-viable-all-required-together">Sock-puppet / research-identity stack (minimum viable — all required together)</h3>
+<p>Only for identities you need; default remains logged-out Footing A.</p>
+<ol>
+<li>Dedicated browser profile or antidetect profile  </li>
+<li>Dedicated VPN <strong>or</strong> residential proxy egress (different geo if the legend needs it)  </li>
+<li>Dedicated email  </li>
+<li>Dedicated phone number  </li>
+<li>Distinct fingerprint (UA, resolution, TZ, language)  </li>
+<li>No biometric / payment crossover  </li>
+<li><strong>Age the account</strong> before it matters — fresh accounts burn fast  </li>
+</ol>
+<p><strong>Legal tension:</strong> fake accounts + accepted ToS sank hiQ even when CFAA scraping held. Prefer logged-out. If you must log in, treat it as regulated tradecraft, not a default toggle.</p>
+<h3 id="accounts-data-add">Accounts / data (add)</h3>
+<table>
+<thead>
+<tr>
+<th>Spend</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shodan membership / Monitor if you need alerting lite</td>
+<td>Scan data that isn’t demo-grade</td>
+</tr>
+<tr>
+<td>Censys starter if cert-heavy workflows dominate</td>
+<td>Precision over bulk</td>
+</tr>
+<tr>
+<td>Netlas cheap paid if budget is tight</td>
+<td>Fresh scan data</td>
+</tr>
+<tr>
+<td>VirusTotal / urlscan.io API keys as needed</td>
+<td>File/URL pivots</td>
+</tr>
+<tr>
+<td>Sanctions / company-data credits where your CORPINT lane needs them</td>
+<td>Jurisdiction-dependent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="evidence-case-look-at-tier-2">Evidence &amp; case look at Tier 2</h3>
+<pre><code>CaseID/
+  00_question_and_done.md      # stop rule
+  01_source_log.csv            # URL, UTC time, hash, tool, note
+  02_entities/                 # one note per entity
+  03_captures/                 # Hunchly export + WARC + screenshots
+  04_graphs/                   # Maltego / exports
+  05_report.md                 # graded confidence
+Evidence SSD ← hashed exports; retention clock started
+</code></pre>
+<h3 id="network-desk-look-at-tier-2">Network / desk look at Tier 2</h3>
+<pre><code>[ISP] → router with guest/research VLAN
+          ├── Research primary (tools, Obsidian, Hunchly, VMs)
+          ├── Attribution box (browser-only, separate fingerprint world)
+          ├── Evidence SSD (plugged in only when sealing)
+          └── Research phone + prepaid SIM
+Proxies/VPN egress documented per case in source log
+Daily life devices never join the research VLAN
+</code></pre>
+<h3 id="explicitly-not-required-yet_1">Explicitly not required yet</h3>
+<p>Always-on collectors, multi-VPS fleet, TIP (MISP/OpenCTI), commercial SOCMINT platform seats, second analyst review as a role.</p>
+<hr>
+<h2 id="tier-3-continuous-collection">Tier 3 — Continuous collection</h2>
+<p><strong>Capability:</strong> Standing pipelines; owned collection infrastructure; persistent datastore with history; alerting on change. Longitudinal archive ≠ investigation service.<br>
+<strong>Cost:</strong> roughly $1,000–10,000/mo — increasingly infra, not licenses.<br>
+<strong>Ceiling:</strong> Solo breaks. Pipelines need care whether or not a client is active. Gaps cannot be backfilled.<br>
+<strong>Move up when:</strong> Maintenance &gt; ~1 day/week, or you-as-SPOF is unacceptable.</p>
+<h3 id="devices-infra-add">Devices / infra (add)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Spec / note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Always-on collection hosts</strong></td>
+<td>Small <strong>VPS fleet</strong> preferred over home lab (home IP = attribution + uptime tax)</td>
+</tr>
+<tr>
+<td>Object storage or dedicated backup box</td>
+<td>Archive durability; versioned</td>
+</tr>
+<tr>
+<td>Monitoring for collectors</td>
+<td>Uptime + “last successful run” alerts to you</td>
+</tr>
+<tr>
+<td>Residential / mobile proxy pool (paid)</td>
+<td>When targets or platforms demand non-DC egress — document legality per use</td>
+</tr>
+<tr>
+<td>Optional: colocation / mini-PC in a site you control</td>
+<td>Only if you understand the attribution story</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-platforms-add">Software / platforms (add)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schedulers</td>
+<td>cron / systemd timers / GitHub Actions self-hosted / Prefect-class — pick one and standardize</td>
+</tr>
+<tr>
+<td>Datastore</td>
+<td>Postgres + object store, or equivalent; <strong>history tables</strong>, not overwrite</td>
+</tr>
+<tr>
+<td>Alerting</td>
+<td>Change detect on domains, certs, selected social surfaces, watchlists</td>
+</tr>
+<tr>
+<td>Passive DNS / CT monitoring</td>
+<td>Continuous, not one-shot</td>
+</tr>
+<tr>
+<td>Optional: OpenCTI or MISP</td>
+<td>Only if you will spend 1–4 h/week keeping it honest; else wire feeds into what you already run</td>
+</tr>
+<tr>
+<td>Optional: commercial SOCMINT (ShadowDragon, Social Links, Skopenow, Babel Street, …)</td>
+<td>Expensive; vendor dependency; Tier 3+ budget</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cti-feed-kit-small-shop">CTI feed kit (small shop)</h3>
+<p>Wire <strong>2–3</strong> high-signal free feeds before buying a TIP: abuse.ch (URLhaus, MalwareBazaar, ThreatFox), CISA KEV; then OTX/Spamhaus/CIRCL as needed.</p>
+<h3 id="phone-laptop-changes-at-tier-3">Phone / laptop changes at Tier 3</h3>
+<ul>
+<li>Phone stays a field/2FA/capture device — <strong>collectors do not run on phones</strong>  </li>
+<li>Primary laptop becomes an <strong>admin terminal</strong> for the fleet more than a collector  </li>
+<li>MFA hardware keys everywhere; no SMS MFA on infra</li>
+</ul>
+<h3 id="desk-architecture-look-at-tier-3">Desk / architecture look at Tier 3</h3>
+<pre><code>                    ┌─ Collector VPS (certs/DNS/watchlists)
+[Proxy/VPN mesh] ───┼─ Collector VPS (SOCMINT logged-out scrapers you can defend)
+                    └─ Collector VPS (feed ingest)
+                              ↓
+                     Datastore + object archive
+                              ↓
+                     Alert → Analyst laptop (Tier 2 evidence workflow)
+                              ↓
+                     Case reports (still human-sealed)
+</code></pre>
+<h3 id="ops-habits-that-are-now-part-of-the-kit">Ops habits that are now part of the kit</h3>
+<ul>
+<li>Runbook per collector; who restarts it; how to detect silent failure  </li>
+<li>Backup restore tested quarterly  </li>
+<li>Written retention/deletion on the archive  </li>
+<li>Footing tag on every collector (A vs B)</li>
+</ul>
+<h3 id="explicitly-not-required-yet_2">Explicitly not required yet</h3>
+<p>Named QA role, accreditation, enterprise Chainalysis/TRM seats, 24/7 shift roster.</p>
+<hr>
+<h2 id="tier-4-team">Tier 4 — Team</h2>
+<p><strong>Capability:</strong> Parallel casework, specialization, review. Governance becomes the product.<br>
+<strong>Cost:</strong> Headcount-dominated; tooling is a rounding error.<br>
+<strong>What actually changes:</strong> Access control, audit logs, retention, legal review, written tradecraft standard, second reader before anything leaves.</p>
+<h3 id="devices-identity-add">Devices / identity (add)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Spec / note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard analyst build image</td>
+<td>Same VM/golden image for every hire</td>
+</tr>
+<tr>
+<td>Central image management</td>
+<td>Packer/Ansible/MDM — reproducible environments</td>
+</tr>
+<tr>
+<td>Hardware token MFA on <strong>everything</strong></td>
+<td>No exceptions for “just Slack”</td>
+</tr>
+<tr>
+<td>Separate roles’ access</td>
+<td>Collectors ≠ analysts ≠ admin break-glass</td>
+</tr>
+<tr>
+<td>Shared evidence locker with ACLs</td>
+<td>Not a shared Google Drive free-for-all</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apps-collaboration-add">Apps / collaboration (add)</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Case management that supports roles</td>
+<td>Even if it’s still Obsidian + git + review PR discipline at small scale</td>
+</tr>
+<tr>
+<td>Ticketing</td>
+<td>Jira/Linear/etc. — engagement → question → done</td>
+</tr>
+<tr>
+<td>Comms</td>
+<td>Tiered: open ops chat vs case-restricted channels</td>
+</tr>
+<tr>
+<td>Secrets manager</td>
+<td>Team vault; no secrets in Discord</td>
+</tr>
+<tr>
+<td>Code/config repo for collectors</td>
+<td>Review required to change a scraper</td>
+</tr>
+</tbody>
+</table>
+<h3 id="process-artifacts-that-count-as-kit">Process artifacts that count as “kit”</h3>
+<ul>
+<li>Written tradecraft manual (the doc becomes a manual, not notes)  </li>
+<li>Confidence standard + report template enforced  </li>
+<li>Second-reader checklist  </li>
+<li>Named counsel / legal escalation path  </li>
+<li>Engagement acceptance &amp; decline criteria  </li>
+<li>Onboarding kit clone of Tier 2 desk in under one week  </li>
+</ul>
+<h3 id="desk-look-at-tier-4">Desk look at Tier 4</h3>
+<pre><code>Analyst A ─┐
+Analyst B ─┼─ SSO / MDM / golden image ─ Case ACLs ─ Evidence locker
+Collect Eng─┘              │
+                           ├─ QA / review gate
+                           └─ Legal on-call path
+Infra runs Tier 3 fleet with on-call rotation (even if small)
+</code></pre>
+<hr>
+<h2 id="tier-5-institutional">Tier 5 — Institutional</h2>
+<p><strong>Capability:</strong> Platform-class tooling, licensed commercial feeds, formal standards, accreditation, work that requires them (gov, regulated finance, litigation support).<br>
+<strong>Reality:</strong> Procurement and compliance posture as much as tech. Many enterprise forensic/intel platforms <strong>are not sold to individuals.</strong></p>
+<h3 id="what-appears-in-the-kit-examples-vendor-landscape-moves">What appears in the kit (examples — vendor landscape moves)</h3>
+<table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>Institutional-class examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On-chain</td>
+<td>Chainalysis, TRM Labs, Elliptic, Crystal</td>
+</tr>
+<tr>
+<td>SOCMINT / fused intel</td>
+<td>Babel Street, ShadowDragon enterprise, equivalent</td>
+</tr>
+<tr>
+<td>Forensic platforms</td>
+<td>EnCase/Magnet/Cellebrite-class where DFIR is in-scope (<strong>Footing B / lawful possession</strong>)</td>
+</tr>
+<tr>
+<td>TIP / fusion</td>
+<td>Enterprise OpenCTI/MISP deployments, commercial TIPs</td>
+</tr>
+<tr>
+<td>Accreditation</td>
+<td>GIAC/GOSI as ticket items; org policies, audits, clearances as required</td>
+</tr>
+<tr>
+<td>Facilities</td>
+<td>Badge access, visitor rules, classified/controlled handling if applicable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-setup-looks-like">What “setup looks like”</h3>
+<p>Less like a hacker desk, more like: controlled endpoints, DLP, audit, vendor contracts, DPIA/legitimate-interest records, retention legal holds, insurer questionnaires answered with evidence.</p>
+<hr>
+<h2 id="branch-add-ons-bolt-onto-the-core-tier">Branch add-ons (bolt onto the core tier)</h2>
+<p>Buy these only when that branch is in your active build order (see Capability Tree §8).</p>
+<h3 id="osint-infra-a">OSINT / infra (A)</h3>
+<p>Already in core Tier 1–2. Depth: OSINT Capability Ladder §4.</p>
+<h3 id="socmint-a-default-d-if-you-engage">SOCMINT (A default; D if you engage)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Logged-out browser discipline; archive-before-cite; toolkit bookmarks</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Research identities + antidetect <strong>if required</strong>; Hunchly on social captures</td>
+</tr>
+<tr>
+<td>3+</td>
+<td>Commercial SOCMINT platform or defended custom collectors</td>
+</tr>
+</tbody>
+</table>
+<h3 id="geoint-imagery-a">GEOINT / imagery (A)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>InVID/WeVerify, ExifTool, Google Earth Pro, Sentinel Hub / OSM, Bellingcat toolkit</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Offline map packs on research phone; structured geolocation notes (cues → candidate → confirm)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Watchlists on areas/sensors you actually revisit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="finint-on-chain-a-public-layer">FININT / on-chain (A public layer)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Explorers + Breadcrumbs/MetaSleuth/Arkham free; label timestamp discipline</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Maltego crypto entities; graph exports into case file</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Chainalysis/TRM/Elliptic-class</td>
+</tr>
+</tbody>
+</table>
+<h3 id="corpint-a">CORPINT (A)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Register bookmarks per jurisdiction you touch; OpenCorporates-class; PDF account dumps into vault</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Paid credits for stubborn jurisdictions; officer graph in Maltego/Obsidian</td>
+</tr>
+</tbody>
+</table>
+<h3 id="breach-exposure-a-query-only">Breach exposure (A — query only)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>HIBP / reputable broker queries</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Written rule: never attempt login with recovered credentials</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cti-cybint-passive-a">CTI / CYBINT passive (A)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1–2</td>
+<td>abuse.ch + KEV + VT/urlscan as needed</td>
+</tr>
+<tr>
+<td>3</td>
+<td>TIP only with a maintainer</td>
+</tr>
+</tbody>
+</table>
+<h3 id="asm-authorized-recon-footing-b">ASM / authorized recon (<strong>Footing B</strong>)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-kit</td>
+<td>Written RoE + scope file; <code>naabu</code>/<code>nuclei</code>/Burp/etc. allowed <strong>only</strong> in-scope; separate “authorized” browser/VM profile; engagement letter in the case root</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dfir-footing-b-lawful-possession">DFIR (<strong>Footing B</strong> — lawful possession)</h3>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Add</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B-kit</td>
+<td>Write blockers, imaging tools, volatility order cheatsheet, evidence bags/labels, isolated analysis VM (Tsurugi-class), counsel on seizure/privacy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sigint-humint-techint-intercept-contact">SIGINT / HUMINT / TECHINT intercept &amp; contact</h3>
+<p><strong>Not stocked in this kit.</strong> Different legal footing (C/D). No phone-app list here on purpose.</p>
+<hr>
+<h2 id="one-page-shopping-lists">One-page shopping lists</h2>
+<h3 id="buy-set-up-for-tier-1">Buy / set up for Tier 1</h3>
+<ol>
+<li>Dedicated research computer + FDE + 32–64 GB RAM + NVMe  </li>
+<li>Trace Labs OSINT VM (or roll-your-own) + snapshot habit  </li>
+<li>VPN (paid) + Obsidian + Bitwarden/KeePassXC research vault  </li>
+<li>Firefox containers / separate profiles  </li>
+<li>ExifTool, InVID, passive CLI recon tools  </li>
+<li>Research email + free scan-platform accounts  </li>
+<li>Optional: cheap research phone + prepaid SIM + TOTP app  </li>
+</ol>
+<h3 id="upgrade-package-for-tier-2">Upgrade package for Tier 2</h3>
+<ol>
+<li>Hunchly  </li>
+<li>Encrypted evidence SSD + retention policy written  </li>
+<li>Second attribution machine or strict antidetect profiles  </li>
+<li>Physical burner SIM discipline  </li>
+<li>Case folder template + source log + graded report template  </li>
+<li>First paid scan membership (often Shodan)  </li>
+<li>Maltego/SpiderFoot workflow you can repeat  </li>
+</ol>
+<h3 id="upgrade-package-for-tier-3">Upgrade package for Tier 3</h3>
+<ol>
+<li>VPS fleet + object storage + scheduler  </li>
+<li>Change-alerting on your real watchlists  </li>
+<li>Proxy strategy documented  </li>
+<li>Backup/restore drill  </li>
+<li>Feed ingest; TIP only if staffed  </li>
+</ol>
+<h3 id="upgrade-package-for-tier-4">Upgrade package for Tier 4</h3>
+<ol>
+<li>Golden analyst image + MDM/SSO  </li>
+<li>ACL’d evidence locker + audit logging  </li>
+<li>Second-reader gate + tradecraft manual  </li>
+<li>On-call for collectors  </li>
+<li>Named legal path  </li>
+</ol>
+<h3 id="tier-5">Tier 5</h3>
+<p>Procurement, accreditations, enterprise contracts — not a shopping cart.</p>
+<hr>
+<h2 id="ai-layer-any-tier-bolt-on-rules">AI layer (any tier — bolt-on rules)</h2>
+<table>
+<thead>
+<tr>
+<th>Do</th>
+<th>Don’t</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use LLMs to structure tool output, draft timelines, suggest pivots</td>
+<td>Let model output enter a report unverified</td>
+</tr>
+<tr>
+<td>Sandbox tool execution (containers, timeouts, rate limits)</td>
+<td>Give an agent untrusted page content <strong>and</strong> consequential actions in one loop</td>
+</tr>
+<tr>
+<td>Treat output as junior-analyst first draft</td>
+<td>Autonomously run active scanners</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="relationship-table">Relationship table</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Document</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branch map &amp; legal footings</td>
+<td><em>Intelligence Capability Tree</em></td>
+</tr>
+<tr>
+<td>OSINT tier philosophy &amp; deep tool/legal notes</td>
+<td><em>OSINT Capability Ladder</em></td>
+</tr>
+<tr>
+<td><strong>What to own/run at each tier (this file)</strong></td>
+<td><em>Intelligence Capability Kit</em></td>
+</tr>
+<tr>
+<td>SIGINT / HUMINT / exploit inventories</td>
+<td>Counsel-backed docs only</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="changelog">Changelog</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>Aug 2026</td>
+<td>Initial full Tier 0–5 kits: devices, phone apps, software, accounts, desk diagrams, branch add-ons, shopping lists</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
