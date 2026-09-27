@@ -186,11 +186,10 @@ Open doors that are **not** peer seats in this space (so they don’t count as a
 
 ## Bottom line
 
-The thing that is **massive, real, Gate-shaped, and already legal** is not another email program.
+**FRIDA dates:** Jan/Feb 2026 = closed **RFI**. Oct 23 2026 = separate open **RFP**. Both on EPC’s site. Not a citation error.
 
-It is **A1: operate a FinCEN-recognized 314(b) association of financial institutions** — the national FI↔FI fraud-intelligence hub — with Gate’s pre-push refuses as the shareable atoms.
+**Solo peer lane:** **None** in this space. Pre-revenue Gate cannot be a first-class FI↔FI network peer with zero institutional relationship. Structural — stop re-asking.
 
-**A0** is the only open **named RFP** at that scale (FRIDA FCP) — deadline **23 Oct 2026**.  
-**A2/A3** are the US legislative megaseats — real drafts/bills, not law yet.
+**A1** remains the massive already-legal move — and it starts the day a **first FI member** exists. **A0** is a vendor RFP (bid), not peer membership. **A2/A3** are contingent legislation.
 
 No mouth shipped in this hunt on purpose.
