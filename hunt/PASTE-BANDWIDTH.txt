@@ -1,0 +1,80 @@
+COPY FROM HERE
+════════════════════════════════════
+ET13 — BANDWIDTH AND SEQUENCING
+20 Sep 2026. Answers the four questions before any hours go in.
+Constraint still holds: no founding, no filer code, no PLC/vehicle adapters, no weld to join/ or check/, no leftover-22 spray, no leading with Tuesday remaining CHARGE, no filing anyone’s entry.
+
+VERDICT
+Wait. Calendar the 7 Oct TTO call as a listener. Spend no more build or outreach hours on ET13 until a named buyer exists or that call produces one. The 22 Oct cliff does not change this. Clock is real. Buyer is not. Same discipline as refusing a citation fit, applied to a deadline.
+
+════════════════════════════════════
+1. WHERE THIS SITS — NAME THE TRADEOFF. NOT ADDITIVE.
+
+Already running (finite hours):
+A. Tuesday outreach — live. Do not cannibalize. Do not spray leftover-22 into this universe.
+B. Gate build cycle — live. Do not weld ET13 to gate/, join/, or check/.
+C. Expert / consulting — already downgraded. 6–18 month horizon. Hours capped at the ~$1,100 directory listing (SEAK/JurisPro), not opinions, not send-list.
+D. Existing cash artifacts if a live conversation exists — $2,500 install, $1,750 Bind Room vs CO life 10-1-1 on 1 Dec 2026, $497 x402. Those have Stripe. ET13 does not.
+
+ET13 is a fifth thing if hours move tonight. That is the default to refuse.
+
+What it does NOT replace:
+- Not Tuesday. Different list, different statute, memo forbids using leftover-22.
+- Not Gate. Different object. Welding it is the museum-SKU failure mode.
+- Not Bind Room. Bind Room has an artifact and a dated filer class. ET13 has a memo.
+- Not the $1,100 expert listing. That listing is already the killed-lane residual. Moving those hours here is additive by another name.
+
+Tradeoff, explicit: ET13 is PARKED. It sits behind A, B, and D. It does not inherit the expert hours that were just killed. If a named postal-inbound seller or named licensed broker walks in, then — and only then — it competes with D (install / Bind Room) for the next block of hours, not with Tuesday or Gate. Until that walk-in, hours = zero beyond one calendar entry.
+
+════════════════════════════════════
+2. WHO IS NAMED AND REACHABLE RIGHT NOW
+
+Nobody. Map, not invoice. Say it plainly.
+
+What exists tonight:
+- Categories: foreign DTC on inbound post, US purchasers who became IOR, licensed brokers drowning in POAs, 3PLs who lost third-party filing. Categories are not buyers.
+- Public directories: CBP Filer Code List (CSV, revised 21 Aug 2026) and Permitted Customs Brokers Listing. Thousands of rows. Scraping them into a send list is leftover-22 with a different CSV. Forbidden by the memo’s own rule.
+- People who published on ET13: Troutman (Ryan Last, Daniel N. Anziska), GHY International, Alba Wheels Up, Forvis Mazars, ShopAppy. Those are law-firm / brokerage / content authors. GHY and Alba sell filing. They are competitors or commentators, not inbound for a will-not completeness pack.
+- Docket USCBP-2026-0761 comment window closed 24 Jul 2026. Harvesting commenters tonight to email is hours competing with Tuesday. Not done. Not a named buyer.
+
+A named buyer means: a specific company or licensed broker already in a conversation, or who asked for the hold/pack, with postal inbound volume and 143.26(a) standing or a license. That list is empty.
+
+Do not confuse “findable in a federal CSV” with “reachable this week.” The second requires a conversation. There isn’t one.
+
+════════════════════════════════════
+3. MINIMUM VIABLE ACTION THIS WEEK
+
+One action: put Wed 7 Oct 2026, 1:00 p.m. ET TTO post-deploy call on the calendar. Listen. Do not pitch. Confirm meeting ID on CSMS before joining (INT-057 had 238 099 770 592 787 / Eh9Ad2fE — verify; do not treat a July PDF as gospel on 7 Oct).
+
+That is the whole week.
+
+Already done — do not redo:
+- The map (hunt/ET13.md).
+- The pastable (hunt/PASTE-ET13.txt).
+- The 7-bullet fail-closed checklist inside that paste. Drafting it again as an “internal spec” is a museum SKU with extra steps.
+
+Not worth doing now, no named buyer:
+- Reading FR 2026-12668 and 2026-12669 cover-to-cover. Literacy for the 7 Oct call can happen the morning of, if you still intend to sit it. It is not a lane-keeping ritual.
+- Building a completeness UI, checkout, or catalog-router.
+- Emailing anyone.
+- Sitting ACE CERT.
+- Applying for anything.
+
+If a NAMED seller or NAMED licensed broker is already in a live conversation from some other track, sell the hold from the existing 7 bullets. That exception is empty tonight.
+
+════════════════════════════════════
+4. DOES THE 32-DAY CLIFF CHANGE #3
+
+No.
+
+22 Oct 2026 is a real enforcement date for PGA / Ch.98 / Ch.99 / FTA falling off Rail A. It is not a sale. A completeness pack only prices if someone has those SKUs in the mail and a filer. We have neither named.
+
+Pressure from a hard date with zero IOR is the same error as forcing a citation onto a file it doesn’t fit. The clock can be real and still not warrant hours. It doesn’t.
+
+Re-check date: 7 Oct call. If that room produces a named broker or seller who wants a hold/pack, #3 reopens. If it doesn’t, the next scheduled fact is 22 Oct passing without us. That is allowed.
+
+════════════════════════════════════
+ONE LINE
+ET13 is parked behind Tuesday, Gate, and the artifacts that already charge. Zero named buyers. This week is one calendar hold for 7 Oct as listener. The 22 Oct cliff does not buy a fifth lane.
+
+END COPY
