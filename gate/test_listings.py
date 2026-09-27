@@ -2837,6 +2837,38 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(gate.status_code, 200)
         self.assertTrue(gate.get_json().get("allow"))
 
+    def test_ard_manifest_lists_mcp_x402_prefinality(self):
+        m = listings.ard_manifest("https://example.test")
+        self.assertEqual(m["spec"], "ard-v0.91")
+        self.assertEqual(m["publisher"], "https://example.test")
+        ids = {e["identifier"] for e in m["entries"]}
+        self.assertEqual(
+            ids,
+            {
+                "urn:air:example.test:server:gate-api",
+                "urn:air:example.test:catalog:x402",
+                "urn:air:example.test:mouth:prefinality",
+            },
+        )
+        urls = {e["url"] for e in m["entries"]}
+        self.assertEqual(
+            urls,
+            {
+                "https://example.test/.well-known/mcp.json",
+                "https://example.test/.well-known/x402.json",
+                "https://example.test/.well-known/prefinality.json",
+            },
+        )
+
+    def test_well_known_ard_route(self):
+        r = self.client.get("/.well-known/ard.json")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body.get("spec"), "ard-v0.91")
+        self.assertEqual(len(body.get("entries") or []), 3)
+        gate = self.client.get("/.well-known/gate.json").get_json()
+        self.assertTrue(str(gate.get("ard") or "").endswith("/.well-known/ard.json"))
+
     def test_x402_catalog_lists_prefinality(self):
         cat = self.client.get("/.well-known/x402.json")
         self.assertEqual(cat.status_code, 200)

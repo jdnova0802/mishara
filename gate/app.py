@@ -375,6 +375,8 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/register.json",
         "/.well-known/legal.json",
         "/.well-known/mcp.json",
+        "/.well-known/ard.json",
+        "/.well-known/x402.json",
         "/.well-known/opportunities.json",
         "/.well-known/live.json",
         "/.well-known/canary.json",
@@ -1723,6 +1725,7 @@ def well_known_gate():
             "mga_authority": f"{advertised_url()}/v1/pas/mga-authority",
             "mcp": f"{advertised_url()}/mcp",
             "mcp_discovery": f"{advertised_url()}/.well-known/mcp.json",
+            "ard": f"{advertised_url()}/.well-known/ard.json",
             "x402": f"{advertised_url()}/.well-known/x402.json",
             "listings": f"{advertised_url()}/.well-known/listings.json",
             "counterfactual_spend": f"{advertised_url()}/.well-known/counterfactual-spend.json",
@@ -1821,6 +1824,11 @@ def well_known_gate():
 @app.route("/.well-known/mcp.json")
 def well_known_mcp():
     return jsonify(listings_mod.mcp_discovery(advertised_url()))
+
+
+@app.route("/.well-known/ard.json")
+def well_known_ard():
+    return jsonify(listings_mod.ard_manifest(advertised_url()))
 
 
 @app.route("/.well-known/x402.json")
@@ -4588,6 +4596,9 @@ def sitemap():
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
         "/.well-known/regulator.json",
+        "/.well-known/ard.json",
+        "/.well-known/mcp.json",
+        "/.well-known/x402.json",
         "/.well-known/legal.json",
         "/openapi.json",
     ]
@@ -4633,6 +4644,9 @@ def llms_txt():
         f"- Never JSON: {advertised_url()}/.well-known/never.json",
         f"- Positive Clear JSON: {advertised_url()}/.well-known/positive-clear.json",
         f"- Regulator JSON: {advertised_url()}/.well-known/regulator.json",
+        f"- ARD (agent discovery): {advertised_url()}/.well-known/ard.json",
+        f"- MCP discovery: {advertised_url()}/.well-known/mcp.json",
+        f"- x402 catalog: {advertised_url()}/.well-known/x402.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
         f"- OpenAPI: {advertised_url()}/openapi.json",
         f"- Verify: https://velaru.xyz/verify",
@@ -4901,6 +4915,7 @@ def openapi_full():
                 "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},
+                "/.well-known/ard.json": {"get": {"summary": "Agentic Resource Discovery (ARD v0.91) — MCP + x402 + prefinality"}},
                 "/.well-known/mcp.json": {"get": {"summary": "MCP tool discovery"}},
                 "/.well-known/x402.json": {"get": {"summary": "x402 resource catalog"}},
                 "/.well-known/listings.json": {"get": {"summary": "Date-all listing map (MCP, CF, x402, Guidewire, Duck Creek)"}},

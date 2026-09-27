@@ -16,8 +16,15 @@ Be found by **agents, AI crawlers, and humans you send a URL to.**
 - `/sitemap.xml` — all 14 plates
 - `/robots.txt`
 - `/llms.txt` — AI answer engines (not classic SEO)
+- `/.well-known/ard.json` — Agentic Resource Discovery (MCP + x402 + prefinality entries)
 - JSON-LD SoftwareApplication on every page
-- Already: `/.well-known/gate.json` + `opportunities.json`
+- Already: `/.well-known/gate.json` + `opportunities.json` + `mcp.json` + `x402.json`
+
+## Still ops (not more product)
+
+- Submit domain to neuronto / publish MCP registry / Smithery URL
+- npm/PyPI publish of `gate/sdk`
+- Fiserv / Jack Henry / FedNow Showcase when ready for marketplace GTM
 
 These only matter **after a public Gate URL**. Until then, distribute **velaru.xyz**.
 

@@ -306,6 +306,96 @@ def mcp_discovery(public_url: str) -> dict:
     }
 
 
+def _ard_host(public_url: str) -> str:
+    from urllib.parse import urlparse
+
+    host = (urlparse(public_url).hostname or "").strip().lower()
+    return host or "gate.velaru.xyz"
+
+
+def ard_manifest(public_url: str) -> dict:
+    """Agentic Resource Discovery manifest — /.well-known/ard.json (ARD v0.91).
+
+    Cite: https://agenticresourcediscovery.org/spec/ — publishers serve entries at
+    /.well-known/ard.json; registries crawl. No submission approval required to publish.
+    """
+    host = _ard_host(public_url)
+    base = public_url.rstrip("/")
+    return {
+        "spec": "ard-v0.91",
+        "spec_url": "https://agenticresourcediscovery.org/spec/",
+        "publisher": base,
+        "entries": [
+            {
+                "@context": "https://agenticresourcediscovery.org/context/v1",
+                "identifier": f"urn:air:{host}:server:gate-api",
+                "displayName": "Gate MCP — fuse hop before commit",
+                "type": "application/mcp-server-card+json",
+                "url": f"{base}/.well-known/mcp.json",
+                "description": (
+                    "Fail-closed clearance mouth over MCP. Fuse hop before irreversible "
+                    "act; DEAD never acts; CHARGE-only resurrection."
+                ),
+                "tags": ["payments", "clearance", "fail-closed", "mcp", "x402"],
+                "capabilities": [
+                    "fuse_lookup",
+                    "fuse_hop",
+                    "welded_act",
+                    "pas_bind_check",
+                    "policycenter_pre_bind",
+                    "mga_authority",
+                ],
+                "representativeQueries": [
+                    "may this irreversible payment commit proceed",
+                    "fail closed fuse hop before bind",
+                    "pre-finality clearance API for FedNow or RTP push",
+                    "MCP tool that blocks DEAD capability from acting",
+                ],
+                "version": "1.0.0",
+            },
+            {
+                "@context": "https://agenticresourcediscovery.org/context/v1",
+                "identifier": f"urn:air:{host}:catalog:x402",
+                "displayName": "Gate x402 — payable clearance catalog",
+                "type": "application/json",
+                "url": f"{base}/.well-known/x402.json",
+                "description": (
+                    "Machine-payable Gate resources: free x402 audit, paid wire bundle, "
+                    "prefinality evaluate. Bazaar extensions for agent discovery."
+                ),
+                "tags": ["x402", "payments", "agents", "bazaar", "usdc"],
+                "capabilities": ["x402_audit", "x402_wire", "prefinality_evaluate"],
+                "representativeQueries": [
+                    "pay USDC for pre-finality payment clearance",
+                    "x402 discoverable API that refuses irreversible push",
+                    "agent payable fuse hop before commit",
+                    "audit an x402 endpoint grade and payTo",
+                ],
+                "version": "1.0.0",
+            },
+            {
+                "@context": "https://agenticresourcediscovery.org/context/v1",
+                "identifier": f"urn:air:{host}:mouth:prefinality",
+                "displayName": "Gate Prefinality — GO / NO_GO before irreversible commit",
+                "type": "application/json",
+                "url": f"{base}/.well-known/prefinality.json",
+                "description": (
+                    "Signed pre-finality evaluate before irreversible rail commit. "
+                    "Accepts API key or x402 payment."
+                ),
+                "tags": ["prefinality", "fednow", "rtp", "clearance"],
+                "capabilities": ["prefinality_evaluate"],
+                "representativeQueries": [
+                    "GO or NO_GO before FedNow credit push",
+                    "prefinality evaluate sealed payee first-time payee",
+                    "signed receipt that a transfer fingerprint may commit",
+                ],
+                "version": "1.0.0",
+            },
+        ],
+    }
+
+
 def x402_catalog(public_url: str) -> dict:
     hop = f"{public_url}/v1/fuse/hop"
     act = f"{public_url}/v1/act"
