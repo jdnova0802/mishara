@@ -1,0 +1,46 @@
+ACTUALLY THIS QUARTER — NOT THE EXPERT LANE
+20 Sep 2026.
+
+Calendar Q3 2026 ends 30 Sep — 10 days left.
+“This quarter” below means cash that can clear by 31 Dec 2026 without a new SKU and without the expert-witness send list.
+
+WHAT IS NOT THIS QUARTER
+Expert / consulting / SEAK / JurisPro / Greenbrier / Nacha 2027 / $15–75k opinions / $650/hr.
+That is 6–18 months. See PASTE-CADENCE.txt.
+
+WHAT CAN CLEAR CASH THIS QUARTER (already built, Stripe exists)
+
+1) $2,500 48-hour install — THE ONLY 10-DAY CLOSER
+Already live: POST /install/checkout. Prepay, non-refundable, two slots.
+Time-to-cash = Stripe session, not net-30, not a case milestone.
+This is not a new hunt and not a new build. It is a buyer hitting a URL that already charges.
+If nobody hits it in 10 days, Q3 cash from this SKU is zero. Do not pretend otherwise.
+
+2) $1,750 Bind Room officer pack — THE ONLY DATED BUYER THIS FALL
+Already live: /bind-room and /bind-room/checkout. Same steel as bind_room.py. Not a Gate demo to a new audience class invented this morning.
+
+Hard calendar (Colorado Regulation 10-1-1, 3 CCR 702-10 §6):
+Life insurers USING ECDIS / algorithms / predictive models: annual SERFF compliance report 1 Dec 2024 and annually thereafter → next filing 1 DECEMBER 2026. ~72 days.
+Life / health / auto that do NOT use ECDIS: officer attestation also 1 Dec each year. That is a one-page “we don’t use this.” Do not sell them the $1,750 pack. Wrong SKU.
+PPA and health USERS: first full report was 1 July 2026; next is 1 July 2027. Too late for this quarter.
+
+So the dated buyer is: Colorado-authorized LIFE company that uses ECDIS, whose Section 5 officer titles have to be in a SERFF Annual Report by 1 Dec 2026. The pack already maps Section 5.A.1–5.A.13.
+
+This is still a sale. It is not “list and wait 8 months.” The buyer has a filing date. The artifact is already priced and checkouts.
+
+Do not spray leftover-22. If this is pursued, the list is new and narrow: Colorado-authorized life, 10-1-1 users, Dec 1 filers — from DOI/SERFF, not the Tuesday stack.
+
+3) $497 x402 deploy bundle
+Already in the meter. Same-day if someone pays the 402. Not a hunt. Same caveat as (1): no stranger, no cash.
+
+WHAT LOOKS DATED BUT IS NOT CASH
+NAIC AI Risk Evaluation Supplement v5.0 comments close 29 Sep 2026. That is a comment letter, not an invoice. Fall National Meeting 14–17 Nov (Grapevine) is a room, not a charge.
+NYDFS Circular Letter 7: no filing date. Exam-on-request. Not a 72-day close.
+EPCOR 2–4 Nov: you apply to speak; first-timers are not paid $5–15k. Nacha 2027 is next year.
+
+RANK FOR THE NEXT 72 DAYS
+1. $2,500 install if a live conversation can hit /install this week. Hours: fulfill the slot, not invent a lane.
+2. $1,750 Bind Room against the 1 Dec 2026 life 10-1-1 report. Hours: one dated SKU, one filer class. No new code.
+3. Everything else waits, including expert.
+
+If (1) and (2) both have no buyer by Thanksgiving, this quarter’s cash from “new lanes” is zero and that is the honest number — not a status update about directories.
