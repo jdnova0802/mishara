@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WILL NOT — consumer receipt (rough)</title>
+  <style>
+    :root { font-family: ui-sans-serif, system-ui, sans-serif; background: #0b0d10; color: #e8eaed; }
+    body { max-width: 42rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.45; }
+    h1 { font-size: 1.35rem; letter-spacing: 0.04em; }
+    .muted { color: #9aa0a6; font-size: 0.92rem; }
+    button, input, textarea {
+      font: inherit; width: 100%; box-sizing: border-box; margin: 0.35rem 0 0.9rem;
+      padding: 0.7rem 0.8rem; border-radius: 8px; border: 1px solid #3c4043; background: #171a1f; color: inherit;
+    }
+    button { cursor: pointer; background: #c9a227; color: #111; font-weight: 700; border: 0; }
+    button.secondary { background: #2a2f36; color: #e8eaed; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    a#pay {
+      display: block; text-align: center; text-decoration: none; font-weight: 700;
+      background: #c9a227; color: #111; padding: 0.75rem; border-radius: 8px; margin: 0.5rem 0 1.2rem;
+    }
+    pre { white-space: pre-wrap; word-break: break-all; background: #11141a; padding: 0.9rem; border-radius: 8px; font-size: 0.78rem; }
+    .hold { border: 1px solid #c9a227; padding: 0.8rem; border-radius: 8px; margin: 1rem 0; }
+    .bad { border-color: #e06767; }
+    label { font-size: 0.85rem; color: #bdc1c6; }
+  </style>
+</head>
+<body>
+  <h1>WILL NOT</h1>
+  <p class="muted">
+    For Muse / ChatGPT agent / Claude actions you did not start.
+    Rough consumer receipt. Not cargo release. Not prin-hash. Not a bank halt.
+    Proves: <strong>this authenticator attested this halt text at this time</strong>.
+    Does not prove: a court, a bank, or a carrier must honor it.
+    Typed name alone is stuffed principal — the machine will HOLD.
+  </p>
+  <p class="muted">$7 one-time. Kill switch: if nobody pays by <strong>27 Sep 2026</strong>, this SKU stops. No addendum.</p>
+  <p><a id="pay" href="https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O">Pay $7 — Stripe</a></p>
+  <div id="env" class="hold"></div>
+  <label>Display name (not the principal)</label>
+  <input id="name" placeholder="what you call yourself" autocomplete="name" />
+  <label>Halt text</label>
+  <textarea id="halt" rows="3" placeholder="I did not authorize this charge / this agent / this transfer."></textarea>
+  <button class="secondary" id="reg" type="button">1. Bind a passkey (principal surface)</button>
+  <button id="sign" type="button" disabled>2. Sign WILL NOT</button>
+  <div id="out"></div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const b64u = (buf) => btoa(String.fromCharCode(...new Uint8Array(buf)))
+      .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    const unb64u = (s) => {
+      const pad = "=".repeat((4 - (s.length % 4)) % 4);
+      const b64 = s.replace(/-/g, "+").replace(/_/g, "/") + pad;
+      const bin = atob(b64);
+      const out = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+      return out;
+    };
+    async function sha256(bytes) {
+      const d = await crypto.subtle.digest("SHA-256", bytes);
+      return new Uint8Array(d);
+    }
+    function utf8(s) { return new TextEncoder().encode(s); }
+
+    const env = $("env");
+    const okWeb = !!(window.PublicKeyCredential && navigator.credentials);
+    const secure = window.isSecureContext;
+    if (!okWeb || !secure) {
+      env.classList.add("bad");
+      env.innerHTML = "<strong>HOLD — missing_principal.</strong> " +
+        "WebAuthn needs a secure context (https or localhost). " +
+        "A typed name with no authenticator is stuffed principal. Full stop. " +
+        "Open this file via <code>python3 -m http.server</code> on localhost, then bind a passkey.";
+    } else {
+      env.textContent = "Principal surface available: WebAuthn in a secure context. Bind a passkey before signing.";
+    }
+
+    $("reg").disabled = !okWeb || !secure;
+    $("sign").disabled = true;
+
+    $("reg").onclick = async () => {
+      try {
+        const userId = crypto.getRandomValues(new Uint8Array(16));
+        const cred = await navigator.credentials.create({
+          publicKey: {
+            challenge: crypto.getRandomValues(new Uint8Array(32)),
+            rp: { name: "WILL NOT", id: location.hostname },
+            user: { id: userId, name: $("name").value || "holder", displayName: $("name").value || "holder" },
+            pubKeyCredParams: [{ type: "public-key", alg: -7 }, { type: "public-key", alg: -8 }],
+            authenticatorSelection: { residentKey: "preferred", userVerification: "required" },
+            timeout: 60000,
+          }
+        });
+        localStorage.setItem("willnot_cred", cred.id);
+        $("sign").disabled = false;
+        $("out").innerHTML = "<div class='hold'>Passkey bound. credentialId stored in this browser only. That id is the principal, not the display name.</div>";
+      } catch (e) {
+        $("out").innerHTML = "<div class='hold bad'>HOLD — " + String(e.message || e) + "</div>";
+      }
+    };
+
+    $("sign").onclick = async () => {
+      const credId = localStorage.getItem("willnot_cred");
+      const halt = $("halt").value.trim();
+      if (!credId) {
+        $("out").innerHTML = "<div class='hold bad'>HOLD — missing_principal. Bind a passkey first.</div>";
+        return;
+      }
+      if (!halt) {
+        $("out").innerHTML = "<div class='hold bad'>HOLD — missing_writing. Type the halt.</div>";
+        return;
+      }
+      const issued = new Date().toISOString();
+      const body = JSON.stringify({ spec: "willnot-rough-v0", halt, issued, credId });
+      const challenge = await sha256(utf8(body));
+      try {
+        const assertion = await navigator.credentials.get({
+          publicKey: {
+            challenge,
+            allowCredentials: [{ type: "public-key", id: unb64u(credId) }],
+            userVerification: "required",
+            timeout: 60000,
+          }
+        });
+        const receipt = {
+          spec: "willnot-rough-v0",
+          decision: "HOLD",
+          halt,
+          issued,
+          principal: { kind: "webauthn_credential", id: assertion.id },
+          display_name_not_principal: $("name").value || null,
+          body_sha256: b64u(challenge),
+          clientDataJSON: JSON.parse(new TextDecoder().decode(assertion.response.clientDataJSON)),
+          authenticatorData_b64: b64u(assertion.response.authenticatorData),
+          signature_b64: b64u(assertion.response.signature),
+          not: "Ocean Frost, 4A-207, cargo telex, bank stop-payment, or prin-hash EXIST",
+        };
+        $("out").innerHTML = "<p class='muted'>Show this screen. The receipt is the authenticator’s attestation of the halt, not a legal order.</p><pre>" +
+          JSON.stringify(receipt, null, 2) + "</pre>";
+      } catch (e) {
+        $("out").innerHTML = "<div class='hold bad'>HOLD — " + String(e.message || e) + "</div>";
+      }
+    };
+  </script>
+</body>
+</html>

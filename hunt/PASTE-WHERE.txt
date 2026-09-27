@@ -1,0 +1,93 @@
+COPY FROM HERE
+════════════════════════════════════
+WHERE TO PASTE THE $7 MUSE HALT — 20 Sep 2026
+You post. Cursor does not.
+Pay: https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
+Kill: 27 Sep 2026 if $0. Not a bank stop. Typed name without a passkey is a HOLD.
+
+Do not cold-post r/iphone. Do not dump Stripe in App Store reviews.
+Do not post in r/Muse (that is the BAND). Do not post on Meta Help.
+Do not post in MacRumors “Muse Code” / Meta AI Mac threads (wrong product).
+
+════════════════════════════════════
+1. BEST — REPLY, DO NOT OPEN A NEW THREAD
+
+HN parent (still the live argument about inbox + spend):
+  https://news.ycombinator.com/item?id=49615537
+
+Reply under these comments, not at the top:
+  simonw / prompt-injection + “who knows if pay kicks back”
+    https://news.ycombinator.com/item?id=49619026
+  yalok / “not easy to give that access” then connected anyway
+    https://news.ycombinator.com/item?id=49620719
+  sergiotapia / “why would you give them email and purchase habits”
+    (same parent thread; search the page for that quote)
+  jdthedisciple / “unsupervised purchases… anyone truly wants this?”
+    (same parent thread; search the page)
+
+HN paste (one comment, no essay):
+  Sentinel can ask before a spend. The missing object is a human-principal
+  receipt after the tap: I attest I did not authorize this agent action.
+  Typed name is a HOLD. $7 passkey halt:
+  https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
+  Not a bank stop. Not legal standing. Kill in 7 days if nobody pays.
+
+════════════════════════════════════
+2. X — REPLY TO THE PEOPLE WHO ALREADY SAID THE SENTENCE
+
+Best tweet (payments, not the chart):
+  @alexandr_wang Stripe Link thread
+  https://twitter.com/alexandr_wang/status/2097410373221773355
+  He wrote: Muse asks before spending; Link refund if Muse mistakes.
+  Gap: the approval tap is not a signed “I did not authorize this.”
+
+Second:
+  @dps Sentinel / prompt-injection
+  https://twitter.com/dps/status/2097404102468899131
+
+Launch thread (weaker; chart crowd):
+  https://twitter.com/alexandr_wang/status/2097402344061510004
+
+Skip: Techmeme 260918/p36 (@wallstengine / @firstadopter). Finance noise.
+
+X paste:
+  Sentinel asks. Link refunds a Muse mistake. Neither is a signed
+  “I did not authorize this agent action.” $7 passkey halt:
+  https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
+  Kill 27 Sep if $0.
+
+════════════════════════════════════
+3. FRESHER CONSUMER SURFACES (SIT IN COMMENTS IF THEY EXIST)
+
+  Business Insider, 19 Sep 2026 — Katie Notopoulos actually connected
+  email / cards / health. Reply only if the article has comments and
+  someone is arguing the grant, not the school-apps gag.
+  https://www.businessinsider.com/meta-muse-review-access-to-emails-credit-cards-health-data-2026-9
+
+  PacketNebula, 9 Sep — “inbox and a card on file.” Same itch.
+  No dump if there is no comment box.
+  https://packetnebula.com/articles/meta-muse-personal-agent-secure-vm-pricing/
+
+  PYMNTS pizza fail is the wrong itch (setup friction). Skip.
+
+  The Verge Mac app (17 Sep) is files/Messages, not the $7 spend halt.
+  Skip unless a comment is already about Mail + pay.
+
+════════════════════════════════════
+4. DO NOT PASTE
+
+  App Store reviews for Muse (id6760173601) — review ≠ checkout.
+  r/iphone new OP — cold, mods kill links.
+  r/Muse — band.
+  r/artificial / r/LocalLLaMA Muse Spark threads — model, not the agent.
+  Meta Help guidance/approval pages.
+  MacRumors Muse Code / Meta AI Mac.
+  9to5Mac as primary.
+
+════════════════════════════════════
+5. ONE POST TONIGHT, THEN STOP
+
+Order: HN 49619026, then Wang 2097410373221773355.
+If both are dead, stop. Do not spray.
+
+END COPY

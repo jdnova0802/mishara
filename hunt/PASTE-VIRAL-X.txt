@@ -1,0 +1,46 @@
+COPY FROM HERE
+════════════════════════════════════
+VIRAL-FOR-CAPITAL — 20 Sep 2026
+Not Nisaba. Not Gate. Not the $7 halt. Not LinkedIn.
+X = City Hall. Faceless. Tomorrow build. Legal. Not pennies.
+
+════════════════════════════════════
+WHAT ACTUALLY PRINTS FROM X
+Views ≠ money. Ads on a spike = pennies.
+Two shapes that weren’t pennies:
+  Wordle — the tweet WAS the artifact. Buyout lottery.
+  Faceless.video — $20–35/mo pickaxe. Other people perform. You don’t.
+
+Tomorrow ≠ Wordle-from-nothing. Tomorrow = pickaxe that makes a tweet.
+
+════════════════════════════════════
+THE ONE TO SHIP TOMORROW
+
+CHAT → TWEET CARD
+Paste Grok / Muse / ChatGPT / Claude text (or a grok.com share link if you can parse it).
+Out: 1200×675 PNG that looks like it belongs on X. One obvious sentence. No your face. No Nisaba. No Velaru watermark.
+
+Why this week: 18 Sep a Grok share-link screenshot did 4.4M views. City Hall is already screenshotting chats. Ugly screenshots. You sell the clean card.
+
+Free: one card, light watermark “made at [domain]” tiny.
+Paid (not pennies): $19 one-pack of 20 HQ / no watermark, or $29/mo unlimited.
+Stripe Payment Link is enough tomorrow. No App Store. No account if you can avoid it.
+
+Do NOT: clone the hate prompt-trap as the product. Don’t bait ethnicity. Don’t scrape X without API. Paste-in is enough.
+Do NOT: weld to Gate / willnot / leftover-22.
+Do NOT: put your face. One nameless post of the card, maybe $200 boost later if it moves. Not required tomorrow.
+
+Build: one HTML page, canvas or html2canvas, paste box, download PNG, Stripe link. That’s a tomorrow.
+
+════════════════════════════════════
+BACKUP IF CHAT-CARDS FEEL NASTY
+
+RATIO CARD — they paste their tweet text + a number they type (views/replies). Out: a quote-tweetable “this is the weather.” Still a pickaxe. Weaker this week than Grok.
+
+Do not: Wordle clone and pray. Do not: Faceless.video clone overnight (models + posting = not tomorrow). Do not: GTA key checker as the capital machine.
+
+════════════════════════════════════
+ONE LINE
+Ship a faceless Grok/Muse chat→PNG card tomorrow. Virus = X already arguing in screenshots. Money = $19/$29 pickaxe, not ads.
+
+END COPY
