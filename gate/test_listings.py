@@ -567,6 +567,20 @@ class FieldAndWeldTests(unittest.TestCase):
         self.assertIn("5.A.2", ids)
         self.assertIn("5.A.1", ids)
         self.assertIn("5.A.13", ids)
+        joined = " | ".join(pack["also_maps"])
+        self.assertIn("Exhibit B 4h/4i", joined)
+        self.assertNotIn("Exhibit C — HITL", joined)
+
+    def test_exhibit_b_hitl_not_exhibit_c(self):
+        hitl = bind_room.exhibit_b_hitl("https://example.test")
+        self.assertEqual(hitl["maps_to"]["exhibit"], "B")
+        self.assertEqual(hitl["maps_to"]["items"], ["4h", "4i"])
+        self.assertIn("not HITL", hitl["maps_to"]["not"])
+        self.assertIn("High-Risk Model Details", hitl["maps_to"]["not"])
+        self.assertIn("discussion only", hitl["stop_the_system"])
+        compat = bind_room.exhibit_c_hitl("https://example.test")
+        self.assertEqual(compat["spec"], "gate-exhibit-b-hitl-v1")
+        self.assertIn("exhibit-b-hitl.json", compat["compat"]["corrected_path"])
 
 
 class BindRoomFlaskTests(unittest.TestCase):
@@ -629,6 +643,14 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertEqual(r.status_code, 200)
         ids = [s["id"] for s in r.get_json()["sections"]]
         self.assertIn("5.A.2", ids)
+
+    def test_exhibit_b_hitl_route(self):
+        r = self.client.get("/bind-room/exhibit-b-hitl.json")
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.get_json()["maps_to"]["exhibit"], "B")
+        old = self.client.get("/bind-room/exhibit-c-hitl.json")
+        self.assertEqual(old.status_code, 200)
+        self.assertIn("corrected_path", old.get_json()["compat"])
 
     def test_control_not_model_listing(self):
         r = self.client.get("/listings/control-not-model.json")
