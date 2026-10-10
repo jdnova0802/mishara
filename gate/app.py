@@ -3311,6 +3311,7 @@ def x402_wire_paid():
     x402_pay = x402_challenge_mod.payment_verified(
         request.headers,
         amount_atomic_override=x402_audit_mod.wire_amount_atomic(),
+        resource=resource,
     )
     if x402_pay.get("ok"):
         bundle = x402_audit_mod.wire_bundle(

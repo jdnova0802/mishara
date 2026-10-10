@@ -3863,7 +3863,10 @@ class X402FacilitatorUnlockTests(unittest.TestCase):
                     "value": amount,
                     "validAfter": "0",
                     "validBefore": "9999999999",
-                    "nonce": "0x" + "cd" * 32,
+                    # Unique per call: each payment authorization carries a fresh
+                    # on-chain nonce, so the gate's single-use replay guard never
+                    # false-trips when this fixed-path test DB is reused across runs.
+                    "nonce": "0x" + uuid.uuid4().hex + uuid.uuid4().hex,
                 },
             },
             "resource": {
