@@ -189,6 +189,15 @@ def _policy_signals(
 
     amount = _parse_amount(t.get("amount"))
     max_amount = _parse_amount(mandate.get("max_amount") or mandate.get("max_payment"))
+
+    # Card/push rails must carry a spend bound. A card with no Gate mandate
+    # (no per-auth cap and no daily cap) fails closed — never a blanket approve.
+    if rail in ("issuing", "oct"):
+        daily_cap_present = _parse_amount(mandate.get("daily_cap")) is not None
+        if max_amount is None and not daily_cap_present:
+            signals.append("mandate_required")
+            return "NO_GO", signals
+
     if max_amount is not None and amount is not None and amount > max_amount:
         signals.append("amount_exceeds_cap")
         return "NO_GO", signals
@@ -403,6 +412,32 @@ def evaluate(
                 if "fuse_dead" not in signals:
                     signals.append("fuse_dead")
 
+    authorization_id = (
+        (transfer.get("authorization_id") or context.get("stripe_authorization_id") or "").strip()
+        or None
+    )
+    amount_val = _parse_amount(transfer.get("amount"))
+    # Rolling spend window for card/push rails — the daily_cap is a true 24h sum,
+    # not a per-transaction limit (a card could otherwise approve the cap repeatedly).
+    if rail in ("issuing", "oct") and decision == "GO" and not demo:
+        daily_cap = _parse_amount(mandate.get("daily_cap"))
+        if daily_cap is not None and amount_val is not None and agent_id:
+            try:
+                from gate import db as _db
+            except ImportError:
+                import db as _db
+            window_start = _iso(_utc_now() - timedelta(hours=24))
+            prior = _db.approved_amount_in_window(
+                agent_id=agent_id,
+                rail=rail,
+                since=window_start,
+                exclude_authorization_id=authorization_id,
+            )
+            if prior + amount_val > daily_cap:
+                decision = "NO_GO"
+                if "daily_cap_exceeded" not in signals:
+                    signals.append("daily_cap_exceeded")
+
     if signing_required() and not _signing_key():
         decision = "NO_GO"
         signals.append("unsigned_halt")
@@ -455,6 +490,15 @@ def evaluate(
         signals=signals,
         receipt_jwt=receipt,
         created_at=created_at,
+        amount=amount_val,
+        currency=(transfer.get("currency") or "").strip().upper() or None,
+        counterparty=cp or None,
+        authorization_id=authorization_id,
+        card_id=(context.get("card_id") or "").strip() or None,
+        merchant_category=(transfer.get("merchant_category") or "").strip() or None,
+        event_id=(context.get("event_id") or "").strip() or None,
+        mandate=mandate if isinstance(mandate, dict) else None,
+        demo=demo,
     )
 
     return _response(
