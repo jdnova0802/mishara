@@ -64,6 +64,12 @@ services:
         sync: false
       - key: GATE_RECEIPT_PUBLIC_KEY
         sync: false
+      # Inbound OCT/Fast Funds webhook shared secret (X-Sink-Token). Required in prod.
+      - key: GATE_SINK_WEBHOOK_SECRET
+        sync: false
+      # Trusted reverse-proxy hops for X-Forwarded-For client-IP extraction (Render=1).
+      - key: GATE_TRUSTED_PROXY_HOPS
+        value: "1"
       - key: GATE_X402_PAYTO
         sync: false
       - key: GATE_X402_FACILITATOR_URL
