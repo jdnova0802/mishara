@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import hashlib
+import ipaddress
 import json
+import os
 import re
 import secrets
+import socket
 import uuid
 from typing import Any
 from urllib.parse import urlparse
@@ -17,6 +20,57 @@ _WIRE_PRICE_USD = "497.00"
 _WIRE_PRICE_CENTS = 49700
 _URL_RE = re.compile(r"^https?://", re.I)
 _EVM_RE = re.compile(r"^0x[a-fA-F0-9]{40}$")
+_MAX_PROBE_BYTES = 2_000_000  # cap body we parse, so a hostile target can't balloon memory
+
+
+def _ssrf_allow_local() -> bool:
+    """Only an explicit opt-in disables the SSRF guard (dev/test fixtures).
+
+    Deliberately NOT tied to GATE_DEV_MODE: the test suite runs with dev mode on,
+    and the guard must stay active there so its blocking is actually exercised.
+    Production sets GATE_ALLOW_LOCAL=0, so the guard is always on in prod."""
+    return os.getenv("GATE_ALLOW_LOCAL", "0") == "1"
+
+
+def _ip_is_blocked(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> bool:
+    if ip.version == 6 and ip.ipv4_mapped is not None:
+        ip = ip.ipv4_mapped
+    return (
+        ip.is_private
+        or ip.is_loopback
+        or ip.is_link_local  # includes cloud metadata 169.254.169.254 / fe80::/10
+        or ip.is_reserved
+        or ip.is_multicast
+        or ip.is_unspecified
+    )
+
+
+def _host_is_public(host: str) -> tuple[bool, str]:
+    """Resolve host and require EVERY A/AAAA address to be public and routable.
+
+    Blocks SSRF to loopback, private, link-local (incl. the 169.254.169.254 cloud
+    metadata endpoint), reserved, multicast, and unspecified ranges. A hostname
+    that resolves to any blocked address is rejected whole."""
+    h = (host or "").strip().strip("[]")
+    if not h:
+        return False, "no_host"
+    try:
+        infos = socket.getaddrinfo(h, None, proto=socket.IPPROTO_TCP)
+    except socket.gaierror:
+        return False, "dns_unresolvable"
+    except (UnicodeError, ValueError, OSError):
+        return False, "bad_host"
+    if not infos:
+        return False, "dns_empty"
+    for info in infos:
+        addr = str(info[4][0]).split("%")[0]  # drop IPv6 scope id
+        try:
+            ip = ipaddress.ip_address(addr)
+        except ValueError:
+            return False, "bad_ip"
+        if _ip_is_blocked(ip):
+            return False, "private_or_reserved_ip"
+    return True, ""
 
 
 def wire_price_label() -> str:
@@ -33,6 +87,11 @@ def _normalize_url(raw: str) -> str | None:
         return None
     parsed = urlparse(s)
     if parsed.scheme not in ("http", "https") or not parsed.netloc:
+        return None
+    # Reject embedded credentials (user:pass@host) — a common SSRF/obfuscation vector.
+    if parsed.username or parsed.password:
+        return None
+    if not parsed.hostname:
         return None
     return s.rstrip("/")
 
@@ -63,6 +122,30 @@ def audit_endpoint(url: str, *, timeout: float = 12.0) -> dict:
             "message": "Provide https:// origin or full endpoint URL.",
         }
 
+    # SSRF guard: never let a caller point this server-side fetcher at an internal
+    # address. Resolve the host and refuse any private/loopback/link-local target.
+    if not _ssrf_allow_local():
+        host = urlparse(target).hostname or ""
+        host_ok, why = _host_is_public(host)
+        if not host_ok:
+            return {
+                "spec": SPEC,
+                "ok": False,
+                "url": target,
+                "reachable": False,
+                "error": "blocked_target",
+                "ssrf_reason": why,
+                "findings": [
+                    {
+                        "code": "ssrf_blocked",
+                        "detail": f"Target host is not a public address ({why}); refusing to probe.",
+                    }
+                ],
+                "score": 0,
+                "grade": "F",
+                "message": "Refusing to probe a private, loopback, link-local, or unresolvable target.",
+            }
+
     findings: list[dict] = []
     score = 100
     probe_status = None
@@ -71,19 +154,38 @@ def audit_endpoint(url: str, *, timeout: float = 12.0) -> dict:
 
     for method in ("GET", "POST"):
         try:
+            # allow_redirects=False: a public URL must not be able to 3xx us into
+            # an internal address (redirect-based SSRF). We never follow.
             if method == "GET":
-                r = requests.get(target, timeout=timeout, allow_redirects=True)
+                r = requests.get(target, timeout=timeout, allow_redirects=False)
             else:
                 r = requests.post(
                     target,
                     json={},
                     headers={"Content-Type": "application/json"},
                     timeout=timeout,
-                    allow_redirects=True,
+                    allow_redirects=False,
                 )
             probe_status = r.status_code
+            if 300 <= probe_status < 400:
+                findings.append(
+                    {
+                        "code": "redirect_not_followed",
+                        "method": method,
+                        "detail": (
+                            f"{probe_status} redirect to "
+                            f"{(r.headers.get('Location') or '?')[:200]}; not followed (SSRF guard)."
+                        ),
+                    }
+                )
             ct = (r.headers.get("Content-Type") or "").lower()
-            if "json" in ct:
+            cl = r.headers.get("Content-Length")
+            too_big = False
+            try:
+                too_big = cl is not None and int(cl) > _MAX_PROBE_BYTES
+            except (TypeError, ValueError):
+                too_big = False
+            if "json" in ct and not too_big:
                 try:
                     probe_body = r.json()
                 except json.JSONDecodeError:
@@ -136,7 +238,7 @@ def audit_endpoint(url: str, *, timeout: float = 12.0) -> dict:
     # re-fetch headers only if we had a 402
     if probe_status == 402:
         try:
-            r2 = requests.get(target, timeout=timeout)
+            r2 = requests.get(target, timeout=timeout, allow_redirects=False)
             for h in ("Payment-Required", "PAYMENT-REQUIRED", "payment-required"):
                 if r2.headers.get(h):
                     pr_header = h

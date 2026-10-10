@@ -3248,7 +3248,19 @@ def prefinality_evaluate():
 def audit_page():
     """Human-friendly x402 audit — paste a URL, get a grade."""
     target = (request.args.get("url") or request.args.get("endpoint") or "").strip()
-    result = x402_audit_mod.audit_endpoint(target) if target else None
+    result = None
+    if target:
+        ok, _msg = demo_limit.allow_audit(request)
+        if not ok:
+            result = {
+                "spec": x402_audit_mod.SPEC,
+                "ok": False,
+                "url": target,
+                "error": "rate_limited",
+                "message": _msg,
+            }
+        else:
+            result = x402_audit_mod.audit_endpoint(target)
     wire_domain = ""
     if result and result.get("url"):
         try:
@@ -3286,6 +3298,9 @@ def x402_audit_free():
             ),
             400,
         )
+    ok, msg = demo_limit.allow_audit(request)
+    if not ok:
+        return jsonify({"spec": x402_audit_mod.SPEC, "error": "rate_limited", "message": msg}), 429
     result = x402_audit_mod.audit_endpoint(url)
     return jsonify(result), 200
 
