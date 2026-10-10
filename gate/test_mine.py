@@ -32,12 +32,16 @@ class MineOsTests(unittest.TestCase):
         self.assertEqual(body.get("spec"), mine_mod.SPEC)
         ids = [m["id"] for m in body.get("mines") or []]
         self.assertIn("liquidation", ids)
+        killed = {m["id"]: m.get("status") for m in body.get("mines") or []}
+        self.assertEqual(killed.get("liquidation"), "KILLED")
+        self.assertEqual(killed.get("funding"), "KILLED")
+        self.assertIn("killed", body)
         self.assertIn("funding", ids)
         self.assertIn("commerce_spread", ids)
 
     def test_clear_gate_refuses_zero_edge(self):
         out = mine_mod.clear_gate(
-            mine_id="funding",
+            mine_id="commerce_spread",
             notional_usd=10000,
             expected_edge_bps=0,
             max_loss_usd=200,
@@ -45,6 +49,18 @@ class MineOsTests(unittest.TestCase):
         )
         self.assertEqual(out["decision"], "NO_GO")
         self.assertIn("nonpositive_edge", out["signals"])
+
+    def test_killed_mines_refuse(self):
+        for mine_id in ("liquidation", "funding", "cross_venue_arb"):
+            out = mine_mod.clear_gate(
+                mine_id=mine_id,
+                notional_usd=10000,
+                expected_edge_bps=50,
+                max_loss_usd=200,
+                public_url="https://example.test",
+            )
+            self.assertEqual(out["decision"], "NO_GO", mine_id)
+            self.assertEqual(out["reason"], "mine_killed")
 
     def test_risk_passport_liquidatable(self):
         card = mine_risk.passport(collateral_usd=10000, debt_usd=12000, liquidation_threshold=0.825)
@@ -118,6 +134,8 @@ class MineOsTests(unittest.TestCase):
         body = r.get_json()
         self.assertTrue(body.get("ok"))
         self.assertEqual(body.get("proposed_action"), "open_short_perp_long_spot")
+        self.assertEqual((body.get("gate") or {}).get("decision"), "NO_GO")
+        self.assertEqual((body.get("gate") or {}).get("reason"), "mine_killed")
 
     def test_x402_catalog_lists_risk(self):
         cat = self.client.get("/.well-known/x402.json")

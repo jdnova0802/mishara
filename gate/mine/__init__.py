@@ -1,8 +1,8 @@
-"""Gate Mine OS — fail-closed brain of a self-operating money machine.
+"""Gate Mine OS — catalog retained as a kill record.
 
-Philosophical remix: Gate is no longer "sell Clear to strangers."
-Gate is the ASIC controller. Markets / protocols / agent rails pay the block
-reward. Clear refuses suicide commits. You + product. No forms. No sales.
+Liquidation / funding / cross-venue searcher paths are KILLED. Same blade as
+Keepers: zero-sum trading income vs fail-closed verification. See
+gate/outbound/PASTE_KILL_MINE_OS.md. clear_gate refuses any KILLED mine.
 """
 from __future__ import annotations
 
@@ -10,42 +10,48 @@ from typing import Any
 
 SPEC = "gate-mine-os-v1"
 
-# Mines ranked by how close they are to early Bitcoin mining:
-# protocol/market pays YOU for work. No human customer.
+# Searcher / trading mines are a kill record, not a roadmap.
 MINES = (
     {
         "id": "liquidation",
         "name": "DeFi liquidation bonus",
+        "status": "KILLED",
+        "kill_reason": "keepers_blade",
         "payer": "protocol",
         "shape": "Flash-loan seize undercollateralized debt; keep bonus.",
-        "cite": "Top liquidator ~$26M net / 14mo across Aave/Morpho/Spark; top-20 take ~89%",
+        "cite": "Profits real (~$207M class; ~87% top-5). Gate seat is not. Same kill as Keepers.",
         "capital": "Near-zero with flash loans; edge is indexer + route + builder bid",
-        "gate_role": "Clear before seize — refuse unprofitable / HF-edge suicides",
-        "fed_scale": "yes_if_top_cohort",
+        "gate_role": "DO NOT OPERATE",
+        "fed_scale": "killed_for_gate",
     },
     {
         "id": "funding",
         "name": "Perp funding cash-and-carry",
+        "status": "KILLED",
+        "kill_reason": "trading_desk_not_verification",
         "payer": "market",
         "shape": "Long spot + short perp when funding > threshold; collect every 8h.",
-        "cite": "Worked examples ~3–7%/mo on ~$50k; crash-day rates spike harder",
+        "cite": "Real elsewhere. Not a Gate mouth.",
         "capital": "Working capital is the ASIC ($10k+ practical floor)",
-        "gate_role": "Clear before size / flip — refuse rate-inversion traps",
-        "fed_scale": "scales_with_capital",
+        "gate_role": "DO NOT OPERATE",
+        "fed_scale": "killed_for_gate",
     },
     {
         "id": "cross_venue_arb",
         "name": "Cross-venue / listing arb",
+        "status": "KILLED",
+        "kill_reason": "trading_desk_not_verification",
         "payer": "market_spread",
         "shape": "CEX↔DEX / cross-chain inventory when spread > fee drag.",
-        "cite": "Solana listing spikes: hundreds per event with inventory; pure atomic DEX arb saturated",
+        "cite": "Speed race vs searchers. Not a Gate mouth.",
         "capital": "$10–50k inventory + colo for competitive tier",
-        "gate_role": "Clear before bridge/withdraw — refuse incomplete legs",
-        "fed_scale": "yes_with_inventory_and_speed",
+        "gate_role": "DO NOT OPERATE",
+        "fed_scale": "killed_for_gate",
     },
     {
         "id": "commerce_spread",
         "name": "Agent commerce spread mine",
+        "status": "NOT_THIS_KILL",
         "payer": "agent_wallets",
         "shape": "Buy wholesale (gift cards / premium APIs) → sell via x402 retail.",
         "cite": "Bitrefill x402 ~$592k tracked; stableenrich.dev ~$940/mo pure API resale pattern",
@@ -56,6 +62,7 @@ MINES = (
     {
         "id": "action_execution",
         "name": "Paid agent actions (swap/hire/rent)",
+        "status": "NOT_THIS_KILL",
         "payer": "agent_wallets",
         "shape": "Agents pay for doing the thing — swap execute, browser rent, hire.",
         "cite": "hibra swap execute organic payers; Browserbase return×50; molty hire tips",
@@ -70,10 +77,11 @@ def catalog() -> dict[str, Any]:
     return {
         "spec": SPEC,
         "doctrine": (
-            "Markets and protocols are the Fed. Gate Clear is the mining OS — "
-            "fail-closed before irreversible size. You operate the farm. "
-            "No forms. No sales. No waiting on humans."
+            "KILL: liquidation, funding, and cross-venue searcher paths are dead "
+            "for Gate — same blade as Keepers. Profits elsewhere do not open a seat. "
+            "clear_gate refuses any mine whose status is KILLED."
         ),
+        "killed": ["liquidation", "funding", "cross_venue_arb"],
         "mines": list(MINES),
         "empty_niches_agents_pay": [
             "DeFi health-factor / liquidation-candidate passports (catalog almost empty)",
@@ -106,6 +114,16 @@ def clear_gate(
             "halt": True,
             "reason": "unknown_mine",
             "mine_id": mine_id,
+        }
+    if str(mine.get("status") or "").startswith("KILLED"):
+        return {
+            "spec": SPEC,
+            "mine": mine,
+            "decision": "NO_GO",
+            "halt": True,
+            "reason": "mine_killed",
+            "signals": [mine.get("kill_reason") or "keepers_blade"],
+            "note": "Same kill as Keepers. Gate does not operate this desk.",
         }
 
     # Refuse negative / zero edge and uncapped loss

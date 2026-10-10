@@ -58,7 +58,7 @@ def passport(
         "liquidatable": status == "LIQUIDATABLE",
         "est_liquidation_bonus_usd": round(bonus_est, 2),
         "mine_hook": (
-            "If LIQUIDATABLE: run liquidation mine with Gate Clear on seize notional. "
-            "Protocol pays the bonus — this passport is the ore detector."
+            "Classify only. LIQUIDATABLE is a verification label for someone else's "
+            "decision. Gate does not seize. Liquidation desk is killed (Keepers blade)."
         ),
     }
