@@ -64,6 +64,13 @@ services:
         sync: false
       - key: GATE_RECEIPT_PUBLIC_KEY
         sync: false
+      # Separate signing key for demo/dogfood receipts. When set, demo receipts are
+      # signed by a key the live money rails do not trust, so a self-minted demo
+      # receipt can never action a live rail even if its demo=true flag is stripped.
+      - key: GATE_RECEIPT_DEMO_PRIVATE_KEY
+        sync: false
+      - key: GATE_RECEIPT_DEMO_PUBLIC_KEY
+        sync: false
       # Inbound OCT/Fast Funds webhook shared secret (X-Sink-Token). Required in prod.
       - key: GATE_SINK_WEBHOOK_SECRET
         sync: false

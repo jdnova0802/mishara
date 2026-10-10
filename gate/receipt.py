@@ -87,8 +87,56 @@ def _ed25519_public_key_bytes() -> bytes | None:
         return None
 
 
+def _ed25519_demo_signing_key():
+    """Separate signing key for demo/dogfood receipts.
+
+    Env vars:
+      - GATE_RECEIPT_DEMO_PRIVATE_KEY: base64(raw 32-byte Ed25519 private key)
+      - GATE_RECEIPT_DEMO_PUBLIC_KEY:  base64(raw 32-byte Ed25519 public key)
+
+    When unset, callers fall back to the production key (demo receipts stay marked
+    via the demo=true flag). When set, demo receipts are signed by a key the live
+    money rails do not trust, so a self-minted demo receipt can never action a live
+    rail even if the demo flag were stripped."""
+    priv_b = _b64decode_raw(os.getenv("GATE_RECEIPT_DEMO_PRIVATE_KEY"))
+    if not priv_b:
+        return None
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+
+    try:
+        return Ed25519PrivateKey.from_private_bytes(priv_b)
+    except Exception:
+        return None
+
+
+def _ed25519_demo_public_key_bytes() -> bytes | None:
+    pub_b = _b64decode_raw(os.getenv("GATE_RECEIPT_DEMO_PUBLIC_KEY"))
+    if pub_b:
+        return pub_b
+    key = _ed25519_demo_signing_key()
+    if not key:
+        return None
+    try:
+        from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+
+        return key.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+    except Exception:
+        return None
+
+
+def demo_signing_configured() -> bool:
+    return _ed25519_demo_signing_key() is not None
+
+
 def receipt_public_key_fingerprint() -> str | None:
     pub_b = _ed25519_public_key_bytes()
+    if not pub_b:
+        return None
+    return hashlib.sha256(pub_b).hexdigest()[:16]
+
+
+def demo_public_key_fingerprint() -> str | None:
+    pub_b = _ed25519_demo_public_key_bytes()
     if not pub_b:
         return None
     return hashlib.sha256(pub_b).hexdigest()[:16]
