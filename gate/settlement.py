@@ -513,4 +513,9 @@ def spec(public_url: str) -> dict:
         "fail_closed": True,
         "their_production": False,
         "url": f"{public_url}/.well-known/settlement.json",
+        "write": {
+            "open_window": f"{public_url}/v1/settlement/window/open",
+            "settle_window": f"{public_url}/v1/settlement/window/{{window_id}}/settle",
+            "ops_token_required": True,
+        },
     }

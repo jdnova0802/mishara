@@ -122,6 +122,7 @@ class ManifestTests(unittest.TestCase):
         self.assertIn("spend_protocol", m)
         self.assertIn("command_radiation", m)
         self.assertIn("license_fuse", m)
+        self.assertIn("inventions", m)
         self.assertIn("restraint", m)
         self.assertIn("register", m)
         self.assertIn("liturgy", m)
@@ -148,6 +149,7 @@ class ManifestTests(unittest.TestCase):
                 "pas_bind_check",
                 "policycenter_pre_bind",
                 "mga_authority",
+                "prefinality_evaluate",
             },
         )
 
@@ -576,6 +578,24 @@ class BindRoomFlaskTests(unittest.TestCase):
         gate_app.GATE_DEV_MODE = True
         gate_app.app.config["TESTING"] = True
         cls.client = gate_app.app.test_client()
+        # Use-time Finality Sink hits Velaru; lab suite keeps a LIVE stub so
+        # redeem tests stay independent of the public drill fuse state.
+        cls._sink_patch = mock.patch.object(
+            gate_app,
+            "_sink_fuse_lookup",
+            side_effect=lambda _fid: {
+                "state": "LIVE",
+                "verdict": True,
+                "halt": False,
+                "http_status": 200,
+                "test_stub": True,
+            },
+        )
+        cls._sink_patch.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._sink_patch.stop()
 
     def test_no_pii_on_demo_pre_bind(self):
         r = self.client.post(
@@ -1978,6 +1998,22 @@ class LicenseFuseTests(unittest.TestCase):
         gate_app.GATE_DEV_MODE = True
         gate_app.app.config["TESTING"] = True
         cls.client = gate_app.app.test_client()
+        cls._sink_patch = mock.patch.object(
+            gate_app,
+            "_sink_fuse_lookup",
+            side_effect=lambda _fid: {
+                "state": "LIVE",
+                "verdict": True,
+                "halt": False,
+                "http_status": 200,
+                "test_stub": True,
+            },
+        )
+        cls._sink_patch.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._sink_patch.stop()
 
     def _live(self, tag):
         return {
