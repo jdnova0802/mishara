@@ -361,6 +361,38 @@ def _ops_authorized() -> bool:
     return GATE_DEV_MODE
 
 
+def _sink_oct_authorized() -> bool:
+    """Inbound OCT/Fast Funds webhook auth. A money-rail webhook must not be open.
+
+    Requires a shared secret (X-Sink-Token == GATE_SINK_WEBHOOK_SECRET) when one is
+    configured. If none is set, fail closed in production and allow only in dev mode
+    (mirrors the Stripe Issuing webhook's signed-vs-dev posture)."""
+    import secrets as _secrets
+
+    secret = (os.getenv("GATE_SINK_WEBHOOK_SECRET") or "").strip()
+    got = (request.headers.get("X-Sink-Token") or "").strip()
+    if secret:
+        return bool(got) and _secrets.compare_digest(got, secret)
+    return GATE_DEV_MODE
+
+
+def _write_authorized() -> bool:
+    """Auth for public write endpoints (e.g. deny-registry register): ops token or a
+    valid API key. Sets g.account_id when a key authenticates."""
+    if _ops_authorized():
+        return True
+    try:
+        row = authenticate_api_key()
+    except Exception:
+        row = None
+    if row:
+        g.api_account = row
+        g.plan = row["plan"]
+        g.account_id = row["account_id"]
+        return True
+    return False
+
+
 ARCHIVE_NOINDEX_PREFIXES = (
     "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
@@ -1566,6 +1598,13 @@ def _license_body():
     return fields.allowlist_pas(raw), None, 200
 
 
+def _license_caller_account(demo: bool) -> str | None:
+    """Owner principal for license ops: the authenticated account, never for demo."""
+    if demo:
+        return None
+    return getattr(g, "account_id", None)
+
+
 def _license_charge_view(license_id: str, *, demo: bool = False):
     body, blocked, code = _license_body()
     if blocked:
@@ -1573,6 +1612,7 @@ def _license_charge_view(license_id: str, *, demo: bool = False):
     result = license_fuse_mod.charge(
         license_id=license_id,
         charge_id=(body or {}).get("charge_id"),
+        account_id=_license_caller_account(demo),
     )
     if isinstance(result, dict):
         result["demo"] = demo
@@ -1586,7 +1626,10 @@ def _license_dead_view(license_id: str, *, demo: bool = False):
         blocked = fields.pii_error(raw)
         if blocked:
             return blocked, 400
-    result = license_fuse_mod.dead(license_id=license_id)
+    result = license_fuse_mod.dead(
+        license_id=license_id,
+        account_id=_license_caller_account(demo),
+    )
     if isinstance(result, dict):
         result["demo"] = demo
         bound.attach(result, 200 if result.get("ok") else 403, demo=demo)
@@ -2062,6 +2105,10 @@ def deny_registry_fingerprint():
 
 @app.route("/v1/deny-registry", methods=["POST"])
 def deny_registry_register():
+    # Writing to the shared deny registry is privileged — require ops token or a
+    # valid API key so anonymous callers cannot poison it. Lookups stay public.
+    if not _write_authorized():
+        return jsonify({"error": {"code": "auth_required"}}), 401
     try:
         from gate import deny_registry as deny_mod
     except ImportError:
@@ -2951,6 +2998,8 @@ def demo_sink_aft():
 @app.route("/v1/sink/oct", methods=["POST"])
 def sink_oct_webhook():
     """Inbound OCT / Fast Funds — accept only on Gate GO. Fail closed otherwise."""
+    if not _sink_oct_authorized():
+        return jsonify({"accepted": False, "error": {"code": "sink_auth_required"}}), 401
     body = request.get_json(silent=True) or {}
     push = body.get("data", {}).get("object") if isinstance(body.get("data"), dict) else body
     if not isinstance(push, dict):
@@ -3248,7 +3297,19 @@ def prefinality_evaluate():
 def audit_page():
     """Human-friendly x402 audit — paste a URL, get a grade."""
     target = (request.args.get("url") or request.args.get("endpoint") or "").strip()
-    result = x402_audit_mod.audit_endpoint(target) if target else None
+    result = None
+    if target:
+        ok, _msg = demo_limit.allow_audit(request)
+        if not ok:
+            result = {
+                "spec": x402_audit_mod.SPEC,
+                "ok": False,
+                "url": target,
+                "error": "rate_limited",
+                "message": _msg,
+            }
+        else:
+            result = x402_audit_mod.audit_endpoint(target)
     wire_domain = ""
     if result and result.get("url"):
         try:
@@ -3286,6 +3347,9 @@ def x402_audit_free():
             ),
             400,
         )
+    ok, msg = demo_limit.allow_audit(request)
+    if not ok:
+        return jsonify({"spec": x402_audit_mod.SPEC, "error": "rate_limited", "message": msg}), 429
     result = x402_audit_mod.audit_endpoint(url)
     return jsonify(result), 200
 

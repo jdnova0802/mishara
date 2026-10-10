@@ -133,6 +133,12 @@ def init_db():
             CREATE INDEX IF NOT EXISTS idx_bind_tickets_license ON bind_tickets(license_id);
             """
         )
+        # account_id binds a license to its owner on first CHARGE. Only the owner can
+        # kill (DEAD) or re-charge it; demo/unowned callers can never touch an owned
+        # license (closes the unauthenticated kill-switch).
+        lp_cols = {row[1] for row in conn.execute("PRAGMA table_info(license_parents)").fetchall()}
+        if "account_id" not in lp_cols:
+            conn.execute("ALTER TABLE license_parents ADD COLUMN account_id TEXT")
 
         conn.executescript(
             """
@@ -763,21 +769,27 @@ def get_license_parent(license_id: str) -> dict | None:
     return dict(row) if row else None
 
 
-def upsert_license_parent(*, license_id: str, state: str, charge_id: str | None = None) -> None:
+def upsert_license_parent(
+    *, license_id: str, state: str, charge_id: str | None = None, account_id: str | None = None
+) -> None:
     lid = (license_id or "").strip()
     st = (state or "").strip().upper()
     if not lid or st not in {"UNSIGNED", "LIVE", "DEAD"}:
         raise ValueError("license parent requires license_id and UNSIGNED|LIVE|DEAD")
     now = utc_now()
+    owner = (account_id or "").strip() or None
     with db() as conn:
+        # Owner is sticky: once set it is preserved on later state changes. COALESCE
+        # keeps the existing owner unless this call supplies one (first CHARGE binds it).
         conn.execute(
-            """INSERT INTO license_parents (license_id, state, charge_id, updated_at, created_at)
-               VALUES (?, ?, ?, ?, ?)
+            """INSERT INTO license_parents (license_id, state, charge_id, account_id, updated_at, created_at)
+               VALUES (?, ?, ?, ?, ?, ?)
                ON CONFLICT(license_id) DO UPDATE SET
                  state = excluded.state,
                  charge_id = excluded.charge_id,
+                 account_id = COALESCE(license_parents.account_id, excluded.account_id),
                  updated_at = excluded.updated_at""",
-            (lid, st, charge_id, now, now),
+            (lid, st, charge_id, owner, now, now),
         )
 
 

@@ -71,7 +71,13 @@ def signing_required() -> bool:
     return receipt_mod.signing_required()
 
 
-def _signing_key():
+def _signing_key(demo: bool = False):
+    """Prod key by default. Demo receipts use the separate demo key when provisioned,
+    else fall back to the prod key (still marked via the demo=true payload flag)."""
+    if demo:
+        demo_key = receipt_mod._ed25519_demo_signing_key()
+        if demo_key is not None:
+            return demo_key
     return receipt_mod._ed25519_signing_key()
 
 
@@ -79,8 +85,16 @@ def _public_key_bytes() -> bytes | None:
     return receipt_mod._ed25519_public_key_bytes()
 
 
-def key_id() -> str | None:
-    fp = receipt_mod.receipt_public_key_fingerprint()
+def _demo_public_key_bytes() -> bytes | None:
+    return receipt_mod._ed25519_demo_public_key_bytes()
+
+
+def key_id(demo: bool = False) -> str | None:
+    fp = (
+        receipt_mod.demo_public_key_fingerprint()
+        if demo and receipt_mod.demo_signing_configured()
+        else receipt_mod.receipt_public_key_fingerprint()
+    )
     return f"gate-prefinality-{fp}" if fp else None
 
 
@@ -251,12 +265,12 @@ def mint_receipt_jwt(
     claim_scope: dict | None = None,
     demo: bool = False,
 ) -> str | None:
-    key = _signing_key()
+    key = _signing_key(demo=demo)
     if not key:
         return None
     now = _utc_now()
     exp = now + timedelta(seconds=max(30, min(int(ttl_seconds or DEFAULT_TTL_SECONDS), 3600)))
-    kid = key_id()
+    kid = key_id(demo=demo)
     payload = {
         "spec": SPEC,
         "jti": evaluation_id,
@@ -293,6 +307,7 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         "payload": None,
         "demo": False,
         "jti": None,
+        "key_class": None,
     }
     if not token or not isinstance(token, str):
         meta["reason"] = "missing_token"
@@ -309,19 +324,30 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         meta["reason"] = "decode_error"
         return meta
 
-    pub = _public_key_bytes()
-    if not pub:
+    prod_pub = _public_key_bytes()
+    demo_pub = _demo_public_key_bytes()
+    if not prod_pub and not demo_pub:
         meta["reason"] = "verify_unconfigured"
         return meta
-    try:
-        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+    # Try the production key first, then the demo key. key_class records which signed
+    # it so live rails can refuse demo-key receipts regardless of the demo payload flag.
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
-        pk = Ed25519PublicKey.from_public_bytes(pub)
-        signing_input = f"{parts[0]}.{parts[1]}".encode("utf-8")
-        pk.verify(sig, signing_input)
-    except Exception:
+    signing_input = f"{parts[0]}.{parts[1]}".encode("utf-8")
+    key_class = None
+    for candidate, klass in ((prod_pub, "prod"), (demo_pub, "demo")):
+        if not candidate:
+            continue
+        try:
+            Ed25519PublicKey.from_public_bytes(candidate).verify(sig, signing_input)
+            key_class = klass
+            break
+        except Exception:
+            continue
+    if key_class is None:
         meta["reason"] = "bad_signature"
         return meta
+    meta["key_class"] = key_class
 
     if header.get("alg") != "EdDSA":
         meta["reason"] = "unsupported_alg"
@@ -351,7 +377,9 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
             "decision": decision,
             "payload": payload,
             "reason": None,
-            "demo": bool(payload.get("demo")),
+            # Demo if the payload says so OR it was signed by the demo key. Either
+            # one is enough for a live rail to refuse it.
+            "demo": bool(payload.get("demo")) or meta.get("key_class") == "demo",
             "jti": payload.get("jti"),
         }
     )
@@ -585,22 +613,38 @@ def _response(
 
 
 def jwks() -> dict:
-    pub = _public_key_bytes()
-    kid = key_id()
-    if not pub or not kid:
-        return {"keys": []}
-    return {
-        "keys": [
+    keys = []
+    prod_pub = _public_key_bytes()
+    prod_kid = key_id()
+    if prod_pub and prod_kid:
+        keys.append(
             {
                 "kty": "OKP",
                 "crv": "Ed25519",
-                "kid": kid,
-                "x": _b64url(pub),
+                "kid": prod_kid,
+                "x": _b64url(prod_pub),
                 "use": "sig",
                 "alg": "EdDSA",
             }
-        ]
-    }
+        )
+    # Publish the demo key too (when provisioned) so strangers can still verify demo
+    # receipts — they are signed, just not trusted by live rails.
+    if receipt_mod.demo_signing_configured():
+        demo_pub = _demo_public_key_bytes()
+        demo_kid = key_id(demo=True)
+        if demo_pub and demo_kid:
+            keys.append(
+                {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "kid": demo_kid,
+                    "x": _b64url(demo_pub),
+                    "use": "sig",
+                    "alg": "EdDSA",
+                    "gate_key_class": "demo",
+                }
+            )
+    return {"keys": keys}
 
 
 def manifest(public_url: str) -> dict:

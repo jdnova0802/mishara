@@ -27,6 +27,7 @@ REASON_INVALID = "license_id_invalid"
 REASON_NOT_LIVE = "license_parent_not_live"
 REASON_MISMATCH = "license_parent_mismatch"
 REASON_CHARGE_REQUIRED = "charge_id_required"
+REASON_NOT_OWNED = "license_not_owned"
 STATES = ("UNSIGNED", "LIVE", "ARMED", "DEAD")
 _ID_RE = re.compile(r"^[A-Za-z0-9._:-]{1,128}$")
 
@@ -110,8 +111,22 @@ def require_live(license_id: str | None) -> dict:
     }
 
 
-def charge(*, license_id: str | None, charge_id: str | None) -> dict:
-    """The only path UNSIGNED/DEAD → LIVE. Verified charge authority required."""
+def _owner_conflict(prior: dict, account_id: str | None) -> bool:
+    """True when the license is owned by a different principal than the caller.
+
+    An owned license may only be acted on by its owner. A demo/unauthenticated
+    caller (account_id is None) can never act on an owned license."""
+    owner = (prior.get("account_id") or "").strip() or None
+    if not owner:
+        return False  # unowned (never charged / demo) — not an ownership conflict
+    caller = (account_id or "").strip() or None
+    return caller != owner
+
+
+def charge(*, license_id: str | None, charge_id: str | None, account_id: str | None = None) -> dict:
+    """The only path UNSIGNED/DEAD → LIVE. Verified charge authority required.
+
+    First successful charge binds the license to `account_id` (its owner)."""
     try:
         from gate import charge_authority as charge_mod
     except ImportError:
@@ -121,6 +136,15 @@ def charge(*, license_id: str | None, charge_id: str | None) -> dict:
     cid = charge_mod.normalize(charge_id)
     if not lid:
         return {"ok": False, "halt": True, "reason": REASON_REQUIRED, "state": None}
+    prior = db.get_license_parent(lid) or {}
+    if _owner_conflict(prior, account_id):
+        return {
+            "ok": False,
+            "halt": True,
+            "reason": REASON_NOT_OWNED,
+            "state": prior.get("state") or "UNSIGNED",
+            "license_id": lid,
+        }
     auth = charge_mod.verify(charge_id=cid, purpose="license", subject=lid)
     if not auth.get("ok"):
         return {
@@ -132,7 +156,7 @@ def charge(*, license_id: str | None, charge_id: str | None) -> dict:
             "charge_authority": auth,
         }
     charge_mod.consume(charge_id=cid, purpose="license", subject=lid)
-    db.upsert_license_parent(license_id=lid, state="LIVE", charge_id=cid)
+    db.upsert_license_parent(license_id=lid, state="LIVE", charge_id=cid, account_id=account_id)
     return {
         "ok": True,
         "halt": False,
@@ -146,16 +170,28 @@ def charge(*, license_id: str | None, charge_id: str | None) -> dict:
     }
 
 
-def dead(*, license_id: str | None) -> dict:
-    """Blow the parent. Outstanding tickets cannot redeem until CHARGE."""
+def dead(*, license_id: str | None, account_id: str | None = None) -> dict:
+    """Blow the parent. Outstanding tickets cannot redeem until CHARGE.
+
+    Only the owning account may kill an owned license — this closes the previously
+    unauthenticated kill-switch (a demo/anon caller can no longer DEAD a real one)."""
     lid = normalize_id(license_id)
     if not lid:
         return {"ok": False, "halt": True, "reason": REASON_REQUIRED, "state": None}
     prior = db.get_license_parent(lid) or {}
+    if _owner_conflict(prior, account_id):
+        return {
+            "ok": False,
+            "halt": True,
+            "reason": REASON_NOT_OWNED,
+            "state": prior.get("state") or "UNSIGNED",
+            "license_id": lid,
+        }
     db.upsert_license_parent(
         license_id=lid,
         state="DEAD",
         charge_id=prior.get("charge_id"),
+        account_id=prior.get("account_id"),
     )
     return {
         "ok": True,
