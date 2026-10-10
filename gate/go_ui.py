@@ -46,12 +46,14 @@ def evaluate_go(
     public_url: str,
     fuse_hop: Callable[[str], dict | None] | None = None,
     account_id: str | None = None,
+    demo: bool = False,
 ) -> dict[str, Any]:
     raw = prefinality_mod.evaluate(
         body if isinstance(body, dict) else {},
         account_id=account_id,
         public_url=public_url,
         fuse_hop=fuse_hop,
+        demo=demo,
     )
     label = clear_decision(raw.get("decision") or "NO_GO")
     return {

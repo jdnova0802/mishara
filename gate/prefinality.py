@@ -240,6 +240,7 @@ def mint_receipt_jwt(
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
     issuer: str | None = None,
     claim_scope: dict | None = None,
+    demo: bool = False,
 ) -> str | None:
     key = _signing_key()
     if not key:
@@ -259,6 +260,10 @@ def mint_receipt_jwt(
         "fp": fingerprint,
         "sig": signals,
     }
+    # Demo/dogfood receipts are signed (stranger-verifiable) but must never action a
+    # live rail. Live gates (e.g. RTP) refuse any receipt carrying demo=true.
+    if demo:
+        payload["demo"] = True
     # Scope of the negative/clearance claim — inside the signed JWT, not implied by endpoint.
     if claim_scope:
         payload["scope"] = claim_scope
@@ -277,6 +282,8 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         "decision": None,
         "reason": None,
         "payload": None,
+        "demo": False,
+        "jti": None,
     }
     if not token or not isinstance(token, str):
         meta["reason"] = "missing_token"
@@ -329,7 +336,16 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         meta["payload"] = payload
         return meta
 
-    meta.update({"valid": True, "decision": decision, "payload": payload, "reason": None})
+    meta.update(
+        {
+            "valid": True,
+            "decision": decision,
+            "payload": payload,
+            "reason": None,
+            "demo": bool(payload.get("demo")),
+            "jti": payload.get("jti"),
+        }
+    )
     return meta
 
 
@@ -339,6 +355,7 @@ def evaluate(
     account_id: str | None = None,
     public_url: str,
     fuse_hop: Callable[[str], dict | None] | None = None,
+    demo: bool = False,
 ) -> dict:
     """Core evaluate — returns API response dict."""
     rail = (body.get("rail") or "").strip().lower()
@@ -415,6 +432,7 @@ def evaluate(
         ttl_seconds=ttl,
         issuer=public_url.replace("https://", "").replace("http://", "").split("/")[0] or "gate.velaru.xyz",
         claim_scope=scope,
+        demo=demo,
     )
 
     if signing_required() and not receipt:
