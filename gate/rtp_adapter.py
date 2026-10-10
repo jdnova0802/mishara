@@ -46,25 +46,53 @@ def _cents_to_decimal(amount) -> str | None:
 
 
 def gate_payment_order(*, receipt_jwt: str, payment_order: dict) -> dict:
-    """Return allow/deny for an outbound RTP-shaped payment order."""
+    """Return allow/deny for an outbound RTP-shaped payment order.
+
+    Fail closed. A live money rail refuses:
+      - any receipt that does not verify or is not GO,
+      - demo/dogfood receipts (signed, but never actionable),
+      - a receipt whose jti was already used (single-use; replay rejected)."""
     fp = payment_order_fingerprint(payment_order if isinstance(payment_order, dict) else {})
     verified = prefinality_mod.verify_receipt_jwt(receipt_jwt, expected_fingerprint=fp)
     decision = verified.get("decision")
-    allow = bool(verified.get("valid") and decision == "GO")
+    valid = bool(verified.get("valid"))
+    is_demo = bool(verified.get("demo"))
+    reason = verified.get("reason")
+
+    allow = valid and decision == "GO" and not is_demo
+    if valid and is_demo:
+        reason = "demo_receipt_refused"
+
+    if allow:
+        jti = verified.get("jti")
+        try:
+            from gate import db
+        except ImportError:
+            import db
+        if not db.consume_receipt(jti=jti, rail="rtp", fingerprint=fp):
+            allow = False
+            reason = "receipt_already_used"
+
+    if allow:
+        message = "Receipt valid and GO — safe to create payment_order with type=rtp."
+    elif is_demo:
+        message = "Do not create payment_order — this is a demo receipt and cannot action a live rail."
+    elif reason == "receipt_already_used":
+        message = "Do not create payment_order — this receipt was already used (single-use)."
+    else:
+        message = "Do not create payment_order — receipt missing, invalid, or not GO."
+
     return {
         "spec": SPEC,
         "allow": allow,
         "halt": not allow,
         "decision": decision,
-        "valid_receipt": bool(verified.get("valid")),
-        "reason": verified.get("reason"),
+        "valid_receipt": valid,
+        "demo": is_demo,
+        "reason": reason,
         "fingerprint": fp,
         "payment_type_expected": "rtp",
-        "message": (
-            "Receipt valid and GO — safe to create payment_order with type=rtp."
-            if allow
-            else "Do not create payment_order — receipt missing, invalid, or not GO."
-        ),
+        "message": message,
     }
 
 

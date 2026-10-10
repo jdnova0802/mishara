@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import json
 import os
 import uuid
@@ -99,10 +100,74 @@ def _addr_eq(a: str | None, b: str | None) -> bool:
     return a.strip().lower() == b.strip().lower()
 
 
-def payment_verified(headers, *, amount_atomic_override: str | None = None) -> dict:
+def _dev_unverified_escape() -> bool:
+    accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
+        "1",
+        "true",
+        "TRUE",
+        "yes",
+    )
+    dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
+    return accept_unverified and dev
+
+
+def _amount_asset_network_mismatch(buyer: dict, ours: dict) -> dict | None:
+    """Compare a buyer-echoed requirements object against the server's own.
+
+    payTo is checked by the caller (distinct reason). Here: the buyer must pay the
+    exact required amount in the exact required asset on the exact required network."""
+    out: dict[str, Any] = {}
+    try:
+        if int(str(buyer.get("amount"))) != int(str(ours.get("amount"))):
+            out["amount"] = {"buyer": buyer.get("amount"), "required": ours.get("amount")}
+    except (TypeError, ValueError):
+        out["amount"] = {"buyer": buyer.get("amount"), "required": ours.get("amount")}
+    if str(buyer.get("asset") or "").lower() != str(ours.get("asset") or "").lower():
+        out["asset"] = {"buyer": buyer.get("asset"), "required": ours.get("asset")}
+    if str(buyer.get("network") or "").lower() != str(ours.get("network") or "").lower():
+        out["network"] = {"buyer": buyer.get("network"), "required": ours.get("network")}
+    return out or None
+
+
+def _payment_nonce(payload: dict) -> str | None:
+    """Stable id for a payment authorization — basis for replay rejection.
+
+    Keyed on the signed authorization (signature + authorization fields) so two
+    different payments never collide, but a resubmission of the same one does."""
+    try:
+        inner = payload.get("payload") if isinstance(payload.get("payload"), dict) else {}
+        signature = inner.get("signature") or payload.get("signature")
+        authorization = (
+            inner.get("authorization")
+            if isinstance(inner.get("authorization"), dict)
+            else payload.get("authorization")
+        )
+        basis: Any
+        if signature or authorization:
+            basis = {"signature": signature, "authorization": authorization}
+        else:
+            basis = payload
+        canonical = json.dumps(basis, sort_keys=True, separators=(",", ":"), default=str)
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    except Exception:
+        return None
+
+
+def payment_verified(
+    headers,
+    *,
+    amount_atomic_override: str | None = None,
+    asset: str | None = None,
+    network: str | None = None,
+    resource: str | None = None,
+) -> dict:
     """Fail closed: a payment header alone never unlocks a paid route.
 
-    Requires CDP facilitator verify + settle (CDP_API_KEY_ID/SECRET).
+    Requires CDP facilitator verify + settle (CDP_API_KEY_ID/SECRET). The payment
+    requirements (amount, asset, network, payTo) are built server-side from the
+    route's own price — never taken from the buyer's payload — so a buyer cannot
+    name their own price. A buyer-echoed `accepted` object is only checked for an
+    exact match. Each payment payload is single-use (replay rejected).
     Dev-only escape: GATE_X402_ACCEPT_UNVERIFIED=1 AND GATE_DEV_MODE=1.
     """
     try:
@@ -121,14 +186,7 @@ def payment_verified(headers, *, amount_atomic_override: str | None = None) -> d
     payload = fac.decode_payment_header(raw)
     if not payload:
         # Forged / garbage header — still fail closed (never treat as paid).
-        accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
-            "1",
-            "true",
-            "TRUE",
-            "yes",
-        )
-        dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
-        if accept_unverified and dev:
+        if _dev_unverified_escape():
             return {
                 "ok": True,
                 "reason": "dev_unverified_accepted",
@@ -143,14 +201,7 @@ def payment_verified(headers, *, amount_atomic_override: str | None = None) -> d
         }
 
     if not fac.facilitator_ready():
-        accept_unverified = (os.getenv("GATE_X402_ACCEPT_UNVERIFIED") or "").strip() in (
-            "1",
-            "true",
-            "TRUE",
-            "yes",
-        )
-        dev = (os.getenv("GATE_DEV_MODE") or "").strip() in ("1", "true", "TRUE", "yes")
-        if accept_unverified and dev:
+        if _dev_unverified_escape():
             return {
                 "ok": True,
                 "reason": "dev_unverified_accepted",
@@ -169,33 +220,68 @@ def payment_verified(headers, *, amount_atomic_override: str | None = None) -> d
         }
 
     our_payto = payto()
-    reqs = fac.payment_requirements_from_payload(payload)
-    if not reqs:
-        # Reconstruct from Gate challenge defaults when buyer omitted accepted.
-        if not our_payto:
-            return {
-                "ok": False,
-                "reason": "payto_unconfigured",
-                "paid": False,
-            }
-        amt = (amount_atomic_override or amount_atomic()).strip()
-        reqs = fac.local_requirements(
-            pay_to=our_payto,
-            amount=amt,
-            asset=USDC_BASE,
-            network=NETWORK_BASE,
-        )
-
-    # Merchant-side fail-closed: only settle payments aimed at our payTo.
-    if our_payto and not _addr_eq(str(reqs.get("payTo") or ""), our_payto):
+    if not our_payto:
         return {
             "ok": False,
-            "reason": "payto_mismatch",
+            "reason": "payto_unconfigured",
             "paid": False,
-            "note": "paymentRequirements.payTo does not match GATE_X402_PAYTO.",
+            "note": "GATE_X402_PAYTO not configured — cannot settle safely.",
         }
 
+    # Server-authoritative requirements. The buyer never names the price.
+    expected_amount = (amount_atomic_override or amount_atomic()).strip()
+    reqs = fac.local_requirements(
+        pay_to=our_payto,
+        amount=expected_amount,
+        asset=(asset or USDC_BASE),
+        network=(network or NETWORK_BASE),
+    )
+
+    # If the buyer echoed a requirements object, it must match ours exactly.
+    buyer_reqs = fac.payment_requirements_from_payload(payload)
+    if buyer_reqs:
+        if not _addr_eq(str(buyer_reqs.get("payTo") or ""), our_payto):
+            return {
+                "ok": False,
+                "reason": "payto_mismatch",
+                "paid": False,
+                "note": "paymentRequirements.payTo does not match GATE_X402_PAYTO.",
+            }
+        mismatch = _amount_asset_network_mismatch(buyer_reqs, reqs)
+        if mismatch:
+            return {
+                "ok": False,
+                "reason": "requirements_mismatch",
+                "paid": False,
+                "mismatch": mismatch,
+                "note": "Buyer-supplied amount/asset/network does not match the route price.",
+            }
+
+    # Replay: claim the payment-payload nonce before settling. Release on failure.
+    nonce = _payment_nonce(payload)
+    if nonce:
+        try:
+            from gate import db
+        except ImportError:
+            import db
+        if not db.reserve_x402_payment(nonce=nonce, resource=resource or "", amount=expected_amount):
+            return {
+                "ok": False,
+                "reason": "payment_replayed",
+                "paid": False,
+                "note": "This payment payload was already used.",
+            }
+
     result = fac.verify_and_settle(payment_payload=payload, payment_requirements=reqs)
+    if nonce:
+        try:
+            from gate import db
+        except ImportError:
+            import db
+        if result.get("ok"):
+            db.mark_x402_settled(nonce)
+        else:
+            db.release_x402_payment(nonce)
     result["facilitator"] = fac.facilitator_debug()
     return result
 

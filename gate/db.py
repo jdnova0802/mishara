@@ -886,6 +886,19 @@ def mark_install_paid(stripe_session_id: str):
     ensure_weld_order_from_session(stripe_session_id)
 
 
+_PREFINALITY_EXTRA_COLUMNS = (
+    ("amount", "REAL"),
+    ("currency", "TEXT"),
+    ("counterparty", "TEXT"),
+    ("authorization_id", "TEXT"),
+    ("card_id", "TEXT"),
+    ("merchant_category", "TEXT"),
+    ("event_id", "TEXT"),
+    ("mandate_json", "TEXT"),
+    ("demo", "INTEGER NOT NULL DEFAULT 0"),
+)
+
+
 def _ensure_prefinality_table(conn) -> None:
     conn.execute(
         """
@@ -902,11 +915,22 @@ def _ensure_prefinality_table(conn) -> None:
         )
         """
     )
+    # Evidence-grade record: migrate older tables to carry amount/auth-id/mandate so a
+    # decision can be reconstructed and a rolling spend window can be summed.
+    have = {row["name"] for row in conn.execute("PRAGMA table_info(prefinality_evaluations)")}
+    for name, decl in _PREFINALITY_EXTRA_COLUMNS:
+        if name not in have:
+            conn.execute(f"ALTER TABLE prefinality_evaluations ADD COLUMN {name} {decl}")
     conn.execute(
         "CREATE INDEX IF NOT EXISTS idx_prefinality_created ON prefinality_evaluations(created_at DESC)"
     )
     conn.execute(
         "CREATE INDEX IF NOT EXISTS idx_prefinality_agent ON prefinality_evaluations(agent_id, created_at DESC)"
+    )
+    # Dedupe Stripe webhook retries of the same authorization (many NULLs allowed).
+    conn.execute(
+        "CREATE UNIQUE INDEX IF NOT EXISTS idx_prefinality_auth "
+        "ON prefinality_evaluations(authorization_id) WHERE authorization_id IS NOT NULL"
     )
 
 
@@ -921,15 +945,28 @@ def record_prefinality_evaluation(
     signals: list,
     receipt_jwt: str | None,
     created_at: str,
+    amount: float | None = None,
+    currency: str | None = None,
+    counterparty: str | None = None,
+    authorization_id: str | None = None,
+    card_id: str | None = None,
+    merchant_category: str | None = None,
+    event_id: str | None = None,
+    mandate: dict | None = None,
+    demo: bool = False,
 ) -> None:
     import json
 
     with db() as conn:
         _ensure_prefinality_table(conn)
+        # INSERT OR IGNORE so a Stripe retry of the same authorization_id neither
+        # duplicates the row nor inflates the rolling spend sum.
         conn.execute(
-            """INSERT INTO prefinality_evaluations
-               (id, account_id, rail, decision, fingerprint, agent_id, signals_json, receipt_jwt, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            """INSERT OR IGNORE INTO prefinality_evaluations
+               (id, account_id, rail, decision, fingerprint, agent_id, signals_json,
+                receipt_jwt, created_at, amount, currency, counterparty, authorization_id,
+                card_id, merchant_category, event_id, mandate_json, demo)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 evaluation_id,
                 account_id,
@@ -940,8 +977,145 @@ def record_prefinality_evaluation(
                 json.dumps(signals or []),
                 receipt_jwt,
                 created_at,
+                amount,
+                currency,
+                counterparty,
+                authorization_id,
+                card_id,
+                merchant_category,
+                event_id,
+                json.dumps(mandate or {}) if mandate is not None else None,
+                1 if demo else 0,
             ),
         )
+
+
+def approved_amount_in_window(
+    *,
+    agent_id: str,
+    rail: str,
+    since: str,
+    exclude_authorization_id: str | None = None,
+) -> float:
+    """Sum of GO decision amounts for an agent on a rail since `since` (ISO ts).
+
+    Used for the rolling Issuing/OCT daily cap. Excludes the current authorization
+    so a Stripe retry recomputes the same window total."""
+    aid = (agent_id or "").strip()
+    if not aid:
+        return 0.0
+    with db() as conn:
+        _ensure_prefinality_table(conn)
+        if exclude_authorization_id:
+            row = conn.execute(
+                """SELECT COALESCE(SUM(amount), 0) AS total FROM prefinality_evaluations
+                   WHERE agent_id = ? AND rail = ? AND decision = 'GO'
+                     AND amount IS NOT NULL AND created_at >= ?
+                     AND (authorization_id IS NULL OR authorization_id != ?)""",
+                (aid, rail, since, exclude_authorization_id),
+            ).fetchone()
+        else:
+            row = conn.execute(
+                """SELECT COALESCE(SUM(amount), 0) AS total FROM prefinality_evaluations
+                   WHERE agent_id = ? AND rail = ? AND decision = 'GO'
+                     AND amount IS NOT NULL AND created_at >= ?""",
+                (aid, rail, since),
+            ).fetchone()
+    try:
+        return float(row["total"] or 0.0)
+    except (TypeError, ValueError, KeyError):
+        return 0.0
+
+
+def _ensure_x402_payments_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS x402_settled_payments (
+            nonce TEXT PRIMARY KEY,
+            resource TEXT,
+            amount TEXT,
+            settled INTEGER NOT NULL DEFAULT 0,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def reserve_x402_payment(*, nonce: str, resource: str = "", amount: str = "") -> bool:
+    """Atomically claim a payment-payload nonce before settling.
+
+    Returns True if newly reserved, False if it was already seen (replay). The
+    PRIMARY KEY makes this race-safe across concurrent requests."""
+    key = (nonce or "").strip()
+    if not key:
+        return True
+    with db() as conn:
+        _ensure_x402_payments_table(conn)
+        try:
+            conn.execute(
+                "INSERT INTO x402_settled_payments (nonce, resource, amount, created_at) "
+                "VALUES (?, ?, ?, ?)",
+                (key, resource or "", amount or "", utc_now()),
+            )
+            return True
+        except sqlite3.IntegrityError:
+            return False
+
+
+def mark_x402_settled(nonce: str) -> None:
+    key = (nonce or "").strip()
+    if not key:
+        return
+    with db() as conn:
+        _ensure_x402_payments_table(conn)
+        conn.execute(
+            "UPDATE x402_settled_payments SET settled = 1 WHERE nonce = ?", (key,)
+        )
+
+
+def release_x402_payment(nonce: str) -> None:
+    """Release a reservation that never settled, so a genuine retry can proceed."""
+    key = (nonce or "").strip()
+    if not key:
+        return
+    with db() as conn:
+        _ensure_x402_payments_table(conn)
+        conn.execute(
+            "DELETE FROM x402_settled_payments WHERE nonce = ? AND settled = 0", (key,)
+        )
+
+
+def _ensure_consumed_receipts_table(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS consumed_receipts (
+            jti TEXT PRIMARY KEY,
+            rail TEXT,
+            fingerprint TEXT,
+            used_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def consume_receipt(*, jti: str, rail: str = "", fingerprint: str = "") -> bool:
+    """Single-use gate: claim a receipt's jti the first time it actions a live rail.
+
+    Returns True if newly consumed, False if the receipt was already used (replay)."""
+    key = (jti or "").strip()
+    if not key:
+        return False
+    with db() as conn:
+        _ensure_consumed_receipts_table(conn)
+        try:
+            conn.execute(
+                "INSERT INTO consumed_receipts (jti, rail, fingerprint, used_at) "
+                "VALUES (?, ?, ?, ?)",
+                (key, rail or "", fingerprint or "", utc_now()),
+            )
+            return True
+        except sqlite3.IntegrityError:
+            return False
 
 
 def get_prefinality_evaluation(evaluation_id: str) -> dict | None:

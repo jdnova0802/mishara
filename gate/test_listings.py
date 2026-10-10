@@ -48,6 +48,7 @@ import fields  # noqa: E402
 import weld  # noqa: E402
 import bind_room  # noqa: E402
 import bound  # noqa: E402
+import prefinality as prefinality_mod  # noqa: E402
 import exclusive  # noqa: E402
 import floor  # noqa: E402
 import particular  # noqa: E402
@@ -2804,38 +2805,87 @@ class PrefinalityTests(FlaskListingTests):
         self.assertIn("routing_anomaly", data.get("signals", []))
 
     def test_rtp_evaluate_and_gate(self):
+        transfer = {
+            "amount": "100.00",
+            "currency": "USD",
+            "routing_number": "021000021",
+            "account_number": "123456789",
+        }
+        order = {
+            "type": "rtp",
+            "amount": 10000,
+            "currency": "USD",
+            "routing_number": "021000021",
+            "account_number": "123456789",
+        }
+        # A live (non-demo) receipt actions the gate exactly once.
+        live = prefinality_mod.evaluate(
+            {
+                "rail": "rtp",
+                "transfer": transfer,
+                "mandate": {"agent_id": "treasury-bot", "max_amount": "500.00"},
+            },
+            public_url="https://example.test",
+            demo=False,
+        )
+        self.assertEqual(live["decision"], "GO")
+        receipt = live["receipt"]
+
+        gate = self.client.post(
+            "/v1/prefinality/rtp/gate",
+            json={"receipt": receipt, "payment_order": order},
+        )
+        self.assertEqual(gate.status_code, 200)
+        self.assertTrue(gate.get_json().get("allow"))
+
+        # Single-use: the same receipt cannot be replayed into a second payment order.
+        replay = self.client.post(
+            "/v1/prefinality/rtp/gate",
+            json={"receipt": receipt, "payment_order": order},
+        )
+        self.assertEqual(replay.status_code, 403)
+        self.assertFalse(replay.get_json().get("allow"))
+        self.assertEqual(replay.get_json().get("reason"), "receipt_already_used")
+
+    def test_demo_receipt_refused_by_live_rtp_gate(self):
+        transfer = {
+            "amount": "100.00",
+            "currency": "USD",
+            "routing_number": "021000021",
+            "account_number": "123456789",
+        }
+        order = {
+            "type": "rtp",
+            "amount": 10000,
+            "currency": "USD",
+            "routing_number": "021000021",
+            "account_number": "123456789",
+        }
+        # A demo receipt is signed and stranger-verifiable, but never actionable.
         r = self.client.post(
             "/demo/prefinality/evaluate",
             json={
                 "rail": "rtp",
-                "transfer": {
-                    "amount": "100.00",
-                    "currency": "USD",
-                    "routing_number": "021000021",
-                    "account_number": "123456789",
-                },
+                "transfer": transfer,
                 "mandate": {"agent_id": "treasury-bot", "max_amount": "500.00"},
             },
         )
         self.assertEqual(r.status_code, 200)
-        data = r.get_json()
-        self.assertEqual(data["decision"], "GO")
-        receipt = data["receipt"]
+        demo_receipt = r.get_json()["receipt"]
+        # Still verifies as a valid signature.
+        v = self.client.post(
+            "/v1/prefinality/verify",
+            json={"receipt": demo_receipt, "rail": "rtp", "transfer": transfer},
+        )
+        self.assertTrue(v.get_json().get("valid"))
+        # But the live gate refuses it.
         gate = self.client.post(
             "/v1/prefinality/rtp/gate",
-            json={
-                "receipt": receipt,
-                "payment_order": {
-                    "type": "rtp",
-                    "amount": 10000,
-                    "currency": "USD",
-                    "routing_number": "021000021",
-                    "account_number": "123456789",
-                },
-            },
+            json={"receipt": demo_receipt, "payment_order": order},
         )
-        self.assertEqual(gate.status_code, 200)
-        self.assertTrue(gate.get_json().get("allow"))
+        self.assertEqual(gate.status_code, 403)
+        self.assertFalse(gate.get_json().get("allow"))
+        self.assertEqual(gate.get_json().get("reason"), "demo_receipt_refused")
 
     def test_ard_manifest_lists_mcp_x402_prefinality(self):
         m = listings.ard_manifest("https://example.test")
@@ -3863,7 +3913,10 @@ class X402FacilitatorUnlockTests(unittest.TestCase):
                     "value": amount,
                     "validAfter": "0",
                     "validBefore": "9999999999",
-                    "nonce": "0x" + "cd" * 32,
+                    # Unique per call: each payment authorization carries a fresh
+                    # on-chain nonce, so the gate's single-use replay guard never
+                    # false-trips when this fixed-path test DB is reused across runs.
+                    "nonce": "0x" + uuid.uuid4().hex + uuid.uuid4().hex,
                 },
             },
             "resource": {

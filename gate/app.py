@@ -2831,7 +2831,7 @@ def demo_issuing_mouth():
         auth = body["authorization"]
 
     def _eval(evaluate_body: dict) -> dict:
-        return run_prefinality_evaluate(evaluate_body, account_id=None)
+        return run_prefinality_evaluate(evaluate_body, account_id=None, demo=True)
 
     out = issuing_mouth_mod.decide(auth, evaluate_fn=_eval)
     out["demo"] = True
@@ -2855,7 +2855,7 @@ def issuing_authorization_webhook():
             return jsonify({"error": "authorization object required"}), 400
 
         def _eval_dev(evaluate_body: dict) -> dict:
-            return run_prefinality_evaluate(evaluate_body, account_id=None)
+            return run_prefinality_evaluate(evaluate_body, account_id=None, demo=True)
 
         out = issuing_mouth_mod.decide(auth, evaluate_fn=_eval_dev)
         return jsonify(out["stripe_response"]), 200
@@ -2919,7 +2919,7 @@ def demo_sink_mouth():
         push = body["push"]
 
     def _eval(evaluate_body: dict) -> dict:
-        return run_prefinality_evaluate(evaluate_body, account_id=None)
+        return run_prefinality_evaluate(evaluate_body, account_id=None, demo=True)
 
     out = sink_mouth_mod.decide(push, evaluate_fn=_eval)
     out["demo"] = True
@@ -2986,12 +2986,13 @@ def _prefinality_fuse_hop(fuse_id: str) -> dict | None:
     return data
 
 
-def run_prefinality_evaluate(body: dict, *, account_id: str | None = None) -> dict:
+def run_prefinality_evaluate(body: dict, *, account_id: str | None = None, demo: bool = False) -> dict:
     return prefinality_mod.evaluate(
         body if isinstance(body, dict) else {},
         account_id=account_id,
         public_url=advertised_url(),
         fuse_hop=_prefinality_fuse_hop,
+        demo=demo,
     )
 
 
@@ -3001,7 +3002,7 @@ def demo_prefinality_evaluate():
     if not ok:
         return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
     body = request.get_json(silent=True) or {}
-    data = run_prefinality_evaluate(body, account_id=None)
+    data = run_prefinality_evaluate(body, account_id=None, demo=True)
     data["demo"] = True
     data["signup_url"] = f"{advertised_url()}/signup"
     bound.attach(data, 200, demo=True)
@@ -3040,6 +3041,7 @@ def go_api():
         body,
         public_url=advertised_url(),
         fuse_hop=_prefinality_fuse_hop,
+        demo=True,
     )
     return jsonify(data), 200
 
@@ -3311,6 +3313,7 @@ def x402_wire_paid():
     x402_pay = x402_challenge_mod.payment_verified(
         request.headers,
         amount_atomic_override=x402_audit_mod.wire_amount_atomic(),
+        resource=resource,
     )
     if x402_pay.get("ok"):
         bundle = x402_audit_mod.wire_bundle(
@@ -3685,7 +3688,9 @@ def _mcp_call_tool(name: str, arguments: dict):
         if blocked:
             return blocked
         args = arguments if isinstance(arguments, dict) else {}
-        data = run_prefinality_evaluate(args, account_id=row["account_id"] if keyed else None)
+        data = run_prefinality_evaluate(
+            args, account_id=row["account_id"] if keyed else None, demo=not keyed
+        )
         if not keyed:
             data["demo"] = True
             bound.attach(data, 200, demo=True)
