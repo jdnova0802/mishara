@@ -27,6 +27,15 @@ Open http://localhost:5001
 
 ## Deploy (Render)
 
+Live split (do not merge these onto one service again):
+
+| Host | Render service | Service id |
+|------|----------------|------------|
+| `https://mishara.onrender.com` | `mishara-public` | `srv-d9romc2jnfac7385gn80` |
+| `https://gate.velaru.xyz` | `gate-api` | `srv-dai3n0u1egvs73dbd94g` |
+
+Helper: `python3 deploy_mishara_render.py` (needs `RENDER_API_KEY` from Cloud Agent secrets / local `.env`). Gate: `python3 gate/deploy_render.py`.
+
 Use blueprint `render_mishara.yaml` (own web service + 1GB disk). **Do not** point Mishara domains at `gate-api`.
 
 - **Build:** `pip install -r requirements_mishara.txt`
@@ -46,10 +55,10 @@ Env:
 
 Cutover checklist:
 
-1. Create Render service from `render_mishara.yaml` (separate from `gate-api`)
-2. Attach custom domain `mishara.app` / `mishara.onrender.com` to **this** service
-3. Confirm `/health` returns `"service":"mishara"` and product ids
-4. Set Stripe keys, then one live Demand Pack checkout
+1. Keep Mishara on `mishara-public` (separate from `gate-api`)
+2. Confirm `/health` returns `"service":"mishara"` and product ids
+3. Set Stripe keys, then one live Demand Pack checkout
+4. Confirm `https://gate.velaru.xyz/health` is still Gate after any Mishara deploy
 
 ## API
 
