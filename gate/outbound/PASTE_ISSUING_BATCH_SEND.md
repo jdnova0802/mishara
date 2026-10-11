@@ -2,6 +2,8 @@
 
 SEND Tuesday 2026-10-13. Monday 2026-10-12 stays the VAMP/ECM batch. Do not add these to that send.
 
+An Outlook queue for Monday 2026-10-12 09:00 is not this send. Subjects in that queue include "Your dispute log is one-sided," "402 before code runs," "NHI observability ≠ NHI spend control," and "Stripe's 'Optimized' — optimized for what," to founders@agentcard.sh, founders@nekuda.ai, contact@nevermined.ai, marketing@trustap.com, sales@gitguardian.com, support@agentmail.cc, support@arcade.dev, info@delegare.dev, sam@paygentic.io, tech@flexprice.io, and support@alguna.io. That draft is not in the repo. Unschedule it. It does not go out at 09:00.
+
 Cold price is the existing monthly floor: **$5,000 the month a live card authorization hits the mouth and comes back AUTHORIZE or DECLINE.** If none hits, no invoice. The $25,000 weld and the 10 basis points stay off this email. They are the register after a month of cleared volume, if the desk asks. The Sept 26 line of $5,000 plus about 1% was an illustration. It is not this price.
 
 The mouth is already live: `POST https://gate.velaru.xyz/v1/issuing/authorization` on Stripe `issuing_authorization.request`, under 2 seconds. Page: https://gate.velaru.xyz/issuing-mouth. Gate does not hold the card float.
