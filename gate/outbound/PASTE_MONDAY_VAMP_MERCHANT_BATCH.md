@@ -61,92 +61,72 @@ DO NOT SEND
 EMAIL 1 — Fanatics Live
 
 To: support@fanatics.live
-Subject: Ratio repair for Fanatics Live — a win does not leave the Visa count
+Subject: Fanatics Live — a win stays in the Visa count
 
 Body:
-For Tracy Reeves — Global Director of Trust & Safety, Fanatics Live
+For Tracy Reeves, Fanatics Live.
 Nisaba LLC.
 
-Chargeflow's case study quotes you: over $800,000 preserved in the first year, win rate doubled, and you were spending 25+ hours a week fighting chargebacks before that. That is representment. A won dispute still sits in Visa's VAMP numerator (TC40 fraud plus TC15 disputes, over settled card-not-present). Same-month RDR can remove the TC15. It does not remove the TC40. Compelling Evidence 3.0 is what can clear a TC40.
+Your Chargeflow page says $800k preserved. A won dispute still counts in Visa's ratio. The merchant line is 1.5% and 1,500 events in a month. Mastercard's is 1.5% and 100 chargebacks. The $800k shows neither.
 
-Visa's merchant line, from 1 April 2026 in the US, is 1.5% and at least 1,500 of those events in the same month. Mastercard's excessive chargeback line is 1.5% and at least 100 Mastercard chargebacks. I do not have your counts. The $800,000 does not prove either floor.
-
-If last month clears either floor, the offer is $300–$800/mo, billed the week we connect, for the evidence that can leave the ratio. Not another representment vendor. If the counts are under both floors I will say so and will not invoice.
-
-Reply RATIO, forward once if this should not sit with Live support, or ignore.
+Reply RATIO with last month's counts. If either floor clears, $300–$800/mo, billed the week we connect. If not, I say so and do not invoice.
 
 ---
 
 EMAIL 2 — HomeFi
 
 To: assist@homefi.info
-Subject: Mastercard count check for HomeFi — 11,000 subscribers cannot hit Visa's 1,500
+Subject: HomeFi — 11,000 subscribers can't hit Visa's 1,500
 
 Body:
-For whoever owns disputes at HomeFi (homefi.info)
+For whoever owns disputes at HomeFi (homefi.info only).
 Nisaba LLC.
 
-Chargeflow's case study: HomeFi, wireless internet, over 11,000 monthly subscribers, disputes mostly from customers who forgot to cancel. Recovery went from 23% to 45%. That is a win rate. A win does not leave the Visa count.
+You have 11,000 monthly subscribers. That book cannot produce 1,500 Visa events in a month. It can produce Mastercard's line: 100 chargebacks and 1.5%. 1.5% of 11,000 is 165. A won dispute still counts.
 
-11,000 subscribers cannot produce 1,500 Visa fraud-plus-dispute events in a month. They can produce Mastercard's excessive-chargeback count. That line is 100 Mastercard chargebacks and a 1.5% ratio in the same month. 1.5% of 11,000 is 165. I do not know your actual month.
-
-If a recent month clears that Mastercard line, the offer is $300–$800/mo, billed the week we connect, aimed at the chargebacks that are still in the ratio. If the count is under 100 I will say so and will not invoice.
-
-This note is only for homefi.info. It is not for the mortgage company at homefi.us.
-
-Reply RATIO, or ignore.
-Phone on your SMS terms: (888) 994-1179
+Reply RATIO with last month's Mastercard count. Over 100 and 1.5%, $300–$800/mo, billed the week we connect. Under 100, no invoice.
 
 ---
 
 EMAIL 3 — The Beard Club
 
 To: support@thebeardclub.com
-Subject: Subscription-box ratio, not another win-rate tool
+Subject: Beard Club — 40 hours of disputes is not a count
 
 Body:
-For Christine Welfel — Operations Manager, The Beard Club
+For Christine Welfel, The Beard Club.
 Nisaba LLC.
 
-Chargeflow's case study: monthly beard boxes, about 40 hours a week on disputes before automation, Shopify and PayPal, and a Prevent beta. Forty hours is a real subscription-dispute load. It is not a published count, so I am not calling you flagged.
+About 40 hours a week on subscription disputes before Chargeflow. That is not a published count, so I am not calling you flagged. A win stays in Visa's count: 1.5% and 1,500 events. Mastercard is 1.5% and 100 chargebacks.
 
-Visa's merchant line is 1.5% and 1,500 fraud-plus-dispute events in a month. A won chargeback stays in that count. Mastercard's line is 1.5% and 100 Mastercard chargebacks. Prevent, if it is live RDR, already pulls some TC15s out. It does not pull TC40s.
-
-If last month still clears either floor, $300–$800/mo, billed the week we connect, for the evidence that can leave the ratio. If it does not clear, no invoice.
-
-Reply RATIO, forward once if support is the wrong desk, or ignore.
+Reply RATIO with last month's counts. Either floor cleared: $300–$800/mo, billed the week we connect. Under both, no invoice.
 
 ---
 
 EMAIL 4 — TruHeight
 
 To: info@truheightvitamins.com
-Subject: TruHeight dispute dollars vs the Visa and Mastercard floors
+Subject: TruHeight — $112k recovered is not a monthly count
 
 Body:
-For whoever owns disputes at TruHeight (Vanilla Chip LLC)
+For whoever owns disputes at TruHeight.
 Nisaba LLC.
 
-Chargeflow's case study: $112,617 in disputed revenue recovered, children's vitamins, DTC plus Target, more than two million products sold. Recovered dollars are not a monthly count. I cannot tell from that page whether you are over Visa's line (1.5% and 1,500 fraud-plus-dispute events) or Mastercard's (1.5% and 100 Mastercard chargebacks). A win does not move the Visa ratio.
+$112,617 recovered. That is not a monthly count, and a win stays in the Visa ratio. Visa's line is 1.5% and 1,500 events. Mastercard's is 1.5% and 100 chargebacks.
 
-If you send last month's counts and either floor is cleared, the offer is $300–$800/mo, billed the week we connect. If neither floor is cleared, I will say so and will not invoice.
-
-Reply RATIO, or ignore.
-Phone on your contact page: 619-292-8360
+Reply RATIO with last month's counts. Either floor cleared: $300–$800/mo, billed the week we connect. Under both, no invoice.
 
 ---
 
 EMAIL 5 — Wordtune
 
 To: help@wordtune.com
-Subject: Wordtune dispute rate — the number that is not the win rate
+Subject: Wordtune — the dispute rate, not the win rate
 
 Body:
-For whoever owns the dispute rate at Wordtune (AI21)
+For whoever owns the dispute rate at Wordtune.
 Nisaba LLC.
 
-Chargeflow's Wordtune case study: chargeback volume up 3x, win rate up 4.3x, and your team told them you care more about dispute rates than about a tool you pay and forget. The 3x is not a count. Visa's merchant line is 1.5% and 1,500 fraud-plus-dispute events in a month. A higher win rate does not remove those events. Mastercard's line is 1.5% and 100 Mastercard chargebacks.
+Chargeback volume up 3x, and your team said the rate is what you care about. 3x is not a count. A higher win rate does not remove the events. Visa: 1.5% and 1,500. Mastercard: 1.5% and 100.
 
-If last month clears either floor, $300–$800/mo, billed the week we connect, for ratio repair rather than representment. If it does not, no invoice.
-
-Reply RATIO, forward once if help@ is the wrong desk, or ignore.
+Reply RATIO with last month's counts. Either floor cleared: $300–$800/mo, billed the week we connect. Under both, no invoice.
