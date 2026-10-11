@@ -1,67 +1,29 @@
-# PASTE — Issuing batch (settled 11 Oct 2026)
+# PASTE — Issuing batch (corrected 11 Oct 2026)
 
-SEND Tuesday 2026-10-13. Monday 2026-10-12 stays the VAMP/ECM batch. Do not add these to that send.
+The Monday 2026-10-12 09:00 Zoho outbox is the Issuing send. Leave it scheduled. It is company-specific, and it is sharper than the single Catena email below. That Catena email does not replace it and does not go Tuesday.
 
-An Outlook queue for Monday 2026-10-12 09:00 is not this send. Subjects in that queue include "Your dispute log is one-sided," "402 before code runs," "NHI observability ≠ NHI spend control," and "Stripe's 'Optimized' — optimized for what," to founders@agentcard.sh, founders@nekuda.ai, contact@nevermined.ai, marketing@trustap.com, sales@gitguardian.com, support@agentmail.cc, support@arcade.dev, info@delegare.dev, sam@paygentic.io, tech@flexprice.io, and support@alguna.io. That draft is not in the repo. Unschedule it. It does not go out at 09:00.
+Visible in that outbox, all 10/12/2026 09:00 Eastern:
 
-Cold price is the existing monthly floor: **$5,000 the month a live card authorization hits the mouth and comes back AUTHORIZE or DECLINE.** If none hits, no invoice. The $25,000 weld and the 10 basis points stay off this email. They are the register after a month of cleared volume, if the desk asks. The Sept 26 line of $5,000 plus about 1% was an illustration. It is not this price.
+- founders@agentcard.sh — Your dispute log is one-sided
+- founders@nekuda.ai — Amex/Visa will ask this eventually
+- contact@nevermined.ai — 402 before code runs
+- marketing@trustap.com — Vault → 24hr window → release. No proof
+- sales@gitguardian.com — NHI observability ≠ NHI spend control
+- support@agentmail.cc — No payment auth path yet
+- support@arcade.dev — Stripe's "Optimized" — optimized for what
+- info@delegare.dev — You lock down what an agent can spend
+- sam@paygentic.io — 202 Accepted ≠ authorized
+- tech@flexprice.io — Feature-gating is per-account
+- support@alguna.io — Upstream of the invoice is where the $100B actually leaks
 
-The mouth is already live: `POST https://gate.velaru.xyz/v1/issuing/authorization` on Stripe `issuing_authorization.request`, under 2 seconds. Page: https://gate.velaru.xyz/issuing-mouth. Gate does not hold the card float.
+Checked against the open bodies: Delegare's own docs say the agent never receives card numbers, private keys, or a prefunded wallet, and spends inside a limit, merchant list, and expiry. Arcade's docs label Stripe "Arcade Optimized" under Payments & Finance, and Arcade has a live Lithic partnership for single-use agent cards. Alguna's own seed post is Y Combinator, pricing/CPQ/billing, and their projected $100B leakage figure. The emails quote a test transaction at https://gate.velaru.xyz/issuing-mouth. They do not quote $5,000.
 
-Public pages only. No guessed emails. No security@, press@, jobs@, or legal-notice addresses. Log the send in SENT_TALLY.md the same day.
+marketing@trustap.com is the media address on Trustap's contact page. The vault sentence can stay. That mailbox is press.
 
----
+The same 09:00 outbox also holds the VAMP/ECM mail (Beard Club, HomeFi, Fanatics Live, and the rest of that 13). Both lists are scheduled together. That is the collision. Moving one is optional. Leaving both is what the outbox does now.
 
-FOLLOW-UP
+The Catena draft under this line is not in the outbox. Do not send it Tuesday unless Catena is added on purpose.
 
-| Day | Action | Count |
-|-----|--------|-------|
-| Tue 2026-10-13 | Send the 1 below | 1 |
-| Mon 2026-10-19 | One bump if no reply. Do not bump on Fri 2026-10-16. That day is the VAMP bump. | up to 1 |
+The Monday emails do not quote $5,000. The ask in them is one test transaction at the live mouth. The $25,000 weld is not in those emails either.
 
-Bump body:
-```
-Following up once. The mouth is still https://gate.velaru.xyz/issuing-mouth. $5,000 the month a live card authorization comes back AUTHORIZE or DECLINE. If that is not your write, ignore.
-```
-
----
-
-CHEAT-SHEET
-
-1. Catena (catena.com) — hello@catena.com, printed on the homepage. The page says agents pay by card, ACH, wire, and stablecoin. The card line is the one this mouth can answer.
-
----
-
-DO NOT SEND
-
-| Name | Why it died |
-|------|-------------|
-| Arcade.dev | www.arcade.dev/contact is a form. No email on that page. support@arcade.dev is on a different site, an HTML5 games page, not this company. Their product is tool governance, not a card authorization. |
-| NewCore | sales@newcore.io is on newcore.com/get-in-touch. The product is human and agent identity. No card authorization on the site. |
-| Prelude | prelude.so is phone, device, and signup trust. No email printed on the pages checked. No card authorization. |
-| Trustap | marketing@trustap.com and jobs@trustap.com are on the contact page. support@trustap.com is in the terms. The product is escrow between a buyer and a seller, not a card authorization. |
-| Causa Prima | The only email on causaprima.ai/imprint is security@causaprima.ai. That is a security queue. Their agents move invoices. This mouth does not. |
-| ReFiBuy | refibuy.ai/terms prints legalnotices@refibuy.ai for legal notices. No sales address on the site. The product is SKU visibility in shopping agents. |
-| Limy | answers@limy.ai is on limy.ai/contact-us. The product is brand visibility in AI search. No card authorization. |
-| AgentMail | contact@agentmail.cc and support@agentmail.cc are on agentmail.to. The product is an inbox for agents. No card authorization. |
-| Runlayer | hello@mail.runlayer.com is in the homepage organization markup, not printed on the page. The product is MCP governance. No card authorization. |
-| GitGuardian | Code-security company. No card-authorization product, and no send without an address printed for this ask. |
-| Nava | nava.com is an AI cloud platform. docs.nava.com prints support@nava.com. No card authorization. |
-
----
-
-EMAIL 1 — Catena
-
-To: hello@catena.com
-Subject: Catena — a card charge is the write
-
-Body:
-```
-For the payments desk, Catena.
-Nisaba LLC.
-
-Your page says agents pay by card. That charge is the irreversible write. The mouth answers AUTHORIZE or DECLINE in under 2 seconds.
-https://gate.velaru.xyz/issuing-mouth
-
-$5,000 the month a live authorization from your card hits that URL and comes back. If none hits, no invoice.
-```
+Log whatever actually leaves the outbox in SENT_TALLY.md the same day. One bump Friday is already taken by VAMP. If these need a bump, do it Monday 2026-10-19.
