@@ -4211,8 +4211,10 @@ def diligence_one_pager():
     return Response(body, mimetype="text/plain; charset=utf-8")
 
 
-@app.route("/diligence/checkout", methods=["POST"])
+@app.route("/diligence/checkout", methods=["GET", "POST"])
 def diligence_checkout():
+    if request.method == "GET":
+        return redirect(url_for("diligence_page"))
     email = (request.form.get("email") or "").strip()
     if not EMAIL_RE.match(email):
         flash("Enter a valid email.", "error")

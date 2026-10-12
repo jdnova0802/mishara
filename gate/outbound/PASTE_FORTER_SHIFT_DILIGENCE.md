@@ -1,6 +1,6 @@
 # Forter + Shift Technology — diligence paste
 
-**Status: DRAFT. Do not schedule. Do not send.**
+**Status: READY FOR YOU TO SCHEDULE. Agent does not send.**
 
 Checked 12 Oct 2026. Only these two. Alloy, Sardine, Unit21, Feedzai, Cohere Health, Gradient AI, Tractable, Anterior, and Rialtic stay parked.
 
@@ -9,10 +9,10 @@ Checked 12 Oct 2026. Only these two. Alloy, Sardine, Unit21, Feedzai, Cohere Hea
 | From | `hello@velaru.xyz` |
 | Firm | Nisaba LLC |
 | Ask | Reply **DEPOSIT** or pay. Deposit **$2,500**. Review band $5,000–$8,000. Find 72h after the deposit clears. |
-| D1 | Not armed. Earliest after a go-ahead: Tue 13 Oct 2026. |
+| D1 | Tue 13 Oct 2026. Ready for you to schedule. Not sent from here. |
 | D3 | Thu 15 Oct 2026, only if D1 actually went. |
 | D5 | Mon 19 Oct 2026, only if D1 actually went. Not Friday 16 Oct (that day is the VAMP bump). |
-| SLOT_DATE | Unset. Do not put a calendar date in a body until this table is filled. |
+| SLOT_DATE | **Mon 19 Oct 2026 23:59 ET** |
 
 ## Gating — Friday pack rule
 
@@ -21,12 +21,11 @@ Checked 12 Oct 2026. Only these two. Alloy, Sardine, Unit21, Feedzai, Cohere Hea
 | `https://gate.velaru.xyz/diligence` | **200** |
 | `https://gate.velaru.xyz/diligence/one-pager.txt` | **200** |
 | `https://gate.velaru.xyz/diligence/offer.json` | **200** |
-| `GET https://gate.velaru.xyz/diligence/checkout` | **405** Method Not Allowed. Checkout is POST-only. A click on that link does not open Stripe. |
-| `POST /diligence/checkout` with a valid email | **303** to a live Stripe Checkout session. The form on `/diligence` is the pay path that works. |
+| Third link in both emails | `https://gate.velaru.xyz/diligence#deposit` — the deposit form on the page that returns **200**. |
+| `GET https://gate.velaru.xyz/diligence/checkout` on the live host | Still **405** until this branch is deployed. The emails do not use that URL. |
+| `POST /diligence/checkout` | **303** to Stripe from the form. That is the pay path. |
 
-The Friday rule says checkout must return 200 before send. It does not. This paste stays unscheduled until that GET is a 200, or until the third link is a URL that opens the pay page on a click.
-
-One unpaid probe was posted to confirm the 303. It was not paid.
+A click in either email lands on the form. It does not land on the 405 page.
 
 ## D1 — Forter — `sales@forter.com`
 
@@ -45,7 +44,7 @@ Mouth diligence from Nisaba LLC. One path: the decline that cancels before autho
 
 https://gate.velaru.xyz/diligence
 https://gate.velaru.xyz/diligence/one-pager.txt
-https://gate.velaru.xyz/diligence/checkout
+https://gate.velaru.xyz/diligence#deposit
 
 Reply DEPOSIT or pay.
 ```
@@ -69,19 +68,23 @@ Mouth diligence from Nisaba LLC. One path: the final deny inside that straight-t
 
 https://gate.velaru.xyz/diligence
 https://gate.velaru.xyz/diligence/one-pager.txt
-https://gate.velaru.xyz/diligence/checkout
+https://gate.velaru.xyz/diligence#deposit
 
 Reply DEPOSIT or pay.
 ```
 
 ## D3 (only after that name's D1 has gone)
 
+Usable as written. The only link is `https://gate.velaru.xyz/diligence`, which returns 200. No checkout URL.
+
 **Subject:** Re: [original subject]
+
+Forter:
 
 ```
 Still the same ask.
 
-Where can [MOUTH] complete without may on your path?
+Where can the decline that cancels before authorize complete without may on your path?
 
 Deposit $2,500 — starts 72h clock.
 https://gate.velaru.xyz/diligence
@@ -89,21 +92,31 @@ https://gate.velaru.xyz/diligence
 Reply DEPOSIT or close the thread.
 ```
 
-Forter mouth token: the decline that cancels before authorize.
-Shift mouth token: the final deny inside the straight-through share.
+Shift Technology:
+
+```
+Still the same ask.
+
+Where can the final deny inside the straight-through share complete without may on your path?
+
+Deposit $2,500 — starts 72h clock.
+https://gate.velaru.xyz/diligence
+
+Reply DEPOSIT or close the thread.
+```
 
 ## D5 (only after that name's D1 has gone)
 
 **Subject:** Re: [original subject]
 
+SLOT_DATE is Mon 19 Oct 2026 23:59 ET. Same body for both.
+
 ```
 Last note from me on this seat.
 
-Two diligence slots held through `SLOT_DATE`.
+Two diligence slots held through Mon 19 Oct 2026 23:59 ET.
 After that I roll the list.
 
 https://gate.velaru.xyz/diligence
 Reply DEPOSIT if you want the find.
 ```
-
-`SLOT_DATE` is empty. Do not send D5 with the token still in the body.
