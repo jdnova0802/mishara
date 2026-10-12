@@ -4,6 +4,7 @@ Surfaces (must stay live for hustle outbound):
   GET  /diligence              — free REVIEW hero + paid deposit
   GET  /diligence/one-pager.txt
   GET  /diligence/offer.json
+  GET  /diligence/checkout      — redirect to the deposit form on /diligence
   POST /diligence/checkout     — $2,500 deposit (paid SKU)
 """
 from __future__ import annotations

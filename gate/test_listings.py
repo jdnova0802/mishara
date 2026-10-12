@@ -662,6 +662,14 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn(b"DEPOSIT", one.data)
         self.assertEqual(one.content_type.split(";")[0], "text/plain")
 
+    def test_diligence_checkout_get_opens_form(self):
+        r = self.client.get("/diligence/checkout", follow_redirects=False)
+        self.assertEqual(r.status_code, 302)
+        self.assertTrue(r.headers.get("Location", "").rstrip("/").endswith("/diligence"))
+        followed = self.client.get("/diligence/checkout", follow_redirects=True)
+        self.assertEqual(followed.status_code, 200)
+        self.assertIn(b"2,500", followed.data)
+
     def test_diligence_checkout_dev(self):
         r = self.client.post(
             "/diligence/checkout",
