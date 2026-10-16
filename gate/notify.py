@@ -43,8 +43,10 @@ def money(title: str, body: str, extra: dict | None = None) -> dict:
     if token and topic and email:
         try:
             result["email"] = _ntfy_email(topic, token, title, text, email)
-        except Exception:
+        except Exception as exc:
+            print(f"notify failed {type(exc).__name__}: {exc}", flush=True)
             result["email"] = False
+        print(f"notify email={result['email']} title={_latin1_header(title)[:80]}", flush=True)
     return result
 
 
@@ -71,17 +73,22 @@ def _ntfy_email(topic: str, token: str, title: str, text: str, email: str) -> bo
     }
     try:
         resp = requests.post(url, data=text.encode(), headers=headers, timeout=8)
-    except (requests.RequestException, UnicodeError):
+    except (requests.RequestException, UnicodeError) as exc:
+        print(f"ntfy email error {type(exc).__name__}", flush=True)
         return False
     if resp.status_code < 400:
         return True
+    print(f"ntfy email status {resp.status_code} {resp.text[:180]}", flush=True)
     # Literal address not verified on the ntfy account. Fall back to the
     # account's primary verified address so the alert is still mailed.
     if resp.status_code == 400 and email.lower() != "yes":
         headers["Email"] = "yes"
         try:
             resp = requests.post(url, data=text.encode(), headers=headers, timeout=8)
-        except (requests.RequestException, UnicodeError):
+        except (requests.RequestException, UnicodeError) as exc:
+            print(f"ntfy email fallback error {type(exc).__name__}", flush=True)
             return False
+        if resp.status_code >= 400:
+            print(f"ntfy email fallback status {resp.status_code} {resp.text[:180]}", flush=True)
         return resp.status_code < 400
     return False
