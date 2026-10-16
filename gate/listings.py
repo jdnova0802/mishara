@@ -39,7 +39,7 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                 "fanout": f"{public_url}/.well-known/x402",
                 "prefinality": f"{public_url}/.well-known/prefinality.json",
                 "x402scan_register": "https://www.x402scan.com/resources/register",
-                "note": "Submit origin URL on x402scan. Set GATE_X402_PAYTO on Render for paid evaluate probe.",
+                "note": "Paid routes 402 only when GATE_X402_PAYTO is a settlement address. GATE_X402_DEMO_PAYTO is ignored.",
             },
             "guidewire": {
                 "status": "application",
@@ -258,6 +258,14 @@ def mcp_discovery(public_url: str) -> dict:
         "server": public_url,
         "endpoint": f"{public_url}/mcp",
         "transport": "streamable-http",
+        "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+        "version": "1.0.0",
+        "remotes": [
+            {
+                "type": "streamable-http",
+                "url": f"{public_url}/mcp",
+            }
+        ],
         "auth": "Authorization: Bearer gate_sk_live_... (optional for demo fuses)",
         "servers": {
             "gate-api": {
@@ -341,8 +349,9 @@ def ard_manifest(public_url: str) -> dict:
                 "@context": "https://agenticresourcediscovery.org/context/v1",
                 "identifier": f"urn:air:{host}:server:gate-api",
                 "displayName": "Gate MCP — fuse hop before commit",
-                "type": "application/mcp-server-card+json",
-                "url": f"{base}/.well-known/mcp.json",
+                "type": "application/mcp-server",
+                "url": f"{base}/mcp",
+                "serverCard": f"{base}/.well-known/mcp.json",
                 "description": (
                     "Fail-closed clearance mouth over MCP. Fuse hop before irreversible "
                     "act; DEAD never acts; CHARGE-only resurrection."

@@ -14,18 +14,34 @@ NETWORK_BASE = "eip155:8453"
 DEFAULT_AMOUNT_ATOMIC = "2000"  # $0.002 USDC (6 decimals)
 
 
+# Settlement address only. GATE_X402_DEMO_PAYTO is ignored: production used it
+# to keep a 402 alive against the null address 0x…00aa, which sends USDC nowhere.
 _PAYTO_ENVS = (
     "GATE_X402_PAYTO",
     "GATE_X402_PAY_TO",
-    "GATE_X402_DEMO_PAYTO",  # production currently has this name; crawlers still need a 402
 )
+
+
+def settlement_address(raw: str | None) -> str | None:
+    """EVM address that can receive a settlement. Null and short demo addresses are not one."""
+    s = (raw or "").strip().strip('"').strip("'")
+    if not (s.startswith("0x") and len(s) == 42):
+        return None
+    try:
+        n = int(s[2:], 16)
+    except ValueError:
+        return None
+    # 0x0, 0x…00aa, 0x…0001 and the other fixture burns sit under 2^16.
+    if n < 0x10000:
+        return None
+    return s
 
 
 def payto() -> str | None:
     for key in _PAYTO_ENVS:
-        raw = (os.getenv(key) or "").strip().strip('"').strip("'")
-        if raw.startswith("0x") and len(raw) == 42:
-            return raw
+        parsed = settlement_address(os.getenv(key))
+        if parsed:
+            return parsed
     return None
 
 
@@ -33,18 +49,25 @@ def payto_debug() -> dict:
     pt = payto()
     raw = ""
     source = None
+    rejected = None
     for key in _PAYTO_ENVS:
         candidate = (os.getenv(key) or "").strip()
-        if candidate:
-            raw = candidate
-            source = key
-            break
+        if not candidate:
+            continue
+        raw = candidate
+        source = key
+        if settlement_address(candidate) is None:
+            rejected = key
+        break
+    demo = (os.getenv("GATE_X402_DEMO_PAYTO") or "").strip()
     return {
         "configured": pt is not None,
         "env_set": bool(raw),
         "env_len": len(raw),
         "env_key": source,
-        "valid_len": len(raw.strip('"').strip("'")) == 42 if raw else False,
+        "valid_len": settlement_address(raw) is not None if raw else False,
+        "placeholder_rejected": rejected is not None,
+        "demo_env_ignored": bool(demo),
     }
 
 
