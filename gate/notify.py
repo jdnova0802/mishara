@@ -41,21 +41,37 @@ def money(title: str, body: str, extra: dict | None = None) -> dict:
     topic = (os.getenv("GATE_NTFY_TOPIC") or "").strip()
     email = (os.getenv("GATE_NOTIFY_EMAIL") or "").strip()
     if token and topic and email:
-        result["email"] = _ntfy_email(topic, token, title, text, email)
+        try:
+            result["email"] = _ntfy_email(topic, token, title, text, email)
+        except Exception:
+            result["email"] = False
     return result
+
+
+def _latin1_header(value: str) -> str:
+    """HTTP headers are latin-1. An em dash in a title 500s the webhook."""
+    cleaned = (
+        value.replace("\u2014", "-")
+        .replace("\u2013", "-")
+        .replace("\u2018", "'")
+        .replace("\u2019", "'")
+        .replace("\u201c", '"')
+        .replace("\u201d", '"')
+    )
+    return cleaned.encode("latin-1", "replace").decode("latin-1")
 
 
 def _ntfy_email(topic: str, token: str, title: str, text: str, email: str) -> bool:
     url = f"{NTFY_BASE}/{topic}"
     headers = {
         "Authorization": f"Bearer {token}",
-        "Title": title[:200],
+        "Title": _latin1_header(title)[:200],
         "Content-Type": "text/plain",
-        "Email": email,
+        "Email": _latin1_header(email),
     }
     try:
         resp = requests.post(url, data=text.encode(), headers=headers, timeout=8)
-    except requests.RequestException:
+    except (requests.RequestException, UnicodeError):
         return False
     if resp.status_code < 400:
         return True
@@ -65,7 +81,7 @@ def _ntfy_email(topic: str, token: str, title: str, text: str, email: str) -> bo
         headers["Email"] = "yes"
         try:
             resp = requests.post(url, data=text.encode(), headers=headers, timeout=8)
-        except requests.RequestException:
+        except (requests.RequestException, UnicodeError):
             return False
         return resp.status_code < 400
     return False

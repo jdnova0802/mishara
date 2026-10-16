@@ -178,6 +178,8 @@ class FlaskListingTests(unittest.TestCase):
         self.assertIsNone(result["webhook"])
         headers = post.call_args.kwargs["headers"]
         self.assertEqual(headers["Email"], "demond@velaru.xyz")
+        headers["Title"].encode("latin-1")
+        self.assertNotIn("\u2014", headers["Title"])
         self.assertIn("buyer@example.com", post.call_args.kwargs["data"].decode())
 
     def test_health_ok_in_dev(self):
