@@ -313,10 +313,10 @@ BIND_ROOM_PAYMENT_LINK = os.getenv(
     "VELARU_BIND_ROOM_PAYMENT_LINK",
     "https://buy.stripe.com/aFabIU4wqcxmavd3EE8Vi04",
 ).strip()
-# Diligence deposit defaults to the $2,500 install price id when unset (same cash amount).
-STRIPE_DILIGENCE_PRICE_ID = (
-    os.getenv("STRIPE_DILIGENCE_PRICE_ID", "") or os.getenv("STRIPE_INSTALL_PRICE_ID", "")
-)
+# Dedicated price. Do not alias STRIPE_INSTALL_PRICE_ID: rotating the install
+# price must not retarget the diligence deposit, and an unset diligence id
+# must fail closed instead of silently charging the install SKU.
+STRIPE_DILIGENCE_PRICE_ID = os.getenv("STRIPE_DILIGENCE_PRICE_ID", "").strip()
 DILIGENCE_PAYMENT_LINK = os.getenv("VELARU_DILIGENCE_PAYMENT_LINK", "").strip()
 STRIPE_REFUSAL_PRICE_ID = os.getenv("STRIPE_REFUSAL_PRICE_ID", "")
 STRIPE_WELD_PRICE_ID = os.getenv("STRIPE_WELD_PRICE_ID", "")
@@ -775,6 +775,42 @@ def metered_api(view=None, *, count_usage=True):
 # ── Web pages ────────────────────────────────────────────────────────────────
 
 
+def _checkout_surface() -> dict:
+    """Which commercial doors are armed. Booleans only — no price ids or secrets."""
+    diligence_env = (os.getenv("STRIPE_DILIGENCE_PRICE_ID") or "").strip()
+    install_env = (os.getenv("STRIPE_INSTALL_PRICE_ID") or "").strip()
+    return {
+        "secret_key": bool(stripe.api_key),
+        "webhook": bool(STRIPE_WEBHOOK_SECRET),
+        "install_price": bool(install_env),
+        "diligence_price": bool(diligence_env),
+        "diligence_aliases_install": bool(diligence_env and install_env and diligence_env == install_env),
+        "weld_price": bool(STRIPE_WELD_PRICE_ID),
+        "floor_price": bool(STRIPE_FLOOR_PRICE_ID),
+        "bind_room_payment_link": bool(BIND_ROOM_PAYMENT_LINK),
+        "operator_checkout": bool(stripe.api_key and STRIPE_WELD_PRICE_ID and STRIPE_FLOOR_PRICE_ID),
+        "notify_webhook": bool((os.getenv("GATE_NOTIFY_WEBHOOK") or "").strip()),
+    }
+
+
+def _checkout_gaps() -> list[str]:
+    surface = _checkout_surface()
+    gaps = []
+    if not x402_challenge_mod.payto_configured():
+        gaps.append("x402_payto")
+    if not (surface["secret_key"] and surface["install_price"]):
+        gaps.append("install_checkout")
+    if not (surface["secret_key"] and surface["diligence_price"]):
+        gaps.append("diligence_checkout")
+    if surface["diligence_aliases_install"]:
+        gaps.append("diligence_price_aliases_install")
+    if not surface["operator_checkout"]:
+        gaps.append("operator_checkout")
+    if not surface["webhook"]:
+        gaps.append("stripe_webhook")
+    return gaps
+
+
 @app.route("/health")
 def health():
     velaru_ok = False
@@ -819,7 +855,9 @@ def health():
             "configured": bool(x402_challenge_mod.payto_configured()),
             # Ready = CDP credentials present. Do not leak key ids / lengths.
             "facilitator_ready": bool(x402_facilitator_mod.facilitator_ready()),
+            "placeholder_rejected": bool(x402_challenge_mod.payto_debug().get("placeholder_rejected")),
         },
+        "checkout": _checkout_surface(),
         "mine": {
             "spec": mine_mod.SPEC,
             "catalog": f"{pub}/.well-known/mine.json",
@@ -850,6 +888,10 @@ def health():
         status_code = 503
     else:
         payload["status"] = "ok" if velaru_ok and not ephemeral_db else "degraded"
+        gaps = _checkout_gaps()
+        if gaps:
+            payload["status"] = "degraded"
+            payload["checkout_gaps"] = gaps
         status_code = 200
     try:
         track_record_mod.maybe_sample_pulse(
@@ -1848,7 +1890,14 @@ def well_known_gate():
 
 @app.route("/.well-known/mcp.json")
 def well_known_mcp():
-    return jsonify(listings_mod.mcp_discovery(advertised_url()))
+    body = listings_mod.mcp_discovery(advertised_url())
+    return jsonify(body), 200, {"Content-Type": "application/mcp-server-card+json"}
+
+
+@app.route("/mcp/server-card")
+def mcp_server_card():
+    body = listings_mod.mcp_discovery(advertised_url())
+    return jsonify(body), 200, {"Content-Type": "application/mcp-server-card+json"}
 
 
 @app.route("/.well-known/ard.json")
@@ -4036,6 +4085,7 @@ def install():
         install_price=INSTALL_PRICE_LABEL,
         install_slots=slots,
         sold_out=slots <= 0,
+        stripe_install=bool((stripe.api_key and STRIPE_INSTALL_PRICE_ID) or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
     )
 
@@ -4182,7 +4232,9 @@ def bind_room_checkout():
 
 
 def _diligence_stripe_ready() -> bool:
-    return bool(STRIPE_DILIGENCE_PRICE_ID or GATE_DEV_MODE)
+    if GATE_DEV_MODE:
+        return True
+    return bool(stripe.api_key and STRIPE_DILIGENCE_PRICE_ID)
 
 
 @app.route("/diligence")
@@ -4250,7 +4302,7 @@ def diligence_checkout():
 
 
 def _operator_stripe_ready() -> bool:
-    return bool(stripe.api_key and STRIPE_WELD_PRICE_ID)
+    return bool(stripe.api_key and STRIPE_WELD_PRICE_ID and STRIPE_FLOOR_PRICE_ID)
 
 
 @app.route("/operator")

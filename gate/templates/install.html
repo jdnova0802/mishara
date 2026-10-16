@@ -45,6 +45,8 @@
     <h2>Book wiring</h2>
     {% if sold_out %}
       <p>Wiring capacity is full this month. Email <a href="mailto:{{ contact_email }}?subject=Gate%20agent%20wiring%20waitlist">{{ contact_email }}</a>.</p>
+    {% elif not stripe_install %}
+      <p>Email <a href="mailto:{{ contact_email }}?subject=FUSE">{{ contact_email }}</a> with subject FUSE to book the {{ install_price }} wiring.</p>
     {% else %}
       <p>Pay → email within 2 hours → clock starts. Drill path only — not a seat license.</p>
       <form method="post" action="{{ url_for('install_checkout') }}" class="install-form">

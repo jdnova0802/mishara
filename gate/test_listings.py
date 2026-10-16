@@ -2854,11 +2854,14 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(
             urls,
             {
-                "https://example.test/.well-known/mcp.json",
+                "https://example.test/mcp",
                 "https://example.test/.well-known/x402.json",
                 "https://example.test/.well-known/prefinality.json",
             },
         )
+        mcp_entry = next(e for e in m["entries"] if e["url"].endswith("/mcp"))
+        self.assertEqual(mcp_entry["type"], "application/mcp-server")
+        self.assertTrue(mcp_entry["serverCard"].endswith("/.well-known/mcp.json"))
 
     def test_well_known_ard_route(self):
         r = self.client.get("/.well-known/ard.json")
@@ -2931,18 +2934,27 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual((r.get_json().get("accepts") or [{}])[0].get("payTo"), payto)
         self.assertIn("Payment-Required", r.headers)
 
-    def test_payto_reads_demo_env(self):
-        payto = "0x00000000000000000000000000000000000000aa"
+    def test_payto_ignores_demo_and_null_address(self):
+        burn = "0x00000000000000000000000000000000000000aa"
+        real = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
         with mock.patch.dict(
             os.environ,
-            {"GATE_X402_PAYTO": "", "GATE_X402_PAY_TO": "", "GATE_X402_DEMO_PAYTO": payto},
+            {"GATE_X402_PAYTO": burn, "GATE_X402_PAY_TO": "", "GATE_X402_DEMO_PAYTO": burn},
             clear=False,
         ):
-            self.assertEqual(gate_app.x402_challenge_mod.payto(), payto)
-            self.assertTrue(gate_app.x402_challenge_mod.payto_configured())
+            self.assertIsNone(gate_app.x402_challenge_mod.payto())
+            self.assertFalse(gate_app.x402_challenge_mod.payto_configured())
             dbg = gate_app.x402_challenge_mod.payto_debug()
-            self.assertTrue(dbg["configured"])
-            self.assertEqual(dbg["env_key"], "GATE_X402_DEMO_PAYTO")
+            self.assertFalse(dbg["configured"])
+            self.assertTrue(dbg["placeholder_rejected"])
+            self.assertTrue(dbg["demo_env_ignored"])
+        with mock.patch.dict(
+            os.environ,
+            {"GATE_X402_PAYTO": real, "GATE_X402_PAY_TO": "", "GATE_X402_DEMO_PAYTO": burn},
+            clear=False,
+        ):
+            self.assertEqual(gate_app.x402_challenge_mod.payto(), real)
+            self.assertTrue(gate_app.x402_challenge_mod.payto_configured())
 
 
 class X402AuditWireTests(unittest.TestCase):
