@@ -64,6 +64,9 @@
 
   <div class="card install-checkout-card">
     <h2>Pay to start delivery</h2>
+    {% if canceled %}
+    <p>Checkout was left unfinished. You can start it again here. If the session expires, Stripe emails a link back to the same payment.</p>
+    {% endif %}
     {% if stripe_operator %}
     <form method="post" action="{{ url_for('operator_checkout') }}" class="install-form">
       <input type="hidden" name="include_floor" value="1">

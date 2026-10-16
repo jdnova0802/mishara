@@ -28,6 +28,9 @@
       <strong>72h</strong> delivery after deposit clears. Prefinality sharpens the same offer when pay-live — it does not rename the firm.
     </p>
 
+    {% if canceled %}
+    <p>Checkout was left unfinished. You can start it again here. If the session expires, Stripe emails a link back to the same payment.</p>
+    {% endif %}
     <div class="hero-actions" style="justify-content: flex-start; margin-bottom: 1rem;">
       {% if stripe_diligence %}
       <form method="post" action="{{ url_for('diligence_checkout') }}">

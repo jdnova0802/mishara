@@ -159,6 +159,27 @@ class FlaskListingTests(unittest.TestCase):
         gate_app.app.config["TESTING"] = True
         cls.client = gate_app.app.test_client()
 
+    def test_notify_email_uses_operator_address(self):
+        import notify as notify_mod
+
+        class Resp:
+            status_code = 200
+
+        env = {
+            "GATE_NTFY_TOKEN": "token",
+            "GATE_NTFY_TOPIC": "gate-cash",
+            "GATE_NOTIFY_EMAIL": "demond@velaru.xyz",
+            "GATE_NOTIFY_WEBHOOK": "",
+        }
+        with mock.patch.dict(os.environ, env, clear=False):
+            with mock.patch.object(notify_mod.requests, "post", return_value=Resp()) as post:
+                result = notify_mod.money("CASH — test", "paid", {"email": "buyer@example.com"})
+        self.assertTrue(result["email"])
+        self.assertIsNone(result["webhook"])
+        headers = post.call_args.kwargs["headers"]
+        self.assertEqual(headers["Email"], "demond@velaru.xyz")
+        self.assertIn("buyer@example.com", post.call_args.kwargs["data"].decode())
+
     def test_health_ok_in_dev(self):
         r = self.client.get("/health")
         self.assertEqual(r.status_code, 200)

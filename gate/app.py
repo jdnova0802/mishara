@@ -806,6 +806,7 @@ def _checkout_surface() -> dict:
         "bind_room_payment_link": bool(BIND_ROOM_PAYMENT_LINK),
         "operator_checkout": bool(stripe.api_key and STRIPE_WELD_PRICE_ID and STRIPE_FLOOR_PRICE_ID),
         "notify_webhook": bool((os.getenv("GATE_NOTIFY_WEBHOOK") or "").strip()),
+        "notify_email": bool(notify.configured().get("email")),
     }
 
 
@@ -824,6 +825,8 @@ def _checkout_gaps() -> list[str]:
         gaps.append("operator_checkout")
     if not surface["webhook"]:
         gaps.append("stripe_webhook")
+    if not (surface["notify_webhook"] or surface["notify_email"]):
+        gaps.append("paid_order_notify")
     return gaps
 
 
@@ -3277,6 +3280,11 @@ def prefinality_evaluate():
 
     x402_pay = x402_challenge_mod.payment_verified(request.headers)
     if x402_pay.get("ok"):
+        notify.money(
+            "CASH — x402 prefinality",
+            "USDC settle accepted on /v1/prefinality/evaluate",
+            {"reason": x402_pay.get("reason"), "payer": x402_pay.get("payer")},
+        )
         data = run_prefinality_evaluate(body, account_id=None)
         data["x402"] = {
             "paid": True,
@@ -3429,6 +3437,11 @@ def x402_wire_paid():
         resource=resource,
     )
     if x402_pay.get("ok"):
+        notify.money(
+            "CASH — x402 wire",
+            f"USDC settle accepted for {domain}",
+            {"email": email, "reason": x402_pay.get("reason"), "payer": x402_pay.get("payer")},
+        )
         bundle = x402_audit_mod.wire_bundle(
             domain=domain,
             email=email,
@@ -3937,6 +3950,7 @@ def install():
         sold_out=slots <= 0,
         stripe_install=bool((stripe.api_key and STRIPE_INSTALL_PRICE_ID) or GATE_DEV_MODE),
         contact_email=CONTACT_EMAIL,
+        canceled=request.args.get("canceled") == "1",
     )
 
 
@@ -3974,8 +3988,14 @@ def install_checkout():
         success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
         cancel_url=f"{advertised_url()}/install?canceled=1",
         metadata={"product": "install_sprint", "contact_email": email},
+        **_checkout_followthrough(email),
     )
     db.create_install_order(email, checkout.id, INSTALL_PRICE_CENTS, product="install_sprint")
+    notify.money(
+        "Checkout opened — 48hr install",
+        f"{email} started {INSTALL_PRICE_LABEL}. Not paid yet.",
+        {"email": email, "session": checkout.id},
+    )
     return redirect(checkout.url, code=303)
 
 
@@ -4081,6 +4101,14 @@ def bind_room_checkout():
     return redirect(checkout.url, code=303)
 
 
+def _checkout_followthrough(email: str) -> dict:
+    """Buyer receipt plus Stripe's abandoned-checkout recovery mail."""
+    return {
+        "payment_intent_data": {"receipt_email": email},
+        "after_expiration": {"recovery": {"enabled": True}},
+    }
+
+
 def _diligence_stripe_ready() -> bool:
     if GATE_DEV_MODE:
         return True
@@ -4097,6 +4125,7 @@ def diligence_page():
         review_band=DILIGENCE_REVIEW_BAND,
         retainer_band=DILIGENCE_RETAINER_BAND,
         stripe_diligence=_diligence_stripe_ready(),
+        canceled=request.args.get("canceled") == "1",
         diligence_payment_link=DILIGENCE_PAYMENT_LINK if not _diligence_stripe_ready() else "",
         contact_email=CONTACT_EMAIL,
     )
@@ -4144,9 +4173,15 @@ def diligence_checkout():
         success_url=f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
         cancel_url=f"{advertised_url()}/diligence?canceled=1",
         metadata={"product": "diligence_deposit", "contact_email": email},
+        **_checkout_followthrough(email),
     )
     db.create_install_order(
         email, checkout.id, DILIGENCE_DEPOSIT_CENTS, product="diligence_deposit"
+    )
+    notify.money(
+        "Checkout opened — diligence deposit",
+        f"{email} started {DILIGENCE_DEPOSIT_LABEL}. Not paid yet.",
+        {"email": email, "session": checkout.id},
     )
     return redirect(checkout.url, code=303)
 
@@ -4164,6 +4199,7 @@ def operator_page():
         floor_price=FLOOR_PRICE_LABEL,
         stripe_operator=bool(_operator_stripe_ready() or GATE_DEV_MODE),
         stripe_floor=bool(STRIPE_FLOOR_PRICE_ID or GATE_DEV_MODE),
+        canceled=request.args.get("canceled") == "1",
         contact_email=CONTACT_EMAIL,
         first_weld=science_pri_mod.FIRST_WELD,
         their_production=False,
@@ -4239,6 +4275,7 @@ def operator_checkout():
         "line_items": line_items,
         "success_url": f"{advertised_url()}/install/success?session_id={{CHECKOUT_SESSION_ID}}",
         "cancel_url": f"{advertised_url()}/operator?canceled=1",
+        "after_expiration": {"recovery": {"enabled": True}},
         "metadata": {
             "product": product,
             "contact_email": email,
@@ -4254,6 +4291,11 @@ def operator_checkout():
     }
     checkout = stripe.checkout.Session.create(**session_kwargs)
     install_order_id = db.create_install_order(email, checkout.id, amount, product=product)
+    notify.money(
+        "Checkout opened — operator weld",
+        f"{email} started {WELD_PRICE_LABEL} + {FLOOR_PRICE_LABEL}. Not paid yet.",
+        {"email": email, "write": write_kind, "session": checkout.id},
+    )
     if idempotency_key and request_fingerprint:
         db.create_idempotency_record(
             scope="operator_weld_floor",
@@ -4408,6 +4450,14 @@ def billing_webhook():
                 "CASH — Refusal SKU",
                 f"{REFUSAL_PRICE_LABEL} from {email} — refused {agent_name!r}",
                 {"email": email, "agent_name": agent_name, "session": sess["id"]},
+            )
+        elif product == "diligence_deposit":
+            db.mark_install_paid(sess["id"])
+            email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
+            notify.money(
+                "CASH — diligence deposit",
+                f"{DILIGENCE_DEPOSIT_LABEL} from {email}",
+                {"email": email, "session": sess["id"]},
             )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
