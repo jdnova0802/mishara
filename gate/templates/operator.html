@@ -82,8 +82,7 @@
       <p class="fine-print">Non-refundable weld. Management monthly until cancelled. Unlicensed gambling voids the path. One write. Identifiers only — no PII on the hop. Checkout does not claim third-party production status. <a href="{{ url_for('privacy_page') }}">Privacy</a> · <a href="{{ url_for('terms_page') }}">Terms</a></p>
     </form>
     {% else %}
-    <p>Checkout not configured. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld">{{ contact_email }}</a> — weld + management, which write (default: payout clear).</p>
-    <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=Gate%20weld">Email weld request</a>
+    <p>Weld checkout is off this host until the {{ weld_price }} price and the {{ floor_price }} price are both set. Email <a href="mailto:{{ contact_email }}?subject=Gate%20weld">{{ contact_email }}</a> for the fee schedule.</p>
     {% endif %}
   </div>
 </div>
