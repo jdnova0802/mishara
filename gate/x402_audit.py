@@ -127,6 +127,19 @@ def audit_endpoint(url: str, *, timeout: float = 12.0) -> dict:
     elif pay_to and not _EVM_RE.match(str(pay_to)):
         findings.append({"code": "invalid_payto", "detail": f"payTo not valid EVM address: {pay_to!r}"})
         score -= 20
+    elif pay_to:
+        try:
+            from gate import x402_challenge as _payto_mod
+        except ImportError:
+            import x402_challenge as _payto_mod
+        if _payto_mod.settlement_address(str(pay_to)) is None:
+            findings.append(
+                {
+                    "code": "placeholder_payto",
+                    "detail": "payTo is a null or demo address. A payer who settles sends funds nowhere.",
+                }
+            )
+            score -= 40
 
     if probe_status == 402 and not pay_fields.get("amount"):
         findings.append({"code": "missing_amount", "detail": "No amount in accepts[0]."})
