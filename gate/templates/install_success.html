@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
-{% block title %}Payment received{% endblock %}
+{% block title %}{% if order and order['status'] != 'paid' %}Checkout not paid{% else %}Payment received{% endif %}{% endblock %}
 {% block content %}
 <div class="container section" style="max-width: 560px; text-align: center;">
-  <div class="success-icon">✓</div>
+  {% set paid = order and order['status'] == 'paid' %}
+  <div class="success-icon">{% if paid %}✓{% endif %}</div>
+  {% if order and not paid %}
+    <h1>Not paid yet.</h1>
+    <p>This checkout for <strong>{{ order.email }}</strong> is still {{ order['status'] }}. Nothing has been collected. Start it again from the page you came from. If you just finished paying, wait a moment and reload. The ledger updates when Stripe confirms the session.</p>
+  {% else %}
   <h1>You're in.</h1>
   {% set product = order.product if order else '' %}
   {% if product in ['operator_weld', 'operator_weld_floor'] %}
@@ -49,6 +54,7 @@
         <li>48hr delivery: wired hop + verify demo + handoff call</li>
       </ol>
     </div>
+  {% endif %}
   {% endif %}
   <p style="color: var(--muted); margin-top: 1.5rem;">Questions? <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
   <a href="{{ url_for('index') }}" class="btn btn-ghost" style="margin-top: 1rem;">Back to Gate API</a>

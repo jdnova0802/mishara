@@ -4101,6 +4101,14 @@ def bind_room_checkout():
     return redirect(checkout.url, code=303)
 
 
+def _collected(sess: dict) -> str:
+    """What Stripe actually took. List price is not a capture."""
+    cents = sess.get("amount_total")
+    if cents is None:
+        return "collected unknown"
+    return f"collected ${cents / 100:.2f}"
+
+
 def _checkout_followthrough(email: str) -> dict:
     """Buyer receipt plus Stripe's abandoned-checkout recovery mail."""
     return {
@@ -4430,8 +4438,8 @@ def billing_webhook():
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
             notify.money(
                 "CASH — 48hr install",
-                f"{INSTALL_PRICE_LABEL} from {email}",
-                {"email": email, "session": sess["id"]},
+                f"{_collected(sess)}; list {INSTALL_PRICE_LABEL}; from {email}",
+                {"email": email, "session": sess["id"], "collected_cents": sess.get("amount_total")},
             )
         elif product == "bind_room":
             db.mark_install_paid(sess["id"])
@@ -4439,8 +4447,8 @@ def billing_webhook():
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
             notify.money(
                 "CASH — Bind Room",
-                f"{BIND_ROOM_PRICE_LABEL} from {email}",
-                {"email": email, "session": sess["id"]},
+                f"{_collected(sess)}; list {BIND_ROOM_PRICE_LABEL}; from {email}",
+                {"email": email, "session": sess["id"], "collected_cents": sess.get("amount_total")},
             )
         elif product == "refusal":
             db.mark_install_paid(sess["id"])
@@ -4448,27 +4456,34 @@ def billing_webhook():
             agent_name = (sess.get("metadata") or {}).get("agent_name") or "unnamed"
             notify.money(
                 "CASH — Refusal SKU",
-                f"{REFUSAL_PRICE_LABEL} from {email} — refused {agent_name!r}",
-                {"email": email, "agent_name": agent_name, "session": sess["id"]},
+                f"{_collected(sess)}; list {REFUSAL_PRICE_LABEL}; from {email}; refused {agent_name!r}",
+                {"email": email, "agent_name": agent_name, "session": sess["id"], "collected_cents": sess.get("amount_total")},
             )
         elif product == "diligence_deposit":
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
             notify.money(
                 "CASH — diligence deposit",
-                f"{DILIGENCE_DEPOSIT_LABEL} from {email}",
-                {"email": email, "session": sess["id"]},
+                f"{_collected(sess)}; list {DILIGENCE_DEPOSIT_LABEL}; from {email}",
+                {"email": email, "session": sess["id"], "collected_cents": sess.get("amount_total")},
             )
         elif product in ("operator_weld", "operator_weld_floor"):
             db.mark_install_paid(sess["id"])
             email = (sess.get("metadata") or {}).get("contact_email") or sess.get("customer_email")
             write_kind = (sess.get("metadata") or {}).get("write") or ""
+            label = WELD_PRICE_LABEL + (
+                f" + {FLOOR_PRICE_LABEL}" if product == "operator_weld_floor" else ""
+            )
             notify.money(
                 "CASH — Operator weld",
-                f"{WELD_PRICE_LABEL}"
-                + (f" + {FLOOR_PRICE_LABEL}" if product == "operator_weld_floor" else "")
-                + f" from {email} write={write_kind}",
-                {"email": email, "write": write_kind, "session": sess["id"], "product": product},
+                f"{_collected(sess)}; list {label}; from {email} write={write_kind}",
+                {
+                    "email": email,
+                    "write": write_kind,
+                    "session": sess["id"],
+                    "product": product,
+                    "collected_cents": sess.get("amount_total"),
+                },
             )
         else:
             account_id = (sess.get("metadata") or {}).get("gate_account_id")
@@ -4478,8 +4493,8 @@ def billing_webhook():
                 acct = db.get_account(account_id)
                 notify.money(
                     "CASH — Gate Pro",
-                    f"{PRO_PRICE_LABEL} from {acct['email'] if acct else account_id}",
-                    {"account_id": account_id, "subscription": sub_id},
+                    f"{_collected(sess)}; list {PRO_PRICE_LABEL}; from {acct['email'] if acct else account_id}",
+                    {"account_id": account_id, "subscription": sub_id, "collected_cents": sess.get("amount_total")},
                 )
     elif event["type"] in ("customer.subscription.deleted", "customer.subscription.paused"):
         sub = event["data"]["object"]

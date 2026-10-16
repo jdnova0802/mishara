@@ -182,6 +182,11 @@ class FlaskListingTests(unittest.TestCase):
         self.assertNotIn("\u2014", headers["Title"])
         self.assertIn("buyer@example.com", post.call_args.kwargs["data"].decode())
 
+    def test_collected_phrase_uses_stripe_amount(self):
+        self.assertEqual(gate_app._collected({"amount_total": 0}), "collected $0.00")
+        self.assertEqual(gate_app._collected({"amount_total": 250000}), "collected $2500.00")
+        self.assertEqual(gate_app._collected({}), "collected unknown")
+
     def test_health_ok_in_dev(self):
         r = self.client.get("/health")
         self.assertEqual(r.status_code, 200)
