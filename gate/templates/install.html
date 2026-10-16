@@ -43,6 +43,9 @@
 
   <div class="card install-checkout-card">
     <h2>Book wiring</h2>
+    {% if canceled %}
+    <p>Checkout was left unfinished. You can start it again here. If the session expires, Stripe emails a link back to the same payment.</p>
+    {% endif %}
     {% if sold_out %}
       <p>Wiring capacity is full this month. Email <a href="mailto:{{ contact_email }}?subject=Gate%20agent%20wiring%20waitlist">{{ contact_email }}</a>.</p>
     {% elif not stripe_install %}
