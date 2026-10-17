@@ -1,88 +1,100 @@
-# DRAFT — YC Winter 2027 (review only, not submitted)
+# DRAFT — paste into https://www.ycombinator.com/apply
 
-On-time deadline published by YC: **2 Nov 2026, 8pm PT**. Decisions for on-time apps by **11 Dec 2026**. Batch January–March 2027, San Francisco. Source: https://www.ycombinator.com/apply/ (checked 17 Oct 2026).
+Winter 2027. On-time deadline **2 Nov 2026, 8pm PT**. Not submitted. Demond reviews and submits.
 
-**Do not submit this.** Demond decides. Nothing below was entered on the YC form.
+Blanks marked FILL are things only he knows. Do not invent them.
 
-Honest traction line, use it as written: one real authorization through a live Stripe Issuing webhook, zero paying customers yet.
+Product link: https://gate.velaru.xyz
+Proof link (no login): https://gate.velaru.xyz/v1/issuing/authorization/iauth_1URXhX3b5zsnE0zsR1QikRhn
 
 ---
 
-## Company
+**Company name**
+Gate
 
-**Name:** Gate (Nisaba LLC)
+**Company URL**
+https://gate.velaru.xyz
 
-**One-liner:** Fail-closed clearance on a live card authorization, with a receipt a stranger can check.
+**Describe what your company does in 50 characters or less.**
+Fail-closed check before a card charge.
 
-**Company URL:** https://gate.velaru.xyz
+**What is your company going to make?**
+Gate answers Stripe Issuing’s real-time authorization webhook. When a card is used, Stripe calls https://gate.velaru.xyz/v1/issuing/authorization and waits about two seconds. Gate returns {"approved": true} only if the charge is inside a spend cap the card already carries. No cap, a bad payload, or an error is a decline.
 
-**Where:** United States. Solo founder.
+The receipt of that decision is public. A stranger opens it with the authorization id. No login.
 
-## What does Gate do?
+This is for a carrier or program desk that already lets an agent or MGA spend or bind, and needs the halt before the charge rather than a write-up after it.
 
-Gate is a hop that runs before a card charge becomes irreversible. Stripe Issuing calls `POST https://gate.velaru.xyz/v1/issuing/authorization` on `issuing_authorization.request` and waits about two seconds. Gate returns `{"approved": true}` only on a GO. Anything else, including a bad payload, a missing spend cap, or an exception, is a decline.
+**Please provide a link to the product, if any.**
+https://gate.velaru.xyz
 
-The buyer this is written for is a carrier or program desk that already lets an agent or MGA bind or spend, and needs a halt plus a receipt their examiner can open without a login.
+The decision from the one live charge, no login:
+https://gate.velaru.xyz/v1/issuing/authorization/iauth_1URXhX3b5zsnE0zsR1QikRhn
 
-## Why now?
+**Where do you live now, and where would the company be based after YC?**
+FILL: city now. Toledo, Ohio is the operating address on the Nisaba Stripe account. After YC: San Francisco for the batch.
 
-Agents are being given cards. The moment money can move is the Issuing authorization webhook, not a chat approval after the charge. The funded company in the same neighborhood, HumanLayer (YC F24), ships human-in-the-loop on coding agents. It does not sit on `issuing_authorization.request`. Neither do the other public agent-clearance projects we compared (Penholder, AgenticRail, Proofpane, Provenrail, HELM, CoreBase, MandateGuard, Certiv, AgentLock, Kakunin).
+**How far along are you?**
+Live on Stripe Issuing. Nisaba’s own card program.
 
-## How far along?
+On 17 Oct 2026 a real $1.07 Kindle charge, authorization iauth_1URXhX3b5zsnE0zsR1QikRhn, came back webhook_approved. The card and the $5 float were Nisaba’s. Zero paying customers. Zero stranger dollars collected.
 
-Live in production on Stripe Issuing, Nisaba’s own program (Cross River, Mastercard, debit, own financial account).
+Three attempts earlier that day failed in Stripe’s own log: the webhook had no API version, the reply had no Stripe-Version header, and a $0 placeholder amount was declined instead of approved. Those fixes are on main.
 
-On 17 Oct 2026 a real $1.07 Kindle authorization, `iauth_1URXhX3b5zsnE0zsR1QikRhn`, came back `webhook_approved`. The card was Nisaba’s. The $5 float was Nisaba’s. Status at approval was pending (authorized, not captured). The card ending 5440 was later canceled. No second live authorization.
+**How long have you been working on this? How much of that has been full-time?**
+FILL: months, and whether it has been full-time.
 
-Three earlier attempts the same day failed in Stripe’s log, and each failure is why the path is fail-closed rather than a demo: blank API version on the endpoint, missing `Stripe-Version` on the reply, and a $0 placeholder amount that Gate declined instead of approving. Those fixes are on `main`.
+**What tech stack are you using, or planning to use, to build this product? Include AI models and AI coding tools you use.**
+Python, Flask, Stripe Issuing, Render, SQLite. I use Cursor to write the code.
 
-Public decision, no card number: https://gate.velaru.xyz/v1/issuing/authorization/iauth_1URXhX3b5zsnE0zsR1QikRhn
+**Are people using your product?**
+No. One live authorization, on our own card. No outside user.
 
-The signed receipt’s 120-second TTL has expired. The stored decision is still GO. Expiry is not a decline. The JWT was not re-minted.
+**Do you have revenue?**
+No.
 
-## Traction / revenue
+**If you are applying with the same idea as a previous batch, did anything change?**
+FILL: no, or what changed. If this is the first application, say no.
 
-- Paying customers: **0**
-- Stranger dollars collected: **0**
-- Revenue: **0**
-- Published prices, not collected: Bind Room **$1,750**. Full assessment **$3,500**.
-- One live card authorization: **$1.07**, own funds.
+**Why did you pick this idea to work on? Do you have domain expertise in this area? How do you know people need what you're making?**
+Agents are getting cards. The moment the money can move is the two-second Issuing webhook, not a review after the charge posts.
 
-Do not write “customers,” “volume,” or “in production with insurers.”
+I know people need a halt there because the public failures are already about treating a document as live before the issuer confirms it: Vesttoo and the CCB letters of credit, and deny-to-defend fights at program desks. I have not yet had a carrier pay for this. The offer in front of them is a free 72-hour look at one public page, then a $1,750 Bind Room if they want the pack.
 
-## How will you make money?
+I built the live webhook myself, including the three failures above. That is the domain expertise I actually have.
 
-A desk pays for the assessment and the Bind Room before any production weld. The published start is $1,750. The full assessment is $3,500. A weld inside their system is a separate operator sale after the pack. The Issuing mouth is the proof that the hop can sit on a real authorization, not a second SKU.
+**Who are your competitors? What do you understand about your business that they don't?**
+HumanLayer (YC F24) is the closest funded company. They do human approval around coding agents. They do not sit on issuing_authorization.request.
 
-## Who is the user, and how do you get them?
+The other public projects in this neighborhood (Penholder, AgenticRail, Proofpane, Provenrail, HELM, CoreBase, MandateGuard, Certiv, AgentLock, Kakunin) ship a demo, a library, or an assurance page. None of them has a live Stripe Issuing authorization.
 
-Named insurance and fronting desks that already had a public collateral or defend failure (Vesttoo / CCB LOC pattern, deny-to-defend, primary defend handoff). The offer already written is a free 72-hour memo on their public pages, reply token REVIEW. Ten drafts exist. Four desks were emailed on 23 Sep 2026 (Buckle, SteadPoint, 1970, Everspan). The 29 Sep batch of ten is not logged as sent. No replies are logged.
+What they treat as optional, I treat as the product: if Gate is unsure, the charge is declined. A missing spend cap is a decline. An expired receipt is not rewritten into a fake approval.
 
-## Competitors
+**How do or will you make money? How much could you make?**
+A desk pays $1,750 to start the Bind Room. The full assessment is $3,500. A weld inside their system is a separate sale after that, not priced as a collected number because nobody has paid one.
 
-HumanLayer is the closest funded company: YC F24, human approval around coding agents. Gate’s difference is the card rail and the fail-closed default. The others are demos, libraries, or enterprise assurance pages. None has a live Stripe Issuing authorization webhook. Do not claim Gate is ahead of them on funding, team, or customers.
+I will not project a market size. Zero has been collected. The first dollar is one of those desks paying the $1,750.
 
-## Team
+**Who writes code, or does other technical work on your product? Was any of it done by a non-founder?**
+I write it. I use Cursor. No other founder. No agency.
 
-Demond Davis. Solo founder. Writes the product. No second engineer. No cofounder. Bus factor is one. Say that on the form. Do not invent advisors.
+**Are you looking for a cofounder?**
+FILL: no, unless you are.
 
-## Why you?
+**How did the founders meet? / equity**
+One founder. Nisaba LLC, single-member. FILL: exact ownership percent if it is not 100%.
 
-He is the person who got Nisaba’s own Issuing program live and stayed on the webhook until Stripe recorded `webhook_approved` on a real $1.07 charge, after three recorded failures the same day. That is the specific fact. Do not add a résumé that is not already in the application packet he wants to use.
+**Have you taken any investment yet? Are you currently fundraising?**
+FILL: no, unless you have.
 
-## Something you’ve built
+**Please tell us in one or two sentences about something impressive that each founder has built or achieved.**
+On 17 Oct 2026 I got a live Stripe Issuing webhook to approve a real $1.07 charge after Stripe had rejected the three attempts before it the same day: blank API version, missing Stripe-Version header, and a $0 amount that had to be read off pending_request.
 
-The live mouth: signature-checked webhook, `Stripe-Version` on the reply, spend judged on `pending_request.amount` because Stripe sends `0` in the top-level amount during the request, fail-closed without a spend cap, and a public GET of the stored decision by authorization id.
+**Please tell us about the time you most successfully hacked some (non-computer) system to your advantage.**
+FILL. One true story. Do not borrow one.
 
-## What you want from YC
+**If you had any other ideas you considered applying with, please list them.**
+FILL or leave blank.
 
-A batch where the next proof is a stranger desk paying the $1,750, not another mouth. Company wall already set: one cleared stranger dollar into the Nisaba account by Friday 14 Nov 2026, or Nisaba stops. YC’s on-time decision date is 11 Dec 2026, which is after that wall. Say the wall. Do not pretend the batch timeline replaces it.
-
-## Leave blank or “no” unless Demond fills them
-
-- Equity breakdown beyond 100% founder
-- Prior employers, schools, and ships not already chosen by him
-- Users, growth rate, MRR
-- Cofounder search
-- Incorporation state details beyond Nisaba LLC
-- Anything about the canceled card’s number, CVC, or webhook secret
+**Founder video**
+One minute. You, on camera. Say: Gate declines a card charge unless it is inside a cap. On 17 Oct Stripe recorded webhook_approved on a real $1.07 Kindle charge on our own card. No customers yet. I built it.
