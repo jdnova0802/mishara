@@ -4760,6 +4760,8 @@ def sitemap():
         "/regulator",
         "/record",
         "/issuing-mouth",
+        "/diligence",
+        "/mcp",
         "/privacy",
         "/terms",
         "/bind-room",
