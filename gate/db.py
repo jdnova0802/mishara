@@ -1138,6 +1138,31 @@ def consume_receipt(*, jti: str, rail: str = "", fingerprint: str = "") -> bool:
             return False
 
 
+def get_prefinality_evaluation_by_authorization(authorization_id: str) -> dict | None:
+    """One stored decision for a Stripe authorization id. No card numbers."""
+    import json
+
+    aid = (authorization_id or "").strip()
+    if not aid:
+        return None
+    with db() as conn:
+        _ensure_prefinality_table(conn)
+        row = conn.execute(
+            "SELECT * FROM prefinality_evaluations WHERE authorization_id = ?",
+            (aid,),
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    if item.get("signals_json"):
+        try:
+            item["signals"] = json.loads(item["signals_json"])
+        except ValueError:
+            item["signals"] = []
+    item.pop("signals_json", None)
+    return item
+
+
 def get_prefinality_evaluation(evaluation_id: str) -> dict | None:
     import json
 

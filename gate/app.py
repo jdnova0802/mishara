@@ -3051,6 +3051,43 @@ def issuing_authorization_webhook():
     return _issuing_webhook_response(out["stripe_response"], 200)
 
 
+@app.route("/v1/issuing/authorization/<authorization_id>", methods=["GET"])
+def issuing_authorization_receipt(authorization_id: str):
+    """Stranger read of a stored Issuing decision. The webhook body to Stripe is only approved."""
+    if not re.fullmatch(r"iauth_[A-Za-z0-9]+", authorization_id or ""):
+        return jsonify({"error": "unknown_authorization"}), 404
+    try:
+        from gate import db as gate_db
+    except ImportError:
+        import db as gate_db
+    row = gate_db.get_prefinality_evaluation_by_authorization(authorization_id)
+    if not row or (row.get("rail") or "") != "issuing":
+        return jsonify({"error": "unknown_authorization"}), 404
+    amount = row.get("amount")
+    try:
+        amount_s = f"{float(amount):.2f}" if amount is not None else None
+    except (TypeError, ValueError):
+        amount_s = None
+    return jsonify(
+        {
+            "spec": issuing_mouth_mod.SPEC,
+            "authorization_id": authorization_id,
+            "decision": row.get("decision"),
+            "approved": (row.get("decision") or "").upper() == "GO",
+            "amount": amount_s,
+            "currency": row.get("currency"),
+            "counterparty": row.get("counterparty"),
+            "merchant_category": row.get("merchant_category"),
+            "signals": row.get("signals") or [],
+            "fingerprint": row.get("fingerprint"),
+            "created_at": row.get("created_at"),
+            "demo": bool(row.get("demo")),
+            "receipt": row.get("receipt_jwt"),
+            "verify_url": f"{advertised_url()}/v1/prefinality/verify",
+        }
+    ), 200
+
+
 @app.route("/.well-known/sink-mouth.json")
 def well_known_sink_mouth():
     return jsonify(sink_mouth_mod.manifest(advertised_url()))
