@@ -8,6 +8,8 @@
   <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.">
   {% endblock %}
   {% block robots %}{% endblock %}
+  <link rel="canonical" href="{{ gate_public_url }}{{ request.path }}">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ gate_public_url }}/sitemap.xml">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   {% if meta_pixel_id %}
   <script>
