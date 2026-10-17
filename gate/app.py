@@ -3068,24 +3068,38 @@ def issuing_authorization_receipt(authorization_id: str):
         amount_s = f"{float(amount):.2f}" if amount is not None else None
     except (TypeError, ValueError):
         amount_s = None
-    return jsonify(
-        {
-            "spec": issuing_mouth_mod.SPEC,
-            "authorization_id": authorization_id,
-            "decision": row.get("decision"),
-            "approved": (row.get("decision") or "").upper() == "GO",
-            "amount": amount_s,
-            "currency": row.get("currency"),
-            "counterparty": row.get("counterparty"),
-            "merchant_category": row.get("merchant_category"),
-            "signals": row.get("signals") or [],
-            "fingerprint": row.get("fingerprint"),
-            "created_at": row.get("created_at"),
-            "demo": bool(row.get("demo")),
-            "receipt": row.get("receipt_jwt"),
-            "verify_url": f"{advertised_url()}/v1/prefinality/verify",
-        }
-    ), 200
+    decision = row.get("decision")
+    receipt_jwt = row.get("receipt_jwt")
+    verified = (
+        prefinality_mod.verify_receipt_jwt(receipt_jwt) if receipt_jwt else {}
+    )
+    body = {
+        "spec": issuing_mouth_mod.SPEC,
+        "authorization_id": authorization_id,
+        "decision": decision,
+        "approved": (decision or "").upper() == "GO",
+        "amount": amount_s,
+        "currency": row.get("currency"),
+        "counterparty": row.get("counterparty"),
+        "merchant_category": row.get("merchant_category"),
+        "signals": row.get("signals") or [],
+        "fingerprint": row.get("fingerprint"),
+        "created_at": row.get("created_at"),
+        "demo": bool(row.get("demo")),
+        "receipt": receipt_jwt,
+        "verify_url": f"{advertised_url()}/v1/prefinality/verify",
+    }
+    if receipt_jwt:
+        if verified.get("valid"):
+            body["receipt_status"] = "valid"
+        else:
+            body["receipt_status"] = verified.get("reason") or "unverified"
+        if verified.get("reason") == "expired":
+            body["receipt_message"] = prefinality_mod.expired_receipt_copy(
+                decision=decision,
+                recorded_at=row.get("created_at"),
+            )
+    return jsonify(body), 200
 
 
 @app.route("/.well-known/sink-mouth.json")
@@ -3631,6 +3645,8 @@ def prefinality_verify():
         "fingerprint_expected": expected_fp,
         "payload": verified.get("payload"),
     }
+    if verified.get("message"):
+        out["message"] = verified.get("message")
     return jsonify(out), 200 if verified.get("valid") else 400
 
 

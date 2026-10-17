@@ -54,6 +54,30 @@ def _iso(dt: datetime) -> str:
     return dt.replace(microsecond=0).isoformat()
 
 
+def recorded_at_z(value: Any) -> str | None:
+    """UTC stamp as `...Z` so a stranger does not have to parse +00:00."""
+    if value is None or value == "":
+        return None
+    if isinstance(value, datetime):
+        dt = value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc).replace(microsecond=0).strftime("%Y-%m-%dT%H:%M:%SZ")
+    if isinstance(value, (int, float)):
+        return datetime.fromtimestamp(int(value), tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    s = str(value).strip()
+    if s.endswith("+00:00"):
+        return s[:-6] + "Z"
+    return s or None
+
+
+def expired_receipt_copy(*, decision: str | None, recorded_at: str | None) -> str:
+    """TTL expiry is not a decline. Keep the stored/signed decision on the copy."""
+    dec = (decision or "").strip().upper() or "UNKNOWN"
+    stamp = recorded_at_z(recorded_at)
+    if stamp:
+        return f"expired (decision was {dec}, recorded {stamp})"
+    return f"expired (decision was {dec})"
+
+
 def _b64url(data: bytes) -> str:
     return base64.urlsafe_b64encode(data).rstrip(b"=").decode("ascii")
 
@@ -357,6 +381,14 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
     if exp is not None and int(exp) < int(_utc_now().timestamp()):
         meta["reason"] = "expired"
         meta["payload"] = payload
+        decision = (payload.get("dec") or "").upper()
+        if decision in DECISIONS:
+            meta["decision"] = decision
+        scope = payload.get("scope") if isinstance(payload.get("scope"), dict) else {}
+        recorded = recorded_at_z(scope.get("as_of")) if scope else None
+        if not recorded and payload.get("iat") is not None:
+            recorded = recorded_at_z(payload.get("iat"))
+        meta["message"] = expired_receipt_copy(decision=decision or None, recorded_at=recorded)
         return meta
 
     fp = payload.get("fp")
