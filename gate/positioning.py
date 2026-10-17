@@ -14,10 +14,10 @@ SPEC = "gate-positioning-v1"
 
 FOCUS_PLAIN = (
     "Formula: own permission on irreversible acts for any power that needs it — "
-    "scarcity is the DENY, not the narrative. Nisaba is the Action OS. "
-    "Palantir integrates data; we sit on the act. We serve everybody. "
-    "Integrity: CHARGE-only, stranger verify, one door, fail-closed. "
-    "Force is in category; not a claimed weld. Gate is the commercial mouth."
+    "scarcity is the DENY, not the narrative. Nisaba LLC is the Action OS "
+    "company — not a holding company. Palantir integrates data; we sit on the act. "
+    "We serve everybody. Integrity: CHARGE-only, stranger verify, one door, "
+    "fail-closed. Force is in category; not a claimed weld. Gate is the commercial mouth."
 )
 
 FOCUS_FOR = [
