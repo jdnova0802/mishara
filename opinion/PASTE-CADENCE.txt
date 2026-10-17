@@ -1,0 +1,157 @@
+CADENCE CHECK — EXPERT / CONSULTING LANE
+20 Sep 2026. Sources named. “We don’t know” where the table does not exist.
+
+BOTTOM LINE
+This is a 6–18 month practice-build, not a this-quarter cash lever.
+Do not weight it against H1 as a closeable pipeline.
+Keep the one-pagers as inventory.
+Directory listing is a cheap option (~$1,100), not payroll.
+The five-letter send list plus a Greenbrier CLE paper cannibalizes Tuesday and Gate if done properly.
+
+════════════════════════════════════
+1. CADENCE — LISTING TO FIRST RETAIN
+
+There is no public median time-to-first-retain for a new, unproven expert.
+
+SEAK 2024 fee survey (n=1,633) does not report time-to-first-case, conversion, or new-vs-experienced split.
+
+SEAK’s own marketing book: “Nobody can tell you with certainty how effective any technique will be.”
+
+What exists, with bias:
+
+SEAK directory ads: “two weeks after listing”; “second person within a week”; “2–3 referrals per month.” Seller of the listing. Survivorship.
+
+SEAK marketing book (2015): refund window was 8 months because lag is “very common.” Anecdote of a refund ask at ~7 months. Anecdote of an email on day 3 asking where the cases are.
+
+Current SEAK first-listing refund: cancel through 1 April 2028. They lengthened the window. That is not a “weeks” product.
+
+r/expertwitness (Nov 2024): one person, 8 months, zero leads, requesting refund. Others: multiple leads, or a case after a SEAK course not the listing alone. Tiny n.
+
+Practice blogs: test a directory 6–12 months before judging ROI.
+
+SEAK 2025 Marketing Survey (n>450) ranks channels. Full tables are paywalled. We did not buy it. We do not know the surveyed hit-rate for “listing only, no prior testimony.”
+
+WORKING ESTIMATE (labeled): plan on months, not weeks.
+Non-crazy range: 6–12 months to first paid retain from a cold directory listing.
+Fat left tail: never. Thin right tail: weeks (the testimonials).
+Attorneys hire when they have a case, not when you list.
+
+Cold letters to Patel / Bredehoft / Eisenhower: not in any table. Warmer than a stranger listing, colder than a referral. Low-probability, high-ticket. Not this month’s payroll.
+
+════════════════════════════════════
+2. RATE — $650–$900 ASSUMES A TRACK RECORD WE DON’T HAVE
+
+$650 / $800 / $900 is not the market median. It is a top-quartile public card for a payments-operations expert with a C-suite CV.
+
+SEAK 2024 (n=1,633, all specialties, mixed experience):
+File review / prep: median $450/hr (avg $466, range $55–$2,500)
+Deposition: median $500/hr (blog writeup also says $475; PDF table says $500 — use the PDF)
+Trial: median $500/hr (avg $633)
+Typical total billings on a single case: median $7,000 (avg $14,376)
+Most money billed on one case: median $25,000
+Median retainer (of those who take one): $3,000
+
+The $15k–$75k written-opinion SKU sits above the median entire-case billing ($7k).
+
+Comps:
+David Rich $650/$800/$900 — former Mastercard EVP / Citi, 25 years payments ops, testimony history on JurisPro. Not a UCC scholar.
+Paul Carrubba — 45+ years bank ops AND a banking attorney; hundreds of cases; NACHA Payments Institute faculty.
+Dick Fraher — former counsel to the Fed Retail Payments Office; drafted regs / operating circulars.
+
+ExpertPages 2024: average ~$451/hr; ~80% of experts between $200–$600. Quote: “The fact that Ernie Expert charges $400 an hour doesn’t mean that an expert witness who has never testified before can charge the same rate.”
+
+SEAK blogs telling new experts not to underprice is marketing advice, not evidence that first-timers collect $650.
+
+REALISTIC ENTRY (labeled): $250–$450/hr consulting, $3k–$7k fixed memo, retainer-upfront.
+$650–$900 is a target after track record, not the door.
+
+We do not know unpublished SEAK specialty medians for Banking (n=19), Financial (n=45), Legal (n=20), Fraud (n=30), Maritime (n=16). Those tables are in the paid 206-page book.
+
+════════════════════════════════════
+3. CREDENTIALS
+
+Directories: SEAK and JurisPro require no bar, no CPA, no license. Pay, upload a CV, go live. That is advertising, not qualification.
+
+US federal court (testifying): FRE 702 — knowledge, skill, experience, training, OR education. No bar required as evidence law. Judge is gatekeeper, case by case.
+
+The actual gap is what the opinion is.
+
+The one-pagers are doctrine: what Ocean Frost / Houda / Taikoo / 4A-207 mean.
+
+US federal court: experts generally may not testify on domestic questions of law. The judge instructs on UCC. A testifying expert on “what 4A-207 requires” is the thing courts strike. What gets in: bank-operations facts (did an employee actually read the alert). That is Carrubba’s lane.
+
+Foreign law (Houda, Ocean Frost, Taikoo) in a US court: FRCP 44.1 — court may consider expert testimony. Buyers of that testimony are almost always English solicitors/barristers. We have no data that a US technical founder gets retained for English commercial-court doctrine at $15k–$75k against HFW / 7KBW comps.
+
+England & Wales: CPR 35 expert evidence is not reserved to solicitors, but opining on issues of English law the judge must decide is not the expert’s function. Calling yourself a solicitor/barrister without qualification is a criminal offence.
+
+Written “legal opinions” sold to the public (not through instructing solicitors): UPL risk in the US; “acting as a solicitor” risk in England.
+
+Consulting (non-testifying) to a law firm: no bar required. The lawyer remains counsel. Scope as “here is what the machine did / here are the primary sources,” not “here is how the court should rule.” That is the only SKU that does not need a license.
+
+DEMOND — public check only (LinkedIn + web, 20 Sep 2026). Not a complete private CV.
+Public identity: founder / technical (Velaru), Toledo, Ohio. No bar number, law firm, or CPA listing turned up.
+If a private CV has an active US bar, English qualification, or long payments-ops employment, that changes Q2–Q3.
+On the public record as searched: the gap is open.
+
+FRE 702-shaped piece without a license: technical testimony on rel/ receipts (what the JWT proves). That is Opinion 02’s exhibit half, not “I am an Ocean Frost authority.”
+
+Gap to close for testifying legal expert: bar admission (US) and/or English qualification, OR stop selling legal conclusions.
+
+════════════════════════════════════
+4. TIME-TO-CASH IF RETAINED THIS MONTH
+
+Do not mix the clocks.
+
+A. Retainer before work starts
+SEAK median retainer $3,000 among those who take one. Practice blogs $2,500–$10,000 for review+report.
+Cash in days after the attorney signs and wires.
+This is the only path that is actually “this month.”
+64% of SEAK respondents require a signed retention contract. 65% accept ACH/wire.
+
+B. Invoice after the opinion, net-30
+Clock starts at delivery, not at retain. Net-30 is the named standard. Law-firm AP is often net-45/60. We have no survey table that splits expert invoices by net-30 vs net-60 vs “when the client pays the firm.”
+
+C. Tied to case milestones
+Months to years. SEAK: 29% of experts reported at least one ultimate non-payment in the last five years (higher on the plaintiff side).
+
+Honest this-month cash: retainer-upfront, ACH, work only after the wire clears.
+Even then, getting to “attorney signs this month” is the bottleneck, not AP terms. See Q1.
+
+A $15k–$75k opinion paid after trial is not a Q3 lever.
+
+════════════════════════════════════
+5. BANDWIDTH
+
+The five-item send list plus a Greenbrier paper is not executable on top of Tuesday and Gate.
+
+SEAK + JurisPro listing: 2–4 hours, ~$1,104. Refundable at SEAK through Apr 2028. Low conflict. Cheap experiment.
+
+Two 4A letters + one maritime CLE ask + one IG/eBL letter: 8–15 hours to write letters that survive a later cross on “you marketed yourself.” Same hours as Tuesday.
+
+Greenbrier CLE paper (14–18 Oct 2026): a NY-CLE-worthy paper is days to a week. 24 calendar days from 20 Sep. Real cannibal of Gate.
+
+Nacha CFP (opens 28 Sep): 3–6 hours. Event is April 2027. Not this-quarter cash even if accepted.
+
+First live retain, if it happens: tens of hours, then you are on the other side’s calendar.
+
+Deprioritize:
+1. Do not treat the five-item send list as this week’s job unless Tuesday and Gate are paused.
+2. Do the $1k directory listing only if you want 6–12 month option value.
+3. Do not write a Greenbrier paper on spec this month.
+4. If a named buyer replies and wires a retainer, that file jumps the queue. Until then, this is not H1-weighted.
+
+════════════════════════════════════
+WEIGHTING VS H1
+
+Fastest real lever this quarter — NOT SUPPORTED for this lane.
+$650–$900 / $15–75k — ASPIRATIONAL. Median first-file: ~$450/hr, ~$3k retainer, ~$7k typical case.
+Directories produce retains in weeks — ANECDOTES. Seller’s refund window says months. No public median.
+Demond as testifying 4A / Houda expert tomorrow — PUBLIC RECORD: NO BAR. Technical receipt testimony is the FRE 702 piece.
+Time-to-cash if retained — DAYS if retainer-upfront. Otherwise 30–90+ days, with a documented non-payment tail.
+
+CALL
+Longer-horizon bet.
+Keep the one-pagers.
+Spend hours on this lane only after (a) a bar/ops CV exists that survives a Patel/Bredehoft Google, or (b) a live file is already asking.
+
+Sources: SEAK 2024 Fee Survey PDF; SEAK How to Market Your Expert Witness Practice ch. 2; seakexperts.com application (refund through 1 Apr 2028); ExpertPages new-expert rate article; JurisPro Rich listing; FRE 702; FRCP 44.1; CPR 35 / Law Society “doing legal business”; r/expertwitness 2024 SEAK thread.
