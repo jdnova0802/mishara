@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cross-lender collateral match — Tricolor demonstrator</title>
+<style>
+  :root {
+    --ink: #1c1915;
+    --muted: #5e584f;
+    --paper: #f4f1ea;
+    --card: #fffcf7;
+    --line: #d8d2c6;
+    --flag: #8d2a24;
+    --flag-bg: #f8e8e4;
+    --ok: #1d5c40;
+    --ok-bg: #e5f2ea;
+    --warn: #8a5a12;
+    --warn-bg: #f8efd8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.45 Georgia, "Iowan Old Style", Palatino, serif;
+  }
+  header, main { max-width: 1120px; margin: 0 auto; padding: 28px 20px 8px; }
+  main { padding-top: 0; padding-bottom: 48px; }
+  h1 { font-size: 30px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 8px; }
+  h2 { font-size: 20px; font-weight: 500; margin: 0 0 8px; }
+  h3 { font-size: 15px; font-weight: 600; margin: 0 0 6px; font-family: ui-sans-serif, system-ui, sans-serif; }
+  p { margin: 0 0 10px; }
+  .lede { font-size: 18px; max-width: 46em; }
+  .muted { color: var(--muted); }
+  .sans { font-family: ui-sans-serif, system-ui, sans-serif; }
+  .kicker { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+  .split > *, .stack { min-width: 0; }
+  .stack { display: grid; gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); padding: 14px 14px 10px; max-width: 100%; overflow-x: auto; }
+  .card.flagged { border-color: #e2b2ac; background: var(--flag-bg); }
+  .card.clean { border-color: #b7d4c4; }
+  table { width: 100%; border-collapse: collapse; font: 12px/1.35 ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  th, td { text-align: left; padding: 4px 6px 4px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; }
+  td .label { display: none; }
+  .tag { display: inline-block; font: 11px/1.2 ui-sans-serif, system-ui, sans-serif; padding: 2px 6px; border: 1px solid var(--line); margin-right: 4px; }
+  .tag.bad { color: var(--flag); border-color: #e2b2ac; background: #fff; }
+  .tag.good { color: var(--ok); border-color: #b7d4c4; background: #fff; }
+  .tag.warn { color: var(--warn); border-color: #ead7a8; background: #fff; }
+  .stat { font: 13px/1.4 ui-sans-serif, system-ui, sans-serif; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .stat b { display: block; font-weight: 600; }
+  ul { margin: 8px 0 0; padding-left: 18px; }
+  li { margin: 0 0 8px; }
+  .mono, h3 { overflow-wrap: anywhere; }
+  .mono { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+  @media (max-width: 860px) {
+    .split { grid-template-columns: 1fr; }
+    header, main { padding-left: 14px; padding-right: 14px; }
+    h1 { font-size: 26px; }
+    table, tr, td { display: block; width: 100%; }
+    th { display: none; }
+    tr { padding: 8px 0; border-bottom: 1px solid var(--line); }
+    td { border: 0; padding: 1px 0; }
+    td .label { display: block; color: var(--muted); font: 10px/1.2 ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Demonstrator · not a production feed</div>
+  <h1>Same VIN, four pledges</h1>
+  <p class="lede">Warehouse lenders each kept their own copy of Tricolor’s loan tape. This page runs those tapes as separate inputs, then matches them. The 2018 Ford Fusion below is the vehicle named in the noteholder complaint. Every other car is synthetic and labeled.</p>
+  <p class="muted sans">Sources: SDNY indictment 25 Cr. 579; SEC v. Chu, 26-cv-7041; the noteholder complaint against JPMorgan, Barclays, and Fifth Third; Fifth Third’s 8-K filed 9 September 2025 and its 10-Q for the quarter ended 30 September 2025.</p>
+</header>
+<main>
+  <section class="split" id="compare"></section>
+  <section class="card" id="hits"></section>
+  <section class="split">
+    <div class="card" id="misses"></div>
+    <div class="card" id="totals"></div>
+  </section>
+  <section class="card" id="limits"></section>
+</main>
+<script id="payload" type="application/json">
+{
+  "ledger": {
+    "title": "Tricolor cross-lender tape demonstrator",
+    "as_of": "Pleadings and bank filings through the documents read on 17 October 2026",
+    "fusion_vin": "3FA6P0H75JR262885",
+    "sources": [
+      {
+        "id": "indictment",
+        "title": "United States v. Chu and Goodgame, SDNY 25 Cr. 579",
+        "use": "How borrowing-base files were built, SPV commitment sizes, and the within-file fraud (delinquency edits, fake payments in the dealer system)."
+      },
+      {
+        "id": "sec",
+        "title": "SEC v. Chu, Kollar, and Seibold, SDNY 26-cv-7041",
+        "use": "VIN falsification, dead loans, and the double-pledged principal table."
+      },
+      {
+        "id": "noteholder",
+        "title": "One William Street and others v. JPMorgan, Barclays, and Fifth Third (SDNY complaint)",
+        "use": "The Ford Fusion clone, SPV4 as the JPMorgan facility, SPV6 as the Fifth Third facility, and the trustee's fictitious-loan count."
+      },
+      {
+        "id": "fitb-8k",
+        "title": "Fifth Third 8-K filed 9 September 2025 and 10-Q for the quarter ended 30 September 2025",
+        "use": "The only named dollar loss in a bank filing: about $200 million outstanding, $178 million charged off, $20 million specific allowance."
+      }
+    ],
+    "facilities": [
+      {
+        "id": "SPV3",
+        "holder": "Lender-3 in the indictment (a California investment manager). Not named there.",
+        "commitment": "About $100 million total commitment (indictment)."
+      },
+      {
+        "id": "SPV4",
+        "holder": "Noteholder complaint calls this the JPMorgan facility. Indictment: about $770 million shared by Lender-4, Lender-5, and two New York mezzanine lenders.",
+        "commitment": "About $770 million (indictment)."
+      },
+      {
+        "id": "SPV5",
+        "holder": "Named as a warehouse in the indictment. No public commitment figure in the pages read.",
+        "commitment": "Not stated in the sources read."
+      },
+      {
+        "id": "SPV6",
+        "holder": "Noteholder complaint: Fifth Third was administrative agent and warehouse lender on SPV6. Indictment Lender-8, about $250 million, opened August 2022.",
+        "commitment": "About $250 million (indictment). Fifth Third's own loan on the borrower was about $200 million (8-K, 9 September 2025)."
+      },
+      {
+        "id": "TAST-2022-1",
+        "holder": "Tricolor Auto Securitization Trust 2022-1. Investors, not the warehouse banks.",
+        "commitment": "SEC: 3,225 loans in this pool were also listed in TAST 2025-2."
+      },
+      {
+        "id": "TAST-2024-3",
+        "holder": "Tricolor Auto Securitization Trust 2024-3. JPMorgan and Barclays underwrote it (noteholder complaint).",
+        "commitment": "SEC double-pledged principal in this pool: $11,415,819.64."
+      },
+      {
+        "id": "TAST-2025-2",
+        "holder": "Tricolor Auto Securitization Trust 2025-2.",
+        "commitment": "SEC: 12,486 loans in the pool; about $49 million double-pledged principal on the August 2025 lender analysis."
+      }
+    ],
+    "pleading_totals": [
+      {
+        "label": "Trustee forensic: borrowing base inflated by at least",
+        "value": "$675 million",
+        "source": "sec"
+      },
+      {
+        "label": "Kollar's August 2025 tally: reported collateral vs internal system",
+        "value": "$2.2 billion reported, about $1.4 billion internal, gap about $800 million",
+        "source": "sec"
+      },
+      {
+        "label": "Double-pledged principal inside TAST pools (one lender's August 2025 analysis)",
+        "value": "$365,497,106.65",
+        "source": "sec"
+      },
+      {
+        "label": "Fictitious loans absent from Tricolor's own receivable records",
+        "value": "6,960 loans, $135,488,888",
+        "source": "noteholder"
+      },
+      {
+        "label": "Fifth Third asset-backed finance loan",
+        "value": "about $200 million outstanding; $178 million charged off; $20 million specific allowance",
+        "source": "fitb-8k"
+      },
+      {
+        "label": "Warehouse advance rate",
+        "value": "About 60% to 80% of eligible balance (indictment). SEC complaint describes facilities generally at 70% to 80%.",
+        "source": "indictment"
+      }
+    ],
+    "dealer_system": [
+      {
+        "row_id": "dms-fusion",
+        "account_id": "UNPUBLISHED",
+        "vin": "3FA6P0H75JR262885",
+        "year": 2018,
+        "make": "Ford",
+        "model": "Fusion",
+        "mileage": 101570,
+        "principal_reported": 14937.0,
+        "due": "2023-04-15",
+        "delinquency_reported": "charged_off",
+        "provenance": "pleading",
+        "note": "Dealer export shows the Fusion once. Tapes reported it as current. The complaint's delinquency status for this specific VIN is not stated; charged_off here marks the general dead-loan pattern, not a pleaded status for this car."
+      },
+      {
+        "row_id": "dms-spv3-clean-1",
+        "account_id": "SYN-3001",
+        "vin": "SYNN286RSHL32PNAT",
+        "year": 2019,
+        "make": "Nissan",
+        "model": "Sentra",
+        "mileage": 84000,
+        "principal_reported": 6200.0,
+        "due": "2027-03-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-spv4-clean-1",
+        "account_id": "SYN-4001",
+        "vin": "SYNTL3Z9ARWM9N53W",
+        "year": 2020,
+        "make": "Hyundai",
+        "model": "Elantra",
+        "mileage": 61000,
+        "principal_reported": 9100.0,
+        "due": "2027-06-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-spv5-clean-1",
+        "account_id": "SYN-5001",
+        "vin": "SYNT72PMXUB8GMPYV",
+        "year": 2018,
+        "make": "Kia",
+        "model": "Forte",
+        "mileage": 99000,
+        "principal_reported": 4800.0,
+        "due": "2026-11-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-spv6-clean-1",
+        "account_id": "SYN-6001",
+        "vin": "SYNXSVE6K3LTPL6RY",
+        "year": 2021,
+        "make": "Toyota",
+        "model": "Corolla",
+        "mileage": 45000,
+        "principal_reported": 11200.0,
+        "due": "2028-01-15",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-tast2022-clean-1",
+        "account_id": "SYN-T221",
+        "vin": "SYN835Y9CLNFF2H4G",
+        "year": 2017,
+        "make": "Chevrolet",
+        "model": "Malibu",
+        "mileage": 110000,
+        "principal_reported": 3900.0,
+        "due": "2026-08-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-tast2024-clean-1",
+        "account_id": "SYN-T243",
+        "vin": "SYNCE2L6E36N8Y4XN",
+        "year": 2019,
+        "make": "Honda",
+        "model": "Civic",
+        "mileage": 72000,
+        "principal_reported": 8700.0,
+        "due": "2027-09-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-tast2025-clean-1",
+        "account_id": "SYN-T252",
+        "vin": "SYNYGDXLR4YYGE628",
+        "year": 2020,
+        "make": "Volkswagen",
+        "model": "Jetta",
+        "mileage": 54000,
+        "principal_reported": 7600.0,
+        "due": "2028-04-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Dealer-system copy of a clean pledged loan."
+      },
+      {
+        "row_id": "dms-near",
+        "account_id": "SYN-NEAR-A",
+        "vin": "SYN74DAUH5CVRDW96",
+        "year": 2016,
+        "make": "Dodge",
+        "model": "Journey",
+        "mileage": 128440,
+        "principal_reported": 4100.0,
+        "due": "2026-12-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Honest dealer export has the original VIN only. The one-digit variant is not in this file."
+      },
+      {
+        "row_id": "dms-overlap",
+        "account_id": "SYN-OV-A",
+        "vin": "SYN47RYJFUNMNHSVY",
+        "year": 2017,
+        "make": "Ford",
+        "model": "Escape",
+        "mileage": 102000,
+        "principal_reported": 5600.0,
+        "due": "2026-10-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "One car. Two securitization tapes."
+      },
+      {
+        "row_id": "dms-dead",
+        "account_id": "SYN-DEAD",
+        "vin": "SYNEKZBM4M7N24GEB",
+        "year": 2014,
+        "make": "Chrysler",
+        "model": "200",
+        "mileage": 133000,
+        "principal_reported": 2750.0,
+        "due": "2024-01-01",
+        "delinquency_reported": "180_plus_past_due",
+        "provenance": "synthetic",
+        "note": "Charged-off style loan. It is on no lender tape. The substitution row pledges a different VIN."
+      },
+      {
+        "row_id": "dms-cover",
+        "account_id": "SYN-COVER",
+        "vin": "SYNBDXK6SNX8AT3PK",
+        "year": 2016,
+        "make": "Chrysler",
+        "model": "200",
+        "mileage": 88000,
+        "principal_reported": 6400.0,
+        "due": "2027-05-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "A real, separate, unpledged car. SPV5 reports this VIN. Matching it to the dealer file looks fine."
+      },
+      {
+        "row_id": "dms-poison",
+        "account_id": "SYN-POISON",
+        "vin": "SYNMM339JGF9MDS53",
+        "year": 2013,
+        "make": "Nissan",
+        "model": "Versa",
+        "mileage": 151000,
+        "principal_reported": 1900.0,
+        "due": "2025-12-01",
+        "delinquency_reported": "current",
+        "provenance": "synthetic",
+        "note": "Planted dealer-system row. Indictment: fake payments and pledge records were entered in the dealer system so a tie-out would pass."
+      }
+    ],
+    "tapes": {
+      "SPV3": [
+        {
+          "row_id": "spv3-clean-1",
+          "account_id": "SYN-3001",
+          "vin": "SYNN286RSHL32PNAT",
+          "year": 2019,
+          "make": "Nissan",
+          "model": "Sentra",
+          "mileage": 84000,
+          "principal_reported": 6200.0,
+          "due": "2027-03-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean row. Invented so a single-lender tape is not only the fraud example."
+        },
+        {
+          "row_id": "spv3-near",
+          "account_id": "SYN-NEAR-A",
+          "vin": "SYN74DAUH5CVRDW96",
+          "year": 2016,
+          "make": "Dodge",
+          "model": "Journey",
+          "mileage": 128440,
+          "principal_reported": 4100.0,
+          "due": "2026-12-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Synthetic illustration of a VIN later altered by one character on another tape. Not a pleaded VIN."
+        }
+      ],
+      "SPV4": [
+        {
+          "row_id": "spv4-clean-1",
+          "account_id": "SYN-4001",
+          "vin": "SYNTL3Z9ARWM9N53W",
+          "year": 2020,
+          "make": "Hyundai",
+          "model": "Elantra",
+          "mileage": 61000,
+          "principal_reported": 9100.0,
+          "due": "2027-06-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean row on the JPMorgan facility tape."
+        },
+        {
+          "row_id": "spv4-fusion",
+          "account_id": "UNPUBLISHED",
+          "vin": "3FA6P0H75JR262885",
+          "year": 2018,
+          "make": "Ford",
+          "model": "Fusion",
+          "mileage": 101570,
+          "principal_reported": 14937.0,
+          "due": "2023-04-15",
+          "delinquency_reported": "current",
+          "provenance": "pleading",
+          "note": "Pleading example, not a reconstructed full tape. Noteholder complaint: one 2018 Ford Fusion, this VIN, 101,570 miles, $14,937 principal, due 15 April 2023, pledged twice inside SPV6 (second account number adds one digit), again in SPV4, and again in TAST 2024-3."
+        },
+        {
+          "row_id": "spv4-fictitious",
+          "account_id": "SYN-FICT",
+          "vin": "SYNVU9TRVFUUDT7UN",
+          "year": 2015,
+          "make": "Ford",
+          "model": "Focus",
+          "mileage": 140000,
+          "principal_reported": 5100.0,
+          "due": "2026-05-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Synthetic fictitious VIN. Trustee analysis recited in the noteholder complaint: 6,960 fictitious loans, $135,488,888, VINs absent from Tricolor's receivable records. This VIN is not one of those 6,960."
+        }
+      ],
+      "SPV5": [
+        {
+          "row_id": "spv5-clean-1",
+          "account_id": "SYN-5001",
+          "vin": "SYNT72PMXUB8GMPYV",
+          "year": 2018,
+          "make": "Kia",
+          "model": "Forte",
+          "mileage": 99000,
+          "principal_reported": 4800.0,
+          "due": "2026-11-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean row. Indictment: Seibold described SPV5 as the line they tried to keep relatively clean."
+        },
+        {
+          "row_id": "spv5-near",
+          "account_id": "SYN-NEAR-B",
+          "vin": "SYNQ4DAUH5CVRDW96",
+          "year": 2016,
+          "make": "Dodge",
+          "model": "Journey",
+          "mileage": 128440,
+          "principal_reported": 4100.0,
+          "due": "2026-12-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Same vehicle attributes as SYN-NEAR-A. The VIN differs by one character. Synthetic illustration of the SEC allegation that VINs were falsified. Not a pleaded VIN."
+        },
+        {
+          "row_id": "spv5-substitution",
+          "account_id": "SYN-SWAP",
+          "vin": "SYNBDXK6SNX8AT3PK",
+          "year": 2014,
+          "make": "Chrysler",
+          "model": "200",
+          "mileage": 133000,
+          "principal_reported": 2750.0,
+          "due": "2026-02-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Miss case. This VIN is a different car on the dealer export and is not pledged anywhere else. The charged-off loan (SYN-DEAD) never appears on a tape. Cross-lender VIN match does not fire."
+        },
+        {
+          "row_id": "spv5-poisoned",
+          "account_id": "SYN-POISON",
+          "vin": "SYNMM339JGF9MDS53",
+          "year": 2013,
+          "make": "Nissan",
+          "model": "Versa",
+          "mileage": 151000,
+          "principal_reported": 1900.0,
+          "due": "2025-12-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Miss case. Fictitious loan that was also written into the dealer export, which is what the indictment describes when fake records were planted in the dealer system. One tape only, so there is no cross-lender duplicate."
+        }
+      ],
+      "SPV6": [
+        {
+          "row_id": "spv6-clean-1",
+          "account_id": "SYN-6001",
+          "vin": "SYNXSVE6K3LTPL6RY",
+          "year": 2021,
+          "make": "Toyota",
+          "model": "Corolla",
+          "mileage": 45000,
+          "principal_reported": 11200.0,
+          "due": "2028-01-15",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean row on the Fifth Third facility tape."
+        },
+        {
+          "row_id": "spv6-fusion-a",
+          "account_id": "UNPUBLISHED",
+          "vin": "3FA6P0H75JR262885",
+          "year": 2018,
+          "make": "Ford",
+          "model": "Fusion",
+          "mileage": 101570,
+          "principal_reported": 14937.0,
+          "due": "2023-04-15",
+          "delinquency_reported": "current",
+          "provenance": "pleading",
+          "note": "Pleading example, not a reconstructed full tape. Noteholder complaint: one 2018 Ford Fusion, this VIN, 101,570 miles, $14,937 principal, due 15 April 2023, pledged twice inside SPV6 (second account number adds one digit), again in SPV4, and again in TAST 2024-3."
+        },
+        {
+          "row_id": "spv6-fusion-b",
+          "account_id": "UNPUBLISHED+1",
+          "vin": "3FA6P0H75JR262885",
+          "year": 2018,
+          "make": "Ford",
+          "model": "Fusion",
+          "mileage": 101570,
+          "principal_reported": 14937.0,
+          "due": "2023-04-15",
+          "delinquency_reported": "current",
+          "provenance": "pleading",
+          "note": "Pleading example, not a reconstructed full tape. Noteholder complaint: one 2018 Ford Fusion, this VIN, 101,570 miles, $14,937 principal, due 15 April 2023, pledged twice inside SPV6 (second account number adds one digit), again in SPV4, and again in TAST 2024-3. Second SPV6 row: complaint says one digit was added to the account number."
+        }
+      ],
+      "TAST-2022-1": [
+        {
+          "row_id": "tast2022-clean-1",
+          "account_id": "SYN-T221",
+          "vin": "SYN835Y9CLNFF2H4G",
+          "year": 2017,
+          "make": "Chevrolet",
+          "model": "Malibu",
+          "mileage": 110000,
+          "principal_reported": 3900.0,
+          "due": "2026-08-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean securitization row."
+        },
+        {
+          "row_id": "tast2022-overlap",
+          "account_id": "SYN-OV-A",
+          "vin": "SYN47RYJFUNMNHSVY",
+          "year": 2017,
+          "make": "Ford",
+          "model": "Escape",
+          "mileage": 102000,
+          "principal_reported": 5600.0,
+          "due": "2026-10-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Synthetic stand-in. SEC complaint: of 12,486 loans in TAST 2025-2, at least 6,850 were also pledged elsewhere, including 3,225 loans still in TAST 2022-1. Double-pledged principal inside TAST 2025-2 was reported at $49,019,017.92. This row is not one of those loans."
+        }
+      ],
+      "TAST-2024-3": [
+        {
+          "row_id": "tast2024-clean-1",
+          "account_id": "SYN-T243",
+          "vin": "SYNCE2L6E36N8Y4XN",
+          "year": 2019,
+          "make": "Honda",
+          "model": "Civic",
+          "mileage": 72000,
+          "principal_reported": 8700.0,
+          "due": "2027-09-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean row in the securitization that also received the Fusion."
+        },
+        {
+          "row_id": "tast2024-fusion",
+          "account_id": "UNPUBLISHED",
+          "vin": "3FA6P0H75JR262885",
+          "year": 2018,
+          "make": "Ford",
+          "model": "Fusion",
+          "mileage": 101570,
+          "principal_reported": 14937.0,
+          "due": "2023-04-15",
+          "delinquency_reported": "current",
+          "provenance": "pleading",
+          "note": "Pleading example, not a reconstructed full tape. Noteholder complaint: one 2018 Ford Fusion, this VIN, 101,570 miles, $14,937 principal, due 15 April 2023, pledged twice inside SPV6 (second account number adds one digit), again in SPV4, and again in TAST 2024-3."
+        }
+      ],
+      "TAST-2025-2": [
+        {
+          "row_id": "tast2025-clean-1",
+          "account_id": "SYN-T252",
+          "vin": "SYNYGDXLR4YYGE628",
+          "year": 2020,
+          "make": "Volkswagen",
+          "model": "Jetta",
+          "mileage": 54000,
+          "principal_reported": 7600.0,
+          "due": "2028-04-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Clean row. Not one of the 12,486 loans in the real TAST 2025-2 pool."
+        },
+        {
+          "row_id": "tast2025-overlap",
+          "account_id": "SYN-OV-B",
+          "vin": "SYN47RYJFUNMNHSVY",
+          "year": 2017,
+          "make": "Ford",
+          "model": "Escape",
+          "mileage": 102000,
+          "principal_reported": 5600.0,
+          "due": "2026-10-01",
+          "delinquency_reported": "current",
+          "provenance": "synthetic",
+          "note": "Synthetic stand-in. SEC complaint: of 12,486 loans in TAST 2025-2, at least 6,850 were also pledged elsewhere, including 3,225 loans still in TAST 2022-1. Double-pledged principal inside TAST 2025-2 was reported at $49,019,017.92. This row is not one of those loans."
+        }
+      ]
+    },
+    "limits": [
+      "Cross-lender VIN match sees a loan only when two tapes the matcher is allowed to read contain the same VIN, or VINs one character apart.",
+      "A fictitious loan that sits on only one tape is invisible to that match. It shows up only if an honest dealer-system export is also in the room, and the VIN is missing from it.",
+      "The indictment says fake payments and pledge records were typed into the dealer system, and that backup ledgers were fabricated for auditors. A dealer export the originator prepared will not catch a loan they also inserted there.",
+      "An altered VIN that is not a one-character neighbor of another pledged VIN, and that belongs to a different real car in the dealer file, is not flagged. The charged-off loan it replaced never appears.",
+      "This page does not re-check delinquency against principal decline. That is the check a warehouse analyst actually ran in August 2025, on columns already present in the borrowing base. It is a different control.",
+      "SPV6's own tape contains the Fusion twice. A within-tape VIN dedupe, with no other lender involved, would have flagged that pair. SPV4 and TAST 2024-3 each show the Fusion once, so each of those tapes looks unique alone.",
+      "Dollar totals in the side panel are pleading figures. They are not the sum of this toy tape. Synthetic rows are not Tricolor loans."
+    ]
+  },
+  "report": {
+    "pledge_rows": 18,
+    "distinct_vins_on_tapes": 14,
+    "within_tape": [
+      {
+        "kind": "within_tape_vin",
+        "facility": "SPV6",
+        "vin": "3FA6P0H75JR262885",
+        "pledge_count": 2,
+        "account_ids": [
+          "UNPUBLISHED",
+          "UNPUBLISHED+1"
+        ],
+        "rows": [
+          {
+            "facility": "SPV6",
+            "row_id": "spv6-fusion-a",
+            "account_id": "UNPUBLISHED",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          },
+          {
+            "facility": "SPV6",
+            "row_id": "spv6-fusion-b",
+            "account_id": "UNPUBLISHED+1",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          }
+        ]
+      }
+    ],
+    "exact": [
+      {
+        "kind": "exact_vin",
+        "vin": "3FA6P0H75JR262885",
+        "pledge_count": 4,
+        "facilities": [
+          "SPV4",
+          "SPV6",
+          "TAST-2024-3"
+        ],
+        "across_facilities": true,
+        "account_ids": [
+          "UNPUBLISHED",
+          "UNPUBLISHED",
+          "UNPUBLISHED+1",
+          "UNPUBLISHED"
+        ],
+        "distinct_vehicles_if_vin_is_truthful": 1,
+        "rows": [
+          {
+            "facility": "SPV4",
+            "row_id": "spv4-fusion",
+            "account_id": "UNPUBLISHED",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          },
+          {
+            "facility": "SPV6",
+            "row_id": "spv6-fusion-a",
+            "account_id": "UNPUBLISHED",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          },
+          {
+            "facility": "SPV6",
+            "row_id": "spv6-fusion-b",
+            "account_id": "UNPUBLISHED+1",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          },
+          {
+            "facility": "TAST-2024-3",
+            "row_id": "tast2024-fusion",
+            "account_id": "UNPUBLISHED",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          }
+        ]
+      },
+      {
+        "kind": "exact_vin",
+        "vin": "SYN47RYJFUNMNHSVY",
+        "pledge_count": 2,
+        "facilities": [
+          "TAST-2022-1",
+          "TAST-2025-2"
+        ],
+        "across_facilities": true,
+        "account_ids": [
+          "SYN-OV-A",
+          "SYN-OV-B"
+        ],
+        "distinct_vehicles_if_vin_is_truthful": 1,
+        "rows": [
+          {
+            "facility": "TAST-2022-1",
+            "row_id": "tast2022-overlap",
+            "account_id": "SYN-OV-A",
+            "vin": "SYN47RYJFUNMNHSVY",
+            "principal_reported": 5600.0,
+            "delinquency_reported": "current",
+            "provenance": "synthetic",
+            "year": 2017,
+            "make": "Ford",
+            "model": "Escape",
+            "mileage": 102000
+          },
+          {
+            "facility": "TAST-2025-2",
+            "row_id": "tast2025-overlap",
+            "account_id": "SYN-OV-B",
+            "vin": "SYN47RYJFUNMNHSVY",
+            "principal_reported": 5600.0,
+            "delinquency_reported": "current",
+            "provenance": "synthetic",
+            "year": 2017,
+            "make": "Ford",
+            "model": "Escape",
+            "mileage": 102000
+          }
+        ]
+      }
+    ],
+    "near": [
+      {
+        "kind": "near_vin",
+        "distance": 1,
+        "vin_a": "SYN74DAUH5CVRDW96",
+        "vin_b": "SYNQ4DAUH5CVRDW96",
+        "facilities_a": [
+          "SPV3"
+        ],
+        "facilities_b": [
+          "SPV5"
+        ],
+        "rows_a": [
+          {
+            "facility": "SPV3",
+            "row_id": "spv3-near",
+            "account_id": "SYN-NEAR-A",
+            "vin": "SYN74DAUH5CVRDW96",
+            "principal_reported": 4100.0,
+            "delinquency_reported": "current",
+            "provenance": "synthetic",
+            "year": 2016,
+            "make": "Dodge",
+            "model": "Journey",
+            "mileage": 128440
+          }
+        ],
+        "rows_b": [
+          {
+            "facility": "SPV5",
+            "row_id": "spv5-near",
+            "account_id": "SYN-NEAR-B",
+            "vin": "SYNQ4DAUH5CVRDW96",
+            "principal_reported": 4100.0,
+            "delinquency_reported": "current",
+            "provenance": "synthetic",
+            "year": 2016,
+            "make": "Dodge",
+            "model": "Journey",
+            "mileage": 128440
+          }
+        ]
+      }
+    ],
+    "absent_from_dealer": [
+      {
+        "kind": "absent_from_dealer",
+        "vin": "SYNQ4DAUH5CVRDW96",
+        "facilities": [
+          "SPV5"
+        ],
+        "pledge_count": 1,
+        "rows": [
+          {
+            "facility": "SPV5",
+            "row_id": "spv5-near",
+            "account_id": "SYN-NEAR-B",
+            "vin": "SYNQ4DAUH5CVRDW96",
+            "principal_reported": 4100.0,
+            "delinquency_reported": "current",
+            "provenance": "synthetic",
+            "year": 2016,
+            "make": "Dodge",
+            "model": "Journey",
+            "mileage": 128440
+          }
+        ]
+      },
+      {
+        "kind": "absent_from_dealer",
+        "vin": "SYNVU9TRVFUUDT7UN",
+        "facilities": [
+          "SPV4"
+        ],
+        "pledge_count": 1,
+        "rows": [
+          {
+            "facility": "SPV4",
+            "row_id": "spv4-fictitious",
+            "account_id": "SYN-FICT",
+            "vin": "SYNVU9TRVFUUDT7UN",
+            "principal_reported": 5100.0,
+            "delinquency_reported": "current",
+            "provenance": "synthetic",
+            "year": 2015,
+            "make": "Ford",
+            "model": "Focus",
+            "mileage": 140000
+          }
+        ]
+      }
+    ],
+    "unflagged": [
+      {
+        "vin": "SYNN286RSHL32PNAT",
+        "facilities": [
+          "SPV3"
+        ],
+        "row_ids": [
+          "spv3-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean row. Invented so a single-lender tape is not only the fraud example."
+      },
+      {
+        "vin": "SYNTL3Z9ARWM9N53W",
+        "facilities": [
+          "SPV4"
+        ],
+        "row_ids": [
+          "spv4-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean row on the JPMorgan facility tape."
+      },
+      {
+        "vin": "SYNT72PMXUB8GMPYV",
+        "facilities": [
+          "SPV5"
+        ],
+        "row_ids": [
+          "spv5-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean row. Indictment: Seibold described SPV5 as the line they tried to keep relatively clean."
+      },
+      {
+        "vin": "SYNBDXK6SNX8AT3PK",
+        "facilities": [
+          "SPV5"
+        ],
+        "row_ids": [
+          "spv5-substitution"
+        ],
+        "provenance": "synthetic",
+        "note": "Miss case. This VIN is a different car on the dealer export and is not pledged anywhere else. The charged-off loan (SYN-DEAD) never appears on a tape. Cross-lender VIN match does not fire."
+      },
+      {
+        "vin": "SYNMM339JGF9MDS53",
+        "facilities": [
+          "SPV5"
+        ],
+        "row_ids": [
+          "spv5-poisoned"
+        ],
+        "provenance": "synthetic",
+        "note": "Miss case. Fictitious loan that was also written into the dealer export, which is what the indictment describes when fake records were planted in the dealer system. One tape only, so there is no cross-lender duplicate."
+      },
+      {
+        "vin": "SYNXSVE6K3LTPL6RY",
+        "facilities": [
+          "SPV6"
+        ],
+        "row_ids": [
+          "spv6-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean row on the Fifth Third facility tape."
+      },
+      {
+        "vin": "SYN835Y9CLNFF2H4G",
+        "facilities": [
+          "TAST-2022-1"
+        ],
+        "row_ids": [
+          "tast2022-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean securitization row."
+      },
+      {
+        "vin": "SYNCE2L6E36N8Y4XN",
+        "facilities": [
+          "TAST-2024-3"
+        ],
+        "row_ids": [
+          "tast2024-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean row in the securitization that also received the Fusion."
+      },
+      {
+        "vin": "SYNYGDXLR4YYGE628",
+        "facilities": [
+          "TAST-2025-2"
+        ],
+        "row_ids": [
+          "tast2025-clean-1"
+        ],
+        "provenance": "synthetic",
+        "note": "Clean row. Not one of the 12,486 loans in the real TAST 2025-2 pool."
+      }
+    ]
+  },
+  "solo": {
+    "SPV3": [],
+    "SPV4": [],
+    "SPV5": [],
+    "SPV6": [
+      {
+        "kind": "within_tape_vin",
+        "facility": "SPV6",
+        "vin": "3FA6P0H75JR262885",
+        "pledge_count": 2,
+        "account_ids": [
+          "UNPUBLISHED",
+          "UNPUBLISHED+1"
+        ],
+        "rows": [
+          {
+            "facility": "SPV6",
+            "row_id": "spv6-fusion-a",
+            "account_id": "UNPUBLISHED",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          },
+          {
+            "facility": "SPV6",
+            "row_id": "spv6-fusion-b",
+            "account_id": "UNPUBLISHED+1",
+            "vin": "3FA6P0H75JR262885",
+            "principal_reported": 14937.0,
+            "delinquency_reported": "current",
+            "provenance": "pleading",
+            "year": 2018,
+            "make": "Ford",
+            "model": "Fusion",
+            "mileage": 101570
+          }
+        ]
+      }
+    ],
+    "TAST-2022-1": [],
+    "TAST-2024-3": [],
+    "TAST-2025-2": []
+  }
+}
+</script>
+<script>
+const data = JSON.parse(document.getElementById("payload").textContent);
+const ledger = data.ledger;
+const report = data.report;
+const solo = data.solo;
+const FUSION = ledger.fusion_vin;
+
+function el(tag, attrs, children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "class") node.className = v;
+    else node.setAttribute(k, v);
+  }
+  for (const child of children || []) {
+    node.append(child == null ? "" : child);
+  }
+  return node;
+}
+function text(s) { return document.createTextNode(s); }
+function cell(label, child) {
+  return el("td", {}, [el("span", { class: "label" }, [text(label)]), child]);
+}
+function money(n) {
+  return Number(n).toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+}
+
+function tapeCard(facility) {
+  const meta = ledger.facilities.find(f => f.id === facility);
+  const rows = ledger.tapes[facility];
+  const own = solo[facility] || [];
+  const ownVins = new Set(own.map(h => h.vin));
+  const card = el("div", { class: "card" + (own.length ? " flagged" : " clean") });
+  card.append(el("h3", {}, [text(facility)]));
+  card.append(el("p", { class: "muted sans" }, [text(meta.holder)]));
+  const table = el("table");
+  table.append(el("tr", {}, [
+    el("th", {}, [text("VIN")]),
+    el("th", {}, [text("Account")]),
+    el("th", {}, [text("Reported")]),
+    el("th", {}, [text("On this tape alone")]),
+  ]));
+  for (const row of rows) {
+    const alone = ownVins.has(row.vin)
+      ? "Two rows, same VIN"
+      : "Unique on this tape";
+    const tagClass = ownVins.has(row.vin) ? "tag warn" : "tag good";
+    table.append(el("tr", {}, [
+      cell("VIN", text(row.vin)),
+      cell("Account", text(row.account_id)),
+      cell("Reported", text(row.delinquency_reported + " · " + money(row.principal_reported))),
+      cell("On this tape alone", el("span", { class: tagClass }, [text(alone)])),
+    ]));
+  }
+  card.append(table);
+  return card;
+}
+
+const compare = document.getElementById("compare");
+const before = el("div", { class: "stack" });
+before.append(el("h2", {}, [text("Each tape, as that lender held it")]));
+before.append(el("p", { class: "muted" }, [text(
+  "SPV4 and TAST 2024-3 each show the Fusion once. Nothing on those files says another lender already has it. SPV6 is the exception: the complaint’s clone sits twice on Fifth Third’s facility, one account digit apart. A dedupe of that file alone would have seen the pair. It would not have seen SPV4 or the securitization."
+)]));
+for (const id of ["SPV6", "SPV4", "TAST-2024-3"]) before.append(tapeCard(id));
+compare.append(before);
+
+const fusion = report.exact.find(h => h.vin === FUSION);
+const after = el("div", { class: "stack" });
+after.append(el("h2", {}, [text("Same rows, read together")]));
+after.append(el("p", {}, [text(
+  fusion.pledge_count + " pledge rows, " + fusion.facilities.length + " facilities, one VIN. If the VIN is the car, that is one vehicle."
+)]));
+const box = el("div", { class: "card flagged" });
+box.append(el("h3", {}, [text(FUSION)]));
+box.append(el("p", {}, [text("2018 Ford Fusion · 101,570 miles · " + money(14937) + " reported on each row · due 15 April 2023")]));
+box.append(el("p", { class: "sans" }, [
+  el("span", { class: "tag bad" }, [text(fusion.facilities.join(" · "))]),
+]));
+const ft = el("table");
+ft.append(el("tr", {}, [el("th", {}, [text("Facility")]), el("th", {}, [text("Account on the tape")]), el("th", {}, [text("Status they were given")])]));
+for (const row of fusion.rows) {
+  ft.append(el("tr", {}, [
+    cell("Facility", text(row.facility)),
+    cell("Account on the tape", text(row.account_id)),
+    cell("Status they were given", text(row.delinquency_reported)),
+  ]));
+}
+box.append(ft);
+box.append(el("p", { class: "muted sans" }, [text(
+  "Account numbers are placeholders. The complaint says three of the four pledges shared one account number and the second SPV6 pledge added a digit. It does not print the number."
+)]));
+after.append(box);
+compare.append(after);
+
+const hits = document.getElementById("hits");
+hits.append(el("h2", {}, [text("Everything the matcher flags on this toy book")]));
+hits.append(el("p", { class: "muted" }, [text(
+  report.pledge_rows + " pledge rows, " + report.distinct_vins_on_tapes + " distinct VINs. Exact collisions and one-character near-matches do not need the dealer file. Absence does."
+)]));
+
+function hitTable() {
+  const table = el("table");
+  table.append(el("tr", {}, [
+    el("th", {}, [text("Rule")]),
+    el("th", {}, [text("VIN")]),
+    el("th", {}, [text("Where")]),
+    el("th", {}, [text("Needs the dealer export?")]),
+  ]));
+  for (const hit of report.exact) {
+    table.append(el("tr", {}, [
+      cell("Rule", text("Exact VIN")),
+      cell("VIN", text(hit.vin)),
+      cell("Where", text(hit.pledge_count + " rows · " + hit.facilities.join(", "))),
+      cell("Needs the dealer export?", text("No")),
+    ]));
+  }
+  for (const hit of report.near) {
+    table.append(el("tr", {}, [
+      cell("Rule", text("One-character VIN")),
+      cell("VIN", text(hit.vin_a + " ↔ " + hit.vin_b)),
+      cell("Where", text(hit.facilities_a.join(", ") + " and " + hit.facilities_b.join(", "))),
+      cell("Needs the dealer export?", text("No")),
+    ]));
+  }
+  for (const hit of report.absent_from_dealer) {
+    table.append(el("tr", {}, [
+      cell("Rule", text("Not in dealer export")),
+      cell("VIN", text(hit.vin)),
+      cell("Where", text(hit.facilities.join(", "))),
+      cell("Needs the dealer export?", text("Yes")),
+    ]));
+  }
+  return table;
+}
+hits.append(hitTable());
+
+const misses = document.getElementById("misses");
+misses.append(el("h2", {}, [text("Left unflagged on purpose")]));
+const missList = el("ul");
+for (const row of report.unflagged.filter(r => r.provenance === "synthetic" && /Miss case/.test(r.note))) {
+  const li = el("li");
+  li.append(el("div", { class: "mono" }, [text(row.vin + " · " + row.facilities.join(", "))]));
+  li.append(el("div", {}, [text(row.note)]));
+  missList.append(li);
+}
+misses.append(missList);
+misses.append(el("p", { class: "muted sans" }, [text(
+  "Clean synthetic loans are also unflagged. They are omitted here."
+)]));
+
+const totals = document.getElementById("totals");
+totals.append(el("h2", {}, [text("Figures from the pleadings")]));
+totals.append(el("p", { class: "muted sans" }, [text("Not computed from the toy tape.")]));
+for (const item of ledger.pleading_totals) {
+  const block = el("div", { class: "stat" });
+  block.append(el("b", {}, [text(item.value)]));
+  block.append(text(item.label));
+  totals.append(block);
+}
+
+const limits = document.getElementById("limits");
+limits.append(el("h2", {}, [text("What this does not solve")]));
+const ul = el("ul");
+for (const line of ledger.limits) ul.append(el("li", {}, [text(line)]));
+limits.append(ul);
+limits.append(el("p", { class: "muted sans" }, [text(
+  "Getting JPMorgan’s tape and Fifth Third’s tape into the same room is a commercial problem. This page only shows the comparison, once both files exist somewhere the originator cannot rewrite."
+)]));
+</script>
+</body>
+</html>
