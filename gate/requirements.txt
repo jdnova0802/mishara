@@ -5,3 +5,7 @@ bcrypt==4.2.1
 stripe==11.6.0
 requests==2.32.3
 cryptography==41.0.7
+# OpenTimestamps library for evidence-head Bitcoin anchoring (calendars are free).
+# Install opentimestamps-client too for the `ots` CLI (upgrade/verify):
+#   pip install opentimestamps-client==0.7.2
+opentimestamps==0.4.5
