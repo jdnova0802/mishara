@@ -1,0 +1,84 @@
+COPY FROM HERE
+════════════════════════════════════
+TWO TRACKS — 20 Sep 2026
+Not ET13. Not expert. Not Tuesday leftover-22.
+No founding. No filer code. No weld to gate/ join/ check/. No filing entries.
+
+════════════════════════════════════
+TRACK 1 — CONSUMER WILL-NOT RECEIPT
+Re-checked against three months / zero dollars. Not default-parked.
+
+WHY IT WAS SEQUENCED BEHIND PRIN-HASH
+rel-v1 EXIST requires human_principal_id + written body hashed in-process.
+Caller-supplied instruction_hash is mouth substitution (NONEXIST).
+Written body without a named human is HOLD missing_principal.
+A consumer “wasn’t me” receipt that only hashes the halt text is the cargo bug in a hoodie: it proves a halt existed, not that a named human said no.
+
+DOES THE ROUGH VERSION WORK WITHOUT THE PRINCIPAL SURFACE?
+No. Full stop. Same reason as rel/. A button that mints a UUID, a typed name, or a screenshot of a webpage is stuffed principal. That is theater. Do not ship it.
+
+WHAT DOES WORK THIS WEEK (ROUGH, NOT CORRECT-AT-LAW)
+Principal surface = WebAuthn / passkey already in the browser. Not prin-hash of a bill of lading. Different object:
+  proves: this authenticator attested this halt text at this time
+  does not prove: Ocean Frost, 4A-207, a bank must stop payment, a carrier must hold cargo, rel-v1 EXIST
+
+Smallest showable thing (already in repo, do not found):
+  hunt/willnot/index.html
+  Serve: cd hunt/willnot && python3 -m http.server 8765
+  Open: http://127.0.0.1:8765
+  Bind a passkey → type the halt → Sign WILL NOT → show the JSON receipt to a real person.
+  File:// will HOLD missing_principal on purpose (WebAuthn needs a secure context). That HOLD is the demo of the doctrine, not a bug.
+
+THIS WEEK / NEXT
+Show the page to one real person. Screenshot the receipt. Do not claim standing. Do not weld to gate/. Do not put Stripe on it. Do not list it as a SKU until someone who is not us asks to keep using it.
+
+If WebAuthn is refused as “not a named human,” Track 1 stays HOLD missing_principal until prin-hash (or equivalent in-process principal+writing) is on a consumer surface. That is allowed. Do not fake the principal.
+
+════════════════════════════════════
+TRACK 2 — INDEPENDENT FIND (VERIFIED)
+Not de minimis. Not CIRCIA. Not DROP. Not OZ. Not CBAM. Not Companies House. Not Bind Room. Not 1033 (enjoined). Not click-to-cancel (8th Cir vacated).
+
+FIND: EU CYBER RESILIENCE ACT ARTICLE 14 IS ALREADY LIVE
+Regulation (EU) 2024/2847 (OJ L 2024/2847).
+Commission page: https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act
+  Entered into force 10 Dec 2024.
+  Article 14 reporting: 11 Sep 2026 (nine days ago).
+  Chapter IV (notified bodies etc.): 11 Jun 2026.
+  Main product obligations: 11 Dec 2027.
+Article 69 sting: products placed on the market BEFORE 11 Dec 2027 still owe Article 14 reporting now.
+
+Duty (Art 14): manufacturers of products with digital elements on the EU market must notify, via ENISA’s Single Reporting Platform, simultaneously to the coordinating CSIRT and ENISA:
+  early warning within 24 hours of becoming aware
+  notification within 72 hours
+  final report: 14 days after a corrective measure for actively exploited vulnerabilities; 1 month for severe incidents
+Open-source stewards: Art 14(1) now if involved in development; Art 14(3)/(8) and Art 24(3) later (ENISA: OSS steward 14(3) from 11 Dec 2027).
+
+SRP launched 11 Sep 2026.
+  ENISA press: https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched
+  Portal: https://portal.cra-srp.enisa.europa.eu
+  Manual (Sep 2026): https://www.enisa.europa.eu/sites/default/files/2026-09/CRA%20SRP%20--%20AR%20User%20Manual.pdf
+Commission practical guidance: 27 Jul 2026.
+
+WHY THIS IS MASSIVE AND NOT A MAYBE
+The duty is in force. It covers firmware, apps, connected hardware already sitting on the EU market, not only new CE-marked products in 2027. 24h/72h is a clock with teeth (Art 64 admin fines; SME softening on early-warning lateness exists, it is not a free pass).
+
+HONEST LIMITS (SAME DISCIPLINE)
+- GRC / “CRA readiness” shops are already writing (Slaughter and May 11 Sep 2026). Do not sell a blog.
+- Zero named manufacturer in our room tonight. Map, not invoice, for cash.
+- Do not found a EU notified-body. Do not impersonate a CSIRT. Do not file anyone’s SRP notification as their Assigned Representative unless that is a real engagement with standing.
+- Distinctive object IF a named manufacturer exists: will-not-release a build / will-not-stay-silent once an actively exploited vulnerability is known unless an SRP early-warning id exists. Hold, not a consultancy PDF.
+- Bandwidth: this is not a fifth hour-sink tonight. Calendar nothing until a named EU-market manufacturer is in the conversation. Unlike ET13, the law is already on; unlike Track 1, there is nothing to show a random person this week that isn’t ENISA’s own portal.
+
+LOOKED-AND-KILLED (SO THIS ISN’T A FORCED FIT)
+CFPB 1033: ED Ky injunction; OIRA has a reconsideration NPRM as of 6 Aug 2026; April 2026 date is paper. Dead as a this-quarter clock.
+FTC click-to-cancel: 8th Cir 8 Jul 2025 vacatur; FTC restored 1973 text 12 Feb 2026. Dead.
+SB 253: 10 Nov 2026 Scope 1/2 for >$1B doing business in CA. Real, crowded Big-4, wrong buyer size for a rough SKU this week.
+EUDR: 30 Dec 2026 (Reg (EU) 2025/2650). Real, crowded due-diligence SaaS.
+eIDAS CIR (EU) 2025/848 wallet-relying-party registers apply 24 Dec 2026. Real, later, less “already live” than CRA Art 14.
+Visa TAP: live trials Jul 2026 / public spec. Adjacent to agent-payments rhyme already on the map — not independent ground.
+
+════════════════════════════════════
+ONE LINE
+Track 1: show hunt/willnot/index.html on localhost this week; without a passkey it is HOLD missing_principal and that is the product. Track 2: CRA Art 14 + ENISA SRP have been live since 11 Sep 2026; do not spend hours until a named manufacturer exists; do not dress GRC as a find.
+
+END COPY
