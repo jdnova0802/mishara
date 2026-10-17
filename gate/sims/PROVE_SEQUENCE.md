@@ -1,0 +1,87 @@
+# Standard prove sequence (required template)
+
+Every mouth / intelligence ships with this sequence. **Do not bolt on later.**
+
+```bash
+python3 -m gate.sims.prove_all
+```
+
+Current `prove_all` order:
+
+1. `prove_actus_fence`
+2. `prove_performative_seal`
+3. `prove_mouth_watch` ← **required always**
+4. `prove_actus_s9_wire` ← canary ≠ hostile session
+5. `prove_preflight_diff` ← **Scenario X: S9 clear + S10 DENY alone**
+6. `prove_epoch_decay`
+7. `prove_deny_federation_stub` ← in-process only
+8. `prove_edgar_disclose_seal`
+9. `prove_deed_record_gate`
+10. `prove_ron_attest_refuse`
+11. `prove_ron_s9_wire` ← S8 attest + S9 session (hostile watch vs local synthetic)
+12. `prove_isda_dc_publish` ← **Z1: headline ≠ DC Resolution**
+13. `prove_cls_settle` ← **Z2: matched ≠ settled PvP**
+14. `prove_iana_root_change` ← **Z3: intent ≠ root-zone write**
+15. `prove_lloyds_bind_stamp` ← **Z4: paperwork ≠ registered bind**
+16. `prove_itu_biu_mifr` ← **Z5: paper filing ≠ MIFR record**
+17. `prove_isa_exploit` ← **Z6: exploration ≠ exploitation**
+18. `prove_kp_export` ← **Z7: parcel ≠ KP-certified export**
+19. `prove_freeport_ingress` ← **Z8: CoA/ALR ≠ licit admit**
+20. `prove_peerage_roll` ← **Z9: claimed title ≠ Roll entry**
+21. `prove_college_arms` ← **Z10: generative crest ≠ letters patent**
+22. `prove_lab_invariant` ← **required last**
+
+## Shock gates (Z1–Z10)
+
+| Prove | Must show |
+|---|---|
+| `prove_isda_dc_publish` | `headline_only` DENY; `draft_only` DENY; LIVE Resolution ALLOW; stranger HTTP |
+| `prove_cls_settle` | `unmatched` DENY; `risk_test_failed` / `pay_in_shortage` DENY; `settled_pvp` ALLOW |
+| `prove_iana_root_change` | `tech_check_failed` DENY; `maintainer_nack` DENY; `root_zone_updated` ALLOW |
+| `prove_lloyds_bind_stamp` | `no_baa` / `baa_not_registered` DENY; `bound_under_authority` ALLOW |
+| `prove_itu_biu_mifr` | `api_only_paper` / `biu_*` DENY; `mifr_recorded` ALLOW |
+| `prove_isa_exploit` | `mining_code_not_live` while negotiating; LIVE+PoW ALLOW |
+| `prove_kp_export` | `no_certificate` / `seal_tampered` DENY; authenticated ALLOW |
+| `prove_freeport_ingress` | `coa_or_alr_insufficient` DENY; full provenance ALLOW |
+| `prove_peerage_roll` | `self_style_insufficient` / evidence DENYs; `entered_on_roll` ALLOW |
+| `prove_college_arms` | `generative_crest_refused` / collision DENYs; `letters_patent_sealed` ALLOW |
+
+## P0 weld gates (Orders 1–2)
+
+| Prove | Must show |
+|---|---|
+| `prove_actus_fence` | bank-send DENYs (`rail_not_allowlisted`, `rail_unknown`, …); stranger HTTP clearance + linked threat |
+| `prove_performative_seal` | fake cite → seal DENY → `efsp_block_no_seal`; LIVE seal → `efsp_transmitted`; stranger HTTP |
+| `prove_actus_s9_wire` | A canary ≠ B hostile (still required before calling S1 extend done) |
+
+Shared: `logos.py` (mandate/grant/digest), `verify_http.py` (127.0.0.1 stranger GET).
+
+## Tier 2 weld gates (Orders 4–6)
+
+| Prove | Must show |
+|---|---|
+| `prove_edgar_disclose_seal` | `edgar_block_no_seal`; `submit_edgar_gateway` ALLOW fixture; stranger HTTP |
+| `prove_deed_record_gate` | `watch_session` hostile → `watch_blocked` + threat link; stranger HTTP |
+| `prove_ron_s9_wire` | live session + hostile watch → REFUSE + threat; clean watch → ALLOW after |
+
+## Receipt classes
+
+| `receipt_class` | Emitter | Meaning |
+|---|---|---|
+| `clearance` | Mouths | This actus authorized? |
+| `threat` | S9 | Canary / session / trajectory compromise |
+| `watch_clear` | S9 | Sense clear |
+| `preflight` | S10 | Simulated delta match? |
+| `epoch` | S16 | Policy epoch fresh? |
+
+## S10 vs S9 (do not entangle)
+
+| | S9 Mouth Watch | S10 Preflight Diff |
+|---|---|---|
+| Question | Is session trustworthy? | Does actus match simulated delta? |
+| DENY object | `threat` | `preflight` |
+| Prove gate | A canary ≠ B hostile | **Scenario X: S9 ALLOW + S10 DENY** |
+
+## S9 trip effect
+
+`deny_this_actus: true` only. No lockout / alert fanout / quarantine.
