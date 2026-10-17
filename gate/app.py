@@ -4688,6 +4688,13 @@ def api_me():
     }
 
 
+@app.route("/google3acc411c68b1131f.html")
+def google_site_verification():
+    # Search Console HTML-file check. Body is the file Google asked to upload.
+    body = "google-site-verification: google3acc411c68b1131f.html\n"
+    return body, 200, {"Content-Type": "text/html; charset=utf-8"}
+
+
 @app.route("/robots.txt")
 def robots():
     body = "\n".join(

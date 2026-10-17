@@ -1812,6 +1812,15 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("runbook", gate)
         self.assertIn("production_weld", gate)
 
+    def test_google_site_verification_file(self):
+        r = self.client.get("/google3acc411c68b1131f.html")
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(
+            r.get_data(as_text=True).strip(),
+            "google-site-verification: google3acc411c68b1131f.html",
+        )
+        self.assertNotIn("noindex", r.headers.get("X-Robots-Tag", ""))
+
     def test_homepage_leads_register_not_saas(self):
         r = self.client.get("/")
         self.assertEqual(r.status_code, 200)
