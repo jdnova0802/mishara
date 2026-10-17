@@ -1812,6 +1812,31 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertIn("runbook", gate)
         self.assertIn("production_weld", gate)
 
+    def test_watched_pages_count_humans_and_crawlers(self):
+        before = self.client.get("/.well-known/visits.json").get_json()
+        human_before = before["pages"]["/bind-room"]["human"]
+        crawler_before = before["pages"]["/"]["crawler"]
+        linkedin_before = before["pages"]["/bind-room"]["referrers"].get("www.linkedin.com", 0)
+        page = self.client.get(
+            "/bind-room",
+            headers={
+                "User-Agent": "Mozilla/5.0",
+                "Referer": "https://www.linkedin.com/in/someone?trk=secret",
+            },
+        )
+        self.assertEqual(page.status_code, 200)
+        bot = self.client.get("/", headers={"User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1)"})
+        self.assertEqual(bot.status_code, 200)
+        after = self.client.get("/.well-known/visits.json").get_json()
+        self.assertEqual(after["pages"]["/bind-room"]["human"], human_before + 1)
+        self.assertEqual(
+            after["pages"]["/bind-room"]["referrers"].get("www.linkedin.com", 0),
+            linkedin_before + 1,
+        )
+        self.assertNotIn("trk", json.dumps(after))
+        self.assertEqual(after["pages"]["/"]["crawler"], crawler_before + 1)
+        self.assertIn("noindex", self.client.get("/.well-known/visits.json").headers.get("X-Robots-Tag", ""))
+
     def test_google_site_verification_file(self):
         r = self.client.get("/google3acc411c68b1131f.html")
         self.assertEqual(r.status_code, 200)

@@ -205,6 +205,14 @@ def init_db():
                 PRIMARY KEY (scope, idempotency_key)
             );
             CREATE INDEX IF NOT EXISTS idx_idempotency_scope_key ON idempotency_keys(scope, idempotency_key);
+            CREATE TABLE IF NOT EXISTS page_visits (
+                day TEXT NOT NULL,
+                path TEXT NOT NULL,
+                referrer TEXT NOT NULL,
+                kind TEXT NOT NULL,
+                hits INTEGER NOT NULL DEFAULT 0,
+                PRIMARY KEY (day, path, referrer, kind)
+            );
             """
         )
 
@@ -1696,6 +1704,59 @@ def record_pulse_sample(
             row,
         )
     return row
+
+
+WATCHED_PAGES = ("/", "/bind-room", "/diligence", "/issuing-mouth")
+
+
+def record_page_visit(*, day: str, path: str, referrer: str, kind: str) -> None:
+    if path not in WATCHED_PAGES:
+        return
+    if kind not in ("human", "crawler"):
+        kind = "human"
+    with db() as conn:
+        conn.execute(
+            """INSERT INTO page_visits (day, path, referrer, kind, hits)
+               VALUES (?, ?, ?, ?, 1)
+               ON CONFLICT(day, path, referrer, kind)
+               DO UPDATE SET hits = hits + 1""",
+            (day, path, referrer[:120], kind),
+        )
+
+
+def visit_report(days: int = 14) -> dict:
+    from datetime import timedelta
+
+    end = datetime.now(timezone.utc).date()
+    start = end - timedelta(days=max(int(days), 1) - 1)
+    with db() as conn:
+        rows = conn.execute(
+            """SELECT day, path, referrer, kind, hits FROM page_visits
+               WHERE day >= ? AND day <= ?
+               ORDER BY day, path, hits DESC""",
+            (start.isoformat(), end.isoformat()),
+        ).fetchall()
+    by_page: dict[str, dict] = {
+        p: {"human": 0, "crawler": 0, "referrers": {}} for p in WATCHED_PAGES
+    }
+    daily: dict[str, dict] = {}
+    for row in rows:
+        item = dict(row)
+        page = by_page.setdefault(item["path"], {"human": 0, "crawler": 0, "referrers": {}})
+        page[item["kind"]] = page.get(item["kind"], 0) + item["hits"]
+        if item["kind"] == "human":
+            refs = page["referrers"]
+            refs[item["referrer"]] = refs.get(item["referrer"], 0) + item["hits"]
+        bucket = daily.setdefault(item["day"], {"human": 0, "crawler": 0})
+        bucket[item["kind"]] = bucket.get(item["kind"], 0) + item["hits"]
+    return {
+        "spec": "gate-visits-v1",
+        "since": start.isoformat(),
+        "through": end.isoformat(),
+        "note": "Counts start when this log shipped. No IP is stored. Referrer is the host only.",
+        "pages": by_page,
+        "days": daily,
+    }
 
 
 def pulse_history(limit: int = 500) -> list[dict]:

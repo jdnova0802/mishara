@@ -445,6 +445,68 @@ PUBLIC_WELLKNOWN = frozenset(
 )
 
 
+_VISIT_PATHS = {"/", "/bind-room", "/diligence", "/issuing-mouth"}
+_CRAWLER_MARKS = (
+    "bot",
+    "crawler",
+    "spider",
+    "slurp",
+    "bingpreview",
+    "facebookexternal",
+    "embedly",
+    "quora",
+    "pinterest",
+    "redditbot",
+    "applebot",
+    "gptbot",
+    "claudebot",
+    "amazonbot",
+    "bytespider",
+    "ahrefs",
+    "semrush",
+    "dotbot",
+    "petalbot",
+)
+
+
+def _visit_kind(user_agent: str) -> str:
+    ua = (user_agent or "").lower()
+    if any(mark in ua for mark in _CRAWLER_MARKS):
+        return "crawler"
+    return "human"
+
+
+def _referrer_host() -> str:
+    from urllib.parse import urlparse
+
+    raw = (request.referrer or "").strip()
+    if not raw:
+        return "direct"
+    host = (urlparse(raw).netloc or "").lower()
+    return host or "direct"
+
+
+@app.after_request
+def _count_watched_page(resp):
+    try:
+        path = request.path or ""
+        if (
+            request.method == "GET"
+            and path in _VISIT_PATHS
+            and resp.status_code == 200
+            and (request.headers.get("Sec-Purpose") or "").lower() != "prefetch"
+        ):
+            db.record_page_visit(
+                day=db.utc_now()[:10],
+                path=path,
+                referrer=_referrer_host(),
+                kind=_visit_kind(request.headers.get("User-Agent") or ""),
+            )
+    except Exception:
+        pass
+    return resp
+
+
 @app.after_request
 def _archive_noindex(resp):
     path = request.path or ""
@@ -4693,6 +4755,11 @@ def google_site_verification():
     # Search Console HTML-file check. Body is the file Google asked to upload.
     body = "google-site-verification: google3acc411c68b1131f.html\n"
     return body, 200, {"Content-Type": "text/html; charset=utf-8"}
+
+
+@app.route("/.well-known/visits.json")
+def visits_json():
+    return jsonify(db.visit_report(days=14))
 
 
 @app.route("/robots.txt")
