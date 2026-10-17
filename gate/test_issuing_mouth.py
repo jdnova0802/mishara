@@ -218,14 +218,27 @@ class IssuingMouthTests(unittest.TestCase):
         from datetime import timedelta
         from unittest import mock
 
+        fresh = pf.verify_receipt_jwt(token)
+        self.assertTrue(fresh["signature_valid"])
+        self.assertEqual(fresh["ttl_status"], "within_window")
+        self.assertTrue(fresh["valid"])
+
         future = pf._utc_now() + timedelta(seconds=120)
         with mock.patch.object(pf, "_utc_now", return_value=future):
             verified = pf.verify_receipt_jwt(token)
+        self.assertTrue(verified["signature_valid"])
+        self.assertEqual(verified["ttl_status"], "expired")
         self.assertFalse(verified["valid"])
         self.assertEqual(verified["reason"], "expired")
         self.assertEqual(verified["decision"], "GO")
         self.assertIn("decision was GO", verified["message"])
         self.assertIn("recorded ", verified["message"])
+
+        forged = token[:-1] + ("A" if token[-1] != "A" else "B")
+        bad = pf.verify_receipt_jwt(forged)
+        self.assertFalse(bad["signature_valid"])
+        self.assertIsNone(bad["ttl_status"])
+        self.assertNotEqual(bad["reason"], "expired")
 
         from gate import db as gate_db
 
@@ -254,6 +267,8 @@ class IssuingMouthTests(unittest.TestCase):
         body = r.get_json()
         self.assertEqual(body["decision"], "GO")
         self.assertTrue(body["approved"])
+        self.assertTrue(body["signature_valid"])
+        self.assertEqual(body["ttl_status"], "expired")
         self.assertEqual(body["receipt_status"], "expired")
         self.assertEqual(
             body["receipt_message"],
@@ -261,6 +276,9 @@ class IssuingMouthTests(unittest.TestCase):
         )
         self.assertEqual(v.status_code, 400)
         vbody = v.get_json()
+        self.assertTrue(vbody["signature_valid"])
+        self.assertEqual(vbody["ttl_status"], "expired")
+        self.assertFalse(vbody["valid"])
         self.assertEqual(vbody["reason"], "expired")
         self.assertEqual(vbody["decision"], "GO")
         self.assertIn("decision was GO", vbody["message"])

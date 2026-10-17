@@ -332,6 +332,11 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         "demo": False,
         "jti": None,
         "key_class": None,
+        # Signature and TTL are separate claims. `valid` stays false after exp so a
+        # live rail cannot spend the receipt. `signature_valid` is whether the bytes
+        # were signed by Gate.
+        "signature_valid": False,
+        "ttl_status": None,
     }
     if not token or not isinstance(token, str):
         meta["reason"] = "missing_token"
@@ -370,26 +375,23 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
             continue
     if key_class is None:
         meta["reason"] = "bad_signature"
+        meta["signature_valid"] = False
         return meta
     meta["key_class"] = key_class
+    meta["signature_valid"] = True
 
     if header.get("alg") != "EdDSA":
         meta["reason"] = "unsupported_alg"
         return meta
 
     exp = payload.get("exp")
-    if exp is not None and int(exp) < int(_utc_now().timestamp()):
-        meta["reason"] = "expired"
-        meta["payload"] = payload
-        decision = (payload.get("dec") or "").upper()
-        if decision in DECISIONS:
-            meta["decision"] = decision
-        scope = payload.get("scope") if isinstance(payload.get("scope"), dict) else {}
-        recorded = recorded_at_z(scope.get("as_of")) if scope else None
-        if not recorded and payload.get("iat") is not None:
-            recorded = recorded_at_z(payload.get("iat"))
-        meta["message"] = expired_receipt_copy(decision=decision or None, recorded_at=recorded)
-        return meta
+    now_ts = int(_utc_now().timestamp())
+    expired = False
+    if exp is None:
+        meta["ttl_status"] = "absent"
+    else:
+        expired = int(exp) < now_ts
+        meta["ttl_status"] = "expired" if expired else "within_window"
 
     fp = payload.get("fp")
     if expected_fingerprint and fp != expected_fingerprint:
@@ -403,18 +405,28 @@ def verify_receipt_jwt(token: str, *, expected_fingerprint: str | None = None) -
         meta["payload"] = payload
         return meta
 
-    meta.update(
-        {
-            "valid": True,
-            "decision": decision,
-            "payload": payload,
-            "reason": None,
-            # Demo if the payload says so OR it was signed by the demo key. Either
-            # one is enough for a live rail to refuse it.
-            "demo": bool(payload.get("demo")) or meta.get("key_class") == "demo",
-            "jti": payload.get("jti"),
-        }
-    )
+    # Demo if the payload says so OR it was signed by the demo key. Either
+    # one is enough for a live rail to refuse it.
+    meta["decision"] = decision
+    meta["payload"] = payload
+    meta["demo"] = bool(payload.get("demo")) or meta.get("key_class") == "demo"
+    meta["jti"] = payload.get("jti")
+
+    if expired:
+        # Signature already checked. TTL expiry is not a decline and not a
+        # failed signature. `valid` stays false so RTP and other live rails
+        # still refuse to spend it.
+        scope = payload.get("scope") if isinstance(payload.get("scope"), dict) else {}
+        recorded = recorded_at_z(scope.get("as_of")) if scope else None
+        if not recorded and payload.get("iat") is not None:
+            recorded = recorded_at_z(payload.get("iat"))
+        meta["valid"] = False
+        meta["reason"] = "expired"
+        meta["message"] = expired_receipt_copy(decision=decision or None, recorded_at=recorded)
+        return meta
+
+    meta["valid"] = True
+    meta["reason"] = None
     return meta
 
 
