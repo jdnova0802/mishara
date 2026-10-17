@@ -19,6 +19,11 @@ from typing import Any, Callable
 SPEC = "gate-issuing-mouth-v1"
 RAIL = "issuing"
 WORKFLOW_SPEC = "gate-issuing-workflow-lock-v1"
+# Required on the realtime HTTP response. A missing header is recorded as
+# webhook_error "Invalid Stripe API version: " (blank version) and the auth
+# is closed before the JSON approved flag is applied.
+# Matches stripe==11.6.0 and the live endpoint api_version.
+STRIPE_RESPONSE_API_VERSION = "2025-02-24.acacia"
 
 
 def issuing_enabled() -> bool:
@@ -179,12 +184,28 @@ def workflow_category_check(auth: dict) -> dict[str, Any]:
     return out
 
 
+def authorization_amount_cents(auth: dict) -> Any:
+    """Cents to judge.
+
+    On issuing_authorization.request the top-level amount is the already-approved
+    hold (0 for a new swipe). The amount Stripe is asking about is
+    pending_request.amount. After the auth closes, pending_request is null and
+    amount is the final figure.
+    """
+    auth = auth if isinstance(auth, dict) else {}
+    pending = auth.get("pending_request") if isinstance(auth.get("pending_request"), dict) else None
+    if pending is not None and pending.get("amount") is not None:
+        return pending.get("amount")
+    return auth.get("amount")
+
+
 def authorization_to_evaluate_body(auth: dict) -> dict[str, Any]:
     """Map Stripe Issuing Authorization object → prefinality evaluate body."""
     auth = auth if isinstance(auth, dict) else {}
     merchant = auth.get("merchant_data") if isinstance(auth.get("merchant_data"), dict) else {}
     card = auth.get("card") if isinstance(auth.get("card"), dict) else {}
     meta = card.get("metadata") if isinstance(card.get("metadata"), dict) else {}
+    pending = auth.get("pending_request") if isinstance(auth.get("pending_request"), dict) else {}
 
     merchant_name = (merchant.get("name") or "").strip()
     network_id = (merchant.get("network_id") or merchant.get("category_code") or "").strip()
@@ -218,14 +239,14 @@ def authorization_to_evaluate_body(auth: dict) -> dict[str, Any]:
     if allowed_cats:
         mandate["allowed_categories"] = allowed_cats
 
-    currency = (auth.get("currency") or "usd").strip().upper()
+    currency = (pending.get("currency") or auth.get("currency") or "usd").strip().upper()
     if currency == "USD":
         currency = "USD"
 
     return {
         "rail": RAIL,
         "transfer": {
-            "amount": _cents_to_amount(auth.get("amount")),
+            "amount": _cents_to_amount(authorization_amount_cents(auth)),
             "currency": currency or "USD",
             "counterparty": counterparty,
             "merchant_category": (merchant.get("category") or merchant.get("category_code") or ""),

@@ -113,11 +113,72 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertIn("issuing_mouth", body)
         self.assertIn("dogfood", body["issuing_mouth"])
 
+    def test_realtime_request_uses_pending_amount(self):
+        """Stripe sends amount=0 on issuing_authorization.request; the ask is pending_request."""
+        auth = mouth.dogfood_authorization(amount_cents=0, max_amount="5.00", merchant="Kindle Svcs")
+        auth["pending_request"] = {
+            "amount": 107,
+            "currency": "usd",
+            "merchant_amount": 107,
+            "merchant_currency": "usd",
+        }
+        body = mouth.authorization_to_evaluate_body(auth)
+        self.assertEqual(body["transfer"]["amount"], "1.07")
+
+        def evaluate_fn(evaluate_body):
+            return pf.evaluate(evaluate_body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertEqual(out["decision"], "GO")
+        self.assertEqual(out["stripe_response"], {"approved": True})
+
+    def test_closed_auth_without_pending_uses_amount(self):
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["pending_request"] = None
+        body = mouth.authorization_to_evaluate_body(auth)
+        self.assertEqual(body["transfer"]["amount"], "1.07")
+
+    def test_receipt_lookup_by_authorization_id(self):
+        from gate import db as gate_db
+
+        auth_id = "iauth_receiptlookup1"
+        gate_db.record_prefinality_evaluation(
+            evaluation_id="pf_receiptlookup1",
+            account_id=None,
+            rail="issuing",
+            decision="GO",
+            fingerprint="fp_receiptlookup1",
+            agent_id="nisaba_issuing_proof",
+            signals=[],
+            receipt_jwt="header.payload.sig",
+            created_at="2026-10-17T13:31:00+00:00",
+            amount=1.07,
+            currency="USD",
+            counterparty="Kindle Svcs",
+            authorization_id=auth_id,
+            merchant_category="digital_goods_large_volume",
+            demo=False,
+        )
+        r = self.client.get(f"/v1/issuing/authorization/{auth_id}")
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body["decision"], "GO")
+        self.assertTrue(body["approved"])
+        self.assertEqual(body["amount"], "1.07")
+        self.assertEqual(body["counterparty"], "Kindle Svcs")
+        self.assertEqual(body["receipt"], "header.payload.sig")
+        self.assertNotIn("card_id", body)
+        missing = self.client.get("/v1/issuing/authorization/iauth_missinglookup1")
+        self.assertEqual(missing.status_code, 404)
+        bad = self.client.get("/v1/issuing/authorization/not-an-auth")
+        self.assertEqual(bad.status_code, 404)
+
     def test_webhook_dev_mode_unsigned(self):
         auth = mouth.dogfood_authorization(amount_cents=900, max_amount="50.00")
         r = self.client.post("/v1/issuing/authorization", json=auth)
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.get_json(), {"approved": True})
+        self.assertEqual(r.headers.get("Stripe-Version"), mouth.STRIPE_RESPONSE_API_VERSION)
 
     def test_readiness_not_spendable_without_float(self):
         class _Bal:
