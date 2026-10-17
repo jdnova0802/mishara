@@ -1,11 +1,33 @@
 """Issuing auth mouth — Stripe agent cards → Gate Clear."""
 from __future__ import annotations
 
+import base64
 import os
 import unittest
 
 os.environ.setdefault("GATE_DEV_MODE", "1")
 os.environ.setdefault("GATE_REQUIRE_RECEIPT_KEYS", "0")
+
+try:
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+    from cryptography.hazmat.primitives.serialization import (
+        Encoding,
+        NoEncryption,
+        PrivateFormat,
+        PublicFormat,
+    )
+
+    _priv = Ed25519PrivateKey.generate()
+    _priv_bytes = _priv.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption())
+    _pub_bytes = _priv.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+    os.environ.setdefault(
+        "GATE_RECEIPT_PRIVATE_KEY", base64.b64encode(_priv_bytes).decode("utf-8")
+    )
+    os.environ.setdefault(
+        "GATE_RECEIPT_PUBLIC_KEY", base64.b64encode(_pub_bytes).decode("utf-8")
+    )
+except Exception:
+    pass
 
 from gate import app as gate_app  # noqa: E402
 from gate import issuing_mouth as mouth  # noqa: E402
@@ -172,6 +194,76 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertEqual(missing.status_code, 404)
         bad = self.client.get("/v1/issuing/authorization/not-an-auth")
         self.assertEqual(bad.status_code, 404)
+
+    def test_expired_receipt_copy_keeps_stored_go(self):
+        self.assertEqual(
+            pf.expired_receipt_copy(
+                decision="GO",
+                recorded_at="2026-10-17T13:31:08+00:00",
+            ),
+            "expired (decision was GO, recorded 2026-10-17T13:31:08Z)",
+        )
+        uid = os.urandom(4).hex()
+        token = pf.mint_receipt_jwt(
+            evaluation_id=f"pf_expiredcopy{uid}",
+            rail="issuing",
+            decision="GO",
+            fingerprint=f"fp_expiredcopy{uid}",
+            signals=[],
+            agent_id="nisaba_issuing_proof",
+            ttl_seconds=30,
+        )
+        if not token:
+            self.skipTest("receipt signing key not configured")
+        from datetime import timedelta
+        from unittest import mock
+
+        future = pf._utc_now() + timedelta(seconds=120)
+        with mock.patch.object(pf, "_utc_now", return_value=future):
+            verified = pf.verify_receipt_jwt(token)
+        self.assertFalse(verified["valid"])
+        self.assertEqual(verified["reason"], "expired")
+        self.assertEqual(verified["decision"], "GO")
+        self.assertIn("decision was GO", verified["message"])
+        self.assertIn("recorded ", verified["message"])
+
+        from gate import db as gate_db
+
+        auth_id = f"iauth_expiredcopy{uid}"
+        gate_db.record_prefinality_evaluation(
+            evaluation_id=f"pf_expiredcopy{uid}",
+            account_id=None,
+            rail="issuing",
+            decision="GO",
+            fingerprint=f"fp_expiredcopy{uid}",
+            agent_id="nisaba_issuing_proof",
+            signals=[],
+            receipt_jwt=token,
+            created_at="2026-10-17T13:31:08+00:00",
+            amount=1.07,
+            currency="USD",
+            counterparty="Kindle Svcs",
+            authorization_id=auth_id,
+            merchant_category="digital_goods_large_volume",
+            demo=False,
+        )
+        with mock.patch.object(pf, "_utc_now", return_value=future):
+            r = self.client.get(f"/v1/issuing/authorization/{auth_id}")
+            v = self.client.post("/v1/prefinality/verify", json={"receipt": token})
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertEqual(body["decision"], "GO")
+        self.assertTrue(body["approved"])
+        self.assertEqual(body["receipt_status"], "expired")
+        self.assertEqual(
+            body["receipt_message"],
+            "expired (decision was GO, recorded 2026-10-17T13:31:08Z)",
+        )
+        self.assertEqual(v.status_code, 400)
+        vbody = v.get_json()
+        self.assertEqual(vbody["reason"], "expired")
+        self.assertEqual(vbody["decision"], "GO")
+        self.assertIn("decision was GO", vbody["message"])
 
     def test_webhook_dev_mode_unsigned(self):
         auth = mouth.dogfood_authorization(amount_cents=900, max_amount="50.00")
