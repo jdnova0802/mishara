@@ -113,6 +113,31 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertIn("issuing_mouth", body)
         self.assertIn("dogfood", body["issuing_mouth"])
 
+    def test_realtime_request_uses_pending_amount(self):
+        """Stripe sends amount=0 on issuing_authorization.request; the ask is pending_request."""
+        auth = mouth.dogfood_authorization(amount_cents=0, max_amount="5.00", merchant="Kindle Svcs")
+        auth["pending_request"] = {
+            "amount": 107,
+            "currency": "usd",
+            "merchant_amount": 107,
+            "merchant_currency": "usd",
+        }
+        body = mouth.authorization_to_evaluate_body(auth)
+        self.assertEqual(body["transfer"]["amount"], "1.07")
+
+        def evaluate_fn(evaluate_body):
+            return pf.evaluate(evaluate_body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertEqual(out["decision"], "GO")
+        self.assertEqual(out["stripe_response"], {"approved": True})
+
+    def test_closed_auth_without_pending_uses_amount(self):
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["pending_request"] = None
+        body = mouth.authorization_to_evaluate_body(auth)
+        self.assertEqual(body["transfer"]["amount"], "1.07")
+
     def test_webhook_dev_mode_unsigned(self):
         auth = mouth.dogfood_authorization(amount_cents=900, max_amount="50.00")
         r = self.client.post("/v1/issuing/authorization", json=auth)
