@@ -5,7 +5,9 @@
 1. Stripe webhook created  
    - Endpoint: `https://gate.velaru.xyz/v1/issuing/authorization`  
    - Event: `issuing_authorization.request` only  
-   - ID: `we_1UJhYV3b5zsnE0zsiM0wXobr`
+   - API version: `2025-02-24.acacia` (must be set at create; Stripe will not add `api_version` later)  
+   - ID: `we_1URXLh3b5zsnE0zsL12oWMS4`  
+   - A null `api_version` makes Stripe close the auth as `webhook_error` / `Invalid Stripe API version` before Gate answers. That killed `iauth_1URXFd3b5zsnE0zsRVEaaEEG` (Kindle Svcs, $1.07, 2026-10-17). The unversioned endpoint `we_1UJhYV3b5zsnE0zsiM0wXobr` was deleted. Only one endpoint may subscribe to this synchronous event.
 
 2. Render `gate-api` env set + redeploy  
    - `GATE_ISSUING_ENABLED=1`  
