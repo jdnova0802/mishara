@@ -118,6 +118,7 @@ class IssuingMouthTests(unittest.TestCase):
         r = self.client.post("/v1/issuing/authorization", json=auth)
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.get_json(), {"approved": True})
+        self.assertEqual(r.headers.get("Stripe-Version"), mouth.STRIPE_RESPONSE_API_VERSION)
 
     def test_readiness_not_spendable_without_float(self):
         class _Bal:

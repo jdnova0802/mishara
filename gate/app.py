@@ -3001,6 +3001,13 @@ def demo_issuing_mouth():
     return jsonify(out), 200
 
 
+def _issuing_webhook_response(payload: dict, status: int = 200):
+    """Realtime Issuing replies must carry Stripe-Version or Stripe discards them."""
+    resp = jsonify(payload)
+    resp.headers["Stripe-Version"] = issuing_mouth_mod.STRIPE_RESPONSE_API_VERSION
+    return resp, status
+
+
 @app.route("/v1/issuing/authorization", methods=["POST"])
 def issuing_authorization_webhook():
     """Stripe Issuing realtime auth — respond approved true/false within ~2s."""
@@ -3013,24 +3020,24 @@ def issuing_authorization_webhook():
         body = request.get_json(silent=True) or {}
         auth = body.get("data", {}).get("object") if isinstance(body.get("data"), dict) else body
         if not isinstance(auth, dict):
-            return jsonify({"error": "authorization object required"}), 400
+            return _issuing_webhook_response({"error": "authorization object required"}, 400)
 
         def _eval_dev(evaluate_body: dict) -> dict:
             return run_prefinality_evaluate(evaluate_body, account_id=None, demo=True)
 
         out = issuing_mouth_mod.decide(auth, evaluate_fn=_eval_dev)
-        return jsonify(out["stripe_response"]), 200
+        return _issuing_webhook_response(out["stripe_response"], 200)
 
     if not secret:
-        return jsonify({"error": "issuing webhook not configured"}), 500
+        return _issuing_webhook_response({"error": "issuing webhook not configured"}, 500)
     try:
         event = stripe.Webhook.construct_event(payload, sig, secret)
     except (ValueError, stripe.error.SignatureVerificationError):
-        return jsonify({"error": "invalid signature"}), 400
+        return _issuing_webhook_response({"error": "invalid signature"}, 400)
 
     etype = event.get("type") or ""
     if etype != "issuing_authorization.request":
-        return jsonify({"received": True, "ignored": etype}), 200
+        return _issuing_webhook_response({"received": True, "ignored": etype}, 200)
 
     auth = event["data"]["object"]
 
@@ -3038,8 +3045,10 @@ def issuing_authorization_webhook():
         return run_prefinality_evaluate(evaluate_body, account_id=None)
 
     out = issuing_mouth_mod.decide(auth if isinstance(auth, dict) else {}, evaluate_fn=_eval)
-    # Stripe realtime auth expects the webhook HTTP body to be the decision.
-    return jsonify(out["stripe_response"]), 200
+    # Stripe realtime auth expects the webhook HTTP body to be the decision,
+    # plus a Stripe-Version header. Without the header the reason_message is
+    # "Invalid Stripe API version: " and the charge is closed as webhook_error.
+    return _issuing_webhook_response(out["stripe_response"], 200)
 
 
 @app.route("/.well-known/sink-mouth.json")

@@ -19,6 +19,11 @@ from typing import Any, Callable
 SPEC = "gate-issuing-mouth-v1"
 RAIL = "issuing"
 WORKFLOW_SPEC = "gate-issuing-workflow-lock-v1"
+# Required on the realtime HTTP response. A missing header is recorded as
+# webhook_error "Invalid Stripe API version: " (blank version) and the auth
+# is closed before the JSON approved flag is applied.
+# Matches stripe==11.6.0 and the live endpoint api_version.
+STRIPE_RESPONSE_API_VERSION = "2025-02-24.acacia"
 
 
 def issuing_enabled() -> bool:
