@@ -50,3 +50,17 @@ First deliverable in 48–72h if scope is clear.
 
 ## Quit rule (unchanged)
 One month ≥ ~$2.5–3k **in bank** + ≥ ~$500/mo retainers sold → leave ABM.
+
+## Sunday run (2026-10-18)
+
+Demos fired locally against `http://127.0.0.1:8787`:
+
+- webhook `approved: true`, `receipt.signature` present, verify `valid: true`
+- issuing fuel `approved: true`
+- issuing software `approved: false`, reason `mcc_not_in_allowlist`
+
+Screen recording (no audio): `/opt/cursor/artifacts/money-rail-allow-deny-signature.mp4`
+
+Upwork text and Monday proposal: `PITCH_MONDAY.md` (paste-ready, not posted).
+
+Warm list: `WARM20.md` — 20 rows, all `NEED_NAME`. No contacts were invented.
