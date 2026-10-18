@@ -8,13 +8,13 @@ Price opener: **$250–500 setup + $150–300/mo care.**
 
 Screen recording of the local demo (webhook approved, fuel allow, software deny `mcc_not_in_allowlist`, `receipt.signature` on screen):
 
-`/opt/cursor/artifacts/money-rail-allow-deny-signature.mp4`
+https://cursor.com/agents/bc-01a0c434-e2d1-7a91-b100-1c79c69bce84/artifacts?path=%2Fopt%2Fcursor%2Fartifacts%2Fmoney-rail-allow-deny-signature.mp4
 
-No microphone on this machine, so the clip has no voice. If Upwork wants you talking, re-record 60s on your phone with this line while the terminal is visible:
+That link is the screen recording. It is not a public Loom, and it has no voice. If Upwork needs a public clip of you talking, re-record 60s on your phone with this line while the terminal is visible:
 
 "I fix Stripe webhooks and payment automations. Setup plus monthly care if Stripe or the API breaks."
 
-Paste the public URL over LOOM_URL below once the file link is shareable.
+Replace that link in the proposal if you re-record a public Loom with your voice.
 
 ## Upwork (paste-ready, not logged in)
 
@@ -24,7 +24,7 @@ Overview:
 
 I fix and build Stripe webhooks & payment automations for founders — setup fee + monthly care if APIs break.
 
-60s proof: LOOM_URL
+60s proof: https://cursor.com/agents/bc-01a0c434-e2d1-7a91-b100-1c79c69bce84/artifacts?path=%2Fopt%2Fcursor%2Fartifacts%2Fmoney-rail-allow-deny-signature.mp4
 
 First deliverable 48–72h on clear scope.
 
@@ -52,6 +52,6 @@ I build payment webhooks + automations with signed decision logs so you can see 
 
 Fixed scope: $250–500 setup. Optional $150–300/mo care (API breaks, small changes).
 
-60s proof: LOOM_URL
+60s proof: https://cursor.com/agents/bc-01a0c434-e2d1-7a91-b100-1c79c69bce84/artifacts?path=%2Fopt%2Fcursor%2Fartifacts%2Fmoney-rail-allow-deny-signature.mp4
 First deliverable in 48–72h if scope is clear.
 ```

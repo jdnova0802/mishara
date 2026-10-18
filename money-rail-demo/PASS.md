@@ -59,7 +59,7 @@ Demos fired locally against `http://127.0.0.1:8787`:
 - issuing fuel `approved: true`
 - issuing software `approved: false`, reason `mcc_not_in_allowlist`
 
-Screen recording (no audio): `/opt/cursor/artifacts/money-rail-allow-deny-signature.mp4`
+Screen recording (no audio): https://cursor.com/agents/bc-01a0c434-e2d1-7a91-b100-1c79c69bce84/artifacts?path=%2Fopt%2Fcursor%2Fartifacts%2Fmoney-rail-allow-deny-signature.mp4
 
 Upwork text and Monday proposal: `PITCH_MONDAY.md` (paste-ready, not posted).
 
