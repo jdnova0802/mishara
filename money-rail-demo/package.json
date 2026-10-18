@@ -1,0 +1,14 @@
+{
+  "name": "money-rail-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Sunday start pack: Stripe webhook → signed receipt + Issuing approve/deny toy",
+  "scripts": {
+    "start": "node server.mjs",
+    "demo": "node scripts/fire-demos.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
