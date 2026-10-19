@@ -1,0 +1,418 @@
+{
+  "id": "desktop-rabbit-hole-deepest",
+  "title": "Deepest useful desktop rabbit-hole lineup",
+  "date": "2026-09-18",
+  "law": "Aggregators are maps. Primaries are the hole. First-move is load-bearing. Empty > filler.",
+  "verdict": "Four windows, 32 core tabs. Left pair teaches. Right pair binds. Order is entry → engine → abyss.",
+  "layout": {
+    "monitors": "ultrawide one window with four columns, or two monitors (K+P left, M+A right)",
+    "core_tabs": 32,
+    "windows": 4
+  },
+  "windows": [
+    {
+      "id": "K",
+      "name": "Canon",
+      "job": "Become dangerous with ideas. Specialist engines, not blogs.",
+      "depth": "conceptual",
+      "tabs": [
+        {
+          "id": "K1",
+          "title": "Stanford Encyclopedia of Philosophy",
+          "url": "https://plato.stanford.edu/",
+          "first_move": "Open Contents → search causation — then follow the 'Related Entries' only, three hops max.",
+          "useful": "The closest thing to a specialist textbook that is free, cited, and maintained. One article is a week.",
+          "why": "Commissioned entries by named specialists. Not Wikipedia consensus. The deepest general-knowledge hole that stays true.",
+          "probe": "200"
+        },
+        {
+          "id": "K2",
+          "title": "nLab",
+          "url": "https://ncatlab.org/nlab/show/HomePage",
+          "first_move": "Search monad (in computer science) then climb to adjunction. Do not start at 'higher category theory'.",
+          "useful": "The working blackboard of homotopy / higher algebra. If SEP is prose, nLab is the internal language.",
+          "why": "Collaborative research wiki. Pages are often harder than the papers they cite. This is the abyss of structure.",
+          "probe": "200"
+        },
+        {
+          "id": "K3",
+          "title": "OEIS",
+          "url": "https://oeis.org/",
+          "first_move": "Paste 1,2,5,12,29,70 — then read COMMENT + LINKS, not just the name of the sequence.",
+          "useful": "Identify a recurrence, generating function, or combinatorial object from numbers you actually have.",
+          "why": "Encyclopedia of integer sequences. Every serious discrete math / CS rabbit hole hits OEIS. Bot-block 403 in this probe; live in a browser.",
+          "probe": "403"
+        },
+        {
+          "id": "K4",
+          "title": "NIST DLMF",
+          "url": "https://dlmf.nist.gov/",
+          "first_move": "Chapter 5 Gamma function → jump to a plot, then to the DLMF permalink for one identity.",
+          "useful": "The handbook: special functions with numbered formulae you can cite. Replaces Abramowitz & Stegun.",
+          "why": "Authoritative, maintained, citable. Depth without folklore.",
+          "probe": "200"
+        },
+        {
+          "id": "K5",
+          "title": "NASA ADS",
+          "url": "https://ui.adsabs.harvard.edu/",
+          "first_move": "author:\"einstein\" year:1915 — then click Citations. Or bibcode search on a paper you already love.",
+          "useful": "The citation graph of astronomy/physics. Faster than Scholar for this corpus; abstracts + references + citations.",
+          "why": "A real index, not a feed. 202 from this probe (accepted).",
+          "probe": "202"
+        },
+        {
+          "id": "K6",
+          "title": "Perseus Scaife",
+          "url": "https://scaife.perseus.org/",
+          "first_move": "Open the Iliad, Greek + English side by side. Click one word → lexicon. That is the hole.",
+          "useful": "2,600+ pre-modern works, 85M words. Morphology on click. The primary texts, not a summary of Greece.",
+          "why": "Deepest free classical-language reading environment still alive.",
+          "probe": "200"
+        },
+        {
+          "id": "K7",
+          "title": "CDLI",
+          "url": "https://cdli.earth/",
+          "first_move": "Search Ur III barley — then open one tablet: photo, transliteration, provenience.",
+          "useful": "Cuneiform as database: economy, law, omen, letter. Civilization's first ledgers.",
+          "why": "Primary objects, not a Mesopotamia explainer. Alternate host cdli.mpiwg-berlin.mpg.de also 200.",
+          "probe": "200"
+        },
+        {
+          "id": "K8",
+          "title": "Founders Online",
+          "url": "https://founders.archives.gov/",
+          "first_move": "Search assumption of the debt — then read the annotation chain, not a biography.",
+          "useful": "184k annotated letters of Washington, Franklin, Adams, Jefferson, Hamilton, Jay, Madison.",
+          "why": "The American founding as a searchable primary corpus. 202 from this probe.",
+          "probe": "202"
+        }
+      ]
+    },
+    {
+      "id": "P",
+      "name": "Paper",
+      "job": "Find the object. Facsimile, catalog, newspaper, attic.",
+      "depth": "documentary",
+      "tabs": [
+        {
+          "id": "P1",
+          "title": "Internet Archive",
+          "url": "https://archive.org/",
+          "first_move": "Search media type:texts the exact book title in quotes — then also try the Wayback URL of a dead site you remember.",
+          "useful": "Texts + software + TV + Wayback. Civilization's attic with a search box.",
+          "why": "Nothing else is this wide. Start specific or you drown.",
+          "probe": "200"
+        },
+        {
+          "id": "P2",
+          "title": "WorldCat",
+          "url": "https://www.worldcat.org/",
+          "first_move": "Search a book you think is rare — then 'Find a copy' and note editions. WorldCat is the map of holdings.",
+          "useful": "Which library actually has the object. Prevents Archive-only myopia.",
+          "why": "Union catalog. The hole is editions, not blurbs.",
+          "probe": "200"
+        },
+        {
+          "id": "P3",
+          "title": "Library of Congress collections",
+          "url": "https://www.loc.gov/collections/",
+          "first_move": "Open Chronicling America from here, or search one named collection (e.g. Sanborn maps). Bot-block 403 this probe; live in browser.",
+          "useful": "US memory: prints, maps, newspapers, manuscript finding aids.",
+          "why": "National library as browseable collections, not a souvenir shop.",
+          "probe": "403"
+        },
+        {
+          "id": "P4",
+          "title": "Gallica (BnF)",
+          "url": "https://gallica.bnf.fr/",
+          "first_move": "Search manuscrit then filter images. Or a French title you only know in English.",
+          "useful": "France's digital library: manuscripts, periodicals, maps. Often has what Archive missed.",
+          "why": "Non-Anglophone depth. Required or the lineup is provincial.",
+          "probe": "200"
+        },
+        {
+          "id": "P5",
+          "title": "NARA Catalog",
+          "url": "https://www.archives.gov/research/catalog",
+          "first_move": "Search a Record Group number if you have one (RG 26 = Coast Guard). Else a ship name + year.",
+          "useful": "Federal records: what exists, where the box is, sometimes the scan.",
+          "why": "Paper of the US state, not the law as published (that's Window M).",
+          "probe": "200"
+        },
+        {
+          "id": "P6",
+          "title": "PRISMS",
+          "url": "https://www.prisms.digital/",
+          "first_move": "Search one early-modern title, open the workbench, split facsimile vs transcription.",
+          "useful": "75k+ rare books/manuscripts in a semantic workbench (compare, annotate, IIIF).",
+          "why": "Not another library homepage — a graph over editions.",
+          "probe": "200"
+        },
+        {
+          "id": "P7",
+          "title": "Pleiades",
+          "url": "https://pleiades.stoa.org/",
+          "first_move": "Search Babylon — open the place, then 'connections'. Jump to a Barrington Atlas id.",
+          "useful": "Gazetteer of ancient places with stable URIs. Glue between texts (K6) and tablets (K7).",
+          "why": "Geography as a primary graph, not a pretty map.",
+          "probe": "200"
+        },
+        {
+          "id": "P8",
+          "title": "David Rumsey Map Collection",
+          "url": "https://www.davidrumsey.com/",
+          "first_move": "Luna viewer → search railroad 1870 — then georeferenced overlay if offered.",
+          "useful": "100k+ historic maps, zoomable, often georeferenced. Space as an archive.",
+          "why": "The visual attic that still answers 'what did they think the world looked like.'",
+          "probe": "200"
+        }
+      ]
+    },
+    {
+      "id": "M",
+      "name": "Mouth",
+      "job": "Read where force, money, identity, and root writes actually happen.",
+      "depth": "civilizational",
+      "tabs": [
+        {
+          "id": "M1",
+          "title": "eCFR",
+          "url": "https://www.ecfr.gov/",
+          "first_move": "Title 12 Banks and Banking, or Title 31 Money and Finance. Read one Part, not the landing page.",
+          "useful": "The living US Code of Federal Regulations. Searchable current text — not a news take on a rule.",
+          "why": "Force as currently in force. Federal Register is the becoming; eCFR is the is.",
+          "probe": "200"
+        },
+        {
+          "id": "M2",
+          "title": "Federal Register",
+          "url": "https://www.federalregister.gov/",
+          "first_move": "Search a RIN you care about, or agency:Federal Reserve proposed rule.",
+          "useful": "Where proposed/final rules are published. Pair with Reginfo (OIRA) in satellites.",
+          "why": "The mouth that turns drafts into force. Watch becoming, not Twitter.",
+          "probe": "200"
+        },
+        {
+          "id": "M3",
+          "title": "SEC EDGAR full-text search",
+          "url": "https://www.sec.gov/edgar/search/",
+          "first_move": "Document word or phrase: 'material weakness' + form 10-K + last year. Bot-block 403 this probe.",
+          "useful": "What companies actually disclosed. Filings > blogs.",
+          "why": "Public-company primary. The rabbit hole is exhibits and 8-Ks, not the homepage.",
+          "probe": "403"
+        },
+        {
+          "id": "M4",
+          "title": "CourtListener",
+          "url": "https://www.courtlistener.com/",
+          "first_move": "RECAP search a live case name. Read the docket, not a summary. Bot-block 403 this probe; free PACER-adjacent.",
+          "useful": "Opinions + many PACER dockets via RECAP. Deeper than news; cheaper than PACER for exploration.",
+          "why": "Federal (and more) case law as a hole. PACER remains the file mouth if you must pull sealed-adjacent dockets.",
+          "probe": "403"
+        },
+        {
+          "id": "M5",
+          "title": "FRED",
+          "url": "https://fred.stlouisfed.org/",
+          "first_move": "Graph M2SL and FEDFUNDS on one chart. Then 'release' → source survey notes.",
+          "useful": "Macro series with citations and vintages. Argue from a series, not a vibe.",
+          "why": "St. Louis Fed. Timeout in this probe; live in a browser.",
+          "probe": "timeout"
+        },
+        {
+          "id": "M6",
+          "title": "BIS",
+          "url": "https://www.bis.org/",
+          "first_move": "Payments & market infrastructure → CPMI papers, or Statistics → OTC derivatives.",
+          "useful": "Central-bank commons: settlement, rails, triennial survey. Doctrine, not fintech marketing.",
+          "why": "The priesthood behind FedNow/RTP. Read BIS before a payments pitch.",
+          "probe": "200"
+        },
+        {
+          "id": "M7",
+          "title": "GLEIF LEI search",
+          "url": "https://search.gleif.org/",
+          "first_move": "Search a legal name you think you know. Open level-2 parent. Note registration status.",
+          "useful": "Who a legal entity is in the global LEI system. Parent trees. Golden-copy identity, not a logo.",
+          "why": "Identity as a write. Pair with OFAC/OpenSanctions in satellites.",
+          "probe": "200"
+        },
+        {
+          "id": "M8",
+          "title": "IANA root-zone process",
+          "url": "https://www.iana.org/help/root-zone-process",
+          "first_move": "Read the change process end-to-end. Then open Root Zone Database. Intent ≠ root-zone write.",
+          "useful": "How the DNS root actually changes. Timing, roles, IANA vs Verisign vs NTIA-era memory.",
+          "why": "Z3 shock mouth: the internet's rarest write path, documented in public.",
+          "probe": "200"
+        }
+      ]
+    },
+    {
+      "id": "A",
+      "name": "Attic",
+      "job": "Get lost on purpose. Culture graphs and dead web that still teach.",
+      "depth": "cultural",
+      "tabs": [
+        {
+          "id": "A1",
+          "title": "Wikipedia: Unusual articles",
+          "url": "https://en.wikipedia.org/wiki/Wikipedia:Unusual_articles",
+          "first_move": "Pick one entry. Follow three blue links. Stop. Write the title down. Return later.",
+          "useful": "The map of peculiar facts. Use as launcher, not as the session.",
+          "why": "Canonical index. The hole is the article graph, not this page.",
+          "probe": "200"
+        },
+        {
+          "id": "A2",
+          "title": "TV Tropes",
+          "url": "https://tvtropes.org/",
+          "first_move": "Open one trope you can name, then 'Examples' → a work you have not seen. Bot-block 403 this probe.",
+          "useful": "Narrative morphology. Densest consumer-web link graph. Also a time thief — budget it.",
+          "why": "Pattern language of stories. Useful if you write, ship, or audit fiction-shaped products.",
+          "probe": "403"
+        },
+        {
+          "id": "A3",
+          "title": "Everything2",
+          "url": "https://everything2.com/",
+          "first_move": "Search a common noun. Read two writeups that disagree. That is the design.",
+          "useful": "Pre-Wikipedia: stacked voices under one title. Writing > neutrality. Soft oral history of the early web.",
+          "why": "Still alive. Complements SEP (K1) by being the opposite epistemology.",
+          "probe": "200"
+        },
+        {
+          "id": "A4",
+          "title": "Lost Media Wiki",
+          "url": "https://lostmediawiki.com/",
+          "first_move": "Open a status: partially found page. Read the sourcing standard.",
+          "useful": "Catalog of yearning. Teaches evidence hygiene: rumor vs tape vs rights.",
+          "why": "A register, not creepypasta. Bot-block 403 this probe.",
+          "probe": "403"
+        },
+        {
+          "id": "A5",
+          "title": "Public Domain Review",
+          "url": "https://publicdomainreview.org/",
+          "first_move": "Collections → oddest scan. Then find the same object in P1 or P4.",
+          "useful": "Curated public-domain abyss. Essays that point at objects you can reuse.",
+          "why": "Quality filter on the attic. Not a dump.",
+          "probe": "200"
+        },
+        {
+          "id": "A6",
+          "title": "GE-97 Terminal",
+          "url": "https://ge97.com/",
+          "first_move": "Catalog search MIDI or VRML. Click into a working 90s site, not an article about one.",
+          "useful": "Living Win98-era web: Flash, Gopher, 30k+ catalogued sites.",
+          "why": "The 90s as runnable, not screenshots.",
+          "probe": "200"
+        },
+        {
+          "id": "A7",
+          "title": "Discmaster",
+          "url": "https://discmaster.textfiles.com/",
+          "first_move": "Full-text a error string or a shareware name. Open the ISO path.",
+          "useful": "Search inside thousands of old CD-ROMs. Source of last resort for drivers, zines, abandonware docs.",
+          "why": "textfiles.com root failed this probe; Discmaster is the working mouth on that corpus.",
+          "probe": "200"
+        },
+        {
+          "id": "A8",
+          "title": "Bitsavers",
+          "url": "https://bitsavers.org/",
+          "first_move": "pdf/ then a vendor you can name (dec, ibm, sun). Open one hardware manual PDF.",
+          "useful": "Scanned minicomputer / workstation manuals. How machines were actually operated.",
+          "why": "Deeper and more useful than GeoCities for builders. GeoCities stays a satellite.",
+          "probe": "200"
+        }
+      ]
+    }
+  ],
+  "satellites": {
+    "K": [
+      {"title": "arXiv", "url": "https://arxiv.org/", "job": "Preprint firehose. Search then leave."},
+      {"title": "Numdam", "url": "https://www.numdam.org/", "job": "French digital math library — full text, moving wall."},
+      {"title": "Semantic Scholar", "url": "https://www.semanticscholar.org/", "job": "TLDR + citation graph when ADS is the wrong corpus."},
+      {"title": "Connected Papers", "url": "https://www.connectedpapers.com/", "job": "One seed paper → graph. Map, not hole."},
+      {"title": "Online Etymology Dictionary", "url": "https://www.etymonline.com/", "job": "Word history as a stack of borrowings."},
+      {"title": "Unicode charts", "url": "https://www.unicode.org/charts/", "job": "Every assigned character. Pair with IANA."}
+    ],
+    "P": [
+      {"title": "Europeana", "url": "https://www.europeana.eu/en", "job": "EU cultural graph. 403 this probe; live in browser."},
+      {"title": "Chronicling America", "url": "https://chroniclingamerica.loc.gov/", "job": "US newspapers. 403 this probe."},
+      {"title": "GovInfo", "url": "https://www.govinfo.gov/", "job": "CFR/bills/prints as publications — beside eCFR."},
+      {"title": "Archive95", "url": "https://www.archive95.net/", "job": "Pre-1996 web recovered off CDs."},
+      {"title": "GeoCities Gallery", "url": "https://geocities.restorativland.org/", "job": "Neighborhood walk after 2009 deletion."},
+      {"title": "folklore.org", "url": "https://folklore.org/", "job": "Original Macintosh oral history."}
+    ],
+    "M": [
+      {"title": "Reginfo EO 12866", "url": "https://www.reginfo.gov/public/", "job": "Rules stuck at OIRA."},
+      {"title": "PACER", "url": "https://pacer.uscourts.gov/", "job": "Federal file mouth (account). CourtListener first."},
+      {"title": "ISDA CDS DC", "url": "https://www.cdsdeterminationscommittees.org/", "job": "Headline ≠ Credit Event Resolution."},
+      {"title": "CLS Group", "url": "https://www.cls-group.com/", "job": "Matched ≠ settled PvP."},
+      {"title": "FedNow", "url": "https://www.federalreserve.gov/paymentsystems/fednow_about.htm", "job": "US instant rail doctrine — grant ≠ push."},
+      {"title": "TCH RTP", "url": "https://www.theclearinghouse.org/payment-systems/rtp", "job": "Private real-time rail."},
+      {"title": "OFAC SDN search", "url": "https://sanctionssearch.ofac.treas.gov/", "job": "Name ≠ listed. Pair with GLEIF."},
+      {"title": "OpenSanctions", "url": "https://opensanctions.org/", "job": "Open PEP/sanctions graph."},
+      {"title": "Charlotin hallucinations", "url": "https://www.damiencharlotin.com/hallucinations/", "job": "~2k AI-hallucination decisions. Check ≠ file."},
+      {"title": "IETF Datatracker", "url": "https://datatracker.ietf.org/", "job": "Internet-drafts as they actually move."},
+      {"title": "College of Arms", "url": "https://www.college-of-arms.gov.uk/", "job": "Pedigree spam ≠ Crown grant."},
+      {"title": "ISA Kingston", "url": "https://www.isa.org.jm/", "job": "Exploration ≠ exploitation (seabed)."},
+      {"title": "ITU-R Space", "url": "https://www.itu.int/en/ITU-R/space/Pages/default.aspx", "job": "BIU / MIFR filings."},
+      {"title": "NRC ADAMS", "url": "https://www.nrc.gov/reading-rm/adams.html", "job": "Nuclear paper ocean."},
+      {"title": "Google Patents", "url": "https://patents.google.com/", "job": "Crowding map, not novelty proof."}
+    ],
+    "A": [
+      {"title": "SCP Wiki", "url": "https://scp-wiki.wikidot.com/", "job": "Fiction as classified bureaucracy. Format is the hole."},
+      {"title": "Monoskop", "url": "https://www.monoskop.org/Monoskop", "job": "Media-art / avant-garde bibliography."},
+      {"title": "UbuWeb", "url": "https://ubu.com/", "job": "Avant-garde film/sound/text. Rights messy; listen then leave."},
+      {"title": "OpenHistoricalMap", "url": "https://openhistoricalmap.org/", "job": "OSM for the past."},
+      {"title": "Overpass Turbo", "url": "https://overpass-turbo.eu/", "job": "Query the live planet. Useful, infinite."},
+      {"title": "SIMBAD", "url": "https://simbad.u-strasbg.fr/simbad/", "job": "Astronomical objects identifier hole. Pair with ADS."},
+      {"title": "Radio Garden", "url": "https://radio.garden/", "job": "Live airwaves. Stall-break only."}
+    ]
+  },
+  "launchers": [
+    {"id": "C1", "title": "AltFTool Rabbithole", "url": "https://www.altftool.com/rabbithole", "job": "Map of sites by time-to-joy. Do not spend the session here."},
+    {"id": "C2", "title": "Wikipedia Random", "url": "https://en.wikipedia.org/wiki/Special:Random", "job": "Entropy. Then walk back to Unusual Articles."}
+  ],
+  "crosswalks": [
+    {
+      "question": "What is money, actually?",
+      "path": ["K1 causation/decision or philosophy of economics", "K8 Hamilton on assumption", "M1 Title 31", "M5 M2SL", "M6 CPMI", "A1 Rai stones / Yap"]
+    },
+    {
+      "question": "Who is allowed to write the root of a name?",
+      "path": ["M8 IANA root-zone process", "M7 GLEIF parent tree", "M1 naming in a Title you care about", "K2 identifier / identity type pages if you must", "P2 WorldCat heading for the same string"]
+    },
+    {
+      "question": "Did this event happen, or was it only reported?",
+      "path": ["M4 docket", "M2 FR notice", "P5 NARA RG", "P1 Wayback of the first claim", "A4 Lost Media if the artifact is the event"]
+    },
+    {
+      "question": "How did a machine from 1978 actually boot?",
+      "path": ["A8 Bitsavers vendor PDF", "A7 Discmaster ISO", "P1 Archive software", "A6 GE-97 contemporary web", "K4 only if you hit a special function in the manual"]
+    }
+  ],
+  "choreography": [
+    "Warm (15 min): K1 one SEP entry OR A1 one unusual article. Three hops. Stop.",
+    "Engine (60–90 min): stay inside ONE of K2 nLab, K6 Scaife, M1 eCFR Part, or M3 EDGAR 10-K. No tab hopping.",
+    "Object (open-ended): P1/P4/P6 facsimile of the thing the engine named.",
+    "Mouth switch: when language gets mushy, flip to M6 BIS or M8 IANA and read a primary procedure.",
+    "Attic nightcap: A6 or A8 only after a primary. Attic first is candy.",
+    "Hard rule: if the session is spent on C1/C2 or satellites, you failed the lineup."
+  ],
+  "rejects": [
+    {"candidate": "Generic 100-weird-websites listicles", "why": "Maps of maps. Time-to-joy ≠ depth."},
+    {"candidate": "Infinite Craft / clicker loops", "why": "Fun sink, zero remainder."},
+    {"candidate": "FedNow.org marketing", "why": "Prefer Federal Reserve primary + BIS doctrine."},
+    {"candidate": "oldweb.today this pass", "why": "Prior lineup reachability miss; GE-97 + Archive95 cover the runnable web."},
+    {"candidate": "textfiles.com root", "why": "Unreachable this probe; Discmaster is the working mouth."},
+    {"candidate": "SCP in core 32", "why": "Supreme fiction hole; demoted so Attic stays useful (Bitsavers over creepypasta)."},
+    {"candidate": "PACER as core", "why": "Account wall. CourtListener is the exploration mouth; PACER is satellite."},
+    {"candidate": "Another payments blog", "why": "Window M already has eCFR, BIS, IANA, GLEIF."}
+  ]
+}
