@@ -3,35 +3,24 @@
 Free 72h REVIEW only. No deposit. No Bind Room.
 Figures are from the ALIRT PDF dated 9 August 2023, in thousands of dollars.
 ALIRT says it cannot tell how many of these China Construction Bank letters were legitimate.
-State National and Concert are already written. Trisura and Accelerant meet that same bar. That is four sends that count toward 15–22.
+Do not send a team inbox. Trisura’s programs address and Accredited’s new-business address are withdrawn.
 
-American Millennium, Accredited, and Ag Workers stay in the file as lower-tier sends. No current personal address was findable for them. Do not count those three at the same hit rate.
+Personal addresses that count: State National, Concert, Accelerant (Steven Strauss), Trisura (Tom Ciano, in PASTE_DILIGENCE_PERSONAL.md), and Southlake (Erick Moreland, same file). That is five.
+
+American Millennium and Ag Workers stay lower tier. They are personal addresses, not team inboxes, and they are not counted with the five.
 
 Copy each body through the diligence URL. The closing four lines are part of the email.
 
 ---
 
-EMAIL 1 — Trisura (counts)
+EMAIL 1 — Trisura — DO NOT SEND this inbox
 
 To: tsic.programs@trisura.com
-Subject: Trisura’s CCB letters — free 72-hour look
+Subject: withdrawn
 
-Who this is: Michael Beasley, President and CEO of Trisura Insurance Company, in Trisura’s annual information form dated 12 February 2026. The address is the one printed on trisura.com/fronting-us for fronting questions. It is the programs desk, not a personal inbox. Richard Grant is Chief Underwriting Officer of Trisura in that same filing. His personal address is not printed there.
+Who this is: This is the programs desk. Do not send it. The personal address is Tom Ciano’s, in PASTE_DILIGENCE_PERSONAL.md.
 
-Body:
-For Michael Beasley — President and CEO, Trisura Insurance Company
-
-ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Trisura Specialty (NAIC 16188) 72,172 against 154,072 surplus, 46.8%. Trisura Insurance Company (NAIC 22225) 15,559 against 181,273, 8.6%.
-
-Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
-
-No charge.
-No invoice.
-No obligation.
-If it is useless, delete it.
-
-Reply REVIEW.
-https://gate.velaru.xyz/diligence
+Withdrawn. The send is Tom Ciano in PASTE_DILIGENCE_PERSONAL.md.
 
 ---
 
@@ -83,31 +72,16 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 4 — Accredited (lower tier — do not count with the four)
+EMAIL 4 — Accredited — DO NOT SEND
 
 To: AAUnderwritingTeam@accreditedinsurance.com
-Subject: Accredited’s CCB letters — free 72-hour look
+Subject: withdrawn
 
-Who this is: Grace Meek, President, Accredited America, on accreditedinsurance.com/our-people, appointed 8 April 2024. William Spiegel is Chief Executive Officer on that same page. No personal address is printed. The only current inbox is the new-business team address on the US program contact page. An old Allied World address for her is the wrong company. This row is 10.2% of surplus.
-
-Body:
-For Grace Meek — President, Accredited America
-
-ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Accredited Surety and Casualty (NAIC 26379) 7,396 against 72,462 surplus, 10.2%.
-
-Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
-
-No charge.
-No invoice.
-No obligation.
-If it is useless, delete it.
-
-Reply REVIEW.
-https://gate.velaru.xyz/diligence
+Who this is: Grace Meek, President, Accredited America, on accreditedinsurance.com/our-people, appointed 8 April 2024. No personal address is printed. Do not send the new-business team inbox. An old Allied World address for her is the wrong company.
 
 ---
 
-EMAIL 5 — Agricultural Workers (lower tier — do not count with the four)
+EMAIL 5 — Agricultural Workers (lower tier — do not count with the five)
 
 To: mhill@agworkers.com
 Subject: Ag Workers’ CCB letters — free 72-hour look
