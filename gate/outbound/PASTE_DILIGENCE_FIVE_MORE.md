@@ -48,7 +48,7 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 3 — American Millennium (lower tier — do not count with the four)
+EMAIL 3 — American Millennium (lower tier — do not count with the five)
 
 To: gary.hall@citadelrisk.com
 Subject: American Millennium’s CCB letters — free 72-hour look
