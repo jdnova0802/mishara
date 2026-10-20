@@ -1,11 +1,11 @@
 # PASTE — new program entities
 
 Free 72h REVIEW only. No deposit. No Bind Room.
-These eight companies are not on the ALIRT 9 August 2023 Vesttoo table. Do not cite CCB dollars in these notes.
+These companies are not on the ALIRT 9 August 2023 Vesttoo table. Do not cite CCB dollars in these notes.
 Each address below is one the company printed next to a current person. One person per company.
 Do not send the second name in a source note. Do not send a team inbox.
 
-Earlier personal sends stay State National, Concert, Accelerant (Steven Strauss), Southlake (Erick Moreland), and American Millennium (Gary Hall). These eight are additional.
+Earlier personal sends stay State National, Concert, Accelerant (Steven Strauss), Southlake (Erick Moreland), and American Millennium (Gary Hall). Emails 1–8 were the first new batch. Emails 9–12 are four more.
 
 Copy each body through the diligence URL. The closing four lines are part of the email.
 
@@ -203,6 +203,104 @@ https://gate.velaru.xyz/diligence
 
 ---
 
+EMAIL 9 — Munich Re Specialty, North America Programs (counts — different desk from Email 7)
+
+To: ccarnevale@munichre.com
+Subject: Munich Re’s US programs — free 72-hour look
+
+Who this is: Claudia Carnevale, Head of North America Programs, Munich Re Specialty – North America. The programs page, published 25 July 2025, prints ccarnevale@munichre.com and +1 (332) 209-2344 under that title. Her expert page, published 26 January 2026, prints the same address and says she oversees the US programs, Canada programs, and insurtech teams. This is not Andrew Perry. Perry is the Lloyd’s Global Markets syndicate. If only one Munich Re note goes out, this is the US programs desk. Do not also send jprosiegel@munichre.com or robin.udhwan@munichre.com.
+
+Body:
+For Claudia Carnevale — Head of North America Programs, Munich Re Specialty
+
+Your US programs book is written with MGAs and program administrators. A program can still bind before the bank confirms the collateral behind it.
+
+Free 72-hour memo: where that write is still open.
+
+No charge.
+No invoice.
+No obligation.
+If it is useless, delete it.
+
+Reply REVIEW.
+https://gate.velaru.xyz/diligence
+
+---
+
+EMAIL 10 — Everest Underwriting Partners (counts)
+
+To: charlie.higham@everestglobal.com
+Subject: Everest’s programs — free 72-hour look
+
+Who this is: Charles Higham, Senior Vice President, Head of Everest Underwriting Partners. Everest’s live programs page prints him as the key contact, (646) 746-1986, charlie.higham@everestglobal.com. The page says program administrators market, underwrite, rate, and issue policies on Everest’s behalf. Everest named him to the role on 25 August 2023, succeeding Brian Drum. No later release replaces him, and the live page still prints his name. The appointment is three years old. The contact line is current.
+
+Body:
+For Charles Higham — Senior Vice President, Head of Everest Underwriting Partners
+
+Program administrators issue policies on Everest’s behalf. A program can still bind before the bank confirms the collateral behind it.
+
+Free 72-hour memo: where that write is still open.
+
+No charge.
+No invoice.
+No obligation.
+If it is useless, delete it.
+
+Reply REVIEW.
+https://gate.velaru.xyz/diligence
+
+---
+
+EMAIL 11 — Berkshire Hathaway Specialty, US corporate programs (counts)
+
+To: mark.mahanna@bhspecialty.com
+Subject: BHSI’s US programs — free 72-hour look
+
+Who this is: Mark Mahanna, Senior Vice President. BHSI’s US corporate programs page prints mark.mahanna@bhspecialty.com, office 617.936.2936, mobile 617.834.4037. The December 2024 corporate programs contact sheet, posted January 2025, prints the same line. BHSI underwrites on National Indemnity paper. His own profile says Head of Commercial Programs, North America, and he was still hiring for that Boston team in August 2026. The email uses the title the company page prints: Senior Vice President. Do not send info@bhspecialty.com. David Tran (Canada) and Rob Munden (UK) are different programs heads. Do not send them with this note.
+
+Body:
+For Mark Mahanna — Senior Vice President, Berkshire Hathaway Specialty Insurance
+
+BHSI prints you as the contact for its US corporate programs. A program can still bind before the bank confirms the collateral behind it.
+
+Free 72-hour memo: where that write is still open.
+
+No charge.
+No invoice.
+No obligation.
+If it is useless, delete it.
+
+Reply REVIEW.
+https://gate.velaru.xyz/diligence
+
+---
+
+EMAIL 12 — Dellwood (counts — website and LinkedIn print different spellings)
+
+To: ppatel@dellwood.com
+Subject: Dellwood’s programs — free 72-hour look
+
+Who this is: Piyush D. Patel, SVP, Head of Programs. dellwood.com/about-dellwood-insurance and dellwood.com/solutions/innovative-program both print ppatel@dellwood.com next to that title. Dellwood Specialty Insurance Company is the balance-sheet carrier, AM Best A-. Dellwood’s own LinkedIn posts for a TMPAA meeting and a programs hiring note print a different spelling, pdpatel@dellwood.com. Send the website spelling. If it bounces, the posts printed the other one. Do not send both. Do not also send Kean Driscoll at kdriscoll@dellwood.com. The March 2024 launch release calls Driscoll President and Chief Underwriting Officer, and the about page still prints his address, with no title on that line.
+
+Body:
+For Piyush Patel — SVP, Head of Programs, Dellwood Insurance
+
+Dellwood writes program and contract-binding business on its own paper. A program can still bind before the bank confirms the collateral behind it.
+
+Free 72-hour memo: where that write is still open.
+
+No charge.
+No invoice.
+No obligation.
+If it is useless, delete it.
+
+Reply REVIEW.
+https://gate.velaru.xyz/diligence
+
+---
+
 Named, no printed personal address, not drafted (20 October 2026)
 
 Obsidian, Jeff Wittlich, CUO. Spinnaker, Charles Valinotti, COO and CUO. Falls Lake, Dennis Johnson, CUO. Core Specialty, Jeffrey Wanamaker, CUO, and Adam Newman, Chief Delegated Authority Officer. Emerald Bay, Colin Sullivan, CUO. AF Group, Andrea Burns, CUO. GuideOne, Troy Spoonemore, CUO. Arch, Todd Burrick, CUO of P&C Programs. QBE North America, Laura Coppola, CUO. SiriusPoint, John Sakakeeny, CUO of North America P&C, from 2 February 2026. Westchester Programs, Danielle Martin, CUO. Broker and people-search addresses for these names were not used.
+
+AmRisc’s July 2025 Waypoint contact sheet prints CUO addresses, including cludwig@amrisc.com and stschirhart@amrisc.com. AmRisc is the managing general agent, not the paper. Those addresses were not drafted.
