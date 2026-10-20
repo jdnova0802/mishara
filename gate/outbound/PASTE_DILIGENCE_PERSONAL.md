@@ -4,7 +4,7 @@ No team inbox. No info@. No programs@. No press box.
 Figures are from the ALIRT PDF dated 9 August 2023, in thousands of dollars.
 ALIRT says it cannot tell how many of these China Construction Bank letters were legitimate.
 
-These two are new personal addresses. With State National, Concert, and Steven Strauss at Accelerant, five personal sends count toward 15–22.
+Southlake is a personal address. Tom Ciano is withdrawn. Trisura’s February 2026 filing names Richard Grant as Chief Underwriting Officer. His personal address is not in that filing.
 
 Copy each body through the diligence URL.
 
@@ -34,24 +34,27 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 2 — Trisura (replaces the programs inbox, counts)
+EMAIL 2 — Trisura — DO NOT SEND to Tom Ciano
 
 To: Tom.Ciano@trisura.com
-Subject: Trisura’s CCB letters — free 72-hour look
+Subject: withdrawn
 
-Who this is: Tom Ciano. Trisura prints this address on trisura.com/insurance-us and on its excess-liability highlight sheet, next to Chief Underwriting Officer. The 12 February 2026 annual information form names Richard Grant as Chief Underwriting Officer of Trisura, and Michael Beasley as President and CEO of Trisura Insurance Company. Their personal addresses are not printed. Send this to Ciano, at the title on the page that prints his address. Do not send tsic.programs@trisura.com.
+Who this is: Wrong desk. Richard Grant is Chief Underwriting Officer of Trisura in the 12 February 2026 annual information form, and President and CEO of Trisura Guarantee Insurance Company from 1 January 2025. His personal address is not printed in that filing. Do not send the programs inbox either.
 
-Body:
-For Tom Ciano — Chief Underwriting Officer, Trisura
+---
 
-ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Trisura Specialty (NAIC 16188) 72,172 against 154,072 surplus, 46.8%. Trisura Insurance Company (NAIC 22225) 15,559 against 181,273, 8.6%.
+## Filing check, 20 October 2026 — names confirmed, no personal address printed
 
-Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
+Root Insurance Company, NAIC 10974, 24.1%. Ohio annual statement for the year ended 31 December 2024 names Alexander Edward Timm as Chief Executive Officer. The only email on that jurat is accounting@joinroot.com, for statutory contact Cheryl Marie Dennis. Do not send it.
 
-No charge.
-No invoice.
-No obligation.
-If it is useless, delete it.
+Clearcover Insurance Company, NAIC 16524, 19.7%. Florida foreign-corporation filing names Kyle Joseph Nakatsuji as CEO. No email on the filing.
 
-Reply REVIEW.
-https://gate.velaru.xyz/diligence
+Incline Casualty Company, NAIC 11090, 45.7%. Florida annual report filed 4 April 2026 names Christopher A. McClellan as President, CEO, Secretary, and Director. No email. A California exam as of 31 December 2024 names Tony Urban as Chief Underwriting Officer. Scott Galiardo is not on that exam. No email for either.
+
+Palomar Specialty Insurance Company, NAIC 20338, 7.5%. The 2025 Form 10-K names Jon Christianson as President and Robert Beyerle as Chief Underwriting Officer. The only email in that filing is investors@plmr.com. Do not send it. Oregon’s 2020 exam names Christianson and prints no email.
+
+Accredited Specialty Insurance Company. Florida annual report filed 16 April 2025 names Grace Meek as Director and President. No email. The company page leaves her email field blank.
+
+Agricultural Workers Mutual Auto Insurance Company, NAIC 18430, 24.0%. Texas Department of Insurance Statutory Page 14 for 2025 lists the company and prints no officers and no email. Terry Holley and Marcus Hill are on the company site with no address.
+
+Richard Grant. No personal address in the 12 February 2026 annual information form.
