@@ -1,7 +1,5 @@
 # Outbound sent tally
 
-**Dropped 20 Oct 2026.** The Wednesday 21 October 2026 wave of 17 is removed. Do not send it. Nothing in that wave was marked sent. The mailbox was never connected, so nothing was queued. The Monday paste, the backup wave, and the Plan B six stay.
-
 **Target:** **10 touches** Monday (10/10 cut — Palomar restored via Brandon Loyd).  
 **Bump days** count toward the day’s total (short nudges = touches).  
 **Rule:** log the same day you send. If the day’s count ≠ planned on a send day, write **GAP** in Notes — don’t discover it two days later.
