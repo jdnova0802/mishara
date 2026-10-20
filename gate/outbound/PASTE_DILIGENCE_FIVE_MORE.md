@@ -3,13 +3,15 @@
 Free 72h REVIEW only. No deposit. No Bind Room.
 Figures are from the ALIRT PDF dated 9 August 2023, in thousands of dollars.
 ALIRT says it cannot tell how many of these China Construction Bank letters were legitimate.
-State National and Concert are already written. These five are new. That is seven in total.
+State National and Concert are already written. Trisura and Accelerant meet that same bar. That is four sends that count toward 15–22.
+
+American Millennium, Accredited, and Ag Workers stay in the file as lower-tier sends. No current personal address was findable for them. Do not count those three at the same hit rate.
 
 Copy each body through the diligence URL. The closing four lines are part of the email.
 
 ---
 
-EMAIL 1 — Trisura
+EMAIL 1 — Trisura (counts)
 
 To: tsic.programs@trisura.com
 Subject: Trisura’s CCB letters — free 72-hour look
@@ -33,7 +35,7 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 2 — Accelerant
+EMAIL 2 — Accelerant (counts)
 
 To: steve.strauss@accelins.com
 Subject: Accelerant’s CCB letters — free 72-hour look
@@ -57,15 +59,15 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 3 — American Millennium
+EMAIL 3 — American Millennium (lower tier — do not count with the four)
 
 To: gary.hall@citadelrisk.com
 Subject: American Millennium’s CCB letters — free 72-hour look
 
-Who this is: American Millennium’s own directory lists Gary Hall, President, Citadel Risk Services US, at this address. His own profile lists him as President and CEO of American Millennium Insurance Company. The company site returned an error on 20 October 2026, so this address is from the indexed company directory, not a page that opened this morning. If it bounces, stop.
+Who this is: Address him as President and CEO of American Millennium Insurance Company. That is the title on his own profile. The company directory prints this email next to a different title, President of Citadel Risk Services US, which is the manager, not the carrier on the ALIRT row. Leave Citadel out of the email. The company site returned an error on 20 October 2026, so the address is from the indexed directory, not a page that opened that morning. No newer personal address was findable. If it bounces, stop.
 
 Body:
-For Gary Hall — President, Citadel Risk Services US, American Millennium
+For Gary Hall — President and CEO, American Millennium Insurance Company
 
 ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: American Millennium (NAIC 26140) 24,583 against 8,086 surplus, 304.0%.
 
@@ -81,12 +83,12 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 4 — Accredited
+EMAIL 4 — Accredited (lower tier — do not count with the four)
 
 To: AAUnderwritingTeam@accreditedinsurance.com
 Subject: Accredited’s CCB letters — free 72-hour look
 
-Who this is: Grace Meek, President, Accredited America, on accreditedinsurance.com/our-people. William Spiegel is Chief Executive Officer on that same page. The address is the new-business inbox printed on the US program contact page. It is a team inbox, not her personal address. This row is 10.2% of surplus, under the 20% line.
+Who this is: Grace Meek, President, Accredited America, on accreditedinsurance.com/our-people, appointed 8 April 2024. William Spiegel is Chief Executive Officer on that same page. No personal address is printed. The only current inbox is the new-business team address on the US program contact page. An old Allied World address for her is the wrong company. This row is 10.2% of surplus.
 
 Body:
 For Grace Meek — President, Accredited America
@@ -105,12 +107,12 @@ https://gate.velaru.xyz/diligence
 
 ---
 
-EMAIL 5 — Agricultural Workers
+EMAIL 5 — Agricultural Workers (lower tier — do not count with the four)
 
 To: mhill@agworkers.com
 Subject: Ag Workers’ CCB letters — free 72-hour look
 
-Who this is: Marcus Hill, Chair of the Board, signed the company’s summer 2025 newsletter with this address. Terry Holley became interim president and chief operating officer in August 2026. Holley’s personal address is not printed. This is a Texas auto mutual, not a fronting group.
+Who this is: Marcus Hill, Chair of the Board, signed the company’s summer 2025 newsletter with this address. Terry Holley became interim president and chief operating officer in August 2026. His bio on agworkers.com prints no personal address, only info@agworkers.com. This is a Texas auto mutual, not a fronting group.
 
 Body:
 For Marcus Hill — Chair of the Board, Agricultural Workers Mutual Auto
