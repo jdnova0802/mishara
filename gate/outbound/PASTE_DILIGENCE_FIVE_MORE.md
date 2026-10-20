@@ -12,24 +12,23 @@ Copy each body through the diligence URL. The closing four lines are part of the
 EMAIL 1 — Trisura
 
 To: tsic.programs@trisura.com
-Subject: Free 72-hour review of Trisura’s CCB letters on the ALIRT list
+Subject: Trisura’s CCB letters — free 72-hour look
 
 Who this is: Michael Beasley, President and CEO of Trisura Insurance Company, in Trisura’s annual information form dated 12 February 2026. The address is the one printed on trisura.com/fronting-us for fronting questions. It is the programs desk, not a personal inbox. Richard Grant is Chief Underwriting Officer of Trisura in that same filing. His personal address is not printed there.
 
 Body:
 For Michael Beasley — President and CEO, Trisura Insurance Company
-Nisaba LLC. Vendor review of one named collateral path.
 
-ALIRT Insurance Research, 9 August 2023, “Cracks Starting to Show? Fallout From Collateral Issues with Vesttoo.” The table is every China Construction Bank letter of credit in year-end 2022 statutory filings. ALIRT says it cannot tell how many of those letters were legitimate. On that list, in thousands of dollars, Trisura Specialty Insurance Company (NAIC 16188) is 72,172 of letters of credit against 154,072 of policyholders’ surplus, 46.8%. Trisura Insurance Company (NAIC 22225) is 15,559 against 181,273, 8.6%.
+ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Trisura Specialty (NAIC 16188) 72,172 against 154,072 surplus, 46.8%. Trisura Insurance Company (NAIC 22225) 15,559 against 181,273, 8.6%.
 
-The 72-hour memo is only this: on your public pages (plus anything you send), where the next program can still bind before the bank confirms the collateral letter or letter of credit.
+Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
 
 No charge.
 No invoice.
 No obligation.
 If it is useless, delete it.
 
-Reply REVIEW, forward once if this should not sit with you, or ignore.
+Reply REVIEW.
 https://gate.velaru.xyz/diligence
 
 ---
@@ -37,24 +36,23 @@ https://gate.velaru.xyz/diligence
 EMAIL 2 — Accelerant
 
 To: steve.strauss@accelins.com
-Subject: Free 72-hour review of Accelerant’s CCB letters on the ALIRT list
+Subject: Accelerant’s CCB letters — free 72-hour look
 
 Who this is: Steven Strauss printed this address himself and lists his current role as US Chief Underwriting Officer at Accelerant. Accelerant’s 2026 earnings release still uses @accelins.com for investor relations (ray.iardella@accelins.com), so the domain is the company’s. The public about page names Frank O’Neill as group Chief Underwriting Officer and does not list Strauss. If this bounces, stop. Do not send the same note to the investor-relations address.
 
 Body:
 For Steven Strauss — US Chief Underwriting Officer, Accelerant
-Nisaba LLC. Vendor review of one named collateral path.
 
-ALIRT Insurance Research, 9 August 2023, “Cracks Starting to Show? Fallout From Collateral Issues with Vesttoo.” The table is every China Construction Bank letter of credit in year-end 2022 statutory filings. ALIRT says it cannot tell how many of those letters were legitimate. On that list, in thousands of dollars, Accelerant Specialty Insurance Company (NAIC 16890) is 15,187 of letters of credit against 67,528 of policyholders’ surplus, 22.5%. Accelerant National Insurance Company (NAIC 10220) is 1,711 against 24,166, 7.1%.
+ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Accelerant Specialty (NAIC 16890) 15,187 against 67,528 surplus, 22.5%. Accelerant National (NAIC 10220) 1,711 against 24,166, 7.1%.
 
-The 72-hour memo is only this: on your public pages (plus anything you send), where the next program can still bind before the bank confirms the collateral letter or letter of credit.
+Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
 
 No charge.
 No invoice.
 No obligation.
 If it is useless, delete it.
 
-Reply REVIEW, forward once if this should not sit with you, or ignore.
+Reply REVIEW.
 https://gate.velaru.xyz/diligence
 
 ---
@@ -62,24 +60,23 @@ https://gate.velaru.xyz/diligence
 EMAIL 3 — American Millennium
 
 To: gary.hall@citadelrisk.com
-Subject: Free 72-hour review of American Millennium’s CCB letters on the ALIRT list
+Subject: American Millennium’s CCB letters — free 72-hour look
 
 Who this is: American Millennium’s own directory lists Gary Hall, President, Citadel Risk Services US, at this address. His own profile lists him as President and CEO of American Millennium Insurance Company. The company site returned an error on 20 October 2026, so this address is from the indexed company directory, not a page that opened this morning. If it bounces, stop.
 
 Body:
-For Gary Hall — President, Citadel Risk Services US, American Millennium Insurance Company
-Nisaba LLC. Vendor review of one named collateral path.
+For Gary Hall — President, Citadel Risk Services US, American Millennium
 
-ALIRT Insurance Research, 9 August 2023, “Cracks Starting to Show? Fallout From Collateral Issues with Vesttoo.” The table is every China Construction Bank letter of credit in year-end 2022 statutory filings. ALIRT says it cannot tell how many of those letters were legitimate. On that list, in thousands of dollars, American Millennium Insurance Company (NAIC 26140) is 24,583 of letters of credit against 8,086 of policyholders’ surplus, 304.0%.
+ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: American Millennium (NAIC 26140) 24,583 against 8,086 surplus, 304.0%.
 
-The 72-hour memo is only this: on your public pages (plus anything you send), where the next program can still bind before the bank confirms the collateral letter or letter of credit.
+Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
 
 No charge.
 No invoice.
 No obligation.
 If it is useless, delete it.
 
-Reply REVIEW, forward once if this should not sit with you, or ignore.
+Reply REVIEW.
 https://gate.velaru.xyz/diligence
 
 ---
@@ -87,24 +84,23 @@ https://gate.velaru.xyz/diligence
 EMAIL 4 — Accredited
 
 To: AAUnderwritingTeam@accreditedinsurance.com
-Subject: Free 72-hour review of Accredited’s CCB letters on the ALIRT list
+Subject: Accredited’s CCB letters — free 72-hour look
 
 Who this is: Grace Meek, President, Accredited America, on accreditedinsurance.com/our-people. William Spiegel is Chief Executive Officer on that same page. The address is the new-business inbox printed on the US program contact page. It is a team inbox, not her personal address. This row is 10.2% of surplus, under the 20% line.
 
 Body:
 For Grace Meek — President, Accredited America
-Nisaba LLC. Vendor review of one named collateral path.
 
-ALIRT Insurance Research, 9 August 2023, “Cracks Starting to Show? Fallout From Collateral Issues with Vesttoo.” The table is every China Construction Bank letter of credit in year-end 2022 statutory filings. ALIRT says it cannot tell how many of those letters were legitimate. On that list, in thousands of dollars, Accredited Surety and Casualty Company, Inc. (NAIC 26379) is 7,396 of letters of credit against 72,462 of policyholders’ surplus, 10.2%.
+ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Accredited Surety and Casualty (NAIC 26379) 7,396 against 72,462 surplus, 10.2%.
 
-The 72-hour memo is only this: on your public pages (plus anything you send), where the next program can still bind before the bank confirms the collateral letter or letter of credit.
+Free 72-hour memo: where the next program can still bind before the bank confirms the letter.
 
 No charge.
 No invoice.
 No obligation.
 If it is useless, delete it.
 
-Reply REVIEW, forward once if this should not sit with you, or ignore.
+Reply REVIEW.
 https://gate.velaru.xyz/diligence
 
 ---
@@ -112,24 +108,23 @@ https://gate.velaru.xyz/diligence
 EMAIL 5 — Agricultural Workers
 
 To: mhill@agworkers.com
-Subject: Free 72-hour review of Ag Workers’ CCB letters on the ALIRT list
+Subject: Ag Workers’ CCB letters — free 72-hour look
 
 Who this is: Marcus Hill, Chair of the Board, signed the company’s summer 2025 newsletter with this address. Terry Holley became interim president and chief operating officer in August 2026. Holley’s personal address is not printed. This is a Texas auto mutual, not a fronting group.
 
 Body:
-For Marcus Hill — Chair of the Board, Agricultural Workers Mutual Auto Insurance Company
-Nisaba LLC. Vendor review of one named collateral path.
+For Marcus Hill — Chair of the Board, Agricultural Workers Mutual Auto
 
-ALIRT Insurance Research, 9 August 2023, “Cracks Starting to Show? Fallout From Collateral Issues with Vesttoo.” The table is every China Construction Bank letter of credit in year-end 2022 statutory filings. ALIRT says it cannot tell how many of those letters were legitimate. On that list, in thousands of dollars, Agricultural Workers Mutual Auto Insurance Company (NAIC 18430) is 8,736 of letters of credit against 36,408 of policyholders’ surplus, 24.0%.
+ALIRT, 9 August 2023, listed China Construction Bank letters of credit in year-end 2022 filings and said it cannot tell how many were legitimate. In thousands: Agricultural Workers Mutual Auto (NAIC 18430) 8,736 against 36,408 surplus, 24.0%.
 
-The 72-hour memo is only this: on your public pages (plus anything you send), where the next policy can still bind before the bank confirms the collateral letter or letter of credit.
+Free 72-hour memo: where the next policy can still bind before the bank confirms the letter.
 
 No charge.
 No invoice.
 No obligation.
 If it is useless, delete it.
 
-Reply REVIEW, forward once if this should not sit with you, or ignore.
+Reply REVIEW.
 https://gate.velaru.xyz/diligence
 
 ---
