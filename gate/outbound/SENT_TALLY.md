@@ -1,5 +1,8 @@
 # Outbound sent tally
 
+**Dropped 20 Oct 2026.** The outreach email drafts are removed. Do not send them.
+
+
 **Target:** **10 touches** Monday (10/10 cut — Palomar restored via Brandon Loyd).  
 **Bump days** count toward the day’s total (short nudges = touches).  
 **Rule:** log the same day you send. If the day’s count ≠ planned on a send day, write **GAP** in Notes — don’t discover it two days later.
@@ -31,10 +34,7 @@ One row per calendar day you touch desks.
 | **Plan B** | rest to hit 10 | One public pain line + REVIEW CTA — no deep dig |
 | **Bumps** | Fri after Tue wave | Short nudge only — still log count |
 
-Draft sources:
-- Canonical Monday paste → `PASTE_MONDAY_DILIGENCE_EMAILS.md` (10/10 cut)
-- Plan A backup four → `BACKUP_WAVE_72H_DILIGENCE.md`
-- Plan B six → `PLAN_B_FAST_6.md`
+Draft sources: removed 20 Oct 2026. Do not restore the paste files to send them.
 
 ## Do not reuse
 
