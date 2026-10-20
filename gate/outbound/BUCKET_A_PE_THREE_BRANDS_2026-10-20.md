@@ -16,13 +16,17 @@ Method: `BUCKET_A_METHOD.md` criterion 4, then object-per-hit, plus the acquisit
 
 ### Killed: Minnesota cannabis labor-peace licensure
 
-**Minn. Stat. § 342.14, subd. 1(a)(10) (2025).** https://www.revisor.mn.gov/statutes/cite/342.14 An application to obtain or renew a cannabis license must include “an attestation signed by a bona fide labor organization stating that the applicant has entered into a labor peace agreement.”
+**Minn. Stat. § 342.14, subd. 1(a)(10),** text on the Revisor page read 20 Oct 2026. https://www.revisor.mn.gov/statutes/cite/342.14 The history line on that page says subdivision 1 was amended by 2025 c. 31, s. 42. 2026 c. 123 amends other subdivisions of 342.14, not this clause. The clause, as displayed:
 
-**Office of Cannabis Management, Qualified Applicant Guide.** https://mn.gov/ocm/assets/Qualified_Applicant_Guide_4.0_tcm1202-669481.pdf Preliminary license approval requires that attestation. Qualified-applicant status expires if it is not submitted within six months. Preliminary approval is not the operating license. It is the step that lets the applicant take the site and raise capital.
+> (10) an attestation signed by a bona fide labor organization stating that the applicant has entered into a labor peace agreement;
 
-**OCM form, filename dated 24 July 2025.** https://mn.gov/ocm/assets/OCM_Attestation_of_Labor_Peace_Agreement_072425_fillable_tcm1202-669515.pdf This sheet is the applicant’s checkbox: “I certify that I will provide this documentation to OCM as a condition of licensure.” Agreements entered on or after 15 August 2025 must address the duration of the election. The checkbox is the promise to upload the labor organization’s attestation. It is not the attestation § 342.14 names.
+Subdivision 1(a) says that, at a minimum, any application to obtain or renew a cannabis license shall include that information, if applicable.
 
-**One line:** the license file is supposed to contain the labor organization’s signature, and OCM is the office that withholds preliminary approval without it. A product that kept the agreement from the office would fail criterion 4. A second confirmer is not an open seat.
+**Office of Cannabis Management, Qualified Applicant Guide 4.0.** https://mn.gov/ocm/assets/Qualified_Applicant_Guide_4.0_tcm1202-669481.pdf The overview table, Step 1: a qualified applicant has six months to finish the step before that status expires, except an applicant who reached qualified-applicant status before 1 June 2026, whose status expires on 1 January 2027. The same step requires two submissions: a third-party background check, and “a labor peace agreement attestation signed by a bona fide labor organization.” The next bullet: “OCM issues preliminary license approval upon successful completion and review of these two submissions.” The guide’s comparison table says microbusinesses are not required to provide the attestation, and that a microbusiness with 10 or more employees must provide one at renewal. Preliminary approval is not the operating license. The guide says applicants with preliminary approval are not authorized to begin cannabis business operations.
+
+**OCM form, filename dated 24 July 2025.** https://mn.gov/ocm/assets/OCM_Attestation_of_Labor_Peace_Agreement_072425_fillable_tcm1202-669515.pdf This is a different sheet. It is the applicant’s checkbox: “I certify that I will provide this documentation to OCM as a condition of licensure.” It also says agreements entered on or after 15 August 2025 must address the duration of the election. It does not replace § 342.14, subd. 1(a)(10), and it is not the labor-organization signature the statute and the guide both name.
+
+**One line:** the application the statute describes includes the labor organization’s signed attestation, and the guide says OCM issues preliminary approval upon review of that submission and the background check. A product that kept the agreement from the office would fail criterion 4. A second confirmer is not an open seat.
 
 **Object-per-hit:**
 
@@ -46,9 +50,13 @@ A project labor agreement can change the penalty treatment. It is not a second c
 
 ### Killed: DOL Scaling Apprenticeship grants
 
-**DOL OIG 02-26-001-03-375, issued 4 August 2026.** https://www.oig.dol.gov/public/reports/oa/2026/02-26-001-03-375.pdf ETA awarded the grants in July 2019, over $183 million, 23 recipients. OIG tested files and found 30 of 82 had no evidence of a credential the recipient had reported, and 27 of 29 incumbent-worker files had no documentation of the reported advancement. TEGL 23-19 did not allow self-attestation for date of birth; Changes 1 and 2 did allow self-attestation as acceptable documentation; Change 3, issued 1 December 2025, limits it again. OIG’s finding is that ETA did not make recipients keep the procedures, validate the data, or use monitoring to track findings.
+**DOL OIG 02-26-001-03-375, issued 4 August 2026.** https://www.oig.dol.gov/public/reports/oa/2026/02-26-001-03-375.pdf ETA awarded the grants in July 2019, over $183 million, 23 recipients. Two file findings are separate from the self-attestation example. OIG reports that 30 of 82 tested case files had no evidence of a credential for apprentices reported as having completed a program and received a degree or other credential, and that 27 of 29 incumbent-worker files had no documentation of the reported advancement.
 
-**One line:** the missing credential file is the grantee’s, and the Inspector General has already audited ETA for not requiring it. That is ETA’s oversight seat, not an empty second rail.
+In the same section, the self-attestation example is date of birth, not those two outcome counts. TEGL 23-19 required source documents to verify date of birth and did not permit self-attestation. Changes 1 and 2 allowed self-attestation as acceptable documentation. Change 3, issued 1 December 2025, after fieldwork, limits self-attestation. ETA told OIG that missing documentation may have come from a misunderstanding about age and incumbent-worker status, categories for which ETA said guidance allows employer-kept records or self-attestation. The report does not say the credential gap or the advancement gap was caused by that date-of-birth rule.
+
+OIG’s oversight finding is separate again: ETA did not ensure recipients documented procedures for eligibility and performance records, did not require data validation, and did not effectively use its monitoring system to track findings.
+
+**One line:** the missing credential and advancement files are the grantees’, and the Inspector General has already audited ETA’s oversight of those files. That is ETA’s seat. The date-of-birth self-attestation history is not the cause of those two counts.
 
 **Seat:** assigned to ETA, with OIG already in the audit.
 
@@ -58,13 +66,19 @@ A project labor agreement can change the penalty treatment. It is not a second c
 
 ### Killed: USA Rare Earth CHIPS direct-funding agreement
 
-**Direct Funding Agreement, Award ID AP-2026-0044, dated 3 June 2026,** filed as an exhibit to USA Rare Earth, Inc. https://www.sec.gov/Archives/edgar/data/1970622/000121390026064453/ea029340201ex10-1.htm Authority recited in the agreement: 15 U.S.C. §§ 4652 and 4659(a)(1), CHIPS Incentives Program NOFO 2023-NIST-CHIPS-SMME-01. The award covers the Round Top mine project ($132,000,000), the Stillwater magnet project ($50,000,000), the Stillwater metal project ($20,000,000), Magnet Project 2 ($60,000,000), and Metal Project 2 ($15,000,000).
+**Direct Funding Agreement, Award ID No. AP-2026-0044, dated as of 3 June 2026.** The clauses below are in the agreement exhibit, not in the Form 8-K item summary. Exhibit: https://www.sec.gov/Archives/edgar/data/1970622/000121390026064453/ea029340201ex10-1.htm The recitals state the agreement is entered under 15 U.S.C. §§ 4652 and 4659(a)(1), on applications to CHIPS Incentives Program NOFO No. 2023-NIST-CHIPS-SMME-01. Section 2.1 states the maximum direct-funding amounts: Round Top mine project $132,000,000; Stillwater magnet project $50,000,000; Stillwater metal project $20,000,000; Magnet Project 2 $60,000,000; Metal Project 2 $15,000,000.
 
-Section 2.2.2: the recipient may request a disbursement on or after the date it “reasonably determines” the milestone has been achieved, “without regard to, solely with respect to a Disbursement Request, the Department’s confirmation thereof,” and before the milestone longstop date. Section 2.2.3: Commerce then has up to 90 days to issue a Disbursement Approval Notice if it determines the milestone was achieved and the conditions precedent are satisfied, or a denial if not. The disbursement follows within 30 days of the approval notice. Section 5.1.5: satisfactory evidence that the milestone has been achieved. Section 5.1.6: an officer’s certificate one business day before the disbursement date. Section 2.3: making the disbursement is not an approval of the work.
+Section 2.2.2(a), the request, not the payment: the recipient may request a disbursement on a date that is “on or after the date on which the Recipient reasonably determines that the Actual Milestone Completion Date for such Disbursement Milestone has been achieved (without regard to, solely with respect to a Disbursement Request, the Department’s confirmation thereof)” and before the milestone longstop date.
 
-That is the Evans shape. The same Department that awarded the money decides the milestone, on a request the firm is allowed to file off its own determination. It is not an empty seat. Section 8 of the agreement requires the recipient to permit Commerce, the Commerce Inspector General, and the Comptroller General to visit and inspect in order to determine whether disbursement milestones have been achieved, and it cites the biannual GAO audit in 15 U.S.C. § 4652(c). The same statute is what Commerce OIG-25-021-I (3 June 2025) already restated for CHIPS use-of-funds and worker-commitment oversight. The 20 Oct pass killed the program-level version of this seat. This agreement does not reopen it.
+Section 2.2.3, the payment: the Department has up to ninety days to review the request and either issue a Disbursement Approval Notice, if it has determined that the milestone has been achieved and the other conditions precedent are satisfied, or issue a notice denying the request. Within thirty days of the approval notice, the Department shall make the disbursement.
 
-**One line:** the act that releases the tranche is Commerce’s approval notice. A stranger-checkable milestone file would be a second copy of a determination Commerce is already paid to make, and that OIG and GAO are already authorized to inspect. First answer if the product sold the nonpublic request. Second answer if the product is “Commerce can refuse before it pays” — and § 2.2.3 already says that.
+Section 5.1.5: the Department shall have received satisfactory evidence that the milestone has been achieved. Section 5.1.6: an officer’s certificate of the recipient’s agent one business day before the disbursement date, or another recent date after the approval notice that the Department accepts. Section 2.3: making a disbursement is not an approval or acceptance by the Department of any work, labor, supplies, materials, or equipment.
+
+Section 8.2.20(b)(ii): the recipient shall permit the Department, its agents, OIG, the Comptroller General, and the Department’s consultants to visit, audit, and inspect in connection with “(A) determining whether Disbursement Milestones have been achieved.” Section 8.2.20(b)(iv) requires cooperation with those same officers for audit and congressional inquiry, “including, but not limited to, the biannual GAO audit requirement described in 15 U.S.C. § 4652(c).”
+
+That is the Evans shape, and it is not an empty seat. The firm may file the request off its own determination. The disbursement waits on Commerce’s approval notice. The inspection right is in § 8.2.20, not in the 8-K summary. Commerce OIG-25-021-I (3 June 2025) already restated the CHIPS Act’s use-of-funds and worker-commitment oversight. The 20 Oct pass killed the program-level version of this seat. This agreement does not reopen it.
+
+**One line:** the act that releases the tranche is the Disbursement Approval Notice in § 2.2.3 of the agreement exhibit. A stranger-checkable milestone file would be a second copy of a determination that section already assigns to Commerce, with inspection in § 8.2.20(b). First answer if the product sold the nonpublic request. Second answer if the product is “Commerce can refuse before it pays” — and § 2.2.3 already says that.
 
 **Object-per-hit:**
 
@@ -72,7 +86,7 @@ That is the Evans shape. The same Department that awarded the money decides the 
 |---|---|
 | Who attests | The recipient, in the disbursement request and the officer’s certificate. Commerce then determines whether the milestone was achieved. |
 | What act depends on it | The disbursement. No approval notice, no payment under § 2.2.3. |
-| Who already gets paid to check | The CHIPS Program Office, before it pays. Commerce OIG and GAO, under 15 U.S.C. § 4652 and the inspection clause of this agreement. |
+| Who already gets paid to check | The Department, which must issue the § 2.2.3 approval notice before it pays. Commerce OIG and the Comptroller General, under the inspection covenant in § 8.2.20(b) of this agreement, including the GAO audit named in 15 U.S.C. § 4652(c). |
 
 **Seat:** assigned. Do not build an Erra gate in front of a CHIPS disbursement approval.
 
@@ -114,9 +128,9 @@ What is not an empty seat: Recommendation 3, the comparison of recipient job dat
 
 ## What this pass refuses to call a gap
 
-- A Verra room for Minnesota labor peace. The statute already names the labor organization’s signature, and OCM already withholds preliminary approval without it.
+- A Verra room for Minnesota labor peace. Minn. Stat. § 342.14, subd. 1(a)(10) names the labor organization’s signature, and the OCM guide says preliminary approval is issued upon review of that attestation and the background check.
 - A Verra room for Form 7220. The increased credit is the taxpayer’s return. The IRS examines it. A project labor agreement is penalty treatment, not a second required clear.
-- An Erra gate on CHIPS tranche release, including USA Rare Earth AP-2026-0044. The recipient may file off its own determination. Commerce’s approval notice is what releases the money, and OIG and GAO already have the milestone inspection.
+- An Erra gate on CHIPS tranche release, including USA Rare Earth AP-2026-0044. In the agreement exhibit, § 2.2.2 lets the recipient request off its own determination, § 2.2.3 is the approval notice that releases the money, and § 8.2.20(b) is the inspection covenant. Those sentences are not in the 8-K item summary.
 - A Velaru proof of New Jersey jobs or Wisconsin performance measures. Both states already pay an auditor to say whether the agency checked the firm’s report. The nonpublic wage file is not a stranger’s mouth.
 
 No candidate cleared criterion 4 and also had a confirming seat that was empty or only the firm’s. The three brands were pointed at the structures. The structures already name the checker.
