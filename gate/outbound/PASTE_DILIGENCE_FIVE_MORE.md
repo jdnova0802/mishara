@@ -5,9 +5,9 @@ Figures are from the ALIRT PDF dated 9 August 2023, in thousands of dollars.
 ALIRT says it cannot tell how many of these China Construction Bank letters were legitimate.
 Do not send a team inbox. Trisura’s programs address and Accredited’s new-business address are withdrawn.
 
-Personal addresses that count: State National, Concert, Accelerant (Steven Strauss), Trisura (Tom Ciano, in PASTE_DILIGENCE_PERSONAL.md), and Southlake (Erick Moreland, same file). That is five.
+Personal addresses that count stay State National, Concert, Accelerant (Steven Strauss), Southlake (Erick Moreland), and American Millennium (Gary Hall). Tom Ciano is withdrawn. Richard Grant’s address is not in the 12 February 2026 filing.
 
-American Millennium and Ag Workers stay lower tier. They are personal addresses, not team inboxes, and they are not counted with the five.
+Ag Workers stays lower tier. It is a personal address, and it is not counted with the five.
 
 Copy each body through the diligence URL. The closing four lines are part of the email.
 
