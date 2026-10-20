@@ -15,6 +15,7 @@ One row per calendar day you touch desks.
 | 2026-09-26 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | same four | Fill when sent |
 | 2026-09-29 | Send (Mon) | 4 | 6 | 0 | **planned 10** | Plan A 4 + Plan B 6 (named desks) | SEND — PASTE 10/10 · Fri bump 2026-10-03 |
 | 2026-10-03 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | silent desks from Mon | Short bump template in PASTE |
+| 2026-10-21 | Send (Wed) | 17 | 0 | 0 | **0** | State National, Concert, Accelerant, Southlake, American Millennium, Old Republic, Berkley, Canopius, AXIS, Knight, Emerald Bay, Munich Re Perry, Skyward, Munich Re Carnevale, Everest, BHSI, Dellwood | Scheduled in Gmail on 20 Oct 2026. Not sent. Count stays 0 until they leave the outbox. |
 
 ## Running check (update weekly)
 

@@ -47,4 +47,4 @@ Where the body is:
 - 4: `PASTE_DILIGENCE_PERSONAL.md` (Southlake only)
 - 6–17: `PASTE_DILIGENCE_NEW_ENTITIES.md`
 
-After they leave the outbox, log the day in `SENT_TALLY.md`. Until then the count is zero.
+Scheduled in Gmail on 20 October 2026 for the times above. After they leave the outbox, log the day in `SENT_TALLY.md`. Until then the count is zero.
