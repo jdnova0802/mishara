@@ -1827,3 +1827,166 @@ def pulse_summary() -> dict:
         "sample_interval_sec": PULSE_MIN_INTERVAL_SEC,
     }
 
+
+def _ensure_spend_mandates(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS spend_mandates (
+            id TEXT PRIMARY KEY,
+            fingerprint TEXT NOT NULL,
+            agent_id TEXT NOT NULL,
+            terms_json TEXT NOT NULL,
+            created_at TEXT NOT NULL,
+            not_after TEXT NOT NULL,
+            status TEXT NOT NULL,
+            demo INTEGER NOT NULL DEFAULT 0,
+            card_id TEXT
+        )
+        """
+    )
+    have = {row["name"] for row in conn.execute("PRAGMA table_info(spend_mandates)")}
+    if "card_id" not in have:
+        conn.execute("ALTER TABLE spend_mandates ADD COLUMN card_id TEXT")
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_spend_mandates_agent ON spend_mandates(agent_id, created_at DESC)"
+    )
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_spend_mandates_card ON spend_mandates(card_id)"
+    )
+
+
+def _spend_mandate_row(row) -> dict | None:
+    if row is None:
+        return None
+    import json
+
+    terms = {}
+    try:
+        parsed = json.loads(row["terms_json"] or "{}")
+        if isinstance(parsed, dict):
+            terms = parsed
+    except json.JSONDecodeError:
+        terms = {}
+    return {
+        "mandate_id": row["id"],
+        "fingerprint": row["fingerprint"],
+        "agent_id": row["agent_id"],
+        "terms": terms,
+        "created_at": row["created_at"],
+        "not_after": row["not_after"],
+        "status": row["status"],
+        "demo": bool(row["demo"]),
+        "card_id": row["card_id"] if "card_id" in row.keys() else None,
+    }
+
+
+def insert_spend_mandate(
+    *,
+    mandate_id: str,
+    fingerprint: str,
+    agent_id: str,
+    terms: dict,
+    created_at: str,
+    not_after: str,
+    status: str,
+    demo: bool,
+    card_id: str | None = None,
+) -> None:
+    import json
+
+    with db() as conn:
+        _ensure_spend_mandates(conn)
+        conn.execute(
+            """
+            INSERT INTO spend_mandates (
+                id, fingerprint, agent_id, terms_json, created_at, not_after, status, demo, card_id
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                mandate_id,
+                fingerprint,
+                agent_id,
+                json.dumps(terms, sort_keys=True, separators=(",", ":")),
+                created_at,
+                not_after,
+                status,
+                1 if demo else 0,
+                card_id,
+            ),
+        )
+
+
+def get_spend_mandate(mandate_id: str) -> dict | None:
+    with db() as conn:
+        _ensure_spend_mandates(conn)
+        row = conn.execute(
+            "SELECT * FROM spend_mandates WHERE id = ?",
+            (mandate_id,),
+        ).fetchone()
+    return _spend_mandate_row(row)
+
+
+def revoke_spend_mandate(mandate_id: str, *, revoked_at: str) -> dict | None:
+    with db() as conn:
+        _ensure_spend_mandates(conn)
+        cur = conn.execute(
+            """
+            UPDATE spend_mandates
+            SET status = 'revoked'
+            WHERE id = ? AND status = 'bound'
+            """,
+            (mandate_id,),
+        )
+        if cur.rowcount == 0:
+            row = conn.execute(
+                "SELECT * FROM spend_mandates WHERE id = ?",
+                (mandate_id,),
+            ).fetchone()
+            return _spend_mandate_row(row)
+        row = conn.execute(
+            "SELECT * FROM spend_mandates WHERE id = ?",
+            (mandate_id,),
+        ).fetchone()
+    _ = revoked_at
+    return _spend_mandate_row(row)
+
+
+def list_spend_mandates(*, agent_id: str | None = None, card_id: str | None = None) -> list[dict]:
+    clauses = []
+    args: list[str] = []
+    if agent_id:
+        clauses.append("agent_id = ?")
+        args.append(agent_id)
+    if card_id:
+        clauses.append("card_id = ?")
+        args.append(card_id)
+    if not clauses:
+        return []
+    where = " OR ".join(clauses)
+    with db() as conn:
+        _ensure_spend_mandates(conn)
+        rows = conn.execute(
+            f"SELECT * FROM spend_mandates WHERE {where}",
+            args,
+        ).fetchall()
+    return [r for r in (_spend_mandate_row(row) for row in rows) if r]
+
+
+def latch_spend_mandate_card(mandate_id: str, card_id: str) -> dict | None:
+    """Attach a Stripe card id once. A second, different card does not overwrite."""
+    with db() as conn:
+        _ensure_spend_mandates(conn)
+        conn.execute(
+            """
+            UPDATE spend_mandates
+            SET card_id = ?
+            WHERE id = ? AND (card_id IS NULL OR card_id = '')
+            """,
+            (card_id, mandate_id),
+        )
+        row = conn.execute(
+            "SELECT * FROM spend_mandates WHERE id = ?",
+            (mandate_id,),
+        ).fetchone()
+    return _spend_mandate_row(row)
+
