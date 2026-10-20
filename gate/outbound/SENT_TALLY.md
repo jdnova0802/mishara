@@ -1,7 +1,6 @@
 # Outbound sent tally
 
-**Dropped 20 Oct 2026.** The outreach email drafts are removed. Do not send the Wednesday 21 October 2026 wave of 17. Nothing in that wave was marked sent. The mailbox was never connected, so nothing was queued.
-
+**Dropped 20 Oct 2026.** The Wednesday 21 October 2026 wave of 17 is removed. Do not send it. Nothing in that wave was marked sent. The mailbox was never connected, so nothing was queued. The Monday paste, the backup wave, and the Plan B six stay.
 
 **Target:** **10 touches** Monday (10/10 cut — Palomar restored via Brandon Loyd).  
 **Bump days** count toward the day’s total (short nudges = touches).  
@@ -34,7 +33,10 @@ One row per calendar day you touch desks.
 | **Plan B** | rest to hit 10 | One public pain line + REVIEW CTA — no deep dig |
 | **Bumps** | Fri after Tue wave | Short nudge only — still log count |
 
-Draft sources: removed 20 Oct 2026. Do not restore the paste files to send them.
+Draft sources:
+- Canonical Monday paste → `PASTE_MONDAY_DILIGENCE_EMAILS.md` (10/10 cut)
+- Plan A backup four → `BACKUP_WAVE_72H_DILIGENCE.md`
+- Plan B six → `PLAN_B_FAST_6.md`
 
 ## Do not reuse
 
