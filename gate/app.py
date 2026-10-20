@@ -260,6 +260,11 @@ except ImportError:
     import issuing_mouth as issuing_mouth_mod
 
 try:
+    from gate import spend_mandate as spend_mandate_mod
+except ImportError:
+    import spend_mandate as spend_mandate_mod
+
+try:
     from gate import sink_mouth as sink_mouth_mod
 except ImportError:
     import sink_mouth as sink_mouth_mod
@@ -439,6 +444,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
         "/.well-known/issuing-mouth.json",
+        "/.well-known/spend-mandate.json",
         "/.well-known/sink-mouth.json",
         "/.well-known/regulator.json",
     }
@@ -1940,6 +1946,8 @@ def well_known_gate():
             "issuing_mouth_json": f"{advertised_url()}/.well-known/issuing-mouth.json",
             "issuing_dogfood": f"{advertised_url()}/demo/issuing/mouth",
             "issuing_webhook": f"{advertised_url()}/v1/issuing/authorization",
+            "spend_mandate": f"{advertised_url()}/.well-known/spend-mandate.json",
+            "spend_mandate_demo_bind": f"{advertised_url()}/demo/mandate/bind",
             "regulator": f"{advertised_url()}/regulator",
             "regulator_json": f"{advertised_url()}/.well-known/regulator.json",
             "regulator_mint": f"{advertised_url()}/demo/regulator/mint",
@@ -2954,6 +2962,68 @@ def well_known_issuing_mouth():
     return jsonify(issuing_mouth_mod.manifest(advertised_url()))
 
 
+@app.route("/.well-known/spend-mandate.json")
+def well_known_spend_mandate():
+    return jsonify(spend_mandate_mod.spec(advertised_url()))
+
+
+def _mandate_id_ok(mandate_id: str) -> bool:
+    return bool(re.fullmatch(r"gmd_[a-f0-9]{16}", mandate_id or ""))
+
+
+@app.route("/demo/mandate/bind", methods=["POST"])
+def demo_mandate_bind():
+    """Bind a spend mandate without an API key. Demo flag is stored on the row."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    out = spend_mandate_mod.bind(body, demo=True, public_url=advertised_url())
+    if not out.get("ok"):
+        return jsonify(out), 400
+    return jsonify(out), 200
+
+
+@app.route("/v1/mandate/bind", methods=["POST"])
+def mandate_bind():
+    if not _write_authorized():
+        return jsonify({"error": "unauthorized"}), 401
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+    out = spend_mandate_mod.bind(body, demo=False, public_url=advertised_url())
+    if not out.get("ok"):
+        return jsonify(out), 400
+    return jsonify(out), 200
+
+
+@app.route("/v1/mandate/<mandate_id>", methods=["GET"])
+def mandate_read(mandate_id: str):
+    """Stranger read of a bound mandate. Terms are the point of the object."""
+    if not _mandate_id_ok(mandate_id):
+        return jsonify({"error": "unknown_mandate"}), 404
+    out = spend_mandate_mod.fetch(mandate_id, public_url=advertised_url())
+    if not out:
+        return jsonify({"error": "unknown_mandate"}), 404
+    return jsonify(out), 200
+
+
+@app.route("/v1/mandate/<mandate_id>/revoke", methods=["POST"])
+def mandate_revoke(mandate_id: str):
+    if not _write_authorized():
+        return jsonify({"error": "unauthorized"}), 401
+    if not _mandate_id_ok(mandate_id):
+        return jsonify({"error": "unknown_mandate"}), 404
+    out = spend_mandate_mod.revoke(mandate_id, public_url=advertised_url())
+    if not out:
+        return jsonify({"error": "unknown_mandate"}), 404
+    return jsonify(out), 200
+
+
 @app.route("/issuing-mouth")
 def issuing_mouth_page():
     return render_template(
@@ -2986,6 +3056,7 @@ def demo_issuing_mouth():
         allowed_categories=body.get("allowed_categories"),
         platform_allowed_categories=body.get("platform_allowed_categories"),
         job_id=(body.get("job_id") or None),
+        mandate_id=(body.get("mandate_id") or body.get("gate_mandate_id") or None),
         force_breach=bool(body.get("force_breach")),
     )
     if isinstance(body.get("authorization"), dict):

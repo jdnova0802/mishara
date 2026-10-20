@@ -139,13 +139,14 @@ def observed_merchant_category(auth: dict) -> str:
     )
 
 
-def workflow_category_check(auth: dict) -> dict[str, Any]:
+def workflow_category_check(auth: dict, *, allowed_override: list[str] | None = None) -> dict[str, Any]:
     """Fail closed when metadata allowlist is set and auth category is outside it.
 
     If no Gate allowlist is configured, returns configured=False (Clear still runs).
     Stripe spending_controls are reported but not re-enforced here.
+    allowed_override is the bound mandate's list when a gate_mandate_id is in force.
     """
-    allowed = workflow_allowed_categories(auth)
+    allowed = list(allowed_override) if allowed_override is not None else workflow_allowed_categories(auth)
     observed = observed_merchant_category(auth)
     platform = platform_allowed_categories(auth)
     out: dict[str, Any] = {
@@ -331,6 +332,63 @@ def _workflow_denied_result(check: dict[str, Any], body: dict[str, Any]) -> dict
         }
 
 
+def _mandate_denied_result(bound: dict[str, Any], body: dict[str, Any]) -> dict[str, Any]:
+    """NO_GO when a named mandate cannot be used. Scope is the mandate record."""
+    signal = bound.get("signal") or "mandate_unknown"
+    try:
+        try:
+            from gate import claim_scope as claim_scope_mod
+        except ImportError:
+            import claim_scope as claim_scope_mod
+
+        counterparty = (body.get("transfer") or {}).get("counterparty") or None
+        scope = claim_scope_mod.build(
+            boundary="gate_spend_mandate",
+            logs=["spend_mandates", "issuing.card.metadata.gate_mandate_id"],
+            plain=(
+                "NO_GO checked only against the bound spend mandate named on this card "
+                "versus the metadata presented with the auth — not Stripe spending_controls, "
+                "not capture."
+            ),
+            counterparties=[counterparty] if counterparty else None,
+            keys_checked={
+                "mandate_id": bound.get("mandate_id"),
+                "fingerprint": bound.get("fingerprint"),
+                "signal": signal,
+                "diverged": bound.get("diverged"),
+            },
+            extra={"cite": "gate-spend-mandate-v1"},
+        )
+        return claim_scope_mod.attach(
+            {
+                "spec": "gate-prefinality-v1",
+                "decision": "NO_GO",
+                "halt": True,
+                "signals": [signal],
+                "reason": signal,
+                "message": bound.get("plain") or "Bound mandate refused.",
+                "rail": RAIL,
+                "mandate_bind": {
+                    "mandate_id": bound.get("mandate_id"),
+                    "fingerprint": bound.get("fingerprint"),
+                    "signal": signal,
+                    "diverged": bound.get("diverged"),
+                },
+            },
+            scope=scope,
+            force=True,
+        )
+    except Exception:
+        return {
+            "spec": "gate-prefinality-v1",
+            "decision": "NO_GO",
+            "halt": True,
+            "signals": [signal],
+            "reason": signal,
+            "message": bound.get("plain") or "Bound mandate refused.",
+        }
+
+
 def decide(
     auth: dict,
     *,
@@ -339,9 +397,32 @@ def decide(
     """Run workflow category lock then Gate Clear. Fail closed on HOLD/NO_GO/errors."""
     t0 = time.perf_counter()
     body = authorization_to_evaluate_body(auth)
-    check = workflow_category_check(auth)
+    try:
+        from gate import spend_mandate as spend_mandate_mod
+    except ImportError:
+        import spend_mandate as spend_mandate_mod
 
-    if check.get("configured") and not check.get("ok"):
+    bound = spend_mandate_mod.resolve(auth, body)
+    if bound.get("halt"):
+        result = _mandate_denied_result(bound, body)
+        check = {
+            "spec": WORKFLOW_SPEC,
+            "configured": False,
+            "ok": False,
+            "signal": bound.get("signal"),
+            "plain": bound.get("plain"),
+        }
+    else:
+        if bound.get("applied"):
+            body = bound["body"]
+        categories = None
+        if bound.get("applied"):
+            categories = list((bound.get("terms") or {}).get("allowed_categories") or []) or None
+        check = workflow_category_check(auth, allowed_override=categories)
+
+    if bound.get("halt"):
+        pass
+    elif check.get("configured") and not check.get("ok"):
         result = _workflow_denied_result(check, body)
     else:
         try:
@@ -370,6 +451,14 @@ def decide(
         "decision": decision,
         "halt": not approved,
         "workflow_lock": check,
+        "mandate_bind": bound.get("mandate_id") and {
+            "applied": bool(bound.get("applied")),
+            "mandate_id": bound.get("mandate_id"),
+            "fingerprint": bound.get("fingerprint"),
+            "signal": bound.get("signal"),
+            "diverged": bound.get("diverged"),
+            "plain": bound.get("plain"),
+        },
         "gate": {
             "evaluation_id": result.get("evaluation_id") or result.get("restraint_id"),
             "verify_url": result.get("verify_url"),
@@ -427,6 +516,7 @@ def dogfood_authorization(
     allowed_categories: list[str] | str | None = None,
     platform_allowed_categories: list[str] | None = None,
     job_id: str | None = None,
+    mandate_id: str | None = None,
     force_breach: bool = False,
 ) -> dict[str, Any]:
     """Synthetic Issuing Authorization for live dogfood without Stripe Issuing approval."""
@@ -440,6 +530,8 @@ def dogfood_authorization(
         meta["expected_merchant"] = expected_merchant
     if job_id:
         meta["job_id"] = job_id
+    if mandate_id:
+        meta["gate_mandate_id"] = mandate_id
     if allowed_categories is not None:
         if isinstance(allowed_categories, list):
             meta["allowed_categories"] = ",".join(allowed_categories)
@@ -606,9 +698,18 @@ def manifest(public_url: str) -> dict[str, Any]:
         "description": (
             "Real-time AUTHORIZE/DECLINE for Stripe Issuing agent cards. "
             "Stripe spending_controls = MCC floor; Gate metadata allowed_categories = "
-            "workflow lock with claim_scope. Every auth hits Gate Clear; declines mint "
-            "stranger-verifiable receipts. Gate never holds card float."
+            "workflow lock with claim_scope. A gate_mandate_id on the card evaluates "
+            "the bound spend mandate, not a metadata edit in the same second. "
+            "Every auth hits Gate Clear; declines mint stranger-verifiable receipts. "
+            "Gate never holds card float."
         ),
+        "spend_mandate": {
+            "spec": "gate-spend-mandate-v1",
+            "metadata_key": "gate_mandate_id",
+            "bind": f"{base}/v1/mandate/bind",
+            "demo_bind": f"{base}/demo/mandate/bind",
+            "read": f"{base}/v1/mandate/{{mandate_id}}",
+        },
         "config": cfg,
         "workflow_lock": {
             "spec": WORKFLOW_SPEC,
