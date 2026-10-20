@@ -451,14 +451,19 @@ def decide(
         "decision": decision,
         "halt": not approved,
         "workflow_lock": check,
-        "mandate_bind": bound.get("mandate_id") and {
-            "applied": bool(bound.get("applied")),
-            "mandate_id": bound.get("mandate_id"),
-            "fingerprint": bound.get("fingerprint"),
-            "signal": bound.get("signal"),
-            "diverged": bound.get("diverged"),
-            "plain": bound.get("plain"),
-        },
+        "mandate_bind": (
+            {
+                "applied": bool(bound.get("applied")),
+                "mandate_id": bound.get("mandate_id"),
+                "fingerprint": bound.get("fingerprint"),
+                "signal": bound.get("signal"),
+                "diverged": bound.get("diverged"),
+                "live_count": bound.get("live_count"),
+                "plain": bound.get("plain"),
+            }
+            if bound.get("halt") or bound.get("applied")
+            else None
+        ),
         "gate": {
             "evaluation_id": result.get("evaluation_id") or result.get("restraint_id"),
             "verify_url": result.get("verify_url"),
@@ -517,6 +522,7 @@ def dogfood_authorization(
     platform_allowed_categories: list[str] | None = None,
     job_id: str | None = None,
     mandate_id: str | None = None,
+    card_id: str | None = None,
     force_breach: bool = False,
 ) -> dict[str, Any]:
     """Synthetic Issuing Authorization for live dogfood without Stripe Issuing approval."""
@@ -538,7 +544,7 @@ def dogfood_authorization(
         else:
             meta["allowed_categories"] = str(allowed_categories)
     card: dict[str, Any] = {
-        "id": "ic_dogfood",
+        "id": (card_id or "ic_dogfood").strip() or "ic_dogfood",
         "metadata": meta,
     }
     if platform_allowed_categories is not None:
@@ -689,6 +695,15 @@ def readiness(*, stripe_mod: Any | None = None) -> dict[str, Any]:
     }
 
 
+def _spend_mandate_enforcement() -> dict[str, str]:
+    try:
+        from gate import spend_mandate as spend_mandate_mod
+    except ImportError:
+        import spend_mandate as spend_mandate_mod
+
+    return spend_mandate_mod.enforcement()
+
+
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
     cfg = config()
@@ -698,10 +713,11 @@ def manifest(public_url: str) -> dict[str, Any]:
         "description": (
             "Real-time AUTHORIZE/DECLINE for Stripe Issuing agent cards. "
             "Stripe spending_controls = MCC floor; Gate metadata allowed_categories = "
-            "workflow lock with claim_scope. A gate_mandate_id on the card evaluates "
-            "the bound spend mandate, not a metadata edit in the same second. "
-            "Every auth hits Gate Clear; declines mint stranger-verifiable receipts. "
-            "Gate never holds card float."
+            "workflow lock with claim_scope. gate_mandate_id loads a bound spend "
+            "mandate. Disagreement is mandate_diverged. Omitting the id is "
+            "mandate_omitted when that agent or that Stripe card already has a live "
+            "mandate. Every auth hits Gate Clear; declines mint stranger-verifiable "
+            "receipts. Gate never holds card float."
         ),
         "spend_mandate": {
             "spec": "gate-spend-mandate-v1",
@@ -709,6 +725,7 @@ def manifest(public_url: str) -> dict[str, Any]:
             "bind": f"{base}/v1/mandate/bind",
             "demo_bind": f"{base}/demo/mandate/bind",
             "read": f"{base}/v1/mandate/{{mandate_id}}",
+            "enforcement": _spend_mandate_enforcement(),
         },
         "config": cfg,
         "workflow_lock": {

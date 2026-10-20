@@ -181,6 +181,7 @@ def _sign(record: dict) -> dict:
             "mandate_id": record.get("mandate_id"),
             "fingerprint": record.get("fingerprint"),
             "status": record.get("status"),
+            "card_id": record.get("card_id"),
             "terms": record.get("terms"),
         },
         as_of=record.get("created_at"),
@@ -208,6 +209,7 @@ def _row_to_public(row: dict, *, public_url: str = "") -> dict[str, Any]:
         "status": row["status"],
         "demo": bool(row.get("demo")),
         "created_at": row["created_at"],
+        "card_id": row.get("card_id") or None,
         "terms": terms,
         "verify_url": f"{base}/v1/mandate/{mandate_id}" if base else f"/v1/mandate/{mandate_id}",
     }
@@ -217,10 +219,23 @@ def _row_to_public(row: dict, *, public_url: str = "") -> dict[str, Any]:
     return record
 
 
+def _card_id(raw: Any) -> tuple[str | None, str | None]:
+    if raw is None or raw == "":
+        return None, None
+    text = str(raw).strip()
+    if not text.replace("_", "").isalnum() or len(text) > 64:
+        return None, "card_id_invalid"
+    return text, None
+
+
 def bind(body: dict, *, demo: bool = False, public_url: str = "") -> dict[str, Any]:
-    terms, err = _terms_from_body(body if isinstance(body, dict) else {})
+    body = body if isinstance(body, dict) else {}
+    terms, err = _terms_from_body(body)
     if err or terms is None:
         return {"ok": False, "error": err or "invalid_mandate", "spec": SPEC}
+    card_id, card_err = _card_id(body.get("card_id"))
+    if card_err:
+        return {"ok": False, "error": card_err, "spec": SPEC}
     mandate_id = ID_PREFIX + secrets.token_hex(8)
     created_at = _iso(_utc_now())
     fp = fingerprint(terms)
@@ -233,6 +248,7 @@ def bind(body: dict, *, demo: bool = False, public_url: str = "") -> dict[str, A
         not_after=terms["not_after"],
         status="bound",
         demo=demo,
+        card_id=card_id,
     )
     public = _row_to_public(
         {
@@ -241,6 +257,7 @@ def bind(body: dict, *, demo: bool = False, public_url: str = "") -> dict[str, A
             "status": "bound",
             "demo": demo,
             "created_at": created_at,
+            "card_id": card_id,
             "terms": terms,
         },
         public_url=public_url,
@@ -248,9 +265,12 @@ def bind(body: dict, *, demo: bool = False, public_url: str = "") -> dict[str, A
     public["ok"] = True
     public["card_metadata_key"] = "gate_mandate_id"
     public["plain"] = (
-        "Put gate_mandate_id on the Issuing card. The auth mouth evaluates "
-        "these terms, and refuses if card metadata disagrees with them."
+        "Put gate_mandate_id on the Issuing card. Disagreement with these terms "
+        "is mandate_diverged. Omitting the id is mandate_omitted once this agent_id "
+        "is presented, or once this Stripe card id is stored here. Pass card_id at "
+        "bind so the first swipe cannot drop both the id and the agent_id."
     )
+    public["enforcement"] = enforcement()
     return public
 
 
@@ -294,7 +314,39 @@ def _presented(auth: dict, body: dict) -> dict[str, Any]:
         "categories_set": bool(mouth.workflow_allowed_categories(auth)),
         "job_set": bool((meta.get("job_id") or meta.get("gate_job_id") or "").strip()),
         "agent_set": bool((meta.get("agent_id") or meta.get("gate_agent_id") or "").strip()),
+        "card_id": _auth_card_id(auth),
     }
+
+
+def _auth_card_id(auth: dict) -> str | None:
+    auth = auth if isinstance(auth, dict) else {}
+    card = auth.get("card") if isinstance(auth.get("card"), dict) else {}
+    text = (str(card.get("id") or "")).strip()
+    return text or None
+
+
+def _is_live(row: dict) -> bool:
+    if row.get("status") != "bound":
+        return False
+    not_after = _parse_time((row.get("terms") or {}).get("not_after"))
+    return not_after is not None and not_after > _utc_now()
+
+
+def _live_for(*, agent_id: str | None, card_id: str | None) -> list[dict]:
+    if not agent_id and not card_id:
+        return []
+    try:
+        rows = db_mod.list_spend_mandates(agent_id=agent_id, card_id=card_id)
+    except Exception:
+        raise
+    seen: set[str] = set()
+    live: list[dict] = []
+    for row in rows:
+        if not row or row["mandate_id"] in seen or not _is_live(row):
+            continue
+        seen.add(row["mandate_id"])
+        live.append(row)
+    return live
 
 
 def _divergences(presented: dict, terms: dict) -> list[str]:
@@ -322,15 +374,52 @@ def _divergences(presented: dict, terms: dict) -> list[str]:
     return bad
 
 
-def resolve(auth: dict, body: dict) -> dict[str, Any]:
-    """If the card names a mandate id, the bound record replaces metadata.
+def _omitted(presented: dict) -> dict[str, Any] | None:
+    """A missing id fail-closes when this agent or this card already has a live mandate.
 
-    No id → not applied (legacy metadata path). A named id that cannot be
-    used fail-closes. Metadata that disagrees with the record fail-closes.
+    Returns None when nothing live is anchored, which leaves the metadata path.
+    """
+    agent_id = presented["agent_id"] if presented["agent_set"] else None
+    card_id = presented.get("card_id")
+    try:
+        live = _live_for(agent_id=agent_id, card_id=card_id)
+    except Exception:
+        return {
+            "applied": False,
+            "halt": True,
+            "signal": "mandate_lookup_failed",
+            "plain": "Could not read live mandates — fail closed.",
+        }
+    if not live:
+        return None
+    only = live[0]["mandate_id"] if len(live) == 1 else None
+    return {
+        "applied": False,
+        "halt": True,
+        "signal": "mandate_omitted",
+        "mandate_id": only,
+        "live_count": len(live),
+        "plain": (
+            "A live bound mandate exists for this agent or this card, and this "
+            "swipe did not present gate_mandate_id."
+        ),
+    }
+
+
+def resolve(auth: dict, body: dict) -> dict[str, Any]:
+    """Bound record wins over metadata when the swipe names a mandate id.
+
+    A missing id fail-closes with mandate_omitted when the presented agent_id
+    has a live mandate, or when this Stripe card id is already stored on one.
+    A swipe that names neither, on a card that was never stored, stays on the
+    metadata path.
     """
     presented = _presented(auth, body)
     mandate_id = presented["mandate_id"]
     if not mandate_id:
+        omitted = _omitted(presented)
+        if omitted:
+            return omitted
         return {"applied": False, "halt": False, "body": body, "signal": None}
     if not mandate_id.startswith(ID_PREFIX):
         return {
@@ -383,6 +472,18 @@ def resolve(auth: dict, body: dict) -> dict[str, Any]:
             "fingerprint": row.get("fingerprint"),
             "plain": "Mandate is past not_after.",
         }
+    auth_card = presented.get("card_id")
+    stored_card = (row.get("card_id") or "").strip() or None
+    if stored_card and auth_card and stored_card != auth_card:
+        return {
+            "applied": False,
+            "halt": True,
+            "body": body,
+            "signal": "mandate_card_mismatch",
+            "mandate_id": mandate_id,
+            "fingerprint": row.get("fingerprint"),
+            "plain": "This mandate is stored for a different Stripe card id.",
+        }
     diverged = _divergences(presented, terms)
     if diverged:
         return {
@@ -417,6 +518,10 @@ def resolve(auth: dict, body: dict) -> dict[str, Any]:
     if terms.get("allowed_categories"):
         mandate["allowed_categories"] = list(terms["allowed_categories"])
     overlaid["mandate"] = mandate
+    if auth_card and not stored_card:
+        latched = db_mod.latch_spend_mandate_card(mandate_id, auth_card)
+        if latched and latched.get("card_id"):
+            stored_card = latched["card_id"]
     return {
         "applied": True,
         "halt": False,
@@ -425,7 +530,27 @@ def resolve(auth: dict, body: dict) -> dict[str, Any]:
         "mandate_id": mandate_id,
         "fingerprint": row["fingerprint"],
         "terms": terms,
-        "plain": "Auth is evaluated against the bound mandate, not a metadata edit.",
+        "card_id": stored_card,
+        "plain": "Auth is evaluated against the bound mandate.",
+    }
+
+
+def enforcement() -> dict[str, str]:
+    return {
+        "disagreement": (
+            "Metadata that contradicts the bound terms is mandate_diverged."
+        ),
+        "omission": (
+            "A swipe with no gate_mandate_id is mandate_omitted when the presented "
+            "agent_id has a live bound mandate, or when this Stripe card id is already "
+            "stored on a live mandate. Pass card_id at bind, or the first swipe that "
+            "presents the id stores the card id."
+        ),
+        "still_metadata_path": (
+            "A swipe that presents neither gate_mandate_id nor agent_id, on a card id "
+            "that was not passed at bind and was never stored from a prior swipe, still "
+            "uses the metadata cap. Clearing both fields on an unbound card is still open."
+        ),
     }
 
 
@@ -435,9 +560,13 @@ def spec(public_url: str) -> dict[str, Any]:
         "spec": SPEC,
         "name": "Bound spend mandate",
         "plain": (
-            "Bind the cap before the swipe. The issuing mouth reads this record "
-            "when the card carries gate_mandate_id, and refuses if metadata disagrees."
+            "Bind the cap before the swipe. Disagreement with the bound terms is "
+            "mandate_diverged. Omitting gate_mandate_id is mandate_omitted when the "
+            "agent_id on the swipe has a live mandate, or when the Stripe card id is "
+            "already stored on one. A swipe that drops both the id and the agent_id, "
+            "on a card that was never stored, still uses the metadata cap."
         ),
+        "enforcement": enforcement(),
         "bind": f"{base}/v1/mandate/bind",
         "demo_bind": f"{base}/demo/mandate/bind",
         "read": f"{base}/v1/mandate/{{mandate_id}}",
