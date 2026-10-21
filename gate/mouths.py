@@ -615,6 +615,172 @@ def _dsp_due_at(rejected_at_iso: str) -> str:
     return (dt + timedelta(days=14)).replace(microsecond=0).isoformat()
 
 
+FEDNOW_OC8_SOURCE = (
+    "https://www.frbservices.org/binaries/content/assets/crsocms/resources/rules-regulations/"
+    "062425-operating-circular-8-redline.pdf"
+)
+FEDNOW_OC8_CITE = (
+    "Federal Reserve Banks Operating Circular No. 8, Appendix C — Fraud Reporting Procedures"
+)
+FEDNOW_OPS_SOURCE = (
+    "https://www.frbservices.org/binaries/content/assets/crsocms/resources/rules-regulations/"
+    "042826-fednow-service-operating-procedures.pdf"
+)
+FEDNOW_NI_PRESS = (
+    "https://www.frbservices.org/news/press-releases/"
+    "042326-fednow-network-intelligence-api-empowers-participants-payments-confidence"
+)
+
+
+def evaluate_fednow_fraud_report(body: dict) -> dict[str, Any]:
+    """FedNow OC-8 Appendix C — pack a Reportable Transfer fraud report. Gate never files.
+
+    Primary: Operating Circular No. 8 Appendix C (fraud reporting). Public message paths in
+    FedNow Service Operating Procedures: camt.056 reason FRAD (sender) / pacs.004 FR01
+    (receiver). Network Intelligence API (live Apr 28 2026) is a separate pre-send pull —
+    documented as FedLine ladder, not this mouth.
+    """
+    try:
+        from gate import write_state as write_state_mod
+    except ImportError:
+        import write_state as write_state_mod
+
+    participant = str(body.get("caller_is_fednow_participant") or "").strip().lower()
+    investigated = str(body.get("investigated_unusual_payment_order") or "").strip().lower()
+    good_faith = str(body.get("good_faith_fraud_reportable") or "").strip().lower()
+    role = str(body.get("report_role") or "").strip().lower()
+    facts = str(body.get("has_underlying_facts") or "").strip().lower()
+
+    common = dict(
+        cite=FEDNOW_OC8_CITE,
+        source=FEDNOW_OC8_SOURCE,
+        operating_procedures=FEDNOW_OPS_SOURCE,
+        network_intelligence_press=FEDNOW_NI_PRESS,
+        gate_transmits_to_fednow=False,
+        gate_is_not_fedline_endpoint=True,
+        not_a_bounty=True,
+        network_intelligence_note=(
+            "FedNow Network Intelligence API (early adopters Apr 28 2026) lets sending "
+            "Participants / Service Providers pull receiver-account data insights before "
+            "pacs.008 — FedLine Advantage/Direct + API cert required. Separate from App C "
+            "reporting. Gate does not call that API from this mouth."
+        ),
+    )
+
+    if participant not in ("yes", "no", "unknown") or role not in (
+        "sender",
+        "receiver",
+        "unknown",
+        "",
+    ):
+        return _pack(
+            "gate-fednow-fraud-report-v1",
+            "HOLD",
+            "Need: FedNow Participant (or acting for one)?, report role sender/receiver?, "
+            "investigated Unusual Payment Order?, good-faith Reportable Transfer?, "
+            "underlying facts present? Unknown fails closed.",
+            **common,
+        )
+    if any(x not in ("yes", "no") for x in (investigated, good_faith, facts)):
+        return _pack(
+            "gate-fednow-fraud-report-v1",
+            "HOLD",
+            "Need: investigated Unusual Payment Order?, good-faith fraud Reportable Transfer?, "
+            "underlying facts? Empty is not a no.",
+            **common,
+        )
+    if participant == "unknown" or role in ("", "unknown"):
+        return _pack(
+            "gate-fednow-fraud-report-v1",
+            "HOLD",
+            "Need a clear Participant yes/no and report role sender/receiver. Unknown fails closed.",
+            **common,
+        )
+
+    if participant != "yes":
+        return _pack(
+            "gate-fednow-fraud-report-v1",
+            "NOT THIS",
+            "OC-8 Appendix C binds FedNow Participants. Gate-as-vendor alone is not a "
+            "Participant. If you are not reporting for a Participant, this mouth is not your lane.",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="fednow-fraud-report"),
+            **common,
+        )
+
+    if investigated != "yes" or good_faith != "yes" or facts != "yes":
+        reasons = []
+        if investigated != "yes":
+            reasons.append("App C §2.1 — investigate Unusual Payment Order before reporting")
+        if good_faith != "yes":
+            reasons.append("no good-faith Reportable Transfer (fraud belief) yet")
+        if facts != "yes":
+            reasons.append("no underlying facts to pack (deny hash / claim_scope / typology)")
+        return _pack(
+            "gate-fednow-fraud-report-v1",
+            "HOLD",
+            "Not reportable yet: " + "; ".join(reasons) + ".",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="fednow-fraud-report"),
+            report_pack={
+                "checklist": [
+                    "Confirm FedNow Participant (or Service Provider acting for one)",
+                    "Investigate Unusual Payment Order (App C §2.1)",
+                    "Form good-faith belief it is a Reportable Transfer (fraud)",
+                    "Use Nonvalue Message path / camt.056 FRAD or pacs.004 FR01 as prescribed",
+                    "Report also to the other Participant that was party to the transfer",
+                    "Pack Gate deny hash / claim_scope / sealed-payee Never as supporting facts — not a SAR",
+                ],
+                "message_hint": (
+                    "sender→camt.056 reason FRAD; receiver→pacs.004 reason FR01 "
+                    "(Operating Procedures — Fraud Reporting with Return Request and Payment Return)"
+                ),
+                "source": FEDNOW_OC8_SOURCE,
+                "operating_procedures": FEDNOW_OPS_SOURCE,
+            },
+            **common,
+        )
+
+    pack = {
+        "spec": "gate-fednow-fraud-report-pack-v1",
+        "status": "reportable_under_oc8_app_c_if_counsel_agrees",
+        "cite": FEDNOW_OC8_CITE,
+        "gate_transmits_to_fednow": False,
+        "report_role": role,
+        "suggested_iso_path": (
+            "camt.056 reason code FRAD"
+            if role == "sender"
+            else "pacs.004 reason code FR01"
+        ),
+        "suggested_payload_fields": [
+            "original pacs.008 / pacs.009 message id + end-to-end id",
+            "deny_registry.payout_hash (destination fingerprint — no raw account)",
+            "claim_scope.boundary + keys_checked (clearance refuse)",
+            "fednow-prepush chips: payee_sealed / first_time_payee / fraud_suspected",
+            "FraudClassifier / fraud type code in Additional Information when required",
+            "authorized contact for Reportable Transfer inquiries (App C §2.6)",
+        ],
+        "must_not_include": [
+            "SAR or SAR existence (separate BSA duty)",
+            "unauthorized payment order mislabeled as Reportable Transfer (App C §2.5)",
+        ],
+        "permitted_purpose": (
+            "App C §1.2.3 / §4.1 — remediating, investigating, and preventing Reportable Transfers only"
+        ),
+        "plain": (
+            "Packet is ready for *your* FedNow Participant to report under OC-8 Appendix C. "
+            "Gate does not send camt.056/pacs.004 and is not a FedLine endpoint."
+        ),
+    }
+    return _pack(
+        "gate-fednow-fraud-report-v1",
+        "REPORTABLE",
+        "FedNow Participant → investigated Unusual Payment Order → good-faith Reportable "
+        "Transfer → underlying facts. App C lane open on this face — Gate still does not transmit.",
+        write_state=write_state_mod.for_advisory_mouth(mouth_id="fednow-fraud-report"),
+        report_pack=pack,
+        **common,
+    )
+
+
 def evaluate_dsp_reject(body: dict) -> dict[str, Any]:
     """DOJ Data Security Program — § 202.1104 rejected prohibited data-brokerage report.
 
@@ -1214,6 +1380,81 @@ MOUTHS = (
         ),
         "source_url": DSP_SOURCE,
     },
+    {
+        "id": "fednow-fraud-report",
+        "route": "/fednow-fraud-report",
+        "api": "/v1/fednow-fraud-report",
+        "wk": "/.well-known/fednow-fraud-report.json",
+        "fn": "evaluate_fednow_fraud_report",
+        "spec": "gate-fednow-fraud-report-v1",
+        "title": "FedNow Fraud Report Pack",
+        "brand": "FedNow Fraud Report",
+        "lede": (
+            "Are you a FedNow Participant packing an OC-8 Appendix C Reportable Transfer? "
+            "Gate packs. Gate never transmits camt.056 / pacs.004."
+        ),
+        "legend": (
+            ("REPORTABLE", "Participant → investigated → good-faith fraud → facts. App C lane open."),
+            ("NOT THIS", "Caller is not a FedNow Participant — OC-8 App C is not this lane."),
+            ("HOLD", "Investigation, good-faith fraud belief, role, or facts missing."),
+        ),
+        "words": ["REPORTABLE", "NOT THIS", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "caller_is_fednow_participant",
+                "label": "FedNow Participant (or Service Provider acting for one)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
+            {
+                "name": "report_role",
+                "label": "Report role on the transfer",
+                "type": "chips",
+                "options": [
+                    {"id": "sender", "label": "Sender (camt.056 FRAD)"},
+                    {"id": "receiver", "label": "Receiver (pacs.004 FR01)"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
+            {
+                "name": "investigated_unusual_payment_order",
+                "label": "Investigated the Unusual Payment Order (App C §2.1)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "good_faith_fraud_reportable",
+                "label": "Good-faith belief it is a Reportable Transfer (fraud)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "has_underlying_facts",
+                "label": "Underlying facts ready (deny hash / claim_scope / typology)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+        ],
+        "source": (
+            "FedNow Operating Circular No. 8 Appendix C — Participants shall report Reportable "
+            "Transfers to the FedNow Service and the other Participant. Gate packs; Gate never files."
+        ),
+        "source_url": FEDNOW_OC8_SOURCE,
+    },
 )
 
 
@@ -1236,6 +1477,7 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "cl7-handoff": evaluate_cl7_handoff,
         "stair": evaluate_stair,
         "dsp-reject": evaluate_dsp_reject,
+        "fednow-fraud-report": evaluate_fednow_fraud_report,
     }[mid]
     raw_body = body if isinstance(body, dict) else {}
     result = fn(raw_body)
@@ -1288,6 +1530,13 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
             "rejected_on_or_after_2025_10_06 chips",
             "28 CFR 202.1104 classification only — Covered Persons List not scanned; "
             "list is non-exhaustive for § 202.211(a)(1)–(4); Gate never emails NSD",
+        ],
+        "fednow-fraud-report": [
+            "presented caller_is_fednow_participant / report_role / "
+            "investigated_unusual_payment_order / good_faith_fraud_reportable / "
+            "has_underlying_facts chips",
+            "OC-8 Appendix C classification only — Gate never sends camt.056/pacs.004; "
+            "not a FedLine endpoint; Network Intelligence API not called",
         ],
     }.get(mid)
     return _seal_mouth(
