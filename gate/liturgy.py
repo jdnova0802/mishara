@@ -43,6 +43,36 @@ def next_sunday_utc(now: datetime | None = None) -> str:
     return nxt.date().isoformat()
 
 
+def next_mass_start(now: datetime | None = None) -> datetime:
+    """Next Sunday 00:00 UTC. On Sunday itself, the following Sunday."""
+    from datetime import timedelta
+
+    t = now or datetime.now(timezone.utc)
+    if t.tzinfo is None:
+        t = t.replace(tzinfo=timezone.utc)
+    days = (6 - t.weekday()) % 7
+    start = (t + timedelta(days=days)).replace(hour=0, minute=0, second=0, microsecond=0)
+    if start <= t:
+        start = start + timedelta(days=7)
+    return start
+
+
+def stopped_write_count(events: list[dict] | None) -> int:
+    """HALT/BLOCK bind events with a verify URL. The planted canonical drill does not count."""
+    seen: set[str] = set()
+    n = 0
+    for ev in events or []:
+        relic = relic_from_event(ev)
+        if not relic or relic.get("source") != "bind_event":
+            continue
+        key = relic.get("verify_url") or relic.get("id") or ""
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        n += 1
+    return n
+
+
 def relic_from_event(event: dict) -> dict | None:
     if not event.get("verify_url"):
         return None

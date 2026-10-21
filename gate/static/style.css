@@ -252,6 +252,57 @@ footer {
   font-size: 0.85rem;
 }
 
+.live-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: baseline;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.mass-count {
+  margin-top: 1rem;
+  font-size: 1.35rem;
+  color: var(--text);
+}
+
+.mass-count-sub { color: var(--accent); margin-top: 0.35rem; }
+
+.roster {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+.roster th, .roster td {
+  text-align: left;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  word-break: break-all;
+}
+
+.dead-hand { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.dead-hand textarea, .dead-hand input {
+  width: 100%;
+  background: #08090d;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+.verdict { font-size: 1.5rem; min-height: 1.5rem; }
+.verdict-valid { color: var(--success); }
+.verdict-invalid { color: var(--danger); }
+.dead-hand-note { color: var(--muted); font-size: 0.85rem; }
+
 footer a { color: var(--muted); }
 
 .section { padding: 2rem 0; }

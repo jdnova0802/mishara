@@ -24,4 +24,6 @@ jobs:
         working-directory: gate
         env:
           GATE_DEV_MODE: "1"
-        run: python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v
+        run: |
+          python3 test_live_surface.py -v
+          python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v
