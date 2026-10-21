@@ -254,6 +254,28 @@ footer {
 
 footer a { color: var(--muted); }
 
+.proof-strip {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  margin: 0 0 1rem;
+  color: var(--muted);
+  word-break: break-all;
+}
+.proof-strip code { font-size: 0.78rem; }
+.watcher-list { list-style: none; padding: 0; margin: 0; }
+.watcher-list li { padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.dead-count { font-size: 1.15rem; }
+.mass-countdown, .mass-live { margin-top: 1rem; color: var(--muted); }
+#floor-receipt, #floor-key {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0;
+  padding: 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+.floor-verdict { margin-top: 0.75rem; font-family: var(--mono); font-weight: 600; }
+
 .section { padding: 2rem 0; }
 .section h2 { font-size: 1.5rem; margin-bottom: 1rem; }
 

@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}Stranger Mass{% endblock %}
 {% block meta %}
 <meta name="description" content="Every Sunday, one DEAD receipt. Anyone verifies together — no login. Congregation of the non-event.">
@@ -19,9 +18,34 @@
       <a href="{{ url_for('well_known_mass') }}" class="btn btn-ghost">mass.json</a>
     </div>
     {% if mass.sunday_utc %}
-    <p style="margin-top: 1rem; color: var(--muted);">Today is Sunday UTC. The mass is live.</p>
+    <p id="mass-countdown" class="mass-live" data-live="1" data-next="{{ mass.next_sunday_utc }}">Today is Sunday UTC. The mass is live.</p>
     {% else %}
-    <p style="margin-top: 1rem; color: var(--muted);">Next Sunday UTC: {{ mass.next_sunday_utc }}. The relic is fixed for the week.</p>
+    <p id="mass-countdown" class="mass-countdown" data-live="0" data-next="{{ mass.next_sunday_utc }}">Next Sunday UTC: {{ mass.next_sunday_utc }}. The relic is fixed for the week.</p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Writes halted</h2>
+    <p class="dead-count">{{ halted_writes }} irreversible writes stopped on this log.</p>
+    <p style="color: var(--muted); margin-top: 0.5rem;">Canonical drill relics are not counted. Only HALT/BLOCK bind events.</p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Independent watchers</h2>
+    <p style="color: var(--muted); margin-bottom: 0.75rem;">Self-register. Unpaid. Gate’s GitHub Action does not count. Matching the live evidence head is the only ticket.</p>
+    {% if watchers %}
+    <ul class="watcher-list">
+      {% for w in watchers %}
+      <li>
+        <strong>{{ w.handle }}</strong>
+        {% if w.homepage %} · <a href="{{ w.homepage }}" rel="noopener">{{ w.homepage }}</a>{% endif %}
+        · last check {{ w.last_seen_at }}
+        {% if w.last_tree_size is not none %} · tree {{ w.last_tree_size }}{% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No independent watchers on the fresh list. <a href="/.well-known/evidence-watch.json">evidence-watch.json</a> · <code class="inline">POST /v1/evidence-watch/register</code></p>
     {% endif %}
   </div>
 
@@ -37,4 +61,32 @@
     <a href="{{ url_for('bound_page') }}">A no that holds</a>
   </div>
 </div>
+<script>
+(function () {
+  var el = document.getElementById("mass-countdown");
+  if (!el || el.getAttribute("data-live") === "1") return;
+  var next = el.getAttribute("data-next");
+  if (!next) return;
+  var target = Date.parse(next + "T00:00:00Z");
+  if (!target) return;
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+  function tick() {
+    var ms = target - Date.now();
+    if (ms <= 0) {
+      el.textContent = "Sunday UTC. The mass is live.";
+      return;
+    }
+    var s = Math.floor(ms / 1000);
+    var d = Math.floor(s / 86400);
+    s -= d * 86400;
+    var h = Math.floor(s / 3600);
+    s -= h * 3600;
+    var m = Math.floor(s / 60);
+    s -= m * 60;
+    el.textContent = "Next Mass in " + d + "d " + pad(h) + ":" + pad(m) + ":" + pad(s) + " UTC (" + next + "). Relic is fixed for the week.";
+    window.setTimeout(tick, 1000);
+  }
+  tick();
+})();
+</script>
 {% endblock %}

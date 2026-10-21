@@ -70,6 +70,11 @@ def _extract_canonical(doc: dict) -> tuple[str | None, dict | None, str | None]:
     return None, None, "missing_canonical_receipt"
 
 
+def load_public_key(arg: str) -> bytes | None:
+    """Ed25519 raw 32-byte public key from base64, a file of that, or JSON."""
+    return _load_public_key(arg)
+
+
 def _load_public_key(arg: str) -> bytes | None:
     text = arg
     try:

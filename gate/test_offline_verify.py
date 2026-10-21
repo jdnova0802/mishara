@@ -143,6 +143,26 @@ class OfflineVerifyTests(unittest.TestCase):
         result = offline_verify.verify_document(doc, self.pub_b)
         self.assertEqual(result["verdict"], "valid")
 
+    def test_demo_endpoint_uses_visitor_key(self):
+        os.environ.setdefault("GATE_DEV_MODE", "1")
+        import app as gate_app  # noqa: E402
+
+        c = gate_app.app.test_client()
+        ok = c.post(
+            "/demo/receipt/offline-verify",
+            json={"receipt": self.payload, "public_key": self.pub_b64},
+        )
+        self.assertEqual(ok.status_code, 200, ok.get_json())
+        self.assertEqual(ok.get_json()["verdict"], "valid")
+        _, other_b64, _ = _key_material()
+        bad = c.post(
+            "/demo/receipt/offline-verify",
+            json={"receipt": self.payload, "public_key": other_b64},
+        )
+        self.assertEqual(bad.status_code, 400)
+        self.assertEqual(bad.get_json()["verdict"], "invalid")
+        self.assertIn("signature_invalid", bad.get_json()["reasons"])
+
 
 if __name__ == "__main__":
     unittest.main()

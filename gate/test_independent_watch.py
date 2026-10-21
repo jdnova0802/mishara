@@ -107,6 +107,10 @@ class IndependentWatchTests(unittest.TestCase):
         handles = [w["handle"] for w in watch.get("independent_watchers") or []]
         self.assertIn("bob-lab", handles)
         self.assertIn("/v1/evidence-watch/register", watch.get("register") or "")
+        mass = c.get("/mass")
+        self.assertEqual(mass.status_code, 200)
+        self.assertIn(b"bob-lab", mass.data)
+        self.assertIn(b"Independent watchers", mass.data)
 
 
 if __name__ == "__main__":

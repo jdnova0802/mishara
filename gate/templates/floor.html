@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block robots %}<meta name="robots" content="noindex,nofollow">{% endblock %}
 {% block title %}The floor{% endblock %}
 {% block meta %}
 <meta name="description" content="Some things are real. They only happen once. Someone who isn't the actor has to live there afterward. There is not a cleverer layer under that.">
@@ -32,9 +31,26 @@
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">
+    <h2>Evidence head</h2>
+    <p>tree {{ proof_strip.tree_size }} · <code class="inline">{{ proof_strip.root_short }}</code>
+      {% if proof_strip.checked_at %} · {{ proof_strip.checked_at }}{% endif %}</p>
+    <p style="margin-top: 0.5rem;"><a href="{{ proof_strip.head_url }}">evidence-head.json</a> · <a href="{{ url_for('mass_page') }}">Mass</a></p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
+    <h2>Dead-hand check</h2>
+    <p>Paste a receipt JSON and a public key you already hold. Gate does not name the key. Verdict is valid or invalid.</p>
+    <textarea id="floor-receipt" rows="8" placeholder='{"canonical_receipt": …, "receipt_signature": …}'></textarea>
+    <input id="floor-key" type="text" placeholder="Ed25519 public key (base64)" autocomplete="off">
+    <button type="button" id="floor-verify" class="btn btn-primary">Check</button>
+    <p id="floor-verdict" class="floor-verdict"></p>
+    <p style="color: var(--muted); margin-top: 0.75rem; font-size: 0.85rem;">Same logic as the offline checker. You can still run it with no server: <code class="inline">python3 gate/offline_verify.py receipt.json --public-key KEY</code></p>
+  </div>
+
+  <div class="card" style="margin-top: 1.5rem;">
     <h2>There isn’t a cleverer layer</h2>
     <p><code class="inline">stakes.cleverer_layer</code> is null. On purpose. A demo hop can be true and still not treat this as real. Treating it as real is the weld: their bind path, Bind Room, CHARGE-only resurrect.</p>
-    <pre>curl -s "{{ public_url }}/.well-known/floor.json"</pre>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_floor') }}">floor.json</a></p>
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">
@@ -52,4 +68,30 @@
     <a href="{{ url_for('well_known_floor') }}" class="btn btn-ghost">floor.json</a>
   </div>
 </div>
+<script>
+(function () {
+  var btn = document.getElementById("floor-verify");
+  if (!btn) return;
+  btn.addEventListener("click", function () {
+    var out = document.getElementById("floor-verdict");
+    var receiptText = (document.getElementById("floor-receipt").value || "").trim();
+    var key = (document.getElementById("floor-key").value || "").trim();
+    out.textContent = "Checking…";
+    var receipt;
+    try { receipt = JSON.parse(receiptText); }
+    catch (e) { out.textContent = "invalid · receipt_not_json"; return; }
+    fetch("/demo/receipt/offline-verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ receipt: receipt, public_key: key })
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) {
+        var j = x.j || {};
+        var reasons = (j.reasons && j.reasons.length) ? " · " + j.reasons.join(",") : "";
+        out.textContent = (j.verdict || "invalid") + reasons;
+      })
+      .catch(function () { out.textContent = "invalid · unreachable"; });
+  });
+})();
+</script>
 {% endblock %}

@@ -190,6 +190,21 @@ except ImportError:
     import liturgy as liturgy_mod
 
 try:
+    from gate import proof_surface as proof_surface_mod
+except ImportError:
+    import proof_surface as proof_surface_mod
+
+try:
+    from gate import independent_watch as independent_watch_mod
+except ImportError:
+    import independent_watch as independent_watch_mod
+
+try:
+    from gate import offline_verify as offline_verify_mod
+except ImportError:
+    import offline_verify as offline_verify_mod
+
+try:
     from gate import inhabitant as inhabitant_mod
 except ImportError:
     import inhabitant as inhabitant_mod
@@ -399,7 +414,7 @@ def _write_authorized() -> bool:
 
 
 ARCHIVE_NOINDEX_PREFIXES = (
-    "/this", "/bound", "/only", "/floor", "/mass", "/tattoo", "/scanner", "/uplink",
+    "/this", "/bound", "/only", "/tattoo", "/scanner", "/uplink",
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
@@ -615,6 +630,7 @@ def inject_globals():
         "meta_pixel_id": META_PIXEL_ID,
         "ga_id": GA_ID,
         "bind_surface": bind_surface,
+        "proof_strip": proof_surface_mod.evidence_strip(public_url=advertised_url()),
     }
 
 
@@ -2707,6 +2723,38 @@ def floor_page():
     return render_template("floor.html", public_url=advertised_url())
 
 
+@app.route("/demo/receipt/offline-verify", methods=["POST"])
+def demo_receipt_offline_verify():
+    """Dead-hand check in the browser. Visitor supplies receipt + public key."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"verdict": "invalid", "reasons": ["rate_limited"], "message": msg}), 429
+    raw = request.get_data(cache=True, as_text=False) or b""
+    if len(raw) > 65536:
+        return jsonify({"verdict": "invalid", "reasons": ["payload_too_large"]}), 400
+    body = request.get_json(silent=True) or {}
+    receipt = body.get("receipt")
+    if isinstance(receipt, str):
+        try:
+            receipt = json.loads(receipt)
+        except json.JSONDecodeError:
+            return jsonify({"verdict": "invalid", "reasons": ["receipt_not_json"]}), 400
+    if not isinstance(receipt, dict):
+        return jsonify({"verdict": "invalid", "reasons": ["receipt_not_object"]}), 400
+    key = (
+        body.get("public_key")
+        or body.get("public_key_b64")
+        or ""
+    )
+    if isinstance(key, dict):
+        key = str(key.get("public_key_b64") or key.get("public_key") or "")
+    pub = offline_verify_mod.load_public_key(str(key))
+    if pub is None:
+        return jsonify({"verdict": "invalid", "reasons": ["bad_public_key"]}), 400
+    result = offline_verify_mod.verify_document(receipt, pub)
+    return jsonify(result), 200 if result.get("verdict") == "valid" else 400
+
+
 @app.route("/.well-known/particular.json")
 def well_known_particular():
     return jsonify(particular.manifesto(advertised_url()))
@@ -3824,7 +3872,16 @@ def mass_page():
     events = _public_bind_events()
     mass = liturgy_mod.stranger_mass(advertised_url(), events)
     relics = liturgy_mod.relics_manifest(advertised_url(), events)
-    return render_template("mass.html", mass=mass, relics=relics, public_url=advertised_url())
+    watchers = independent_watch_mod.list_watchers(include_stale=False)
+    halted = proof_surface_mod.halted_write_count(events)
+    return render_template(
+        "mass.html",
+        mass=mass,
+        relics=relics,
+        watchers=watchers,
+        halted_writes=halted,
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/refusal")
@@ -4919,8 +4976,6 @@ def robots():
             "Disallow: /this",
             "Disallow: /bound",
             "Disallow: /only",
-            "Disallow: /floor",
-            "Disallow: /mass",
             "Disallow: /tattoo",
             "Disallow: /scanner",
             "Disallow: /uplink",
@@ -4964,6 +5019,8 @@ def sitemap():
         "/register",
         "/pricing",
         "/trust",
+        "/mass",
+        "/floor",
         "/regulator",
         "/record",
         "/issuing-mouth",
@@ -4987,6 +5044,10 @@ def sitemap():
         "/.well-known/live.json",
         "/.well-known/clear.json",
         "/.well-known/seal.json",
+        "/.well-known/evidence-head.json",
+        "/.well-known/evidence-watch.json",
+        "/.well-known/mass.json",
+        "/.well-known/floor.json",
         "/.well-known/go.json",
         "/.well-known/never.json",
         "/.well-known/positive-clear.json",
@@ -5040,6 +5101,9 @@ def llms_txt():
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
+        f"- Stranger Mass: {advertised_url()}/mass",
+        f"- Floor (dead-hand check): {advertised_url()}/floor",
+        f"- Evidence head: {advertised_url()}/.well-known/evidence-head.json",
         f"- Regulator verify (NAIC / HMT mapping): {advertised_url()}/regulator",
         f"- Bind Room: {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",

@@ -87,6 +87,18 @@
 
   <footer>
     <div class="container">
+      {% if proof_strip %}
+      <p class="proof-strip">
+        Evidence head · tree {{ proof_strip.tree_size }} ·
+        <code>{{ proof_strip.root_short }}</code>
+        {% if proof_strip.checked_at %} · {{ proof_strip.checked_at }}{% endif %}
+        · <a href="{{ proof_strip.head_url }}">evidence-head.json</a>
+        · <a href="{{ url_for('mass_page') }}">Mass</a>
+        {% if proof_strip.halted_writes %}
+        · {{ proof_strip.halted_writes }} writes halted
+        {% endif %}
+      </p>
+      {% endif %}
       Nisaba LLC · clearance before irreversible write ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
       <a href="{{ url_for('clear_page') }}">Clear</a> ·
