@@ -3161,11 +3161,14 @@ def issuing_authorization_receipt(authorization_id: str):
         "verify_url": f"{advertised_url()}/v1/prefinality/verify",
     }
     if receipt_jwt:
-        if verified.get("valid"):
-            body["receipt_status"] = "valid"
+        body["signature_valid"] = bool(verified.get("signature_valid"))
+        body["ttl_status"] = verified.get("ttl_status")
+        ttl = verified.get("ttl_status")
+        if ttl in ("expired", "within_window", "absent"):
+            body["receipt_status"] = ttl
         else:
             body["receipt_status"] = verified.get("reason") or "unverified"
-        if verified.get("reason") == "expired":
+        if ttl == "expired":
             body["receipt_message"] = prefinality_mod.expired_receipt_copy(
                 decision=decision,
                 recorded_at=row.get("created_at"),
@@ -3711,6 +3714,8 @@ def prefinality_verify():
     out = {
         "spec": prefinality_mod.SPEC,
         "valid": verified.get("valid"),
+        "signature_valid": bool(verified.get("signature_valid")),
+        "ttl_status": verified.get("ttl_status"),
         "decision": verified.get("decision"),
         "reason": verified.get("reason"),
         "fingerprint_expected": expected_fp,
