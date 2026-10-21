@@ -166,8 +166,8 @@ curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
   </div>
 
   <div class="card">
-    <h2>MCP (Kong / TrueFoundry / AWS AgentCore)</h2>
-    <p>One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>. Tools include <code class="inline">policycenter_pre_bind</code> and <code class="inline">mga_authority</code>. MCP never wins a production weld slot.</p>
+    <h2>MCP (Kong / TrueFoundry / AWS AgentCore) <span class="badge badge-ok">built</span></h2>
+    <p>Already built. One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>. Tools include <code class="inline">policycenter_pre_bind</code> and <code class="inline">mga_authority</code>. MCP never wins a production weld slot.</p>
     <pre>curl -s -X POST "{{ public_url }}/mcp" \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl","version":"1"}}}'</pre>
@@ -184,8 +184,8 @@ curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
   </div>
 
   <div class="card">
-    <h2>Discovery</h2>
-    <p><a href="{{ public_url }}/openapi.json">openapi.json</a> · <a href="{{ public_url }}/.well-known/gate.json">gate.json</a> · <a href="{{ public_url }}/.well-known/listings.json">listings.json</a> · <a href="{{ public_url }}/.well-known/x402.json">x402.json</a> · <a href="{{ public_url }}/.well-known/spend-protocol.json">spend-protocol.json</a> · <a href="{{ public_url }}/.well-known/command-radiation.json">command-radiation.json</a> · <a href="{{ public_url }}/.well-known/license-fuse.json">license-fuse.json</a> · <a href="{{ public_url }}/.well-known/restraint.json">restraint.json</a></p>
+    <h2>Discovery <span class="badge badge-ok">built</span></h2>
+    <p>OpenAPI is generated, not a stub. x402 reserve/settle/release lives in the DB. <a href="{{ public_url }}/.well-known/already-built.json">already-built.json</a> · <a href="{{ public_url }}/openapi.json">openapi.json</a> · <a href="{{ public_url }}/.well-known/gate.json">gate.json</a> · <a href="{{ public_url }}/.well-known/listings.json">listings.json</a> · <a href="{{ public_url }}/.well-known/x402.json">x402.json</a> · <a href="{{ public_url }}/.well-known/spend-protocol.json">spend-protocol.json</a> · <a href="{{ public_url }}/.well-known/command-radiation.json">command-radiation.json</a> · <a href="{{ public_url }}/.well-known/license-fuse.json">license-fuse.json</a> · <a href="{{ public_url }}/.well-known/restraint.json">restraint.json</a></p>
   </div>
 
   <div class="card">

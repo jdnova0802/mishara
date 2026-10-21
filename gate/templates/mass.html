@@ -13,12 +13,12 @@
   <div class="card">
     <h2>This week — {{ mass.week }}</h2>
     <p><strong>Relic:</strong> {{ mass.relic.protected }}</p>
-    <p style="margin-top: 0.5rem;"><code class="inline">{{ mass.relic.fuse_id }}</code> · <code class="inline">{{ mass.relic.job_id }}</code> · {{ mass.relic.decision }}</p>
+    <p style="margin-top: 0.5rem;"><code class="inline">{{ mass.relic.fuse_id }}</code> · <code class="inline">{{ mass.relic.job_id }}</code> · <span class="badge {% if mass.relic.decision in ('HALT', 'BLOCK') %}badge-halt{% else %}badge-ok{% endif %}">{{ mass.relic.decision }}</span></p>
     <div class="hero-actions" style="justify-content: flex-start; margin-top: 1rem;">
       <a href="{{ mass.verify_url }}" class="btn btn-primary" rel="noopener">Verify together</a>
       <a href="{{ url_for('well_known_mass') }}" class="btn btn-ghost">mass.json</a>
     </div>
-    <p class="mass-count">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</p>
+    <p class="mass-count status-row"><span class="status-dot {% if live.stopped_writes %}halt{% else %}idle{% endif %}" aria-hidden="true"></span>{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</p>
     <p
       class="mass-count-sub"
       data-mass-countdown
@@ -35,7 +35,11 @@
   <div class="card" id="watchers" style="margin-top: 1.5rem;">
     <h2>Independent watchers</h2>
     <p>People who fetched the evidence head and registered themselves. Gate’s GitHub Action is first-party. It does not count.</p>
-    <p style="margin-top: 0.5rem;">Fresh means a check inside {{ stale_after_days }} days. {{ watchers|length }} fresh.</p>
+    <p class="status-row" style="margin-top: 0.5rem;">
+      <span class="status-dot {% if watchers %}ok{% else %}idle{% endif %}" aria-hidden="true"></span>
+      Fresh means a check inside {{ stale_after_days }} days.
+      <span class="badge {% if watchers %}badge-ok{% else %}badge-muted{% endif %}">{{ watchers|length }} fresh</span>
+    </p>
     {% if watchers %}
     <table class="roster">
       <thead>
@@ -44,7 +48,7 @@
       <tbody>
         {% for w in watchers %}
         <tr>
-          <td>{{ w.handle }}</td>
+          <td><span class="status-row"><span class="status-dot ok" aria-hidden="true"></span>{{ w.handle }}</span></td>
           <td>
             {% if w.homepage and (w.homepage.startswith('https://') or w.homepage.startswith('http://')) %}
             <a href="{{ w.homepage }}" rel="noopener noreferrer">{{ w.homepage }}</a>
@@ -59,7 +63,7 @@
       </tbody>
     </table>
     {% else %}
-    <p style="margin-top: 0.75rem;">No stranger has registered a fresh check.</p>
+    <p class="toast toast-info" style="margin-top: 0.75rem;">No stranger has registered a fresh check.</p>
     {% endif %}
     <p style="margin-top: 0.75rem;"><a href="{{ url_for('watch_evidence_head_script') }}">watch_evidence_head.py</a> · <code class="inline">--register</code></p>
   </div>

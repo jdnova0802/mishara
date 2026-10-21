@@ -18,6 +18,11 @@
   </div>
 
   <div class="card">
+    <h2>Already built <span class="badge badge-ok">not a roadmap</span></h2>
+    <p>MCP at <a href="/.well-known/mcp.json">/mcp</a>, generated <a href="/openapi.json">openapi.json</a>, x402 reserve/settle/release in the DB, CLI on <a href="{{ url_for('floor_page') }}">/floor</a>. Agents call those. There is no chatbot front-end on purpose. <a href="/.well-known/already-built.json">already-built.json</a></p>
+  </div>
+
+  <div class="card">
     <h2>What holds</h2>
     <ul class="check-list">
       <li>Fail closed — uncertain / timeout / unreachable → no write</li>

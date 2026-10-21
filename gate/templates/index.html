@@ -38,6 +38,8 @@
 </section>
 <script src="{{ url_for('static', filename='demo.js') }}"></script>
 
+{% include "_protocol_doors.html" %}
+
 <section class="container section" style="text-align: center; padding-bottom: 3rem;">
   <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · clearance before irreversible bind</p>
   <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Book Bind Room · {{ bind_room_price }}</a>

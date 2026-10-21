@@ -75,9 +75,9 @@
 
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <div class="container">
+      <div class="toast-stack container" aria-live="polite">
         {% for category, message in messages %}
-          <div class="flash {{ category }}">{{ message }}</div>
+          <div class="toast toast-{{ category }} flash {{ category }}" role="status">{{ message }}</div>
         {% endfor %}
       </div>
     {% endif %}
@@ -86,13 +86,9 @@
   {% block content %}{% endblock %}
 
   <footer>
-    <div class="container live-strip" aria-label="Live evidence">
-      <a href="/.well-known/evidence-head.json">Evidence head</a>
-      <span>{{ live.tree_size }} leaves</span>
-      <code>{{ live.root_short }}</code>
-      <time datetime="{{ live.timestamp }}">{{ live.timestamp[:19]|replace('T', ' ') }} UTC</time>
-      <a href="{{ url_for('mass_page') }}">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</a>
-      <span data-mass-countdown data-target="{{ live.next_mass_iso }}" data-live="{{ '1' if live.sunday_utc else '0' }}">Next Sunday UTC {{ live.next_sunday_utc }}</span>
+    <div class="container">
+      {% set show_countdown = true %}
+      {% include "_live_strip.html" %}
     </div>
     <div class="container">
       Nisaba LLC · clearance before irreversible write ·

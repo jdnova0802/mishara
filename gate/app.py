@@ -60,6 +60,11 @@ except ImportError:
     import listings as listings_mod
 
 try:
+    from gate import protocol_surface as protocol_surface_mod
+except ImportError:
+    import protocol_surface as protocol_surface_mod
+
+try:
     from gate import mcp_server
 except ImportError:
     import mcp_server
@@ -661,6 +666,7 @@ def inject_globals():
         "ga_id": GA_ID,
         "bind_surface": bind_surface,
         "live": public_live(),
+        "protocol_doors": protocol_surface_mod.doors(advertised_url()),
     }
 
 
@@ -1894,6 +1900,7 @@ def well_known_gate():
             ),
             "version": "1.0.0",
             "openapi": f"{advertised_url()}/openapi.json",
+            "already_built": f"{advertised_url()}/.well-known/already-built.json",
             "signup": f"{advertised_url()}/signup",
             "install": f"{advertised_url()}/install",
             "bind_room": f"{advertised_url()}/bind-room",
@@ -2025,6 +2032,12 @@ def well_known_gate():
             "operator": "Nisaba LLC",
         }
     )
+
+
+@app.route("/.well-known/already-built.json")
+def well_known_already_built():
+    """MCP + OpenAPI + x402 + CLI. Already built. Not a weld. Not a chatbot."""
+    return jsonify(protocol_surface_mod.manifest(advertised_url()))
 
 
 @app.route("/.well-known/mcp.json")
@@ -5124,6 +5137,7 @@ def sitemap():
         "/.well-known/ard.json",
         "/.well-known/ai-catalog.json",
         "/.well-known/mcp.json",
+        "/.well-known/already-built.json",
         "/.well-known/x402.json",
         "/.well-known/legal.json",
         "/openapi.json",
@@ -5172,6 +5186,7 @@ def llms_txt():
         f"- Regulator JSON: {advertised_url()}/.well-known/regulator.json",
         f"- ARD (agent discovery, v0.91): {advertised_url()}/.well-known/ard.json",
         f"- AI Catalog (ARD predecessor path): {advertised_url()}/.well-known/ai-catalog.json",
+        f"- Already built (MCP + OpenAPI + x402 + CLI): {advertised_url()}/.well-known/already-built.json",
         f"- MCP discovery: {advertised_url()}/.well-known/mcp.json",
         f"- x402 catalog: {advertised_url()}/.well-known/x402.json",
         f"- Fee schedule JSON: {advertised_url()}/.well-known/register.json",
