@@ -30,7 +30,7 @@ class ProtocolSurfaceTests(unittest.TestCase):
         self.assertTrue(doors[0]["endpoint"].endswith("/mcp"))
         self.assertIn("openapi.json", doors[1]["href"])
         self.assertIn("x402.json", doors[2]["href"])
-        self.assertTrue(doors[0]["plain"].startswith("Streamable HTTP MCP"))
+        self.assertIn("/mcp", doors[0]["plain"])
         manifest = protocol_surface.manifest("https://gate.example")
         self.assertNotIn("their_production", manifest)
         self.assertIn("chatbot", manifest["note"].lower())

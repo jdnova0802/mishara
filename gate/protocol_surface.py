@@ -21,10 +21,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/.well-known/mcp.json"),
             "endpoint": href("/mcp"),
-            "plain": (
-                "Streamable HTTP MCP. Agents call fuse_hop, welded_act, "
-                "and prefinality_evaluate as tools. Not REST-only."
-            ),
+            "plain": "Native tool server. Agents call POST /mcp. Not REST-only.",
         },
         {
             "id": "openapi",
@@ -32,10 +29,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/openapi.json"),
             "endpoint": href("/openapi.json"),
-            "plain": (
-                "Dynamically generated OpenAPI 3.1. Independently discoverable. "
-                "Not a stub."
-            ),
+            "plain": "Generated OpenAPI 3.1 at /openapi.json. Not a stub.",
         },
         {
             "id": "x402",
@@ -43,10 +37,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/.well-known/x402.json"),
             "endpoint": href("/.well-known/x402.json"),
-            "plain": (
-                "Payment rail with reserve, settle, and release in the DB. "
-                "Facilitator-backed. Already built."
-            ),
+            "plain": "Payment rail with reserve, settle, and release in the DB.",
         },
         {
             "id": "cli",

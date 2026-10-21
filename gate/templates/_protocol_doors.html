@@ -1,11 +1,9 @@
-<section class="container section protocol-doors" aria-label="Already built">
-  <p class="audience-tag">Already built</p>
-  <h2 class="protocol-heading">MCP and OpenAPI. x402 on a real DB. CLI with an exit code.</h2>
-  <p class="protocol-lead">Not a roadmap. Not a chatbot. Agents call the doors. Humans verify receipts.</p>
+<section class="container section protocol-doors" aria-label="What you can call now">
+  <h2 class="protocol-heading">What you can call now</h2>
+  <p class="protocol-lead">MCP, OpenAPI, the payment rail, and a CLI with an exit code. Agents use the doors. Humans open receipts. There is no chatbot.</p>
   <div class="protocol-grid">
     {% for d in protocol_doors %}
     <a class="card protocol-card" href="{{ d.href }}">
-      <span class="badge badge-ok">{{ d.status }}</span>
       <h3>{{ d.label }}</h3>
       <p>{{ d.plain }}</p>
     </a>

@@ -53,15 +53,20 @@ class LiveSurfaceTests(unittest.TestCase):
         home = self.client.get("/")
         self.assertEqual(home.status_code, 200)
         self.assertIn(b"Evidence head", home.data)
-        self.assertIn(b"irreversible writes stopped", home.data)
+        self.assertNotIn(b"0 irreversible writes stopped", home.data)
+        self.assertIn(b"This counter records blocked binds", home.data)
         self.assertIn(b"data-mass-countdown", home.data)
-        self.assertIn(b"badge", home.data)
-        self.assertIn(b"Already built", home.data)
         self.assertIn(b"protocol-doors", home.data)
+        self.assertIn(b"What you can call now", home.data)
+        self.assertNotIn(b"Already built", home.data)
         self.assertIn(b"openapi.json", home.data)
         self.assertIn(b"mcp.json", home.data)
         self.assertIn(b"x402.json", home.data)
-        self.assertIn(b"Not a chatbot", home.data)
+        self.assertIn(b"no chatbot", home.data)
+        self.assertIn(b"Why the CGL does not cover it", home.data)
+        self.assertNotIn(b"lab fuse", home.data)
+        self.assertNotIn(b"exclusive-door", home.data)
+        self.assertNotIn(b">Stair</a>", home.data)
 
         built = self.client.get("/.well-known/already-built.json")
         self.assertEqual(built.status_code, 200)
@@ -93,6 +98,7 @@ class LiveSurfaceTests(unittest.TestCase):
         self.assertIn(b"No stranger has registered a fresh check.", mass.data)
         self.assertIn(b"0 fresh", mass.data)
         self.assertIn(b"badge-halt", mass.data)
+        self.assertIn(b"Empty is the log, not missing software", mass.data)
 
     def test_roster_lists_a_stranger_who_registered(self):
         head = self.client.get("/.well-known/evidence-head.json").get_json()
@@ -122,7 +128,8 @@ class LiveSurfaceTests(unittest.TestCase):
             acted=False,
         )
         after = self.client.get("/").get_data(as_text=True)
-        self.assertIn("0 irreversible writes stopped", before)
+        self.assertIn("This counter records blocked binds", before)
+        self.assertNotIn("0 irreversible writes stopped", before)
         self.assertIn("1 irreversible write stopped", after)
 
     def test_floor_verify_valid_invalid_and_does_not_open_a_path(self):

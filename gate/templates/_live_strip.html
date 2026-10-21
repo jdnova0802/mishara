@@ -5,7 +5,11 @@
   {% if live.timestamp %}
   <time datetime="{{ live.timestamp }}">{{ live.timestamp[:19]|replace('T', ' ') }} UTC</time>
   {% endif %}
-  <a href="{{ url_for('mass_page') }}" class="badge {% if live.stopped_writes %}badge-halt{% else %}badge-muted{% endif %}">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</a>
+  {% if live.stopped_writes %}
+  <a href="{{ url_for('mass_page') }}" class="badge badge-halt">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</a>
+  {% else %}
+  <span class="stopped-zero">This counter records blocked binds. None yet — that is the log, not missing product.</span>
+  {% endif %}
   {% if show_countdown %}
   <span
     class="status-row"

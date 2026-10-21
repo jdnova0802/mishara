@@ -6,8 +6,8 @@
 
   btn.addEventListener("click", async function () {
     btn.disabled = true;
-    btn.textContent = "Hopping…";
-    out.textContent = "Calling live fuse hop…";
+    btn.textContent = "Checking…";
+    out.textContent = "Calling the public check…";
     verifyLink.style.display = "none";
 
     try {
@@ -31,7 +31,7 @@
       out.textContent = "Error: " + e.message;
     } finally {
       btn.disabled = false;
-      btn.textContent = "Run live hop";
+      btn.textContent = "Run a check";
     }
   });
 })();
