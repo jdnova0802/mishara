@@ -1,0 +1,18 @@
+<div class="live-strip{% if extra_class %} {{ extra_class }}{% endif %}" role="status" aria-label="Live evidence">
+  <span class="badge">Evidence head</span>
+  <span class="status-row"><span class="status-dot ok" aria-hidden="true"></span>{{ live.tree_size }} leaves</span>
+  <code>{{ live.root_short }}</code>
+  {% if live.timestamp %}
+  <time datetime="{{ live.timestamp }}">{{ live.timestamp[:19]|replace('T', ' ') }} UTC</time>
+  {% endif %}
+  <a href="{{ url_for('mass_page') }}" class="badge {% if live.stopped_writes %}badge-halt{% else %}badge-muted{% endif %}">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</a>
+  {% if show_countdown %}
+  <span
+    class="status-row"
+    data-mass-countdown
+    data-target="{{ live.next_mass_iso }}"
+    data-live="{{ '1' if live.sunday_utc else '0' }}"
+  >Next Sunday UTC {{ live.next_sunday_utc }}</span>
+  {% endif %}
+  <a href="/.well-known/evidence-head.json">evidence-head.json</a>
+</div>
