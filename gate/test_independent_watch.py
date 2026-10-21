@@ -43,8 +43,13 @@ class IndependentWatchTests(unittest.TestCase):
         db.init_db()
 
     def setUp(self):
-        # Isolate roster between cases (shared temp DB file).
-        with db.db() as conn:
+        # Isolate roster between cases. `import db` and `from gate import db`
+        # can be two modules; clear the one independent_watch actually uses.
+        try:
+            from gate import db as watch_db
+        except ImportError:
+            watch_db = db
+        with watch_db.db() as conn:
             iw._ensure_table(conn)
             conn.execute("DELETE FROM independent_watchers")
 
