@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Bind Room — halt before the agent binds{% endblock %}
 {% block meta %}
-<meta name="description" content="Your CGL will not cover the agent. $1,750 Bind Room officer pack — stranger-verifiable halt before bind-and-issue.">
+<meta name="description" content="Your CGL will not cover the agent. A CGL pays injury and property damage, not an agent that binds. $1,750 officer pack — a stop before bind-and-issue with a receipt anyone can open.">
 {% endblock %}
 {% block content %}
 <section class="hero container">
   <p class="audience-tag" style="margin-bottom: 0.75rem;">Bind Room · GC / carrier / compliance</p>
   <h1>Your CGL will not cover the agent.</h1>
-  <p class="hero-sub">Before bind-and-issue, the hop must HALT with a receipt anyone can verify — no login, no trust-me dashboard. {{ bind_room_price }} starts the officer pack. Full assessment $3,500.</p>
+  <p class="hero-sub">A commercial general liability policy pays bodily injury and property damage. It does not pay when software binds a policy or moves money. If bind-and-issue runs, that world is spent. {{ bind_room_price }} starts the officer pack examiners take. Full assessment $3,500.</p>
   <div class="hero-actions">
     <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room · {{ bind_room_price }}</a>
     <a href="https://velaru.xyz/verify" class="btn btn-ghost" target="_blank" rel="noopener">Verify a receipt</a>
@@ -16,22 +16,33 @@
 
 <section class="container section" style="padding-top: 0;">
   <div class="card" style="border-left: 3px solid var(--text, #111);">
+    <h2 style="margin-bottom: 0.75rem;">Why the CGL does not cover it</h2>
+    <ul class="check-list">
+      <li><strong>What the form is for</strong> — injury and property damage from your operations. Binding coverage, issuing a policy, or sending funds is a professional act, not a premises accident.</li>
+      <li><strong>What carriers still need</strong> — a stop on the bind path before bind-and-issue. If the check cannot prove allow, the write does not run.</li>
+      <li><strong>What they ask to see</strong> — a receipt a stranger can open with no login. Not a dashboard screenshot. Not “mostly safe.”</li>
+    </ul>
+  </div>
+</section>
+
+<section class="container section" style="padding-top: 0;">
+  <div class="card">
     <h2 style="margin-bottom: 0.75rem;">What happens in one link</h2>
     <ul class="check-list">
-      <li><strong>Clearance hop</strong> — public bind-check returns BLOCK + <code>velaru.xyz/verify</code> URL</li>
-      <li><strong>Officer pack</strong> — JSON narrative examiners can take (not a fuse hash filing)</li>
-      <li><strong>Appendix on request</strong> — each job_id → ALLOW/BLOCK/HALT + verify permalink</li>
-      <li><strong>Fail closed</strong> — uncertain, timeout, or unreachable → write does not run</li>
-      <li><strong>Exclusive weld</strong> — third-party production status only after a recorded exclusive-door weld</li>
+      <li><strong>Stop before bind</strong> — the public check returns BLOCK plus a <code>velaru.xyz/verify</code> URL</li>
+      <li><strong>Officer pack</strong> — JSON narrative examiners can take</li>
+      <li><strong>Appendix on request</strong> — each job → ALLOW/BLOCK/HALT plus a permalink</li>
+      <li><strong>Fail closed</strong> — uncertain, timeout, or unreachable → the bind does not run</li>
+      <li><strong>Their production path</strong> — only after that stop sits on their bind door</li>
     </ul>
   </div>
 </section>
 
 <section class="container section">
   <div class="card">
-    <h2>Clearance hop (lab fuse)</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Optional. The paid path is Bind Room — not operator weld first.</p>
-    <button type="button" id="demo-hop-btn" class="btn btn-ghost">Run clearance hop</button>
+    <h2>See a blocked bind</h2>
+    <p style="color: var(--muted); margin-bottom: 1rem;">Optional. The paid path is Bind Room.</p>
+    <button type="button" id="demo-hop-btn" class="btn btn-ghost">Run a check</button>
     <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
     <pre id="demo-output" class="demo-output">Paste the verify URL in your thread — not a screenshot.</pre>
   </div>
@@ -44,6 +55,6 @@
   <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · clearance before irreversible bind</p>
   <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Book Bind Room · {{ bind_room_price }}</a>
   <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
-  <p style="color: var(--muted); margin-top: 1.25rem; font-size: 0.75rem;">Licensed operator weld · path management · bps — separate SKUs after officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a></p>
+  <p style="color: var(--muted); margin-top: 1.25rem; font-size: 0.75rem;">Licensed operator path · management · bps — separate after the officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a></p>
 </section>
 {% endblock %}

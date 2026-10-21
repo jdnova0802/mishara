@@ -562,3 +562,9 @@ footer a { color: var(--muted); }
 
 .live-strip .badge { font-size: 0.68rem; }
 .dead-hand .toast { margin: 0.5rem 0 0; }
+.stopped-zero {
+  color: var(--muted);
+  font-size: 0.75rem;
+  max-width: 28rem;
+}
+.footer-links { margin-top: 0.75rem; }

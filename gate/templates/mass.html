@@ -19,6 +19,11 @@
       <a href="{{ url_for('well_known_mass') }}" class="btn btn-ghost">mass.json</a>
     </div>
     <p class="mass-count status-row"><span class="status-dot {% if live.stopped_writes %}halt{% else %}idle{% endif %}" aria-hidden="true"></span>{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</p>
+    {% if live.stopped_writes %}
+    <p style="color: var(--muted); margin-top: 0.5rem;">Canonical drill relics are not counted. Only HALT/BLOCK bind events on this log.</p>
+    {% else %}
+    <p style="color: var(--muted); margin-top: 0.5rem;">Zero means no live bind has been blocked on this log. Lab drills do not count. Empty is the log, not missing software.</p>
+    {% endif %}
     <p
       class="mass-count-sub"
       data-mass-countdown
