@@ -86,6 +86,14 @@
   {% block content %}{% endblock %}
 
   <footer>
+    <div class="container live-strip" aria-label="Live evidence">
+      <a href="/.well-known/evidence-head.json">Evidence head</a>
+      <span>{{ live.tree_size }} leaves</span>
+      <code>{{ live.root_short }}</code>
+      <time datetime="{{ live.timestamp }}">{{ live.timestamp[:19]|replace('T', ' ') }} UTC</time>
+      <a href="{{ url_for('mass_page') }}">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</a>
+      <span data-mass-countdown data-target="{{ live.next_mass_iso }}" data-live="{{ '1' if live.sunday_utc else '0' }}">Next Sunday UTC {{ live.next_sunday_utc }}</span>
+    </div>
     <div class="container">
       Nisaba LLC · clearance before irreversible write ·
       <a href="{{ url_for('operator_page') }}">Weld</a> ·
@@ -116,5 +124,28 @@
       {% endif %}
     </div>
   </footer>
+  <script>
+  (function () {
+    var nodes = document.querySelectorAll("[data-mass-countdown]");
+    if (!nodes.length) return;
+    function paint(el) {
+      var target = Date.parse(el.getAttribute("data-target") || "");
+      if (!target) return;
+      var live = el.getAttribute("data-live") === "1";
+      var ms = target - Date.now();
+      if (ms < 0) ms = 0;
+      var s = Math.floor(ms / 1000);
+      var d = Math.floor(s / 86400);
+      var h = Math.floor((s % 86400) / 3600);
+      var m = Math.floor((s % 3600) / 60);
+      var sec = s % 60;
+      var clock = d + "d " + h + "h " + m + "m " + sec + "s";
+      el.textContent = live ? ("Sunday mass is live. Next one in " + clock) : ("Next Sunday mass in " + clock);
+    }
+    function tick() { nodes.forEach(paint); }
+    tick();
+    setInterval(tick, 1000);
+  })();
+  </script>
 </body>
 </html>

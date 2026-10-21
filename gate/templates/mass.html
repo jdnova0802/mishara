@@ -18,11 +18,50 @@
       <a href="{{ mass.verify_url }}" class="btn btn-primary" rel="noopener">Verify together</a>
       <a href="{{ url_for('well_known_mass') }}" class="btn btn-ghost">mass.json</a>
     </div>
+    <p class="mass-count">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</p>
+    <p
+      class="mass-count-sub"
+      data-mass-countdown
+      data-target="{{ live.next_mass_iso }}"
+      data-live="{{ '1' if mass.sunday_utc else '0' }}"
+    >Next Sunday UTC: {{ mass.next_sunday_utc }}</p>
     {% if mass.sunday_utc %}
-    <p style="margin-top: 1rem; color: var(--muted);">Today is Sunday UTC. The mass is live.</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">Today is Sunday UTC. The mass is live. The relic is fixed for the week.</p>
     {% else %}
-    <p style="margin-top: 1rem; color: var(--muted);">Next Sunday UTC: {{ mass.next_sunday_utc }}. The relic is fixed for the week.</p>
+    <p style="margin-top: 0.5rem; color: var(--muted);">The relic is fixed for the week.</p>
     {% endif %}
+  </div>
+
+  <div class="card" id="watchers" style="margin-top: 1.5rem;">
+    <h2>Independent watchers</h2>
+    <p>People who fetched the evidence head and registered themselves. Gate’s GitHub Action is first-party. It does not count.</p>
+    <p style="margin-top: 0.5rem;">Fresh means a check inside {{ stale_after_days }} days. {{ watchers|length }} fresh.</p>
+    {% if watchers %}
+    <table class="roster">
+      <thead>
+        <tr><th>Handle</th><th>Homepage</th><th>Last check</th><th>Leaves seen</th></tr>
+      </thead>
+      <tbody>
+        {% for w in watchers %}
+        <tr>
+          <td>{{ w.handle }}</td>
+          <td>
+            {% if w.homepage and (w.homepage.startswith('https://') or w.homepage.startswith('http://')) %}
+            <a href="{{ w.homepage }}" rel="noopener noreferrer">{{ w.homepage }}</a>
+            {% else %}
+            —
+            {% endif %}
+          </td>
+          <td>{{ w.last_seen_at }}</td>
+          <td>{{ w.last_tree_size }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p style="margin-top: 0.75rem;">No stranger has registered a fresh check.</p>
+    {% endif %}
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('watch_evidence_head_script') }}">watch_evidence_head.py</a> · <code class="inline">--register</code></p>
   </div>
 
   <div class="card" style="margin-top: 1.5rem;">

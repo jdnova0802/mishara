@@ -70,14 +70,9 @@ def _extract_canonical(doc: dict) -> tuple[str | None, dict | None, str | None]:
     return None, None, "missing_canonical_receipt"
 
 
-def _load_public_key(arg: str) -> bytes | None:
-    text = arg
-    try:
-        with open(arg, "r", encoding="utf-8") as f:
-            text = f.read()
-    except OSError:
-        text = arg
-    text = text.strip()
+def decode_public_key(text: str) -> bytes | None:
+    """Ed25519 public key from text the caller already holds. Does not open files."""
+    text = (text or "").strip()
     if not text:
         return None
     if text.startswith("{"):
@@ -94,6 +89,16 @@ def _load_public_key(arg: str) -> bytes | None:
     if not pub or len(pub) != 32:
         return None
     return pub
+
+
+def _load_public_key(arg: str) -> bytes | None:
+    text = arg
+    try:
+        with open(arg, "r", encoding="utf-8") as f:
+            text = f.read()
+    except OSError:
+        text = arg
+    return decode_public_key(text)
 
 
 def _signature_ok(pub: bytes, signature_b64: str, receipt_hash: str) -> bool:

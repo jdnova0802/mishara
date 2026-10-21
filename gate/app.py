@@ -598,6 +598,51 @@ def not_found(_err):
     )
 
 
+_EMPTY_LIVE = {
+    "tree_size": 0,
+    "root_hash": "",
+    "root_short": "—",
+    "timestamp": "",
+    "stopped_writes": 0,
+    "sunday_utc": False,
+    "next_mass_iso": "",
+    "next_sunday_utc": "",
+}
+
+
+def public_live():
+    """Evidence head, stopped writes, and the next Sunday mass. Cached per request."""
+    cached = getattr(g, "_public_live", None)
+    if cached is not None:
+        return cached
+    try:
+        try:
+            from gate import evidence_log as evidence_log_mod
+            from gate import liturgy as liturgy_mod
+        except ImportError:
+            import evidence_log as evidence_log_mod
+            import liturgy as liturgy_mod
+
+        rows = db.list_bind_events_chronological()
+        leaves = evidence_log_mod.log_from_rows(rows)
+        head = evidence_log_mod.signed_tree_head(leaves)
+        root = (head.get("root_hash") or "").strip()
+        live = {
+            "tree_size": int(head.get("tree_size") or 0),
+            "root_hash": root,
+            "root_short": (root[:12] + "…") if root else "—",
+            "timestamp": head.get("timestamp") or "",
+            "stopped_writes": liturgy_mod.stopped_write_count(rows),
+            "sunday_utc": liturgy_mod.stranger_mass(advertised_url(), rows)["sunday_utc"],
+            "next_mass_iso": liturgy_mod.next_mass_start().isoformat(),
+            "next_sunday_utc": liturgy_mod.next_sunday_utc(),
+        }
+    except Exception:
+        live = dict(_EMPTY_LIVE)
+    g._public_live = live
+    return live
+
+
 @app.context_processor
 def inject_globals():
     path = request.path or ""
@@ -615,6 +660,7 @@ def inject_globals():
         "meta_pixel_id": META_PIXEL_ID,
         "ga_id": GA_ID,
         "bind_surface": bind_surface,
+        "live": public_live(),
     }
 
 
@@ -2707,6 +2753,64 @@ def floor_page():
     return render_template("floor.html", public_url=advertised_url())
 
 
+_FLOOR_VERIFY_MAX_BYTES = 48_000
+
+
+@app.route("/floor/verify", methods=["POST"])
+def floor_verify():
+    """Dead-hand check. The posted key is not stored, logged, or returned."""
+    try:
+        from gate import offline_verify as offline_verify_mod
+    except ImportError:
+        import offline_verify as offline_verify_mod
+
+    def _invalid(reason: str, status: int = 400):
+        return jsonify(
+            {
+                "verdict": "invalid",
+                "spec": offline_verify_mod.SPEC,
+                "receipt_hash": None,
+                "reasons": [reason],
+            }
+        ), status
+
+    if request.content_length and request.content_length > _FLOOR_VERIFY_MAX_BYTES:
+        return _invalid("body_too_large")
+    raw = request.get_data(cache=False, as_text=False) or b""
+    if len(raw) > _FLOOR_VERIFY_MAX_BYTES:
+        return _invalid("body_too_large")
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        return _invalid("body_not_json")
+    if not isinstance(payload, dict):
+        return _invalid("body_not_object")
+    receipt = payload.get("receipt")
+    if isinstance(receipt, str):
+        try:
+            receipt = json.loads(receipt)
+        except json.JSONDecodeError:
+            return _invalid("receipt_not_json")
+    if not isinstance(receipt, dict):
+        return _invalid("receipt_not_object")
+    public_key = payload.get("public_key")
+    if not isinstance(public_key, str) or not public_key.strip() or len(public_key) > 512:
+        return _invalid("bad_public_key")
+    # Text only. A path in this field must not be opened.
+    pub = offline_verify_mod.decode_public_key(public_key)
+    if pub is None:
+        return _invalid("bad_public_key")
+    result = offline_verify_mod.verify_document(receipt, pub)
+    return jsonify(
+        {
+            "verdict": result.get("verdict"),
+            "spec": result.get("spec"),
+            "receipt_hash": result.get("receipt_hash"),
+            "reasons": result.get("reasons") or [],
+        }
+    )
+
+
 @app.route("/.well-known/particular.json")
 def well_known_particular():
     return jsonify(particular.manifesto(advertised_url()))
@@ -3824,7 +3928,24 @@ def mass_page():
     events = _public_bind_events()
     mass = liturgy_mod.stranger_mass(advertised_url(), events)
     relics = liturgy_mod.relics_manifest(advertised_url(), events)
-    return render_template("mass.html", mass=mass, relics=relics, public_url=advertised_url())
+    try:
+        from gate import independent_watch as iw
+    except ImportError:
+        import independent_watch as iw
+    try:
+        watchers = iw.list_watchers(include_stale=False)
+        stale_after_days = iw.STALE_AFTER_DAYS
+    except Exception:
+        watchers = []
+        stale_after_days = 14
+    return render_template(
+        "mass.html",
+        mass=mass,
+        relics=relics,
+        watchers=watchers,
+        stale_after_days=stale_after_days,
+        public_url=advertised_url(),
+    )
 
 
 @app.route("/refusal")

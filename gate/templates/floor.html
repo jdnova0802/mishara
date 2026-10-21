@@ -6,6 +6,13 @@
 {% endblock %}
 {% block content %}
 <div class="container section">
+  <div class="live-strip card" style="margin-bottom: 1.5rem;">
+    <a href="/.well-known/evidence-head.json">Evidence head</a>
+    <span>{{ live.tree_size }} leaves</span>
+    <code>{{ live.root_short }}</code>
+    <time datetime="{{ live.timestamp }}">{{ live.timestamp[:19]|replace('T', ' ') }} UTC</time>
+    <a href="{{ url_for('mass_page') }}">{{ live.stopped_writes }} irreversible {{ 'write' if live.stopped_writes == 1 else 'writes' }} stopped</a>
+  </div>
   <p class="audience-tag">The floor</p>
   <h1>They only happen once</h1>
   <p class="audience-sub">Some things are real. Someone who isn’t the actor has to live there afterward. Time is one-way. Harm does not restore. Money does not un-leave.</p>
@@ -34,8 +41,51 @@
   <div class="card" style="margin-top: 1.5rem;">
     <h2>There isn’t a cleverer layer</h2>
     <p><code class="inline">stakes.cleverer_layer</code> is null. On purpose. A demo hop can be true and still not treat this as real. Treating it as real is the weld: their bind path, Bind Room, CHARGE-only resurrect.</p>
-    <pre>curl -s "{{ public_url }}/.well-known/floor.json"</pre>
+    <form id="dead-hand" class="dead-hand">
+      <label for="receipt-json">Receipt JSON</label>
+      <textarea id="receipt-json" name="receipt" rows="8" spellcheck="false" placeholder="Paste the receipt file"></textarea>
+      <label for="public-key">Public key you already hold</label>
+      <input id="public-key" name="public_key" autocomplete="off" spellcheck="false" placeholder="Ed25519 public key, base64">
+      <button type="submit" class="btn btn-primary">Check</button>
+      <p id="dead-hand-verdict" class="verdict" aria-live="polite"></p>
+      <p class="dead-hand-note">The key is checked and not saved. A key inside the receipt is ignored. This page does not fetch <code class="inline">verify_url</code>.</p>
+    </form>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('well_known_floor') }}">floor.json</a></p>
   </div>
+  <script>
+  (function () {
+    var form = document.getElementById("dead-hand");
+    if (!form) return;
+    var verdict = document.getElementById("dead-hand-verdict");
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var raw = document.getElementById("receipt-json").value.trim();
+      var key = document.getElementById("public-key").value.trim();
+      var receipt;
+      try {
+        receipt = JSON.parse(raw);
+      } catch (e) {
+        verdict.className = "verdict verdict-invalid";
+        verdict.textContent = "invalid";
+        return;
+      }
+      verdict.className = "verdict";
+      verdict.textContent = "checking";
+      fetch("{{ url_for('floor_verify') }}", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({receipt: receipt, public_key: key})
+      }).then(function (res) { return res.json(); }).then(function (data) {
+        var word = (data && data.verdict) || "invalid";
+        verdict.className = "verdict verdict-" + word;
+        verdict.textContent = word;
+      }).catch(function () {
+        verdict.className = "verdict verdict-invalid";
+        verdict.textContent = "invalid";
+      });
+    });
+  })();
+  </script>
 
   <div class="card" style="margin-top: 1.5rem;">
     <h2>Not in this contest</h2>
