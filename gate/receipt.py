@@ -54,6 +54,11 @@ def compute_receipt_hash(canonical_receipt_json: str) -> str:
     return hashlib.sha256(canonical_receipt_json.encode("utf-8")).hexdigest()
 
 
+def canonical_dumps(obj: Any) -> str:
+    """Bytes the signature covers: sorted keys, no whitespace."""
+    return _canonical_json(obj)
+
+
 def _ed25519_signing_key():
     # Env vars:
     #   - GATE_RECEIPT_PRIVATE_KEY: base64(raw 32-byte Ed25519 private key)

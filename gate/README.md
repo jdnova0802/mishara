@@ -63,6 +63,20 @@ DEAD → `allow_bind: false` + `raise_uw_issue` body. Do not call `bind-and-issu
 
 MGA: `POST /v1/pas/mga-authority`. Appendix: `GET /v1/pas/bind-appendix`. Page: `/bind-room`. Contract: `/listings/control-not-model.json`.
 
+## Offline verify (server off)
+
+The receipt is `gate-receipt-v1`. The checker refuses any other spec. It hashes the canonical receipt, checks the Ed25519 signature over that hash, and checks the key fingerprint. It does not read `GATE_RECEIPT_*` and it does not fetch `verify_url`. The public key is one you already copied. A key sitting inside the receipt file is ignored.
+
+```bash
+cd gate
+python offline_verify.py receipt.json --public-key public.key
+# stdout: valid
+# exit 1 and a reason on stderr when it is not
+python offline_verify.py receipt.json --public-key public.key --json
+```
+
+`public.key` is raw base64 of the 32-byte Ed25519 public key, or a JSON file with `public_key_b64`. `receipt.json` is the public payload (`canonical_receipt` plus `receipt_signature`).
+
 ## Local dev
 
 ```bash
