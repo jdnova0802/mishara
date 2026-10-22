@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Gate{% endblock %} — clearance before irreversible payout</title>
+  <title>{% block title %}Gate{% endblock %} — stop before bind or payout</title>
   {% block meta %}
-  <meta name="description" content="Gate clears withdraw, payout, and bind writes before they execute. Fail closed. Weld one path. Management + bps. Licensed operators only.">
+  <meta name="description" content="Gate stops an agent before it binds coverage or sends money, and leaves a receipt anyone can open. If the check is unsure, the write does not run.">
   {% endblock %}
   {% block robots %}{% endblock %}
   <link rel="canonical" href="{{ gate_public_url }}{{ request.path }}">
@@ -32,7 +32,7 @@
     "@type": "Organization",
     "name": "Nisaba LLC",
     "url": "{{ gate_public_url }}",
-    "description": "Clearance before irreversible payout, withdraw, and bind. Weld + path management + bps on cleared flow.",
+    "description": "Stops an agent before it binds coverage or sends money, and leaves a receipt anyone can open.",
     "brand": {"@type": "Brand", "name": "Gate"}
   }
   </script>
@@ -43,22 +43,22 @@
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
         {% if bind_surface %}
-        <a href="{{ url_for('bind_room') }}">Bind Room</a>
-        <a href="{{ url_for('clear_page') }}">Clear</a>
-        <a href="{{ url_for('seal_page') }}">Seal</a>
-        <a href="{{ url_for('go_page') }}">Go</a>
-        <a href="{{ url_for('never_page') }}">Never</a>
+        <a href="{{ url_for('bind_room') }}" title="Officer pack before an agent binds coverage">Bind Room</a>
+        <a href="{{ url_for('clear_page') }}" title="Does this payout settle and stick">Payout</a>
+        <a href="{{ url_for('seal_page') }}" title="Does this receipt still hold">Receipt</a>
+        <a href="{{ url_for('go_page') }}" title="May this payment go out">Payment</a>
+        <a href="{{ url_for('never_page') }}" title="Has this job already spent">Spent</a>
         <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         <a href="{{ url_for('trust') }}">Trust</a>
         <a href="{{ url_for('record_page') }}">Record</a>
         <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
         {% else %}
-        <a href="{{ url_for('bind_room') }}">Bind Room</a>
-        <a href="{{ url_for('operator_page') }}">Weld</a>
-        <a href="{{ url_for('clear_page') }}">Clear</a>
-        <a href="{{ url_for('seal_page') }}">Seal</a>
-        <a href="{{ url_for('go_page') }}">Go</a>
-        <a href="{{ url_for('never_page') }}">Never</a>
+        <a href="{{ url_for('bind_room') }}" title="Officer pack before an agent binds coverage">Bind Room</a>
+        <a href="{{ url_for('operator_page') }}" title="Install the stop on a live system">Install</a>
+        <a href="{{ url_for('clear_page') }}" title="Does this payout settle and stick">Payout</a>
+        <a href="{{ url_for('seal_page') }}" title="Does this receipt still hold">Receipt</a>
+        <a href="{{ url_for('go_page') }}" title="May this payment go out">Payment</a>
+        <a href="{{ url_for('never_page') }}" title="Has this job already spent">Spent</a>
         <a href="{{ url_for('live_page') }}">Live</a>
         <a href="{{ url_for('record_page') }}">Record</a>
         <a href="{{ url_for('register_page') }}">Fees</a>
