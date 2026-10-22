@@ -15,7 +15,8 @@ from rel import receipt as receipt_mod
 SPEC = "rel-v1"
 INVARIANT = (
     "Release is not delivery. "
-    "The machine cannot wear the agent mouth, the charterer mouth, or the telex email."
+    "The machine cannot wear the agent mouth, the charterer mouth, the telex email, "
+    "or a caller-supplied instruction hash."
 )
 DECISIONS = ("EXIST", "HOLD", "NONEXIST", "GAP")
 INSTRUMENT = ("SURRENDERED", "OUTSTANDING", "EBL_CONTROL", "GAP")
@@ -33,6 +34,7 @@ MOUTH_KEYS = (
     "release_granted",
     "ok_to_release",
 )
+STUFFED_HASH_KEYS = ("instruction_hash", "hash", "written_hash")
 NOT = (
     "delivery, P&I cover, Kayhan, WaveBL, CargoSmart, SuretyBind, "
     "or the machine wearing the agent, charterer, or telex mouth."
@@ -109,17 +111,54 @@ def instrument_hash(bill: Any, control: Any = None) -> str | None:
     return hashlib.sha256(_canonical_json(body).encode("utf-8")).hexdigest()
 
 
-def authority_hash(authority: Any) -> str | None:
-    a = _as_dict(authority)
-    h = _norm(a.get("instruction_hash") or a.get("hash") or a.get("written_hash"))
-    if h:
-        return h
-    written = a.get("written_instruction") or a.get("instruction")
-    if isinstance(written, dict) and _present(written):
-        return hashlib.sha256(_canonical_json(written).encode("utf-8")).hexdigest()
-    if isinstance(written, str) and written.strip():
-        return hashlib.sha256(written.strip().encode("utf-8")).hexdigest()
+def _human_principal_id(authority: dict) -> str | None:
+    for key in ("human_principal_id", "principal_id", "named_principal"):
+        value = _norm(authority.get(key))
+        if value:
+            return value
     return None
+
+
+def _written_instruction(authority: dict) -> Any:
+    written = authority.get("written_instruction")
+    if isinstance(written, str) and written.strip():
+        return written.strip()
+    if isinstance(written, dict) and _present(
+        written.get("text") or written.get("body") or written.get("written")
+    ):
+        return written
+    ins = authority.get("instruction")
+    if isinstance(ins, str) and ins.strip():
+        return ins.strip()
+    if isinstance(ins, dict) and _present(
+        ins.get("text") or ins.get("body") or ins.get("written")
+    ):
+        return ins
+    return None
+
+
+def stuffed_instruction_hash(authority: Any) -> set[str]:
+    a = _as_dict(authority)
+    found: set[str] = set()
+    for key in STUFFED_HASH_KEYS:
+        if _norm(a.get(key)):
+            found.add(key)
+    return found
+
+
+def authority_hash(authority: Any) -> str | None:
+    """Digest of named principal + written body. Never a caller-supplied hash."""
+    a = _as_dict(authority)
+    principal = _human_principal_id(a)
+    written = _written_instruction(a)
+    if not principal or written is None:
+        return None
+    body = {
+        "spec": SPEC,
+        "human_principal_id": principal,
+        "written": written,
+    }
+    return hashlib.sha256(_canonical_json(body).encode("utf-8")).hexdigest()
 
 
 def _instrument_state(bill: dict, control: dict) -> str:
@@ -223,6 +262,7 @@ def witness(
     mouths = set(mouth_keys or ())
     inh = instrument_hash(b, c)
     ah = authority_hash(a)
+    stuffed = stuffed_instruction_hash(a)
     state = _instrument_state(b, c)
     platform = _norm(c.get("platform")) or None
     first = _norm_upper(first_set or b.get("first_set"))
@@ -240,6 +280,14 @@ def witness(
             "NONEXIST",
             "mouth_substitution",
             mouth_keys=sorted(mouths),
+            **common,
+        )
+
+    if stuffed:
+        return _base(
+            "NONEXIST",
+            "mouth_substitution",
+            mouth_keys=sorted(stuffed),
             **common,
         )
 
