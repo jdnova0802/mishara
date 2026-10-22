@@ -4210,6 +4210,7 @@ class X402FacilitatorUnlockTests(unittest.TestCase):
                                     "amount": "0.002",
                                     "currency": "USDC",
                                     "counterparty": payto,
+                                    "upstream_id": "pay_facilitator_1",
                                 },
                                 "mandate": {"agent_id": "buyer", "max_amount": "1.00"},
                             },
