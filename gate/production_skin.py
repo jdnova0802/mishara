@@ -98,6 +98,7 @@ def record_production_weld(
     exclusive_door_url: str | None = None,
     door_kind: str | None = None,
     worker_fingerprint: str | None = None,
+    release_credential_in_door: bool = False,
 ) -> dict[str, Any]:
     """Record third-party production weld. Requires confirm + exclusivity attestation."""
     if not confirm:
@@ -122,6 +123,7 @@ def record_production_weld(
             exclusive_door_url=exclusive_door_url,
             door_kind=door_kind,
             worker_fingerprint=worker_fingerprint,
+            release_credential_in_door=release_credential_in_door,
         )
     except ValueError as exc:
         return {"ok": False, "error": str(exc), "their_production": their_production()}

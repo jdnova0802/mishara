@@ -110,7 +110,7 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
     )
 
     if rows is None:
-        rows = db.list_bind_events_chronological()
+        rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, eid)
     inclusion_ok = False
     root_hash = None

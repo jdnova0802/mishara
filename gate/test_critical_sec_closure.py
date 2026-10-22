@@ -253,6 +253,7 @@ class DemoKeySeparationTests(unittest.TestCase):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "upstream_id": "po_crit_1",
         }
         order = {
             "type": "rtp",
@@ -260,6 +261,7 @@ class DemoKeySeparationTests(unittest.TestCase):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "id": "po_crit_1",
         }
         return transfer, order
 

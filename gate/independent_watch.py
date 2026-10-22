@@ -55,7 +55,7 @@ def _b64decode(s: str | None) -> bytes | None:
 
 
 def live_head() -> dict[str, Any]:
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     leaves = evidence_log_mod.log_from_rows(rows)
     head = evidence_log_mod.signed_tree_head(leaves)
     return {

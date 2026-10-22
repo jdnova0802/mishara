@@ -3,6 +3,8 @@
  * Only bind-only can print. Redeem hashes THIS request's write, not a
  * fingerprint copied off the ticket. Everything else passes through.
  * wrangler secret put GATE_KEY
+ * wrangler secret put RELEASE_CREDENTIAL
+ * The bind or payout secret lives only in this worker. Callers do not hold it.
  * GATE_URL = live https Gate — never localhost.
  * Halt JSON always includes verify_url and inhabitant_url so the inhabitant
  * gets a copy without asking.
@@ -125,6 +127,15 @@ export default {
     if (!redeem.ok || redeemed.ok === false || redeemed.halt) {
       return haltResponse(redeemed, env, { reason: redeemed.reason || "ticket_invalid" }, 403);
     }
-    return fetch(request);
+    if (!env.RELEASE_CREDENTIAL) {
+      return haltResponse(redeemed, env, { reason: "release_credential_missing" }, 503);
+    }
+    const headers = new Headers(request.headers);
+    headers.delete("authorization");
+    headers.delete("cookie");
+    headers.delete("x-api-key");
+    headers.set("authorization", `Bearer ${env.RELEASE_CREDENTIAL}`);
+    headers.set("x-gate-release", "worker");
+    return fetch(new Request(request, { headers }));
   },
 };

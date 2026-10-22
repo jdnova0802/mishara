@@ -141,6 +141,37 @@ def manifest(public_url: str) -> dict[str, Any]:
     }
 
 
+def receipt_leaf_hash(receipt_jwt: str) -> str:
+    """sha256 of the JWT string the stranger was given."""
+    return hashlib.sha256(receipt_jwt.encode("utf-8")).hexdigest()
+
+
+def log_stamp(receipt_jwt: str | None) -> dict | None:
+    """CT-shaped stamp. tree_size and log_id fill once this leaf is in a published root."""
+    if not receipt_jwt:
+        return None
+    leaf = receipt_leaf_hash(receipt_jwt)
+    head = latest_broadcast()
+    found = None
+    if head:
+        bucket = (_leaves_for([leaf]).get(leaf) or [])
+        found = bucket[0] if bucket else None
+    anchored = bool(found and head)
+    log_id = None
+    if anchored:
+        chain = head.get("chain_id")
+        tx = head.get("l2_tx_hash")
+        log_id = f"base:{chain}:{tx}" if chain and tx else (tx or None)
+    return {
+        "spec": "gate-log-stamp-v1",
+        "leaf_hash": leaf,
+        "leaf_alg": "sha256(receipt_jwt)",
+        "tree_size": int(head["tree_size"]) if anchored else None,
+        "log_id": log_id,
+        "status": "anchored" if anchored else "pending",
+    }
+
+
 def latest_broadcast() -> dict | None:
     ensure_schema()
     with db.db() as conn:
@@ -247,6 +278,7 @@ def submit_ots(statement_hash: bytes) -> dict[str, Any]:
 def _prepare(*, chain: Any, ots_submitter: Any, publish: bool) -> dict[str, Any]:
     resumed = _resume_pending(chain, ots_submitter) if publish and chain is not None else None
     rows = db.list_bind_events_chronological(limit=1_000_000)
+    rows = db.with_clearance_stamps(rows)
     leaves = evidence_log.log_from_rows(rows)
     if resumed is not None and resumed.get("status") != "broadcast":
         return resumed

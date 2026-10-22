@@ -243,7 +243,7 @@ def live_status(base: str) -> dict[str, Any]:
         import evidence_log as evidence_log_mod
 
     try:
-        rows = db.list_bind_events_chronological()
+        rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     except Exception:
         rows = []
     leaves = evidence_log_mod.log_from_rows(rows)
@@ -421,7 +421,7 @@ def mint_sample(*, public_url: str, job_id: str | None = None) -> dict[str, Any]
         verify_url=f"{base}/regulator",
         hop=hop,
     )
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, event_id)
     row = db.get_bind_event(event_id) or {}
 
@@ -489,7 +489,7 @@ def verify_bundle(*, public_url: str, event_id: str) -> dict[str, Any]:
     if not row:
         return {"ok": False, "error": "event_not_found", "event_id": eid, "spec": SPEC}
 
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, eid)
     sig_ok = receipt_mod.verify_receipt_signature(
         receipt_hash=row.get("receipt_hash") or "",
