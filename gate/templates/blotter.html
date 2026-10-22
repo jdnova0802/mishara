@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Blotter{% endblock %}
+{% block meta %}
+<meta name="description" content="Open acts on one screen. LATE means the settlement window passed and the act is still open.">
+{% endblock %}
+{% block content %}
+<style>
+  .desk {
+    margin: -2rem 0 0;
+    min-height: 88vh;
+    background: #12140f;
+    color: #e6e1d4;
+    padding: 1.5rem 1rem 3rem;
+  }
+  .desk-inner { max-width: 920px; margin: 0 auto; }
+  .desk h1 {
+    font-size: 1.6rem;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.35rem;
+  }
+  .desk p { color: #a39b88; margin: 0 0 1rem; max-width: 38rem; }
+  .desk code { color: #f0d78c; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+  th { text-align: left; color: #8c8574; font-weight: 600; padding: 0.4rem 0.45rem; border-bottom: 1px solid #2c2a22; }
+  td { padding: 0.55rem 0.45rem; border-bottom: 1px solid #2c2a22; vertical-align: middle; }
+  tr.flash td { background: #2a2110; }
+  .word { font-weight: 700; letter-spacing: 0.04em; }
+  .word.late, .word.broken { color: #f0a202; }
+  .word.holds { color: #8fbf7f; }
+  button.act {
+    background: transparent;
+    color: #e6e1d4;
+    border: 1px solid #5c5648;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    margin-right: 0.25rem;
+  }
+  button.act:hover { border-color: #f0d78c; color: #f0d78c; }
+  .empty { color: #8c8574; }
+  a.desk-link { color: #f0d78c; }
+</style>
+<div class="desk">
+  <div class="desk-inner">
+    <h1>Blotter</h1>
+    <p>
+      Open acts only. The composite word is the latest print on that job.
+      <code>=GATE.SEAL(job_id)</code> is
+      <a class="desk-link" href="/v1/seal/job?job_id=">GET /v1/seal/job</a>.
+      A stranger still checks one receipt at <a class="desk-link" href="/seal">Seal</a> for free.
+    </p>
+    <p id="blotter-meta" class="empty">Loading.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Job</th>
+          <th>Word</th>
+          <th>Due</th>
+          <th>Prints</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="blotter-body">
+        <tr><td class="empty" colspan="5">No open acts.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+(function () {
+  const body = document.getElementById("blotter-body");
+  const meta = document.getElementById("blotter-meta");
+
+  function row(q) {
+    const late = q.composite === "LATE" || q.composite === "BROKEN";
+    const tr = document.createElement("tr");
+    if (q.flash) tr.className = "flash";
+    const job = document.createElement("td");
+    job.textContent = q.job_id || "";
+    const word = document.createElement("td");
+    word.className = "word " + (q.composite || "").toLowerCase();
+    word.textContent = q.composite || "";
+    const due = document.createElement("td");
+    due.textContent = q.due_at || "";
+    const prints = document.createElement("td");
+    prints.textContent = String(q.print_count || 0);
+    const act = document.createElement("td");
+    ["HOLD", "HALT"].forEach(function (decision) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "act";
+      b.textContent = decision === "HOLD" ? "Hold" : "Deny";
+      b.addEventListener("click", function () { send(q.job_id, decision); });
+      act.appendChild(b);
+    });
+    tr.appendChild(job);
+    tr.appendChild(word);
+    tr.appendChild(due);
+    tr.appendChild(prints);
+    tr.appendChild(act);
+    if (late) tr.dataset.flash = "1";
+    return tr;
+  }
+
+  function paint(data) {
+    const n = data.open_count || 0;
+    const flash = data.flash_count || 0;
+    const watchers = data.head_watchers || 0;
+    meta.textContent = n + " open · " + flash + " flashing · " + watchers + " independent watchers on the evidence head";
+    body.textContent = "";
+    if (!data.rows || !data.rows.length) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = 5;
+      td.className = "empty";
+      td.textContent = "No open acts.";
+      tr.appendChild(td);
+      body.appendChild(tr);
+      return;
+    }
+    data.rows.forEach(function (q) { body.appendChild(row(q)); });
+  }
+
+  function load() {
+    return fetch("/v1/blotter").then(function (r) { return r.json(); }).then(paint);
+  }
+
+  function send(jobId, decision) {
+    fetch("/v1/blotter/act", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({job_id: jobId, decision: decision})
+    }).then(function () { return load(); });
+  }
+
+  load();
+})();
+</script>
+{% endblock %}
