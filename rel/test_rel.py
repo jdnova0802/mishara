@@ -34,11 +34,16 @@ def _authority(**extra):
     body = {
         "kind": "owner",
         "owner": "owner:line",
-        "instruction_hash": "a" * 64,
+        "human_principal_id": "human:owner-line",
         "written_instruction": {"text": "release to consignee X at port P"},
     }
     body.update(extra)
     return body
+
+
+def _expected_authority_hash(authority=None):
+    a = authority or _authority()
+    return rel_mod.authority_hash(a)
 
 
 def _complete(**extra):
@@ -94,6 +99,53 @@ class RelWitnessTests(unittest.TestCase):
         self.assertEqual(out["decision"], "NONEXIST")
         self.assertEqual(out["reason"], "mouth_substitution")
         self.assertIn("authorized", out["mouth_keys"])
+
+    def test_stuffed_instruction_hash_is_mouth_substitution(self):
+        out = rel_mod.witness(
+            bill=_bill(),
+            authority={
+                "kind": "owner",
+                "human_principal_id": "human:owner-line",
+                "written_instruction": {"text": "release to consignee X at port P"},
+                "instruction_hash": "a" * 64,
+            },
+        )
+        self.assertEqual(out["decision"], "NONEXIST")
+        self.assertEqual(out["reason"], "mouth_substitution")
+        self.assertIn("instruction_hash", out["mouth_keys"])
+        self.assertNotEqual(out["authority_hash"], "a" * 64)
+
+    def test_caller_hash_alone_is_not_authority(self):
+        out = rel_mod.witness(
+            bill=_bill(),
+            authority={"kind": "owner", "instruction_hash": "b" * 64},
+        )
+        self.assertEqual(out["decision"], "NONEXIST")
+        self.assertEqual(out["reason"], "mouth_substitution")
+        self.assertIsNone(out["authority_hash"])
+
+    def test_written_body_without_named_human_holds(self):
+        out = rel_mod.witness(
+            bill=_bill(),
+            authority={
+                "kind": "owner",
+                "owner": "owner:line",
+                "written_instruction": {"text": "release to consignee X at port P"},
+            },
+        )
+        self.assertEqual(out["decision"], "HOLD")
+        self.assertEqual(out["reason"], "missing_principal")
+        self.assertIsNone(out["authority_hash"])
+
+    def test_authority_hash_is_principal_plus_writing(self):
+        a = _authority()
+        digest = rel_mod.authority_hash(a)
+        again = rel_mod.authority_hash(a)
+        stuffed = rel_mod.authority_hash({**a, "instruction_hash": "f" * 64})
+        self.assertEqual(digest, again)
+        self.assertEqual(digest, stuffed)
+        self.assertEqual(len(digest), 64)
+        self.assertNotEqual(digest, "a" * 64)
 
 
 class RelFilmFixtures(unittest.TestCase):
@@ -177,6 +229,7 @@ class RelEvaluateTests(unittest.TestCase):
         self.assertTrue(verified["payload"]["exists"])
         self.assertEqual(verified["payload"]["inh"], out["release"]["instrument_hash"])
         self.assertEqual(verified["payload"]["ah"], out["release"]["authority_hash"])
+        self.assertEqual(verified["payload"]["ah"], _expected_authority_hash())
 
     def test_charterer_only_switch_nonexist(self):
         out = rel_mod.evaluate(
@@ -186,7 +239,8 @@ class RelEvaluateTests(unittest.TestCase):
                     "authority": {
                         "kind": "charterer",
                         "charterer_only": True,
-                        "instruction_hash": "b" * 64,
+                        "human_principal_id": "human:charterer",
+                        "written_instruction": {"text": "deliver without originals"},
                     },
                     "switch": True,
                     "first_set": "CANCELLED",
