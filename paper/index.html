@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PAPER CHECK</title>
+  <meta name="description" content="Upload the paper. Pay $49. We tell you if it's dead or it isn't." />
+  <style>
+    :root {
+      --bg: #0e0f0c;
+      --paper: #e8e1d1;
+      --ink: #14140f;
+      --mute: #8a8578;
+      --line: #2a2a24;
+      --pay: #c4b48a;
+      --den: #8f4a3a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--paper); }
+    body {
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      min-height: 100vh;
+      line-height: 1.45;
+    }
+    .wrap { max-width: 38rem; margin: 0 auto; padding: 2rem 1.1rem 5rem; }
+    .mark { letter-spacing: 0.22em; font-size: 0.78rem; font-weight: 700; }
+    h1 { font-size: 1.7rem; font-weight: 500; margin: 1.4rem 0 0.7rem; letter-spacing: -0.02em; }
+    p { color: var(--mute); margin: 0 0 1rem; }
+    .ink { color: var(--paper); }
+    label { display: block; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); margin: 1.4rem 0 0.4rem; }
+    textarea, input[type="text"] {
+      width: 100%; font: inherit; padding: 0.8rem;
+      background: #16170f; color: var(--paper); border: 1px solid var(--line);
+    }
+    textarea { min-height: 7rem; resize: vertical; }
+    input[type="file"] { color: var(--mute); margin: 0.4rem 0 0.8rem; }
+    .hash { font-family: ui-monospace, monospace; font-size: 0.72rem; color: var(--pay); word-break: break-all; min-height: 1.2em; }
+    a.pay, button.ghost {
+      font: inherit; cursor: pointer; border: 1px solid var(--pay);
+      background: transparent; color: var(--pay); padding: 0.85rem 1rem;
+      text-decoration: none; display: inline-block; margin: 1rem 0.6rem 0 0;
+    }
+    a.pay.dead { opacity: 0.4; pointer-events: none; }
+    button.ghost { border-color: var(--line); color: var(--paper); }
+    .fine { font-size: 0.78rem; margin-top: 2rem; }
+    .box { border: 1px solid var(--line); padding: 1rem; margin: 1.2rem 0; }
+    .den { color: var(--den); }
+    code { font-family: ui-monospace, monospace; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mark">PAPER CHECK</div>
+    <h1>Upload the paper. Pay $49. We tell you if it’s dead or it isn’t.</h1>
+    <p class="ink">Fail = don’t wire. Don’t mobilize. Don’t start.</p>
+    <p>Not a bank. Not a surety. Not a broker. Not a bind. HOLD means these checks did not fail — not that the instrument is authentic.</p>
+
+    <label>What you need it to cover</label>
+    <textarea id="need" placeholder="Named insured, additional insured / holder, min GL occ, job start date. Paste the requirement. Blank = we only do dates + hygiene."></textarea>
+
+    <label>The PDF</label>
+    <input id="file" type="file" accept="application/pdf,image/*" />
+    <div class="hash" id="hash">No file yet.</div>
+    <button class="ghost" type="button" id="copy-hash">Copy hash</button>
+
+    <div class="box">
+      <p class="ink" style="margin-bottom:0.4rem">Pay. Then email the PDF.</p>
+      <p>Subject: PAPER CHECK. Body: your requirements + the hash. Attach the same file. We reply DENY or HOLD.</p>
+      <p id="where">Inbox: set paper/config.js <code>inbox</code> before you send people here.</p>
+      <a class="pay" id="pay" href="https://buy.stripe.com/fZufZa8MGcxmavdgrq8Vi0R">Pay $49</a>
+      <a class="pay" id="mail" href="#">Open email draft</a>
+    </div>
+
+    <p class="fine den">SBLC / LOC PDFs: we do not clear wires. DENY for wire on a PDF of an SBLC.</p>
+    <p class="fine">One price. No call. No account.</p>
+  </div>
+  <script src="config.js"></script>
+  <script>
+    const FALLBACK_PAY = "https://buy.stripe.com/fZufZa8MGcxmavdgrq8Vi0R";
+    const cfg = window.PAPER || {};
+    const payUrl = cfg.pay || FALLBACK_PAY;
+    const inbox = (cfg.inbox || "").trim();
+    const pay = document.getElementById("pay");
+    const mail = document.getElementById("mail");
+    const where = document.getElementById("where");
+    pay.href = payUrl;
+    if (!payUrl) pay.classList.add("dead");
+    if (inbox) {
+      where.innerHTML = "Inbox: <code>" + inbox.replace(/</g, "") + "</code>";
+    }
+
+    let hashHex = "";
+    async function sha256(buf) {
+      const d = await crypto.subtle.digest("SHA-256", buf);
+      return [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+    document.getElementById("file").addEventListener("change", async (e) => {
+      const f = e.target.files && e.target.files[0];
+      if (!f) { hashHex = ""; document.getElementById("hash").textContent = "No file yet."; return; }
+      const buf = await f.arrayBuffer();
+      hashHex = await sha256(buf);
+      document.getElementById("hash").textContent = f.name + " · SHA-256 " + hashHex;
+    });
+    document.getElementById("copy-hash").onclick = async () => {
+      if (!hashHex) return;
+      await navigator.clipboard.writeText(hashHex);
+    };
+
+    function draft() {
+      const need = document.getElementById("need").value.trim();
+      const body = [
+        "PAPER CHECK",
+        "",
+        "Hash: " + (hashHex || "(attach the file, hash on the page)"),
+        "",
+        "Requirements:",
+        need || "(none pasted)",
+        "",
+        "Stripe receipt attached or in this thread.",
+        "Fail = don't wire, don't mobilize."
+      ].join("\n");
+      const to = inbox || "";
+      return "mailto:" + encodeURIComponent(to) + "?subject=" + encodeURIComponent("PAPER CHECK") + "&body=" + encodeURIComponent(body);
+    }
+    mail.addEventListener("click", (e) => {
+      e.preventDefault();
+      location.href = draft();
+    });
+  </script>
+</body>
+</html>
