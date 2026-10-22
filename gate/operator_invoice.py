@@ -341,6 +341,15 @@ def manifest(public_url: str, contact_email: str) -> dict:
             "year": year_scale(),
         },
         "writes": list(WRITES.values()),
+        "bargain": {
+            "operator": "On a NO, the payout or bind does not fire. Uncertain fails closed.",
+            "auditor": "A stranger can verify the clearance. No account.",
+            "counsel": (
+                "One door on that write. Terms do not assign who pays if a GO was wrong. "
+                "That sentence is written into the weld before an enterprise embed."
+            ),
+            "nisaba": "Keeps the mouth. Weld, management rent, and basis points on what clears.",
+        },
         "first_weld": {
             "id": "withdraw_payout_clear",
             "write": "withdraw",
@@ -369,6 +378,15 @@ Nisaba LLC · {contact_email} · {base}
 WHAT IT IS
   Clearance before irreversible withdraw, payout, or bind.
   Fail closed under uncertainty. Independent verify. Licensed operators only.
+
+BARGAIN
+  Operator   On a NO, the payout or bind does not fire. Uncertain fails closed.
+  Auditor    A stranger can verify the clearance. No account.
+             {base}/.well-known/seal-anchor.json · https://velaru.xyz/verify
+  Counsel    One door on that write. Terms do not assign who pays if a GO was wrong.
+             That sentence is written into the weld before an enterprise embed.
+             {base}/terms
+  Nisaba     Keeps the mouth. Weld + management + basis points on what clears.
 
 CHECKOUT
   Weld:       {WELD_PRICE_LABEL} one-time — one irreversible write (48hr delivery)
