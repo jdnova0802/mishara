@@ -1,0 +1,34 @@
+COPY FROM HERE
+════════════════════════════════════
+CLOCKS — 20 Sep 2026
+No founding. No fifth lane. No weld to gate/. No leftover-22.
+Nothing further tonight unless a name appears.
+
+A. $7 MUSE HALT — LIVE 7-DAY KILL
+Page: hunt/willnot/index.html
+Pay: https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
+Stripe: prod_VIC23xiEqok0q7 / price_1UHbeC3b5zsnE0zsYSTawiOW / plink_1UHbeC3b5zsnE0zsZKgzYSFr
+$7 USD one-time. Existing Nisaba Stripe. Not a new company.
+Kill: 27 Sep 2026. If $0, deactivate the Payment Link. No addendum. No doctrine memo.
+
+Serve locally to sign: cd hunt/willnot && python3 -m http.server 8765
+  http://127.0.0.1:8765
+Public pay URL is Stripe-hosted; the receipt still needs localhost/https for WebAuthn.
+
+POSTED (20 Sep ~02:00 ET): HN as demonddavis under simonw
+  https://news.ycombinator.com/item?id=49619026
+SKIPPED: X / OrangeTajin. Do not spray. Places archive: hunt/PASTE-WHERE.txt
+  Do not: App Store Stripe, r/iphone OP, r/Muse (band), Meta Help.
+  Muse just hit #1 free US. It can message / book / change settings once you grant access.
+  I shipped a $7 passkey halt receipt: you attest “I did not authorize this agent action.”
+  Not a bank stop. Not legal standing. Typed name without a passkey is a HOLD.
+  Pay: https://buy.stripe.com/9B6dR24wqfJy1YHfnm8Vi0O
+
+B. MERCHANT 10.4 MANDATE EXHIBIT — MAPPED, WAITING ON A NAME
+Chargeback.io 21 Aug 2026: nobody holds the tamper-resistant mandate-to-order record.
+TAP authenticates the agent, not the human instruction. Same prin-hash.
+Zero named TAP/SPT merchant with agent-checkout chargebacks.
+Hours: zero until that name exists. Allowed outcome if it never does.
+Do not build a second product this weekend.
+
+END COPY

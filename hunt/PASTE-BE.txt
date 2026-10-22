@@ -1,0 +1,47 @@
+COPY FROM HERE
+════════════════════════════════════
+NEW MAP — BELGIUM B2B INVOICE MOUTH — 20 Sep 2026
+Not Muse. Not 10.4. Not CRA. Not ET13. Not Tuesday.
+No founding. No weld to gate/. Hours: zero until a named Belgian VAT number.
+
+CLOCK (LIVE)
+1 Jan 2026: domestic B2B between Belgian VAT-registered MUST be structured e-invoice (EN 16931 / Peppol BIS 3.0). PDF is not the invoice.
+1 Apr 2026: FPS Finance grace OVER (announced 27 Mar 2026, Radio 2). Enforcement on.
+Royal Decree 8 Jul 2025, heading I §2 C (FPS FAQ einvoice.belgium.be):
+  Failure to have technical means to ISSUE AND RECEIVE a structured e-invoice:
+  1st €1,500 / 2nd €3,000 / following €5,000
+  (three months between findings)
+Receiver can be fined, not only sender. peppol.nu + FPS FAQ.
+Self-billing extra window ended 30 Jun 2026.
+2028 sequel: five-corner e-reporting (FPS as 5th corner). Not this SKU.
+
+WHAT IS UNBUILT (CHARGE, NOT A PEPOL ACCESS POINT)
+Sovos / Billtobox / Exact / TrueCommerce already ARE the Access Point.
+Do not become the 40th Peppol AP.
+
+The leftover mouth: EXIST / HOLD / NONEXIST on the invoice itself.
+  EXIST: Peppol BIS 3.0 delivered; KSeF-style “this is the invoice.”
+  HOLD: XML arrived, no Invoice Response yet (FPS: reject with IR status RE).
+  NONEXIST: PDF / email / paper treated as the B2B invoice. Machine refuses.
+
+Buildable object (one page + schema, not a chatbot):
+  Drop VAT-BE numbers + a file.
+  Machine returns: EXIST (Peppol id) / HOLD (await IR) / NONEXIST (PDF is stuffed).
+  Optional: emit Invoice Response RE. That is the fail-closed tool.
+
+MONEY (cited vs guess)
+Cited: €1,500–€5,000 per finding; VAT deduction can die on a bad inbound invoice.
+Guess invoice: €200–€800 one-time for a shop that just got the letter, or a monthly on the validator.
+Occupied: full Peppol suites. Unoccupied: the refuse-PDF machine as a named object.
+Same problem as A/B: still needs a named Belgian VAT (or their accountant). No name = $0.
+
+NOT THIS
+US company without Belgian VAT as the obligated party.
+Poland KSeF: foreign w/o fixed establishment is NOT obligated (MoF 28 Jan 2026 notes).
+Google UCP payment_handlers: Stripe already shipped com.stripe.payments. Don’t compete with Stripe.
+CMMC Phase 2: suspended 13 Jul 2026. Dead clock.
+
+NEXT IF HE SAYS BET
+Do not build overnight. First: one Belgian VAT number that received a PDF and a fine/hold on deduction. Then the validator. Else this map stays parked like B.
+
+END COPY

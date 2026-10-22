@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STOOD</title>
+  <meta name="description" content="Tap yes or no. Get a pic. Post it." />
+  <style>
+    :root {
+      --bg: #0e0f0c;
+      --paper: #e8e1d1;
+      --ink: #14140f;
+      --mute: #8a8578;
+      --line: #2a2a24;
+      --pay: #c4b48a;
+      --gold: #c4b48a;
+      --moss: #6e7f6b;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--bg); color: var(--paper); }
+    body {
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      min-height: 100vh;
+      line-height: 1.4;
+    }
+    .wrap { max-width: 42rem; margin: 0 auto; padding: 2rem 1.1rem 5rem; }
+    header.top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1.4rem; }
+    .mark { letter-spacing: 0.28em; font-size: 0.78rem; font-weight: 700; }
+    .date { font-size: 0.8rem; color: var(--mute); letter-spacing: 0.06em; }
+    .lede { color: var(--mute); margin: 0 0 1rem; font-size: 0.98rem; }
+    .pic {
+      background: var(--paper);
+      color: var(--ink);
+      aspect-ratio: 1200 / 675;
+      padding: 1.2rem 1.35rem 1rem;
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 1rem;
+    }
+    .pic.a { background: var(--gold); color: var(--ink); }
+    .pic.b { background: var(--moss); color: var(--paper); }
+    .pic-bar { display: flex; justify-content: space-between; font-size: 0.72rem; letter-spacing: 0.22em; font-weight: 700; }
+    .pic-bar .d { letter-spacing: 0.04em; font-weight: 500; color: #5c584c; }
+    .pic.a .pic-bar .d { color: #3d3420; }
+    .pic.b .pic-bar .d { color: #d5ddd2; }
+    .pic-q {
+      margin: 0.85rem 0 0;
+      font-size: clamp(1.15rem, 3.6vw, 1.55rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .pic-ans {
+      font-size: clamp(5rem, 22vw, 8.2rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.82;
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      color: transparent;
+    }
+    .pic-ans.a, .pic-ans.b { color: inherit; }
+    .pic-foot { display: flex; justify-content: space-between; align-items: flex-end; color: #8a8578; font-size: 0.72rem; }
+    .pic.a .pic-foot { color: #3d3420; }
+    .pic.b .pic-foot { color: #d5ddd2; }
+    .rib { display: flex; gap: 0.28rem; }
+    .rib i { width: 0.7rem; height: 0.7rem; background: #d4ccb8; display: block; }
+    .rib i.a { background: var(--gold); }
+    .rib i.b { background: var(--moss); }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.2rem 0 1rem; }
+    .choices.done { display: none; }
+    button.stand {
+      font: inherit; cursor: pointer; text-align: center;
+      background: transparent; color: var(--paper);
+      border: 1px solid var(--paper); padding: 1.15rem 1rem; font-size: 1.25rem;
+    }
+    button.stand:hover { background: #1a1b16; }
+    button.stand:disabled { opacity: 0.4; cursor: not-allowed; }
+    .after { display: none; }
+    .after.on { display: block; }
+    .row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0.4rem 0 1.4rem; }
+    button.ghost, a.pay {
+      font: inherit; cursor: pointer; border: 1px solid var(--line);
+      background: transparent; color: var(--paper); padding: 0.65rem 0.9rem;
+      text-decoration: none; display: inline-block;
+    }
+    a.pay { border-color: var(--pay); color: var(--pay); }
+    a.pay.dead { opacity: 0.45; pointer-events: none; }
+    canvas { position: absolute; left: -9999px; width: 1200px; height: 675px; }
+    .hide { display: none; }
+    .hide.on { display: block; }
+    .card-slot { margin: 1rem 0; border: 1px solid var(--line); }
+    .card-slot canvas { position: static; width: 100%; height: auto; left: auto; background: var(--paper); display: block; }
+    textarea {
+      width: 100%; min-height: 8rem; font: inherit; padding: 0.8rem;
+      background: #16170f; color: var(--paper); border: 1px solid var(--line);
+      resize: vertical;
+    }
+    h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 2.4rem 0 0.6rem; }
+    .money, .fine { color: var(--mute); font-size: 0.9rem; }
+    .fine { font-size: 0.78rem; margin-top: 2rem; }
+    .ok { color: var(--pay); font-size: 0.85rem; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div class="mark">STOOD</div>
+      <div class="date" id="when">20 Sep 2026</div>
+    </header>
+
+    <p class="lede">Tap. The whole card is the pic.</p>
+
+    <div class="pic" id="pic">
+      <div class="pic-bar">
+        <span>STOOD</span>
+        <span class="d" id="pic-when">20 Sep 2026</span>
+      </div>
+      <div class="pic-q" id="pic-q">Should Grok stay in the replies?</div>
+      <div class="pic-ans" id="pic-ans"></div>
+      <div class="pic-foot">
+        <div>
+          <div class="rib" id="rib"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div style="margin-top:0.45rem">one a day</div>
+        </div>
+        <div>STOOD</div>
+      </div>
+    </div>
+
+    <div class="choices" id="choices"></div>
+
+    <div class="after" id="after">
+      <div class="row">
+        <button class="ghost" type="button" id="dl-glyph">Save pic</button>
+        <button class="ghost" type="button" id="copy-glyph">Copy text</button>
+        <button class="ghost" type="button" id="share-glyph">Share</button>
+      </div>
+      <p class="ok" id="gmsg"></p>
+
+      <h2>Paste a Grok</h2>
+      <p class="lede" style="margin-bottom:0.6rem">Paste. Make a pic. Reply with the pic.</p>
+      <textarea id="blob" placeholder="Paste the chat. No account."></textarea>
+      <div class="row">
+        <button class="ghost" type="button" id="make-relic">Make pic</button>
+        <button class="ghost" type="button" id="dl-relic">Save pic</button>
+        <button class="ghost" type="button" id="share-relic">Share</button>
+      </div>
+      <div class="card-slot hide" id="relic-slot"><canvas id="relic" width="1200" height="675"></canvas></div>
+      <p class="ok" id="rmsg"></p>
+      <p class="money">20 Grok pics $19. Unlimited $29/mo.</p>
+      <div class="row">
+        <a class="pay" id="pay19" href="https://buy.stripe.com/4gMbIUgf88h6eLt3EE8Vi0P">$19</a>
+        <a class="pay" id="pay29" href="https://buy.stripe.com/9B628k3smfJyavd3EE8Vi0Q">$29/mo</a>
+      </div>
+      <p class="fine">One tap a day. Come back tomorrow.</p>
+    </div>
+  </div>
+  <canvas id="glyph" width="1200" height="675"></canvas>
+  <script src="config.js"></script>
+  <script>
+    const FIXED = {
+      "2026-09-20": {
+        q: "Should Grok stay in the replies?",
+        a: "Yes",
+        b: "No"
+      },
+      "2026-09-21": {
+        q: "Let Muse buy stuff for you?",
+        a: "Yes",
+        b: "No"
+      }
+    };
+    const POOL = [
+      { q: "Trust a screenshot?", a: "Yes", b: "No" },
+      { q: "Is X still the news?", a: "Yes", b: "No" },
+      { q: "Click a GTA 6 beta link?", a: "Yes", b: "No" },
+      { q: "Should bots post as people?", a: "Yes", b: "No" },
+      { q: "Prediction apps on the home screen: good?", a: "Yes", b: "No" },
+      { q: "One more agent on your phone?", a: "Yes", b: "No" },
+      { q: "Would you post without a face?", a: "Yes", b: "No" }
+    ];
+
+    const isoDay = () => {
+      const d = new Date();
+      const z = (n) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+    };
+    const pretty = (iso) => {
+      const [y, m, dd] = iso.split("-").map(Number);
+      const months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
+      return `${dd} ${months[m - 1]} ${y}`;
+    };
+    const today = isoDay();
+    const kase = FIXED[today] || POOL[Number(today.replaceAll("-", "")) % POOL.length];
+    const storeKey = "stood.v1";
+    const load = () => {
+      try { return JSON.parse(localStorage.getItem(storeKey) || "{}"); }
+      catch { return {}; }
+    };
+    const save = (s) => localStorage.setItem(storeKey, JSON.stringify(s));
+    const state = load();
+    const ribbon = () => {
+      const out = [];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const z = (n) => String(n).padStart(2, "0");
+        const id = `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+        out.push((state.stands && state.stands[id]) || null);
+      }
+      return out;
+    };
+
+    const FALLBACK_PAY = {
+      p19: "https://buy.stripe.com/4gMbIUgf88h6eLt3EE8Vi0P",
+      p29: "https://buy.stripe.com/9B628k3smfJyavd3EE8Vi0Q"
+    };
+    const extra = window.STOOD_PAY || {};
+    const pay = {
+      p19: extra.p19 || FALLBACK_PAY.p19,
+      p29: extra.p29 || FALLBACK_PAY.p29
+    };
+    const a19 = document.getElementById("pay19");
+    const a29 = document.getElementById("pay29");
+    a19.href = pay.p19;
+    a29.href = pay.p29;
+    a19.classList.remove("dead");
+    a29.classList.remove("dead");
+
+    document.getElementById("when").textContent = pretty(today);
+    document.getElementById("pic-when").textContent = pretty(today);
+    document.getElementById("pic-q").textContent = kase.q;
+
+    const paper = "#e8e1d1";
+    const ink = "#14140f";
+    const gold = "#c4b48a";
+    const moss = "#6e7f6b";
+
+    function paintRib() {
+      const nodes = document.getElementById("rib").querySelectorAll("i");
+      ribbon().forEach((ch, i) => {
+        nodes[i].className = ch === "a" ? "a" : ch === "b" ? "b" : "";
+      });
+    }
+
+    function stamp(choice) {
+      const card = document.getElementById("pic");
+      const el = document.getElementById("pic-ans");
+      card.className = choice ? "pic " + choice : "pic";
+      if (!choice) {
+        el.textContent = "";
+        el.className = "pic-ans";
+        return;
+      }
+      el.textContent = choice === "b" ? kase.b : kase.a;
+      el.className = "pic-ans " + choice;
+    }
+
+    function wrapText(c, text, x, y, max, lh) {
+      const words = text.split(/\s+/);
+      let line = "";
+      let yy = y;
+      for (const word of words) {
+        const test = line ? line + " " + word : word;
+        if (c.measureText(test).width > max) {
+          c.fillText(line, x, yy);
+          line = word;
+          yy += lh;
+          if (yy > 520) break;
+        } else line = test;
+      }
+      if (line) c.fillText(line, x, yy);
+      return yy;
+    }
+
+    function drawGlyph(choice) {
+      const c = document.getElementById("glyph").getContext("2d");
+      const w = 1200, h = 675;
+      const onA = choice === "a";
+      const onB = choice === "b";
+      c.fillStyle = onA ? gold : onB ? moss : paper;
+      c.fillRect(0, 0, w, h);
+      const fg = onB ? paper : ink;
+      const mute = onB ? "#d5ddd2" : onA ? "#3d3420" : "#5c584c";
+      c.fillStyle = fg;
+      c.font = "700 28px Georgia, serif";
+      c.fillText("STOOD", 72, 78);
+      c.fillStyle = mute;
+      c.font = "22px Georgia, serif";
+      c.fillText(pretty(today), 900, 78);
+      c.fillStyle = fg;
+      c.font = "500 36px Georgia, serif";
+      wrapText(c, kase.q, 72, 150, 1050, 46);
+      if (choice) {
+        c.fillStyle = fg;
+        c.font = "600 210px Georgia, serif";
+        c.fillText(choice === "b" ? kase.b : kase.a, 56, 470);
+      }
+      ribbon().forEach((ch, i) => {
+        c.fillStyle = !ch ? (onB ? "#5a6a58" : "#d4ccb8") : ch === "b" ? (onB ? paper : moss) : (onA ? ink : gold);
+        c.fillRect(72 + i * 44, 560, 32, 32);
+      });
+      c.fillStyle = mute;
+      c.font = "18px Georgia, serif";
+      c.fillText("one a day", 72, 630);
+      c.fillStyle = fg;
+      c.font = "20px Georgia, serif";
+      c.fillText("STOOD", 980, 630);
+    }
+
+    function drawRelic(text) {
+      const c = document.getElementById("relic").getContext("2d");
+      const w = 1200, h = 675;
+      c.fillStyle = paper;
+      c.fillRect(0, 0, w, h);
+      c.fillStyle = ink;
+      c.font = "600 26px Georgia, serif";
+      c.fillText("STOOD", 72, 80);
+      c.font = "28px Georgia, serif";
+      const body = (text || "").trim().replace(/\s+/g, " ");
+      wrapText(c, body ? `“${body}”` : "Paste a chat.", 72, 180, 1050, 40);
+      c.fillStyle = "#8a8578";
+      c.font = "18px Georgia, serif";
+      c.fillText("STOOD", 72, 620);
+    }
+
+    function glyphText(choice) {
+      const word = choice === "b" ? kase.b : kase.a;
+      const rib = ribbon().map((ch) => (ch === "b" ? "🟩" : ch === "a" ? "🟨" : "⬜")).join("");
+      return `STOOD ${pretty(today)}\n${kase.q}\n${word}\n${rib}`;
+    }
+
+    function canvasPng(id) {
+      return document.getElementById(id).toDataURL("image/png");
+    }
+    async function shareCanvas(id, name, text) {
+      const blob = await (await fetch(canvasPng(id))).blob();
+      const file = new File([blob], name, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text });
+        return true;
+      }
+      const a = document.createElement("a");
+      a.download = name;
+      a.href = canvasPng(id);
+      a.click();
+      return false;
+    }
+
+    function showPic(choice) {
+      document.getElementById("choices").classList.add("done");
+      document.getElementById("after").classList.add("on");
+      stamp(choice);
+      paintRib();
+      drawGlyph(choice);
+    }
+
+    function unlock(choice) {
+      if (!state.stands) state.stands = {};
+      if (state.stands[today]) return;
+      state.stands[today] = choice;
+      save(state);
+      showPic(choice);
+    }
+
+    paintRib();
+    stamp(null);
+    drawGlyph(null);
+
+    const already = state.stands && state.stands[today];
+    const box = document.getElementById("choices");
+    [["a", kase.a], ["b", kase.b]].forEach(([id, label]) => {
+      const btn = document.createElement("button");
+      btn.className = "stand";
+      btn.type = "button";
+      btn.textContent = label;
+      if (already) btn.disabled = true;
+      btn.addEventListener("click", () => unlock(id));
+      box.appendChild(btn);
+    });
+    if (already) showPic(already);
+
+    document.getElementById("dl-glyph").onclick = () => {
+      drawGlyph(state.stands && state.stands[today]);
+      const a = document.createElement("a");
+      a.download = `stood-${today}.png`;
+      a.href = canvasPng("glyph");
+      a.click();
+    };
+    document.getElementById("copy-glyph").onclick = async () => {
+      const ch = state.stands && state.stands[today];
+      if (!ch) { document.getElementById("gmsg").textContent = "Tap first."; return; }
+      await navigator.clipboard.writeText(glyphText(ch));
+      document.getElementById("gmsg").textContent = "Copied. Post it with the pic.";
+    };
+    document.getElementById("share-glyph").onclick = async () => {
+      const ch = state.stands && state.stands[today];
+      if (!ch) { document.getElementById("gmsg").textContent = "Tap first."; return; }
+      drawGlyph(ch);
+      const ok = await shareCanvas("glyph", `stood-${today}.png`, glyphText(ch));
+      document.getElementById("gmsg").textContent = ok ? "Sent." : "Saved. Post the pic.";
+    };
+    document.getElementById("make-relic").onclick = () => {
+      const text = document.getElementById("blob").value;
+      if (!text.trim()) {
+        document.getElementById("rmsg").textContent = "Paste first.";
+        return;
+      }
+      drawRelic(text);
+      document.getElementById("relic-slot").classList.add("on");
+    };
+    document.getElementById("dl-relic").onclick = () => {
+      if (!document.getElementById("relic-slot").classList.contains("on")) {
+        document.getElementById("rmsg").textContent = "Make the pic first.";
+        return;
+      }
+      const a = document.createElement("a");
+      a.download = `stood-relic-${today}.png`;
+      a.href = canvasPng("relic");
+      a.click();
+    };
+    document.getElementById("share-relic").onclick = async () => {
+      if (!document.getElementById("relic-slot").classList.contains("on")) {
+        document.getElementById("rmsg").textContent = "Make the pic first.";
+        return;
+      }
+      const ok = await shareCanvas("relic", `stood-relic-${today}.png`, "STOOD");
+      document.getElementById("rmsg").textContent = ok ? "Sent." : "Saved. Reply with the pic.";
+    };
+  </script>
+</body>
+</html>
