@@ -427,6 +427,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/rail-truth.json",
         "/.well-known/deny-registry.json",
         "/.well-known/seal.json",
+        "/.well-known/seal-anchor.json",
         "/.well-known/evidence-head.json",
         "/.well-known/record.json",
         "/.well-known/incidents.json",
@@ -1982,6 +1983,7 @@ def well_known_gate():
             "seal_json": f"{advertised_url()}/.well-known/seal.json",
             "seal_api": f"{advertised_url()}/v1/seal",
             "seal_job": f"{advertised_url()}/v1/seal/job",
+            "seal_anchor": f"{advertised_url()}/.well-known/seal-anchor.json",
             "blotter": f"{advertised_url()}/blotter",
             "blotter_api": f"{advertised_url()}/v1/blotter",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
@@ -2981,6 +2983,15 @@ def well_known_seal():
     except ImportError:
         import seal_ui as seal_mod
     return jsonify(seal_mod.manifest(advertised_url()))
+
+
+@app.route("/.well-known/seal-anchor.json")
+def well_known_seal_anchor():
+    try:
+        from gate import seal_anchor as seal_anchor_mod
+    except ImportError:
+        import seal_anchor as seal_anchor_mod
+    return jsonify(seal_anchor_mod.manifest(advertised_url()))
 
 
 @app.route("/seal")
@@ -5173,6 +5184,7 @@ def sitemap():
         "/.well-known/live.json",
         "/.well-known/clear.json",
         "/.well-known/seal.json",
+        "/.well-known/seal-anchor.json",
         "/.well-known/go.json",
         "/.well-known/never.json",
         "/.well-known/positive-clear.json",
@@ -5212,6 +5224,7 @@ def llms_txt():
         f"- Clear (one-word settlement): {advertised_url()}/clear",
         f"- Seal (receipt holds?): {advertised_url()}/seal",
         f"- Blotter (open acts): {advertised_url()}/blotter",
+        f"- Seal anchor (15-minute root): {advertised_url()}/.well-known/seal-anchor.json",
         f"- Go (may this commit?): {advertised_url()}/go",
         f"- Never (already spent?): {advertised_url()}/never",
         f"- Positive Clear (may this unlock?): {advertised_url()}/positive-clear",
@@ -5462,7 +5475,8 @@ def openapi_full():
                 "/.well-known/clear.json": {"get": {"summary": "Clear discovery manifest"}},
                 "/seal": {"get": {"summary": "One-word custody — HOLDS / BROKEN / UNSIGNED"}},
                 "/v1/seal": {"get": {"summary": "Seal API — ?event_id=", "security": []}},
-                "/v1/seal/job": {"get": {"summary": "GATE.SEAL(job_id) — latest print is the composite", "security": []}},
+                "/v1/seal/job": {"get": {"summary": "GATE.SEAL(job_id). Latest print is the composite. anchor.published.locator is the Base transaction a stranger fetches.", "security": []}},
+                "/.well-known/seal-anchor.json": {"get": {"summary": "How to check a seal root on Base and OpenTimestamps"}},
                 "/blotter": {"get": {"summary": "Open acts with the settlement clock on the row"}},
                 "/v1/blotter": {"get": {"summary": "Blotter JSON", "security": []}},
                 "/.well-known/seal.json": {"get": {"summary": "Seal discovery manifest"}},
