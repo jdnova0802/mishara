@@ -23,6 +23,11 @@ try:
 except ImportError:
     import demo_limit
 
+try:
+    from gate import seal_anchor
+except ImportError:
+    import seal_anchor
+
 SPEC = "gate-blotter-v1"
 JOB_SEAL_SPEC = "gate-job-seal-v1"
 FLASH = frozenset({"LATE", "BROKEN"})
@@ -69,7 +74,7 @@ def quote(job_id: str, *, rows: list[dict] | None = None) -> dict[str, Any]:
         rows = db.list_bind_events_chronological()
     prints = _prints(jid, rows) if jid else []
     if not prints:
-        return {
+        body = {
             "spec": JOB_SEAL_SPEC,
             "formula": "GATE.SEAL",
             "job_id": jid or None,
@@ -80,9 +85,10 @@ def quote(job_id: str, *, rows: list[dict] | None = None) -> dict[str, Any]:
             "head_watchers": _watcher_count(),
             "their_production": False,
         }
+        return seal_anchor.annotate(body, rows or [])
     latest = prints[-1]
     word = latest.get("word") or "MISSING"
-    return {
+    body = {
         "spec": JOB_SEAL_SPEC,
         "formula": "GATE.SEAL",
         "job_id": jid,
@@ -98,6 +104,7 @@ def quote(job_id: str, *, rows: list[dict] | None = None) -> dict[str, Any]:
         "head_watchers": _watcher_count(),
         "their_production": False,
     }
+    return seal_anchor.annotate(body, rows or [])
 
 
 def book(*, limit: int = 40) -> dict[str, Any]:

@@ -159,29 +159,42 @@ def _tree_levels(leaf_hashes_hex: list[str]) -> list[list[bytes]]:
     return levels
 
 
+def inclusion_proofs(leaf_hashes_hex: list[str]) -> list[dict]:
+    """Inclusion proof for every leaf. One tree build, then a sibling path per index."""
+    if not leaf_hashes_hex:
+        return []
+    levels = _tree_levels(leaf_hashes_hex)
+    root = levels[-1][0].hex()
+    out = []
+    for index in range(len(leaf_hashes_hex)):
+        siblings = []
+        idx = index
+        for level in levels[:-1]:
+            sib = idx ^ 1
+            if sib < len(level):
+                siblings.append(level[sib].hex())
+            else:
+                siblings.append(level[idx].hex())
+            idx //= 2
+        out.append(
+            {
+                "index": index,
+                "tree_size": len(leaf_hashes_hex),
+                "leaf_hash": leaf_hashes_hex[index],
+                "siblings": siblings,
+                "root_hash": root,
+            }
+        )
+    return out
+
+
 def inclusion_proof(leaf_hashes_hex: list[str], index: int) -> dict:
     """Merkle inclusion proof for leaf at index (0-based)."""
     if not leaf_hashes_hex:
         return {"index": 0, "tree_size": 0, "siblings": [], "leaf_hash": EMPTY_LEAF.hex()}
     if index < 0 or index >= len(leaf_hashes_hex):
         raise IndexError("leaf index out of range")
-    levels = _tree_levels(leaf_hashes_hex)
-    siblings = []
-    idx = index
-    for level in levels[:-1]:
-        sib = idx ^ 1
-        if sib < len(level):
-            siblings.append(level[sib].hex())
-        else:
-            siblings.append(level[idx].hex())
-        idx //= 2
-    return {
-        "index": index,
-        "tree_size": len(leaf_hashes_hex),
-        "leaf_hash": leaf_hashes_hex[index],
-        "siblings": siblings,
-        "root_hash": levels[-1][0].hex(),
-    }
+    return inclusion_proofs(leaf_hashes_hex)[index]
 
 
 def verify_inclusion(*, leaf_hash: str, root_hash: str, proof: dict) -> bool:
