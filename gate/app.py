@@ -1981,6 +1981,9 @@ def well_known_gate():
             "seal": f"{advertised_url()}/seal",
             "seal_json": f"{advertised_url()}/.well-known/seal.json",
             "seal_api": f"{advertised_url()}/v1/seal",
+            "seal_job": f"{advertised_url()}/v1/seal/job",
+            "blotter": f"{advertised_url()}/blotter",
+            "blotter_api": f"{advertised_url()}/v1/blotter",
             "commit_auth": f"{advertised_url()}/.well-known/commit-auth.json",
             "spend_protocol": f"{advertised_url()}/.well-known/spend-protocol.json",
             "command_radiation": f"{advertised_url()}/.well-known/command-radiation.json",
@@ -3000,6 +3003,54 @@ def seal_api():
     if not event_id:
         return jsonify(seal_mod.manifest(advertised_url()))
     return jsonify(seal_mod.seal_event(event_id))
+
+
+@app.route("/.well-known/blotter.json")
+def well_known_blotter():
+    try:
+        from gate import blotter as blotter_mod
+    except ImportError:
+        import blotter as blotter_mod
+    return jsonify(blotter_mod.manifest(advertised_url()))
+
+
+@app.route("/blotter")
+def blotter_page():
+    return render_template("blotter.html", public_url=advertised_url())
+
+
+@app.route("/v1/blotter")
+def blotter_api():
+    try:
+        from gate import blotter as blotter_mod
+    except ImportError:
+        import blotter as blotter_mod
+    return jsonify(blotter_mod.book())
+
+
+@app.route("/v1/seal/job")
+def seal_job_api():
+    """GATE.SEAL(job_id) — composite word is the latest print on that job."""
+    try:
+        from gate import blotter as blotter_mod
+    except ImportError:
+        import blotter as blotter_mod
+    return jsonify(blotter_mod.quote((request.args.get("job_id") or "").strip()))
+
+
+@app.route("/v1/blotter/act", methods=["POST"])
+def blotter_act():
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"ok": False, "error": "rate_limited", "message": msg}), 429
+    try:
+        from gate import blotter as blotter_mod
+    except ImportError:
+        import blotter as blotter_mod
+    body = request.get_json(silent=True) or {}
+    result = blotter_mod.act(body.get("job_id") or "", body.get("decision") or "")
+    status = 200 if result.get("ok") else 400
+    return jsonify(result), status
 
 
 @app.route("/.well-known/counterfactual-spend.json")
@@ -5083,6 +5134,7 @@ def sitemap():
         "/live",
         "/clear",
         "/seal",
+        "/blotter",
         "/go",
         "/never",
         "/positive-clear",
@@ -5159,6 +5211,7 @@ def llms_txt():
         f"- Home: {advertised_url()}/",
         f"- Clear (one-word settlement): {advertised_url()}/clear",
         f"- Seal (receipt holds?): {advertised_url()}/seal",
+        f"- Blotter (open acts): {advertised_url()}/blotter",
         f"- Go (may this commit?): {advertised_url()}/go",
         f"- Never (already spent?): {advertised_url()}/never",
         f"- Positive Clear (may this unlock?): {advertised_url()}/positive-clear",
@@ -5409,6 +5462,9 @@ def openapi_full():
                 "/.well-known/clear.json": {"get": {"summary": "Clear discovery manifest"}},
                 "/seal": {"get": {"summary": "One-word custody — HOLDS / BROKEN / UNSIGNED"}},
                 "/v1/seal": {"get": {"summary": "Seal API — ?event_id=", "security": []}},
+                "/v1/seal/job": {"get": {"summary": "GATE.SEAL(job_id) — latest print is the composite", "security": []}},
+                "/blotter": {"get": {"summary": "Open acts with the settlement clock on the row"}},
+                "/v1/blotter": {"get": {"summary": "Blotter JSON", "security": []}},
                 "/.well-known/seal.json": {"get": {"summary": "Seal discovery manifest"}},
                 "/go": {"get": {"summary": "One-word pre-finality — GO / NO GO / HOLD"}},
                 "/v1/go": {"post": {"summary": "Go API — public demo evaluate", "security": []}},
