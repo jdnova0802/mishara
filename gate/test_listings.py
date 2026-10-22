@@ -804,6 +804,8 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("inhabitant_url", worker)
         self.assertIn("bind-ticket/redeem", worker)
         self.assertIn("spend_fingerprint", worker)
+        self.assertIn("RELEASE_CREDENTIAL", worker)
+        self.assertIn("release_credential_missing", worker)
         self.assertIn("LICENSE_ID", worker)
         self.assertIn("counterpart_id", worker)
         self.assertIn("spend_write_not_in_protocol", worker)
@@ -1014,12 +1016,12 @@ class BindRoomFlaskTests(unittest.TestCase):
 
         import db as gate_db
 
-        rows = gate_db.list_bind_events_chronological()
-        self.assertGreaterEqual(len(rows), 3)
-        event_id = rows[-1]["id"]
-        receipt_hash = rows[-1]["receipt_hash"]
-        leaves = evidence_log_mod.log_from_rows(rows)
-        idx = len(leaves) - 1
+        bind_rows = gate_db.list_bind_events_chronological()
+        self.assertGreaterEqual(len(bind_rows), 3)
+        event_id = bind_rows[-1]["id"]
+        receipt_hash = bind_rows[-1]["receipt_hash"]
+        leaves = evidence_log_mod.log_from_rows(gate_db.with_clearance_stamps(bind_rows))
+        idx = leaves.index(receipt_hash)
         proof = evidence_log_mod.inclusion_proof(leaves, idx)
         self.assertTrue(
             evidence_log_mod.verify_inclusion(
@@ -2666,6 +2668,7 @@ class ArchitectureHardTests(unittest.TestCase):
             confirm=True,
             exclusive_door_url="https://carrier.example/worker",
             door_kind="cloudflare_worker",
+            release_credential_in_door=True,
         )
         self.assertTrue(ok["ok"])
         self.assertTrue(ok["their_production"])
@@ -2844,7 +2847,12 @@ class PrefinalityTests(FlaskListingTests):
             "/demo/prefinality/evaluate",
             json={
                 "rail": "x402",
-                "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": self.PAYTO},
+                "transfer": {
+                    "amount": "0.002",
+                    "currency": "USDC",
+                    "counterparty": self.PAYTO,
+                    "upstream_id": "pay_demo_1",
+                },
                 "mandate": {"agent_id": "test-agent", "max_amount": "1.00"},
             },
         )
@@ -2853,18 +2861,36 @@ class PrefinalityTests(FlaskListingTests):
         self.assertEqual(data["decision"], "GO")
         self.assertTrue(data.get("receipt"))
         self.assertFalse(data.get("halt"))
+        self.assertEqual(data["log_stamp"]["status"], "pending")
+        self.assertEqual(len(data["log_stamp"]["leaf_hash"]), 64)
         v = self.client.post(
             "/v1/prefinality/verify",
             json={
                 "receipt": data["receipt"],
                 "rail": "x402",
-                "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": self.PAYTO},
+                "transfer": {
+                    "amount": "0.002",
+                    "currency": "USDC",
+                    "counterparty": self.PAYTO,
+                    "upstream_id": "pay_demo_1",
+                },
             },
         )
         self.assertEqual(v.status_code, 200)
         self.assertTrue(v.get_json().get("valid"))
 
-    def test_routing_anomaly_blocks(self):
+    def test_go_requires_upstream_id(self):
+        r = self.client.post(
+            "/demo/prefinality/evaluate",
+            json={
+                "rail": "x402",
+                "transfer": {"amount": "0.002", "currency": "USDC", "counterparty": self.PAYTO},
+                "mandate": {"agent_id": "test-agent", "max_amount": "1.00"},
+            },
+        )
+        data = r.get_json()
+        self.assertEqual(data["decision"], "NO_GO")
+        self.assertIn("upstream_id_required", data.get("signals", []))
         r = self.client.post(
             "/demo/prefinality/evaluate",
             json={
@@ -2886,6 +2912,7 @@ class PrefinalityTests(FlaskListingTests):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "upstream_id": "po_live_1",
         }
         order = {
             "type": "rtp",
@@ -2893,6 +2920,7 @@ class PrefinalityTests(FlaskListingTests):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "id": "po_live_1",
         }
         # A live (non-demo) receipt actions the gate exactly once.
         live = prefinality_mod.evaluate(
@@ -2929,6 +2957,7 @@ class PrefinalityTests(FlaskListingTests):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "upstream_id": "po_demo_1",
         }
         order = {
             "type": "rtp",
@@ -2936,6 +2965,7 @@ class PrefinalityTests(FlaskListingTests):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "id": "po_demo_1",
         }
         # A demo receipt is signed and stranger-verifiable, but never actionable.
         r = self.client.post(
@@ -3454,6 +3484,7 @@ class GoAndNeverUiTests(unittest.TestCase):
                     "amount": "0.002",
                     "currency": "USDC",
                     "counterparty": self.PAYTO,
+                    "upstream_id": "pay_go_1",
                 },
                 "mandate": {"agent_id": "go-test", "max_amount": "1.00"},
             },
@@ -4179,6 +4210,7 @@ class X402FacilitatorUnlockTests(unittest.TestCase):
                                     "amount": "0.002",
                                     "currency": "USDC",
                                     "counterparty": payto,
+                                    "upstream_id": "pay_facilitator_1",
                                 },
                                 "mandate": {"agent_id": "buyer", "max_amount": "1.00"},
                             },

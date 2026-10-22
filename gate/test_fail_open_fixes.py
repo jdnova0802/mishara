@@ -226,6 +226,7 @@ class SelfMintReceiptTests(unittest.TestCase):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "upstream_id": "po_failopen_1",
         }
         order = {
             "type": "rtp",
@@ -233,6 +234,7 @@ class SelfMintReceiptTests(unittest.TestCase):
             "currency": "USD",
             "routing_number": "021000021",
             "account_number": "123456789",
+            "id": "po_failopen_1",
         }
         return transfer, order
 
@@ -319,7 +321,12 @@ class NoMandateDeclineTests(unittest.TestCase):
         out = prefinality_mod.evaluate(
             {
                 "rail": "issuing",
-                "transfer": {"amount": "10.00", "currency": "USD", "counterparty": "Acme"},
+                "transfer": {
+                    "amount": "10.00",
+                    "currency": "USD",
+                    "counterparty": "Acme",
+                    "upstream_id": "iauth_cap_only",
+                },
                 "mandate": {"agent_id": "cap_only_agent_" + uuid.uuid4().hex, "daily_cap": "100.00"},
             },
             public_url=PUBLIC_URL,
@@ -337,6 +344,7 @@ class NoMandateDeclineTests(unittest.TestCase):
                     "currency": "USD",
                     "routing_number": "021000021",
                     "account_number": "123456789",
+                    "upstream_id": "po_mandate_guard",
                 },
                 "mandate": {"agent_id": "treasury-bot", "max_amount": "500.00"},
             },

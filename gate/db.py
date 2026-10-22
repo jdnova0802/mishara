@@ -530,6 +530,63 @@ def list_bind_events_chronological(limit: int = 10000) -> list:
     return out
 
 
+def _ensure_clearance_stamps(conn) -> None:
+    conn.execute(
+        """
+        CREATE TABLE IF NOT EXISTS clearance_stamps (
+            evaluation_id TEXT PRIMARY KEY,
+            receipt_hash TEXT NOT NULL,
+            upstream_id TEXT,
+            created_at TEXT NOT NULL
+        )
+        """
+    )
+
+
+def record_clearance_stamp(
+    *,
+    evaluation_id: str,
+    receipt_hash: str,
+    upstream_id: str = "",
+    created_at: str,
+) -> None:
+    eid = (evaluation_id or "").strip()
+    leaf = (receipt_hash or "").strip().lower()
+    if not eid or not leaf:
+        return
+    with db() as conn:
+        _ensure_clearance_stamps(conn)
+        conn.execute(
+            """
+            INSERT INTO clearance_stamps (evaluation_id, receipt_hash, upstream_id, created_at)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(evaluation_id) DO NOTHING
+            """,
+            (eid, leaf, (upstream_id or "").strip() or None, created_at),
+        )
+
+
+def list_clearance_stamps(limit: int = 1_000_000) -> list:
+    """Rows shaped for the evidence log: id, receipt_hash, created_at."""
+    with db() as conn:
+        _ensure_clearance_stamps(conn)
+        rows = conn.execute(
+            """
+            SELECT evaluation_id AS id, receipt_hash, created_at
+            FROM clearance_stamps
+            ORDER BY created_at ASC, evaluation_id ASC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+def with_clearance_stamps(rows: list) -> list:
+    """Bind rows plus clearance stamps, still ordered by the evidence log."""
+    return list(rows) + list_clearance_stamps()
+
+
 def latest_bind_event_for_job(job_id: str) -> dict | None:
     jid = (job_id or "").strip()
     if not jid:
@@ -1510,6 +1567,7 @@ def _ensure_third_party_welds(conn) -> None:
             door_kind TEXT,
             worker_fingerprint TEXT,
             exclusivity_attested INTEGER NOT NULL DEFAULT 0,
+            release_credential_in_door INTEGER NOT NULL DEFAULT 0,
             created_at TEXT NOT NULL
         )
         """
@@ -1520,6 +1578,7 @@ def _ensure_third_party_welds(conn) -> None:
         ("door_kind", "TEXT"),
         ("worker_fingerprint", "TEXT"),
         ("exclusivity_attested", "INTEGER NOT NULL DEFAULT 0"),
+        ("release_credential_in_door", "INTEGER NOT NULL DEFAULT 0"),
     ):
         if col not in cols:
             conn.execute(f"ALTER TABLE third_party_welds ADD COLUMN {col} {decl}")
@@ -1540,6 +1599,7 @@ def has_gate_production_weld() -> bool:
         row = conn.execute(
             """SELECT COUNT(*) AS n FROM third_party_welds
                WHERE COALESCE(exclusivity_attested, 0) = 1
+                 AND COALESCE(release_credential_in_door, 0) = 1
                  AND exclusive_door_url IS NOT NULL
                  AND TRIM(exclusive_door_url) != ''"""
         ).fetchone()
@@ -1579,6 +1639,7 @@ def record_production_weld(
     exclusive_door_url: str | None = None,
     door_kind: str | None = None,
     worker_fingerprint: str | None = None,
+    release_credential_in_door: bool = False,
 ) -> dict:
     """Record a third-party production weld. Requires exclusivity attestation fields."""
     wid = str(uuid.uuid4())
@@ -1599,13 +1660,18 @@ def record_production_weld(
         raise ValueError("exclusive_door_url must be https")
     if kind not in ("cloudflare_worker", "gosu", "inline_proxy", "other"):
         raise ValueError("door_kind must be cloudflare_worker|gosu|inline_proxy|other")
+    if not release_credential_in_door:
+        raise ValueError(
+            "release credential must live only in the exclusive door — the caller does not hold the payout or bind secret"
+        )
     with db() as conn:
         _ensure_third_party_welds(conn)
         conn.execute(
             """INSERT INTO third_party_welds
                (id, write_path, counterparty, note, stripe_session_id,
-                exclusive_door_url, door_kind, worker_fingerprint, exclusivity_attested, created_at)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, ?)""",
+                exclusive_door_url, door_kind, worker_fingerprint, exclusivity_attested,
+                release_credential_in_door, created_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 1, ?)""",
             (
                 wid,
                 path,
@@ -1628,6 +1694,7 @@ def record_production_weld(
         "door_kind": kind,
         "worker_fingerprint": fingerprint or None,
         "exclusivity_attested": True,
+        "release_credential_in_door": True,
         "created_at": ts,
         "their_production": True,
         "dogfood": False,

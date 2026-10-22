@@ -214,7 +214,7 @@ def maybe_sample_pulse(*, health_ok: bool, velaru_ok: bool, force: bool = False)
     tree_size = None
     root_hash = None
     try:
-        rows = db.list_bind_events_chronological()
+        rows = db.with_clearance_stamps(db.list_bind_events_chronological())
         leaves = evidence_log_mod.log_from_rows(rows)
         tree_size = len(leaves)
         root_hash = evidence_log_mod.merkle_root(leaves)

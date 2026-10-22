@@ -32,6 +32,9 @@ def payment_order_fingerprint(order: dict) -> str:
     elif order.get("routing_number") and order.get("account_number"):
         transfer["routing_number"] = order.get("routing_number")
         transfer["account_number"] = order.get("account_number")
+    uid = order.get("upstream_id") or order.get("id") or order.get("payment_id")
+    if uid:
+        transfer["upstream_id"] = str(uid)
     return prefinality_mod.transfer_fingerprint(rail="rtp", transfer=transfer)
 
 

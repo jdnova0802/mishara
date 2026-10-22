@@ -83,6 +83,12 @@
           I attest the exclusive door above is the only mouth on that write — bypass is blocked or costlier than going through Gate
         </label>
       </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="release_credential_in_door" value="1" required>
+          The payout or bind secret lives only in that door. The caller does not hold it.
+        </label>
+      </div>
       <button type="submit" class="btn btn-primary">Record production weld (L4)</button>
       <p class="fine-print">Prefer <a href="{{ url_for('dogfood_page') }}">dogfood</a> for first-party. Prefer <a href="{{ url_for('operator_page') }}">operator checkout</a> to sell the weld before recording.</p>
     </form>

@@ -630,7 +630,7 @@ def public_live():
             import liturgy as liturgy_mod
 
         rows = db.list_bind_events_chronological()
-        leaves = evidence_log_mod.log_from_rows(rows)
+        leaves = evidence_log_mod.log_from_rows(db.with_clearance_stamps(rows))
         head = evidence_log_mod.signed_tree_head(leaves)
         root = (head.get("root_hash") or "").strip()
         live = {
@@ -2630,6 +2630,12 @@ def production_weld_page():
             "yes",
             "on",
         )
+        release_credential_in_door = (request.form.get("release_credential_in_door") or "").strip().lower() in (
+            "1",
+            "true",
+            "yes",
+            "on",
+        )
         # Refuse recording a first-party email as "third-party" theater
         first_party = {
             CONTACT_EMAIL.lower(),
@@ -2646,6 +2652,8 @@ def production_weld_page():
                 )
         if not error and not exclusivity_confirm:
             error = "Exclusivity confirm required — attest the exclusive door is the only mouth."
+        if not error and not release_credential_in_door:
+            error = "The payout or bind secret has to live only in that door."
         if not error:
             try:
                 result = production_skin_mod.record_production_weld(
@@ -2656,6 +2664,7 @@ def production_weld_page():
                     exclusive_door_url=exclusive_door_url,
                     door_kind=door_kind,
                     worker_fingerprint=worker_fingerprint or None,
+                    release_credential_in_door=release_credential_in_door,
                 )
                 if not result.get("ok"):
                     error = result.get("error") or "Could not record production weld"
@@ -2910,7 +2919,7 @@ def well_known_receipt_proof(event_id: str):
     except ImportError:
         import evidence_log as evidence_log_mod
 
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, event_id)
     if not bundle:
         abort(404)
@@ -2938,7 +2947,7 @@ def well_known_evidence_packet(event_id: str):
     if not row:
         abort(404)
 
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, event_id)
     if not bundle:
         abort(404)
@@ -2971,7 +2980,7 @@ def well_known_evidence_head():
     except ImportError:
         import evidence_log as evidence_log_mod
 
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     leaves = evidence_log_mod.log_from_rows(rows)
     return jsonify(evidence_log_mod.signed_tree_head(leaves))
 
@@ -3950,7 +3959,7 @@ def well_known_evidence_consistency():
         old_size = int(request.args.get("old_size") or 0)
     except ValueError:
         old_size = 0
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     leaves = evidence_log_mod.log_from_rows(rows)
     proof = evidence_log_mod.consistency_proof(old_size, leaves)
     proof["tree_head"] = evidence_log_mod.signed_tree_head(leaves)
@@ -3966,7 +3975,7 @@ def well_known_evidence_consistency():
 
 @app.route("/.well-known/evidence-leaves.json")
 def well_known_evidence_leaves():
-    rows = db.list_bind_events_chronological()
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     leaves = evidence_log_mod.log_from_rows(rows)
     return jsonify(
         {

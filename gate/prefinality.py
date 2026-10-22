@@ -122,6 +122,19 @@ def key_id(demo: bool = False) -> str | None:
     return f"gate-prefinality-{fp}" if fp else None
 
 
+def upstream_id(transfer: dict | None) -> str:
+    """Bank or processor id for this write. Aliases stay one field in the fingerprint."""
+    t = transfer if isinstance(transfer, dict) else {}
+    for key in ("upstream_id", "payment_id", "instruction_id", "authorization_id"):
+        raw = t.get(key)
+        if raw is None:
+            continue
+        text = str(raw).strip()
+        if text:
+            return text[:128]
+    return ""
+
+
 def transfer_fingerprint(*, rail: str, transfer: dict) -> str:
     body = {"spec": SPEC, "rail": rail, "transfer": _normalize_transfer(rail, transfer)}
     return hashlib.sha256(_canonical_json(body).encode("utf-8")).hexdigest()
@@ -152,6 +165,9 @@ def _normalize_transfer(rail: str, transfer: dict | None) -> dict:
     resource = (t.get("resource_url") or "").strip()
     if resource:
         out["resource_url"] = resource[:512]
+    uid = upstream_id(t)
+    if uid:
+        out["upstream_id"] = uid
     return out
 
 
@@ -271,6 +287,10 @@ def _policy_signals(
     daily_cap = _parse_amount(mandate.get("daily_cap"))
     if daily_cap is not None and amount is not None and amount > daily_cap:
         signals.append("daily_cap_exceeded")
+        return "NO_GO", signals
+
+    if not upstream_id(t):
+        signals.append("upstream_id_required")
         return "NO_GO", signals
 
     return "GO", signals
@@ -561,6 +581,27 @@ def evaluate(
         demo=demo,
     )
 
+    log_stamp = None
+    if receipt:
+        try:
+            from gate import seal_anchor as seal_anchor_mod
+        except ImportError:
+            import seal_anchor as seal_anchor_mod
+        try:
+            log_stamp = seal_anchor_mod.log_stamp(receipt)
+        except Exception:
+            log_stamp = None
+        if log_stamp:
+            try:
+                db.record_clearance_stamp(
+                    evaluation_id=evaluation_id,
+                    receipt_hash=log_stamp["leaf_hash"],
+                    upstream_id=upstream_id(transfer),
+                    created_at=created_at,
+                )
+            except Exception:
+                pass
+
     return _response(
         evaluation_id=evaluation_id,
         rail=rail,
@@ -575,6 +616,7 @@ def evaluate(
         agent_id=agent_id,
         ttl_seconds=ttl,
         claim_scope=scope,
+        log_stamp=log_stamp,
     )
 
 
@@ -594,6 +636,7 @@ def _response(
     agent_id: str | None = None,
     ttl_seconds: int = DEFAULT_TTL_SECONDS,
     claim_scope: dict | None = None,
+    log_stamp: dict | None = None,
 ) -> dict:
     base = (public_url or "").rstrip("/")
     write_state = write_state_mod.for_clearance_mouth(decision=decision, rail=rail)
@@ -616,6 +659,8 @@ def _response(
         "write_state": write_state,
         "their_production": False,
     }
+    if log_stamp:
+        out["log_stamp"] = log_stamp
     if claim_scope:
         out["claim_scope"] = claim_scope
     if agent_id:
@@ -739,6 +784,15 @@ def manifest(public_url: str) -> dict:
         "evaluate": f"{base}/v1/prefinality/evaluate",
         "verify": f"{base}/v1/prefinality/verify",
         "jwks": f"{base}/.well-known/prefinality-jwks.json",
+        "upstream_id": {
+            "required_for": "GO",
+            "aliases": ["upstream_id", "payment_id", "instruction_id", "authorization_id"],
+            "plain": "The bank or processor id for this write. It is inside the fingerprint.",
+        },
+        "log_stamp": {
+            "spec": "gate-log-stamp-v1",
+            "plain": "sha256 of the receipt JWT. tree_size and log_id fill when that leaf is in a published seal root.",
+        },
         "fail_closed": True,
         "receipt_ttl_seconds_default": DEFAULT_TTL_SECONDS,
         "decisions": list(DECISIONS),
