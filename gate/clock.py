@@ -1,22 +1,38 @@
-"""Settlement-window clock on one act.
+"""Bind-event settlement clock on one signed receipt.
 
-The signed receipt carries the start, the due time, and a disposition.
-A stranger counts. LATE means the act is still open after the window.
-The window is the settlement cycle (60 minutes), not a public-records statute.
-A denial names a reason code. The underlying record stays out of the receipt.
+This module is Bind Room / bind_events only. The window is the 60-minute
+human settlement cycle on an open HOLD. It is not shared infrastructure
+for other mouths.
+
+Do not import this from issuing_mouth. Stripe issuing_authorization.request
+must AUTHORIZE or DECLINE in under two seconds; a 60-minute window is
+meaningless there. A later vertical that needs a clock gets its own
+window as a parameter on that product, not this constant.
+
+A stranger counts. LATE means the signed disposition is still open after
+due_at. Denial is never LATE. The underlying record stays out of the clock.
+
+First live LATE is still unobserved (unit tests backdate due_at under
+GATE_DEV_MODE). Do not mint one to close that gap.
 """
 from __future__ import annotations
 
+import os
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
 SPEC = "gate-clock-v1"
-WINDOW_MINUTES = 60
+BIND_SETTLEMENT_WINDOW_MINUTES = 60
+WINDOW_MINUTES = BIND_SETTLEMENT_WINDOW_MINUTES
 DISPOSITIONS = ("open", "held", "denied")
 
 _OPEN = {"HOLD", "PENDING", "OPEN", "IN_FLIGHT"}
 _DENIED = {"BLOCK", "DENY", "DENIED", "DEAD", "NO_GO", "NO", "HALT"}
 _HELD = {"GO", "ALLOW", "LIVE", "CLEAR", "PASS"}
+
+
+def _dev_mode() -> bool:
+    return os.getenv("GATE_DEV_MODE", "").strip().lower() in ("1", "true", "yes", "on")
 
 
 def _parse(value: str | None) -> datetime | None:
@@ -77,7 +93,7 @@ def normalize(
         return None
     due = _parse(raw.get("due_at") if isinstance(raw.get("due_at"), str) else None)
     if due is None:
-        due = started + timedelta(minutes=WINDOW_MINUTES)
+        due = started + timedelta(minutes=BIND_SETTLEMENT_WINDOW_MINUTES)
     disposition = raw.get("disposition")
     if disposition not in DISPOSITIONS:
         disposition = classify(decision, acted)
@@ -89,7 +105,7 @@ def normalize(
         "started_at": _iso(started),
         "due_at": _iso(due),
         "disposition": disposition,
-        "window_minutes": WINDOW_MINUTES,
+        "window_minutes": BIND_SETTLEMENT_WINDOW_MINUTES,
     }
     if reason:
         clock["reason_code"] = reason
@@ -102,11 +118,19 @@ def attach(
     started_at: str,
     decision: str | None,
     acted: bool | None,
+    inject: bool | None = None,
 ) -> dict:
-    """Return a hop whose clock is the one that will be signed."""
+    """Return a hop whose clock is the one that will be signed.
+
+    Production (GATE_DEV_MODE off) ignores hop['clock'] times and
+    disposition. Gate writes started_at + 60 minutes from classify.
+    Tests may inject a backdated due_at only when GATE_DEV_MODE is on.
+    """
     base = dict(hop) if isinstance(hop, dict) else {}
+    allow_inject = _dev_mode() if inject is None else inject
+    raw = base.get("clock") if allow_inject and isinstance(base.get("clock"), dict) else None
     clock = normalize(
-        base.get("clock") if isinstance(base.get("clock"), dict) else None,
+        raw,
         started_at=started_at,
         decision=decision,
         acted=acted,
