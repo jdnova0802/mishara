@@ -32,39 +32,6 @@
 <section class="container section layer-3">
   <h2>If you kept reading</h2>
   <p style="color: var(--muted); max-width: 40rem;">A commercial general liability policy pays bodily injury and property damage. It does not pay when software binds a policy or moves money. If bind-and-issue runs, that world is spent. {{ bind_room_price }} starts the officer pack examiners take. Full assessment $3,500.</p>
-  <p style="margin-top: 1rem;"><a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify a receipt</a></p>
-</section>
-
-<section class="container section" style="padding-top: 0;">
-  <div class="card">
-    <h2 style="margin-bottom: 0.75rem;">What happens in one link</h2>
-    <ul class="check-list">
-      <li><strong>Stop before bind</strong> — the public check returns BLOCK plus a <code>velaru.xyz/verify</code> URL</li>
-      <li><strong>Officer pack</strong> — a written pack examiners can take</li>
-      <li><strong>Appendix on request</strong> — each job → ALLOW/BLOCK/HALT plus a permalink</li>
-      <li><strong>Unsure means stop</strong> — uncertain, timeout, or unreachable → the bind does not run</li>
-      <li><strong>On their system</strong> — it counts as production only after the stop sits on their bind path</li>
-    </ul>
-  </div>
-</section>
-
-<section class="container section">
-  <div class="card">
-    <h2>See a blocked bind</h2>
-    <p style="color: var(--muted); margin-bottom: 1rem;">Optional. The paid path is Bind Room.</p>
-    <button type="button" id="demo-hop-btn" class="btn btn-ghost">Run a check</button>
-    <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
-    <pre id="demo-output" class="demo-output">Paste the verify URL in your thread — not a screenshot.</pre>
-  </div>
-</section>
-<script src="{{ url_for('static', filename='demo.js') }}"></script>
-
-{% include "_protocol_doors.html" %}
-
-<section class="container section" style="text-align: center; padding-bottom: 3rem;">
-  <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · stop before bind or payout</p>
-  <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Book Bind Room · {{ bind_room_price }}</a>
-  <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
-  <p style="color: var(--muted); margin-top: 1.25rem; font-size: 0.75rem;">Installing the stop on a live system, monthly management, and a percent of what clears (bps) — separate, after the officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a> · <a href="{{ url_for('pricing') }}">Pricing</a></p>
+  <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">Installing the stop on a live system is a separate operator path, after the officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a> · <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify a receipt</a> · <a href="{{ url_for('docs') }}">Practice the check</a></p>
 </section>
 {% endblock %}
