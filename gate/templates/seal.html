@@ -16,6 +16,7 @@
     --s-broken: #b42318;
     --s-unsigned: #9a6b00;
     --s-missing: #1d4ed8;
+    --s-late: #9a3412;
     --s-serif: "Syne", system-ui, sans-serif;
     --s-sans: "Figtree", system-ui, sans-serif;
   }
@@ -108,6 +109,7 @@
   .seal-word.broken { color: var(--s-broken); }
   .seal-word.unsigned { color: var(--s-unsigned); }
   .seal-word.missing { color: var(--s-missing); }
+  .seal-word.late { color: var(--s-late); }
   .seal-plain {
     color: var(--s-mute);
     font-size: 1.02rem;
@@ -190,6 +192,7 @@
     if (w === "HOLDS") return "holds";
     if (w === "BROKEN") return "broken";
     if (w === "UNSIGNED") return "unsigned";
+    if (w === "LATE") return "late";
     return "missing";
   }
 
@@ -212,6 +215,9 @@
     if (d.decision) meta += "<strong>" + d.decision + "</strong>";
     if (d.fuse_id) meta += (meta ? " · " : "") + d.fuse_id;
     if (d.job_id) meta += "<br>job " + d.job_id;
+    if (d.clock && d.clock.due_at) meta += "<br>due " + d.clock.due_at;
+    if (d.clock && d.clock.disposition) meta += " · " + d.clock.disposition;
+    if (d.clock && d.clock.reason_code) meta += " · " + d.clock.reason_code;
     if (d.receipt_hash) meta += "<br>hash " + d.receipt_hash.slice(0, 16) + "…";
     metaEl.innerHTML = meta;
     if (d.checks) {

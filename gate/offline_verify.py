@@ -146,13 +146,25 @@ def verify_document(doc: dict, public_key: bytes) -> dict[str, Any]:
     elif not _signature_ok(public_key, signature, receipt_hash):
         reasons.append("signature_invalid")
 
-    return {
+    result = {
         "verdict": "valid" if not reasons else "invalid",
         "spec": SPEC,
         "receipt_hash": receipt_hash,
         "public_key_fingerprint": fingerprint,
         "reasons": reasons,
     }
+    clock = canonical.get("clock") if isinstance(canonical, dict) else None
+    if isinstance(clock, dict):
+        try:
+            from gate import clock as clock_mod
+        except ImportError:
+            import clock as clock_mod
+
+        result["clock"] = clock
+        late = clock_mod.word(clock)
+        if late:
+            result["clock_word"] = late
+    return result
 
 
 def verify_files(receipt_path: str, public_key_arg: str) -> dict[str, Any]:

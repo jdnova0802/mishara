@@ -28,6 +28,11 @@ try:
 except ImportError:
     import write_state as write_state_mod
 
+try:
+    from gate import clock as clock_mod
+except ImportError:
+    import clock as clock_mod
+
 SPEC = "gate-seal-v1"
 
 
@@ -127,9 +132,19 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
         "inclusion": inclusion_ok,
     }
 
+    hop = row.get("hop") if isinstance(row.get("hop"), dict) else None
+    clock = (hop or {}).get("clock") if isinstance(hop, dict) else None
+    if not isinstance(clock, dict):
+        clock = None
+    late = clock_mod.word(clock) == "LATE"
+    custody_ok = hash_ok and inclusion_ok and (not sig_present or sig_ok)
+
     if not hash_ok or not inclusion_ok or (sig_present and not sig_ok):
         word = "BROKEN"
         plain = "Something does not check — hash, signature, or log inclusion failed."
+    elif late and custody_ok:
+        word = "LATE"
+        plain = "Clock is still open past the settlement window."
     elif not sig_present:
         word = "UNSIGNED"
         plain = "Hash and log hold, but this receipt has no signature yet."
@@ -142,6 +157,7 @@ def seal_event(event_id: str, *, rows: list[dict] | None = None) -> dict[str, An
         "event_id": eid,
         "word": word,
         "plain": plain,
+        "clock": clock,
         "decision": row.get("decision"),
         "fuse_id": row.get("fuse_id"),
         "job_id": row.get("job_id"),
@@ -167,7 +183,7 @@ def manifest(public_url: str) -> dict[str, Any]:
         "spec": SPEC,
         "name": "Seal",
         "promise": "Paste an event. Does the halt still hold for a stranger?",
-        "words": ["HOLDS", "BROKEN", "UNSIGNED", "MISSING"],
+        "words": ["HOLDS", "LATE", "BROKEN", "UNSIGNED", "MISSING"],
         "page": f"{base}/seal",
         "api": f"{base}/v1/seal",
         "public_key_b64": receipt_mod.public_key_b64(),
