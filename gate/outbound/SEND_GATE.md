@@ -1,5 +1,7 @@
 # Send gate
 
+Build the batch from `BATCH_BUILD.md` first. One public dataset, then each recipient’s own row, then the body. This file is the exit check, not a hunt for a source to pin on a sentence already written.
+
 No send without a dated, named, public source specific to that recipient. A docket number, a filing date, a regulatory action, or a line off their own published site.
 
 If that source does not exist for this recipient today, the email does not go out today. There is no weaker copy and no category sentence. The recipient waits for the next research pass.
