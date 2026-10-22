@@ -195,7 +195,7 @@ def build_canonical_receipt(
     prev_receipt_hash: str | None = None,
 ) -> dict:
     hop = hop if isinstance(hop, dict) else {}
-    return {
+    body = {
         "spec": "gate-receipt-v1",
         "id": event_id,
         "prev_receipt_hash": prev_receipt_hash,
@@ -212,6 +212,10 @@ def build_canonical_receipt(
         "created_at_format": "iso-8601",
         "gate": "Nisaba LLC",
     }
+    clock = hop.get("clock")
+    if isinstance(clock, dict) and clock.get("spec") == "gate-clock-v1":
+        body["clock"] = clock
+    return body
 
 
 def signing_required() -> bool:

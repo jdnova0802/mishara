@@ -3377,6 +3377,40 @@ class SealUiTests(unittest.TestCase):
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("seal", gate)
         self.assertIn("seal_api", gate)
+        self.assertIn("LATE", man.get_json()["words"])
+
+    def test_open_past_window_seals_late(self):
+        import db as gate_db
+
+        event_id = gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            job_id="pc:CLOCK-LATE",
+            decision="HOLD",
+            acted=False,
+            hop={
+                "clock": {
+                    "started_at": "2020-01-01T00:00:00+00:00",
+                    "due_at": "2020-01-01T01:00:00+00:00",
+                    "disposition": "open",
+                }
+            },
+        )
+        body = self.client.get(f"/v1/seal?event_id={event_id}").get_json()
+        self.assertEqual(body["word"], "LATE")
+        self.assertEqual(body["clock"]["disposition"], "open")
+        self.assertNotIn("documents", body["clock"])
+
+        denied_id = gate_db.record_bind_event(
+            fuse_id="fuse_velaru_drill",
+            job_id="pc:CLOCK-DENIED",
+            decision="HALT",
+            acted=False,
+        )
+        denied = self.client.get(f"/v1/seal?event_id={denied_id}").get_json()
+        self.assertIn(denied["word"], ("HOLDS", "UNSIGNED"))
+        self.assertEqual(denied["clock"]["disposition"], "denied")
+        self.assertEqual(denied["clock"]["reason_code"], "HALT")
+        self.assertNotIn("documents", denied["clock"])
 
 
 class GoAndNeverUiTests(unittest.TestCase):

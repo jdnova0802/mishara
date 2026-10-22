@@ -72,6 +72,43 @@ class OfflineVerifyTests(unittest.TestCase):
         with open(self.key_path, "w", encoding="utf-8") as f:
             f.write(self.pub_b64 + "\n")
 
+    def test_open_clock_past_due_stays_valid_and_names_late(self):
+        os.environ["GATE_RECEIPT_PRIVATE_KEY"] = self.priv_b64
+        os.environ["GATE_RECEIPT_PUBLIC_KEY"] = self.pub_b64
+        issued = receipt.issue_receipt(
+            event_id="evt-clock-1",
+            fuse_id="fuse_velaru_drill",
+            job_id="pc:CLOCK",
+            decision="HOLD",
+            acted=False,
+            verify_url=None,
+            created_at="2026-10-22T12:00:00+00:00",
+            hop={
+                "clock": {
+                    "spec": "gate-clock-v1",
+                    "started_at": "2020-01-01T00:00:00+00:00",
+                    "due_at": "2020-01-01T01:00:00+00:00",
+                    "disposition": "open",
+                    "window_minutes": 60,
+                }
+            },
+            prev_receipt_hash=None,
+        )
+        os.environ.pop("GATE_RECEIPT_PRIVATE_KEY", None)
+        os.environ.pop("GATE_RECEIPT_PUBLIC_KEY", None)
+        canonical = json.loads(issued["canonical_receipt_json"])
+        self.assertEqual(canonical["clock"]["disposition"], "open")
+        self.assertNotIn("documents", canonical["clock"])
+        doc = {
+            "canonical_receipt": canonical,
+            "canonical_receipt_json": issued["canonical_receipt_json"],
+            "receipt_hash": issued["receipt_hash"],
+            "receipt_signature": issued["receipt_signature"],
+        }
+        result = offline_verify.verify_document(doc, self.pub_b)
+        self.assertEqual(result["verdict"], "valid")
+        self.assertEqual(result["clock_word"], "LATE")
+
     def test_valid_with_env_keys_absent(self):
         self.assertNotIn("GATE_RECEIPT_PRIVATE_KEY", os.environ)
         result = offline_verify.verify_files(self.receipt_path, self.key_path)

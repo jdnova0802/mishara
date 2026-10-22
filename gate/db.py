@@ -422,6 +422,14 @@ def record_bind_event(
         except ImportError:
             import receipt as receipt_mod
 
+        try:
+            from gate import clock as clock_mod
+        except ImportError:
+            import clock as clock_mod
+
+        hop = clock_mod.attach(
+            hop, started_at=created_at, decision=decision, acted=acted
+        )
         receipt_issue = receipt_mod.issue_receipt(
             event_id=event_id,
             fuse_id=fuse_id,
