@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Pricing{% endblock %}
 {% block meta %}
-<meta name="description" content="Weld one irreversible write path. Monthly management + 10 bps on cleared flow. Licensed operators.">
+<meta name="description" content="Install one stop on a live payout or bind. Monthly management plus 10 bps on what clears. Licensed operators.">
 {% endblock %}
 {% block content %}
 <div class="container section">
   <p class="audience-tag">Licensed operators</p>
   <h1 style="text-align: center;">Pricing</h1>
   <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
-    Pay to weld one irreversible path, then monthly management plus bps on cleared flow.
+    Pay to install one stop on a live payout or bind. Then monthly management, plus 10 bps (basis points) of what actually clears.
   </p>
 
   <div class="card" style="margin-bottom: 1.5rem;">
     <p class="audience-tag">Production path</p>
-    <h2>Operator weld — {{ weld_price }}</h2>
-    <p>One irreversible write (withdraw / payout clear, or bind-only), fail closed, delivered in 48hr. Then <strong>10 bps of what clears</strong>. Quiet path still pays <strong>{{ floor_price }}</strong> management. Extra write = another {{ weld_price }}.</p>
+    <h2>Install the stop — {{ weld_price }}</h2>
+    <p>One write that cannot be undone (a withdrawal, a payout, or a bind). If the check is unsure, the write does not run. Delivered in 48 hours. Then <strong>10 bps of what clears</strong>. A quiet path still pays <strong>{{ floor_price }}</strong> management. Each extra write is another {{ weld_price }}.</p>
     <ul class="check-list" style="margin: 0.75rem 0;">
       <li>Checkout does not claim third-party production status</li>
       <li>If uncertain, the write does not run</li>
       <li>Unlicensed gambling voids the path</li>
     </ul>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Pay the weld</a>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Install the stop</a>
     <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule →</a></p>
   </div>
 
   <div class="grid-2" style="margin-bottom: 1.5rem;">
     <div class="card">
       <h3>Management</h3>
-      <p>{{ floor_price }} per welded path + {{ floor_price }} per active parent license.</p>
+      <p>{{ floor_price }} per installed stop + {{ floor_price }} per active parent license.</p>
     </div>
     <div class="card">
       <h3>Flow</h3>
@@ -37,13 +37,13 @@
 
   <div class="card" style="margin-bottom: 1.5rem;">
     <h2>Bind Room — {{ bind_room_price }}</h2>
-    <p>Officer pack + ticket schema for bind workflows. Production still requires a weld into the operator’s system.</p>
+    <p>Officer pack and the ticket shape for bind workflows. A live system still needs the stop installed in the operator’s software.</p>
     <p style="margin-top: 0.75rem;"><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
   </div>
 
   <div class="card">
     <h2>Program embeds</h2>
-    <p>Same fee schedule: weld count + path management + bps on cleared flow. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
+    <p>Same fees: how many stops are installed, monthly management, and bps on what clears. Email <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>.</p>
   </div>
 </div>
 {% endblock %}

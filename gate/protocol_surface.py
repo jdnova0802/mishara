@@ -21,7 +21,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/.well-known/mcp.json"),
             "endpoint": href("/mcp"),
-            "plain": "Native tool server. Agents call POST /mcp. Not REST-only.",
+            "plain": "An agent can call Gate as a tool at POST /mcp. A person still opens the receipt.",
         },
         {
             "id": "openapi",
@@ -29,7 +29,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/openapi.json"),
             "endpoint": href("/openapi.json"),
-            "plain": "Generated OpenAPI 3.1 at /openapi.json. Not a stub.",
+            "plain": "A machine-readable list of every call Gate accepts.",
         },
         {
             "id": "x402",
@@ -37,7 +37,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/.well-known/x402.json"),
             "endpoint": href("/.well-known/x402.json"),
-            "plain": "Payment rail with reserve, settle, and release in the DB.",
+            "plain": "The payment check: reserve, settle, and release, stored here.",
         },
         {
             "id": "cli",
@@ -45,10 +45,7 @@ def doors(public_url: str = "") -> list[dict[str, Any]]:
             "status": "built",
             "href": href("/floor"),
             "endpoint": href("/floor"),
-            "plain": (
-                "offline_verify.py — argparse, --json, stdout/stderr/exit-code. "
-                "Dead-hand check without fetching the server."
-            ),
+            "plain": "Check a receipt on your own computer. No login, and Gate does not have to be up.",
         },
     ]
 

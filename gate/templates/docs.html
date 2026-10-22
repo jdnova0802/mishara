@@ -3,20 +3,21 @@
 {% block title %}Drill protocol{% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Internal drills · money path is the weld</p>
-  <h1>Drill protocol</h1>
-  <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Buyers:</strong> go to <a href="{{ url_for('operator_page') }}">weld</a>. This page is only for engineers running integration drills. A hop credential is not a production door.</p>
-  <p style="color: var(--muted); margin-bottom: 2rem;">Drill requests may use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. Public demo hops need none.</p>
+  <p class="audience-tag">Engineers · practice runs, not the live stop</p>
+  <h1>Drill notes</h1>
+  <p style="color: var(--muted); margin-bottom: 1rem;"><strong>Buyers:</strong> <a href="{{ url_for('bind_room') }}">Bind Room</a>. This page is for engineers practicing the check. A practice key is not the stop on a live system.</p>
+  <p style="color: var(--muted); margin-bottom: 1rem;">Three words in the paths below: a <strong>fuse</strong> is the named check, a <strong>hop</strong> is one run of that check, and a <strong>weld</strong> is installing the stop on the customer’s live system.</p>
+  <p style="color: var(--muted); margin-bottom: 2rem;">Drill requests may use <code class="inline">Authorization: Bearer gate_sk_live_...</code> or <code class="inline">X-Gate-Key</code>. The public practice run needs no key.</p>
 
   <div class="card">
     <h2>Drill credentials</h2>
-    <p>Open a <a href="{{ url_for('signup') }}">drill desk</a> → mint a credential once. It is not a welded production door.</p>
+    <p>Open a <a href="{{ url_for('signup') }}">drill desk</a> → mint a credential once. It does not install the stop on a live system.</p>
     <pre>Authorization: Bearer gate_sk_live_xxxxxxxx</pre>
   </div>
 
   <div class="card">
     <h2>GET /v1/fuse/lookup</h2>
-    <p>Public existence check. Returns fuse state without burning hop quota on Velaru side — counts as 1 hop on Gate meter.</p>
+    <p>Public existence check. Returns the state of the named check. It does not spend a run on Velaru’s side. It still counts as one run on Gate’s meter.</p>
     <pre>curl -s "{{ public_url }}/v1/fuse/lookup?fuse_id=fuse_velaru_drill" \
   -H "Authorization: Bearer $GATE_KEY"</pre>
     <p>Response headers: <code class="inline">X-Gate-Usage-Hops</code>, <code class="inline">X-Gate-Usage-Limit</code>, <code class="inline">X-Gate-Plan</code></p>
@@ -28,8 +29,8 @@
   </div>
 
   <div class="card">
-    <h2>POST /v1/act — welded closed world</h2>
-    <p>The only Gate act path. Hops first. DEAD or timeout → never acts. No side door on this service.</p>
+    <h2>POST /v1/act — the only path that can send</h2>
+    <p>The check runs first. If the check is dead or times out, nothing is sent. There is no second door.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/act" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \
@@ -47,7 +48,7 @@
 
   <div class="card">
     <h2>POST /v1/pas/policycenter/pre-bind</h2>
-    <p>Hop first. LIVE + verdict true → next may be bind-and-issue. DEAD → <code class="inline">do_not_call_all</code> includes <code class="inline">bind-only</code> (already Bound) and <code class="inline">bind-and-issue</code>. UW type must BlocksBind, not QuoteRelease. UW approve without CHARGE does not resurrect.</p>
+    <p>The check runs first. Live and allowed means the next step may be bind-and-issue. A dead check means <code class="inline">do_not_call_all</code> includes <code class="inline">bind-only</code> (already Bound) and <code class="inline">bind-and-issue</code>. The underwriting issue type must be BlocksBind, not QuoteRelease. Approving underwriting without a charge does not bring a dead check back.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/pas/policycenter/pre-bind" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \
@@ -56,7 +57,7 @@
 
   <div class="card">
     <h2>POST /v1/pas/mga-authority</h2>
-    <p>Delegated-authority check: fuse hop + premium / line / state limits. Fastest yes that is still their paper.</p>
+    <p>Delegated-authority check: one run of the named check, plus premium / line / state limits. The fastest yes that is still their paper.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/pas/mga-authority" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \
@@ -72,7 +73,7 @@
 
   <div class="card">
     <h2>POST /v1/fuse/hop</h2>
-    <p>Pre-execution gate. DEAD fuse → 200 with <code class="inline">verdict: false</code> + signed restraint receipt.</p>
+    <p>The check runs before anything is sent. A dead check returns <code class="inline">verdict: false</code> and a signed receipt.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/fuse/hop" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \
@@ -81,7 +82,7 @@
 
   <div class="card">
     <h2>POST /v1/execute-gate/demo</h2>
-    <p>PERMIT/DENY/SILENCE bind gate smoke test. Same hop family as carrier execute-gate.</p>
+    <p>PERMIT/DENY/SILENCE smoke test for a bind. Same check as the carrier execute-gate.</p>
     <pre>curl -s -X POST "{{ public_url }}/v1/execute-gate/demo" \
   -H "Authorization: Bearer $GATE_KEY" \
   -H "Content-Type: application/json" \
@@ -105,8 +106,8 @@
   </div>
 
   <div class="card">
-    <h2>402 hop budget exhausted</h2>
-    <p>Lab hop budget is a fuse meter for drills. When exhausted, weld production or ask ops to extend the drill budget:</p>
+    <h2>402 when the practice budget runs out</h2>
+    <p>The practice budget counts runs of the check. When it runs out, install the stop on the live system, or ask ops to extend the practice budget. The response still looks like this:</p>
     <pre>{
   "error": {
     "type": "payment_required",
@@ -121,7 +122,7 @@
 
   <div class="card">
     <h2>Verify receipts</h2>
-    <p>Hop responses include <code class="inline">verify_url</code>. Humans verify free at <a href="https://velaru.xyz/verify">velaru.xyz/verify</a>. Engine: {{ velaru_base }}</p>
+    <p>Each check response includes <code class="inline">verify_url</code>. People open it free at <a href="https://velaru.xyz/verify">velaru.xyz/verify</a>. Engine: {{ velaru_base }}</p>
   </div>
 
   <div class="card">
@@ -167,14 +168,14 @@ curl -s -X POST "{{ public_url }}/demo/pas/policycenter/pre-bind" \
 
   <div class="card">
     <h2>MCP (Kong / TrueFoundry / AWS AgentCore) <span class="badge badge-ok">built</span></h2>
-    <p>Already built. One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>. Tools include <code class="inline">policycenter_pre_bind</code> and <code class="inline">mga_authority</code>. MCP never wins a production weld slot.</p>
+    <p>Already built. One door: <code class="inline">POST {{ public_url }}/mcp</code>. Discovery: <a href="{{ public_url }}/.well-known/mcp.json">.well-known/mcp.json</a>. Configs: <a href="{{ public_url }}/listings/kong-mcp.yaml">Kong</a> · <a href="{{ public_url }}/listings/truefoundry-mcp.yaml">TrueFoundry</a> · <a href="{{ public_url }}/listings/aws-agentcore.json">AWS</a>. Tools include <code class="inline">policycenter_pre_bind</code> and <code class="inline">mga_authority</code>. Calling Gate as a tool does not install the stop on a live system.</p>
     <pre>curl -s -X POST "{{ public_url }}/mcp" \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"curl","version":"1"}}}'</pre>
   </div>
 
   <div class="card">
-    <h2>PAS applications (paperwork, not a weld)</h2>
+    <h2>PAS applications (paperwork, not the live stop)</h2>
     <p><a href="{{ public_url }}/listings/guidewire-partnerconnect.json">Guidewire PartnerConnect packet</a> · <a href="{{ public_url }}/listings/duckcreek-partner.json">Duck Creek partner packet</a> · <a href="{{ public_url }}/listings/control-not-model.json">control, not a model</a>. UI Bind: <a href="{{ public_url }}/listings/guidewire-gosu-prebind.gs">Gosu checking set</a>. Midnight renewal: <a href="{{ public_url }}/listings/guidewire-renewal-prebind.gs">RenewalWF step</a>. Date both PAS packets. Marry one production bind path.</p>
   </div>
 
