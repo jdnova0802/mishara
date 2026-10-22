@@ -1,20 +1,24 @@
 {% extends "base.html" %}
-{% block title %}Bind Room — halt before the agent binds{% endblock %}
+{% block title %}Your CGL will not cover the agent{% endblock %}
 {% block meta %}
-<meta name="description" content="Your CGL will not cover the agent. A CGL pays injury and property damage, not an agent that binds. $1,750 officer pack — a stop before bind-and-issue with a receipt anyone can open.">
+<meta name="description" content="Your CGL will not cover the agent. Stop it before it binds. Keep a receipt anyone can check.">
 {% endblock %}
 {% block content %}
-<section class="hero container">
-  <p class="audience-tag" style="margin-bottom: 0.75rem;">Bind Room · GC / carrier / compliance</p>
+<section class="hero hero-first container">
   <h1>Your CGL will not cover the agent.</h1>
-  <p class="hero-sub">Gate stops an agent before it binds coverage or sends money, and leaves a receipt anyone can open without a login. A commercial general liability policy pays bodily injury and property damage. It does not pay when software binds a policy or moves money. If bind-and-issue runs, that world is spent. {{ bind_room_price }} starts the officer pack examiners take. Full assessment $3,500.</p>
+  <p class="hero-sub">Stop it before it binds. Keep a receipt anyone can check.</p>
   <div class="hero-actions">
     <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room · {{ bind_room_price }}</a>
-    <a href="https://velaru.xyz/verify" class="btn btn-ghost" target="_blank" rel="noopener">Verify a receipt</a>
   </div>
 </section>
 
-<section class="container section" style="padding-top: 0;">
+<section class="container layer-2">
+  <ul class="benefit-lines">
+    <li><strong>What it stops</strong> An agent binding coverage or sending money.</li>
+    <li><strong>What you get</strong> A receipt anyone can check, with no login.</li>
+    <li><strong>Who it’s for</strong> A general contractor, a carrier, or a compliance officer.</li>
+  </ul>
+
   <div class="card" style="border-left: 3px solid var(--text, #111);">
     <h2 style="margin-bottom: 0.75rem;">Why the CGL does not cover it</h2>
     <ul class="check-list">
@@ -23,6 +27,12 @@
       <li><strong>What they ask to see</strong> — a receipt a stranger can open with no login. Not a dashboard screenshot. Not “mostly safe.”</li>
     </ul>
   </div>
+</section>
+
+<section class="container section layer-3">
+  <h2>If you kept reading</h2>
+  <p style="color: var(--muted); max-width: 40rem;">A commercial general liability policy pays bodily injury and property damage. It does not pay when software binds a policy or moves money. If bind-and-issue runs, that world is spent. {{ bind_room_price }} starts the officer pack examiners take. Full assessment $3,500.</p>
+  <p style="margin-top: 1rem;"><a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify a receipt</a></p>
 </section>
 
 <section class="container section" style="padding-top: 0;">
@@ -55,6 +65,6 @@
   <p style="color: var(--muted); margin-bottom: 1rem;">Nisaba LLC · stop before bind or payout</p>
   <a href="{{ url_for('bind_room') }}" class="btn btn-primary">Book Bind Room · {{ bind_room_price }}</a>
   <a href="{{ url_for('trust') }}" class="btn btn-ghost">Trust</a>
-  <p style="color: var(--muted); margin-top: 1.25rem; font-size: 0.75rem;">Installing the stop on a live system, monthly management, and a percent of what clears (bps) — separate, after the officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a></p>
+  <p style="color: var(--muted); margin-top: 1.25rem; font-size: 0.75rem;">Installing the stop on a live system, monthly management, and a percent of what clears (bps) — separate, after the officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a> · <a href="{{ url_for('pricing') }}">Pricing</a></p>
 </section>
 {% endblock %}
