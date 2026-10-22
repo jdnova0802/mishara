@@ -10,7 +10,7 @@ A scanner open clusters within seconds to minutes of send. A human open lands la
 
 ## Voice bar
 
-No element of a send is generic. Every send carries one dated docket, filing, or public source that belongs to that recipient. A category sentence with the name swapped in fails.
+Hard stop, in `SEND_GATE.md`. No dated, named, public source for this recipient means no send today. A category sentence with the name swapped in fails, and it does not go out as a placeholder.
 
 ## Confirmed fail
 
