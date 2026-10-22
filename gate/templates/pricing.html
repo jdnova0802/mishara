@@ -4,14 +4,14 @@
 <meta name="description" content="Install one stop on a live payout or bind. Monthly management plus 10 bps on what clears. Licensed operators.">
 {% endblock %}
 {% block content %}
-<div class="container section">
-  <p class="audience-tag">Licensed operators</p>
-  <h1 style="text-align: center;">Pricing</h1>
-  <p style="text-align: center; color: var(--muted); margin-bottom: 2rem;">
-    Pay to install one stop on a live payout or bind. Then monthly management, plus 10 bps (basis points) of what actually clears.
-  </p>
+<div class="container">
+  <div class="entry entry-first">
+    <h1>Pricing</h1>
+    <p>Install one stop on a live payout or bind.</p>
+    <a href="{{ url_for('operator_page') }}" class="btn btn-primary">Install the stop</a>
+  </div>
 
-  <div class="card" style="margin-bottom: 1.5rem;">
+  <div class="card" style="margin: 2.5rem 0 1.5rem;">
     <p class="audience-tag">Production path</p>
     <h2>Install the stop — {{ weld_price }}</h2>
     <p>One write that cannot be undone (a withdrawal, a payout, or a bind). If the check is unsure, the write does not run. Delivered in 48 hours. Then <strong>10 bps of what clears</strong>. A quiet path still pays <strong>{{ floor_price }}</strong> management. Each extra write is another {{ weld_price }}.</p>
@@ -20,8 +20,7 @@
       <li>If uncertain, the write does not run</li>
       <li>Unlicensed gambling voids the path</li>
     </ul>
-    <p style="margin-top: 0.75rem;"><a href="{{ url_for('operator_page') }}" class="btn btn-primary">Install the stop</a>
-    <a href="{{ url_for('register_page') }}" class="btn btn-ghost">Fee schedule →</a></p>
+    <p style="margin-top: 0.75rem;"><a href="{{ url_for('register_page') }}">Fee schedule</a></p>
   </div>
 
   <div class="grid-2" style="margin-bottom: 1.5rem;">

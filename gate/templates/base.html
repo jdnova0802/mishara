@@ -42,32 +42,12 @@
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
       <div class="nav-links">
-        {% if bind_surface %}
-        <a href="{{ url_for('bind_room') }}" title="Officer pack before an agent binds coverage">Bind Room</a>
-        <a href="{{ url_for('clear_page') }}" title="Does this payout settle and stick">Payout</a>
-        <a href="{{ url_for('seal_page') }}" title="Does this receipt still hold">Receipt</a>
-        <a href="{{ url_for('go_page') }}" title="May this payment go out">Payment</a>
-        <a href="{{ url_for('never_page') }}" title="Has this job already spent">Spent</a>
-        <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
-        <a href="{{ url_for('trust') }}">Trust</a>
-        <a href="{{ url_for('record_page') }}">Record</a>
-        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Book · {{ bind_room_price }}</a>
-        {% else %}
-        <a href="{{ url_for('bind_room') }}" title="Officer pack before an agent binds coverage">Bind Room</a>
-        <a href="{{ url_for('operator_page') }}" title="Install the stop on a live system">Install</a>
-        <a href="{{ url_for('clear_page') }}" title="Does this payout settle and stick">Payout</a>
-        <a href="{{ url_for('seal_page') }}" title="Does this receipt still hold">Receipt</a>
-        <a href="{{ url_for('go_page') }}" title="May this payment go out">Payment</a>
-        <a href="{{ url_for('never_page') }}" title="Has this job already spent">Spent</a>
-        <a href="{{ url_for('live_page') }}">Live</a>
-        <a href="{{ url_for('record_page') }}">Record</a>
-        <a href="{{ url_for('register_page') }}">Fees</a>
+        <a href="{{ url_for('index') }}">Overview</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
-        <a href="{{ url_for('trust') }}">Trust</a>
+        <a href="{{ url_for('docs') }}">Docs</a>
+        <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
-        {% endif %}
-        <a href="{{ url_for('bind_room') }}" class="btn btn-primary btn-sm">Bind Room · {{ bind_room_price }}</a>
         {% endif %}
       </div>
     </div>
@@ -97,6 +77,7 @@
       <a href="{{ url_for('trust') }}">Trust</a> ·
       <a href="{{ url_for('record_page') }}">Record</a> ·
       <a href="{{ url_for('pricing') }}">Pricing</a> ·
+      <a href="{{ url_for('docs') }}">Docs</a> ·
       <a href="{{ url_for('privacy_page') }}">Privacy</a> ·
       <a href="{{ url_for('terms_page') }}">Terms</a> ·
       <a href="https://velaru.xyz/verify">Verify</a>
