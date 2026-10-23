@@ -1217,6 +1217,249 @@ MOUTHS = (
 )
 
 
+SECTION_314B_SOURCE = "https://www.fincen.gov/resources/section-314b"
+SECTION_314B_FACTSHEET = (
+    "https://fincen.gov/sites/default/files/shared/314bfactsheet.pdf"
+)
+SECTION_314B_CITE = (
+    "USA PATRIOT Act § 314(b); 31 C.F.R. § 1010.540; FinCEN Fact Sheet (June 12, 2026)"
+)
+
+
+def evaluate_314b_share(body: dict) -> dict[str, Any]:
+    """PATRIOT Act § 314(b) — pack a FI↔FI fraud/ML share packet. Gate never shares.
+
+    June 12, 2026 FinCEN fact sheet: registered FIs (and associations of FIs) may share
+    underlying fraud indicators under the safe harbor — including instant-payment /
+    FedNow-shaped typology — without disclosing a SAR or its existence.
+
+    Gate is not itself a BSA financial institution by default. This mouth classifies
+    whether *the caller* (an FI customer) is in the share lane and packs facts they
+    already hold (deny hash, claim_scope, sealed-payee flags). Gate does not register
+    on FinCEN's FI Portal for you and does not transmit to peers.
+    """
+    try:
+        from gate import write_state as write_state_mod
+    except ImportError:
+        import write_state as write_state_mod
+
+    fi = str(body.get("sharer_is_bsa_fi") or "").strip().lower()
+    reg = str(body.get("sharer_314b_registered") or "").strip().lower()
+    peer = str(body.get("peer_314b_verified") or "").strip().lower()
+    purpose = str(body.get("purpose_fraud_or_ml") or "").strip().lower()
+    sar = str(body.get("includes_sar_or_sar_existence") or "").strip().lower()
+    facts = str(body.get("has_underlying_facts") or "").strip().lower()
+
+    common = dict(
+        cite=SECTION_314B_CITE,
+        source=SECTION_314B_SOURCE,
+        factsheet=SECTION_314B_FACTSHEET,
+        gate_registers_for_you=False,
+        gate_transmits_to_peers=False,
+        not_a_bounty=True,
+        association_path_note=(
+            "A non-FI may operate an association whose members are only BSA FIs "
+            "(FinCEN assoc. rulings / Director commentary). That is a separate "
+            "counsel-led product — this mouth only packs for an already-registered FI."
+        ),
+    )
+
+    if any(x not in ("yes", "no", "unknown") for x in (fi, reg, peer)) or any(
+        x not in ("yes", "no") for x in (purpose, sar, facts)
+    ):
+        return _pack(
+            "gate-314b-share-v1",
+            "HOLD",
+            "Need: BSA FI?, 314(b) registered?, peer verified on FI Portal?, "
+            "fraud/ML purpose?, SAR-in-packet?, underlying facts present? Unknown fails closed.",
+            **common,
+        )
+
+    if fi != "yes":
+        return _pack(
+            "gate-314b-share-v1",
+            "NOT THIS",
+            "§ 314(b) safe harbor is for financial institutions (and associations of FIs). "
+            "Gate-as-vendor alone is not an FI. If you are not a BSA FI, this mouth is not your lane.",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="314b-share"),
+            **common,
+        )
+
+    if sar == "yes":
+        return _pack(
+            "gate-314b-share-v1",
+            "HOLD",
+            "NEVER share a SAR or anything that reveals a SAR was filed. Strip SAR existence "
+            "from the packet. Underlying transaction / deny / claim_scope facts may still be shareable.",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="314b-share"),
+            share_pack={
+                "blocked_reason": "sar_or_sar_existence_in_packet",
+                "may_share_after_strip": [
+                    "transaction records",
+                    "deny_registry payout_hash (no PII)",
+                    "claim_scope counterparties / keys_checked (clearance facts)",
+                    "sealed-payee / first-time-payee / Scenario 3 flag chips",
+                    "device / IP / typology notes the FI already holds",
+                ],
+                "must_not_share": ["SAR", "SAR existence", "joint-SAR contents outside joint filers"],
+            },
+            **common,
+        )
+
+    if reg != "yes" or peer != "yes" or purpose != "yes" or facts != "yes":
+        reasons = []
+        if reg != "yes":
+            reasons.append("sharer not 314(b)-registered on FinCEN FI Portal")
+        if peer != "yes":
+            reasons.append("peer not verified as 314(b) registrant before share")
+        if purpose != "yes":
+            reasons.append("purpose must be identifying possible ML / terrorist activity / fraud SUA")
+        if facts != "yes":
+            reasons.append("no underlying facts to pack (need deny hash / claim_scope / typology)")
+        return _pack(
+            "gate-314b-share-v1",
+            "HOLD",
+            "Not shareable yet: " + "; ".join(reasons) + ".",
+            write_state=write_state_mod.for_advisory_mouth(mouth_id="314b-share"),
+            share_pack={
+                "checklist": [
+                    "Request FI Portal access at fincen.gov → register 314(b) tile",
+                    "Verify peer on FI Portal participant list before any share",
+                    "Share only for AML / CTF / fraud-SUA identification (June 12 2026 fact sheet)",
+                    "Do not include SAR or SAR existence",
+                    "Use Gate deny hash / claim_scope / sealed-payee Never as underlying facts",
+                ],
+                "register": SECTION_314B_SOURCE,
+                "factsheet": SECTION_314B_FACTSHEET,
+            },
+            **common,
+        )
+
+    pack = {
+        "spec": "gate-314b-share-pack-v1",
+        "status": "shareable_under_safe_harbor_if_counsel_agrees",
+        "cite": SECTION_314B_CITE,
+        "factsheet": SECTION_314B_FACTSHEET,
+        "gate_transmits_to_peers": False,
+        "gate_registers_for_you": False,
+        "suggested_payload_fields": [
+            "deny_registry.payout_hash (destination fingerprint — no raw account)",
+            "claim_scope.boundary + keys_checked + counterparties (clearance refuse)",
+            "Issuing/FedNow typology: sealed_payee miss, first_time_payee, workflow_category_denied",
+            "Scenario 3 flag chips (FIN-2016-A003) — classification only",
+            "timestamps / rail / amount bands the FI already logged",
+        ],
+        "must_not_include": ["SAR", "SAR existence", "unrelated customer PII outside share purpose"],
+        "instant_payments_note": (
+            "June 2026 guidance + FDIC follow-on encourage real-time fraud sharing — "
+            "especially relevant when FedNow/RTP funds move in seconds. Gate's pre-push "
+            "Never / Issuing NO_GO are the facts an FI would share before the next FI pays."
+        ),
+        "plain": (
+            "Packet is ready for *your* FI to share with a verified 314(b) peer. "
+            "Gate does not send it. Counsel confirms safe harbor on your facts."
+        ),
+    }
+    return _pack(
+        "gate-314b-share-v1",
+        "SHAREABLE",
+        "Registered FI → verified peer → fraud/ML purpose → underlying facts, no SAR. "
+        "Safe-harbor lane open on this face — Gate still does not transmit.",
+        write_state=write_state_mod.for_advisory_mouth(mouth_id="314b-share"),
+        share_pack=pack,
+        **common,
+    )
+
+
+MOUTHS = MOUTHS + (
+    {
+        "id": "314b-share",
+        "route": "/314b-share",
+        "api": "/v1/314b-share",
+        "wk": "/.well-known/314b-share.json",
+        "fn": "evaluate_314b_share",
+        "spec": "gate-314b-share-v1",
+        "title": "314(b) Share Pack",
+        "brand": "314(b) Share",
+        "lede": (
+            "Are you a BSA FI ready to share fraud/ML underlying facts with a verified "
+            "314(b) peer — without a SAR? Gate packs. Gate never transmits."
+        ),
+        "legend": (
+            ("SHAREABLE", "Registered FI → verified peer → fraud/ML purpose → facts, no SAR."),
+            ("NOT THIS", "Caller is not a BSA FI — § 314(b) is not this lane."),
+            ("HOLD", "Registration, peer verify, purpose, SAR strip, or facts missing."),
+        ),
+        "words": ["SHAREABLE", "NOT THIS", "HOLD"],
+        "submit": "Ask",
+        "fields": [
+            {
+                "name": "sharer_is_bsa_fi",
+                "label": "Are you a BSA financial institution (or acting for one)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
+            {
+                "name": "sharer_314b_registered",
+                "label": "Registered on FinCEN FI Portal § 314(b) tile?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
+            {
+                "name": "peer_314b_verified",
+                "label": "Peer verified as 314(b) registrant before share?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
+            {
+                "name": "purpose_fraud_or_ml",
+                "label": "Share purpose = identify possible fraud / ML / terrorist activity?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "includes_sar_or_sar_existence",
+                "label": "Packet includes a SAR or reveals a SAR was filed?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+            {
+                "name": "has_underlying_facts",
+                "label": "Underlying facts ready (deny hash / claim_scope / typology)?",
+                "type": "chips",
+                "options": [
+                    {"id": "yes", "label": "Yes"},
+                    {"id": "no", "label": "No"},
+                ],
+            },
+        ],
+        "source": (
+            "USA PATRIOT Act § 314(b) — FI↔FI safe harbor for sharing underlying fraud/ML "
+            "facts (FinCEN Fact Sheet June 12, 2026). Gate packs; Gate never shares. Not a bounty."
+        ),
+        "source_url": SECTION_314B_SOURCE,
+    },
+)
+
+
 def mouth_by_id(mid: str) -> dict | None:
     for m in MOUTHS:
         if m["id"] == mid:
@@ -1236,6 +1479,7 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
         "cl7-handoff": evaluate_cl7_handoff,
         "stair": evaluate_stair,
         "dsp-reject": evaluate_dsp_reject,
+        "314b-share": evaluate_314b_share,
     }[mid]
     raw_body = body if isinstance(body, dict) else {}
     result = fn(raw_body)
@@ -1288,6 +1532,12 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
             "rejected_on_or_after_2025_10_06 chips",
             "28 CFR 202.1104 classification only — Covered Persons List not scanned; "
             "list is non-exhaustive for § 202.211(a)(1)–(4); Gate never emails NSD",
+        ],
+        "314b-share": [
+            "presented sharer_is_bsa_fi / sharer_314b_registered / peer_314b_verified / "
+            "purpose_fraud_or_ml / includes_sar_or_sar_existence / has_underlying_facts chips",
+            "PATRIOT Act § 314(b) classification only — Gate never registers on FI Portal "
+            "and never transmits to peers; SAR existence must not be in the packet",
         ],
     }.get(mid)
     return _seal_mouth(
