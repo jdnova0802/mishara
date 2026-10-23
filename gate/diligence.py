@@ -1,6 +1,7 @@
-"""Mouth / finality diligence — free REVIEW + paid deposit find.
+"""Diligence — free REVIEW + paid deposit find.
 
-Surfaces (must stay live for hustle outbound):
+First screen uses desk language (collateral confirmation, duty to defend,
+binder authority) before Gate nouns. Surfaces for hustle outbound:
   GET  /diligence              — free REVIEW hero + paid deposit
   GET  /diligence/one-pager.txt
   GET  /diligence/offer.json
@@ -23,9 +24,9 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
     return {
         "spec": SPEC,
-        "name": "Mouth / finality diligence",
+        "name": "Diligence — collateral, duty to defend, binder authority",
         "firm": "Nisaba LLC",
-        "offer": "Where can an irreversible write complete without may?",
+        "offer": "Where does the next bind still treat collateral, duty to defend, or binder authority as live?",
         "not": [
             "Not a pentest gym",
             "Not a soft governance PDF",
@@ -58,17 +59,16 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
             "free_review": "$0",
         },
         "targets": [
-            "peg-outs / bridges",
-            "custody withdraw",
-            "payout / mass pay",
-            "BaaS / sponsor edges",
+            "collateral confirmation (LOC / letter treated as live)",
+            "duty to defend after refusal",
+            "binder authority after the MGA walked",
             "bind desks (path review)",
         ],
         "deliverable": (
             "Free REVIEW: 72h memo on public pages (and anything you send) naming where "
-            "the next irreversible placement still treats collateral / authority as live "
-            "without confirm. Paid deposit: deeper written map of mouths where an "
-            "irreversible write can complete without may."
+            "the next placement still treats collateral, duty to defend, or binder "
+            "authority as live without confirm. Paid deposit: deeper written map of "
+            "the same gaps."
         ),
         "ask": FREE_ASK,
         "ask_paid": PAID_ASK,
@@ -87,11 +87,11 @@ def offer(public_url: str, contact_email: str) -> dict[str, Any]:
 
 def one_pager(public_url: str, contact_email: str) -> str:
     base = (public_url or "").rstrip("/")
-    return f"""MOUTH / FINALITY DILIGENCE — Nisaba LLC
+    return f"""DILIGENCE — Nisaba LLC
 ═══════════════════════════════════════
 
 Offer
-  Where can an irreversible write complete without may?
+  Where does the next bind still treat collateral, duty to defend, or binder authority as live?
 
 PATH 1 — FREE REVIEW (cold outbound / Monday pack)
   Price     $0 · no invoice · no obligation
@@ -109,13 +109,13 @@ PATH 2 — PAID DEPOSIT (deeper find)
   Or pay    {base}/diligence
 
 What you get (either path)
-  A written find on the irreversible path (peg-out, withdraw, payout, bind, ACH credit /
-  collateral / authority): where the write can still complete when Clear / stranger-openable
-  halt is missing. Keys, SOC, and policy answers are not the deliverable — the may-gap is.
+  A written find on collateral confirmation, duty to defend, and binder authority:
+  where the next placement still treats the letter, the defense, or the binder as
+  live without confirm. Keys, SOC, and policy answers are not the deliverable.
 
 What this is not
-  Not a pentest gym. Not a governance PDF. Not selling may.
-  Not implementing Gate/Prefinality rail on this SKU.
+  Not a pentest gym. Not a governance PDF. Not selling coverage.
+  Not implementing the rail on this SKU.
 
 Links
   {base}/diligence
@@ -131,11 +131,11 @@ Contact
 
 def page_copy() -> dict[str, str]:
     return {
-        "headline": "Where can an irreversible write complete without may?",
+        "headline": "Where does the next bind still treat collateral, duty to defend, or binder authority as live?",
         "sub": (
-            "Mouth / finality diligence. Free 72h REVIEW on public pages — or a paid "
-            "deposit find on peg-out, withdraw, payout, BaaS credit, or bind path. "
-            "The gap between who was allowed and what actually halted the write."
+            "Free 72h REVIEW of public pages. Bank confirmation of the letter. "
+            "Duty to defend after a refusal. Binder authority after the MGA walked. "
+            "Or a paid deposit find on the same path."
         ),
         "free_blurb": (
             "Public pages only (+ anything you send). No charge. No invoice. "

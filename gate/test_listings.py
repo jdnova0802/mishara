@@ -671,7 +671,9 @@ class BindRoomFlaskTests(unittest.TestCase):
     def test_diligence_surfaces(self):
         page = self.client.get("/diligence")
         self.assertEqual(page.status_code, 200)
-        self.assertIn(b"irreversible write", page.data)
+        self.assertIn(b"collateral", page.data)
+        self.assertIn(b"duty to defend", page.data)
+        self.assertIn(b"binder authority", page.data)
         self.assertIn(b"2,500", page.data)
         self.assertIn(b"Free 72h REVIEW", page.data)
         self.assertIn(b"Reply REVIEW", page.data)
@@ -687,6 +689,19 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn(b"REVIEW", one.data)
         self.assertIn(b"DEPOSIT", one.data)
         self.assertEqual(one.content_type.split(";")[0], "text/plain")
+        self.assertIn(b"collateral", one.data)
+        self.assertIn(b"duty to defend", one.data)
+        self.assertIn(b"binder authority", one.data)
+
+    def test_diligence_first_screen_desk_language_before_gate_nouns(self):
+        html = self.client.get("/diligence").get_data(as_text=True)
+        section = html.split('class="container section"', 1)[1]
+        first = section.split("Paid path", 1)[0]
+        lowered = first.lower()
+        for phrase in ("collateral", "duty to defend", "binder authority"):
+            self.assertIn(phrase, lowered, phrase)
+        for noun in ("mouth", "peg-out", "weld", "prefinality"):
+            self.assertNotIn(noun, lowered, noun)
 
     def test_diligence_checkout_dev(self):
         r = self.client.post(
