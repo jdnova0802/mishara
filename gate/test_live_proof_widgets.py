@@ -141,6 +141,9 @@ class LiveProofWidgetTests(unittest.TestCase):
         png = receipt_card.render_og_png(word="BLOCK", hash_short="abc123…def456", museum=True)
         self.assertTrue(png.startswith(b"\x89PNG"))
         self.assertNotIn(b"their_production", png)
+        fallback = receipt_card._glyph_rows("·")
+        for ch in "MUSEUMHOPGATERECEIPT":
+            self.assertNotEqual(receipt_card._glyph_rows(ch), fallback, ch)
 
 
 if __name__ == "__main__":
