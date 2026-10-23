@@ -1,4 +1,4 @@
-"""Homepage lookup, merkle strip, and Bind Room countdown — public JSON only."""
+"""Homepage lookup, merkle strip, Bind Room countdown, counsel card, receipt OG."""
 from __future__ import annotations
 
 import os
@@ -6,6 +6,7 @@ import pathlib
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 os.environ.setdefault("GATE_DEV_MODE", "1")
 os.environ.setdefault("GATE_SECRET_KEY", "test-secret")
@@ -23,6 +24,7 @@ if HERE not in sys.path:
 import app as app_mod  # noqa: E402
 import db  # noqa: E402
 import evidence_log  # noqa: E402
+import receipt_card  # noqa: E402
 
 
 class LiveProofWidgetTests(unittest.TestCase):
@@ -53,6 +55,10 @@ class LiveProofWidgetTests(unittest.TestCase):
         self.assertIn("does not pulse a tx that did not land", text)
         self.assertIn("Check inclusion", text)
         self.assertNotIn("btn-primary\">Check", text)
+        self.assertIn("Empty tree, not a customer", text)
+        self.assertIn("sha256(leaf ‖ sib)", text)
+        self.assertIn("data-museum-hop", text)
+        self.assertNotIn("their_production", text.lower())
 
     def test_public_proof_is_enough_for_the_widget(self):
         event_id = db.record_bind_event(
@@ -89,6 +95,52 @@ class LiveProofWidgetTests(unittest.TestCase):
         book = self.client.get("/v1/blotter").get_json()
         self.assertEqual(book["window_minutes"], 60)
         self.assertNotIn("their_production", book)
+        self.assertIn("Copy counsel object", page)
+        self.assertIn("counsel_copy.js", page)
+        self.assertNotIn("their_production", page.lower())
+
+    def test_demo_hop_mints_counsel_object_and_og_card(self):
+        dead = {
+            "ok": True,
+            "verdict": False,
+            "halt": True,
+            "state": "DEAD",
+            "verify_url": "https://velaru.xyz/verify?r=counsel",
+        }
+        with mock.patch.object(app_mod, "velaru_fuse", return_value=(dead, 200, {})):
+            hop = self.client.post("/demo/hop", json={"fuse_id": "fuse_velaru_drill"})
+        self.assertEqual(hop.status_code, 200)
+        body = hop.get_json()
+        self.assertNotIn("their_production", body)
+        self.assertTrue(body["counsel"]["museum"])
+        event_id = body["event_id"]
+        self.assertEqual(body["counsel"]["word"], "BLOCK")
+        self.assertIn(event_id, body["counsel"]["proof"])
+        self.assertIn("/?hop=" + event_id, body["check_url"])
+        self.assertIn("proof.json", body["counsel"]["text"])
+        proof = self.client.get(f"/.well-known/receipt/{event_id}/proof.json")
+        self.assertEqual(proof.status_code, 200)
+        page = self.client.get(f"/receipt/{event_id}")
+        self.assertEqual(page.status_code, 200)
+        html = page.get_data(as_text=True)
+        self.assertIn("og:image", html)
+        self.assertIn("Museum hop", html)
+        self.assertIn(body["counsel"]["word"], html)
+        self.assertNotIn("their_production", html.lower())
+        png = self.client.get(f"/receipt/{event_id}/og.png")
+        self.assertEqual(png.status_code, 200)
+        self.assertEqual(png.content_type, "image/png")
+        self.assertTrue(png.data.startswith(b"\x89PNG"))
+        self.assertGreater(len(png.data), 400)
+        docs = self.client.get("/docs").get_data(as_text=True)
+        self.assertIn("Check inclusion on homepage", docs)
+        self.assertIn("counsel_copy.js", docs)
+        self.assertIn('id="demo-check-link"', docs)
+
+    def test_og_png_omits_production_flag(self):
+        png = receipt_card.render_og_png(word="BLOCK", hash_short="abc123…def456", museum=True)
+        self.assertTrue(png.startswith(b"\x89PNG"))
+        self.assertNotIn(b"their_production", png)
 
 
 if __name__ == "__main__":

@@ -85,6 +85,11 @@ except ImportError:
     import bind_room as bind_room_mod
 
 try:
+    from gate import receipt_card as receipt_card_mod
+except ImportError:
+    import receipt_card as receipt_card_mod
+
+try:
     from gate import diligence as diligence_mod
 except ImportError:
     import diligence as diligence_mod
@@ -1323,6 +1328,10 @@ def demo_hop():
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
         bound.attach(data, status, demo=True)
+        if status < 500:
+            receipt_card_mod.stamp_museum_hop(
+                data, fuse_id=fuse_id, public_url=advertised_url()
+            )
     return data, status, extra
 
 
@@ -2898,6 +2907,39 @@ def afterward_page():
 @app.route("/.well-known/capture.json")
 def well_known_capture():
     return jsonify(weld.capture_manifest(advertised_url()))
+
+
+@app.route("/receipt/<event_id>/og.png")
+def receipt_og_png(event_id: str):
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+    fields = receipt_card_mod.og_fields(row, public_url=advertised_url())
+    png = receipt_card_mod.render_og_png(
+        word=fields["word"],
+        hash_short=fields["hash_short"],
+        museum=receipt_card_mod.is_museum_row(row),
+    )
+    resp = Response(png, mimetype="image/png")
+    resp.headers["Cache-Control"] = "public, max-age=300"
+    return resp
+
+
+@app.route("/receipt/<event_id>")
+def receipt_preview(event_id: str):
+    row = db.get_bind_event(event_id)
+    if not row:
+        abort(404)
+    fields = receipt_card_mod.og_fields(row, public_url=advertised_url())
+    return render_template(
+        "receipt_card.html",
+        event_id=event_id,
+        og=fields,
+        museum=receipt_card_mod.is_museum_row(row),
+        public_url=advertised_url(),
+        proof_url=f"{advertised_url()}/.well-known/receipt/{event_id}/proof.json",
+        json_url=f"{advertised_url()}/.well-known/receipt/{event_id}.json",
+    )
 
 
 @app.route("/.well-known/receipt/<event_id>.json")

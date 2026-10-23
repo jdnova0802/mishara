@@ -14,6 +14,7 @@
 
 <section class="container layer-2 proof-widget" data-receipt-lookup>
   <p class="museum-flag">Museum until you paste a real id. This box does not invent sample volume.</p>
+  <p class="museum-flag" data-museum-hop hidden>Museum hop from /docs. Not a production weld.</p>
   <h2>Check a receipt</h2>
   <p class="proof-lede">Paste an event id. This page folds the public Merkle proof against the live evidence head — the same check <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">velaru.xyz/verify</a> describes. It does not call <code>/v1/seal</code> as the proof.</p>
   <div class="proof-row">
@@ -30,6 +31,18 @@
   <h2>Merkle chain</h2>
   <div data-merkle-empty>
     <p class="proof-empty">No published Base root. Default seal-anchor mode is off. Cadence is 15 minutes when spend is on — this strip does not pulse a tx that did not land.</p>
+    <div class="empty-tree">
+      <p class="museum-flag">Empty tree, not a customer.</p>
+      <p class="proof-plain">Root is <code data-empty-preimage>sha256(ascii gate-evidence-empty)</code>. The fold below is the inclusion step, not a second published root.</p>
+      <p class="merkle-chain fold-demo" aria-label="sha256 of leaf concatenated with sibling">
+        <code data-empty-leaf>—</code>
+        <span class="fold-op" aria-hidden="true">‖</span>
+        <code data-empty-sib>—</code>
+        <span class="merkle-arrow" aria-hidden="true">→</span>
+        <code data-empty-fold>—</code>
+      </p>
+      <p class="proof-plain">sha256(leaf ‖ sib) · even index</p>
+    </div>
   </div>
   <div data-merkle-live hidden>
     <p class="merkle-chain">

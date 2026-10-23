@@ -26,6 +26,16 @@
     <a class="btn btn-ghost" href="{{ url_for('bind_room_officer_pack') }}">Officer pack JSON</a>
   </div>
 
+  <div class="card proof-widget" data-counsel-card style="margin-bottom: 1.5rem;">
+    <p class="museum-flag">Museum hop. Forward this object — not a screenshot.</p>
+    <h2>Counsel copy</h2>
+    <p class="proof-lede">One button. Copies BLOCK, verify URL, proof.json, and event id. The preview link is what Slack and iMessage unfurl.</p>
+    <button type="button" class="btn btn-ghost" data-counsel-go>Copy counsel object</button>
+    <a class="btn btn-ghost btn-sm" data-counsel-check hidden href="#">Check inclusion →</a>
+    <p class="proof-plain" data-counsel-status></p>
+    <textarea data-counsel-preview hidden readonly rows="9" class="counsel-preview"></textarea>
+  </div>
+
   <div class="card proof-widget settlement-clock" data-settlement-clock style="margin-bottom: 1.5rem;">
     <p class="museum-flag">Open HOLD rows from the public blotter. Empty is the log, not missing product.</p>
     <h2>Settlement clock</h2>
@@ -65,4 +75,5 @@
   </div>
 </div>
 <script src="{{ url_for('static', filename='live_proof.js') }}" defer></script>
+<script src="{{ url_for('static', filename='counsel_copy.js') }}" defer></script>
 {% endblock %}

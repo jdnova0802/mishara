@@ -72,6 +72,8 @@ class LiveSurfaceTests(unittest.TestCase):
         self.assertIn(b"live_proof.js", home.data)
         self.assertIn(b"Not a volume ticker", home.data)
         self.assertNotIn(b"/v1/seal?event_id", home.data)
+        self.assertIn(b"Empty tree, not a customer", home.data)
+        self.assertEqual(home.data.count(b"btn-primary"), 1)
         docs = self.client.get("/docs")
         self.assertEqual(docs.status_code, 200)
         self.assertIn(b"protocol-doors", docs.data)

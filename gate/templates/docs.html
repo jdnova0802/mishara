@@ -14,9 +14,18 @@
     <p style="color: var(--muted); margin-bottom: 1rem;">Optional. This is practice. The paid path is Bind Room.</p>
     <button type="button" id="demo-hop-btn" class="btn btn-ghost">Run a check</button>
     <a id="demo-verify-link" href="#" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Open verify receipt →</a>
+    <a id="demo-check-link" href="#" class="btn btn-ghost btn-sm" style="display:none; margin-left: 0.5rem;">Check inclusion on homepage →</a>
     <pre id="demo-output" class="demo-output">Paste the verify URL in your thread — not a screenshot.</pre>
+    <div class="proof-widget" data-counsel-card style="margin-top: 1rem;">
+      <p class="museum-flag">Museum hop. Forward this object — not a screenshot.</p>
+      <button type="button" class="btn btn-ghost" data-counsel-go>Copy counsel object</button>
+      <a class="btn btn-ghost btn-sm" data-counsel-check hidden href="#">Check inclusion →</a>
+      <p class="proof-plain" data-counsel-status></p>
+      <textarea id="demo-counsel-preview" data-counsel-preview hidden readonly rows="9" class="counsel-preview"></textarea>
+    </div>
   </div>
   <script src="{{ url_for('static', filename='demo.js') }}"></script>
+  <script src="{{ url_for('static', filename='counsel_copy.js') }}"></script>
 
   {% include "_protocol_doors.html" %}
 

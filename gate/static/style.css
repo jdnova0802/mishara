@@ -664,7 +664,7 @@ footer a { color: var(--muted); }
   min-height: 1.4em;
 }
 .proof-word.holds, .proof-word.authorize { color: var(--success); }
-.proof-word.decline, .proof-word.broken { color: var(--danger); }
+.proof-word.decline, .proof-word.broken, .proof-word.block { color: var(--danger); }
 .proof-word.late { color: #fbbf24; }
 .proof-word.missing { color: var(--muted); }
 .proof-plain { color: var(--muted); font-size: 0.9rem; }
@@ -699,3 +699,22 @@ footer a { color: var(--muted); }
 }
 .settlement-row.is-late { color: #fbbf24; }
 .settlement-remain { margin-left: auto; }
+.counsel-preview {
+  width: 100%;
+  margin-top: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  background: #08090d;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.7rem;
+}
+.empty-tree { margin-top: 0.85rem; }
+.fold-op {
+  color: var(--accent);
+  animation: fold-concat 2.8s ease-in-out infinite;
+}
+@keyframes fold-concat {
+  0%, 100% { opacity: 1; letter-spacing: 0.02em; }
+  50% { opacity: 0.35; letter-spacing: 0.28em; }
+}

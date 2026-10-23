@@ -671,6 +671,7 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn(b"No open receipt in the 60-minute window", r.data)
         self.assertIn(b"live_proof.js", r.data)
         self.assertIn(b"not a live feed of third-party binds", r.data)
+        self.assertIn(b"Copy counsel object", r.data)
 
     def test_diligence_surfaces(self):
         page = self.client.get("/diligence")
@@ -890,6 +891,9 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertFalse(ba["answer"])
         self.assertTrue(body["exclusive_timing"]["museum"])
         self.assertNotIn("their_production", body.get("exclusive_timing") or {})
+        self.assertNotIn("their_production", body)
+        self.assertTrue(body.get("counsel", {}).get("museum"))
+        self.assertEqual(body.get("counsel", {}).get("word"), "BLOCK")
         self.assertIn("stakes", body)
         self.assertIsNone(body["stakes"]["cleverer_layer"])
         self.assertFalse(body["stakes"]["treat_as_real"])

@@ -27,6 +27,19 @@
           : "Open verify proof →";
         verifyLink.style.display = "inline-block";
       }
+      const check = document.getElementById("demo-check-link");
+      if (check && data.check_url) {
+        check.href = data.check_url;
+        check.style.display = "inline-block";
+      }
+      const counsel = data.counsel;
+      if (counsel && counsel.text) {
+        const box = document.getElementById("demo-counsel-preview");
+        if (box) {
+          box.hidden = false;
+          box.value = counsel.text;
+        }
+      }
     } catch (e) {
       out.textContent = "Error: " + e.message;
     } finally {

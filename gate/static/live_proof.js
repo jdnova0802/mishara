@@ -154,6 +154,7 @@
     var wordEl = root.querySelector("[data-receipt-word]");
     var plainEl = root.querySelector("[data-receipt-plain]");
     var emptyEl = root.querySelector("[data-receipt-empty]");
+    var museumEl = root.querySelector("[data-museum-hop]");
     if (!input || !go || !wordEl) return;
 
     async function run() {
@@ -163,6 +164,7 @@
         wordEl.className = "proof-word";
         setText(plainEl, "");
         if (emptyEl) emptyEl.hidden = false;
+        if (museumEl) museumEl.hidden = true;
         return;
       }
       if (emptyEl) emptyEl.hidden = true;
@@ -174,6 +176,9 @@
         wordEl.textContent = result.word;
         wordEl.className = "proof-word " + String(result.word || "").toLowerCase();
         var extra = result.decision ? " Decision on the receipt: " + result.decision + "." : "";
+        var hopId = new URLSearchParams(window.location.search).get("hop");
+        if (museumEl) museumEl.hidden = hopId !== id;
+        if (hopId === id) extra += " Museum hop from /docs — not a production weld.";
         setText(plainEl, (result.plain || "") + extra);
       } catch (err) {
         wordEl.textContent = "BROKEN";
@@ -189,6 +194,12 @@
         run();
       }
     });
+    var prefill = new URLSearchParams(window.location.search).get("hop");
+    if (prefill) {
+      input.value = prefill;
+      if (museumEl) museumEl.hidden = false;
+      run();
+    }
   }
 
   function bindMerkle(root) {
@@ -205,6 +216,23 @@
       var body = await res.json();
       var latest = body.latest || {};
       var published = latest.published || null;
+      var emptyRoot = body.empty_root || "";
+      var leafEl = root.querySelector("[data-empty-leaf]");
+      var sibEl = root.querySelector("[data-empty-sib]");
+      var foldEl = root.querySelector("[data-empty-fold]");
+      var preimageEl = root.querySelector("[data-empty-preimage]");
+      if (preimageEl) setText(preimageEl, body.empty_root_preimage || "sha256(ascii gate-evidence-empty)");
+      setText(leafEl, shortHash(emptyRoot));
+      setText(sibEl, shortHash(emptyRoot));
+      if (emptyRoot && foldEl && window.crypto && crypto.subtle) {
+        concatHash(hexToBytes(emptyRoot), hexToBytes(emptyRoot))
+          .then(function (digest) {
+            setText(foldEl, shortHash(bytesToHex(digest)));
+          })
+          .catch(function () {
+            setText(foldEl, "—");
+          });
+      }
       if (!published || !latest.root_hash) {
         if (emptyEl) emptyEl.hidden = false;
         if (liveEl) liveEl.hidden = true;
