@@ -106,6 +106,15 @@ class ManifestTests(unittest.TestCase):
     def test_listings_have_all_dates(self):
         m = listings.listings_manifest("https://example.test", "hello@velaru.xyz")
         self.assertEqual(m["rule"], "Date all. Marry one write path.")
+        meanings = m["status_meanings"]
+        self.assertIn("Not third-party acceptance", meanings["listing"])
+        self.assertIn("paperwork", meanings["application"].lower())
+        self.assertEqual(m["dates"]["mcp_gateways"]["status"], "listing")
+        self.assertEqual(m["dates"]["cloudflare"]["status"], "listing")
+        self.assertEqual(m["dates"]["x402"]["status"], "listing")
+        self.assertEqual(m["dates"]["guidewire"]["status"], "application")
+        self.assertEqual(m["dates"]["duckcreek"]["status"], "application")
+        self.assertEqual(m["welds"]["policycenter"]["status"], "code_ready")
         for key in ("mcp_gateways", "cloudflare", "x402", "guidewire", "duckcreek"):
             self.assertIn(key, m["dates"])
         self.assertIn("google", m["do_not_date"])
