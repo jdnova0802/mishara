@@ -633,3 +633,69 @@ footer a { color: var(--muted); }
   max-width: 28rem;
 }
 .footer-links { margin-top: 0.75rem; }
+
+.museum-flag {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.45rem;
+  margin-bottom: 0.65rem;
+}
+.proof-widget { margin-top: 1.5rem; max-width: 40rem; }
+.proof-lede { color: var(--muted); margin-bottom: 0.85rem; }
+.proof-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
+.proof-row input {
+  flex: 1 1 220px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  background: #08090d;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.7rem;
+}
+.proof-word {
+  font-family: var(--mono);
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  margin: 0.35rem 0;
+  min-height: 1.4em;
+}
+.proof-word.holds, .proof-word.authorize { color: var(--success); }
+.proof-word.decline, .proof-word.broken { color: var(--danger); }
+.proof-word.late { color: #fbbf24; }
+.proof-word.missing { color: var(--muted); }
+.proof-plain { color: var(--muted); font-size: 0.9rem; }
+.proof-empty { color: var(--muted); font-size: 0.85rem; }
+.merkle-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+.merkle-arrow { color: var(--accent); }
+.merkle-strip.is-published .merkle-arrow {
+  animation: merkle-cadence 2.4s ease-in-out infinite;
+}
+@keyframes merkle-cadence {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.settlement-list { list-style: none; margin: 0.75rem 0 0; }
+.settlement-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1rem;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.settlement-row.is-late { color: #fbbf24; }
+.settlement-remain { margin-left: auto; }

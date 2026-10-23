@@ -19,6 +19,11 @@ except ImportError:
     import seal_ui as seal_mod
 
 try:
+    from gate import clock as clock_mod
+except ImportError:
+    import clock as clock_mod
+
+try:
     from gate import demo_limit
 except ImportError:
     import demo_limit
@@ -135,6 +140,7 @@ def book(*, limit: int = 40) -> dict[str, Any]:
         "head_watchers": _watcher_count(),
         "formula": "GATE.SEAL(job_id)",
         "formula_url": "/v1/seal/job?job_id=",
+        "window_minutes": clock_mod.BIND_SETTLEMENT_WINDOW_MINUTES,
         "their_production": False,
     }
 

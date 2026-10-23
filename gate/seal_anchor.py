@@ -113,6 +113,7 @@ def canonical_statement(*, tree_size: int, root_hash: str, prev_tree_size: int, 
 def manifest(public_url: str) -> dict[str, Any]:
     base = (public_url or "").rstrip("/")
     empty = evidence_log.EMPTY_LEAF.hex()
+    latest = _anchor_object([], latest_broadcast())
     return {
         "spec": SPEC,
         "cadence_seconds": CADENCE_SECONDS,
@@ -138,6 +139,14 @@ def manifest(public_url: str) -> dict[str, Any]:
         "job": f"{base}/v1/seal/job?job_id=",
         "verify": VERIFY_STEPS,
         "spend": "Broadcast requires GATE_SEAL_ANCHOR_MODE=base or base-sepolia plus GATE_SEAL_ANCHOR_SPEND=1. Default mode is off.",
+        # Same fields /v1/seal/job already returns on anchor. Null until a Base tx lands.
+        "latest": {
+            "prev_root_hash": latest.get("prev_root_hash"),
+            "root_hash": latest.get("root_hash"),
+            "prev_tree_size": latest.get("prev_tree_size"),
+            "tree_size": latest.get("tree_size"),
+            "published": latest.get("published"),
+        },
     }
 
 

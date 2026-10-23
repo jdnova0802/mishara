@@ -667,6 +667,10 @@ class BindRoomFlaskTests(unittest.TestCase):
         r = self.client.get("/bind-room")
         self.assertEqual(r.status_code, 200)
         self.assertIn(b"Officer pack", r.data)
+        self.assertIn(b"data-settlement-clock", r.data)
+        self.assertIn(b"No open receipt in the 60-minute window", r.data)
+        self.assertIn(b"live_proof.js", r.data)
+        self.assertIn(b"not a live feed of third-party binds", r.data)
 
     def test_diligence_surfaces(self):
         page = self.client.get("/diligence")

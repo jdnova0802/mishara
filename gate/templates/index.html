@@ -12,6 +12,36 @@
   </div>
 </section>
 
+<section class="container layer-2 proof-widget" data-receipt-lookup>
+  <p class="museum-flag">Museum until you paste a real id. This box does not invent sample volume.</p>
+  <h2>Check a receipt</h2>
+  <p class="proof-lede">Paste an event id. This page folds the public Merkle proof against the live evidence head — the same check <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">velaru.xyz/verify</a> describes. It does not call <code>/v1/seal</code> as the proof.</p>
+  <div class="proof-row">
+    <input data-receipt-id type="text" maxlength="64" placeholder="paste a receipt id" autocomplete="off" spellcheck="false" aria-label="Receipt id">
+    <button type="button" class="btn btn-ghost" data-receipt-go>Check inclusion</button>
+  </div>
+  <p class="proof-word" data-receipt-word aria-live="polite">—</p>
+  <p class="proof-plain" data-receipt-plain></p>
+  <p class="proof-empty" data-receipt-empty>No id pasted. Cold visit = empty. AUTHORIZE / DECLINE / LATE / HOLDS appear only after a public receipt exists.</p>
+</section>
+
+<section class="container layer-2 proof-widget merkle-strip" data-merkle-strip>
+  <p class="museum-flag">Visualization of published seal-anchor rows. Not a volume ticker.</p>
+  <h2>Merkle chain</h2>
+  <div data-merkle-empty>
+    <p class="proof-empty">No published Base root. Default seal-anchor mode is off. Cadence is 15 minutes when spend is on — this strip does not pulse a tx that did not land.</p>
+  </div>
+  <div data-merkle-live hidden>
+    <p class="merkle-chain">
+      <code data-merkle-prev>—</code>
+      <span class="merkle-arrow" aria-hidden="true">→</span>
+      <code data-merkle-next>—</code>
+    </p>
+    <p class="proof-plain" data-merkle-meta></p>
+    <p><a data-merkle-link hidden rel="noopener" target="_blank">Open published locator</a></p>
+  </div>
+</section>
+
 <section class="container layer-2">
   <ul class="benefit-lines">
     <li><strong>What it stops</strong> An agent binding coverage or sending money.</li>
@@ -34,4 +64,5 @@
   <p style="color: var(--muted); max-width: 40rem;">A commercial general liability policy pays bodily injury and property damage. It does not pay when software binds a policy or moves money. If bind-and-issue runs, that world is spent. {{ bind_room_price }} starts the officer pack examiners take. Full assessment $3,500.</p>
   <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">Installing the stop on a live system is a separate operator path, after the officer pack. <a href="{{ url_for('operator_page') }}">Operator path</a> · <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify a receipt</a> · <a href="{{ url_for('docs') }}">Practice the check</a></p>
 </section>
+<script src="{{ url_for('static', filename='live_proof.js') }}" defer></script>
 {% endblock %}

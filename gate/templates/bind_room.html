@@ -26,6 +26,16 @@
     <a class="btn btn-ghost" href="{{ url_for('bind_room_officer_pack') }}">Officer pack JSON</a>
   </div>
 
+  <div class="card proof-widget settlement-clock" data-settlement-clock style="margin-bottom: 1.5rem;">
+    <p class="museum-flag">Open HOLD rows from the public blotter. Empty is the log, not missing product.</p>
+    <h2>Settlement clock</h2>
+    <p class="proof-plain" data-clock-meta>60-minute window from clock.py. due_at − now().</p>
+    <p class="proof-empty" data-clock-empty>No open receipt in the 60-minute window. This is not a live feed of third-party binds.</p>
+    <div data-clock-live hidden>
+      <ul class="settlement-list" data-clock-list></ul>
+    </div>
+  </div>
+
   <div class="grid-3">
     <div class="card">
       <h3>What you get</h3>
@@ -54,4 +64,5 @@
     </ul>
   </div>
 </div>
+<script src="{{ url_for('static', filename='live_proof.js') }}" defer></script>
 {% endblock %}

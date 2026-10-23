@@ -63,6 +63,7 @@ class BlotterTests(unittest.TestCase):
         )
         book = self.client.get("/v1/blotter").get_json()
         self.assertEqual(book["spec"], "gate-blotter-v1")
+        self.assertEqual(book["window_minutes"], 60)
         match = [row for row in book["rows"] if row["job_id"] == job_id]
         self.assertEqual(len(match), 1)
         self.assertEqual(match[0]["composite"], "LATE")
