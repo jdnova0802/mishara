@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Diligence · free REVIEW · {{ deposit_price }} deposit{% endblock %}
 {% block meta %}
-<meta name="description" content="Mouth / finality diligence — free 72h REVIEW on public pages, or {{ deposit_price }} deposit for the paid find. Reply REVIEW.">
+<meta name="description" content="Free 72h REVIEW of public pages: collateral confirmation, duty to defend, binder authority. Or {{ deposit_price }} deposit for the paid find. Reply REVIEW.">
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Diligence · mouth / finality</p>
+  <p class="audience-tag">Diligence · collateral · duty to defend · binder authority</p>
   <h1>{{ copy.headline }}</h1>
   <p class="audience-sub">{{ copy.sub }}</p>
 
@@ -14,7 +14,7 @@
     <p style="color: var(--muted);">{{ copy.free_blurb }}</p>
     <div class="install-price" style="font-size: 1.75rem;">$0 <span>memo · reply REVIEW</span></div>
     <div class="hero-actions" style="justify-content: flex-start; margin-top: 1rem;">
-      <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20mouth%20diligence">Reply REVIEW</a>
+      <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=REVIEW%20%E2%80%94%20diligence">Reply REVIEW</a>
       <a class="btn btn-ghost" href="{{ url_for('diligence_one_pager') }}">One-pager.txt</a>
       <a class="btn btn-ghost" href="{{ url_for('diligence_offer_json') }}">offer.json</a>
     </div>
@@ -25,7 +25,7 @@
     <div class="install-price">{{ deposit_price }} <span>deposit · due now</span></div>
     <p style="color: var(--muted); margin: 0.5rem 0 1.5rem;">
       Full review {{ review_band }} · retainer band {{ retainer_band }} ·
-      <strong>72h</strong> delivery after deposit clears. Prefinality sharpens the same offer when pay-live — it does not rename the firm.
+      <strong>72h</strong> delivery after deposit clears. Same find, deeper than public pages.
     </p>
 
     {% if canceled %}
@@ -40,7 +40,7 @@
       {% elif diligence_payment_link %}
       <a class="btn btn-primary" href="{{ diligence_payment_link }}" target="_blank" rel="noopener">Pay {{ deposit_price }} (Stripe) →</a>
       {% else %}
-      <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=DEPOSIT%20%E2%80%94%20mouth%20diligence">Email DEPOSIT · {{ deposit_price }}</a>
+      <a class="btn btn-primary" href="mailto:{{ contact_email }}?subject=DEPOSIT%20%E2%80%94%20diligence">Email DEPOSIT · {{ deposit_price }}</a>
       {% endif %}
     </div>
   </div>
@@ -48,7 +48,7 @@
   <div class="grid-3">
     <div class="card">
       <h3>What you get</h3>
-      <p>A written map of where your irreversible write can still complete without may — peg-out, withdraw, payout, ACH credit, bind path. Free REVIEW scopes public pages; deposit opens the deeper find. The deliverable names the halt gap a stranger can open.</p>
+      <p>A written map of where collateral is still treated as live before bank confirmation, where duty to defend still runs after a refusal, or where binder authority still binds after the MGA walked. Free REVIEW scopes public pages; deposit opens the deeper find.</p>
     </div>
     <div class="card">
       <h3>What this is not</h3>

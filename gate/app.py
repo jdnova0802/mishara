@@ -5478,7 +5478,7 @@ def openapi_full():
                 "/demo/pas/policycenter/pre-bind": {"post": {"summary": "Public PolicyCenter pre-bind weld (no key)", "security": []}},
                 "/demo/pas/mga-authority": {"post": {"summary": "Public MGA authority check (no key)", "security": []}},
                 "/bind-room": {"get": {"summary": "Officer pack + appendix + weld — $1,750"}},
-                "/diligence": {"get": {"summary": "Mouth / finality diligence — $2,500 deposit"}},
+                "/diligence": {"get": {"summary": "Diligence — collateral, duty to defend, binder authority — $2,500 deposit"}},
                 "/diligence/offer.json": {"get": {"summary": "Diligence offer machine-readable"}},
                 "/diligence/one-pager.txt": {"get": {"summary": "Diligence one-pager plaintext"}},
                 "/register": {"get": {"summary": "Infrastructure register. Mouth on irreversible spend. Not SaaS."}},
