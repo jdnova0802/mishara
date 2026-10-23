@@ -2,7 +2,7 @@
 
 **Do not rework the Oct 21 bodies.** Those desks already saw a version. This pack is untouched names only.
 
-**Do not send until** `https://gate.velaru.xyz/diligence` first screen leads with collateral / duty to defend / binder authority (PR #203). A sourced opening still dies if the click lands on Gate nouns.
+**Send gate:** `https://gate.velaru.xyz/diligence` first screen is live as of #203 (collateral / duty to defend / binder authority before Gate nouns). Fire this pack, not the Oct 21 bodies.
 
 Offer: free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
 Not legal advice. Public facts only. Log each send in SENT_TALLY.md the same day.
@@ -14,7 +14,9 @@ Not legal advice. Public facts only. Log each send in SENT_TALLY.md the same day
 **ALIRT Insurance Research, 9 Aug 2023** — *Cracks Starting to Show? Fallout From Collateral Issues with Vesttoo.*  
 Public PDF: https://targetmkts.com/wp-content/uploads/2023/08/ALIRT_Research_-_Fallout_from_Collateral_Issues_at_Vesttoo_-_August_2023.pdf  
 
-The table is YE2022 Schedule F CCB LOC exposure vs policyholder surplus (`$000`, LOC/PHS %). Artemis summarized the same sweep. Every body below uses **that carrier’s row only** — not a copied Vesttoo paragraph.
+The table is YE2022 Schedule F CCB LOC exposure vs policyholder surplus (`$000`, LOC/PHS %). Artemis summarized the same sweep. Every body below uses **that carrier’s own row only** — not a copied Vesttoo paragraph.
+
+**Independent cite (AMIC only, not in the ALIRT table):** AM Best BestWire, 4 May 2023, refnum 249455 — downgraded American Millennium FSR to D (Poor) from C- (Weak), then withdrew the ratings at the company’s request. Company profile now NR. Also in NJ DOI exam (NAIC 26140). Do not attribute that ratings action to the ALIRT PDF.
 
 Excluded (already burned): Porch / HOA, Clear Blue (+ Specialty / Rock Ridge / Highlander PBRA cluster), Gateway/Buckle, Transverse, Incline, Sutton, Palomar, Fortegra, Gallagher, Aon/White Rock.
 
@@ -33,7 +35,7 @@ Send order (highest unused LOC/PHS first): American Millennium → Home State �
 7. Accelerant Specialty — contact@accelins.com (published program contact).
 8. Southlake Specialty — contact@southlakespecialty.com. Optional Cc: ed@southlakespecialty.com (published BusinessWire contact).
 9. Concert Specialty — info@concertgroup.com (published on concertgroup.com/contact-us).
-10. United Automobile — customerservice@uaig.net (published claims/CS). Ask forward to legal. Phone 305-940-5022. Do not guess the CLO’s address.
+10. United Automobile — customerservice@uaig.net (published claims/CS on uaig.net). Ask forward to legal. Phone 305-940-5022. No legal@ / CLO mailbox is published; do not guess it. Weakest To: of the ten — keep it rather than invent a better one.
 
 ---
 
@@ -48,7 +50,9 @@ Body:
 For Gary Hall — President, Citadel Risk Services US (American Millennium Insurance Company)
 Nisaba LLC. Vendor review of one named collateral path.
 
-ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F sweep of CCB LOCs): American Millennium Insurance Company (NAIC 26140) — purported CCB LOC $24.583 million against $8.086 million surplus (304.0% of PHS). Citadel Re affiliate; commercial auto, largely New Jersey. ALIRT also noted AM Best had cut the rating to D by May 2023.
+ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F sweep of CCB LOCs): American Millennium Insurance Company (NAIC 26140) — purported CCB LOC $24.583 million against $8.086 million surplus (304.0% of PHS). Citadel Re affiliate; commercial auto, largely New Jersey.
+
+Separately, AM Best (BestWire, 4 May 2023, refnum 249455) downgraded AMIC’s FSR to D (Poor) from C- (Weak) and withdrew the ratings the same day at the company’s request. The AM Best company profile now shows NR.
 
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
