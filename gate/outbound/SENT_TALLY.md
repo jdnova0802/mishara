@@ -13,15 +13,16 @@ One row per calendar day you touch desks.
 |------|----------|--------|--------|-------|-----------|-----------------|-------|
 | 2026-09-23 | Send (Tue) | 4 | 0 | 0 | **4** | Buckle, SteadPoint, 1970, Everspan | **GAP** — thought cadence was 10; delivered Plan A only |
 | 2026-09-26 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | same four | Fill when sent |
-| 2026-09-29 | Send (Mon) | 4 | 6 | 0 | **planned 10** | Plan A 4 + Plan B 6 (named desks) | SEND — PASTE 10/10 · Fri bump 2026-10-03 |
-| 2026-10-03 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | silent desks from Mon | Short bump template in PASTE |
+| 2026-09-29 | Send (Mon) | 4 | 6 | 0 | **unlogged** | Plan A 4 + Plan B 6 (named desks) | Not logged on the day. Founder confirmed 2026-10-17 the ten already went. Send date itself is not in this file. |
+| 2026-10-03 | Bump (Fri) | 0 | 0 | _TBD_ | _TBD_ | silent desks from that wave | Short bump only if a desk stayed silent. Do not resend the original body. |
+| 2026-10-17 | Confirm | 0 | 0 | 0 | **0** | Porch, Incline, Clear Blue, Gallagher, Sutton, MS Transverse, Aon/White Rock, Palomar, Fortegra, Great Divide | Founder: already sent. No new email this day. |
 
 ## Running check (update weekly)
 
 | Week of | Send-day target | Actual send-day total | Gap? |
 |---------|-----------------|----------------------|------|
 | 2026-09-22 | 10 (Tue) | 4 | YES (−6) |
-| 2026-09-29 | 10 (Mon) | _TBD_ | |
+| 2026-09-29 | 10 (Mon) | founder says sent; day-of count never logged | date unknown |
 
 ## Cadence reminder
 
@@ -38,5 +39,5 @@ Draft sources:
 
 ## Do not reuse
 
-Already burned (do not recount as “new”):  
-Buckle · SteadPoint · 1970 · Everspan · Porch · Incline · Clear Blue · Gallagher · (once sent) Sutton · MS Transverse · Aon Re · Palomar · Fortegra · Great Divide.
+Already burned (do not resend the body):  
+Buckle · SteadPoint · 1970 · Everspan · Porch · Incline · Clear Blue · Gallagher · Sutton · MS Transverse · Aon / White Rock · Palomar · Fortegra · Great Divide.
