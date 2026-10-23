@@ -7,6 +7,16 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
     return {
         "spec": "gate-listings-v1",
         "rule": "Date all. Marry one write path.",
+        "status_meanings": {
+            "listing": (
+                "Dating packet live on this origin (config, discovery, or register URL). "
+                "Not third-party acceptance or a catalog placement."
+            ),
+            "application": "Partner-program paperwork. Not a production weld.",
+            "code_ready": "Gate path exists (demo + code). No third-party production weld.",
+            "open": "Seat is open; not filled.",
+            "later": "After a production PAS weld. Not now.",
+        },
         "operator": "Nisaba LLC",
         "patent": "64/124,027",
         "contact": contact_email,
@@ -23,7 +33,10 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                     "truefoundry": f"{public_url}/listings/truefoundry-mcp.yaml",
                     "aws_agentcore": f"{public_url}/listings/aws-agentcore.json",
                 },
-                "note": "One /mcp door. Gateways discover/auth. They do not bind.",
+                "note": (
+                    "One /mcp door. Gateways discover/auth. They do not bind. "
+                    "Configs are Gate-hosted packets, not Kong/TrueFoundry/AgentCore catalog accepts."
+                ),
             },
             "cloudflare": {
                 "status": "listing",
@@ -39,7 +52,10 @@ def listings_manifest(public_url: str, contact_email: str) -> dict:
                 "fanout": f"{public_url}/.well-known/x402",
                 "prefinality": f"{public_url}/.well-known/prefinality.json",
                 "x402scan_register": "https://www.x402scan.com/resources/register",
-                "note": "Paid routes 402 only when GATE_X402_PAYTO is a settlement address. GATE_X402_DEMO_PAYTO is ignored.",
+                "note": (
+                    "Paid routes 402 only when GATE_X402_PAYTO is a settlement address. "
+                    "GATE_X402_DEMO_PAYTO is ignored. x402scan_register is a register URL, not an accepted listing."
+                ),
             },
             "guidewire": {
                 "status": "application",
