@@ -1,0 +1,45 @@
+{
+  "bitcoin": {
+    "block_height": 968706,
+    "block_heights": [
+      968706
+    ],
+    "pending_calendars": [
+      "https://alice.btc.calendar.opentimestamps.org",
+      "https://bob.btc.calendar.opentimestamps.org"
+    ]
+  },
+  "commitment_digest": "f78f31a9a4fedfcfe4437c069a7c187928c8736d9defba58b702eac022f8db16",
+  "commitment_path": "/workspace/gate/outbound/ots-proofs/commitments/0-8fa9dc80ca24ccd6.json",
+  "info": "d495d9de65b67f96121b2a1c7db4acf074bac8d3dee206\n    sha256\n    sha256\n    append b290d3f760805ac9f085c96dd911df664608d7726294c727d278034a539b659b\n    sha256\n    sha256\n    prepend 0c6ed60fa6d8c5b29ca616301cd71e79fa75b60b76482ee889ddd65550601c67\n    sha256\n    sha256\n    append 3b150bab8275ce9e7fe377839e5187a600222ad38f2c1f77d84656fba1db3284\n    sha256\n    sha256\n    append 6cf7b2ac1647a66ce6a3f02662d2c955b68f8e6b6ff90a5eadec0e28bbef469f\n    sha256\n    sha256\n    append 6ee38e70482c074d5c8158cc35882ee9fdeb76d6363c9d5778dcabed57d62a1e\n    sha256\n    sha256\n    append e7515826f62386f0e07ddff34d39d5e7c7a7f8ddda6fed37b3b413576cc12484\n    sha256\n    sha256\n    verify BitcoinBlockHeaderAttestation(968706)\n    # Bitcoin block merkle root e379eb7e41789ddb47411b0db1861bf23b7524ade7c5f1880aee5db615bd8662\n -> append af18f517dc336e63\n    sha256\n    append 4049b6a466c043cc323cf67c0534bb258b7c74304cf33d624017b96187ef15b3\n    sha256\n    append 97ca5e9ddf67730fc03b48fbc456899b\n    sha256\n    prepend 63306dc9022a3caa4a5df4ff0ec0a19416b2fefee2dce5602ab26c7615842067\n    sha256\n    prepend 6ab7da25\n    append 0597cc3c3837bebc\n    verify PendingAttestation('https://bob.btc.calendar.opentimestamps.org')\n\n",
+  "ots_path": "/workspace/gate/outbound/ots-proofs/proofs/0-8fa9dc80ca24ccd6.ots",
+  "root_hash": "8fa9dc80ca24ccd61bc7715c7d20ff000644fb07179db9eb28a7af55052512cf",
+  "spec": "gate-ots-anchor-v1",
+  "stamp": {
+    "errors": [],
+    "method": "python_opentimestamps",
+    "stamped": 2
+  },
+  "stamped_at": "2026-09-26T14:43:47.929805+00:00",
+  "status": "bitcoin_confirmed",
+  "tree_size": 0,
+  "upgrade_stderr": "Got 1 attestation(s) from https://alice.btc.calendar.opentimestamps.org\nGot 1 attestation(s) from https://bob.btc.calendar.opentimestamps.org\nSuccess! Timestamp complete\n",
+  "upgrade_stdout": "",
+  "upgraded_at": "2026-09-26T17:46:13.404367+00:00",
+  "verify": {
+    "independent_ok": true,
+    "ok": false,
+    "stderr": "Could not connect to Bitcoin node: Cookie file unusable (no local bitcoind). Independent Blockstream merkle-root check OK.",
+    "stdout": ""
+  },
+  "verify_independent": {
+    "block_hash": "000000000000000000013eabe1a4ee7f7571cae27404ef2d4433a3aee50db399",
+    "checked_at": "2026-09-26T17:47:16.708952+00:00",
+    "height": 968706,
+    "matches_ots_attestation": true,
+    "merkle_root": "e379eb7e41789ddb47411b0db1861bf23b7524ade7c5f1880aee5db615bd8662",
+    "method": "blockstream_info_api",
+    "note": "ots verify needs local bitcoind; merkle root cross-checked against public block header",
+    "ok": true
+  }
+}
