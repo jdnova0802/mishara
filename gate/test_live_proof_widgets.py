@@ -88,7 +88,7 @@ class LiveProofWidgetTests(unittest.TestCase):
         self.assertIn("Empty is the log, not missing product", page)
         book = self.client.get("/v1/blotter").get_json()
         self.assertEqual(book["window_minutes"], 60)
-        self.assertFalse(book["their_production"])
+        self.assertNotIn("their_production", book)
 
 
 if __name__ == "__main__":
