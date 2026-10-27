@@ -1267,6 +1267,14 @@ def watch_evidence_head_script():
     return Response(text, mimetype="text/x-python")
 
 
+@app.route("/watch/qusfi.py")
+def watch_qusfi_script():
+    here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "watch_qusfi.py")
+    with open(here, "r", encoding="utf-8") as fh:
+        text = fh.read()
+    return Response(text, mimetype="text/x-python")
+
+
 GONE_AUDIENCE_SLUGS = frozenset({"partners"})
 
 
@@ -1660,6 +1668,8 @@ def run_mga_authority(body: dict, account_id=None):
         state=body.get("state"),
         allowed_lines=body.get("allowed_lines") if isinstance(body.get("allowed_lines"), list) else None,
         allowed_states=body.get("allowed_states") if isinstance(body.get("allowed_states"), list) else None,
+        mga_contract_terminated=body.get("mga_contract_terminated"),
+        commissioner_notice_within_30_days=body.get("commissioner_notice_within_30_days"),
     )
     plan["fuse_id"] = fuse_id
     plan["job_id"] = job_id or None
@@ -5565,7 +5575,7 @@ def openapi_full():
                 },
                 "/v1/pas/mga-authority": {
                     "post": {
-                        "summary": "Delegated-authority check: hop + premium/line/state limits",
+                        "summary": "Delegated-authority check: hop + premium/line/state + Model 225 §5E 30-day commissioner notice on termination",
                         "security": [{"BearerAuth": []}],
                     }
                 },
@@ -5636,7 +5646,7 @@ def openapi_full():
                 "/uapa-seal": {"get": {"summary": "TCH UAPA post-send classification"}},
                 "/admt": {"get": {"summary": "CPPA ADMT significant-decision notice Seal"}},
                 "/trusted-contact": {"get": {"summary": "Unlock without sealed trusted-contact hold?"}},
-                "/fednow-prepush": {"get": {"summary": "May this irrevocable FedNow/RTP push proceed?"}},
+                "/fednow-prepush": {"get": {"summary": "May this irrevocable FedNow/RTP push proceed? Known name≠number is NEVER (UCC 4A-207)."}},
                 "/nacha-false-pretenses": {"get": {"summary": "May this ACH credit proceed under False Pretenses risk?"}},
                 "/cl7-handoff": {"get": {"summary": "Was the AIS/ECDIS handoff noticed within 15 days?"}},
                 "/stair": {"get": {"summary": "Occupied egress — Gate will not weld fail-closed on that door"}},

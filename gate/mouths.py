@@ -446,6 +446,37 @@ def evaluate_fednow_prepush(body: dict) -> dict[str, Any]:
             cite="U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution (May 15, 2026)",
             source=src,
         )
+    name_number = str(body.get("name_number") or body.get("pnv_result") or "").strip().lower()
+    ucc = "https://www.law.cornell.edu/ucc/4a/4A-207"
+    pnv = (
+        "https://www.frbservices.org/financial-services/multiservice-solutions/"
+        "payee-name-verification/"
+    )
+    if name_number in {"mismatch_known", "mismatch", "conflict", "no_match"}:
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "NEVER",
+            "Name and account number are known to identify different persons. "
+            "UCC 4A-207(b)(2): a bank that knows the conflict may not rely on the number. "
+            "FedDetect Payee Name Verification is rail-agnostic; this mouth does not call FedLine.",
+            rail=rail,
+            cite="UCC § 4A-207; FedDetect Payee Name Verification (rail-agnostic)",
+            source=ucc,
+            pnv=pnv,
+            name_number="mismatch_known",
+        )
+    if name_number not in {"match", "yes"}:
+        return _pack(
+            "gate-fednow-prepush-v1",
+            "HOLD",
+            "Name vs account number is unknown. 4A-207 lets a bank rely on the number "
+            "unless it knows they conflict. Unknown is not a match. Not a fraud score.",
+            rail=rail,
+            cite="UCC § 4A-207(b)(1); FedDetect Payee Name Verification",
+            source=ucc,
+            pnv=pnv,
+            name_number="unknown",
+        )
     if first_time == "yes":
         return _pack(
             "gate-fednow-prepush-v1",
@@ -970,9 +1001,9 @@ MOUTHS = (
         "brand": "FedNow Pre-push",
         "lede": "May this irrevocable FedNow or RTP credit-push proceed?",
         "legend": (
-            ("CLEAR", "Payee sealed, not first-time, no fraud flag."),
-            ("NEVER", "Suspected fraud or no sealed payee — do not push."),
-            ("HOLD", "First-time payee or missing fields. Fail closed."),
+            ("CLEAR", "Payee sealed, name matches number, not first-time, no fraud flag."),
+            ("NEVER", "Suspected fraud, unsealed payee, or known name≠number (4A-207)."),
+            ("HOLD", "First-time payee, unknown name/number, or missing fields. Fail closed."),
         ),
         "words": ["CLEAR", "NEVER", "HOLD"],
         "submit": "Ask",
@@ -1013,10 +1044,22 @@ MOUTHS = (
                     {"id": "no", "label": "No"},
                 ],
             },
+            {
+                "name": "name_number",
+                "label": "Payee name vs account number?",
+                "type": "chips",
+                "options": [
+                    {"id": "match", "label": "Match"},
+                    {"id": "mismatch_known", "label": "Known mismatch"},
+                    {"id": "unknown", "label": "Unknown"},
+                ],
+            },
         ],
         "source": (
-            "U.S. Faster Payments Council — Instant Payments Fraud Dispute Resolution "
-            "Guiding Principles (May 15, 2026). Directional — not a Fed order."
+            "UCC § 4A-207 misdescription of beneficiary; FedDetect Payee Name Verification "
+            "(rail-agnostic). FedNow PNV-via-API was described as near-term on 30 Jun 2026 — "
+            "this mouth does not call FedLine. FPC Instant Payments Fraud Dispute Resolution "
+            "(May 15, 2026) is directional, not a Fed order."
         ),
         "source_url": (
             "https://fasterpaymentscouncil.org/blog/17139/"

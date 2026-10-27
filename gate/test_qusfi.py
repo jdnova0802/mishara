@@ -48,6 +48,8 @@ class QusfiTests(unittest.TestCase):
         self.assertIn("/v1/qusfi/diff", data["urls"]["diff"])
         self.assertEqual(data["clocks"]["lloyds_six_month_confirm"]["bulletin"], "Y5410")
         self.assertIn("not naic", data["clocks"]["lloyds_six_month_confirm"]["scope"].lower())
+        self.assertEqual(data["clocks"]["publication"]["cadence"], "monthly")
+        self.assertIn("/watch/qusfi.py", data["urls"]["watch"])
         self.assertNotIn("their_production", data)
 
     def test_ccb_off_current_on_prior(self):
@@ -210,6 +212,83 @@ class QusfiTests(unittest.TestCase):
         self.assertEqual(fp["word"], "NEVER")
         self.assertEqual(fp["phase2_practical_effective"], "2026-06-22")
         self.assertIn("Jun 22, 2026", mouths_mod.evaluate_nacha_false_pretenses.__doc__)
+
+    def test_qusfi_watch_script_and_vendored_hash(self):
+        import watch_qusfi
+
+        current = watch_qusfi.vendored_current()
+        self.assertEqual(current["as_of"], "2026-09-30")
+        self.assertEqual(
+            current["pdf_sha256"],
+            "0b1f3503d12ae8899cb7966515cf5f33277781051d075104fa1cbfd48dd75d8d",
+        )
+        r = self.client.get("/watch/qusfi.py")
+        self.assertEqual(r.status_code, 200)
+        self.assertIn(b"gate-qusfi-watch/1", r.data)
+
+    def test_fednow_4a207_known_mismatch_is_never(self):
+        never = mouths_mod.evaluate_fednow_prepush(
+            {
+                "rail": "fednow",
+                "payee_sealed": "yes",
+                "first_time_payee": "no",
+                "fraud_suspected": "no",
+                "name_number": "mismatch_known",
+            }
+        )
+        self.assertEqual(never["word"], "NEVER")
+        self.assertIn("4A-207", never["plain"])
+        hold = mouths_mod.evaluate_fednow_prepush(
+            {
+                "rail": "fednow",
+                "payee_sealed": "yes",
+                "first_time_payee": "no",
+                "fraud_suspected": "no",
+            }
+        )
+        self.assertEqual(hold["word"], "HOLD")
+        clear = mouths_mod.evaluate_fednow_prepush(
+            {
+                "rail": "fednow",
+                "payee_sealed": "yes",
+                "first_time_payee": "no",
+                "fraud_suspected": "no",
+                "name_number": "match",
+            }
+        )
+        self.assertEqual(clear["word"], "CLEAR")
+
+    def test_mga_terminated_without_30_day_notice_blocks(self):
+        import weld
+
+        hop = {"verdict": True, "state": "LIVE"}
+        blocked = weld.mga_authority(
+            hop,
+            200,
+            premium=1000,
+            authority_limit=50000,
+            line="GL",
+            state="KS",
+            allowed_lines=None,
+            allowed_states=None,
+            mga_contract_terminated="yes",
+            commissioner_notice_within_30_days="no",
+        )
+        self.assertEqual(blocked["result"], "BLOCK")
+        self.assertIn("model_225_30_day_commissioner_notice_missing", blocked["reasons"])
+        noticed = weld.mga_authority(
+            hop,
+            200,
+            premium=1000,
+            authority_limit=50000,
+            line="GL",
+            state="KS",
+            allowed_lines=None,
+            allowed_states=None,
+            mga_contract_terminated="yes",
+            commissioner_notice_within_30_days="yes",
+        )
+        self.assertEqual(noticed["result"], "ALLOW")
 
 
 if __name__ == "__main__":
