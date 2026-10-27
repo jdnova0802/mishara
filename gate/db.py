@@ -210,11 +210,32 @@ def init_db():
                 path TEXT NOT NULL,
                 referrer TEXT NOT NULL,
                 kind TEXT NOT NULL,
+                src TEXT NOT NULL DEFAULT '',
                 hits INTEGER NOT NULL DEFAULT 0,
-                PRIMARY KEY (day, path, referrer, kind)
+                PRIMARY KEY (day, path, referrer, kind, src)
             );
             """
         )
+
+        visit_cols = {row[1] for row in conn.execute("PRAGMA table_info(page_visits)").fetchall()}
+        if visit_cols and "src" not in visit_cols:
+            conn.execute("ALTER TABLE page_visits RENAME TO page_visits_old")
+            conn.execute(
+                """CREATE TABLE page_visits (
+                    day TEXT NOT NULL,
+                    path TEXT NOT NULL,
+                    referrer TEXT NOT NULL,
+                    kind TEXT NOT NULL,
+                    src TEXT NOT NULL DEFAULT '',
+                    hits INTEGER NOT NULL DEFAULT 0,
+                    PRIMARY KEY (day, path, referrer, kind, src)
+                )"""
+            )
+            conn.execute(
+                """INSERT INTO page_visits (day, path, referrer, kind, src, hits)
+                   SELECT day, path, referrer, kind, '', hits FROM page_visits_old"""
+            )
+            conn.execute("DROP TABLE page_visits_old")
 
         # Seed a default member so the public registry is never empty.
         row = conn.execute("SELECT COUNT(*) AS n FROM settlement_members").fetchone()
@@ -1809,18 +1830,19 @@ def record_pulse_sample(
 WATCHED_PAGES = ("/", "/bind-room", "/diligence", "/issuing-mouth")
 
 
-def record_page_visit(*, day: str, path: str, referrer: str, kind: str) -> None:
+def record_page_visit(*, day: str, path: str, referrer: str, kind: str, src: str = "") -> None:
     if path not in WATCHED_PAGES:
         return
     if kind not in ("human", "crawler"):
         kind = "human"
+    token = (src or "").strip().lower()[:40]
     with db() as conn:
         conn.execute(
-            """INSERT INTO page_visits (day, path, referrer, kind, hits)
-               VALUES (?, ?, ?, ?, 1)
-               ON CONFLICT(day, path, referrer, kind)
+            """INSERT INTO page_visits (day, path, referrer, kind, src, hits)
+               VALUES (?, ?, ?, ?, ?, 1)
+               ON CONFLICT(day, path, referrer, kind, src)
                DO UPDATE SET hits = hits + 1""",
-            (day, path, referrer[:120], kind),
+            (day, path, referrer[:120], kind, token),
         )
 
 
@@ -1831,29 +1853,38 @@ def visit_report(days: int = 14) -> dict:
     start = end - timedelta(days=max(int(days), 1) - 1)
     with db() as conn:
         rows = conn.execute(
-            """SELECT day, path, referrer, kind, hits FROM page_visits
+            """SELECT day, path, referrer, kind, src, hits FROM page_visits
                WHERE day >= ? AND day <= ?
                ORDER BY day, path, hits DESC""",
             (start.isoformat(), end.isoformat()),
         ).fetchall()
     by_page: dict[str, dict] = {
-        p: {"human": 0, "crawler": 0, "referrers": {}} for p in WATCHED_PAGES
+        p: {"human": 0, "crawler": 0, "referrers": {}, "sources": {}} for p in WATCHED_PAGES
     }
     daily: dict[str, dict] = {}
     for row in rows:
         item = dict(row)
-        page = by_page.setdefault(item["path"], {"human": 0, "crawler": 0, "referrers": {}})
+        page = by_page.setdefault(
+            item["path"], {"human": 0, "crawler": 0, "referrers": {}, "sources": {}}
+        )
         page[item["kind"]] = page.get(item["kind"], 0) + item["hits"]
         if item["kind"] == "human":
             refs = page["referrers"]
             refs[item["referrer"]] = refs.get(item["referrer"], 0) + item["hits"]
+            token = (item.get("src") or "").strip()
+            if token:
+                sources = page["sources"]
+                sources[token] = sources.get(token, 0) + item["hits"]
         bucket = daily.setdefault(item["day"], {"human": 0, "crawler": 0})
         bucket[item["kind"]] = bucket.get(item["kind"], 0) + item["hits"]
     return {
         "spec": "gate-visits-v1",
         "since": start.isoformat(),
         "through": end.isoformat(),
-        "note": "Counts start when this log shipped. No IP is stored. Referrer is the host only.",
+        "note": (
+            "Counts start when this log shipped. No IP is stored. Referrer is the host only. "
+            "sources counts human hits whose src query is a short token, for outreach batches."
+        ),
         "pages": by_page,
         "days": daily,
     }

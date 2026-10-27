@@ -2,9 +2,9 @@
 
 **Do not rework the Oct 21 bodies.** Those desks already saw a version. This pack is untouched names only.
 
-**Send gate:** `https://gate.velaru.xyz/diligence` first screen is live as of #203 (collateral / duty to defend / binder authority before Gate nouns). Fire this pack, not the Oct 21 bodies.
+**Send gate:** `https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2` first screen is live as of #203 (collateral / duty to defend / binder authority before Gate nouns). Fire this pack, not the Oct 21 bodies.
 
-Offer: free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence  
+Offer: free 72h memo · Reply REVIEW · https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2  
 Not legal advice. Public facts only. Log each send in SENT_TALLY.md the same day.
 
 ---
@@ -57,7 +57,7 @@ Separately, AM Best (BestWire, 4 May 2023, refnum 249455) downgraded AMIC’s FS
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -77,7 +77,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Home State County Mutu
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next MGA bind still treats a reinsurance LOC / collateral letter as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -97,7 +97,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Old American County Mu
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next program bind still treats a collateral letter as a bank LOC before issuer confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -117,7 +117,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Trisura Specialty Insu
 The 72-hour memo is only this: on your public fronting pages (plus anything you send), where the next program bind still treats reinsurance collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -137,7 +137,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Root Insurance Company
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / Osprey collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -158,7 +158,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Agricultural Workers M
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next placement still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -178,7 +178,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Accelerant Specialty I
 The 72-hour memo is only this: on your public program pages (plus anything you send), where the next MGA bind still treats Corinthian/CCB collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -199,7 +199,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Southlake Specialty In
 The 72-hour memo is only this: on your public fronting pages (plus anything you send), where the next MGA bind still treats Osprey/CCB collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -219,7 +219,7 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Concert Specialty Insu
 The 72-hour memo is only this: on your public program pages (plus anything you send), where the next bind still treats those letters as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```
 
 ---
@@ -240,5 +240,5 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): United Automobile Insu
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
-https://gate.velaru.xyz/diligence
+https://gate.velaru.xyz/diligence?src=batch-ccb-svo-v2
 ```

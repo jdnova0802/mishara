@@ -496,6 +496,17 @@ def _visit_kind(user_agent: str) -> str:
     return "human"
 
 
+_SRC_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,39}$")
+
+
+def _visit_src() -> str:
+    """Outreach batch token from ?src=. Anything else is untagged."""
+    raw = (request.args.get("src") or "").strip().lower()
+    if _SRC_RE.fullmatch(raw):
+        return raw
+    return ""
+
+
 def _referrer_host() -> str:
     from urllib.parse import urlparse
 
@@ -521,6 +532,7 @@ def _count_watched_page(resp):
                 path=path,
                 referrer=_referrer_host(),
                 kind=_visit_kind(request.headers.get("User-Agent") or ""),
+                src=_visit_src(),
             )
     except Exception:
         pass
