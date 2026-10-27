@@ -128,6 +128,17 @@ def clocks() -> dict[str, Any]:
             "Grandfather ends at expiry, extension, renewal, modification, or "
             "amendment — whichever first occurs."
         ),
+        "publication": {
+            "cadence": "monthly",
+            "live_url": CURRENT_URL,
+            "note": (
+                "SVO updates the list in real time internally and publishes the PDF "
+                "monthly (QUSFI FAQ). Gate vendors the dated PDF hash. "
+                "python3 gate/watch_qusfi.py hashes the live PDF and fails if it moved."
+            ),
+            "watch": "/watch/qusfi.py",
+            "faq": "https://content.naic.org/sites/default/files/svo-qusfi-faq.pdf",
+        },
         "lloyds_six_month_confirm": {
             "spec": Y5410_SPEC,
             "bulletin": "Y5410",
@@ -281,6 +292,7 @@ def head(public_url: str = "") -> dict[str, Any]:
             "lookup": f"{base}/v1/qusfi" if base else "/v1/qusfi",
             "check": f"{base}/v1/qusfi/check" if base else "/v1/qusfi/check",
             "diff": f"{base}/v1/qusfi/diff" if base else "/v1/qusfi/diff",
+            "watch": f"{base}/watch/qusfi.py" if base else "/watch/qusfi.py",
         },
         "their_production": False,
     }

@@ -173,6 +173,8 @@ def mga_authority(
     state: str | None,
     allowed_lines: list | None,
     allowed_states: list | None,
+    mga_contract_terminated: str | None = None,
+    commissioner_notice_within_30_days: str | None = None,
 ) -> dict:
     reasons = []
     if not hop_allows_bind(hop, status):
@@ -187,6 +189,10 @@ def mga_authority(
         allowed = {str(x).upper() for x in allowed_states}
         if state and str(state).upper() not in allowed:
             reasons.append("state_not_in_authority")
+    terminated = str(mga_contract_terminated or "").strip().lower()
+    notice = str(commissioner_notice_within_30_days or "").strip().lower()
+    if terminated in {"yes", "true", "1"} and notice not in {"yes", "true", "1"}:
+        reasons.append("model_225_30_day_commissioner_notice_missing")
     allowed = len(reasons) == 0
     return {
         "spec": "gate-mga-authority-v1",
@@ -197,11 +203,26 @@ def mga_authority(
         "verify_url": verify_url(hop),
         "charge": "CHARGE webhook is the only DEAD→LIVE path. Authority approve is not CHARGE.",
         "hop": hop,
+        "model_225": {
+            "section": "5E",
+            "rule": (
+                "Within thirty (30) days of entering into or terminating a contract with "
+                "an MGA, the insurer shall provide written notification to the commissioner."
+            ),
+            "kansas": "K.S.A. 40-2,133(f) — same 30-day clock; termination form Oct 2025, no fee.",
+            "sources": [
+                "https://content.naic.org/sites/default/files/model-law-225.pdf",
+                "https://www.insurance.kansas.gov/home/showpublisheddocument/2716/639039140522200000",
+            ],
+            "not_a_registry_scrape": True,
+        },
         "checks": {
             "premium": premium,
             "authority_limit": authority_limit,
             "line": line,
             "state": state,
+            "mga_contract_terminated": terminated or None,
+            "commissioner_notice_within_30_days": notice or None,
         },
     }
 
