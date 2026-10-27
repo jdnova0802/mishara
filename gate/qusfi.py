@@ -7,8 +7,10 @@ expiry, extension, renewal, modification, or amendment.
 """
 from __future__ import annotations
 
+import calendar
 import json
 import os
+from datetime import date
 from typing import Any
 
 SPEC = "gate-qusfi-v1"
@@ -32,6 +34,11 @@ ARTEMIS_CORINTHIAN = (
 AIRROC_VESTTOO = (
     "https://www.airrocupdate.org/letters-of-credit-the-good-the-bad-and-the-vesttoo"
 )
+Y5410 = (
+    "https://assets.lloyds.com/media/37cc57c7-df41-4058-a085-628c4b0ad478/Y5410.pdf"
+)
+Y5410_DATED = "2023-10-03"
+Y5410_SPEC = "lloyds-y5410-v1"
 
 SCOPE = (
     "NAIC Credit for Reinsurance Model Law (#785) section 3C(1) and section 4A — "
@@ -52,6 +59,15 @@ CLAIM_OFF_LIST = (
 )
 NOT_A_CLAIM = (
     "Existing letters issued while the issuer was qualified are not automatically dead."
+)
+CLAIM_Y5410 = (
+    "Issuing-bank six-month confirm is missing or overdue. Lloyd's Y5410 "
+    "(3 Oct 2023) may discount this LOC in the member's Funds at Lloyd's until "
+    "the bank confirms."
+)
+NOT_A_CLAIM_Y5410 = (
+    "Y5410 is a Lloyd's FAL discount right. It is not NAIC Model 785 surplus credit "
+    "and it does not by itself kill a grandfathered US credit-for-reinsurance letter."
 )
 
 DEAD_CHANNELS = frozenset(
@@ -84,6 +100,100 @@ RENEWAL_EVENTS = frozenset(
         "new_issuance",
     }
 )
+
+def _parse_date(raw: str | None) -> date | None:
+    s = (raw or "").strip()[:10]
+    if not s:
+        return None
+    try:
+        return date.fromisoformat(s)
+    except ValueError:
+        return None
+
+
+def _add_calendar_months(d: date, months: int) -> date:
+    total = d.month - 1 + months
+    y = d.year + total // 12
+    m = total % 12 + 1
+    return date(y, m, min(d.day, calendar.monthrange(y, m)[1]))
+
+
+def clocks() -> dict[str, Any]:
+    return {
+        "next_svo_list": (
+            "QUSFI membership is the dated PDF. A later list replaces the set; "
+            "it does not by itself kill paper grandfathered under Model 786 §11A(3)."
+        ),
+        "next_786_event": (
+            "Grandfather ends at expiry, extension, renewal, modification, or "
+            "amendment — whichever first occurs."
+        ),
+        "lloyds_six_month_confirm": {
+            "spec": Y5410_SPEC,
+            "bulletin": "Y5410",
+            "dated": Y5410_DATED,
+            "months": 6,
+            "scope": (
+                "Member Funds at Lloyd's / ECA Tier 2 letters of credit, bank "
+                "guarantees and life policies. Not NAIC Model 785 surplus credit."
+            ),
+            "rule": (
+                "Lloyd's require all issuing banks to confirm the validity of each "
+                "LOC issued on behalf of members on a six-monthly basis. If this "
+                "confirmation is not provided, Lloyd's reserves the right to discount "
+                "the value of the LOC as part of a member's FAL until the bank "
+                "confirms. (Y5410, 3 Oct 2023.)"
+            ),
+            "lodging": (
+                "LOCs supporting an Economic Capital Assessment must be lodged in "
+                "accordance with the May/November FAL timetable."
+            ),
+            "source": Y5410,
+            "apply": (
+                "POST /v1/qusfi/check with lloyds_fal=yes and "
+                "issuing_bank_confirm_at=YYYY-MM-DD"
+            ),
+            "not_a_claim": NOT_A_CLAIM_Y5410,
+        },
+    }
+
+
+def lloyds_confirm(body: dict[str, Any]) -> dict[str, Any]:
+    """Six-month issuing-bank confirm. FAL only. Opt-in via lloyds_fal=yes."""
+    as_of = _parse_date(str(body.get("as_of") or "")) or date.today()
+    out: dict[str, Any] = {
+        "spec": Y5410_SPEC,
+        "applied": False,
+        "as_of": as_of.isoformat(),
+        "not_naic_surplus_credit": True,
+        "not_a_claim": NOT_A_CLAIM_Y5410,
+        "source": Y5410,
+    }
+    flag = str(body.get("lloyds_fal") or "").strip().lower()
+    if flag not in {"yes", "true", "1", "fal"}:
+        out["hint"] = (
+            "Set lloyds_fal=yes to apply the six-month issuing-bank confirm. "
+            "This clock is Funds at Lloyd's, not Model 785 surplus credit."
+        )
+        return out
+    out["applied"] = True
+    confirm = _parse_date(
+        str(body.get("issuing_bank_confirm_at") or body.get("lloyds_six_month_confirm_at") or "")
+    )
+    if confirm is None:
+        out["ok"] = False
+        out["confirm_at"] = None
+        out["due"] = None
+        out["reason"] = CLAIM_Y5410
+        return out
+    due = _add_calendar_months(confirm, 6)
+    out["confirm_at"] = confirm.isoformat()
+    out["due"] = due.isoformat()
+    out["ok"] = as_of <= due
+    if not out["ok"]:
+        out["reason"] = CLAIM_Y5410
+    return out
+
 
 _DATA: dict[str, Any] | None = None
 
@@ -153,11 +263,13 @@ def head(public_url: str = "") -> dict[str, Any]:
         "grandfather": GRANDFATHER,
         "claim_when_off_current_list": CLAIM_OFF_LIST,
         "not_a_claim": NOT_A_CLAIM,
+        "clocks": clocks(),
         "sources": {
             "model_785": MODEL_785,
             "model_786": MODEL_786,
             "artemis_corinthian_voice_email": ARTEMIS_CORINTHIAN,
             "airroc_spoofed_phone": AIRROC_VESTTOO,
+            "lloyds_y5410": Y5410,
         },
         "confirmation": {
             "phone_or_email_on_instrument": "HALT",
@@ -258,6 +370,17 @@ def _halt(reason: str, extra: dict[str, Any]) -> dict[str, Any]:
         "their_production": False,
     }
     out.update(extra)
+    return _apply_y5410(out)
+
+
+def _apply_y5410(out: dict[str, Any]) -> dict[str, Any]:
+    """Empty/overdue six-month confirm HALTs FAL treatment. Does not override an earlier HALT reason."""
+    y = out.get("lloyds_y5410") or {}
+    if y.get("applied") and y.get("ok") is False and not out.get("halt"):
+        out["word"] = "HALT"
+        out["halt"] = True
+        out["reason"] = CLAIM_Y5410
+        out["not_a_claim_y5410"] = NOT_A_CLAIM_Y5410
     return out
 
 
@@ -278,6 +401,8 @@ def check(body: dict[str, Any]) -> dict[str, Any]:
             "airroc_spoofed_phone": AIRROC_VESTTOO,
         },
         "call_to_confirm_path": False,
+        "clocks": clocks(),
+        "lloyds_y5410": lloyds_confirm(body),
     }
     if not ident:
         return _halt("Name the issuer ABA/LEI. Empty is not qualified.", extra)
@@ -308,7 +433,7 @@ def check(body: dict[str, Any]) -> dict[str, Any]:
         extra["spec"] = SPEC
         extra["scope"] = SCOPE
         extra["their_production"] = False
-        return extra
+        return _apply_y5410(extra)
     extra["word"] = "CLEAR"
     extra["halt"] = False
     extra["reason"] = (
@@ -319,4 +444,4 @@ def check(body: dict[str, Any]) -> dict[str, Any]:
     extra["spec"] = SPEC
     extra["scope"] = SCOPE
     extra["their_production"] = False
-    return extra
+    return _apply_y5410(extra)
