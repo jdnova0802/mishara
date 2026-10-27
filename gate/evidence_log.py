@@ -284,7 +284,11 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
             "Consortium partner optional; capacity is infrastructure now."
         ),
     }
-    return head
+    try:
+        from gate import tlog_witness as tlog_witness_mod
+    except ImportError:
+        import tlog_witness as tlog_witness_mod
+    return tlog_witness_mod.attach(head)
 
 
 def log_from_rows(rows: list[dict]) -> list[str]:

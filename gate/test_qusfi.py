@@ -45,6 +45,7 @@ class QusfiTests(unittest.TestCase):
         )
         self.assertIn("not a general bank creditworthiness score", data["scope"].lower())
         self.assertFalse(data["confirmation"]["call_to_confirm_path"])
+        self.assertIn("/v1/qusfi/diff", data["urls"]["diff"])
         self.assertNotIn("their_production", data)
 
     def test_ccb_off_current_on_prior(self):
@@ -106,6 +107,22 @@ class QusfiTests(unittest.TestCase):
         self.assertEqual(body["word"], "HOLD")
         self.assertFalse(body["halt"])
         self.assertIn("not automatically dead", body["not_a_claim"])
+
+    def test_diff_drops_ccb_and_keeps_boc(self):
+        r = self.client.get("/v1/qusfi/diff?from=2025-12-31&to=2026-09-30")
+        self.assertEqual(r.status_code, 200)
+        data = r.get_json()
+        dropped_ids = [row["id"] for row in data["dropped"]]
+        added_ids = [row["id"] for row in data["added"]]
+        self.assertIn("26014685", dropped_ids)
+        self.assertEqual(data["example"]["id"], "26014685")
+        self.assertIn("next evergreen/renewal cannot support surplus credit", data["claim_when_dropped"])
+        self.assertNotIn("26003269", dropped_ids)
+        self.assertNotIn("133951245", dropped_ids)
+        self.assertNotIn("26003269", added_ids)
+        self.assertIn("not a credit rating", data["not_a_score"].lower())
+        bad = self.client.get("/v1/qusfi/diff?from=1999-01-01")
+        self.assertEqual(bad.status_code, 400)
 
     def test_no_qusfi_html_pitch_page(self):
         self.assertEqual(self.client.get("/qusfi").status_code, 404)
