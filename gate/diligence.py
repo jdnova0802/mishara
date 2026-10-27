@@ -135,10 +135,13 @@ def page_copy() -> dict[str, str]:
         "sub": (
             "Free 72h REVIEW of public pages. As of the NAIC SVO List of Qualified "
             "U.S. Financial Institutions dated September 30, 2026, China Construction "
-            "Bank does not appear. An unauthorized-reinsurer letter supports surplus "
-            "credit when the issuing or confirming bank is qualified. Duty to defend "
-            "after a refusal. Binder authority after the MGA walked. Or a paid deposit "
-            "find on the same path."
+            "Bank does not appear (it was on the December 31, 2025 list). This issuer "
+            "is off the current list, so the next evergreen/renewal cannot support "
+            "surplus credit. Model 786 §11A(3) grandfathers an LOC acceptable at "
+            "issuance until it is expired, extended, renewed, modified, or amended. "
+            "Phone or email-on-the-instrument confirmation is not the check. Duty to "
+            "defend after a refusal. Binder authority after the MGA walked. Or a paid "
+            "deposit find on the same path."
         ),
         "free_blurb": (
             "Public pages only (+ anything you send). No charge. No invoice. "

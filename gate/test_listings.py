@@ -717,10 +717,12 @@ class BindRoomFlaskTests(unittest.TestCase):
         self.assertIn("naic svo list of qualified u.s. financial institutions", lowered)
         self.assertIn("september 30, 2026", lowered)
         self.assertIn("china construction bank does not appear", lowered)
+        self.assertIn("december 31, 2025", lowered)
         self.assertIn(
-            "unauthorized-reinsurer letter supports surplus credit",
+            "next evergreen/renewal cannot support surplus credit",
             lowered,
         )
+        self.assertIn("model 786", lowered)
         self.assertNotIn("bank confirmation of the letter", lowered)
         self.assertNotIn("call to confirm", lowered)
         for noun in ("mouth", "peg-out", "weld", "prefinality"):

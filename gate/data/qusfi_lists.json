@@ -1,0 +1,1429 @@
+{
+  "spec": "gate-qusfi-lists-v1",
+  "scope": "NAIC Credit for Reinsurance Model Law (#785) section 3C(1) and section 4A \u2014 issuers of letters of credit as collateral in reinsurance arrangements. Not a general bank creditworthiness score. The SVO list footer forbids other uses.",
+  "lists": [
+    {
+      "as_of": "2026-09-30",
+      "title": "September 30, 2026",
+      "source_url": "https://staspoprodcus01.blob.core.windows.net/svo/svo_qusfi_list.pdf",
+      "pdf_sha256": "0b1f3503d12ae8899cb7966515cf5f33277781051d075104fa1cbfd48dd75d8d",
+      "institution_count": 139,
+      "institutions": [
+        {
+          "id": "96016972",
+          "label": "Agribank Saint Paul, MN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "133951245",
+          "label": "Agricultural Bank of China, New York Branch New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "111300958",
+          "label": "Amarillo National Bank Amarillo, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "75900575",
+          "label": "Associated Bank N A Green Bay, WI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26009917",
+          "label": "Australia and New Zealand Banking Group Limited New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "122238200",
+          "label": "Banc of California Los Angeles, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26001847",
+          "label": "Banco Bilbao Vizcaya Argentaria S A New York, NY",
+          "sovereign": "SPAIN"
+        },
+        {
+          "id": "26007692",
+          "label": "Banco Santander, S.A. New York, NY",
+          "sovereign": "SPAIN"
+        },
+        {
+          "id": "26009593",
+          "label": "Bank of America N A Charlotte, NC",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003269",
+          "label": "Bank of China New York Branch New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "121045151",
+          "label": "Bank of Communications Co LTD SF San Francisco, CA",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "121301028",
+          "label": "Bank of Hawaii Honolulu, HI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71000288",
+          "label": "Bank of Montreal Chicago, IL",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "26002574",
+          "label": "Barclays Bank PLC New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "26003337",
+          "label": "Bayerische Landesbank New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "71904627",
+          "label": "BMO Bank N A Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26007689",
+          "label": "BNP Paribas New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "103900036",
+          "label": "BOKF NA Tulsa, OK",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26004802",
+          "label": "Brown Brothers Harriman & Co. New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71102568",
+          "label": "Busey Bank Leawood, KS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26002558",
+          "label": "Canadian Imperial Bank of Commerce New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "65000090",
+          "label": "Capital One N A New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71006486",
+          "label": "CIBC BANK USA Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21000089",
+          "label": "Citibank N A New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "11500120",
+          "label": "Citizens Bank N A Providence, RI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "122016066",
+          "label": "City National Bank Beverly Hills, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "307088754",
+          "label": "CoBank ACB Greenwood Village, CO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "123205054",
+          "label": "Columbia Bank Lake Oswego, OR",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "101000019",
+          "label": "Commerce Bank Kansas City, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26008044",
+          "label": "Commerzbank A G New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26009027",
+          "label": "Commonwealth Bank of Australia New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "21307559",
+          "label": "Community Bank NA Williston, VT",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "411956286",
+          "label": "Compeer Financial, ACA Sun Prairie, WI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "2549001YYB62BVMSAO13",
+          "label": "Computershare Trust Company, N.A. Canton, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26002901",
+          "label": "Co\u00f6peratieve Rabobank U A New York, NY",
+          "sovereign": "NETHERLANDS"
+        },
+        {
+          "id": "26008073",
+          "label": "Credit Agricole Corporate and Investment Bank New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "26008659",
+          "label": "Credit Industriel et Commercial New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "31302971",
+          "label": "Customers Bank New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003780",
+          "label": "Deutsche Bank A G New York Branch New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "21001033",
+          "label": "Deutsche Bank Trust Company Americas Jersey City, NJ",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "549300GKFG0RYRRQ1414",
+          "label": "DNB Bank ASA New York, NY",
+          "sovereign": "NORWAY"
+        },
+        {
+          "id": "61050057",
+          "label": "DZ Bank AG New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "81006162",
+          "label": "Enterprise Bank & Trust Clayton, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "322070381",
+          "label": "East West Bank Pasadena, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "61008766",
+          "label": "Federal Home Loan Bank of Atlanta Atlanta, GA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "11000536",
+          "label": "Federal Home Loan Bank of Boston Boston, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71004501",
+          "label": "Federal Home Loan Bank of Chicago Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "R7UJYAV8DF2UV19RDE54",
+          "label": "Federal Home Loan Bank of Dallas Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "73000914",
+          "label": "Federal Home Loan Bank of Des Moines Des Moines, IA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "74001019",
+          "label": "Federal Home Loan Bank of Indianapolis Indianapolis, IN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "43001435",
+          "label": "Federal Home Loan Bank of Pittsburgh Pittsburgh, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "121000701",
+          "label": "Federal Home Loan Bank of San Francisco San Francisco, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "101101947",
+          "label": "Federal Home Loan Bank of Topeka Topeka, KS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "42000314",
+          "label": "Fifth Third Bank Cincinnati, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "42200910",
+          "label": "First Financial Bank Cincinnati, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "121301015",
+          "label": "First Hawaiian Bank Honolulu, HI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "84000026",
+          "label": "First Horizon Bank Memphis, TN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "104000016",
+          "label": "First National Bank of Omaha Omaha, NE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "N8T7HW55LK5D2ORCKP39",
+          "label": "First National Bank of Pennsylvania Pittsburgh, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "53100300",
+          "label": "First-Citizens Bank & Trust Company Raleigh, NC",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "114000093",
+          "label": "Frost Bank San Antonio, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "31301422",
+          "label": "Fulton Bank Lancaster, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26014601",
+          "label": "Goldman Sachs Bank USA New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26342098",
+          "label": "Guaranty Bank Springfield, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "65503681",
+          "label": "Hancock Whitney Bank New Orleans, LA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21001088",
+          "label": "HSBC Bank USA N A New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "133122683",
+          "label": "HSBC Bank plc US Branch New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "44000024",
+          "label": "Huntington National Bank Columbus, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26014591",
+          "label": "Industrial and Commercial Bank of China Ltd New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "26009768",
+          "label": "Israel Discount Bank of NY New York, NY",
+          "sovereign": "ISRAEL"
+        },
+        {
+          "id": "21000021",
+          "label": "JPMorgan Chase Bank New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26008248",
+          "label": "KBC Bank N V New York, NY",
+          "sovereign": "BELGIUM"
+        },
+        {
+          "id": "26002095",
+          "label": "KEB Hana Bank, New York Agency New York, NY",
+          "sovereign": "SOUTH KOREA"
+        },
+        {
+          "id": "41001039",
+          "label": "KeyBank National Association Cleveland, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26013343",
+          "label": "Kookmin Bank,New York Branch New York, NY",
+          "sovereign": "SOUTH KOREA"
+        },
+        {
+          "id": "5493004MWCDBCBTXE044",
+          "label": "Lake Forest Bank & Trust Co. N.A. Lake Forest, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26013453",
+          "label": "Landesbank Baden Wuerttemberg New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26002545",
+          "label": "Landesbank Hessen Thuringen Girozentrale New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26015037",
+          "label": "Lloyds Bank Corporate Markets plc New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "22000046",
+          "label": "Manufacturers and Traders Trust Co Baltimore, MD",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26004307",
+          "label": "Mizuho Bank Ltd New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26014630",
+          "label": "Morgan Stanley Bank N A Salt Lake City, UT",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21272778",
+          "label": "Morgan Stanley Private Bank N A Purchase, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71002341",
+          "label": "MUFG Bank Ltd Chicago Branch Chicago, IL",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "122004162",
+          "label": "MUFG Bank Ltd Los Angeles Branch Los Angeles, CA",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26009632",
+          "label": "MUFG Bank Ltd New York Branch New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26007728",
+          "label": "National Australia Bank Ltd New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "26005487",
+          "label": "National Bank of Canada New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "26009920",
+          "label": "Natixis New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "26012548",
+          "label": "Norddeutsche Landesbank Girozentrale New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26010786",
+          "label": "Nordea Bank Abp New York, NY",
+          "sovereign": "FINLAND"
+        },
+        {
+          "id": "86300012",
+          "label": "Old National Bank Evansville, IN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003191",
+          "label": "Oversea-Chinese Banking Corporation Limited New York Agency, NY",
+          "sovereign": "SINGAPORE"
+        },
+        {
+          "id": "44101305",
+          "label": "Park National Bank Columbus, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21205237",
+          "label": "Peapack Private Bank & Trust Bedminster, NJ",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "64008637",
+          "label": "Pinnacle Bank Nashville, TN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "111322994",
+          "label": "Plains Capital Bank Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "43000096",
+          "label": "PNC Bank National Association Pittsburgh, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "111093715",
+          "label": "Prosperity Bank Plano, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "62000019",
+          "label": "Regions Bank Birmingham, AL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "84201294",
+          "label": "Renasant Bank Tupelo, MS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26004093",
+          "label": "Royal Bank of Canada New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "11075150",
+          "label": "Santander Bank, National Association Boston, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "67005158",
+          "label": "Seacoast National Bank Stuart, FL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "62006505",
+          "label": "ServisFirst Bank Birmingham, AL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26011950",
+          "label": "Shinhan Bank New York, NY",
+          "sovereign": "SOUTH KOREA"
+        },
+        {
+          "id": "26003036",
+          "label": "Skandinaviska Enskilda Banken New York, NY",
+          "sovereign": "SWEDEN"
+        },
+        {
+          "id": "26004226",
+          "label": "Societe Generale New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "63114030",
+          "label": "Southstate Bank Winter Haven, FL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26001591",
+          "label": "Standard Chartered Bank New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "11000028",
+          "label": "State Street Bank and Trust Company Boston, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26009674",
+          "label": "Sumitomo Mitsui Banking Corp New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "5493006GGLR4BTEL8O61",
+          "label": "Sumitomo Mitsui Trust Bank Limited New York Branch New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26010841",
+          "label": "Svenska Handelsbanken AB New York, NY",
+          "sovereign": "SWEDEN"
+        },
+        {
+          "id": "61100606",
+          "label": "Synovus Bank Columbus, GA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "31201360",
+          "label": "TD Bank N A Mt. Laurel, NJ",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "111017979",
+          "label": "Texas Capital Bank Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26002532",
+          "label": "The Bank of Nova Scotia,New York Agency New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "26011125",
+          "label": "The Chiba Bank Ltd New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "6PTKHDJ8HDUF78PFWH30",
+          "label": "The Northern Trust Company Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003243",
+          "label": "The Toronto-Dominion Bank New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "51408949",
+          "label": "TowneBank Portsmouth, VA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "61000104",
+          "label": "Truist Bank Atlanta, GA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "65300279",
+          "label": "Trustmark National Bank Jackson, MS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26007993",
+          "label": "UBS AG Stamford Branch Stamford, CT",
+          "sovereign": "SWITZERLAND"
+        },
+        {
+          "id": "101000695",
+          "label": "UMB Bank N A Kansas City, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26008808",
+          "label": "UniCredit Bank GmbH New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "42000013",
+          "label": "U.S. Bank N.A Cincinnati, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "325070980",
+          "label": "Washington Federal Bank Seattle, WA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "211170101",
+          "label": "Webster Bank, National Association Waterbury, CT",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "121000248",
+          "label": "Wells Fargo Bank N A Winston-Salem, NC",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "550143590",
+          "label": "Wesbanco Bank, Inc. Wheeling, WV",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "122105980",
+          "label": "Western Alliance Bank Phoenix, AZ",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003447",
+          "label": "Westpac Banking Corporation New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "31100102",
+          "label": "WSFS, FSB Wilmington, DE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "31100092",
+          "label": "Wilmington Trust Company Wilmington, DE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "22313005",
+          "label": "Wilmington Trust National Association Wilmington, DE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71925444",
+          "label": "Wintrust Bank Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "124000054",
+          "label": "Zions Bancorporation, N.A. Salt Lake City, UT",
+          "sovereign": "UNITED STATES"
+        }
+      ]
+    },
+    {
+      "as_of": "2025-12-31",
+      "title": "December 31, 2025",
+      "source_url": "https://content.naic.org/sites/default/files/svo-archive-2025-qualified-us-financial-institutions-qufsi.pdf",
+      "pdf_sha256": "d989ac5a588a69339ce8a8fb646b9a8b443b82535e8f341656d45bbdd12c6c69",
+      "institution_count": 142,
+      "institutions": [
+        {
+          "id": "96016972",
+          "label": "Agribank Saint Paul, MN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "133951245",
+          "label": "Agricultural Bank of China, New York Branch New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "111300958",
+          "label": "Amarillo National Bank Amarillo, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "75900575",
+          "label": "Associated Bank N A Green Bay, WI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26009917",
+          "label": "Australia and New Zealand Banking Group Limited New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "122238200",
+          "label": "Banc of California Los Angeles, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26001847",
+          "label": "Banco Bilbao Vizcaya Argentaria S A New York, NY",
+          "sovereign": "SPAIN"
+        },
+        {
+          "id": "26007692",
+          "label": "Banco Santander, S.A. New York, NY",
+          "sovereign": "SPAIN"
+        },
+        {
+          "id": "26009593",
+          "label": "Bank of America N A Charlotte, NC",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003269",
+          "label": "Bank of China New York Branch New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "121045151",
+          "label": "Bank of Communications Co LTD SF San Francisco, CA",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "121301028",
+          "label": "Bank of Hawaii Honolulu, HI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71000288",
+          "label": "Bank of Montreal Chicago, IL",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "26002574",
+          "label": "Barclays Bank PLC New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "26003337",
+          "label": "Bayerische Landesbank New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "71904627",
+          "label": "BMO Bank N A Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26007689",
+          "label": "BNP Paribas New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "103900036",
+          "label": "BOKF NA Tulsa, OK",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26004802",
+          "label": "Brown Brothers Harriman & Co. New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "84201278",
+          "label": "Cadence Bank Tupelo, MS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26002558",
+          "label": "Canadian Imperial Bank of Commerce New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "65000090",
+          "label": "Capital One N A New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26014685",
+          "label": "China Construction Bank Corporation New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "71006486",
+          "label": "CIBC BANK USA Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21000089",
+          "label": "Citibank N A New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "11500120",
+          "label": "Citizens Bank N A Providence, RI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "122016066",
+          "label": "City National Bank Beverly Hills, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "307088754",
+          "label": "CoBank ACB Greenwood Village, CO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "123205054",
+          "label": "Columbia Bank Lake Oswego, OR",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "111000753",
+          "label": "Comerica Bank Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "101000019",
+          "label": "Commerce Bank Kansas City, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26008044",
+          "label": "Commerzbank A G New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26009027",
+          "label": "Commonwealth Bank of Australia New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "411956286",
+          "label": "Compeer Financial, ACA Sun Prairie, WI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "2549001YYB62BVMSAO13",
+          "label": "Computershare Trust Company, N.A. Canton, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26002901",
+          "label": "Co\u00f6peratieve Rabobank U A New York, NY",
+          "sovereign": "NETHERLANDS"
+        },
+        {
+          "id": "26008073",
+          "label": "Credit Agricole Corporate and Investment Bank New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "26008659",
+          "label": "Credit Industriel et Commercial New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "31302971",
+          "label": "Customers Bank New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003780",
+          "label": "Deutsche Bank A G New York Branch New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "21001033",
+          "label": "Deutsche Bank Trust Company Americas Jersey City, NJ",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "549300GKFG0RYRRQ1414",
+          "label": "DNB Bank ASA New York, NY",
+          "sovereign": "NORWAY"
+        },
+        {
+          "id": "61050057",
+          "label": "DZ Bank AG New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "81006162",
+          "label": "Enterprise Bank & Trust Clayton, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "322070381",
+          "label": "East West Bank Pasadena, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "61008766",
+          "label": "Federal Home Loan Bank of Atlanta Atlanta, GA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "11000536",
+          "label": "Federal Home Loan Bank of Boston Boston, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71004501",
+          "label": "Federal Home Loan Bank of Chicago Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "R7UJYAV8DF2UV19RDE54",
+          "label": "Federal Home Loan Bank of Dallas Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "73000914",
+          "label": "Federal Home Loan Bank of Des Moines Des Moines, IA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "74001019",
+          "label": "Federal Home Loan Bank of Indianapolis Indianapolis, IN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "43001435",
+          "label": "Federal Home Loan Bank of Pittsburgh Pittsburgh, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "121000701",
+          "label": "Federal Home Loan Bank of San Francisco San Francisco, CA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "101101947",
+          "label": "Federal Home Loan Bank of Topeka Topeka, KS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "42000314",
+          "label": "Fifth Third Bank Cincinnati, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "067016231",
+          "label": "FineMark National Bank and Trust Fort Myers, FL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "42200910",
+          "label": "First Financial Bank Cincinnati, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "121301015",
+          "label": "First Hawaiian Bank Honolulu, HI",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "84000026",
+          "label": "First Horizon Bank Memphis, TN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "810192860",
+          "label": "First Interstate Bank Billings, MT",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "104000016",
+          "label": "First National Bank of Omaha Omaha, NE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "N8T7HW55LK5D2ORCKP39",
+          "label": "First National Bank of Pennsylvania Pittsburgh, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "53100300",
+          "label": "First-Citizens Bank & Trust Company Raleigh, NC",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "114000093",
+          "label": "Frost Bank San Antonio, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "31301422",
+          "label": "Fulton Bank Lancaster, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26014601",
+          "label": "Goldman Sachs Bank USA New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26342098",
+          "label": "Guaranty Bank Springfield, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "65503681",
+          "label": "Hancock Whitney Bank New Orleans, LA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21001088",
+          "label": "HSBC Bank USA N A New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "44000024",
+          "label": "Huntington National Bank Columbus, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26014591",
+          "label": "Industrial and Commercial Bank of China Ltd New York, NY",
+          "sovereign": "CHINA"
+        },
+        {
+          "id": "26009768",
+          "label": "Israel Discount Bank of NY New York, NY",
+          "sovereign": "ISRAEL"
+        },
+        {
+          "id": "21000021",
+          "label": "JPMorgan Chase Bank New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26008248",
+          "label": "KBC Bank N V New York, NY",
+          "sovereign": "BELGIUM"
+        },
+        {
+          "id": "26002095",
+          "label": "KEB Hana Bank, New York Agency New York, NY",
+          "sovereign": "SOUTH KOREA"
+        },
+        {
+          "id": "41001039",
+          "label": "KeyBank National Association Cleveland, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26013343",
+          "label": "Kookmin Bank,New York Branch New York, NY",
+          "sovereign": "SOUTH KOREA"
+        },
+        {
+          "id": "5493004MWCDBCBTXE044",
+          "label": "Lake Forest Bank & Trust Co. N.A. Lake Forest, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26013453",
+          "label": "Landesbank Baden Wuerttemberg New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26002545",
+          "label": "Landesbank Hessen Thuringen Girozentrale New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26015037",
+          "label": "Lloyds Bank Corporate Markets plc New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "22000046",
+          "label": "Manufacturers and Traders Trust Co Baltimore, MD",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26004307",
+          "label": "Mizuho Bank Ltd New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26014630",
+          "label": "Morgan Stanley Bank N A Salt Lake City, UT",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21272778",
+          "label": "Morgan Stanley Private Bank N A Purchase, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71002341",
+          "label": "MUFG Bank Ltd Chicago Branch Chicago, IL",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26009632",
+          "label": "MUFG Bank Ltd New York Branch New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26007728",
+          "label": "National Australia Bank Ltd New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "26005487",
+          "label": "National Bank of Canada New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "26009920",
+          "label": "Natixis New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "26012548",
+          "label": "Norddeutsche Landesbank Girozentrale New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "26010786",
+          "label": "Nordea Bank Abp New York, NY",
+          "sovereign": "FINLAND"
+        },
+        {
+          "id": "86300012",
+          "label": "Old National Bank Evansville, IN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003191",
+          "label": "Oversea-Chinese Banking Corporation Limited New York Agency, NY",
+          "sovereign": "SINGAPORE"
+        },
+        {
+          "id": "21205237",
+          "label": "Peapack Private Bank & Trust Bedminster, NJ",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "64008637",
+          "label": "Pinnacle Bank Nashville, TN",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "43000096",
+          "label": "PNC Bank National Association Pittsburgh, PA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "111093715",
+          "label": "Prosperity Bank Plano, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "62000019",
+          "label": "Regions Bank Birmingham, AL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "84201294",
+          "label": "Renasant Bank Tupelo, MS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26004093",
+          "label": "Royal Bank of Canada New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "11075150",
+          "label": "Santander Bank, National Association Boston, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "67005158",
+          "label": "Seacoast National Bank Stuart, FL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "62006505",
+          "label": "ServisFirst Bank Birmingham, AL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26011950",
+          "label": "Shinhan Bank New York, NY",
+          "sovereign": "SOUTH KOREA"
+        },
+        {
+          "id": "26003036",
+          "label": "Skandinaviska Enskilda Banken New York, NY",
+          "sovereign": "SWEDEN"
+        },
+        {
+          "id": "26004226",
+          "label": "Societe Generale New York, NY",
+          "sovereign": "FRANCE"
+        },
+        {
+          "id": "63114030",
+          "label": "Southstate Bank Winter Haven, FL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26001591",
+          "label": "Standard Chartered Bank New York, NY",
+          "sovereign": "UNITED KINGDOM"
+        },
+        {
+          "id": "11000028",
+          "label": "State Street Bank and Trust Company Boston, MA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "113025723",
+          "label": "Stellar Bank Houston, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26009674",
+          "label": "Sumitomo Mitsui Banking Corp New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "5493006GGLR4BTEL8O61",
+          "label": "Sumitomo Mitsui Trust Bank Limited New York Branch New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "26010841",
+          "label": "Svenska Handelsbanken AB New York, NY",
+          "sovereign": "SWEDEN"
+        },
+        {
+          "id": "61100606",
+          "label": "Synovus Bank Columbus, GA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "31201360",
+          "label": "TD Bank N A Mt. Laurel, NJ",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "111017979",
+          "label": "Texas Capital Bank Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "21000018",
+          "label": "The Bank of New York Mellon New York, NY",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26002532",
+          "label": "The Bank of Nova Scotia,New York Agency New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "26011125",
+          "label": "The Chiba Bank Ltd New York, NY",
+          "sovereign": "JAPAN"
+        },
+        {
+          "id": "6PTKHDJ8HDUF78PFWH30",
+          "label": "The Northern Trust Company Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003243",
+          "label": "The Toronto-Dominion Bank New York, NY",
+          "sovereign": "CANADA"
+        },
+        {
+          "id": "51408949",
+          "label": "TowneBank Portsmouth, VA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "61000104",
+          "label": "Truist Bank Atlanta, GA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "65300279",
+          "label": "Trustmark National Bank Jackson, MS",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "56004445",
+          "label": "United Bank Vienna, VA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26007993",
+          "label": "UBS AG Stamford Branch Stamford, CT",
+          "sovereign": "SWITZERLAND"
+        },
+        {
+          "id": "101000695",
+          "label": "UMB Bank N A Kansas City, MO",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26008808",
+          "label": "UniCredit Bank GmbH New York, NY",
+          "sovereign": "GERMANY"
+        },
+        {
+          "id": "42000013",
+          "label": "U.S. Bank N.A Cincinnati, OH",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "113024164",
+          "label": "Veritex Community Bank Dallas, TX",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "325070980",
+          "label": "Washington Federal Bank Seattle, WA",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "211170101",
+          "label": "Webster Bank, National Association Waterbury, CT",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "121000248",
+          "label": "Wells Fargo Bank N A Winston-Salem, NC",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "550143590",
+          "label": "Wesbanco Bank, Inc. Wheeling, WV",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "122105980",
+          "label": "Western Alliance Bank Phoenix, AZ",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "26003447",
+          "label": "Westpac Banking Corporation New York, NY",
+          "sovereign": "AUSTRALIA"
+        },
+        {
+          "id": "31100102",
+          "label": "WSFS, FSB Wilmington, DE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "31100092",
+          "label": "Wilmington Trust Company Wilmington, DE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "22313005",
+          "label": "Wilmington Trust National Association Wilmington, DE",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "71925444",
+          "label": "Wintrust Bank Chicago, IL",
+          "sovereign": "UNITED STATES"
+        },
+        {
+          "id": "124000054",
+          "label": "Zions Bancorporation, N.A. Salt Lake City, UT",
+          "sovereign": "UNITED STATES"
+        }
+      ]
+    }
+  ]
+}
