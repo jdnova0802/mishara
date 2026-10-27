@@ -292,6 +292,7 @@ except ImportError:
 load_dotenv()
 
 VELARU_BASE = os.getenv("VELARU_API_URL", "https://velaru.onrender.com").rstrip("/")
+VELARU_VERIFY = os.getenv("VELARU_VERIFY_URL", "https://velaru.xyz/verify").rstrip("/")
 GATE_PUBLIC_URL = public_url_mod.resolve_public_url()
 GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
@@ -1102,6 +1103,16 @@ def trust():
         public_url=advertised_url(),
         surface=public_surface_mod.surface_clock(),
     )
+
+
+@app.route("/verify", strict_slashes=False)
+def verify_redirect():
+    """Typed Gate /verify 404s; the tool lives on velaru.xyz. Keep query string."""
+    dest = VELARU_VERIFY
+    qs = request.query_string.decode()
+    if qs:
+        dest = dest + "?" + qs
+    return redirect(dest, code=302)
 
 
 @app.route("/regulator")
