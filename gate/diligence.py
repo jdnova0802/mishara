@@ -133,9 +133,12 @@ def page_copy() -> dict[str, str]:
     return {
         "headline": "Where does the next bind still treat collateral, duty to defend, or binder authority as live?",
         "sub": (
-            "Free 72h REVIEW of public pages. Bank confirmation of the letter. "
-            "Duty to defend after a refusal. Binder authority after the MGA walked. "
-            "Or a paid deposit find on the same path."
+            "Free 72h REVIEW of public pages. As of the NAIC SVO List of Qualified "
+            "U.S. Financial Institutions dated September 30, 2026, China Construction "
+            "Bank does not appear. An unauthorized-reinsurer letter supports surplus "
+            "credit when the issuing or confirming bank is qualified. Duty to defend "
+            "after a refusal. Binder authority after the MGA walked. Or a paid deposit "
+            "find on the same path."
         ),
         "free_blurb": (
             "Public pages only (+ anything you send). No charge. No invoice. "

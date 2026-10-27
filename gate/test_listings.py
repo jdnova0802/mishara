@@ -714,6 +714,15 @@ class BindRoomFlaskTests(unittest.TestCase):
         lowered = first.lower()
         for phrase in ("collateral", "duty to defend", "binder authority"):
             self.assertIn(phrase, lowered, phrase)
+        self.assertIn("naic svo list of qualified u.s. financial institutions", lowered)
+        self.assertIn("september 30, 2026", lowered)
+        self.assertIn("china construction bank does not appear", lowered)
+        self.assertIn(
+            "unauthorized-reinsurer letter supports surplus credit",
+            lowered,
+        )
+        self.assertNotIn("bank confirmation of the letter", lowered)
+        self.assertNotIn("call to confirm", lowered)
         for noun in ("mouth", "peg-out", "weld", "prefinality"):
             self.assertNotIn(noun, lowered, noun)
 
