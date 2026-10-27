@@ -432,6 +432,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/clear.json",
         "/.well-known/rail-truth.json",
         "/.well-known/qusfi.json",
+        "/.well-known/finding/ccb-svo.json",
         "/.well-known/deny-registry.json",
         "/.well-known/seal.json",
         "/.well-known/seal-anchor.json",
@@ -2229,6 +2230,16 @@ def _qusfi():
 @app.route("/.well-known/qusfi.json")
 def well_known_qusfi():
     return jsonify(_qusfi().head(advertised_url()))
+
+
+@app.route("/.well-known/finding/ccb-svo.json")
+def well_known_finding_ccb():
+    try:
+        from gate import finding_ccb as finding_mod
+    except ImportError:
+        import finding_ccb as finding_mod
+    body = finding_mod.publish()
+    return jsonify(body), 200, {"Cache-Control": "no-store"}
 
 
 @app.route("/v1/qusfi")
@@ -5120,6 +5131,41 @@ def pas_policycenter_pre_bind():
         return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
     body["fuse_id"] = fuse_id
     return run_policycenter_pre_bind(body, account_id=g.account_id)
+
+
+@app.route("/job/v1/jobs/<job_id>/bind-only", methods=["POST"])
+def policycenter_bind_only_intercept(job_id: str):
+    """Guidewire Cloud API bind-only. Empty body. Ticket in headers. One write."""
+    try:
+        from gate import bind_only_intercept as intercept_mod
+    except ImportError:
+        import bind_only_intercept as intercept_mod
+    body, status = intercept_mod.intercept(job_id, request.headers)
+    return jsonify(body), status
+
+
+@app.route("/job/v1/jobs/<job_id>/bind-and-issue", methods=["POST"])
+def policycenter_bind_and_issue_refused(job_id: str):
+    try:
+        from gate import bind_only_intercept as intercept_mod
+    except ImportError:
+        import bind_only_intercept as intercept_mod
+    body, status = intercept_mod.reject_other_write(
+        f"/job/v1/jobs/{job_id}/bind-and-issue"
+    )
+    return jsonify(body), status
+
+
+@app.route("/policy/v1/policies/<policy_id>/issue", methods=["POST"])
+def policycenter_issue_refused(policy_id: str):
+    try:
+        from gate import bind_only_intercept as intercept_mod
+    except ImportError:
+        import bind_only_intercept as intercept_mod
+    body, status = intercept_mod.reject_other_write(
+        f"/policy/v1/policies/{policy_id}/issue"
+    )
+    return jsonify(body), status
 
 
 @app.route("/v1/pas/mga-authority", methods=["POST"])
