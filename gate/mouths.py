@@ -466,10 +466,18 @@ def evaluate_fednow_prepush(body: dict) -> dict[str, Any]:
     )
 
 
+NACHA_PHASE = {
+    "phase1_effective": "2026-03-20",
+    "phase2_rule_date": "2026-06-19",
+    "phase2_practical_effective": "2026-06-22",
+}
+
+
 def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
     """ACH credit under Nacha False Pretenses risk — sibling of Scenario 3.
 
-    Cite: Nacha Risk Management Phase 1 (Mar 20, 2026) / Phase 2 (Jun 19, 2026).
+    Cite: Nacha Risk Management Phase 1 (Mar 20, 2026) / Phase 2 (rule Jun 19, 2026;
+    practical Jun 22, 2026 — next banking day after the Jun 19 holiday).
     Monitoring duty — not a mandatory pre-push Never rule; Gate still fail-closes on blank.
     """
     src = "https://www.nacha.org/news/new-nacha-risk-management-rules-now-effect"
@@ -481,8 +489,9 @@ def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
             "gate-nacha-false-pretenses-v1",
             "HOLD",
             "Name the role: ODFI, RDFI, or Originator. Empty is not a no.",
-            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 practical Jun 22 2026)",
             source=src,
+            **NACHA_PHASE,
         )
     if suspected not in ("yes", "no") or who_checked not in ("yes", "no"):
         return _pack(
@@ -490,7 +499,7 @@ def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
             "HOLD",
             "Need: False Pretenses suspected?, who/what/payee sealed? Unknown fails closed.",
             role=role,
-            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 practical Jun 22 2026)",
             source=src,
         )
     if suspected == "yes" and who_checked != "yes":
@@ -499,7 +508,7 @@ def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
             "NEVER",
             "False Pretenses suspected (identity / authority / account ownership lie) without sealed who/what/payee.",
             role=role,
-            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 practical Jun 22 2026)",
             source=src,
             definition=(
                 "Inducement by misrepresenting identity, association/authority, "
@@ -512,7 +521,7 @@ def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
             "HOLD",
             "Suspected False Pretenses with a sealed check on file — human review before ACH credit.",
             role=role,
-            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+            cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 practical Jun 22 2026)",
             source=src,
         )
     return _pack(
@@ -520,7 +529,7 @@ def evaluate_nacha_false_pretenses(body: dict) -> dict[str, Any]:
         "CLEAR",
         "No False Pretenses flag and who/what/payee sealed — may this ACH credit proceed under that seal.",
         role=role,
-        cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 Jun 19 2026)",
+        cite="Nacha Risk Management — False Pretenses (Phase 1 Mar 20 2026 / Phase 2 practical Jun 22 2026)",
         source=src,
         note="Nacha requires risk-based monitoring; it does not itself mandate a pre-posting Never.",
     )
@@ -1063,9 +1072,13 @@ MOUTHS = (
         ],
         "source": (
             "Nacha Risk Management — False Pretenses. Phase 1 live Mar 20 2026; "
-            "Phase 2 Jun 19 2026. Monitoring duty — not itself a pre-push mandate."
+            "Phase 2 rule date Jun 19 2026, practical effective Jun 22 2026 "
+            "(next banking day). Monitoring duty — not itself a pre-push mandate."
         ),
         "source_url": "https://www.nacha.org/news/new-nacha-risk-management-rules-now-effect",
+        "phase1_effective": "2026-03-20",
+        "phase2_rule_date": "2026-06-19",
+        "phase2_practical_effective": "2026-06-22",
     },
     {
         "id": "cl7-handoff",
@@ -1239,6 +1252,12 @@ def evaluate(mid: str, body: dict) -> dict[str, Any]:
     }[mid]
     raw_body = body if isinstance(body, dict) else {}
     result = fn(raw_body)
+    if mid == "nacha-false-pretenses" and isinstance(result, dict):
+        result.setdefault("phase1_effective", NACHA_PHASE["phase1_effective"])
+        result.setdefault("phase2_rule_date", NACHA_PHASE["phase2_rule_date"])
+        result.setdefault(
+            "phase2_practical_effective", NACHA_PHASE["phase2_practical_effective"]
+        )
     # Strip PII-ish free text from scope inputs — flags/chips only.
     safe_inputs = {
         k: v
@@ -1305,7 +1324,7 @@ def manifest(mid: str, public_url: str) -> dict[str, Any]:
     if not m:
         return {"error": "unknown_mouth"}
     base = _base(public_url)
-    return {
+    out = {
         "spec": m["spec"],
         "name": m["title"],
         "promise": m["lede"],
@@ -1315,3 +1334,8 @@ def manifest(mid: str, public_url: str) -> dict[str, Any]:
         "source": m.get("source"),
         "their_production": False,
     }
+    for key in ("phase1_effective", "phase2_rule_date", "phase2_practical_effective"):
+        if m.get(key):
+            out[key] = m[key]
+    return out
+

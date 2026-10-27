@@ -431,6 +431,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/canary.json",
         "/.well-known/clear.json",
         "/.well-known/rail-truth.json",
+        "/.well-known/qusfi.json",
         "/.well-known/deny-registry.json",
         "/.well-known/seal.json",
         "/.well-known/seal-anchor.json",
@@ -1992,6 +1993,8 @@ def well_known_gate():
             "canary": f"{advertised_url()}/.well-known/canary.json",
             "canary_report": f"{advertised_url()}/v1/canary/bypass",
             "rail_truth": f"{advertised_url()}/.well-known/rail-truth.json",
+            "qusfi": f"{advertised_url()}/.well-known/qusfi.json",
+            "qusfi_lookup": f"{advertised_url()}/v1/qusfi",
             "deny_registry": f"{advertised_url()}/.well-known/deny-registry.json",
             "clear": f"{advertised_url()}/clear",
             "clear_json": f"{advertised_url()}/.well-known/clear.json",
@@ -2189,6 +2192,34 @@ def well_known_rail_truth():
     except ImportError:
         import rail_truth as rail_truth_mod
     return jsonify(rail_truth_mod.manifest(advertised_url()))
+
+
+def _qusfi():
+    try:
+        from gate import qusfi as qusfi_mod
+    except ImportError:
+        import qusfi as qusfi_mod
+    return qusfi_mod
+
+
+@app.route("/.well-known/qusfi.json")
+def well_known_qusfi():
+    return jsonify(_qusfi().head(advertised_url()))
+
+
+@app.route("/v1/qusfi")
+def qusfi_lookup():
+    ident = (request.args.get("aba") or request.args.get("id") or "").strip()
+    body = _qusfi().lookup(ident)
+    if body.get("error"):
+        return jsonify(body), 400
+    return jsonify(body)
+
+
+@app.route("/v1/qusfi/check", methods=["POST"])
+def qusfi_check():
+    payload = request.get_json(silent=True) or {}
+    return jsonify(_qusfi().check(payload))
 
 
 @app.route("/v1/rail-truth")
@@ -5256,6 +5287,7 @@ def sitemap():
         "/.well-known/trusted-contact.json",
         "/.well-known/fednow-prepush.json",
         "/.well-known/nacha-false-pretenses.json",
+        "/.well-known/qusfi.json",
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
@@ -5299,7 +5331,8 @@ def llms_txt():
         f"- ADMT (11 CCR § 7200(b)): {advertised_url()}/admt",
         f"- Trusted Contact Hold: {advertised_url()}/trusted-contact",
         f"- FedNow/RTP Pre-push (FPC May 15 2026): {advertised_url()}/fednow-prepush",
-        f"- Nacha False Pretenses (Phase 1/2 2026): {advertised_url()}/nacha-false-pretenses",
+        f"- Nacha False Pretenses (Phase 1 Mar 20 2026 / Phase 2 practical Jun 22 2026): {advertised_url()}/nacha-false-pretenses",
+        f"- QUSFI lookup (Model 785 LOC issuers, not a bank score): {advertised_url()}/v1/qusfi?aba=26014685",
         f"- CL7 AIS/ECDIS handoff Seal: {advertised_url()}/cl7-handoff",
         f"- Stair (occupied egress — we will not weld): {advertised_url()}/stair",
         f"- DSP Reject (§ 202.1104 14-day report): {advertised_url()}/dsp-reject",
@@ -5569,6 +5602,23 @@ def openapi_full():
                 "/.well-known/register.json": {"get": {"summary": "Infrastructure register. Mouth + scale. Not SaaS."}},
                 "/.well-known/operator.json": {"get": {"summary": "Operator invoice contract. One write. Licensed only."}},
                 "/.well-known/rail-truth.json": {"get": {"summary": "Rail finality + loss oracle"}},
+                "/.well-known/qusfi.json": {
+                    "get": {
+                        "summary": "QUSFI list dates + PDF hashes. Model 785 LOC issuers, not a bank score."
+                    }
+                },
+                "/v1/qusfi": {
+                    "get": {
+                        "summary": "QUSFI lookup ?aba=26014685. Current vs prior list. Grandfather is Model 786 §11A(3).",
+                        "security": [],
+                    }
+                },
+                "/v1/qusfi/check": {
+                    "post": {
+                        "summary": "QUSFI + confirmation channel. Phone/email-on-instrument HALT. No call-to-confirm path.",
+                        "security": [],
+                    }
+                },
                 "/.well-known/deny-registry.json": {"get": {"summary": "Negative deny registry discovery"}},
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
