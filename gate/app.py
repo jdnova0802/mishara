@@ -5667,7 +5667,7 @@ def openapi_full():
                 },
                 "/v1/qusfi/check": {
                     "post": {
-                        "summary": "QUSFI + confirmation channel. Phone/email-on-instrument HALT. No call-to-confirm path.",
+                        "summary": "QUSFI + confirmation channel. Phone/email HALT. lloyds_fal=yes applies Y5410 six-month issuing-bank confirm (FAL, not NAIC surplus credit).",
                         "security": [],
                     }
                 },

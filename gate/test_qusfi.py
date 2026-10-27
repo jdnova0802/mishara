@@ -46,6 +46,8 @@ class QusfiTests(unittest.TestCase):
         self.assertIn("not a general bank creditworthiness score", data["scope"].lower())
         self.assertFalse(data["confirmation"]["call_to_confirm_path"])
         self.assertIn("/v1/qusfi/diff", data["urls"]["diff"])
+        self.assertEqual(data["clocks"]["lloyds_six_month_confirm"]["bulletin"], "Y5410")
+        self.assertIn("not naic", data["clocks"]["lloyds_six_month_confirm"]["scope"].lower())
         self.assertNotIn("their_production", data)
 
     def test_ccb_off_current_on_prior(self):
@@ -108,6 +110,62 @@ class QusfiTests(unittest.TestCase):
         self.assertFalse(body["halt"])
         self.assertIn("not automatically dead", body["not_a_claim"])
 
+    def test_y5410_empty_confirm_halts_fal_not_surplus_credit(self):
+        body = self.client.post(
+            "/v1/qusfi/check",
+            json={
+                "aba": qusfi.BOC_NY_ABA,
+                "confirmation_channel": "advised_mt760_via_own_bank",
+                "event": "existing",
+                "lloyds_fal": "yes",
+                "as_of": "2026-10-27",
+            },
+        ).get_json()
+        self.assertEqual(body["word"], "HALT")
+        self.assertTrue(body["halt"])
+        self.assertTrue(body["lloyds_y5410"]["applied"])
+        self.assertFalse(body["lloyds_y5410"]["ok"])
+        self.assertIn("Funds at Lloyd's", body["reason"])
+        self.assertIn("not NAIC", body["not_a_claim_y5410"])
+        skipped = self.client.post(
+            "/v1/qusfi/check",
+            json={
+                "aba": qusfi.BOC_NY_ABA,
+                "confirmation_channel": "advised_mt760_via_own_bank",
+                "event": "existing",
+            },
+        ).get_json()
+        self.assertEqual(skipped["word"], "CLEAR")
+        self.assertFalse(skipped["lloyds_y5410"]["applied"])
+
+    def test_y5410_fresh_confirm_clears_when_qusfi_clears(self):
+        body = self.client.post(
+            "/v1/qusfi/check",
+            json={
+                "aba": qusfi.BOC_NY_ABA,
+                "confirmation_channel": "advised_mt760_via_own_bank",
+                "event": "existing",
+                "lloyds_fal": "yes",
+                "issuing_bank_confirm_at": "2026-04-27",
+                "as_of": "2026-10-27",
+            },
+        ).get_json()
+        self.assertEqual(body["word"], "CLEAR")
+        self.assertEqual(body["lloyds_y5410"]["due"], "2026-10-27")
+        late = self.client.post(
+            "/v1/qusfi/check",
+            json={
+                "aba": qusfi.BOC_NY_ABA,
+                "confirmation_channel": "advised_mt760_via_own_bank",
+                "event": "existing",
+                "lloyds_fal": "yes",
+                "issuing_bank_confirm_at": "2026-04-26",
+                "as_of": "2026-10-27",
+            },
+        ).get_json()
+        self.assertEqual(late["word"], "HALT")
+        self.assertEqual(late["lloyds_y5410"]["due"], "2026-10-26")
+
     def test_diff_drops_ccb_and_keeps_boc(self):
         r = self.client.get("/v1/qusfi/diff?from=2025-12-31&to=2026-09-30")
         self.assertEqual(r.status_code, 200)
@@ -131,6 +189,9 @@ class QusfiTests(unittest.TestCase):
         html = self.client.get("/diligence").get_data(as_text=True).lower()
         self.assertIn("next evergreen/renewal cannot support surplus credit", html)
         self.assertIn("model 786", html)
+        self.assertIn("y5410", html)
+        self.assertIn("funds at lloyd", html)
+        self.assertIn("not naic surplus credit", html)
         self.assertNotIn("call to confirm", html)
         self.assertNotIn('href="tel:', html)
 
