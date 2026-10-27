@@ -168,9 +168,58 @@ def head(public_url: str = "") -> dict[str, Any]:
             "head": f"{base}/.well-known/qusfi.json" if base else "/.well-known/qusfi.json",
             "lookup": f"{base}/v1/qusfi" if base else "/v1/qusfi",
             "check": f"{base}/v1/qusfi/check" if base else "/v1/qusfi/check",
+            "diff": f"{base}/v1/qusfi/diff" if base else "/v1/qusfi/diff",
         },
         "their_production": False,
     }
+
+
+def available_as_of() -> list[str]:
+    return [row["as_of"] for row in load_lists()["lists"]]
+
+
+def diff(from_as_of: str | None = None, to_as_of: str | None = None) -> dict[str, Any]:
+    """Set difference of two dated QUSFI lists. Search as a drop list, not a database."""
+    start = (from_as_of or PRIOR_AS_OF).strip()
+    end = (to_as_of or CURRENT_AS_OF).strip()
+    known = available_as_of()
+    if start not in known or end not in known:
+        return {
+            "spec": SPEC,
+            "error": "unknown_list_date",
+            "known_as_of": known,
+            "scope": SCOPE,
+        }
+    old = _index(start)
+    new = _index(end)
+    dropped_ids = sorted(set(old) - set(new), key=lambda i: (len(i), i))
+    added_ids = sorted(set(new) - set(old), key=lambda i: (len(i), i))
+    dropped = [old[i] for i in dropped_ids]
+    added = [new[i] for i in added_ids]
+    body: dict[str, Any] = {
+        "spec": SPEC,
+        "from": _list_meta(start),
+        "to": _list_meta(end),
+        "dropped": dropped,
+        "added": added,
+        "dropped_count": len(dropped),
+        "added_count": len(added),
+        "scope": SCOPE,
+        "not_a_score": (
+            "A dropped ABA is off the later list. That is not a credit rating. "
+            "Model 786 §11A(3) still grandfathers paper that was acceptable at issuance."
+        ),
+        "claim_when_dropped": CLAIM_OFF_LIST,
+        "not_a_claim": NOT_A_CLAIM,
+        "their_production": False,
+    }
+    if CCB_NY_ABA in dropped_ids:
+        body["example"] = {
+            "id": CCB_NY_ABA,
+            "label": old[CCB_NY_ABA]["label"],
+            "claim": CLAIM_OFF_LIST,
+        }
+    return body
 
 
 def lookup(ident: str) -> dict[str, Any]:

@@ -436,6 +436,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/seal.json",
         "/.well-known/seal-anchor.json",
         "/.well-known/evidence-head.json",
+        "/.well-known/evidence-witness.json",
         "/.well-known/record.json",
         "/.well-known/incidents.json",
         "/.well-known/red-team.json",
@@ -2000,6 +2001,7 @@ def well_known_gate():
             "clear_json": f"{advertised_url()}/.well-known/clear.json",
             "clear_api": f"{advertised_url()}/v1/clear",
             "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
+            "evidence_witness": f"{advertised_url()}/.well-known/evidence-witness.json",
             "receipt": f"{advertised_url()}/.well-known/receipt/{{event_id}}.json",
             "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{{event_id}}/proof.json",
             "seal": f"{advertised_url()}/seal",
@@ -2211,6 +2213,14 @@ def well_known_qusfi():
 def qusfi_lookup():
     ident = (request.args.get("aba") or request.args.get("id") or "").strip()
     body = _qusfi().lookup(ident)
+    if body.get("error"):
+        return jsonify(body), 400
+    return jsonify(body)
+
+
+@app.route("/v1/qusfi/diff")
+def qusfi_diff():
+    body = _qusfi().diff(request.args.get("from"), request.args.get("to"))
     if body.get("error"):
         return jsonify(body), 400
     return jsonify(body)
@@ -3055,6 +3065,42 @@ def well_known_evidence_packet(event_id: str):
             },
         }
     )
+
+
+@app.route("/.well-known/evidence-witness.json")
+def well_known_evidence_witness():
+    try:
+        from gate import tlog_witness as tlog_witness_mod
+    except ImportError:
+        import tlog_witness as tlog_witness_mod
+    return jsonify(tlog_witness_mod.manifest(advertised_url()))
+
+
+@app.route("/v1/evidence-witness/add-checkpoint", methods=["POST", "GET"])
+def evidence_witness_add_checkpoint():
+    try:
+        from gate import tlog_witness as tlog_witness_mod
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import tlog_witness as tlog_witness_mod
+        import evidence_log as evidence_log_mod
+
+    if request.method == "GET":
+        return jsonify(tlog_witness_mod.manifest(advertised_url()))
+    payload = request.get_json(silent=True) or {}
+    try:
+        old_size = int(payload.get("old_size") if payload.get("old_size") is not None else 0)
+    except (TypeError, ValueError):
+        old_size = 0
+    rows = db.with_clearance_stamps(db.list_bind_events_chronological())
+    leaves = evidence_log_mod.log_from_rows(rows)
+    out = tlog_witness_mod.add_checkpoint(
+        leaves=leaves,
+        old_size=old_size,
+        old_root=(payload.get("old_root") or None),
+        origin_line=(payload.get("origin") or None),
+    )
+    return jsonify(out), (200 if out.get("ok") else 400)
 
 
 @app.route("/.well-known/evidence-head.json")
@@ -5613,9 +5659,26 @@ def openapi_full():
                         "security": [],
                     }
                 },
+                "/v1/qusfi/diff": {
+                    "get": {
+                        "summary": "QUSFI dropped/added ABAs between two dated lists. Not a bank score.",
+                        "security": [],
+                    }
+                },
                 "/v1/qusfi/check": {
                     "post": {
                         "summary": "QUSFI + confirmation channel. Phone/email-on-instrument HALT. No call-to-confirm path.",
+                        "security": [],
+                    }
+                },
+                "/.well-known/evidence-witness.json": {
+                    "get": {
+                        "summary": "C2SP tlog-witness origin + last stored checkpoint. Cosign is add-checkpoint, not a free sign.",
+                    }
+                },
+                "/v1/evidence-witness/add-checkpoint": {
+                    "post": {
+                        "summary": "Cosign evidence checkpoint after consistency vs last stored size (C2SP tlog-witness subset).",
                         "security": [],
                     }
                 },
