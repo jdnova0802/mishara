@@ -33,7 +33,16 @@
     "name": "Nisaba LLC",
     "url": "{{ gate_public_url }}",
     "description": "Stops an agent before it binds coverage or sends money, and leaves a receipt anyone can open.",
-    "brand": {"@type": "Brand", "name": "Gate"}
+    "brand": {"@type": "Brand", "name": "Gate"},
+    "founder": {
+      "@type": "Person",
+      "name": "Demond Davis",
+      "url": "https://www.linkedin.com/in/demond-davis-0b513b2ab"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/velaru",
+      "https://www.linkedin.com/in/demond-davis-0b513b2ab"
+    ]
   }
   </script>
 </head>
@@ -71,7 +80,10 @@
       {% include "_live_strip.html" %}
     </div>
     <div class="container footer-links">
-      Nisaba LLC ·
+      Nisaba LLC · Demond Davis ·
+      <a href="https://www.linkedin.com/in/demond-davis-0b513b2ab" rel="noopener">LinkedIn</a> ·
+      <a href="https://www.linkedin.com/company/velaru" rel="noopener">Company</a> ·
+      <a href="{{ url_for('finding_ccb_page') }}">QUSFI finding</a> ·
       <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
       <a href="{{ url_for('trust') }}">Trust</a> ·

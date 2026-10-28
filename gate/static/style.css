@@ -160,6 +160,12 @@ body:has(.entry-first) nav { margin-bottom: 0; }
 
 .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+.hero p.hero-id {
+  font-size: 0.95rem;
+  max-width: 36rem;
+  margin: 1.25rem auto 0;
+}
+
 .states {
   display: flex;
   gap: 0.5rem;
