@@ -1,46 +1,40 @@
-# Desktop orders — Elite controversial rabbit hole lineup (FULL)
+# Desktop orders — Elite controversial lineup (FULL + CRITICAL URLS)
 
-**Date:** 2026-10-28 (expanded: all H seats + voting window V)  
+**Date:** 2026-10-28  
 **Doc:** `gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`  
 **Branch:** `cursor/rabbit-hole-tab-lineup-53a1`
 
 ---
 
-## PASTE — Cursor / chat
+## PASTE
 
 ```
-FULL elite controversial lineup is live (58 seats).
+URL-complete elite controversial lineup is live.
 Doc: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
 
-Windows:
-  D — Power & surveillance (12)
-  E — Money & capture (12)
-  F — Truth fights (12)
-  H — Expansion empire (10) — ALL previously deferred seats
-  V — Voting / election admin (12) — process/vendors/audits/cert
-  G — Stall launchers (6)
+Every seat (D/E/F/H/V) now has:
+  - Primary URL (official surface)
+  - Critical URLs (reports, maps, dockets, standards that make convos endless)
 
-Four forks on every seat: cui bono / primary vs narrative / competence vs conspiracy / falsify
+HOT LANE OPEN FIRST:
+  Flock + DeFlock + EFF
+  CISA + EAC certified systems + Verified Voting verifier
+  ICIJ Offshore Leaks
+  Charlotin hallucinations
+  ICE 287(g)
+  FTC PBM staff report PDF
+  Invitation Homes IR
+  DOJ forfeiture
+  NAIC
+  DOJ v Apple
 
-YOUR HOT LANE (ranked):
-  1 Flock/ALPR (D1)
-  2 Voting infrastructure & cert mouth (V1–V4, V8–V10)
-  3 ICIJ offshore (E1)
-  4 Charlotin AI hallucinations (F2) — Mishara/Gate cousin
-  5 287(g)/ICE data plumbing (H1)
-  6 Palantir (D2)
-  7 PBMs (E7)
-  8 Climate insurance retreat (H6)
-  9 Defense primes revolving door (H2)
-  10 Asset forfeiture (E10)
+Then open one window bundle (D/E/F/H/V) — not all at once.
 
-V-window rule: process/law/vendors/RLAs first — no cartoon takes without primaries.
-Victim-safety on Epstein/foster seats.
-Primaries ≥50%. One seat for first 90 minutes.
+Rules: primaries ≥50%; one seat/90m; V=process first; victim-safety on Epstein/foster.
 ```
 
 ---
 
 ## One-liner
 
-> Full controversy desktop: D+E+F+H+V = 58 seats. Hot lane = Flock, voting cert, ICIJ, Charlotin, 287(g), Palantir, PBMs, climate insurance. Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
+> Every controversy seat now has Primary + Critical URLs. Start hot lane (Flock/DeFlock, voting cert, ICIJ, Charlotin, 287(g), FTC PBMs). Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
