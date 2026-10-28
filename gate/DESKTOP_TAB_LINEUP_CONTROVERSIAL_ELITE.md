@@ -34,6 +34,10 @@
 | **8** | Schools, speech, faith, culture | Campus money/speech, culture-war machinery |
 | **9** | Voting machines and election rules | How votes are counted, audited, certified — process first |
 | **10** | Research tools | Search engines for power, courts, FOIA, leaks |
+| **11** | Ethnicities, nations, and mass killing | Diaspora fights, partition, genocide archives, denial politics |
+| **12** | 20th century by decade | 1900s→1990s shocks (crack epidemic, world wars, coups, pandemics…) |
+| **13** | 19th century megas | Empire, abolition fights, industrial hell, Native removal, Opium Wars |
+| **14** | Ancient & medieval high-return holes | Slavery, empire, scripture-as-law, plague, conquest — still argued today |
 
 **If you only open one lane tonight:** go to [Your hot lane](#your-hot-lane).
 
@@ -55,6 +59,10 @@ Topics that match what you’ve already been chasing (camera profits, power mout
 | 8 | Pharmacy middlemen (benefit managers) | Quiet extraction machine |
 | 9 | Climate insurance retreat | Who eats the risk when coasts burn/flood |
 | 10 | Defense contractors + revolving door | War money as priesthood |
+| 11 | Ethnic genocide archives (Shoah / Armenia / Rwanda…) | Maximum human-stakes rabbit holes |
+| 12 | Crack epidemic + 1986 drug law | Race, policing, sentencing — forever fight |
+| 13 | Partition of India / Ireland / Palestine entry points | Ethnicity + borders as civilizational mouth |
+| 14 | Ancient slavery & empire texts (Perseus / Sourcebooks) | Old documents, modern arguments |
 
 ---
 
@@ -759,6 +767,453 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 
 ---
 
+# PART 11 — Ethnicities, nations, and mass killing
+
+**In plain English:** This part is about **people-groups** — ethnicity, nation, religion-as-ethnicity, diaspora, partition, and genocide. Every seat here can start a multi-hour fight. Use survivor archives and official documents. Do not harass living communities.
+
+### 11.1 Holocaust testimony archives
+| Role | Link |
+|---|---|
+| USC Shoah Foundation | https://sfi.usc.edu/ |
+| Visual History Archive online | https://vhaonline.usc.edu/ |
+| Yale Fortunoff Video Archive | https://fortunoff.library.yale.edu/ |
+| U.S. Holocaust Memorial Museum collections | https://www.ushmm.org/collections |
+
+---
+
+### 11.2 Armenian Genocide testimonies and documents
+| Role | Link |
+|---|---|
+| Shoah Foundation Armenian collection | https://sfi.usc.edu/collections/armenian |
+| Armenian National Institute | https://www.armenian-genocide.org/ |
+| Near East Relief digital museum | https://neareastmuseum.com/ |
+
+**Forever fight:** recognition vs denial · what counts as genocide · diaspora politics today.
+
+---
+
+### 11.3 Holodomor (Ukraine famine 1932–33)
+| Role | Link |
+|---|---|
+| National Museum of the Holodomor-Genocide | https://holodomormuseum.org.ua/en/ |
+| Library of Congress Holodomor research guide | https://guides.loc.gov/holodomor |
+| Yale Genocide Studies Program | https://gsp.yale.edu/ |
+
+---
+
+### 11.4 Rwandan Genocide
+| Role | Link |
+|---|---|
+| UN International Residual Mechanism (ICTR legacy) | https://www.irmct.org/ |
+| Shoah Foundation Rwanda testimonies | https://sfi.usc.edu/ |
+| Yale Genocide Studies — Rwanda | https://gsp.yale.edu/case-studies/rwanda |
+
+---
+
+### 11.5 Cambodian Genocide (Khmer Rouge)
+| Role | Link |
+|---|---|
+| Documentation Center of Cambodia | https://www.d.dccam.org/ |
+| Yale Cambodian Genocide Program | https://gsp.yale.edu/case-studies/cambodian-genocide-program |
+| Extraordinary Chambers archives entry | https://www.eccc.gov.kh/ |
+
+---
+
+### 11.6 Nanjing Massacre / Second Sino-Japanese War memory
+| Role | Link |
+|---|---|
+| Shoah Foundation Nanjing collection | https://sfi.usc.edu/ |
+| National Archives of Japan search | https://www.digital.archives.go.jp/ |
+| Yale Avalon / war-crimes docs entry | https://avalon.law.yale.edu/ |
+
+---
+
+### 11.7 Partition of India (1947) — Hindu / Muslim / Sikh trauma
+| Role | Link |
+|---|---|
+| British Library India Office records | https://www.bl.uk/collection-guides/india-office-records |
+| Partition Museum | https://www.partitionmuseum.org/ |
+| National Archives of India | https://nationalarchives.nic.in/ |
+
+---
+
+### 11.8 Northern Ireland / The Troubles
+| Role | Link |
+|---|---|
+| CAIN (Conflict Archive on the Internet) | https://cain.ulster.ac.uk/ |
+| UK National Archives | https://www.nationalarchives.gov.uk/ |
+| Stormont / Belfast Agreement texts (Avalon / official) | https://avalon.law.yale.edu/ |
+
+---
+
+### 11.9 Israeli–Palestinian documentary stacks (process + archives)
+**In plain English:** One of the most radioactive ethnicity/nation fights on earth. Stay on **primary documents** (treaties, UN resolutions, archives) or you drown in propaganda.
+
+| Role | Link |
+|---|---|
+| UN Question of Palestine documents | https://www.un.org/unispal/ |
+| Avalon Middle East documentary record | https://avalon.law.yale.edu/subject_menus/mideast.asp |
+| Israeli State Archives | https://www.archives.gov.il/en/ |
+| Palestinian Refugee agency (UNRWA) | https://www.unrwa.org/ |
+
+---
+
+### 11.10 Balkans / Yugoslav wars
+| Role | Link |
+|---|---|
+| ICTY legacy (UN residual mechanism) | https://www.irmct.org/ |
+| Srebrenica memorial / research entry | https://www.srebrenica.org.uk/ |
+| CIA Reading Room / FRUS search | https://history.state.gov/historicaldocuments |
+
+*FRUS = Foreign Relations of the United States (official U.S. diplomatic document series).*
+
+---
+
+### 11.11 Native American nations — treaties, removal, boarding schools
+| Role | Link |
+|---|---|
+| Native American treaties (Avalon) | https://avalon.law.yale.edu/subject_menus/ntreaty.asp |
+| National Archives Native American records | https://www.archives.gov/research/native-americans |
+| Federal Indian Boarding School Initiative | https://www.bia.gov/service/federal-indian-boarding-school-initiative |
+
+---
+
+### 11.12 Caste (India and diaspora)
+| Role | Link |
+|---|---|
+| Government of India social justice ministry | https://socialjustice.gov.in/ |
+| Supreme Court of India judgments | https://main.sci.gov.in/ |
+| UN human rights / caste discrimination materials | https://www.ohchr.org/ |
+
+---
+
+### 11.13 Antisemitism / Islamophobia monitoring (competing definitions fight)
+| Role | Link |
+|---|---|
+| IHRA working definition hub | https://www.holocaustremembrance.com/ |
+| U.S. State Dept. antisemitism envoy | https://www.state.gov/ |
+| FBI hate crime statistics | https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/hate-crime |
+| CAIR / ADL (adversarial pair — read both, trust neither blindly) | https://www.cair.com/ · https://www.adl.org/ |
+
+---
+
+### 11.14 Chinese diaspora / “model minority” / Exclusion Act history
+| Role | Link |
+|---|---|
+| Chinese Exclusion Act (National Archives) | https://www.archives.gov/research/chinese-americans/guide |
+| Library of Congress Chinese immigration | https://www.loc.gov/ |
+
+---
+
+### 11.15 Latin American dirty wars / disappearances
+| Role | Link |
+|---|---|
+| National Security Archive — Latin America | https://nsarchive.gwu.edu/ |
+| Argentina’s Archivo Nacional de la Memoria (search) | https://www.argentina.gob.ar/ |
+| Chile Rettig / Valech report entries via NSArchive | https://nsarchive.gwu.edu/ |
+
+---
+
+# PART 12 — 20th century by decade
+
+**How to use:** Pick a decade. Open 1–2 “must-read” links. Follow the forever fight line. This is where a ton of “missing massive stuff” lives.
+
+### 1900–1909 — Empire high noon / early mass politics
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Philippine–American War aftermath | Liberation vs occupation | https://www.archives.gov/ · https://history.state.gov/historicaldocuments |
+| Herero and Nama genocide (German SW Africa) | Colonial genocide recognition | https://gsp.yale.edu/ · German Federal Archives https://www.bundesarchiv.de/ |
+| 1905 Russian Revolution / Bloody Sunday | Reform vs revolution | Avalon / FRUS / https://www.marxists.org/archive/ |
+
+---
+
+### 1910–1919 — World War I and its ethnic aftershocks
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| World War I origins | Accident vs inevitability vs elite choice | https://avalon.law.yale.edu/ · https://www.nationalarchives.gov.uk/ |
+| Armenian Genocide (wartime) | Genocide vs wartime tragedy (denial politics) | https://sfi.usc.edu/collections/armenian |
+| 1918 flu pandemic | Public health power vs liberty | https://www.cdc.gov/ · https://www.archives.gov/ |
+| Treaty of Versailles | Too harsh / too soft / doomed peace | https://avalon.law.yale.edu/imt/kfront.asp · https://history.state.gov/historicaldocuments |
+| Russian Revolution / Red Terror | Emancipation vs mass crime | https://www.marxists.org/archive/ · NSArchive |
+
+---
+
+### 1920–1929 — Aftershocks, eugenics, Prohibition
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Prohibition & organized crime | Moral reform vs black markets | https://www.archives.gov/ · https://www.fbi.gov/history |
+| U.S. Immigration Act of 1924 (national origins quotas) | Borders vs racism in law | https://www.archives.gov/milestone-documents/immigration-act-of-1924 |
+| Tulsa Race Massacre (1921) | Riot narrative vs massacre / cover-up | https://www.archives.gov/ · https://www.okhistory.org/ |
+| Rise of fascism in Italy | Charisma vs structural crisis | Avalon / national archives |
+
+---
+
+### 1930–1939 — Depression, Holodomor, Nazi rise
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Holodomor | Genocide vs famine-as-policy vs tragedy | https://holodomormuseum.org.ua/en/ · https://guides.loc.gov/holodomor |
+| New Deal | Salvation vs socialism creep | https://www.archives.gov/ · https://fraser.stlouisfed.org/ |
+| Nazi seizure of power | Unique evil vs repeatable pattern | https://www.ushmm.org/ · https://www.bundesarchiv.de/ |
+| Spanish Civil War | Dress rehearsal for WWII | https://www.archives.gov/ · British Library |
+
+---
+
+### 1940–1949 — World War II, Holocaust, nuclear age, partitions
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Holocaust | Industrial genocide as rupture in history | https://www.ushmm.org/ · https://sfi.usc.edu/ |
+| Atomic bombings of Hiroshima/Nagasaki | Necessary vs war crime | https://www.archives.gov/research/military/ww2/manhattan-project · https://www.trumanlibrary.gov/ |
+| Nuremberg trials | Victor’s justice vs law birth | https://avalon.law.yale.edu/subject_menus/imt.asp |
+| Partition of India | British exit vs elite bargain vs ethnic slaughter | https://www.bl.uk/collection-guides/india-office-records |
+| Nakba / Israeli independence 1948 | Independence vs catastrophe (dual archives) | https://www.un.org/unispal/ · https://www.archives.gov.il/en/ |
+| Chinese Civil War → PRC | Revolution vs catastrophe | FRUS · https://www.marxists.org/ |
+
+---
+
+### 1950–1959 — Cold War, McCarthy, Korea, coups
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Korean War | Forgotten war / who started / who prolonged | https://www.archives.gov/research/military/korean-war · FRUS |
+| McCarthyism / Red Scare | Necessary vigilance vs purge | https://www.archives.gov/ · https://vault.fbi.gov/ |
+| CIA early coups (Iran 1953, Guatemala 1954) | Containment vs imperial crime | https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ |
+| Emmett Till / early Civil Rights flashpoints | Local crime vs national system | https://www.archives.gov/research/african-americans |
+
+---
+
+### 1960–1969 — Decolonization, Civil Rights, Vietnam, assassinations
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Civil Rights Act / Voting Rights Act | Finished project vs unfinished | https://www.archives.gov/milestone-documents · https://www.congress.gov/ |
+| Vietnam War escalation | Domino theory vs imperial quagmire | https://www.archives.gov/research/military/vietnam-war · Pentagon Papers via https://www.archives.gov/research/pentagon-papers |
+| COINTELPRO against Black / New Left groups | Security vs dirty war at home | https://vault.fbi.gov/ |
+| 1968 global revolts | Liberation vs chaos | National archives multi-country |
+| Assassinations (JFK / MLK / RFK) | Lone actors vs networks | https://www.archives.gov/research/jfk · FBI Vault |
+
+---
+
+### 1970–1979 — Watergate, oil shock, Chile, Cambodia, Iran
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Watergate | Scandal vs system | https://www.archives.gov/research/investigations/watergate · https://www.nixonlibrary.gov/ |
+| Pinochet coup Chile 1973 | Anti-communist necessity vs terror state | https://nsarchive.gwu.edu/ |
+| Khmer Rouge Cambodia | Revolution → auto-genocide | https://gsp.yale.edu/case-studies/cambodian-genocide-program |
+| Iranian Revolution 1979 | Popular uprising vs theocracy | FRUS · https://www.archives.gov/ |
+| Church Committee (intel abuses) | Reform moment vs unfinished | https://www.intelligence.senate.gov/ |
+
+---
+
+### 1980–1989 — Crack epidemic, mass incarceration turn, late Cold War
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| **Crack epidemic + Anti-Drug Abuse Act of 1986** | Public health emergency vs racist sentencing regime (100:1 powder/crack disparity era) | https://www.ojp.gov/ncjrs/virtual-library/abstracts/indexed-legislative-history-anti-drug-abuse-act-1986-0 · https://www.congress.gov/ · https://bjs.ojp.gov/ · https://www.drugabuse.gov/ |
+| Iran–Contra | Rogue NSC vs presidential knowledge | https://www.archives.gov/research/iran-contra · NSArchive |
+| AIDS crisis early years | Neglect vs science race | https://www.cdc.gov/ · https://www.nih.gov/ |
+| End of Cold War / 1989 revolutions | Reagan won vs Gorbachev opened vs people power | FRUS · national archives |
+| Tiananmen 1989 | Protest vs crackdown memory | https://nsarchive.gwu.edu/ · https://www.archives.gov/ |
+
+**Crack epidemic deep dive (why it’s endless):**
+1. Was the spike driven by markets, policing stats, media panic, or CIA-adjacent trafficking allegations (Kerry Committee / Dark Alliance fights)?
+2. Did the 1986 law’s crack-vs-powder sentencing gap prove racial intent, disparate impact, or “moral panic” legislation?
+3. Did mass incarceration reduce violence — or warehouse a generation?
+4. What changed after the Fair Sentencing Act (2010) — and what didn’t?
+
+| Extra crack / drug-war sources | Link |
+|---|---|
+| National Institute on Drug Abuse | https://nida.nih.gov/ |
+| Bureau of Justice Statistics | https://bjs.ojp.gov/ |
+| Sentencing Commission reports | https://www.ussc.gov/ |
+| Kerry Committee / narcotics hearings (Congress) | https://www.congress.gov/ · https://www.govinfo.gov/ |
+| DEA history | https://www.dea.gov/ |
+
+---
+
+### 1990–1999 — New world order, Balkans, Rwanda, OJ, WTO
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Gulf War 1991 | Just war vs oil war | FRUS · https://www.archives.gov/ |
+| Rodney King / LA uprising 1992 | Police brutality vs “riot” framing | https://www.archives.gov/ · CourtListener |
+| Waco / Oklahoma City | State overreach vs domestic terror | https://vault.fbi.gov/ · https://www.archives.gov/ |
+| Rwandan Genocide 1994 | World watched / world shrugged | https://www.irmct.org/ · https://gsp.yale.edu/ |
+| Srebrenica 1995 | UN failure / ethnic cleansing | https://www.irmct.org/ |
+| OJ Simpson trial as racial Rorschach | Guilt vs system distrust | Court records / news archives |
+| WTO Seattle 1999 / anti-globalization | Democracy deficit vs free trade gospel | https://www.wto.org/ · labor archives |
+
+---
+
+# PART 13 — 19th century megas
+
+### 13.1 Haitian Revolution (1791–1804) — slavery’s earthquake
+| Role | Link |
+|---|---|
+| Internet Modern History Sourcebook (Haiti) | https://sourcebooks.fordham.edu/mod/modsbook.asp |
+| SlaveVoyages context | https://www.slavevoyages.org/ |
+| Avalon / diplomacy docs | https://avalon.law.yale.edu/ |
+
+---
+
+### 13.2 Trail of Tears / Indian Removal Act (1830s)
+| Role | Link |
+|---|---|
+| National Archives Native American records | https://www.archives.gov/research/native-americans |
+| Avalon Native treaties | https://avalon.law.yale.edu/subject_menus/ntreaty.asp |
+| Library of Congress | https://www.loc.gov/ |
+
+---
+
+### 13.3 Opium Wars (Britain / China)
+| Role | Link |
+|---|---|
+| British National Archives | https://www.nationalarchives.gov.uk/ |
+| Yale Avalon / China diplomacy | https://avalon.law.yale.edu/ |
+| Cambridge Digital Library / China materials entry | https://cudl.lib.cam.ac.uk/ |
+
+**Forever fight:** free trade vs drug imperialism · “century of humiliation” memory in modern China politics.
+
+---
+
+### 13.4 U.S. Civil War & Reconstruction
+| Role | Link |
+|---|---|
+| National Archives Civil War | https://www.archives.gov/research/military/civil-war |
+| Freedmen’s Bureau | https://www.archives.gov/research/african-americans/freedmens-bureau |
+| Avalon Confederate / constitutional docs | https://avalon.law.yale.edu/ |
+| Library of Congress Civil War | https://www.loc.gov/collections/?q=civil+war |
+
+**Forever fight:** states’ rights myth vs slavery · Reconstruction as unfinished revolution · Lost Cause propaganda.
+
+---
+
+### 13.5 Belgian Congo / Leopold’s rubber system (late 19th → early 20th)
+| Role | Link |
+|---|---|
+| UMass Du Bois papers (Congo) | https://credo.library.umass.edu/view/collection/mums312 |
+| British National Archives | https://www.nationalarchives.gov.uk/ |
+
+---
+
+### 13.6 Industrial Revolution hell (child labor, enclosure, famine)
+| Role | Link |
+|---|---|
+| British History Online | https://www.british-history.ac.uk/ |
+| UK National Archives | https://www.nationalarchives.gov.uk/ |
+| Irish Famine records (National Archives of Ireland) | https://www.nationalarchives.ie/ |
+
+---
+
+### 13.7 1848 revolutions / Communist Manifesto era
+| Role | Link |
+|---|---|
+| Marxists Internet Archive | https://www.marxists.org/archive/ |
+| Avalon | https://avalon.law.yale.edu/ |
+
+---
+
+### 13.8 Dreyfus Affair (France — antisemitism modern template)
+| Role | Link |
+|---|---|
+| French National Library Gallica | https://gallica.bnf.fr/ |
+| Avalon / human-rights archives | https://avalon.law.yale.edu/ |
+
+---
+
+# PART 14 — Ancient & medieval high-return holes
+
+**Why these still pay:** Modern fights about democracy, slavery, empire, religion-and-law, and “Western civilization” constantly loot these archives for ammo.
+
+### 14.1 Master libraries (start here)
+| Role | Link |
+|---|---|
+| Perseus Digital Library (Greek/Latin texts) | https://www.perseus.tufts.edu/hopper/ |
+| Internet Ancient History Sourcebook | https://sourcebooks.fordham.edu/ancient/asbook.asp |
+| Internet Medieval Sourcebook | https://sourcebooks.fordham.edu/sbook.asp |
+| Yale Avalon — ancient/medieval docs | https://avalon.law.yale.edu/subject_menus/ancient.asp |
+| Internet Classics Archive | https://classics.mit.edu/ |
+
+---
+
+### 14.2 Athenian democracy — who counted as a person
+**In plain English:** Famous “democracy” ran on slavery, excluded women, and restricted citizenship. Modern democracy arguments still smash into this.
+
+| Role | Link |
+|---|---|
+| Perseus (Aristotle Constitution of the Athenians, etc.) | https://www.perseus.tufts.edu/hopper/ |
+| Ancient History Sourcebook — Greece | https://sourcebooks.fordham.edu/ancient/asbook07.asp |
+
+---
+
+### 14.3 Roman slavery and empire
+| Role | Link |
+|---|---|
+| Perseus Roman texts | https://www.perseus.tufts.edu/hopper/ |
+| Ancient History Sourcebook — Rome | https://sourcebooks.fordham.edu/ancient/asbook09.asp |
+
+**Forever fight:** Was Rome “civilization” or extraction machine? (Both. Argue with texts.)
+
+---
+
+### 14.4 Exodus / conquest narratives (Bible as political dynamite)
+**In plain English:** Scripture used for liberation theology **and** conquest theology. Endless.
+
+| Role | Link |
+|---|---|
+| Parallel Bible / academic entry | https://www.sefaria.org/ · https://www.biblegateway.com/ |
+| Digital Dead Sea Scrolls | https://dss.collections.imj.org.il/ |
+
+---
+
+### 14.5 Code of Hammurabi / ancient law
+| Role | Link |
+|---|---|
+| Avalon Hammurabi | https://avalon.law.yale.edu/ancient/hamframe.asp |
+| Louvre / museum object entries | https://www.louvre.fr/ |
+
+---
+
+### 14.6 Peloponnesian War (Thucydides) — forever IR textbook
+| Role | Link |
+|---|---|
+| Perseus Thucydides | https://www.perseus.tufts.edu/hopper/ |
+| Classics MIT Thucydides | https://classics.mit.edu/Thucydides/pelopwar.html |
+
+**Forever fight:** Fear vs honor vs interest · democracy vs empire · “Thucydides Trap” modern meme vs what the text actually says.
+
+---
+
+### 14.7 Crusades
+| Role | Link |
+|---|---|
+| Internet Medieval Sourcebook — Crusades | https://sourcebooks.fordham.edu/sbook1k.asp |
+| Avalon | https://avalon.law.yale.edu/ |
+
+---
+
+### 14.8 Black Death (14th century)
+| Role | Link |
+|---|---|
+| Medieval Sourcebook — plague | https://sourcebooks.fordham.edu/sbook.asp |
+| Wellcome Collection | https://wellcomecollection.org/ |
+
+**Forever return:** pandemic power, scapegoating minorities, labor wages after mass death — rhymes with 1918 and 2020.
+
+---
+
+### 14.9 Mongol conquests
+| Role | Link |
+|---|---|
+| Internet History Sourcebooks | https://sourcebooks.fordham.edu/ |
+| UNESCO / Silk Roads program | https://en.unesco.org/silkroad/ |
+
+---
+
+### 14.10 Islamic Golden Age / convivencia / Inquisition triangle
+| Role | Link |
+|---|---|
+| Medieval Sourcebook — Islam | https://sourcebooks.fordham.edu/islam/islamsbook.asp |
+| Spanish Inquisition materials (search national archives) | https://www.culturaydeporte.gob.es/ |
+| Sefaria (Jewish texts) | https://www.sefaria.org/ |
+
+---
+
 ## Acronym cheat sheet (plain English)
 
 | Acronym | Plain English |
@@ -799,6 +1254,16 @@ https://www.ftc.gov/system/files/ftc_gov/pdf/pharmacy-benefit-managers-staff-rep
 https://www.invh.com/home/default.aspx
 https://www.justice.gov/afms
 https://www.naic.org/
+https://sfi.usc.edu/
+https://sfi.usc.edu/collections/armenian
+https://cain.ulster.ac.uk/
+https://www.un.org/unispal/
+https://nida.nih.gov/
+https://bjs.ojp.gov/
+https://www.ussc.gov/
+https://www.perseus.tufts.edu/hopper/
+https://sourcebooks.fordham.edu/ancient/asbook.asp
+https://avalon.law.yale.edu/
 
 === PART 3 SLAVERY STACK ===
 https://www.slavevoyages.org/
