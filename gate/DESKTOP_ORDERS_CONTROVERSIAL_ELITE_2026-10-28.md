@@ -1,4 +1,4 @@
-# Desktop orders — Elite controversial lineup (FULL + CRITICAL URLS)
+# Desktop orders — The Most Controversial Subject Document
 
 **Date:** 2026-10-28  
 **Doc:** `gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`  
@@ -9,32 +9,31 @@
 ## PASTE
 
 ```
-URL-complete elite controversial lineup is live.
+The Most Controversial Subject Document is rebuilt.
+
 Doc: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
 
-Every seat (D/E/F/H/V) now has:
-  - Primary URL (official surface)
-  - Critical URLs (reports, maps, dockets, standards that make convos endless)
+Layout (plain English parts):
+  1 Cameras, cops, data empires
+  2 Money, rent, drugs, capture
+  3 Slavery and forced labor (SlaveVoyages, reparations H.R.40, prison labor, TIP report, Uyghur forced-labor import ban, Congo archives…)
+  4 Body, medicine, science wars (Tuskegee, COVID origins, AI court hallucinations, Cass Review, eugenics…)
+  5 Empire, war, official secrets
+  6 Sex, power, institutional cover (victim-safety)
+  7 Race, borders, belonging
+  8 Schools, speech, culture, culture
+  9 Voting machines and election rules
+  10 Research tools
 
-HOT LANE OPEN FIRST:
-  Flock + DeFlock + EFF
-  CISA + EAC certified systems + Verified Voting verifier
-  ICIJ Offshore Leaks
-  Charlotin hallucinations
-  ICE 287(g)
-  FTC PBM staff report PDF
-  Invitation Homes IR
-  DOJ forfeiture
-  NAIC
-  DOJ v Apple
+Every topic: plain-English name + “what this is” + Main site + Must-read sources.
+Acronyms expanded in a cheat sheet.
 
-Then open one window bundle (D/E/F/H/V) — not all at once.
-
-Rules: primaries ≥50%; one seat/90m; V=process first; victim-safety on Epstein/foster.
+Start HOT LANE (Flock, election certification, offshore leaks, AI court fakes, SlaveVoyages, forced-labor bans, 287(g), drug middlemen…).
+Then one Part only. Victim-safety on trafficking/slavery-survivor/foster material.
 ```
 
 ---
 
 ## One-liner
 
-> Every controversy seat now has Primary + Critical URLs. Start hot lane (Flock/DeFlock, voting cert, ICIJ, Charlotin, 287(g), FTC PBMs). Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
+> Rebuilt as a plain-English controversy bible (10 parts) including full slavery/forced-labor stack + critical URLs on every topic. Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
