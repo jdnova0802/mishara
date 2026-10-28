@@ -35,9 +35,12 @@
 | **9** | Voting machines and election rules | How votes are counted, audited, certified — process first |
 | **10** | Research tools | Search engines for power, courts, FOIA, leaks |
 | **11** | Ethnicities, nations, and mass killing | Diaspora fights, partition, genocide archives, denial politics |
-| **12** | 20th century by decade | 1900s→1990s shocks (crack epidemic, world wars, coups, pandemics…) |
-| **13** | 19th century megas | Empire, abolition fights, industrial hell, Native removal, Opium Wars |
-| **14** | Ancient & medieval high-return holes | Slavery, empire, scripture-as-law, plague, conquest — still argued today |
+| **12** | 20th–21st century by decade (deep) | 1900s→2010s — crack, Unit 731, Iraq, 2008 crash, BLM, #MeToo, Snowden… |
+| **13** | 19th century megas | Haiti, Removal, Opium Wars, Civil War, Congo, Taiping, Scramble for Africa… |
+| **14** | Ancient & medieval high-return | Democracy-on-slavery, Rome, Crusades, Black Death, 1492… |
+| **15** | 15th–18th centuries bridge | Conquest, Reformation, witch trials, VOC empire, Atlantic revolutions |
+| **16** | Black freedom movements (full stack) | Garvey → Civil Rights → Black Power → Panthers → BLM — orgs, docs, fights |
+| **17** | Audience-gap topics | Gender, LGBTQ, disability, labor, faith, youth/elder, Global South, more ethnic lanes |
 
 **If you only open one lane tonight:** go to [Your hot lane](#your-hot-lane).
 
@@ -63,6 +66,10 @@ Topics that match what you’ve already been chasing (camera profits, power mout
 | 12 | Crack epidemic + 1986 drug law | Race, policing, sentencing — forever fight |
 | 13 | Partition of India / Ireland / Palestine entry points | Ethnicity + borders as civilizational mouth |
 | 14 | Ancient slavery & empire texts (Perseus / Sourcebooks) | Old documents, modern arguments |
+| 15 | Black freedom movements full stack (Part 16) | Garvey→Panthers→BLM chain |
+| 16 | 2000s Iraq/WMD + 2008 crash | Defining wars + bailouts of the century |
+| 17 | 2010s BLM + #MeToo + Snowden | Identity, gender, surveillance decade |
+| 18 | Audience-gap Part 17 | Whatever room you’re in — check the checklist |
 
 ---
 
@@ -1118,6 +1125,51 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 
 ---
 
+
+### 2000–2009 — War on Terror, financial crash, platforms born
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Bush v. Gore / 2000 election | Count vs certify vs court endgame | https://www.oyez.org/ · https://www.fec.gov/ · https://ballotpedia.org/ |
+| September 11, 2001 | Intelligence failure vs conspiracy mythology — stay on 9/11 Commission | https://www.9-11commission.gov/ · https://www.archives.gov/research/9-11 |
+| Afghanistan war start | Justice vs forever war | FRUS · https://www.archives.gov/ · https://nsarchive.gwu.edu/ |
+| Iraq War / WMD intelligence | Bad intel vs manufactured casus belli | https://nsarchive.gwu.edu/ · https://www.archives.gov/ · Chilcot (UK) https://www.gov.uk/government/publications/the-report-of-the-iraq-inquiry |
+| Guantánamo / torture memos / black sites | Security vs law-breaking | https://www.justice.gov/ · Senate torture report materials · https://nsarchive.gwu.edu/ |
+| Patriot Act / surveillance state expansion | Safety vs permanent emergency law | https://www.congress.gov/ · https://www.eff.org/ |
+| Abu Ghraib | Bad apples vs system | https://www.archives.gov/ · DOD IG materials |
+| Hurricane Katrina (2005) | Natural disaster vs abandoned citizens / race+class | https://www.archives.gov/ · https://www.fema.gov/ |
+| Global financial crisis 2007–09 / bank bailouts | Rescue capitalism vs socialism for banks | https://fraser.stlouisfed.org/ · https://www.federalreserve.gov/ · https://www.sec.gov/ · https://fcic.law.stanford.edu/ |
+| Occupy precursor conditions / inequality spike | Markets work vs rigged | Fed / BLS / https://www.census.gov/ |
+| Rise of Facebook/Google as power | Free product vs surveillance capitalism | https://www.ftc.gov/ · https://www.justice.gov/atr |
+| Darfur / early 2000s African mass violence | Genocide label fights | UN · https://www.ushmm.org/ |
+| Madrid 2004 / London 7/7 bombings | Terror vs civil liberties crackdowns | national archives / inquiry reports |
+| Russia–Georgia 2008 | Sphere of influence vs sovereignty | FRUS · OSCE |
+
+---
+
+### 2010–2019 — Uprisings, leaks, identity politics go global, authoritarian return
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Arab Spring → Syria/Libya aftermath | Liberation vs chaos / foreign intervention | https://www.wilsoncenter.org/ · UN · https://nsarchive.gwu.edu/ |
+| Occupy Wall Street (2011) | Class revolt vs unclear program | https://www.loc.gov/ · contemporary archives |
+| Trayvon Martin → **Black Lives Matter** birth (2013–) | Police violence vs “law and order” | https://nmaahc.si.edu/ · DOJ pattern-or-practice reports https://www.justice.gov/crt · https://mappingpoliceviolence.org/ |
+| Edward Snowden leaks (2013) | Traitor vs whistleblower | https://www.eff.org/nsa-spying/nsadocs · https://nsarchive.gwu.edu/ |
+| Ferguson / Freddie Gray / police reform fights | Reform vs abolish vs back-the-blue | DOJ reports · CourtListener |
+| Crimea / Donbas 2014 | Self-determination vs invasion | UN · https://www.icj-cij.org/ |
+| Rise of ISIS / war on ISIS | Terrorism vs endless Middle East war | UN · Pentagon releases |
+| European migrant crisis 2015 | Asylum duty vs border sovereignty | UNHCR https://www.unhcr.org/ · EU docs |
+| Brexit referendum (2016) | Democracy vs elite project / xenophobia fights | https://www.nationalarchives.gov.uk/ · UK Electoral Commission |
+| 2016 U.S. election / Russia interference fights | Hacked democracy vs overclaim | Mueller report https://www.justice.gov/ · Senate intel reports |
+| Cambridge Analytica / Facebook data | Privacy vs behavioral warfare | https://www.ftc.gov/ · UK ICO / Parliament reports |
+| #MeToo (phrase 2006; explosion 2017) | Believe survivors vs due process panic | Court records · EEOC https://www.eeoc.gov/ · contemporaneous journalism archives |
+| Christchurch / far-right live-stream terror | Platform responsibility vs speech | NZ inquiry · https://www.justice.gov/ |
+| Hong Kong protests 2019 | Autonomy vs Beijing sovereignty | https://www.congress.gov/ · NSArchive |
+| Uighur camps / forced labor globalizes as issue | Genocide label vs development narrative | https://www.cbp.gov/trade/forced-labor/UFLPA · State Dept TIP |
+| Climate strikes / Paris Agreement fights | Existential threat vs economic suicide framing | https://unfccc.int/ · IPCC https://www.ipcc.ch/ |
+| Opioid epidemic peak awareness | Pharma crime vs demand / despair | Purdue docket · https://www.cdc.gov/ · https://www.justice.gov/ |
+| Charlottesville 2017 | Free speech vs fascist street politics | court records · DOJ |
+
+---
+
 # PART 13 — 19th century megas (expanded)
 
 | Topic | Forever fight | Must-read |
@@ -1214,6 +1266,163 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Haitian Revolution (from 1791) | Universal rights made real — then punished | Fordham Sourcebook · SlaveVoyages |
 | Enclosure / early industrial Britain | Progress vs dispossession | https://www.british-history.ac.uk/ |
 | Pugachev rebellion (Russia) | Peasant war vs tsarist order | Marxists Archive / Russian archives entries |
+
+---
+
+# PART 16 — Black freedom movements (full rabbit-hole stack)
+
+**Why this part exists:** Black struggle is not one row in the 1960s. It is a **century-plus chain** of organizations, documents, splits, and state responses. Scattered mentions above are not enough.
+
+**How to use:** Walk **chronologically** once. Then pick one org or one split (integration vs nationalism, nonviolence vs armed self-defense, capitalism vs socialism) and go deep.
+
+### 16.1 Master doors
+| Role | Link |
+|---|---|
+| National Museum of African American History & Culture | https://nmaahc.si.edu/ |
+| National Archives — African American research | https://www.archives.gov/research/african-americans |
+| Library of Congress — Civil Rights history | https://www.loc.gov/collections/civil-rights-history-project/ |
+| FBI Vault (COINTELPRO / Malcolm X / MLK files) | https://vault.fbi.gov/ |
+| King Papers (Stanford) | https://kinginstitute.stanford.edu/ |
+| SNCC Digital Gateway | https://snccdigital.org/ |
+| Black Panther Party archives / primary portals | https://www.marxists.org/history/usa/workers/black-panthers/ · museum/local archives |
+
+---
+
+### 16.2 Timeline of Black movement rabbit holes (20th–21st century)
+| Era | Topic | Forever fight | Must-read |
+|---|---|---|---|
+| 1900s–10s | Niagara Movement → **NAACP** founding | Legalism vs radicalism | https://www.loc.gov/ · https://www.naacp.org/ · NMAAHC |
+| 1910s | Great Migration begins | Choice vs expulsion by terror | https://www.archives.gov/ · https://www.loc.gov/ |
+| 1919 | **Red Summer** race massacres | Riot myth vs white terror | https://www.archives.gov/research/african-americans |
+| 1920s | **Marcus Garvey / UNIA** — largest mass Black org of era | Back-to-Africa genius vs hustle/authoritarian critique | https://www.archives.gov/ · https://www.loc.gov/ · FBI Vault Garvey |
+| 1920s | Harlem Renaissance politics | Art as uplift vs art as revolt | LOC · NMAAHC |
+| 1921 | **Tulsa** massacre / Black Wall Street destroyed | Local riot vs ethnic cleansing + wealth theft | https://www.okhistory.org/ |
+| 1930s | Scottsboro Boys | Jim Crow courts on trial | https://www.archives.gov/ · https://www.loc.gov/ |
+| 1930s–40s | Black labor / A. Philip Randolph / March on Washington Movement | Jobs + desegregation of defense industries | https://www.archives.gov/ · LOC |
+| WWII | Double V campaign | Fight fascism abroad + racism at home | https://www.archives.gov/ · NMAAHC |
+| 1955 | Emmett Till | Open-casket politics changes the country | https://www.archives.gov/ · FBI |
+| 1955–56 | Montgomery Bus Boycott | Local custom broken | https://kinginstitute.stanford.edu/ · https://www.archives.gov/ |
+| 1957 | Little Rock Nine | Federal troops vs state nullification | https://www.archives.gov/ |
+| 1960 | Sit-ins / **SNCC** birth | Youth vs elder strategy | https://snccdigital.org/ |
+| 1963 | Birmingham / March on Washington / “I Have a Dream” | Moral suasion peak | King Papers · https://www.archives.gov/ |
+| 1964–65 | Civil Rights Act / Voting Rights Act | Legal equality vs material equality unfinished | https://www.archives.gov/milestone-documents · https://www.congress.gov/ |
+| 1965 | Watts / urban rebellions begin | Riot vs uprising | https://www.archives.gov/ |
+| 1965–66 | **Malcolm X** assassination aftermath / Organization of Afro-American Unity | Integration vs nationalism | FBI Vault · NMAAHC |
+| 1966– | **Black Power** / Black Panther Party | Self-defense + survival programs vs “thug” narrative | Marxists Archive Panthers · FBI COINTELPRO · Church Committee |
+| 1968 | MLK assassination / Poor People’s Campaign | Dream cut short vs radical King suppressed | King Papers · FBI Vault · https://www.archives.gov/ |
+| 1969–71 | FBI war on Panthers (Fred Hampton, etc.) | Policing vs assassination politics | https://vault.fbi.gov/ · Church Committee · CourtListener |
+| 1970s | Black feminism / Combahee River Collective | Race+gender+class inseparable | archives / women’s history collections · NMAAHC |
+| 1970s–80s | White flight, crack era prelude, War on Drugs targeting | Crime vs criminalization | https://bjs.ojp.gov/ · https://www.ussc.gov/ |
+| 1985 | **MOVE** bombing (Philadelphia) | Cult narrative vs state bombing a city block | https://www.archives.gov/ · Philly archives |
+| 1991–92 | Rodney King / LA uprising | Video evidence vs system acquittal | CourtListener · https://www.archives.gov/ |
+| 1995 | Million Man March | Unity vs Nation of Islam controversy | NMAAHC · contemporaneous coverage archives |
+| 2005 | Katrina | Disaster vs abandoned Black city | https://www.fema.gov/ · https://www.archives.gov/ |
+| 2012– | Trayvon → **Black Lives Matter** | Police violence vs “Black crime” counter-narrative | DOJ CRT https://www.justice.gov/crt · NMAAHC · Mapping Police Violence |
+| 2014–15 | Ferguson / Baltimore | Reform reports vs abolish demand | DOJ pattern-or-practice reports |
+| 2020 | George Floyd uprising (boundary into 2020s) | Largest protest wave vs backlash | DOJ · court records · NMAAHC collecting |
+| Ongoing | Reparations (H.R.40, local commissions) | Study vs pay vs “already paid” | https://www.congress.gov/bill/119th-congress/house-bill/40 |
+
+### 16.3 Eternal splits inside Black politics (conversation engines)
+1. Integration vs nationalism vs Pan-Africanism  
+2. Nonviolence vs armed self-defense  
+3. Capitalism / Black business vs socialism / anti-capitalism  
+4. Church-led vs secular radical  
+5. Respectability politics vs culture-from-below  
+6. U.S.-only frame vs Caribbean / African diaspora frame  
+7. Gender: male-led memory vs Black feminist archive  
+
+---
+
+# PART 17 — Audience-gap topics (before you call this “done”)
+
+**Method:** Imagine briefing different rooms. What would each room say is missing? This part is that checklist — with doors.
+
+### 17.1 If you are talking with women / about gender power
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Suffrage (U.S. 19th Amendment + global) | Finished vs unfinished | https://www.archives.gov/milestone-documents/19th-amendment · https://www.loc.gov/ |
+| Reproductive rights after Roe → Dobbs | Liberty vs fetal personhood | https://www.oyez.org/ · https://www.supremecourt.gov/ |
+| #MeToo / workplace harassment law | Believe survivors vs due process | https://www.eeoc.gov/ · CourtListener |
+| Pay gap / care work invisibility | Discrimination vs “choices” | BLS https://www.bls.gov/ · https://www.census.gov/ |
+| Global: Iran morality police / Woman Life Freedom | Theocracy vs bodily autonomy | UN human rights · contemporaneous docs |
+| Witch trials as gendered property/panic | Superstition vs misogyny+theft | https://www.archives.gov/ · local archives |
+| Forced sterilization of women (U.S. South, Puerto Rico, Indigenous) | Public health vs eugenics | https://www.genome.gov/ · https://www.archives.gov/ |
+
+### 17.2 If you are talking with LGBTQ people
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Stonewall & Pride history | Riot vs parade branding | https://www.loc.gov/ · https://www.archives.gov/ |
+| AIDS crisis & ACT UP | Neglect vs activism that changed medicine | https://www.cdc.gov/ · https://www.nih.gov/ · ACT UP archives |
+| Same-sex marriage legal path | Rights expansion vs religious liberty clash | https://www.oyez.org/ · https://www.supremecourt.gov/ |
+| Conversion therapy bans | Care vs abuse | state legislatures · APA · https://www.congress.gov/ |
+| Trans youth medicine (see also Cass/WPATH in Part 4) | Affirmation vs evidence-standard fight | https://cass.independent-review.uk/ · https://www.wpath.org/ |
+| Section 28 / “Don’t Say Gay” style laws | Child protection vs erasure | UK National Archives · state bills on Congress.gov / state sites |
+
+### 17.3 If you are talking across religions
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Catholic clergy abuse scandals | Bad apples vs institutional cover | national reports (Ireland, Pennsylvania grand jury) · CourtListener · Vatican docs |
+| Islamophobia after 9/11 / travel bans | Security vs collective punishment | https://www.justice.gov/ · SCOTUS travel ban case · https://www.cair.com/ (advocacy) |
+| Hindutva / mosque-temple fights (India) | Secularism vs majoritarianism | Indian Supreme Court · https://main.sci.gov.in/ |
+| Myanmar Rohingya (Buddhist-majority state violence) | Citizenship vs ethnic cleansing | UN Fact-Finding · https://www.ohchr.org/ |
+| Antisemitism definitions / campus fights | Safety vs speech | https://www.holocaustremembrance.com/ · FBI hate crime stats |
+| Scientology / high-control groups | Religion vs racket | CourtListener · state filings |
+| Creationism / intelligent design in schools | Science class vs faith | https://www.oyez.org/ (Kitzmiller) · https://ncse.ngo/ |
+
+### 17.4 If you are talking across ages
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Youth moral panics (comics, games, TikTok, satanic daycare) | Protect kids vs manufacture fear | https://www.archives.gov/ · FTC · contemporaneous hearings |
+| Social Security / Medicare politics | Earned benefit vs unsustainable | https://www.ssa.gov/ · https://www.cms.gov/ · CBO https://www.cbo.gov/ |
+| Elder financial abuse | Family matter vs crime wave | CFPB · DOJ |
+| Student debt | Investment vs indenture | https://studentaid.gov/ · CFPB · Congress |
+
+### 17.5 If you are talking class / labor
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Haymarket / Pullman / Triangle Shirtwaist | Labor terror vs labor martyrdom | https://www.archives.gov/ · https://www.loc.gov/ |
+| Taft–Hartley / union decline | Worker power vs “union bosses” | https://www.nlrb.gov/ · https://www.archives.gov/ |
+| Gig economy misclassification | Flexibility vs wage theft 2.0 | https://www.dol.gov/ · NLRB · state AGs |
+| IMF structural adjustment / Global South debt | Discipline vs neocolonialism | https://www.imf.org/ · https://www.worldbank.org/ · UNCTAD |
+
+### 17.6 If you are talking other U.S. ethnic lanes still thin above
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Chicano Movement / Zoot Suit / Bracero | Immigrant labor vs civil rights | https://www.archives.gov/ · https://www.loc.gov/ |
+| Operation Wetback (1954) | Immigration enforcement history | https://www.archives.gov/ · https://www.dhs.gov/ |
+| Japanese American redress (1988) | Apology+checks vs “never again” incomplete | https://www.archives.gov/research/aapi/ · https://www.congress.gov/ |
+| Vincent Chin murder (1982) | Hate crime template / anti-Asian violence | CourtListener · https://www.archives.gov/ |
+| Native sovereignty / Standing Rock / MMIW | Treaty rights vs extraction | https://www.bia.gov/ · https://www.archives.gov/research/native-americans |
+| Antisemitism + Black–Jewish alliance/rupture histories | Solidarity vs conflict narratives | NMAAHC · USHMM · contemporaneous archives |
+
+### 17.7 If you are talking disability / body difference
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Eugenics → disability rights → ADA (1990) | Charity model vs civil rights model | https://www.ada.gov/ · https://www.archives.gov/ · https://www.genome.gov/ |
+| Institutionalization / deinstitutionalization | Care vs neglect in the community | HHS · state archives |
+| Neurodiversity / autism debates | Difference vs disorder; who speaks | NIH · advocacy org primaries (read multiple sides) |
+| COVID disability / long COVID recognition | Real illness vs malingering stigma | https://www.cdc.gov/ · https://www.nih.gov/ |
+
+### 17.8 If you are talking Global South / non-U.S. frames
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Bandung / Non-Aligned Movement | Third World project vs failure nostalgia | UN · FRUS · national archives |
+| Latin American debt crisis 1980s | Discipline vs lost decade | IMF · https://nsarchive.gwu.edu/ |
+| South African apartheid → Truth & Reconciliation | Amnesty tradeoffs | https://www.justice.gov.za/ · UN |
+| Rwandan / Balkan lessons for “never again” | Intervention duty vs quagmire | ICTR/ICTY residual https://www.irmct.org/ |
+| Palestine/Israel (audience-dependent heat) | Dual archives mandatory | https://www.un.org/unispal/ · https://www.archives.gov.il/en/ |
+
+### 17.9 Final “did we miss it?” checklist
+Before finalizing, ask:
+- [ ] Black movements as a **full chain** (Part 16) — not only MLK weekend  
+- [ ] 2000s war + crash + 2010s BLM/#MeToo/Snowden (Part 12)  
+- [ ] Women, LGBTQ, disability, labor, faith, age (Part 17)  
+- [ ] Non-Black U.S. ethnic lanes + Global South (Part 17)  
+- [ ] Slavery/forced labor still linked (Part 3)  
+- [ ] Voting/certification still linked (Part 9)  
+- [ ] Victim-safety rules still on  
+
+If a live conversation partner names a wound not here, **add a row** — this document is a map, not a cemetery.
 
 ---
 

@@ -9,26 +9,28 @@
 ## PASTE
 
 ```
-Deep decade/century research pass is in.
+Finalizing pass: 2000s/2010s + Black movements stack + audience-gap checklist.
 
 Doc: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
 
-Part 12 now denser 1900s→1990s with previously missing megas:
-  Unit 731, Japanese American incarceration, Bengal famine, Gulf of Tonkin,
-  Pentagon Papers, My Lai, Indonesia 1965–66, Great Leap Forward, Bhopal,
-  Chernobyl, S&L crisis, AIDS, Condor, Kent State, Roe, Attica, Columbine,
-  Congo Wars, crack epidemic deep dive, Red Summer, Palmer Raids, Amritsar,
-  Tulsa, Scopes, Scottsboro, Bonus Army, Paperclip, etc.
+NEW in Part 12:
+  2000–2009 — 9/11, Afghanistan/Iraq/WMD, torture memos, Katrina, 2008 crash/bailouts, platform power
+  2010–2019 — Arab Spring, Occupy, BLM birth, Snowden, Ferguson, Brexit, Cambridge Analytica, #MeToo, Uighur, climate, opioids, Charlottesville
 
-Part 13 — expanded 19th century (Taiping, Scramble for Africa, Paris Commune, Sepoy, Meiji…).
-Part 14 — denser ancient/medieval.
-Part 15 — NEW bridge centuries 1500s–1700s (conquest, Reformation, VOC/Banda, witch trials, Atlantic revolutions).
+NEW Part 16 — Black freedom movements FULL chain:
+  NAACP/Niagara → Garvey/UNIA → Red Summer/Tulsa → Randolph → Double V → Till/Montgomery → SNCC → Civil Rights/Voting Rights Acts → Black Power/Panthers → COINTELPRO → Black feminism → MOVE → Rodney King → Million Man March → Katrina → BLM → reparations
+  Plus eternal splits (integration vs nationalism, nonviolence vs self-defense, etc.)
 
-How to use: pick ONE decade OR ONE century row. Primaries first. 90 minutes.
+NEW Part 17 — Audience-gap topics before calling it done:
+  Women/gender · LGBTQ · religions · ages · labor/class · other U.S. ethnic lanes · disability · Global South
+  Final checklist included
+
+Still 15 older parts underneath. Victim-safety rules still on.
+Pick ONE decade OR Part 16 walk OR Part 17 room checklist — 90 minutes.
 ```
 
 ---
 
 ## One-liner
 
-> Deep research pass filled missing decade megas (1910s–1990s) and added Part 15 (15th–18th centuries) plus denser 19th/ancient stacks. Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
+> Added 2000s/2010s, a full Black freedom-movements stack (Garvey→BLM), and an audience-gap part (gender/LGBTQ/faith/age/labor/ethnicity/disability/Global South) before finalizing. Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
