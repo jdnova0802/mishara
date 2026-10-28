@@ -433,6 +433,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/rail-truth.json",
         "/.well-known/qusfi.json",
         "/.well-known/finding/ccb-svo.json",
+        "/.well-known/security.txt",
         "/.well-known/deny-registry.json",
         "/.well-known/seal.json",
         "/.well-known/seal-anchor.json",
@@ -2232,14 +2233,23 @@ def well_known_qusfi():
     return jsonify(_qusfi().head(advertised_url()))
 
 
-@app.route("/.well-known/finding/ccb-svo.json")
-def well_known_finding_ccb():
+def _finding_ccb():
     try:
         from gate import finding_ccb as finding_mod
     except ImportError:
         import finding_ccb as finding_mod
-    body = finding_mod.publish()
+    return finding_mod
+
+
+@app.route("/.well-known/finding/ccb-svo.json")
+def well_known_finding_ccb():
+    body = _finding_ccb().publish()
     return jsonify(body), 200, {"Cache-Control": "no-store"}
+
+
+@app.route("/finding/ccb")
+def finding_ccb_page():
+    return render_template("finding_ccb.html", finding=_finding_ccb().publish())
 
 
 @app.route("/v1/qusfi")
@@ -5344,6 +5354,23 @@ def robots():
     return body, 200, {"Content-Type": "text/plain"}
 
 
+@app.route("/.well-known/security.txt")
+def well_known_security_txt():
+    body = "\n".join(
+        [
+            f"Contact: mailto:{CONTACT_EMAIL}",
+            "Contact: mailto:demond@velaru.xyz",
+            "Expires: 2027-09-12T00:00:00.000Z",
+            "Preferred-Languages: en",
+            f"Canonical: {advertised_url()}/.well-known/security.txt",
+            f"Policy: {advertised_url()}/privacy",
+            f"Acknowledgments: {advertised_url()}/trust",
+            "",
+        ]
+    )
+    return body, 200, {"Content-Type": "text/plain"}
+
+
 @app.route("/sitemap.xml")
 def sitemap():
     paths = [
@@ -5401,7 +5428,10 @@ def sitemap():
         "/.well-known/trusted-contact.json",
         "/.well-known/fednow-prepush.json",
         "/.well-known/nacha-false-pretenses.json",
+        "/finding/ccb",
+        "/.well-known/finding/ccb-svo.json",
         "/.well-known/qusfi.json",
+        "/.well-known/security.txt",
         "/.well-known/cl7-handoff.json",
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",

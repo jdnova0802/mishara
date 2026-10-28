@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}China Construction Bank is off the QUSFI list{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ finding.finding }}">
+{% endblock %}
+{% block content %}
+<section class="container section" style="max-width: 40rem;">
+  <p class="museum-flag">Public finding · {{ finding.dated }} · Demond Davis, Nisaba LLC · no login</p>
+  <h1 style="font-size: 1.6rem; line-height: 1.25;">{{ finding.subject }}</h1>
+  <p style="margin: 1rem 0; line-height: 1.5;">{{ finding.finding }}</p>
+  <ul class="check-list">
+    <li>List dated {{ finding.prior.as_of }}: on the list. PDF hash <code>{{ finding.prior.pdf_sha256 }}</code>.</li>
+    <li>List dated {{ finding.current.as_of }}: off the list. PDF hash <code>{{ finding.current.pdf_sha256 }}</code>.</li>
+  </ul>
+  <p style="margin: 1rem 0; line-height: 1.5;">{{ finding.grandfather }}</p>
+  <p style="margin: 1rem 0; line-height: 1.5;">{{ finding.claim_when_off_current_list }}</p>
+  <ul class="check-list">
+    {% for item in finding.not %}
+    <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+  <p style="margin: 1.25rem 0; line-height: 1.5;">
+    Signed SHA-256 <code>{{ finding.canonical_sha256 }}</code>.
+    <a href="/.well-known/finding/ccb-svo.json">Open the signed object</a>.
+    <a href="{{ finding.current.source_url }}" rel="noopener">Current list PDF</a>.
+  </p>
+  <p><a href="{{ url_for('bind_room') }}" class="btn btn-primary">Open Bind Room</a></p>
+</section>
+{% endblock %}

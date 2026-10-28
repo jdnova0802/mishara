@@ -176,6 +176,27 @@ class FindingTests(unittest.TestCase):
         flipped["current_on_list"] = True
         self.assertFalse(finding_ccb.verifies(flipped))
 
+    def test_front_door_names_the_operator_and_links_the_finding(self):
+        page = self.client.get("/finding/ccb")
+        self.assertEqual(page.status_code, 200)
+        text = page.get_data(as_text=True)
+        self.assertIn("Demond Davis", text)
+        self.assertIn("China Construction Bank", text)
+        self.assertIn("/.well-known/finding/ccb-svo.json", text)
+        self.assertNotIn("Artemis", text)
+        self.assertNotIn("Munich", text)
+        home = self.client.get("/")
+        home_text = home.get_data(as_text=True)
+        self.assertIn("Demond Davis", home_text)
+        self.assertIn("/finding/ccb", home_text)
+        self.assertIn("https://www.linkedin.com/company/velaru", home_text)
+        self.assertIn("https://www.linkedin.com/in/demond-davis-0b513b2ab", home_text)
+        security = self.client.get("/.well-known/security.txt")
+        self.assertEqual(security.status_code, 200)
+        self.assertNotIn("noindex", security.headers.get("X-Robots-Tag", ""))
+        self.assertIn("mailto:hello@velaru.xyz", security.get_data(as_text=True))
+        self.assertIn("mailto:demond@velaru.xyz", security.get_data(as_text=True))
+
 
 if __name__ == "__main__":
     unittest.main()
