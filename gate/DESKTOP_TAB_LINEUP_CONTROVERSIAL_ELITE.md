@@ -914,303 +914,306 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 
 ---
 
-# PART 12 — 20th century by decade
+# PART 12 — 20th century by decade (DEEP PASS)
 
-**How to use:** Pick a decade. Open 1–2 “must-read” links. Follow the forever fight line. This is where a ton of “missing massive stuff” lives.
+**Method:** Each decade lists **what was already thin** and **what this research pass added**. Pick one row. Open the must-read links. Run the four forks.
 
-### 1900–1909 — Empire high noon / early mass politics
-| Topic | Forever fight | Must-read |
-|---|---|---|
-| Philippine–American War aftermath | Liberation vs occupation | https://www.archives.gov/ · https://history.state.gov/historicaldocuments |
-| Herero and Nama genocide (German SW Africa) | Colonial genocide recognition | https://gsp.yale.edu/ · German Federal Archives https://www.bundesarchiv.de/ |
-| 1905 Russian Revolution / Bloody Sunday | Reform vs revolution | Avalon / FRUS / https://www.marxists.org/archive/ |
-
----
-
-### 1910–1919 — World War I and its ethnic aftershocks
-| Topic | Forever fight | Must-read |
-|---|---|---|
-| World War I origins | Accident vs inevitability vs elite choice | https://avalon.law.yale.edu/ · https://www.nationalarchives.gov.uk/ |
-| Armenian Genocide (wartime) | Genocide vs wartime tragedy (denial politics) | https://sfi.usc.edu/collections/armenian |
-| 1918 flu pandemic | Public health power vs liberty | https://www.cdc.gov/ · https://www.archives.gov/ |
-| Treaty of Versailles | Too harsh / too soft / doomed peace | https://avalon.law.yale.edu/imt/kfront.asp · https://history.state.gov/historicaldocuments |
-| Russian Revolution / Red Terror | Emancipation vs mass crime | https://www.marxists.org/archive/ · NSArchive |
+**Shared master sources for the whole century**
+| Role | Link |
+|---|---|
+| U.S. National Archives | https://www.archives.gov/ |
+| Foreign Relations of the United States (FRUS) | https://history.state.gov/historicaldocuments |
+| Yale Avalon Project | https://avalon.law.yale.edu/ |
+| Library of Congress | https://www.loc.gov/ |
+| UK National Archives | https://www.nationalarchives.gov.uk/ |
+| Marxists Internet Archive (left primary texts) | https://www.marxists.org/archive/ |
+| National Security Archive | https://nsarchive.gwu.edu/ |
+| CIA Reading Room | https://www.cia.gov/readingroom/ |
+| FBI Vault | https://vault.fbi.gov/ |
 
 ---
 
-### 1920–1929 — Aftershocks, eugenics, Prohibition
+### 1900–1909 — Empire high noon
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Prohibition & organized crime | Moral reform vs black markets | https://www.archives.gov/ · https://www.fbi.gov/history |
-| U.S. Immigration Act of 1924 (national origins quotas) | Borders vs racism in law | https://www.archives.gov/milestone-documents/immigration-act-of-1924 |
-| Tulsa Race Massacre (1921) | Riot narrative vs massacre / cover-up | https://www.archives.gov/ · https://www.okhistory.org/ |
-| Rise of fascism in Italy | Charisma vs structural crisis | Avalon / national archives |
+| Philippine–American War / “insurgency” | Liberation vs occupation atrocity | https://www.archives.gov/ · https://history.state.gov/historicaldocuments |
+| Herero and Nama genocide (German SW Africa) | Colonial genocide recognition | https://gsp.yale.edu/ · https://www.bundesarchiv.de/ |
+| Boxer Rebellion (China) | Anti-imperial rising vs xenophobic massacre | https://www.archives.gov/ · https://www.loc.gov/ |
+| Russo-Japanese War (1904–05) | First modern Asian victory over Europe — race/empire shock | FRUS · https://www.nationalarchives.gov.uk/ |
+| 1905 Russian Revolution / Bloody Sunday | Reform vs revolution | https://www.marxists.org/archive/ |
+| Maji-Maji Rebellion (German East Africa) | Tax revolt vs colonial extermination | https://www.bundesarchiv.de/ · https://gsp.yale.edu/ |
+| Early eugenics / “race science” boom | Science vs scientific racism | https://www.genome.gov/about-genomics/educational-resources/timeline-eugenics · https://www.archives.gov/ |
+| Women’s suffrage acceleration | Citizenship expansion vs “order” panic | https://www.loc.gov/ · https://www.archives.gov/milestone-documents |
 
 ---
 
-### 1930–1939 — Depression, Holodomor, Nazi rise
+### 1910–1919 — World war, flu, revolutions, race terror
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Holodomor | Genocide vs famine-as-policy vs tragedy | https://holodomormuseum.org.ua/en/ · https://guides.loc.gov/holodomor |
-| New Deal | Salvation vs socialism creep | https://www.archives.gov/ · https://fraser.stlouisfed.org/ |
-| Nazi seizure of power | Unique evil vs repeatable pattern | https://www.ushmm.org/ · https://www.bundesarchiv.de/ |
-| Spanish Civil War | Dress rehearsal for WWII | https://www.archives.gov/ · British Library |
+| World War I origins | Accident vs elite choice vs inevitability | https://avalon.law.yale.edu/ · https://www.loc.gov/classroom-materials/world-war-i/ |
+| Armenian Genocide | Genocide vs wartime tragedy (denial politics) | https://sfi.usc.edu/collections/armenian · https://www.armenian-genocide.org/ |
+| Sykes–Picot / Balfour / Mandate carve-up | Secret deals vs self-determination | https://avalon.law.yale.edu/subject_menus/mideast.asp · https://www.un.org/unispal/ |
+| Russian Revolution + Red/White Terror | Emancipation vs mass crime | https://www.marxists.org/archive/ · NSArchive |
+| 1918–19 influenza pandemic | Public-health power vs liberty | https://www.cdc.gov/ · https://www.archives.gov/ |
+| Treaty of Versailles | Too harsh / too soft / doomed | https://avalon.law.yale.edu/ · FRUS |
+| Easter Rising / Irish revolutionary decade start | Terrorism vs national liberation | https://cain.ulster.ac.uk/ · https://www.nationalarchives.gov.uk/ |
+| Amritsar (Jallianwala Bagh) massacre 1919 | Imperial order vs colonial crime | https://www.bl.uk/ · https://www.nationalarchives.gov.uk/ |
+| Red Summer 1919 (U.S. race massacres) | “Riot” framing vs white terror | https://www.archives.gov/research/african-americans · https://www.loc.gov/ |
+| Palmer Raids / First Red Scare | Security vs purge of radicals | https://www.archives.gov/ · https://vault.fbi.gov/ |
+| Mexican Revolution (ongoing into 1910s) | Reform vs caudillo chaos | https://www.loc.gov/ · FRUS |
+| Espionage/Sedition Acts (U.S.) | Wartime necessity vs free speech corpse | https://www.archives.gov/ · https://www.oyez.org/ |
 
 ---
 
-### 1940–1949 — World War II, Holocaust, nuclear age, partitions
+### 1920–1929 — Jazz Age, eugenics law, fascist dress rehearsals
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Holocaust | Industrial genocide as rupture in history | https://www.ushmm.org/ · https://sfi.usc.edu/ |
-| Atomic bombings of Hiroshima/Nagasaki | Necessary vs war crime | https://www.archives.gov/research/military/ww2/manhattan-project · https://www.trumanlibrary.gov/ |
-| Nuremberg trials | Victor’s justice vs law birth | https://avalon.law.yale.edu/subject_menus/imt.asp |
-| Partition of India | British exit vs elite bargain vs ethnic slaughter | https://www.bl.uk/collection-guides/india-office-records |
-| Nakba / Israeli independence 1948 | Independence vs catastrophe (dual archives) | https://www.un.org/unispal/ · https://www.archives.gov.il/en/ |
-| Chinese Civil War → PRC | Revolution vs catastrophe | FRUS · https://www.marxists.org/ |
+| Prohibition & organized crime | Moral reform vs black market state | https://www.archives.gov/ · https://www.fbi.gov/history |
+| U.S. Immigration Act of 1924 (national-origins quotas) | Borders vs racism encoded in law | https://www.archives.gov/milestone-documents/immigration-act-of-1924 |
+| Tulsa Race Massacre (1921) | Riot narrative vs massacre / wealth theft | https://www.okhistory.org/ · https://www.archives.gov/ |
+| Rosewood (1923) / Elaine Massacre memory | Local “disturbance” vs ethnic cleansing | https://www.archives.gov/ · state archives |
+| Sacco & Vanzetti | Immigrant radicals framed vs guilty anarchists | https://www.archives.gov/ · CourtListener-class archives |
+| Scopes “Monkey” Trial (1925) | Science vs religion in schools (still live) | https://www.loc.gov/ · https://www.archives.gov/ |
+| March on Rome / Italian fascism | Strongman salvation vs democracy suicide | Avalon · Italian state archives via https://www.archiviodistato.roma.it/ |
+| German hyperinflation → street politics | Economics as destiny vs political choice | https://fraser.stlouisfed.org/ · https://www.bundesarchiv.de/ |
+| Teapot Dome scandal | Oil corruption template | https://www.archives.gov/ |
+| Sterilization laws / Buck v. Bell build-up | Public health vs bodily autonomy atrocity | https://www.oyez.org/ · https://www.genome.gov/ |
 
 ---
 
-### 1950–1959 — Cold War, McCarthy, Korea, coups
+### 1930–1939 — Depression, terror states, approaching world war
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Korean War | Forgotten war / who started / who prolonged | https://www.archives.gov/research/military/korean-war · FRUS |
-| McCarthyism / Red Scare | Necessary vigilance vs purge | https://www.archives.gov/ · https://vault.fbi.gov/ |
-| CIA early coups (Iran 1953, Guatemala 1954) | Containment vs imperial crime | https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ |
-| Emmett Till / early Civil Rights flashpoints | Local crime vs national system | https://www.archives.gov/research/african-americans |
+| Holodomor (Ukraine) | Genocide vs famine tragedy | https://holodomormuseum.org.ua/en/ · https://guides.loc.gov/holodomor |
+| Stalin’s Great Terror / purges / Gulag expansion | Socialist modernization vs mass murder | https://www.marxists.org/archive/ · https://gulaghistory.org/ · NSArchive |
+| New Deal | Salvation vs “creeping socialism” | https://fraser.stlouisfed.org/ · https://www.archives.gov/ |
+| Dust Bowl | Climate + capitalism failure | https://www.archives.gov/ · https://www.loc.gov/ |
+| Bonus Army (1932) | Veterans vs bayonets at home | https://www.archives.gov/ |
+| Scottsboro Boys | Jim Crow “justice” as national shame | https://www.archives.gov/ · https://www.loc.gov/ |
+| Nazi rise → Nuremberg Laws → Kristallnacht | Unique evil vs repeatable pattern | https://www.ushmm.org/ · https://www.bundesarchiv.de/ |
+| Spanish Civil War | Dress rehearsal / left vs right atrocity mirror | https://www.archives.gov/ · British Library |
+| Rape of Nanjing (1937) | War crime vs memory politics | https://sfi.usc.edu/ · Japanese war-crimes docs https://www.archives.gov/iwg/ |
+| Unit 731 begins (Japan biowarfare) | Science + empire atrocity (immunity deals later) | https://www.archives.gov/iwg/ · https://www.archives.gov/press/press-releases/2007/nr07-47 |
+| Munich Agreement (1938) | Appeasement lesson vs false analogy forever | Avalon · FRUS |
 
 ---
 
-### 1960–1969 — Decolonization, Civil Rights, Vietnam, assassinations
+### 1940–1949 — Total war, genocide, nuclear age, partitions
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Civil Rights Act / Voting Rights Act | Finished project vs unfinished | https://www.archives.gov/milestone-documents · https://www.congress.gov/ |
-| Vietnam War escalation | Domino theory vs imperial quagmire | https://www.archives.gov/research/military/vietnam-war · Pentagon Papers via https://www.archives.gov/research/pentagon-papers |
-| COINTELPRO against Black / New Left groups | Security vs dirty war at home | https://vault.fbi.gov/ |
-| 1968 global revolts | Liberation vs chaos | National archives multi-country |
-| Assassinations (JFK / MLK / RFK) | Lone actors vs networks | https://www.archives.gov/research/jfk · FBI Vault |
+| Holocaust | Industrial genocide as historical rupture | https://www.ushmm.org/ · https://sfi.usc.edu/ |
+| Japanese American incarceration | Military necessity vs racist internment | https://www.archives.gov/research/aapi/ww2/incarceration |
+| Firebombing Tokyo / Dresden | Military necessity vs terror bombing | https://www.archives.gov/ · RAF/USAAF records |
+| Atomic bombings Hiroshima/Nagasaki | Ended war vs war crime / race | https://www.archives.gov/research/military/ww2/manhattan-project · https://www.trumanlibrary.gov/ |
+| Unit 731 U.S. immunity deals | Justice vs bioweapons knowledge trade | https://www.archives.gov/iwg/ |
+| Bengal famine 1943 | War logistics vs colonial culpability | https://www.nationalarchives.gov.uk/ · https://www.bl.uk/ |
+| Nuremberg / Tokyo trials | Birth of international law vs victor’s justice | https://avalon.law.yale.edu/subject_menus/imt.asp |
+| Partition of India 1947 | Exit deal vs engineered ethnic slaughter | https://www.bl.uk/collection-guides/india-office-records |
+| Nakba / Israeli independence 1948 | Independence vs catastrophe | https://www.un.org/unispal/ · https://www.archives.gov.il/en/ |
+| Bretton Woods / IMF-World Bank birth | Global public goods vs dollar empire | https://fraser.stlouisfed.org/ · https://www.imf.org/ |
+| Chinese Civil War → PRC 1949 | Revolution vs catastrophe | FRUS · https://www.marxists.org/ |
+| Indonesian / Indochina wars of independence begin | Decolonization vs recolonization | FRUS · French/Dutch archives |
 
 ---
 
-### 1970–1979 — Watergate, oil shock, Chile, Cambodia, Iran
+### 1950–1959 — Cold War machine, coups, civil rights ignition
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Watergate | Scandal vs system | https://www.archives.gov/research/investigations/watergate · https://www.nixonlibrary.gov/ |
-| Pinochet coup Chile 1973 | Anti-communist necessity vs terror state | https://nsarchive.gwu.edu/ |
+| Korean War | Who started / who prolonged / forgotten dead | https://www.archives.gov/research/military/korean-war · FRUS |
+| McCarthyism / Second Red Scare | Vigilance vs purge | https://www.archives.gov/ · https://vault.fbi.gov/ |
+| Rosenberg trial & execution | Espionage justice vs antisemitic panic | https://www.archives.gov/ · https://www.fbi.gov/history |
+| Operation Paperclip (Nazi scientists to U.S.) | Winning Cold War vs recycling criminals | https://www.archives.gov/ · CIA Reading Room |
+| CIA coups: Iran 1953, Guatemala 1954 | Containment vs imperial crime | https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ |
+| MKUltra begins (1953) | Mind-control myth vs documented non-consent experiments | https://www.cia.gov/readingroom/collection/human-experiments-mkultra |
+| Montgomery Bus Boycott / Little Rock | Local custom vs federal force | https://www.archives.gov/research/african-americans |
+| Hungarian Revolution 1956 | Freedom fight vs Soviet tanks | FRUS · https://nsarchive.gwu.edu/ |
+| Suez Crisis 1956 | End of European empire cosplay | https://www.nationalarchives.gov.uk/ · FRUS |
+| Great Leap Forward begins (China, late ’58) | Utopia vs mass famine | NSArchive · scholarly famine demography debates |
+| Algerian War of Independence | Torture republic vs anti-colonial war | French archives · FRUS |
+| Emmett Till murder (1955) | “Southern justice” vs national reckoning | https://www.archives.gov/ · https://www.fbi.gov/ |
+
+---
+
+### 1960–1969 — Rights revolutions, Vietnam lies, assassinations, mass death abroad
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Civil Rights / Voting Rights Acts | Finished vs unfinished revolution | https://www.archives.gov/milestone-documents · https://www.congress.gov/ |
+| Bay of Pigs / Cuban Missile Crisis | Brinkmanship glory vs near-omnicide | FRUS · https://nsarchive.gwu.edu/ |
+| Gulf of Tonkin (1964) | False-flag adjacent intelligence failure | https://www.archives.gov/research/pentagon-papers · FRUS |
+| Pentagon Papers (events in ’60s; leak 1971) | Democracy needs secrets vs democracy needs truth | https://www.archives.gov/research/pentagon-papers |
+| My Lai massacre (1968) | Bad apples vs war system | https://www.archives.gov/ · https://www.loc.gov/ |
+| Tet Offensive / Cronkite turn | Victory narrative collapse | https://www.archives.gov/research/military/vietnam-war |
+| COINTELPRO peak vs Black Panthers / New Left | Security vs dirty war at home | https://vault.fbi.gov/ · Church Committee https://www.intelligence.senate.gov/ |
+| Chicago 1968 / Democratic convention police riot | Protest vs “law and order” | https://www.archives.gov/ |
+| Stonewall (1969) | Riot vs uprising (LGBTQ history fight) | https://www.loc.gov/ · https://www.archives.gov/ |
+| Assassinations: JFK / Malcolm X / MLK / RFK | Lone nuts vs networks | https://www.archives.gov/research/jfk · FBI Vault |
+| Indonesia 1965–66 mass killings | Anti-communist necessity vs politicide | https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ |
+| Cultural Revolution (China) | Purge as politics | NSArchive · FRUS |
+| Biafra / Nigerian Civil War | Secession vs famine-as-weapon | UN docs · https://www.nationalarchives.gov.uk/ |
+| Six-Day War 1967 | Survival war vs conquest war | https://www.un.org/unispal/ · Avalon MidEast |
+| Prague Spring crushed (1968) | “Socialism with a human face” killed | FRUS · https://nsarchive.gwu.edu/ |
+
+---
+
+### 1970–1979 — Trust collapse, dirty wars, energy shock
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Kent State / Jackson State shootings (1970) | Campus protest vs state bullets | https://www.archives.gov/ |
+| Watergate | Scandal vs system | https://www.nixonlibrary.gov/ · https://www.archives.gov/research/investigations/watergate |
+| Roe v. Wade (1973) | Privacy/liberty vs fetal personhood (still live) | https://www.oyez.org/ · https://www.supremecourt.gov/ |
+| Chile coup 1973 / Pinochet / Operation Condor | Anti-communism vs terror international | https://nsarchive.gwu.edu/ |
+| Church / Pike / Rockefeller intel investigations | Reform vs unfinished leash | https://www.intelligence.senate.gov/ · MKUltra docs |
 | Khmer Rouge Cambodia | Revolution → auto-genocide | https://gsp.yale.edu/case-studies/cambodian-genocide-program |
 | Iranian Revolution 1979 | Popular uprising vs theocracy | FRUS · https://www.archives.gov/ |
-| Church Committee (intel abuses) | Reform moment vs unfinished | https://www.intelligence.senate.gov/ |
+| Oil embargo / stagflation | Producer power vs consumer democracy | https://fraser.stlouisfed.org/ |
+| Jonestown (1978) | Cult tragedy vs U.S. racial/political context fights | https://www.archives.gov/ · FBI Vault |
+| Three Mile Island (1979) | Nuclear future vs nuclear fear | https://www.nrc.gov/ · https://www.archives.gov/ |
+| Attica prison revolt (1971) | Prisoner rights vs “animals” narrative | https://www.archives.gov/ · state archives |
+| Love Canal / toxic America | Corporate dump vs public health awakening | https://www.epa.gov/ · https://www.archives.gov/ |
 
 ---
 
-### 1980–1989 — Crack epidemic, mass incarceration turn, late Cold War
+### 1980–1989 — Crack, mass incarceration turn, late Cold War disasters
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| **Crack epidemic + Anti-Drug Abuse Act of 1986** | Public health emergency vs racist sentencing regime (100:1 powder/crack disparity era) | https://www.ojp.gov/ncjrs/virtual-library/abstracts/indexed-legislative-history-anti-drug-abuse-act-1986-0 · https://www.congress.gov/ · https://bjs.ojp.gov/ · https://www.drugabuse.gov/ |
+| **Crack epidemic + Anti-Drug Abuse Act of 1986** | Health emergency vs racist sentencing machine | https://www.ojp.gov/ncjrs/virtual-library/abstracts/indexed-legislative-history-anti-drug-abuse-act-1986-0 · https://nida.nih.gov/ · https://bjs.ojp.gov/ · https://www.ussc.gov/ · https://www.congress.gov/ |
+| War on Drugs expansion / asset forfeiture boom | Safety vs policing-for-profit | https://www.justice.gov/afms · https://www.dea.gov/ |
 | Iran–Contra | Rogue NSC vs presidential knowledge | https://www.archives.gov/research/iran-contra · NSArchive |
-| AIDS crisis early years | Neglect vs science race | https://www.cdc.gov/ · https://www.nih.gov/ |
-| End of Cold War / 1989 revolutions | Reagan won vs Gorbachev opened vs people power | FRUS · national archives |
-| Tiananmen 1989 | Protest vs crackdown memory | https://nsarchive.gwu.edu/ · https://www.archives.gov/ |
+| AIDS crisis (early years) | Neglect vs science race vs stigma | https://www.cdc.gov/ · https://www.nih.gov/ |
+| Savings & Loan crisis | Deregulation genius vs looting | https://fraser.stlouisfed.org/ · https://www.gao.gov/ |
+| Bhopal disaster (1984) | Industrial accident vs corporate homicide | https://www.epa.gov/ · Indian archives / court records |
+| Chernobyl (1986) | Soviet incompetence vs nuclear-as-such | IAEA · https://www.iaea.org/ · national archives |
+| Ethiopia famine / Live Aid politics | Charity theater vs political famine | UN · https://www.nationalarchives.gov.uk/ |
+| Iran–Iraq War / U.S. tilt | Realism vs complicity | FRUS · https://www.cia.gov/readingroom/ |
+| Apartheid peak & sanctions fights | Constructive engagement vs divestment | https://www.archives.gov/ · UN |
+| Tiananmen 1989 | Protest vs crackdown memory war | https://nsarchive.gwu.edu/ |
+| End of Cold War / 1989 revolutions | Reagan won vs Gorbachev opened vs people | FRUS · national archives |
+| Exxon Valdez (1989) | Accident vs oil-system design | https://www.epa.gov/ · https://www.archives.gov/ |
 
-**Crack epidemic deep dive (why it’s endless):**
-1. Was the spike driven by markets, policing stats, media panic, or CIA-adjacent trafficking allegations (Kerry Committee / Dark Alliance fights)?
-2. Did the 1986 law’s crack-vs-powder sentencing gap prove racial intent, disparate impact, or “moral panic” legislation?
-3. Did mass incarceration reduce violence — or warehouse a generation?
-4. What changed after the Fair Sentencing Act (2010) — and what didn’t?
-
-| Extra crack / drug-war sources | Link |
-|---|---|
-| National Institute on Drug Abuse | https://nida.nih.gov/ |
-| Bureau of Justice Statistics | https://bjs.ojp.gov/ |
-| Sentencing Commission reports | https://www.ussc.gov/ |
-| Kerry Committee / narcotics hearings (Congress) | https://www.congress.gov/ · https://www.govinfo.gov/ |
-| DEA history | https://www.dea.gov/ |
+**Crack epidemic — four eternal forks (keep these)**
+1. Market + policing + media panic — which drove the “epidemic” framing?
+2. 100:1 crack/powder sentencing — racial intent, disparate impact, or moral-panic drafting?
+3. Did incarceration cut violence — or warehouse a generation?
+4. Kerry Committee / “Dark Alliance” trafficking allegations — documented threads vs overclaim?
 
 ---
 
-### 1990–1999 — New world order, Balkans, Rwanda, OJ, WTO
+### 1990–1999 — Unipolar moment, genocide returns, culture wars go mass-media
 | Topic | Forever fight | Must-read |
 |---|---|---|
-| Gulf War 1991 | Just war vs oil war | FRUS · https://www.archives.gov/ |
-| Rodney King / LA uprising 1992 | Police brutality vs “riot” framing | https://www.archives.gov/ · CourtListener |
-| Waco / Oklahoma City | State overreach vs domestic terror | https://vault.fbi.gov/ · https://www.archives.gov/ |
+| Gulf War 1991 / Highway of Death | Just war vs slaughter optics | FRUS · https://www.archives.gov/ |
+| Rodney King / LA uprising 1992 | Police brutality vs “riot” | https://www.archives.gov/ · CourtListener |
+| Waco (1993) / Oklahoma City (1995) | State overreach vs domestic terror | https://vault.fbi.gov/ · https://www.archives.gov/ |
 | Rwandan Genocide 1994 | World watched / world shrugged | https://www.irmct.org/ · https://gsp.yale.edu/ |
-| Srebrenica 1995 | UN failure / ethnic cleansing | https://www.irmct.org/ |
-| OJ Simpson trial as racial Rorschach | Guilt vs system distrust | Court records / news archives |
-| WTO Seattle 1999 / anti-globalization | Democracy deficit vs free trade gospel | https://www.wto.org/ · labor archives |
+| Srebrenica 1995 | UN safe area failure | https://www.irmct.org/ |
+| Congo Wars begin (late ’90s) | “Africa’s world war” ignored | UN · https://nsarchive.gwu.edu/ |
+| OJ Simpson trial | Guilt vs racialized distrust of system | court records / news archives |
+| WTO Seattle 1999 | Free trade gospel vs democracy deficit | https://www.wto.org/ |
+| Microsoft antitrust | Innovation monopoly vs consumer harm | https://www.justice.gov/atr |
+| Cloning Dolly / biotech panic | Progress vs playing God | https://www.nih.gov/ · Nature archives |
+| Mad Cow / BSE | Food system trust collapse | UK National Archives · WHO |
+| NATO Kosovo war 1999 | Humanitarian intervention vs illegal war | UN · FRUS |
+| Columbine (1999) | Guns vs culture vs mental health forever script | https://www.archives.gov/ · DOJ |
+| “End of history” hangover | Liberal triumph vs unfinished bloodlands | essays + Balkans/Rwanda archives above |
 
 ---
 
-# PART 13 — 19th century megas
+# PART 13 — 19th century megas (expanded)
 
-### 13.1 Haitian Revolution (1791–1804) — slavery’s earthquake
-| Role | Link |
-|---|---|
-| Internet Modern History Sourcebook (Haiti) | https://sourcebooks.fordham.edu/mod/modsbook.asp |
-| SlaveVoyages context | https://www.slavevoyages.org/ |
-| Avalon / diplomacy docs | https://avalon.law.yale.edu/ |
-
----
-
-### 13.2 Trail of Tears / Indian Removal Act (1830s)
-| Role | Link |
-|---|---|
-| National Archives Native American records | https://www.archives.gov/research/native-americans |
-| Avalon Native treaties | https://avalon.law.yale.edu/subject_menus/ntreaty.asp |
-| Library of Congress | https://www.loc.gov/ |
-
----
-
-### 13.3 Opium Wars (Britain / China)
-| Role | Link |
-|---|---|
-| British National Archives | https://www.nationalarchives.gov.uk/ |
-| Yale Avalon / China diplomacy | https://avalon.law.yale.edu/ |
-| Cambridge Digital Library / China materials entry | https://cudl.lib.cam.ac.uk/ |
-
-**Forever fight:** free trade vs drug imperialism · “century of humiliation” memory in modern China politics.
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Haitian Revolution (1791–1804, spills into 1800s) | Only successful slave revolution — terror vs liberation | https://sourcebooks.fordham.edu/mod/modsbook.asp · https://www.slavevoyages.org/ |
+| Napoleonic Wars / Continental System | Liberator vs conqueror | Avalon · https://www.nationalarchives.gov.uk/ |
+| Latin American independence wars | Liberation vs new oligarchies | https://www.loc.gov/ · national archives |
+| Trail of Tears / Indian Removal (1830s) | Expansion destiny vs ethnic cleansing | https://www.archives.gov/research/native-americans · Avalon treaties |
+| Opium Wars | Free trade vs drug imperialism (“century of humiliation”) | https://www.nationalarchives.gov.uk/ · Avalon China diplomacy |
+| 1848 revolutions | Spring of nations vs reaction win | https://www.marxists.org/archive/ · Avalon |
+| Irish Famine (1845–49) | Blight vs British policy culpability | https://www.nationalarchives.ie/ · https://www.nationalarchives.gov.uk/ |
+| U.S. Civil War & Reconstruction | States’ rights myth vs slavery; unfinished revolution | https://www.archives.gov/research/military/civil-war · Freedmen’s Bureau |
+| Paris Commune (1871) | Workers’ democracy vs massacre | https://gallica.bnf.fr/ · Marxists Archive |
+| Scramble for Africa / Berlin Conference (1884–85) | Civilization mission vs partition crime | https://www.nationalarchives.gov.uk/ · Avalon |
+| Leopold’s Congo rubber terror | Philanthropy brand vs forced labor holocaust | https://credo.library.umass.edu/view/collection/mums312 |
+| Dreyfus Affair | Antisemitism modern template | https://gallica.bnf.fr/ |
+| Philippine Revolution → U.S. takeover (1898–99) | Anti-Spanish liberation hijacked | https://www.archives.gov/ · FRUS |
+| Industrial child labor / enclosure afterlives | Progress vs disposable humans | https://www.british-history.ac.uk/ · UK National Archives |
+| Sepoy Rebellion / First War of Independence (1857) | Mutiny vs anti-colonial war | https://www.bl.uk/ · https://www.nationalarchives.gov.uk/ |
+| Taiping Rebellion (China) | Christian-inflected apocalypse vs Qing survival — death toll enormous | Cambridge Digital Library · Chinese archives entries |
+| Meiji Restoration violence / unequal treaties | Modernization vs cultural destruction | FRUS · Japanese National Archives https://www.digital.archives.go.jp/ |
 
 ---
 
-### 13.4 U.S. Civil War & Reconstruction
+# PART 14 — Ancient & medieval high-return holes (expanded)
+
+### Master libraries
 | Role | Link |
 |---|---|
-| National Archives Civil War | https://www.archives.gov/research/military/civil-war |
-| Freedmen’s Bureau | https://www.archives.gov/research/african-americans/freedmens-bureau |
-| Avalon Confederate / constitutional docs | https://avalon.law.yale.edu/ |
-| Library of Congress Civil War | https://www.loc.gov/collections/?q=civil+war |
-
-**Forever fight:** states’ rights myth vs slavery · Reconstruction as unfinished revolution · Lost Cause propaganda.
-
----
-
-### 13.5 Belgian Congo / Leopold’s rubber system (late 19th → early 20th)
-| Role | Link |
-|---|---|
-| UMass Du Bois papers (Congo) | https://credo.library.umass.edu/view/collection/mums312 |
-| British National Archives | https://www.nationalarchives.gov.uk/ |
-
----
-
-### 13.6 Industrial Revolution hell (child labor, enclosure, famine)
-| Role | Link |
-|---|---|
-| British History Online | https://www.british-history.ac.uk/ |
-| UK National Archives | https://www.nationalarchives.gov.uk/ |
-| Irish Famine records (National Archives of Ireland) | https://www.nationalarchives.ie/ |
-
----
-
-### 13.7 1848 revolutions / Communist Manifesto era
-| Role | Link |
-|---|---|
-| Marxists Internet Archive | https://www.marxists.org/archive/ |
-| Avalon | https://avalon.law.yale.edu/ |
-
----
-
-### 13.8 Dreyfus Affair (France — antisemitism modern template)
-| Role | Link |
-|---|---|
-| French National Library Gallica | https://gallica.bnf.fr/ |
-| Avalon / human-rights archives | https://avalon.law.yale.edu/ |
-
----
-
-# PART 14 — Ancient & medieval high-return holes
-
-**Why these still pay:** Modern fights about democracy, slavery, empire, religion-and-law, and “Western civilization” constantly loot these archives for ammo.
-
-### 14.1 Master libraries (start here)
-| Role | Link |
-|---|---|
-| Perseus Digital Library (Greek/Latin texts) | https://www.perseus.tufts.edu/hopper/ |
-| Internet Ancient History Sourcebook | https://sourcebooks.fordham.edu/ancient/asbook.asp |
-| Internet Medieval Sourcebook | https://sourcebooks.fordham.edu/sbook.asp |
-| Yale Avalon — ancient/medieval docs | https://avalon.law.yale.edu/subject_menus/ancient.asp |
+| Perseus (Greek/Latin) | https://www.perseus.tufts.edu/hopper/ |
+| Ancient History Sourcebook | https://sourcebooks.fordham.edu/ancient/asbook.asp |
+| Medieval Sourcebook | https://sourcebooks.fordham.edu/sbook.asp |
+| Avalon ancient/medieval | https://avalon.law.yale.edu/subject_menus/ancient.asp |
 | Internet Classics Archive | https://classics.mit.edu/ |
-
----
-
-### 14.2 Athenian democracy — who counted as a person
-**In plain English:** Famous “democracy” ran on slavery, excluded women, and restricted citizenship. Modern democracy arguments still smash into this.
-
-| Role | Link |
-|---|---|
-| Perseus (Aristotle Constitution of the Athenians, etc.) | https://www.perseus.tufts.edu/hopper/ |
-| Ancient History Sourcebook — Greece | https://sourcebooks.fordham.edu/ancient/asbook07.asp |
-
----
-
-### 14.3 Roman slavery and empire
-| Role | Link |
-|---|---|
-| Perseus Roman texts | https://www.perseus.tufts.edu/hopper/ |
-| Ancient History Sourcebook — Rome | https://sourcebooks.fordham.edu/ancient/asbook09.asp |
-
-**Forever fight:** Was Rome “civilization” or extraction machine? (Both. Argue with texts.)
-
----
-
-### 14.4 Exodus / conquest narratives (Bible as political dynamite)
-**In plain English:** Scripture used for liberation theology **and** conquest theology. Endless.
-
-| Role | Link |
-|---|---|
-| Parallel Bible / academic entry | https://www.sefaria.org/ · https://www.biblegateway.com/ |
+| Sefaria (Jewish texts) | https://www.sefaria.org/ |
 | Digital Dead Sea Scrolls | https://dss.collections.imj.org.il/ |
 
----
-
-### 14.5 Code of Hammurabi / ancient law
-| Role | Link |
-|---|---|
-| Avalon Hammurabi | https://avalon.law.yale.edu/ancient/hamframe.asp |
-| Louvre / museum object entries | https://www.louvre.fr/ |
-
----
-
-### 14.6 Peloponnesian War (Thucydides) — forever IR textbook
-| Role | Link |
-|---|---|
-| Perseus Thucydides | https://www.perseus.tufts.edu/hopper/ |
-| Classics MIT Thucydides | https://classics.mit.edu/Thucydides/pelopwar.html |
-
-**Forever fight:** Fear vs honor vs interest · democracy vs empire · “Thucydides Trap” modern meme vs what the text actually says.
-
----
-
-### 14.7 Crusades
-| Role | Link |
-|---|---|
-| Internet Medieval Sourcebook — Crusades | https://sourcebooks.fordham.edu/sbook1k.asp |
-| Avalon | https://avalon.law.yale.edu/ |
+### Highest-return ancient/medieval fights
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Athenian democracy + slavery | “Birth of democracy” built on exclusion | Perseus · Sourcebook Greece |
+| Sparta / helotage | Military utopia vs terror state | Perseus |
+| Peloponnesian War (Thucydides) | Fear/honor/interest; empire vs democracy | https://classics.mit.edu/Thucydides/pelopwar.html |
+| Alexander — conquest & death mysteries | Civilizer vs mass killer | Perseus · Sourcebook |
+| Roman slavery / Spartacus | Civilization vs extraction | Perseus · Sourcebook Rome |
+| Crucifixion of Jesus as political execution | Theology vs Roman security state | Sefaria · academic historical Jesus literature via libraries |
+| Code of Hammurabi | Law as hierarchy made stone | https://avalon.law.yale.edu/ancient/hamframe.asp |
+| Qin Shi Huang — book burning / forced labor | Unification vs totalitarian template | Ancient China source collections |
+| Ashoka after Kalinga | Conqueror → Buddhist remorse politics | Ancient History Sourcebook India |
+| Exodus / conquest narratives | Liberation scripture vs conquest scripture | Sefaria · Bible Gateway |
+| Constantine & Christian empire | Faith triumph vs state capture of religion | Medieval/late antique sourcebooks |
+| Justinian plague | Pandemic remakes empire | Medieval Sourcebook |
+| Muhammad / early Caliphates expansion | Revelation vs conquest historiography | https://sourcebooks.fordham.edu/islam/islamsbook.asp |
+| Crusades (incl. Fourth Crusade sack of Constantinople 1204) | Holy war vs plunder; Catholic vs Orthodox wound | https://sourcebooks.fordham.edu/sbook1k.asp |
+| Albigensian Crusade / “Cathar” debate | Heresy real vs invented by inquisitors | Medieval Sourcebook · historiography fight |
+| Mongol conquests | Apocalypse horsemen vs Eurasian integration | Sourcebooks · UNESCO Silk Roads |
+| Black Death | Scapegoats, labor power, church crisis | Medieval Sourcebook · Wellcome |
+| Spanish Inquisition beginnings (1478+) | Religious purity vs state terror | Spanish archives · Avalon |
+| Fall of Constantinople 1453 | End of Rome vs Ottoman destiny | Medieval Sourcebook |
+| 1492 — Reconquista + Columbus | Discovery vs invasion + expulsion of Jews/Muslims | Avalon · https://www.archives.gov/ · Spanish archives |
 
 ---
 
-### 14.8 Black Death (14th century)
-| Role | Link |
-|---|---|
-| Medieval Sourcebook — plague | https://sourcebooks.fordham.edu/sbook.asp |
-| Wellcome Collection | https://wellcomecollection.org/ |
+# PART 15 — 15th–18th centuries (the bridge eras often skipped)
 
-**Forever return:** pandemic power, scapegoating minorities, labor wages after mass death — rhymes with 1918 and 2020.
+### 1500s — Conquest, Reformation, Atlantic slavery ignition
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Spanish conquest of Americas / Valladolid debate | Souls to save vs peoples to enslave | Avalon · https://www.loc.gov/ · Spanish archives |
+| Atlantic slave trade ignition | Trade vs crime against humanity (retrospective law fights) | https://www.slavevoyages.org/ |
+| Protestant Reformation / wars of religion | Conscience vs chaos | Avalon · https://www.nationalarchives.gov.uk/ |
+| St. Bartholomew’s Day massacre (1572) | Religious panic slaughter | Gallica · Avalon |
+| Ottoman expansion / Lepanto / Mediterranean slavery | Cross vs crescent simplification vs tax/slave systems | Sourcebooks |
+| Aztec / Inca empire complexity (not “empty land”) | Victim-only vs empire-on-empire | LOC · academic ethnohistory |
 
----
+### 1600s — Permanent war, witch hunts, corporate empire
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Thirty Years’ War | Religion vs great-power meat grinder | https://www.nationalarchives.gov.uk/ · German archives |
+| English Civil War / regicide / Cromwell in Ireland | Liberty vs theocratic military rule | British History Online · UK National Archives |
+| Salem & European witch trials | Panic vs misogyny vs property seizure | https://www.archives.gov/ · local archives |
+| Dutch East India Company / Banda Islands | Corporate monopoly vs genocide for nutmeg | Dutch archives · https://www.nationaalarchief.nl/ |
+| Ming–Qing transition mass death | Dynasty change vs catastrophe | Cambridge Digital Library |
+| Atlantic slave trade acceleration + sugar islands | Capitalism’s blood foundation | https://www.slavevoyages.org/ |
+| Scientific Revolution + early race taxonomy | Enlightenment prep vs hierarchy science | early modern text archives |
 
-### 14.9 Mongol conquests
-| Role | Link |
-|---|---|
-| Internet History Sourcebooks | https://sourcebooks.fordham.edu/ |
-| UNESCO / Silk Roads program | https://en.unesco.org/silkroad/ |
-
----
-
-### 14.10 Islamic Golden Age / convivencia / Inquisition triangle
-| Role | Link |
-|---|---|
-| Medieval Sourcebook — Islam | https://sourcebooks.fordham.edu/islam/islamsbook.asp |
-| Spanish Inquisition materials (search national archives) | https://www.culturaydeporte.gob.es/ |
-| Sefaria (Jewish texts) | https://www.sefaria.org/ |
+### 1700s — Enlightenment, revolutions, slave empires
+| Topic | Forever fight | Must-read |
+|---|---|---|
+| Atlantic plantation complex peak | Liberty talk vs slave labor (American/French hypocrisy fights) | https://www.slavevoyages.org/ · Avalon |
+| Seven Years’ War / “first world war” | Empire chess with Indigenous nations as pieces | FRUS precursors · UK/French archives |
+| American Revolution | Liberty vs slavery intact; settler revolt vs empire | Avalon · https://www.archives.gov/ |
+| French Revolution / Terror | Emancipation vs guillotine politics | Gallica · Avalon · Marxists Archive |
+| Haitian Revolution (from 1791) | Universal rights made real — then punished | Fordham Sourcebook · SlaveVoyages |
+| Enclosure / early industrial Britain | Progress vs dispossession | https://www.british-history.ac.uk/ |
+| Pugachev rebellion (Russia) | Peasant war vs tsarist order | Marxists Archive / Russian archives entries |
 
 ---
 

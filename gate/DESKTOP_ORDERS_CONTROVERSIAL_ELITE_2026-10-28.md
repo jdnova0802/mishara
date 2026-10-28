@@ -9,32 +9,26 @@
 ## PASTE
 
 ```
-Controversy bible expanded again.
+Deep decade/century research pass is in.
 
 Doc: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
 
-NOW 14 PARTS (plain English):
-  1 Cameras/cops/data
-  2 Money/rent/drugs/capture
-  3 Slavery/forced labor
-  4 Body/medicine/science wars
-  5 Empire/war/secrets
-  6 Sex/power/cover (victim-safety)
-  7 Race/borders/belonging
-  8 Schools/speech/culture
-  9 Voting machinery
-  10 Research tools
-  11 Ethnicities/nations/mass killing (Shoah, Armenia, Holodomor, Rwanda, Cambodia, Partition, Troubles, Israel-Palestine docs, Balkans, Native nations, caste…)
-  12 20th century BY DECADE (1900s→1990s) including crack epidemic + 1986 drug law deep dive
-  13 19th century megas (Haiti, Trail of Tears, Opium Wars, Civil War/Reconstruction, Congo, Irish Famine, Dreyfus…)
-  14 Ancient/medieval high-return (Perseus, Athenian democracy+slavery, Rome, Thucydides, Crusades, Black Death…)
+Part 12 now denser 1900s→1990s with previously missing megas:
+  Unit 731, Japanese American incarceration, Bengal famine, Gulf of Tonkin,
+  Pentagon Papers, My Lai, Indonesia 1965–66, Great Leap Forward, Bhopal,
+  Chernobyl, S&L crisis, AIDS, Condor, Kent State, Roe, Attica, Columbine,
+  Congo Wars, crack epidemic deep dive, Red Summer, Palmer Raids, Amritsar,
+  Tulsa, Scopes, Scottsboro, Bonus Army, Paperclip, etc.
 
-Start: hot lane OR pick one decade in Part 12 OR one ethnicity seat in Part 11 OR one ancient seat in Part 14.
-One topic / 90 minutes. Primaries first. Victim-safety on genocide/trafficking/survivor material.
+Part 13 — expanded 19th century (Taiping, Scramble for Africa, Paris Commune, Sepoy, Meiji…).
+Part 14 — denser ancient/medieval.
+Part 15 — NEW bridge centuries 1500s–1700s (conquest, Reformation, VOC/Banda, witch trials, Atlantic revolutions).
+
+How to use: pick ONE decade OR ONE century row. Primaries first. 90 minutes.
 ```
 
 ---
 
 ## One-liner
 
-> Controversy bible now includes ethnicity/genocide stacks, decade-by-decade 20th century (crack epidemic deep dive), 19th century megas, and ancient/medieval high-return archives. Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
+> Deep research pass filled missing decade megas (1910s–1990s) and added Part 15 (15th–18th centuries) plus denser 19th/ancient stacks. Doc: `DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`.
