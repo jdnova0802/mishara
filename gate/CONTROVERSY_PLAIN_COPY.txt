@@ -122,29 +122,29 @@ https://www.ushmm.org/
 https://gsp.yale.edu/
 https://www.un.org/unispal/
 
-PART 12: 20th-21st century by decade (1900s-2010s)
+PART 12: 20th-21st century by decade (1900s-2010s) — FULL TIMELINE BELOW
 https://www.archives.gov/
 https://history.state.gov/historicaldocuments
 https://avalon.law.yale.edu/
 https://nsarchive.gwu.edu/
 
-PART 13: 19th century megas
+PART 13: 19th century megas — FULL TIMELINE BELOW
 https://www.slavevoyages.org/
 https://www.archives.gov/research/military/civil-war
 https://www.nationalarchives.gov.uk/
 
-PART 14: Ancient and medieval high-return
+PART 14: Ancient and medieval high-return — FULL TIMELINE BELOW
 https://www.perseus.tufts.edu/hopper/
 https://sourcebooks.fordham.edu/ancient/asbook.asp
 https://sourcebooks.fordham.edu/sbook.asp
 
-PART 15: 15th-18th centuries bridge
+PART 15: 15th-18th centuries bridge — FULL TIMELINE BELOW
 https://avalon.law.yale.edu/
 https://www.slavevoyages.org/
 https://www.nationaalarchief.nl/
 https://www.nationalarchives.gov.uk/
 
-PART 16: Black freedom movements full stack
+PART 16: Black freedom movements full stack — CHAIN TIMELINE BELOW
 https://nmaahc.si.edu/
 https://www.archives.gov/research/african-americans
 https://snccdigital.org/
@@ -376,34 +376,91 @@ Meiji Restoration / unequal treaties — https://history.state.gov/historicaldoc
 ------------------------------------------------------------------------
 PART 14 — ANCIENT AND MEDIEVAL HIGH-RETURN
 ------------------------------------------------------------------------
-LIBRARIES: https://www.perseus.tufts.edu/hopper/ · https://sourcebooks.fordham.edu/ancient/asbook.asp · https://sourcebooks.fordham.edu/sbook.asp · https://avalon.law.yale.edu/subject_menus/ancient.asp · https://classics.mit.edu/ · https://www.sefaria.org/ · https://dss.collections.imj.org.il/
-Democracy on slavery (Athens) — Perseus / Avalon
-Rome: republic to empire, slavery, crucifixion politics — Perseus / Fordham
-Hammurabi / ancient law — https://avalon.law.yale.edu/ancient/hamframe.asp
-Biblical / Near East conquest and exile fights — Sefaria / Avalon
-Crusades — Fordham medieval sourcebook
-Black Death and labor revolts — Fordham / national archives
-1492 / Reconquista / Americas contact — Avalon / Fordham / SlaveVoyages later link
-Mongol conquests — Fordham / Avalon
-Islamic golden age / Andalus fights — Fordham
-Witchcraft / inquisition precursors — Fordham
+LIBRARIES
+https://www.perseus.tufts.edu/hopper/
+https://sourcebooks.fordham.edu/ancient/asbook.asp
+https://sourcebooks.fordham.edu/sbook.asp
+https://avalon.law.yale.edu/subject_menus/ancient.asp
+https://classics.mit.edu/
+https://www.sefaria.org/
+https://dss.collections.imj.org.il/
+
+Athenian democracy + slavery — https://www.perseus.tufts.edu/hopper/ · https://sourcebooks.fordham.edu/ancient/asbook07.asp
+Sparta / helotage — https://www.perseus.tufts.edu/hopper/
+Peloponnesian War (Thucydides) — https://classics.mit.edu/Thucydides/pelopwar.html
+Alexander conquest — https://www.perseus.tufts.edu/hopper/
+Roman slavery / Spartacus — https://sourcebooks.fordham.edu/ancient/asbook09.asp
+Code of Hammurabi — https://avalon.law.yale.edu/ancient/hamframe.asp
+Qin Shi Huang forced labor / book burning — https://sourcebooks.fordham.edu/
+Ashoka after Kalinga — https://sourcebooks.fordham.edu/india/indiasbook.asp
+Exodus / conquest narratives — https://www.sefaria.org/
+Constantine and Christian empire — https://sourcebooks.fordham.edu/sbook.asp
+Early Caliphates expansion — https://sourcebooks.fordham.edu/islam/islamsbook.asp
+Crusades (incl. 1204 Constantinople) — https://sourcebooks.fordham.edu/sbook1k.asp
+Mongol conquests — https://sourcebooks.fordham.edu/ · https://en.unesco.org/silkroad/
+Black Death — https://sourcebooks.fordham.edu/sbook.asp · https://wellcomecollection.org/
+Spanish Inquisition beginnings — https://avalon.law.yale.edu/
+Fall of Constantinople 1453 — https://sourcebooks.fordham.edu/sbook.asp
+1492 Reconquista + Columbus — https://avalon.law.yale.edu/ · https://www.archives.gov/
 
 ------------------------------------------------------------------------
 PART 15 — 15th-18th CENTURIES BRIDGE
 ------------------------------------------------------------------------
-1500s: Conquest, Reformation, Atlantic slavery ignition — https://avalon.law.yale.edu/ · https://www.slavevoyages.org/ · https://www.nationaalarchief.nl/
-1600s: Thirty Years War, witch hunts, VOC / corporate empire — https://www.nationaalarchief.nl/ · https://www.nationalarchives.gov.uk/ · Fordham
-1700s: Enlightenment, Atlantic revolutions, slave empires — https://avalon.law.yale.edu/ · https://www.slavevoyages.org/ · https://www.archives.gov/ · https://www.nationalarchives.gov.uk/
-American Revolution docs — https://www.archives.gov/founding-docs
-French Revolution / Terror — https://avalon.law.yale.edu/ · https://gallica.bnf.fr/
-Haitian Revolution ignition — https://www.slavevoyages.org/ · Fordham modern
+1500s Conquest, Reformation, Atlantic slavery ignition
+Spanish conquest / Valladolid debate — https://avalon.law.yale.edu/ · https://www.loc.gov/
+Atlantic slave trade ignition — https://www.slavevoyages.org/
+Protestant Reformation / wars of religion — https://avalon.law.yale.edu/ · https://www.nationalarchives.gov.uk/
+St. Bartholomew's Day 1572 — https://gallica.bnf.fr/ · https://avalon.law.yale.edu/
+Aztec / Inca empire complexity — https://www.loc.gov/
+
+1600s Permanent war, witch hunts, corporate empire
+Thirty Years War — https://www.nationalarchives.gov.uk/
+English Civil War / Cromwell in Ireland — https://www.british-history.ac.uk/ · https://www.nationalarchives.gov.uk/
+Salem and European witch trials — https://www.archives.gov/
+Dutch VOC / Banda Islands — https://www.nationaalarchief.nl/
+Atlantic slave trade acceleration — https://www.slavevoyages.org/
+
+1700s Enlightenment, revolutions, slave empires
+Atlantic plantation complex — https://www.slavevoyages.org/ · https://avalon.law.yale.edu/
+Seven Years War — https://history.state.gov/historicaldocuments · https://www.nationalarchives.gov.uk/
+American Revolution — https://avalon.law.yale.edu/ · https://www.archives.gov/founding-docs
+French Revolution / Terror — https://gallica.bnf.fr/ · https://avalon.law.yale.edu/ · https://www.marxists.org/archive/
+Haitian Revolution from 1791 — https://sourcebooks.fordham.edu/mod/modsbook.asp · https://www.slavevoyages.org/
+Enclosure / early industrial Britain — https://www.british-history.ac.uk/
 
 ------------------------------------------------------------------------
 PART 16 — BLACK FREEDOM MOVEMENTS CHAIN (TIMELINE LANE)
 ------------------------------------------------------------------------
-Doors: https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ · https://kinginstitute.stanford.edu/
-Niagara / NAACP -> Garvey / UNIA -> Red Summer / Tulsa -> Randolph / Double V -> Till / Montgomery -> SNCC / Freedom Summer -> Civil Rights + Voting Rights Acts -> Black Power / Panthers -> COINTELPRO -> Black feminism / Combahee -> MOVE -> Rodney King -> Million Man March -> Katrina -> BLM -> reparations H.R.40
-https://www.congress.gov/bill/119th-congress/house-bill/40
+Doors: https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ · https://kinginstitute.stanford.edu/ · https://www.loc.gov/collections/civil-rights-history-project/
+1900s-10s Niagara / NAACP — https://www.naacp.org/ · https://nmaahc.si.edu/
+1910s Great Migration — https://www.archives.gov/ · https://www.loc.gov/
+1919 Red Summer — https://www.archives.gov/research/african-americans
+1920s Garvey / UNIA — https://www.archives.gov/ · https://vault.fbi.gov/
+1921 Tulsa — https://www.okhistory.org/
+1930s Scottsboro — https://www.archives.gov/
+1930s-40s Randolph / March on Washington Movement — https://www.archives.gov/
+WWII Double V — https://nmaahc.si.edu/
+1955 Emmett Till — https://www.archives.gov/ · https://vault.fbi.gov/
+1955-56 Montgomery — https://kinginstitute.stanford.edu/
+1957 Little Rock — https://www.archives.gov/
+1960 Sit-ins / SNCC — https://snccdigital.org/
+1963 Birmingham / March on Washington — https://kinginstitute.stanford.edu/
+1964-65 Civil Rights Act / Voting Rights Act — https://www.archives.gov/milestone-documents · https://www.congress.gov/
+1965-66 Malcolm X aftermath — https://vault.fbi.gov/ · https://nmaahc.si.edu/
+1966- Black Power / Panthers — https://www.marxists.org/history/usa/workers/black-panthers/ · https://vault.fbi.gov/
+1968 MLK / Poor People's Campaign — https://kinginstitute.stanford.edu/ · https://vault.fbi.gov/
+1969-71 FBI war on Panthers — https://vault.fbi.gov/ · https://www.intelligence.senate.gov/
+1970s Black feminism / Combahee — https://nmaahc.si.edu/ · https://www.loc.gov/
+1985 MOVE bombing — https://www.archives.gov/
+1991-92 Rodney King / LA — https://www.courtlistener.com/
+1995 Million Man March — https://nmaahc.si.edu/
+2005 Katrina — https://www.fema.gov/ · https://www.archives.gov/
+2012- BLM — https://www.justice.gov/crt · https://mappingpoliceviolence.org/ · https://nmaahc.si.edu/
+2014-15 Ferguson / Baltimore — https://www.justice.gov/crt
+2020 George Floyd uprising — https://www.justice.gov/ · https://www.courtlistener.com/
+Ongoing reparations H.R.40 — https://www.congress.gov/bill/119th-congress/house-bill/40
+
+ETERNAL SPLITS: integration vs nationalism vs Pan-Africanism · nonviolence vs armed self-defense · capitalism vs socialism · respectability vs radical aesthetics
 
 ========================================================================
 HOT LANE — PRIORITIES 0 TO 20 (every number has URLs)
