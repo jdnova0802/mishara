@@ -42,6 +42,7 @@
 | **16** | Black freedom movements (full stack) | Garvey → Civil Rights → Black Power → Panthers → BLM — orgs, docs, fights | https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ |
 | **17** | Audience-gap topics | Gender, LGBTQ, disability, labor, faith, youth/elder, Global South, more ethnic lanes | https://www.archives.gov/milestone-documents/19th-amendment · https://www.eeoc.gov/ · https://www.ada.gov/ · https://www.unhcr.org/ |
 | **18** | War crime stats | Who counts the dead, how numbers are built, why counts never agree, courts vs databases | https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human · https://www.icc-cpi.int/ · https://ihl-databases.icrc.org/ |
+| **19** | Domestic fight-stats engines | Guns, police killings, crime, drugs, abortion, border, homelessness, inequality, terror, prisons, fertility, nukes | https://wonder.cdc.gov/ · https://cde.ucr.cjis.gov/LATEST/webapp/ · https://www.gunviolencearchive.org/ · https://mappingpoliceviolence.org/ · https://wid.world/ · https://ourworldindata.org/ |
 
 **If you only open one lane tonight:** go to [Your hot lane](#your-hot-lane).
 
@@ -72,6 +73,7 @@ Topics that match what you’ve already been chasing (camera profits, power mout
 | 17 | 2010s BLM + #MeToo + Snowden | Identity, gender, surveillance decade | https://www.justice.gov/crt · https://www.eeoc.gov/ · https://www.eff.org/nsa-spying/nsadocs · https://nmaahc.si.edu/ |
 | 18 | Audience-gap Part 17 | Whatever room you’re in — check the checklist | https://www.archives.gov/milestone-documents/19th-amendment · https://www.ada.gov/ · https://www.eeoc.gov/ · https://www.unhcr.org/ |
 | 19 | War crime stats (Part 18) | Body counts, ICC dockets, methodology wars — endless fight fuel | https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human · https://www.icc-cpi.int/ · https://www.iraqbodycount.org/database/ |
+| 20 | Fight-stats engines (Part 19) | Same “method before number” rule — but for domestic forever fights | https://wonder.cdc.gov/ · https://www.gunviolencearchive.org/ · https://mappingpoliceviolence.org/ · https://cde.ucr.cjis.gov/LATEST/webapp/ · https://wid.world/ |
 
 ---
 
@@ -1423,6 +1425,7 @@ Before finalizing, ask:
 - [ ] Slavery/forced labor still linked (Part 3)  
 - [ ] Voting/certification still linked (Part 9)  
 - [ ] War crime / civilian-death **counting fights** (Part 18) — methods before morals  
+- [ ] Domestic **fight-stats engines** (Part 19) — guns/police/crime/border/inequality…  
 - [ ] Victim-safety rules still on  
 
 If a live conversation partner names a wound not here, **add a row** — this document is a map, not a cemetery.
@@ -1575,28 +1578,273 @@ https://www.ohchr.org/
 
 ---
 
+# PART 19 — Domestic fight-stats engines (numbers that start wars at dinner)
+
+**In plain English:** Same lesson as Part 18, closer to home. America (and the internet) fights with **dashboards**. These sites are where the numbers come from — and where the definition fights hide.
+
+**Hard rule (again):** **Method before number.** Two honest people can get different totals if “gun death,” “police killing,” “crime,” “migrant encounter,” or “homeless” means different things.
+
+**Working stance (not a religion):** Incentives + force + status + stories. Stats are a story-layer weapon. Steal clean methods; don’t worship the chart that flatters you.
+
+---
+
+### 19.1 Guns (definition hell)
+
+| Role | Link | Fight |
+|---|---|---|
+| CDC WONDER (death certificates) | https://wonder.cdc.gov/ | Official mortality — slow, coded, gold for cause-of-death |
+| CDC WISQARS (injury) | https://wisqars.cdc.gov/ | Injuries + costs, not just deaths |
+| CDC NVDRS (violent death circumstances) | https://www.cdc.gov/nvdrs/ | Circumstance detail when states report |
+| Gun Violence Archive | https://www.gunviolencearchive.org/ | Fast incident tracker — **read methodology** https://www.gunviolencearchive.org/methodology |
+| FBI Crime Data Explorer | https://cde.ucr.cjis.gov/LATEST/webapp/ | Reported crime / NIBRS transition mess |
+
+**Forever fight:** “Mass shooting” definitions · suicide included or not · defensive gun use estimates · GVA speed vs CDC rigor.
+
+---
+
+### 19.2 Police killings & stops
+
+| Role | Link | Fight |
+|---|---|---|
+| Mapping Police Violence | https://mappingpoliceviolence.org/ | Independent count — agencies don’t publish clean national totals |
+| Washington Post Fatal Force | https://www.washingtonpost.com/graphics/investigations/police-shootings-database/ | On-duty fatal **shootings** (narrower than all deaths) |
+| Fatal Encounters | https://fatalencounters.org/ | Broader: deaths when police present / involved |
+| FBI National Use-of-Force collection | https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/use-of-force | Voluntary participation → coverage fights |
+| Stanford Open Policing Project | https://openpolicing.stanford.edu/ | Stops/searches — disparity vs baseline debates |
+| DOJ Civil Rights Division | https://www.justice.gov/crt | Pattern-or-practice cases (docs, not vibes) |
+
+**Forever fight:** “Police kill X” — which database? shootings-only vs all custody deaths · armed/unarmed coding · population vs encounter baselines.
+
+---
+
+### 19.3 Crime reported vs crime experienced
+
+| Role | Link |
+|---|---|
+| FBI Crime Data Explorer (UCR/NIBRS) | https://cde.ucr.cjis.gov/LATEST/webapp/ |
+| BJS National Crime Victimization Survey (NCVS) | https://bjs.ojp.gov/data-collection/ncvs |
+| BJS hub | https://bjs.ojp.gov/ |
+| Council on Criminal Justice / similar explainers | https://counciloncj.org/ |
+
+**Forever fight:** Police reports ≠ victimization surveys · NIBRS transition fake “crime waves” · clearance rates · “crime is down / up” depending on year + metric.
+
+---
+
+### 19.4 Drugs, overdose, suicide
+
+| Role | Link |
+|---|---|
+| CDC WONDER (overdose / suicide codes) | https://wonder.cdc.gov/ |
+| NIDA | https://nida.nih.gov/ |
+| SAMHSA (surveys / treatment) | https://www.samhsa.gov/ |
+| CDC suicide prevention data | https://www.cdc.gov/suicide/ |
+
+**Forever fight:** Fentanyl vs demand vs pharma history · “deaths of despair” framing · provisional vs final CDC counts.
+
+---
+
+### 19.5 Abortion counts (dueling counters)
+
+| Role | Link |
+|---|---|
+| CDC abortion surveillance | https://www.cdc.gov/reproductivehealth/data_stats/abortion.htm |
+| Guttmacher Data Center | https://data.guttmacher.org/ |
+| State health department releases | (varies — always dual-source post-Dobbs) |
+
+**Forever fight:** CDC incomplete state reporting vs Guttmacher surveys · chemical abortion undercount · “lives saved / rights crushed” as moral overlays on counts.
+
+---
+
+### 19.6 Border / immigration enforcement numbers
+
+| Role | Link |
+|---|---|
+| CBP Southwest Border / enforcement stats | https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters |
+| CBP stats hub | https://www.cbp.gov/newsroom/stats |
+| DHS Yearbook of Immigration Statistics | https://ohss.dhs.gov/topics/immigration/yearbook |
+| ICE statistics | https://www.ice.gov/statistics |
+| TRAC Immigration (Syracuse) | https://tracreports.org/immigration/ |
+
+**Forever fight:** “Encounter” ≠ unique people ≠ “gotaways” · Title 42 era distortions · asylum backlog vs illegal entry slogans.
+
+---
+
+### 19.7 Homelessness counts
+
+| Role | Link |
+|---|---|
+| HUD Point-in-Time (PIT) counts | https://www.hudexchange.info/programs/hdx/pit-hic/ |
+| HUD AHAR reports | https://www.hudexchange.info/homelessness-assistance/ahar/ |
+| USICH | https://www.usich.gov/ |
+
+**Forever fight:** One-night street count undercounts · sheltered vs unsheltered · addiction/mental-health vs housing-cost explanations.
+
+---
+
+### 19.8 Inequality, wealth, wages
+
+| Role | Link |
+|---|---|
+| World Inequality Database | https://wid.world/ |
+| Federal Reserve Survey of Consumer Finances | https://www.federalreserve.gov/econres/scfindex.htm |
+| IRS SOI tax stats | https://www.irs.gov/statistics/soi-tax-stats |
+| BLS (wages / CPI / productivity) | https://www.bls.gov/ |
+| Opportunity Insights (mobility) | https://opportunityinsights.org/ |
+
+**Forever fight:** Income vs wealth · pre-tax vs post-transfer · top 1% share methodology · “median is fine” vs asset aristocracy.
+
+---
+
+### 19.9 Terrorism definition databases
+
+| Role | Link |
+|---|---|
+| Global Terrorism Database (START/UMD) | https://www.start.umd.edu/data-tools/GTD |
+| Our World in Data — terrorism | https://ourworldindata.org/terrorism |
+| State Dept Country Reports on Terrorism | https://www.state.gov/country-reports-on-terrorism/ |
+
+**Forever fight:** What counts as “terrorism” vs hate crime vs war · GTD coding breaks across eras · media-driven under/overcount.
+
+---
+
+### 19.10 Prisons, sentencing, “mass incarceration”
+
+| Role | Link |
+|---|---|
+| BJS corrections | https://bjs.ojp.gov/ |
+| Prison Policy Initiative | https://www.prisonpolicy.org/ |
+| Vera Institute | https://www.vera.org/ |
+| U.S. Sentencing Commission | https://www.ussc.gov/ |
+| Marshall Project data | https://www.themarshallproject.org/ |
+
+**Forever fight:** Stock vs flow · jail vs prison · violent vs drug shares · “soft on crime” vs “carceral state” using different denominators.
+
+---
+
+### 19.11 Fertility, demography, “population collapse”
+
+| Role | Link |
+|---|---|
+| CDC NCHS vital stats / births | https://www.cdc.gov/nchs/nvss/births.htm |
+| UN World Population Prospects | https://population.un.org/wpp/ |
+| Our World in Data — fertility | https://ourworldindata.org/fertility-rate |
+| Census Bureau population estimates | https://www.census.gov/programs-surveys/popest.html |
+
+**Forever fight:** Choice vs economics vs culture · immigration as demographic patch · pronatal policy ethics.
+
+---
+
+### 19.12 Nuclear arsenals (existential stats)
+
+| Role | Link |
+|---|---|
+| FAS Nuclear Notebook / status | https://fas.org/initiative/status-world-nuclear-forces/ |
+| SIPRI | https://www.sipri.org/ |
+| IAEA | https://www.iaea.org/ |
+| NTI | https://www.nti.org/ |
+
+**Forever fight:** Deterrence vs abolition · opacity of stockpile numbers · “tactical” nukes lowering the threshold.
+
+---
+
+### 19.13 Excess mortality / pandemic counting
+
+| Role | Link |
+|---|---|
+| Our World in Data — excess mortality | https://ourworldindata.org/excess-mortality-covid |
+| CDC WONDER / provisional death counts | https://wonder.cdc.gov/ |
+| WHO COVID / mortality doors | https://www.who.int/ |
+
+**Forever fight:** Died *from* vs *with* · excess mortality as the adult metric · lockdown cost–benefit as ideology wearing a spreadsheet.
+
+---
+
+### 19.14 Meta-portals (useful — and biasable)
+
+| Role | Link | Note |
+|---|---|---|
+| Our World in Data | https://ourworldindata.org/ | Best charts on earth — still a **frame**. Check underlying sources. |
+| Gapminder | https://www.gapminder.org/ | Optimism engine — test against WID / conflict data |
+| HDX (humanitarian data) | https://data.humdata.org/ | Aggregates incl. ACLED civilian targeting |
+| Data.gov | https://data.gov/ | U.S. open-data attic |
+
+---
+
+### 19.15 Still-thin controversy doors (stat-adjacent)
+
+| Topic | Start | Why it’s here |
+|---|---|---|
+| Organ trafficking / transplant tourism | https://www.declarationofistanbul.org/ · UNODC https://www.unodc.org/ | Body-as-commodity — undercounted, over-denied |
+| Hate crime stats | FBI CDE https://cde.ucr.cjis.gov/LATEST/webapp/ | Massive underreporting + definition politics |
+| Campus sexual assault (Clery vs surveys) | https://www.ed.gov/ · Clery data doors | Survey prevalence vs reported incidents forever fight |
+| Gender pay gap methodology | https://www.bls.gov/ | Unadjusted headline vs controlled residual |
+
+---
+
+### 19.16 90-minute fight-stats session
+
+1. Pick **one fight** (guns, police, crime, border, inequality…).
+2. Open **official counter + independent counter** (e.g. CDC WONDER + GVA; Fatal Force + Mapping Police Violence; FBI CDE + NCVS).
+3. Write: **definition · inclusion rules · date range · what is excluded**.
+4. Ask who is **paid, forced, or status-rewarded** if this number wins (your Part-0 world map).
+5. Only then argue policy.
+
+**Paste starter**
+```
+https://wonder.cdc.gov/
+https://wisqars.cdc.gov/
+https://www.gunviolencearchive.org/
+https://www.gunviolencearchive.org/methodology
+https://mappingpoliceviolence.org/
+https://www.washingtonpost.com/graphics/investigations/police-shootings-database/
+https://fatalencounters.org/
+https://openpolicing.stanford.edu/
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://bjs.ojp.gov/data-collection/ncvs
+https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
+https://tracreports.org/immigration/
+https://www.hudexchange.info/programs/hdx/pit-hic/
+https://wid.world/
+https://www.federalreserve.gov/econres/scfindex.htm
+https://www.start.umd.edu/data-tools/GTD
+https://www.prisonpolicy.org/
+https://ourworldindata.org/
+https://fas.org/initiative/status-world-nuclear-forces/
+https://data.guttmacher.org/
+```
+
+---
+
 ## Acronym cheat sheet (plain English)
 
 | Acronym | Plain English |
 |---|---|
 | ACLED | Near-real-time political violence / civilian-targeting event database |
 | ALPR | Automatic license-plate reader (car cameras) |
+| BJS / NCVS | Justice stats bureau / victimization survey (unreported crime too) |
+| CDC WONDER / WISQARS | Death-certificate warehouse / injury stats dashboard |
 | CIA / FBI / NSA / DHS / ICE | U.S. intel, federal police, signals intel, homeland security, immigration police |
 | CISA / EAC / NIST | Cyber agency, election standards commission, standards lab |
 | FOIA | Public-records request law |
 | FTC / SEC / CFPB | Consumer competition regulator, stock regulator, consumer finance regulator |
+| GTD | Global Terrorism Database (START/UMD) |
+| GVA | Gun Violence Archive (fast incident tracker) |
+| HUD PIT | Homeless point-in-time street/shelter count |
 | ICC | International Criminal Court (The Hague) |
 | ICIJ | Cross-border investigative journalists (offshore leaks) |
 | ICRC / IHL | Red Cross legal arm / international humanitarian law (“laws of war”) |
 | ICTY / ICTR | Old Yugoslavia / Rwanda war-crimes tribunals (now residual mechanism) |
 | ILO | UN labor agency |
+| NIBRS / UCR | Modern incident crime reporting / old summary crime reporting |
 | OHCHR | UN human-rights office (conflict-death indicator custodian) |
+| OWID | Our World in Data (charts — check underlying sources) |
 | PBM | Pharmacy benefit manager (drug middleman) |
 | PACER | Federal court document paywall portal |
 | SIPRI | Stockholm peace-research institute (arms + conflict) |
 | UCDP | Uppsala Conflict Data Program (academic conflict-death datasets) |
 | UFLPA | U.S. law blocking Xinjiang forced-labor goods |
 | VVSG | Voluntary rules for testing voting machines |
+| WID | World Inequality Database |
 | WPATH | Major transgender-health professional association |
 
 ---
@@ -1674,6 +1922,28 @@ https://www.un.org/sexualviolenceinconflict/
 https://childrenandarmedconflict.un.org/
 https://www.opcw.org/
 https://www.the-monitor.org/
+
+=== PART 19 FIGHT-STATS ENGINES ===
+https://wonder.cdc.gov/
+https://wisqars.cdc.gov/
+https://www.gunviolencearchive.org/
+https://mappingpoliceviolence.org/
+https://www.washingtonpost.com/graphics/investigations/police-shootings-database/
+https://fatalencounters.org/
+https://openpolicing.stanford.edu/
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://bjs.ojp.gov/data-collection/ncvs
+https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
+https://tracreports.org/immigration/
+https://www.hudexchange.info/programs/hdx/pit-hic/
+https://wid.world/
+https://www.federalreserve.gov/econres/scfindex.htm
+https://www.start.umd.edu/data-tools/GTD
+https://www.prisonpolicy.org/
+https://data.guttmacher.org/
+https://ourworldindata.org/
+https://fas.org/initiative/status-world-nuclear-forces/
+https://opportunityinsights.org/
 
 === TOOLS ===
 https://www.courtlistener.com/

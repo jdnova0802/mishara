@@ -8,7 +8,7 @@ HOW TO USE
 - Victim safety: research systems/docs only. No doxxing/harassment/illegal content.
 
 ========================================================================
-MAP — PARTS 1 TO 18 (every number has URLs)
+MAP — PARTS 1 TO 19 (every number has URLs)
 ========================================================================
 
 PART 1: Cameras, cops, and data empires
@@ -111,8 +111,16 @@ https://costsofwar.watson.brown.edu/costs/human
 https://www.icc-cpi.int/
 https://ihl-databases.icrc.org/
 
+PART 19: Domestic fight-stats engines
+https://wonder.cdc.gov/
+https://www.gunviolencearchive.org/
+https://mappingpoliceviolence.org/
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://wid.world/
+https://ourworldindata.org/
+
 ========================================================================
-HOT LANE — PRIORITIES 1 TO 19 (every number has URLs)
+HOT LANE — PRIORITIES 1 TO 20 (every number has URLs)
 ========================================================================
 
 1. Flock license-plate cameras
@@ -218,6 +226,16 @@ https://www.iraqbodycount.org/database/
 https://airwars.org/
 https://ihl-databases.icrc.org/
 
+20. Fight-stats engines (Part 19)
+https://wonder.cdc.gov/
+https://www.gunviolencearchive.org/
+https://mappingpoliceviolence.org/
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://bjs.ojp.gov/data-collection/ncvs
+https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
+https://wid.world/
+https://ourworldindata.org/
+
 ========================================================================
 PART 18 DETAIL — WAR CRIME STATS (copy this lane)
 ========================================================================
@@ -286,3 +304,96 @@ Unit 731: https://www.archives.gov/iwg/
 4. Compare numbers only after that
 5. Open one legal door (Rome Statute or Geneva rule)
 6. List what would falsify your side
+
+========================================================================
+PART 19 DETAIL — FIGHT-STATS ENGINES (copy this lane)
+========================================================================
+
+RULE: Method before number. Dashboards are weapons.
+
+GUNS
+https://wonder.cdc.gov/
+https://wisqars.cdc.gov/
+https://www.cdc.gov/nvdrs/
+https://www.gunviolencearchive.org/
+https://www.gunviolencearchive.org/methodology
+https://cde.ucr.cjis.gov/LATEST/webapp/
+
+POLICE KILLINGS / STOPS
+https://mappingpoliceviolence.org/
+https://www.washingtonpost.com/graphics/investigations/police-shootings-database/
+https://fatalencounters.org/
+https://openpolicing.stanford.edu/
+https://www.fbi.gov/how-we-can-help-you/more-fbi-services-and-information/ucr/use-of-force
+https://www.justice.gov/crt
+
+CRIME REPORTED VS EXPERIENCED
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://bjs.ojp.gov/data-collection/ncvs
+https://bjs.ojp.gov/
+
+DRUGS / OVERDOSE / SUICIDE
+https://wonder.cdc.gov/
+https://nida.nih.gov/
+https://www.samhsa.gov/
+https://www.cdc.gov/suicide/
+
+ABORTION COUNTERS
+https://www.cdc.gov/reproductivehealth/data_stats/abortion.htm
+https://data.guttmacher.org/
+
+BORDER / IMMIGRATION
+https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
+https://www.cbp.gov/newsroom/stats
+https://ohss.dhs.gov/topics/immigration/yearbook
+https://www.ice.gov/statistics
+https://tracreports.org/immigration/
+
+HOMELESSNESS
+https://www.hudexchange.info/programs/hdx/pit-hic/
+https://www.hudexchange.info/homelessness-assistance/ahar/
+https://www.usich.gov/
+
+INEQUALITY / WEALTH
+https://wid.world/
+https://www.federalreserve.gov/econres/scfindex.htm
+https://www.irs.gov/statistics/soi-tax-stats
+https://www.bls.gov/
+https://opportunityinsights.org/
+
+TERRORISM
+https://www.start.umd.edu/data-tools/GTD
+https://ourworldindata.org/terrorism
+https://www.state.gov/country-reports-on-terrorism/
+
+PRISONS
+https://bjs.ojp.gov/
+https://www.prisonpolicy.org/
+https://www.vera.org/
+https://www.ussc.gov/
+
+FERTILITY / DEMOGRAPHY
+https://www.cdc.gov/nchs/nvss/births.htm
+https://population.un.org/wpp/
+https://ourworldindata.org/fertility-rate
+
+NUCLEAR
+https://fas.org/initiative/status-world-nuclear-forces/
+https://www.sipri.org/
+https://www.iaea.org/
+
+EXCESS MORTALITY / COVID COUNTING
+https://ourworldindata.org/excess-mortality-covid
+https://wonder.cdc.gov/
+https://www.who.int/
+
+META PORTALS
+https://ourworldindata.org/
+https://www.gapminder.org/
+https://data.humdata.org/
+https://data.gov/
+
+STILL-THIN DOORS
+Organ trafficking: https://www.declarationofistanbul.org/ · https://www.unodc.org/
+Hate crime: https://cde.ucr.cjis.gov/LATEST/webapp/
+Pay gap methods: https://www.bls.gov/
