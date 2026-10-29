@@ -41,6 +41,7 @@
 | **15** | 15th–18th centuries bridge | Conquest, Reformation, witch trials, VOC empire, Atlantic revolutions | https://avalon.law.yale.edu/ · https://www.slavevoyages.org/ · https://www.nationaalarchief.nl/ · https://www.nationalarchives.gov.uk/ |
 | **16** | Black freedom movements (full stack) | Garvey → Civil Rights → Black Power → Panthers → BLM — orgs, docs, fights | https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ |
 | **17** | Audience-gap topics | Gender, LGBTQ, disability, labor, faith, youth/elder, Global South, more ethnic lanes | https://www.archives.gov/milestone-documents/19th-amendment · https://www.eeoc.gov/ · https://www.ada.gov/ · https://www.unhcr.org/ |
+| **18** | War crime stats | Who counts the dead, how numbers are built, why counts never agree, courts vs databases | https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human · https://www.icc-cpi.int/ · https://ihl-databases.icrc.org/ |
 
 **If you only open one lane tonight:** go to [Your hot lane](#your-hot-lane).
 
@@ -70,6 +71,7 @@ Topics that match what you’ve already been chasing (camera profits, power mout
 | 16 | 2000s Iraq/WMD + 2008 crash | Defining wars + bailouts of the century | https://nsarchive.gwu.edu/ · https://www.gov.uk/government/publications/the-report-of-the-iraq-inquiry · https://fcic.law.stanford.edu/ · https://fraser.stlouisfed.org/ |
 | 17 | 2010s BLM + #MeToo + Snowden | Identity, gender, surveillance decade | https://www.justice.gov/crt · https://www.eeoc.gov/ · https://www.eff.org/nsa-spying/nsadocs · https://nmaahc.si.edu/ |
 | 18 | Audience-gap Part 17 | Whatever room you’re in — check the checklist | https://www.archives.gov/milestone-documents/19th-amendment · https://www.ada.gov/ · https://www.eeoc.gov/ · https://www.unhcr.org/ |
+| 19 | War crime stats (Part 18) | Body counts, ICC dockets, methodology wars — endless fight fuel | https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human · https://www.icc-cpi.int/ · https://www.iraqbodycount.org/database/ |
 
 ---
 
@@ -1420,9 +1422,156 @@ Before finalizing, ask:
 - [ ] Non-Black U.S. ethnic lanes + Global South (Part 17)  
 - [ ] Slavery/forced labor still linked (Part 3)  
 - [ ] Voting/certification still linked (Part 9)  
+- [ ] War crime / civilian-death **counting fights** (Part 18) — methods before morals  
 - [ ] Victim-safety rules still on  
 
 If a live conversation partner names a wound not here, **add a row** — this document is a map, not a cemetery.
+
+---
+
+# PART 18 — War crime stats (who counts the dead)
+
+**In plain English:** People argue forever about war because the numbers never match. One side cites a court, another a media body-count, another a peer-reviewed survey, another a government release. This part is the **stats rabbit hole**: definitions, databases, methodology fights, and theater-by-theater competing counts.
+
+**Hard rule:** Research documents and datasets. Do **not** share illegal imagery, graphic snuff, or victim identities for harassment. Numbers are about systems and methods — not revenge porn for atrocity.
+
+**Four fights baked into every number**
+1. **Definition:** Is this a war crime (legal), a civilian casualty (descriptive), or an atrocity (moral/political)?
+2. **Method:** Documented named deaths vs statistical survey vs “excess mortality” model.
+3. **Category:** Civilian vs combatant — who decides, and with what evidence?
+4. **Incentive:** Who benefits if the number is high, low, or “unknown”?
+
+---
+
+### 18.1 Master counting engines (open these first)
+
+| Role | Link | What it actually is |
+|---|---|---|
+| Uppsala Conflict Data Program (UCDP) | https://ucdp.uu.se/ | Academic gold standard for organized-violence fatalities; free downloads |
+| UCDP download center | https://ucdp.uu.se/downloads/ | Codebooks + datasets (read the codebook before arguing) |
+| ACLED (Armed Conflict Location & Event Data) | https://acleddata.com/ | Near-real-time political violence events + civilian targeting |
+| ACLED conflict data hub | https://acleddata.com/conflict-data | Explorer / export entry |
+| HDX — civilian targeting aggregates | https://data.humdata.org/dataset/civilian-targeting-events-and-fatalities | Weekly country totals from ACLED |
+| Brown Costs of War (human toll) | https://costsofwar.watson.brown.edu/costs/human | Post-9/11 direct + indirect death estimates |
+| Every Casualty / casualty recording norms | https://everycasualty.org/ | Standards for how deaths should be recorded |
+| OHCHR conflict-related deaths (SDG 16.1.2) | https://www.ohchr.org/ | UN human-rights office framing for conflict deaths |
+| SIPRI (arms + conflict research) | https://www.sipri.org/ | Military spending, arms transfers, conflict research |
+
+*UCDP = Uppsala Conflict Data Program. ACLED = Armed Conflict Location & Event Data. OHCHR = UN human-rights office. SIPRI = Stockholm International Peace Research Institute.*
+
+**Forever fight:** Academic conservatism (only verified deaths) vs surveys that catch unreported deaths · event databases vs excess-mortality models.
+
+---
+
+### 18.2 Law definitions (before you call something a “war crime”)
+
+| Role | Link |
+|---|---|
+| Geneva Conventions & Additional Protocols (ICRC) | https://ihl-databases.icrc.org/en/ihl-treaties/geneva-conventions-1949additional-protocols-and-their-commentaries |
+| ICRC Customary IHL database | https://ihl-databases.icrc.org/en/customary-ihl |
+| Rome Statute of the International Criminal Court (text) | https://www.icc-cpi.int/sites/default/files/2024-05/Rome-Statute-eng.pdf |
+| ICC Situations and cases | https://www.icc-cpi.int/situations-cases |
+| ICC “The Court Today” stats sheet | https://www.icc-cpi.int/sites/default/files/2024-11/TheCourtToday-Eng.pdf |
+| Avalon — Nuremberg / IMT materials | https://avalon.law.yale.edu/subject_menus/imt.asp |
+| UN residual mechanism (ICTY/ICTR legacy) | https://www.irmct.org/ |
+
+*ICC = International Criminal Court. ICRC = Red Cross legal/humanitarian body. IHL = international humanitarian law (“laws of war”). ICTY/ICTR = old Yugoslavia / Rwanda tribunals.*
+
+**Forever fight:** Legal war crime (needs elements + jurisdiction) vs slogan war crime · victor’s justice vs accountability gap · ICC “Africa focus” critique vs “who ratified / who refers” reality.
+
+---
+
+### 18.3 Methodology wars (why two honest researchers get different totals)
+
+| Fight | Plain English | Must-read |
+|---|---|---|
+| Documented count vs survey | Named media/morgue records vs random household surveys that estimate uncounted deaths | Iraq Body Count methods https://www.iraqbodycount.org/about/methods/1 · Lancet-era survey fights via PubMed https://pubmed.ncbi.nlm.nih.gov/ |
+| Direct vs indirect deaths | Bullet/bomb vs disease, hunger, collapsed hospitals after infrastructure dies | Costs of War human page https://costsofwar.watson.brown.edu/costs/human |
+| Civilian vs combatant | Who was fighting? Who was nearby? Who gets labeled “military age male”? | Airwars https://airwars.org/ · UCDP codebooks https://ucdp.uu.se/downloads/ |
+| Confirmed vs alleged strike deaths | Coalition admits X; monitors estimate Y–Z | Airwars https://airwars.org/ · DoD releases https://www.defense.gov/ |
+| Undercount politics | Governments hide losses; rebels inflate enemy kills | UCDP notes + Costs of War footnotes (always read footnotes) |
+| Double counting / source quality | Same death in three wire stories ≠ three deaths | ACLED/UCDP codebooks; Every Casualty https://everycasualty.org/ |
+
+**Conversation engine:** Pick one war. Force both sides to state **method** before **number**. If they can’t name the method, they don’t have a number — they have a vibe.
+
+---
+
+### 18.4 Theater stacks (competing counts you can actually open)
+
+| Theater | Competing count doors | Forever fight |
+|---|---|---|
+| Iraq 2003+ | https://www.iraqbodycount.org/database/ · Costs of War https://costsofwar.watson.brown.edu/costs/human · Wikileaks Iraq War Logs context via archives/NSArchive https://nsarchive.gwu.edu/ | Documented civilians vs survey totals vs “mission accomplished” narratives |
+| Afghanistan / Pakistan drones+war | Costs of War · UCDP · Airwars https://airwars.org/ · UNAMA historical reports via https://unama.unmissions.org/ | Precision myth vs civilian harm |
+| Syria | OHCHR/UN Syria mechanisms https://www.ohchr.org/ · UCDP · ACLED · SNHR and other monitors (treat as partisan until cross-checked) | Regime vs rebel vs coalition blame allocation |
+| Yemen | ACLED · UCDP · UN OCHA https://www.unocha.org/ · Costs of War Yemen slice | Saudi/UAE coalition vs Houthis — whose numbers |
+| Gaza / Israel–Palestine casualty fights | UN OCHA oPt https://www.ochaopt.org/ · https://www.un.org/unispal/ · Israeli MFA/IDF releases · Palestinian MoH figures (always dual-source) | Intent, proportionality, human shields, inflated/deflated counts |
+| Ukraine 2022+ | OHCHR Ukraine https://www.ohchr.org/ · UCDP · ACLED · ICC Ukraine situation https://www.icc-cpi.int/situations-cases | Aggression crime vs war crimes vs propaganda tallies |
+| Rwanda 1994 / Balkans 1990s | https://www.irmct.org/ · https://gsp.yale.edu/ · USHMM https://www.ushmm.org/ | Genocide legal label vs body-count disputes |
+| WWII strategic bombing / atomic | https://www.archives.gov/ · https://www.trumanlibrary.gov/ · Avalon IMT https://avalon.law.yale.edu/subject_menus/imt.asp | Military necessity vs terror bombing / race |
+
+---
+
+### 18.5 Court dockets ≠ body counts
+
+| Point | Why it matters | Link |
+|---|---|---|
+| ICC case volume is tiny vs deaths | Dozens of cases; hundreds of thousands of deaths | https://www.icc-cpi.int/situations-cases · Court Today PDF https://www.icc-cpi.int/sites/default/files/2024-11/TheCourtToday-Eng.pdf |
+| Jurisdiction gaps | Non-parties, Security Council politics, immunities | Rome Statute PDF · UN Security Council https://www.un.org/securitycouncil/ |
+| Selection / prioritization | “Greatest responsibility” = few defendants | ICC complementarity materials https://www.icc-cpi.int/ |
+| National courts + universal jurisdiction | Sometimes more action than The Hague | https://www.courtlistener.com/ · national justice ministry sites |
+| Truth commissions vs trials | Numbers for memory ≠ numbers for conviction | South Africa TRC legacy · Latin America archives https://nsarchive.gwu.edu/ |
+
+**Forever fight:** “If the ICC hasn’t charged it, it didn’t happen” (false) · “Every high death toll is a proven war crime” (also false).
+
+---
+
+### 18.6 Sexual violence, children, banned weapons (stat side doors)
+
+| Topic | Start URL |
+|---|---|
+| Conflict-related sexual violence (UN) | https://www.un.org/sexualviolenceinconflict/ |
+| Children and armed conflict (UN) | https://childrenandarmedconflict.un.org/ |
+| Cluster munition monitor | https://www.the-monitor.org/ |
+| Landmine / cluster convention text doors | https://ihl-databases.icrc.org/ |
+| Chemical weapons watchdog | https://www.opcw.org/ |
+| Child soldiers / Optional Protocol | https://www.ohchr.org/ |
+
+---
+
+### 18.7 Classic U.S./allied case files (documented incidents, not vibes)
+
+| Case | Start URL | Fight |
+|---|---|---|
+| My Lai (1968) | https://www.archives.gov/ · https://www.loc.gov/ | Bad apples vs doctrine |
+| Abu Ghraib | https://www.archives.gov/ · https://www.dodig.mil/ | Photos vs systemic authorization |
+| CIA black sites / torture memos | https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ · Senate intelligence study doors | Enhanced interrogation vs war crime |
+| Unit 731 / IWG Japan docs | https://www.archives.gov/iwg/ | Science atrocity + postwar immunity deals |
+| Dresden / Tokyo / Hiroshima debates | https://www.archives.gov/ · https://www.trumanlibrary.gov/ | Necessity vs crime / race |
+
+---
+
+### 18.8 How to run a 90-minute war-crime-stats session
+
+1. Pick **one theater** (Iraq, Yemen, Gaza, Ukraine, Rwanda…).
+2. Open **two counting engines** (e.g. UCDP + Airwars, or Iraq Body Count + Costs of War).
+3. Write down for each: **definition**, **method**, **date range**, **civilian rule**.
+4. Only then compare numbers.
+5. Open **one legal door** (Rome Statute article or Geneva rule) and ask: does this number prove the legal elements, or only the body count?
+6. End by listing what would **falsify** your preferred narrative (a better census, a leaked roster, a court judgment).
+
+**Paste starter**
+```
+https://ucdp.uu.se/
+https://ucdp.uu.se/downloads/
+https://acleddata.com/
+https://costsofwar.watson.brown.edu/costs/human
+https://www.iraqbodycount.org/database/
+https://airwars.org/
+https://www.icc-cpi.int/situations-cases
+https://ihl-databases.icrc.org/
+https://everycasualty.org/
+https://www.ohchr.org/
+```
 
 ---
 
@@ -1430,15 +1579,22 @@ If a live conversation partner names a wound not here, **add a row** — this do
 
 | Acronym | Plain English |
 |---|---|
+| ACLED | Near-real-time political violence / civilian-targeting event database |
 | ALPR | Automatic license-plate reader (car cameras) |
 | CIA / FBI / NSA / DHS / ICE | U.S. intel, federal police, signals intel, homeland security, immigration police |
 | CISA / EAC / NIST | Cyber agency, election standards commission, standards lab |
 | FOIA | Public-records request law |
 | FTC / SEC / CFPB | Consumer competition regulator, stock regulator, consumer finance regulator |
+| ICC | International Criminal Court (The Hague) |
 | ICIJ | Cross-border investigative journalists (offshore leaks) |
+| ICRC / IHL | Red Cross legal arm / international humanitarian law (“laws of war”) |
+| ICTY / ICTR | Old Yugoslavia / Rwanda war-crimes tribunals (now residual mechanism) |
 | ILO | UN labor agency |
+| OHCHR | UN human-rights office (conflict-death indicator custodian) |
 | PBM | Pharmacy benefit manager (drug middleman) |
 | PACER | Federal court document paywall portal |
+| SIPRI | Stockholm peace-research institute (arms + conflict) |
+| UCDP | Uppsala Conflict Data Program (academic conflict-death datasets) |
 | UFLPA | U.S. law blocking Xinjiang forced-labor goods |
 | VVSG | Voluntary rules for testing voting machines |
 | WPATH | Major transgender-health professional association |
@@ -1476,6 +1632,13 @@ https://www.ussc.gov/
 https://www.perseus.tufts.edu/hopper/
 https://sourcebooks.fordham.edu/ancient/asbook.asp
 https://avalon.law.yale.edu/
+https://ucdp.uu.se/
+https://acleddata.com/
+https://costsofwar.watson.brown.edu/costs/human
+https://www.iraqbodycount.org/database/
+https://airwars.org/
+https://www.icc-cpi.int/situations-cases
+https://ihl-databases.icrc.org/
 
 === PART 3 SLAVERY STACK ===
 https://www.slavevoyages.org/
@@ -1490,6 +1653,27 @@ https://www.state.gov/trafficking-in-persons/
 https://www.cbp.gov/trade/forced-labor/UFLPA
 https://www.unesco.org/en/routes-enslaved-peoples
 https://www.cdc.gov/tuskegee/about/index.html
+
+=== PART 18 WAR CRIME STATS ===
+https://ucdp.uu.se/
+https://ucdp.uu.se/downloads/
+https://acleddata.com/
+https://acleddata.com/conflict-data
+https://data.humdata.org/dataset/civilian-targeting-events-and-fatalities
+https://costsofwar.watson.brown.edu/costs/human
+https://www.iraqbodycount.org/database/
+https://airwars.org/
+https://everycasualty.org/
+https://www.icc-cpi.int/situations-cases
+https://www.icc-cpi.int/sites/default/files/2024-11/TheCourtToday-Eng.pdf
+https://ihl-databases.icrc.org/
+https://www.ohchr.org/
+https://www.sipri.org/
+https://www.irmct.org/
+https://www.un.org/sexualviolenceinconflict/
+https://childrenandarmedconflict.un.org/
+https://www.opcw.org/
+https://www.the-monitor.org/
 
 === TOOLS ===
 https://www.courtlistener.com/

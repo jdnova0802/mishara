@@ -8,7 +8,7 @@ HOW TO USE
 - Victim safety: research systems/docs only. No doxxing/harassment/illegal content.
 
 ========================================================================
-MAP — PARTS 1 TO 17 (every number has URLs)
+MAP — PARTS 1 TO 18 (every number has URLs)
 ========================================================================
 
 PART 1: Cameras, cops, and data empires
@@ -104,8 +104,15 @@ https://www.eeoc.gov/
 https://www.ada.gov/
 https://www.unhcr.org/
 
+PART 18: War crime stats (who counts the dead)
+https://ucdp.uu.se/
+https://acleddata.com/
+https://costsofwar.watson.brown.edu/costs/human
+https://www.icc-cpi.int/
+https://ihl-databases.icrc.org/
+
 ========================================================================
-HOT LANE — PRIORITIES 1 TO 18 (every number has URLs)
+HOT LANE — PRIORITIES 1 TO 19 (every number has URLs)
 ========================================================================
 
 1. Flock license-plate cameras
@@ -201,3 +208,81 @@ https://www.archives.gov/milestone-documents/19th-amendment
 https://www.ada.gov/
 https://www.eeoc.gov/
 https://www.unhcr.org/
+
+19. War crime stats (Part 18)
+https://ucdp.uu.se/
+https://acleddata.com/
+https://costsofwar.watson.brown.edu/costs/human
+https://www.icc-cpi.int/
+https://www.iraqbodycount.org/database/
+https://airwars.org/
+https://ihl-databases.icrc.org/
+
+========================================================================
+PART 18 DETAIL — WAR CRIME STATS (copy this lane)
+========================================================================
+
+RULE: State METHOD before NUMBER. Legal war crime != body count != excess deaths.
+
+COUNTING ENGINES
+https://ucdp.uu.se/
+https://ucdp.uu.se/downloads/
+https://acleddata.com/
+https://acleddata.com/conflict-data
+https://data.humdata.org/dataset/civilian-targeting-events-and-fatalities
+https://costsofwar.watson.brown.edu/costs/human
+https://everycasualty.org/
+https://www.ohchr.org/
+https://www.sipri.org/
+
+LAW DEFINITIONS
+https://ihl-databases.icrc.org/en/ihl-treaties/geneva-conventions-1949additional-protocols-and-their-commentaries
+https://ihl-databases.icrc.org/en/customary-ihl
+https://www.icc-cpi.int/sites/default/files/2024-05/Rome-Statute-eng.pdf
+https://www.icc-cpi.int/situations-cases
+https://www.icc-cpi.int/sites/default/files/2024-11/TheCourtToday-Eng.pdf
+https://avalon.law.yale.edu/subject_menus/imt.asp
+https://www.irmct.org/
+
+METHODOLOGY FIGHTS
+Documented named deaths vs household surveys
+Direct violence vs indirect (disease/hunger/hospitals)
+Civilian vs combatant labeling
+Confirmed strike deaths vs alleged ranges
+https://www.iraqbodycount.org/about/methods/1
+https://airwars.org/
+https://pubmed.ncbi.nlm.nih.gov/
+
+THEATER DOORS
+Iraq: https://www.iraqbodycount.org/database/
+Afghanistan/drones: https://airwars.org/ · https://unama.unmissions.org/
+Syria: https://www.ohchr.org/ · https://ucdp.uu.se/
+Yemen: https://www.unocha.org/ · https://acleddata.com/
+Gaza/Israel-Palestine: https://www.ochaopt.org/ · https://www.un.org/unispal/
+Ukraine: https://www.ohchr.org/ · https://www.icc-cpi.int/situations-cases
+Rwanda/Balkans: https://www.irmct.org/ · https://gsp.yale.edu/
+WWII bombing/atomic: https://www.archives.gov/ · https://www.trumanlibrary.gov/
+
+COURTS != BODY COUNTS
+https://www.icc-cpi.int/situations-cases
+https://www.un.org/securitycouncil/
+https://nsarchive.gwu.edu/
+
+SEXUAL VIOLENCE / KIDS / BANNED WEAPONS
+https://www.un.org/sexualviolenceinconflict/
+https://childrenandarmedconflict.un.org/
+https://www.the-monitor.org/
+https://www.opcw.org/
+
+DOCUMENTED U.S./ALLIED CASE FILES
+My Lai / Abu Ghraib: https://www.archives.gov/ · https://www.dodig.mil/
+Torture memos: https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/
+Unit 731: https://www.archives.gov/iwg/
+
+90-MINUTE SESSION
+1. Pick one theater
+2. Open two counting engines
+3. Write definition + method + date range + civilian rule for each
+4. Compare numbers only after that
+5. Open one legal door (Rome Statute or Geneva rule)
+6. List what would falsify your side
