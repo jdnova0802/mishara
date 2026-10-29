@@ -10,31 +10,33 @@
 ## PASTE
 
 ```
-NEW Part 18 — War crime stats (who counts the dead).
+NEW Part 19 — Domestic fight-stats engines (numbers that start wars at dinner).
 
 Doc: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
 Plain: gate/CONTROVERSY_PLAIN_COPY.txt
 
 Open first:
-  https://ucdp.uu.se/
-  https://acleddata.com/
-  https://costsofwar.watson.brown.edu/costs/human
-  https://www.iraqbodycount.org/database/
-  https://airwars.org/
-  https://www.icc-cpi.int/situations-cases
-  https://ihl-databases.icrc.org/
+  https://wonder.cdc.gov/
+  https://www.gunviolencearchive.org/
+  https://mappingpoliceviolence.org/
+  https://cde.ucr.cjis.gov/LATEST/webapp/
+  https://bjs.ojp.gov/data-collection/ncvs
+  https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
+  https://wid.world/
+  https://ourworldindata.org/
 
-Rule: METHOD before NUMBER.
-  Legal war crime ≠ civilian body count ≠ excess-mortality model.
-  Courts (ICC) dockets are tiny vs deaths — don’t confuse them.
+Lanes inside Part 19:
+  guns · police killings/stops · crime reported vs victimization ·
+  drugs/suicide · abortion counters · border · homelessness ·
+  inequality · terrorism (GTD) · prisons · fertility · nukes ·
+  excess mortality · meta-portals (OWID)
 
-Pick ONE theater for 90 minutes (Iraq / Yemen / Gaza / Ukraine / Rwanda…).
-Open TWO counting engines + ONE legal door. Argue methods, not vibes.
-Victim-safety still on.
+Rule: METHOD before NUMBER (same as war-crime stats).
+Pick ONE fight for 90 minutes. Official counter + independent counter.
 ```
 
 ---
 
 ## One-liner
 
-> Added Part 18 war-crime stats: UCDP/ACLED/Costs of War/Iraq Body Count/Airwars/ICC/IHL — methods before morals. Hot lane #19. Plain copy updated.
+> Added Part 19 fight-stats engines: guns, police killings, crime, border, inequality, terror, prisons, fertility, nukes, excess mortality — hot lane #20. Plain copy updated.
