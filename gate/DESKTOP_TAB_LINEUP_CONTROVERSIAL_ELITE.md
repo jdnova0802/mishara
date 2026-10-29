@@ -22,25 +22,25 @@
 
 ## Map of this document
 
-| Part | Plain-English theme | What you are digging into |
-|---|---|---|
-| **1** | Cameras, cops, and data empires | Who watches streets, phones, faces — and who profits |
-| **2** | Money, rent, drugs, and capture | Who sits above your paycheck, landlord, and pharmacy |
-| **3** | Slavery and forced labor | Historical slave trade + modern forced labor / trafficking systems |
-| **4** | Body, medicine, and science wars | Medical abuse history + today’s evidence fights |
-| **5** | Empire, war, and official secrets | Intelligence programs, wars sold on bad evidence, archives · https://www.archives.gov/ · https://avalon.law.yale.edu/ · https://history.state.gov/historicaldocuments |
-| **6** | Sex, power, and institutional cover | Epstein-class document dumps — systems, not gossip |
-| **7** | Race, borders, caste, belonging | Immigration plumbing, eugenics history, identity law fights |
-| **8** | Schools, speech, faith, culture | Campus money/speech, culture-war machinery |
-| **9** | Voting machines and election rules | How votes are counted, audited, certified — process first |
-| **10** | Research tools | Search engines for power, courts, FOIA, leaks |
-| **11** | Ethnicities, nations, and mass killing | Diaspora fights, partition, genocide archives, denial politics · https://www.archives.gov/ · https://avalon.law.yale.edu/ · https://history.state.gov/historicaldocuments |
-| **12** | 20th–21st century by decade (deep) | 1900s→2010s — crack, Unit 731, Iraq, 2008 crash, BLM, #MeToo, Snowden… |
-| **13** | 19th century megas | Haiti, Removal, Opium Wars, Civil War, Congo, Taiping, Scramble for Africa… |
-| **14** | Ancient & medieval high-return | Democracy-on-slavery, Rome, Crusades, Black Death, 1492… |
-| **15** | 15th–18th centuries bridge | Conquest, Reformation, witch trials, VOC empire, Atlantic revolutions |
-| **16** | Black freedom movements (full stack) | Garvey → Civil Rights → Black Power → Panthers → BLM — orgs, docs, fights · https://www.archives.gov/ · https://avalon.law.yale.edu/ · https://history.state.gov/historicaldocuments |
-| **17** | Audience-gap topics | Gender, LGBTQ, disability, labor, faith, youth/elder, Global South, more ethnic lanes |
+| Part | Plain-English theme | What you are digging into | Start URL |
+|---|---|---|---|
+| **1** | Cameras, cops, and data empires | Who watches streets, phones, faces — and who profits | https://www.flocksafety.com/ · https://deflock.org/ · https://atlasofsurveillance.org/ |
+| **2** | Money, rent, drugs, and capture | Who sits above your paycheck, landlord, and pharmacy | https://offshoreleaks.icij.org/ · https://www.sec.gov/edgar/search/ · https://www.ftc.gov/system/files/ftc_gov/pdf/pharmacy-benefit-managers-staff-report.pdf |
+| **3** | Slavery and forced labor | Historical slave trade + modern forced labor / trafficking systems | https://www.slavevoyages.org/ · https://www.cbp.gov/trade/forced-labor/UFLPA · https://www.state.gov/trafficking-in-persons/ |
+| **4** | Body, medicine, and science wars | Medical abuse history + today’s evidence fights | https://www.cdc.gov/tuskegee/about/index.html · https://www.damiencharlotin.com/hallucinations/ · https://cass.independent-review.uk/ |
+| **5** | Empire, war, and official secrets | Intelligence programs, wars sold on bad evidence, archives | https://www.archives.gov/ · https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ · https://vault.fbi.gov/ |
+| **6** | Sex, power, and institutional cover | Epstein-class document dumps — systems, not gossip | https://www.justice.gov/ · https://vault.fbi.gov/ · https://www.courtlistener.com/ · https://www.state.gov/j/tip/ |
+| **7** | Race, borders, caste, belonging | Immigration plumbing, eugenics history, identity law fights | https://www.ice.gov/identify-and-arrest/287g · https://dsl.richmond.edu/panorama/redlining/ · https://www.archives.gov/research/african-americans |
+| **8** | Schools, speech, faith, culture | Campus money/speech, culture-war machinery | https://www.ed.gov/laws-and-policy/civil-rights-laws/title-vi-civil-rights-act · https://www.justice.gov/atr · https://www.naic.org/ |
+| **9** | Voting machines and election rules | How votes are counted, audited, certified — process first | https://www.cisa.gov/topics/election-security · https://www.eac.gov/voting-equipment/certified-voting-systems · https://verifiedvoting.org/verifier/ |
+| **10** | Research tools | Search engines for power, courts, FOIA, leaks | https://www.courtlistener.com/ · https://www.foia.gov/ · https://littlesis.org/ · https://www.muckrock.com/ |
+| **11** | Ethnicities, nations, and mass killing | Diaspora fights, partition, genocide archives, denial politics | https://sfi.usc.edu/ · https://www.ushmm.org/ · https://gsp.yale.edu/ · https://www.un.org/unispal/ |
+| **12** | 20th–21st century by decade (deep) | 1900s→2010s — crack, Unit 731, Iraq, 2008 crash, BLM, #MeToo, Snowden… | https://www.archives.gov/ · https://history.state.gov/historicaldocuments · https://avalon.law.yale.edu/ · https://nsarchive.gwu.edu/ |
+| **13** | 19th century megas | Haiti, Removal, Opium Wars, Civil War, Congo, Taiping, Scramble for Africa… | https://www.slavevoyages.org/ · https://www.archives.gov/research/military/civil-war · https://www.nationalarchives.gov.uk/ |
+| **14** | Ancient & medieval high-return | Democracy-on-slavery, Rome, Crusades, Black Death, 1492… | https://www.perseus.tufts.edu/hopper/ · https://sourcebooks.fordham.edu/ancient/asbook.asp · https://sourcebooks.fordham.edu/sbook.asp |
+| **15** | 15th–18th centuries bridge | Conquest, Reformation, witch trials, VOC empire, Atlantic revolutions | https://avalon.law.yale.edu/ · https://www.slavevoyages.org/ · https://www.nationaalarchief.nl/ · https://www.nationalarchives.gov.uk/ |
+| **16** | Black freedom movements (full stack) | Garvey → Civil Rights → Black Power → Panthers → BLM — orgs, docs, fights | https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ |
+| **17** | Audience-gap topics | Gender, LGBTQ, disability, labor, faith, youth/elder, Global South, more ethnic lanes | https://www.archives.gov/milestone-documents/19th-amendment · https://www.eeoc.gov/ · https://www.ada.gov/ · https://www.unhcr.org/ |
 
 **If you only open one lane tonight:** go to [Your hot lane](#your-hot-lane).
 
@@ -48,28 +48,28 @@
 
 ## Your hot lane
 
-Topics that match what you’ve already been chasing (camera profits, power mouths, AI harm, endless fights):
+Topics that match what you’ve already been chasing (camera profits, power mouths, AI harm, endless fights). **Every number has a start URL.**
 
-| Priority | Topic | Why you |
-|---|---|---|
-| 1 | License-plate camera networks (Flock) | You asked if they fill billionaire pockets |
-| 2 | How elections are certified | Same “binding mouth” idea as Gate |
-| 3 | Offshore wealth leaks | Elite pocket map |
-| 4 | AI fake citations in court | Cousin to Mishara / harm receipts |
-| 5 | SlaveVoyages + reparations bill | Deepest ownership-of-humans archive on earth · https://www.archives.gov/ · https://avalon.law.yale.edu/ · https://history.state.gov/historicaldocuments |
-| 6 | Modern forced labor import bans | Slavery that still ships in supply chains |
-| 7 | Police–immigration data sharing | Who camera/data networks feed |
-| 8 | Pharmacy middlemen (benefit managers) | Quiet extraction machine |
-| 9 | Climate insurance retreat | Who eats the risk when coasts burn/flood |
-| 10 | Defense contractors + revolving door | War money as priesthood |
-| 11 | Ethnic genocide archives (Shoah / Armenia / Rwanda…) | Maximum human-stakes rabbit holes |
-| 12 | Crack epidemic + 1986 drug law | Race, policing, sentencing — forever fight |
-| 13 | Partition of India / Ireland / Palestine entry points | Ethnicity + borders as civilizational mouth |
-| 14 | Ancient slavery & empire texts (Perseus / Sourcebooks) | Old documents, modern arguments |
-| 15 | Black freedom movements full stack (Part 16) | Garvey→Panthers→BLM chain |
-| 16 | 2000s Iraq/WMD + 2008 crash | Defining wars + bailouts of the century |
-| 17 | 2010s BLM + #MeToo + Snowden | Identity, gender, surveillance decade |
-| 18 | Audience-gap Part 17 | Whatever room you’re in — check the checklist |
+| # | Topic | Why you | Start URL |
+|---|---|---|---|
+| 1 | License-plate camera networks (Flock) | You asked if they fill billionaire pockets | https://www.flocksafety.com/ · https://deflock.org/ · https://www.eff.org/deeplinks/2025/12/effs-investigations-expose-flock-safetys-surveillance-abuses-2025-review |
+| 2 | How elections are certified | Same “binding mouth” idea as Gate | https://www.cisa.gov/topics/election-security · https://www.eac.gov/voting-equipment/certified-voting-systems · https://verifiedvoting.org/verifier/ |
+| 3 | Offshore wealth leaks | Elite pocket map | https://offshoreleaks.icij.org/ · https://www.icij.org/investigations/panama-papers/ · https://www.icij.org/investigations/pandora-papers/ |
+| 4 | AI fake citations in court | Cousin to Mishara / harm receipts | https://www.damiencharlotin.com/hallucinations/ · https://www.courtlistener.com/ |
+| 5 | SlaveVoyages + reparations bill | Deepest ownership-of-humans archive on earth | https://www.slavevoyages.org/ · https://www.congress.gov/bill/119th-congress/house-bill/40 · https://nmaahc.si.edu/ |
+| 6 | Modern forced labor import bans | Slavery that still ships in supply chains | https://www.cbp.gov/trade/forced-labor/UFLPA · https://www.state.gov/trafficking-in-persons/ · https://www.ilo.org/topics/forced-labour-modern-slavery-and-trafficking-persons |
+| 7 | Police–immigration data sharing | Who camera/data networks feed | https://www.ice.gov/identify-and-arrest/287g · https://deflock.org/ · https://www.dhs.gov/ |
+| 8 | Pharmacy middlemen (benefit managers) | Quiet extraction machine | https://www.ftc.gov/system/files/ftc_gov/pdf/pharmacy-benefit-managers-staff-report.pdf · https://www.cvshealth.com/ · https://www.unitedhealthgroup.com/ |
+| 9 | Climate insurance retreat | Who eats the risk when coasts burn/flood | https://www.naic.org/ · https://www.fema.gov/ |
+| 10 | Defense contractors + revolving door | War money as priesthood | https://www.usaspending.gov/ · https://www.opensecrets.org/industries/indus.php?ind=D · https://www.sec.gov/edgar/search/ |
+| 11 | Ethnic genocide archives (Shoah / Armenia / Rwanda…) | Maximum human-stakes rabbit holes | https://sfi.usc.edu/ · https://www.ushmm.org/ · https://sfi.usc.edu/collections/armenian · https://gsp.yale.edu/ |
+| 12 | Crack epidemic + 1986 drug law | Race, policing, sentencing — forever fight | https://nida.nih.gov/ · https://bjs.ojp.gov/ · https://www.ussc.gov/ · https://www.congress.gov/ |
+| 13 | Partition of India / Ireland / Palestine entry points | Ethnicity + borders as civilizational mouth | https://www.bl.uk/collection-guides/india-office-records · https://cain.ulster.ac.uk/ · https://www.un.org/unispal/ |
+| 14 | Ancient slavery & empire texts (Perseus / Sourcebooks) | Old documents, modern arguments | https://www.perseus.tufts.edu/hopper/ · https://sourcebooks.fordham.edu/ancient/asbook.asp · https://avalon.law.yale.edu/ancient/hamframe.asp |
+| 15 | Black freedom movements full stack (Part 16) | Garvey→Panthers→BLM chain | https://nmaahc.si.edu/ · https://snccdigital.org/ · https://kinginstitute.stanford.edu/ · https://vault.fbi.gov/ |
+| 16 | 2000s Iraq/WMD + 2008 crash | Defining wars + bailouts of the century | https://nsarchive.gwu.edu/ · https://www.gov.uk/government/publications/the-report-of-the-iraq-inquiry · https://fcic.law.stanford.edu/ · https://fraser.stlouisfed.org/ |
+| 17 | 2010s BLM + #MeToo + Snowden | Identity, gender, surveillance decade | https://www.justice.gov/crt · https://www.eeoc.gov/ · https://www.eff.org/nsa-spying/nsadocs · https://nmaahc.si.edu/ |
+| 18 | Audience-gap Part 17 | Whatever room you’re in — check the checklist | https://www.archives.gov/milestone-documents/19th-amendment · https://www.ada.gov/ · https://www.eeoc.gov/ · https://www.unhcr.org/ |
 
 ---
 
@@ -1294,13 +1294,13 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | 1900s–10s | Niagara Movement → **NAACP** founding | Legalism vs radicalism | https://www.loc.gov/ · https://www.naacp.org/ · https://nmaahc.si.edu/ |
 | 1910s | Great Migration begins | Choice vs expulsion by terror | https://www.archives.gov/ · https://www.loc.gov/ |
 | 1919 | **Red Summer** race massacres | Riot myth vs white terror | https://www.archives.gov/research/african-americans |
-| 1920s | **Marcus Garvey / UNIA** — largest mass Black org of era | Back-to-Africa genius vs hustle/authoritarian critique | https://www.archives.gov/ · https://www.loc.gov/ · https://vault.fbi.gov/ Garvey |
+| 1920s | **Marcus Garvey / UNIA** — largest mass Black org of era | Back-to-Africa genius vs hustle/authoritarian critique | https://www.archives.gov/ · https://www.loc.gov/ · https://vault.fbi.gov/ |
 | 1920s | Harlem Renaissance politics | Art as uplift vs art as revolt | https://www.loc.gov/ · https://nmaahc.si.edu/ |
 | 1921 | **Tulsa** massacre / Black Wall Street destroyed | Local riot vs ethnic cleansing + wealth theft | https://www.okhistory.org/ |
 | 1930s | Scottsboro Boys | Jim Crow courts on trial | https://www.archives.gov/ · https://www.loc.gov/ |
 | 1930s–40s | Black labor / A. Philip Randolph / March on Washington Movement | Jobs + desegregation of defense industries | https://www.archives.gov/ · https://www.loc.gov/ |
 | WWII | Double V campaign | Fight fascism abroad + racism at home | https://www.archives.gov/ · https://nmaahc.si.edu/ |
-| 1955 | Emmett Till | Open-casket politics changes the country | https://www.archives.gov/ · FBI |
+| 1955 | Emmett Till | Open-casket politics changes the country | https://www.archives.gov/ · https://vault.fbi.gov/ |
 | 1955–56 | Montgomery Bus Boycott | Local custom broken | https://kinginstitute.stanford.edu/ · https://www.archives.gov/ |
 | 1957 | Little Rock Nine | Federal troops vs state nullification | https://www.archives.gov/ |
 | 1960 | Sit-ins / **SNCC** birth | Youth vs elder strategy | https://snccdigital.org/ |
@@ -1319,7 +1319,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | 2005 | Katrina | Disaster vs abandoned Black city | https://www.fema.gov/ · https://www.archives.gov/ |
 | 2012– | Trayvon → **Black Lives Matter** | Police violence vs “Black crime” counter-narrative | DOJ CRT https://www.justice.gov/crt · https://nmaahc.si.edu/ · Mapping Police Violence |
 | 2014–15 | Ferguson / Baltimore | Reform reports vs abolish demand | https://www.justice.gov/crt · https://www.justice.gov/ |
-| 2020 | George Floyd uprising (boundary into 2020s) | Largest protest wave vs backlash | DOJ · court records · https://nmaahc.si.edu/ collecting |
+| 2020 | George Floyd uprising (boundary into 2020s) | Largest protest wave vs backlash | https://www.justice.gov/ · https://www.courtlistener.com/ · https://nmaahc.si.edu/ |
 | Ongoing | Reparations (H.R.40, local commissions) | Study vs pay vs “already paid” | https://www.congress.gov/bill/119th-congress/house-bill/40 |
 
 ### 16.3 Eternal splits inside Black politics (conversation engines)
