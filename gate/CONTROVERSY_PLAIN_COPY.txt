@@ -173,8 +173,11 @@ https://ourworldindata.org/
 STATS TWIN: Part 18 + Part 19 = one skill. Method before number.
 
 ========================================================================
-HOT LANE — PRIORITIES 1 TO 20 (every number has URLs)
+HOT LANE — PRIORITIES 0 TO 20 (every number has URLs)
 ========================================================================
+
+0. How the world works (Part 0)
+(see Part 0 above — incentives / force / status / stories)
 
 1. Flock license-plate cameras
 https://www.flocksafety.com/
