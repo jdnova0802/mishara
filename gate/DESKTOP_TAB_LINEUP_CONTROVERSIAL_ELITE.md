@@ -15,8 +15,29 @@
 - One topic for the first 90 minutes.
 - **Victim safety:** On slavery survivors, trafficking, child welfare, sexual abuse cases — research systems and documents. Do **not** dox, harass, share illegal images, or dig for personal victim identities.
 - This document lists controversies for research. Listing a topic is **not** an endorsement of any claim inside it.
+- **Stats rule (Parts 18–19):** Method before number. Courts ≠ body counts. Official dashboards ≠ independent counters.
 
-**Related:** lighter culture/archive lineup = `DESKTOP_TAB_LINEUP_RABBIT_HOLE_GOAT.md`
+**Related:** lighter culture/archive lineup = `DESKTOP_TAB_LINEUP_RABBIT_HOLE_GOAT.md` · plain-text copy = `CONTROVERSY_PLAIN_COPY.txt`
+
+---
+
+## Part 0 — How the world works (brief map. not a religion.)
+
+Fused operating stance for every rabbit hole below. Steal the mechanisms; don’t worship the predators.
+
+| Layer | One-liner |
+|---|---|
+| **Core engine** | Incentives beat speeches. Conspiracy is real sometimes; aligned mediocrity producing evil is more common than genius cabals. |
+| **Power** | Making your preferences other people’s constraints. Legitimacy = violence + story + paperwork. Soft harm (debt, eviction, smear) can destroy as cleanly as fists. |
+| **Pyramids** | Class: sovereigns → capability lords → access nodes → legible pros → gig cognition → body/care → surplus. Violence: sovereign force → contracted → economic/admin → narrative → illicit → intimate → street tip. |
+| **Money** | Claim on energy, time, obedience. Capital compounds; wages linear. Rooms beat resumes. Proof > mythology. |
+| **Status** | Relative rank > absolute comfort. Attention is currency. Reputation is a public hostage. |
+| **Info / trust** | Lies got cheap; verification got expensive. Platforms sell your attention. |
+| **Time** | Cohorts face different opportunity structures. Tools easier, terrain harder. Birth timing matters. |
+| **Tech** | Gold rushes → landlords. Cognition + energy + data concentrate upstairs. Soft captivity with sharp edges. |
+| **Stance** | See pyramids clearly. Build scarce leverage: proof, skills that move money, trusted rooms, options. Capacity beats lucid despair. |
+
+**One line:** The world runs on incentives, force, status, and stories — win by knowing which layer you’re playing on.
 
 ---
 
@@ -24,6 +45,7 @@
 
 | Part | Plain-English theme | What you are digging into | Start URL |
 |---|---|---|---|
+| **0** | How the world works | Incentives, force, status, stories — the lens for every part below | (this document — Part 0) |
 | **1** | Cameras, cops, and data empires | Who watches streets, phones, faces — and who profits | https://www.flocksafety.com/ · https://deflock.org/ · https://atlasofsurveillance.org/ |
 | **2** | Money, rent, drugs, and capture | Who sits above your paycheck, landlord, and pharmacy | https://offshoreleaks.icij.org/ · https://www.sec.gov/edgar/search/ · https://www.ftc.gov/system/files/ftc_gov/pdf/pharmacy-benefit-managers-staff-report.pdf |
 | **3** | Slavery and forced labor | Historical slave trade + modern forced labor / trafficking systems | https://www.slavevoyages.org/ · https://www.cbp.gov/trade/forced-labor/UFLPA · https://www.state.gov/trafficking-in-persons/ |
@@ -41,8 +63,10 @@
 | **15** | 15th–18th centuries bridge | Conquest, Reformation, witch trials, VOC empire, Atlantic revolutions | https://avalon.law.yale.edu/ · https://www.slavevoyages.org/ · https://www.nationaalarchief.nl/ · https://www.nationalarchives.gov.uk/ |
 | **16** | Black freedom movements (full stack) | Garvey → Civil Rights → Black Power → Panthers → BLM — orgs, docs, fights | https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ |
 | **17** | Audience-gap topics | Gender, LGBTQ, disability, labor, faith, youth/elder, Global South, more ethnic lanes | https://www.archives.gov/milestone-documents/19th-amendment · https://www.eeoc.gov/ · https://www.ada.gov/ · https://www.unhcr.org/ |
-| **18** | War crime stats | Who counts the dead, how numbers are built, why counts never agree, courts vs databases | https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human · https://www.icc-cpi.int/ · https://ihl-databases.icrc.org/ |
-| **19** | Domestic fight-stats engines | Guns, police killings, crime, drugs, abortion, border, homelessness, inequality, terror, prisons, fertility, nukes | https://wonder.cdc.gov/ · https://cde.ucr.cjis.gov/LATEST/webapp/ · https://www.gunviolencearchive.org/ · https://mappingpoliceviolence.org/ · https://wid.world/ · https://ourworldindata.org/ |
+| **18** | War crime stats | Who counts the dead abroad — methods, theaters, ICC vs databases | https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human · https://www.icc-cpi.int/ · https://ihl-databases.icrc.org/ |
+| **19** | Domestic fight-stats engines | Who counts the dead/harm at home — guns, police, crime, border, inequality… | https://wonder.cdc.gov/ · https://cde.ucr.cjis.gov/LATEST/webapp/ · https://www.gunviolencearchive.org/ · https://mappingpoliceviolence.org/ · https://wid.world/ · https://ourworldindata.org/ |
+
+**Stats twin:** Part **18** (war / abroad) + Part **19** (domestic dashboards) are one fused skill — **method before number**, then argue.
 
 **If you only open one lane tonight:** go to [Your hot lane](#your-hot-lane).
 
@@ -54,6 +78,7 @@ Topics that match what you’ve already been chasing (camera profits, power mout
 
 | # | Topic | Why you | Start URL |
 |---|---|---|---|
+| 0 | How the world works (Part 0) | Your operating map — incentives/force/status/stories | (scroll to Part 0 in this doc) |
 | 1 | License-plate camera networks (Flock) | You asked if they fill billionaire pockets | https://www.flocksafety.com/ · https://deflock.org/ · https://www.eff.org/deeplinks/2025/12/effs-investigations-expose-flock-safetys-surveillance-abuses-2025-review |
 | 2 | How elections are certified | Same “binding mouth” idea as Gate | https://www.cisa.gov/topics/election-security · https://www.eac.gov/voting-equipment/certified-voting-systems · https://verifiedvoting.org/verifier/ |
 | 3 | Offshore wealth leaks | Elite pocket map | https://offshoreleaks.icij.org/ · https://www.icij.org/investigations/panama-papers/ · https://www.icij.org/investigations/pandora-papers/ |
