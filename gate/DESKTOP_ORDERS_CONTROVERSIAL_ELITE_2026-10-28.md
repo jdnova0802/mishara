@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-29  
 **Doc:** `gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md`  
-**Plain copy:** `gate/CONTROVERSY_PLAIN_COPY.txt`  
+**Plain copy (fused):** `gate/CONTROVERSY_PLAIN_COPY.txt`  
 **Branch:** `cursor/rabbit-hole-tab-lineup-53a1`
 
 ---
@@ -10,33 +10,23 @@
 ## PASTE
 
 ```
-NEW Part 19 — Domestic fight-stats engines (numbers that start wars at dinner).
+FUSED MAP ready.
 
-Doc: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
-Plain: gate/CONTROVERSY_PLAIN_COPY.txt
+Part 0  = How the world works (incentives/force/status/stories)
+Parts 1–17 = controversy bible
+Part 18 + 19 = STATS TWIN (war abroad + domestic dashboards)
+Hot lane 0–20
 
-Open first:
-  https://wonder.cdc.gov/
-  https://www.gunviolencearchive.org/
-  https://mappingpoliceviolence.org/
-  https://cde.ucr.cjis.gov/LATEST/webapp/
-  https://bjs.ojp.gov/data-collection/ncvs
-  https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
-  https://wid.world/
-  https://ourworldindata.org/
+Plain copy (one paste):
+  gate/CONTROVERSY_PLAIN_COPY.txt
 
-Lanes inside Part 19:
-  guns · police killings/stops · crime reported vs victimization ·
-  drugs/suicide · abortion counters · border · homelessness ·
-  inequality · terrorism (GTD) · prisons · fertility · nukes ·
-  excess mortality · meta-portals (OWID)
-
-Rule: METHOD before NUMBER (same as war-crime stats).
-Pick ONE fight for 90 minutes. Official counter + independent counter.
+Rule: method before number on all stats.
+Lens: Part 0 before every rabbit hole.
+Pick ONE lane — 90 minutes.
 ```
 
 ---
 
 ## One-liner
 
-> Added Part 19 fight-stats engines: guns, police killings, crime, border, inequality, terror, prisons, fertility, nukes, excess mortality — hot lane #20. Plain copy updated.
+> Fused Part 0 world-works + Parts 18–19 stats twin into the map. Full plain-text copy at `CONTROVERSY_PLAIN_COPY.txt`.
