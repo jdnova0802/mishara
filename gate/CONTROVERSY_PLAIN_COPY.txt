@@ -57,6 +57,186 @@ The world runs on incentives, force, status, and stories —
 and the people who win learn which layer they're playing on.
 
 ========================================================================
+VIOLENCE AUTHORIZATION PYRAMID (edited — pair with class pyramid)
+Full file: gate/VIOLENCE_AUTHORIZATION_PYRAMID.txt
+========================================================================
+
+VIOLENCE AUTHORIZATION PYRAMID
+(under-discussed. who can hurt whom — and still sleep.)
+Pair with: NEW SOCIAL CLASS PYRAMID + Part 0 (How the world works)
+
+Edited notes vs older draft:
+- Title is AUTHORIZATION, not "monopoly" (only layer 1 claims the monopoly)
+- Layer 2 split: kinetic contract vs remote systemic
+- Not a pure ladder: gap kings (5) can be local peak
+- Legitimacy-cover tags on every layer
+- Sexual/gendered coercion called out under intimate
+- Communal/ritual violence as side-rail between 5 and 7
+- Hard line kept
+
+CORE LINE
+The violence pyramid isn't who throws the punch.
+It's who can authorize pain and still be invited to dinner.
+
+SHAPE (read this first)
+- UPSTREAM AUTHORIZATION: 1 -> 2 -> 3 -> 4 (scale + laundry)
+- GAP SOVEREIGNS: 5 when layer 1 is weak, absent, or for sale
+- DOWNSTREAM BLEED: 6-8 (bodies, blocks, basements)
+Higher usually = more legitimacy cover + more scale.
+Lower usually = more visible + less strategic power.
+Exception: locally, layer 5 can outrank everyone else on that block.
+
+═══════════════════════════════════════
+1. SOVEREIGN VIOLENCE (peak)
+═══════════════════════════════════════
+Cover: FLAG + PAPERWORK
+State claim on "legitimate" force
+- War, police, prisons, borders, seizure, conscription
+- Can kill/cage in daylight and call it order
+Feature: paperwork + flag = moral laundry
+Note: States CLAIM the license. Factions inside the state sometimes rent the gaps too.
+
+═══════════════════════════════════════
+2. DELEGATED VIOLENCE (split on purpose)
+═══════════════════════════════════════
+
+2a. KINETIC CONTRACT
+Cover: INVOICE / subcontract
+- PMCs, private security, private prisons, police vendors
+- Operators get paid; principals keep dinner invites
+
+2b. REMOTE SYSTEMIC
+Cover: POLICY / "precision"
+- Sanctions, embargoes, payment kill-switches, siege logistics
+- Hurt at scale without a local fist
+Feature: elites keep hands clean; harm still lands
+
+═══════════════════════════════════════
+3. ECONOMIC / ADMINISTRATIVE VIOLENCE
+═══════════════════════════════════════
+Cover: PROCEDURE
+Hurt without a punch
+- Eviction, care denial, debt ruin, job death, benefit cutoff
+- Licensing + compliance as weapons
+Feature: looks like policy; lands like a beating over months
+Often the largest quiet destroyer in rich states.
+
+═══════════════════════════════════════
+4. PLATFORM / NARRATIVE VIOLENCE
+═══════════════════════════════════════
+Cover: VIRALITY / "accountability"
+Destruction by attention
+- Mobbing, deplatforming, reputational execution
+- Leak, smear, selective amplification
+Feature: no blood; career / family / psyche take the hit
+Note: public executions moved to feeds
+Limit: platforms SCALE harm; they are not sovereign.
+        Layer 1 can still seize, ban, fine, jail, or capture the rails.
+
+═══════════════════════════════════════
+5. ORGANIZED ILLICIT VIOLENCE
+═══════════════════════════════════════
+Cover: FEAR / "protection"
+Parallel sovereigns
+- Cartels, gangs, extortion networks
+Feature: real monopoly locally where the state is weak, absent, or partnered
+Not simply "below" eviction — on some blocks this IS the peak.
+
+═══════════════════════════════════════
+SIDE-RAIL — COMMUNAL / RITUAL VIOLENCE
+═══════════════════════════════════════
+Cover: MOB HOLINESS / tradition
+Pogroms, lynching, communal riots, purge festivals
+Not random street crime; not clean sovereign paperwork.
+Sits between gap kings (5) and chaos (7).
+
+═══════════════════════════════════════
+6. DOMESTIC / INTIMATE VIOLENCE
+═══════════════════════════════════════
+Cover: PRIVACY / "family matters"
+Closest-range force
+- Household coercion, isolation, battery
+- Sexual/gendered coercion here and in trafficking pipelines (also touches 5)
+Feature: statistically huge; culturally minimized; hardest to exit
+
+═══════════════════════════════════════
+7. STREET / CHAOTIC VIOLENCE
+═══════════════════════════════════════
+Cover: CHAOS (TV's favorite)
+What feeds call "violence"
+- Robbery, random assault, riots-as-noise
+Feature: most visible, often least powerful strategically
+Normie illusion: they think this layer is the whole pyramid
+
+═══════════════════════════════════════
+8. SELF-VIOLENCE (basement society ignores)
+═══════════════════════════════════════
+Cover: PATHOLOGY / "personal responsibility" only
+- Overdose, suicide, slow suicide by addiction
+Feature: surplus pain with no enemy face
+Often an OUTPUT of higher layers (3-4 stress, 5 recruitment, 6 trap), not a separate planet.
+
+═══════════════════════════════════════
+INFLUENCE ARROWS (who moves whom)
+═══════════════════════════════════════
+1 authorizes the map of legal pain
+1 rents 2a/2b; 2+1 feed 3
+1-3 feed 4 (story laundry + amplification)
+1 weak/corrupt -> 5 rises as local peak
+3-4 pressure raises 6-8
+5 colonizes 6-7 locally
+7 rarely rules — mostly triggers 1-4 crackdown politics
+8 becomes stats + sermons; rarely dethrones 1
+
+═══════════════════════════════════════
+PAIR TO CLASS PYRAMID (who lives upstream)
+═══════════════════════════════════════
+Sovereigns                 -> live in 1, dine above 2-4
+Capability lords           -> own/operate 2 + chunks of 3-4
+Access / trust nodes       -> gate 3, weaponize 4
+Legible professionals      -> administer 3 (harm by form)
+Prompt / gig cognition     -> mostly targets of 3-4
+Body / care class          -> absorb 3; buffer 6-8
+Surplus                    -> disproportionate 5-8 weather
+
+Respectability often = living upstream of harm
+while only condemning layer 7.
+
+═══════════════════════════════════════
+MYTH vs REALITY
+═══════════════════════════════════════
+Myth: violence = street crime
+Real: street is the retail tip
+
+Myth: power is nonviolent
+Real: power is violence with better branding
+
+Myth: soft != violence
+Real: eviction + smear + isolation can destroy faster than a fist
+
+Myth: criminals own violence
+Real: states claim the license; criminals own the gaps;
+      factions inside the state sometimes rent both
+
+Myth: the pyramid is a clean ladder
+Real: upstream laundry + gap kings + downstream bleed
+
+═══════════════════════════════════════
+HOW TO READ IT
+═══════════════════════════════════════
+1. Ask: who can authorize this pain and still be invited to dinner?
+2. Tag the cover: flag / invoice / procedure / virality / fear / privacy / chaos / pathology
+3. Locate: upstream, gap, or downstream?
+4. Only then argue morals or policy
+
+═══════════════════════════════════════
+HARD LINE (personal)
+═══════════════════════════════════════
+Map != mandate.
+Understanding the pyramid is digestion.
+Using it to harm people is rot.
+
+========================================================================
 MAP — PARTS 0 TO 19 (every number has URLs)
 ========================================================================
 
