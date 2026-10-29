@@ -171,6 +171,7 @@ https://wid.world/
 https://ourworldindata.org/
 
 STATS TWIN: Part 18 + Part 19 = one skill. Method before number.
+FRESHNESS: Some near-live; many weekly/monthly/yearly. Updated often != final. Always note as-of date.
 
 ========================================================================
 HOT LANE — PRIORITIES 0 TO 20 (every number has URLs)
@@ -317,9 +318,27 @@ NUKES: https://fas.org/initiative/status-world-nuclear-forces/
 EXCESS MORTALITY: https://ourworldindata.org/excess-mortality-covid
 META: https://ourworldindata.org/ · https://data.gov/
 
+FRESHNESS CHEAT SHEET (are these updated often?)
+NEAR-DAILY / CONTINUOUS: Gun Violence Archive, Mapping Police Violence, Fatal Encounters, Airwars (active wars), many CBP live dashboards (later corrected)
+WEEKLY: ACLED (Mon/Tue by region; some daily), CDC WONDER provisional mortality (Wednesdays), HDX ACLED aggregates
+MONTHLY: UCDP Candidate events, some CBP/ICE tables, TRAC often frequent
+ANNUAL / PAPER CADENCE: UCDP main GED, FBI UCR/NIBRS, NCVS, HUD PIT, final CDC deaths, Guttmacher waves, FAS Nuclear Notebook, Costs of War, SIPRI
+IRREGULAR: ICC dockets, DOJ cases, ICRC law texts, OWID (depends on source)
+OFTEN LAGGED: Global Terrorism Database (check latest year), FBI use-of-force (participation thresholds), Iraq Body Count (slower post-peak)
+
+RULE OF THUMB
+- Today's politics -> weekly/near-live + say PROVISIONAL
+- Record truth -> annual finals + state the YEAR
+- Never mix a final year with a live scrape as one number
+
+Cadence docs:
+https://acleddata.com/use-access/when-are-acled-data-updated
+https://ucdp.uu.se/downloads/
+https://wonder.cdc.gov/whatsnew.html
+
 90 MINUTES
 1. Pick one fight or one theater
 2. Open official counter + independent counter
-3. Write definition + method + date range + exclusions
+3. Write definition + method + date range + exclusions + as-of/provisional?
 4. Ask who is paid/forced/status-rewarded if this number wins (Part 0)
 5. Only then argue policy

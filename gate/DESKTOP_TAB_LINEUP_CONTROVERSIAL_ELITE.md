@@ -1806,17 +1806,36 @@ https://www.ohchr.org/
 
 ---
 
-### 19.16 90-minute fight-stats session
+### 19.16 Freshness cheat sheet (are these updated often?)
+
+**Short answer:** Some are near-live. Many are **weekly / monthly / yearly** with lags. “Updated often” ≠ “final.” Always note **as-of date** + **provisional vs final**.
+
+| Cadence | Sites (typical) | Reality check |
+|---|---|---|
+| **Near-daily / continuous scrape** | Gun Violence Archive · Mapping Police Violence · Fatal Encounters · Airwars (active theaters) · many CBP dashboards (live extract, later corrected) | Fast ≠ complete. Expect revisions. |
+| **Weekly** | ACLED (regional Mon/Tue publishes; some daily for select places) · CDC WONDER **provisional** mortality (Wednesdays) · HDX ACLED aggregates | Best “what’s happening now” conflict/death pulse. |
+| **Monthly** | UCDP **Candidate** events · some CBP/ICE monthly tables · TRAC immigration often frequent | Still a lag — not same-day truth. |
+| **Annual / campaign releases** | UCDP main GED · FBI UCR/NIBRS yearbooks · NCVS · HUD PIT · final CDC mortality · Guttmacher survey waves · FAS Nuclear Notebook · Costs of War papers · SIPRI yearbook | Gold for methods debates; cold for breaking news. |
+| **Irregular / case-driven** | ICC dockets · DOJ CRT pattern cases · ICRC treaty texts · OWID charts (depends on underlying source) | Not a “stats refresh” — event or paper cadence. |
+| **Often lagged / incomplete** | Global Terrorism Database (multi-year collection breaks; check latest year) · FBI National Use-of-Force (participation thresholds) · Iraq Body Count (slower after peak war years) | Don’t treat as live ticker. |
+
+**Rule of thumb**
+- Argue **today’s politics** → prefer weekly/near-live (ACLED, GVA, provisional CDC, CBP) **and** say “provisional.”
+- Argue **what is true in the record** → prefer annual finals (UCDP GED, final WONDER, NCVS, PIT) **and** state the year.
+- Never mix a 2024 final with a 2026 scrape and call it one number.
+
+### 19.17 90-minute fight-stats session
 
 1. Pick **one fight** (guns, police, crime, border, inequality…).
 2. Open **official counter + independent counter** (e.g. CDC WONDER + GVA; Fatal Force + Mapping Police Violence; FBI CDE + NCVS).
-3. Write: **definition · inclusion rules · date range · what is excluded**.
+3. Write: **definition · inclusion rules · date range · what is excluded · as-of / provisional?**.
 4. Ask who is **paid, forced, or status-rewarded** if this number wins (your Part-0 world map).
 5. Only then argue policy.
 
 **Paste starter**
 ```
 https://wonder.cdc.gov/
+https://wonder.cdc.gov/whatsnew.html
 https://wisqars.cdc.gov/
 https://www.gunviolencearchive.org/
 https://www.gunviolencearchive.org/methodology
@@ -1836,6 +1855,8 @@ https://www.prisonpolicy.org/
 https://ourworldindata.org/
 https://fas.org/initiative/status-world-nuclear-forces/
 https://data.guttmacher.org/
+https://acleddata.com/use-access/when-are-acled-data-updated
+https://ucdp.uu.se/downloads/
 ```
 
 ---
