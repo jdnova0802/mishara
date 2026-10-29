@@ -29,7 +29,7 @@ Fused operating stance for every rabbit hole below. Steal the mechanisms; don’
 |---|---|
 | **Core engine** | Incentives beat speeches. Conspiracy is real sometimes; aligned mediocrity producing evil is more common than genius cabals. |
 | **Power** | Making your preferences other people’s constraints. Legitimacy = violence + story + paperwork. Soft harm (debt, eviction, smear) can destroy as cleanly as fists. |
-| **Pyramids** | Class: sovereigns → capability lords → access nodes → legible pros → gig cognition → body/care → surplus. Violence = **authorization pyramid** (not street tip): sovereign → delegated (kinetic/remote) → admin → narrative → illicit gap-kings → intimate → street → self-harm. Full text: `gate/VIOLENCE_AUTHORIZATION_PYRAMID.txt` |
+| **Pyramids** | Class: sovereigns → capability lords → access nodes → legible pros → gig cognition → body/care → surplus. Violence = **authorization pyramid** with citeable role names (sovereign/praetorian; PMC/cutout; technocrat/rentier/oligarch; platform lord; warlord/mafia; etc.). Full text: `gate/VIOLENCE_AUTHORIZATION_PYRAMID.txt` |
 | **Money** | Claim on energy, time, obedience. Capital compounds; wages linear. Rooms beat resumes. Proof > mythology. |
 | **Status** | Relative rank > absolute comfort. Attention is currency. Reputation is a public hostage. |
 | **Info / trust** | Lies got cheap; verification got expensive. Platforms sell your attention. |
