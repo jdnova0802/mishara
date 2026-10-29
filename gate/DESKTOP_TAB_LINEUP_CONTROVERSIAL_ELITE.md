@@ -17,7 +17,7 @@
 - This document lists controversies for research. Listing a topic is **not** an endorsement of any claim inside it.
 - **Stats rule (Parts 18–19):** Method before number. Courts ≠ body counts. Official dashboards ≠ independent counters.
 
-**Related:** lighter culture/archive lineup = `DESKTOP_TAB_LINEUP_RABBIT_HOLE_GOAT.md` · plain-text copy = `CONTROVERSY_PLAIN_COPY.txt`
+**Related:** lighter culture/archive lineup = `DESKTOP_TAB_LINEUP_RABBIT_HOLE_GOAT.md` · plain-text copy = `CONTROVERSY_PLAIN_COPY.txt` · violence pyramid = `VIOLENCE_AUTHORIZATION_PYRAMID.txt` · economics map = `TYPES_OF_ECONOMICS_MAP.txt`
 
 ---
 
