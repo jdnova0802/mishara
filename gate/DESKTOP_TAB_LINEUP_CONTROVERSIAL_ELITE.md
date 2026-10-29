@@ -307,7 +307,7 @@ This is the ownership-of-humans stack: historical Atlantic slavery, American aft
 |---|---|
 | National Archives catalog | https://www.archives.gov/research/catalog |
 | African American research hub | https://www.archives.gov/research/african-americans |
-| https://www.archives.gov/research/african-americans/freedmens-bureau records | https://www.archives.gov/research/african-americans/freedmens-bureau |
+| Freedmen’s Bureau records | https://www.archives.gov/research/african-americans/freedmens-bureau |
 
 ---
 
@@ -838,7 +838,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 ### 11.7 Partition of India (1947) — Hindu / Muslim / Sikh trauma
 | Role | Link |
 |---|---|
-| https://www.bl.uk/ India Office records | https://www.bl.uk/collection-guides/india-office-records |
+| British Library India Office records | https://www.bl.uk/collection-guides/india-office-records |
 | Partition Museum | https://www.partitionmuseum.org/ |
 | National Archives of India | https://nationalarchives.nic.in/ |
 
@@ -859,7 +859,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Role | Link |
 |---|---|
 | UN Question of Palestine documents | https://www.un.org/unispal/ |
-| https://avalon.law.yale.edu/ Middle East documentary record | https://avalon.law.yale.edu/subject_menus/mideast.asp |
+| Avalon Middle East documentary record | https://avalon.law.yale.edu/subject_menus/mideast.asp |
 | Israeli State Archives | https://www.archives.gov.il/en/ |
 | Palestinian Refugee agency (UNRWA) | https://www.unrwa.org/ |
 
@@ -870,7 +870,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 |---|---|
 | ICTY legacy (UN residual mechanism) | https://www.irmct.org/ |
 | Srebrenica memorial / research entry | https://www.srebrenica.org.uk/ |
-| https://www.cia.gov/readingroom/ / https://history.state.gov/historicaldocuments search | https://history.state.gov/historicaldocuments |
+| FRUS / CIA search | https://history.state.gov/historicaldocuments · https://www.cia.gov/readingroom/ |
 
 *FRUS = Foreign Relations of the United States (official U.S. diplomatic document series).*
 
@@ -979,9 +979,9 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | U.S. Immigration Act of 1924 (national-origins quotas) | Borders vs racism encoded in law | https://www.archives.gov/milestone-documents/immigration-act-of-1924 |
 | Tulsa Race Massacre (1921) | Riot narrative vs massacre / wealth theft | https://www.okhistory.org/ · https://www.archives.gov/ |
 | Rosewood (1923) / Elaine Massacre memory | Local “disturbance” vs ethnic cleansing | https://www.archives.gov/ · https://www.archives.gov/research/alic/reference/state-archives.html |
-| Sacco & Vanzetti | Immigrant radicals framed vs guilty anarchists | https://www.archives.gov/ · https://www.courtlistener.com/-class archives |
+| Sacco & Vanzetti | Immigrant radicals framed vs guilty anarchists | https://www.archives.gov/ · https://www.courtlistener.com/ |
 | Scopes “Monkey” Trial (1925) | Science vs religion in schools (still live) | https://www.loc.gov/ · https://www.archives.gov/ |
-| March on Rome / Italian fascism | Strongman salvation vs democracy suicide | Avalon · Italian https://www.archives.gov/research/alic/reference/state-archives.html via https://www.archiviodistato.roma.it/ |
+| March on Rome / Italian fascism | Strongman salvation vs democracy suicide | https://avalon.law.yale.edu/ · https://www.archiviodistato.roma.it/ |
 | German hyperinflation → street politics | Economics as destiny vs political choice | https://fraser.stlouisfed.org/ · https://www.bundesarchiv.de/ |
 | Teapot Dome scandal | Oil corruption template | https://www.archives.gov/ |
 | Sterilization laws / Buck v. Bell build-up | Public health vs bodily autonomy atrocity | https://www.oyez.org/ · https://www.genome.gov/ |
@@ -1050,14 +1050,14 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Pentagon Papers (events in ’60s; leak 1971) | Democracy needs secrets vs democracy needs truth | https://www.archives.gov/research/pentagon-papers |
 | My Lai massacre (1968) | Bad apples vs war system | https://www.archives.gov/ · https://www.loc.gov/ |
 | Tet Offensive / Cronkite turn | Victory narrative collapse | https://www.archives.gov/research/military/vietnam-war |
-| COINTELPRO peak vs Black Panthers / New Left | Security vs dirty war at home | https://vault.fbi.gov/ · https://www.intelligence.senate.gov/ https://www.intelligence.senate.gov/ |
+| COINTELPRO peak vs Black Panthers / New Left | Security vs dirty war at home | https://vault.fbi.gov/ · https://www.intelligence.senate.gov/ |
 | Chicago 1968 / Democratic convention police riot | Protest vs “law and order” | https://www.archives.gov/ |
 | Stonewall (1969) | Riot vs uprising (LGBTQ history fight) | https://www.loc.gov/ · https://www.archives.gov/ |
 | Assassinations: JFK / Malcolm X / MLK / RFK | Lone nuts vs networks | https://www.archives.gov/research/jfk · https://vault.fbi.gov/ |
 | Indonesia 1965–66 mass killings | Anti-communist necessity vs politicide | https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/ |
 | Cultural Revolution (China) | Purge as politics | https://nsarchive.gwu.edu/ · https://history.state.gov/historicaldocuments |
 | Biafra / Nigerian Civil War | Secession vs famine-as-weapon | UN docs · https://www.nationalarchives.gov.uk/ |
-| Six-Day War 1967 | Survival war vs conquest war | https://www.un.org/unispal/ · https://avalon.law.yale.edu/ MidEast |
+| Six-Day War 1967 | Survival war vs conquest war | https://www.un.org/unispal/ · https://avalon.law.yale.edu/subject_menus/mideast.asp |
 | Prague Spring crushed (1968) | “Socialism with a human face” killed | https://history.state.gov/historicaldocuments · https://nsarchive.gwu.edu/ |
 
 ---
@@ -1156,15 +1156,15 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Ferguson / Freddie Gray / police reform fights | Reform vs abolish vs back-the-blue | DOJ reports · https://www.courtlistener.com/ |
 | Crimea / Donbas 2014 | Self-determination vs invasion | https://www.un.org/ · https://www.icj-cij.org/ |
 | Rise of ISIS / war on ISIS | Terrorism vs endless Middle East war | https://www.un.org/ · Pentagon releases |
-| European migrant crisis 2015 | Asylum duty vs border sovereignty | https://www.unhcr.org/ https://www.unhcr.org/ · EU docs |
+| European migrant crisis 2015 | Asylum duty vs border sovereignty | https://www.unhcr.org/ |
 | Brexit referendum (2016) | Democracy vs elite project / xenophobia fights | https://www.nationalarchives.gov.uk/ · https://www.electoralcommission.org.uk/ |
-| 2016 U.S. election / Russia interference fights | Hacked democracy vs overclaim | https://www.justice.gov/ https://www.justice.gov/ · https://www.intelligence.senate.gov/ |
+| 2016 U.S. election / Russia interference fights | Hacked democracy vs overclaim | https://www.justice.gov/ · https://www.intelligence.senate.gov/ |
 | Cambridge Analytica / Facebook data | Privacy vs behavioral warfare | https://www.ftc.gov/ · https://ico.org.uk/ |
-| #MeToo (phrase 2006; explosion 2017) | Believe survivors vs due process panic | Court records · https://www.eeoc.gov/ https://www.eeoc.gov/ · https://www.documentcloud.org/ |
+| #MeToo (phrase 2006; explosion 2017) | Believe survivors vs due process panic | https://www.courtlistener.com/ · https://www.eeoc.gov/ · https://www.documentcloud.org/ |
 | Christchurch / far-right live-stream terror | Platform responsibility vs speech | https://www.christchurchattack.royalcommission.nz/ · https://www.justice.gov/ |
 | Hong Kong protests 2019 | Autonomy vs Beijing sovereignty | https://www.congress.gov/ · https://nsarchive.gwu.edu/ |
 | Uighur camps / forced labor globalizes as issue | Genocide label vs development narrative | https://www.cbp.gov/trade/forced-labor/UFLPA · State Dept TIP |
-| Climate strikes / Paris Agreement fights | Existential threat vs economic suicide framing | https://unfccc.int/ · https://www.ipcc.ch/ https://www.ipcc.ch/ |
+| Climate strikes / Paris Agreement fights | Existential threat vs economic suicide framing | https://unfccc.int/ · https://www.ipcc.ch/ |
 | Opioid epidemic peak awareness | Pharma crime vs demand / despair | Purdue docket · https://www.cdc.gov/ · https://www.justice.gov/ |
 | Charlottesville 2017 | Free speech vs fascist street politics | https://www.courtlistener.com/ · https://www.justice.gov/ |
 
@@ -1177,8 +1177,8 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Haitian Revolution (1791–1804, spills into 1800s) | Only successful slave revolution — terror vs liberation | https://sourcebooks.fordham.edu/mod/modsbook.asp · https://www.slavevoyages.org/ |
 | Napoleonic Wars / Continental System | Liberator vs conqueror | Avalon · https://www.nationalarchives.gov.uk/ |
 | Latin American independence wars | Liberation vs new oligarchies | https://www.loc.gov/ · https://www.archives.gov/ |
-| Trail of Tears / Indian Removal (1830s) | Expansion destiny vs ethnic cleansing | https://www.archives.gov/research/native-americans · https://avalon.law.yale.edu/ treaties |
-| Opium Wars | Free trade vs drug imperialism (“century of humiliation”) | https://www.nationalarchives.gov.uk/ · https://avalon.law.yale.edu/ China diplomacy |
+| Trail of Tears / Indian Removal (1830s) | Expansion destiny vs ethnic cleansing | https://www.archives.gov/research/native-americans · https://avalon.law.yale.edu/subject_menus/ntreaty.asp |
+| Opium Wars | Free trade vs drug imperialism (“century of humiliation”) | https://www.nationalarchives.gov.uk/ · https://avalon.law.yale.edu/ |
 | 1848 revolutions | Spring of nations vs reaction win | https://www.marxists.org/archive/ · https://avalon.law.yale.edu/ |
 | Irish Famine (1845–49) | Blight vs British policy culpability | https://www.nationalarchives.ie/ · https://www.nationalarchives.gov.uk/ |
 | U.S. Civil War & Reconstruction | States’ rights myth vs slavery; unfinished revolution | https://www.archives.gov/research/military/civil-war · https://www.archives.gov/research/african-americans/freedmens-bureau |
@@ -1190,7 +1190,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Industrial child labor / enclosure afterlives | Progress vs disposable humans | https://www.british-history.ac.uk/ · https://www.nationalarchives.gov.uk/ |
 | Sepoy Rebellion / First War of Independence (1857) | Mutiny vs anti-colonial war | https://www.bl.uk/ · https://www.nationalarchives.gov.uk/ |
 | Taiping Rebellion (China) | Christian-inflected apocalypse vs Qing survival — death toll enormous | https://cudl.lib.cam.ac.uk/ · https://cudl.lib.cam.ac.uk/ |
-| Meiji Restoration violence / unequal treaties | Modernization vs cultural destruction | https://history.state.gov/historicaldocuments · https://www.digital.archives.go.jp/ https://www.digital.archives.go.jp/ |
+| Meiji Restoration violence / unequal treaties | Modernization vs cultural destruction | https://history.state.gov/historicaldocuments · https://www.digital.archives.go.jp/ |
 
 ---
 
@@ -1202,7 +1202,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Perseus (Greek/Latin) | https://www.perseus.tufts.edu/hopper/ |
 | Ancient History Sourcebook | https://sourcebooks.fordham.edu/ancient/asbook.asp |
 | https://sourcebooks.fordham.edu/sbook.asp | https://sourcebooks.fordham.edu/sbook.asp |
-| https://avalon.law.yale.edu/ ancient/medieval | https://avalon.law.yale.edu/subject_menus/ancient.asp |
+| Yale Avalon — ancient/medieval docs | https://avalon.law.yale.edu/subject_menus/ancient.asp |
 | Internet Classics Archive | https://classics.mit.edu/ |
 | Sefaria (Jewish texts) | https://www.sefaria.org/ |
 | Digital Dead Sea Scrolls | https://dss.collections.imj.org.il/ |
@@ -1251,7 +1251,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Thirty Years’ War | Religion vs great-power meat grinder | https://www.nationalarchives.gov.uk/ · German archives |
 | English Civil War / regicide / Cromwell in Ireland | Liberty vs theocratic military rule | https://www.british-history.ac.uk/ · https://www.nationalarchives.gov.uk/ |
 | Salem & European witch trials | Panic vs misogyny vs property seizure | https://www.archives.gov/ · https://www.archives.gov/research/alic/reference/state-archives.html |
-| https://www.nationaalarchief.nl/ Company / Banda Islands | Corporate monopoly vs genocide for nutmeg | https://www.nationaalarchief.nl/ · https://www.nationaalarchief.nl/ |
+| Dutch East India Company / Banda Islands | Corporate monopoly vs genocide for nutmeg | https://www.nationaalarchief.nl/ |
 | Ming–Qing transition mass death | Dynasty change vs catastrophe | https://cudl.lib.cam.ac.uk/ |
 | Atlantic slave trade acceleration + sugar islands | Capitalism’s blood foundation | https://www.slavevoyages.org/ |
 | Scientific Revolution + early race taxonomy | Enlightenment prep vs hierarchy science | https://www.loc.gov/ |
@@ -1260,7 +1260,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Topic | Forever fight | Must-read |
 |---|---|---|
 | Atlantic plantation complex peak | Liberty talk vs slave labor (American/French hypocrisy fights) | https://www.slavevoyages.org/ · https://avalon.law.yale.edu/ |
-| Seven Years’ War / “first world war” | Empire chess with Indigenous nations as pieces | https://history.state.gov/historicaldocuments precursors · UK/https://www.archives-nationales.culture.gouv.fr/ |
+| Seven Years’ War / “first world war” | Empire chess with Indigenous nations as pieces | https://history.state.gov/historicaldocuments · https://www.nationalarchives.gov.uk/ · https://www.archives-nationales.culture.gouv.fr/ |
 | American Revolution | Liberty vs slavery intact; settler revolt vs empire | Avalon · https://www.archives.gov/ |
 | French Revolution / Terror | Emancipation vs guillotine politics | https://gallica.bnf.fr/ · Avalon · https://www.marxists.org/archive/ |
 | Haitian Revolution (from 1791) | Universal rights made real — then punished | https://sourcebooks.fordham.edu/mod/modsbook.asp · SlaveVoyages |
@@ -1308,7 +1308,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | 1964–65 | Civil Rights Act / Voting Rights Act | Legal equality vs material equality unfinished | https://www.archives.gov/milestone-documents · https://www.congress.gov/ |
 | 1965 | Watts / urban rebellions begin | Riot vs uprising | https://www.archives.gov/ |
 | 1965–66 | **Malcolm X** assassination aftermath / Organization of Afro-American Unity | Integration vs nationalism | https://vault.fbi.gov/ · https://nmaahc.si.edu/ |
-| 1966– | **Black Power** / Black Panther Party | Self-defense + survival programs vs “thug” narrative | https://www.marxists.org/archive/ Panthers · https://vault.fbi.gov/ · https://www.intelligence.senate.gov/ |
+| 1966– | **Black Power** / Black Panther Party | Self-defense + survival programs vs “thug” narrative | https://www.marxists.org/history/usa/workers/black-panthers/ · https://vault.fbi.gov/ · https://www.intelligence.senate.gov/ |
 | 1968 | MLK assassination / Poor People’s Campaign | Dream cut short vs radical King suppressed | https://kinginstitute.stanford.edu/ · https://vault.fbi.gov/ · https://www.archives.gov/ |
 | 1969–71 | FBI war on Panthers (Fred Hampton, etc.) | Policing vs assassination politics | https://vault.fbi.gov/ · https://www.intelligence.senate.gov/ · https://www.courtlistener.com/ |
 | 1970s | Black feminism / Combahee River Collective | Race+gender+class inseparable | https://nmaahc.si.edu/ · https://www.loc.gov/ · https://nmaahc.si.edu/ |
@@ -1343,7 +1343,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Suffrage (U.S. 19th Amendment + global) | Finished vs unfinished | https://www.archives.gov/milestone-documents/19th-amendment · https://www.loc.gov/ |
 | Reproductive rights after Roe → Dobbs | Liberty vs fetal personhood | https://www.oyez.org/ · https://www.supremecourt.gov/ |
 | #MeToo / workplace harassment law | Believe survivors vs due process | https://www.eeoc.gov/ · https://www.courtlistener.com/ |
-| Pay gap / care work invisibility | Discrimination vs “choices” | https://www.bls.gov/ https://www.bls.gov/ · https://www.census.gov/ |
+| Pay gap / care work invisibility | Discrimination vs “choices” | https://www.bls.gov/ · https://www.census.gov/ |
 | Global: Iran morality police / Woman Life Freedom | Theocracy vs bodily autonomy | UN human rights · https://www.documentcloud.org/ |
 | Witch trials as gendered property/panic | Superstition vs misogyny+theft | https://www.archives.gov/ · https://www.archives.gov/research/alic/reference/state-archives.html |
 | Forced sterilization of women (U.S. South, Puerto Rico, Indigenous) | Public health vs eugenics | https://www.genome.gov/ · https://www.archives.gov/ |
@@ -1373,7 +1373,7 @@ Then jump to **your state’s Secretary of State** site (the real primary).
 | Topic | Forever fight | Must-read |
 |---|---|---|
 | Youth moral panics (comics, games, TikTok, satanic daycare) | Protect kids vs manufacture fear | https://www.archives.gov/ · FTC · contemporaneous hearings |
-| Social Security / Medicare politics | Earned benefit vs unsustainable | https://www.ssa.gov/ · https://www.cms.gov/ · https://www.cbo.gov/ https://www.cbo.gov/ |
+| Social Security / Medicare politics | Earned benefit vs unsustainable | https://www.ssa.gov/ · https://www.cms.gov/ · https://www.cbo.gov/ |
 | Elder financial abuse | Family matter vs crime wave | https://www.consumerfinance.gov/ · https://www.justice.gov/ |
 | Student debt | Investment vs indenture | https://studentaid.gov/ · CFPB · Congress |
 
