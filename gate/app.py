@@ -449,6 +449,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/go.json",
         "/.well-known/never.json",
         "/.well-known/prefinality.json",
+        "/.well-known/signature-audit.json",
         "/.well-known/positive-clear.json",
         "/.well-known/scenario-3.json",
         "/.well-known/uapa-seal.json",
@@ -3318,6 +3319,24 @@ def well_known_prefinality_jwks():
     return jsonify(prefinality_mod.jwks())
 
 
+def _signature_audit():
+    try:
+        from gate import signature_audit as signature_audit_mod
+    except ImportError:
+        import signature_audit as signature_audit_mod
+    return signature_audit_mod
+
+
+@app.route("/.well-known/signature-audit.json")
+def well_known_signature_audit():
+    return jsonify(_signature_audit().publish()), 200, {"Cache-Control": "no-store"}
+
+
+@app.route("/signature")
+def signature_audit_page():
+    return render_template("signature_audit.html", audit=_signature_audit().publish())
+
+
 @app.route("/.well-known/issuing-mouth.json")
 def well_known_issuing_mouth():
     return jsonify(issuing_mouth_mod.manifest(advertised_url()))
@@ -5365,6 +5384,7 @@ def well_known_security_txt():
             f"Canonical: {advertised_url()}/.well-known/security.txt",
             f"Policy: {advertised_url()}/privacy",
             f"Acknowledgments: {advertised_url()}/trust",
+            f"Signature-Audit: {advertised_url()}/.well-known/signature-audit.json",
             "",
         ]
     )
@@ -5429,6 +5449,8 @@ def sitemap():
         "/.well-known/fednow-prepush.json",
         "/.well-known/nacha-false-pretenses.json",
         "/finding/ccb",
+        "/signature",
+        "/.well-known/signature-audit.json",
         "/.well-known/finding/ccb-svo.json",
         "/.well-known/qusfi.json",
         "/.well-known/security.txt",

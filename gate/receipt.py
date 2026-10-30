@@ -267,6 +267,13 @@ def issue_receipt(
         "prev_receipt_hash": prev_receipt_hash,
         "canonical_receipt_json": canonical_json,
     }
+    try:
+        from gate import signature_audit as signature_audit_mod
+    except ImportError:
+        import signature_audit as signature_audit_mod
+    ml_sig = signature_audit_mod.sign_ml_dsa(receipt_hash.encode("utf-8"))
+    if ml_sig:
+        out["receipt_signature_ml_dsa"] = ml_sig
     if signing_required() and not sig:
         out["unsigned_halt"] = True
     return out
@@ -343,6 +350,9 @@ def receipt_to_public_payload(
 
     if canonical_receipt_json:
         payload["canonical_receipt_json"] = canonical_receipt_json
+    ml_sig = receipt_row.get("receipt_signature_ml_dsa")
+    if ml_sig:
+        payload["receipt_signature_ml_dsa"] = ml_sig
 
     try:
         from gate import counterfactual as counterfactual_mod

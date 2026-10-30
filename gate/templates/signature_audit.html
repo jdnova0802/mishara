@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Receipt signature audit{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ audit.finding }}">
+{% endblock %}
+{% block content %}
+<section class="container section" style="max-width: 40rem;">
+  <p class="museum-flag">Public audit · {{ audit.dated }} · Demond Davis, Nisaba LLC · no login</p>
+  <h1 style="font-size: 1.6rem; line-height: 1.25;">{{ audit.subject }}</h1>
+  <p style="margin: 1rem 0; line-height: 1.5;">{{ audit.finding }}</p>
+  <ul class="check-list">
+    <li>Hash: {{ audit.live.hash }}. Signature: {{ audit.live.signature }}. JWT alg pinned to {{ audit.live.jwt_alg }}.</li>
+    <li>Key: {{ audit.live.key_publication }}. Certificate on that key: {{ "yes" if audit.live.certificate_chain else "no" }}.</li>
+    <li>Second signature ({{ audit.scheduled.hybrid }}): {{ "on" if audit.live.ml_dsa else "not on the published receipts" }}.</li>
+  </ul>
+  <p style="margin: 1rem 0; line-height: 1.5;">The live receipt is not quantum-safe. The Ed25519 check stays. A receipt with no second signature still verifies. The hybrid and the certificate turn on when the host holds the two keys named in the audit object.</p>
+  <p style="margin: 1.25rem 0; line-height: 1.5;">
+    <a href="/.well-known/signature-audit.json">Open the audit object</a>.
+    <a href="{{ audit.compared_to }}" rel="noopener">draft-stone-aivs-01</a>.
+  </p>
+</section>
+{% endblock %}
