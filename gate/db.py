@@ -94,6 +94,8 @@ def init_db():
             conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_public_key_fingerprint TEXT")
         if "charge_id" not in bind_cols:
             conn.execute("ALTER TABLE bind_events ADD COLUMN charge_id TEXT")
+        if "receipt_signature_ml_dsa" not in bind_cols:
+            conn.execute("ALTER TABLE bind_events ADD COLUMN receipt_signature_ml_dsa TEXT")
 
         conn.executescript(
             """
@@ -471,8 +473,8 @@ def record_bind_event(
             """INSERT INTO bind_events
                (id, account_id, fuse_id, job_id, decision, acted, verify_url, hop_json,
                 prev_receipt_hash, receipt_hash, receipt_signature, receipt_public_key_fingerprint,
-                created_at, charge_id)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                created_at, charge_id, receipt_signature_ml_dsa)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 event_id,
                 account_id,
@@ -488,6 +490,7 @@ def record_bind_event(
                 receipt_issue.get("receipt_public_key_fingerprint"),
                 created_at,
                 charge_id,
+                receipt_issue.get("receipt_signature_ml_dsa"),
             ),
         )
     return event_id

@@ -704,6 +704,13 @@ def jwks() -> dict:
                 "alg": "EdDSA",
             }
         )
+        try:
+            from gate import signature_audit as signature_audit_mod
+        except ImportError:
+            import signature_audit as signature_audit_mod
+        chain = signature_audit_mod.x5c()
+        if chain:
+            keys[-1]["x5c"] = chain
     # Publish the demo key too (when provisioned) so strangers can still verify demo
     # receipts — they are signed, just not trusted by live rails.
     if receipt_mod.demo_signing_configured():

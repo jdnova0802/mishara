@@ -17,7 +17,14 @@ except ImportError:
 
 SPEC = "gate-finding-ccb-svo-v1"
 DATED = "2026-10-27"
-_SIG_FIELDS = ("canonical_sha256", "signature", "signed_over", "public_key_fingerprint", "verify")
+_SIG_FIELDS = (
+    "canonical_sha256",
+    "signature",
+    "signature_ml_dsa",
+    "signed_over",
+    "public_key_fingerprint",
+    "verify",
+)
 
 
 def _core() -> dict[str, Any]:
@@ -78,6 +85,13 @@ def publish() -> dict[str, Any]:
     signature = receipt_mod.sign_receipt_hash(digest)
     core["canonical_sha256"] = digest
     core["signature"] = signature
+    try:
+        from gate import signature_audit as signature_audit_mod
+    except ImportError:
+        import signature_audit as signature_audit_mod
+    ml_sig = signature_audit_mod.sign_ml_dsa(digest.encode("utf-8"))
+    if ml_sig:
+        core["signature_ml_dsa"] = ml_sig
     core["public_key_fingerprint"] = receipt_mod.receipt_public_key_fingerprint()
     core["signed_over"] = "sha256(canonical JSON of this object excluding signature fields)"
     core["verify"] = (
