@@ -1,0 +1,273 @@
+VIOLENCE AUTHORIZATION PYRAMID
+(under-discussed. who can hurt whom — and still sleep.)
+Pair with: social class pyramid + Part 0 (How the world works)
+File role: analytical map. Not fiction. Not a hit list.
+
+CORE LINE
+The violence pyramid is not who throws the punch.
+It is who can authorize pain and still be invited to dinner.
+
+METHOD RULE
+- Titles below are ROLE LABELS from political sociology / PE — not a secret roster.
+- Prefer primary functions over vibe words.
+- "Oligarch" = extreme private wealth that systematically shapes state outcomes
+  (comparative politics usage; not a comic-book caste).
+
+SHAPE (read first)
+- UPSTREAM AUTHORIZATION: 1 -> 2 -> 3 -> 4
+- GAP SOVEREIGNS: 5 when layer 1 is weak, absent, captured, or for sale
+- DOWNSTREAM BLEED: 6-8
+Local exception: layer 5 can be peak on a given territory.
+
+CITEABLE SPINE (starter set — open these, don't cosplay them)
+- Max Weber — politics as vocation; state as monopoly claim on legitimate force
+  https://archive.org/details/politicsasvocati0000webe
+- Charles Tilly — state making / war making / organized crime analogy
+  https://www.jstor.org / search: Tilly "War Making and State Making as Organized Crime"
+- Michael Mann — sources of social power (ideological, economic, military, political)
+- Johan Galtung — structural violence (harm via systems without a direct shooter)
+- Pierre Bourdieu — symbolic violence (domination misrecognized as natural)
+- Diego Gambetta — mafia as industry of private protection
+- Mancur Olson — stationary vs roving bandits (why some predators prefer order)
+- Susan Strange — structural power in international political economy
+- Weberian bureaucracy / "mandarins" as administrative domination literature
+
+═══════════════════════════════════════
+1. SOVEREIGN VIOLENCE (peak)
+═══════════════════════════════════════
+Cover: FLAG + PAPERWORK
+Weberian claim: monopoly on legitimate physical force (a CLAIM, not always a fact).
+
+Acts
+- War, police, prisons, borders, seizure, conscription, capital punishment where law allows
+
+Formal role names (citeable)
+- Sovereign / head of state / head of government
+- Legislature + judiciary (authorization + legality cover)
+- Security executives (defense, interior/homeland, attorney general)
+- Military high command / general staff
+- Police leadership / prison authorities / border agencies
+- Praetorian formations (units whose first job is regime protection — comparative politics term)
+- Nomenklatura / regime elite (Soviet-origin term; now used comparatively for ruling career caste)
+
+Feature: daylight harm called order.
+Note: factions inside the state can rent gaps without the whole state "deciding."
+
+═══════════════════════════════════════
+2. DELEGATED VIOLENCE (split)
+═══════════════════════════════════════
+
+2a. KINETIC CONTRACT
+Cover: INVOICE / LAW OF CONTRACT
+Acts: private military/security, private prisons, bounty/collection muscle, police technology vendors.
+
+Formal role names
+- Private military companies (PMCs) / private security contractors
+- Private prison operators
+- Mercenary historically; "contractor" in modern procurement language
+- Intelligence cutouts / proxies (deniable intermediaries — documented in covert-action literature)
+- Paramilitaries operating with state tolerance or sponsorship (comparative: death squads literature)
+
+2b. REMOTE SYSTEMIC
+Cover: POLICY / SANCTIONS PAPER
+Acts: embargoes, asset freezes, payment-rail exclusion, siege logistics, export controls as coercion.
+
+Formal role names
+- Sanctions authorities / financial-intelligence units
+- Central banks + payment-system governors (structural power over settlement)
+- Export-control / customs enforcement leadership
+- Hegemon / great-power economic statecraft operators (IPE term: structural power)
+
+Feature: clean hands, dirty outcomes.
+
+═══════════════════════════════════════
+3. ECONOMIC / ADMINISTRATIVE VIOLENCE
+═══════════════════════════════════════
+Cover: PROCEDURE
+Galtung's structural violence lives here most days: harm without a smoking gun.
+
+Acts
+- Eviction, foreclosure, care denial, debt ruin, job destruction, benefit cutoff
+- Licensing, compliance, selective enforcement as weapons
+
+Formal role names
+- Technocrats / mandarins (administrative elite who run the forms)
+- Regulators, prosecutors, administrative-law judges
+- Creditors / landlords / employers as private coercers backed by state process
+- Rentiers (income from ownership claims — land, resources, IP — classical PE term)
+- Oligarchs / plutocrats (when private capital routinely writes policy)
+- Crony capitalists (wealth contingent on political connection)
+- Kleptocrats (office held to extract)
+- Comprador elites (local brokers for foreign capital — development PE term)
+- Human-resources / compliance bureaucracies (private Layer-3 administrators)
+
+Feature: looks like paperwork; lands like months of beating.
+
+═══════════════════════════════════════
+4. PLATFORM / NARRATIVE VIOLENCE
+═══════════════════════════════════════
+Cover: VIRALITY / "ACCOUNTABILITY"
+Bourdieu's symbolic violence adjacent: destruction via status, reputation, misrecognition.
+
+Acts
+- Mobbing, deplatforming, reputational execution, selective leak/amplification
+
+Formal role names
+- Platform owners / trust-and-safety executives (private speech landlords)
+- Publishers, broadcasters, wire services (agenda-setting research)
+- Propaganda / public-diplomacy apparatuses (state narrative arms)
+- Commissars / ideological enforcers (historical-comparative; party discipline roles)
+- Kingmakers in media-politics (access nodes who mint legitimacy)
+- Influencers as retail amplifiers (not sovereign; still can destroy individuals)
+
+Limit: scales harm; does not replace Layer 1 seizure/jail power unless captured by it.
+
+═══════════════════════════════════════
+5. ORGANIZED ILLICIT VIOLENCE
+═══════════════════════════════════════
+Cover: FEAR / PRIVATE PROTECTION
+Gambetta: mafia as a market for protection. Tilly: bandits ↔ state formation continuum.
+
+Acts
+- Extortion, cartel territorial rule, trafficking enforcement, predatory "tax"
+
+Formal role names
+- Mafia / Cosa Nostra / 'Ndrangheta / cartel leadership (organization-specific)
+- Warlords (territorial military entrepreneurs where state collapsed)
+- Gang bosses / prison-gang authorities
+- Stationary bandits (Olson) who prefer orderly extraction to chaos
+- Shadow governors / parallel authorities (lit. on rebel governance)
+
+Local note: here this layer can BE the peak.
+
+═══════════════════════════════════════
+SIDE-RAIL — COMMUNAL / RITUAL VIOLENCE
+═══════════════════════════════════════
+Cover: MOB HOLINESS / TRADITION
+Acts: pogroms, lynching, communal riots, purge festivals.
+Literatures: ethnic riots (e.g. Wilkinson/Brass debates), lynching studies, communal violence.
+
+Formal role names
+- Militias / communal entrepreneurs
+- Vigilante committees
+- Crowd elites who convert rumor into massacre
+
+Not random Layer 7; not clean Layer 1 paperwork.
+
+═══════════════════════════════════════
+6. DOMESTIC / INTIMATE VIOLENCE
+═══════════════════════════════════════
+Cover: PRIVACY / "FAMILY MATTERS"
+Acts: household coercion, isolation, battery; sexual/gendered coercion;
+      overlaps trafficking when markets form (then also Layer 5).
+
+Formal role names
+- Intimate partner as coercer (IPV literature)
+- Patriarchal household authority where legally/customarily protected (historical-comparative)
+- Traffickers / pimps when commercialization begins (criminal market — Layer 5 bridge)
+
+Statistically large; culturally minimized; exit costly.
+
+═══════════════════════════════════════
+7. STREET / CHAOTIC VIOLENCE
+═══════════════════════════════════════
+Cover: CHAOS (retail TV product)
+Acts: robbery, random assault, riot-as-noise.
+
+Formal role names
+- Street offenders / riot participants
+- "Crime problem" in public discourse (often stands in for the whole pyramid)
+
+Most visible; often least strategically powerful.
+Normie illusion: mistaking retail tip for the system.
+
+═══════════════════════════════════════
+8. SELF-VIOLENCE (basement)
+═══════════════════════════════════════
+Cover: PATHOLOGY / individualized blame only
+Acts: overdose, suicide, slow suicide by addiction.
+Public-health frame: "deaths of despair" (Case & Deaton) as population pattern —
+not a cartoon of personal sin alone.
+
+Often OUTPUT of Layers 3-6 pressure + Layer 5 labor markets in drugs.
+
+═══════════════════════════════════════
+TITLE PLACEMENT CHEAT SHEET (quick)
+═══════════════════════════════════════
+Sovereign / praetorian / nomenklatura     -> mainly 1
+PMC / cutout / paramilitary              -> 2a
+Sanctions tsar / payment-rail governor   -> 2b
+Technocrat / rentier / oligarch / crony / kleptocrat / comprador -> 3 (oligarch also buys 2+4)
+Platform lord / propagandist / commissar -> 4
+Warlord / cartel / mafia / stationary bandit -> 5
+Communal militia / vigilante             -> side-rail
+IPV coercer / trafficker bridge          -> 6 / 5
+Street offender                          -> 7
+
+Oligarchs specifically:
+- Class seat: capability lords + access nodes
+- Violence seat: usually rent 2, shape 3, buy 4; partner 5 only where state is for sale
+- They are not automatically Layer 1 — unless they capture the sovereign
+
+═══════════════════════════════════════
+INFLUENCE ARROWS
+═══════════════════════════════════════
+1 authorizes legal pain map
+1 rents 2a/2b; 1+2 feed 3
+1-3 feed 4
+1 weak/captured -> 5 becomes local peak
+3-4 raise 6-8
+5 colonizes 6-7 locally
+7 triggers crackdown politics more than it rules
+8 becomes statistics and sermons; rarely dethrones 1
+
+═══════════════════════════════════════
+PAIR TO CLASS PYRAMID
+═══════════════════════════════════════
+Sovereigns              -> live in 1; dine above 2-4
+Capability lords        -> oligarchs/conglomerates; operate 2 + chunks of 3-4
+Access / trust nodes    -> kingmakers, brokers, cutouts; gate 3; weaponize 4
+Legible professionals   -> technocrats/mandarins; administer 3
+Prompt / gig cognition  -> mostly targets of 3-4
+Body / care class       -> absorb 3; buffer 6-8
+Surplus                 -> disproportionate 5-8 weather
+
+Respectability often = living upstream while condemning only Layer 7.
+
+═══════════════════════════════════════
+MYTH vs REALITY
+═══════════════════════════════════════
+Myth: violence = street crime
+Real: street is retail
+
+Myth: power is nonviolent
+Real: power is violence with branding + procedure
+
+Myth: soft != violence
+Real: eviction, debt, smear, isolation destroy without fists
+      (structural / symbolic violence literatures)
+
+Myth: criminals own violence
+Real: states claim the license; criminals own gaps;
+      state factions sometimes rent both
+
+Myth: "oligarch" means cartoon villain
+Real: comparative label for political wealth concentration —
+      measure with ownership, procurement, media, party finance
+
+═══════════════════════════════════════
+HOW TO READ (formal)
+═══════════════════════════════════════
+1. Dinner-invite test: who authorizes and still gets seated?
+2. Cover tag: flag / invoice / procedure / virality / fear / privacy / chaos / pathology
+3. Location: upstream / gap / downstream?
+4. Name the ROLE with a citeable term — then find documents (laws, filings, org charts, budgets)
+5. Only then moralize
+
+═══════════════════════════════════════
+HARD LINE
+═══════════════════════════════════════
+Map != mandate.
+Understanding is digestion.
+Using this to harm people is rot.
+Fiction stays fiction — if you cannot cite a mechanism, you do not have a placement.
