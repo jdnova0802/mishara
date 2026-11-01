@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}x402 agent-pay mouth{% endblock %}
+{% block meta %}
+<meta name="description" content="Autonomous agent payment → Gate evaluate → receipt. x402/AP2-framed dogfood for the Foundation door.">
+{% endblock %}
+{% block content %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --x-ink: #0e1420;
+    --x-mute: #5a6578;
+    --x-line: #d5dce8;
+    --x-go: #0d7a4f;
+    --x-no: #b42318;
+    --x-serif: "Syne", system-ui, sans-serif;
+    --x-sans: "IBM Plex Sans", system-ui, sans-serif;
+  }
+  .x-stage {
+    min-height: 88vh;
+    margin: -2rem 0 0;
+    padding: 0 0 4rem;
+    background:
+      radial-gradient(900px 420px at 90% -10%, #c9daf855, transparent 55%),
+      radial-gradient(680px 360px at 6% 88%, #d8ebe640, transparent 50%),
+      linear-gradient(180deg, #f5f7fb 0%, #eef2f8 100%);
+    color: var(--x-ink);
+    font-family: var(--x-sans);
+  }
+  .x-inner { max-width: 700px; margin: 0 auto; padding: 3.75rem 1.35rem 0; }
+  .x-brand {
+    font-family: var(--x-serif);
+    font-size: clamp(2.4rem, 7.5vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin: 0 0 0.85rem;
+  }
+  .x-brand span {
+    display: block;
+    font-weight: 600;
+    font-size: 0.3em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--x-mute);
+    margin-bottom: 0.55rem;
+  }
+  .x-lede {
+    font-size: 1.05rem;
+    color: var(--x-mute);
+    max-width: 36rem;
+    line-height: 1.45;
+    margin: 0 0 1.4rem;
+  }
+  .x-status { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0 0 1.5rem; }
+  .x-pill {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    border: 1px solid var(--x-line); padding: 0.4rem 0.7rem; background: #fff;
+  }
+  .x-pill.on { border-color: var(--x-go); color: var(--x-go); }
+  .x-pill.off { color: var(--x-mute); }
+  .x-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 1.25rem; }
+  .x-row button {
+    font-family: var(--x-sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: #fff; background: var(--x-ink); border: none;
+    padding: 0.85rem 1.15rem; cursor: pointer;
+  }
+  .x-row button.ghost { background: transparent; color: var(--x-ink); border: 1px solid var(--x-ink); }
+  .x-word {
+    font-family: var(--x-serif);
+    font-size: clamp(2.4rem, 9vw, 4.2rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    margin: 0 0 0.55rem;
+    min-height: 1.05em;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .x-word.show { opacity: 1; transform: none; transition: opacity 0.35s ease, transform 0.35s ease; }
+  .x-word.go { color: var(--x-go); }
+  .x-word.no { color: var(--x-no); }
+  .x-meta { color: var(--x-mute); font-size: 0.92rem; line-height: 1.45; max-width: 38rem; margin: 0 0 1rem; }
+  .x-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem; background: #fff; border: 1px solid var(--x-line);
+    padding: 0.85rem; overflow: auto; max-height: 280px; white-space: pre-wrap;
+  }
+  .x-gaps { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+  .x-gaps li {
+    border-top: 1px solid var(--x-line); padding: 0.75rem 0;
+    font-size: 0.92rem; color: var(--x-mute);
+  }
+</style>
+<section class="x-stage">
+  <div class="x-inner">
+    <h1 class="x-brand"><span>Gate · x402 / AP2</span>Agent pay</h1>
+    <p class="x-lede">
+      Autonomous agent attempts a payment. Gate evaluates before settle.
+      Receipt issues. Dogfood never moves USDC — live settle needs payto + CDP.
+    </p>
+    <div class="x-status">
+      <span class="x-pill {% if cfg.configured %}on{% else %}off{% endif %}">
+        payto {% if cfg.configured %}on{% else %}off{% endif %}
+      </span>
+      <span class="x-pill {% if cfg.facilitator_ready %}on{% else %}off{% endif %}">
+        facilitator {% if cfg.facilitator_ready %}ready{% else %}not ready{% endif %}
+      </span>
+      <span class="x-pill off">dogfood · money_real=false</span>
+    </div>
+    <div class="x-row">
+      <button type="button" id="x-go">Run GO attempt</button>
+      <button type="button" class="ghost" id="x-breach">Force breach</button>
+    </div>
+    <div class="x-word" id="x-word" aria-live="polite"></div>
+    <p class="x-meta" id="x-meta">POST {{ public_url }}/demo/x402/agent</p>
+    <pre class="x-code" id="x-code">{}</pre>
+    {% if cfg.gaps %}
+    <ul class="x-gaps">
+      {% for g in cfg.gaps %}
+      <li>{{ g }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+</section>
+<script>
+(function () {
+  const word = document.getElementById("x-word");
+  const meta = document.getElementById("x-meta");
+  const code = document.getElementById("x-code");
+  async function run(forceBreach) {
+    word.className = "x-word";
+    word.textContent = "…";
+    meta.textContent = "Evaluating…";
+    try {
+      const r = await fetch("{{ public_url }}/demo/x402/agent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ force_breach: !!forceBreach }),
+      });
+      const data = await r.json();
+      const d = (data.decision || "").toUpperCase();
+      word.textContent = d || "—";
+      word.className = "x-word show " + (d === "GO" ? "go" : "no");
+      meta.textContent = (data.foundation_pitch || "") + " · halt=" + !!data.halt;
+      code.textContent = JSON.stringify(data, null, 2);
+    } catch (e) {
+      word.textContent = "ERR";
+      word.className = "x-word show no";
+      meta.textContent = String(e);
+    }
+  }
+  document.getElementById("x-go").addEventListener("click", function () { run(false); });
+  document.getElementById("x-breach").addEventListener("click", function () { run(true); });
+})();
+</script>
+{% endblock %}

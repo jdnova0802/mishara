@@ -265,6 +265,11 @@ except ImportError:
     import x402_audit as x402_audit_mod
 
 try:
+    from gate import x402_agent_demo as x402_agent_demo_mod
+except ImportError:
+    import x402_agent_demo as x402_agent_demo_mod
+
+try:
     from gate import issuing_mouth as issuing_mouth_mod
 except ImportError:
     import issuing_mouth as issuing_mouth_mod
@@ -414,7 +419,7 @@ ARCHIVE_NOINDEX_PREFIXES = (
     "/inhabitant", "/afterward", "/capture", "/refusal", "/positioning", "/science",
     "/production-skin", "/runbook", "/dogfood", "/production-weld", "/docs", "/install",
     "/action-os", "/family", "/scorecard", "/proof", "/stack", "/status", "/focus",
-    "/signup", "/login", "/dashboard", "/issuing-mouth", "/sink-mouth",
+    "/signup", "/login", "/dashboard", "/issuing-mouth", "/sink-mouth", "/x402-mouth",
 )
 PUBLIC_WELLKNOWN = frozenset(
     {
@@ -426,6 +431,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/ard.json",
         "/.well-known/ai-catalog.json",
         "/.well-known/x402.json",
+        "/.well-known/x402-mouth.json",
         "/.well-known/opportunities.json",
         "/.well-known/live.json",
         "/.well-known/canary.json",
@@ -1019,6 +1025,15 @@ def health():
             # Ready = CDP credentials present. Do not leak key ids / lengths.
             "facilitator_ready": bool(x402_facilitator_mod.facilitator_ready()),
             "placeholder_rejected": bool(x402_challenge_mod.payto_debug().get("placeholder_rejected")),
+            "gaps": x402_agent_demo_mod.config_status(
+                payto_configured=bool(x402_challenge_mod.payto_configured()),
+                facilitator_ready=bool(x402_facilitator_mod.facilitator_ready()),
+                placeholder_rejected=bool(
+                    x402_challenge_mod.payto_debug().get("placeholder_rejected")
+                ),
+            ).get("gaps"),
+            "dogfood": f"{pub}/demo/x402/agent",
+            "mouth": f"{pub}/x402-mouth",
         },
         "checkout": _checkout_surface(),
         "issuing_mouth": {
@@ -2064,6 +2079,9 @@ def well_known_gate():
             "sink_mouth_json": f"{advertised_url()}/.well-known/sink-mouth.json",
             "sink_dogfood": f"{advertised_url()}/demo/sink/mouth",
             "sink_webhook": f"{advertised_url()}/v1/sink/oct",
+            "x402_mouth": f"{advertised_url()}/x402-mouth",
+            "x402_mouth_json": f"{advertised_url()}/.well-known/x402-mouth.json",
+            "x402_dogfood": f"{advertised_url()}/demo/x402/agent",
             "positive_clear": f"{advertised_url()}/positive-clear",
             "scenario_3": f"{advertised_url()}/scenario-3",
             "uapa_seal": f"{advertised_url()}/uapa-seal",
@@ -3449,6 +3467,67 @@ def demo_issuing_mouth():
     out["demo"] = True
     out["signup_url"] = f"{advertised_url()}/signup"
     out["apply_issuing"] = "https://dashboard.stripe.com/issuing"
+    return jsonify(out), 200
+
+
+@app.route("/.well-known/x402-mouth.json")
+def well_known_x402_mouth():
+    return jsonify(
+        x402_agent_demo_mod.manifest(
+            advertised_url(),
+            payto_configured=bool(x402_challenge_mod.payto_configured()),
+            facilitator_ready=bool(x402_facilitator_mod.facilitator_ready()),
+            placeholder_rejected=bool(
+                x402_challenge_mod.payto_debug().get("placeholder_rejected")
+            ),
+        )
+    )
+
+
+@app.route("/x402-mouth")
+def x402_mouth_page():
+    m = x402_agent_demo_mod.manifest(
+        advertised_url(),
+        payto_configured=bool(x402_challenge_mod.payto_configured()),
+        facilitator_ready=bool(x402_facilitator_mod.facilitator_ready()),
+        placeholder_rejected=bool(
+            x402_challenge_mod.payto_debug().get("placeholder_rejected")
+        ),
+    )
+    return render_template(
+        "x402_mouth.html",
+        public_url=advertised_url(),
+        mouth=m,
+        cfg=m.get("x402_config") or {},
+    )
+
+
+@app.route("/demo/x402/agent", methods=["POST"])
+def demo_x402_agent():
+    """Dogfood: autonomous agent payment attempt → Gate evaluate → receipt (x402/AP2 frame)."""
+    ok, msg = demo_limit.allow_demo(request)
+    if not ok:
+        return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    body = request.get_json(silent=True) or {}
+    blocked = fields.pii_error(body)
+    if blocked:
+        return blocked, 400
+
+    def _eval(evaluate_body: dict) -> dict:
+        return run_prefinality_evaluate(evaluate_body, account_id=None, demo=True)
+
+    out = x402_agent_demo_mod.run_attempt(
+        body,
+        evaluate_fn=_eval,
+        payto_configured=bool(x402_challenge_mod.payto_configured()),
+        facilitator_ready=bool(x402_facilitator_mod.facilitator_ready()),
+        placeholder_rejected=bool(
+            x402_challenge_mod.payto_debug().get("placeholder_rejected")
+        ),
+        public_url=advertised_url(),
+    )
+    out["signup_url"] = f"{advertised_url()}/signup"
+    bound.attach(out, 200, demo=True)
     return jsonify(out), 200
 
 
