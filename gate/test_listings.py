@@ -4341,4 +4341,34 @@ class X402FacilitatorUnlockTests(unittest.TestCase):
         body = r.get_json() or {}
         self.assertIn("facilitator_ready", body.get("x402") or {})
         self.assertIsInstance((body.get("x402") or {}).get("facilitator_ready"), bool)
+        x402 = body.get("x402") or {}
+        self.assertIn("gaps", x402)
+        self.assertIn("dogfood", x402)
+        self.assertTrue(str(x402.get("dogfood") or "").endswith("/demo/x402/agent"))
+
+    def test_x402_mouth_manifest_and_dogfood_go(self):
+        wk = self.client.get("/.well-known/x402-mouth.json")
+        self.assertEqual(wk.status_code, 200)
+        m = wk.get_json() or {}
+        self.assertEqual(m.get("spec"), "gate-x402-agent-demo-v1")
+        self.assertIn("x402_config", m)
+        page = self.client.get("/x402-mouth")
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(b"Agent pay", page.data)
+        r = self.client.post("/demo/x402/agent", json={})
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json() or {}
+        self.assertEqual(body.get("spec"), "gate-x402-agent-demo-v1")
+        self.assertTrue(body.get("demo"))
+        self.assertFalse(body.get("money_real"))
+        self.assertEqual(body.get("decision"), "GO")
+        self.assertIn("evaluation", body)
+        self.assertIn("foundation_pitch", body)
+
+    def test_x402_dogfood_force_breach_nogo(self):
+        r = self.client.post("/demo/x402/agent", json={"force_breach": True})
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json() or {}
+        self.assertEqual(body.get("decision"), "NO_GO")
+        self.assertTrue(body.get("halt"))
 
