@@ -4007,7 +4007,15 @@ class TrackRecordTests(unittest.TestCase):
         self.assertIn("/v1/evidence-watch/register", watch.get("register") or "")
         cadence = self.client.get("/.well-known/red-team.json").get_json()
         self.assertEqual(cadence["cadence"], "monthly")
-        self.assertEqual(cadence["next"], "2026-10-24")
+        self.assertIsNone(cadence["next"])
+        self.assertEqual(cadence["last_published"], "2026-09-24")
+        self.assertEqual(cadence["missed"], "2026-10-24")
+        self.assertIn("was not published", cadence["missed_note"])
+        record = self.client.get("/record").get_data(as_text=True)
+        self.assertIn("Not a contracted SLA.", record)
+        self.assertIn("No red-team result has been added since the 24 Sep 2026 pass.", record)
+        self.assertNotIn("Next: 2026-10-24", record)
+        self.assertIn("deposit on the $3,500 assessment", self.client.get("/bind-room").get_data(as_text=True))
 
     def test_consistency_old_root_mismatch_fails(self):
         r = self.client.get(

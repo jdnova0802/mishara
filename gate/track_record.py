@@ -80,7 +80,12 @@ RED_TEAM = {
     "spec": "gate-red-team-cadence-v1",
     "cadence": "monthly",
     "day_of_month": 24,
-    "next": "2026-10-24",
+    "last_published": "2026-09-24",
+    "next": None,
+    "missed": "2026-10-24",
+    "missed_note": (
+        "The 2026-10-24 pass was not published. Last published pass is 2026-09-24."
+    ),
     "public_results": True,
     "contact": CONTACT,
     "passes": (

@@ -12,6 +12,7 @@
   </p>
   <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 2rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;">
     Surface updated {{ surface.updated_label }} · {{ surface.note }}
+    No red-team result has been added since the 24 Sep 2026 pass.
   </p>
 
   <div class="card">
@@ -41,7 +42,7 @@
     <h2>Red-team cadence</h2>
     <p>Monthly on the 24th. Results posted here each time. One pass is a moment. A published cadence is a state.</p>
     <p style="margin-top: 0.5rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem;">
-      Next: {{ red_team.next }} · cadence {{ red_team.cadence }}
+      Last published {{ red_team.last_published }} · cadence {{ red_team.cadence }} · {{ red_team.missed_note }}
     </p>
     {% for p in red_team.passes %}
     <p style="margin-top: 0.75rem;"><strong>{{ p.date }}</strong> — {{ p.scope }}</p>
@@ -73,9 +74,9 @@
     <h2>Uptime samples</h2>
     <p>
       {% if uptime.pct_up is not none %}
-      {{ uptime.pct_up }}% of {{ uptime.samples }} stored samples up
+      {{ uptime.pct_up }}% of {{ uptime.samples }} stored samples up. Not a contracted SLA.
       {% else %}
-      {{ uptime.samples }} samples so far — pct_up stays blank until 20 exist. No 90-day claim yet.
+      {{ uptime.samples }} samples so far — pct_up stays blank until 20 exist. Not a contracted SLA. No 90-day claim yet.
       {% endif %}
     </p>
     <p style="color: var(--muted); margin-top: 0.5rem;">{{ uptime.pct_note }}</p>
