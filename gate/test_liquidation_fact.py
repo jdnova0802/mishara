@@ -200,6 +200,9 @@ class LiquidationFactTests(unittest.TestCase):
         pub = base64.b64decode(os.environ["GATE_RECEIPT_PUBLIC_KEY"])
         verdict = offline_verify.verify_document(document, pub)
         self.assertEqual(verdict["verdict"], "valid", verdict)
+        self.assertEqual(document["created_at"], "2026-11-05T12:00:00Z")
+        self.assertNotIn("created_at", document["canonical_receipt"])
+        self.assertNotIn("created_at", json.loads(document["canonical_receipt_json"]))
         record = document["canonical_receipt"]["record"]["liquidations"][0]
         self.assertIsNone(record["score"])
         self.assertIsNone(record["commercially_reasonable"])
@@ -223,6 +226,17 @@ class LiquidationFactTests(unittest.TestCase):
         document["canonical_receipt"]["record"]["liquidations"][0]["debt_to_cover"] = "1"
         document.pop("canonical_receipt_json")
         self.assertEqual(offline_verify.verify_document(document, pub)["verdict"], "invalid")
+
+    def test_receipt_hash_does_not_move_with_created_at(self):
+        first = fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")
+        second = fact.document_for_tx(TX, created_at="2026-11-05T12:00:01Z")
+        self.assertNotEqual(first["created_at"], second["created_at"])
+        self.assertEqual(first["receipt_hash"], second["receipt_hash"])
+        self.assertEqual(first["receipt_signature"], second["receipt_signature"])
+        self.assertEqual(first["canonical_receipt_json"], second["canonical_receipt_json"])
+        pub = base64.b64decode(os.environ["GATE_RECEIPT_PUBLIC_KEY"])
+        self.assertEqual(offline_verify.verify_document(first, pub)["verdict"], "valid")
+        self.assertEqual(offline_verify.verify_document(second, pub)["verdict"], "valid")
 
     def test_page_lists_facts_without_a_score(self):
         gate_app.app.config["TESTING"] = True
