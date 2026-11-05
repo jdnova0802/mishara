@@ -101,7 +101,6 @@ DEBT_REPAID_MIN_BASE = 1000 * 10**8  # $1,000 in Aave base currency (1e8 = $1)
 WEEK_BLOCKS = 7 * 24 * 300  # 12-second blocks, one week
 LOG_CHUNK = 2000
 PAGE_LIMIT = 20
-DOCUMENT_PRICE_USD = 49
 
 # Alchemy's own pricing page: $0.525 / 1M CU. eth_getTransactionReceipt and
 # eth_getBlockByNumber are 20 CU. eth_call is 26 CU. Archive state is on the
@@ -110,6 +109,11 @@ DOCUMENT_PRICE_USD = 49
 # (account twice, base unit, four prices, two reserve configs, two user reserves, eMode).
 RPC_CU_PER_DOCUMENT = 20 + 20 + 26 * 12
 ALCHEMY_USD_PER_CU = 0.525 / 1_000_000
+RPC_COST_NOTE = (
+    "rpc_cu_estimate and rpc_usd_estimate_alchemy_payg record Alchemy's published "
+    "compute-unit price for the archive reads behind this file. "
+    "The lookup at /liquidations is free."
+)
 
 # address -> (symbol, binance spot, coinbase product). No pair means no candle.
 # A feed is not substituted for a different asset.
@@ -901,9 +905,9 @@ def build_signed_document(records: list[dict], *, created_at: str) -> dict:
         "verdict": None,
         "record": {
             "spec": "aave-v3-liquidation-fact-v1",
-            "price_usd": DOCUMENT_PRICE_USD,
             "rpc_cu_estimate": RPC_CU_PER_DOCUMENT,
             "rpc_usd_estimate_alchemy_payg": f"{RPC_CU_PER_DOCUMENT * ALCHEMY_USD_PER_CU:.6f}",
+            "rpc_cost_note": RPC_COST_NOTE,
             "liquidations": records,
         },
     }
@@ -1104,8 +1108,8 @@ def public_week(*, now: float | None = None, force: bool = False) -> dict:
         "events_seen": len(decoded),
         "score": None,
         "commercially_reasonable": None,
-        "document_price_usd": DOCUMENT_PRICE_USD,
         "rpc_usd_estimate_alchemy_payg": f"{RPC_CU_PER_DOCUMENT * ALCHEMY_USD_PER_CU:.6f}",
+        "rpc_cost_note": RPC_COST_NOTE,
         "rows": enriched,
         "row_errors": errors[:10],
     }
@@ -1133,15 +1137,5 @@ def public_week_or_error() -> tuple[dict, int]:
             "pool": POOL,
             "score": None,
             "commercially_reasonable": None,
-            "document_price_usd": DOCUMENT_PRICE_USD,
             "rows": [],
         }, 503
-
-
-def lookup_cost_note() -> str:
-    usd = RPC_CU_PER_DOCUMENT * ALCHEMY_USD_PER_CU
-    return (
-        f"Alchemy Pay As You Go lists $0.525 per million compute units, archive included, "
-        f"eth_call at 26 units. One document is about {RPC_CU_PER_DOCUMENT} units, ${usd:.6f}. "
-        f"The document is ${DOCUMENT_PRICE_USD}. Checkout is not wired."
-    )

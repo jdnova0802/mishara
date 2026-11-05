@@ -26,11 +26,11 @@
   th { text-align: left; color: #8c8574; font-weight: 600; padding: 0.4rem; border-bottom: 1px solid #2c2a22; }
   td { padding: 0.45rem 0.4rem; border-bottom: 1px solid #2c2a22; vertical-align: top; }
   .mono { font-family: ui-monospace, monospace; font-size: 0.78rem; }
-  form { display: flex; gap: 0.5rem; margin: 1rem 0; }
-  input[type="text"] { flex: 1; background: #1b1d16; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.55rem 0.65rem; font-size: 0.95rem; }
+  form { display: flex; gap: 0.5rem; margin: 1rem 0; min-width: 0; }
+  input[type="text"] { flex: 1; min-width: 0; background: #1b1d16; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.55rem 0.65rem; font-size: 0.95rem; font-family: ui-monospace, monospace; }
   button, .btn-quiet { background: transparent; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.45rem 0.7rem; cursor: pointer; font: inherit; }
   .err { color: #f0a202; }
-  pre { white-space: pre-wrap; word-break: break-word; background: #1b1d16; padding: 0.8rem; border: 1px solid #2c2a22; }
+  pre, #share-line { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; max-width: 100%; background: #1b1d16; padding: 0.8rem; border: 1px solid #2c2a22; }
   .fact-line { color: #e6e1d4; font-size: 1.05rem; }
   .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0 1rem; }
   .recent { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; }

@@ -257,7 +257,9 @@ class LiquidationFactTests(unittest.TestCase):
         self.assertTrue(body["ok"])
         self.assertEqual(body["rows"][0]["tx_hash"], TX)
         self.assertIsNone(body["score"])
-        self.assertEqual(body["document_price_usd"], 49)
+        self.assertNotIn("document_price_usd", body)
+        self.assertNotIn("price_usd", body["rows"][0])
+        self.assertIn("The lookup at /liquidations is free.", body["rpc_cost_note"])
         self.assertEqual(body["rows"][0]["configured_bonus"]["bonus_above_par_bps"], "500")
         self.assertTrue(body.get("snapshot"))
 
@@ -353,6 +355,9 @@ class LiquidationFactTests(unittest.TestCase):
         self.assertTrue(payload["share_line"].endswith(payload["lookup_url"]))
         self.assertIn("/liquidations?tx=" + TX, payload["lookup_url"])
         self.assertNotIn("lookup_url", payload["canonical_receipt_json"])
+        self.assertNotIn("price_usd", payload["canonical_receipt"]["record"])
+        self.assertNotIn("price_usd", payload["canonical_receipt_json"])
+        self.assertIn("The lookup at /liquidations is free.", payload["canonical_receipt"]["record"]["rpc_cost_note"])
         pub = base64.b64decode(os.environ["GATE_RECEIPT_PUBLIC_KEY"])
         self.assertEqual(offline_verify.verify_document(payload, pub)["verdict"], "valid")
 
