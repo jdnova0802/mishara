@@ -20,9 +20,13 @@ DEMO_LIMIT = int(os.getenv("GATE_DEMO_LIMIT_PER_HOUR", "60"))
 # The audit endpoint makes server-side fetches to caller-supplied URLs, so it is
 # rate limited more tightly than ordinary demo calls (SSRF/port-scan amplification).
 AUDIT_LIMIT = int(os.getenv("GATE_AUDIT_LIMIT_PER_HOUR", "30"))
+# Archive eth_calls for a liquidation fact. Repeat opens of a cached hash do not
+# spend a slot; a flood of distinct hashes does.
+LIQUIDATION_LIMIT = int(os.getenv("GATE_LIQUIDATION_FACT_PER_HOUR", "20"))
 _WINDOW = 3600
 _hits: dict[str, list[float]] = defaultdict(list)
 _audit_hits: dict[str, list[float]] = defaultdict(list)
+_liquidation_hits: dict[str, list[float]] = defaultdict(list)
 
 
 def _valid_ip(value: str) -> bool:
@@ -62,6 +66,24 @@ def allow_demo(request) -> tuple[bool, str]:
     if len(_hits[ip]) >= DEMO_LIMIT:
         return False, "Demo rate limit exceeded. Sign up for a free API key."
     _hits[ip].append(now)
+    return True, ""
+
+
+def allow_liquidation_lookup(request) -> tuple[bool, str]:
+    """Per-address cap on new Aave liquidation-fact reconstructions.
+
+    The message is a wait, not an account pitch. This lookup is free."""
+    ip = _client_ip(request)
+    now = time.time()
+    window_start = now - _WINDOW
+    _liquidation_hits[ip] = [t for t in _liquidation_hits[ip] if t > window_start]
+    if len(_liquidation_hits[ip]) >= LIQUIDATION_LIMIT:
+        return (
+            False,
+            f"{LIQUIDATION_LIMIT} new liquidation files an hour from this address. "
+            "A hash already opened can be opened again.",
+        )
+    _liquidation_hits[ip].append(now)
     return True, ""
 
 

@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 import uuid
+from unittest import mock
 
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, PublicFormat
@@ -34,6 +35,7 @@ os.environ["GATE_RECEIPT_PUBLIC_KEY"] = base64.b64encode(
 ).decode("ascii")
 
 import app as gate_app  # noqa: E402
+import demo_limit  # noqa: E402
 import liquidation_fact as fact  # noqa: E402
 import offline_verify  # noqa: E402
 
@@ -327,3 +329,66 @@ class LiquidationFactTests(unittest.TestCase):
         self.assertIn("No finding on commercial reasonableness.", html)
         self.assertIn("500 bps", html)
         self.assertEqual(self.calls, calls_after_first)
+
+    def test_public_lookup_is_free_and_caps_new_hashes(self):
+        demo_limit._liquidation_hits.clear()
+        gate_app.app.config["TESTING"] = True
+        client = gate_app.app.test_client()
+        page = client.get("/liquidations?tx=" + TX)
+        self.assertEqual(page.status_code, 200)
+        body = page.get_data(as_text=True)
+        self.assertIn("Free. No account.", body)
+        self.assertIn("No finding on commercial reasonableness.", body)
+        self.assertIn("health factor 0.99", body)
+        self.assertIn('property="og:description"', body)
+        self.assertIn("/liquidations?tx=" + TX, body)
+        self.assertIn("Etherscan → fact file", body)
+        self.assertIn("Copy a line for a forum", body)
+        self.assertNotIn("Checkout is not wired", body)
+
+        download = client.get("/v1/liquidation-fact/" + TX)
+        self.assertEqual(download.status_code, 200)
+        self.assertIn("inline", download.headers["Content-Disposition"])
+        payload = download.get_json()
+        self.assertTrue(payload["share_line"].endswith(payload["lookup_url"]))
+        self.assertIn("/liquidations?tx=" + TX, payload["lookup_url"])
+        self.assertNotIn("lookup_url", payload["canonical_receipt_json"])
+        pub = base64.b64decode(os.environ["GATE_RECEIPT_PUBLIC_KEY"])
+        self.assertEqual(offline_verify.verify_document(payload, pub)["verdict"], "valid")
+
+        other = "0x" + "cd" * 32
+        third = "0x" + "ef" * 32
+        junk = client.get(
+            "/v1/liquidation-fact/0x1234",
+            headers={"X-Forwarded-For": "7.7.7.7"},
+        )
+        self.assertEqual(junk.status_code, 400)
+        with mock.patch.object(demo_limit, "LIQUIDATION_LIMIT", 1):
+            first = client.get(
+                "/v1/liquidation-fact/" + other,
+                headers={"X-Forwarded-For": "7.7.7.7"},
+            )
+            self.assertEqual(first.status_code, 200, first.get_json())
+            again = client.get(
+                "/v1/liquidation-fact/" + other,
+                headers={"X-Forwarded-For": "7.7.7.7"},
+            )
+            self.assertEqual(again.status_code, 200)
+            blocked = client.get(
+                "/v1/liquidation-fact/" + third,
+                headers={"X-Forwarded-For": "7.7.7.7"},
+            )
+            self.assertEqual(blocked.status_code, 429)
+            self.assertEqual(blocked.get_json()["error"], "rate_limited")
+            self.assertEqual(blocked.headers["Retry-After"], "3600")
+            spoofed = client.get(
+                "/v1/liquidation-fact/" + third,
+                headers={"X-Forwarded-For": "1.2.3.4, 7.7.7.7"},
+            )
+            self.assertEqual(spoofed.status_code, 429)
+            fresh = client.get(
+                "/v1/liquidation-fact/" + third,
+                headers={"X-Forwarded-For": "8.8.8.8"},
+            )
+            self.assertEqual(fresh.status_code, 200)
+        demo_limit._liquidation_hits.clear()

@@ -1,13 +1,24 @@
 {% extends "base.html" %}
-{% block title %}Aave V3 liquidation facts{% endblock %}
+{% block title %}Aave V3 liquidation fact lookup{% endblock %}
 {% block meta %}
-<meta name="description" content="Facts for each Aave V3 liquidation on Ethereum: health factor, oracle price, configured bonus, and a public one-minute candle. No score.">
+<meta name="description" content="Paste an Aave V3 Ethereum liquidation hash from Core, Prime, EtherFi, or Horizon. The signed fact file comes back on this page. Free. No account. No score.">
+{% if one %}
+<meta property="og:title" content="Aave V3 liquidation fact">
+<meta property="og:description" content="{{ summary }}">
+<meta property="og:url" content="{{ one.lookup_url }}">
+<meta property="og:type" content="article">
+{% else %}
+<meta property="og:title" content="Aave V3 liquidation fact lookup">
+<meta property="og:description" content="Paste a Core, Prime, EtherFi, or Horizon liquidation hash. Signed health factor, oracle price, and bonus. No score. Free.">
+<meta property="og:type" content="website">
+{% endif %}
 {% endblock %}
 {% block content %}
 <style>
   .desk { margin: -2rem 0 0; background: #12140f; color: #e6e1d4; padding: 1.5rem 1rem 3rem; min-height: 88vh; }
   .desk-inner { max-width: 1100px; margin: 0 auto; }
   .desk h1 { font-size: 1.6rem; letter-spacing: -0.03em; margin: 0 0 0.35rem; }
+  .desk h2 { font-size: 1.05rem; margin: 2rem 0 0.4rem; }
   .desk p, .desk li { color: #a39b88; }
   .desk code { color: #f0d78c; }
   .desk a { color: #f0d78c; }
@@ -16,43 +27,77 @@
   td { padding: 0.45rem 0.4rem; border-bottom: 1px solid #2c2a22; vertical-align: top; }
   .mono { font-family: ui-monospace, monospace; font-size: 0.78rem; }
   form { display: flex; gap: 0.5rem; margin: 1rem 0; }
-  input[type="text"] { flex: 1; background: #1b1d16; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.45rem 0.6rem; }
-  button { background: transparent; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.45rem 0.7rem; cursor: pointer; }
+  input[type="text"] { flex: 1; background: #1b1d16; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.55rem 0.65rem; font-size: 0.95rem; }
+  button, .btn-quiet { background: transparent; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.45rem 0.7rem; cursor: pointer; font: inherit; }
   .err { color: #f0a202; }
   pre { white-space: pre-wrap; word-break: break-word; background: #1b1d16; padding: 0.8rem; border: 1px solid #2c2a22; }
+  .fact-line { color: #e6e1d4; font-size: 1.05rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0 1rem; }
+  .recent { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; }
 </style>
 <div class="desk">
   <div class="desk-inner">
-    <h1>Aave V3 liquidation facts</h1>
+    <h1>Look up an Aave V3 liquidation</h1>
     <p>
-      Ethereum mainnet, <code>Pool.liquidationCall</code> only.
-      Each row is the event, health factor at the end of the previous block and after the liquidation block, the oracle price, the configured bonus over par, and one public one-minute candle.
-      No finding on commercial reasonableness.
-      <code>eth_call</code> at block N is the post-state of that block. A health factor above 1 at the previous block is not an off-by-one: Aave only liquidates below 1, so the crossing can sit inside the liquidation block after an oracle update. The liquidation-block reading is after <code>liquidationCall</code>, not the mid-block trigger. This file does not trace.
-      Bonus is Aave’s PercentageMath factor minus par: 10000 is 1.0×, so 10450 is 450 bps (4.5%), not a 104.5% bonus.
+      Paste a transaction hash. Core, Prime, EtherFi, or Horizon on Ethereum.
+      The signed fact file comes back on this page: health factor, oracle price, configured bonus, one public candle.
+      No score. Free. No account.
     </p>
-    <p>{{ cost_note }}</p>
     <form method="get" action="{{ url_for('liquidations_page') }}">
-      <input type="text" name="tx" value="{{ tx }}" placeholder="0x transaction hash" spellcheck="false" aria-label="Transaction hash">
-      <button type="submit">Reconstruct</button>
+      <input type="text" name="tx" value="{{ tx }}" placeholder="0x transaction hash" spellcheck="false" autocomplete="off" aria-label="Transaction hash">
+      <button type="submit">Open the file</button>
     </form>
+    <p>{{ lookup_cap }} new hashes an hour from one address. Opening a hash that was just opened does not count again.</p>
+    <p>
+      On an Etherscan transaction page, drag this to the bookmark bar:
+      <a href="{{ bookmarklet }}">Etherscan → fact file</a>.
+    </p>
+    {% if recent %}
+      <p class="recent">Recently opened
+        {% for hash in recent %}
+          <a class="mono" href="{{ url_for('liquidations_page', tx=hash) }}">{{ hash[:10] }}…</a>
+        {% endfor %}
+      </p>
+    {% endif %}
     {% if one_error %}
       <p class="err">{{ one_error.code }}: {{ one_error.detail }}</p>
     {% endif %}
     {% if one %}
+      <p class="fact-line">{{ summary }}</p>
       <p>
-        Signed file.
-        Hash <code class="mono">{{ one.receipt_hash }}</code>.
-        <a href="{{ url_for('liquidation_fact_document', tx_hash=tx) }}">Download</a>.
-        Check it with <code>offline_verify.py</code> and a public key you already hold. A key sitting inside the file is not the check.
+        Signed file. Hash <code class="mono">{{ one.receipt_hash }}</code>.
+        Check it with <code>offline_verify.py</code> and a public key you already hold.
+        A key sitting inside the file is not the check.
+        <code>lookup_url</code> is outside the signature, so a forwarded file still points here.
       </p>
-      <pre class="mono">{{ one.canonical_receipt_json }}</pre>
+      <div class="actions">
+        <button type="button" id="copy-line">Copy a line for a forum</button>
+        <button type="button" id="copy-json">Copy the file</button>
+        <a class="btn-quiet" href="{{ url_for('liquidation_fact_document', tx_hash=tx) }}">JSON</a>
+      </div>
+      <p id="share-line" class="mono">{{ one.share_line }}</p>
+      {% if same_borrower %}
+        <p>Same borrower on this week’s Core list
+          {% for hash in same_borrower %}
+            <a class="mono" href="{{ url_for('liquidations_page', tx=hash) }}">{{ hash[:10] }}…</a>
+          {% endfor %}
+        </p>
+      {% endif %}
+      <pre class="mono" id="fact-json">{{ one.canonical_receipt_json }}</pre>
     {% endif %}
+
+    <h2>How to read a row</h2>
+    <p>
+      Ethereum mainnet, <code>Pool.liquidationCall</code> only.
+      No finding on commercial reasonableness.
+      <code>eth_call</code> at block N is the post-state of that block. A health factor above 1 at the previous block is not an off-by-one: Aave only liquidates below 1, so the crossing can sit inside the liquidation block after an oracle update. The liquidation-block reading is after <code>liquidationCall</code>, not the mid-block trigger. This file does not trace.
+      Bonus is Aave’s PercentageMath factor minus par: 10000 is 1.0×, so 10450 is 450 bps (4.5%), not a 104.5% bonus.
+    </p>
     {% if not payload.ok %}
       <p class="err">{{ payload.error }}: {{ payload.detail }}</p>
     {% else %}
       <p>
-        Blocks {{ payload.from_block }}–{{ payload.to_block }}.
+        This week on Core, blocks {{ payload.from_block }}–{{ payload.to_block }}.
         {{ payload.events_seen }} liquidation events.
         {{ payload.matched }} at or above ${{ payload.min_debt_repaid_usd }} of debt repaid.
         Showing {{ payload.shown }}.
@@ -92,7 +137,10 @@
               {% endif %}
             </td>
             <td class="mono">{{ row.configured_bonus.bonus_above_par_bps }} bps ({{ row.configured_bonus.bonus_percent }}%)</td>
-            <td><a href="{{ url_for('liquidation_fact_document', tx_hash=row.tx_hash) }}">{{ row.tx_hash[:10] }}…</a></td>
+            <td>
+              <a href="{{ url_for('liquidations_page', tx=row.tx_hash) }}">Open</a>
+              · <a href="{{ url_for('liquidation_fact_document', tx_hash=row.tx_hash) }}">{{ row.tx_hash[:10] }}…</a>
+            </td>
           </tr>
           {% else %}
           <tr><td colspan="7">No liquidation at or above $1,000 in this window.</td></tr>
@@ -102,4 +150,22 @@
     {% endif %}
   </div>
 </div>
+<script>
+(function () {
+  function copy(text, button) {
+    if (!text || !navigator.clipboard) return;
+    navigator.clipboard.writeText(text).then(function () {
+      var prior = button.textContent;
+      button.textContent = "Copied";
+      setTimeout(function () { button.textContent = prior; }, 1200);
+    });
+  }
+  var lineBtn = document.getElementById("copy-line");
+  var jsonBtn = document.getElementById("copy-json");
+  var line = document.getElementById("share-line");
+  var json = document.getElementById("fact-json");
+  if (lineBtn && line) lineBtn.addEventListener("click", function () { copy(line.textContent, lineBtn); });
+  if (jsonBtn && json) jsonBtn.addEventListener("click", function () { copy(json.textContent, jsonBtn); });
+})();
+</script>
 {% endblock %}

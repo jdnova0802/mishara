@@ -204,12 +204,17 @@ def snapshot_path() -> str:
     return os.path.join(tempfile.gettempdir(), "gate-aave-v3-week.json")
 
 
+_recent_lookups: list[str] = []
+_RECENT_LIMIT = 12
+
+
 def clear_caches() -> None:
     with _cache_lock:
         _record_cache.clear()
         _call_cache.clear()
         _week_cache["at"] = 0.0
         _week_cache["body"] = None
+        _recent_lookups.clear()
     path = snapshot_path()
     try:
         os.remove(path)
@@ -930,14 +935,86 @@ def records_for_tx(tx_hash: str) -> list[dict]:
     return records
 
 
-def document_for_tx(tx_hash: str, *, created_at: str | None = None) -> dict:
+def require_tx_hash(tx_hash: str) -> str:
     tx_hash = (tx_hash or "").strip().lower()
     if not tx_hash.startswith("0x") or len(tx_hash) != 66 or any(
         c not in "0123456789abcdef" for c in tx_hash[2:]
     ):
         raise LiquidationFactError("bad_tx_hash", "Expected 0x plus 64 hex characters.")
+    return tx_hash
+
+
+def cached_records(tx_hash: str) -> list[dict] | None:
+    """Records already reconstructed for this hash, if the ten-minute cache still holds them."""
+    try:
+        tx_hash = require_tx_hash(tx_hash)
+    except LiquidationFactError:
+        return None
+    moment = time.time()
+    with _cache_lock:
+        hit = _record_cache.get(tx_hash)
+        if hit and moment - hit[0] < 600:
+            return hit[1]
+    return None
+
+
+def document_for_tx(tx_hash: str, *, created_at: str | None = None) -> dict:
+    tx_hash = require_tx_hash(tx_hash)
     created_at = created_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return build_signed_document(records_for_tx(tx_hash), created_at=created_at)
+
+
+def with_lookup(document: dict, base_url: str) -> dict:
+    """Envelope fields a forwarded file carries. They sit outside the signature."""
+    tx_hash = document["canonical_receipt"]["job_id"]
+    url = base_url.rstrip("/") + "/liquidations?tx=" + tx_hash
+    out = dict(document)
+    out["lookup_url"] = url
+    out["share_line"] = "Aave V3 liquidation fact, no score: " + url
+    out["lookup_url_not_signed"] = (
+        "lookup_url and share_line sit outside the signed canonical receipt. "
+        "They are how a forwarded file points at the next lookup."
+    )
+    return out
+
+
+def summary_line(document: dict) -> str:
+    rows = document["canonical_receipt"]["record"]["liquidations"]
+    if not rows:
+        return "Aave V3 liquidation fact. No score."
+    row = rows[0]
+    hf = (row.get("health_factor_block_before") or {}).get("health_factor") or "unread"
+    bonus = (row.get("configured_bonus") or {}).get("bonus_above_par_bps") or "?"
+    instance = row.get("instance") or "aave-v3"
+    extra = f" {len(rows)} events in this transaction." if len(rows) > 1 else ""
+    return (
+        f"{instance} · health factor {hf} at the previous block · "
+        f"bonus {bonus} bps over par · no score.{extra}"
+    )
+
+
+def note_public_lookup(tx_hash: str) -> None:
+    tx_hash = require_tx_hash(tx_hash)
+    with _cache_lock:
+        if tx_hash in _recent_lookups:
+            _recent_lookups.remove(tx_hash)
+        _recent_lookups.insert(0, tx_hash)
+        del _recent_lookups[_RECENT_LIMIT:]
+
+
+def recent_public_lookups() -> list[str]:
+    with _cache_lock:
+        return list(_recent_lookups)
+
+
+def etherscan_bookmarklet(base_url: str) -> str:
+    """Drag this to the bookmark bar. On an Etherscan /tx/ page it opens the fact file."""
+    base = base_url.rstrip("/") + "/liquidations?tx="
+    return (
+        "javascript:(function(){var m=location.pathname.match(/\\/tx\\/(0x[a-fA-F0-9]{64})/);"
+        "if(!m){window.alert('Open an Etherscan transaction page first.');return;}"
+        "location.href=" + json.dumps(base) + "+m[1];})();"
+    )
 
 
 def _get_logs(from_block: int, to_block: int) -> list[dict]:

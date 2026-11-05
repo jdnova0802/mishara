@@ -3241,26 +3241,61 @@ def _liquidation_fact():
     return liquidation_fact_mod
 
 
+def _open_liquidation_document(tx_hash: str):
+    """One public lookup. Cached hashes are free. New hashes share a per-address cap.
+
+    Returns (document or None, error dict or None, status).
+    """
+    mod = _liquidation_fact()
+    try:
+        tx_hash = mod.require_tx_hash(tx_hash)
+    except mod.LiquidationFactError as exc:
+        return None, {"code": exc.code, "detail": exc.detail}, 400
+    if mod.cached_records(tx_hash) is None:
+        ok, msg = demo_limit.allow_liquidation_lookup(request)
+        if not ok:
+            return None, {"code": "rate_limited", "detail": msg}, 429
+    try:
+        document = mod.document_for_tx(tx_hash)
+    except mod.LiquidationFactError as exc:
+        return None, {"code": exc.code, "detail": exc.detail}, 400
+    document = mod.with_lookup(document, advertised_url())
+    mod.note_public_lookup(tx_hash)
+    return document, None, 200
+
+
 @app.route("/liquidations")
 def liquidations_page():
     mod = _liquidation_fact()
     tx = (request.args.get("tx") or "").strip()
     one = None
     one_error = None
+    status = 200
     if tx:
-        try:
-            one = mod.document_for_tx(tx)
-        except mod.LiquidationFactError as exc:
-            one_error = {"code": exc.code, "detail": exc.detail}
-    payload, _status = mod.public_week_or_error()
+        one, one_error, status = _open_liquidation_document(tx)
+    payload, _week_status = mod.public_week_or_error()
+    same_borrower: list[str] = []
+    if one and payload.get("ok"):
+        borrower = one["canonical_receipt"]["record"]["liquidations"][0]["borrower"]
+        opened = (one["canonical_receipt"]["job_id"] or "").lower()
+        for row in payload.get("rows") or []:
+            if (row.get("borrower") or "").lower() != borrower:
+                continue
+            row_tx = (row.get("tx_hash") or "").lower()
+            if row_tx and row_tx != opened:
+                same_borrower.append(row_tx)
     return render_template(
         "liquidations.html",
         payload=payload,
         one=one,
         one_error=one_error,
-        cost_note=mod.lookup_cost_note(),
+        summary=mod.summary_line(one) if one else "",
         tx=tx,
-    )
+        recent=mod.recent_public_lookups(),
+        same_borrower=same_borrower,
+        bookmarklet=mod.etherscan_bookmarklet(advertised_url()),
+        lookup_cap=demo_limit.LIQUIDATION_LIMIT,
+    ), status
 
 
 @app.route("/.well-known/aave-v3-liquidations.json")
@@ -3271,15 +3306,18 @@ def well_known_liquidations():
 
 @app.route("/v1/liquidation-fact/<tx_hash>")
 def liquidation_fact_document(tx_hash):
-    mod = _liquidation_fact()
-    try:
-        document = mod.document_for_tx(tx_hash)
-    except mod.LiquidationFactError as exc:
-        return jsonify({"error": exc.code, "detail": exc.detail}), 400
+    document, err, status = _open_liquidation_document(tx_hash)
+    if err:
+        response = jsonify({"error": err["code"], "detail": err["detail"]})
+        response.status_code = status
+        if status == 429:
+            response.headers["Retry-After"] = "3600"
+        return response
     response = jsonify(document)
     response.headers["Content-Disposition"] = (
-        f'attachment; filename="liquidation-fact-{tx_hash.lower()}.json"'
+        f'inline; filename="liquidation-fact-{tx_hash.lower()}.json"'
     )
+    response.headers["Link"] = f'<{document["lookup_url"]}>; rel="canonical"'
     return response
 
 
@@ -5628,7 +5666,7 @@ def llms_txt():
         f"- Clear (one-word settlement): {advertised_url()}/clear",
         f"- Seal (receipt holds?): {advertised_url()}/seal",
         f"- Blotter (open acts): {advertised_url()}/blotter",
-        f"- Aave V3 liquidation facts (no score): {advertised_url()}/liquidations",
+        f"- Aave V3 liquidation fact lookup, free, no account, no score (Core, Prime, EtherFi, Horizon): {advertised_url()}/liquidations",
         f"- Seal anchor (15-minute root): {advertised_url()}/.well-known/seal-anchor.json",
         f"- Go (may this commit?): {advertised_url()}/go",
         f"- Never (already spent?): {advertised_url()}/never",
