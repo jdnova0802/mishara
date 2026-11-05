@@ -42,7 +42,9 @@
     {% if one %}
       <p>
         Signed file.
-        Hash <code class="mono">{{ one.receipt_hash }}</code>.
+        Hash <code class="mono">{{ one.receipt_hash }}</code>
+        covers the chain facts, not the render time
+        {% if one.created_at %}(<code class="mono">{{ one.created_at }}</code> UTC, unsigned).{% endif %}
         <a href="{{ url_for('liquidation_fact_document', tx_hash=tx) }}">Download</a>.
         Check it with <code>offline_verify.py</code> and a public key you already hold. A key sitting inside the file is not the check.
       </p>

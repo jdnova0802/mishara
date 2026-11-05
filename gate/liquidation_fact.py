@@ -878,13 +878,12 @@ def logs_for_tx(tx_hash: str) -> list[dict]:
 
 
 def build_signed_document(records: list[dict], *, created_at: str) -> dict:
+    # created_at is render time. It is not in the signed object: two fetches of
+    # the same chain facts must produce the same receipt_hash.
     canonical = {
         "spec": "gate-receipt-v1",
         "id": "liq-" + records[0]["tx_hash"].removeprefix("0x"),
         "gate": "Nisaba LLC",
-        "created_at": created_at,
-        "time_is_utc": True,
-        "created_at_format": "iso-8601",
         "prev_receipt_hash": None,
         "fuse_id": None,
         "job_id": records[0]["tx_hash"],
@@ -907,6 +906,10 @@ def build_signed_document(records: list[dict], *, created_at: str) -> dict:
     signature = receipt_mod.sign_receipt_hash(receipt_hash)
     document = {
         "spec": "gate-receipt-payload-v1",
+        "created_at": created_at,
+        "time_is_utc": True,
+        "created_at_format": "iso-8601",
+        "created_at_not_in_hash": True,
         "canonical_receipt": canonical,
         "canonical_receipt_json": canonical_json,
         "receipt_hash": receipt_hash,
