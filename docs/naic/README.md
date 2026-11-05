@@ -4,7 +4,8 @@ Time-sensitive regulatory writing lives here so it does not get lost inside prod
 
 | File | Purpose | Deadline / session |
 |---|---|---|
-| [`NAIC_AI_RISK_EVAL_SUPPLEMENT_V5_COMMENT_DRAFT.md`](./NAIC_AI_RISK_EVAL_SUPPLEMENT_V5_COMMENT_DRAFT.md) | Written comment on Supplement v5.0 (four asks) | **COB Sept 29, 2026** |
+| [`NAIC_AI_RISK_EVAL_SUPPLEMENT_V5_COMMENT_DRAFT.md`](./NAIC_AI_RISK_EVAL_SUPPLEMENT_V5_COMMENT_DRAFT.md) | Written comment on Supplement v5.0 (four asks). Sent copy is the Sept 14, 2026 mailbox message, not this file. | **Sent Sept 14, 2026** |
+| [`NAIC_AI_RISK_EVAL_SUPPLEMENT_V6_COMMENT_DRAFT.md`](./NAIC_AI_RISK_EVAL_SUPPLEMENT_V6_COMMENT_DRAFT.md) | Written comment on Supplement v6.0. Draft. Not filed. | **COB Oct 30, 2026** |
 | [`NAIC_OCT8_2026_VERBAL_COMMENT.md`](./NAIC_OCT8_2026_VERBAL_COMMENT.md) | 2–3 min verbal reiteration of the same four asks | **Oct 8, 2026, 11:00 a.m. ET** (reverify Webex) |
 | [`NAIC_QUSFI_EVERGREEN_EXHIBIT_A.md`](./NAIC_QUSFI_EVERGREEN_EXHIBIT_A.md) | Draft technical note: QUSFI set-membership, Model 786 evergreen clock, Exhibit A row. Not a GLM. | Draft 27 Oct 2026. Not filed. |
 
