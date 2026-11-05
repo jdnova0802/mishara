@@ -26,9 +26,10 @@
     <h1>Aave V3 liquidation facts</h1>
     <p>
       Ethereum mainnet, <code>Pool.liquidationCall</code> only.
-      Each row is the event, the health factor at the block before, the oracle price, the configured bonus, and one public one-minute candle.
+      Each row is the event, health factor at the end of the previous block and after the liquidation block, the oracle price, the configured bonus over par, and one public one-minute candle.
       No finding on commercial reasonableness.
-      Health factor is the reading at the block before the transaction. A value above 1 means the position had not crossed 1 by the end of that block. The price move that triggered the call can sit inside the liquidation block, and this file does not trace that.
+      <code>eth_call</code> at block N is the post-state of that block. A health factor above 1 at the previous block is not an off-by-one: Aave only liquidates below 1, so the crossing can sit inside the liquidation block after an oracle update. The liquidation-block reading is after <code>liquidationCall</code>, not the mid-block trigger. This file does not trace.
+      Bonus is Aave’s PercentageMath factor minus par: 10000 is 1.0×, so 10450 is 450 bps (4.5%), not a 104.5% bonus.
     </p>
     <p>{{ cost_note }}</p>
     <form method="get" action="{{ url_for('liquidations_page') }}">
@@ -62,9 +63,9 @@
             <th>Time (UTC)</th>
             <th>Pair</th>
             <th>Debt repaid</th>
-            <th>Health factor before</th>
+            <th>Health factor</th>
             <th>Oracle, then candle</th>
-            <th>Bonus</th>
+            <th>Bonus over par</th>
             <th>File</th>
           </tr>
         </thead>
@@ -74,7 +75,13 @@
             <td>{{ row.block_timestamp_utc }}<br><span class="mono">{{ row.block_number }}</span></td>
             <td>{{ row.collateral_asset.symbol or row.collateral_asset.address }} / {{ row.debt_asset.symbol or row.debt_asset.address }}</td>
             <td class="mono">{{ row.debt_repaid_usd or row.debt_to_cover }}</td>
-            <td class="mono">{{ row.health_factor_block_before.health_factor or "no debt" }}</td>
+            <td class="mono">
+              before {{ row.health_factor_block_before.health_factor or "no debt" }}
+              <br>after {{ row.health_factor_liquidation_block.health_factor or "no debt" }}
+              {% if row.health_factor_read and not row.health_factor_read.block_before_below_one %}
+                <br>crossing inside the block (not traced)
+              {% endif %}
+            </td>
             <td class="mono">
               {{ row.oracle_price_base.collateral_at_liquidation_block }}
               {% if row.independent_price.collateral.close %}
@@ -84,7 +91,7 @@
                 <br>{{ row.independent_price.collateral.error }}
               {% endif %}
             </td>
-            <td class="mono">{{ row.configured_bonus.liquidation_bonus_bps }}</td>
+            <td class="mono">{{ row.configured_bonus.bonus_above_par_bps }} bps ({{ row.configured_bonus.bonus_percent }}%)</td>
             <td><a href="{{ url_for('liquidation_fact_document', tx_hash=row.tx_hash) }}">{{ row.tx_hash[:10] }}…</a></td>
           </tr>
           {% else %}

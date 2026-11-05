@@ -3283,6 +3283,13 @@ def liquidation_fact_document(tx_hash):
     return response
 
 
+if not GATE_DEV_MODE and (os.getenv("GATE_ETH_RPC_URL") or "").strip():
+    try:
+        _liquidation_fact().schedule_week_refresh()
+    except Exception:
+        pass
+
+
 @app.route("/v1/blotter")
 def blotter_api():
     try:
