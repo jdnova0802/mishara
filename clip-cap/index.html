@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Views, then the cap</title>
+<meta name="description" content="The public clipping campaign leaderboard, with the card rate set next to the campaign's own per-clip cap.">
+<style>
+  :root {
+    color-scheme: light;
+    --ink: #1c1915;
+    --muted: #5c564c;
+    --line: #d9d2c5;
+    --paper: #f3efe6;
+    --card: #fffdf8;
+    --hot: #8f2d1f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+  main { max-width: 880px; margin: 0 auto; padding: 48px 20px 80px; }
+  .kicker {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(42px, 8vw, 76px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  h1 span { display: block; }
+  .cap-line {
+    margin: 22px 0 0;
+    font-size: clamp(22px, 3vw, 28px);
+  }
+  .cap-line strong { color: var(--hot); font-weight: 600; }
+  .sub {
+    margin: 14px 0 0;
+    max-width: 38rem;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.45;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin: 36px 0 8px;
+  }
+  .facts div { background: var(--card); padding: 14px 16px 16px; }
+  .facts b {
+    display: block;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .facts span {
+    display: block;
+    margin-top: 4px;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 28px;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+  }
+  th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 10px 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    padding: 12px 10px 12px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+  td.num, th.num { text-align: right; }
+  a { color: var(--ink); }
+  a:hover { color: var(--hot); }
+  .status {
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 28px;
+  }
+  footer {
+    margin-top: 28px;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  @media (max-width: 640px) {
+    .facts { grid-template-columns: 1fr; }
+    table { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker" id="kicker">Reading the campaign</p>
+  <h1 id="headline"><span id="viewline">…</span><span>views.</span></h1>
+  <p class="cap-line">The cap on that clip is <strong id="capline">…</strong>.</p>
+  <p class="sub" id="explain"></p>
+  <section class="facts" id="facts" hidden>
+    <div><b id="f-rate"></b><span>Card rate</span></div>
+    <div><b id="f-paid"></b><span>Cash paid out</span></div>
+    <div><b id="f-card"></b><span>If every view paid the card rate</span></div>
+  </section>
+  <table id="board" hidden>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Clip</th>
+        <th class="num">Views</th>
+        <th class="num">At the card rate</th>
+        <th class="num">Cap</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="status" id="status"></p>
+  <footer id="foot"></footer>
+</main>
+<script>
+const DEFAULT_ID = "14f743b2-c5ca-4f3e-8c0d-3010c485005d";
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+function campaignId() {
+  const asked = new URLSearchParams(location.search).get("id") || "";
+  return UUID.test(asked) ? asked : DEFAULT_ID;
+}
+
+function money(cents) {
+  return (cents / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
+}
+
+function viewsLabel(n) {
+  return n.toLocaleString("en-US");
+}
+
+function allowedLink(raw) {
+  try {
+    const url = new URL(raw, "https://youtube.com");
+    if (url.protocol !== "https:") return null;
+    const host = url.hostname.replace(/^www\./, "");
+    const ok = ["youtube.com", "youtu.be", "tiktok.com", "vm.tiktok.com", "instagram.com"];
+    if (!ok.includes(host)) return null;
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
+function parseCampaign(html) {
+  const text = html.replace(/\\"/g, '"').replace(/\\\//g, "/");
+  const metrics = text.match(/"approvedSubmissionCount":(\d+),"budgetProgressBps":\d+,"budgetSpentCents":(\d+),"creatorCount":(\d+),"paidOutCents":(\d+),"totalViews":(\d+)/);
+  if (!metrics) throw new Error("The campaign payload did not include payout metrics.");
+  const nameMatch = text.match(/"name":"([^"]{1,140})"/);
+  const rates = new Map();
+  let capCents = null;
+  const rateRe = /"maxPayoutCents":(\d+),"minPayoutCents":(\d+),"payoutType":"cpm","platform":"(tiktok|instagram|youtube|x|facebook)","rateCents":(\d+)/g;
+  for (const hit of text.matchAll(rateRe)) {
+    rates.set(hit[3], { maxCents: Number(hit[1]), minCents: Number(hit[2]), rateCents: Number(hit[4]) });
+    capCents = Number(hit[1]);
+  }
+  if (!rates.size) throw new Error("The campaign payload did not include a per-clip rate.");
+  const rowRe = /"platform":"(tiktok|instagram|youtube|x|facebook)","postUrl":"(https:[^"]+)","rank":(\d+),"submissionId":"([0-9a-f-]+)".*?"totalViews":(\d+),"userId":"[^"]+","username":"([^"]+)"/g;
+  const seen = new Set();
+  const rows = [];
+  for (const hit of text.matchAll(rowRe)) {
+    const id = hit[4];
+    if (seen.has(id)) continue;
+    seen.add(id);
+    rows.push({
+      platform: hit[1],
+      postUrl: hit[2],
+      rank: Number(hit[3]),
+      submissionId: id,
+      views: Number(hit[5]),
+      username: hit[6],
+    });
+  }
+  rows.sort((a, b) => a.rank - b.rank);
+  return {
+    name: nameMatch ? nameMatch[1] : "Campaign",
+    approved: Number(metrics[1]),
+    spentCents: Number(metrics[2]),
+    creators: Number(metrics[3]),
+    paidCents: Number(metrics[4]),
+    totalViews: Number(metrics[5]),
+    rates,
+    capCents,
+    rows,
+  };
+}
+
+function rateFor(campaign, platform) {
+  return campaign.rates.get(platform) || campaign.rates.values().next().value;
+}
+
+function cardCents(views, rateCents) {
+  return Math.round(views / 1000 * rateCents);
+}
+
+function render(campaign, fetchedAt, sourceUrl) {
+  const top = campaign.rows[0];
+  const topRate = top ? rateFor(campaign, top.platform) : campaign.rates.values().next().value;
+  const cap = topRate.maxCents;
+  document.getElementById("kicker").textContent = campaign.name;
+  document.getElementById("viewline").textContent = top ? viewsLabel(top.views) : viewsLabel(campaign.totalViews);
+  document.getElementById("capline").textContent = money(cap);
+  const viewsToCap = Math.round(cap / topRate.rateCents * 1000);
+  const card = top ? cardCents(top.views, topRate.rateCents) : 0;
+  document.getElementById("explain").textContent = top
+    ? `The card pays ${money(topRate.rateCents)} per 1,000 views. This clip would be ${money(card)} at that rate. The campaign's own cap stops it at ${money(cap)}, which arrives at about ${viewsLabel(viewsToCap)} views.`
+    : `The card pays ${money(topRate.rateCents)} per 1,000 views. The campaign's own cap is ${money(cap)}.`;
+  document.title = `${top ? viewsLabel(top.views) : ""} views, ${money(cap)}`;
+
+  document.getElementById("f-rate").textContent = `${money(topRate.rateCents)} / 1,000`;
+  document.getElementById("f-paid").textContent = money(campaign.paidCents);
+  const theoretical = cardCents(campaign.totalViews, topRate.rateCents);
+  document.getElementById("f-card").textContent = money(theoretical);
+  document.getElementById("facts").hidden = false;
+
+  const body = document.getElementById("rows");
+  body.replaceChildren();
+  for (const row of campaign.rows) {
+    const rate = rateFor(campaign, row.platform);
+    const tr = document.createElement("tr");
+    const cells = [
+      String(row.rank),
+      null,
+      viewsLabel(row.views),
+      money(cardCents(row.views, rate.rateCents)),
+      money(rate.maxCents),
+    ];
+    cells.forEach((value, i) => {
+      const td = document.createElement("td");
+      if (i === 1) {
+        const link = allowedLink(row.postUrl);
+        const label = `${row.platform} · ${row.username}`;
+        if (link) {
+          const a = document.createElement("a");
+          a.href = link;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = label;
+          td.appendChild(a);
+        } else {
+          td.textContent = label;
+        }
+      } else {
+        td.textContent = value;
+        if (i > 1) td.className = "num";
+      }
+      tr.appendChild(td);
+    });
+    const head = tr.children[2];
+    if (head) head.className = "num";
+    body.appendChild(tr);
+  }
+  document.getElementById("board").hidden = campaign.rows.length === 0;
+
+  const when = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(fetchedAt);
+  document.getElementById("status").textContent =
+    `${viewsLabel(campaign.approved)} approved submissions · ${viewsLabel(campaign.creators)} creators · ${viewsLabel(campaign.totalViews)} views on the campaign · read ${when} ET`;
+
+  const foot = document.getElementById("foot");
+  foot.replaceChildren();
+  foot.append("Numbers are the campaign's own public payload: rate, cap, views, and cash paid out. ");
+  const a = document.createElement("a");
+  a.href = sourceUrl;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.textContent = "Open the campaign";
+  foot.appendChild(a);
+  foot.append(". Cash paid out is what the payload calls paid out, not the card rate times every view. The cap is maxPayoutCents on that campaign.");
+}
+
+async function main() {
+  const id = campaignId();
+  const sourceUrl = `https://contentrewards.com/c/campaigns/${id}`;
+  try {
+    const response = await fetch(sourceUrl);
+    if (!response.ok) throw new Error(`Campaign page returned ${response.status}.`);
+    const html = await response.text();
+    render(parseCampaign(html), new Date(), sourceUrl);
+  } catch (error) {
+    document.getElementById("viewline").textContent = "Could not read";
+    document.getElementById("capline").textContent = "the campaign";
+    document.getElementById("explain").textContent = error instanceof Error ? error.message : "The campaign page did not load.";
+    document.getElementById("status").textContent = sourceUrl;
+  }
+}
+
+main();
+</script>
+</body>
+</html>
