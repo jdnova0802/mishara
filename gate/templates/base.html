@@ -54,6 +54,7 @@
         <a href="{{ url_for('index') }}">Overview</a>
         <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('docs') }}">Docs</a>
+        <a href="{{ url_for('liquidations_page') }}">Liquidations</a>
         <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>

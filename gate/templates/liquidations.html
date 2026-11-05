@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Aave V3 liquidation facts{% endblock %}
+{% block meta %}
+<meta name="description" content="Facts for each Aave V3 liquidation on Ethereum: health factor, oracle price, configured bonus, and a public one-minute candle. No score.">
+{% endblock %}
+{% block content %}
+<style>
+  .desk { margin: -2rem 0 0; background: #12140f; color: #e6e1d4; padding: 1.5rem 1rem 3rem; min-height: 88vh; }
+  .desk-inner { max-width: 1100px; margin: 0 auto; }
+  .desk h1 { font-size: 1.6rem; letter-spacing: -0.03em; margin: 0 0 0.35rem; }
+  .desk p, .desk li { color: #a39b88; }
+  .desk code { color: #f0d78c; }
+  .desk a { color: #f0d78c; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  th { text-align: left; color: #8c8574; font-weight: 600; padding: 0.4rem; border-bottom: 1px solid #2c2a22; }
+  td { padding: 0.45rem 0.4rem; border-bottom: 1px solid #2c2a22; vertical-align: top; }
+  .mono { font-family: ui-monospace, monospace; font-size: 0.78rem; }
+  form { display: flex; gap: 0.5rem; margin: 1rem 0; }
+  input[type="text"] { flex: 1; background: #1b1d16; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.45rem 0.6rem; }
+  button { background: transparent; color: #e6e1d4; border: 1px solid #5c5648; padding: 0.45rem 0.7rem; cursor: pointer; }
+  .err { color: #f0a202; }
+  pre { white-space: pre-wrap; word-break: break-word; background: #1b1d16; padding: 0.8rem; border: 1px solid #2c2a22; }
+</style>
+<div class="desk">
+  <div class="desk-inner">
+    <h1>Aave V3 liquidation facts</h1>
+    <p>
+      Ethereum mainnet, <code>Pool.liquidationCall</code> only.
+      Each row is the event, the health factor at the block before, the oracle price, the configured bonus, and one public one-minute candle.
+      No finding on commercial reasonableness.
+      Health factor is the reading at the block before the transaction. A value above 1 means the position had not crossed 1 by the end of that block. The price move that triggered the call can sit inside the liquidation block, and this file does not trace that.
+    </p>
+    <p>{{ cost_note }}</p>
+    <form method="get" action="{{ url_for('liquidations_page') }}">
+      <input type="text" name="tx" value="{{ tx }}" placeholder="0x transaction hash" spellcheck="false" aria-label="Transaction hash">
+      <button type="submit">Reconstruct</button>
+    </form>
+    {% if one_error %}
+      <p class="err">{{ one_error.code }}: {{ one_error.detail }}</p>
+    {% endif %}
+    {% if one %}
+      <p>
+        Signed file.
+        Hash <code class="mono">{{ one.receipt_hash }}</code>.
+        <a href="{{ url_for('liquidation_fact_document', tx_hash=tx) }}">Download</a>.
+        Check it with <code>offline_verify.py</code> and a public key you already hold. A key sitting inside the file is not the check.
+      </p>
+      <pre class="mono">{{ one.canonical_receipt_json }}</pre>
+    {% endif %}
+    {% if not payload.ok %}
+      <p class="err">{{ payload.error }}: {{ payload.detail }}</p>
+    {% else %}
+      <p>
+        Blocks {{ payload.from_block }}–{{ payload.to_block }}.
+        {{ payload.events_seen }} liquidation events.
+        {{ payload.matched }} at or above ${{ payload.min_debt_repaid_usd }} of debt repaid.
+        Showing {{ payload.shown }}.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Time (UTC)</th>
+            <th>Pair</th>
+            <th>Debt repaid</th>
+            <th>Health factor before</th>
+            <th>Oracle, then candle</th>
+            <th>Bonus</th>
+            <th>File</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in payload.rows %}
+          <tr>
+            <td>{{ row.block_timestamp_utc }}<br><span class="mono">{{ row.block_number }}</span></td>
+            <td>{{ row.collateral_asset.symbol or row.collateral_asset.address }} / {{ row.debt_asset.symbol or row.debt_asset.address }}</td>
+            <td class="mono">{{ row.debt_repaid_usd or row.debt_to_cover }}</td>
+            <td class="mono">{{ row.health_factor_block_before.health_factor or "no debt" }}</td>
+            <td class="mono">
+              {{ row.oracle_price_base.collateral_at_liquidation_block }}
+              {% if row.independent_price.collateral.close %}
+                <br>candle {{ row.independent_price.collateral.close }}
+                <br>gap {{ row.independent_price.collateral_oracle_minus_candle_close_bps }} bps
+              {% elif row.independent_price.collateral.error %}
+                <br>{{ row.independent_price.collateral.error }}
+              {% endif %}
+            </td>
+            <td class="mono">{{ row.configured_bonus.liquidation_bonus_bps }}</td>
+            <td><a href="{{ url_for('liquidation_fact_document', tx_hash=row.tx_hash) }}">{{ row.tx_hash[:10] }}…</a></td>
+          </tr>
+          {% else %}
+          <tr><td colspan="7">No liquidation at or above $1,000 in this window.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
