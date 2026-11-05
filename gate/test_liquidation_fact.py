@@ -168,6 +168,32 @@ class LiquidationFactTests(unittest.TestCase):
         with self.assertRaises(fact.LiquidationFactError) as caught:
             fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")
         self.assertEqual(caught.exception.code, "not_aave_v3_pool")
+        self.assertIn(fact.PRIME.pool, str(caught.exception))
+
+    def test_prime_pool_uses_its_own_oracle_and_data_provider(self):
+        targets: list[str] = []
+
+        def transport(url, method, params):
+            if method == "eth_getTransactionReceipt":
+                return {"logs": [_log(fact.PRIME.pool)], "blockNumber": hex(BLOCK)}
+            if method == "eth_call":
+                targets.append(params[0]["to"].lower())
+            return self.transport(url, method, params)
+
+        fact.set_transport(transport)
+        document = fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")
+        record = document["canonical_receipt"]["record"]["liquidations"][0]
+        self.assertEqual(record["instance"], "prime")
+        self.assertEqual(record["address_book"], "AaveV3EthereumLido")
+        self.assertEqual(record["pool"], fact.PRIME.pool)
+        self.assertEqual(record["oracle"], fact.PRIME.oracle)
+        self.assertEqual(record["data_provider"], fact.PRIME.data_provider)
+        self.assertIn(fact.PRIME.pool, targets)
+        self.assertIn(fact.PRIME.oracle, targets)
+        self.assertIn(fact.PRIME.data_provider, targets)
+        self.assertNotIn(fact.CORE.oracle, targets)
+        self.assertIsNone(record["commercially_reasonable"])
+        self.assertEqual(len(fact.INSTANCES), 4)
 
     def test_signed_file_verifies_and_states_no_conclusion(self):
         document = fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")

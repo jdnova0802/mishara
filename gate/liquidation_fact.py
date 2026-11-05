@@ -6,7 +6,10 @@ one public candle said. It does not score the liquidation and it does not say
 the sale was commercially reasonable.
 
 The April 16, 2024 USDP liquidations, and the AIP 55 reimbursements, were Aave
-V2. This module refuses any log that is not the V3 pool.
+V2. A transaction receipt is read when its LiquidationCall comes from one of
+the Ethereum mainnet instances in the Aave address book: Core, Prime (Lido),
+EtherFi, or Horizon. Each instance has its own pool, oracle, and data provider.
+The public week list stays on Core.
 """
 
 from __future__ import annotations
@@ -16,6 +19,7 @@ import os
 import tempfile
 import threading
 import time
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Callable
 from urllib.parse import urlencode
@@ -28,9 +32,62 @@ try:
 except ImportError:
     import receipt as receipt_mod
 
-POOL = "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2"
-ORACLE = "0x54586be62e3c3580375ae3723c145253060ca0c2"
-DATA_PROVIDER = "0x0a16f2fcc0d44fae41cc54e079281d84a363becd"
+@dataclass(frozen=True)
+class Instance:
+    """One Aave V3 Ethereum market from aave-dao/aave-address-book."""
+
+    name: str
+    address_book: str
+    pool: str
+    oracle: str
+    data_provider: str
+
+
+def _instance(name: str, address_book: str, pool: str, oracle: str, data_provider: str) -> Instance:
+    return Instance(name, address_book, pool.lower(), oracle.lower(), data_provider.lower())
+
+
+# Pool, oracle, and data provider are per instance. Prime is the Lido market.
+# Calling Core's oracle for a Prime liquidation would price the wrong feed.
+_INSTANCE_LIST = (
+    _instance(
+        "core",
+        "AaveV3Ethereum",
+        "0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2",
+        "0x54586be62e3c3580375ae3723c145253060ca0c2",
+        "0x0a16f2fcc0d44fae41cc54e079281d84a363becd",
+    ),
+    _instance(
+        "prime",
+        "AaveV3EthereumLido",
+        "0x4e033931ad43597d96d6bcc25c280717730b58b1",
+        "0xe3c061981870c0c7b1f3c4f4bb36b95f1f260be6",
+        "0xb85b2bfebec4f5f401dbf92ac147a3076391fcd5",
+    ),
+    _instance(
+        "etherfi",
+        "AaveV3EthereumEtherFi",
+        "0x0aa97c284e98396202b6a04024f5e2c65026f3c0",
+        "0x43b64f28a678944e0655404b0b98e443851cc34f",
+        "0x7c8509591f9693d21280d96e149a08a3bf69cd0c",
+    ),
+    _instance(
+        "horizon",
+        "AaveV3EthereumHorizon",
+        "0xae05cd22df81871bc7cc2a04becfb516bfe332c8",
+        "0x985bcfab7e0f4ef2606cc5b64fc1a16311880442",
+        "0x53519c32f73fe1797d10210c4950ffeba3b21504",
+    ),
+)
+INSTANCES = {item.pool: item for item in _INSTANCE_LIST}
+CORE = INSTANCES["0x87870bca3f3fd6335c3f4ce8392d69350b4fa4e2"]
+PRIME = INSTANCES["0x4e033931ad43597d96d6bcc25c280717730b58b1"]
+ETHERFI = INSTANCES["0x0aa97c284e98396202b6a04024f5e2c65026f3c0"]
+HORIZON = INSTANCES["0xae05cd22df81871bc7cc2a04becfb516bfe332c8"]
+# Core aliases. The week scan and older callers use these.
+POOL = CORE.pool
+ORACLE = CORE.oracle
+DATA_PROVIDER = CORE.data_provider
 CHAIN_ID = 1
 CHAIN_NAME = "ethereum"
 
@@ -408,12 +465,14 @@ def decode_liquidation_log(log: dict) -> dict | None:
     topics = log.get("topics") or []
     if len(topics) < 4 or (topics[0] or "").lower() != LIQUIDATION_TOPIC:
         return None
-    if (log.get("address") or "").lower() != POOL:
+    instance = INSTANCES.get((log.get("address") or "").lower())
+    if instance is None:
         return None
     words = _words(log.get("data") or "0x")
     if len(words) < 4:
         return None
     return {
+        "instance": instance,
         "tx_hash": (log.get("transactionHash") or "").lower(),
         "log_index": int(log.get("logIndex"), 16),
         "block_number": int(log.get("blockNumber"), 16),
@@ -427,8 +486,8 @@ def decode_liquidation_log(log: dict) -> dict | None:
     }
 
 
-def _account(user: str, block: int) -> dict:
-    words = _eth_call(POOL, _calldata(SEL_ACCOUNT, user), block)
+def _account(user: str, block: int, instance: Instance = CORE) -> dict:
+    words = _eth_call(instance.pool, _calldata(SEL_ACCOUNT, user), block)
     if len(words) < 6:
         raise LiquidationFactError("account_data_short", f"block {block}")
     return {
@@ -446,21 +505,21 @@ def _account(user: str, block: int) -> dict:
     }
 
 
-def _prices(assets: list[str], block: int) -> dict[str, str]:
+def _prices(assets: list[str], block: int, instance: Instance = CORE) -> dict[str, str]:
     out: dict[str, str] = {}
     for asset in assets:
-        words = _eth_call(ORACLE, _calldata(SEL_PRICE, asset), block)
+        words = _eth_call(instance.oracle, _calldata(SEL_PRICE, asset), block)
         out[asset.lower()] = str(words[0])
     return out
 
 
-def _base_unit(block: int) -> int:
-    words = _eth_call(ORACLE, "0x" + SEL_BASE_UNIT.hex(), block)
+def _base_unit(block: int, instance: Instance = CORE) -> int:
+    words = _eth_call(instance.oracle, "0x" + SEL_BASE_UNIT.hex(), block)
     return words[0]
 
 
-def _reserve_config(asset: str, block: int) -> dict:
-    words = _eth_call(DATA_PROVIDER, _calldata(SEL_CONFIG, asset), block)
+def _reserve_config(asset: str, block: int, instance: Instance = CORE) -> dict:
+    words = _eth_call(instance.data_provider, _calldata(SEL_CONFIG, asset), block)
     if len(words) < 4:
         raise LiquidationFactError("reserve_config_short", asset)
     bonus = words[3]
@@ -481,8 +540,8 @@ def _reserve_config(asset: str, block: int) -> dict:
     }
 
 
-def _user_reserve(asset: str, user: str, block: int) -> dict:
-    words = _eth_call(DATA_PROVIDER, _calldata(SEL_USER_RESERVE, asset, user), block)
+def _user_reserve(asset: str, user: str, block: int, instance: Instance = CORE) -> dict:
+    words = _eth_call(instance.data_provider, _calldata(SEL_USER_RESERVE, asset, user), block)
     if len(words) < 3:
         raise LiquidationFactError("user_reserve_short", asset)
     return {
@@ -492,8 +551,8 @@ def _user_reserve(asset: str, user: str, block: int) -> dict:
     }
 
 
-def _e_mode(user: str, block: int) -> str:
-    words = _eth_call(POOL, _calldata(SEL_EMODE, user), block)
+def _e_mode(user: str, block: int, instance: Instance = CORE) -> str:
+    words = _eth_call(instance.pool, _calldata(SEL_EMODE, user), block)
     return str(words[0] if words else 0)
 
 
@@ -663,16 +722,17 @@ def reconstruct_log(decoded: dict, *, block_timestamp: int | None = None) -> dic
     borrower = decoded["borrower"]
     collateral = decoded["collateral_asset"]["address"]
     debt = decoded["debt_asset"]["address"]
-    account_before = _account(borrower, before)
-    account_after = _account(borrower, block)
-    unit = _base_unit(block)
-    prices_before = _prices([collateral, debt], before)
-    prices_at = _prices([collateral, debt], block)
-    config = _reserve_config(collateral, before)
-    debt_config = _reserve_config(debt, before)
-    coll_pos = _user_reserve(collateral, borrower, before)
-    debt_pos = _user_reserve(debt, borrower, before)
-    e_mode = int(_e_mode(borrower, before))
+    instance = decoded.get("instance") or CORE
+    account_before = _account(borrower, before, instance)
+    account_after = _account(borrower, block, instance)
+    unit = _base_unit(block, instance)
+    prices_before = _prices([collateral, debt], before, instance)
+    prices_at = _prices([collateral, debt], block, instance)
+    config = _reserve_config(collateral, before, instance)
+    debt_config = _reserve_config(debt, before, instance)
+    coll_pos = _user_reserve(collateral, borrower, before, instance)
+    debt_pos = _user_reserve(debt, borrower, before, instance)
+    e_mode = int(_e_mode(borrower, before, instance))
     close = close_factor_at_block(
         health_factor_wad=int(account_before["health_factor_wad"]),
         total_debt_base=int(account_before["total_debt_base"]),
@@ -704,9 +764,11 @@ def reconstruct_log(decoded: dict, *, block_timestamp: int | None = None) -> dic
         "chain_id": CHAIN_ID,
         "chain": CHAIN_NAME,
         "protocol": "aave-v3",
-        "pool": POOL,
-        "oracle": ORACLE,
-        "data_provider": DATA_PROVIDER,
+        "instance": instance.name,
+        "address_book": instance.address_book,
+        "pool": instance.pool,
+        "oracle": instance.oracle,
+        "data_provider": instance.data_provider,
         "function": "Pool.liquidationCall",
         "score": None,
         "commercially_reasonable": None,
@@ -770,7 +832,10 @@ def reconstruct_log(decoded: dict, *, block_timestamp: int | None = None) -> dic
         },
         "recompute": {
             "event_topic0": LIQUIDATION_TOPIC,
-            "pool": POOL,
+            "instance": instance.name,
+            "pool": instance.pool,
+            "oracle": instance.oracle,
+            "data_provider": instance.data_provider,
             "get_user_account_data": _calldata(SEL_ACCOUNT, borrower),
             "get_asset_price_collateral": _calldata(SEL_PRICE, collateral),
             "get_asset_price_debt": _calldata(SEL_PRICE, debt),
@@ -793,7 +858,7 @@ def logs_for_tx(tx_hash: str) -> list[dict]:
         topics = log.get("topics") or []
         if not topics or (topics[0] or "").lower() != LIQUIDATION_TOPIC:
             continue
-        if (log.get("address") or "").lower() != POOL:
+        if INSTANCES.get((log.get("address") or "").lower()) is None:
             other_pool = True
             continue
         decoded = decode_liquidation_log(log)
@@ -801,11 +866,12 @@ def logs_for_tx(tx_hash: str) -> list[dict]:
             found.append(decoded)
     if not found:
         if other_pool:
+            known = "; ".join(f"{item.name} {item.pool}" for item in _INSTANCE_LIST)
             raise LiquidationFactError(
                 "not_aave_v3_pool",
                 "This transaction emits LiquidationCall from a different contract. "
-                "The April 16, 2024 USDP liquidations were Aave V2. This file reads only "
-                f"Aave V3 Pool {POOL}.",
+                "The April 16, 2024 USDP liquidations were Aave V2. This file reads "
+                f"Aave V3 Ethereum pools: {known}.",
             )
         raise LiquidationFactError("no_liquidation", "No Aave V3 LiquidationCall in this transaction.")
     return found
@@ -948,6 +1014,7 @@ def public_week(*, now: float | None = None, force: bool = False) -> dict:
         "spec": "aave-v3-liquidation-week-v1",
         "ok": True,
         "chain_id": CHAIN_ID,
+        "instance": CORE.name,
         "pool": POOL,
         "from_block": str(from_block),
         "to_block": str(head_n),
