@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import tempfile
 import threading
 import time
 from datetime import datetime, timezone
@@ -92,8 +93,29 @@ _cache_lock = threading.Lock()
 _record_cache: dict[str, tuple[float, list]] = {}
 _call_cache: dict[tuple, list[int]] = {}
 _week_cache: dict[str, Any] = {"at": 0.0, "body": None}
+_week_refreshing = False
 _transport: Callable[[str, str, list], Any] | None = None
 _http_get: Callable[[str], Any] | None = None
+
+# Serve the last snapshot immediately. Rebuild in the background.
+WEEK_MEMORY_TTL_SECONDS = 300
+WEEK_REFRESH_SECONDS = 300
+
+HF_READ_NOTE = (
+    "eth_call at block N is the post-state of that block (after every transaction). "
+    "getUserAccountData at block-1 is the position at the end of the previous block. "
+    "Aave liquidates only when health factor is below 1. A reading above 1 at block-1 "
+    "is not an off-by-one: the crossing can sit inside the liquidation block after an "
+    "oracle update, then liquidationCall. eth_call at the liquidation block is after "
+    "that call, so the health factor there is usually healthier, not the mid-block trigger. "
+    "This file does not trace."
+)
+
+BONUS_UNITS_NOTE = (
+    "Aave PercentageMath factor: 10000 is par (collateral seized equals debt covered). "
+    "10450 is a 4.5% bonus (450 bps over par), not a 104.5% bonus. "
+    "bonus_above_par_bps is the figure to read."
+)
 
 
 class LiquidationFactError(Exception):
@@ -113,12 +135,105 @@ def set_http_get(fn: Callable[[str], Any] | None) -> None:
     _http_get = fn
 
 
+def snapshot_path() -> str:
+    override = (os.getenv("GATE_LIQ_SNAPSHOT_PATH") or "").strip()
+    if override:
+        return override
+    db_path = (os.getenv("GATE_DB_PATH") or "").strip()
+    if db_path:
+        parent = os.path.dirname(os.path.abspath(db_path))
+        if parent:
+            return os.path.join(parent, "aave_v3_week_snapshot.json")
+    return os.path.join(tempfile.gettempdir(), "gate-aave-v3-week.json")
+
+
 def clear_caches() -> None:
     with _cache_lock:
         _record_cache.clear()
         _call_cache.clear()
         _week_cache["at"] = 0.0
         _week_cache["body"] = None
+    path = snapshot_path()
+    try:
+        os.remove(path)
+    except FileNotFoundError:
+        pass
+    except OSError:
+        pass
+
+
+def _load_week_snapshot() -> tuple[float, dict] | None:
+    with _cache_lock:
+        body = _week_cache["body"]
+        at = _week_cache["at"]
+        if body:
+            return at, body
+    path = snapshot_path()
+    try:
+        with open(path, encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, json.JSONDecodeError, TypeError):
+        return None
+    if not isinstance(payload, dict) or not isinstance(payload.get("body"), dict):
+        return None
+    try:
+        at = float(payload.get("at") or 0)
+    except (TypeError, ValueError):
+        return None
+    body = payload["body"]
+    with _cache_lock:
+        _week_cache["at"] = at
+        _week_cache["body"] = body
+    return at, body
+
+
+def _save_week_snapshot(at: float, body: dict) -> None:
+    path = snapshot_path()
+    parent = os.path.dirname(os.path.abspath(path))
+    try:
+        os.makedirs(parent, exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as handle:
+            json.dump({"at": at, "body": body}, handle, separators=(",", ":"))
+        os.replace(tmp, path)
+    except OSError:
+        return
+    with _cache_lock:
+        _week_cache["at"] = at
+        _week_cache["body"] = body
+
+
+def _decorate_week_snapshot(body: dict, at: float, *, now: float) -> dict:
+    out = dict(body)
+    out["snapshot"] = True
+    out["snapshot_at_unix"] = str(int(at))
+    out["snapshot_age_seconds"] = str(max(0, int(now - at)))
+    return out
+
+
+def _kick_week_refresh() -> None:
+    global _week_refreshing
+    with _cache_lock:
+        if _week_refreshing:
+            return
+        _week_refreshing = True
+
+    def _run() -> None:
+        global _week_refreshing
+        try:
+            public_week(force=True)
+        except Exception:
+            pass
+        finally:
+            with _cache_lock:
+                _week_refreshing = False
+
+    threading.Thread(target=_run, name="gate-liq-week-refresh", daemon=True).start()
+
+
+def schedule_week_refresh() -> None:
+    """Rebuild the week snapshot off the request path. Safe to call at process start."""
+    _kick_week_refresh()
 
 
 def keccak256(data: bytes) -> bytes:
@@ -349,6 +464,7 @@ def _reserve_config(asset: str, block: int) -> dict:
     if len(words) < 4:
         raise LiquidationFactError("reserve_config_short", asset)
     bonus = words[3]
+    above = bonus - 10000 if bonus >= 10000 else bonus
     return {
         "block": str(block),
         "call": "AaveProtocolDataProvider.getReserveConfigurationData(collateral)",
@@ -356,8 +472,12 @@ def _reserve_config(asset: str, block: int) -> dict:
         "ltv_bps": str(words[1]),
         "liquidation_threshold_bps": str(words[2]),
         "liquidation_bonus_bps": str(bonus),
-        "bonus_above_par_bps": str(bonus - 10000) if bonus >= 10000 else str(bonus),
+        "aave_percent_factor": str(bonus),
+        "par_factor": "10000",
+        "bonus_above_par_bps": str(above),
+        "bonus_percent": _decimal(above, 100),
         "reserve_factor_bps": str(words[4]) if len(words) > 4 else None,
+        "note": BONUS_UNITS_NOTE,
     }
 
 
@@ -611,6 +731,17 @@ def reconstruct_log(decoded: dict, *, block_timestamp: int | None = None) -> dic
         "base_currency_unit": str(unit),
         "health_factor_block_before": account_before,
         "health_factor_liquidation_block": account_after,
+        "health_factor_read": {
+            "eth_call_block_tag": "post-state of that block, after every transaction",
+            "block_before": str(before),
+            "liquidation_block": str(block),
+            "block_before_below_one": bool(account_before.get("below_one")),
+            "liquidation_block_post_state_below_one": bool(account_after.get("below_one")),
+            "mid_block_trigger_not_traced": True,
+            "debt_oracle_higher_at_liquidation_block": int(prices_at[debt])
+            > int(prices_before[debt]),
+            "note": HF_READ_NOTE,
+        },
         "oracle_price_base": {
             "unit": str(unit),
             "note": (
@@ -771,13 +902,18 @@ def _get_logs(from_block: int, to_block: int) -> list[dict]:
     return chunk
 
 
-def public_week(*, now: float | None = None) -> dict:
+def public_week(*, now: float | None = None, force: bool = False) -> dict:
     """This week's V3 liquidations at or above $1,000 of debt repaid, facts only."""
     moment = time.time() if now is None else now
-    with _cache_lock:
-        cached = _week_cache["body"]
-        if cached and moment - _week_cache["at"] < 120:
+    if not force:
+        with _cache_lock:
+            cached = _week_cache["body"]
+            cached_at = _week_cache["at"]
+        if cached and moment - cached_at < WEEK_MEMORY_TTL_SECONDS:
             return cached
+        snap = _load_week_snapshot()
+        if snap and moment - snap[0] < WEEK_MEMORY_TTL_SECONDS:
+            return snap[1]
     head = _block("latest")
     head_n = int(head["number"], 16)
     head_ts = int(head["timestamp"], 16)
@@ -829,15 +965,21 @@ def public_week(*, now: float | None = None) -> dict:
         "rows": enriched,
         "row_errors": errors[:10],
     }
-    with _cache_lock:
-        _week_cache["at"] = moment
-        _week_cache["body"] = body
+    _save_week_snapshot(moment, body)
     return body
 
 
 def public_week_or_error() -> tuple[dict, int]:
+    now = time.time()
+    snap = _load_week_snapshot()
+    if snap:
+        at, body = snap
+        if now - at >= WEEK_REFRESH_SECONDS:
+            _kick_week_refresh()
+        return _decorate_week_snapshot(body, at, now=now), 200
     try:
-        return public_week(), 200
+        body = public_week(now=now, force=True)
+        return _decorate_week_snapshot(body, now, now=now), 200
     except LiquidationFactError as exc:
         return {
             "spec": "aave-v3-liquidation-week-v1",

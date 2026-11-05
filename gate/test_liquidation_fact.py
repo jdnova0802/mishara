@@ -21,6 +21,9 @@ os.environ.setdefault("GATE_SECRET_KEY", "test-secret")
 os.environ["GATE_DB_PATH"] = os.path.join(
     tempfile.gettempdir(), f"gate-liq-fact-{uuid.uuid4().hex}.db"
 )
+os.environ["GATE_LIQ_SNAPSHOT_PATH"] = os.path.join(
+    tempfile.gettempdir(), f"gate-liq-snap-{uuid.uuid4().hex}.json"
+)
 
 _priv = Ed25519PrivateKey.generate()
 os.environ["GATE_RECEIPT_PRIVATE_KEY"] = base64.b64encode(
@@ -176,7 +179,13 @@ class LiquidationFactTests(unittest.TestCase):
         self.assertIsNone(record["commercially_reasonable"])
         self.assertEqual(record["pool"], fact.POOL)
         self.assertEqual(record["health_factor_block_before"]["health_factor"], "0.99")
+        self.assertEqual(record["health_factor_liquidation_block"]["health_factor"], "0.99")
+        self.assertTrue(record["health_factor_read"]["mid_block_trigger_not_traced"])
         self.assertEqual(record["configured_bonus"]["liquidation_bonus_bps"], "10500")
+        self.assertEqual(record["configured_bonus"]["aave_percent_factor"], "10500")
+        self.assertEqual(record["configured_bonus"]["bonus_above_par_bps"], "500")
+        self.assertEqual(record["configured_bonus"]["bonus_percent"], "5")
+        self.assertIn("not a 104.5% bonus", record["configured_bonus"]["note"])
         self.assertEqual(record["oracle_price_base"]["collateral_at_liquidation_block"], str(3000 * 10**8))
         self.assertEqual(record["independent_price"]["collateral"]["close"], "3002")
         self.assertEqual(record["independent_price"]["collateral_oracle_minus_candle_close_bps"], "-7")
@@ -197,7 +206,8 @@ class LiquidationFactTests(unittest.TestCase):
         body = page.get_data(as_text=True)
         self.assertIn("No finding on commercial reasonableness.", body)
         self.assertIn("0.99", body)
-        self.assertIn("10500", body)
+        self.assertIn("500 bps", body)
+        self.assertIn("5%", body)
         self.assertNotIn("reasonableness score", body)
         one = client.get("/liquidations?tx=" + TX)
         self.assertEqual(one.status_code, 200)
@@ -220,3 +230,74 @@ class LiquidationFactTests(unittest.TestCase):
         self.assertEqual(body["rows"][0]["tx_hash"], TX)
         self.assertIsNone(body["score"])
         self.assertEqual(body["document_price_usd"], 49)
+        self.assertEqual(body["rows"][0]["configured_bonus"]["bonus_above_par_bps"], "500")
+        self.assertTrue(body.get("snapshot"))
+
+    def test_bonus_factor_10450_is_450_bps_over_par(self):
+        def transport(url, method, params):
+            if method == "eth_call" and params[0]["data"].startswith("0x" + fact.SEL_CONFIG.hex()):
+                return _encode([6, 0, 7800, 10450, 1000, 1, 1, 0, 1, 0])
+            return self.transport(url, method, params)
+
+        fact.set_transport(transport)
+        cfg = fact._reserve_config(USDC, BLOCK)
+        self.assertEqual(cfg["aave_percent_factor"], "10450")
+        self.assertEqual(cfg["bonus_above_par_bps"], "450")
+        self.assertEqual(cfg["bonus_percent"], "4.5")
+
+    def test_health_factor_above_one_is_previous_block_post_state(self):
+        before_wad = 1_005_410_170_254_363_893
+        after_wad = 1_184_079_912_633_315_912
+
+        def transport(url, method, params):
+            if method == "eth_getTransactionReceipt":
+                log = _log()
+                log["topics"] = [
+                    fact.LIQUIDATION_TOPIC,
+                    _topic_addr(USDC),
+                    _topic_addr(WETH),
+                    _topic_addr(BORROWER),
+                ]
+                return {"logs": [log], "blockNumber": hex(BLOCK)}
+            if method == "eth_call" and params[0]["data"].startswith("0x" + fact.SEL_ACCOUNT.hex()):
+                block = int(params[1], 16)
+                wad = before_wad if block == BLOCK - 1 else after_wad
+                return _encode([5000 * 10**8, 4000 * 10**8, 0, 8000, 7500, wad])
+            if method == "eth_call" and params[0]["data"].startswith("0x" + fact.SEL_PRICE.hex()):
+                asset = "0x" + params[0]["data"][-40:]
+                block = int(params[1], 16)
+                if asset == WETH:
+                    price = 2367 * 10**8 if block == BLOCK else 2353 * 10**8
+                else:
+                    price = 10**8
+                return _encode([price])
+            return self.transport(url, method, params)
+
+        fact.set_transport(transport)
+        document = fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")
+        record = document["canonical_receipt"]["record"]["liquidations"][0]
+        self.assertEqual(record["health_factor_block_before"]["block"], str(BLOCK - 1))
+        self.assertFalse(record["health_factor_read"]["block_before_below_one"])
+        self.assertFalse(record["health_factor_read"]["liquidation_block_post_state_below_one"])
+        self.assertTrue(record["health_factor_read"]["debt_oracle_higher_at_liquidation_block"])
+        self.assertIn("not an off-by-one", record["health_factor_read"]["note"])
+        self.assertTrue(record["health_factor_block_before"]["health_factor"].startswith("1.0054"))
+        self.assertTrue(record["health_factor_liquidation_block"]["health_factor"].startswith("1.184"))
+
+    def test_week_page_serves_snapshot_without_a_second_log_scan(self):
+        gate_app.app.config["TESTING"] = True
+        client = gate_app.app.test_client()
+        first = client.get("/.well-known/aave-v3-liquidations.json")
+        self.assertEqual(first.status_code, 200)
+        calls_after_first = list(self.calls)
+
+        def boom(url, method, params):
+            raise fact.LiquidationFactError("rpc_failed", "should use snapshot")
+
+        fact.set_transport(boom)
+        second = client.get("/liquidations")
+        self.assertEqual(second.status_code, 200)
+        html = second.get_data(as_text=True)
+        self.assertIn("No finding on commercial reasonableness.", html)
+        self.assertIn("500 bps", html)
+        self.assertEqual(self.calls, calls_after_first)
