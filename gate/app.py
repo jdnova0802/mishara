@@ -729,6 +729,8 @@ def cors_discovery(resp):
             "/tattoo",
         )
         or path.startswith("/demo/")
+        or path == "/liquidations"
+        or path.startswith("/v1/liquidation-fact/")
     ):
         resp.headers.setdefault("Access-Control-Allow-Origin", "*")
         resp.headers.setdefault(
@@ -3231,6 +3233,56 @@ def blotter_page():
     return render_template("blotter.html", public_url=advertised_url())
 
 
+def _liquidation_fact():
+    try:
+        from gate import liquidation_fact as liquidation_fact_mod
+    except ImportError:
+        import liquidation_fact as liquidation_fact_mod
+    return liquidation_fact_mod
+
+
+@app.route("/liquidations")
+def liquidations_page():
+    mod = _liquidation_fact()
+    tx = (request.args.get("tx") or "").strip()
+    one = None
+    one_error = None
+    if tx:
+        try:
+            one = mod.document_for_tx(tx)
+        except mod.LiquidationFactError as exc:
+            one_error = {"code": exc.code, "detail": exc.detail}
+    payload, _status = mod.public_week_or_error()
+    return render_template(
+        "liquidations.html",
+        payload=payload,
+        one=one,
+        one_error=one_error,
+        cost_note=mod.lookup_cost_note(),
+        tx=tx,
+    )
+
+
+@app.route("/.well-known/aave-v3-liquidations.json")
+def well_known_liquidations():
+    body, status = _liquidation_fact().public_week_or_error()
+    return jsonify(body), status
+
+
+@app.route("/v1/liquidation-fact/<tx_hash>")
+def liquidation_fact_document(tx_hash):
+    mod = _liquidation_fact()
+    try:
+        document = mod.document_for_tx(tx_hash)
+    except mod.LiquidationFactError as exc:
+        return jsonify({"error": exc.code, "detail": exc.detail}), 400
+    response = jsonify(document)
+    response.headers["Content-Disposition"] = (
+        f'attachment; filename="liquidation-fact-{tx_hash.lower()}.json"'
+    )
+    return response
+
+
 @app.route("/v1/blotter")
 def blotter_api():
     try:
@@ -5479,6 +5531,8 @@ def sitemap():
         "/clear",
         "/seal",
         "/blotter",
+        "/liquidations",
+        "/.well-known/aave-v3-liquidations.json",
         "/go",
         "/never",
         "/positive-clear",
@@ -5567,6 +5621,7 @@ def llms_txt():
         f"- Clear (one-word settlement): {advertised_url()}/clear",
         f"- Seal (receipt holds?): {advertised_url()}/seal",
         f"- Blotter (open acts): {advertised_url()}/blotter",
+        f"- Aave V3 liquidation facts (no score): {advertised_url()}/liquidations",
         f"- Seal anchor (15-minute root): {advertised_url()}/.well-known/seal-anchor.json",
         f"- Go (may this commit?): {advertised_url()}/go",
         f"- Never (already spent?): {advertised_url()}/never",

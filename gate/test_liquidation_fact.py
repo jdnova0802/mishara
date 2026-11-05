@@ -1,0 +1,222 @@
+"""Aave V3 liquidation fact file. Run from gate/."""
+from __future__ import annotations
+
+import base64
+import json
+import os
+import sys
+import tempfile
+import unittest
+import uuid
+
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, PublicFormat
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+if HERE not in sys.path:
+    sys.path.insert(0, HERE)
+
+os.environ.setdefault("GATE_DEV_MODE", "1")
+os.environ.setdefault("GATE_SECRET_KEY", "test-secret")
+os.environ["GATE_DB_PATH"] = os.path.join(
+    tempfile.gettempdir(), f"gate-liq-fact-{uuid.uuid4().hex}.db"
+)
+
+_priv = Ed25519PrivateKey.generate()
+os.environ["GATE_RECEIPT_PRIVATE_KEY"] = base64.b64encode(
+    _priv.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption())
+).decode("ascii")
+os.environ["GATE_RECEIPT_PUBLIC_KEY"] = base64.b64encode(
+    _priv.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)
+).decode("ascii")
+
+import app as gate_app  # noqa: E402
+import liquidation_fact as fact  # noqa: E402
+import offline_verify  # noqa: E402
+
+WETH = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+USDC = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
+BORROWER = "0x1111111111111111111111111111111111111111"
+LIQUIDATOR = "0x2222222222222222222222222222222222222222"
+TX = "0x" + "ab" * 32
+V2_POOL = "0x7d2768de32b0b80b7a3454c06bdac94a69ddc7a9"
+BLOCK = 19_000_000
+TS = 1_710_000_000
+
+
+def _word(n: int) -> bytes:
+    return n.to_bytes(32, "big")
+
+
+def _topic_addr(address: str) -> str:
+    return "0x" + address.removeprefix("0x").rjust(64, "0")
+
+
+def _encode(words: list[int]) -> str:
+    return "0x" + b"".join(_word(n) for n in words).hex()
+
+
+def _log(address: str = fact.POOL) -> dict:
+    data = _encode(
+        [
+            1_000_000_000,  # 1000 USDC
+            4 * 10**17,  # 0.4 WETH
+            int(LIQUIDATOR, 16),
+            0,
+        ]
+    )
+    return {
+        "address": address,
+        "topics": [
+            fact.LIQUIDATION_TOPIC,
+            _topic_addr(WETH),
+            _topic_addr(USDC),
+            _topic_addr(BORROWER),
+        ],
+        "data": data,
+        "transactionHash": TX,
+        "logIndex": hex(4),
+        "blockNumber": hex(BLOCK),
+    }
+
+
+class LiquidationFactTests(unittest.TestCase):
+    def setUp(self):
+        fact.clear_caches()
+        fact.set_transport(self.transport)
+        fact.set_http_get(self.http_get)
+        self.calls: list[tuple[str, str]] = []
+
+    def tearDown(self):
+        fact.set_transport(None)
+        fact.set_http_get(None)
+        fact.clear_caches()
+
+    def http_get(self, url: str):
+        self.calls.append(("GET", url))
+        minute = (TS // 60) * 60
+        if "binance.com" in url and "ETHUSDT" in url:
+            return [[minute * 1000, "3001", "3010", "2990", "3002", "10"]]
+        if "binance.com" in url and "USDCUSDT" in url:
+            return [[minute * 1000, "0.9998", "1.0002", "0.9997", "1.0001", "10"]]
+        raise AssertionError(url)
+
+    def transport(self, url, method, params):
+        self.calls.append((method, url))
+        if method == "eth_getTransactionReceipt":
+            return {"logs": [_log()], "blockNumber": hex(BLOCK)}
+        if method == "eth_getBlockByNumber":
+            number = int(params[0], 16) if params[0] != "latest" else BLOCK
+            return {"number": hex(number), "timestamp": hex(TS)}
+        if method == "eth_getLogs":
+            return [_log()]
+        if method == "eth_call":
+            data = params[0]["data"]
+            to = params[0]["to"].lower()
+            if data.startswith("0x" + fact.SEL_ACCOUNT.hex()):
+                return _encode([5000 * 10**8, 4000 * 10**8, 0, 8000, 7500, 99 * 10**16])
+            if data.startswith("0x" + fact.SEL_EMODE.hex()):
+                return _encode([0])
+            if data.startswith("0x" + fact.SEL_BASE_UNIT.hex()):
+                return _encode([10**8])
+            if data.startswith("0x" + fact.SEL_PRICE.hex()):
+                asset = "0x" + data[-40:]
+                price = 3000 * 10**8 if asset == WETH else 10**8
+                return _encode([price])
+            if data.startswith("0x" + fact.SEL_CONFIG.hex()):
+                asset = "0x" + data[-40:]
+                decimals = 18 if asset == WETH else 6
+                bonus = 10500 if asset == WETH else 10400
+                return _encode([decimals, 8000, 8300, bonus, 1000, 1, 1, 0, 1, 0])
+            if data.startswith("0x" + fact.SEL_USER_RESERVE.hex()):
+                asset = "0x" + data[10:74][-40:]
+                if asset == WETH:
+                    return _encode([2 * 10**18, 0, 0, 0, 0, 0, 0, 0, 1])
+                return _encode([0, 0, 2000 * 10**6, 0, 0, 0, 0, 0, 0])
+            raise AssertionError(data[:20])
+        raise AssertionError(method)
+
+    def test_candle_uses_coinbase_when_binance_is_blocked(self):
+        def http_get(url: str):
+            if "binance.com" in url:
+                raise fact.requests.RequestException("451 restricted")
+            if "ETH-USD" in url:
+                minute = (TS // 60) * 60
+                return [[minute, "1", "2", "3", "2428.08", "1"], [minute + 60, "1", "2", "3", "9", "1"]]
+            raise AssertionError(url)
+
+        fact.set_http_get(http_get)
+        found = fact.candle(fact.asset_label(WETH), TS)
+        self.assertEqual(found["venue"], "coinbase")
+        self.assertEqual(found["close"], "2428.08")
+        self.assertIn("WETH candle is the ETH-USD market", found["note"])
+        self.assertTrue(found["prior_errors"])
+
+    def test_selector_matches_erc20_transfer(self):
+        self.assertEqual(fact.selector("transfer(address,uint256)").hex(), "a9059cbb")
+
+    def test_v2_pool_is_refused(self):
+        def transport(url, method, params):
+            if method == "eth_getTransactionReceipt":
+                return {"logs": [_log(V2_POOL)]}
+            raise AssertionError(method)
+
+        fact.set_transport(transport)
+        with self.assertRaises(fact.LiquidationFactError) as caught:
+            fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")
+        self.assertEqual(caught.exception.code, "not_aave_v3_pool")
+
+    def test_signed_file_verifies_and_states_no_conclusion(self):
+        document = fact.document_for_tx(TX, created_at="2026-11-05T12:00:00Z")
+        pub = base64.b64decode(os.environ["GATE_RECEIPT_PUBLIC_KEY"])
+        verdict = offline_verify.verify_document(document, pub)
+        self.assertEqual(verdict["verdict"], "valid", verdict)
+        record = document["canonical_receipt"]["record"]["liquidations"][0]
+        self.assertIsNone(record["score"])
+        self.assertIsNone(record["commercially_reasonable"])
+        self.assertEqual(record["pool"], fact.POOL)
+        self.assertEqual(record["health_factor_block_before"]["health_factor"], "0.99")
+        self.assertEqual(record["configured_bonus"]["liquidation_bonus_bps"], "10500")
+        self.assertEqual(record["oracle_price_base"]["collateral_at_liquidation_block"], str(3000 * 10**8))
+        self.assertEqual(record["independent_price"]["collateral"]["close"], "3002")
+        self.assertEqual(record["independent_price"]["collateral_oracle_minus_candle_close_bps"], "-7")
+        self.assertEqual(record["close_factor"]["max_close_factor_bps"], "5000")
+        self.assertTrue(record["close_factor"]["applies"])
+        self.assertEqual(record["debt_repaid_base"], str(1000 * 10**8))
+        self.assertEqual(record["debt_repaid_usd"], "1000")
+        self.assertIsNone(fact.health_factor_text(2**256 - 1, 0))
+        document["canonical_receipt"]["record"]["liquidations"][0]["debt_to_cover"] = "1"
+        document.pop("canonical_receipt_json")
+        self.assertEqual(offline_verify.verify_document(document, pub)["verdict"], "invalid")
+
+    def test_page_lists_facts_without_a_score(self):
+        gate_app.app.config["TESTING"] = True
+        client = gate_app.app.test_client()
+        page = client.get("/liquidations")
+        self.assertEqual(page.status_code, 200)
+        body = page.get_data(as_text=True)
+        self.assertIn("No finding on commercial reasonableness.", body)
+        self.assertIn("0.99", body)
+        self.assertIn("10500", body)
+        self.assertNotIn("reasonableness score", body)
+        one = client.get("/liquidations?tx=" + TX)
+        self.assertEqual(one.status_code, 200)
+        self.assertIn(TX, one.get_data(as_text=True))
+        download = client.get("/v1/liquidation-fact/" + TX)
+        self.assertEqual(download.status_code, 200)
+        payload = download.get_json()
+        self.assertEqual(payload["canonical_receipt"]["spec"], "gate-receipt-v1")
+        missing = client.get("/v1/liquidation-fact/0x1234")
+        self.assertEqual(missing.status_code, 400)
+        self.assertEqual(missing.get_json()["error"], "bad_tx_hash")
+
+    def test_week_json_is_the_same_facts(self):
+        gate_app.app.config["TESTING"] = True
+        client = gate_app.app.test_client()
+        response = client.get("/.well-known/aave-v3-liquidations.json")
+        self.assertEqual(response.status_code, 200)
+        body = response.get_json()
+        self.assertTrue(body["ok"])
+        self.assertEqual(body["rows"][0]["tx_hash"], TX)
+        self.assertIsNone(body["score"])
+        self.assertEqual(body["document_price_usd"], 49)
