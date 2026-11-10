@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}DISARM clusters{% endblock %}
+{% block meta %}
+<meta name="description" content="DISARM labels on 132/133 correlation. CONFIRMED needs a confounder review. Soft-binding only.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 137 / 144</p>
+  <h1>Correlation is not confirmation</h1>
+  <p class="audience-sub">A campaign cluster is a DISARM label on the link graph and anomaly flags. CONFIRMED waits on a causal_edge_review that names and rules out a confounder. Empty TTP evidence is refused. hard_binding=false.</p>
+  <ul class="check-list">
+    {% for c in clusters %}
+    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.campaign_cluster_id }}</code> · {{ c.status }} · members={{ c.member_operator_ids | length }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
