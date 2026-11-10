@@ -746,3 +746,95 @@ footer a { color: var(--muted); }
 }
 #cmdk-list { list-style: none; margin-top: 0.5rem; }
 #cmdk-list a { display: block; padding: 0.4rem 0.2rem; }
+
+/* 80–86 marketing chrome. Interactive = --accent. Status = BLOCK/HOLD/ALLOW only. */
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+.hero-stripe { position: relative; overflow: hidden; }
+.hero-stripe::before {
+  content: "";
+  position: absolute;
+  inset: -45%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background: repeating-linear-gradient(
+    118deg,
+    #0a0b0f 0 10%,
+    #14161f 10% 20%,
+    #0c0d12 20% 30%,
+    #1a1d28 30% 40%
+  );
+  animation: stripe-shift 32s linear infinite;
+}
+.hero-stripe > * { position: relative; z-index: 1; }
+@keyframes stripe-shift {
+  from { transform: translate3d(-6%, -6%, 0); }
+  to { transform: translate3d(6%, 6%, 0); }
+}
+.hero h1, .hero-first h1 {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.hero h2, .layer-2 h2, .section > h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.check-list li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 0.45rem;
+  vertical-align: middle;
+  background-image: radial-gradient(var(--accent) 1px, transparent 1.15px);
+  background-size: 4px 4px;
+  background-color: var(--border);
+}
+.check-list li {
+  animation: feed-in 0.4s ease both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@keyframes feed-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.status-block { color: var(--danger); }
+.status-hold { color: #fbbf24; }
+.status-allow { color: var(--success); }
+.globe {
+  width: 7rem;
+  height: 7rem;
+  margin: 0 auto 0.75rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #2a3344, #0a0b0f 70%);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+.globe-spin {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 12px,
+    #5eead422 12px 13px
+  );
+  animation: globe-rot 18s linear infinite;
+}
+@keyframes globe-rot { to { transform: rotateY(360deg); } }
+.globe-note { font-size: 0.85rem; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-stripe::before, .globe-spin, .check-list li { animation: none; }
+}
+
