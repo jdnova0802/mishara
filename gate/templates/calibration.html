@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Calibration ledger{% endblock %}
+{% block meta %}
+<meta name="description" content="Brier score per operator. sample_size gates Kudurru. Thin perfect scores do not feed.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 130</p>
+  <h1>Was the confidence earned</h1>
+  <p class="audience-sub">{{ score.plain if score else "Resolve CORRECT/INCORRECT against stated_confidence. feeds_kudurru stays false until sample_size clears a named floor." }}</p>
+  {% if score %}
+  <p>sample_size={{ score.sample_size }} · min_sample={{ score.min_sample | tojson }} · feeds_kudurru={{ score.feeds_kudurru }} · mean_brier={{ score.mean_brier_score }}</p>
+  {% endif %}
+</div>
+{% endblock %}
