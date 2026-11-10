@@ -37,7 +37,18 @@ class CaseTests(unittest.TestCase):
         self.assertTrue(opened["ok"])
         self.assertEqual(opened["status"], "OPEN")
         closed = case_file.set_status(case_id=opened["case_id"], status="CLOSED")
-        self.assertEqual(closed["error"], "resolution_required")
+        self.assertEqual(closed["error"], "deception_hypothesis_required")
+        escalated = case_file.set_status(case_id=opened["case_id"], status="ESCALATED")
+        self.assertEqual(escalated["error"], "deception_hypothesis_required")
+        case_file.add_hypothesis(
+            case_id=opened["case_id"],
+            hypothesis_text="This cluster was staged to mislead the desk.",
+            is_deception_hypothesis=True,
+            diagnostic_evidence_against=["r1"],
+            weight=0.0,
+        )
+        still = case_file.set_status(case_id=opened["case_id"], status="CLOSED")
+        self.assertEqual(still["error"], "resolution_required")
         done = case_file.set_status(
             case_id=opened["case_id"],
             status="CLOSED",
@@ -45,6 +56,30 @@ class CaseTests(unittest.TestCase):
         )
         self.assertEqual(done["status"], "CLOSED")
         self.assertTrue(done["resolution"])
+
+    def test_osint_is_soft_and_needs_an_anchor(self):
+        opened = case_file.open_case(
+            opened_by="a",
+            hypothesis="public posts match the cluster",
+            linked_receipt_ids=["r9"],
+        )
+        floating = case_file.add_osint(
+            finding="same handle on two platforms",
+            source_category="social_media",
+            source_url="https://example.com/post",
+            independence_verified=True,
+        )
+        self.assertEqual(floating["error"], "anchor_required")
+        ok = case_file.add_osint(
+            finding="same handle on two platforms",
+            source_category="social_media",
+            source_url="https://example.com/post",
+            independence_verified=True,
+            case_id=opened["case_id"],
+        )
+        self.assertTrue(ok["ok"])
+        self.assertEqual(ok["evidentiary_weight"], "CORROBORATING_ONLY")
+        self.assertFalse(ok["hard_binding"])
 
 
 class TriageTests(unittest.TestCase):
@@ -102,6 +137,19 @@ class CaseFlaskTests(unittest.TestCase):
         tri = self.client.post("/v1/triage", json={"source": "kudurru_watch", "source_id": "watch_1"})
         self.assertEqual(tri.status_code, 201)
         self.assertIsNone(tri.get_json()["severity"])
+        cid = created.get_json()["case_id"]
+        blocked = self.client.post("/v1/cases/status", json={"case_id": cid, "status": "ESCALATED"})
+        self.assertEqual(blocked.status_code, 409)
+        hyp = self.client.post(
+            "/v1/cases/hypotheses",
+            json={
+                "case_id": cid,
+                "hypothesis_text": "Could this be staged?",
+                "is_deception_hypothesis": True,
+                "weight": 0.1,
+            },
+        )
+        self.assertEqual(hyp.status_code, 201)
 
 
 if __name__ == "__main__":

@@ -4713,6 +4713,36 @@ def cases_note_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/v1/cases/hypotheses", methods=["POST"])
+def cases_hypotheses_api():
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.add_hypothesis(
+        case_id=body.get("case_id") or "",
+        hypothesis_text=body.get("hypothesis_text") or "",
+        is_deception_hypothesis=body.get("is_deception_hypothesis"),
+        diagnostic_evidence_for=body.get("diagnostic_evidence_for"),
+        diagnostic_evidence_against=body.get("diagnostic_evidence_against"),
+        weight=body.get("weight"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/osint", methods=["GET", "POST"])
+def osint_api():
+    if request.method == "GET":
+        return jsonify({"spec": case_file_mod.OSINT_SPEC, "rows": case_file_mod.list_osint()})
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.add_osint(
+        finding=body.get("finding") or "",
+        source_category=body.get("source_category") or "",
+        source_url=body.get("source_url") or "",
+        independence_verified=body.get("independence_verified"),
+        case_id=body.get("case_id"),
+        campaign_cluster_id=body.get("campaign_cluster_id"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
 @app.route("/campaigns")
 def campaigns_page():
     return render_template("campaign.html", clusters=list(reversed(campaign_mod.list_clusters()))[:50])
@@ -8147,7 +8177,7 @@ def openapi_full():
                 },
                 "/tns": {"get": {"summary": "Item 104 — T&S vertical. Provenance is not abuse. No CV."}},
                 "/kudurru": {"get": {"summary": "Items 129/129b/131 — card hashes receipts. Streak policy unset."}},
-                "/cases": {"get": {"summary": "Items 134–135 — case workspace and human triage. Never auto-acted."}},
+                "/cases": {"get": {"summary": "Items 134–135 / 143 / 146 — workspace, OSINT corroboration, ACH gate."}},
                 "/campaigns": {"get": {"summary": "Items 137/144 — DISARM cluster. CONFIRMED needs a confounder review."}},
                 "/opsec": {"get": {"summary": "Items 138/145 — OPSEC reviews and canary receipts. Never scored."}},
                 "/ido": {"get": {"summary": "Items 139/140 — inbound integrity and PIR/feedback. Empty list is unused."}},
@@ -8179,6 +8209,10 @@ def openapi_full():
                 "/v1/cases": {
                     "get": {"summary": "List cases", "security": []},
                     "post": {"summary": "Open a case. Needs a hypothesis and at least one receipt or flag.", "security": []},
+                },
+                "/v1/osint": {
+                    "get": {"summary": "OSINT corroboration. CORROBORATING_ONLY, never hash proof.", "security": []},
+                    "post": {"summary": "Attach public corroboration to a case or 137 cluster.", "security": []},
                 },
                 "/v1/triage": {
                     "get": {"summary": "Triage queue. Severity is null until enrich.", "security": []},

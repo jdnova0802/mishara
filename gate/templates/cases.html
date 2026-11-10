@@ -5,9 +5,9 @@
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Items 134–135</p>
+  <p class="audience-tag">Items 134–135 / 143 / 146</p>
   <h1>A place to write what you think it means</h1>
-  <p class="audience-sub">Cases bundle 132 receipt ids and 133 flags. Triage ingest has no severity until a human enriches it. Disposition always needs a reason. Nothing here auto-acts.</p>
+  <p class="audience-sub">Cases bundle 132 receipt ids and 133 flags. OSINT is corroborating only — it does not replace a hashed receipt. CLOSE/ESCALATE needs a weighed deception hypothesis, even if rejected. Triage is not auto-acted.</p>
   <ul class="check-list">
     {% for c in cases %}
     <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.case_id }}</code> · {{ c.status }} · {{ c.hypothesis }}</li>
