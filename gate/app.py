@@ -425,6 +425,16 @@ except ImportError:
     import stix_export as stix_export_mod
 
 try:
+    from gate import tlog as tlog_mod
+except ImportError:
+    import tlog as tlog_mod
+
+try:
+    from gate import media_provenance as media_provenance_mod
+except ImportError:
+    import media_provenance as media_provenance_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4942,6 +4952,75 @@ def stix_rel_api():
     return jsonify(rec), (201 if rec.get("ok") else 409)
 
 
+@app.route("/tlog")
+def tlog_page():
+    return render_template("tlog.html", trees=tlog_mod.list_trees())
+
+
+@app.route("/v1/tlog", methods=["GET", "POST"])
+def tlog_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": tlog_mod.SPEC,
+                "rfc": tlog_mod.RFC,
+                "trees": tlog_mod.list_trees(),
+                "gossip": tlog_mod.list_gossip(),
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = tlog_mod.snapshot(receipt_hashes=body.get("receipt_hashes") or body.get("source_receipt_ids"))
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/tlog/inclusion", methods=["POST"])
+def tlog_inclusion_api():
+    body = request.get_json(silent=True) or {}
+    rec = tlog_mod.prove_inclusion(
+        tree_id=body.get("tree_id") or "",
+        receipt_id=body.get("receipt_id") or body.get("receipt_hash") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/tlog/consistency", methods=["POST"])
+def tlog_consistency_api():
+    body = request.get_json(silent=True) or {}
+    rec = tlog_mod.prove_consistency(
+        old_tree_id=body.get("old_tree_id") or "",
+        new_tree_id=body.get("new_tree_id") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/tlog/gossip", methods=["POST"])
+def tlog_gossip_api():
+    body = request.get_json(silent=True) or {}
+    rec = tlog_mod.gossip(
+        tree_id=body.get("tree_id") or "",
+        observed_root_hash=body.get("observed_root_hash") or "",
+        observed_by=body.get("observed_by") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/media-provenance", methods=["GET", "POST"])
+def media_provenance_api():
+    if request.method == "GET":
+        return jsonify({"spec": media_provenance_mod.SPEC, "checks": media_provenance_mod.list_checks()})
+    body = request.get_json(silent=True) or {}
+    rec = media_provenance_mod.check(
+        receipt_id=body.get("receipt_id") or "",
+        media_hash=body.get("media_hash") or "",
+        c2pa_manifest_present=body.get("c2pa_manifest_present") or False,
+        c2pa_signature_valid=body.get("c2pa_signature_valid"),
+        issuing_cert_chain_trusted=body.get("issuing_cert_chain_trusted"),
+        ai_involvement_disclosed=body.get("ai_involvement_disclosed"),
+        hard_binding_intact=body.get("hard_binding_intact"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
 @app.route("/v1/campaigns/status", methods=["POST"])
 def campaigns_status_api():
     body = request.get_json(silent=True) or {}
@@ -8194,6 +8273,7 @@ def openapi_full():
                 "/opsec": {"get": {"summary": "Items 138/145 — OPSEC reviews and canary receipts. Never scored."}},
                 "/ido": {"get": {"summary": "Items 139/140 — inbound integrity and PIR/feedback. Empty list is unused."}},
                 "/stix": {"get": {"summary": "Items 141/147 — STIX 2.1 export. Not TAXII."}},
+                "/tlog": {"get": {"summary": "Items 150/151 — RFC 9162 tree + C2PA. Gossip is an outsider."}},
                 "/v1/opsec": {
                     "get": {"summary": "Disclosure reviews. 118 banding is APPLIED.", "security": []},
                     "post": {"summary": "NSDD-298 five-step review. Incomplete 409.", "security": []},
@@ -8213,6 +8293,14 @@ def openapi_full():
                 "/v1/stix": {
                     "get": {"summary": "STIX 2.1 bundles. taxii is false.", "security": []},
                     "post": {"summary": "Serialize 136/137 labels. Needs receipts + a named technique.", "security": []},
+                },
+                "/v1/tlog": {
+                    "get": {"summary": "Snapshotted RFC 9162 trees. Split-view needs gossip.", "security": []},
+                    "post": {"summary": "Snapshot a Merkle tree over receipt hashes. Does not rotate 142 keys.", "security": []},
+                },
+                "/v1/media-provenance": {
+                    "get": {"summary": "C2PA checks. Nulls when no manifest.", "security": []},
+                    "post": {"summary": "Record media provenance. No CV model.", "security": []},
                 },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
