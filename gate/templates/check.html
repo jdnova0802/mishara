@@ -12,7 +12,7 @@
   {% if events %}
   <ul class="check-list">
     {% for ev in events %}
-    <li>
+    <li style="--i: {{ loop.index0 }}">
       <code class="inline">{{ ev.decision or ev.id }}</code>
       · {{ ev.created_at or ev.opened_at }}
       {% if ev.reason %} · {{ ev.reason }}{% endif %}
