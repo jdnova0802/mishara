@@ -240,6 +240,16 @@ except ImportError:
     import restraint as restraint_mod
 
 try:
+    from gate import link_graph as link_graph_mod
+except ImportError:
+    import link_graph as link_graph_mod
+
+try:
+    from gate import anomaly_detection as anomaly_detection_mod
+except ImportError:
+    import anomaly_detection as anomaly_detection_mod
+
+try:
     from gate import prefinality as prefinality_mod
 except ImportError:
     import prefinality as prefinality_mod
@@ -3384,6 +3394,83 @@ def well_known_restraint():
     return jsonify(restraint_mod.inventory(advertised_url()))
 
 
+@app.route("/.well-known/link-graph.json")
+def well_known_link_graph():
+    return jsonify(
+        {
+            "spec": link_graph_mod.SPEC,
+            "item": 132,
+            "root_types": list(link_graph_mod.ENTITY_TYPES),
+            "edge_types": list(link_graph_mod.EDGE_TYPES),
+            "expand": f"{advertised_url()}/v1/link-graph",
+            "note": "Graph over bind_events ingredient chain (prev_receipt_hash). Empty graph if this mouth has no receipts yet.",
+        }
+    )
+
+
+@app.route("/v1/link-graph")
+def link_graph_api():
+    root_type = (request.args.get("root_type") or "receipt_id").strip()
+    root_id = (request.args.get("root_id") or "").strip()
+    if not root_id:
+        return jsonify({"ok": False, "error": "root_id_required"}), 400
+    try:
+        max_hops = int(request.args.get("max_hops") or 3)
+    except ValueError:
+        return jsonify({"ok": False, "error": "max_hops_invalid"}), 400
+    edge_raw = (request.args.get("edge_types") or "ingredient,co_signer").strip()
+    edge_types = [p.strip() for p in edge_raw.split(",") if p.strip()]
+    try:
+        body = link_graph_mod.graph_from_bind_events(
+            db.list_bind_events_chronological(limit=5000),
+            root_type=root_type,
+            root_id=root_id,
+            max_hops=max_hops,
+            edge_types=edge_types,
+        )
+    except ValueError:
+        return jsonify({"ok": False, "error": "unknown_root_type", "allowed": list(link_graph_mod.ENTITY_TYPES)}), 400
+    body["ok"] = True
+    return jsonify(body)
+
+
+@app.route("/.well-known/anomaly.json")
+def well_known_anomaly():
+    return jsonify(
+        {
+            "spec": anomaly_detection_mod.SPEC,
+            "item": 133,
+            "min_sample_size": anomaly_detection_mod.MIN_SAMPLE_SIZE,
+            "deviation_threshold_sigma": anomaly_detection_mod.DEVIATION_THRESHOLD_SIGMA,
+            "metrics": list(anomaly_detection_mod.METRICS),
+            "flags": f"{advertised_url()}/v1/anomaly-flags",
+            "never_auto_acted": True,
+        }
+    )
+
+
+@app.route("/v1/anomaly-flags")
+def anomaly_flags_api():
+    cohort = (request.args.get("cohort") or "unspecified").strip()
+    metric = (request.args.get("metric") or "block_rate").strip()
+    records = link_graph_mod.records_from_bind_events(db.list_bind_events_chronological(limit=5000))
+    try:
+        baseline = anomaly_detection_mod.compute_baseline(records, cohort_vertical=cohort, metric=metric)
+    except ValueError:
+        return jsonify({"ok": False, "error": "unknown_metric", "allowed": list(anomaly_detection_mod.METRICS)}), 400
+    if baseline is None:
+        return jsonify(
+            {
+                "ok": True,
+                "baseline": None,
+                "flags": [],
+                "reason": "no_samples",
+            }
+        )
+    flags = anomaly_detection_mod.flag_anomalies(records, baseline)
+    return jsonify({"ok": True, "baseline": baseline, "flags": flags})
+
+
 @app.route("/.well-known/prefinality.json")
 def well_known_prefinality():
     spec = prefinality_mod.manifest(advertised_url())
@@ -5604,6 +5691,10 @@ def sitemap():
         "/.well-known/already-built.json",
         "/.well-known/x402.json",
         "/.well-known/legal.json",
+        "/.well-known/link-graph.json",
+        "/.well-known/anomaly.json",
+        "/v1/link-graph",
+        "/v1/anomaly-flags",
         "/openapi.json",
     ]
     urls = "".join(
@@ -5957,6 +6048,10 @@ def openapi_full():
                 "/.well-known/command-radiation.json": {"get": {"summary": "Public command-radiation spec. Redeem must present UTC now."}},
                 "/.well-known/license-fuse.json": {"get": {"summary": "License Fuse. Parent must be LIVE. Children cannot outlive it. CHARGE-only resurrection."}},
                 "/.well-known/restraint.json": {"get": {"summary": "Inventory of production nos. HALT/BLOCK, no PII, not demo."}},
+                "/.well-known/link-graph.json": {"get": {"summary": "Item 132 — cross-receipt link graph spec"}},
+                "/v1/link-graph": {"get": {"summary": "Expand ingredient/co-signer graph from a receipt, actor, or org"}},
+                "/.well-known/anomaly.json": {"get": {"summary": "Item 133 — population anomaly spec. Never auto-acted."}},
+                "/v1/anomaly-flags": {"get": {"summary": "Cohort sigma flags. Empty below min sample size."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
