@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Trust &amp; Safety{% endblock %}
+{% block meta %}
+<meta name="description" content="AI-generated abuse vertical. Three tiers. Provenance is not abuse. No CV model.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 104</p>
+  <h1>Generated is not abusive</h1>
+  <p class="audience-sub">Exact-match may auto-act. Classifier is human-only. Watermark/provenance is a different question. This mouth does not run a detector. cv_model=false.</p>
+  {% if result %}
+  <p>{{ result.plain }}</p>
+  <p>cv_model={{ result.cv_model }} · auto_act={{ result.auto_act }} · abuse={{ result.abuse.tier if result.abuse else 'none' }}</p>
+  {% endif %}
+  <p>POST <code>/v1/tns</code>. A flat <code>harm_detected</code> is 409.</p>
+</div>
+{% endblock %}
