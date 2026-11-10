@@ -300,6 +300,11 @@ except ImportError:
     import vertical_surfaces as vertical_surfaces_mod
 
 try:
+    from gate import agent_bureau as agent_bureau_mod
+except ImportError:
+    import agent_bureau as agent_bureau_mod
+
+try:
     from gate import safe_mode as safe_mode_mod
 except ImportError:
     import safe_mode as safe_mode_mod
@@ -4167,6 +4172,147 @@ def well_known_parametric():
     return jsonify(vertical_surfaces_mod.parametric_stub())
 
 
+def _trust_record_payload(*, did: str, fuse_id: str, metered: bool) -> dict:
+    agent = agent_bureau_mod.get_agent(did) if did else agent_bureau_mod.agent_by_fuse(fuse_id)
+    fid = fuse_id or ((agent or {}).get("fuse_id") or "")
+    rows = db.list_bind_events_chronological(limit=5000)
+    if fid:
+        rows = [r for r in rows if str(r.get("fuse_id") or "") == fid]
+    elif did:
+        rows = []
+    return agent_bureau_mod.trust_record(
+        agent=agent,
+        events=rows,
+        disputes=agent_bureau_mod.list_disputes(),
+        metered=metered,
+    )
+
+
+@app.route("/agents", methods=["GET", "POST"])
+def agents_page():
+    agent = None
+    if request.method == "POST":
+        try:
+            agent = agent_bureau_mod.register_agent(
+                public_key_b64=request.form.get("public_key_b64") or "",
+                fuse_id=request.form.get("fuse_id") or "",
+                label=request.form.get("label") or "",
+            )
+        except ValueError as e:
+            flash(str(e), "error")
+    return render_template("agents.html", agent=agent)
+
+
+@app.route("/v1/agents/register", methods=["POST"])
+def agents_register_api():
+    body = request.get_json(silent=True) or {}
+    try:
+        agent = agent_bureau_mod.register_agent(
+            public_key_b64=body.get("public_key_b64") or "",
+            fuse_id=body.get("fuse_id") or "",
+            label=body.get("label") or "",
+        )
+    except ValueError as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+    return jsonify(agent), 201
+
+
+@app.route("/cdpi")
+def cdpi_page():
+    did = (request.args.get("did") or "").strip()
+    fuse_id = (request.args.get("fuse_id") or "").strip()
+    record = _trust_record_payload(did=did, fuse_id=fuse_id, metered=False) if (did or fuse_id) else None
+    return render_template("cdpi.html", did=did, fuse_id=fuse_id, record=record)
+
+
+@app.route("/v1/trust-record")
+def trust_record_api():
+    did = (request.args.get("did") or "").strip()
+    fuse_id = (request.args.get("fuse_id") or "").strip()
+    if not did and not fuse_id:
+        return jsonify({"ok": False, "error": "did_or_fuse_id_required"}), 400
+    row = authenticate_api_key()
+    keyed = row is not None
+    if keyed:
+        db.increment_usage(row["account_id"], "hops")
+    else:
+        ok, msg = demo_limit.allow_demo(request)
+        if not ok:
+            return jsonify({"error": {"code": "rate_limited", "message": msg}}), 429
+    return jsonify(_trust_record_payload(did=did, fuse_id=fuse_id, metered=keyed))
+
+
+@app.route("/disputes", methods=["GET", "POST"])
+def disputes_page():
+    filed = None
+    if request.method == "POST":
+        try:
+            filed = agent_bureau_mod.file_dispute(
+                event_id=request.form.get("event_id") or "",
+                reason=request.form.get("reason") or "",
+                did=request.form.get("did") or "",
+            )
+        except ValueError as e:
+            flash(str(e), "error")
+    return render_template("disputes.html", filed=filed, disputes=list(reversed(agent_bureau_mod.list_disputes()))[:50])
+
+
+@app.route("/v1/disputes", methods=["GET", "POST"])
+def disputes_api():
+    if request.method == "GET":
+        return jsonify({"spec": "gate-dispute-v1", "disputes": agent_bureau_mod.list_disputes()})
+    body = request.get_json(silent=True) or {}
+    try:
+        rec = agent_bureau_mod.file_dispute(
+            event_id=body.get("event_id") or "",
+            reason=body.get("reason") or "",
+            did=body.get("did") or "",
+        )
+    except ValueError as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+    return jsonify(rec), 201
+
+
+@app.route("/v1/disputes/<dispute_id>/resolve", methods=["POST"])
+def disputes_resolve_api(dispute_id: str):
+    body = request.get_json(silent=True) or {}
+    try:
+        rec = agent_bureau_mod.resolve_dispute(dispute_id, body.get("status") or "")
+    except ValueError as e:
+        code = 404 if str(e) == "not_found" else 400
+        return jsonify({"ok": False, "error": str(e)}), code
+    return jsonify(rec)
+
+
+@app.route("/zk")
+def zk_page():
+    return render_template("zk_linkage.html", stub=agent_bureau_mod.zk_stub())
+
+
+@app.route("/.well-known/zk-linkage.json")
+def well_known_zk():
+    return jsonify(agent_bureau_mod.zk_stub())
+
+
+@app.route("/agent-registration")
+def agent_registration_page():
+    return render_template("agent_registration.html", spec=agent_bureau_mod.registration_spec())
+
+
+@app.route("/.well-known/agent-registration.json")
+def well_known_agent_registration():
+    return jsonify(agent_bureau_mod.registration_spec())
+
+
+@app.route("/spec/agent-registration/v0.1.md")
+def agent_registration_md():
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "spec", "agent-registration-v0.1.md")
+    if not os.path.isfile(path):
+        abort(404)
+    with open(path, encoding="utf-8") as fh:
+        return Response(fh.read(), mimetype="text/markdown; charset=utf-8")
+
+
 @app.route("/.well-known/prefinality.json")
 def well_known_prefinality():
     spec = prefinality_mod.manifest(advertised_url())
@@ -6447,6 +6593,13 @@ def sitemap():
         "/research/cv-auth",
         "/listing-anomaly",
         "/parametric",
+        "/agents",
+        "/cdpi",
+        "/disputes",
+        "/zk",
+        "/agent-registration",
+        "/.well-known/zk-linkage.json",
+        "/.well-known/agent-registration.json",
         "/openapi.json",
     ]
     urls = "".join(
@@ -6840,6 +6993,13 @@ def openapi_full():
                 "/research/cv-auth": {"get": {"summary": "Item 47 research stub — no model"}},
                 "/v1/listing-anomaly": {"post": {"summary": "Price sigma on a posted series. Not CV.", "security": []}},
                 "/parametric": {"get": {"summary": "No parametric product. Needs an underwriter."}},
+                "/agents": {"get": {"summary": "Register a key-bound DID. Not session-scoped."}},
+                "/v1/agents/register": {"post": {"summary": "Mint did:gate from a public key", "security": []}},
+                "/cdpi": {"get": {"summary": "CDPI lookup. Composite null until a dispute closes."}},
+                "/v1/trust-record": {"get": {"summary": "Pay-per-query trust record. Demo unkeyed.", "security": []}},
+                "/disputes": {"get": {"summary": "FCRA-style dispute log. History is never erased."}},
+                "/zk": {"get": {"summary": "Item 51 ZK linkage stub. built:false"}},
+                "/agent-registration": {"get": {"summary": "Item 55 registration spec. Adopters empty."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},

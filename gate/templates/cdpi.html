@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}CDPI{% endblock %}
+{% block meta %}
+<meta name="description" content="CDPI composite is null until a dispute closes. Not a static 100/100.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">CDPI</p>
+  <h1>Score the agent, don’t mint 100</h1>
+  <p class="audience-sub">{{ record.cdpi.plain if record else "Lookup by DID or fuse id. Accuracy is unscored until a dispute closes." }}</p>
+  <form method="get">
+    <p><label>DID <input name="did" value="{{ did or '' }}"></label>
+    <label>Fuse id <input name="fuse_id" value="{{ fuse_id or '' }}"></label>
+    <button class="btn btn-primary" type="submit">Lookup</button></p>
+  </form>
+  {% if record %}
+  <pre class="card" style="overflow:auto;padding:1rem;">{{ record | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

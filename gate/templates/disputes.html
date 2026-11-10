@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dispute a BLOCK{% endblock %}
+{% block meta %}
+<meta name="description" content="FCRA-style dispute log. The BLOCK row stays. History is never erased.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Dispute</p>
+  <h1>Challenge the mark. Keep the row.</h1>
+  <p class="audience-sub">OPEN freezes time-decay. OVERTURNED / UPHELD close the file. Nothing is deleted.</p>
+  <form method="post">
+    <p><label>Event id <input name="event_id" required></label></p>
+    <p><label>Reason <input name="reason" required></label></p>
+    <p><label>DID <input name="did"></label></p>
+    <p><button class="btn btn-primary" type="submit">File dispute</button></p>
+  </form>
+  {% if filed %}
+  <p>{{ filed.plain }} · <code>{{ filed.id }}</code> · {{ filed.status }}</p>
+  {% endif %}
+  <h2>Log</h2>
+  {% if disputes %}
+  <ul class="check-list">
+    {% for d in disputes %}
+    <li>{{ d.status }} · {{ d.event_id[:8] }} · erased={{ d.history_erased }} · {{ d.reason }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>None yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
