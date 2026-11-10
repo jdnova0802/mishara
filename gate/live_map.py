@@ -12,6 +12,11 @@ try:
 except ImportError:
     import large_surfaces as ls
 
+try:
+    from gate import v1 as v1_mod
+except ImportError:
+    import v1 as v1_mod
+
 SPEC = "gate-live-map-v1"
 ROLES = ("insurer", "regulator", "internal")
 INSURER_KEYS = ("insurance", "mga", "pas", "gl", "wc", "bind")
@@ -140,6 +145,7 @@ def view(rows: list[dict[str, Any]], q: dict[str, Any] | None = None) -> dict[st
         mine = bool(org) and str(row.get("fuse_id") or "") == org
         if mode == "mine" and org and not mine:
             continue
+        finality = v1_mod.for_receipt(row)
         points.append(
             {
                 **loc,
@@ -157,6 +163,11 @@ def view(rows: list[dict[str, Any]], q: dict[str, Any] | None = None) -> dict[st
                 "fill": colors.get(str(row.get("decision") or "").upper(), colors["BLOCK"]),
                 "alert": (min_chain > 0 and chain >= min_chain)
                 or (min_severity > 0 and sev >= min_severity),
+                "v1_distance": finality["v1_distance"],
+                "finality_event": finality["finality_event"],
+                "v1_crossed": finality["crossed"],
+                "undo_open": finality["undo_open"],
+                "gauge_r": 6 + 14 * float(finality["v1_distance"]),
             }
         )
 
@@ -210,8 +221,10 @@ def view(rows: list[dict[str, Any]], q: dict[str, Any] | None = None) -> dict[st
         "detail": detail,
         "notes": notes,
         "deep_link": deep,
+        "v1": v1_mod.gauge(rows),
         "plain": (
             "Pan/zoom the world plate. Pins are located BLOCK/HOLD/HALT only. "
-            "Dashed edges follow prev_receipt_hash. Unlocated events stay counted, not invented."
+            "Dashed edges follow prev_receipt_hash. Unlocated events stay counted, not invented. "
+            "Rings are V1-distance — remaining room before the named irreversible instant."
         ),
     }

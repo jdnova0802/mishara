@@ -310,6 +310,11 @@ except ImportError:
     import wire as wire_mod
 
 try:
+    from gate import v1 as v1_mod
+except ImportError:
+    import v1 as v1_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4178,6 +4183,39 @@ def wire_drilldown(event_id: str):
     return render_template("wire_drill.html", payload=payload)
 
 
+@app.route("/v1-gauge")
+def v1_gauge_page():
+    payload = v1_mod.gauge(db.list_bind_events_chronological(limit=500))
+    return render_template("v1_gauge.html", payload=payload)
+
+
+@app.route("/v1/v1/gauge")
+def v1_gauge_api():
+    return jsonify(v1_mod.gauge(db.list_bind_events_chronological(limit=500)))
+
+
+@app.route("/v1/v1/compute", methods=["POST"])
+def v1_compute_api():
+    body = request.get_json(silent=True) or {}
+    return jsonify(v1_mod.compute(body.get("vertical"), body))
+
+
+@app.route("/v1/v1/undo", methods=["POST"])
+def v1_undo_api():
+    body = request.get_json(silent=True) or {}
+    event_id = (body.get("event_id") or "").strip()
+    row = db.get_bind_event(event_id) if event_id else None
+    if row:
+        snap = v1_mod.for_receipt(row)
+    else:
+        snap = v1_mod.compute(body.get("vertical"), body)
+    out = v1_mod.undo(event_id, snap)
+    if out.get("ok"):
+        return jsonify(out)
+    code = 400 if out.get("error") == "event_id_required" else 409
+    return jsonify(out), code
+
+
 @app.route("/shifts")
 def shifts_page():
     return render_template("shifts.html", result=None)
@@ -6716,6 +6754,7 @@ def sitemap():
         "/.well-known/agent-receipt-protocol.json",
         "/spec/agent-receipt-protocol/v0.1",
         "/map",
+        "/v1-gauge",
         "/board",
         "/sports",
         "/exposure",
@@ -7129,6 +7168,7 @@ def openapi_full():
                 "/ticker": {"get": {"summary": "Dating receipt ticker. Not a catfish detector."}},
                 "/wire": {"get": {"summary": "BLOCK/HOLD/ALLOW mixed with named dockets. Not a Reuters wire."}},
                 "/v1/wire": {"get": {"summary": "Wire ticker JSON. Filter with ?vertical=. Not a scrape."}},
+                "/v1-gauge": {"get": {"summary": "V1-distance gauge. Remaining room before the named irreversible instant."}},
                 "/legit": {"get": {"summary": "Resale legit check via receipt. Not CV."}},
                 "/worker": {"get": {"summary": "Own-score event counts. Not FCRA."}},
                 "/wati": {"get": {"summary": "Worker Algorithm Transparency Index (named employers only)"}},

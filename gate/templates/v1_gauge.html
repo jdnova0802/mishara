@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}V1 distance{% endblock %}
+{% block meta %}
+<meta name="description" content="Decisions approaching their irreversibility threshold. UNDO exists only before V1.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">V1-distance gauge</p>
+  <h1>Room left before the named instant</h1>
+  <p class="audience-sub">{{ payload.plain }} lookup_table={{ payload.lookup_table }}.</p>
+  <h2>Approaching</h2>
+  {% if payload.approaching %}
+  <ul class="check-list">
+    {% for r in payload.approaching %}
+    <li style="--i: {{ loop.index0 }}">
+      {{ r.vertical }} · {{ r.finality_event }} · distance={{ r.v1_distance }}
+      {% if r.undo_open %} · UNDO open{% endif %}
+      {% if r.undone %} · UNDONE{% endif %}
+      · <code>{{ r.id }}</code>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Nothing approaching V1 on this mouth.</p>
+  {% endif %}
+  <h2>Crossed</h2>
+  {% if payload.crossed %}
+  <ul class="check-list">
+    {% for r in payload.crossed %}
+    <li>{{ r.vertical }} · {{ r.finality_event }} · UNDO removed · <code>{{ r.id }}</code></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No crossed V1 on the current window.</p>
+  {% endif %}
+</div>
+{% endblock %}

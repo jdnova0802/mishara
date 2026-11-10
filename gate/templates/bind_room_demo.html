@@ -26,6 +26,10 @@
   </div>
   <p><button type="button" class="btn btn-primary" id="run-btn">Run this vertical</button></p>
   <div id="outcome" class="card" style="margin-top: 1.5rem; display: none;"></div>
+  <p id="undo-wrap" style="display: none; margin-top: 1rem;">
+    <button type="button" class="btn" id="undo-btn">UNDO</button>
+    <span id="undo-msg" class="audience-sub">Pre-V1 window. Removed the instant the threshold is crossed.</span>
+  </p>
   <pre id="step2" class="card" style="margin-top: 1rem; display: none; overflow: auto;"></pre>
   <pre id="step3" class="card" style="margin-top: 1rem; display: none; overflow: auto;"></pre>
   <div id="lenses" style="margin-top: 1rem;"></div>
@@ -55,6 +59,28 @@
     el.style.display = "block";
     el.textContent = text;
   }
+  document.getElementById("undo-btn").addEventListener("click", async function () {
+    var wrap = document.getElementById("undo-wrap");
+    var msg = document.getElementById("undo-msg");
+    var res = await fetch("/v1/v1/undo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event_id: wrap.getAttribute("data-event"),
+        vertical: wrap.getAttribute("data-vertical"),
+        remaining_seconds: 300
+      })
+    });
+    var body = await res.json();
+    if (!res.ok || !body.ok) {
+      wrap.style.display = "none";
+      msg.textContent = body.plain || body.error || "UNDO closed.";
+      return;
+    }
+    wrap.style.display = "none";
+    msg.textContent = "UNDONE " + (body.event_id || "");
+    document.getElementById("outcome").textContent += " · UNDONE";
+  });
   document.getElementById("run-btn").addEventListener("click", async function () {
     var btn = this;
     btn.disabled = true;
@@ -74,7 +100,17 @@
       if (!res.ok || !data.ok) {
         throw new Error(data.message || data.error || "run failed");
       }
-      outcome.textContent = data.domain_label + " · " + data.chokepoint + " · " + data.session_id;
+      outcome.textContent = data.domain_label + " · " + data.chokepoint + " · " + data.session_id + " · " + ((data.step3_json && data.step3_json.finality_event) || "");
+      var undoWrap = document.getElementById("undo-wrap");
+      var gate = data.step3_json || {};
+      if (gate.undo_open) {
+        undoWrap.style.display = "block";
+        undoWrap.setAttribute("data-event", data.session_id);
+        undoWrap.setAttribute("data-vertical", data.domain);
+        document.getElementById("undo-msg").textContent = "Pre-V1 window. V1-distance=" + gate.v1_distance + ".";
+      } else {
+        undoWrap.style.display = "none";
+      }
       show(document.getElementById("step2"), "step 2 signal\n" + JSON.stringify(data.step2_json, null, 2));
       show(document.getElementById("step3"), "step 3 bind gate\n" + JSON.stringify(data.step3_json, null, 2));
       var lenses = document.getElementById("lenses");
