@@ -380,6 +380,11 @@ except ImportError:
     import calibration as calibration_mod
 
 try:
+    from gate import tns as tns_mod
+except ImportError:
+    import tns as tns_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4526,6 +4531,44 @@ def calibration_api():
     return jsonify(rec), (201 if rec.get("ok") else 409)
 
 
+@app.route("/tns")
+def tns_page():
+    result = None
+    if request.args.get("abuse_tier") or request.args.get("tier"):
+        result = tns_mod.evaluate(
+            abuse_tier=request.args.get("abuse_tier") or request.args.get("tier"),
+            match_hash=request.args.get("match_hash"),
+            auto_act=request.args.get("auto_act") == "1",
+            generated_tier=request.args.get("generated_tier"),
+        )
+    return render_template("tns.html", result=result)
+
+
+@app.route("/v1/tns", methods=["GET", "POST"])
+def tns_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": tns_mod.SPEC,
+                "vertical": tns_mod.VERTICAL,
+                "cv_model": False,
+                "hash_db": False,
+                "plain": "Abuse and generated are two questions. No detector ships here.",
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = tns_mod.evaluate(
+        abuse_tier=body.get("abuse_tier") or body.get("tier"),
+        match_hash=body.get("match_hash"),
+        auto_act=bool(body.get("auto_act")),
+        generated_tier=body.get("generated_tier") or body.get("provenance_tier"),
+        verified=bool(body.get("verified")),
+        under_assumptions=body.get("under_assumptions"),
+        extra=body,
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/harm-tiers")
 def harm_tiers_page():
     result = None
@@ -7690,6 +7733,11 @@ def openapi_full():
                 },
                 "/v1/assumptions": {
                     "post": {"summary": "Refuse verified:true without under_assumptions.", "security": []}
+                },
+                "/tns": {"get": {"summary": "Item 104 — T&S vertical. Provenance is not abuse. No CV."}},
+                "/v1/tns": {
+                    "get": {"summary": "T&S schema. cv_model is false.", "security": []},
+                    "post": {"summary": "Evaluate abuse vs generated. Flat harm_detected is 409.", "security": []},
                 },
                 "/harm-tiers": {"get": {"summary": "Item 120 — Thorn three-tier harm split. No detector."}},
                 "/v1/harm-tiers": {
