@@ -410,6 +410,16 @@ except ImportError:
     import honey_receipt as honey_receipt_mod
 
 try:
+    from gate import inbound as inbound_mod
+except ImportError:
+    import inbound as inbound_mod
+
+try:
+    from gate import ido as ido_mod
+except ImportError:
+    import ido as ido_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4796,6 +4806,66 @@ def canary_probe_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/ido")
+def ido_page():
+    return render_template("ido.html", catalog=ido_mod.catalog())
+
+
+@app.route("/v1/inbound", methods=["GET", "POST"])
+def inbound_api():
+    if request.method == "GET":
+        return jsonify({"spec": inbound_mod.SPEC, "checks": inbound_mod.list_checks()})
+    body = request.get_json(silent=True) or {}
+    rec = inbound_mod.check(
+        signal_type=body.get("signal_type") or "",
+        signal_id=body.get("signal_id") or "",
+        submitted_by=body.get("submitted_by") or "",
+        correlation_cluster_id=body.get("correlation_cluster_id"),
+        disposition=body.get("disposition"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/ido", methods=["GET", "POST"])
+def ido_api():
+    if request.method == "GET":
+        return jsonify(ido_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = ido_mod.state_requirement(
+        stated_by=body.get("stated_by") or "",
+        question=body.get("question") or "",
+        cohort_vertical=body.get("cohort_vertical"),
+        edge_types=body.get("edge_types") or (body.get("tasked_watch") or {}).get("edge_types"),
+        atlas_technique_ids=body.get("atlas_technique_ids")
+        or (body.get("tasked_watch") or {}).get("atlas_technique_ids"),
+        disarm_technique_ids=body.get("disarm_technique_ids")
+        or (body.get("tasked_watch") or {}).get("disarm_technique_ids"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/ido/satisfy", methods=["POST"])
+def ido_satisfy_api():
+    body = request.get_json(silent=True) or {}
+    rec = ido_mod.satisfy(
+        requirement_id=body.get("requirement_id") or "",
+        case_id=body.get("case_id") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/ido/feedback", methods=["POST"])
+def ido_feedback_api():
+    body = request.get_json(silent=True) or {}
+    rec = ido_mod.feedback(
+        source=body.get("source") or "",
+        source_id=body.get("source_id") or "",
+        new_requirement_id=body.get("new_requirement_id"),
+        updated_baseline_id=body.get("updated_baseline_id"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
 @app.route("/v1/campaigns/status", methods=["POST"])
 def campaigns_status_api():
     body = request.get_json(silent=True) or {}
@@ -8034,6 +8104,7 @@ def openapi_full():
                 "/cases": {"get": {"summary": "Items 134–135 — case workspace and human triage. Never auto-acted."}},
                 "/campaigns": {"get": {"summary": "Items 137/144 — DISARM cluster. CONFIRMED needs a confounder review."}},
                 "/opsec": {"get": {"summary": "Items 138/145 — OPSEC reviews and canary receipts. Never scored."}},
+                "/ido": {"get": {"summary": "Items 139/140 — inbound integrity and PIR/feedback. Empty list is unused."}},
                 "/v1/opsec": {
                     "get": {"summary": "Disclosure reviews. 118 banding is APPLIED.", "security": []},
                     "post": {"summary": "NSDD-298 five-step review. Incomplete 409.", "security": []},
@@ -8041,6 +8112,14 @@ def openapi_full():
                 "/v1/canary-receipts": {
                     "get": {"summary": "Decoy receipts. real_receipt_id is null.", "security": []},
                     "post": {"summary": "Plant a decoy. Distinct from bypass canaries.", "security": []},
+                },
+                "/v1/inbound": {
+                    "get": {"summary": "Inbound integrity checks. 137 pointed inward.", "security": []},
+                    "post": {"summary": "TRUSTED/QUARANTINED/REJECTED. REJECTED needs a 137 cluster.", "security": []},
+                },
+                "/v1/ido": {
+                    "get": {"summary": "PIR catalog. Empty is an unused table.", "security": []},
+                    "post": {"summary": "State a PIR. SATISFIED needs a closed 134 case.", "security": []},
                 },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},

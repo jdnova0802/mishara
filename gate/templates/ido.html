@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Inbound / IDO{% endblock %}
+{% block meta %}
+<meta name="description" content="Inbound poisoning checks reuse 137 clusters. PIRs are unused until someone states a question.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 139 / 140</p>
+  <h1>Watch the scoring loop, then say what to watch</h1>
+  <p class="audience-sub">Inbound checks point 137 at harm reports, Brier resolutions, and registrations. REJECTED for coordination needs a cluster. An empty PIR list is an unused table. Feedback does not silently retune 133.</p>
+  <p>{{ catalog.plain }}</p>
+  <ul class="check-list">
+    {% for r in catalog.requirements %}
+    <li style="--i: {{ loop.index0 }}"><code>{{ r.requirement_id }}</code> · {{ r.status }} · {{ r.question }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
