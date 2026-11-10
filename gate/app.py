@@ -385,6 +385,11 @@ except ImportError:
     import tns as tns_mod
 
 try:
+    from gate import kudurru as kudurru_mod
+except ImportError:
+    import kudurru as kudurru_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4569,6 +4574,53 @@ def tns_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/kudurru")
+def kudurru_page():
+    return render_template("kudurru.html", card=None, glyph=None)
+
+
+@app.route("/v1/kudurru", methods=["POST"])
+def kudurru_card_api():
+    body = request.get_json(silent=True) or {}
+    rec = kudurru_mod.card(
+        operator_id=body.get("operator_id") or "",
+        org_id=body.get("org_id") or "",
+        cohort_vertical=body.get("cohort_vertical") or "",
+        period_start=body.get("period_start") or "",
+        period_end=body.get("period_end") or "",
+        underlying_receipt_ids=body.get("underlying_receipt_ids") if isinstance(body.get("underlying_receipt_ids"), list) else [],
+        days=body.get("days"),
+        composite_score=body.get("composite_score"),
+        peer_composites=body.get("peer_composites") if isinstance(body.get("peer_composites"), list) else None,
+        extra=body,
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/kudurru/watch", methods=["POST"])
+def kudurru_watch_api():
+    body = request.get_json(silent=True) or {}
+    rec = kudurru_mod.watch(
+        card_id=body.get("card_id") or "",
+        status=body.get("status"),
+        follower_count=body.get("follower_count"),
+        extra=body,
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/kudurru/glyph", methods=["POST"])
+def kudurru_glyph_api():
+    body = request.get_json(silent=True) or {}
+    rec = kudurru_mod.glyph(
+        card_id=body.get("card_id") or "",
+        days=body.get("days"),
+        period_start=body.get("period_start"),
+        period_end=body.get("period_end"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/harm-tiers")
 def harm_tiers_page():
     result = None
@@ -7735,6 +7787,10 @@ def openapi_full():
                     "post": {"summary": "Refuse verified:true without under_assumptions.", "security": []}
                 },
                 "/tns": {"get": {"summary": "Item 104 — T&S vertical. Provenance is not abuse. No CV."}},
+                "/kudurru": {"get": {"summary": "Items 129/129b/131 — card hashes receipts. Streak policy unset."}},
+                "/v1/kudurru": {"post": {"summary": "Mint a Kudurru card. streak_policy in the body is 409.", "security": []}},
+                "/v1/kudurru/watch": {"post": {"summary": "CreditWatch status. Stakes 409.", "security": []}},
+                "/v1/kudurru/glyph": {"post": {"summary": "Spoiler-safe glyph. No operator, no cause id.", "security": []}},
                 "/v1/tns": {
                     "get": {"summary": "T&S schema. cv_model is false.", "security": []},
                     "post": {"summary": "Evaluate abuse vs generated. Flat harm_detected is 409.", "security": []},
