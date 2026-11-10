@@ -7,15 +7,22 @@
 <div class="container section">
   <p class="audience-tag">Trust · corrections</p>
   <h1>Corrections ledger</h1>
-  <p class="audience-sub">The name <strong>Verra is retired</strong>. The live room is <strong>Bind Room</strong>. This page is the ledger that sentence belongs on — it does not redirect.</p>
+  <p class="audience-sub">The name <strong>Verra is retired</strong>. The live room is <strong>Bind Room</strong>. This page is the ledger that sentence belongs on — it does not redirect.{% if ledger %} {{ ledger.plain }}{% endif %}</p>
   {% for row in entries %}
   <div class="card" style="margin: 1.25rem 0;">
-    <p class="audience-tag">{{ row.date }} · {{ row.id }} · {{ row.status }}</p>
-    <p>{{ row.claim }}</p>
+    <p class="audience-tag">{{ row.date }} · {{ row.id }} · {{ row.status }} · erased={{ row.history_erased }}</p>
+    <p>{{ row.claim|agent_text }}</p>
     {% if row.live_contradiction %}
-    <p style="margin-top: 0.6rem; color: var(--muted);">Still live elsewhere: {{ row.live_contradiction }}</p>
+    <p style="margin-top: 0.6rem; color: var(--muted);">Still live elsewhere: {{ row.live_contradiction|agent_text }}</p>
     {% endif %}
-    <p style="margin-top: 0.6rem;">{{ row.resolution }}</p>
+    <p style="margin-top: 0.6rem;">{{ row.resolution|agent_text }}</p>
+    {% if row.versions %}
+    <ul class="check-list">
+      {% for v in row.versions %}
+      <li>{{ v.at }} · {{ v.status }}{% if v.note %} · {{ v.note|agent_text }}{% endif %}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </div>
   {% endfor %}
 </div>

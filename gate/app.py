@@ -315,6 +315,21 @@ except ImportError:
     import v1 as v1_mod
 
 try:
+    from gate import dogfood as dogfood_mod
+except ImportError:
+    import dogfood as dogfood_mod
+
+try:
+    from gate import readback as readback_mod
+except ImportError:
+    import readback as readback_mod
+
+try:
+    from gate import sanitize as sanitize_mod
+except ImportError:
+    import sanitize as sanitize_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -398,6 +413,7 @@ GATE_DEV_MODE = os.getenv("GATE_DEV_MODE", "0") == "1"
 OPS_TOKEN = os.getenv("GATE_OPS_TOKEN", "")
 
 app = Flask(__name__)
+app.jinja_env.filters["agent_text"] = sanitize_mod.html_agent
 app.config["SECRET_KEY"] = os.getenv("GATE_SECRET_KEY", os.urandom(32).hex())
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
@@ -1236,7 +1252,24 @@ def trust():
 
 @app.route("/trust/corrections")
 def trust_corrections():
-    return render_template("corrections.html", entries=trust_corrections_mod.ENTRIES)
+    ledger = trust_corrections_mod.ledger()
+    return render_template("corrections.html", entries=ledger["rows"], ledger=ledger)
+
+
+@app.route("/v1/corrections", methods=["GET", "POST"])
+def corrections_api():
+    if request.method == "GET":
+        return jsonify(trust_corrections_mod.ledger())
+    body = request.get_json(silent=True) or {}
+    try:
+        rec = trust_corrections_mod.append_version(
+            body.get("id") or "",
+            status=body.get("status") or "",
+            note=body.get("note") or "",
+        )
+    except ValueError as exc:
+        return jsonify({"ok": False, "error": str(exc)}), 400
+    return jsonify(rec)
 
 
 @app.route("/trust/claims")
@@ -1283,13 +1316,39 @@ def check_page():
 
     feed = restraint_mod.inventory(advertised_url(), limit=50)
     events = feed.get("events") or []
+    generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    liveness = dogfood_mod.feed_liveness(
+        events, generated_at=generated_at, verify_url=advertised_url() + "/check"
+    )
+    incidents = dogfood_mod.incident_receipts(verify_url=advertised_url() + "/check")
     return render_template(
         "check.html",
-        generated_at=datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        generated_at=generated_at,
         events=events,
-        incidents=[dict(x) for x in track_record_mod.INCIDENTS],
+        incidents=incidents["rows"],
+        liveness=liveness,
         fuse_sku=sku_names_mod.VELARU_FUSE,
     )
+
+
+@app.route("/v1/check/liveness")
+def check_liveness_api():
+    from datetime import datetime, timezone
+
+    feed = restraint_mod.inventory(advertised_url(), limit=50)
+    generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    return jsonify(
+        dogfood_mod.feed_liveness(
+            feed.get("events") or [],
+            generated_at=generated_at,
+            verify_url=advertised_url() + "/check",
+        )
+    )
+
+
+@app.route("/v1/incident-receipts")
+def incident_receipts_api():
+    return jsonify(dogfood_mod.incident_receipts(verify_url=advertised_url() + "/check"))
 
 
 @app.route("/demo/bind-room")
@@ -1315,6 +1374,28 @@ def bind_room_demo_run():
     status, body = bind_room_demo_mod.run(
         domain=payload.get("domain") or request.args.get("domain"),
         company=payload.get("company"),
+        public_url=advertised_url(),
+    )
+    return jsonify(body), status
+
+
+@app.route("/demo/bind-room/hearback", methods=["POST"])
+def bind_room_demo_hearback():
+    payload = request.get_json(silent=True) or {}
+    status, body = readback_mod.hearback(
+        domain=payload.get("domain") or request.args.get("domain"),
+        company=payload.get("company"),
+    )
+    return jsonify(body), status
+
+
+@app.route("/demo/bind-room/confirm", methods=["POST"])
+def bind_room_demo_confirm():
+    payload = request.get_json(silent=True) or {}
+    status, body = readback_mod.confirm(
+        domain=payload.get("domain") or request.args.get("domain"),
+        company=payload.get("company"),
+        confirm_token=payload.get("confirm_token"),
         public_url=advertised_url(),
     )
     return jsonify(body), status
@@ -7165,6 +7246,7 @@ def openapi_full():
                 "/v1/sandbox/twin": {"post": {"summary": "MGA rule engine against a posted hop", "security": []}},
                 "/companion": {"get": {"summary": "Companion-AI receipt check. Not emergency services."}},
                 "/dating": {"get": {"summary": "Dating receipt presence. Not a catfish model."}},
+                "/check": {"get": {"summary": "Restraint feed plus signed liveness and self-incident receipts."}},
                 "/ticker": {"get": {"summary": "Dating receipt ticker. Not a catfish detector."}},
                 "/wire": {"get": {"summary": "BLOCK/HOLD/ALLOW mixed with named dockets. Not a Reuters wire."}},
                 "/v1/wire": {"get": {"summary": "Wire ticker JSON. Filter with ?vertical=. Not a scrape."}},

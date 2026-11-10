@@ -25,7 +25,12 @@ TAXONOMY = {
 
 
 def classify_reason(raw: str | None) -> dict[str, str | None]:
-    text = (raw or "").strip()
+    try:
+        from gate import sanitize as sanitize_mod
+    except ImportError:
+        import sanitize as sanitize_mod
+
+    text = sanitize_mod.strip_agent(raw)
     if not text:
         return {"reason_code": "UNSPECIFIED", "reason_text": "No reason on the hop.", "raw": None}
     key = text

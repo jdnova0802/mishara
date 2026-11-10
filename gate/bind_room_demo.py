@@ -420,6 +420,13 @@ def run(*, domain: str | None, company: str | None, public_url: str) -> tuple[in
         "permalink": f"{base}/demo/bind-room?domain={resolved}",
         "restraint": True,
     }
+    try:
+        from gate import readback as readback_mod
+    except ImportError:
+        import readback as readback_mod
+
+    hb_status, hb = readback_mod.hearback(domain=resolved, company=company_name)
+    hearback = hb if hb_status == 200 else {"ok": False, "confirmed": False, "gated": False}
     body = {
         "ok": True,
         "spec": SPEC,
@@ -436,5 +443,9 @@ def run(*, domain: str | None, company: str | None, public_url: str) -> tuple[in
         "mishara_handoff": False,
         "demo": True,
         "their_production": False,
+        "hearback": hearback,
+        "gated": False,
+        "hearback_confirmed": False,
+        "plain": "Pattern is paraphrased. Gate does not fire until hearback is confirmed.",
     }
     return 200, body
