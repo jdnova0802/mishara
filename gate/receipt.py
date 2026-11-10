@@ -387,6 +387,7 @@ def dfir_envelope(receipt_row: dict, payload: dict) -> dict:
             {
                 "role": "gate",
                 "key_id": receipt_row.get("receipt_public_key_fingerprint"),
+                "responsible_identity": receipt_row.get("receipt_public_key_fingerprint") or "UNSIGNED",
                 "signature": receipt_row.get("receipt_signature"),
             }
         ],

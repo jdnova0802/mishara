@@ -305,6 +305,16 @@ except ImportError:
     import agent_bureau as agent_bureau_mod
 
 try:
+    from gate import precedence as precedence_mod
+except ImportError:
+    import precedence as precedence_mod
+
+try:
+    from gate import custody as custody_mod
+except ImportError:
+    import custody as custody_mod
+
+try:
     from gate import safe_mode as safe_mode_mod
 except ImportError:
     import safe_mode as safe_mode_mod
@@ -4313,6 +4323,50 @@ def agent_registration_md():
         return Response(fh.read(), mimetype="text/markdown; charset=utf-8")
 
 
+@app.route("/precedence")
+def precedence_page():
+    body = {
+        "vertical": request.args.get("vertical"),
+        "state": request.args.get("state"),
+        "mga_contract_terminated": request.args.get("mga_contract_terminated"),
+        "annex_iii": request.args.get("annex_iii") == "1",
+    }
+    result = precedence_mod.resolve(body) if any(body.values()) else None
+    return render_template("precedence.html", result=result, body=body)
+
+
+@app.route("/v1/precedence", methods=["POST"])
+def precedence_api():
+    body = request.get_json(silent=True) or {}
+    return jsonify(precedence_mod.resolve(body))
+
+
+@app.route("/custody")
+def custody_page():
+    event_id = (request.args.get("event_id") or "").strip()
+    result = None
+    if event_id:
+        result = custody_mod.lineage(
+            db.list_bind_events_chronological(limit=5000), start_event_id=event_id
+        )
+    return render_template("custody.html", event_id=event_id, result=result)
+
+
+@app.route("/v1/custody")
+def custody_api():
+    event_id = (request.args.get("event_id") or "").strip()
+    receipt_hash = (request.args.get("receipt_hash") or "").strip()
+    if not event_id and not receipt_hash:
+        return jsonify({"ok": False, "error": "event_id_or_receipt_hash_required"}), 400
+    return jsonify(
+        custody_mod.lineage(
+            db.list_bind_events_chronological(limit=5000),
+            start_event_id=event_id or None,
+            start_hash=receipt_hash or None,
+        )
+    )
+
+
 @app.route("/.well-known/prefinality.json")
 def well_known_prefinality():
     spec = prefinality_mod.manifest(advertised_url())
@@ -6600,6 +6654,8 @@ def sitemap():
         "/agent-registration",
         "/.well-known/zk-linkage.json",
         "/.well-known/agent-registration.json",
+        "/precedence",
+        "/custody",
         "/openapi.json",
     ]
     urls = "".join(
@@ -7000,6 +7056,10 @@ def openapi_full():
                 "/disputes": {"get": {"summary": "FCRA-style dispute log. History is never erased."}},
                 "/zk": {"get": {"summary": "Item 51 ZK linkage stub. built:false"}},
                 "/agent-registration": {"get": {"summary": "Item 55 registration spec. Adopters empty."}},
+                "/precedence": {"get": {"summary": "Regulatory precedence. First matching higher-rank rule wins."}},
+                "/v1/precedence": {"post": {"summary": "Resolve which rule governs a BLOCK body", "security": []}},
+                "/custody": {"get": {"summary": "Specimen lineage over prev_receipt_hash"}},
+                "/v1/custody": {"get": {"summary": "Chain-of-custody walk. UNSIGNED is contamination.", "security": []}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},

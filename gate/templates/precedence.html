@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Regulatory precedence{% endblock %}
+{% block meta %}
+<meta name="description" content="Which rule governs this BLOCK. First matching higher-rank rule wins. House policy is last.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Precedence engine</p>
+  <h1>Which law actually governs</h1>
+  <p class="audience-sub">Ordered rules. IEC 61511 / Model 225 / Kansas / EU AI Act beat house policy. POST JSON to <code>/v1/precedence</code>.</p>
+  <form method="get">
+    <p><label>Vertical <input name="vertical" value="{{ body.vertical or '' }}" placeholder="ot"></label>
+    <label>State <input name="state" value="{{ body.state or '' }}" placeholder="KS"></label></p>
+    <p><label>MGA terminated <input name="mga_contract_terminated" value="{{ body.mga_contract_terminated or '' }}" placeholder="yes"></label>
+    <label>Annex III <input type="checkbox" name="annex_iii" value="1" {% if body.annex_iii %}checked{% endif %}></label>
+    <button class="btn btn-primary" type="submit">Resolve</button></p>
+  </form>
+  {% if result %}
+  <p>{{ result.plain }}</p>
+  <p>Winner: <strong>{{ result.winner.governs }}</strong> ({{ result.winner.id }})</p>
+  {% endif %}
+</div>
+{% endblock %}
