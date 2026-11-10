@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Parametric insurance{% endblock %}
+{% block meta %}
+<meta name="description" content="No parametric product. BLOCK receipts are not a policy. Needs an outside underwriter.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Parametric</p>
+  <h1>No product here</h1>
+  <p class="audience-sub">{{ stub.plain }}</p>
+  <p>product={{ stub.product }} · munich_re={{ stub.munich_re }} · endorsement={{ stub.endorsement }}</p>
+</div>
+{% endblock %}

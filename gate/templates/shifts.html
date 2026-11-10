@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Shift anomaly{% endblock %}
+{% block meta %}
+<meta name="description" content="Flag 3-sigma hours in a series you post. Never auto-acted. Needs 20 samples.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Own-shift anomaly</p>
+  <h1>Your hours vs your own mean</h1>
+  <p class="audience-sub">POST JSON <code>{"hours":[...]}</code> to <code>/v1/shifts/anomaly</code>. Flags only. Nothing is dispatched.</p>
+  {% if result %}
+  <pre class="card" style="overflow:auto;padding:1rem;">{{ result | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

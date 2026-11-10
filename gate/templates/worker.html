@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Worker score{% endblock %}
+{% block meta %}
+<meta name="description" content="See your own Gate event counts. Not FCRA and not an employer file.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Know your own score</p>
+  <h1>Your counts on this mouth</h1>
+  <p class="audience-sub">{{ result.plain if result else "Paste the fuse id you already use. This is not a credit file." }}</p>
+  <form method="get">
+    <p><label>Fuse id <input name="fuse_id" value="{{ fuse_id or '' }}" required></label>
+    <button class="btn btn-primary" type="submit">Look up</button></p>
+  </form>
+  {% if result and result.fuse_id %}
+  <p>ALLOW {{ result.counts.ALLOW }} · BLOCK {{ result.counts.BLOCK }} · HOLD {{ result.counts.HOLD }} · HALT {{ result.counts.HALT }}</p>
+  {% endif %}
+</div>
+{% endblock %}

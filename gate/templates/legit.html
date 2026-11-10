@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Legit check{% endblock %}
+{% block meta %}
+<meta name="description" content="Streetwear/resale legit check via a signed receipt. Not a computer-vision authenticator.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Legit check</p>
+  <h1>Show the receipt, not the photo model</h1>
+  <p class="audience-sub">Paste listing id + event id. Gate does not inspect stitching or serials.</p>
+  <form method="get">
+    <p><label>Listing id <input name="listing_id" value="{{ listing_id or '' }}" required></label></p>
+    <p><label>Event id <input name="event_id" value="{{ event_id or '' }}"></label>
+    <button class="btn btn-primary" type="submit">Check</button></p>
+  </form>
+  {% if result %}<p>{{ result.plain }}</p>{% endif %}
+  <h2>Hall of shame (unsigned claims)</h2>
+  {% if board.shame %}
+  <ul class="check-list">{% for r in board.shame %}<li>{{ r.at }} · {{ r.listing_id }}</li>{% endfor %}</ul>
+  {% else %}<p>None yet.</p>{% endif %}
+  <h2>Verified (receipt present)</h2>
+  {% if board.verified %}
+  <ul class="check-list">{% for r in board.verified %}<li>{{ r.at }} · {{ r.listing_id }}</li>{% endfor %}</ul>
+  {% else %}<p>None yet.</p>{% endif %}
+</div>
+{% endblock %}

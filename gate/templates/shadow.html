@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Shadow audit{% endblock %}
+{% block meta %}
+<meta name="description" content="Crowdsource anonymized feature→outcome rows to reconstruct an employer policy. Hex employer hash only.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Shadow audit</p>
+  <h1>Reconstruct a policy from hashed rows</h1>
+  <p class="audience-sub">POST <code>employer_hash</code> (16–64 hex), <code>feature</code>, <code>outcome</code>. No emails. Not the filed policy.</p>
+  {% if result %}
+  <pre class="card" style="overflow:auto;padding:1rem;">{{ result | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

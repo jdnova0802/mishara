@@ -99,6 +99,12 @@
       <a href="{{ url_for('sandbox_page') }}">Sandbox</a> ·
       <a href="{{ url_for('companion_page') }}">Companion</a> ·
       <a href="{{ url_for('dating_page') }}">Dating</a> ·
+      <a href="{{ url_for('ticker_page') }}">Ticker</a> ·
+      <a href="{{ url_for('legit_page') }}">Legit</a> ·
+      <a href="{{ url_for('worker_page') }}">Worker</a> ·
+      <a href="{{ url_for('wati_page') }}">WATI</a> ·
+      <a href="{{ url_for('radar_page') }}">Radar</a> ·
+      <a href="{{ url_for('parametric_page') }}">Parametric</a> ·
       <a href="{{ url_for('trust_corrections') }}">Corrections</a> ·
       <a href="{{ url_for('mandate_registry') }}">Mandate registry</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
@@ -168,7 +174,17 @@
       { href: "/exposure", title: "Ungated exposure", aliases: "calculator cost" },
       { href: "/sandbox", title: "Digital twin sandbox", aliases: "simulate twin" },
       { href: "/companion", title: "Companion receipt check", aliases: "crisis ai" },
-      { href: "/dating", title: "Dating receipt check", aliases: "catfish" }
+      { href: "/dating", title: "Dating receipt check", aliases: "catfish" },
+      { href: "/ticker", title: "Dating receipt ticker", aliases: "catfish ticker" },
+      { href: "/legit", title: "Legit check", aliases: "streetwear resale" },
+      { href: "/worker", title: "Worker score", aliases: "gig warehouse" },
+      { href: "/wati", title: "WATI", aliases: "transparency employer" },
+      { href: "/radar", title: "Regulatory radar", aliases: "naic eu ai act" },
+      { href: "/shifts", title: "Shift anomaly", aliases: "hours schedule" },
+      { href: "/shadow", title: "Shadow audit", aliases: "employer policy" },
+      { href: "/research/liveness", title: "Liveness research", aliases: "deepfake" },
+      { href: "/listing-anomaly", title: "Listing price anomaly", aliases: "resale sigma" },
+      { href: "/parametric", title: "Parametric (none)", aliases: "insurance munich" }
     ];
     function paint(q) {
       q = (q || "").toLowerCase().trim();

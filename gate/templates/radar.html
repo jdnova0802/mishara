@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Regulatory radar{% endblock %}
+{% block meta %}
+<meta name="description" content="Named AI/payment dockets this mouth already cites. Not a live scrape.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Regulatory radar</p>
+  <h1>Watched dockets, not a news wire</h1>
+  <p class="audience-sub">{{ payload.plain }} As of {{ payload.as_of }}. Scraped={{ payload.scraped }}.</p>
+  <ul class="check-list">
+    {% for w in payload.watches %}
+    <li><a href="{{ w.url }}">{{ w.label }}</a></li>
+    {% endfor %}
+  </ul>
+  <h2>Comments this repo already carries</h2>
+  <ul class="check-list">
+    {% for d in payload.dockets %}
+    <li>{{ d.label }} · {{ d.status }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
