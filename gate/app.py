@@ -3177,6 +3177,22 @@ def floor_verify():
     )
 
 
+@app.route("/v1/verify", methods=["GET"])
+def public_verify_api():
+    """Item 74 — re-derive the hash. Published key, not a key named in the receipt."""
+    event_id = (request.args.get("event_id") or "").strip()
+    if not event_id:
+        return jsonify({"ok": False, "error": "event_id_required"}), 400
+    row = db.get_bind_event(event_id)
+    if not row:
+        return jsonify({"ok": False, "error": "not_found"}), 404
+    try:
+        from gate import dfir as dfir_mod
+    except ImportError:
+        import dfir as dfir_mod
+    return jsonify(dfir_mod.public_verify(row, public_url=advertised_url()))
+
+
 @app.route("/.well-known/particular.json")
 def well_known_particular():
     return jsonify(particular.manifesto(advertised_url()))
@@ -6596,6 +6612,7 @@ def sitemap():
         "/trust/claims",
         "/doors",
         "/verify",
+        "/v1/verify",
         "/compliance/mandate-registry",
         "/audit",
         "/start",
@@ -7018,6 +7035,7 @@ def openapi_full():
                 "/bound": {"get": {"summary": "A no that holds — narrow, enforced, provable"}},
                 "/only": {"get": {"summary": "Exclusive timing — the act that never happens"}},
                 "/floor": {"get": {"summary": "The floor. Unrepeatable. Not only yours. No cleverer layer."}},
+                "/v1/verify": {"get": {"summary": "Public verify — re-derive hash. Key is published env, not named in the receipt.", "security": []}},
                 "/this": {"get": {"summary": "A particular. Name one. Let it try to spend. Not a deeper idea."}},
                 "/inhabitant": {"get": {"summary": "The someone who has to live there. They did not have to ask."}},
                 "/afterward": {"get": {"summary": "Including later. Missing letter is a hole, not a spared world."}},

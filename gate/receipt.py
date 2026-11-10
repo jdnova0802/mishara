@@ -372,31 +372,33 @@ def receipt_to_public_payload(
 
 def dfir_envelope(receipt_row: dict, payload: dict) -> dict:
     """Items 69–73 as labeled fields on the *public* payload, not the signed body."""
+    try:
+        from gate import dfir as dfir_mod
+    except ImportError:
+        import dfir as dfir_mod
+
     reason = None
     if isinstance(receipt_row.get("hop"), dict):
         reason = receipt_row["hop"].get("reason") or receipt_row["hop"].get("epoch_reason")
+    classified = dfir_mod.classify_reason(reason)
+    public_url = ""
+    if isinstance(payload, dict):
+        public_url = str(payload.get("public_url") or payload.get("verify_url") or "")
+    anchor = dfir_mod.durable_anchor(receipt_row, public_url)
     return {
-        "spec": "gate-dfir-envelope-v1",
+        "spec": dfir_mod.SPEC,
         "event_id": receipt_row.get("id"),
         "agent_key_id": receipt_row.get("receipt_public_key_fingerprint"),
         "payload_hash_sha256": receipt_row.get("receipt_hash"),
         "capture_mode": "gate_bind_event",
         "engine_build_hash": os.getenv("RENDER_GIT_COMMIT") or os.getenv("GATE_ENGINE_BUILD_HASH"),
         "payload_format": "gate-receipt-payload-v1",
-        "chain_of_handlers": [
-            {
-                "role": "gate",
-                "key_id": receipt_row.get("receipt_public_key_fingerprint"),
-                "responsible_identity": receipt_row.get("receipt_public_key_fingerprint") or "UNSIGNED",
-                "signature": receipt_row.get("receipt_signature"),
-            }
-        ],
-        "reason_code": reason,
-        "reason_text": reason,
-        "ledger_position": {
-            "prev_receipt_hash": receipt_row.get("prev_receipt_hash"),
-            "receipt_hash": receipt_row.get("receipt_hash"),
-        },
+        "chain_of_handlers": dfir_mod.chain_of_handlers(receipt_row),
+        "reason_code": classified["reason_code"],
+        "reason_text": classified["reason_text"],
+        "reason_raw": classified["raw"],
+        "ledger_position": anchor["ledger_position"],
+        "durable_anchor": anchor,
         "in_signed_canonical": False,
     }
 
