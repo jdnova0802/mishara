@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}STIX export{% endblock %}
+{% block meta %}
+<meta name="description" content="STIX 2.1 interchange over ATLAS and DISARM labels. Not a TAXII server.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 141 / 147</p>
+  <h1>Interchange, not a new detector</h1>
+  <p class="audience-sub">Bundles serialize existing ATLAS and DISARM labels as STIX 2.1 SDOs. Cross-domain SROs (facilitates / compromises / precedes) need evidence receipts. This is not TAXII.</p>
+  <ul class="check-list">
+    {% for b in bundles %}
+    <li style="--i: {{ loop.index0 }}"><code>{{ b.bundle_id }}</code> · receipts {{ b.source_receipt_ids | length }} · shared {{ b.shared_with | join(", ") or "unshared" }}</li>
+    {% endfor %}
+  </ul>
+  {% if not bundles %}
+  <p>No bundles yet. Export needs receipt ids and at least one named technique.</p>
+  {% endif %}
+</div>
+{% endblock %}
