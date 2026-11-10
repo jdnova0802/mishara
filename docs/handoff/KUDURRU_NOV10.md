@@ -1,5 +1,7 @@
 # CURSOR HANDOFF — Kudurru layer (Nov 10 2026)
 
+Full overnight paste (verbatim): [`nisaba-cursor-handoff.md`](nisaba-cursor-handoff.md). This file is the live-check overlay only.
+
 Sixth brand: **Kudurru** — consumer-facing proof object. Erra / Velaru / Verra / Gate / Mishara remain backend doctrine. Design law: **the flex object and the proof object are the same artifact.** A Kudurru card’s claim hashes ordered `underlying_receipt_ids`; it is not a vanity checkmark.
 
 Machine-readable schemas: `docs/kudurru/schemas/`.
