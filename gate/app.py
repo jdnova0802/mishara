@@ -390,6 +390,11 @@ except ImportError:
     import kudurru as kudurru_mod
 
 try:
+    from gate import case_file as case_file_mod
+except ImportError:
+    import case_file as case_file_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4621,6 +4626,103 @@ def kudurru_glyph_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/cases")
+def cases_page():
+    return render_template(
+        "cases.html",
+        cases=list(reversed(case_file_mod.list_cases()))[:50],
+        triage=list(reversed(case_file_mod.list_triage()))[:50],
+    )
+
+
+@app.route("/v1/cases", methods=["GET", "POST"])
+def cases_api():
+    if request.method == "GET":
+        cid = (request.args.get("case_id") or "").strip()
+        if cid:
+            row = case_file_mod.get_case(cid)
+            return jsonify(row or {"ok": False, "error": "case_not_found"}), (200 if row else 404)
+        return jsonify({"spec": case_file_mod.CASE_SPEC, "cases": case_file_mod.list_cases()})
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.open_case(
+        opened_by=body.get("opened_by") or "",
+        hypothesis=body.get("hypothesis") or "",
+        linked_receipt_ids=body.get("linked_receipt_ids"),
+        linked_anomaly_flag_ids=body.get("linked_anomaly_flag_ids"),
+        linked_link_graph_query_id=body.get("linked_link_graph_query_id"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/cases/note", methods=["POST"])
+def cases_note_api():
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.add_note(
+        case_id=body.get("case_id") or "",
+        author=body.get("author") or "",
+        body=body.get("body") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/cases/status", methods=["POST"])
+def cases_status_api():
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.set_status(
+        case_id=body.get("case_id") or "",
+        status=body.get("status") or "",
+        resolution=body.get("resolution"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/triage", methods=["GET", "POST"])
+def triage_api():
+    if request.method == "GET":
+        return jsonify({"spec": case_file_mod.TRIAGE_SPEC, "rows": case_file_mod.list_triage()})
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.ingest_triage(
+        source=body.get("source") or "",
+        source_id=body.get("source_id") or "",
+        extra=body,
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/triage/enrich", methods=["POST"])
+def triage_enrich_api():
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.enrich_triage(
+        triage_id=body.get("triage_id") or "",
+        severity=body.get("severity") or "",
+        actor_history_ref=body.get("actor_history_ref"),
+        asset_criticality=body.get("asset_criticality"),
+        recent_related_flags=body.get("recent_related_flags"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/triage/claim", methods=["POST"])
+def triage_claim_api():
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.claim_triage(
+        triage_id=body.get("triage_id") or "",
+        assigned_to=body.get("assigned_to") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/triage/dispose", methods=["POST"])
+def triage_dispose_api():
+    body = request.get_json(silent=True) or {}
+    rec = case_file_mod.dispose_triage(
+        triage_id=body.get("triage_id") or "",
+        disposition=body.get("disposition") or "",
+        disposition_reason=body.get("disposition_reason") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/harm-tiers")
 def harm_tiers_page():
     result = None
@@ -7788,6 +7890,15 @@ def openapi_full():
                 },
                 "/tns": {"get": {"summary": "Item 104 — T&S vertical. Provenance is not abuse. No CV."}},
                 "/kudurru": {"get": {"summary": "Items 129/129b/131 — card hashes receipts. Streak policy unset."}},
+                "/cases": {"get": {"summary": "Items 134–135 — case workspace and human triage. Never auto-acted."}},
+                "/v1/cases": {
+                    "get": {"summary": "List cases", "security": []},
+                    "post": {"summary": "Open a case. Needs a hypothesis and at least one receipt or flag.", "security": []},
+                },
+                "/v1/triage": {
+                    "get": {"summary": "Triage queue. Severity is null until enrich.", "security": []},
+                    "post": {"summary": "Ingest. Severity in the body is 409.", "security": []},
+                },
                 "/v1/kudurru": {"post": {"summary": "Mint a Kudurru card. streak_policy in the body is 409.", "security": []}},
                 "/v1/kudurru/watch": {"post": {"summary": "CreditWatch status. Stakes 409.", "security": []}},
                 "/v1/kudurru/glyph": {"post": {"summary": "Spoiler-safe glyph. No operator, no cause id.", "security": []}},
