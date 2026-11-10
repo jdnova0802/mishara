@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Evidentiary standing{% endblock %}
+{% block meta %}
+<meta name="description" content="FRE 902 packet, 17a-4 identity, C2PA ingredients. Not a live courtroom certification.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 112–116</p>
+  <h1>Tamper-evident is not yet in evidence</h1>
+  <p class="audience-sub">Hash match is computed. A live FRE 902 cert and opposing-party notice are not minted here. Not legal advice.</p>
+  <form method="get">
+    <p><label>Event id <input name="event_id" value="{{ event_id }}"></label>
+    <button class="btn btn-primary" type="submit">Packet</button></p>
+  </form>
+  {% if packet %}
+  <h2>FRE 902 addendum</h2>
+  <p>live_fre_902_cert={{ packet.live_fre_902_cert }} · notice_ready={{ packet.opposing_party_notice_ready }} · match={{ packet.hash_proof.match }}</p>
+  <p class="audience-sub">{{ packet.plain }}</p>
+  <p>responsible_identity=<code>{{ packet.responsible_identity }}</code></p>
+  <h2>Ingredients</h2>
+  {% if ingredients and ingredients.ingredients %}
+  <ul class="check-list">
+    {% for i in ingredients.ingredients %}
+    <li>hard={{ i.hard_binding }} · <code>{{ i.ingredient_hash[:16] if i.ingredient_hash else 'none' }}</code> · {{ i.plain }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No upstream receipt on this row.</p>
+  {% endif %}
+  {% endif %}
+  <h2>Hard vs soft</h2>
+  <p class="audience-sub">{{ audit.plain }}</p>
+  <ul class="check-list">
+    {% for x in audit.hard %}
+    <li>HARD · {{ x.path }} · {{ x.plain }}</li>
+    {% endfor %}
+    {% for x in audit.soft %}
+    <li>SOFT · {{ x.path }} · {{ x.plain }}</li>
+    {% endfor %}
+  </ul>
+  <h2>Never redact</h2>
+  <ul class="check-list">
+    {% for f in forbidden %}
+    <li><code>{{ f }}</code></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

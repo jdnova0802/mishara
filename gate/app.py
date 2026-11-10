@@ -335,6 +335,11 @@ except ImportError:
     import challenge as challenge_mod
 
 try:
+    from gate import standing as standing_mod
+except ImportError:
+    import standing as standing_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -3393,7 +3398,13 @@ def well_known_receipt(event_id: str):
         from gate import receipt as receipt_mod
     except ImportError:
         import receipt as receipt_mod
-    return jsonify(receipt_mod.receipt_to_public_payload(receipt_row=row, public_url=advertised_url()))
+    return jsonify(
+        receipt_mod.receipt_to_public_payload(
+            receipt_row=row,
+            public_url=advertised_url(),
+            lineage_rows=db.list_bind_events_chronological(limit=500),
+        )
+    )
 
 
 @app.route("/.well-known/receipt/<event_id>/proof.json")
@@ -4404,6 +4415,51 @@ def freshness_api():
             velaru_proof=body.get("velaru_proof") if isinstance(body.get("velaru_proof"), dict) else None,
         )
     )
+
+
+@app.route("/standing")
+def standing_page():
+    event_id = (request.args.get("event_id") or "").strip()
+    row = db.get_bind_event(event_id) if event_id else None
+    rows = db.list_bind_events_chronological(limit=500)
+    packet = standing_mod.certification_packet(row) if row else None
+    ings = standing_mod.ingredients(row, rows) if row else None
+    return render_template(
+        "standing.html",
+        event_id=event_id,
+        packet=packet,
+        ingredients=ings,
+        audit=standing_mod.binding_audit(),
+        forbidden=sorted(standing_mod.FORBIDDEN_REDACT),
+    )
+
+
+@app.route("/v1/standing")
+def standing_api():
+    event_id = (request.args.get("event_id") or "").strip()
+    rows = db.list_bind_events_chronological(limit=500)
+    row = db.get_bind_event(event_id) if event_id else None
+    body = {"spec": standing_mod.SPEC_902, "audit": standing_mod.binding_audit(), "live_fre_902_cert": False}
+    if row:
+        body["packet"] = standing_mod.certification_packet(row)
+        body["ingredients"] = standing_mod.ingredients(row, rows)
+        body["responsible_identity"] = standing_mod.responsible_identity(row)
+    return jsonify(body)
+
+
+@app.route("/v1/standing/redact", methods=["POST"])
+def standing_redact_api():
+    body = request.get_json(silent=True) or {}
+    fields = body.get("fields") if isinstance(body.get("fields"), list) else []
+    check = standing_mod.validate_redaction(fields)
+    if not check["ok"]:
+        return jsonify(check), 409
+    rec = standing_mod.redaction_event(
+        event_id=body.get("event_id") or "",
+        fields=fields,
+        actor=body.get("responsible_identity"),
+    )
+    return jsonify(rec), 201
 
 
 @app.route("/shifts")
@@ -6948,6 +7004,7 @@ def sitemap():
         "/counter-case",
         "/harm",
         "/freshness",
+        "/standing",
         "/board",
         "/sports",
         "/exposure",
