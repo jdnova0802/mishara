@@ -43,4 +43,5 @@ jobs:
           python3 test_interlock.py -v
           python3 test_grounded.py -v
           python3 test_step_up.py -v
+          python3 test_ledger_cal.py -v
           python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v

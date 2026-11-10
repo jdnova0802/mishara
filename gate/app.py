@@ -370,6 +370,16 @@ except ImportError:
     import assumptions as assumptions_mod
 
 try:
+    from gate import ledger as ledger_mod
+except ImportError:
+    import ledger as ledger_mod
+
+try:
+    from gate import calibration as calibration_mod
+except ImportError:
+    import calibration as calibration_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4469,6 +4479,53 @@ def assumptions_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/ledger")
+def ledger_page():
+    return render_template("ledger.html", entries=list(reversed(ledger_mod.list_entries()))[:50])
+
+
+@app.route("/v1/ledger", methods=["GET", "POST"])
+def ledger_api():
+    if request.method == "GET":
+        return jsonify({"spec": ledger_mod.SPEC, "entries": ledger_mod.list_entries()})
+    body = request.get_json(silent=True) or {}
+    rec = ledger_mod.post(
+        idempotency_key=body.get("idempotency_key") or "",
+        receipt_id=body.get("receipt_id") or "",
+        debit_account=body.get("debit_account") or "",
+        credit_account=body.get("credit_account") or "",
+        amount=body.get("amount"),
+        extra=body,
+    )
+    if not rec.get("ok"):
+        return jsonify(rec), 409
+    return jsonify(rec), (200 if rec.get("replayed") else 201)
+
+
+@app.route("/calibration")
+def calibration_page():
+    op = (request.args.get("operator_id") or "").strip()
+    payload = calibration_mod.score(op) if op else None
+    return render_template("calibration.html", score=payload)
+
+
+@app.route("/v1/calibration", methods=["GET", "POST"])
+def calibration_api():
+    if request.method == "GET":
+        op = (request.args.get("operator_id") or "").strip()
+        if op:
+            return jsonify(calibration_mod.score(op))
+        return jsonify({"spec": calibration_mod.SPEC, "entries": calibration_mod.list_entries(), "min_sample": calibration_mod.min_sample()})
+    body = request.get_json(silent=True) or {}
+    rec = calibration_mod.resolve(
+        operator_id=body.get("operator_id") or "",
+        receipt_id=body.get("receipt_id") or "",
+        stated_confidence=body.get("stated_confidence"),
+        actual_outcome=body.get("actual_outcome") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
 @app.route("/harm-tiers")
 def harm_tiers_page():
     result = None
@@ -7621,6 +7678,16 @@ def openapi_full():
                     "post": {"summary": "Evaluate bind step-up. Numeric ACS scores 409.", "security": []},
                 },
                 "/assumptions": {"get": {"summary": "Item 122 — verified receipts name their assumption set."}},
+                "/ledger": {"get": {"summary": "Item 125 — per-action ledger. Points at a receipt. No rate card."}},
+                "/v1/ledger": {
+                    "get": {"summary": "Ledger entries", "security": []},
+                    "post": {"summary": "Post a line. Same idempotency_key replays. 126–128 are 409.", "security": []},
+                },
+                "/calibration": {"get": {"summary": "Item 130 — Brier calibration. sample_size gates Kudurru."}},
+                "/v1/calibration": {
+                    "get": {"summary": "Score for ?operator_id=. feeds_kudurru false below the named floor.", "security": []},
+                    "post": {"summary": "Resolve a stated_confidence against CORRECT/INCORRECT.", "security": []},
+                },
                 "/v1/assumptions": {
                     "post": {"summary": "Refuse verified:true without under_assumptions.", "security": []}
                 },

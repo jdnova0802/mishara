@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Billing ledger{% endblock %}
+{% block meta %}
+<meta name="description" content="Per-action ledger. Points at a receipt. Idempotency key on retry. No rate card.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 125</p>
+  <h1>One line per billable act</h1>
+  <p class="audience-sub">Retry with the same idempotency_key returns the same entry. 126–128 (rate card, dispute, fee-split) are not in this table.</p>
+  <ul class="check-list">
+    {% for e in entries %}
+    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ e.entry_id }}</code> · {{ e.amount }} · <code>{{ e.receipt_id }}</code></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
