@@ -400,6 +400,16 @@ except ImportError:
     import campaign as campaign_mod
 
 try:
+    from gate import opsec as opsec_mod
+except ImportError:
+    import opsec as opsec_mod
+
+try:
+    from gate import honey_receipt as honey_receipt_mod
+except ImportError:
+    import honey_receipt as honey_receipt_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -3344,6 +3354,24 @@ def public_verify_api():
     event_id = (request.args.get("event_id") or "").strip()
     if not event_id:
         return jsonify({"ok": False, "error": "event_id_required"}), 400
+    decoy = honey_receipt_mod.get(event_id)
+    if decoy:
+        probed = honey_receipt_mod.probe(
+            canary_id=event_id,
+            accessed_by=request.headers.get("X-Forwarded-For") or request.remote_addr or "anonymous",
+            access_method="verify_api",
+        )
+        return jsonify(
+            {
+                "ok": True,
+                "canary": True,
+                "verified": False,
+                "tripped": bool(probed.get("tripped")),
+                "never_counted_in_scores": True,
+                "real_receipt_id": None,
+                "plain": "This id is a decoy. Querying it is the trip. Not a real receipt.",
+            }
+        )
     row = db.get_bind_event(event_id)
     if not row:
         return jsonify({"ok": False, "error": "not_found"}), 404
@@ -4718,6 +4746,52 @@ def campaigns_causal_api():
         confounder_ruled_out=bool(body.get("confounder_ruled_out")),
         reviewed_by=body.get("reviewed_by") or "",
         campaign_cluster_id=body.get("campaign_cluster_id"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/opsec")
+def opsec_page():
+    return render_template(
+        "opsec.html",
+        reviews=opsec_mod.list_reviews(),
+        canaries=honey_receipt_mod.list_canaries(),
+    )
+
+
+@app.route("/v1/opsec", methods=["GET", "POST"])
+def opsec_api():
+    if request.method == "GET":
+        return jsonify({"spec": opsec_mod.SPEC, "reviews": opsec_mod.list_reviews()})
+    body = request.get_json(silent=True) or {}
+    rec = opsec_mod.record(
+        surface=body.get("surface") or "",
+        critical_info_identified=body.get("critical_info_identified") or "",
+        threat_actor=body.get("threat_actor") or "",
+        vulnerability=body.get("vulnerability") or "",
+        risk_rank=body.get("risk_rank") or "",
+        countermeasure=body.get("countermeasure") or "",
+        countermeasure_status=body.get("countermeasure_status") or "PROPOSED",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/canary-receipts", methods=["GET", "POST"])
+def canary_receipts_api():
+    if request.method == "GET":
+        return jsonify({"spec": honey_receipt_mod.SPEC, "canaries": honey_receipt_mod.list_canaries()})
+    body = request.get_json(silent=True) or {}
+    rec = honey_receipt_mod.plant(disguised_as=body.get("disguised_as") or "")
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/canary-receipts/probe", methods=["POST"])
+def canary_probe_api():
+    body = request.get_json(silent=True) or {}
+    rec = honey_receipt_mod.probe(
+        canary_id=body.get("canary_id") or "",
+        accessed_by=body.get("accessed_by") or "",
+        access_method=body.get("access_method") or "",
     )
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
@@ -7959,6 +8033,15 @@ def openapi_full():
                 "/kudurru": {"get": {"summary": "Items 129/129b/131 — card hashes receipts. Streak policy unset."}},
                 "/cases": {"get": {"summary": "Items 134–135 — case workspace and human triage. Never auto-acted."}},
                 "/campaigns": {"get": {"summary": "Items 137/144 — DISARM cluster. CONFIRMED needs a confounder review."}},
+                "/opsec": {"get": {"summary": "Items 138/145 — OPSEC reviews and canary receipts. Never scored."}},
+                "/v1/opsec": {
+                    "get": {"summary": "Disclosure reviews. 118 banding is APPLIED.", "security": []},
+                    "post": {"summary": "NSDD-298 five-step review. Incomplete 409.", "security": []},
+                },
+                "/v1/canary-receipts": {
+                    "get": {"summary": "Decoy receipts. real_receipt_id is null.", "security": []},
+                    "post": {"summary": "Plant a decoy. Distinct from bypass canaries.", "security": []},
+                },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
                     "post": {"summary": "Open SUSPECTED cluster from 132/133 sources.", "security": []},
