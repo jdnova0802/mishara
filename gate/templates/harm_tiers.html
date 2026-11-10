@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Harm tiers{% endblock %}
+{% block meta %}
+<meta name="description" content="Exact-match may auto-act. Classifier is human-only. Provenance is orthogonal. No detector here.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 120</p>
+  <h1>Three tiers, not one harm flag</h1>
+  <p class="audience-sub">{{ schema.plain }}</p>
+  <ul class="check-list">
+    <li>exact_match · hash hit may auto-act · hash_db={{ schema.hash_db }}</li>
+    <li>classifier · human only · classifier_shipped={{ schema.classifier }}</li>
+    <li>provenance · orthogonal to abuse</li>
+  </ul>
+  <p>never_auto_act_on_classifier_only={{ schema.never_auto_act_on_classifier_only }}</p>
+  {% if result %}
+  <pre class="card" style="overflow:auto;">{{ result | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}
