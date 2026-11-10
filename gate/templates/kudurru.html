@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Kudurru card{% endblock %}
+{% block meta %}
+<meta name="description" content="Personal proof object. Hashes ordered receipt ids. Streak policy unset. Glyph has no spoilers.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 129 / 129b / 131</p>
+  <h1>The flex is the proof</h1>
+  <p class="audience-sub">receipt_root_hash is sha256 over ordered underlying_receipt_ids. Streak policy is unset — hard-reset vs decay vs Chess.com 2-day grace is not decided here. Watch is attention, not a market. Glyph is 🟩 clean · 🟨 watch · 🟥 break with no operator and no cause id.</p>
+  {% if card %}
+  <p><code class="machine-truth">{{ card.receipt_root_hash }}</code> · streak_days={{ card.streak_days }} · streak_policy={{ card.streak_policy | tojson }}</p>
+  {% endif %}
+  {% if glyph %}
+  <p>{{ glyph.glyph_string }}</p>
+  {% endif %}
+</div>
+{% endblock %}
