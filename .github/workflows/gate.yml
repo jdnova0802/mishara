@@ -39,4 +39,5 @@ jobs:
           python3 test_dogfood_xss.py -v
           python3 test_challenge.py -v
           python3 test_standing.py -v
+          python3 test_gotham.py -v
           python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v
