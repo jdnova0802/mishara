@@ -281,7 +281,11 @@ def issue_receipt(
 
 
 def receipt_to_public_payload(
-    *, receipt_row: dict, canonical_receipt_json: str | None = None, public_url: str | None = None
+    *,
+    receipt_row: dict,
+    canonical_receipt_json: str | None = None,
+    public_url: str | None = None,
+    lineage_rows: list | None = None,
 ) -> dict:
     # Gate does not publish full hop; only the canonical receipt fields are used.
     # canonical_receipt_json may be supplied if you want the client to recompute the hash.
@@ -377,6 +381,12 @@ def receipt_to_public_payload(
     except ImportError:
         import challenge as challenge_mod
     payload["challenge"] = challenge_mod.attach_to_receipt(receipt_row)
+    try:
+        from gate import standing as standing_mod
+    except ImportError:
+        import standing as standing_mod
+    payload["standing"] = standing_mod.attach(receipt_row, lineage_rows or [receipt_row])
+    payload["responsible_identity"] = payload["standing"]["responsible_identity"]
     return payload
 
 

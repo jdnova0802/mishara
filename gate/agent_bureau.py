@@ -274,11 +274,15 @@ def score_agent(
         "composite": composite,
         "percentile": percentile,
         "static_100": False,
+        "hard_binding": False,
+        "binding": "soft",
+        "not_tamper_evident_proof": True,
         "event_count": len(events),
         "open_disputes": len(open_ids),
         "plain": (
             "CDPI composite is null until a dispute closes so we do not mint a fake 100. "
-            "Open disputes freeze decay. History is never erased."
+            "Open disputes freeze decay. History is never erased. "
+            "This score is a soft correlation, not a receipt hash."
         ),
     }
 
