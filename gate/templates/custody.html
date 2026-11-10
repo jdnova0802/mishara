@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Chain of custody{% endblock %}
+{% block meta %}
+<meta name="description" content="Walk prev_receipt_hash like a specimen chain. UNSIGNED is contamination.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Specimen lineage</p>
+  <h1>Handlers in order, oldest first</h1>
+  <p class="audience-sub">Ancient-genomics provenance: the line is the evidence. An unsigned hop contaminates the specimen. It is not deleted.</p>
+  <form method="get">
+    <p><label>Event id <input name="event_id" value="{{ event_id or '' }}" required></label>
+    <button class="btn btn-primary" type="submit">Walk</button></p>
+  </form>
+  {% if result %}
+  <p>{{ result.plain }} contamination={{ result.contamination }} length={{ result.length }}</p>
+  <ul class="check-list">
+    {% for h in result.handlers %}
+    <li><code>{{ h.responsible_identity }}</code> · {{ h.event_id[:8] }} · unsigned={{ h.unsigned }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}

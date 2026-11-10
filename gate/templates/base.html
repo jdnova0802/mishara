@@ -109,6 +109,8 @@
       <a href="{{ url_for('cdpi_page') }}">CDPI</a> ·
       <a href="{{ url_for('disputes_page') }}">Disputes</a> ·
       <a href="{{ url_for('zk_page') }}">ZK</a> ·
+      <a href="{{ url_for('precedence_page') }}">Precedence</a> ·
+      <a href="{{ url_for('custody_page') }}">Custody</a> ·
       <a href="{{ url_for('trust_corrections') }}">Corrections</a> ·
       <a href="{{ url_for('mandate_registry') }}">Mandate registry</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
@@ -193,7 +195,9 @@
       { href: "/cdpi", title: "CDPI score", aliases: "bureau trust-record" },
       { href: "/disputes", title: "Dispute a BLOCK", aliases: "fcra correction" },
       { href: "/zk", title: "ZK linkage", aliases: "threshold proof" },
-      { href: "/agent-registration", title: "Agent registration spec", aliases: "adopters standard" }
+      { href: "/agent-registration", title: "Agent registration spec", aliases: "adopters standard" },
+      { href: "/precedence", title: "Regulatory precedence", aliases: "naic iec 61511" },
+      { href: "/custody", title: "Chain of custody", aliases: "lineage genomics" }
     ];
     function paint(q) {
       q = (q || "").toLowerCase().trim();
