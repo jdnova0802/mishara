@@ -27,9 +27,12 @@
         </line>
         {% endfor %}
         {% for p in payload.points %}
+        <circle class="v1-gauge" cx="{{ p.x }}" cy="{{ p.y }}" r="{{ p.gauge_r or 6 }}"
+          fill="none" stroke="{{ p.fill }}" stroke-width="1.5"
+          opacity="{{ 0.2 if p.v1_crossed else 0.55 }}"></circle>
         <circle class="pin" data-id="{{ p.id }}" cx="{{ p.x }}" cy="{{ p.y }}" r="6"
           fill="{{ p.fill }}" opacity="{{ 0.35 if p.dim else 1 }}" tabindex="0">
-          <title>{{ p.decision }} {{ p.code }} {{ p.id }}</title>
+          <title>{{ p.decision }} {{ p.code }} {{ p.id }} · V1 {{ p.v1_distance }} · {{ p.finality_event }}</title>
         </circle>
         {% endfor %}
       </g>
@@ -86,7 +89,7 @@
     var p = (data.points || []).filter(function (x) { return x.id === id; })[0];
     if (!p) return;
     card.hidden = false;
-    body.textContent = (p.decision || "") + " · " + (p.code || "") + " · " + (p.created_at || "") + " · chain " + p.chain_length + " · " + (p.reason || "no reason") + " · " + (p.id || "");
+    body.textContent = (p.decision || "") + " · " + (p.code || "") + " · " + (p.created_at || "") + " · chain " + p.chain_length + " · " + (p.reason || "no reason") + " · V1 " + (p.v1_distance != null ? p.v1_distance : "?") + " · " + (p.finality_event || "") + " · " + (p.id || "");
   }
   svg.querySelectorAll(".pin").forEach(function (el) {
     el.addEventListener("click", function (e) {

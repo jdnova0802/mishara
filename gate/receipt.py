@@ -367,6 +367,11 @@ def receipt_to_public_payload(
             import inhabitant as inhabitant_mod
         payload = inhabitant_mod.attach_to_receipt_payload(payload, receipt_row, public_url)
     payload["dfir"] = dfir_envelope(receipt_row, payload)
+    try:
+        from gate import v1 as v1_mod
+    except ImportError:
+        import v1 as v1_mod
+    payload["finality"] = v1_mod.for_receipt(receipt_row)
     return payload
 
 

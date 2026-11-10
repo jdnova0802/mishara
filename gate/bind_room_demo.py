@@ -49,7 +49,6 @@ DOMAINS: dict[str, dict[str, Any]] = {
             "bind_allowed": False,
             "delegation_limit_usd": 50000,
             "premium_usd": 62400,
-            "over_limit_usd": 12400,
             "policy_number": "DEMO-PAS-2026-001",
             "source": "gate-bind-room-demo",
         },
@@ -266,7 +265,6 @@ DOMAINS: dict[str, dict[str, Any]] = {
             "bind_allowed": False,
             "nodes_in_cascade": 14,
             "fleet_cap": 8,
-            "over_cap": 6,
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -359,6 +357,25 @@ def normalize_domain(raw: str | None) -> str | None:
     return None
 
 
+def _attach_v1(domain: str, bind_gate: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from gate import v1 as v1_mod
+    except ImportError:
+        import v1 as v1_mod
+
+    inputs = dict(bind_gate)
+    inputs.setdefault("remaining_seconds", 300)
+    inputs.setdefault("ttl_seconds", 300)
+    snap = v1_mod.compute(domain, inputs)
+    out = dict(bind_gate)
+    out.update({k: v for k, v in snap["derived"].items() if v is not None})
+    out["finality_event"] = snap["finality_event"]
+    out["v1_distance"] = snap["v1_distance"]
+    out["undo_open"] = snap["undo_open"]
+    out["lookup_table"] = False
+    return out
+
+
 def catalog() -> list[dict[str, str]]:
     rows = []
     for key, spec in DOMAINS.items():
@@ -386,7 +403,7 @@ def run(*, domain: str | None, company: str | None, public_url: str) -> tuple[in
     company_name = (company or "").strip() or "Demo operator"
     session_id = "bind-" + uuid.uuid4().hex[:12]
     base = (public_url or "").rstrip("/")
-    bind_gate = {**spec["bind_gate"], "reason": spec["bind_reason"]}
+    bind_gate = _attach_v1(resolved, {**spec["bind_gate"], "reason": spec["bind_reason"]})
     signal = {
         "gate_result": "ACT",
         "asymmetry_grade": "A",
