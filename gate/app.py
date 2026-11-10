@@ -345,6 +345,11 @@ except ImportError:
     import gotham as gotham_mod
 
 try:
+    from gate import interlock as interlock_mod
+except ImportError:
+    import interlock as interlock_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4714,6 +4719,24 @@ def agent_registration_md():
         return Response(fh.read(), mimetype="text/markdown; charset=utf-8")
 
 
+@app.route("/interlock")
+def interlock_page():
+    return render_template("interlock.html", status=interlock_mod.status())
+
+
+@app.route("/v1/interlock")
+def interlock_api():
+    return jsonify(interlock_mod.status())
+
+
+@app.route("/v1/interlock/proof-test", methods=["GET", "POST"])
+def interlock_proof_test_api():
+    if request.method == "GET":
+        return jsonify({"spec": interlock_mod.PROOF_SPEC, "drills": interlock_mod.list_drills()})
+    rec = interlock_mod.run_proof_test(verify_url=advertised_url())
+    return jsonify(rec), 201
+
+
 @app.route("/precedence")
 def precedence_page():
     body = {
@@ -7462,6 +7485,12 @@ def openapi_full():
                 "/agent-registration": {"get": {"summary": "Item 55 registration spec. Adopters empty."}},
                 "/precedence": {"get": {"summary": "Regulatory precedence. First matching higher-rank rule wins."}},
                 "/v1/precedence": {"post": {"summary": "Resolve which rule governs a BLOCK body", "security": []}},
+                "/interlock": {"get": {"summary": "Item 119 — IEC 61511 map. SIL unset. Untested BLOCK assumed failed."}},
+                "/v1/interlock": {"get": {"summary": "Interlock status JSON. sil is null until a hazard analysis exists.", "security": []}},
+                "/v1/interlock/proof-test": {
+                    "get": {"summary": "Logged BLOCK drills", "security": []},
+                    "post": {"summary": "Run a known-BLOCK hop through triple vote and log whether it tripped.", "security": []},
+                },
                 "/custody": {"get": {"summary": "Specimen lineage over prev_receipt_hash"}},
                 "/v1/custody": {"get": {"summary": "Chain-of-custody walk. UNSIGNED is contamination.", "security": []}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
