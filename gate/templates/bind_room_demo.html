@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Bind Room demo{% endblock %}
+{% block meta %}
+<meta name="description" content="Pick a vertical. Unknown domains do not become Insurance. Each check has a real description.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Bind Room · vertical demo</p>
+  <h1>Pick a vertical. Run the room.</h1>
+  <p class="audience-sub">Paid officer pack is still <a href="{{ url_for('bind_room') }}">/bind-room</a>. This page is the free demo. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
+  {% if domain_error %}
+  <div class="card" style="border-color: var(--danger); margin-bottom: 1.5rem;">
+    <p><strong>Unknown domain.</strong> {{ domain_error }}</p>
+    <p class="audience-sub" style="margin-top: 0.5rem;">Allowed: {{ allowed|join(', ') }}</p>
+  </div>
+  {% endif %}
+  <label for="company">Operator / company</label>
+  <input id="company" type="text" value="Demo operator" style="margin: 0.4rem 0 1.25rem; padding: 0.5rem; max-width: 24rem; width: 100%;">
+  <div class="grid-2" id="domain-grid" style="margin-bottom: 1.5rem;">
+    {% for d in domains %}
+    <button type="button" class="domain-btn{% if d.id == selected %} active{% endif %}" data-domain="{{ d.id }}">
+      <strong>{{ d.label }}</strong>
+      <span>{{ d.chokepoint }}</span>
+    </button>
+    {% endfor %}
+  </div>
+  <p><button type="button" class="btn btn-primary" id="run-btn">Run this vertical</button></p>
+  <div id="outcome" class="card" style="margin-top: 1.5rem; display: none;"></div>
+  <pre id="step2" class="card" style="margin-top: 1rem; display: none; overflow: auto;"></pre>
+  <pre id="step3" class="card" style="margin-top: 1rem; display: none; overflow: auto;"></pre>
+  <div id="lenses" style="margin-top: 1rem;"></div>
+</div>
+<style>
+.domain-btn { text-align: left; padding: 0.85rem; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; border-radius: 8px; }
+.domain-btn strong { display: block; }
+.domain-btn span { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+.domain-btn.active { border-color: var(--accent); }
+.lens { padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
+.lens .desc { color: var(--muted); font-size: 0.9rem; }
+</style>
+<script>
+(function () {
+  var selected = {{ (selected or "insurance")|tojson }};
+  var runUrl = {{ url_for("bind_room_demo_run")|tojson }};
+  document.querySelectorAll(".domain-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      selected = btn.getAttribute("data-domain");
+      document.querySelectorAll(".domain-btn").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-domain") === selected);
+      });
+      history.replaceState(null, "", "/demo/bind-room?domain=" + encodeURIComponent(selected));
+    });
+  });
+  function show(el, text) {
+    el.style.display = "block";
+    el.textContent = text;
+  }
+  document.getElementById("run-btn").addEventListener("click", async function () {
+    var btn = this;
+    btn.disabled = true;
+    var outcome = document.getElementById("outcome");
+    outcome.style.display = "block";
+    outcome.textContent = "Running…";
+    try {
+      var res = await fetch(runUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          domain: selected,
+          company: (document.getElementById("company").value || "").trim()
+        })
+      });
+      var data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || data.error || "run failed");
+      }
+      outcome.textContent = data.domain_label + " · " + data.chokepoint + " · " + data.session_id;
+      show(document.getElementById("step2"), "step 2 signal\n" + JSON.stringify(data.step2_json, null, 2));
+      show(document.getElementById("step3"), "step 3 bind gate\n" + JSON.stringify(data.step3_json, null, 2));
+      var lenses = document.getElementById("lenses");
+      lenses.innerHTML = "";
+      (data.domain_lenses || []).forEach(function (l) {
+        var title = (l.profile && l.profile.title) || "";
+        var desc = (l.profile && l.profile.description) || "";
+        var d = document.createElement("div");
+        d.className = "lens";
+        var h = document.createElement("strong");
+        h.textContent = (l.ok ? "✓ " : "· ") + l.lens + (title ? " — " + title : "");
+        var p = document.createElement("div");
+        p.className = "desc";
+        p.textContent = desc;
+        d.appendChild(h);
+        d.appendChild(p);
+        lenses.appendChild(d);
+      });
+    } catch (e) {
+      outcome.textContent = "Error: " + (e.message || e);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+})();
+</script>
+{% endblock %}

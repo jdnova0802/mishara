@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Check{% endblock %}
+{% block meta %}
+<meta name="description" content="Last restraint feed from this mouth, generated at request time. Not a frozen October list.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Fuse lookup · restraint feed</p>
+  <h1>Check</h1>
+  <p class="audience-sub">This feed is built when the page is served (<time datetime="{{ generated_at }}">{{ generated_at }}</time>). Empty means this mouth has not printed a HALT/BLOCK yet — it does not mean the October 28 Velaru drill list.</p>
+  <p class="section-label">Last restraint feed</p>
+  {% if events %}
+  <ul class="check-list">
+    {% for ev in events %}
+    <li>
+      <code class="inline">{{ ev.decision or ev.id }}</code>
+      · {{ ev.created_at or ev.opened_at }}
+      {% if ev.reason %} · {{ ev.reason }}{% endif %}
+      {% if ev.title %} · {{ ev.title }}{% endif %}
+      {% if ev.receipt_hash %}<br><code class="inline">{{ ev.receipt_hash }}</code>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No production HALT/BLOCK on this mouth yet. Track-record incidents still list below.</p>
+  {% endif %}
+  {% if incidents %}
+  <h2 style="margin-top: 2rem;">Track record</h2>
+  <ul class="check-list">
+    {% for row in incidents %}
+    <li>{{ row.opened_at }} · {{ row.title }} · {{ row.status }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <p style="margin-top: 1.5rem;">Velaru fuse lookup (LIVE / ARMED / DEAD) stays on <a href="https://velaru.xyz/check">velaru.xyz/check</a>. Canonical $49 SKU name: <strong>fuse</strong> (also called Instant receipt, Payout gate, Paper Check — same item).</p>
+</div>
+{% endblock %}

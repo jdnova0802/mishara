@@ -55,6 +55,7 @@
         <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('docs') }}">Docs</a>
         <a href="{{ url_for('liquidations_page') }}">Liquidations</a>
+        <a href="{{ url_for('bind_room_demo') }}" data-cmdk-aliases="vertical bind-room reinsurance fleet grid counsel clinical board">Bind demo</a>
         <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
@@ -86,6 +87,10 @@
       <a href="https://www.linkedin.com/company/velaru" rel="noopener">Company</a> ·
       <a href="{{ url_for('finding_ccb_page') }}">QUSFI finding</a> ·
       <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
+      <a href="{{ url_for('bind_room_demo') }}">Bind demo</a> ·
+      <a href="{{ url_for('check_page') }}">Check</a> ·
+      <a href="{{ url_for('trust_corrections') }}">Corrections</a> ·
+      <a href="{{ url_for('mandate_registry') }}">Mandate registry</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
       <a href="{{ url_for('trust') }}">Trust</a> ·
       <a href="{{ url_for('record_page') }}">Record</a> ·
@@ -120,6 +125,58 @@
     function tick() { nodes.forEach(paint); }
     tick();
     setInterval(tick, 1000);
+  })();
+  </script>
+  <div id="cmdk" hidden>
+    <div class="cmdk-scrim" data-cmdk-close></div>
+    <div class="cmdk-panel" role="dialog" aria-label="Jump">
+      <input id="cmdk-input" type="search" placeholder="Jump — try “vertical”" autocomplete="off">
+      <ul id="cmdk-list"></ul>
+    </div>
+  </div>
+  <script>
+  (function () {
+    var root = document.getElementById("cmdk");
+    var input = document.getElementById("cmdk-input");
+    var list = document.getElementById("cmdk-list");
+    if (!root || !input || !list) return;
+    var pages = [
+      { href: "/", title: "Overview", aliases: "home start" },
+      { href: "/demo/bind-room", title: "Bind Room demo", aliases: "vertical bind-room reinsurance clinical board fleet grid counsel insurance" },
+      { href: "/bind-room", title: "Bind Room officer pack", aliases: "bind paid" },
+      { href: "/check", title: "Check / restraint feed", aliases: "feed fuse" },
+      { href: "/trust/corrections", title: "Corrections ledger", aliases: "verra retired" },
+      { href: "/compliance/mandate-registry", title: "Mandate registry", aliases: "mandate compliance" },
+      { href: "/pricing", title: "Pricing", aliases: "fuse $49 paper check payout gate instant receipt" },
+      { href: "/docs", title: "Docs", aliases: "api" },
+      { href: "/liquidations", title: "Liquidations", aliases: "aave" }
+    ];
+    function paint(q) {
+      q = (q || "").toLowerCase().trim();
+      list.innerHTML = "";
+      pages.filter(function (p) {
+        if (!q) return true;
+        return (p.title + " " + p.aliases + " " + p.href).toLowerCase().indexOf(q) !== -1;
+      }).forEach(function (p) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.href = p.href;
+        a.textContent = p.title;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    }
+    function open() { root.hidden = false; paint(""); input.value = ""; input.focus(); }
+    function close() { root.hidden = true; }
+    document.addEventListener("keydown", function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        if (root.hidden) open(); else close();
+      }
+      if (e.key === "Escape") close();
+    });
+    input.addEventListener("input", function () { paint(input.value); });
+    root.querySelector("[data-cmdk-close]").addEventListener("click", close);
   })();
   </script>
 </body>
