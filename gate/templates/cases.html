@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Case workspace{% endblock %}
+{% block meta %}
+<meta name="description" content="Bundle receipts and anomaly flags. CLOSE needs a resolution. Triage is not auto-acted.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 134–135</p>
+  <h1>A place to write what you think it means</h1>
+  <p class="audience-sub">Cases bundle 132 receipt ids and 133 flags. Triage ingest has no severity until a human enriches it. Disposition always needs a reason. Nothing here auto-acts.</p>
+  <ul class="check-list">
+    {% for c in cases %}
+    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.case_id }}</code> · {{ c.status }} · {{ c.hypothesis }}</li>
+    {% endfor %}
+  </ul>
+  <h2>Triage</h2>
+  <ul class="check-list">
+    {% for t in triage %}
+    <li style="--i: {{ loop.index0 }}"><code>{{ t.triage_id }}</code> · {{ t.source }} · severity={{ t.severity | tojson }} · {{ t.disposition or 'open' }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
