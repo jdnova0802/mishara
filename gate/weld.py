@@ -179,8 +179,22 @@ def mga_authority(
     reasons = []
     if not hop_allows_bind(hop, status):
         reasons.append("fuse_dead_or_halt")
-    if premium is not None and authority_limit is not None and premium > authority_limit:
-        reasons.append("premium_exceeds_authority")
+    distance = None
+    if premium is not None and authority_limit is not None:
+        delta = float(premium) - float(authority_limit)
+        distance = {
+            "premium": premium,
+            "limit": authority_limit,
+            "delta": delta,
+            "result": "OVER" if delta > 0 else "WITHIN",
+            "plain": (
+                f"${delta:,.0f} over the ${authority_limit:,.0f} limit"
+                if delta > 0
+                else f"${-delta:,.0f} under the ${authority_limit:,.0f} limit"
+            ),
+        }
+        if delta > 0:
+            reasons.append("premium_exceeds_authority")
     if allowed_lines:
         allowed = {str(x).lower() for x in allowed_lines}
         if line and str(line).lower() not in allowed:
@@ -216,6 +230,7 @@ def mga_authority(
             ],
             "not_a_registry_scrape": True,
         },
+        "distance_to_compliance": distance,
         "checks": {
             "premium": premium,
             "authority_limit": authority_limit,

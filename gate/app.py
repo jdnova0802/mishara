@@ -270,6 +270,16 @@ except ImportError:
     import atlas as atlas_mod
 
 try:
+    from gate import circuit_breaker as circuit_breaker_mod
+except ImportError:
+    import circuit_breaker as circuit_breaker_mod
+
+try:
+    from gate import safe_mode as safe_mode_mod
+except ImportError:
+    import safe_mode as safe_mode_mod
+
+try:
     from gate import prefinality as prefinality_mod
 except ImportError:
     import prefinality as prefinality_mod
@@ -1741,6 +1751,18 @@ def _finalize_spend_plan(
     extra["X-Gate-Inhabitant"] = letter["page"]
     out_status = status if status >= 500 else 200
     bound.attach(plan, out_status)
+    breaker = circuit_breaker_mod.evaluate(
+        db.list_bind_events(account_id, limit=200),
+        fuse_id,
+    )
+    plan["circuit_breaker"] = breaker
+    if breaker.get("open"):
+        plan["safe_mode"] = safe_mode_mod.snapshot(reason="circuit_open")
+        plan["halt"] = True
+        if plan.get("result") == "ALLOW":
+            plan["result"] = "HOLD"
+    elif (decision or "").upper() in ("HOLD", "HALT"):
+        plan["safe_mode"] = safe_mode_mod.snapshot(reason=decision)
     return plan, out_status, extra
 
 

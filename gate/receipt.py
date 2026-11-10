@@ -366,5 +366,36 @@ def receipt_to_public_payload(
         except ImportError:
             import inhabitant as inhabitant_mod
         payload = inhabitant_mod.attach_to_receipt_payload(payload, receipt_row, public_url)
+    payload["dfir"] = dfir_envelope(receipt_row, payload)
     return payload
+
+
+def dfir_envelope(receipt_row: dict, payload: dict) -> dict:
+    """Items 69–73 as labeled fields on the *public* payload, not the signed body."""
+    reason = None
+    if isinstance(receipt_row.get("hop"), dict):
+        reason = receipt_row["hop"].get("reason") or receipt_row["hop"].get("epoch_reason")
+    return {
+        "spec": "gate-dfir-envelope-v1",
+        "event_id": receipt_row.get("id"),
+        "agent_key_id": receipt_row.get("receipt_public_key_fingerprint"),
+        "payload_hash_sha256": receipt_row.get("receipt_hash"),
+        "capture_mode": "gate_bind_event",
+        "engine_build_hash": os.getenv("RENDER_GIT_COMMIT") or os.getenv("GATE_ENGINE_BUILD_HASH"),
+        "payload_format": "gate-receipt-payload-v1",
+        "chain_of_handlers": [
+            {
+                "role": "gate",
+                "key_id": receipt_row.get("receipt_public_key_fingerprint"),
+                "signature": receipt_row.get("receipt_signature"),
+            }
+        ],
+        "reason_code": reason,
+        "reason_text": reason,
+        "ledger_position": {
+            "prev_receipt_hash": receipt_row.get("prev_receipt_hash"),
+            "receipt_hash": receipt_row.get("receipt_hash"),
+        },
+        "in_signed_canonical": False,
+    }
 
