@@ -1,0 +1,15 @@
+{
+  "title": "ledger_entry (item 125)",
+  "type": "object",
+  "required": ["entry_id", "idempotency_key", "receipt_id", "debit_account", "credit_account", "amount", "posted_at"],
+  "properties": {
+    "entry_id": { "type": "string" },
+    "idempotency_key": { "type": "string", "description": "unique per billable event; Stripe-style retry safety" },
+    "receipt_id": { "type": "string", "description": "points at Gate/Verra receipt; never duplicates it" },
+    "debit_account": { "type": "string" },
+    "credit_account": { "type": "string" },
+    "amount": { "type": "number" },
+    "posted_at": { "type": "string", "format": "date-time" }
+  },
+  "not_yet_schema": ["126 risk-based rate card", "127 billing dispute path", "128 multi-party fee-split"]
+}

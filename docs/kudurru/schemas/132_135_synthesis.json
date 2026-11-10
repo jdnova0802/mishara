@@ -1,0 +1,42 @@
+{
+  "132_link_graph": {
+    "query": {
+      "required": ["query_id", "root_entity_type", "root_entity_id", "max_hops", "edge_types", "generated_at"],
+      "properties": {
+        "root_entity_type": { "enum": ["actor", "org", "receipt_id"] },
+        "edge_types": {
+          "type": "array",
+          "items": { "enum": ["ingredient", "co_signer", "shared_cohort", "shared_counterparty"] }
+        }
+      }
+    },
+    "edge": {
+      "required": ["edge_id", "from_node_id", "to_node_id", "edge_type", "source_receipt_id"],
+      "notes": "Every edge is receipt-proven except population-derived shared_cohort (blank source rather than faked)."
+    },
+    "impl": "nisaba-132-133/linkGraph.ts — node identity is a typed registry, never split on underscore"
+  },
+  "133_anomaly": {
+    "baseline": {
+      "required": ["baseline_id", "cohort_vertical", "metric", "period_start", "period_end", "mean", "stddev", "sample_size"],
+      "metric": { "enum": ["brier_score", "block_rate", "severity_weighted_load"] },
+      "min_sample_size": 20,
+      "deviation_threshold_sigma": 3.0
+    },
+    "flag": {
+      "born": { "reviewed": false, "disposition": null },
+      "notes": "Never auto-acted. Mean/stddev masks milder outliers when a severe one inflates stddev (item 139 Sybil-shift, honest stats). Median+MAD is a follow-on, not a silent demo fix."
+    }
+  },
+  "134_case_file": {
+    "status": { "enum": ["OPEN", "CLOSED", "ESCALATED"] },
+    "required_on_close": "resolution",
+    "build": "CRUD after 132/133 have data to bundle. Do not build first."
+  },
+  "135_triage_item": {
+    "source": { "enum": ["anomaly_flag", "counter_case_score", "kudurru_watch"] },
+    "severity": { "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+    "disposition": { "enum": ["ESCALATE", "MONITOR", "CLOSE_NON_ACTIONABLE"] },
+    "disposition_reason": "required — never closed silently"
+  }
+}

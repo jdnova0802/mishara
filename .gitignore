@@ -7,3 +7,5 @@ gate/.venv/
 gate/.env
 .venv/
 venv/
+nisaba-132-133/node_modules/
+nisaba-132-133/dist/

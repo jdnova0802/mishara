@@ -1,0 +1,14 @@
+{
+  "name": "nisaba-132-133",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Nisaba items 132 (cross-receipt link graph) and 133 (population anomaly detection).",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --strict",
+    "test": "tsc --strict && node dist/demo.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

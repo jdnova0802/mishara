@@ -1,0 +1,67 @@
+{
+  "136_atlas_technique_ref": {
+    "required": ["ref_id", "receipt_id", "atlas_tactic_id", "atlas_technique_id", "classification_confidence", "classified_by", "classified_at"],
+    "classified_by": { "enum": ["rule", "llm", "human_analyst"] },
+    "build": "standalone; field on existing receipt"
+  },
+  "137_campaign_cluster": {
+    "after": ["132", "133"],
+    "status": { "enum": ["SUSPECTED", "CONFIRMED", "DISMISSED"] },
+    "disarm_ttp_ref": "tactic/technique + evidence_receipt_ids; never a guess with nothing under it",
+    "144_gate": "SUSPECTED→CONFIRMED requires causal_edge_review with confounder_ruled_out true"
+  },
+  "138_opsec_disclosure_review": {
+    "surfaces": ["item_25_open_spec", "item_29_leaderboard", "item_58_live_map", "item_74_verify_api", "item_118_threshold_curve"],
+    "process": "identify critical info → threats → vulnerabilities → risk → countermeasures (NSDD-298)"
+  },
+  "139_inbound_signal_integrity_check": {
+    "signal_type": { "enum": ["harm_report", "calibration_resolution", "operator_registration"] },
+    "disposition": { "enum": ["TRUSTED", "QUARANTINED", "REJECTED"] },
+    "after": ["132", "133", "137"]
+  },
+  "140_ido": {
+    "collection_requirement": "Priority Intelligence Requirement; empty list is an unused table",
+    "feedback_loop_entry": "consumes case_file.resolution and campaign_cluster.status"
+  },
+  "141_stix_export_bundle": {
+    "stix_version": "2.1",
+    "after": ["136", "137"]
+  },
+  "142_signing_key_custody_audit": {
+    "key_scope": { "enum": ["root_signing_key", "intermediate_signing_key", "per_vertical_signing_key"] },
+    "current_live_gate": "GATE_RECEIPT_PRIVATE_KEY on Render env — single_admin / online. Do not rotate in this PR."
+  },
+  "143_osint_corroboration": {
+    "evidentiary_weight": "CORROBORATING_ONLY",
+    "hard_binding": false
+  },
+  "144_causal_edge_review": {
+    "claimed_relationship": { "enum": ["causal", "correlational", "unresolved"] }
+  },
+  "145_canary_receipt": {
+    "real_receipt_id": null,
+    "never_counted_in_scores": true
+  },
+  "146_competing_hypothesis": {
+    "gate": "case_file cannot CLOSE/ESCALATE without at least one is_deception_hypothesis true entry, even if rejected"
+  },
+  "147_cross_domain_relationship": {
+    "relationship_type": { "enum": ["facilitates", "compromises", "precedes"] }
+  },
+  "148_canary_trap_artifact": {
+    "ops": "needs a controlled leak channel; risk decision before running"
+  },
+  "149_fimi_attribution_tier": {
+    "actor_tier": { "enum": ["official_state", "overt_state_controlled", "undisclosed_state_linked", "covert_state_aligned"] },
+    "confounders_cleared": "must be true before tier above unattributed"
+  },
+  "150_transparency_log": {
+    "objects": ["transparency_log_tree", "inclusion_proof", "consistency_proof", "gossip_record"],
+    "rfc": "9162",
+    "gossip": "split-view is outside inclusion/consistency; gossip_record must be an outside party"
+  },
+  "151_media_provenance_check": {
+    "standard": "C2PA",
+    "soft_nulls": "c2pa_signature_valid etc. are null when no manifest exists"
+  }
+}

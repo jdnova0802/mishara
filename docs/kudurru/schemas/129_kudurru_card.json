@@ -1,0 +1,41 @@
+{
+  "kudurru_card": {
+    "title": "item 129",
+    "required": [
+      "card_id", "operator_id", "org_id", "cohort_vertical",
+      "period_start", "period_end", "streak_days", "percentile_rank",
+      "composite_score", "receipt_root_hash", "underlying_receipt_ids", "generated_at"
+    ],
+    "properties": {
+      "operator_id": { "description": "individual human/agent-owner, not org-scoped flex" },
+      "cohort_vertical": { "enum": ["Insurance", "Fleet", "Clinical", "Grid", "Counsel"] },
+      "streak_days": { "type": "integer" },
+      "streak_broken_at": { "type": ["string", "null"] },
+      "percentile_rank": { "type": "number" },
+      "composite_score": { "type": "number", "minimum": 0, "maximum": 100 },
+      "receipt_root_hash": { "type": "string", "description": "hash over ordered underlying_receipt_ids" },
+      "underlying_receipt_ids": { "type": "array", "items": { "type": "string" } },
+      "milestone_flag": { "type": "boolean", "description": "true at 30/100/365" }
+    },
+    "open_call": "hard-reset vs severity-decay vs Chess.com 2-day grace — not decided"
+  },
+  "streak_break_event": {
+    "required": ["break_id", "operator_id", "broken_at", "cause_receipt_id", "previous_streak_days"]
+  },
+  "kudurru_watch": {
+    "title": "item 129b — S&P CreditWatch vocabulary; attention only, no stakes",
+    "properties": {
+      "status": { "enum": ["NONE", "POSITIVE_WATCH", "NEGATIVE_WATCH"] },
+      "resolution": { "enum": ["HELD", "BROKEN", "EXTENDED", "REMOVED"] },
+      "follower_count": { "type": "integer", "description": "attention, not money" }
+    }
+  },
+  "kudurru_glyph": {
+    "title": "item 131 — Wordle-grid share; spoiler-safe",
+    "properties": {
+      "glyph_string": { "type": "string", "description": "🟩 clean · 🟨 watch · 🟥 break" },
+      "legend_version": { "type": "string" }
+    },
+    "never_embed": ["cause_receipt_id", "operator detail"]
+  }
+}

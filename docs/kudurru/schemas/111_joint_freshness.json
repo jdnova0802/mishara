@@ -1,0 +1,31 @@
+{
+  "title": "bind_event joint-freshness (item 111)",
+  "type": "object",
+  "required": ["bind_id", "erra_signal", "velaru_proof", "staleness_window_ms", "freshness_check", "bind_result"],
+  "properties": {
+    "bind_id": { "type": "string" },
+    "erra_signal": {
+      "type": "object",
+      "required": ["value", "hlc_timestamp"],
+      "description": "hybrid logical clock, not wall clock"
+    },
+    "velaru_proof": {
+      "type": "object",
+      "required": ["value", "hlc_timestamp"]
+    },
+    "staleness_window_ms": {
+      "type": "integer",
+      "description": "Must be tuned against live Erra/Velaru latency. Do not guess from a desk."
+    },
+    "freshness_check": {
+      "type": "object",
+      "required": ["delta_ms", "within_window"],
+      "properties": {
+        "delta_ms": { "type": "integer" },
+        "within_window": { "type": "boolean" }
+      }
+    },
+    "bind_result": { "enum": ["ALLOW", "BLOCK", "DEFERRED"] }
+  },
+  "notes": "DEFERRED when freshness fails — stale pairing is unproven, not auto-BLOCK."
+}

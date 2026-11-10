@@ -1,0 +1,30 @@
+{
+  "title": "harm_report + threshold_adjustment (item 110)",
+  "harm_report": {
+    "required": ["harm_report_id", "reported_at", "harm_description", "preceding_signals", "fingerprint_cluster_id"],
+    "properties": {
+      "harm_report_id": { "type": "string" },
+      "reported_at": { "type": "string", "format": "date-time" },
+      "harm_description": { "type": "string" },
+      "preceding_signals": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["signal_id", "observed_at", "gate_verdict_at_time", "signal_fingerprint", "sub_threshold_score"],
+          "properties": {
+            "signal_id": { "type": "string" },
+            "observed_at": { "type": "string", "format": "date-time" },
+            "gate_verdict_at_time": { "enum": ["ALLOW", "BLOCK", "HOLD"] },
+            "signal_fingerprint": { "type": "string" },
+            "sub_threshold_score": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      },
+      "fingerprint_cluster_id": { "type": "string" }
+    }
+  },
+  "threshold_adjustment": {
+    "required": ["erra_rule_id", "old_threshold", "new_threshold", "cluster_repeat_count", "adjusted_at", "adjustment_receipt_id"],
+    "notes": "Tightening may auto-apply fail-closed. Loosening always needs human approval. Adjustment itself is receipted."
+  }
+}
