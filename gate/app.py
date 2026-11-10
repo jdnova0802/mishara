@@ -305,6 +305,11 @@ except ImportError:
     import vertical_surfaces as vertical_surfaces_mod
 
 try:
+    from gate import wire as wire_mod
+except ImportError:
+    import wire as wire_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4118,13 +4123,59 @@ def wati_api():
 
 @app.route("/radar")
 def radar_page():
-    payload = vertical_surfaces_mod.radar(regulator_mod.manifest(advertised_url()).get("docket") or [])
-    return render_template("radar.html", payload=payload)
+    dockets = regulator_mod.manifest(advertised_url()).get("docket") or []
+    payload = vertical_surfaces_mod.radar(dockets)
+    monitor = wire_mod.monitor(dockets)
+    return render_template("radar.html", payload=payload, monitor=monitor)
 
 
 @app.route("/v1/radar")
 def radar_api():
-    return jsonify(vertical_surfaces_mod.radar(regulator_mod.manifest(advertised_url()).get("docket") or []))
+    dockets = regulator_mod.manifest(advertised_url()).get("docket") or []
+    body = vertical_surfaces_mod.radar(dockets)
+    body["monitor"] = wire_mod.monitor(dockets)
+    return jsonify(body)
+
+
+@app.route("/wire")
+def wire_page():
+    dockets = regulator_mod.manifest(advertised_url()).get("docket") or []
+    vertical = (request.args.get("vertical") or "").strip() or None
+    payload = wire_mod.feed(
+        db.list_bind_events_chronological(limit=500),
+        dockets,
+        vertical=vertical,
+    )
+    monitor = wire_mod.monitor(dockets)
+    return render_template("wire.html", payload=payload, monitor=monitor)
+
+
+@app.route("/v1/wire")
+def wire_api():
+    dockets = regulator_mod.manifest(advertised_url()).get("docket") or []
+    vertical = (request.args.get("vertical") or "").strip() or None
+    return jsonify(
+        wire_mod.feed(
+            db.list_bind_events_chronological(limit=500),
+            dockets,
+            vertical=vertical,
+        )
+    )
+
+
+@app.route("/v1/wire/monitor")
+def wire_monitor_api():
+    dockets = regulator_mod.manifest(advertised_url()).get("docket") or []
+    return jsonify(wire_mod.monitor(dockets))
+
+
+@app.route("/wire/<event_id>")
+def wire_drilldown(event_id: str):
+    dockets = regulator_mod.manifest(advertised_url()).get("docket") or []
+    payload = wire_mod.drilldown(event_id, db.list_bind_events_chronological(limit=500), dockets)
+    if payload is None:
+        abort(404)
+    return render_template("wire_drill.html", payload=payload)
 
 
 @app.route("/shifts")
@@ -6672,6 +6723,7 @@ def sitemap():
         "/companion",
         "/dating",
         "/ticker",
+        "/wire",
         "/legit",
         "/worker",
         "/wati",
@@ -7075,6 +7127,8 @@ def openapi_full():
                 "/companion": {"get": {"summary": "Companion-AI receipt check. Not emergency services."}},
                 "/dating": {"get": {"summary": "Dating receipt presence. Not a catfish model."}},
                 "/ticker": {"get": {"summary": "Dating receipt ticker. Not a catfish detector."}},
+                "/wire": {"get": {"summary": "BLOCK/HOLD/ALLOW mixed with named dockets. Not a Reuters wire."}},
+                "/v1/wire": {"get": {"summary": "Wire ticker JSON. Filter with ?vertical=. Not a scrape."}},
                 "/legit": {"get": {"summary": "Resale legit check via receipt. Not CV."}},
                 "/worker": {"get": {"summary": "Own-score event counts. Not FCRA."}},
                 "/wati": {"get": {"summary": "Worker Algorithm Transparency Index (named employers only)"}},

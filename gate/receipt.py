@@ -370,6 +370,21 @@ def receipt_to_public_payload(
     return payload
 
 
+def _reason_dateline(receipt_row: dict, reason_text: str | None) -> str:
+    """Item 90 — wire-copy dateline on public reason text. Does not rewrite reason_text."""
+    try:
+        from gate import wire as wire_mod
+    except ImportError:
+        import wire as wire_mod
+
+    hop = receipt_row.get("hop") if isinstance(receipt_row.get("hop"), dict) else {}
+    state = str(hop.get("state") or hop.get("jurisdiction") or "").strip()
+    place = state.upper() if state else "NEW YORK"
+    source = "Gate"
+    when = receipt_row.get("created_at")
+    return wire_mod.dateline(jurisdiction=place, source=source, when=when, text=reason_text or "")
+
+
 def dfir_envelope(receipt_row: dict, payload: dict) -> dict:
     """Items 69–73 as labeled fields on the *public* payload, not the signed body."""
     try:
@@ -396,6 +411,7 @@ def dfir_envelope(receipt_row: dict, payload: dict) -> dict:
         "chain_of_handlers": dfir_mod.chain_of_handlers(receipt_row),
         "reason_code": classified["reason_code"],
         "reason_text": classified["reason_text"],
+        "reason_dateline": _reason_dateline(receipt_row, classified["reason_text"]),
         "reason_raw": classified["raw"],
         "ledger_position": anchor["ledger_position"],
         "durable_anchor": anchor,

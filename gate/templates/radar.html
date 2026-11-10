@@ -19,5 +19,16 @@
     <li>{{ d.label }} · {{ d.status }}</li>
     {% endfor %}
   </ul>
+  <h2 class="docket-monitor">Named-record changes</h2>
+  <p class="audience-sub">{{ monitor.plain }}</p>
+  {% if monitor.changed %}
+  <ul class="check-list">
+    {% for f in monitor.changed %}
+    <li>{{ f.id }} · vertical={{ f.vertical }} · changed</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No named-record changes since last look. Not a live scrape.</p>
+  {% endif %}
 </div>
 {% endblock %}
