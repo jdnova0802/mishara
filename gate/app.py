@@ -290,6 +290,11 @@ except ImportError:
     import arp as arp_mod
 
 try:
+    from gate import large_surfaces as large_surfaces_mod
+except ImportError:
+    import large_surfaces as large_surfaces_mod
+
+try:
     from gate import safe_mode as safe_mode_mod
 except ImportError:
     import safe_mode as safe_mode_mod
@@ -1768,6 +1773,8 @@ def _finalize_spend_plan(
         "spec_url": f"{advertised_url()}/.well-known/spend-protocol.json",
     }
     plan["event_id"] = event_id
+    if (decision or "").upper() in ("BLOCK", "HALT", "HOLD"):
+        plan["evidence_packet"] = f"{advertised_url()}/.well-known/evidence-packet/{event_id}.json"
     letter = inhabitant_mod.for_event(row, advertised_url())
     plan["inhabitant"] = letter
     plan["inhabitant_url"] = letter["page"]
@@ -3309,6 +3316,12 @@ def well_known_evidence_packet(event_id: str):
                 "receipt_inclusion_proof": f"{advertised_url()}/.well-known/receipt/{event_id}/proof.json",
                 "evidence_head": f"{advertised_url()}/.well-known/evidence-head.json",
             },
+            "litigation": {
+                "ready": True,
+                "not_legal_advice": True,
+                "decision": row.get("decision"),
+                "generated_on_block": str(row.get("decision") or "").upper() in ("BLOCK", "HALT", "HOLD"),
+            },
         }
     )
 
@@ -3806,6 +3819,158 @@ def badge_verify():
     resp = Response(svg, mimetype="image/svg+xml")
     resp.headers["Cache-Control"] = "no-store"
     return resp
+
+
+@app.route("/map")
+def restraint_map_page():
+    payload = large_surfaces_mod.restraint_map(db.list_bind_events_chronological(limit=500))
+    return render_template("restraint_map.html", payload=payload)
+
+
+@app.route("/v1/restraint-map")
+def restraint_map_api():
+    return jsonify(large_surfaces_mod.restraint_map(db.list_bind_events_chronological(limit=500)))
+
+
+@app.route("/board")
+def cdpi_board_page():
+    payload = large_surfaces_mod.leaderboard(db.list_bind_events_chronological(limit=5000))
+    return render_template("cdpi_board.html", payload=payload)
+
+
+@app.route("/v1/cdpi-board")
+def cdpi_board_api():
+    return jsonify(large_surfaces_mod.leaderboard(db.list_bind_events_chronological(limit=5000)))
+
+
+@app.route("/sports")
+def sports_feed_page():
+    payload = large_surfaces_mod.sports_feed(db.list_bind_events_chronological(limit=500))
+    return render_template("sports_feed.html", payload=payload)
+
+
+@app.route("/v1/sports-feed")
+def sports_feed_api():
+    return jsonify(large_surfaces_mod.sports_feed(db.list_bind_events_chronological(limit=500)))
+
+
+@app.route("/exposure")
+def exposure_page():
+    notional = request.args.get("notional") or "50000"
+    unauthorized = request.args.get("unauthorized_per_year") or "12"
+    fraction = request.args.get("loss_fraction") or "1"
+    result = None
+    if request.args.get("notional"):
+        try:
+            result = large_surfaces_mod.exposure(
+                notional=float(notional),
+                unauthorized_per_year=float(unauthorized),
+                loss_fraction=float(fraction),
+            )
+        except (TypeError, ValueError):
+            result = {"error": "need_numbers", "not_a_quote": True}
+    return render_template(
+        "exposure.html",
+        notional=notional,
+        unauthorized_per_year=unauthorized,
+        loss_fraction=fraction,
+        result=result,
+    )
+
+
+@app.route("/v1/exposure", methods=["POST"])
+def exposure_api():
+    body = request.get_json(silent=True) or {}
+    try:
+        return jsonify(
+            large_surfaces_mod.exposure(
+                notional=float(body.get("notional")),
+                unauthorized_per_year=float(body.get("unauthorized_per_year")),
+                loss_fraction=float(body.get("loss_fraction") or 1),
+            )
+        )
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "error": "need_numbers", "not_a_quote": True}), 400
+
+
+@app.route("/sandbox", methods=["GET", "POST"])
+def sandbox_page():
+    result = None
+    if request.method == "POST":
+        result = large_surfaces_mod.twin(
+            {
+                "premium": request.form.get("premium"),
+                "authority_limit": request.form.get("authority_limit"),
+                "line": request.form.get("line"),
+                "state": request.form.get("state"),
+            }
+        )
+    return render_template("sandbox.html", result=result)
+
+
+@app.route("/v1/sandbox/twin", methods=["POST"])
+def sandbox_twin_api():
+    body = request.get_json(silent=True) or {}
+    return jsonify(large_surfaces_mod.twin(body))
+
+
+@app.route("/trust/skin/<slug>")
+def trust_skin_page(slug: str):
+    skin = large_surfaces_mod.get_skin(slug)
+    if not skin:
+        abort(404)
+    rows = db.list_bind_events_chronological(limit=200)
+    events = list(reversed(large_surfaces_mod.filter_skin_events(rows, skin)))[:50]
+    return render_template("trust_skin.html", skin=skin, events=events)
+
+
+@app.route("/v1/trust-skins", methods=["GET", "POST"])
+def trust_skins_api():
+    if request.method == "GET":
+        return jsonify({"spec": large_surfaces_mod.SKIN_SPEC, "skins": large_surfaces_mod.load_skins(), "dns": "not_edited"})
+    if not GATE_DEV_MODE:
+        return jsonify({"ok": False, "error": "dev_only", "dns": "not_edited"}), 403
+    body = request.get_json(silent=True) or {}
+    try:
+        skin = large_surfaces_mod.save_skin(
+            slug=body.get("slug") or "",
+            name=body.get("name") or "",
+            tagline=body.get("tagline") or "",
+            fuse_ids=body.get("fuse_ids") if isinstance(body.get("fuse_ids"), list) else [],
+        )
+    except ValueError as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+    return jsonify({"ok": True, "skin": skin}), 201
+
+
+@app.route("/companion")
+def companion_page():
+    event_id = (request.args.get("event_id") or "").strip()
+    result = large_surfaces_mod.companion_status(db.get_bind_event(event_id) if event_id else None) if event_id else None
+    return render_template("companion.html", event_id=event_id, result=result)
+
+
+@app.route("/v1/companion")
+def companion_api():
+    event_id = (request.args.get("event_id") or "").strip()
+    if not event_id:
+        return jsonify({"ok": False, "error": "event_id_required", "emergency": False}), 400
+    return jsonify(large_surfaces_mod.companion_status(db.get_bind_event(event_id)))
+
+
+@app.route("/dating")
+def dating_page():
+    event_id = (request.args.get("event_id") or "").strip()
+    result = large_surfaces_mod.dating_status(db.get_bind_event(event_id) if event_id else None) if event_id else None
+    return render_template("dating.html", event_id=event_id, result=result)
+
+
+@app.route("/v1/dating")
+def dating_api():
+    event_id = (request.args.get("event_id") or "").strip()
+    if not event_id:
+        return jsonify({"ok": False, "error": "event_id_required", "catfish_model": False}), 400
+    return jsonify(large_surfaces_mod.dating_status(db.get_bind_event(event_id)))
 
 
 @app.route("/.well-known/prefinality.json")
@@ -6069,6 +6234,13 @@ def sitemap():
         "/embed/trust.js",
         "/.well-known/agent-receipt-protocol.json",
         "/spec/agent-receipt-protocol/v0.1",
+        "/map",
+        "/board",
+        "/sports",
+        "/exposure",
+        "/sandbox",
+        "/companion",
+        "/dating",
         "/openapi.json",
     ]
     urls = "".join(
@@ -6440,6 +6612,16 @@ def openapi_full():
                 "/embed/trust.json": {"get": {"summary": "Widget JSON for a fuse_id", "security": []}},
                 "/.well-known/agent-receipt-protocol.json": {"get": {"summary": "ARP v0.1 dated 2026-11-10"}},
                 "/badge/verify.svg": {"get": {"summary": "Green/red receipt badge ?event_id=", "security": []}},
+                "/map": {"get": {"summary": "Live restraint map — located BLOCK/HOLD/HALT only"}},
+                "/v1/restraint-map": {"get": {"summary": "Restraint map JSON", "security": []}},
+                "/board": {"get": {"summary": "Public agent counts. Not CDPI items 75–79."}},
+                "/v1/cdpi-board": {"get": {"summary": "Event-count leaderboard", "security": []}},
+                "/sports": {"get": {"summary": "Prediction-market / sports BLOCK feed"}},
+                "/exposure": {"get": {"summary": "Ungated-agent exposure calculator. Not a quote."}},
+                "/sandbox": {"get": {"summary": "Digital-twin dry run. No receipt written."}},
+                "/v1/sandbox/twin": {"post": {"summary": "MGA rule engine against a posted hop", "security": []}},
+                "/companion": {"get": {"summary": "Companion-AI receipt check. Not emergency services."}},
+                "/dating": {"get": {"summary": "Dating receipt presence. Not a catfish model."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},

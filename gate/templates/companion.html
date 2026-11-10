@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Companion receipt check{% endblock %}
+{% block meta %}
+<meta name="description" content="Paste an event id. See whether this mouth printed a receipt. Not emergency services.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Companion-AI checker</p>
+  <h1>Did the companion leave a receipt?</h1>
+  <p class="audience-sub">Paste the event id the agent showed you. This is a receipt check. It is not a crisis line and it does not call anyone.</p>
+  <form method="get">
+    <p><label>Event id <input name="event_id" value="{{ event_id or '' }}" required></label>
+    <button class="btn btn-primary" type="submit">Check</button></p>
+  </form>
+  {% if result %}
+  <p>{{ result.plain }}</p>
+  {% if result.ok %}
+  <p><a href="{{ url_for('receipt_preview', event_id=result.event_id) }}">Open receipt</a>
+     · <a href="/.well-known/evidence-packet/{{ result.event_id }}.json">Evidence packet</a></p>
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

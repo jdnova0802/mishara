@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Restraint map{% endblock %}
+{% block meta %}
+<meta name="description" content="BLOCK events with a two-letter jurisdiction, pinned. Unlocated events are counted, not invented.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Live restraint map</p>
+  <h1>Where this mouth said no</h1>
+  <p class="audience-sub">{{ payload.plain }}</p>
+  <svg class="restraint-map" viewBox="0 0 800 400" role="img" aria-label="Equirectangular map of located BLOCK events">
+    <rect width="800" height="400" fill="#12141c" stroke="#252836"/>
+    {% for p in payload.points %}
+    <circle cx="{{ p.x }}" cy="{{ p.y }}" r="5" fill="#f87171">
+      <title>{{ p.decision }} {{ p.code }} {{ p.id }}</title>
+    </circle>
+    {% endfor %}
+  </svg>
+  <p>{{ payload.points|length }} located · {{ payload.unlocated }} unlocated</p>
+  {% if payload.points %}
+  <ul class="check-list">
+    {% for p in payload.points %}
+    <li><code>{{ p.decision }}</code> · {{ p.code }} · <a href="{{ url_for('receipt_preview', event_id=p.id) }}"><code>{{ p.id[:8] }}</code></a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+<style>
+.restraint-map { width: 100%; height: auto; margin: 1rem 0; border-radius: 8px; }
+</style>
+{% endblock %}

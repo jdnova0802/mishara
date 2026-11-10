@@ -93,6 +93,12 @@
       <a href="{{ url_for('trust_claims') }}">Claims</a> ·
       <a href="{{ url_for('chain_page') }}">Chain</a> ·
       <a href="{{ url_for('gate_rules_page') }}">Rules</a> ·
+      <a href="{{ url_for('restraint_map_page') }}">Map</a> ·
+      <a href="{{ url_for('cdpi_board_page') }}">Board</a> ·
+      <a href="{{ url_for('exposure_page') }}">Exposure</a> ·
+      <a href="{{ url_for('sandbox_page') }}">Sandbox</a> ·
+      <a href="{{ url_for('companion_page') }}">Companion</a> ·
+      <a href="{{ url_for('dating_page') }}">Dating</a> ·
       <a href="{{ url_for('trust_corrections') }}">Corrections</a> ·
       <a href="{{ url_for('mandate_registry') }}">Mandate registry</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
@@ -155,7 +161,14 @@
       { href: "/docs", title: "Docs", aliases: "api" },
       { href: "/liquidations", title: "Liquidations", aliases: "aave" },
       { href: "/chain", title: "Receipt chain", aliases: "explorer hash ledger" },
-      { href: "/rules", title: "No-code rules", aliases: "gate-rules block hold" }
+      { href: "/rules", title: "No-code rules", aliases: "gate-rules block hold" },
+      { href: "/map", title: "Restraint map", aliases: "globe geo block" },
+      { href: "/board", title: "Agent counts board", aliases: "cdpi leaderboard" },
+      { href: "/sports", title: "Sports / prediction blocks", aliases: "betting kalshi" },
+      { href: "/exposure", title: "Ungated exposure", aliases: "calculator cost" },
+      { href: "/sandbox", title: "Digital twin sandbox", aliases: "simulate twin" },
+      { href: "/companion", title: "Companion receipt check", aliases: "crisis ai" },
+      { href: "/dating", title: "Dating receipt check", aliases: "catfish" }
     ];
     function paint(q) {
       q = (q || "").toLowerCase().trim();

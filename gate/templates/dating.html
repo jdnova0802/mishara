@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Dating receipt check{% endblock %}
+{% block meta %}
+<meta name="description" content="Checks whether a dating claim has a signed Gate receipt. Does not detect catfish from photos.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Dating-safety checker</p>
+  <h1>Receipt presence, not a catfish model</h1>
+  <p class="audience-sub">If someone claims a signed check, paste the event id. Gate does not run face match, liveness, or reverse-image search. Those are research items 45–47.</p>
+  <form method="get">
+    <p><label>Event id <input name="event_id" value="{{ event_id or '' }}" required></label>
+    <button class="btn btn-primary" type="submit">Check</button></p>
+  </form>
+  {% if result %}
+  <p>{{ result.plain }}</p>
+  {% endif %}
+</div>
+{% endblock %}
