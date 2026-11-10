@@ -295,6 +295,11 @@ except ImportError:
     import large_surfaces as large_surfaces_mod
 
 try:
+    from gate import vertical_surfaces as vertical_surfaces_mod
+except ImportError:
+    import vertical_surfaces as vertical_surfaces_mod
+
+try:
     from gate import safe_mode as safe_mode_mod
 except ImportError:
     import safe_mode as safe_mode_mod
@@ -3962,6 +3967,10 @@ def companion_api():
 def dating_page():
     event_id = (request.args.get("event_id") or "").strip()
     result = large_surfaces_mod.dating_status(db.get_bind_event(event_id) if event_id else None) if event_id else None
+    if event_id and result:
+        vertical_surfaces_mod.record_tick(
+            kind="dating", event_id=event_id, present=bool(result.get("receipt_present"))
+        )
     return render_template("dating.html", event_id=event_id, result=result)
 
 
@@ -3970,7 +3979,192 @@ def dating_api():
     event_id = (request.args.get("event_id") or "").strip()
     if not event_id:
         return jsonify({"ok": False, "error": "event_id_required", "catfish_model": False}), 400
-    return jsonify(large_surfaces_mod.dating_status(db.get_bind_event(event_id)))
+    status = large_surfaces_mod.dating_status(db.get_bind_event(event_id))
+    vertical_surfaces_mod.record_tick(
+        kind="dating", event_id=event_id, present=bool(status.get("receipt_present"))
+    )
+    return jsonify(status)
+
+
+@app.route("/ticker")
+def ticker_page():
+    payload = vertical_surfaces_mod.ticker(db.list_bind_events_chronological(limit=500))
+    return render_template("ticker.html", payload=payload)
+
+
+@app.route("/v1/ticker")
+def ticker_api():
+    return jsonify(vertical_surfaces_mod.ticker(db.list_bind_events_chronological(limit=500)))
+
+
+@app.route("/legit")
+def legit_page():
+    listing_id = (request.args.get("listing_id") or "").strip()
+    event_id = (request.args.get("event_id") or "").strip()
+    result = None
+    if listing_id:
+        result = vertical_surfaces_mod.legit_check(
+            listing_id=listing_id, row=db.get_bind_event(event_id) if event_id else None
+        )
+    return render_template(
+        "legit.html",
+        listing_id=listing_id,
+        event_id=event_id,
+        result=result,
+        board=vertical_surfaces_mod.legit_board(),
+    )
+
+
+@app.route("/v1/legit", methods=["POST"])
+def legit_api():
+    body = request.get_json(silent=True) or {}
+    listing_id = (body.get("listing_id") or "").strip()
+    event_id = (body.get("event_id") or "").strip()
+    if not listing_id:
+        return jsonify({"ok": False, "error": "listing_id_required", "cv_model": False}), 400
+    return jsonify(
+        vertical_surfaces_mod.legit_check(
+            listing_id=listing_id, row=db.get_bind_event(event_id) if event_id else None
+        )
+    )
+
+
+@app.route("/v1/legit-board")
+def legit_board_api():
+    return jsonify(vertical_surfaces_mod.legit_board())
+
+
+@app.route("/worker")
+def worker_page():
+    fuse_id = (request.args.get("fuse_id") or "").strip()
+    result = (
+        vertical_surfaces_mod.worker_score(db.list_bind_events_chronological(limit=5000), fuse_id)
+        if fuse_id
+        else None
+    )
+    return render_template("worker.html", fuse_id=fuse_id, result=result)
+
+
+@app.route("/v1/worker")
+def worker_api():
+    fuse_id = (request.args.get("fuse_id") or "").strip()
+    if not fuse_id:
+        return jsonify({"ok": False, "error": "fuse_id_required", "fcra_score": False}), 400
+    return jsonify(
+        vertical_surfaces_mod.worker_score(db.list_bind_events_chronological(limit=5000), fuse_id)
+    )
+
+
+@app.route("/wati")
+def wati_page():
+    payload = vertical_surfaces_mod.wati(db.list_bind_events_chronological(limit=5000))
+    return render_template("wati.html", payload=payload)
+
+
+@app.route("/v1/wati")
+def wati_api():
+    return jsonify(vertical_surfaces_mod.wati(db.list_bind_events_chronological(limit=5000)))
+
+
+@app.route("/radar")
+def radar_page():
+    payload = vertical_surfaces_mod.radar(regulator_mod.manifest(advertised_url()).get("docket") or [])
+    return render_template("radar.html", payload=payload)
+
+
+@app.route("/v1/radar")
+def radar_api():
+    return jsonify(vertical_surfaces_mod.radar(regulator_mod.manifest(advertised_url()).get("docket") or []))
+
+
+@app.route("/shifts")
+def shifts_page():
+    return render_template("shifts.html", result=None)
+
+
+@app.route("/v1/shifts/anomaly", methods=["POST"])
+def shifts_anomaly_api():
+    body = request.get_json(silent=True) or {}
+    hours = body.get("hours") if isinstance(body.get("hours"), list) else []
+    return jsonify(vertical_surfaces_mod.shift_anomaly(hours))
+
+
+@app.route("/shadow")
+def shadow_page():
+    employer = (request.args.get("employer_hash") or "").strip()
+    result = vertical_surfaces_mod.reconstruct(employer) if employer else None
+    return render_template("shadow.html", result=result)
+
+
+@app.route("/v1/shadow", methods=["GET", "POST"])
+def shadow_api():
+    if request.method == "GET":
+        employer = (request.args.get("employer_hash") or "").strip()
+        if not employer:
+            return jsonify({"ok": False, "error": "employer_hash_required"}), 400
+        return jsonify(vertical_surfaces_mod.reconstruct(employer))
+    body = request.get_json(silent=True) or {}
+    try:
+        return jsonify(
+            vertical_surfaces_mod.add_shadow(
+                employer_hash=body.get("employer_hash") or "",
+                feature=body.get("feature") or "",
+                outcome=body.get("outcome") or "",
+            )
+        ), 201
+    except ValueError as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+
+
+@app.route("/research/liveness")
+def research_liveness():
+    stub = vertical_surfaces_mod.research_stub(45, "Video-call liveness / deepfake")
+    return render_template("research_stub.html", stub=stub)
+
+
+@app.route("/research/reverse-image")
+def research_reverse_image():
+    stub = vertical_surfaces_mod.research_stub(46, "Reverse-image search")
+    return render_template("research_stub.html", stub=stub)
+
+
+@app.route("/research/cv-auth")
+def research_cv_auth():
+    stub = vertical_surfaces_mod.research_stub(47, "CV authentication (stitch/serial)")
+    return render_template("research_stub.html", stub=stub)
+
+
+@app.route("/.well-known/research.json")
+def well_known_research():
+    return jsonify(
+        {
+            "45": vertical_surfaces_mod.research_stub(45, "Video-call liveness / deepfake"),
+            "46": vertical_surfaces_mod.research_stub(46, "Reverse-image search"),
+            "47": vertical_surfaces_mod.research_stub(47, "CV authentication (stitch/serial)"),
+        }
+    )
+
+
+@app.route("/listing-anomaly")
+def listing_anomaly_page():
+    return render_template("listing_anomaly.html", result=None)
+
+
+@app.route("/v1/listing-anomaly", methods=["POST"])
+def listing_anomaly_api():
+    body = request.get_json(silent=True) or {}
+    prices = body.get("prices") if isinstance(body.get("prices"), list) else []
+    return jsonify(vertical_surfaces_mod.listing_price_anomaly(prices))
+
+
+@app.route("/parametric")
+def parametric_page():
+    return render_template("parametric.html", stub=vertical_surfaces_mod.parametric_stub())
+
+
+@app.route("/.well-known/parametric.json")
+def well_known_parametric():
+    return jsonify(vertical_surfaces_mod.parametric_stub())
 
 
 @app.route("/.well-known/prefinality.json")
@@ -6241,6 +6435,18 @@ def sitemap():
         "/sandbox",
         "/companion",
         "/dating",
+        "/ticker",
+        "/legit",
+        "/worker",
+        "/wati",
+        "/radar",
+        "/shifts",
+        "/shadow",
+        "/research/liveness",
+        "/research/reverse-image",
+        "/research/cv-auth",
+        "/listing-anomaly",
+        "/parametric",
         "/openapi.json",
     ]
     urls = "".join(
@@ -6622,6 +6828,18 @@ def openapi_full():
                 "/v1/sandbox/twin": {"post": {"summary": "MGA rule engine against a posted hop", "security": []}},
                 "/companion": {"get": {"summary": "Companion-AI receipt check. Not emergency services."}},
                 "/dating": {"get": {"summary": "Dating receipt presence. Not a catfish model."}},
+                "/ticker": {"get": {"summary": "Dating receipt ticker. Not a catfish detector."}},
+                "/legit": {"get": {"summary": "Resale legit check via receipt. Not CV."}},
+                "/worker": {"get": {"summary": "Own-score event counts. Not FCRA."}},
+                "/wati": {"get": {"summary": "Worker Algorithm Transparency Index (named employers only)"}},
+                "/radar": {"get": {"summary": "Named AI/payment dockets. Not a live scrape."}},
+                "/v1/shifts/anomaly": {"post": {"summary": "Own-shift 3-sigma flags. Never auto-acted.", "security": []}},
+                "/v1/shadow": {"post": {"summary": "Crowdsourced hashed feature→outcome rows", "security": []}},
+                "/research/liveness": {"get": {"summary": "Item 45 research stub — no model"}},
+                "/research/reverse-image": {"get": {"summary": "Item 46 research stub — no model"}},
+                "/research/cv-auth": {"get": {"summary": "Item 47 research stub — no model"}},
+                "/v1/listing-anomaly": {"post": {"summary": "Price sigma on a posted series. Not CV.", "security": []}},
+                "/parametric": {"get": {"summary": "No parametric product. Needs an underwriter."}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},

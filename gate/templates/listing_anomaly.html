@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Listing price anomaly{% endblock %}
+{% block meta %}
+<meta name="description" content="3-sigma flags on a posted price series. Not a manipulation finding and not computer vision.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Resale price sigma</p>
+  <h1>Prices vs the series you posted</h1>
+  <p class="audience-sub">POST <code>{"prices":[...]}</code> to <code>/v1/listing-anomaly</code>. Needs 20 numbers. Never auto-acted.</p>
+  {% if result %}
+  <pre class="card" style="overflow:auto;padding:1rem;">{{ result | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

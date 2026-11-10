@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Worker Algorithm Transparency Index{% endblock %}
+{% block meta %}
+<meta name="description" content="Public BLOCK/ALLOW counts for hops that already name a company. Empty is honest.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">WATI</p>
+  <h1>Worker Algorithm Transparency Index</h1>
+  <p class="audience-sub">{{ payload.plain }}</p>
+  {% if payload.companies %}
+  <ul class="check-list">
+    {% for c in payload.companies %}
+    <li>{{ c.company }} · BLOCK {{ c.block }} · HALT {{ c.halt }} · ALLOW {{ c.allow }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No named employers on this mouth yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

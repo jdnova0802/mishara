@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Dating receipt ticker{% endblock %}
+{% block meta %}
+<meta name="description" content="Public ticker of dating receipt-presence checks. Not a catfish detector.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Catfish ticker</p>
+  <h1>Receipt ticks, not a detector</h1>
+  <p class="audience-sub">{{ payload.plain }}</p>
+  {% if payload.ticks %}
+  <ul class="check-list">
+    {% for t in payload.ticks %}
+    <li>{{ t.at }} · present={{ t.receipt_present }} · <code>{{ t.event_id[:8] }}</code></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No ticks yet. Empty is the ticker.</p>
+  {% endif %}
+</div>
+{% endblock %}
