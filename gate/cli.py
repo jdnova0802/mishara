@@ -39,7 +39,40 @@ def main():
     sub.add_parser("me", help="Key metadata + usage")
 
     p_demo = sub.add_parser("demo-hop", help="Execute gate demo")
+
+    p_verify = sub.add_parser("verify", help="Fetch a public receipt by event_id (no API key)")
+    p_verify.add_argument("event_id")
+
     args = parser.parse_args()
+
+    if args.cmd == "verify":
+        import urllib.error
+        import urllib.request
+
+        url = args.base.rstrip("/") + f"/.well-known/receipt/{args.event_id}.json"
+        try:
+            with urllib.request.urlopen(url, timeout=15) as resp:
+                doc = json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            print(json.dumps({"ok": False, "error": f"http_{e.code}", "url": url}), file=sys.stderr)
+            sys.exit(1)
+        except Exception as e:
+            print(json.dumps({"ok": False, "error": str(e), "url": url}), file=sys.stderr)
+            sys.exit(1)
+        print(
+            json.dumps(
+                {
+                    "ok": True,
+                    "event_id": args.event_id,
+                    "receipt_hash": doc.get("receipt_hash"),
+                    "signed": bool(doc.get("receipt_signature")),
+                    "decision": doc.get("decision") or doc.get("result"),
+                    "url": url,
+                },
+                indent=2,
+            )
+        )
+        return
 
     if not args.key and args.cmd != "demo-hop":
         print("Set GATE_API_KEY or pass --key", file=sys.stderr)

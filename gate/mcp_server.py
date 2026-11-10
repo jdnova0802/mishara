@@ -105,6 +105,15 @@ TOOLS = [
             "required": ["rail", "transfer"],
         },
     },
+    {
+        "name": "verify_receipt",
+        "description": "Look up a Gate bind receipt by event_id. Returns hash, signature presence, and the public verify URL. Does not treat a named key inside the receipt as the authority.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"event_id": {"type": "string"}},
+            "required": ["event_id"],
+        },
+    },
 ]
 
 
