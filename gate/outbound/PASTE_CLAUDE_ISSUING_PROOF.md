@@ -43,7 +43,14 @@ Public decision (no PAN):
 
 https://gate.velaru.xyz/v1/issuing/authorization/iauth_1URXhX3b5zsnE0zsR1QikRhn
 
-The signed receipt on that row was minted with `ttl_seconds: 120`. A verify call now returns `expired`. The stored decision is still GO. Do not treat `expired` as a decline of the swipe. Do not re-mint a replacement JWT and call it the original receipt.
+The signed receipt on that row was minted with `ttl_seconds: 120`. It was not re-minted.
+
+Stranger GET keeps stored `GO` and `approved: true`, and adds:
+
+- `receipt_status`: `expired`
+- `receipt_message`: `expired (decision was GO, recorded 2026-10-17T13:31:08Z)`
+
+`POST /v1/prefinality/verify` of that JWT is still HTTP 400, `reason: expired`, `decision: GO`, with the same message. TTL expiry, not a decline.
 
 ### Live wire (do not recreate)
 
@@ -59,9 +66,19 @@ The signed receipt on that row was minted with `ttl_seconds: 120`. A verify call
 
 ### Code vs what is running
 
-PR **#167** (`cursor/issuing-api-version-ce84`) has the header, the pending-amount read, and `GET /v1/issuing/authorization/<iauth_id>`. It is **not merged**.
+PR **#167** is on `main` and live. Production is no longer the hand deploy of `f747234`.
 
-Production was deployed by hand from that branch (`f747234`, Render deploy `dep-db9ni9e1egvs73fufl50`). The service’s tracked branch is still `main`. The next auto-deploy of `main` drops the header, the pending-amount read, and the public decision URL. Merge #167 before any other `main` deploy, or the next swipe fails the same three ways again.
+Live `gate-api` is Render deploy `dep-db9nr1psrm7s739nkm4g` at commit `0152e56` (merge of **#168**). Tracked branch is still `main`. Auto-deploy is on.
+
+Webhook `we_1URXLh3b5zsnE0zsL12oWMS4` is enabled: `https://gate.velaru.xyz/v1/issuing/authorization`, `issuing_authorization.request` only, `api_version` `2025-02-24.acacia`. Deployed code still sets `Stripe-Version: 2025-02-24.acacia` on the reply and still reads `pending_request.amount`. No new authorization since the Kindle approval.
+
+`f747234` is still in history. Extra on live now:
+
+- `8fd292f` — this Issuing paste
+- `8938852` — merge of #167 (header + pending amount + public GET)
+- `44d9c2a` / `0152e56` — expired-copy follow-up (#168)
+
+The three webhook fixes were not dropped. A later `main` deploy keeps them.
 
 ### Honesty
 
@@ -79,3 +96,4 @@ Production was deployed by hand from that branch (`f747234`, Render deploy `dep-
 - Read top-level `amount` on the request event.
 - Spend on card 5440. It is canceled.
 - Call this the stranger dollar.
+- Treat `receipt_status: expired` or verify `reason: expired` as a reversal of `iauth_1URXhX3b5zsnE0zsR1QikRhn`.
