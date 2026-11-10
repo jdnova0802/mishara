@@ -5,12 +5,12 @@
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Items 137 / 144</p>
+  <p class="audience-tag">Items 137 / 144 / 149</p>
   <h1>Correlation is not confirmation</h1>
-  <p class="audience-sub">A campaign cluster is a DISARM label on the link graph and anomaly flags. CONFIRMED waits on a causal_edge_review that names and rules out a confounder. Empty TTP evidence is refused. hard_binding=false.</p>
+  <p class="audience-sub">A campaign cluster is a DISARM label on the link graph and anomaly flags. CONFIRMED waits on a causal_edge_review that names and rules out a confounder. FIMI actor-confidence stays unattributed until that same gate clears. Empty TTP evidence is refused. hard_binding=false.</p>
   <ul class="check-list">
     {% for c in clusters %}
-    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.campaign_cluster_id }}</code> · {{ c.status }} · members={{ c.member_operator_ids | length }}</li>
+    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.campaign_cluster_id }}</code> · {{ c.status }} · fimi={{ (c.fimi_attribution.actor_tier if c.fimi_attribution else 'unattributed') }} · members={{ c.member_operator_ids | length }}</li>
     {% endfor %}
   </ul>
 </div>

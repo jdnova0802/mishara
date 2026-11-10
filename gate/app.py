@@ -4952,6 +4952,18 @@ def campaigns_status_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/v1/campaigns/fimi", methods=["POST"])
+def campaigns_fimi_api():
+    body = request.get_json(silent=True) or {}
+    rec = campaign_mod.set_fimi_tier(
+        campaign_cluster_id=body.get("campaign_cluster_id") or "",
+        actor_tier=body.get("actor_tier") or "",
+        tier_rationale=body.get("tier_rationale") or "",
+        set_by=body.get("set_by") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/v1/cases/status", methods=["POST"])
 def cases_status_api():
     body = request.get_json(silent=True) or {}
@@ -8178,7 +8190,7 @@ def openapi_full():
                 "/tns": {"get": {"summary": "Item 104 — T&S vertical. Provenance is not abuse. No CV."}},
                 "/kudurru": {"get": {"summary": "Items 129/129b/131 — card hashes receipts. Streak policy unset."}},
                 "/cases": {"get": {"summary": "Items 134–135 / 143 / 146 — workspace, OSINT corroboration, ACH gate."}},
-                "/campaigns": {"get": {"summary": "Items 137/144 — DISARM cluster. CONFIRMED needs a confounder review."}},
+                "/campaigns": {"get": {"summary": "Items 137/144/149 — DISARM cluster. FIMI tier waits on confounders."}},
                 "/opsec": {"get": {"summary": "Items 138/145 — OPSEC reviews and canary receipts. Never scored."}},
                 "/ido": {"get": {"summary": "Items 139/140 — inbound integrity and PIR/feedback. Empty list is unused."}},
                 "/stix": {"get": {"summary": "Items 141/147 — STIX 2.1 export. Not TAXII."}},
@@ -8205,6 +8217,9 @@ def openapi_full():
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
                     "post": {"summary": "Open SUSPECTED cluster from 132/133 sources.", "security": []},
+                },
+                "/v1/campaigns/fimi": {
+                    "post": {"summary": "EEAS FIMI actor tier. Above unattributed needs item 144.", "security": []},
                 },
                 "/v1/cases": {
                     "get": {"summary": "List cases", "security": []},
