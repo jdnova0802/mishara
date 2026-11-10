@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}OPSEC / canaries{% endblock %}
+{% block meta %}
+<meta name="description" content="NSDD-298 disclosure reviews. Canary receipts are fake and never scored. Distinct from bypass canaries.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Items 138 / 145</p>
+  <h1>Prove consistency, not the number</h1>
+  <p class="audience-sub">OPSEC five-step on stranger-verifiable surfaces. Item 118 banding is APPLIED in code. Canary receipts have real_receipt_id=null and never_counted_in_scores. They are not the spend-skip bypass canary.</p>
+  <ul class="check-list">
+    {% for r in reviews %}
+    <li style="--i: {{ loop.index0 }}">{{ r.surface }} · {{ r.risk_rank }} · {{ r.countermeasure_status }}</li>
+    {% endfor %}
+  </ul>
+  <h2>Canaries</h2>
+  <ul class="check-list">
+    {% for c in canaries %}
+    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.canary_id }}</code> · {{ c.disguised_as }} · tripped={{ c.tripped }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
