@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Agent registration standard{% endblock %}
+{% block meta %}
+<meta name="description" content="Open agent registration v0.1. Adopters list is empty on purpose.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 55</p>
+  <h1>A standard with no adopters</h1>
+  <p class="audience-sub">{{ spec.plain }}</p>
+  <p>Adopters: {{ spec.adopters }}</p>
+  <p>DID method: <code>{{ spec.did_method }}</code></p>
+  <p><a href="/spec/agent-registration/v0.1.md">Markdown</a></p>
+</div>
+{% endblock %}

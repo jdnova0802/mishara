@@ -105,6 +105,10 @@
       <a href="{{ url_for('wati_page') }}">WATI</a> ·
       <a href="{{ url_for('radar_page') }}">Radar</a> ·
       <a href="{{ url_for('parametric_page') }}">Parametric</a> ·
+      <a href="{{ url_for('agents_page') }}">Agents</a> ·
+      <a href="{{ url_for('cdpi_page') }}">CDPI</a> ·
+      <a href="{{ url_for('disputes_page') }}">Disputes</a> ·
+      <a href="{{ url_for('zk_page') }}">ZK</a> ·
       <a href="{{ url_for('trust_corrections') }}">Corrections</a> ·
       <a href="{{ url_for('mandate_registry') }}">Mandate registry</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
@@ -184,7 +188,12 @@
       { href: "/shadow", title: "Shadow audit", aliases: "employer policy" },
       { href: "/research/liveness", title: "Liveness research", aliases: "deepfake" },
       { href: "/listing-anomaly", title: "Listing price anomaly", aliases: "resale sigma" },
-      { href: "/parametric", title: "Parametric (none)", aliases: "insurance munich" }
+      { href: "/parametric", title: "Parametric (none)", aliases: "insurance munich" },
+      { href: "/agents", title: "Agent DID", aliases: "did identity" },
+      { href: "/cdpi", title: "CDPI score", aliases: "bureau trust-record" },
+      { href: "/disputes", title: "Dispute a BLOCK", aliases: "fcra correction" },
+      { href: "/zk", title: "ZK linkage", aliases: "threshold proof" },
+      { href: "/agent-registration", title: "Agent registration spec", aliases: "adopters standard" }
     ];
     function paint(q) {
       q = (q || "").toLowerCase().trim();

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Agent identity{% endblock %}
+{% block meta %}
+<meta name="description" content="Register a key-bound DID that survives sessions. Not a bureau file.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Agent DID</p>
+  <h1>One key, across companies</h1>
+  <p class="audience-sub">POST a public key. You get <code>did:gate:…</code>. A new session does not mint a new person.</p>
+  <form method="post">
+    <p><label>Public key (b64) <input name="public_key_b64" required></label></p>
+    <p><label>Fuse id <input name="fuse_id"></label></p>
+    <p><label>Label <input name="label"></label></p>
+    <p><button class="btn btn-primary" type="submit">Register</button></p>
+  </form>
+  {% if agent %}
+  <pre class="card" style="overflow:auto;padding:1rem;">{{ agent | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}
