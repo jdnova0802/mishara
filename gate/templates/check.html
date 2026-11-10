@@ -8,6 +8,9 @@
   <p class="audience-tag">Fuse lookup · restraint feed</p>
   <h1>Check</h1>
   <p class="audience-sub">This feed is built when the page is served (<time datetime="{{ generated_at }}">{{ generated_at }}</time>). Empty means this mouth has not printed a HALT/BLOCK yet — it does not mean the October 28 Velaru drill list.</p>
+  {% if liveness %}
+  <p class="audience-sub">Liveness {{ liveness.spec }} · digest=<code class="inline">{{ liveness.digest[:16] }}</code> · ots={{ liveness.ots.mechanism }} submitted={{ liveness.ots.submitted }} · stale={{ liveness.stale }}</p>
+  {% endif %}
   <p class="section-label">Last restraint feed</p>
   {% if events %}
   <ul class="check-list">
@@ -15,8 +18,8 @@
     <li style="--i: {{ loop.index0 }}">
       <code class="inline">{{ ev.decision or ev.id }}</code>
       · {{ ev.created_at or ev.opened_at }}
-      {% if ev.reason %} · {{ ev.reason }}{% endif %}
-      {% if ev.title %} · {{ ev.title }}{% endif %}
+      {% if ev.reason %} · {{ ev.reason|agent_text }}{% endif %}
+      {% if ev.title %} · {{ ev.title|agent_text }}{% endif %}
       {% if ev.receipt_hash %}<br><code class="inline">{{ ev.receipt_hash }}</code>{% endif %}
     </li>
     {% endfor %}
@@ -28,7 +31,7 @@
   <h2 style="margin-top: 2rem;">Track record</h2>
   <ul class="check-list">
     {% for row in incidents %}
-    <li>{{ row.opened_at }} · {{ row.title }} · {{ row.status }}</li>
+    <li>{{ row.opened_at }} · {{ row.title|agent_text }} · {{ row.status }}{% if row.receipt_hash %} · <code class="inline">{{ row.receipt_hash[:12] }}</code>{% endif %}</li>
     {% endfor %}
   </ul>
   {% endif %}

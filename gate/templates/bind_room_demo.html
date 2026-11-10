@@ -24,8 +24,12 @@
     </button>
     {% endfor %}
   </div>
-  <p><button type="button" class="btn btn-primary" id="run-btn">Run this vertical</button></p>
+  <p><button type="button" class="btn btn-primary" id="run-btn">Hear this vertical</button></p>
   <div id="outcome" class="card" style="margin-top: 1.5rem; display: none;"></div>
+  <p id="hearback-wrap" style="display: none; margin-top: 1rem;">
+    <button type="button" class="btn btn-primary" id="confirm-btn">Confirm hearback</button>
+    <span id="hearback-msg" class="audience-sub">Gate paraphrases first. Confirm it heard you.</span>
+  </p>
   <p id="undo-wrap" style="display: none; margin-top: 1rem;">
     <button type="button" class="btn" id="undo-btn">UNDO</button>
     <span id="undo-msg" class="audience-sub">Pre-V1 window. Removed the instant the threshold is crossed.</span>
@@ -81,6 +85,28 @@
     msg.textContent = "UNDONE " + (body.event_id || "");
     document.getElementById("outcome").textContent += " · UNDONE";
   });
+  document.getElementById("confirm-btn").addEventListener("click", async function () {
+    var wrap = document.getElementById("hearback-wrap");
+    var res = await fetch("/demo/bind-room/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        domain: selected,
+        company: (document.getElementById("company").value || "").trim(),
+        confirm_token: wrap.getAttribute("data-token")
+      })
+    });
+    var data = await res.json();
+    var outcome = document.getElementById("outcome");
+    if (!res.ok || !data.ok) {
+      outcome.textContent = data.plain || data.error || "hearback mismatch";
+      return;
+    }
+    wrap.style.display = "none";
+    outcome.textContent = data.domain_label + " · confirmed · gated=" + data.gated + " · " + data.session_id;
+    show(document.getElementById("step2"), "step 2 signal\n" + JSON.stringify(data.step2_json, null, 2));
+    show(document.getElementById("step3"), "step 3 bind gate\n" + JSON.stringify(data.step3_json, null, 2));
+  });
   document.getElementById("run-btn").addEventListener("click", async function () {
     var btn = this;
     btn.disabled = true;
@@ -100,7 +126,16 @@
       if (!res.ok || !data.ok) {
         throw new Error(data.message || data.error || "run failed");
       }
-      outcome.textContent = data.domain_label + " · " + data.chokepoint + " · " + data.session_id + " · " + ((data.step3_json && data.step3_json.finality_event) || "");
+      var hb = data.hearback || {};
+      outcome.textContent = (hb.paraphrase || (data.domain_label + " · " + data.chokepoint)) + " · gated=" + data.gated;
+      var hbWrap = document.getElementById("hearback-wrap");
+      if (hb.confirm_token && !data.gated) {
+        hbWrap.style.display = "block";
+        hbWrap.setAttribute("data-token", hb.confirm_token);
+        document.getElementById("hearback-msg").textContent = hb.paraphrase || "";
+      } else {
+        hbWrap.style.display = "none";
+      }
       var undoWrap = document.getElementById("undo-wrap");
       var gate = data.step3_json || {};
       if (gate.undo_open) {

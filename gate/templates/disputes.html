@@ -21,7 +21,7 @@
   {% if disputes %}
   <ul class="check-list">
     {% for d in disputes %}
-    <li>{{ d.status }} · {{ d.event_id[:8] }} · erased={{ d.history_erased }} · {{ d.reason }}</li>
+    <li>{{ d.status }} · {{ d.event_id[:8] }} · erased={{ d.history_erased }} · {{ d.reason|agent_text }}</li>
     {% endfor %}
   </ul>
   {% else %}
