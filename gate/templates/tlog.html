@@ -1,20 +1,53 @@
 {% extends "base.html" %}
-{% block title %}Transparency log / C2PA{% endblock %}
-{% block meta %}
-<meta name="description" content="RFC 9162 inclusion and consistency over receipt hashes. Gossip must be an outsider. C2PA fields are null without a manifest.">
-{% endblock %}
+{% block title %}Transparency log{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
 {% block content %}
-<div class="container section">
-  <p class="audience-tag">Items 150 / 151</p>
-  <h1>The ledger, then the file attached to it</h1>
-  <p class="audience-sub">Inclusion and consistency reuse the existing Merkle evidence log (RFC 9162). Split-view is outside those proofs — gossip has to come from someone who is not Nisaba. A receipt does not prove the image, video, or audio hung off it. No C2PA manifest means nulls, not a generated-media score.</p>
-  <ul class="check-list">
-    {% for t in trees %}
-    <li style="--i: {{ loop.index0 }}"><code>{{ t.tree_id }}</code> · size {{ t.tree_size }} · {{ t.root_hash[:16] }}…</li>
-    {% endfor %}
-  </ul>
-  {% if not trees %}
-  <p>No signed tree heads snapshotted here yet. The live evidence log still serves /.well-known/evidence-head.json.</p>
-  {% endif %}
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Item 150</p>
+  <h1>The ledger, not one receipt</h1>
+  <p class="audience-sub">Current Merkle head is /.well-known/evidence-head.json. Snapshots below are RFC 9162 objects. Inclusion/consistency do not close split-view. Verify a leaf from /verify.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <h2>Live tree head</h2>
+      <pre class="desk-mono" id="head">Loading…</pre>
+      <form class="desk-form" method="post" action="/v1/tlog" data-desk data-reload="1">
+        <label>Receipt hashes to snapshot <input name="receipt_hashes" placeholder="paste hashes"></label>
+        <button type="submit">Snapshot tree</button>
+        <p class="desk-msg">Does not rotate the 142 signing key.</p>
+      </form>
+    </div>
+    <div class="desk-panel">
+      <h2>Snapshotted trees</h2>
+      {% if not trees %}
+      <p class="desk-empty">No snapshots yet. The live evidence log still serves evidence-head.json.</p>
+      {% else %}
+      <table class="desk-table">
+        <thead><tr><th>Tree</th><th>Size</th><th>Root</th><th>Signed at</th></tr></thead>
+        <tbody>
+          {% for t in trees %}
+          <tr>
+            <td class="desk-mono">{{ t.tree_id }}</td>
+            <td>{{ t.tree_size }}</td>
+            <td class="desk-mono">{{ t.root_hash }}</td>
+            <td>{{ t.signed_at }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const head = await deskJson("/.well-known/evidence-head.json");
+  document.getElementById("head").textContent = JSON.stringify({
+    root_hash: head.root_hash,
+    tree_size: head.tree_size,
+    timestamp: head.timestamp,
+    spec: head.spec,
+  }, null, 2);
+});
+</script>
 {% endblock %}

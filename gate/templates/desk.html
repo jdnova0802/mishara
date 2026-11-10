@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Analyst desk{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
+{% block content %}
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Items 132–137 / 149 / 150</p>
+  <h1>Live mouth, not a mockup</h1>
+  <p class="audience-sub">These screens call the merged Gate APIs. Empty tables mean this mouth has no rows yet — not sample Palantir data.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <h2>What this desk can do</h2>
+      <ul class="check-list">
+        <li>Expand a 132 graph from a real receipt, operator, or org.</li>
+        <li>Read 133 baselines only when sample_size ≥ 20. Flags never auto-act.</li>
+        <li>Open a 134 case, work 135 triage through enrich before disposition.</li>
+        <li>Tag ATLAS/DISARM with classified_by visible. FIMI waits on 144.</li>
+        <li>Read the RFC 9162 tree head and prove inclusion from /verify.</li>
+      </ul>
+    </div>
+    <div class="desk-panel">
+      <h2>API this UI uses</h2>
+      <p class="desk-mono">GET /v1/link-graph · /v1/anomaly-flags · /v1/cases · /v1/triage · /v1/atlas-ref · /v1/campaigns · /v1/tlog · /v1/verify · /.well-known/evidence-head.json</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

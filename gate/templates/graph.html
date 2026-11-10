@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Link graph{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
+{% block content %}
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Item 132</p>
+  <h1>Cross-receipt link graph</h1>
+  <p class="audience-sub">Root, hops, and edge types query live bind_events. shared_cohort has a blank source_receipt_id on purpose. Click a node to inspect the operator/receipt rows it points at.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <form class="desk-form" id="graph-form">
+        <label>Root type
+          <select name="root_type" id="root_type">
+            <option value="receipt_id">receipt_id</option>
+            <option value="actor">actor</option>
+            <option value="org">org</option>
+          </select>
+        </label>
+        <label>Root id
+          <select id="root_pick"></select>
+          <input name="root_id" id="root_id" placeholder="or paste an id">
+        </label>
+        <label>Max hops (cap 8)
+          <input type="number" name="max_hops" id="max_hops" value="3" min="0" max="8">
+        </label>
+        <div class="desk-checks">
+          {% for e in edge_types %}
+          <label><input type="checkbox" name="edge" value="{{ e }}" {% if e in ('ingredient','co_signer') %}checked{% endif %}> {{ e }}</label>
+          {% endfor %}
+        </div>
+        <button type="submit">Expand</button>
+        <p class="desk-msg" id="graph-msg">{{ catalog.plain }}</p>
+      </form>
+      <svg class="desk-svg" id="graph-svg" role="img" aria-label="Link graph"></svg>
+    </div>
+    <div class="desk-panel">
+      <h2>Inspector</h2>
+      <pre class="desk-mono" id="inspect">Click a node.</pre>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const catalog = await deskJson("/v1/link-graph/roots");
+  const pick = document.getElementById("root_pick");
+  const root = document.getElementById("root_id");
+  const type = document.getElementById("root_type");
+  function fill() {
+    pick.innerHTML = "";
+    const key = type.value === "actor" ? "actors" : type.value === "org" ? "orgs" : "receipts";
+    const rows = catalog[key] || [];
+    rows.forEach((row) => {
+      const opt = document.createElement("option");
+      const id = typeof row === "string" ? row : row.receipt_id;
+      opt.value = id;
+      opt.textContent = id.slice(0, 48);
+      pick.appendChild(opt);
+    });
+    if (!root.value && pick.value) root.value = pick.value;
+  }
+  type.addEventListener("change", fill);
+  pick.addEventListener("change", () => { root.value = pick.value; });
+  fill();
+  document.getElementById("graph-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const edges = [...document.querySelectorAll("input[name=edge]:checked")].map((x) => x.value).join(",");
+    const qs = new URLSearchParams({
+      root_type: type.value,
+      root_id: root.value,
+      max_hops: document.getElementById("max_hops").value,
+      edge_types: edges,
+    });
+    const rec = await deskJson("/v1/link-graph?" + qs.toString());
+    deskMsg(document.getElementById("graph-msg"), rec);
+    if (!rec.ok) return;
+    drawGraph(document.getElementById("graph-svg"), rec, async (node) => {
+      const info = await deskJson("/v1/link-graph/inspect?node_id=" + encodeURIComponent(node.node_id));
+      document.getElementById("inspect").textContent = JSON.stringify(info, null, 2);
+    });
+  });
+});
+</script>
+{% endblock %}

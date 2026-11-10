@@ -38,9 +38,11 @@ class AtlasTests(unittest.TestCase):
         self.assertIsNone(ref["atlas"])
         self.assertIn("unlabeled", ref["note"].lower())
 
-    def test_api_requires_event_id(self):
+    def test_api_lists_catalog_and_404s_missing_event(self):
         client = app_mod.app.test_client()
-        self.assertEqual(client.get("/v1/atlas-ref").status_code, 400)
+        catalog = client.get("/v1/atlas-ref")
+        self.assertEqual(catalog.status_code, 200)
+        self.assertIn("AML.T0043", catalog.get_json()["techniques"])
         self.assertEqual(client.get("/v1/atlas-ref?event_id=missing").status_code, 404)
         spec = client.get("/.well-known/atlas.json").get_json()
         self.assertEqual(spec["spec"], "gate-atlas-ref-v1")

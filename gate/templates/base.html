@@ -46,7 +46,7 @@
   }
   </script>
 </head>
-<body>
+<body{% block body_attrs %}{% endblock %}>
   <nav class="site-nav">
     <div class="inner">
       <a href="{{ url_for('index') }}" class="logo">Gate</a>
@@ -181,6 +181,11 @@
       { href: "/liquidations", title: "Liquidations", aliases: "aave" },
       { href: "/chain", title: "Receipt chain", aliases: "explorer hash ledger" },
       { href: "/custody-graph", title: "Custody graph", aliases: "gotham palantir link-graph 123" },
+      { href: "/desk", title: "Analyst desk", aliases: "132 133 134 135 136 137 149 150 graph anomaly triage" },
+      { href: "/graph", title: "Link graph", aliases: "132 hops ingredient co_signer" },
+      { href: "/anomaly", title: "Anomaly dashboard", aliases: "133 sigma baseline" },
+      { href: "/triage", title: "Triage queue", aliases: "135 enrich disposition" },
+      { href: "/atlas", title: "ATLAS / DISARM tags", aliases: "136 137 technique" },
       { href: "/rules", title: "No-code rules", aliases: "gate-rules block hold" },
       { href: "/map", title: "Restraint map", aliases: "globe geo block" },
       { href: "/v1-gauge", title: "V1 distance", aliases: "finality undo irreversibility" },

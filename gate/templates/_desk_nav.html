@@ -1,0 +1,13 @@
+<nav class="desk-nav" aria-label="Analyst desk">
+  <a href="/desk" class="{% if request.path == '/desk' %}is-on{% endif %}">Desk</a>
+  <a href="/graph" class="{% if request.path == '/graph' %}is-on{% endif %}">132 Graph</a>
+  <a href="/anomaly" class="{% if request.path == '/anomaly' %}is-on{% endif %}">133 Anomaly</a>
+  <a href="/cases" class="{% if request.path == '/cases' %}is-on{% endif %}">134 Cases</a>
+  <a href="/triage" class="{% if request.path == '/triage' %}is-on{% endif %}">135 Triage</a>
+  <a href="/atlas" class="{% if request.path == '/atlas' %}is-on{% endif %}">136/137 Tags</a>
+  <a href="/campaigns" class="{% if request.path == '/campaigns' %}is-on{% endif %}">149 FIMI</a>
+  <a href="/tlog" class="{% if request.path == '/tlog' %}is-on{% endif %}">150 Tlog</a>
+  <a href="/verify">Verify</a>
+</nav>
+<link rel="stylesheet" href="{{ url_for('static', filename='desk.css') }}">
+<script src="{{ url_for('static', filename='desk.js') }}"></script>

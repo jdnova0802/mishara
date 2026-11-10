@@ -1,23 +1,81 @@
 {% extends "base.html" %}
 {% block title %}Case workspace{% endblock %}
-{% block meta %}
-<meta name="description" content="Bundle receipts and anomaly flags. CLOSE needs a resolution. Triage is not auto-acted.">
-{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
 {% block content %}
-<div class="container section">
-  <p class="audience-tag">Items 134–135 / 143 / 146</p>
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Item 134</p>
   <h1>A place to write what you think it means</h1>
-  <p class="audience-sub">Cases bundle 132 receipt ids and 133 flags. OSINT is corroborating only — it does not replace a hashed receipt. CLOSE/ESCALATE needs a weighed deception hypothesis, even if rejected. Triage is not auto-acted.</p>
-  <ul class="check-list">
-    {% for c in cases %}
-    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.case_id }}</code> · {{ c.status }} · {{ c.hypothesis }}</li>
-    {% endfor %}
-  </ul>
-  <h2>Triage</h2>
-  <ul class="check-list">
-    {% for t in triage %}
-    <li style="--i: {{ loop.index0 }}"><code>{{ t.triage_id }}</code> · {{ t.source }} · severity={{ t.severity | tojson }} · {{ t.disposition or 'open' }}</li>
-    {% endfor %}
-  </ul>
+  <p class="audience-sub">Bundle live receipt ids and 133 flag ids. Notes and a stated hypothesis are on the case. CLOSE/ESCALATE still need a weighed deception hypothesis (146) and CLOSE needs a resolution.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <h2>Open a case</h2>
+      <form class="desk-form" method="post" action="/v1/cases" data-desk data-reload="1">
+        <label>Opened by <input name="opened_by" required></label>
+        <label>Hypothesis <textarea name="hypothesis" required></textarea></label>
+        <label>Linked receipt ids <input name="linked_receipt_ids" placeholder="comma or space separated"></label>
+        <label>Linked anomaly flag ids <input name="linked_anomaly_flag_ids"></label>
+        <button type="submit">Open</button>
+        <p class="desk-msg"></p>
+      </form>
+    </div>
+    <div class="desk-panel">
+      <h2>Add a note / status</h2>
+      <form class="desk-form" method="post" action="/v1/cases/note" data-desk data-reload="1">
+        <label>Case id <input name="case_id" required></label>
+        <label>Author <input name="author" required></label>
+        <label>Note <textarea name="body" required></textarea></label>
+        <button type="submit">Save note</button>
+        <p class="desk-msg"></p>
+      </form>
+      <form class="desk-form" method="post" action="/v1/cases/hypotheses" data-desk data-reload="1" style="margin-top:1rem">
+        <label>Case id <input name="case_id" required></label>
+        <label>Competing hypothesis <textarea name="hypothesis_text" required></textarea></label>
+        <label>Deception hypothesis?
+          <select name="is_deception_hypothesis">
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </label>
+        <label>Weight 0–1 <input name="weight" value="0"></label>
+        <button type="submit">Log ACH</button>
+        <p class="desk-msg"></p>
+      </form>
+      <form class="desk-form" method="post" action="/v1/cases/status" data-desk data-reload="1" style="margin-top:1rem">
+        <label>Case id <input name="case_id" required></label>
+        <label>Status
+          <select name="status">
+            <option>OPEN</option>
+            <option>CLOSED</option>
+            <option>ESCALATED</option>
+          </select>
+        </label>
+        <label>Resolution <input name="resolution"></label>
+        <button type="submit">Set status</button>
+        <p class="desk-msg"></p>
+      </form>
+    </div>
+  </div>
+  <div class="desk-panel">
+    <h2>Open cases</h2>
+    {% if not cases %}
+    <p class="desk-empty">No cases on this mouth.</p>
+    {% else %}
+    <table class="desk-table">
+      <thead><tr><th>Id</th><th>Status</th><th>Hypothesis</th><th>Receipts</th><th>Flags</th></tr></thead>
+      <tbody>
+        {% for c in cases %}
+        <tr>
+          <td class="desk-mono">{{ c.case_id }}</td>
+          <td>{{ c.status }}</td>
+          <td>{{ c.hypothesis }}</td>
+          <td class="desk-mono">{{ (c.linked_receipt_ids or []) | join(" ") }}</td>
+          <td class="desk-mono">{{ (c.linked_anomaly_flag_ids or []) | join(" ") }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

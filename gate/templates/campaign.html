@@ -1,17 +1,81 @@
 {% extends "base.html" %}
-{% block title %}DISARM clusters{% endblock %}
-{% block meta %}
-<meta name="description" content="DISARM labels on 132/133 correlation. CONFIRMED needs a confounder review. Soft-binding only.">
-{% endblock %}
+{% block title %}DISARM / FIMI{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
 {% block content %}
-<div class="container section">
-  <p class="audience-tag">Items 137 / 144 / 149</p>
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Items 137 / 144 / 149</p>
   <h1>Correlation is not confirmation</h1>
-  <p class="audience-sub">A campaign cluster is a DISARM label on the link graph and anomaly flags. CONFIRMED waits on a causal_edge_review that names and rules out a confounder. FIMI actor-confidence stays unattributed until that same gate clears. Empty TTP evidence is refused. hard_binding=false.</p>
-  <ul class="check-list">
-    {% for c in clusters %}
-    <li style="--i: {{ loop.index0 }}"><code class="machine-truth">{{ c.campaign_cluster_id }}</code> · {{ c.status }} · fimi={{ (c.fimi_attribution.actor_tier if c.fimi_attribution else 'unattributed') }} · members={{ c.member_operator_ids | length }}</li>
-    {% endfor %}
-  </ul>
+  <p class="audience-sub">Open a SUSPECTED cluster from 132/133 sources. CONFIRMED and FIMI tiers above unattributed wait on a named confounder review. DISARM names the TTP; FIMI names actor-confidence.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <h2>Open cluster</h2>
+      <form class="desk-form" method="post" action="/v1/campaigns" data-desk data-reload="1">
+        <label>Cohort <input name="cohort_vertical" required></label>
+        <label>Member operator ids (≥2) <input name="member_operator_ids" required></label>
+        <label>Source anomaly flag ids <input name="source_anomaly_flag_ids"></label>
+        <label>Or link-graph query id <input name="source_link_graph_query_id"></label>
+        <button type="submit">Open SUSPECTED</button>
+        <p class="desk-msg"></p>
+      </form>
+      <form class="desk-form" method="post" action="/v1/campaigns/causal" data-desk data-reload="1" style="margin-top:1rem">
+        <label>Cluster id <input name="campaign_cluster_id"></label>
+        <label>Link-graph edge id <input name="link_graph_edge_id" required></label>
+        <label>Relationship
+          <select name="claimed_relationship">
+            <option>causal</option><option>correlational</option><option>unresolved</option>
+          </select>
+        </label>
+        <label>Confounders considered <input name="confounder_considered" required></label>
+        <label>Ruled out?
+          <select name="confounder_ruled_out">
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </label>
+        <label>Reviewed by <input name="reviewed_by" required></label>
+        <button type="submit">144 review</button>
+        <p class="desk-msg"></p>
+      </form>
+    </div>
+    <div class="desk-panel">
+      <h2>FIMI tier</h2>
+      <form class="desk-form" method="post" action="/v1/campaigns/fimi" data-desk data-reload="1">
+        <label>Cluster id <input name="campaign_cluster_id" required></label>
+        <label>Actor tier
+          <select name="actor_tier">
+            <option value="official_state">official_state</option>
+            <option value="overt_state_controlled">overt_state_controlled</option>
+            <option value="undisclosed_state_linked">undisclosed_state_linked</option>
+            <option value="covert_state_aligned">covert_state_aligned</option>
+          </select>
+        </label>
+        <label>Rationale <textarea name="tier_rationale" required></textarea></label>
+        <label>Set by <input name="set_by" required></label>
+        <button type="submit">Set tier</button>
+        <p class="desk-msg">Backend 409s if confounders are not cleared. unattributed is the default, not a promotion.</p>
+      </form>
+    </div>
+  </div>
+  <div class="desk-panel">
+    <h2>Clusters</h2>
+    {% if not clusters %}
+    <p class="desk-empty">No clusters yet.</p>
+    {% else %}
+    <table class="desk-table">
+      <thead><tr><th>Id</th><th>Status</th><th>FIMI</th><th>Members</th></tr></thead>
+      <tbody>
+        {% for c in clusters %}
+        <tr>
+          <td class="desk-mono">{{ c.campaign_cluster_id }}</td>
+          <td>{{ c.status }}</td>
+          <td>{{ (c.fimi_attribution.actor_tier if c.fimi_attribution else 'unattributed') }}</td>
+          <td>{{ (c.member_operator_ids or []) | length }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

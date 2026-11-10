@@ -3,24 +3,41 @@
 {% block meta %}
 <meta name="description" content="Paste an event id. We recompute the hash. You do not need an account. This is not a legal opinion.">
 {% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Stranger check</p>
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Stranger check · item 150 inclusion</p>
   <h1>Check a receipt yourself</h1>
-  <p class="audience-sub">Someone claims a write was stopped. This page is how you check that claim. You do not log in. You do not take our word for it.</p>
-  <div class="card" style="margin: 1.25rem 0;">
-    <h2>What you are checking</h2>
-    <ol class="check-list">
-      <li>The bytes of the receipt hash to the published hash.</li>
-      <li>The signature matches Gate’s public key.</li>
-      <li>If those two hold, the receipt was not rewritten after it was signed.</li>
-    </ol>
-    <p style="margin-top: 0.75rem; color: var(--muted);">That is all. It does not mean the underlying decision was wise. It does not mean a court has accepted it. It means the record was not silently edited.</p>
+  <p class="audience-sub">You do not log in. Hash and signature first. Inclusion against the Merkle tree is the ledger check — that the leaf was not quietly dropped.</p>
+  <div class="desk-panel">
+    <form class="desk-form" id="verify-form">
+      <label>Event id <input name="event_id" id="event_id" required placeholder="bind event id"></label>
+      <button type="submit">Verify hash + inclusion</button>
+      <p class="desk-msg" id="verify-msg"></p>
+    </form>
+    <pre class="desk-mono" id="verify-out">Paste an id.</pre>
   </div>
-  <div class="card">
-    <h2>Paste an id</h2>
-    <p>The paste tool runs on Velaru. Open it with the id, if you have one.</p>
-    <p style="margin-top: 1rem;"><a class="btn btn-primary" href="{{ velaru_verify }}">Open the paste tool</a></p>
-  </div>
+  <p style="margin-top:1rem"><a class="btn btn-ghost" href="{{ velaru_verify }}">Velaru paste tool</a></p>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("verify-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const id = document.getElementById("event_id").value.trim();
+    const hash = await deskJson("/v1/verify?event_id=" + encodeURIComponent(id));
+    const proof = await fetch("/.well-known/receipt/" + encodeURIComponent(id) + "/proof.json");
+    const bundle = proof.ok ? await proof.json() : { ok: false, error: "no_inclusion_proof" };
+    const out = {
+      verified: hash.verified,
+      receipt_hash: hash.receipt_hash || hash.canonical_receipt && hash.receipt_hash,
+      hash_check: hash,
+      inclusion: bundle.inclusion || bundle,
+      tree_head: bundle.tree_head || null,
+    };
+    document.getElementById("verify-out").textContent = JSON.stringify(out, null, 2);
+    deskMsg(document.getElementById("verify-msg"), hash.ok === false ? hash : { ok: true, plain: hash.plain || "Hash check ran. Inclusion is the Merkle path against evidence-head." });
+  });
+});
+</script>
 {% endblock %}
