@@ -420,6 +420,11 @@ except ImportError:
     import ido as ido_mod
 
 try:
+    from gate import stix_export as stix_export_mod
+except ImportError:
+    import stix_export as stix_export_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4866,6 +4871,47 @@ def ido_feedback_api():
     return jsonify(rec), (201 if rec.get("ok") else 409)
 
 
+@app.route("/stix")
+def stix_page():
+    return render_template("stix.html", bundles=stix_export_mod.list_bundles())
+
+
+@app.route("/v1/stix", methods=["GET", "POST"])
+def stix_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": stix_export_mod.SPEC,
+                "stix_version": stix_export_mod.STIX_VERSION,
+                "taxii": stix_export_mod.TAXII,
+                "bundles": stix_export_mod.list_bundles(),
+                "relationships": stix_export_mod.list_relationships(),
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = stix_export_mod.export_bundle(
+        source_receipt_ids=body.get("source_receipt_ids"),
+        atlas_technique_ids=body.get("atlas_technique_ids"),
+        disarm_technique_ids=body.get("disarm_technique_ids"),
+        attack_technique_ids=body.get("attack_technique_ids"),
+        relationship_ids=body.get("relationship_ids"),
+        shared_with=body.get("shared_with"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/stix/relationships", methods=["POST"])
+def stix_rel_api():
+    body = request.get_json(silent=True) or {}
+    rec = stix_export_mod.link(
+        source_ref=body.get("source_ref") or "",
+        target_ref=body.get("target_ref") or "",
+        relationship_type=body.get("relationship_type") or "",
+        evidence_receipt_ids=body.get("evidence_receipt_ids"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
 @app.route("/v1/campaigns/status", methods=["POST"])
 def campaigns_status_api():
     body = request.get_json(silent=True) or {}
@@ -8105,6 +8151,7 @@ def openapi_full():
                 "/campaigns": {"get": {"summary": "Items 137/144 — DISARM cluster. CONFIRMED needs a confounder review."}},
                 "/opsec": {"get": {"summary": "Items 138/145 — OPSEC reviews and canary receipts. Never scored."}},
                 "/ido": {"get": {"summary": "Items 139/140 — inbound integrity and PIR/feedback. Empty list is unused."}},
+                "/stix": {"get": {"summary": "Items 141/147 — STIX 2.1 export. Not TAXII."}},
                 "/v1/opsec": {
                     "get": {"summary": "Disclosure reviews. 118 banding is APPLIED.", "security": []},
                     "post": {"summary": "NSDD-298 five-step review. Incomplete 409.", "security": []},
@@ -8120,6 +8167,10 @@ def openapi_full():
                 "/v1/ido": {
                     "get": {"summary": "PIR catalog. Empty is an unused table.", "security": []},
                     "post": {"summary": "State a PIR. SATISFIED needs a closed 134 case.", "security": []},
+                },
+                "/v1/stix": {
+                    "get": {"summary": "STIX 2.1 bundles. taxii is false.", "security": []},
+                    "post": {"summary": "Serialize 136/137 labels. Needs receipts + a named technique.", "security": []},
                 },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
