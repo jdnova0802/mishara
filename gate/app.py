@@ -265,6 +265,11 @@ except ImportError:
     import anomaly_detection as anomaly_detection_mod
 
 try:
+    from gate import atlas as atlas_mod
+except ImportError:
+    import atlas as atlas_mod
+
+try:
     from gate import prefinality as prefinality_mod
 except ImportError:
     import prefinality as prefinality_mod
@@ -3573,6 +3578,30 @@ def anomaly_flags_api():
     return jsonify({"ok": True, "baseline": baseline, "flags": flags})
 
 
+@app.route("/.well-known/atlas.json")
+def well_known_atlas():
+    return jsonify(
+        {
+            "spec": atlas_mod.SPEC,
+            "item": 136,
+            "evidentiary_weight": atlas_mod.EVIDENTIARY_WEIGHT,
+            "hard_binding": False,
+            "lookup": f"{advertised_url()}/v1/atlas-ref",
+            "techniques": list(atlas_mod.TECHNIQUES),
+        }
+    )
+
+
+@app.route("/v1/atlas-ref")
+def atlas_ref_api():
+    event_id = (request.args.get("event_id") or "").strip()
+    if not event_id:
+        return jsonify({"ok": False, "error": "event_id_required"}), 400
+    event = db.get_bind_event(event_id)
+    status, body = atlas_mod.classify_or_404(event)
+    return jsonify(body), status
+
+
 @app.route("/.well-known/prefinality.json")
 def well_known_prefinality():
     spec = prefinality_mod.manifest(advertised_url())
@@ -5803,6 +5832,7 @@ def sitemap():
         "/.well-known/anomaly.json",
         "/v1/link-graph",
         "/v1/anomaly-flags",
+        "/.well-known/atlas.json",
         "/openapi.json",
     ]
     urls = "".join(
@@ -6160,6 +6190,8 @@ def openapi_full():
                 "/v1/link-graph": {"get": {"summary": "Expand ingredient/co-signer graph from a receipt, actor, or org"}},
                 "/.well-known/anomaly.json": {"get": {"summary": "Item 133 — population anomaly spec. Never auto-acted."}},
                 "/v1/anomaly-flags": {"get": {"summary": "Cohort sigma flags. Empty below min sample size."}},
+                "/.well-known/atlas.json": {"get": {"summary": "Item 136 — MITRE ATLAS refs. Soft labels, not hash proof."}},
+                "/v1/atlas-ref": {"get": {"summary": "ATLAS technique ref for a bind event_id"}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
