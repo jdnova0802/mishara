@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Digital twin{% endblock %}
+{% block meta %}
+<meta name="description" content="Run the MGA rule engine against a posted hop. No receipt is written.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Digital-twin sandbox</p>
+  <h1>Simulate the no before you weld</h1>
+  <p class="audience-sub">POST JSON to <code>/v1/sandbox/twin</code>. This page posts a dry run. No bind event is recorded.</p>
+  <form method="post" class="card" style="margin: 1.25rem 0;">
+    <p><label>Premium <input name="premium" value="62400"></label></p>
+    <p><label>Authority limit <input name="authority_limit" value="50000"></label></p>
+    <p><label>Line <input name="line" value="GL"></label></p>
+    <p><label>State <input name="state" value="CO"></label></p>
+    <p><button class="btn btn-primary" type="submit">Dry run</button></p>
+  </form>
+  {% if result %}
+  <pre class="card" style="overflow:auto; padding:1rem;">{{ result | tojson(indent=2) }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

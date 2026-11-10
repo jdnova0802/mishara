@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Ungated exposure{% endblock %}
+{% block meta %}
+<meta name="description" content="Arithmetic for what an ungated agent can move. Not a quote and not insurance.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Exposure calculator</p>
+  <h1>Cost of an ungated agent</h1>
+  <p class="audience-sub">Multiply notional × unauthorized writes per year. This is not a premium, not a binder, not their production.</p>
+  <form method="get" class="card" style="margin: 1.25rem 0;">
+    <p><label>Notional $ <input name="notional" value="{{ notional }}" required></label></p>
+    <p><label>Unauthorized writes / year <input name="unauthorized_per_year" value="{{ unauthorized_per_year }}" required></label></p>
+    <p><label>Loss fraction <input name="loss_fraction" value="{{ loss_fraction }}"></label></p>
+    <p><button class="btn btn-primary" type="submit">Calculate</button></p>
+  </form>
+  {% if result %}
+  <p class="audience-sub">{{ result.plain }}</p>
+  <p>Not a quote: {{ result.not_a_quote }}</p>
+  {% endif %}
+</div>
+{% endblock %}

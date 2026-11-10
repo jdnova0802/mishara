@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Sports / prediction blocks{% endblock %}
+{% block meta %}
+<meta name="description" content="BLOCK events whose hop names sports or a prediction market. Empty is honest.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Prediction / sports feed</p>
+  <h1>Blocks a book or a market would actually read</h1>
+  <p class="audience-sub">{{ payload.plain }}</p>
+  {% if payload.events %}
+  <ul class="check-list">
+    {% for ev in payload.events %}
+    <li><code>{{ ev.decision }}</code> · {{ ev.created_at }} · <a href="{{ url_for('receipt_preview', event_id=ev.id) }}"><code>{{ ev.id[:8] }}</code></a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>None on this mouth. That is the feed.</p>
+  {% endif %}
+</div>
+{% endblock %}

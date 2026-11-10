@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Agent counts{% endblock %}
+{% block meta %}
+<meta name="description" content="Public ALLOW/BLOCK counts per fuse. Not the CDPI score from items 75–79.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">CDPI leaderboard</p>
+  <h1>Rate-my-agent board (counts only)</h1>
+  <p class="audience-sub">{{ payload.plain }}</p>
+  {% if payload.agents %}
+  <table class="chain-table">
+    <thead><tr><th>Fuse</th><th>BLOCK</th><th>HALT</th><th>HOLD</th><th>ALLOW</th><th>Last</th></tr></thead>
+    <tbody>
+    {% for a in payload.agents %}
+      <tr>
+        <td><code>{{ a.fuse_id }}</code></td>
+        <td>{{ a.block }}</td>
+        <td>{{ a.halt }}</td>
+        <td>{{ a.hold }}</td>
+        <td>{{ a.allow }}</td>
+        <td>{{ a.last_decision or "—" }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No public agents on this mouth yet.</p>
+  {% endif %}
+</div>
+<style>
+.chain-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-family: var(--mono); }
+.chain-table th, .chain-table td { text-align: left; padding: 0.4rem 0.3rem; border-bottom: 1px solid var(--border); }
+</style>
+{% endblock %}

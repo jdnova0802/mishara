@@ -27,4 +27,5 @@ jobs:
         run: |
           python3 test_live_surface.py -v
           python3 test_medium_features.py -v
+          python3 test_large_surfaces.py -v
           python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v

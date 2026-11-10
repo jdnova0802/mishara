@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ skin.name }} trust{% endblock %}
+{% block meta %}
+<meta name="description" content="Path-only trust page for {{ skin.name }}. Not a new company and not a DNS change.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">White-label path</p>
+  <h1>{{ skin.name }}</h1>
+  <p class="audience-sub">{{ skin.tagline or skin.plain }}</p>
+  <p>DNS: {{ skin.dns }}. This is still Nisaba LLC / Gate. No second company. <code>their_production</code> stays false.</p>
+  {% if events %}
+  <ul class="check-list">
+    {% for ev in events %}
+    <li><code>{{ ev.decision }}</code> · {{ ev.created_at }} · <a href="{{ url_for('receipt_preview', event_id=ev.id) }}"><code>{{ ev.id[:8] }}</code></a></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No public receipts in this skin’s fuse list.</p>
+  {% endif %}
+</div>
+{% endblock %}
