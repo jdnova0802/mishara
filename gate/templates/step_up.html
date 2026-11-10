@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Verra step-up{% endblock %}
+{% block meta %}
+<meta name="description" content="Frictionless vs challenge. No ACS score. Liability follows which flow ran.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 121</p>
+  <h1>Not uniform strictness</h1>
+  <p class="audience-sub">High-confidence exact-match may clear. Classifier-only always challenges. There is no ACS on this mouth.</p>
+  {% if result %}
+  <p>{{ result.plain }}</p>
+  <p>flow=<code>{{ result.flow }}</code> · liability_shift={{ result.liability_shift }} · acs={{ result.acs }} · legal_advice={{ result.legal_advice }}</p>
+  {% endif %}
+  <p>POST JSON to <code>/v1/step-up</code> with <code>tier</code> and <code>match_strength</code> HIGH|WEAK|UNSET. Numeric scores 409.</p>
+</div>
+{% endblock %}

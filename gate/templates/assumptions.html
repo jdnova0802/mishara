@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Named assumptions{% endblock %}
+{% block meta %}
+<meta name="description" content="verified: true must carry under_assumptions. A bare true is refused.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 122</p>
+  <h1>Verified under what</h1>
+  <p class="audience-sub">A proof that hides its assumptions is vacuous. Counsel already blocks a bare verified: true. Public verify does too.</p>
+  {% if result %}
+  <p>{{ result.plain }}</p>
+  <p>verified={{ result.verified }} · kind={{ result.kind }} · vacuous_visible={{ result.vacuous_visible }}</p>
+  <ul class="check-list">
+    {% for a in result.under_assumptions or [] %}
+    <li>{{ a }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <p>POST <code>/v1/assumptions</code>. Hash match without a named list is not <code>verified: true</code>.</p>
+</div>
+{% endblock %}

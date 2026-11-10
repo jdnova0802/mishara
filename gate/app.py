@@ -360,6 +360,16 @@ except ImportError:
     import harm_tiers as harm_tiers_mod
 
 try:
+    from gate import step_up as step_up_mod
+except ImportError:
+    import step_up as step_up_mod
+
+try:
+    from gate import assumptions as assumptions_mod
+except ImportError:
+    import assumptions as assumptions_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4397,6 +4407,68 @@ def erra_curve_api():
     return jsonify(erra_curve_mod.catalog())
 
 
+@app.route("/step-up")
+def step_up_page():
+    result = None
+    if request.args.get("tier"):
+        result = step_up_mod.evaluate(
+            tier=request.args.get("tier"),
+            match_hash=request.args.get("match_hash"),
+            match_strength=request.args.get("match_strength"),
+        )
+    return render_template("step_up.html", result=result)
+
+
+@app.route("/v1/step-up", methods=["GET", "POST"])
+def step_up_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": step_up_mod.SPEC,
+                "flows": [step_up_mod.FRICTIONLESS, step_up_mod.CHALLENGE, step_up_mod.NONE],
+                "strengths": list(step_up_mod.STRENGTHS),
+                "acs": False,
+                "legal_advice": False,
+                "plain": "High-confidence exact-match may clear. Classifier-only always challenges.",
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = step_up_mod.evaluate(
+        tier=body.get("tier"),
+        match_hash=body.get("match_hash"),
+        match_strength=body.get("match_strength"),
+        extra=body,
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/assumptions")
+def assumptions_page():
+    result = None
+    raw = request.args.get("assumptions")
+    if request.args.get("verified") or raw:
+        names = [p.strip() for p in (raw or "").split("|") if p.strip()]
+        result = assumptions_mod.claim(
+            verified=request.args.get("verified") == "1",
+            under_assumptions=names or None,
+            kind=request.args.get("kind"),
+        )
+    return render_template("assumptions.html", result=result)
+
+
+@app.route("/v1/assumptions", methods=["POST"])
+def assumptions_api():
+    body = request.get_json(silent=True) or {}
+    rec = assumptions_mod.claim(
+        verified=bool(body.get("verified")),
+        under_assumptions=body.get("under_assumptions"),
+        kind=body.get("kind"),
+        steelman_cited=bool(body.get("steelman_cited")),
+        counterfactual_cited=bool(body.get("counterfactual_cited")),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/harm-tiers")
 def harm_tiers_page():
     result = None
@@ -7542,6 +7614,15 @@ def openapi_full():
                 "/v1/erra-curve": {
                     "get": {"summary": "Empty Erra curve JSON. Not ORES numbers.", "security": []},
                     "post": {"summary": "Refuses numeric precision/recall until live labels exist.", "security": []},
+                },
+                "/step-up": {"get": {"summary": "Item 121 — frictionless vs challenge. No ACS score."}},
+                "/v1/step-up": {
+                    "get": {"summary": "Step-up schema. acs is false.", "security": []},
+                    "post": {"summary": "Evaluate bind step-up. Numeric ACS scores 409.", "security": []},
+                },
+                "/assumptions": {"get": {"summary": "Item 122 — verified receipts name their assumption set."}},
+                "/v1/assumptions": {
+                    "post": {"summary": "Refuse verified:true without under_assumptions.", "security": []}
                 },
                 "/harm-tiers": {"get": {"summary": "Item 120 — Thorn three-tier harm split. No detector."}},
                 "/v1/harm-tiers": {
