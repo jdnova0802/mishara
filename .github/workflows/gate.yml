@@ -32,4 +32,5 @@ jobs:
           python3 test_agent_bureau.py -v
           python3 test_precedence_custody.py -v
           python3 test_live_map.py -v
+          python3 test_dfir_verify.py -v
           python3 -m unittest test_listings.X402FacilitatorUnlockTests test_listings.RedTeamHardeningTests test_listings.X402AuditWireTests test_listings.BuyerCredibilityTests test_listings.TrackRecordTests -v
