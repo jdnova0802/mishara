@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ subtitle }}">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">{{ tag }}</p>
+  <h1>{{ heading }}</h1>
+  <p class="audience-sub">{{ subtitle }}</p>
+  {% if payload %}
+  <pre class="card" style="overflow:auto;">{{ payload | tojson(indent=2) }}</pre>
+  {% endif %}
+  {% if rows %}
+  <ul class="check-list">
+    {% for r in rows %}
+    <li style="--i: {{ loop.index0 }}">
+      <code class="inline">{{ r.decision_id or r.harm_report_id or r.adjustment_receipt_id or r.bind_id }}</code>
+      {% if r.verdict %} · {{ r.verdict }} · review={{ r.review }}{% endif %}
+      {% if r.fingerprint_cluster_id %} · {{ r.fingerprint_cluster_id }}{% endif %}
+      {% if r.bind_result %} · {{ r.bind_result }}{% endif %}
+      · {{ (r.plain or r.harm_description or '')|agent_text }}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}

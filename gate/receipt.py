@@ -372,6 +372,11 @@ def receipt_to_public_payload(
     except ImportError:
         import v1 as v1_mod
     payload["finality"] = v1_mod.for_receipt(receipt_row)
+    try:
+        from gate import challenge as challenge_mod
+    except ImportError:
+        import challenge as challenge_mod
+    payload["challenge"] = challenge_mod.attach_to_receipt(receipt_row)
     return payload
 
 

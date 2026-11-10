@@ -330,6 +330,11 @@ except ImportError:
     import sanitize as sanitize_mod
 
 try:
+    from gate import challenge as challenge_mod
+except ImportError:
+    import challenge as challenge_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4297,6 +4302,110 @@ def v1_undo_api():
     return jsonify(out), code
 
 
+@app.route("/counter-case")
+def counter_case_page():
+    return render_template(
+        "challenge.html",
+        title="Erra counter-case",
+        tag="Item 109",
+        heading="Steelman the opposite verdict",
+        subtitle="A strawman or low engagement flags review even if the verdict was right.",
+        rows=list(reversed(challenge_mod.list_counter_cases()))[:50],
+    )
+
+
+@app.route("/v1/counter-case", methods=["GET", "POST"])
+def counter_case_api():
+    if request.method == "GET":
+        return jsonify({"spec": challenge_mod.COUNTER_SPEC, "rows": challenge_mod.list_counter_cases()})
+    body = request.get_json(silent=True) or {}
+    rec = challenge_mod.lock_decision(
+        verdict=body.get("verdict") or "HOLD",
+        hop=body.get("hop") if isinstance(body.get("hop"), dict) else {},
+        claim=body.get("claim"),
+        evidence_cited=body.get("evidence_cited") if isinstance(body.get("evidence_cited"), list) else None,
+        rejection_reason=body.get("rejection_reason"),
+        constructed_at=body.get("constructed_at"),
+        decision_id=body.get("decision_id"),
+    )
+    return jsonify(rec), 201
+
+
+@app.route("/harm")
+def harm_page():
+    return render_template(
+        "challenge.html",
+        title="Harm syndromic",
+        tag="Item 110",
+        heading="Sub-threshold signals that later hurt",
+        subtitle="Tightening auto-applies fail-closed. Loosening always needs a human. The change is receipted.",
+        rows=list(reversed(challenge_mod.list_harms()))[:50],
+    )
+
+
+@app.route("/v1/harm", methods=["GET", "POST"])
+def harm_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": challenge_mod.HARM_SPEC,
+                "reports": challenge_mod.list_harms(),
+                "clusters": challenge_mod.cluster_counts(),
+                "adjustments": challenge_mod.list_adjustments(),
+                "n": challenge_mod.CLUSTER_REPEAT_N,
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = challenge_mod.report_harm(
+        harm_description=body.get("harm_description") or "",
+        preceding_signals=body.get("preceding_signals") if isinstance(body.get("preceding_signals"), list) else [],
+    )
+    return jsonify(rec), 201
+
+
+@app.route("/v1/harm/adjust", methods=["POST"])
+def harm_adjust_api():
+    body = request.get_json(silent=True) or {}
+    out = challenge_mod.propose_adjustment(
+        erra_rule_id=body.get("erra_rule_id") or "",
+        old_threshold=float(body.get("old_threshold") or 0),
+        new_threshold=float(body.get("new_threshold") or 0),
+        cluster_id=body.get("cluster_id") or "",
+        approved=bool(body.get("approved")),
+        verify_url=advertised_url(),
+    )
+    return jsonify(out), (200 if out.get("ok") else 409)
+
+
+@app.route("/freshness")
+def freshness_page():
+    sample = challenge_mod.freshness_check(
+        bind_id="unset",
+        erra_signal=None,
+        velaru_proof=None,
+    )
+    return render_template(
+        "challenge.html",
+        title="Joint freshness",
+        tag="Item 111",
+        heading="HLC pairing, not wall-clock",
+        subtitle=sample["plain"],
+        payload=sample,
+    )
+
+
+@app.route("/v1/freshness", methods=["POST"])
+def freshness_api():
+    body = request.get_json(silent=True) or {}
+    return jsonify(
+        challenge_mod.freshness_check(
+            bind_id=body.get("bind_id") or "",
+            erra_signal=body.get("erra_signal") if isinstance(body.get("erra_signal"), dict) else None,
+            velaru_proof=body.get("velaru_proof") if isinstance(body.get("velaru_proof"), dict) else None,
+        )
+    )
+
+
 @app.route("/shifts")
 def shifts_page():
     return render_template("shifts.html", result=None)
@@ -6836,6 +6945,9 @@ def sitemap():
         "/spec/agent-receipt-protocol/v0.1",
         "/map",
         "/v1-gauge",
+        "/counter-case",
+        "/harm",
+        "/freshness",
         "/board",
         "/sports",
         "/exposure",
