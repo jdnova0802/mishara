@@ -1,0 +1,24 @@
+{
+  "118_erra_threshold": {
+    "grounding": "Wikipedia ORES publishes precision/recall per operating point; consumers pick the point.",
+    "mechanism": "Erra publishes a precision/recall curve per vertical. Policy picks the operating point explicitly. Buyer-facing answer is the curve, not a hardcoded cutoff.",
+    "opsec_note": "Item 138: prefer banded ranges or ZK consistency proofs over exact cutoffs (item 51 research)."
+  },
+  "119_gate_interlock": {
+    "grounding": "IEC 61511: sensor → logic solver → final element; voting; SIL; proof-test interval.",
+    "mapping": { "sensor": "Erra (voting = item 21)", "logic_solver": "Gate", "final_element": "write-block" },
+    "borrowed": "Scheduled, logged proof-test that BLOCK still trips."
+  },
+  "120_mishara_harm_tiers": {
+    "grounding": "Thorn: exact-match hash (auto) vs predictive classifier (human only) vs provenance/watermark (orthogonal).",
+    "mechanism": "Three-tier split. Never auto-act on classifier-only."
+  },
+  "121_verra_step_up": {
+    "grounding": "3DS2 ACS risk score; frictionless vs challenge; liability shift by flow.",
+    "mechanism": "High-confidence binds clear; weak matches step up. Not uniform strictness."
+  },
+  "122_named_assumptions": {
+    "grounding": "Hardware verification: proof vs test; vacuous proof if assumptions exclude the breaking case.",
+    "mechanism": "verified receipts are { verified: true, under_assumptions: [..] }, never verified: true alone."
+  }
+}

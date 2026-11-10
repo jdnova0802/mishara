@@ -1,0 +1,15 @@
+{
+  "title": "calibration_entry / calibration_score (item 130)",
+  "calibration_entry": {
+    "required": ["entry_id", "operator_id", "receipt_id", "stated_confidence", "actual_outcome", "brier_component", "resolved_at"],
+    "properties": {
+      "stated_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+      "actual_outcome": { "enum": ["CORRECT", "INCORRECT"] },
+      "brier_component": { "type": "number", "description": "(stated_confidence - actual_outcome)^2; 0 = perfect" }
+    }
+  },
+  "calibration_score": {
+    "required": ["score_id", "operator_id", "period_start", "period_end", "mean_brier_score", "sample_size", "feeds_kudurru"],
+    "guard": "sample_size MUST gate feeds_kudurru. A perfect Brier on 3 decisions is luck. Do not skip."
+  }
+}

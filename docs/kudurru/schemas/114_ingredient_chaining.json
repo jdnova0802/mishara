@@ -1,0 +1,20 @@
+{
+  "title": "nisaba_receipt.ingredients (item 114)",
+  "type": "object",
+  "required": ["receipt_id", "ingredients"],
+  "properties": {
+    "receipt_id": { "type": "string" },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ingredient_receipt_id", "ingredient_hash", "carried_manifest"],
+        "properties": {
+          "ingredient_receipt_id": { "type": "string" },
+          "ingredient_hash": { "type": "string", "description": "hard binding" },
+          "carried_manifest": { "type": "object", "description": "full upstream receipt, embedded, not ID-only" }
+        }
+      }
+    }
+  }
+}

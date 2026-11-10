@@ -1,0 +1,22 @@
+{
+  "spec": "nisaba-kudurru-nov10-v0",
+  "brand": "Kudurru",
+  "design_law": "flex object and proof object are the same artifact; claims hash ordered underlying_receipt_ids",
+  "files": {
+    "109_erra_counter_case.json": "Erra must steelman the opposite verdict before lock",
+    "110_harm_syndromic.json": "Mishara→Erra threshold tightening from clustered sub-threshold signals",
+    "111_joint_freshness.json": "Verra bind HLC freshness; DEFERRED if stale pairing",
+    "112_fre902_packet.json": "On-demand FRE 902 addendum; not legal advice",
+    "114_ingredient_chaining.json": "C2PA-style full upstream receipt embed",
+    "118_122_grounded.json": "ORES curve, IEC 61511 interlock, Thorn tiers, 3DS2 step-up, named assumptions",
+    "125_ledger_entry.json": "Per-action billing; idempotency_key + receipt_id pointer",
+    "129_kudurru_card.json": "Personal trust streak card + watch + glyph",
+    "130_calibration.json": "Brier calibration; sample_size gates Kudurru feed",
+    "132_135_synthesis.json": "Link graph, population anomaly, case file, triage",
+    "136_151_taxonomy_integrity.json": "ATLAS, DISARM, OPSEC, inbound integrity, IDO, STIX, signing audit, OSINT, causal, canary, ACH, FIMI, CT log, C2PA media"
+  },
+  "doctrine_rules": {
+    "115": "verdict and timestamp are never redacted; redaction is its own receipt line",
+    "116": "fuzzy fingerprints are never interchangeable with hash proof"
+  }
+}

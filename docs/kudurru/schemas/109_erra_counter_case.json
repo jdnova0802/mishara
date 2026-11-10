@@ -1,0 +1,31 @@
+{
+  "title": "erra_decision (item 109)",
+  "type": "object",
+  "required": ["decision_id", "verdict", "verdict_locked_at", "counter_case", "counter_case_score"],
+  "properties": {
+    "decision_id": { "type": "string" },
+    "verdict": { "enum": ["ACT", "HOLD"] },
+    "verdict_locked_at": { "type": "string", "format": "date-time" },
+    "counter_case": {
+      "type": "object",
+      "required": ["claim", "evidence_cited", "rejection_reason", "constructed_at"],
+      "properties": {
+        "claim": { "type": "string" },
+        "evidence_cited": { "type": "array", "items": { "type": "string" } },
+        "rejection_reason": { "type": "string" },
+        "constructed_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "counter_case_score": {
+      "type": "object",
+      "required": ["engagement_score", "strawman_flag", "grader", "graded_at"],
+      "properties": {
+        "engagement_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "strawman_flag": { "type": "boolean" },
+        "grader": { "enum": ["rule", "llm"] },
+        "graded_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "gate": "engagement_score below threshold or strawman_flag true → review regardless of verdict correctness. constructed_at must be <= verdict_locked_at."
+}

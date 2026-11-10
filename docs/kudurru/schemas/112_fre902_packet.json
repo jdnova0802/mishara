@@ -1,0 +1,21 @@
+{
+  "title": "certification_packet (item 112) + 113 responsible_identity",
+  "disclaimer": "Schema for a future addendum. Not legal advice. Do not mint live FRE 902 certifications from this file.",
+  "type": "object",
+  "required": ["receipt_id", "hash_proof", "system_description", "qualified_person_cert", "opposing_party_notice_ready"],
+  "properties": {
+    "receipt_id": { "type": "string" },
+    "hash_proof": {
+      "type": "object",
+      "required": ["original_hash", "copy_hash", "algorithm", "match"]
+    },
+    "system_description": { "type": "string" },
+    "qualified_person_cert": {
+      "type": "object",
+      "required": ["certifier_identity", "cert_statement", "certified_at"]
+    },
+    "opposing_party_notice_ready": { "type": "boolean" }
+  },
+  "item_113": "Every chain-of-custody state transition needs a distinct responsible_identity (17a-4(f) audit-trail alternative).",
+  "item_114_see": "114_ingredient_chaining.json"
+}
