@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Corrections ledger{% endblock %}
+{% block meta %}
+<meta name="description" content="What we got wrong on this site, dated. Verra is retired. Bind Room is the live name.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Trust · corrections</p>
+  <h1>Corrections ledger</h1>
+  <p class="audience-sub">The name <strong>Verra is retired</strong>. The live room is <strong>Bind Room</strong>. This page is the ledger that sentence belongs on — it does not redirect.</p>
+  {% for row in entries %}
+  <div class="card" style="margin: 1.25rem 0;">
+    <p class="audience-tag">{{ row.date }} · {{ row.id }} · {{ row.status }}</p>
+    <p>{{ row.claim }}</p>
+    {% if row.live_contradiction %}
+    <p style="margin-top: 0.6rem; color: var(--muted);">Still live elsewhere: {{ row.live_contradiction }}</p>
+    {% endif %}
+    <p style="margin-top: 0.6rem;">{{ row.resolution }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -85,6 +85,21 @@ except ImportError:
     import bind_room as bind_room_mod
 
 try:
+    from gate import bind_room_demo as bind_room_demo_mod
+except ImportError:
+    import bind_room_demo as bind_room_demo_mod
+
+try:
+    from gate import sku_names as sku_names_mod
+except ImportError:
+    import sku_names as sku_names_mod
+
+try:
+    from gate import trust_corrections as trust_corrections_mod
+except ImportError:
+    import trust_corrections as trust_corrections_mod
+
+try:
     from gate import receipt_card as receipt_card_mod
 except ImportError:
     import receipt_card as receipt_card_mod
@@ -1136,6 +1151,93 @@ def trust():
         velaru_base=VELARU_BASE,
         public_url=advertised_url(),
         surface=public_surface_mod.surface_clock(),
+    )
+
+
+@app.route("/trust/corrections")
+def trust_corrections():
+    return render_template("corrections.html", entries=trust_corrections_mod.ENTRIES)
+
+
+@app.route("/compliance/mandate-registry")
+def mandate_registry():
+    base = advertised_url()
+    mandates = [
+        {
+            "title": "Spend protocol",
+            "plain": "The write a spender must hash before the mouth will honor it.",
+            "href": f"{base}/.well-known/spend-protocol.json",
+        },
+        {
+            "title": "Spend mandate",
+            "plain": "Bound amount, counterparty, categories, expiry — signed before authorization.",
+            "href": f"{base}/.well-known/spend-mandate.json",
+        },
+        {
+            "title": "Restraint inventory",
+            "plain": "HALT/BLOCK this mouth actually printed. Empty is honest.",
+            "href": f"{base}/.well-known/restraint.json",
+        },
+        {
+            "title": "License fuse",
+            "plain": "Fuse lookup contract for LIVE / ARMED / DEAD.",
+            "href": f"{base}/.well-known/license-fuse.json",
+        },
+    ]
+    return render_template("mandate_registry.html", mandates=mandates)
+
+
+@app.route("/check")
+def check_page():
+    from datetime import datetime, timezone
+
+    feed = restraint_mod.inventory(advertised_url(), limit=50)
+    events = feed.get("events") or []
+    return render_template(
+        "check.html",
+        generated_at=datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        events=events,
+        incidents=[dict(x) for x in track_record_mod.INCIDENTS],
+        fuse_sku=sku_names_mod.VELARU_FUSE,
+    )
+
+
+@app.route("/demo/bind-room")
+def bind_room_demo():
+    raw = request.args.get("domain")
+    selected = bind_room_demo_mod.normalize_domain(raw) if raw else "insurance"
+    domain_error = None
+    if raw and selected is None:
+        domain_error = f"{raw!r} is not a vertical."
+        selected = None
+    return render_template(
+        "bind_room_demo.html",
+        domains=bind_room_demo_mod.catalog(),
+        selected=selected or "insurance",
+        domain_error=domain_error,
+        allowed=sorted(bind_room_demo_mod.DOMAINS.keys()),
+    ), (400 if domain_error else 200)
+
+
+@app.route("/demo/bind-room/run", methods=["POST"])
+def bind_room_demo_run():
+    payload = request.get_json(silent=True) or {}
+    status, body = bind_room_demo_mod.run(
+        domain=payload.get("domain") or request.args.get("domain"),
+        company=payload.get("company"),
+        public_url=advertised_url(),
+    )
+    return jsonify(body), status
+
+
+@app.route("/demo/bind-room/domains.json")
+def bind_room_demo_domains():
+    return jsonify(
+        {
+            "spec": bind_room_demo_mod.SPEC,
+            "domains": bind_room_demo_mod.catalog(),
+            "aliases": bind_room_demo_mod.ALIASES,
+        }
     )
 
 
@@ -4666,6 +4768,8 @@ def pricing():
         floor_price=FLOOR_PRICE_LABEL,
         install_slots=db.install_slots_remaining(),
         stripe_publishable=STRIPE_PUBLISHABLE_KEY,
+        fuse_sku=sku_names_mod.VELARU_FUSE,
+        bind_room_price=BIND_ROOM_PRICE_LABEL,
     )
 
 
@@ -5564,6 +5668,10 @@ def sitemap():
         "/terms",
         "/bind-room",
         "/bind-room/job.json",
+        "/demo/bind-room",
+        "/check",
+        "/trust/corrections",
+        "/compliance/mandate-registry",
         "/audit",
         "/start",
         "/for/operators",

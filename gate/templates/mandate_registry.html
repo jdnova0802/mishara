@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Mandate registry{% endblock %}
+{% block meta %}
+<meta name="description" content="The mandates this mouth actually publishes. Not the insurance marketing page.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Compliance · registry</p>
+  <h1>Mandate registry</h1>
+  <p class="audience-sub">This is a list of mandate objects a stranger can fetch. It is not <code class="inline">/insurance</code>.</p>
+  {% for row in mandates %}
+  <div class="card" style="margin: 1.25rem 0;">
+    <h2>{{ row.title }}</h2>
+    <p>{{ row.plain }}</p>
+    <p style="margin-top: 0.6rem;"><a href="{{ row.href }}">{{ row.href }}</a></p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

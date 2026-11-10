@@ -724,3 +724,25 @@ footer a { color: var(--muted); }
   0%, 100% { opacity: 1; letter-spacing: 0.02em; }
   50% { opacity: 0.35; letter-spacing: 0.28em; }
 }
+
+#cmdk { position: fixed; inset: 0; z-index: 80; }
+#cmdk[hidden] { display: none !important; }
+.cmdk-scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+.cmdk-panel {
+  position: relative;
+  margin: 12vh auto 0;
+  max-width: 28rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+}
+#cmdk-input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  background: #08090d;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+#cmdk-list { list-style: none; margin-top: 0.5rem; }
+#cmdk-list a { display: block; padding: 0.4rem 0.2rem; }
