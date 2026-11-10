@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Wire ticker{% endblock %}
+{% block meta %}
+<meta name="description" content="BLOCK/HOLD/ALLOW mixed with named dockets this mouth already cites. Not a Reuters wire.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Wire ticker</p>
+  <h1>Named dockets, mixed with this mouth</h1>
+  <p class="audience-sub">{{ payload.plain }} Scraped={{ payload.scraped }}.</p>
+  <p>
+    <a href="{{ url_for('wire_page') }}">All</a> ·
+    <a href="{{ url_for('wire_page', vertical='insurance') }}">Insurance</a> ·
+    <a href="{{ url_for('wire_page', vertical='payments') }}">Payments</a> ·
+    <a href="{{ url_for('wire_page', vertical='ai') }}">AI</a>
+  </p>
+  {% if payload.vertical %}<p class="audience-sub">Filter={{ payload.vertical }}</p>{% endif %}
+  {% if payload.rows %}
+  <ul class="check-list">
+    {% for r in payload.rows %}
+    <li style="--i: {{ loop.index0 }}">
+      <code class="inline">{{ r.kind }}</code>
+      {% if r.decision %} · <span class="status-{{ r.decision|lower }}">{{ r.decision }}</span>{% endif %}
+      · {{ r.vertical }}
+      · {{ r.reason_text }}
+      {% if r.regulatory_context and r.regulatory_context.present %}
+      <br><a href="{{ url_for('wire_drilldown', event_id=r.event_id) }}">{{ r.regulatory_context.label }}</a>
+      {% elif r.event_id %}
+      <br><a href="{{ url_for('wire_drilldown', event_id=r.event_id) }}"><code>{{ r.event_id }}</code></a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Empty mix. No invented headlines.</p>
+  {% endif %}
+  <h2>Docket monitor</h2>
+  <p class="audience-sub">{{ monitor.plain }}</p>
+  {% if monitor.changed %}
+  <ul class="check-list">
+    {% for f in monitor.changed %}
+    <li>{{ f.id }} · vertical={{ f.vertical }} · changed</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No named-record changes since last look.</p>
+  {% endif %}
+</div>
+{% endblock %}

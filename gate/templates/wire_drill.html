@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Wire drill-down{% endblock %}
+{% block meta %}
+<meta name="description" content="Docket or bulletin tied to the triggering rule. Named citation, not a scrape.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Event-linked regulatory context</p>
+  <h1>The docket on this rule</h1>
+  <p class="audience-sub">{{ payload.plain }}</p>
+  <p>{{ payload.row.reason_text }}</p>
+  {% if payload.regulatory_context and payload.regulatory_context.present %}
+  <ul class="check-list">
+    <li>{{ payload.regulatory_context.label }}</li>
+    <li>status={{ payload.regulatory_context.status }} · vertical={{ payload.regulatory_context.vertical }} · scraped={{ payload.regulatory_context.scraped }}</li>
+    {% if payload.regulatory_context.path %}<li>path=<code>{{ payload.regulatory_context.path }}</code></li>{% endif %}
+    {% if payload.regulatory_context.url %}<li><a href="{{ payload.regulatory_context.url }}">{{ payload.regulatory_context.url }}</a></li>{% endif %}
+    <li>{{ payload.regulatory_context.plain }}</li>
+  </ul>
+  {% else %}
+  <p>No named docket maps to this rule. That gap is shown, not filled with a nearby bulletin.</p>
+  {% endif %}
+  <p><a href="{{ url_for('wire_page') }}">Back to wire</a></p>
+</div>
+{% endblock %}
