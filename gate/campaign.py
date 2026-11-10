@@ -1,8 +1,8 @@
-"""Items 137 and 144 — DISARM campaign cluster + confounder gate.
+"""Items 137, 144, 149 — DISARM cluster, confounder gate, FIMI actor tier.
 
 A cluster is a label on 132/133 correlation, not a new detector. CONFIRMED
-requires a causal_edge_review with confounder_ruled_out true. Empty TTP
-evidence is refused.
+requires a causal_edge_review with confounder_ruled_out true. FIMI tiers
+above unattributed reuse that same 144 gate. Empty TTP evidence is refused.
 """
 from __future__ import annotations
 
@@ -21,12 +21,20 @@ except ImportError:
 SPEC = "gate-campaign-cluster-v1"
 TTP_SPEC = "gate-disarm-ttp-v1"
 CAUSAL_SPEC = "gate-causal-edge-review-v1"
+FIMI_SPEC = "gate-fimi-tier-v1"
 EVIDENTIARY_WEIGHT = "CORROBORATING_ONLY"
 HARD_BINDING = False
 
 STATUSES = ("SUSPECTED", "CONFIRMED", "DISMISSED")
 RELATIONS = ("causal", "correlational", "unresolved")
 CLASSIFIERS = ("rule", "llm", "human_analyst")
+FIMI_TIERS = (
+    "official_state",
+    "overt_state_controlled",
+    "undisclosed_state_linked",
+    "covert_state_aligned",
+)
+DEFAULT_FIMI_TIER = "unattributed"
 
 # Documented DISARM red-framework ids. Not a detector.
 TECHNIQUES = {
@@ -131,9 +139,16 @@ def open_cluster(
         "status": "SUSPECTED",
         "disarm_ttp_refs": [],
         "causal_edge_review_ids": [],
+        "fimi_attribution": {
+            "actor_tier": DEFAULT_FIMI_TIER,
+            "confounders_cleared": False,
+            "tier_rationale": None,
+            "set_by": None,
+            "set_at": None,
+        },
         "hard_binding": HARD_BINDING,
         "evidentiary_weight": EVIDENTIARY_WEIGHT,
-        "plain": "SUSPECTED. Correlation only. CONFIRMED waits on a confounder review (item 144).",
+        "plain": "SUSPECTED. Correlation only. CONFIRMED waits on a confounder review (item 144). FIMI stays unattributed until then.",
     }
     store = _load()
     store["clusters"].append(rec)
@@ -292,3 +307,60 @@ def set_status(*, campaign_cluster_id: str, status: str) -> dict[str, Any]:
     )
     _save(store)
     return {**cluster, "ok": True}
+
+
+def set_fimi_tier(
+    *,
+    campaign_cluster_id: str,
+    actor_tier: str,
+    tier_rationale: str,
+    set_by: str,
+) -> dict[str, Any]:
+    tier = (actor_tier or "").strip()
+    if tier not in FIMI_TIERS:
+        return {
+            "spec": FIMI_SPEC,
+            "ok": False,
+            "error": "tier_unknown",
+            "allowed": list(FIMI_TIERS),
+            "plain": "EEAS four-tier ladder only. unattributed is the default, not a promotion.",
+        }
+    why = sanitize_mod.strip_agent(tier_rationale)
+    who = (set_by or "").strip()
+    if not why or not who:
+        return {
+            "spec": FIMI_SPEC,
+            "ok": False,
+            "error": "rationale_required",
+            "plain": "A FIMI tier needs who set it and the indicator that justified it. Not a bare label.",
+        }
+    store = _load()
+    cluster = next(
+        (c for c in store["clusters"] if c.get("campaign_cluster_id") == (campaign_cluster_id or "").strip()),
+        None,
+    )
+    if not cluster:
+        return {"spec": FIMI_SPEC, "ok": False, "error": "cluster_not_found", "plain": "Unknown campaign_cluster_id."}
+    cleared = _confirmable(cluster, store.get("reviews") or [])
+    if not cleared:
+        return {
+            "spec": FIMI_SPEC,
+            "ok": False,
+            "error": "confounders_not_cleared",
+            "plain": "Tiers above unattributed wait on item 144. DISARM names the TTP; FIMI names actor-confidence after confounders.",
+        }
+    rec = {
+        "spec": FIMI_SPEC,
+        "ok": True,
+        "tier_id": "fimi_" + uuid.uuid4().hex[:12],
+        "campaign_cluster_id": cluster["campaign_cluster_id"],
+        "actor_tier": tier,
+        "tier_rationale": why,
+        "confounders_cleared": True,
+        "set_by": who,
+        "set_at": _iso(),
+        "plain": "FIMI " + tier + ". Soft-binding attribution-confidence, not a sanctions finding.",
+    }
+    cluster["fimi_attribution"] = rec
+    _save(store)
+    return rec

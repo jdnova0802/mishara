@@ -33,6 +33,7 @@ class CampaignTests(unittest.TestCase):
         )
         self.assertEqual(cl["status"], "SUSPECTED")
         self.assertFalse(cl["hard_binding"])
+        self.assertEqual(cl["fimi_attribution"]["actor_tier"], "unattributed")
         empty = campaign.attach_ttp(
             campaign_cluster_id=cl["campaign_cluster_id"],
             disarm_technique_id="T0013",
@@ -55,6 +56,13 @@ class CampaignTests(unittest.TestCase):
             campaign_cluster_id=cl["campaign_cluster_id"],
         )
         self.assertEqual(vacuous["error"], "vacuous_confounder")
+        early_fimi = campaign.set_fimi_tier(
+            campaign_cluster_id=cl["campaign_cluster_id"],
+            actor_tier="covert_state_aligned",
+            tier_rationale="lockstep posting",
+            set_by="desk",
+        )
+        self.assertEqual(early_fimi["error"], "confounders_not_cleared")
         campaign.review_edge(
             link_graph_edge_id="edge:1",
             claimed_relationship="causal",
@@ -65,6 +73,14 @@ class CampaignTests(unittest.TestCase):
         )
         ok = campaign.set_status(campaign_cluster_id=cl["campaign_cluster_id"], status="CONFIRMED")
         self.assertEqual(ok["status"], "CONFIRMED")
+        fimi = campaign.set_fimi_tier(
+            campaign_cluster_id=cl["campaign_cluster_id"],
+            actor_tier="covert_state_aligned",
+            tier_rationale="Lockstep with a named state outlet after the shared-integration confounder was ruled out.",
+            set_by="desk",
+        )
+        self.assertEqual(fimi["actor_tier"], "covert_state_aligned")
+        self.assertTrue(fimi["confounders_cleared"])
 
 
 class CampaignFlaskTests(unittest.TestCase):
@@ -88,6 +104,16 @@ class CampaignFlaskTests(unittest.TestCase):
         cid = created.get_json()["campaign_cluster_id"]
         confirm = self.client.post("/v1/campaigns/status", json={"campaign_cluster_id": cid, "status": "CONFIRMED"})
         self.assertEqual(confirm.status_code, 409)
+        fimi = self.client.post(
+            "/v1/campaigns/fimi",
+            json={
+                "campaign_cluster_id": cid,
+                "actor_tier": "official_state",
+                "tier_rationale": "ministry channel",
+                "set_by": "desk",
+            },
+        )
+        self.assertEqual(fimi.status_code, 409)
 
 
 if __name__ == "__main__":
