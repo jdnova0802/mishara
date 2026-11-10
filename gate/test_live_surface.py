@@ -191,14 +191,16 @@ class LiveSurfaceTests(unittest.TestCase):
         self.assertEqual(leaked.get_json()["verdict"], "invalid")
         self.assertIn("bad_public_key", leaked.get_json()["reasons"])
 
-    def test_verify_redirects_to_velaru_and_keeps_the_query(self):
+    def test_verify_explains_in_plain_english_and_keeps_id_jump(self):
         bare = self.client.get("/verify")
-        self.assertEqual(bare.status_code, 302)
-        self.assertEqual(bare.headers["Location"], "https://velaru.xyz/verify")
+        self.assertEqual(bare.status_code, 200)
+        self.assertIn(b"Check a receipt yourself", bare.data)
+        self.assertNotIn(b"digital diplomatics", bare.data)
+        self.assertNotIn(b"PERFORMATIVE", bare.data)
+        self.assertNotIn(b"felicity", bare.data)
 
         slash = self.client.get("/verify/")
-        self.assertEqual(slash.status_code, 302)
-        self.assertEqual(slash.headers["Location"], "https://velaru.xyz/verify")
+        self.assertEqual(slash.status_code, 200)
 
         with_q = self.client.get("/verify?r=evt-floor-1")
         self.assertEqual(with_q.status_code, 302)
@@ -207,7 +209,6 @@ class LiveSurfaceTests(unittest.TestCase):
         pricing = self.client.get("/pricing")
         self.assertEqual(pricing.status_code, 200)
         self.assertIn(b'href="https://velaru.xyz/verify"', pricing.data)
-        self.assertNotIn(b'href="/verify"', pricing.data)
 
 
 if __name__ == "__main__":

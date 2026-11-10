@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Verify a receipt{% endblock %}
+{% block meta %}
+<meta name="description" content="Paste an event id. We recompute the hash. You do not need an account. This is not a legal opinion.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Stranger check</p>
+  <h1>Check a receipt yourself</h1>
+  <p class="audience-sub">Someone claims a write was stopped. This page is how you check that claim. You do not log in. You do not take our word for it.</p>
+  <div class="card" style="margin: 1.25rem 0;">
+    <h2>What you are checking</h2>
+    <ol class="check-list">
+      <li>The bytes of the receipt hash to the published hash.</li>
+      <li>The signature matches Gate’s public key.</li>
+      <li>If those two hold, the receipt was not rewritten after it was signed.</li>
+    </ol>
+    <p style="margin-top: 0.75rem; color: var(--muted);">That is all. It does not mean the underlying decision was wise. It does not mean a court has accepted it. It means the record was not silently edited.</p>
+  </div>
+  <div class="card">
+    <h2>Paste an id</h2>
+    <p>The paste tool runs on Velaru. Open it with the id, if you have one.</p>
+    <p style="margin-top: 1rem;"><a class="btn btn-primary" href="{{ velaru_verify }}">Open the paste tool</a></p>
+  </div>
+</div>
+{% endblock %}

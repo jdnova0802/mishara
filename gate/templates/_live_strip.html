@@ -1,6 +1,6 @@
 <div class="live-strip{% if extra_class %} {{ extra_class }}{% endif %}" role="status" aria-label="Live evidence">
   <span class="badge">Evidence head</span>
-  <span class="status-row"><span class="status-dot ok" aria-hidden="true"></span>{{ live.tree_size }} leaves</span>
+  <span class="status-row" title="Public log of signed checks — not a stock ticker"><span class="status-dot ok" aria-hidden="true"></span>{{ live.tree_size }} signed checks</span>
   <code>{{ live.root_short }}</code>
   {% if live.timestamp %}
   <time datetime="{{ live.timestamp }}">{{ live.timestamp[:19]|replace('T', ' ') }} UTC</time>
