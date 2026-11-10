@@ -395,6 +395,11 @@ except ImportError:
     import case_file as case_file_mod
 
 try:
+    from gate import campaign as campaign_mod
+except ImportError:
+    import campaign as campaign_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4665,6 +4670,68 @@ def cases_note_api():
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
+@app.route("/campaigns")
+def campaigns_page():
+    return render_template("campaign.html", clusters=list(reversed(campaign_mod.list_clusters()))[:50])
+
+
+@app.route("/v1/campaigns", methods=["GET", "POST"])
+def campaigns_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": campaign_mod.SPEC,
+                "hard_binding": campaign_mod.HARD_BINDING,
+                "clusters": campaign_mod.list_clusters(),
+                "reviews": campaign_mod.list_reviews(),
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = campaign_mod.open_cluster(
+        cohort_vertical=body.get("cohort_vertical") or "",
+        member_operator_ids=body.get("member_operator_ids"),
+        source_anomaly_flag_ids=body.get("source_anomaly_flag_ids"),
+        source_link_graph_query_id=body.get("source_link_graph_query_id"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/campaigns/ttp", methods=["POST"])
+def campaigns_ttp_api():
+    body = request.get_json(silent=True) or {}
+    rec = campaign_mod.attach_ttp(
+        campaign_cluster_id=body.get("campaign_cluster_id") or "",
+        disarm_technique_id=body.get("disarm_technique_id") or "",
+        evidence_receipt_ids=body.get("evidence_receipt_ids"),
+        classified_by=body.get("classified_by") or "human_analyst",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/campaigns/causal", methods=["POST"])
+def campaigns_causal_api():
+    body = request.get_json(silent=True) or {}
+    rec = campaign_mod.review_edge(
+        link_graph_edge_id=body.get("link_graph_edge_id") or "",
+        claimed_relationship=body.get("claimed_relationship") or "",
+        confounder_considered=body.get("confounder_considered"),
+        confounder_ruled_out=bool(body.get("confounder_ruled_out")),
+        reviewed_by=body.get("reviewed_by") or "",
+        campaign_cluster_id=body.get("campaign_cluster_id"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/campaigns/status", methods=["POST"])
+def campaigns_status_api():
+    body = request.get_json(silent=True) or {}
+    rec = campaign_mod.set_status(
+        campaign_cluster_id=body.get("campaign_cluster_id") or "",
+        status=body.get("status") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/v1/cases/status", methods=["POST"])
 def cases_status_api():
     body = request.get_json(silent=True) or {}
@@ -7891,6 +7958,11 @@ def openapi_full():
                 "/tns": {"get": {"summary": "Item 104 — T&S vertical. Provenance is not abuse. No CV."}},
                 "/kudurru": {"get": {"summary": "Items 129/129b/131 — card hashes receipts. Streak policy unset."}},
                 "/cases": {"get": {"summary": "Items 134–135 — case workspace and human triage. Never auto-acted."}},
+                "/campaigns": {"get": {"summary": "Items 137/144 — DISARM cluster. CONFIRMED needs a confounder review."}},
+                "/v1/campaigns": {
+                    "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
+                    "post": {"summary": "Open SUSPECTED cluster from 132/133 sources.", "security": []},
+                },
                 "/v1/cases": {
                     "get": {"summary": "List cases", "security": []},
                     "post": {"summary": "Open a case. Needs a hypothesis and at least one receipt or flag.", "security": []},
