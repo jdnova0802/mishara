@@ -19,6 +19,11 @@ except ImportError:
 
 CASE_SPEC = "gate-case-file-v1"
 TRIAGE_SPEC = "gate-triage-v1"
+ACH_SPEC = "gate-competing-hypothesis-v1"
+OSINT_SPEC = "gate-osint-v1"
+EVIDENTIARY_WEIGHT = "CORROBORATING_ONLY"
+HARD_BINDING = False
+SOURCE_CATEGORIES = ("social_media", "public_records", "news_media", "geospatial", "technical_infra")
 
 STATUSES = ("OPEN", "CLOSED", "ESCALATED")
 SOURCES = ("anomaly_flag", "counter_case_score", "kudurru_watch")
@@ -41,15 +46,16 @@ def _path() -> Path:
 def _load() -> dict[str, Any]:
     path = _path()
     if not path.exists():
-        return {"spec": CASE_SPEC, "cases": [], "triage": []}
+        return {"spec": CASE_SPEC, "cases": [], "triage": [], "osint": []}
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
-        return {"spec": CASE_SPEC, "cases": [], "triage": []}
+        return {"spec": CASE_SPEC, "cases": [], "triage": [], "osint": []}
     if not isinstance(data, dict):
-        return {"spec": CASE_SPEC, "cases": [], "triage": []}
+        return {"spec": CASE_SPEC, "cases": [], "triage": [], "osint": []}
     data.setdefault("cases", [])
     data.setdefault("triage", [])
+    data.setdefault("osint", [])
     return data
 
 
@@ -127,9 +133,11 @@ def open_case(
         "linked_anomaly_flag_ids": flags,
         "linked_link_graph_query_id": (linked_link_graph_query_id or "").strip() or None,
         "case_notes": [],
+        "competing_hypotheses": [],
+        "osint_corroboration_ids": [],
         "resolution": None,
         "resolved_at": None,
-        "plain": "Working case. CLOSE needs a resolution. Competing hypotheses are item 146, not this surface.",
+        "plain": "Working case. CLOSE/ESCALATE needs a weighed deception hypothesis (146). OSINT is corroborating only.",
     }
     store = _load()
     store["cases"].append(rec)
@@ -157,6 +165,147 @@ def add_note(*, case_id: str, author: str, body: str) -> dict[str, Any]:
     return {**row, "ok": True, "note": note}
 
 
+def _has_deception(row: dict[str, Any]) -> bool:
+    return any(h.get("is_deception_hypothesis") for h in (row.get("competing_hypotheses") or []))
+
+
+def add_hypothesis(
+    *,
+    case_id: str,
+    hypothesis_text: str,
+    is_deception_hypothesis: Any,
+    diagnostic_evidence_for: Any = None,
+    diagnostic_evidence_against: Any = None,
+    weight: Any = None,
+) -> dict[str, Any]:
+    text = sanitize_mod.strip_agent(hypothesis_text)
+    if not text:
+        return {
+            "spec": ACH_SPEC,
+            "ok": False,
+            "error": "hypothesis_required",
+            "plain": "ACH needs a named explanation, not a blank slot.",
+        }
+    if is_deception_hypothesis not in (True, False):
+        return {
+            "spec": ACH_SPEC,
+            "ok": False,
+            "error": "deception_flag_required",
+            "plain": "Say whether this is the staged-to-mislead hypothesis. Not an afterthought.",
+        }
+    try:
+        w = float(weight)
+    except (TypeError, ValueError):
+        return {
+            "spec": ACH_SPEC,
+            "ok": False,
+            "error": "weight_required",
+            "plain": "Weight is 0.0–1.0. Zero still counts as weighed, including a rejected deception hypothesis.",
+        }
+    if w < 0 or w > 1:
+        return {"spec": ACH_SPEC, "ok": False, "error": "weight_range", "plain": "Weight is 0.0–1.0."}
+    store = _load()
+    row = next((c for c in store["cases"] if c.get("case_id") == (case_id or "").strip()), None)
+    if not row:
+        return {"spec": ACH_SPEC, "ok": False, "error": "case_not_found", "plain": "Unknown case_id."}
+    rec = {
+        "spec": ACH_SPEC,
+        "ok": True,
+        "hypothesis_id": "hyp_" + uuid.uuid4().hex[:12],
+        "case_id": row["case_id"],
+        "hypothesis_text": text,
+        "is_deception_hypothesis": bool(is_deception_hypothesis),
+        "diagnostic_evidence_for": _ids(diagnostic_evidence_for),
+        "diagnostic_evidence_against": _ids(diagnostic_evidence_against),
+        "weight": w,
+        "logged_at": _iso(),
+        "plain": (
+            "Deception hypothesis on the record. CLOSE/ESCALATE may proceed even if this weight is zero."
+            if is_deception_hypothesis
+            else "Competing explanation logged."
+        ),
+    }
+    row.setdefault("competing_hypotheses", []).append(rec)
+    _save(store)
+    return rec
+
+
+def add_osint(
+    *,
+    finding: str,
+    source_category: str,
+    source_url: str,
+    independence_verified: Any,
+    case_id: str | None = None,
+    campaign_cluster_id: str | None = None,
+) -> dict[str, Any]:
+    cat = (source_category or "").strip()
+    if cat not in SOURCE_CATEGORIES:
+        return {
+            "spec": OSINT_SPEC,
+            "ok": False,
+            "error": "source_category_unknown",
+            "plain": "social_media, public_records, news_media, geospatial, or technical_infra.",
+        }
+    text = sanitize_mod.strip_agent(finding)
+    url = sanitize_mod.strip_agent(source_url, limit=500)
+    if not text or not url:
+        return {"spec": OSINT_SPEC, "ok": False, "error": "fields_required", "plain": "Need a finding and a source_url."}
+    if independence_verified not in (True, False):
+        return {
+            "spec": OSINT_SPEC,
+            "ok": False,
+            "error": "independence_required",
+            "plain": "Syndicated copies are not independent corroboration. Say whether this source is independent.",
+        }
+    cid = (case_id or "").strip() or None
+    camp = (campaign_cluster_id or "").strip() or None
+    if bool(cid) == bool(camp):
+        return {
+            "spec": OSINT_SPEC,
+            "ok": False,
+            "error": "anchor_required",
+            "plain": "OSINT corroborates a case or a 137 cluster. It does not stand in for either.",
+        }
+    store = _load()
+    if cid:
+        row = next((c for c in store["cases"] if c.get("case_id") == cid), None)
+        if not row:
+            return {"spec": OSINT_SPEC, "ok": False, "error": "case_not_found", "plain": "Unknown case_id."}
+    else:
+        try:
+            from gate import campaign as campaign_mod
+        except ImportError:
+            import campaign as campaign_mod
+        if not any(c.get("campaign_cluster_id") == camp for c in campaign_mod.list_clusters()):
+            return {"spec": OSINT_SPEC, "ok": False, "error": "cluster_not_found", "plain": "Unknown campaign_cluster_id."}
+        row = None
+    rec = {
+        "spec": OSINT_SPEC,
+        "ok": True,
+        "corroboration_id": "osint_" + uuid.uuid4().hex[:12],
+        "case_id": cid,
+        "campaign_cluster_id": camp,
+        "source_category": cat,
+        "finding": text,
+        "source_url": url,
+        "independence_verified": bool(independence_verified),
+        "evidentiary_weight": EVIDENTIARY_WEIGHT,
+        "hard_binding": HARD_BINDING,
+        "logged_at": _iso(),
+        "plain": "Corroborating only. Not hash-verified proof. Syndicated copies stay flagged if independence_verified is false.",
+    }
+    store.setdefault("osint", []).append(rec)
+    if row is not None:
+        row.setdefault("osint_corroboration_ids", []).append(rec["corroboration_id"])
+    _save(store)
+    return rec
+
+
+def list_osint() -> list[dict[str, Any]]:
+    return list(_load().get("osint") or [])
+
+
 def set_status(*, case_id: str, status: str, resolution: str | None = None) -> dict[str, Any]:
     st = (status or "").strip().upper()
     if st not in STATUSES:
@@ -165,6 +314,13 @@ def set_status(*, case_id: str, status: str, resolution: str | None = None) -> d
     row = next((c for c in store["cases"] if c.get("case_id") == (case_id or "").strip()), None)
     if not row:
         return {"spec": CASE_SPEC, "ok": False, "error": "case_not_found", "plain": "Unknown case_id."}
+    if st in ("CLOSED", "ESCALATED") and not _has_deception(row):
+        return {
+            "spec": CASE_SPEC,
+            "ok": False,
+            "error": "deception_hypothesis_required",
+            "plain": "CLOSE/ESCALATE needs a logged is_deception_hypothesis, even if its weight is zero. Ask whether this was staged.",
+        }
     if st == "CLOSED" and not sanitize_mod.strip_agent(resolution or row.get("resolution")):
         return {
             "spec": CASE_SPEC,

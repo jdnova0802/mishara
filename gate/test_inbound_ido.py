@@ -75,6 +75,12 @@ class IdoTests(unittest.TestCase):
             hypothesis="shared integration",
             linked_receipt_ids=["r1"],
         )
+        case_file.add_hypothesis(
+            case_id=case["case_id"],
+            hypothesis_text="Staged to mislead.",
+            is_deception_hypothesis=True,
+            weight=0.0,
+        )
         case_file.set_status(case_id=case["case_id"], status="CLOSED", resolution="Not coordination.")
         done = ido.satisfy(requirement_id=pir["requirement_id"], case_id=case["case_id"])
         self.assertEqual(done["status"], "SATISFIED")
