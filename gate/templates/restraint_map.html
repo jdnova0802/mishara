@@ -1,31 +1,98 @@
 {% extends "base.html" %}
 {% block title %}Restraint map{% endblock %}
 {% block meta %}
-<meta name="description" content="BLOCK events with a two-letter jurisdiction, pinned. Unlocated events are counted, not invented.">
+<meta name="description" content="Pan/zoom world plate of located BLOCK events. Unlocated pins are not invented.">
 {% endblock %}
 {% block content %}
-<div class="container section">
+<div class="container-wide section">
   <p class="audience-tag">Live restraint map</p>
-  <h1>Where this mouth said no</h1>
-  <p class="audience-sub">{{ payload.plain }}</p>
-  <svg class="restraint-map" viewBox="0 0 800 400" role="img" aria-label="Equirectangular map of located BLOCK events">
-    <rect width="800" height="400" fill="#12141c" stroke="#252836"/>
-    {% for p in payload.points %}
-    <circle cx="{{ p.x }}" cy="{{ p.y }}" r="5" fill="#f87171">
-      <title>{{ p.decision }} {{ p.code }} {{ p.id }}</title>
-    </circle>
-    {% endfor %}
-  </svg>
-  <p>{{ payload.points|length }} located · {{ payload.unlocated }} unlocated</p>
-  {% if payload.points %}
-  <ul class="check-list">
-    {% for p in payload.points %}
-    <li><code>{{ p.decision }}</code> · {{ p.code }} · <a href="{{ url_for('receipt_preview', event_id=p.id) }}"><code>{{ p.id[:8] }}</code></a></li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+  <h1>Drag the world. Click a pin.</h1>
+  <p class="audience-sub">{{ payload.plain }} Role={{ payload.role }} · view={{ payload.view }} · palette={{ payload.palette }}</p>
+  <p>
+    <a href="{{ url_for('restraint_map_page', role='insurer') }}">Insurer</a> ·
+    <a href="{{ url_for('restraint_map_page', role='regulator') }}">Regulator</a> ·
+    <a href="{{ url_for('restraint_map_page', role='internal') }}">Internal</a> ·
+    <a href="{{ url_for('restraint_map_page', palette='cb') }}">Colorblind</a> ·
+    <a href="{{ payload.deep_link }}">Deep link</a>
+  </p>
+  <div class="map-shell">
+    <svg id="live-map" class="restraint-map" viewBox="0 0 800 400" role="img" aria-label="Equirectangular map">
+      <rect width="800" height="400" fill="#12141c" stroke="#252836"/>
+      <g id="map-pan">
+        {% for e in payload.edges %}
+        <line x1="{{ e.x1 }}" y1="{{ e.y1 }}" x2="{{ e.x2 }}" y2="{{ e.y2 }}" stroke="#5eead4" stroke-dasharray="4 4" stroke-width="1.5">
+          <animate attributeName="stroke-dashoffset" from="0" to="16" dur="1s" repeatCount="indefinite"/>
+        </line>
+        {% endfor %}
+        {% for p in payload.points %}
+        <circle class="pin" data-id="{{ p.id }}" cx="{{ p.x }}" cy="{{ p.y }}" r="6"
+          fill="{{ p.fill }}" opacity="{{ 0.35 if p.dim else 1 }}" tabindex="0">
+          <title>{{ p.decision }} {{ p.code }} {{ p.id }}</title>
+        </circle>
+        {% endfor %}
+      </g>
+    </svg>
+    <aside id="map-card" class="map-card" hidden>
+      <p class="audience-tag">Detail</p>
+      <p id="map-card-body"></p>
+    </aside>
+  </div>
+  <p>{{ payload.points|length }} located · {{ payload.unlocated }} unlocated · {{ payload.edges|length }} chain links</p>
+  <p>Share: <code>{{ payload.deep_link }}</code></p>
 </div>
+<script type="application/json" id="map-data">{{ payload | tojson }}</script>
 <style>
-.restraint-map { width: 100%; height: auto; margin: 1rem 0; border-radius: 8px; }
+.restraint-map { width: 100%; height: auto; margin: 1rem 0; border-radius: 8px; cursor: grab; touch-action: none; }
+.map-shell { position: relative; }
+.map-card { position: absolute; right: 0.5rem; top: 0.5rem; background: var(--surface); border: 1px solid var(--border); padding: 0.75rem; max-width: 16rem; font-family: var(--mono); font-size: 0.8rem; }
 </style>
+<script>
+(function () {
+  var svg = document.getElementById("live-map");
+  var pan = document.getElementById("map-pan");
+  var card = document.getElementById("map-card");
+  var body = document.getElementById("map-card-body");
+  var raw = document.getElementById("map-data");
+  if (!svg || !pan || !raw) return;
+  var data = JSON.parse(raw.textContent);
+  var cam = data.camera || {cx: 400, cy: 200, z: 1};
+  var drag = false, lx = 0, ly = 0;
+  function paint() {
+    var z = cam.z || 1;
+    var x = 400 - cam.cx * z;
+    var y = 200 - cam.cy * z;
+    pan.setAttribute("transform", "translate(" + x + " " + y + ") scale(" + z + ")");
+  }
+  paint();
+  svg.addEventListener("pointerdown", function (e) {
+    drag = true; lx = e.clientX; ly = e.clientY; svg.setPointerCapture(e.pointerId);
+  });
+  svg.addEventListener("pointerup", function () { drag = false; });
+  svg.addEventListener("pointermove", function (e) {
+    if (!drag) return;
+    cam.cx -= (e.clientX - lx) / (cam.z || 1);
+    cam.cy -= (e.clientY - ly) / (cam.z || 1);
+    lx = e.clientX; ly = e.clientY;
+    paint();
+  });
+  svg.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    cam.z = Math.min(8, Math.max(0.5, (cam.z || 1) * (e.deltaY < 0 ? 1.1 : 0.9)));
+    paint();
+  }, { passive: false });
+  function show(id) {
+    var p = (data.points || []).filter(function (x) { return x.id === id; })[0];
+    if (!p) return;
+    card.hidden = false;
+    body.textContent = (p.decision || "") + " · " + (p.code || "") + " · " + (p.created_at || "") + " · chain " + p.chain_length + " · " + (p.reason || "no reason") + " · " + (p.id || "");
+  }
+  svg.querySelectorAll(".pin").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.stopPropagation();
+      show(el.getAttribute("data-id"));
+    });
+  });
+  if (data.detail && data.detail.id) show(data.detail.id);
+})();
+</script>
 {% endblock %}

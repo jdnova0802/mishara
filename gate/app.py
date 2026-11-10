@@ -295,6 +295,11 @@ except ImportError:
     import large_surfaces as large_surfaces_mod
 
 try:
+    from gate import live_map as live_map_mod
+except ImportError:
+    import live_map as live_map_mod
+
+try:
     from gate import vertical_surfaces as vertical_surfaces_mod
 except ImportError:
     import vertical_surfaces as vertical_surfaces_mod
@@ -3843,13 +3848,27 @@ def badge_verify():
 
 @app.route("/map")
 def restraint_map_page():
-    payload = large_surfaces_mod.restraint_map(db.list_bind_events_chronological(limit=500))
+    payload = live_map_mod.view(db.list_bind_events_chronological(limit=500), dict(request.args))
     return render_template("restraint_map.html", payload=payload)
 
 
 @app.route("/v1/restraint-map")
 def restraint_map_api():
-    return jsonify(large_surfaces_mod.restraint_map(db.list_bind_events_chronological(limit=500)))
+    return jsonify(live_map_mod.view(db.list_bind_events_chronological(limit=500), dict(request.args)))
+
+
+@app.route("/v1/map-notes", methods=["POST"])
+def map_notes_api():
+    body = request.get_json(silent=True) or {}
+    try:
+        rec = live_map_mod.add_note(
+            event_id=body.get("event_id") or "",
+            text=body.get("text") or "",
+            org_only=body.get("org_only", True),
+        )
+    except ValueError as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+    return jsonify(rec), 201
 
 
 @app.route("/board")
@@ -7027,7 +7046,7 @@ def openapi_full():
                 "/embed/trust.json": {"get": {"summary": "Widget JSON for a fuse_id", "security": []}},
                 "/.well-known/agent-receipt-protocol.json": {"get": {"summary": "ARP v0.1 dated 2026-11-10"}},
                 "/badge/verify.svg": {"get": {"summary": "Green/red receipt badge ?event_id=", "security": []}},
-                "/map": {"get": {"summary": "Live restraint map — located BLOCK/HOLD/HALT only"}},
+                "/map": {"get": {"summary": "Live restraint map — pan/zoom, chain edges, roles, deep links"}},
                 "/v1/restraint-map": {"get": {"summary": "Restraint map JSON", "security": []}},
                 "/board": {"get": {"summary": "Public agent counts. Not CDPI items 75–79."}},
                 "/v1/cdpi-board": {"get": {"summary": "Event-count leaderboard", "security": []}},
