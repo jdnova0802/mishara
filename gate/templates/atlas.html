@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}ATLAS / DISARM tags{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
+{% block content %}
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Items 136 / 137</p>
+  <h1>Named techniques, named classifier</h1>
+  <p class="audience-sub">ATLAS tags a receipt. DISARM tags a 137 cluster and needs evidence receipt ids. classified_by is rule, llm, or human_analyst — shown on the record. Soft-binding only.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <h2>ATLAS on a receipt</h2>
+      <form class="desk-form" method="post" action="/v1/atlas-ref" data-desk data-reload="1">
+        <label>Receipt id <input name="receipt_id" required></label>
+        <label>Event id <input name="event_id"></label>
+        <label>Technique
+          <select name="atlas_technique_id">
+            {% for tid, t in atlas_techniques.items() %}
+            <option value="{{ tid }}">{{ tid }} — {{ t.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>classified_by
+          <select name="classified_by">
+            <option value="human_analyst">human_analyst</option>
+            <option value="llm">llm</option>
+            <option value="rule">rule</option>
+          </select>
+        </label>
+        <label>classification_confidence <input name="classification_confidence" value="0.6"></label>
+        <button type="submit">Tag</button>
+        <p class="desk-msg"></p>
+      </form>
+      <table class="desk-table">
+        <thead><tr><th>Receipt</th><th>Technique</th><th>By</th><th>Conf</th></tr></thead>
+        <tbody>
+          {% for r in atlas_refs %}
+          <tr>
+            <td class="desk-mono">{{ r.receipt_id }}</td>
+            <td>{{ r.atlas_technique_id }}</td>
+            <td>{{ r.classified_by }}</td>
+            <td>{{ r.classification_confidence }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="desk-panel">
+      <h2>DISARM on a cluster</h2>
+      <form class="desk-form" method="post" action="/v1/campaigns/ttp" data-desk data-reload="1">
+        <label>Cluster id <input name="campaign_cluster_id" required></label>
+        <label>Technique
+          <select name="disarm_technique_id">
+            {% for tid, t in disarm_techniques.items() %}
+            <option value="{{ tid }}">{{ tid }} — {{ t.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>classified_by
+          <select name="classified_by">
+            <option value="human_analyst">human_analyst</option>
+            <option value="llm">llm</option>
+            <option value="rule">rule</option>
+          </select>
+        </label>
+        <label>Evidence receipt ids <input name="evidence_receipt_ids" required></label>
+        <button type="submit">Attach TTP</button>
+        <p class="desk-msg"></p>
+      </form>
+      <p><a href="/campaigns">Open a cluster / set FIMI →</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

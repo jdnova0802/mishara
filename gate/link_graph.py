@@ -26,6 +26,7 @@ class ReceiptRecord:
     metrics: dict[str, float]
     created_at: str
     event_id: str = ""
+    counterparties: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -81,6 +82,15 @@ def records_from_bind_events(rows: Iterable[dict[str, Any]]) -> list[ReceiptReco
                     }
                 )
         co_signers = [str(x) for x in (hop.get("co_signers") or []) if x]
+        raw_cp = hop.get("counterparties")
+        if isinstance(raw_cp, list):
+            counterparties = [str(x).strip() for x in raw_cp if str(x).strip()]
+        elif hop.get("counterparty"):
+            counterparties = [str(hop.get("counterparty")).strip()]
+        elif hop.get("counterparty_id"):
+            counterparties = [str(hop.get("counterparty_id")).strip()]
+        else:
+            counterparties = []
         decision = (row.get("decision") or "").upper()
         block = 1.0 if decision in ("BLOCK", "HALT") else 0.0
         out.append(
@@ -94,6 +104,7 @@ def records_from_bind_events(rows: Iterable[dict[str, Any]]) -> list[ReceiptReco
                 metrics={"block_rate": block},
                 created_at=str(row.get("created_at") or ""),
                 event_id=str(row.get("id") or ""),
+                counterparties=counterparties,
             )
         )
     return out
@@ -128,6 +139,17 @@ class LinkGraphBuilder:
                         from_node_id=actor.node_id,
                         to_node_id=receipt_node.node_id,
                         edge_type="co_signer",
+                        source_receipt_id=receipt.receipt_id,
+                    )
+                )
+            for cp in receipt.counterparties:
+                other = registry.intern("org", cp)
+                edges.append(
+                    LinkGraphEdge(
+                        edge_id=f"shared_counterparty:{receipt_node.node_id}->{other.node_id}",
+                        from_node_id=receipt_node.node_id,
+                        to_node_id=other.node_id,
+                        edge_type="shared_counterparty",
                         source_receipt_id=receipt.receipt_id,
                     )
                 )
@@ -169,7 +191,7 @@ class LinkGraphBuilder:
         registry = NodeRegistry()
         root = registry.intern(root_type, root_id)
         all_edges = self._edges(registry)
-        if "shared_cohort" in wanted and root_type == "actor":
+        if "shared_cohort" in wanted:
             rec = next((r for r in self._by_receipt.values() if r.operator_id == root_id), None)
             if rec:
                 all_edges.extend(self._cohort_edges(registry, rec.cohort_vertical))
@@ -226,3 +248,79 @@ def graph_from_bind_events(
         max_hops=max_hops,
         edge_types=edge_types,
     )
+
+
+def catalog_roots(rows: list[dict[str, Any]], *, limit: int = 40) -> dict[str, Any]:
+    records = records_from_bind_events(rows)
+    receipts: list[dict[str, str]] = []
+    actors: list[str] = []
+    orgs: list[str] = []
+    seen_act: set[str] = set()
+    seen_org: set[str] = set()
+    for rec in reversed(records):
+        if len(receipts) < limit:
+            receipts.append(
+                {
+                    "receipt_id": rec.receipt_id,
+                    "event_id": rec.event_id,
+                    "operator_id": rec.operator_id,
+                }
+            )
+        if rec.operator_id not in seen_act and len(actors) < limit:
+            seen_act.add(rec.operator_id)
+            actors.append(rec.operator_id)
+        if rec.org_id not in seen_org and len(orgs) < limit:
+            seen_org.add(rec.org_id)
+            orgs.append(rec.org_id)
+    return {
+        "spec": SPEC,
+        "edge_types": list(EDGE_TYPES),
+        "entity_types": list(ENTITY_TYPES),
+        "receipts": receipts,
+        "actors": actors,
+        "orgs": orgs,
+        "empty": not records,
+        "plain": (
+            "No receipts on this mouth yet. Empty graph, not a hidden network."
+            if not records
+            else "Roots from live bind_events. Not mock data."
+        ),
+    }
+
+
+def inspect_node(rows: list[dict[str, Any]], node_id: str) -> dict[str, Any]:
+    nid = (node_id or "").strip()
+    if ":" not in nid:
+        return {"spec": SPEC, "ok": False, "error": "node_id_required", "plain": "node_id is type:id, never split on underscore."}
+    entity_type, _, entity_ref = nid.partition(":")
+    if entity_type not in ENTITY_TYPES:
+        return {"spec": SPEC, "ok": False, "error": "unknown_root_type", "allowed": list(ENTITY_TYPES)}
+    records = records_from_bind_events(rows)
+    hits = []
+    for rec in records:
+        match = (
+            (entity_type == "receipt_id" and rec.receipt_id == entity_ref)
+            or (entity_type == "actor" and rec.operator_id == entity_ref)
+            or (entity_type == "org" and rec.org_id == entity_ref)
+        )
+        if not match:
+            continue
+        hits.append(
+            {
+                "event_id": rec.event_id,
+                "receipt_id": rec.receipt_id,
+                "operator_id": rec.operator_id,
+                "org_id": rec.org_id,
+                "cohort_vertical": rec.cohort_vertical,
+                "created_at": rec.created_at,
+            }
+        )
+    return {
+        "spec": SPEC,
+        "ok": True,
+        "node_id": nid,
+        "entity_type": entity_type,
+        "entity_ref": entity_ref,
+        "rows": hits[:25],
+        "plain": "Live bind_events pointed to by this node. Empty if the id is not on this mouth.",
+    }

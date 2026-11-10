@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Triage queue{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
+{% block content %}
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Item 135</p>
+  <h1>Ingest, enrich, then dispose</h1>
+  <p class="audience-sub">Severity is null at ingest. Disposition needs a reason. Nothing here auto-acts. Work the selected row through POST /v1/triage → /v1/triage/claim → /v1/triage/enrich → /v1/triage/dispose in that order.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <h2>Queue</h2>
+      {% if not rows %}
+      <p class="desk-empty">Queue is empty. Send a 133 flag here, or ingest below.</p>
+      {% else %}
+      <table class="desk-table">
+        <thead><tr><th>Id</th><th>Source</th><th>Severity</th><th>Disposition</th></tr></thead>
+        <tbody>
+          {% for t in rows %}
+          <tr>
+            <td class="desk-mono"><a href="/triage?triage_id={{ t.triage_id }}">{{ t.triage_id }}</a></td>
+            <td>{{ t.source }} {{ t.source_id }}</td>
+            <td>{{ t.severity | tojson }}</td>
+            <td>{{ t.disposition or "null" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      <form class="desk-form" method="post" action="/v1/triage" data-desk data-reload="1" style="margin-top:1rem">
+        <label>Source
+          <select name="source">
+            <option value="anomaly_flag">anomaly_flag</option>
+            <option value="counter_case_score">counter_case_score</option>
+            <option value="kudurru_watch">kudurru_watch</option>
+          </select>
+        </label>
+        <label>Source id <input name="source_id" required></label>
+        <button type="submit">Ingest</button>
+        <p class="desk-msg"></p>
+      </form>
+    </div>
+    <div class="desk-panel">
+      <h2>Selected {{ selected.triage_id if selected else "" }}</h2>
+      {% if selected %}
+      <div class="queue-step {% if not selected.assigned_to %}on{% endif %}">
+        <form class="desk-form" method="post" action="/v1/triage/claim" data-desk data-reload="1">
+          <input type="hidden" name="triage_id" value="{{ selected.triage_id }}">
+          <label>Claim as <input name="assigned_to" required></label>
+          <button type="submit">Claim</button>
+          <p class="desk-msg"></p>
+        </form>
+      </div>
+      <div class="queue-step {% if not selected.severity %}on{% endif %}">
+        <form class="desk-form" method="post" action="/v1/triage/enrich" data-desk data-reload="1">
+          <input type="hidden" name="triage_id" value="{{ selected.triage_id }}">
+          <label>Severity
+            <select name="severity">
+              <option>LOW</option><option>MEDIUM</option><option>HIGH</option><option>CRITICAL</option>
+            </select>
+          </label>
+          <label>Asset criticality <input name="asset_criticality"></label>
+          <button type="submit">Enrich</button>
+          <p class="desk-msg"></p>
+        </form>
+      </div>
+      <div class="queue-step {% if selected.severity and not selected.disposition %}on{% endif %}">
+        <form class="desk-form" method="post" action="/v1/triage/dispose" data-desk data-reload="1">
+          <input type="hidden" name="triage_id" value="{{ selected.triage_id }}">
+          <label>Disposition
+            <select name="disposition">
+              <option>ESCALATE</option>
+              <option>MONITOR</option>
+              <option>CLOSE_NON_ACTIONABLE</option>
+            </select>
+          </label>
+          <label>Reason <input name="disposition_reason" required></label>
+          <button type="submit">Dispose</button>
+          <p class="desk-msg"></p>
+        </form>
+      </div>
+      <pre class="desk-mono">{{ selected | tojson(indent=2) }}</pre>
+      {% else %}
+      <p class="desk-empty">Pick a row. The next legal step is highlighted.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -3854,6 +3854,19 @@ def well_known_link_graph():
     )
 
 
+@app.route("/v1/link-graph/roots")
+def link_graph_roots_api():
+    rows = db.list_bind_events_chronological(limit=5000)
+    return jsonify(link_graph_mod.catalog_roots(rows))
+
+
+@app.route("/v1/link-graph/inspect")
+def link_graph_inspect_api():
+    node_id = (request.args.get("node_id") or "").strip()
+    rec = link_graph_mod.inspect_node(db.list_bind_events_chronological(limit=5000), node_id)
+    return jsonify(rec), (200 if rec.get("ok") else 400)
+
+
 @app.route("/v1/link-graph")
 def link_graph_api():
     root_type = (request.args.get("root_type") or "receipt_id").strip()
@@ -3914,7 +3927,20 @@ def anomaly_flags_api():
             }
         )
     flags = anomaly_detection_mod.flag_anomalies(records, baseline)
-    return jsonify({"ok": True, "baseline": baseline, "flags": flags})
+    tri = {
+        t.get("source_id"): t
+        for t in case_file_mod.list_triage()
+        if t.get("source") == "anomaly_flag"
+    }
+    for flag in flags:
+        item = tri.get(flag.get("flag_id"))
+        if not item:
+            continue
+        flag["disposition"] = item.get("disposition")
+        flag["reviewed"] = bool(item.get("disposition") or item.get("assigned_to"))
+        flag["triage_id"] = item.get("triage_id")
+        flag["severity"] = item.get("severity")
+    return jsonify({"ok": True, "baseline": baseline, "flags": flags, "never_auto_acted": True})
 
 
 @app.route("/.well-known/atlas.json")
@@ -3931,11 +3957,21 @@ def well_known_atlas():
     )
 
 
-@app.route("/v1/atlas-ref")
+@app.route("/v1/atlas-ref", methods=["GET", "POST"])
 def atlas_ref_api():
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+        rec = atlas_mod.record(
+            receipt_id=body.get("receipt_id") or "",
+            atlas_technique_id=body.get("atlas_technique_id") or "",
+            classified_by=body.get("classified_by") or "",
+            classification_confidence=body.get("classification_confidence"),
+            event_id=body.get("event_id"),
+        )
+        return jsonify(rec), (201 if rec.get("ok") else 409)
     event_id = (request.args.get("event_id") or "").strip()
     if not event_id:
-        return jsonify({"ok": False, "error": "event_id_required"}), 400
+        return jsonify({"ok": True, "spec": atlas_mod.SPEC, "techniques": list(atlas_mod.TECHNIQUES), "refs": atlas_mod.list_refs()})
     event = db.get_bind_event(event_id)
     status, body = atlas_mod.classify_or_404(event)
     return jsonify(body), status
@@ -3955,6 +3991,48 @@ def custody_graph_page():
     rows = db.list_bind_events_chronological(limit=500)
     payload = gotham_mod.view(rows, event_id=event_id)
     return render_template("custody_graph.html", payload=payload, event_id=event_id)
+
+
+@app.route("/desk")
+def desk_page():
+    return render_template("desk.html")
+
+
+@app.route("/graph")
+def graph_page():
+    rows = db.list_bind_events_chronological(limit=5000)
+    return render_template(
+        "graph.html",
+        catalog=link_graph_mod.catalog_roots(rows),
+        edge_types=link_graph_mod.EDGE_TYPES,
+    )
+
+
+@app.route("/anomaly")
+def anomaly_page():
+    return render_template(
+        "anomaly.html",
+        metrics=anomaly_detection_mod.METRICS,
+        min_sample=anomaly_detection_mod.MIN_SAMPLE_SIZE,
+    )
+
+
+@app.route("/triage")
+def triage_page():
+    tid = (request.args.get("triage_id") or "").strip()
+    rows = list(reversed(case_file_mod.list_triage()))[:80]
+    selected = case_file_mod.get_triage(tid) if tid else (rows[0] if rows else None)
+    return render_template("triage.html", rows=rows, selected=selected)
+
+
+@app.route("/atlas")
+def atlas_page():
+    return render_template(
+        "atlas.html",
+        atlas_techniques=atlas_mod.TECHNIQUES,
+        atlas_refs=list(reversed(atlas_mod.list_refs()))[:40],
+        disarm_techniques=campaign_mod.TECHNIQUES,
+    )
 
 
 @app.route("/v1/custody-graph")
@@ -4798,7 +4876,8 @@ def campaigns_causal_api():
         link_graph_edge_id=body.get("link_graph_edge_id") or "",
         claimed_relationship=body.get("claimed_relationship") or "",
         confounder_considered=body.get("confounder_considered"),
-        confounder_ruled_out=bool(body.get("confounder_ruled_out")),
+        confounder_ruled_out=body.get("confounder_ruled_out") is True
+        or str(body.get("confounder_ruled_out") or "").lower() in ("1", "true", "yes"),
         reviewed_by=body.get("reviewed_by") or "",
         campaign_cluster_id=body.get("campaign_cluster_id"),
     )

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Anomaly dashboard{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
+{% block content %}
+<div class="container-wide section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Item 133</p>
+  <h1>Population baseline, then flags</h1>
+  <p class="audience-sub">Mean / stddev / sample_size come from live operators. Flags stay disposition=null until an analyst sends them through 135. Below min_sample_size ({{ min_sample }}) this table stays empty — we do not invent a cutoff.</p>
+  <div class="desk-grid">
+    <div class="desk-panel">
+      <form class="desk-form" id="anom-form">
+        <label>Cohort <input name="cohort" id="cohort" value="unspecified"></label>
+        <label>Metric
+          <select name="metric" id="metric">
+            {% for m in metrics %}<option value="{{ m }}">{{ m }}</option>{% endfor %}
+          </select>
+        </label>
+        <button type="submit">Load baseline</button>
+        <p class="desk-msg" id="anom-msg"></p>
+      </form>
+      <table class="desk-table" id="anom-table">
+        <thead><tr><th>Operator</th><th>σ</th><th>Observed</th><th>Disposition</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="desk-panel">
+      <h2>Baseline</h2>
+      <pre class="desk-mono" id="base">Not loaded.</pre>
+      <p class="desk-empty">Send to triage does not dispose. The queue still has to enrich and give a reason.</p>
+    </div>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("anom-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const qs = new URLSearchParams({
+      cohort: document.getElementById("cohort").value,
+      metric: document.getElementById("metric").value,
+    });
+    const rec = await deskJson("/v1/anomaly-flags?" + qs.toString());
+    deskMsg(document.getElementById("anom-msg"), rec.baseline || rec);
+    document.getElementById("base").textContent = JSON.stringify(rec.baseline || rec, null, 2);
+    const tb = document.querySelector("#anom-table tbody");
+    tb.innerHTML = "";
+    (rec.flags || []).forEach((f) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = "<td class='desk-mono'>" + f.operator_id + "</td><td>" + Number(f.deviation_sigma).toFixed(2) + "</td><td>" + f.observed_value + "</td><td>" + (f.disposition || "null") + "</td>";
+      const td = document.createElement("td");
+      const b = document.createElement("button");
+      b.textContent = f.triage_id ? "Open triage" : "Send to triage";
+      b.addEventListener("click", async () => {
+        if (f.triage_id) { window.location = "/triage?triage_id=" + encodeURIComponent(f.triage_id); return; }
+        const ing = await deskJson("/v1/triage", { method: "POST", body: JSON.stringify({ source: "anomaly_flag", source_id: f.flag_id }) });
+        deskMsg(document.getElementById("anom-msg"), ing);
+        if (ing.ok) window.location = "/triage?triage_id=" + encodeURIComponent(ing.triage_id);
+      });
+      td.appendChild(b); tr.appendChild(td); tb.appendChild(tr);
+    });
+  });
+});
+</script>
+{% endblock %}
