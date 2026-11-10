@@ -340,6 +340,11 @@ except ImportError:
     import standing as standing_mod
 
 try:
+    from gate import gotham as gotham_mod
+except ImportError:
+    import gotham as gotham_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -3832,7 +3837,23 @@ def atlas_ref_api():
 def chain_page():
     rows = db.list_bind_events_chronological(limit=50)
     events = list(reversed(rows))
-    return render_template("chain.html", events=events)
+    graph = gotham_mod.view(rows)
+    return render_template("chain.html", events=events, graph=graph)
+
+
+@app.route("/custody-graph")
+def custody_graph_page():
+    event_id = (request.args.get("event_id") or "").strip() or None
+    rows = db.list_bind_events_chronological(limit=500)
+    payload = gotham_mod.view(rows, event_id=event_id)
+    return render_template("custody_graph.html", payload=payload, event_id=event_id)
+
+
+@app.route("/v1/custody-graph")
+def custody_graph_api():
+    event_id = (request.args.get("event_id") or "").strip() or None
+    rows = db.list_bind_events_chronological(limit=500)
+    return jsonify(gotham_mod.view(rows, event_id=event_id))
 
 
 @app.route("/v1/chain")
@@ -6995,6 +7016,7 @@ def sitemap():
         "/v1/anomaly-flags",
         "/.well-known/atlas.json",
         "/chain",
+        "/custody-graph",
         "/rules",
         "/embed/trust.js",
         "/.well-known/agent-receipt-protocol.json",

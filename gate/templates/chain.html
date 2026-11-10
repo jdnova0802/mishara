@@ -7,7 +7,23 @@
 <div class="container section">
   <p class="audience-tag">Chain explorer</p>
   <h1>Signed receipts on this mouth</h1>
-  <p class="audience-sub">Newest last in the table’s time column. Each row is one bind event with a hash. This is not Etherscan; it is the Gate log a stranger can walk.</p>
+  <p class="audience-sub">Newest last in the table’s time column. Each row is one bind event with a hash. This is not Etherscan; it is the Gate log a stranger can walk. <a href="{{ url_for('custody_graph_page') }}">Open the node/edge graph</a>.</p>
+  {% if graph and graph.nodes %}
+  <svg class="gotham-graph" viewBox="0 0 {{ graph.width }} 180" role="img" aria-label="Ingredient chain" style="width:100%;height:auto;margin:1rem 0;background:#07080c;border:1px solid var(--border);border-radius:8px;">
+    <rect width="{{ graph.width }}" height="180" fill="#07080c"/>
+    {% for e in graph.edges %}
+    {% if e.kind == 'ingredient' %}
+    <line x1="{{ e.x1 }}" y1="{{ e.y1 * 0.45 }}" x2="{{ e.x2 }}" y2="{{ e.y2 * 0.45 }}" stroke="#5eead4" stroke-width="1.25" stroke-dasharray="5 4" opacity="0.8"/>
+    {% endif %}
+    {% endfor %}
+    {% for n in graph.nodes %}
+    {% if n.role == 'gate' %}
+    <circle cx="{{ n.x }}" cy="{{ n.y * 0.45 }}" r="7" fill="#07080c" stroke="#5eead4"/>
+    <text class="machine-truth" x="{{ n.x + 12 }}" y="{{ n.y * 0.45 + 4 }}" fill="#8b92a8" font-size="10" font-family="var(--mono)">{{ (n.event_id or '')[:8] }}</text>
+    {% endif %}
+    {% endfor %}
+  </svg>
+  {% endif %}
   {% if events %}
   <table class="chain-table">
     <thead><tr><th>When</th><th>Decision</th><th>Event</th><th>Hash</th></tr></thead>

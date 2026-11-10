@@ -210,6 +210,15 @@ pre, code {
   font-size: 0.85rem;
 }
 
+/* Item 124 — machine-truth (ids, hashes, timestamps) is monospace; prose stays sans. */
+time, .machine-truth, .chain-table td:first-child, .chain-table td:nth-child(3), .chain-table td:nth-child(4) {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+h1, h2, h3, p, li, .audience-sub, .audience-tag, .nav-links a, label {
+  font-family: var(--sans);
+}
+
 pre {
   background: #08090d;
   border: 1px solid var(--border);
