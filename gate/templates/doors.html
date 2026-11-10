@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Doors{% endblock %}
+{% block meta %}
+<meta name="description" content="Four ways to call the stop. An agent tool, a spec file, a payment check, and a program you run yourself.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Map</p>
+  <h1>How you call the stop</h1>
+  <p class="audience-sub">There is no chatbot. An agent hits a tool. A person opens a receipt. These are the four doors that exist in this process — not a roadmap.</p>
+</div>
+{% include "_protocol_doors.html" %}
+<div class="container section">
+  <div class="card">
+    <h2>In one sentence each</h2>
+    <ul class="check-list">
+      <li><strong>MCP</strong> — an agent can ask Gate “may this write run?”</li>
+      <li><strong>OpenAPI</strong> — a machine-readable list of every call.</li>
+      <li><strong>x402</strong> — pay a tiny USDC amount only if you want the paid route.</li>
+      <li><strong>CLI</strong> — check a receipt on your own computer even if Gate is down.</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

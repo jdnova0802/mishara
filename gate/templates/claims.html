@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Claims we will stand on{% endblock %}
+{% block meta %}
+<meta name="description" content="Two named people on irreversible writes. A stranger can open the same receipt. Not a black box.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Trust · claims</p>
+  <h1>Claims we will stand on</h1>
+  <p class="audience-sub">Irreversible writes need two named people, not one operator and a model. The receipt is the same object both of them — and a stranger — can open.</p>
+  <div class="card" style="margin: 1.25rem 0;">
+    <h2>Two-person rule</h2>
+    <p>A bind, payout, or withdrawal that one person can fire alone is not cleared. The second key is a named human on the receipt. A Slack reaction is not a second key.</p>
+  </div>
+  <div class="card">
+    <h2>Not a black box</h2>
+    <p>You are not asked to trust a dashboard we control. You recompute a hash. If we changed the record, the hash fails. That is the pitch — not “our AI is safe.”</p>
+  </div>
+  <p style="margin-top: 1.5rem;"><a href="{{ url_for('trust') }}">Trust &amp; limits</a> · <a href="{{ url_for('trust_corrections') }}">Corrections</a></p>
+</div>
+{% endblock %}

@@ -99,7 +99,7 @@ PLATES: dict[str, dict] = {
         "emoji": "",
         "title": "Carriers & PAS",
         "headline": "Bind ALLOW/BLOCK with a receipt counsel can open",
-        "subhead": "Clearance before irreversible bind. Fail closed. Independent verify. Same hop family as PAS bind-check. Qusar agents draft — Gate owns bind.",
+        "subhead": "Clearance before irreversible bind. Fail closed. Independent verify. A demo BLOCK is a stopped write, not a score that the carrier is 0% compliant.",
         "pain": "Bind went through on an agent you can't prove was cleared.",
         "offer": "Bind Room officer pack + PolicyCenter pre-bind weld. Control, not a rating model.",
         "price": "$1,750 Bind Room · $25,000 operator weld",

@@ -1184,6 +1184,16 @@ def trust_corrections():
     return render_template("corrections.html", entries=trust_corrections_mod.ENTRIES)
 
 
+@app.route("/trust/claims")
+def trust_claims():
+    return render_template("claims.html")
+
+
+@app.route("/doors")
+def doors_page():
+    return render_template("doors.html")
+
+
 @app.route("/compliance/mandate-registry")
 def mandate_registry():
     base = advertised_url()
@@ -1268,12 +1278,12 @@ def bind_room_demo_domains():
 
 @app.route("/verify", strict_slashes=False)
 def verify_redirect():
-    """Typed Gate /verify 404s; the tool lives on velaru.xyz. Keep query string."""
-    dest = VELARU_VERIFY
+    """Bare /verify is plain English. An event id still jumps to the Velaru paste tool."""
     qs = request.query_string.decode()
     if qs:
-        dest = dest + "?" + qs
-    return redirect(dest, code=302)
+        dest = VELARU_VERIFY + "?" + qs
+        return redirect(dest, code=302)
+    return render_template("verify.html", velaru_verify=VELARU_VERIFY)
 
 
 @app.route("/regulator")
@@ -5809,6 +5819,9 @@ def sitemap():
         "/demo/bind-room",
         "/check",
         "/trust/corrections",
+        "/trust/claims",
+        "/doors",
+        "/verify",
         "/compliance/mandate-registry",
         "/audit",
         "/start",
