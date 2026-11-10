@@ -326,6 +326,12 @@ def mcp_discovery(public_url: str) -> dict:
                 "path": "/v1/pas/mga-authority",
                 "method": "POST",
             },
+            {
+                "name": "verify_receipt",
+                "description": "Public receipt lookup by event_id. Hash + verify URL. The receipt does not name the key.",
+                "path": "/.well-known/receipt/{event_id}.json",
+                "method": "GET",
+            },
         ],
     }
 
@@ -380,6 +386,7 @@ def ard_manifest(public_url: str) -> dict:
                     "pas_bind_check",
                     "policycenter_pre_bind",
                     "mga_authority",
+                    "verify_receipt",
                 ],
                 "representativeQueries": [
                     "may this irreversible payment commit proceed",
@@ -564,7 +571,7 @@ def x402_catalog(public_url: str) -> dict:
                 "resource": f"{public_url}/mcp",
                 "type": "mcp",
                 "x402Version": 2,
-                "description": "MCP tools: fuse_lookup, fuse_hop, welded_act, pas_bind_check, policycenter_pre_bind, mga_authority",
+                "description": "MCP tools: fuse_lookup, fuse_hop, welded_act, pas_bind_check, policycenter_pre_bind, mga_authority, verify_receipt",
                 "extensions": {
                     "bazaar": {
                         "info": {
@@ -633,6 +640,7 @@ tools:
   - pas_bind_check
   - policycenter_pre_bind
   - mga_authority
+  - verify_receipt
 notes: Discovery and auth only. DEAD verify is Gate, not TrueFoundry.
 """
 
@@ -657,6 +665,7 @@ def aws_agentcore_json(public_url: str) -> dict:
             "pas_bind_check",
             "policycenter_pre_bind",
             "mga_authority",
+            "verify_receipt",
         ],
         "note": "AWS MCP Gateway / AgentCore registers this URL. They do not become the bind path.",
     }

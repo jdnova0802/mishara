@@ -157,6 +157,8 @@ class ManifestTests(unittest.TestCase):
                 "pas_bind_check",
                 "policycenter_pre_bind",
                 "mga_authority",
+                "prefinality_evaluate",
+                "verify_receipt",
             },
         )
 

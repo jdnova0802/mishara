@@ -91,6 +91,8 @@
       <a href="{{ url_for('check_page') }}">Check</a> ·
       <a href="{{ url_for('doors_page') }}">Doors</a> ·
       <a href="{{ url_for('trust_claims') }}">Claims</a> ·
+      <a href="{{ url_for('chain_page') }}">Chain</a> ·
+      <a href="{{ url_for('gate_rules_page') }}">Rules</a> ·
       <a href="{{ url_for('trust_corrections') }}">Corrections</a> ·
       <a href="{{ url_for('mandate_registry') }}">Mandate registry</a> ·
       <a href="{{ url_for('operator_page') }}">Operator</a> ·
@@ -151,7 +153,9 @@
       { href: "/compliance/mandate-registry", title: "Mandate registry", aliases: "mandate compliance" },
       { href: "/pricing", title: "Pricing", aliases: "fuse $49 paper check payout gate instant receipt" },
       { href: "/docs", title: "Docs", aliases: "api" },
-      { href: "/liquidations", title: "Liquidations", aliases: "aave" }
+      { href: "/liquidations", title: "Liquidations", aliases: "aave" },
+      { href: "/chain", title: "Receipt chain", aliases: "explorer hash ledger" },
+      { href: "/rules", title: "No-code rules", aliases: "gate-rules block hold" }
     ];
     function paint(q) {
       q = (q || "").toLowerCase().trim();

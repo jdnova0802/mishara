@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Gate rules{% endblock %}
+{% block meta %}
+<meta name="description" content="Add a BLOCK/HOLD rule without a deploy. JSON field, comparison, value.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">No-code rules</p>
+  <h1>Write a rule. Preview it. No deploy.</h1>
+  <p class="audience-sub">These rules live in a JSON file this process reads. They are not a production policy engine and they do not change signed receipts.</p>
+    <form method="post" action="{{ url_for('gate_rules_page') }}" class="card" style="margin: 1.25rem 0;">
+    <p><label>Name <input name="name" required></label></p>
+    <p><label>Field <input name="field" placeholder="premium" required></label></p>
+    <p><label>Op
+      <select name="op">
+        <option value="gt">gt</option>
+        <option value="lt">lt</option>
+        <option value="eq">eq</option>
+        <option value="gte">gte</option>
+        <option value="lte">lte</option>
+        <option value="contains">contains</option>
+      </select>
+    </label></p>
+    <p><label>Value <input name="value" placeholder="50000" required></label></p>
+    <p><label>Action
+      <select name="action"><option>BLOCK</option><option>HOLD</option></select>
+    </label></p>
+    <p><button class="btn btn-primary" type="submit">Save rule</button></p>
+  </form>
+  <h2>Current rules</h2>
+  {% if rules %}
+  <ul class="check-list">
+    {% for r in rules %}
+    <li><code>{{ r.name }}</code> — {{ r.field }} {{ r.op }} {{ r.value }} → {{ r.action }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>None yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

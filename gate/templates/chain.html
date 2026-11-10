@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Receipt chain{% endblock %}
+{% block meta %}
+<meta name="description" content="Public list of signed bind receipts on this mouth. Empty is honest.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Chain explorer</p>
+  <h1>Signed receipts on this mouth</h1>
+  <p class="audience-sub">Newest last in the table’s time column. Each row is one bind event with a hash. This is not Etherscan; it is the Gate log a stranger can walk.</p>
+  {% if events %}
+  <table class="chain-table">
+    <thead><tr><th>When</th><th>Decision</th><th>Event</th><th>Hash</th></tr></thead>
+    <tbody>
+    {% for ev in events %}
+      <tr>
+        <td>{{ ev.created_at }}</td>
+        <td>{{ ev.decision }}</td>
+        <td><a href="{{ url_for('receipt_preview', event_id=ev.id) }}"><code>{{ ev.id[:8] }}</code></a></td>
+        <td>
+          {% if ev.receipt_hash %}
+          <a href="/v1/link-graph?root_type=receipt_id&root_id={{ ev.receipt_hash }}"><code>{{ ev.receipt_hash[:12] }}</code></a>
+          {% else %}—{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No signed receipts yet. Empty is the log, not a hidden chain.</p>
+  {% endif %}
+</div>
+<style>
+.chain-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; font-family: var(--mono); }
+.chain-table th, .chain-table td { text-align: left; padding: 0.4rem 0.3rem; border-bottom: 1px solid var(--border); }
+</style>
+{% endblock %}

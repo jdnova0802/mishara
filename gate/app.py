@@ -275,6 +275,21 @@ except ImportError:
     import circuit_breaker as circuit_breaker_mod
 
 try:
+    from gate import triple_vote as triple_vote_mod
+except ImportError:
+    import triple_vote as triple_vote_mod
+
+try:
+    from gate import gate_rules as gate_rules_mod
+except ImportError:
+    import gate_rules as gate_rules_mod
+
+try:
+    from gate import arp as arp_mod
+except ImportError:
+    import arp as arp_mod
+
+try:
     from gate import safe_mode as safe_mode_mod
 except ImportError:
     import safe_mode as safe_mode_mod
@@ -1663,6 +1678,7 @@ def _finalize_spend_plan(
     spend_write: dict | None = None,
     license_id: str | None = None,
     counterpart: dict | None = None,
+    high_stakes: bool = False,
 ):
     jid = (job_id or "").strip() or None
     fp = spend_protocol_mod.fingerprint(spend_write)
@@ -1773,6 +1789,22 @@ def _finalize_spend_plan(
             plan["result"] = "HOLD"
     elif (decision or "").upper() in ("HOLD", "HALT"):
         plan["safe_mode"] = safe_mode_mod.snapshot(reason=decision)
+    vote = triple_vote_mod.grade(
+        hop=hop_d if isinstance(hop_d, dict) else {},
+        plan=plan,
+        breaker=breaker,
+    )
+    plan["triple_vote"] = vote
+    if high_stakes and not vote.get("agreed"):
+        votes = set((vote.get("votes") or {}).values())
+        plan["bind_allowed"] = False
+        if "allow_bind" in plan:
+            plan["allow_bind"] = False
+        if "BLOCK" in votes:
+            plan["result"] = "BLOCK"
+            plan["halt"] = True
+        else:
+            plan["result"] = "HOLD"
     return plan, out_status, extra
 
 
@@ -1872,6 +1904,7 @@ def run_mga_authority(body: dict, account_id=None):
         spend_write=spend_write,
         license_id=body.get("license_id"),
         counterpart=counterpart_mod.parse(body),
+        high_stakes=bool(body.get("high_stakes")),
     )
 
 
@@ -3634,6 +3667,147 @@ def atlas_ref_api():
     return jsonify(body), status
 
 
+@app.route("/chain")
+def chain_page():
+    rows = db.list_bind_events_chronological(limit=50)
+    events = list(reversed(rows))
+    return render_template("chain.html", events=events)
+
+
+@app.route("/v1/chain")
+def chain_api():
+    rows = db.list_bind_events_chronological(limit=50)
+    return jsonify(
+        {
+            "spec": "gate-chain-explorer-v1",
+            "count": len(rows),
+            "events": [
+                {
+                    "id": r.get("id"),
+                    "created_at": r.get("created_at"),
+                    "decision": r.get("decision"),
+                    "receipt_hash": r.get("receipt_hash"),
+                    "prev_receipt_hash": r.get("prev_receipt_hash"),
+                    "fuse_id": r.get("fuse_id"),
+                }
+                for r in rows
+            ],
+        }
+    )
+
+
+@app.route("/rules", methods=["GET", "POST"])
+def gate_rules_page():
+    if request.method == "POST":
+        try:
+            gate_rules_mod.add_rule(
+                name=request.form.get("name") or "",
+                field=request.form.get("field") or "",
+                op=request.form.get("op") or "eq",
+                value=request.form.get("value"),
+                action=request.form.get("action") or "BLOCK",
+            )
+            flash("Rule saved. Preview it on POST /v1/gate-rules/preview.", "ok")
+        except ValueError as e:
+            flash(str(e), "error")
+        return redirect(url_for("gate_rules_page"))
+    return render_template("rules.html", rules=gate_rules_mod.load_rules())
+
+
+@app.route("/v1/gate-rules", methods=["GET", "POST"])
+def gate_rules_api():
+    if request.method == "GET":
+        return jsonify({"spec": gate_rules_mod.SPEC, "rules": gate_rules_mod.load_rules()})
+    body = request.get_json(silent=True) or {}
+    try:
+        rule = gate_rules_mod.add_rule(
+            name=body.get("name") or "",
+            field=body.get("field") or "",
+            op=body.get("op") or "eq",
+            value=body.get("value"),
+            action=body.get("action") or "BLOCK",
+        )
+    except ValueError as e:
+        return jsonify({"ok": False, "error": str(e)}), 400
+    return jsonify({"ok": True, "rule": rule}), 201
+
+
+@app.route("/v1/gate-rules/preview", methods=["POST"])
+def gate_rules_preview():
+    body = request.get_json(silent=True) or {}
+    sample = body.get("sample") if isinstance(body.get("sample"), dict) else body
+    return jsonify(gate_rules_mod.preview(sample))
+
+
+@app.route("/embed/trust.js")
+def embed_trust_js():
+    path = os.path.join(app.root_path, "static", "trust_widget.js")
+    with open(path, encoding="utf-8") as fh:
+        js = fh.read()
+    resp = Response(js, mimetype="application/javascript")
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    resp.headers["Cache-Control"] = "public, max-age=300"
+    return resp
+
+
+@app.route("/embed/trust.json")
+def embed_trust_json():
+    fuse_id = (request.args.get("fuse_id") or "").strip()
+    rows = [
+        r
+        for r in db.list_bind_events_chronological(limit=500)
+        if not fuse_id or str(r.get("fuse_id") or "") == fuse_id
+    ]
+    last = rows[-1] if rows else None
+    body = {
+        "spec": "gate-trust-widget-v1",
+        "fuse_id": fuse_id or None,
+        "count": len(rows),
+        "decision": (last or {}).get("decision"),
+        "event_id": (last or {}).get("id"),
+        "receipt_hash": (last or {}).get("receipt_hash"),
+        "plain": (
+            f"Latest decision {(last or {}).get('decision')}."
+            if last
+            else "No public receipts for that fuse."
+        ),
+    }
+    resp = jsonify(body)
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    return resp
+
+
+@app.route("/.well-known/agent-receipt-protocol.json")
+@app.route("/spec/agent-receipt-protocol/v0.1")
+def agent_receipt_protocol():
+    return jsonify(arp_mod.manifest(advertised_url()))
+
+
+@app.route("/spec/agent-receipt-protocol/v0.1.md")
+def agent_receipt_protocol_md():
+    return Response(arp_mod.markdown(), mimetype="text/markdown; charset=utf-8")
+
+
+@app.route("/badge/verify.svg")
+def badge_verify():
+    event_id = (request.args.get("event_id") or "").strip()
+    row = db.get_bind_event(event_id) if event_id else None
+    ok = bool(row and row.get("receipt_hash") and row.get("receipt_signature"))
+    label = "verified" if ok else "unsigned"
+    color = "#0a7a4b" if ok else "#b42318"
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="118" height="20" role="img" '
+        f'aria-label="gate {label}">'
+        f'<rect width="40" height="20" fill="#555"/><rect x="40" width="78" height="20" fill="{color}"/>'
+        f'<text x="20" y="14" fill="#fff" font-size="11" font-family="Verdana,sans-serif" text-anchor="middle">gate</text>'
+        f'<text x="79" y="14" fill="#fff" font-size="11" font-family="Verdana,sans-serif" text-anchor="middle">{label}</text>'
+        f"</svg>"
+    )
+    resp = Response(svg, mimetype="image/svg+xml")
+    resp.headers["Cache-Control"] = "no-store"
+    return resp
+
+
 @app.route("/.well-known/prefinality.json")
 def well_known_prefinality():
     spec = prefinality_mod.manifest(advertised_url())
@@ -4804,6 +4978,28 @@ def _mcp_call_tool(name: str, arguments: dict):
         if keyed:
             db.increment_usage(row["account_id"], "hops")
         return data
+    if name == "verify_receipt":
+        event_id = (arguments.get("event_id") or "").strip()
+        if not event_id:
+            return {"error": {"code": "event_id_required"}}
+        event = db.get_bind_event(event_id)
+        if not event:
+            return {"error": {"code": "not_found"}}
+        try:
+            from gate import receipt as receipt_mod
+        except ImportError:
+            import receipt as receipt_mod
+        payload = receipt_mod.receipt_to_public_payload(
+            receipt_row=event, public_url=advertised_url()
+        )
+        return {
+            "event_id": event_id,
+            "receipt_hash": payload.get("receipt_hash"),
+            "signed": bool(payload.get("receipt_signature")),
+            "decision": event.get("decision"),
+            "verify": f"{advertised_url()}/.well-known/receipt/{event_id}.json",
+            "badge": f"{advertised_url()}/badge/verify.svg?event_id={event_id}",
+        }
     return {"error": {"code": "unknown_tool"}}
 
 
@@ -5868,6 +6064,11 @@ def sitemap():
         "/v1/link-graph",
         "/v1/anomaly-flags",
         "/.well-known/atlas.json",
+        "/chain",
+        "/rules",
+        "/embed/trust.js",
+        "/.well-known/agent-receipt-protocol.json",
+        "/spec/agent-receipt-protocol/v0.1",
         "/openapi.json",
     ]
     urls = "".join(
@@ -6227,6 +6428,18 @@ def openapi_full():
                 "/v1/anomaly-flags": {"get": {"summary": "Cohort sigma flags. Empty below min sample size."}},
                 "/.well-known/atlas.json": {"get": {"summary": "Item 136 — MITRE ATLAS refs. Soft labels, not hash proof."}},
                 "/v1/atlas-ref": {"get": {"summary": "ATLAS technique ref for a bind event_id"}},
+                "/chain": {"get": {"summary": "Receipt chain explorer — signed bind events, newest first"}},
+                "/v1/chain": {"get": {"summary": "Chain JSON", "security": []}},
+                "/rules": {"get": {"summary": "No-code gate rules. JSON field/op/value. Not production policy."}},
+                "/v1/gate-rules": {
+                    "get": {"summary": "List no-code rules", "security": []},
+                    "post": {"summary": "Add a no-code rule", "security": []},
+                },
+                "/v1/gate-rules/preview": {"post": {"summary": "Preview which rules hit a sample body", "security": []}},
+                "/embed/trust.js": {"get": {"summary": "Embeddable trust widget"}},
+                "/embed/trust.json": {"get": {"summary": "Widget JSON for a fuse_id", "security": []}},
+                "/.well-known/agent-receipt-protocol.json": {"get": {"summary": "ARP v0.1 dated 2026-11-10"}},
+                "/badge/verify.svg": {"get": {"summary": "Green/red receipt badge ?event_id=", "security": []}},
                 "/.well-known/commit-auth.json": {"get": {"summary": "Bind tickets, epoch lock, license fuse, exclusion proofs"}},
                 "/.well-known/exclusion.json": {"get": {"summary": "Sorted Merkle proof this job has no redeemed spend leaf"}},
                 "/.well-known/bound-answer.json": {"get": {"summary": "Bound-answer manifesto"}},
@@ -6234,7 +6447,7 @@ def openapi_full():
                 "/.well-known/floor.json": {"get": {"summary": "The floor. cleverer_layer is null."}},
                 "/.well-known/particular.json": {"get": {"summary": "Particular manifesto. An event, not a question."}},
                 "/.well-known/capture.json": {"get": {"summary": "Complete Cloud API spend map. bind-only leak."}},
-                "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore", "security": []}},
+                "/mcp": {"post": {"summary": "Streamable HTTP MCP — Kong / TrueFoundry / AWS AgentCore. Tools include verify_receipt.", "security": []}},
                 "/health": {"get": {"summary": "Service health. 503 if production still advertises localhost."}},
                 "/.well-known/gate.json": {"get": {"summary": "Agent discovery manifest"}},
                 "/.well-known/ard.json": {"get": {"summary": "Agentic Resource Discovery (ARD v0.91) — MCP + x402 + prefinality"}},
