@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}IEC 61511 interlock{% endblock %}
+{% block meta %}
+<meta name="description" content="Erra senses, Gate solves, write-block is the final element. SIL unset. Untested BLOCK is assumed failed.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 119</p>
+  <h1>Sensor, solver, final element</h1>
+  <p class="audience-sub">{{ status.plain }}</p>
+  <p>SIL={{ status.architecture.sil | tojson }} · hazard_analysis={{ status.architecture.hazard_analysis }} · interval_hours={{ status.architecture.proof_test_interval_hours | tojson }}</p>
+  <ul class="check-list">
+    <li>Sensor · {{ status.architecture.sensor.name }} · {{ status.architecture.sensor.voting }}</li>
+    <li>Logic solver · {{ status.architecture.logic_solver.name }}</li>
+    <li>Final element · {{ status.architecture.final_element.name }} · {{ status.architecture.final_element.meaning }}</li>
+  </ul>
+  {% if status.last_drill %}
+  <p>Last drill <code class="machine-truth">{{ status.last_drill.drill_id }}</code> tripped={{ status.last_drill.tripped }} at {{ status.last_drill.tested_at }}</p>
+  {% endif %}
+  <p>POST <code>/v1/interlock/proof-test</code> to log a drill. Untested is assumed failed.</p>
+</div>
+{% endblock %}
