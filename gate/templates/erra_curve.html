@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Erra threshold curve{% endblock %}
+{% block meta %}
+<meta name="description" content="Empty precision/recall table per vertical. Operating point unset. Not Wikipedia ORES's numbers.">
+{% endblock %}
+{% block content %}
+<div class="container section">
+  <p class="audience-tag">Item 118</p>
+  <h1>The curve, not a cutoff</h1>
+  <p class="audience-sub">{{ catalog.plain }}</p>
+  <p>{{ catalog.ores_note }}</p>
+  <p>{{ catalog.opsec_note }}</p>
+  <p>live_labels={{ catalog.live_labels }} · disclosure={{ catalog.disclosure }} · operating_point=null</p>
+  <ul class="check-list">
+    {% for c in catalog.curves %}
+    <li style="--i: {{ loop.index0 }}"><code>{{ c.vertical }}</code> · points={{ c.points | length }} · operating_point={{ c.operating_point | tojson }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

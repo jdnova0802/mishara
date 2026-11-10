@@ -350,6 +350,16 @@ except ImportError:
     import interlock as interlock_mod
 
 try:
+    from gate import erra_curve as erra_curve_mod
+except ImportError:
+    import erra_curve as erra_curve_mod
+
+try:
+    from gate import harm_tiers as harm_tiers_mod
+except ImportError:
+    import harm_tiers as harm_tiers_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4368,6 +4378,51 @@ def counter_case_api():
     return jsonify(rec), 201
 
 
+@app.route("/erra-curve")
+def erra_curve_page():
+    return render_template("erra_curve.html", catalog=erra_curve_mod.catalog())
+
+
+@app.route("/v1/erra-curve", methods=["GET", "POST"])
+def erra_curve_api():
+    if request.method == "POST":
+        body = request.get_json(silent=True) or {}
+        refused = erra_curve_mod.reject_numeric_cutoff(body)
+        if refused:
+            return jsonify(refused), 409
+        return jsonify(erra_curve_mod.curve(body.get("vertical"))), 200
+    vertical = (request.args.get("vertical") or "").strip() or None
+    if vertical:
+        return jsonify(erra_curve_mod.curve(vertical))
+    return jsonify(erra_curve_mod.catalog())
+
+
+@app.route("/harm-tiers")
+def harm_tiers_page():
+    result = None
+    tier = (request.args.get("tier") or "").strip()
+    if tier:
+        result = harm_tiers_mod.classify(
+            tier=tier,
+            auto_act=request.args.get("auto_act") == "1",
+            match_hash=request.args.get("match_hash"),
+        )
+    return render_template("harm_tiers.html", schema=harm_tiers_mod.schema(), result=result)
+
+
+@app.route("/v1/harm-tiers", methods=["GET", "POST"])
+def harm_tiers_api():
+    if request.method == "GET":
+        return jsonify(harm_tiers_mod.schema())
+    body = request.get_json(silent=True) or {}
+    rec = harm_tiers_mod.classify(
+        tier=body.get("tier"),
+        auto_act=bool(body.get("auto_act")),
+        match_hash=body.get("match_hash"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
 @app.route("/harm")
 def harm_page():
     return render_template(
@@ -7483,6 +7538,16 @@ def openapi_full():
                 "/disputes": {"get": {"summary": "FCRA-style dispute log. History is never erased."}},
                 "/zk": {"get": {"summary": "Item 51 ZK linkage stub. built:false"}},
                 "/agent-registration": {"get": {"summary": "Item 55 registration spec. Adopters empty."}},
+                "/erra-curve": {"get": {"summary": "Item 118 — empty per-vertical P/R curve. Operating point null."}},
+                "/v1/erra-curve": {
+                    "get": {"summary": "Empty Erra curve JSON. Not ORES numbers.", "security": []},
+                    "post": {"summary": "Refuses numeric precision/recall until live labels exist.", "security": []},
+                },
+                "/harm-tiers": {"get": {"summary": "Item 120 — Thorn three-tier harm split. No detector."}},
+                "/v1/harm-tiers": {
+                    "get": {"summary": "Harm-tier schema. Classifier never auto-acts.", "security": []},
+                    "post": {"summary": "Classify a tier. 409 if classifier auto-act is requested.", "security": []},
+                },
                 "/precedence": {"get": {"summary": "Regulatory precedence. First matching higher-rank rule wins."}},
                 "/v1/precedence": {"post": {"summary": "Resolve which rule governs a BLOCK body", "security": []}},
                 "/interlock": {"get": {"summary": "Item 119 — IEC 61511 map. SIL unset. Untested BLOCK assumed failed."}},
