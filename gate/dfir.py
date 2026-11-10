@@ -111,6 +111,15 @@ def public_verify(receipt_row: dict[str, Any], *, public_url: str) -> dict[str, 
         receipt_hash=str(claimed or ""),
         signature_b64=receipt_row.get("receipt_signature"),
     )
+    try:
+        from gate import assumptions as assumptions_mod
+    except ImportError:
+        import assumptions as assumptions_mod
+
+    assumption_claim = assumptions_mod.from_row(
+        receipt_row, hash_matches=hash_matches, signature_ok=bool(sig_ok)
+    )
+    verified = bool(assumption_claim.get("ok") and assumption_claim.get("verified"))
     return {
         "spec": VERIFY_SPEC,
         "event_id": receipt_row.get("id"),
@@ -118,11 +127,15 @@ def public_verify(receipt_row: dict[str, Any], *, public_url: str) -> dict[str, 
         "recomputed_hash": recomputed,
         "hash_matches": hash_matches,
         "signature_ok": sig_ok,
+        "verified": verified,
+        "under_assumptions": assumption_claim.get("under_assumptions"),
+        "assumption_claim": assumption_claim,
         "key_source": "gate_published_env",
         "receipt_does_not_name_the_key": True,
         "payload": payload,
         "plain": (
             "Hash is re-derived from the canonical object. Signature is checked with "
-            "the published Gate key, not a key named inside the receipt."
+            "the published Gate key, not a key named inside the receipt. "
+            "verified: true also requires a named assumption set (item 122)."
         ),
     }
