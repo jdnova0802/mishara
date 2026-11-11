@@ -435,6 +435,46 @@ except ImportError:
     import media_provenance as media_provenance_mod
 
 try:
+    from gate import auto_response as auto_response_mod
+except ImportError:
+    import auto_response as auto_response_mod
+
+try:
+    from gate import vrs as vrs_mod
+except ImportError:
+    import vrs as vrs_mod
+
+try:
+    from gate import ontology_links as ontology_links_mod
+except ImportError:
+    import ontology_links as ontology_links_mod
+
+try:
+    from gate import revocation as revocation_mod
+except ImportError:
+    import revocation as revocation_mod
+
+try:
+    from gate import bridging as bridging_mod
+except ImportError:
+    import bridging as bridging_mod
+
+try:
+    from gate import live_channel as live_channel_mod
+except ImportError:
+    import live_channel as live_channel_mod
+
+try:
+    from gate import pop_breaker as pop_breaker_mod
+except ImportError:
+    import pop_breaker as pop_breaker_mod
+
+try:
+    from gate import zkml_spike as zkml_spike_mod
+except ImportError:
+    import zkml_spike as zkml_spike_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -3879,14 +3919,25 @@ def link_graph_api():
         return jsonify({"ok": False, "error": "max_hops_invalid"}), 400
     edge_raw = (request.args.get("edge_types") or "ingredient,co_signer").strip()
     edge_types = [p.strip() for p in edge_raw.split(",") if p.strip()]
+    rows = db.list_bind_events_chronological(limit=5000)
+    declared = (request.args.get("declared") or "").strip().lower() in ("1", "true", "yes")
     try:
-        body = link_graph_mod.graph_from_bind_events(
-            db.list_bind_events_chronological(limit=5000),
-            root_type=root_type,
-            root_id=root_id,
-            max_hops=max_hops,
-            edge_types=edge_types,
-        )
+        if declared:
+            body = ontology_links_mod.expand_with_declared(
+                rows,
+                root_type=root_type,
+                root_id=root_id,
+                max_hops=max_hops,
+                edge_types=edge_types,
+            )
+        else:
+            body = link_graph_mod.graph_from_bind_events(
+                rows,
+                root_type=root_type,
+                root_id=root_id,
+                max_hops=max_hops,
+                edge_types=edge_types,
+            )
     except ValueError:
         return jsonify({"ok": False, "error": "unknown_root_type", "allowed": list(link_graph_mod.ENTITY_TYPES)}), 400
     body["ok"] = True
@@ -5098,6 +5149,254 @@ def media_provenance_api():
         hard_binding_intact=body.get("hard_binding_intact"),
     )
     return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/playbooks", methods=["GET", "POST"])
+def playbooks_api():
+    if request.method == "GET":
+        return jsonify(auto_response_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = auto_response_mod.register(
+        name=body.get("name") or "",
+        trigger_source=body.get("trigger_source") or "",
+        action=body.get("action") or "",
+        created_by=body.get("created_by") or "",
+        trigger_condition=body.get("trigger_condition") if isinstance(body.get("trigger_condition"), dict) else None,
+        max_duration_ms=body.get("max_duration_ms"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/playbooks/fire", methods=["POST"])
+def playbooks_fire_api():
+    body = request.get_json(silent=True) or {}
+    rec = auto_response_mod.fire(
+        playbook_id=body.get("playbook_id") or "",
+        trigger_ref_id=body.get("trigger_ref_id") or "",
+        payload=body.get("payload") if isinstance(body.get("payload"), dict) else None,
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/playbooks/override", methods=["POST"])
+def playbooks_override_api():
+    body = request.get_json(silent=True) or {}
+    rec = auto_response_mod.override(
+        execution_id=body.get("execution_id") or "",
+        overridden_by=body.get("overridden_by") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/vrs", methods=["GET", "POST"])
+def vrs_api():
+    if request.method == "GET":
+        return jsonify(vrs_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = vrs_mod.register(
+        operator_org_id=body.get("operator_org_id") or "",
+        responder_endpoint=body.get("responder_endpoint") or "",
+        verification_scope=body.get("verification_scope"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/vrs/request", methods=["POST"])
+def vrs_request_api():
+    body = request.get_json(silent=True) or {}
+    rec = vrs_mod.request_verify(
+        requesting_receipt_id=body.get("requesting_receipt_id") or "",
+        target_org_id=body.get("target_org_id") or "",
+        edge_type=body.get("edge_type") or "shared_counterparty",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/vrs/answer", methods=["POST"])
+def vrs_answer_api():
+    body = request.get_json(silent=True) or {}
+    rec = vrs_mod.answer(request_id=body.get("request_id") or "", response=body.get("response") or "")
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/ontology", methods=["GET", "POST"])
+def ontology_api():
+    if request.method == "GET":
+        return jsonify(ontology_links_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = ontology_links_mod.register_link_type(
+        name=body.get("name") or "",
+        from_object_type_id=body.get("from_object_type_id") or "",
+        to_object_type_id=body.get("to_object_type_id") or "",
+        resolution=body.get("resolution") or "",
+        registered_by=body.get("registered_by") or "",
+        match_property=body.get("match_property"),
+        coded_resolver_ref=body.get("coded_resolver_ref"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/revocation", methods=["GET", "POST"])
+def revocation_api():
+    if request.method == "GET":
+        return jsonify(revocation_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = revocation_mod.open_registry(
+        issuer_org_id=body.get("issuer_org_id") or "",
+        mechanism=body.get("mechanism") or "",
+        purpose=body.get("purpose") or "revocation",
+        status_list_url=body.get("status_list_url"),
+        accumulator_state_ref=body.get("accumulator_state_ref"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/revocation/track", methods=["POST"])
+def revocation_track_api():
+    body = request.get_json(silent=True) or {}
+    rec = revocation_mod.track(
+        registry_id=body.get("registry_id") or "",
+        attestation_type=body.get("attestation_type") or "",
+        attestation_ref_id=body.get("attestation_ref_id") or "",
+        status_list_index=body.get("status_list_index"),
+        refresh_ttl_ms=body.get("refresh_ttl_ms"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/revocation/status", methods=["POST"])
+def revocation_status_api():
+    body = request.get_json(silent=True) or {}
+    rec = revocation_mod.set_status(
+        entry_id=body.get("entry_id") or "",
+        current_status=body.get("current_status") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/bridging", methods=["GET", "POST"])
+def bridging_api():
+    if request.method == "GET":
+        return jsonify(bridging_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = bridging_mod.rate(
+        flag_id=body.get("flag_id") or "",
+        reviewer_org_id=body.get("reviewer_org_id") or "",
+        rating=body.get("rating") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/bridging/score", methods=["POST"])
+def bridging_score_api():
+    body = request.get_json(silent=True) or {}
+    rec = bridging_mod.score(flag_id=body.get("flag_id") or "")
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/live-channel", methods=["GET", "POST"])
+def live_channel_api():
+    if request.method == "GET":
+        return jsonify(live_channel_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = live_channel_mod.register_contact(
+        claimed_identity_ref=body.get("claimed_identity_ref") or "",
+        callback=body.get("callback") or "",
+        legal_person=body.get("legal_person") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/live-channel/challenge", methods=["POST"])
+def live_channel_challenge_api():
+    body = request.get_json(silent=True) or {}
+    rec = live_channel_mod.issue_challenge(
+        claimed_identity_ref=body.get("claimed_identity_ref") or "",
+        channel=body.get("channel") or "",
+        out_of_band_method=body.get("out_of_band_method") or "callback_on_file",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/live-channel/respond", methods=["POST"])
+def live_channel_respond_api():
+    body = request.get_json(silent=True) or {}
+    rec = live_channel_mod.respond(challenge_id=body.get("challenge_id") or "", nonce=body.get("nonce") or "")
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/live-channel/gate", methods=["POST"])
+def live_channel_gate_api():
+    body = request.get_json(silent=True) or {}
+    rec = live_channel_mod.gate_instruction(
+        challenge_id=body.get("challenge_id") or "",
+        instruction_type=body.get("instruction_type") or "",
+        amount=body.get("amount"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/pop-breaker", methods=["GET", "POST"])
+def pop_breaker_api():
+    if request.method == "GET":
+        return jsonify(pop_breaker_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = pop_breaker_mod.set_threshold(
+        metric=body.get("metric") or "",
+        scope=body.get("scope") or "",
+        level_1_threshold=body.get("level_1_threshold"),
+        level_1_pause_ms=body.get("level_1_pause_ms"),
+        level_2_threshold=body.get("level_2_threshold"),
+        level_2_pause_ms=body.get("level_2_pause_ms"),
+        level_3_threshold=body.get("level_3_threshold"),
+        scope_id=body.get("scope_id"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/pop-breaker/evaluate", methods=["POST"])
+def pop_breaker_eval_api():
+    body = request.get_json(silent=True) or {}
+    rec = pop_breaker_mod.evaluate(
+        body.get("ticks") if isinstance(body.get("ticks"), list) else [],
+        threshold_id=body.get("threshold_id") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") and rec.get("triggered_at") else (200 if rec.get("ok") else 409))
+
+
+@app.route("/v1/pop-breaker/resume", methods=["POST"])
+def pop_breaker_resume_api():
+    body = request.get_json(silent=True) or {}
+    rec = pop_breaker_mod.resume(event_id=body.get("event_id") or "", resumed_by=body.get("resumed_by") or "")
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/zkml", methods=["GET", "POST"])
+def zkml_api():
+    if request.method == "GET":
+        return jsonify(zkml_spike_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = zkml_spike_mod.record_measurement(
+        classifier_model_id=body.get("classifier_model_id") or "",
+        proof_generation_time_ms=body.get("proof_generation_time_ms"),
+        output_drift=body.get("output_drift"),
+        gpu_acceleration_cleared=body.get("gpu_acceleration_cleared"),
+        notes=body.get("notes"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/zkml/proof", methods=["POST"])
+def zkml_proof_api():
+    body = request.get_json(silent=True) or {}
+    rec = zkml_spike_mod.attach_proof(
+        receipt_id=body.get("receipt_id") or "",
+        classifier_model_id=body.get("classifier_model_id") or "",
+        public_output=body.get("public_output"),
+        private_input_commitment=body.get("private_input_commitment"),
+        proof_blob_ref=body.get("proof_blob_ref"),
+    )
+    return jsonify(rec), 409
 
 
 @app.route("/v1/campaigns/status", methods=["POST"])
@@ -7873,6 +8172,14 @@ def sitemap():
         "/.well-known/legal.json",
         "/.well-known/link-graph.json",
         "/.well-known/anomaly.json",
+        "/v1/playbooks",
+        "/v1/vrs",
+        "/v1/ontology",
+        "/v1/revocation",
+        "/v1/bridging",
+        "/v1/live-channel",
+        "/v1/pop-breaker",
+        "/v1/zkml",
         "/v1/link-graph",
         "/v1/anomaly-flags",
         "/.well-known/atlas.json",
@@ -8380,6 +8687,38 @@ def openapi_full():
                 "/v1/media-provenance": {
                     "get": {"summary": "C2PA checks. Nulls when no manifest.", "security": []},
                     "post": {"summary": "Record media provenance. No CV model.", "security": []},
+                },
+                "/v1/playbooks": {
+                    "get": {"summary": "Item 152 — reversible playbooks. No bind/liquidate action.", "security": []},
+                    "post": {"summary": "Register enqueue/notify/tag/temp brake. Irreversible enum values 409.", "security": []},
+                },
+                "/v1/vrs": {
+                    "get": {"summary": "Item 155 — empty directory is valid.", "security": []},
+                    "post": {"summary": "Register a counterparty responder. Not a shared ledger.", "security": []},
+                },
+                "/v1/ontology": {
+                    "get": {"summary": "Item 156 — declared link types. Coded resolvers stay.", "security": []},
+                    "post": {"summary": "Register property_match or coded_resolver.", "security": []},
+                },
+                "/v1/revocation": {
+                    "get": {"summary": "Item 157 — registry schema. Bit/witness check not built.", "security": []},
+                    "post": {"summary": "Open a registry. Mechanism stored, not executed.", "security": []},
+                },
+                "/v1/bridging": {
+                    "get": {"summary": "Item 158 — dormant until two reviewing orgs.", "security": []},
+                    "post": {"summary": "Rate a flag from a reviewer org.", "security": []},
+                },
+                "/v1/live-channel": {
+                    "get": {"summary": "Item 161 — callback contacts. Not ISO 30107.", "security": []},
+                    "post": {"summary": "Pre-register a callback identity.", "security": []},
+                },
+                "/v1/pop-breaker": {
+                    "get": {"summary": "Item 162 — population-velocity breaker. Not item 19.", "security": []},
+                    "post": {"summary": "Name level 1/2/3 thresholds. Not traffic-tuned.", "security": []},
+                },
+                "/v1/zkml": {
+                    "get": {"summary": "Item 153 — EZKL spike. Prover not shipped.", "security": []},
+                    "post": {"summary": "Record three measurements. Invented numbers refused if omitted.", "security": []},
                 },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
