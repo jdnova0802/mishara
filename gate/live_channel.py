@@ -179,7 +179,21 @@ def gate_instruction(
     challenge_id: str,
     instruction_type: str,
     amount: str | None = None,
+    bond_id: str | None = None,
+    media_evidence_claimed: Any = False,
 ) -> dict[str, Any]:
+    try:
+        from gate import media_untrusted as media_untrusted_mod
+    except ImportError:
+        import media_untrusted as media_untrusted_mod
+    try:
+        from gate import exposure_bond as exposure_bond_mod
+    except ImportError:
+        import exposure_bond as exposure_bond_mod
+
+    media_block = media_untrusted_mod.refuse_media_claim(media_evidence_claimed=media_evidence_claimed)
+    if media_block:
+        return media_block
     kind = (instruction_type or "").strip()
     if kind not in INSTRUCTIONS:
         return {"spec": SPEC, "ok": False, "error": "instruction_unknown"}
@@ -192,6 +206,11 @@ def gate_instruction(
             "error": "passed_challenge_required",
             "plain": "No exceptions column. The high-value instruction does not run.",
         }
+    cover = None
+    if kind == "wire_transfer" and amount:
+        cover = exposure_bond_mod.covers(bond_id=bond_id or "", value_at_risk=amount)
+        if not cover.get("covers"):
+            return {**cover, "spec": SPEC, "ok": False}
     rec = {
         "spec": SPEC,
         "ok": True,
@@ -199,9 +218,13 @@ def gate_instruction(
         "challenge_id": ch["challenge_id"],
         "instruction_type": kind,
         "amount": sanitize_mod.strip_agent(amount, limit=40) or None,
+        "bond_id": (bond_id or "").strip() or None,
+        "media_channel": media_untrusted_mod.stance()["call_status"],
         "created_at": _iso(),
-        "plain": "Instruction bound to a passed out-of-band challenge.",
+        "plain": "Instruction bound to a passed out-of-band challenge. The call itself was not evidence.",
     }
+    if cover:
+        rec["exposure_cover"] = cover
     store["instructions"].append(rec)
     _save(store)
     return rec

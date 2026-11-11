@@ -475,6 +475,31 @@ except ImportError:
     import zkml_spike as zkml_spike_mod
 
 try:
+    from gate import exposure_bond as exposure_bond_mod
+except ImportError:
+    import exposure_bond as exposure_bond_mod
+
+try:
+    from gate import head_lease as head_lease_mod
+except ImportError:
+    import head_lease as head_lease_mod
+
+try:
+    from gate import hinge as hinge_mod
+except ImportError:
+    import hinge as hinge_mod
+
+try:
+    from gate import stranger_graph as stranger_graph_mod
+except ImportError:
+    import stranger_graph as stranger_graph_mod
+
+try:
+    from gate import media_untrusted as media_untrusted_mod
+except ImportError:
+    import media_untrusted as media_untrusted_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -4059,6 +4084,11 @@ def graph_page():
     )
 
 
+@app.route("/stranger")
+def stranger_page():
+    return render_template("stranger.html")
+
+
 @app.route("/anomaly")
 def anomaly_page():
     return render_template(
@@ -5332,6 +5362,8 @@ def live_channel_gate_api():
         challenge_id=body.get("challenge_id") or "",
         instruction_type=body.get("instruction_type") or "",
         amount=body.get("amount"),
+        bond_id=body.get("bond_id"),
+        media_evidence_claimed=body.get("media_evidence_claimed"),
     )
     return jsonify(rec), (201 if rec.get("ok") else 409)
 
@@ -5397,6 +5429,109 @@ def zkml_proof_api():
         proof_blob_ref=body.get("proof_blob_ref"),
     )
     return jsonify(rec), 409
+
+
+@app.route("/v1/exposure-bond", methods=["GET", "POST"])
+def exposure_bond_api():
+    if request.method == "GET":
+        return jsonify(exposure_bond_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = exposure_bond_mod.post(
+        legal_person=body.get("legal_person") or "",
+        posted=body.get("posted"),
+        covers_ref=body.get("covers_ref") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/exposure-bond/covers", methods=["POST"])
+def exposure_bond_covers_api():
+    body = request.get_json(silent=True) or {}
+    rec = exposure_bond_mod.covers(bond_id=body.get("bond_id") or "", value_at_risk=body.get("value_at_risk"))
+    return jsonify(rec), (200 if rec.get("covers") else 409)
+
+
+@app.route("/v1/head-lease", methods=["GET", "POST"])
+def head_lease_api():
+    if request.method == "GET":
+        return jsonify(head_lease_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = head_lease_mod.issue(
+        subject_ref=body.get("subject_ref") or "",
+        head_hash=body.get("head_hash") or "",
+        ttl_ms=body.get("ttl_ms"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/head-lease/refresh", methods=["POST"])
+def head_lease_refresh_api():
+    body = request.get_json(silent=True) or {}
+    rec = head_lease_mod.refresh(
+        lease_id=body.get("lease_id") or "",
+        head_hash=body.get("head_hash") or "",
+        ttl_ms=body.get("ttl_ms"),
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/head-lease/verify", methods=["POST"])
+def head_lease_verify_api():
+    body = request.get_json(silent=True) or {}
+    rec = head_lease_mod.verify(
+        lease_id=body.get("lease_id") or "",
+        current_head_hash=body.get("current_head_hash") or body.get("head_hash") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/hinge", methods=["GET", "POST"])
+def hinge_api():
+    if request.method == "GET":
+        return jsonify(hinge_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = hinge_mod.rate(
+        flag_id=body.get("flag_id") or "",
+        reviewer_org_id=body.get("reviewer_org_id") or "",
+        rating=body.get("rating") or "",
+        falsifier=body.get("falsifier") or "",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/hinge/adjudicate", methods=["POST"])
+def hinge_adjudicate_api():
+    body = request.get_json(silent=True) or {}
+    rec = hinge_mod.adjudicate(flag_id=body.get("flag_id") or "")
+    return jsonify(rec)
+
+
+@app.route("/v1/stranger-graph", methods=["GET"])
+def stranger_graph_api():
+    root_type = (request.args.get("root_type") or "receipt_id").strip()
+    root_id = (request.args.get("root_id") or "").strip()
+    hops = request.args.get("max_hops")
+    if hops and str(hops) not in ("", "0", "1"):
+        return jsonify(stranger_graph_mod.breath({"query": {"max_hops": 3}})), 409
+    if not root_id:
+        return jsonify(
+            stranger_graph_mod.breath(
+                {"query": {"max_hops": 1}, "nodes": [], "edges": []},
+                verify_path="/verify",
+            )
+        )
+    rec = stranger_graph_mod.from_bind_rows(
+        db.list_bind_events_chronological(limit=5000),
+        root_type=root_type,
+        root_id=root_id,
+        verify_path="/verify",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/media-untrusted", methods=["GET"])
+def media_untrusted_api():
+    return jsonify(media_untrusted_mod.stance())
 
 
 @app.route("/v1/campaigns/status", methods=["POST"])
@@ -8180,6 +8315,12 @@ def sitemap():
         "/v1/live-channel",
         "/v1/pop-breaker",
         "/v1/zkml",
+        "/v1/exposure-bond",
+        "/v1/head-lease",
+        "/v1/hinge",
+        "/stranger",
+        "/v1/stranger-graph",
+        "/v1/media-untrusted",
         "/v1/link-graph",
         "/v1/anomaly-flags",
         "/.well-known/atlas.json",
@@ -8719,6 +8860,24 @@ def openapi_full():
                 "/v1/zkml": {
                     "get": {"summary": "Item 153 — EZKL spike. Prover not shipped.", "security": []},
                     "post": {"summary": "Record three measurements. Invented numbers refused if omitted.", "security": []},
+                },
+                "/v1/exposure-bond": {
+                    "get": {"summary": "Item 163 — exposure-capped permission. Not slash-after.", "security": []},
+                    "post": {"summary": "Post a bond. Coverage is per attestation value_at_risk.", "security": []},
+                },
+                "/v1/head-lease": {
+                    "get": {"summary": "Item 164 — evidence-head lease. Not bitstring/accumulator.", "security": []},
+                    "post": {"summary": "Issue a short lease bound to a tree head.", "security": []},
+                },
+                "/v1/hinge": {
+                    "get": {"summary": "Item 165 — small-N hinge. No helpfulness score.", "security": []},
+                    "post": {"summary": "Rate with a falsifier. Missing falsifier 409.", "security": []},
+                },
+                "/v1/stranger-graph": {
+                    "get": {"summary": "Item 166 — one-breath graph. Hops > 1 refused.", "security": []},
+                },
+                "/v1/media-untrusted": {
+                    "get": {"summary": "Item 167 — live media is not evidence. Detector not built.", "security": []},
                 },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},

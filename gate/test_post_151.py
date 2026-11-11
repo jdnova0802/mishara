@@ -24,6 +24,7 @@ for key, name in (
     ("GATE_LIVE_CHANNEL_PATH", "lc.json"),
     ("GATE_POP_BREAKER_PATH", "pb.json"),
     ("GATE_ZKML_PATH", "zk.json"),
+    ("GATE_EXPOSURE_BOND_PATH", "bond.json"),
 ):
     os.environ[key] = os.path.join(tempfile.gettempdir(), f"gate-test-post-151-{name}")
 
@@ -55,6 +56,7 @@ def _wipe():
         "GATE_LIVE_CHANNEL_PATH",
         "GATE_POP_BREAKER_PATH",
         "GATE_ZKML_PATH",
+        "GATE_EXPOSURE_BOND_PATH",
     ):
         path = os.environ[key]
         if os.path.exists(path):
@@ -240,10 +242,27 @@ class LiveChannelTests(unittest.TestCase):
         self.assertEqual(bad["error"], "nonce_mismatch")
         ok = live_channel.respond(challenge_id=ch["challenge_id"], nonce=ch["challenge_nonce"])
         self.assertTrue(ok["response_verified"])
+        media = live_channel.gate_instruction(
+            challenge_id=ch["challenge_id"],
+            instruction_type="wire_transfer",
+            amount="4800000",
+            media_evidence_claimed=True,
+        )
+        self.assertEqual(media["error"], "media_is_not_evidence")
+        thin = live_channel.gate_instruction(
+            challenge_id=ch["challenge_id"],
+            instruction_type="wire_transfer",
+            amount="4800000",
+        )
+        self.assertEqual(thin.get("error"), "underbonded")
+        import exposure_bond
+
+        bond = exposure_bond.post(legal_person="Hospital Corp", posted="4800000", covers_ref=ch["challenge_id"])
         gated = live_channel.gate_instruction(
             challenge_id=ch["challenge_id"],
             instruction_type="wire_transfer",
             amount="4800000",
+            bond_id=bond["bond_id"],
         )
         self.assertTrue(gated["ok"])
 
