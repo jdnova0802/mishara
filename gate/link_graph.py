@@ -27,6 +27,7 @@ class ReceiptRecord:
     created_at: str
     event_id: str = ""
     counterparties: list[str] = field(default_factory=list)
+    properties: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass
@@ -60,6 +61,19 @@ class NodeRegistry:
 
     def get(self, node_id: str) -> LinkGraphNode | None:
         return self._by_id.get(node_id)
+
+
+def _properties(hop: dict[str, Any]) -> dict[str, str]:
+    props: dict[str, str] = {}
+    raw = hop.get("properties") if isinstance(hop.get("properties"), dict) else {}
+    for key, val in raw.items():
+        if val is None or val is False:
+            continue
+        props[str(key)] = str(val).strip()
+    for key in ("device_fingerprint", "payment_processor_id"):
+        if hop.get(key) and key not in props:
+            props[key] = str(hop.get(key)).strip()
+    return {k: v for k, v in props.items() if v}
 
 
 def records_from_bind_events(rows: Iterable[dict[str, Any]]) -> list[ReceiptRecord]:
@@ -105,6 +119,7 @@ def records_from_bind_events(rows: Iterable[dict[str, Any]]) -> list[ReceiptReco
                 created_at=str(row.get("created_at") or ""),
                 event_id=str(row.get("id") or ""),
                 counterparties=counterparties,
+                properties=_properties(hop),
             )
         )
     return out

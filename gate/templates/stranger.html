@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}One breath{% endblock %}
+{% block meta %}
+<meta name="description" content="One hop. One sentence. A match is not coordination. You do not log in.">
+{% endblock %}
+{% block body_attrs %} class="desk"{% endblock %}
+{% block content %}
+<div class="container section">
+  {% include "_desk_nav.html" %}
+  <p class="desk-kicker">Item 166 · stranger, not analyst</p>
+  <h1>One hop. Then stop.</h1>
+  <p class="audience-sub">The analyst graph is <a href="/graph">/graph</a>. This page will not color by sigma and will not draw a network.</p>
+  <div class="desk-panel">
+    <form class="desk-form" id="stranger-form">
+      <label>Root type
+        <select id="root_type">
+          <option value="receipt_id">receipt_id</option>
+          <option value="actor">actor</option>
+          <option value="org">org</option>
+        </select>
+      </label>
+      <label>Root id <input id="root_id" placeholder="paste an id or leave blank"></label>
+      <button type="submit">Say it in one breath</button>
+      <p class="desk-msg" id="stranger-msg"></p>
+    </form>
+    <p class="stranger-breath" id="breath">No shared edge on this mouth. Empty is empty, not a hidden network. Check /verify. You do not log in.</p>
+    <p class="desk-empty" id="flag-line" hidden></p>
+    <pre class="desk-mono" id="stranger-hash"></pre>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("stranger-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const qs = new URLSearchParams({
+      root_type: document.getElementById("root_type").value,
+      root_id: document.getElementById("root_id").value.trim(),
+    });
+    const rec = await deskJson("/v1/stranger-graph?" + qs.toString());
+    deskMsg(document.getElementById("stranger-msg"), rec);
+    document.getElementById("breath").textContent = rec.sentence || rec.plain || "";
+    const flag = document.getElementById("flag-line");
+    if (rec.flag_line) {
+      flag.hidden = false;
+      flag.textContent = rec.flag_line;
+    } else {
+      flag.hidden = true;
+    }
+    document.getElementById("stranger-hash").textContent = rec.ok
+      ? ("card_sha256 " + rec.card_sha256 + "\nreceipt_root_hash " + rec.receipt_root_hash)
+      : "";
+  });
+});
+</script>
+{% endblock %}

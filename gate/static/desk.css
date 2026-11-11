@@ -161,3 +161,12 @@ body.desk .desk-brand {
 }
 
 .queue-step.on { border-left-color: var(--accent); background: var(--accent-dim); }
+
+.stranger-breath {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  margin: 1rem 0 0.75rem;
+  max-width: 36rem;
+}
