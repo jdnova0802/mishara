@@ -500,6 +500,31 @@ except ImportError:
     import media_untrusted as media_untrusted_mod
 
 try:
+    from gate import key_transparency as key_transparency_mod
+except ImportError:
+    import key_transparency as key_transparency_mod
+
+try:
+    from gate import absence as absence_mod
+except ImportError:
+    import absence as absence_mod
+
+try:
+    from gate import policy_transcript as policy_transcript_mod
+except ImportError:
+    import policy_transcript as policy_transcript_mod
+
+try:
+    from gate import exclusive_session as exclusive_session_mod
+except ImportError:
+    import exclusive_session as exclusive_session_mod
+
+try:
+    from gate import signing_custody as signing_custody_mod
+except ImportError:
+    import signing_custody as signing_custody_mod
+
+try:
     from gate import agent_bureau as agent_bureau_mod
 except ImportError:
     import agent_bureau as agent_bureau_mod
@@ -5333,6 +5358,7 @@ def live_channel_api():
         claimed_identity_ref=body.get("claimed_identity_ref") or "",
         callback=body.get("callback") or "",
         legal_person=body.get("legal_person") or "",
+        public_key_b64=body.get("public_key_b64"),
     )
     return jsonify(rec), (201 if rec.get("ok") else 409)
 
@@ -5351,7 +5377,13 @@ def live_channel_challenge_api():
 @app.route("/v1/live-channel/respond", methods=["POST"])
 def live_channel_respond_api():
     body = request.get_json(silent=True) or {}
-    rec = live_channel_mod.respond(challenge_id=body.get("challenge_id") or "", nonce=body.get("nonce") or "")
+    if body.get("signature_b64"):
+        rec = live_channel_mod.respond_signed(
+            challenge_id=body.get("challenge_id") or "",
+            signature_b64=body.get("signature_b64") or "",
+        )
+    else:
+        rec = live_channel_mod.respond(challenge_id=body.get("challenge_id") or "", nonce=body.get("nonce") or "")
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
 
@@ -5511,12 +5543,13 @@ def stranger_graph_api():
     root_type = (request.args.get("root_type") or "receipt_id").strip()
     root_id = (request.args.get("root_id") or "").strip()
     hops = request.args.get("max_hops")
-    if hops and str(hops) not in ("", "0", "1"):
+    if hops and str(hops) not in ("", "0", "1", "2"):
         return jsonify(stranger_graph_mod.breath({"query": {"max_hops": 3}})), 409
+    hop_n = int(hops) if hops in ("0", "1", "2") else 1
     if not root_id:
         return jsonify(
             stranger_graph_mod.breath(
-                {"query": {"max_hops": 1}, "nodes": [], "edges": []},
+                {"query": {"max_hops": hop_n}, "nodes": [], "edges": []},
                 verify_path="/verify",
             )
         )
@@ -5525,6 +5558,7 @@ def stranger_graph_api():
         root_type=root_type,
         root_id=root_id,
         verify_path="/verify",
+        max_hops=hop_n,
     )
     return jsonify(rec), (200 if rec.get("ok") else 409)
 
@@ -5532,6 +5566,114 @@ def stranger_graph_api():
 @app.route("/v1/media-untrusted", methods=["GET"])
 def media_untrusted_api():
     return jsonify(media_untrusted_mod.stance())
+
+
+@app.route("/v1/keydir", methods=["GET", "POST"])
+def keydir_api():
+    if request.method == "GET":
+        return jsonify(key_transparency_mod.catalog())
+    body = request.get_json(silent=True) or {}
+    rec = key_transparency_mod.publish(
+        epoch=body.get("epoch") or "",
+        fingerprint=body.get("fingerprint"),
+        purpose=body.get("purpose") or "receipt_signing",
+    )
+    return jsonify(rec), (201 if rec.get("ok") else 409)
+
+
+@app.route("/v1/keydir/equivocation", methods=["GET"])
+def keydir_equivocation_api():
+    return jsonify(key_transparency_mod.equivocation())
+
+
+@app.route("/v1/keydir/inclusion", methods=["POST"])
+def keydir_inclusion_api():
+    body = request.get_json(silent=True) or {}
+    rec = key_transparency_mod.prove_inclusion(fingerprint=body.get("fingerprint") or "")
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/keydir/absence", methods=["POST"])
+def keydir_absence_api():
+    body = request.get_json(silent=True) or {}
+    rec = key_transparency_mod.prove_absence(
+        epoch=body.get("epoch") or "",
+        fingerprint=body.get("fingerprint") or "",
+    )
+    return jsonify(rec)
+
+
+@app.route("/v1/absence", methods=["POST"])
+def absence_api():
+    body = request.get_json(silent=True) or {}
+    rec = absence_mod.prove(
+        db.list_bind_events_chronological(limit=5000),
+        fuse_id=body.get("fuse_id") or "",
+        job_id=body.get("job_id"),
+        t0=body.get("t0") or "",
+        t1=body.get("t1") or "",
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/policy-transcript", methods=["GET", "POST"])
+def policy_transcript_api():
+    if request.method == "GET":
+        return jsonify(
+            {
+                "spec": policy_transcript_mod.SPEC,
+                "zk_circuit": False,
+                "ezkl": False,
+                "policy_hash": policy_transcript_mod.policy_hash(),
+                "plain": "Re-run preview. This is not a SNARK.",
+            }
+        )
+    body = request.get_json(silent=True) or {}
+    rec = policy_transcript_mod.evaluate(public_inputs=body.get("public_inputs") or body)
+    return jsonify(rec)
+
+
+@app.route("/v1/policy-transcript/verify", methods=["POST"])
+def policy_transcript_verify_api():
+    body = request.get_json(silent=True) or {}
+    rec = policy_transcript_mod.verify(body)
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/exclusive-session", methods=["POST"])
+def exclusive_session_api():
+    body = request.get_json(silent=True) or {}
+    rec = exclusive_session_mod.open_session(
+        db.list_bind_events_chronological(limit=5000),
+        fuse_id=body.get("fuse_id") or "",
+        job_id=body.get("job_id") or "",
+        challenge_id=body.get("challenge_id") or "",
+        bond_id=body.get("bond_id") or "",
+        amount=body.get("amount") or "",
+        public_inputs=body.get("public_inputs") or {},
+        t0=body.get("t0") or "",
+        t1=body.get("t1") or "",
+        media_evidence_claimed=body.get("media_evidence_claimed"),
+    )
+    return jsonify(rec), (200 if rec.get("ok") else 409)
+
+
+@app.route("/v1/signing-custody", methods=["GET", "POST"])
+def signing_custody_api():
+    if request.method == "GET":
+        return jsonify(signing_custody_mod.status())
+    body = request.get_json(silent=True) or {}
+    rec = signing_custody_mod.record_ceremony(
+        custodians=body.get("custodians") or [],
+        m=body.get("m") if body.get("m") is not None else 0,
+        n=body.get("n") if body.get("n") is not None else 0,
+        note=body.get("note") or "",
+    )
+    st = signing_custody_mod.status()
+    rec["status_after"] = st
+    rec["hsm"] = False
+    rec["quorum_active"] = False
+    return jsonify(rec), (201 if rec.get("ok") else 409)
 
 
 @app.route("/v1/campaigns/status", methods=["POST"])
@@ -8321,6 +8463,11 @@ def sitemap():
         "/stranger",
         "/v1/stranger-graph",
         "/v1/media-untrusted",
+        "/v1/keydir",
+        "/v1/absence",
+        "/v1/policy-transcript",
+        "/v1/exclusive-session",
+        "/v1/signing-custody",
         "/v1/link-graph",
         "/v1/anomaly-flags",
         "/.well-known/atlas.json",
@@ -8874,10 +9021,28 @@ def openapi_full():
                     "post": {"summary": "Rate with a falsifier. Missing falsifier 409.", "security": []},
                 },
                 "/v1/stranger-graph": {
-                    "get": {"summary": "Item 166 — one-breath graph. Hops > 1 refused.", "security": []},
+                    "get": {"summary": "Item 166 — match (1 hop) or ingredient chain (2 hops). Past that 409.", "security": []},
                 },
                 "/v1/media-untrusted": {
                     "get": {"summary": "Item 167 — live media is not evidence. Detector not built.", "security": []},
+                },
+                "/v1/keydir": {
+                    "get": {"summary": "R3 — signing-fingerprint directory. Not an HSM.", "security": []},
+                    "post": {"summary": "Publish a fingerprint for an epoch. Equivocation is two fps.", "security": []},
+                },
+                "/v1/absence": {
+                    "post": {"summary": "R2 — no ALLOW/LIVE for this fuse in [t0,t1]. Not ZK.", "security": []},
+                },
+                "/v1/policy-transcript": {
+                    "get": {"summary": "R7 — policy hash. zk_circuit false.", "security": []},
+                    "post": {"summary": "Replay Gate rules on public inputs. Not EZKL.", "security": []},
+                },
+                "/v1/exclusive-session": {
+                    "post": {"summary": "R1 — compose 161/163/R2/R3/R7. write_executed always false.", "security": []},
+                },
+                "/v1/signing-custody": {
+                    "get": {"summary": "Item 142 — single-admin online key, named honestly.", "security": []},
+                    "post": {"summary": "Record a ceremony. Cannot flip hsm or quorum.", "security": []},
                 },
                 "/v1/campaigns": {
                     "get": {"summary": "Clusters + causal reviews. hard_binding false.", "security": []},
