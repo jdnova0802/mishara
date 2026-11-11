@@ -55,7 +55,7 @@
         <a href="{{ url_for('pricing') }}">Pricing</a>
         <a href="{{ url_for('docs') }}">Docs</a>
         <a href="{{ url_for('liquidations_page') }}">Liquidations</a>
-        <a href="{{ url_for('bind_room_demo') }}" data-cmdk-aliases="vertical bind-room reinsurance fleet grid counsel clinical board">Bind demo</a>
+        <a href="{{ url_for('verticals_page') }}" data-cmdk-aliases="vertical verticals industry industries bind-room bind demo reinsurance fleet grid counsel clinical board">Verticals</a>
         <a href="https://velaru.xyz/verify" target="_blank" rel="noopener">Verify</a>
         {% if session.get('account_id') %}
           <a href="{{ url_for('logout') }}">Log out</a>
@@ -86,8 +86,8 @@
       <a href="https://www.linkedin.com/in/demond-davis-0b513b2ab" rel="noopener">LinkedIn</a> ·
       <a href="https://www.linkedin.com/company/velaru" rel="noopener">Company</a> ·
       <a href="{{ url_for('finding_ccb_page') }}">QUSFI finding</a> ·
-      <a href="{{ url_for('bind_room') }}">Bind Room</a> ·
-      <a href="{{ url_for('bind_room_demo') }}">Bind demo</a> ·
+      <a href="{{ url_for('verticals_page') }}">Verticals</a> ·
+      <a href="{{ url_for('bind_room') }}">Bind Room pack</a> ·
       <a href="{{ url_for('check_page') }}">Check</a> ·
       <a href="{{ url_for('doors_page') }}">Doors</a> ·
       <a href="{{ url_for('trust_claims') }}">Claims</a> ·
@@ -171,8 +171,8 @@
     if (!root || !input || !list) return;
     var pages = [
       { href: "/", title: "Overview", aliases: "home start" },
-      { href: "/demo/bind-room", title: "Bind Room demo", aliases: "vertical bind-room reinsurance clinical board fleet grid counsel insurance" },
-      { href: "/bind-room", title: "Bind Room officer pack", aliases: "bind paid" },
+      { href: "/verticals", title: "Verticals / industries", aliases: "vertical industry industries bind demo bind-room reinsurance clinical board fleet grid counsel insurance hiring court mortgage" },
+      { href: "/bind-room", title: "Bind Room officer pack", aliases: "bind paid 1750" },
       { href: "/check", title: "Check / restraint feed", aliases: "feed fuse" },
       { href: "/trust/corrections", title: "Corrections ledger", aliases: "verra retired" },
       { href: "/compliance/mandate-registry", title: "Mandate registry", aliases: "mandate compliance" },

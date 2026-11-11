@@ -5,9 +5,9 @@
 {% endblock %}
 {% block content %}
 <div class="container section">
-  <p class="audience-tag">Bind Room · vertical demo</p>
-  <h1>Pick a vertical. Run the room.</h1>
-  <p class="audience-sub">Paid officer pack is still <a href="{{ url_for('bind_room') }}">/bind-room</a>. This page is the free demo. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
+  <p class="audience-tag">Industries · verticals</p>
+  <h1>Pick an industry. Run the room.</h1>
+  <p class="audience-sub">Insurance, reinsurance, clinical, board, fleet, grid, counsel, and the rest. This is the free picker. The paid officer pack is <a href="{{ url_for('bind_room') }}">Bind Room</a>. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
   {% if domain_error %}
   <div class="card" style="border-color: var(--danger); margin-bottom: 1.5rem;">
     <p><strong>Unknown domain.</strong> {{ domain_error }}</p>

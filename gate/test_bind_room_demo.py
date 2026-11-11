@@ -110,7 +110,24 @@ class BindRoomDemoTests(unittest.TestCase):
         res = self.client.get("/")
         self.assertEqual(res.status_code, 200)
         self.assertIn(b'try \xe2\x80\x9cvertical\xe2\x80\x9d', res.data)
-        self.assertIn(b"aliases: \"vertical bind-room", res.data)
+        self.assertIn(b"Verticals / industries", res.data)
+        self.assertIn(b'href="/verticals"', res.data)
+        self.assertIn(b">Verticals</a>", res.data)
+        self.assertIn(b"See industries", res.data)
+        self.assertNotIn(b">Bind demo</a>", res.data)
+
+    def test_verticals_and_industries_urls_are_the_picker(self):
+        bounced = self.client.get("/industries", follow_redirects=False)
+        self.assertEqual(bounced.status_code, 302)
+        self.assertTrue(bounced.headers["Location"].endswith("/verticals"))
+        for path in ("/verticals", "/demo/bind-room"):
+            with self.subTest(path=path):
+                res = self.client.get(path)
+                self.assertEqual(res.status_code, 200)
+                self.assertIn(b"Pick an industry", res.data)
+                self.assertIn(b"Reinsurance", res.data)
+                self.assertIn(b"Clinical", res.data)
+                self.assertIn(b"Counsel", res.data)
 
     def test_session_id_is_not_verra_prefix(self):
         body = self.client.post("/demo/bind-room/run", json={"domain": "insurance"}).get_json()
