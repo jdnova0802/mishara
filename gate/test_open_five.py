@@ -121,6 +121,31 @@ class StrangerTests(unittest.TestCase):
         self.assertIn("not a finding of coordination", card["sentence"])
         self.assertIn("not a verdict", card["flag_line"])
         self.assertTrue(card["card_sha256"])
+        chain = stranger_graph.breath(
+            {
+                "query": {"max_hops": 2},
+                "edges": [
+                    {"from_node_id": "a", "to_node_id": "b", "edge_type": "ingredient"},
+                    {"from_node_id": "b", "to_node_id": "c", "edge_type": "ingredient"},
+                ],
+            }
+        )
+        self.assertEqual(chain["claim"], "chain")
+        self.assertIn("order, not coordination", chain["sentence"])
+        refuse = stranger_graph.breath(
+            {
+                "query": {"max_hops": 2},
+                "edges": [{"from_node_id": "a", "to_node_id": "b", "edge_type": "co_signer"}],
+            }
+        )
+        self.assertEqual(refuse["error"], "chain_is_ingredient_only")
+        cohort = stranger_graph.breath(
+            {
+                "query": {"max_hops": 1},
+                "edges": [{"from_node_id": "a", "to_node_id": "b", "edge_type": "shared_cohort"}],
+            }
+        )
+        self.assertEqual(cohort["claim"], "not_a_finding")
 
 
 class MediaTests(unittest.TestCase):

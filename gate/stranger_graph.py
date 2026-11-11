@@ -23,6 +23,8 @@ except ImportError:
 
 SPEC = "gate-stranger-graph-v1"
 MAX_HOPS = 1
+CHAIN_HOPS = 2
+CLAIMS = ("empty", "match", "chain", "not_a_finding")
 
 
 def _short(node_id: str) -> str:
@@ -42,20 +44,40 @@ def breath(
 ) -> dict[str, Any]:
     g = graph if isinstance(graph, dict) else {}
     hops = int((g.get("query") or {}).get("max_hops") or 0)
-    if hops > MAX_HOPS:
+    if hops > CHAIN_HOPS:
         return {
             "spec": SPEC,
             "ok": False,
             "error": "too_much_graph",
-            "plain": "A stranger gets one hop. Multi-hop is an analyst surface.",
+            "plain": "A stranger gets match (1 hop) or chain (2 ingredient hops). Past that is an analyst surface.",
         }
     edges = list(g.get("edges") or [])
-    nodes = {n.get("node_id"): n for n in (g.get("nodes") or []) if isinstance(n, dict)}
     undisposed = [f for f in (flags or []) if not f.get("disposition")]
+    types = {str(e.get("edge_type") or "") for e in edges}
+    if hops == CHAIN_HOPS and types and types != {"ingredient"}:
+        return {
+            "spec": SPEC,
+            "ok": False,
+            "error": "chain_is_ingredient_only",
+            "plain": "A two-hop stranger claim is order along ingredients. Co-signer and cohort stay one-hop matches.",
+        }
     if not edges:
         sentence = "No shared edge on this mouth. Empty is empty, not a hidden network."
         kind = "empty"
         ids: list[str] = []
+    elif types <= {"shared_cohort"}:
+        sentence = "Same cohort label only. That is not a finding."
+        kind = "not_a_finding"
+        ids = [str(e.get("from_node_id") or "") for e in edges[:2]]
+    elif hops == CHAIN_HOPS:
+        e0, e1 = edges[0], edges[1] if len(edges) > 1 else edges[0]
+        sentence = (
+            f"{_short(str(e0.get('from_node_id') or ''))} then "
+            f"{_short(str(e0.get('to_node_id') or ''))} then "
+            f"{_short(str(e1.get('to_node_id') or ''))}. A chain is order, not coordination."
+        )
+        kind = "chain"
+        ids = [str(e0.get("from_node_id") or ""), str(e0.get("to_node_id") or ""), str(e1.get("to_node_id") or "")]
     else:
         e = edges[0]
         a = _short(str(e.get("from_node_id") or ""))
@@ -81,8 +103,9 @@ def breath(
         "spec": SPEC,
         "ok": True,
         "kind": kind,
+        "claim": kind,
         "hops": hops,
-        "edge_count_shown": 0 if kind == "empty" else 1,
+        "edge_count_shown": 0 if kind == "empty" else (2 if kind == "chain" else 1),
         "extra_edges_hidden": max(0, len(edges) - 1),
         "sigma_colored": False,
         "sentence": sentence,
@@ -104,17 +127,19 @@ def from_bind_rows(
     root_id: str,
     flags: list[dict[str, Any]] | None = None,
     verify_path: str = "/verify",
+    max_hops: int = MAX_HOPS,
 ) -> dict[str, Any]:
     try:
         from gate import link_graph as lg
     except ImportError:
         import link_graph as lg
 
+    hops = max(0, min(int(max_hops), CHAIN_HOPS))
     graph = lg.graph_from_bind_events(
         rows,
         root_type=root_type,
         root_id=root_id,
-        max_hops=MAX_HOPS,
+        max_hops=hops,
         edge_types=["ingredient", "co_signer", "shared_counterparty"],
     )
     return breath(graph, flags=flags, verify_path=verify_path)

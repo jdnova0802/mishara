@@ -22,7 +22,7 @@ except ImportError:
 
 SPEC = "gate-live-channel-v1"
 CHANNELS = ("voice_call", "video_call")
-OOB = ("callback_on_file", "federation_lookup", "law_firm_main_line")
+OOB = ("callback_on_file", "federation_lookup", "law_firm_main_line", "signed_key_on_file")
 INSTRUCTIONS = ("wire_transfer", "credential_disclosure", "contract_execution")
 CHALLENGE_TTL_S = 300
 
@@ -78,6 +78,7 @@ def register_contact(
     claimed_identity_ref: str,
     callback: str,
     legal_person: str,
+    public_key_b64: str | None = None,
 ) -> dict[str, Any]:
     ident = sanitize_mod.strip_agent(claimed_identity_ref, limit=200)
     cb = sanitize_mod.strip_agent(callback, limit=200)
@@ -95,6 +96,7 @@ def register_contact(
         "claimed_identity_ref": ident,
         "callback": cb,
         "legal_person": who,
+        "public_key_b64": (public_key_b64 or "").strip() or None,
         "agent_signatory": False,
         "registered_at": _iso(),
     }
@@ -134,6 +136,13 @@ def issue_challenge(
             "error": "federation_not_built",
             "plain": "Item 160 is not a peer instance. Use callback_on_file.",
         }
+    if method == "signed_key_on_file" and not contact.get("public_key_b64"):
+        return {
+            "spec": SPEC,
+            "ok": False,
+            "error": "signing_key_not_on_file",
+            "plain": "Register an Ed25519 public key. The call still is not evidence.",
+        }
     nonce = secrets.token_hex(16)
     now = _now()
     rec = {
@@ -170,6 +179,47 @@ def respond(*, challenge_id: str, nonce: str) -> dict[str, Any]:
     row["response_verified"] = True
     row["verified_at"] = _iso()
     row["plain"] = "Out-of-band response matched. Instruction gate may now bind to this challenge."
+    _save(store)
+    return {**row, "ok": True}
+
+
+def respond_signed(*, challenge_id: str, signature_b64: str) -> dict[str, Any]:
+    """R6 — nonce signed by the pre-registered key. Not a liveness detector."""
+    import base64
+
+    store = _load()
+    row = next((c for c in store["challenges"] if c.get("challenge_id") == (challenge_id or "").strip()), None)
+    if not row:
+        return {"spec": SPEC, "ok": False, "error": "challenge_not_found"}
+    if row.get("out_of_band_method") != "signed_key_on_file":
+        return {"spec": SPEC, "ok": False, "error": "not_a_signed_challenge"}
+    exp = datetime.fromisoformat(str(row["expires_at"]).replace("Z", "+00:00"))
+    if _now() > exp:
+        return {"spec": SPEC, "ok": False, "error": "challenge_expired", "plain": "Time-bound. Re-issue on the callback path."}
+    contact = next(
+        (c for c in store["contacts"] if c.get("claimed_identity_ref") == row.get("claimed_identity_ref")),
+        None,
+    )
+    pub_s = (contact or {}).get("public_key_b64") or ""
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+
+        raw = pub_s.replace("-", "+").replace("_", "/")
+        raw += "=" * (-len(raw) % 4)
+        pub = Ed25519PublicKey.from_public_bytes(base64.b64decode(raw))
+        sig = base64.b64decode((signature_b64 or "").replace("-", "+").replace("_", "/") + "==")
+        pub.verify(sig, str(row.get("challenge_nonce") or "").encode())
+    except Exception:
+        return {
+            "spec": SPEC,
+            "ok": False,
+            "error": "signature_mismatch",
+            "plain": "Key on file did not sign this nonce. The call still proves nothing.",
+        }
+    row["response_verified"] = True
+    row["verified_at"] = _iso()
+    row["signed_response"] = True
+    row["plain"] = "Pre-registered key signed the nonce outside the call."
     _save(store)
     return {**row, "ok": True}
 
