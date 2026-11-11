@@ -780,7 +780,7 @@ PUBLIC_WELLKNOWN = frozenset(
 )
 
 
-_VISIT_PATHS = {"/", "/bind-room", "/diligence", "/issuing-mouth"}
+_VISIT_PATHS = {"/", "/bind-room", "/diligence", "/issuing-mouth", "/verticals", "/industries"}
 _CRAWLER_MARKS = (
     "bot",
     "crawler",
@@ -1544,6 +1544,16 @@ def check_liveness_api():
 @app.route("/v1/incident-receipts")
 def incident_receipts_api():
     return jsonify(dogfood_mod.incident_receipts(verify_url=advertised_url() + "/check"))
+
+
+@app.route("/industries")
+def industries_redirect():
+    return redirect("/verticals", code=302)
+
+
+@app.route("/verticals")
+def verticals_page():
+    return bind_room_demo()
 
 
 @app.route("/demo/bind-room")
@@ -8400,6 +8410,8 @@ def sitemap():
         "/bind-room",
         "/bind-room/job.json",
         "/demo/bind-room",
+        "/verticals",
+        "/industries",
         "/check",
         "/trust/corrections",
         "/trust/claims",
