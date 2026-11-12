@@ -29,6 +29,12 @@ ALIASES = {
     "fleet": "network",
     "grid": "climate",
     "counsel": "epistemics",
+    "animal": "animal_welfare",
+    "animal-welfare": "animal_welfare",
+    "animalwelfare": "animal_welfare",
+    "iacuc": "animal_welfare",
+    "awa": "animal_welfare",
+    "olaw": "animal_welfare",
     "vertical": "insurance",  # Cmd+K alias lands on the room, not a fake vertical
 }
 
@@ -227,6 +233,32 @@ DOMAINS: dict[str, dict[str, Any]] = {
                 "archival",
                 "Retain the inputs that were scored",
                 "If the hospital cannot re-open the exact inputs, the act is not reconstructable. Reconstruction is the clinical bar here.",
+            ),
+        ],
+    },
+    "animal_welfare": {
+        "label": "Animal welfare · IACUC / AWA",
+        "chokepoint": "IACUC protocol before the procedure",
+        "signal_reason": "Protocol IACUC-2026-014 is inside the USDA / OLAW inspection window. Contemporaneous evidence, not exam-week paper.",
+        "bind_reason": "Procedure is blocked: IACUC protocol IACUC-2026-014 is expired for this cohort. This is not a GL policy bind.",
+        "bind_gate": {
+            "result": "BLOCK",
+            "bind_allowed": False,
+            "protocol_id": "IACUC-2026-014",
+            "inspection": "AWA_USDA_OLAW",
+            "action": "animal_procedure",
+            "source": "gate-bind-room-demo",
+        },
+        "lenses": [
+            _check(
+                "biology",
+                "Live protocol, not a binder on a shelf",
+                "The procedure named in the request must match an unexpired IACUC protocol. A PDF from last cycle is not clearance.",
+            ),
+            _check(
+                "forensic",
+                "Inspection evidence in ordinary course",
+                "AWA / USDA / OLAW evidence is dated when the check ran. Backfilling the file under exam pressure is not the receipt.",
             ),
         ],
     },

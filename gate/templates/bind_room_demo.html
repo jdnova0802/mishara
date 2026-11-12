@@ -7,7 +7,7 @@
 <div class="container section">
   <p class="audience-tag">Industries · verticals</p>
   <h1>Pick an industry. Run the room.</h1>
-  <p class="audience-sub">Insurance, reinsurance, clinical, board, fleet, grid, counsel, and the rest. This is the free picker. The paid officer pack is <a href="{{ url_for('bind_room') }}">Bind Room</a>. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
+  <p class="audience-sub">Insurance, reinsurance, clinical, animal welfare (IACUC / AWA), board, fleet, grid, counsel, and the rest. Hear this vertical runs <em>that</em> vertical — animal welfare is not a GL bind. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
   {% if domain_error %}
   <div class="card" style="border-color: var(--danger); margin-bottom: 1.5rem;">
     <p><strong>Unknown domain.</strong> {{ domain_error }}</p>
@@ -48,7 +48,7 @@
 </style>
 <script>
 (function () {
-  var selected = {{ (selected or "insurance")|tojson }};
+  var selected = {{ (selected or "")|tojson }};
   var runUrl = {{ url_for("bind_room_demo_run")|tojson }};
   document.querySelectorAll(".domain-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -114,6 +114,9 @@
     outcome.style.display = "block";
     outcome.textContent = "Running…";
     try {
+      if (!selected) {
+        throw new Error("Pick a vertical first. This room does not default the run to Insurance.");
+      }
       var res = await fetch(runUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

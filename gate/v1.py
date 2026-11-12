@@ -248,6 +248,19 @@ def biology(inp: dict[str, Any]) -> dict[str, Any]:
     )
 
 
+def animal_welfare(inp: dict[str, Any]) -> dict[str, Any]:
+    return _snapshot(
+        vertical="animal_welfare",
+        finality_event="animal_procedure",
+        derived={
+            "protocol_id": inp.get("protocol_id"),
+            "inspection": inp.get("inspection"),
+        },
+        distance=_ttl_distance(inp)[0],
+        crossed=_ttl_distance(inp)[1],
+    )
+
+
 def institutional(inp: dict[str, Any]) -> dict[str, Any]:
     have = _num(inp.get("keys_present")) or 0.0
     need = _num(inp.get("quorum_required")) or 2.0
@@ -285,6 +298,7 @@ FORMULAS: dict[str, Callable[[dict[str, Any]], dict[str, Any]]] = {
     "defense": defense,
     "creator": creator,
     "biology": biology,
+    "animal_welfare": animal_welfare,
     "institutional": institutional,
     "public": public,
     "epistemics": epistemics,
@@ -295,6 +309,11 @@ ALIASES = {
     "grid": "climate",
     "reinsurance": "actuarial",
     "clinical": "biology",
+    "animal": "animal_welfare",
+    "animal-welfare": "animal_welfare",
+    "iacuc": "animal_welfare",
+    "awa": "animal_welfare",
+    "olaw": "animal_welfare",
     "board": "institutional",
     "counsel": "epistemics",
     "court": "forensic",
