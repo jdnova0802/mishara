@@ -31,7 +31,7 @@ If a drill would change the owned sentence, skip the drill.
 
 5. **POLITICAL ECONOMY MAP + THE OWNERSHIP ORDER** — your depth. Mouth/finality thesis stays **off** the composer. Do not use it to “separate from reply-guy noise.” That’s how owned posts become lectures.
 
-6. **MAINSTREAM-THROUGH-EDGY-LEGITIMATE POLITICAL DISCOURSE** — private **filter** so you don’t sound like a culture-war account. **Not** the register you post in. Highest leak risk, not highest payoff.
+6. **MAINSTREAM-THROUGH-EDGY-LEGITIMATE POLITICAL DISCOURSE** — private **filter** so you don’t sound like a culture-war account. **Not** the register you post in. Highest leak risk, not highest payoff. Decoder: `NARRATIVES_FIELD_GUIDE.md` (spot recruitment; do not post the skeleton).
 
 7. **EXTREMIST-TIER POLITICAL RHETORIC** — boundary test in private. Never a drill that leaks into drafts, alt text, or replies.
 
