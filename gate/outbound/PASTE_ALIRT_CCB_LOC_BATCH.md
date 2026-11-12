@@ -54,6 +54,8 @@ ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F sweep of CCB LOCs): Amer
 
 Separately, AM Best (BestWire, 4 May 2023, refnum 249455) downgraded AMIC’s FSR to D (Poor) from C- (Weak) and withdrew the ratings the same day at the company’s request. The AM Best company profile now shows NR.
 
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
+
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
@@ -73,6 +75,8 @@ For Home State County Mutual — issuing / program desk
 Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Home State County Mutual Insurance Company (NAIC 29297) — purported CCB LOC $9.848 million against $9.472 million surplus (104.0% of PHS). ALIRT grouped this Texas county mutual with the Corinthian/Osprey Re CCB letters backing non-standard auto fronting.
+
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
 
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next MGA bind still treats a reinsurance LOC / collateral letter as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -94,6 +98,8 @@ Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Old American County Mutual Fire Insurance Company (NAIC 29378) — purported CCB LOC $4.831 million against $5.000 million surplus (96.6% of PHS). Same ALIRT Texas county-mutual cluster: CCB letters via Corinthian Group subsidiaries used as reinsurance collateral.
 
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
+
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next program bind still treats a collateral letter as a bank LOC before issuer confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
@@ -114,6 +120,8 @@ Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Trisura Specialty Insurance Company (NAIC 16188) — purported CCB LOC $72.172 million against $154.072 million surplus (46.8% of PHS). Same memo: AM Best had already put Trisura Specialty and Trisura Insurance on Negative Outlook in March 2023 after a $60 million collateral charge.
 
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
+
 The 72-hour memo is only this: on your public fronting pages (plus anything you send), where the next program bind still treats reinsurance collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
@@ -133,6 +141,8 @@ For Root Insurance Company — legal / reinsurance desk
 Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Root Insurance Company (NAIC 10974) — purported CCB LOC $18.571 million against $77.005 million surplus (24.1% of PHS). Second table on the same memo: Osprey Re (Captive) as the named reinsurer on that row.
+
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
 
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / Osprey collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -155,6 +165,8 @@ Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Agricultural Workers Mutual Auto Insurance Company (NAIC 18430) — purported CCB LOC $8.736 million against $36.408 million surplus (24.0% of PHS).
 
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
+
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next placement still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
@@ -174,6 +186,8 @@ For Accelerant Specialty — US programs / capacity desk
 Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Accelerant Specialty Insurance Company (NAIC 16890) — purported CCB LOC $15.187 million against $67.528 million surplus (22.5% of PHS). Second table: Corinthian Reinsurance Co. as the named reinsurer on $13 million of that row.
+
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
 
 The 72-hour memo is only this: on your public program pages (plus anything you send), where the next MGA bind still treats Corinthian/CCB collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -196,6 +210,8 @@ Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Southlake Specialty Insurance Company (NAIC 16999) — purported CCB LOC $14.768 million against $66.584 million surplus (22.2% of PHS). Second table: Osprey Re (Captive) as the named reinsurer on that row.
 
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
+
 The 72-hour memo is only this: on your public fronting pages (plus anything you send), where the next MGA bind still treats Osprey/CCB collateral as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
 Reply REVIEW, forward once if this should not sit with you, or ignore.
@@ -215,6 +231,8 @@ For Concert Specialty — program / wholesale desk
 Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): Concert Specialty Insurance Company (NAIC 17151) — purported CCB LOC $10.662 million against $57.544 million surplus (18.5% of PHS). Second table splits that row across Corinthian Re, Freedom Reinsurance Underwriters, and Osprey Re captives.
+
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
 
 The 72-hour memo is only this: on your public program pages (plus anything you send), where the next bind still treats those letters as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
@@ -236,6 +254,8 @@ For United Automobile Insurance Company — legal / reinsurance desk
 Nisaba LLC. Vendor review of one named collateral path.
 
 ALIRT Insurance Research (9 Aug 2023, YE2022 Schedule F): United Automobile Insurance Company (NAIC 35319) — purported CCB LOC $24.354 million against $95.908 million surplus (25.4% of PHS).
+
+As of the NAIC SVO List of Qualified U.S. Financial Institutions dated September 30, 2026, China Construction Bank does not appear. An unauthorized-reinsurer letter supports surplus credit when the issuing or confirming bank is qualified. This note does not substitute the carrier's own year-end 2025 Schedule F, Parts 3 and 4.
 
 The 72-hour memo is only this: on your public pages (plus anything you send), where the next bind still treats a CCB letter / purported LOC as live before bank confirmation. No charge. No invoice. No obligation. If it is useless, delete it.
 
