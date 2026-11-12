@@ -1,0 +1,41 @@
+COPY FROM HERE
+════════════════════════════════════
+SEARCH PASS BEFORE BUILD — 20 Sep 2026
+Do not found. Do not weld gate/. Do not start ET13 hours.
+
+EXTREMELY SOON (this month) — RANKED
+1. FRANCE B2B RECEIVE — live 1 Sep 2026 (19 days).
+   ALL French VAT businesses must be able to RECEIVE e-invoices.
+   Large + mid-size must ISSUE. SMEs issue Sep 2027.
+   Transmission only via certified Plateforme Agréée (PA). PPF is not the pipe.
+   Vendor blogs: penalties up to €15,000/violation. Confirm on economie.gouv.fr before quoting.
+   Occupied: becoming a PA (Cegedim / Chorus / etc.). Not a weekend seat.
+   Unbuilt CHARGE (same mouth as BE): EXIST/HOLD/NONEXIST on Factur-X/UBL/CII
+     EXIST = PA-delivered structured invoice
+     HOLD = received, not accepted
+     NONEXIST = PDF treated as the invoice after 1 Sep for a party that must receive
+   Needs a named French SIRET. No SIRET = €0.
+   Bigger map than Belgium. Same distribution problem.
+
+2. BELGIUM — already in hunt/PASTE-BE.txt. Grace dead 1 Apr. €1,500–€5,000. Receiver too.
+
+3. ET13 — ACE test 22 Sep 2026 (Tue). Oct 22 PGA/Ch.98-99/FTA drop from postal informal.
+   Still VOLUNTARY test. Filer = owner/purchaser or licensed broker (19 CFR 143.26).
+   Zero named importer/broker on our desk. Do not build ACE EDI. Park holds.
+
+4. CRA Art 14 — live 11 Sep. ENISA SRP up. Named manufacturer still missing. GRC crowded.
+   Article 64 fines mostly bite 11 Dec 2027. Do not dress GRC as a find.
+
+NOT MASSIVE / NOT THIS WEEK
+Spain Verifactu → 2027. Germany issue-mandate → 2027 (€800k+). Malaysia Jul 2026 already passed for >MYR 3M.
+Fedwire ISO 20022 → Nov 2027. CMMC Phase 2 suspended 13 Jul 2026.
+CMS Oct 1 HIPAA EDI — health SKU, skip.
+Google UCP payments — Stripe already shipped the handler.
+Muse $7 — ping, not life-changing. 10.4 — no named merchant, volume still “hundreds” of TAP txns.
+
+IF HE SAYS BUILD
+Do not build France PA. Do not build ET13. Do not build CRA SRP bot.
+Only build if a named obligated ID exists (SIRET / Belgian VAT / TAP merchant / Muse payer).
+Else keep A’s 27 Sep kill and park B/BE/FR.
+
+END COPY
