@@ -1,7 +1,6 @@
-# X week study order — paste to the study agent
+# X week study order
 
-Operator-only. This is a **library order**, not a posting register.
-It obeys `X_DRAFTING.md`. It does not reopen edgy-legitimate or political-economy as the tweet.
+Library order, not a posting register. Obeys `X_DRAFTING.md`. Does not reopen edgy-legitimate or political-economy as the tweet.
 
 If a drill would change the owned sentence, skip the drill.
 

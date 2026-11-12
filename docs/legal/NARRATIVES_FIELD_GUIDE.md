@@ -1,8 +1,8 @@
 # Narratives field guide
 
-Operator-only. A **decoder**. Not a tweet. Not a posting register. Not a second banner.
+A **decoder**. Not a tweet. Not a posting register. Not a second banner.
 
-Obeys `X_DRAFTING.md`. If a section would change the owned sentence, skip it in the composer. Edgy-legitimate, gender war, AI doom, sacred/villain/loyalty/restoration **as a costume** stay off posts. Those words live here as **spotting tools**.
+If a section would change the owned sentence, skip it in the composer. Edgy-legitimate, gender war, AI doom, sacred/villain/loyalty/restoration **as a costume** stay off posts. Those words live here as **spotting tools**.
 
 ---
 
