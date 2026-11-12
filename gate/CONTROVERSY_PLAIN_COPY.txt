@@ -1,0 +1,913 @@
+THE MOST CONTROVERSIAL SUBJECT DOCUMENT (FUSED MAP)
+File: gate/DESKTOP_TAB_LINEUP_CONTROVERSIAL_ELITE.md
+Related: gate/VIOLENCE_AUTHORIZATION_PYRAMID.txt · gate/TYPES_OF_ECONOMICS_MAP.txt
+
+HOW TO USE
+- Pick ONE topic. Open the Start URL first.
+- Argue from documents, not vibes.
+- One topic for 90 minutes.
+- Victim safety: research systems/docs only. No doxxing/harassment/illegal content.
+- STATS RULE (Parts 18-19): Method before number.
+- TIMELINE: Parts 12-15 (+ Part 16 chain) are below the map — pick ONE decade or century lane.
+
+========================================================================
+PART 0 — HOW THE WORLD WORKS (brief map. not a religion.)
+========================================================================
+
+CORE ENGINE
+Incentives beat speeches.
+Conspiracy is real sometimes.
+Aligned mediocrity producing evil is more common than genius cabals.
+
+POWER
+Power = making your preferences other people's constraints.
+Freedom for most people = choosing inside a cage they didn't build.
+Legitimacy is violence + story + paperwork.
+The state owns the license on force. Criminals own the gaps.
+Soft harm (debt, eviction, smear, exclusion) can destroy as cleanly as fists.
+
+REAL PYRAMIDS
+CLASS: Sovereigns -> Capability lords -> Access/trust nodes ->
+  Legible professionals -> Prompt/gig cognition -> Body/care class -> Surplus
+VIOLENCE: Sovereign force -> contracted force -> economic/admin harm ->
+  narrative/platform destruction -> illicit organized force ->
+  intimate violence -> street chaos -> self-destruction
+Street crime is the visible tip, not the system.
+
+MONEY
+Money is claim on energy, time, and obedience.
+Capital compounds; wages linear.
+Access is a drug. Rooms beat resumes.
+Proof > potential. Receipts > mythology.
+
+STATUS / INFO / TIME / TECH
+Humans run on relative rank. Attention is currency.
+Lies got cheap. Trust and verification got expensive.
+Each cohort faces a different opportunity structure.
+New tools create gold rushes, then consolidate into landlords.
+The dark path is soft captivity with sharp edges.
+
+WORKING STANCE
+See pyramids clearly.
+Don't worship predators; steal clean mechanisms only.
+Build scarce leverage: proof, skills that move money, trusted rooms, options.
+Capacity beats lucid despair.
+
+ONE LINE
+The world runs on incentives, force, status, and stories —
+and the people who win learn which layer they're playing on.
+
+========================================================================
+VIOLENCE AUTHORIZATION PYRAMID (formal titles — citeable, not fiction)
+Full file: gate/VIOLENCE_AUTHORIZATION_PYRAMID.txt
+========================================================================
+
+VIOLENCE AUTHORIZATION PYRAMID
+(under-discussed. who can hurt whom — and still sleep.)
+Pair with: social class pyramid + Part 0 (How the world works)
+File role: analytical map. Not fiction. Not a hit list.
+
+CORE LINE
+The violence pyramid is not who throws the punch.
+It is who can authorize pain and still be invited to dinner.
+
+METHOD RULE
+- Titles below are ROLE LABELS from political sociology / PE — not a secret roster.
+- Prefer primary functions over vibe words.
+- "Oligarch" = extreme private wealth that systematically shapes state outcomes
+  (comparative politics usage; not a comic-book caste).
+
+SHAPE (read first)
+- UPSTREAM AUTHORIZATION: 1 -> 2 -> 3 -> 4
+- GAP SOVEREIGNS: 5 when layer 1 is weak, absent, captured, or for sale
+- DOWNSTREAM BLEED: 6-8
+Local exception: layer 5 can be peak on a given territory.
+
+CITEABLE SPINE (starter set — open these, don't cosplay them)
+- Max Weber — politics as vocation; state as monopoly claim on legitimate force
+  https://archive.org/details/politicsasvocati0000webe
+- Charles Tilly — state making / war making / organized crime analogy
+  https://www.jstor.org / search: Tilly "War Making and State Making as Organized Crime"
+- Michael Mann — sources of social power (ideological, economic, military, political)
+- Johan Galtung — structural violence (harm via systems without a direct shooter)
+- Pierre Bourdieu — symbolic violence (domination misrecognized as natural)
+- Diego Gambetta — mafia as industry of private protection
+- Mancur Olson — stationary vs roving bandits (why some predators prefer order)
+- Susan Strange — structural power in international political economy
+- Weberian bureaucracy / "mandarins" as administrative domination literature
+
+═══════════════════════════════════════
+1. SOVEREIGN VIOLENCE (peak)
+═══════════════════════════════════════
+Cover: FLAG + PAPERWORK
+Weberian claim: monopoly on legitimate physical force (a CLAIM, not always a fact).
+
+Acts
+- War, police, prisons, borders, seizure, conscription, capital punishment where law allows
+
+Formal role names (citeable)
+- Sovereign / head of state / head of government
+- Legislature + judiciary (authorization + legality cover)
+- Security executives (defense, interior/homeland, attorney general)
+- Military high command / general staff
+- Police leadership / prison authorities / border agencies
+- Praetorian formations (units whose first job is regime protection — comparative politics term)
+- Nomenklatura / regime elite (Soviet-origin term; now used comparatively for ruling career caste)
+
+Feature: daylight harm called order.
+Note: factions inside the state can rent gaps without the whole state "deciding."
+
+═══════════════════════════════════════
+2. DELEGATED VIOLENCE (split)
+═══════════════════════════════════════
+
+2a. KINETIC CONTRACT
+Cover: INVOICE / LAW OF CONTRACT
+Acts: private military/security, private prisons, bounty/collection muscle, police technology vendors.
+
+Formal role names
+- Private military companies (PMCs) / private security contractors
+- Private prison operators
+- Mercenary historically; "contractor" in modern procurement language
+- Intelligence cutouts / proxies (deniable intermediaries — documented in covert-action literature)
+- Paramilitaries operating with state tolerance or sponsorship (comparative: death squads literature)
+
+2b. REMOTE SYSTEMIC
+Cover: POLICY / SANCTIONS PAPER
+Acts: embargoes, asset freezes, payment-rail exclusion, siege logistics, export controls as coercion.
+
+Formal role names
+- Sanctions authorities / financial-intelligence units
+- Central banks + payment-system governors (structural power over settlement)
+- Export-control / customs enforcement leadership
+- Hegemon / great-power economic statecraft operators (IPE term: structural power)
+
+Feature: clean hands, dirty outcomes.
+
+═══════════════════════════════════════
+3. ECONOMIC / ADMINISTRATIVE VIOLENCE
+═══════════════════════════════════════
+Cover: PROCEDURE
+Galtung's structural violence lives here most days: harm without a smoking gun.
+
+Acts
+- Eviction, foreclosure, care denial, debt ruin, job destruction, benefit cutoff
+- Licensing, compliance, selective enforcement as weapons
+
+Formal role names
+- Technocrats / mandarins (administrative elite who run the forms)
+- Regulators, prosecutors, administrative-law judges
+- Creditors / landlords / employers as private coercers backed by state process
+- Rentiers (income from ownership claims — land, resources, IP — classical PE term)
+- Oligarchs / plutocrats (when private capital routinely writes policy)
+- Crony capitalists (wealth contingent on political connection)
+- Kleptocrats (office held to extract)
+- Comprador elites (local brokers for foreign capital — development PE term)
+- Human-resources / compliance bureaucracies (private Layer-3 administrators)
+
+Feature: looks like paperwork; lands like months of beating.
+
+═══════════════════════════════════════
+4. PLATFORM / NARRATIVE VIOLENCE
+═══════════════════════════════════════
+Cover: VIRALITY / "ACCOUNTABILITY"
+Bourdieu's symbolic violence adjacent: destruction via status, reputation, misrecognition.
+
+Acts
+- Mobbing, deplatforming, reputational execution, selective leak/amplification
+
+Formal role names
+- Platform owners / trust-and-safety executives (private speech landlords)
+- Publishers, broadcasters, wire services (agenda-setting research)
+- Propaganda / public-diplomacy apparatuses (state narrative arms)
+- Commissars / ideological enforcers (historical-comparative; party discipline roles)
+- Kingmakers in media-politics (access nodes who mint legitimacy)
+- Influencers as retail amplifiers (not sovereign; still can destroy individuals)
+
+Limit: scales harm; does not replace Layer 1 seizure/jail power unless captured by it.
+
+═══════════════════════════════════════
+5. ORGANIZED ILLICIT VIOLENCE
+═══════════════════════════════════════
+Cover: FEAR / PRIVATE PROTECTION
+Gambetta: mafia as a market for protection. Tilly: bandits ↔ state formation continuum.
+
+Acts
+- Extortion, cartel territorial rule, trafficking enforcement, predatory "tax"
+
+Formal role names
+- Mafia / Cosa Nostra / 'Ndrangheta / cartel leadership (organization-specific)
+- Warlords (territorial military entrepreneurs where state collapsed)
+- Gang bosses / prison-gang authorities
+- Stationary bandits (Olson) who prefer orderly extraction to chaos
+- Shadow governors / parallel authorities (lit. on rebel governance)
+
+Local note: here this layer can BE the peak.
+
+═══════════════════════════════════════
+SIDE-RAIL — COMMUNAL / RITUAL VIOLENCE
+═══════════════════════════════════════
+Cover: MOB HOLINESS / TRADITION
+Acts: pogroms, lynching, communal riots, purge festivals.
+Literatures: ethnic riots (e.g. Wilkinson/Brass debates), lynching studies, communal violence.
+
+Formal role names
+- Militias / communal entrepreneurs
+- Vigilante committees
+- Crowd elites who convert rumor into massacre
+
+Not random Layer 7; not clean Layer 1 paperwork.
+
+═══════════════════════════════════════
+6. DOMESTIC / INTIMATE VIOLENCE
+═══════════════════════════════════════
+Cover: PRIVACY / "FAMILY MATTERS"
+Acts: household coercion, isolation, battery; sexual/gendered coercion;
+      overlaps trafficking when markets form (then also Layer 5).
+
+Formal role names
+- Intimate partner as coercer (IPV literature)
+- Patriarchal household authority where legally/customarily protected (historical-comparative)
+- Traffickers / pimps when commercialization begins (criminal market — Layer 5 bridge)
+
+Statistically large; culturally minimized; exit costly.
+
+═══════════════════════════════════════
+7. STREET / CHAOTIC VIOLENCE
+═══════════════════════════════════════
+Cover: CHAOS (retail TV product)
+Acts: robbery, random assault, riot-as-noise.
+
+Formal role names
+- Street offenders / riot participants
+- "Crime problem" in public discourse (often stands in for the whole pyramid)
+
+Most visible; often least strategically powerful.
+Normie illusion: mistaking retail tip for the system.
+
+═══════════════════════════════════════
+8. SELF-VIOLENCE (basement)
+═══════════════════════════════════════
+Cover: PATHOLOGY / individualized blame only
+Acts: overdose, suicide, slow suicide by addiction.
+Public-health frame: "deaths of despair" (Case & Deaton) as population pattern —
+not a cartoon of personal sin alone.
+
+Often OUTPUT of Layers 3-6 pressure + Layer 5 labor markets in drugs.
+
+═══════════════════════════════════════
+TITLE PLACEMENT CHEAT SHEET (quick)
+═══════════════════════════════════════
+Sovereign / praetorian / nomenklatura     -> mainly 1
+PMC / cutout / paramilitary              -> 2a
+Sanctions tsar / payment-rail governor   -> 2b
+Technocrat / rentier / oligarch / crony / kleptocrat / comprador -> 3 (oligarch also buys 2+4)
+Platform lord / propagandist / commissar -> 4
+Warlord / cartel / mafia / stationary bandit -> 5
+Communal militia / vigilante             -> side-rail
+IPV coercer / trafficker bridge          -> 6 / 5
+Street offender                          -> 7
+
+Oligarchs specifically:
+- Class seat: capability lords + access nodes
+- Violence seat: usually rent 2, shape 3, buy 4; partner 5 only where state is for sale
+- They are not automatically Layer 1 — unless they capture the sovereign
+
+═══════════════════════════════════════
+INFLUENCE ARROWS
+═══════════════════════════════════════
+1 authorizes legal pain map
+1 rents 2a/2b; 1+2 feed 3
+1-3 feed 4
+1 weak/captured -> 5 becomes local peak
+3-4 raise 6-8
+5 colonizes 6-7 locally
+7 triggers crackdown politics more than it rules
+8 becomes statistics and sermons; rarely dethrones 1
+
+═══════════════════════════════════════
+PAIR TO CLASS PYRAMID
+═══════════════════════════════════════
+Sovereigns              -> live in 1; dine above 2-4
+Capability lords        -> oligarchs/conglomerates; operate 2 + chunks of 3-4
+Access / trust nodes    -> kingmakers, brokers, cutouts; gate 3; weaponize 4
+Legible professionals   -> technocrats/mandarins; administer 3
+Prompt / gig cognition  -> mostly targets of 3-4
+Body / care class       -> absorb 3; buffer 6-8
+Surplus                 -> disproportionate 5-8 weather
+
+Respectability often = living upstream while condemning only Layer 7.
+
+═══════════════════════════════════════
+MYTH vs REALITY
+═══════════════════════════════════════
+Myth: violence = street crime
+Real: street is retail
+
+Myth: power is nonviolent
+Real: power is violence with branding + procedure
+
+Myth: soft != violence
+Real: eviction, debt, smear, isolation destroy without fists
+      (structural / symbolic violence literatures)
+
+Myth: criminals own violence
+Real: states claim the license; criminals own gaps;
+      state factions sometimes rent both
+
+Myth: "oligarch" means cartoon villain
+Real: comparative label for political wealth concentration —
+      measure with ownership, procurement, media, party finance
+
+═══════════════════════════════════════
+HOW TO READ (formal)
+═══════════════════════════════════════
+1. Dinner-invite test: who authorizes and still gets seated?
+2. Cover tag: flag / invoice / procedure / virality / fear / privacy / chaos / pathology
+3. Location: upstream / gap / downstream?
+4. Name the ROLE with a citeable term — then find documents (laws, filings, org charts, budgets)
+5. Only then moralize
+
+═══════════════════════════════════════
+HARD LINE
+═══════════════════════════════════════
+Map != mandate.
+Understanding is digestion.
+Using this to harm people is rot.
+Fiction stays fiction — if you cannot cite a mechanism, you do not have a placement.
+
+========================================================================
+MAP — PARTS 0 TO 19 (every number has URLs)
+========================================================================
+
+PART 0: How the world works (lens for everything below)
+(see Part 0 above)
+
+PART 1: Cameras, cops, and data empires
+https://www.flocksafety.com/
+https://deflock.org/
+https://atlasofsurveillance.org/
+
+PART 2: Money, rent, drugs, and capture
+https://offshoreleaks.icij.org/
+https://www.sec.gov/edgar/search/
+https://www.ftc.gov/system/files/ftc_gov/pdf/pharmacy-benefit-managers-staff-report.pdf
+
+PART 3: Slavery and forced labor
+https://www.slavevoyages.org/
+https://www.cbp.gov/trade/forced-labor/UFLPA
+https://www.state.gov/trafficking-in-persons/
+
+PART 4: Body, medicine, and science wars
+https://www.cdc.gov/tuskegee/about/index.html
+https://www.damiencharlotin.com/hallucinations/
+https://cass.independent-review.uk/
+
+PART 5: Empire, war, and official secrets
+https://www.archives.gov/
+https://nsarchive.gwu.edu/
+https://www.cia.gov/readingroom/
+https://vault.fbi.gov/
+
+PART 6: Sex, power, and institutional cover
+https://www.justice.gov/
+https://vault.fbi.gov/
+https://www.courtlistener.com/
+https://www.state.gov/j/tip/
+
+PART 7: Race, borders, caste, belonging
+https://www.ice.gov/identify-and-arrest/287g
+https://dsl.richmond.edu/panorama/redlining/
+https://www.archives.gov/research/african-americans
+
+PART 8: Schools, speech, faith, culture
+https://www.ed.gov/laws-and-policy/civil-rights-laws/title-vi-civil-rights-act
+https://www.justice.gov/atr
+https://www.naic.org/
+
+PART 9: Voting machines and election rules
+https://www.cisa.gov/topics/election-security
+https://www.eac.gov/voting-equipment/certified-voting-systems
+https://verifiedvoting.org/verifier/
+
+PART 10: Research tools
+https://www.courtlistener.com/
+https://www.foia.gov/
+https://littlesis.org/
+https://www.muckrock.com/
+
+PART 11: Ethnicities, nations, and mass killing
+https://sfi.usc.edu/
+https://www.ushmm.org/
+https://gsp.yale.edu/
+https://www.un.org/unispal/
+
+PART 12: 20th-21st century by decade (1900s-2010s) — FULL TIMELINE BELOW
+https://www.archives.gov/
+https://history.state.gov/historicaldocuments
+https://avalon.law.yale.edu/
+https://nsarchive.gwu.edu/
+
+PART 13: 19th century megas — FULL TIMELINE BELOW
+https://www.slavevoyages.org/
+https://www.archives.gov/research/military/civil-war
+https://www.nationalarchives.gov.uk/
+
+PART 14: Ancient and medieval high-return — FULL TIMELINE BELOW
+https://www.perseus.tufts.edu/hopper/
+https://sourcebooks.fordham.edu/ancient/asbook.asp
+https://sourcebooks.fordham.edu/sbook.asp
+
+PART 15: 15th-18th centuries bridge — FULL TIMELINE BELOW
+https://avalon.law.yale.edu/
+https://www.slavevoyages.org/
+https://www.nationaalarchief.nl/
+https://www.nationalarchives.gov.uk/
+
+PART 16: Black freedom movements full stack — CHAIN TIMELINE BELOW
+https://nmaahc.si.edu/
+https://www.archives.gov/research/african-americans
+https://snccdigital.org/
+https://vault.fbi.gov/
+
+PART 17: Audience-gap topics (gender/LGBTQ/faith/age/labor/etc.)
+https://www.archives.gov/milestone-documents/19th-amendment
+https://www.eeoc.gov/
+https://www.ada.gov/
+https://www.unhcr.org/
+
+PART 18: War crime stats (abroad — who counts the dead)
+https://ucdp.uu.se/
+https://acleddata.com/
+https://costsofwar.watson.brown.edu/costs/human
+https://www.icc-cpi.int/
+https://ihl-databases.icrc.org/
+
+PART 19: Domestic fight-stats engines (home — dashboards that start wars)
+https://wonder.cdc.gov/
+https://www.gunviolencearchive.org/
+https://mappingpoliceviolence.org/
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://wid.world/
+https://ourworldindata.org/
+
+STATS TWIN: Part 18 + Part 19 = one skill. Method before number.
+FRESHNESS: Some near-live; many weekly/monthly/yearly. Updated often != final. Always note as-of date.
+
+========================================================================
+TIMELINE STACKS — PARTS 12 TO 15 (+ Part 16 movement chain)
+Master doors: https://www.archives.gov/ · https://history.state.gov/historicaldocuments · https://avalon.law.yale.edu/ · https://nsarchive.gwu.edu/ · https://www.loc.gov/ · https://www.nationalarchives.gov.uk/
+========================================================================
+
+------------------------------------------------------------------------
+PART 12 — 20th-21st CENTURY BY DECADE
+------------------------------------------------------------------------
+
+1900-1909 EMPIRE HIGH NOON
+Philippine-American War — https://www.archives.gov/ · https://history.state.gov/historicaldocuments
+Herero and Nama genocide — https://gsp.yale.edu/ · https://www.bundesarchiv.de/
+Boxer Rebellion — https://www.archives.gov/ · https://www.loc.gov/
+Russo-Japanese War 1904-05 — https://history.state.gov/historicaldocuments
+1905 Russian Revolution / Bloody Sunday — https://www.marxists.org/archive/
+Maji-Maji Rebellion — https://www.bundesarchiv.de/ · https://gsp.yale.edu/
+Early eugenics boom — https://www.genome.gov/about-genomics/educational-resources/timeline-eugenics
+Women's suffrage acceleration — https://www.loc.gov/ · https://www.archives.gov/milestone-documents
+
+1910-1919 WORLD WAR, FLU, REVOLUTIONS, RACE TERROR
+WWI origins — https://avalon.law.yale.edu/ · https://www.loc.gov/classroom-materials/world-war-i/
+Armenian Genocide — https://sfi.usc.edu/collections/armenian · https://www.armenian-genocide.org/
+Sykes-Picot / Balfour / Mandates — https://avalon.law.yale.edu/subject_menus/mideast.asp · https://www.un.org/unispal/
+Russian Revolution + Red/White Terror — https://www.marxists.org/archive/ · https://nsarchive.gwu.edu/
+1918-19 influenza — https://www.cdc.gov/ · https://www.archives.gov/
+Treaty of Versailles — https://avalon.law.yale.edu/ · https://history.state.gov/historicaldocuments
+Easter Rising / Irish revolutionary start — https://cain.ulster.ac.uk/ · https://www.nationalarchives.gov.uk/
+Amritsar massacre 1919 — https://www.bl.uk/ · https://www.nationalarchives.gov.uk/
+Red Summer 1919 — https://www.archives.gov/research/african-americans · https://www.loc.gov/
+Palmer Raids / First Red Scare — https://www.archives.gov/ · https://vault.fbi.gov/
+Mexican Revolution — https://www.loc.gov/ · https://history.state.gov/historicaldocuments
+Espionage/Sedition Acts — https://www.archives.gov/ · https://www.oyez.org/
+
+1920-1929 JAZZ AGE, EUGENICS LAW, FASCIST DRESS REHEARSALS
+Prohibition and organized crime — https://www.archives.gov/ · https://www.fbi.gov/history
+Immigration Act of 1924 — https://www.archives.gov/milestone-documents/immigration-act-of-1924
+Tulsa Race Massacre 1921 — https://www.okhistory.org/ · https://www.archives.gov/
+Rosewood / Elaine Massacre memory — https://www.archives.gov/
+Sacco and Vanzetti — https://www.archives.gov/ · https://www.courtlistener.com/
+Scopes Trial 1925 — https://www.loc.gov/ · https://www.archives.gov/
+March on Rome / Italian fascism — https://avalon.law.yale.edu/
+German hyperinflation — https://fraser.stlouisfed.org/ · https://www.bundesarchiv.de/
+Teapot Dome — https://www.archives.gov/
+Sterilization / Buck v. Bell build-up — https://www.oyez.org/ · https://www.genome.gov/
+
+1930-1939 DEPRESSION, TERROR STATES, APPROACHING WORLD WAR
+Holodomor — https://holodomormuseum.org.ua/en/ · https://guides.loc.gov/holodomor
+Stalin Great Terror / Gulag — https://gulaghistory.org/ · https://nsarchive.gwu.edu/
+New Deal — https://fraser.stlouisfed.org/ · https://www.archives.gov/
+Dust Bowl — https://www.archives.gov/ · https://www.loc.gov/
+Bonus Army 1932 — https://www.archives.gov/
+Scottsboro Boys — https://www.archives.gov/ · https://www.loc.gov/
+Nazi rise / Nuremberg Laws / Kristallnacht — https://www.ushmm.org/ · https://www.bundesarchiv.de/
+Spanish Civil War — https://www.archives.gov/ · https://www.bl.uk/
+Rape of Nanjing 1937 — https://sfi.usc.edu/ · https://www.archives.gov/iwg/
+Unit 731 begins — https://www.archives.gov/iwg/
+Munich Agreement 1938 — https://avalon.law.yale.edu/ · https://history.state.gov/historicaldocuments
+
+1940-1949 TOTAL WAR, GENOCIDE, NUCLEAR AGE, PARTITIONS
+Holocaust — https://www.ushmm.org/ · https://sfi.usc.edu/
+Japanese American incarceration — https://www.archives.gov/research/aapi/ww2/incarceration
+Tokyo / Dresden firebombing — https://www.archives.gov/
+Hiroshima / Nagasaki — https://www.archives.gov/research/military/ww2/manhattan-project · https://www.trumanlibrary.gov/
+Unit 731 U.S. immunity deals — https://www.archives.gov/iwg/
+Bengal famine 1943 — https://www.nationalarchives.gov.uk/ · https://www.bl.uk/
+Nuremberg / Tokyo trials — https://avalon.law.yale.edu/subject_menus/imt.asp
+Partition of India 1947 — https://www.bl.uk/collection-guides/india-office-records
+Nakba / Israeli independence 1948 — https://www.un.org/unispal/ · https://www.archives.gov.il/en/
+Bretton Woods / IMF-World Bank — https://fraser.stlouisfed.org/ · https://www.imf.org/
+Chinese Civil War -> PRC 1949 — https://history.state.gov/historicaldocuments
+Indonesian / Indochina independence wars begin — https://history.state.gov/historicaldocuments · https://www.nationaalarchief.nl/
+
+1950-1959 COLD WAR MACHINE, COUPS, CIVIL RIGHTS IGNITION
+Korean War — https://www.archives.gov/research/military/korean-war · https://history.state.gov/historicaldocuments
+McCarthyism / Second Red Scare — https://www.archives.gov/ · https://vault.fbi.gov/
+Rosenberg trial — https://www.archives.gov/ · https://www.fbi.gov/history
+Operation Paperclip — https://www.archives.gov/ · https://www.cia.gov/readingroom/
+CIA coups Iran 1953 / Guatemala 1954 — https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/
+MKUltra begins 1953 — https://www.cia.gov/readingroom/collection/human-experiments-mkultra
+Montgomery / Little Rock — https://www.archives.gov/research/african-americans
+Hungarian Revolution 1956 — https://history.state.gov/historicaldocuments · https://nsarchive.gwu.edu/
+Suez Crisis 1956 — https://www.nationalarchives.gov.uk/ · https://history.state.gov/historicaldocuments
+Great Leap Forward begins — https://nsarchive.gwu.edu/
+Algerian War — https://history.state.gov/historicaldocuments
+Emmett Till 1955 — https://www.archives.gov/ · https://www.fbi.gov/
+
+1960-1969 RIGHTS REVOLUTIONS, VIETNAM LIES, ASSASSINATIONS
+Civil Rights / Voting Rights Acts — https://www.archives.gov/milestone-documents · https://www.congress.gov/
+Bay of Pigs / Cuban Missile Crisis — https://history.state.gov/historicaldocuments · https://nsarchive.gwu.edu/
+Gulf of Tonkin 1964 — https://www.archives.gov/research/pentagon-papers · https://history.state.gov/historicaldocuments
+Pentagon Papers era — https://www.archives.gov/research/pentagon-papers
+My Lai 1968 — https://www.archives.gov/ · https://www.loc.gov/
+Tet / Vietnam turn — https://www.archives.gov/research/military/vietnam-war
+COINTELPRO vs Panthers / New Left — https://vault.fbi.gov/ · https://www.intelligence.senate.gov/
+Chicago 1968 — https://www.archives.gov/
+Stonewall 1969 — https://www.loc.gov/ · https://www.archives.gov/
+JFK / Malcolm X / MLK / RFK — https://www.archives.gov/research/jfk · https://vault.fbi.gov/
+Indonesia 1965-66 killings — https://nsarchive.gwu.edu/ · https://www.cia.gov/readingroom/
+Cultural Revolution — https://nsarchive.gwu.edu/
+Biafra / Nigerian Civil War — https://www.nationalarchives.gov.uk/
+Six-Day War 1967 — https://www.un.org/unispal/ · https://avalon.law.yale.edu/subject_menus/mideast.asp
+Prague Spring crushed 1968 — https://history.state.gov/historicaldocuments · https://nsarchive.gwu.edu/
+
+1970-1979 TRUST COLLAPSE, DIRTY WARS, ENERGY SHOCK
+Kent State / Jackson State 1970 — https://www.archives.gov/
+Watergate — https://www.nixonlibrary.gov/ · https://www.archives.gov/research/investigations/watergate
+Roe v. Wade 1973 — https://www.oyez.org/ · https://www.supremecourt.gov/
+Chile 1973 / Condor — https://nsarchive.gwu.edu/
+Church / Pike intel investigations — https://www.intelligence.senate.gov/
+Khmer Rouge Cambodia — https://gsp.yale.edu/case-studies/cambodian-genocide-program
+Iranian Revolution 1979 — https://history.state.gov/historicaldocuments · https://www.archives.gov/
+Oil embargo / stagflation — https://fraser.stlouisfed.org/
+Jonestown 1978 — https://www.archives.gov/ · https://vault.fbi.gov/
+Three Mile Island 1979 — https://www.nrc.gov/ · https://www.archives.gov/
+Attica 1971 — https://www.archives.gov/
+Love Canal — https://www.epa.gov/ · https://www.archives.gov/
+
+1980-1989 CRACK, MASS INCARCERATION, LATE COLD WAR
+Crack + Anti-Drug Abuse Act 1986 — https://nida.nih.gov/ · https://bjs.ojp.gov/ · https://www.ussc.gov/ · https://www.congress.gov/
+War on Drugs / asset forfeiture — https://www.justice.gov/afms · https://www.dea.gov/
+Iran-Contra — https://www.archives.gov/research/iran-contra · https://nsarchive.gwu.edu/
+AIDS crisis early years — https://www.cdc.gov/ · https://www.nih.gov/
+Savings and Loan crisis — https://fraser.stlouisfed.org/ · https://www.gao.gov/
+Bhopal 1984 — https://www.epa.gov/
+Chernobyl 1986 — https://www.iaea.org/ · https://www.archives.gov/
+Ethiopia famine / Live Aid politics — https://www.un.org/ · https://www.nationalarchives.gov.uk/
+Iran-Iraq War / U.S. tilt — https://history.state.gov/historicaldocuments · https://www.cia.gov/readingroom/
+Apartheid peak and sanctions — https://www.archives.gov/
+Tiananmen 1989 — https://nsarchive.gwu.edu/
+End of Cold War / 1989 revolutions — https://history.state.gov/historicaldocuments · https://www.archives.gov/
+Exxon Valdez 1989 — https://www.epa.gov/ · https://www.archives.gov/
+
+1990-1999 UNIPOLAR MOMENT, GENOCIDE RETURNS, CULTURE WARS
+Gulf War 1991 — https://history.state.gov/historicaldocuments · https://www.archives.gov/
+Rodney King / LA 1992 — https://www.archives.gov/ · https://www.courtlistener.com/
+Waco 1993 / Oklahoma City 1995 — https://vault.fbi.gov/ · https://www.archives.gov/
+Rwandan Genocide 1994 — https://www.irmct.org/ · https://gsp.yale.edu/
+Srebrenica 1995 — https://www.irmct.org/
+Congo Wars begin — https://www.un.org/ · https://nsarchive.gwu.edu/
+OJ Simpson trial — https://www.courtlistener.com/
+WTO Seattle 1999 — https://www.wto.org/
+Microsoft antitrust — https://www.justice.gov/atr
+NATO Kosovo 1999 — https://www.un.org/ · https://history.state.gov/historicaldocuments
+Columbine 1999 — https://www.archives.gov/
+
+2000-2009 WAR ON TERROR, FINANCIAL CRASH, PLATFORMS BORN
+Bush v. Gore 2000 — https://www.oyez.org/ · https://www.fec.gov/
+9/11 — https://www.9-11commission.gov/ · https://www.archives.gov/research/9-11
+Afghanistan war — https://nsarchive.gwu.edu/ · https://www.archives.gov/
+Iraq / WMD — https://nsarchive.gwu.edu/ · https://www.gov.uk/government/publications/the-report-of-the-iraq-inquiry
+Guantanamo / torture memos / black sites — https://www.justice.gov/ · https://www.intelligence.senate.gov/ · https://nsarchive.gwu.edu/
+Patriot Act / surveillance expansion — https://www.congress.gov/ · https://www.eff.org/
+Abu Ghraib — https://www.archives.gov/ · https://www.dodig.mil/
+Katrina 2005 — https://www.archives.gov/ · https://www.fema.gov/
+2007-09 financial crash / bailouts — https://fraser.stlouisfed.org/ · https://fcic.law.stanford.edu/ · https://www.federalreserve.gov/
+Facebook/Google as power — https://www.ftc.gov/ · https://www.justice.gov/atr
+Darfur — https://www.un.org/ · https://www.ushmm.org/
+Russia-Georgia 2008 — https://www.osce.org/
+
+2010-2019 UPRISINGS, LEAKS, IDENTITY POLITICS, AUTHORITARIAN RETURN
+Arab Spring / Syria / Libya — https://www.wilsoncenter.org/ · https://www.un.org/ · https://nsarchive.gwu.edu/
+Occupy Wall Street 2011 — https://www.loc.gov/
+Trayvon -> BLM — https://nmaahc.si.edu/ · https://www.justice.gov/crt · https://mappingpoliceviolence.org/
+Snowden 2013 — https://www.eff.org/nsa-spying/nsadocs · https://nsarchive.gwu.edu/
+Ferguson / Freddie Gray — https://www.justice.gov/crt · https://www.courtlistener.com/
+Crimea / Donbas 2014 — https://www.un.org/ · https://www.icj-cij.org/
+ISIS / war on ISIS — https://www.un.org/
+European migrant crisis 2015 — https://www.unhcr.org/
+Brexit 2016 — https://www.nationalarchives.gov.uk/ · https://www.electoralcommission.org.uk/
+2016 U.S. election / Russia fights — https://www.justice.gov/ · https://www.intelligence.senate.gov/
+Cambridge Analytica — https://www.ftc.gov/ · https://ico.org.uk/
+MeToo explosion 2017 — https://www.courtlistener.com/ · https://www.eeoc.gov/ · https://www.documentcloud.org/
+Christchurch — https://www.christchurchattack.royalcommission.nz/
+Hong Kong 2019 — https://www.congress.gov/ · https://nsarchive.gwu.edu/
+Uighur camps / forced labor — https://www.cbp.gov/trade/forced-labor/UFLPA · https://www.state.gov/trafficking-in-persons/
+Climate strikes / Paris fights — https://unfccc.int/ · https://www.ipcc.ch/
+Opioid epidemic peak awareness — https://www.cdc.gov/ · https://www.justice.gov/
+Charlottesville 2017 — https://www.courtlistener.com/ · https://www.justice.gov/
+
+------------------------------------------------------------------------
+PART 13 — 19th CENTURY MEGAS
+------------------------------------------------------------------------
+Haitian Revolution spillover — https://sourcebooks.fordham.edu/mod/modsbook.asp · https://www.slavevoyages.org/
+Napoleonic Wars — https://avalon.law.yale.edu/ · https://www.nationalarchives.gov.uk/
+Latin American independence — https://www.loc.gov/ · https://www.archives.gov/
+Trail of Tears / Indian Removal — https://www.archives.gov/research/native-americans · https://avalon.law.yale.edu/subject_menus/ntreaty.asp
+Opium Wars — https://www.nationalarchives.gov.uk/ · https://avalon.law.yale.edu/
+1848 revolutions — https://www.marxists.org/archive/ · https://avalon.law.yale.edu/
+Irish Famine 1845-49 — https://www.nationalarchives.ie/ · https://www.nationalarchives.gov.uk/
+U.S. Civil War and Reconstruction — https://www.archives.gov/research/military/civil-war · https://www.archives.gov/research/african-americans/freedmens-bureau
+Paris Commune 1871 — https://gallica.bnf.fr/ · https://www.marxists.org/archive/
+Scramble for Africa / Berlin 1884-85 — https://www.nationalarchives.gov.uk/ · https://avalon.law.yale.edu/
+Leopold Congo rubber terror — https://credo.library.umass.edu/view/collection/mums312
+Dreyfus Affair — https://gallica.bnf.fr/
+Philippine Revolution -> U.S. takeover — https://www.archives.gov/ · https://history.state.gov/historicaldocuments
+Sepoy Rebellion 1857 — https://www.bl.uk/ · https://www.nationalarchives.gov.uk/
+Taiping Rebellion — https://cudl.lib.cam.ac.uk/
+Meiji Restoration / unequal treaties — https://history.state.gov/historicaldocuments
+
+------------------------------------------------------------------------
+PART 14 — ANCIENT AND MEDIEVAL HIGH-RETURN
+------------------------------------------------------------------------
+LIBRARIES
+https://www.perseus.tufts.edu/hopper/
+https://sourcebooks.fordham.edu/ancient/asbook.asp
+https://sourcebooks.fordham.edu/sbook.asp
+https://avalon.law.yale.edu/subject_menus/ancient.asp
+https://classics.mit.edu/
+https://www.sefaria.org/
+https://dss.collections.imj.org.il/
+
+Athenian democracy + slavery — https://www.perseus.tufts.edu/hopper/ · https://sourcebooks.fordham.edu/ancient/asbook07.asp
+Sparta / helotage — https://www.perseus.tufts.edu/hopper/
+Peloponnesian War (Thucydides) — https://classics.mit.edu/Thucydides/pelopwar.html
+Alexander conquest — https://www.perseus.tufts.edu/hopper/
+Roman slavery / Spartacus — https://sourcebooks.fordham.edu/ancient/asbook09.asp
+Code of Hammurabi — https://avalon.law.yale.edu/ancient/hamframe.asp
+Qin Shi Huang forced labor / book burning — https://sourcebooks.fordham.edu/
+Ashoka after Kalinga — https://sourcebooks.fordham.edu/india/indiasbook.asp
+Exodus / conquest narratives — https://www.sefaria.org/
+Constantine and Christian empire — https://sourcebooks.fordham.edu/sbook.asp
+Early Caliphates expansion — https://sourcebooks.fordham.edu/islam/islamsbook.asp
+Crusades (incl. 1204 Constantinople) — https://sourcebooks.fordham.edu/sbook1k.asp
+Mongol conquests — https://sourcebooks.fordham.edu/ · https://en.unesco.org/silkroad/
+Black Death — https://sourcebooks.fordham.edu/sbook.asp · https://wellcomecollection.org/
+Spanish Inquisition beginnings — https://avalon.law.yale.edu/
+Fall of Constantinople 1453 — https://sourcebooks.fordham.edu/sbook.asp
+1492 Reconquista + Columbus — https://avalon.law.yale.edu/ · https://www.archives.gov/
+
+------------------------------------------------------------------------
+PART 15 — 15th-18th CENTURIES BRIDGE
+------------------------------------------------------------------------
+1500s Conquest, Reformation, Atlantic slavery ignition
+Spanish conquest / Valladolid debate — https://avalon.law.yale.edu/ · https://www.loc.gov/
+Atlantic slave trade ignition — https://www.slavevoyages.org/
+Protestant Reformation / wars of religion — https://avalon.law.yale.edu/ · https://www.nationalarchives.gov.uk/
+St. Bartholomew's Day 1572 — https://gallica.bnf.fr/ · https://avalon.law.yale.edu/
+Aztec / Inca empire complexity — https://www.loc.gov/
+
+1600s Permanent war, witch hunts, corporate empire
+Thirty Years War — https://www.nationalarchives.gov.uk/
+English Civil War / Cromwell in Ireland — https://www.british-history.ac.uk/ · https://www.nationalarchives.gov.uk/
+Salem and European witch trials — https://www.archives.gov/
+Dutch VOC / Banda Islands — https://www.nationaalarchief.nl/
+Atlantic slave trade acceleration — https://www.slavevoyages.org/
+
+1700s Enlightenment, revolutions, slave empires
+Atlantic plantation complex — https://www.slavevoyages.org/ · https://avalon.law.yale.edu/
+Seven Years War — https://history.state.gov/historicaldocuments · https://www.nationalarchives.gov.uk/
+American Revolution — https://avalon.law.yale.edu/ · https://www.archives.gov/founding-docs
+French Revolution / Terror — https://gallica.bnf.fr/ · https://avalon.law.yale.edu/ · https://www.marxists.org/archive/
+Haitian Revolution from 1791 — https://sourcebooks.fordham.edu/mod/modsbook.asp · https://www.slavevoyages.org/
+Enclosure / early industrial Britain — https://www.british-history.ac.uk/
+
+------------------------------------------------------------------------
+PART 16 — BLACK FREEDOM MOVEMENTS CHAIN (TIMELINE LANE)
+------------------------------------------------------------------------
+Doors: https://nmaahc.si.edu/ · https://www.archives.gov/research/african-americans · https://snccdigital.org/ · https://vault.fbi.gov/ · https://kinginstitute.stanford.edu/ · https://www.loc.gov/collections/civil-rights-history-project/
+1900s-10s Niagara / NAACP — https://www.naacp.org/ · https://nmaahc.si.edu/
+1910s Great Migration — https://www.archives.gov/ · https://www.loc.gov/
+1919 Red Summer — https://www.archives.gov/research/african-americans
+1920s Garvey / UNIA — https://www.archives.gov/ · https://vault.fbi.gov/
+1921 Tulsa — https://www.okhistory.org/
+1930s Scottsboro — https://www.archives.gov/
+1930s-40s Randolph / March on Washington Movement — https://www.archives.gov/
+WWII Double V — https://nmaahc.si.edu/
+1955 Emmett Till — https://www.archives.gov/ · https://vault.fbi.gov/
+1955-56 Montgomery — https://kinginstitute.stanford.edu/
+1957 Little Rock — https://www.archives.gov/
+1960 Sit-ins / SNCC — https://snccdigital.org/
+1963 Birmingham / March on Washington — https://kinginstitute.stanford.edu/
+1964-65 Civil Rights Act / Voting Rights Act — https://www.archives.gov/milestone-documents · https://www.congress.gov/
+1965-66 Malcolm X aftermath — https://vault.fbi.gov/ · https://nmaahc.si.edu/
+1966- Black Power / Panthers — https://www.marxists.org/history/usa/workers/black-panthers/ · https://vault.fbi.gov/
+1968 MLK / Poor People's Campaign — https://kinginstitute.stanford.edu/ · https://vault.fbi.gov/
+1969-71 FBI war on Panthers — https://vault.fbi.gov/ · https://www.intelligence.senate.gov/
+1970s Black feminism / Combahee — https://nmaahc.si.edu/ · https://www.loc.gov/
+1985 MOVE bombing — https://www.archives.gov/
+1991-92 Rodney King / LA — https://www.courtlistener.com/
+1995 Million Man March — https://nmaahc.si.edu/
+2005 Katrina — https://www.fema.gov/ · https://www.archives.gov/
+2012- BLM — https://www.justice.gov/crt · https://mappingpoliceviolence.org/ · https://nmaahc.si.edu/
+2014-15 Ferguson / Baltimore — https://www.justice.gov/crt
+2020 George Floyd uprising — https://www.justice.gov/ · https://www.courtlistener.com/
+Ongoing reparations H.R.40 — https://www.congress.gov/bill/119th-congress/house-bill/40
+
+ETERNAL SPLITS: integration vs nationalism vs Pan-Africanism · nonviolence vs armed self-defense · capitalism vs socialism · respectability vs radical aesthetics
+
+========================================================================
+HOT LANE — PRIORITIES 0 TO 20 (every number has URLs)
+========================================================================
+
+0. How the world works (Part 0)
+(see Part 0 above — incentives / force / status / stories)
+
+1. Flock license-plate cameras
+https://www.flocksafety.com/
+https://deflock.org/
+https://www.eff.org/deeplinks/2025/12/effs-investigations-expose-flock-safetys-surveillance-abuses-2025-review
+
+2. How elections are certified
+https://www.cisa.gov/topics/election-security
+https://www.eac.gov/voting-equipment/certified-voting-systems
+https://verifiedvoting.org/verifier/
+
+3. Offshore wealth leaks
+https://offshoreleaks.icij.org/
+https://www.icij.org/investigations/panama-papers/
+https://www.icij.org/investigations/pandora-papers/
+
+4. AI fake citations in court
+https://www.damiencharlotin.com/hallucinations/
+https://www.courtlistener.com/
+
+5. SlaveVoyages + reparations H.R.40
+https://www.slavevoyages.org/
+https://www.congress.gov/bill/119th-congress/house-bill/40
+https://nmaahc.si.edu/
+
+6. Modern forced labor import bans
+https://www.cbp.gov/trade/forced-labor/UFLPA
+https://www.state.gov/trafficking-in-persons/
+https://www.ilo.org/topics/forced-labour-modern-slavery-and-trafficking-persons
+
+7. Police-immigration data sharing
+https://www.ice.gov/identify-and-arrest/287g
+https://deflock.org/
+https://www.dhs.gov/
+
+8. Pharmacy benefit managers
+https://www.ftc.gov/system/files/ftc_gov/pdf/pharmacy-benefit-managers-staff-report.pdf
+https://www.cvshealth.com/
+https://www.unitedhealthgroup.com/
+
+9. Climate insurance retreat
+https://www.naic.org/
+https://www.fema.gov/
+
+10. Defense contractors + revolving door
+https://www.usaspending.gov/
+https://www.opensecrets.org/industries/indus.php?ind=D
+https://www.sec.gov/edgar/search/
+
+11. Ethnic genocide archives
+https://sfi.usc.edu/
+https://www.ushmm.org/
+https://sfi.usc.edu/collections/armenian
+https://gsp.yale.edu/
+
+12. Crack epidemic + 1986 drug law
+https://nida.nih.gov/
+https://bjs.ojp.gov/
+https://www.ussc.gov/
+https://www.congress.gov/
+
+13. Partition India / Ireland / Palestine docs
+https://www.bl.uk/collection-guides/india-office-records
+https://cain.ulster.ac.uk/
+https://www.un.org/unispal/
+
+14. Ancient slavery and empire texts
+https://www.perseus.tufts.edu/hopper/
+https://sourcebooks.fordham.edu/ancient/asbook.asp
+https://avalon.law.yale.edu/ancient/hamframe.asp
+
+15. Black freedom movements (Part 16)
+https://nmaahc.si.edu/
+https://snccdigital.org/
+https://kinginstitute.stanford.edu/
+https://vault.fbi.gov/
+
+16. 2000s Iraq/WMD + 2008 crash
+https://nsarchive.gwu.edu/
+https://www.gov.uk/government/publications/the-report-of-the-iraq-inquiry
+https://fcic.law.stanford.edu/
+https://fraser.stlouisfed.org/
+
+17. 2010s BLM + MeToo + Snowden
+https://www.justice.gov/crt
+https://www.eeoc.gov/
+https://www.eff.org/nsa-spying/nsadocs
+https://nmaahc.si.edu/
+
+18. Audience-gap Part 17
+https://www.archives.gov/milestone-documents/19th-amendment
+https://www.ada.gov/
+https://www.eeoc.gov/
+https://www.unhcr.org/
+
+19. War crime stats (Part 18)
+https://ucdp.uu.se/
+https://acleddata.com/
+https://costsofwar.watson.brown.edu/costs/human
+https://www.icc-cpi.int/
+https://www.iraqbodycount.org/database/
+https://airwars.org/
+https://ihl-databases.icrc.org/
+
+20. Fight-stats engines (Part 19)
+https://wonder.cdc.gov/
+https://www.gunviolencearchive.org/
+https://mappingpoliceviolence.org/
+https://cde.ucr.cjis.gov/LATEST/webapp/
+https://bjs.ojp.gov/data-collection/ncvs
+https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters
+https://wid.world/
+https://ourworldindata.org/
+
+========================================================================
+STATS TWIN DETAIL — PART 18 WAR CRIME + PART 19 DOMESTIC
+========================================================================
+
+PART 18 — ABROAD
+COUNTING: https://ucdp.uu.se/ · https://acleddata.com/ · https://costsofwar.watson.brown.edu/costs/human
+LAW: https://ihl-databases.icrc.org/ · https://www.icc-cpi.int/situations-cases
+THEATERS: https://www.iraqbodycount.org/database/ · https://airwars.org/ · https://www.ohchr.org/
+RULE: Legal war crime != body count != excess deaths. No president column — attribution is your second layer.
+
+PART 19 — HOME
+GUNS: https://wonder.cdc.gov/ · https://www.gunviolencearchive.org/ · https://wisqars.cdc.gov/
+POLICE: https://mappingpoliceviolence.org/ · https://www.washingtonpost.com/graphics/investigations/police-shootings-database/ · https://fatalencounters.org/ · https://openpolicing.stanford.edu/
+CRIME: https://cde.ucr.cjis.gov/LATEST/webapp/ · https://bjs.ojp.gov/data-collection/ncvs
+BORDER: https://www.cbp.gov/newsroom/stats/southwest-land-border-encounters · https://tracreports.org/immigration/
+HOMELESS: https://www.hudexchange.info/programs/hdx/pit-hic/
+INEQUALITY: https://wid.world/ · https://www.federalreserve.gov/econres/scfindex.htm
+TERROR: https://www.start.umd.edu/data-tools/GTD
+PRISONS: https://www.prisonpolicy.org/ · https://bjs.ojp.gov/
+ABORTION: https://www.cdc.gov/reproductivehealth/data_stats/abortion.htm · https://data.guttmacher.org/
+FERTILITY: https://population.un.org/wpp/ · https://ourworldindata.org/fertility-rate
+NUKES: https://fas.org/initiative/status-world-nuclear-forces/
+EXCESS MORTALITY: https://ourworldindata.org/excess-mortality-covid
+META: https://ourworldindata.org/ · https://data.gov/
+
+FRESHNESS CHEAT SHEET (are these updated often?)
+NEAR-DAILY / CONTINUOUS: Gun Violence Archive, Mapping Police Violence, Fatal Encounters, Airwars (active wars), many CBP live dashboards (later corrected)
+WEEKLY: ACLED (Mon/Tue by region; some daily), CDC WONDER provisional mortality (Wednesdays), HDX ACLED aggregates
+MONTHLY: UCDP Candidate events, some CBP/ICE tables, TRAC often frequent
+ANNUAL / PAPER CADENCE: UCDP main GED, FBI UCR/NIBRS, NCVS, HUD PIT, final CDC deaths, Guttmacher waves, FAS Nuclear Notebook, Costs of War, SIPRI
+IRREGULAR: ICC dockets, DOJ cases, ICRC law texts, OWID (depends on source)
+OFTEN LAGGED: Global Terrorism Database (check latest year), FBI use-of-force (participation thresholds), Iraq Body Count (slower post-peak)
+
+RULE OF THUMB
+- Today's politics -> weekly/near-live + say PROVISIONAL
+- Record truth -> annual finals + state the YEAR
+- Never mix a final year with a live scrape as one number
+
+Cadence docs:
+https://acleddata.com/use-access/when-are-acled-data-updated
+https://ucdp.uu.se/downloads/
+https://wonder.cdc.gov/whatsnew.html
+
+90 MINUTES
+1. Pick one fight or one theater
+2. Open official counter + independent counter
+3. Write definition + method + date range + exclusions + as-of/provisional?
+4. Ask who is paid/forced/status-rewarded if this number wins (Part 0)
+5. Only then argue policy
