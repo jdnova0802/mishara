@@ -1567,7 +1567,7 @@ def bind_room_demo():
     return render_template(
         "bind_room_demo.html",
         domains=bind_room_demo_mod.catalog(),
-        selected=selected or "insurance",
+        selected=selected,
         domain_error=domain_error,
         allowed=sorted(bind_room_demo_mod.DOMAINS.keys()),
     ), (400 if domain_error else 200)

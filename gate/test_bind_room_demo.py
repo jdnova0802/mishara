@@ -39,6 +39,7 @@ class BindRoomDemoTests(unittest.TestCase):
         res = self.client.get("/demo/bind-room?domain=not-a-vertical")
         self.assertEqual(res.status_code, 400)
         self.assertIn(b"Unknown domain", res.data)
+        self.assertNotIn('class="domain-btn active" data-domain="insurance"', res.data.decode())
 
     def test_fleet_alias_is_network_not_insurance(self):
         res = self.client.post("/demo/bind-room/run", json={"domain": "fleet"})
@@ -79,6 +80,32 @@ class BindRoomDemoTests(unittest.TestCase):
         self.assertIn("protocol_id", json.dumps(cli["step3_json"]))
         self.assertNotEqual(ins["step2_json"]["reason"], cli["step2_json"]["reason"])
 
+    def test_every_live_vertical_has_its_own_attempt(self):
+        bind_room_demo.assert_attempts_personalized()
+        actions = {}
+        for row in bind_room_demo.catalog():
+            with self.subTest(domain=row["id"]):
+                res = self.client.post("/demo/bind-room/run", json={"domain": row["id"]})
+                self.assertEqual(res.status_code, 200)
+                body = res.get_json()
+                self.assertEqual(body["domain"], row["id"])
+                self.assertEqual(body["attempt_title"], row["attempt_title"])
+                self.assertEqual(body["step1_json"]["action"], row["attempt"]["action"])
+                self.assertEqual(body["step1_json"]["domain"], row["id"])
+                self.assertEqual(body["steps"][0]["title"], row["attempt_title"])
+                if row["id"] != "insurance":
+                    self.assertNotEqual(body["step1_json"]["action"], "policy_bind")
+                    self.assertNotIn("policy_number", body["step1_json"])
+                    self.assertNotIn("DEMO-PAS", json.dumps(body["step1_json"]))
+                page = self.client.get(f"/demo/bind-room?domain={row['id']}")
+                self.assertEqual(page.status_code, 200)
+                html = page.data.decode()
+                self.assertIn(row["attempt_title"], html)
+                self.assertIn(row["attempt"]["action"], html)
+                actions[row["id"]] = row["attempt"]["action"]
+        self.assertEqual(actions["insurance"], "policy_bind")
+        self.assertEqual(len(set(actions.values())), len(actions))
+
     def test_corrections_names_verra_retired(self):
         res = self.client.get("/trust/corrections")
         self.assertEqual(res.status_code, 200)
@@ -112,6 +139,7 @@ class BindRoomDemoTests(unittest.TestCase):
         self.assertIn(b'try \xe2\x80\x9cvertical\xe2\x80\x9d', res.data)
         self.assertIn(b"Verticals / industries", res.data)
         self.assertIn(b'href="/verticals"', res.data)
+        self.assertIn(b"animal_welfare", res.data)
         self.assertIn(b">Verticals</a>", res.data)
         self.assertIn(b"See industries", res.data)
         self.assertNotIn(b">Bind demo</a>", res.data)
@@ -136,7 +164,31 @@ class BindRoomDemoTests(unittest.TestCase):
 
     def test_normalize_aliases(self):
         self.assertEqual(bind_room_demo.normalize_domain("Counsel"), "epistemics")
+        self.assertEqual(bind_room_demo.normalize_domain("iacuc"), "animal_welfare")
+        self.assertEqual(bind_room_demo.normalize_domain("animal_welfare"), "animal_welfare")
         self.assertIsNone(bind_room_demo.normalize_domain("nope"))
+
+    def test_animal_welfare_is_not_insurance_bind(self):
+        page = self.client.get("/demo/bind-room?domain=animal_welfare")
+        self.assertEqual(page.status_code, 200)
+        html = page.data.decode()
+        self.assertIn("Animal welfare", html)
+        self.assertIn('class="domain-btn active" data-domain="animal_welfare"', html)
+        self.assertNotIn('class="domain-btn active" data-domain="insurance"', html)
+        for slug in ("iacuc", "awa", "olaw", "animal"):
+            with self.subTest(slug=slug):
+                res = self.client.post("/demo/bind-room/run", json={"domain": slug})
+                self.assertEqual(res.status_code, 200)
+                body = res.get_json()
+                gate = body["step3_json"]
+                self.assertEqual(body["domain"], "animal_welfare")
+                self.assertIn("IACUC", body["domain_label"])
+                self.assertEqual(gate["protocol_id"], "IACUC-2026-014")
+                self.assertEqual(gate["action"], "animal_procedure")
+                self.assertNotIn("premium_usd", gate)
+                self.assertNotIn("policy_number", gate)
+                self.assertNotIn("DEMO-PAS", json.dumps(gate))
+                self.assertNotEqual(gate.get("finality_event"), "policy_bind")
 
 
 if __name__ == "__main__":
