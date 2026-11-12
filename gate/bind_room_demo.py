@@ -50,6 +50,15 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "PAS bind before premium moves",
         "signal_reason": "Pattern grade A — bind appetite is within the declared underwriting box.",
         "bind_reason": "Premium $62,400 is $12,400 over the $50,000 agent delegation. Human sign-off required before bind.",
+        "attempt_title": "Insurance bind attempt",
+        "attempt": {
+            "agent": "underwriting-agent-v1",
+            "action": "policy_bind",
+            "domain": "insurance",
+            "policy_number": "DEMO-PAS-2026-001",
+            "premium_usd": 62400,
+            "lob": "general_liability",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
@@ -78,10 +87,19 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Signal grade before adverse action",
         "signal_reason": "Score is inside the stated hiring band; adverse-action copy is ready if the human still rejects.",
         "bind_reason": "Adverse-action letter cannot go out until the scored features are on the receipt the candidate can open.",
+        "attempt_title": "Hiring adverse-action attempt",
+        "attempt": {
+            "agent": "hiring-screener-v1",
+            "action": "adverse_action_notice",
+            "domain": "hiring",
+            "applicant_id": "DEMO-HIR-2026",
+            "score": 0.41,
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "action": "adverse_action_notice",
+            "applicant_id": "DEMO-HIR-2026",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -97,10 +115,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Chain of authenticity before testimony",
         "signal_reason": "Hash of the exhibit matches the capture record. Handler list is complete.",
         "bind_reason": "Testimony is blocked until the exhibit’s hash and handler list are on one receipt.",
+        "attempt_title": "Court exhibit / testimony attempt",
+        "attempt": {
+            "agent": "exhibit-handler-v1",
+            "action": "offer_testimony",
+            "domain": "forensic",
+            "exhibit_id": "DEMO-EXH-14",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "exhibit_id": "DEMO-EXH-14",
+            "action": "offer_testimony",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -116,10 +142,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Pattern grade before bind appetite",
         "signal_reason": "Treaty box holds: ceded loss ratio still inside the signed band.",
         "bind_reason": "Appetite cannot move until the cedent’s last three bordereaux hash-match the filing copies.",
+        "attempt_title": "Reinsurance appetite attempt",
+        "attempt": {
+            "agent": "treaty-uw-v1",
+            "action": "treaty_appetite_move",
+            "domain": "actuarial",
+            "treaty": "DEMO-XOL-2026",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "treaty": "DEMO-XOL-2026",
+            "action": "treaty_appetite_move",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -140,10 +174,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Path + pattern before capital moves",
         "signal_reason": "DTI and collateral path cleared the stated overlay.",
         "bind_reason": "Wire is blocked until the overlay receipt is attached to the closing package.",
+        "attempt_title": "Mortgage wire attempt",
+        "attempt": {
+            "agent": "closing-desk-v1",
+            "action": "closing_wire",
+            "domain": "mortgage",
+            "loan_id": "DEMO-MTG-2026",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "loan_id": "DEMO-MTG-2026",
+            "action": "closing_wire",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -159,10 +201,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Delegation trace before irreversible act",
         "signal_reason": "Delegation chain reaches a named human principal.",
         "bind_reason": "Act is blocked until the principal’s key is on the same receipt as the order.",
+        "attempt_title": "Defense order-release attempt",
+        "attempt": {
+            "agent": "mission-agent-v1",
+            "action": "order_release",
+            "domain": "defense",
+            "order_id": "DEMO-DEF-2026",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "order_id": "DEMO-DEF-2026",
+            "action": "order_release",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -178,10 +228,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Mark + drift check before publish",
         "signal_reason": "Provenance mark is present; drift vs last clean publish is inside band.",
         "bind_reason": "Publish is blocked until the mark verifies against the last signed cut.",
+        "attempt_title": "Creator publish attempt",
+        "attempt": {
+            "agent": "publish-bot-v1",
+            "action": "publish_commit",
+            "domain": "creator",
+            "asset_id": "DEMO-CRE-2026",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "asset_id": "DEMO-CRE-2026",
+            "action": "publish_commit",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -197,10 +255,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Anti-capture grade before benefit act",
         "signal_reason": "Eligibility path is inside the published rule set.",
         "bind_reason": "Benefit write is blocked until the eligibility receipt is stranger-verifiable.",
+        "attempt_title": "Public benefits write attempt",
+        "attempt": {
+            "agent": "benefits-agent-v1",
+            "action": "benefit_write",
+            "domain": "public",
+            "benefit_id": "DEMO-PUB-2026",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "benefit_id": "DEMO-PUB-2026",
+            "action": "benefit_write",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -216,11 +282,20 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Model lineage before clinical act",
         "signal_reason": "Model digest matches the locked protocol version.",
         "bind_reason": "Clinical act is blocked until lineage of weights + protocol is on one receipt. Not an insurance premium check.",
+        "attempt_title": "Clinical protocol act attempt",
+        "attempt": {
+            "agent": "clinical-model-v1",
+            "action": "clinical_act",
+            "domain": "biology",
+            "protocol_id": "DEMO-CLN-2026",
+            "model_digest": "sha256:demo-clinical-weights",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "protocol_id": "DEMO-CLN-2026",
             "model_digest": "sha256:demo-clinical-weights",
+            "action": "clinical_act",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -241,6 +316,14 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "IACUC protocol before the procedure",
         "signal_reason": "Protocol IACUC-2026-014 is inside the USDA / OLAW inspection window. Contemporaneous evidence, not exam-week paper.",
         "bind_reason": "Procedure is blocked: IACUC protocol IACUC-2026-014 is expired for this cohort. This is not a GL policy bind.",
+        "attempt_title": "IACUC / AWA procedure attempt",
+        "attempt": {
+            "agent": "vivarium-scheduler-v1",
+            "action": "animal_procedure",
+            "domain": "animal_welfare",
+            "protocol_id": "IACUC-2026-014",
+            "inspection": "AWA_USDA_OLAW",
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
@@ -267,11 +350,20 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Executive liability before delegation",
         "signal_reason": "Board minute hash matches the delegation instrument.",
         "bind_reason": "Delegation is blocked until two directors’ keys are on the instrument. Not a $50K premium check.",
+        "attempt_title": "Board delegation attempt",
+        "attempt": {
+            "agent": "exec-delegate-v1",
+            "action": "board_instrument_executed",
+            "domain": "institutional",
+            "instrument_id": "DEMO-BRD-2026",
+            "quorum_required": 2,
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "instrument_id": "DEMO-BRD-2026",
             "quorum_required": 2,
+            "action": "board_instrument_executed",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -292,11 +384,20 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Cascade check before fleet deploy",
         "signal_reason": "Blast radius is 14 nodes; policy cap is 8. HOLD on the overflow.",
         "bind_reason": "Deploy is blocked: 14-node cascade exceeds the 8-node fleet cap. Not a PAS premium check.",
+        "attempt_title": "Fleet deploy attempt",
+        "attempt": {
+            "agent": "fleet-rollout-v1",
+            "action": "fleet_deploy",
+            "domain": "network",
+            "nodes_in_cascade": 14,
+            "fleet_cap": 8,
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "nodes_in_cascade": 14,
             "fleet_cap": 8,
+            "action": "fleet_deploy",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -322,11 +423,20 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "Refusal receipt before grid commit",
         "signal_reason": "Commit would drop reserve below the named floor.",
         "bind_reason": "Grid commit is blocked until a refusal receipt exists for the reserve-floor breach. Not a PAS premium check.",
+        "attempt_title": "Grid commit attempt",
+        "attempt": {
+            "agent": "ops-commit-v1",
+            "action": "grid_commit",
+            "domain": "climate",
+            "reserve_floor_mw": 120,
+            "projected_mw": 91,
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "reserve_floor_mw": 120,
             "projected_mw": 91,
+            "action": "grid_commit",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -352,10 +462,18 @@ DOMAINS: dict[str, dict[str, Any]] = {
         "chokepoint": "External witness under impossibility limits",
         "signal_reason": "Claim is stated as a bounded adherence proof, not as universal safety.",
         "bind_reason": "Filing is blocked until the assumption set is named. A bare ‘verified: true’ is rejected.",
+        "attempt_title": "Counsel filing attempt",
+        "attempt": {
+            "agent": "brief-drafter-v1",
+            "action": "filing_commit",
+            "domain": "epistemics",
+            "assumptions_required": True,
+        },
         "bind_gate": {
             "result": "BLOCK",
             "bind_allowed": False,
             "assumptions_required": True,
+            "action": "filing_commit",
             "source": "gate-bind-room-demo",
         },
         "lenses": [
@@ -408,7 +526,7 @@ def _attach_v1(domain: str, bind_gate: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
-def catalog() -> list[dict[str, str]]:
+def catalog() -> list[dict[str, Any]]:
     rows = []
     for key, spec in DOMAINS.items():
         rows.append(
@@ -416,9 +534,26 @@ def catalog() -> list[dict[str, str]]:
                 "id": key,
                 "label": spec["label"],
                 "chokepoint": spec["chokepoint"],
+                "attempt_title": spec["attempt_title"],
+                "attempt": dict(spec["attempt"]),
             }
         )
     return rows
+
+
+def assert_attempts_personalized() -> None:
+    """Every live vertical must carry its own step-1 act. Insurance is the only policy_bind."""
+    missing = [k for k, spec in DOMAINS.items() if not spec.get("attempt") or not spec.get("attempt_title")]
+    if missing:
+        raise RuntimeError("verticals missing attempt payloads: " + ",".join(missing))
+    for key, spec in DOMAINS.items():
+        att = spec["attempt"]
+        if att.get("domain") != key:
+            raise RuntimeError(f"{key} attempt.domain is {att.get('domain')!r}")
+        if key != "insurance" and att.get("action") == "policy_bind":
+            raise RuntimeError(f"{key} must not use policy_bind")
+        if key != "insurance" and "policy_number" in att:
+            raise RuntimeError(f"{key} must not ship a PAS policy_number")
 
 
 def run(*, domain: str | None, company: str | None, public_url: str) -> tuple[int, dict[str, Any]]:
@@ -470,8 +605,46 @@ def run(*, domain: str | None, company: str | None, public_url: str) -> tuple[in
         "domain_lenses": spec["lenses"],
         "signal": signal,
         "proof": proof,
+        "attempt_title": spec["attempt_title"],
+        "attempt": dict(spec["attempt"]),
+        "step1_json": dict(spec["attempt"]),
         "step2_json": signal,
         "step3_json": bind_gate,
+        "steps": [
+            {
+                "n": 1,
+                "of": 4,
+                "title": spec["attempt_title"],
+                "kind": "attempt",
+                "payload": dict(spec["attempt"]),
+            },
+            {
+                "n": 2,
+                "of": 4,
+                "title": "Pattern grade",
+                "kind": "signal",
+                "payload": signal,
+            },
+            {
+                "n": 3,
+                "of": 4,
+                "title": spec["chokepoint"],
+                "kind": "gate",
+                "payload": bind_gate,
+            },
+            {
+                "n": 4,
+                "of": 4,
+                "title": "Stranger verify",
+                "kind": "verify",
+                "payload": {
+                    "verify_url": f"{base}/verify",
+                    "permalink": f"{base}/demo/bind-room?domain={resolved}",
+                    "domain": resolved,
+                    "restraint": True,
+                },
+            },
+        ],
         "mishara_handoff": False,
         "demo": True,
         "their_production": False,

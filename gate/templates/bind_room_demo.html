@@ -7,7 +7,7 @@
 <div class="container section">
   <p class="audience-tag">Industries · verticals</p>
   <h1>Pick an industry. Run the room.</h1>
-  <p class="audience-sub">Insurance, reinsurance, clinical, animal welfare (IACUC / AWA), board, fleet, grid, counsel, and the rest. Hear this vertical runs <em>that</em> vertical — animal welfare is not a GL bind. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
+  <p class="audience-sub">Pick a vertical. Step 1 is that vertical’s act — hiring is not a GL bind, IACUC is not a PAS premium, fleet is not a treaty. A random <code class="inline">?domain=</code> returns 400 — it does not fall through to Insurance.</p>
   {% if domain_error %}
   <div class="card" style="border-color: var(--danger); margin-bottom: 1.5rem;">
     <p><strong>Unknown domain.</strong> {{ domain_error }}</p>
@@ -25,6 +25,29 @@
     {% endfor %}
   </div>
   <p><button type="button" class="btn btn-primary" id="run-btn">Hear this vertical</button></p>
+  <div id="walk" class="walk" hidden>
+    <p class="audience-tag" id="walk-domain"></p>
+    <article class="card walk-step" id="step1-card">
+      <p class="walk-kicker">Step 1 of 4</p>
+      <h2 id="step1-title"></h2>
+      <pre id="step1" class="walk-json"></pre>
+    </article>
+    <article class="card walk-step" id="step2-card" hidden>
+      <p class="walk-kicker">Step 2 of 4 · pattern</p>
+      <h2>Signal</h2>
+      <pre id="step2" class="walk-json"></pre>
+    </article>
+    <article class="card walk-step" id="step3-card" hidden>
+      <p class="walk-kicker">Step 3 of 4 · gate</p>
+      <h2 id="step3-title"></h2>
+      <pre id="step3" class="walk-json"></pre>
+    </article>
+    <article class="card walk-step" id="step4-card" hidden>
+      <p class="walk-kicker">Step 4 of 4 · verify</p>
+      <h2>Stranger verify</h2>
+      <pre id="step4" class="walk-json"></pre>
+    </article>
+  </div>
   <div id="outcome" class="card" style="margin-top: 1.5rem; display: none;"></div>
   <p id="hearback-wrap" style="display: none; margin-top: 1rem;">
     <button type="button" class="btn btn-primary" id="confirm-btn">Confirm hearback</button>
@@ -34,8 +57,6 @@
     <button type="button" class="btn" id="undo-btn">UNDO</button>
     <span id="undo-msg" class="audience-sub">Pre-V1 window. Removed the instant the threshold is crossed.</span>
   </p>
-  <pre id="step2" class="card" style="margin-top: 1rem; display: none; overflow: auto;"></pre>
-  <pre id="step3" class="card" style="margin-top: 1rem; display: none; overflow: auto;"></pre>
   <div id="lenses" style="margin-top: 1rem;"></div>
 </div>
 <style>
@@ -43,13 +64,36 @@
 .domain-btn strong { display: block; }
 .domain-btn span { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
 .domain-btn.active { border-color: var(--accent); }
+.walk { margin-top: 1.5rem; display: grid; gap: 1rem; }
+.walk-kicker { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 0.35rem; }
+.walk-step h2 { margin: 0 0 0.75rem; font-size: 1.15rem; }
+.walk-json { margin: 0; overflow: auto; font-size: 0.85rem; }
 .lens { padding: 0.65rem 0; border-bottom: 1px solid var(--border); }
 .lens .desc { color: var(--muted); font-size: 0.9rem; }
 </style>
 <script>
 (function () {
   var selected = {{ (selected or "")|tojson }};
+  var catalog = {{ domains|tojson }};
   var runUrl = {{ url_for("bind_room_demo_run")|tojson }};
+  var byId = {};
+  catalog.forEach(function (d) { byId[d.id] = d; });
+  function paintAttempt(id) {
+    var spec = byId[id];
+    var walk = document.getElementById("walk");
+    if (!spec || !spec.attempt) {
+      walk.hidden = true;
+      return;
+    }
+    walk.hidden = false;
+    document.getElementById("walk-domain").textContent = spec.label;
+    document.getElementById("step1-title").textContent = spec.attempt_title;
+    document.getElementById("step1").textContent = JSON.stringify(spec.attempt, null, 2);
+    document.getElementById("step2-card").hidden = true;
+    document.getElementById("step3-card").hidden = true;
+    document.getElementById("step4-card").hidden = true;
+    document.getElementById("lenses").innerHTML = "";
+  }
   document.querySelectorAll(".domain-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       selected = btn.getAttribute("data-domain");
@@ -57,11 +101,23 @@
         b.classList.toggle("active", b.getAttribute("data-domain") === selected);
       });
       history.replaceState(null, "", "/demo/bind-room?domain=" + encodeURIComponent(selected));
+      paintAttempt(selected);
     });
   });
-  function show(el, text) {
-    el.style.display = "block";
-    el.textContent = text;
+  if (selected) paintAttempt(selected);
+  function paintRun(data) {
+    document.getElementById("walk").hidden = false;
+    document.getElementById("walk-domain").textContent = data.domain_label || "";
+    document.getElementById("step1-title").textContent = data.attempt_title || "";
+    document.getElementById("step1").textContent = JSON.stringify(data.step1_json || data.attempt, null, 2);
+    document.getElementById("step2").textContent = JSON.stringify(data.step2_json, null, 2);
+    document.getElementById("step2-card").hidden = false;
+    document.getElementById("step3-title").textContent = data.chokepoint || "Gate";
+    document.getElementById("step3").textContent = JSON.stringify(data.step3_json, null, 2);
+    document.getElementById("step3-card").hidden = false;
+    var step4 = (data.steps || []).filter(function (s) { return s.n === 4; })[0];
+    document.getElementById("step4").textContent = JSON.stringify((step4 && step4.payload) || { verify_url: (data.proof || {}).verify_url, domain: data.domain }, null, 2);
+    document.getElementById("step4-card").hidden = false;
   }
   document.getElementById("undo-btn").addEventListener("click", async function () {
     var wrap = document.getElementById("undo-wrap");
@@ -104,8 +160,7 @@
     }
     wrap.style.display = "none";
     outcome.textContent = data.domain_label + " · confirmed · gated=" + data.gated + " · " + data.session_id;
-    show(document.getElementById("step2"), "step 2 signal\n" + JSON.stringify(data.step2_json, null, 2));
-    show(document.getElementById("step3"), "step 3 bind gate\n" + JSON.stringify(data.step3_json, null, 2));
+    paintRun(data);
   });
   document.getElementById("run-btn").addEventListener("click", async function () {
     var btn = this;
@@ -149,8 +204,7 @@
       } else {
         undoWrap.style.display = "none";
       }
-      show(document.getElementById("step2"), "step 2 signal\n" + JSON.stringify(data.step2_json, null, 2));
-      show(document.getElementById("step3"), "step 3 bind gate\n" + JSON.stringify(data.step3_json, null, 2));
+      paintRun(data);
       var lenses = document.getElementById("lenses");
       lenses.innerHTML = "";
       (data.domain_lenses || []).forEach(function (l) {
