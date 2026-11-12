@@ -5,6 +5,7 @@ Owner-facing legal strategy. Not outbound. Not a filing.
 | File | What it is |
 |---|---|
 | [`EXHIBIT_A.md`](./EXHIBIT_A.md) | The unoccupied seat: evidentiary standing of stranger-verifiable records, and the counsel bench that matches it. |
+| [`X_DRAFTING.md`](./X_DRAFTING.md) | Paste lock for the X drafting agent. Owned posts = receipt sentence. Replies = buyer dialect. Not a tweet. |
 
 Related (not this folder):
 
