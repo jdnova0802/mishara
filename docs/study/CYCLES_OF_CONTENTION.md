@@ -10,7 +10,9 @@ A wave, operationally: law, money, or tech changes who can exit an old “you mu
 
 Companion machines (do not mash): Perez techno-economic paradigms; cohort/age-structure; hegemonic cycles; medium/attention. Those ask what got cheap / how many bodies / who holds the table / what clips. This file asks **who revolts, with what orgs, under what opportunity, with what frame, with what receipt**.
 
-Date every data pull `YYYY-MM-DD`. Do not renumber 19th-century crests because TikTok moved. Advocacy ≠ census. Wikipedia is a finding aid. A dissertation is **one numbered crest + one historiographic fight + one dataset**. Mass splitter ≠ feed noise: electorates and comment sections are not the same animal.
+Date every data pull `YYYY-MM-DD`. Do not renumber 19th-century crests because TikTok moved. Advocacy ≠ census. Wikipedia is a finding aid. A dissertation is **one numbered crest + one historiographic fight + one historical file + one dataset**. Mass splitter ≠ feed noise: electorates and comment sections are not the same animal.
+
+**History first, tables second.** A cycle is a thing that happened in time — archives, statutes-as-events, monographs, oral history. Stats measure scale and the *live* splitter (prices, votes, density). Pew without Foner is a dashboard. Foner without BLS is a sermon. You need both. You are not tripping.
 
 ---
 
@@ -26,8 +28,8 @@ Date every data pull `YYYY-MM-DD`. Do not renumber 19th-century crests because T
 4. Under what authority — cover: flag / invoice / statute / procedure / docket · medium: pulpit / paper / TV / For You · threat: fear / gun / chaos · cloak: privacy / classification / NDA
 5. Date — as-of + provisional vs final
 6. With what effect — and who gets dinner after
-7. Receipt — stranger-openable statute / table / docket
-8. Falsifier — which cell dies first if the row is wrong (the live fight)
+7. Receipt — **history** (archive / primary / monograph) **and** **table** (scale / live splitter). Statute and docket count as history when they are the event.
+8. Falsifier — which cell dies first if the row is wrong (usually a historiographic fight, not a poll)
 9. Grain — event ≠ campaign ≠ cycle
 10. Resources / org — roster + budget (an SMO, not a role-noun)
 
@@ -60,7 +62,19 @@ If 1–5 will not fill, the crest is a story. If 1–5 fill and 7–8 will not, 
 - Bennett & Segerberg, “The Logic of Connective Action” (2012) https://doi.org/10.1080/1369118X.2012.670661
 - Tufekci, *Twitter and Tear Gas* https://www.twitterandteargas.org/
 
-### Cross-national datasets
+### History hubs (open these before the poll)
+
+- NARA milestone docs https://www.archives.gov/milestone-documents
+- Library of Congress digital collections https://www.loc.gov/collections/
+- Avalon Project (Yale; treaties/charters) https://avalon.law.yale.edu/
+- Oyez (US opinions) https://www.oyez.org/
+- UK Parliament living heritage + legislation.gov.uk https://www.parliament.uk/ · https://www.legislation.gov.uk/
+- Internet Archive (out-of-copyright monographs, FBI files) https://archive.org/
+- Cambridge Core / Chicago / Columbia / OUP — publisher pages, not pirate PDFs
+- *American Historical Review*, *Past & Present*, *Journal of Social History*, *Journal of African American History* — the fights, not the syllabus
+- Slavevoyages https://www.slavevoyages.org/ · UN decolonization https://www.un.org/dppa/decolonization/
+
+### Cross-national datasets (scale and live splitters — not a substitute for § history hubs)
 
 - ACLED https://acleddata.com/ · V-Dem https://www.v-dem.net/ · codebook https://www.v-dem.net/documents/24/codebook_v13.pdf · UCDP https://ucdp.uu.se/ · OWID https://ourworldindata.org/
 
@@ -78,7 +92,7 @@ If 1–5 will not fill, the crest is a story. If 1–5 fill and 7–8 will not, 
 4. **Authority:** cover = statute/flag (13th); medium = pulpit/paper; threat = gun/war.
 5. **Date:** 1865 13th = final *on paper*. Provisional until armies occupy.
 6. **Effect / dinner:** legal personhood of the formerly enslaved; planter capital haircut; Republican coalition eats Reconstruction offices.
-7. **Receipt:** 13th https://www.archives.gov/milestone-documents/13th-amendment · Emancipation Proclamation https://www.archives.gov/milestone-documents/emancipation-proclamation · Slavevoyages https://www.slavevoyages.org/
+7. **Receipt:** *History* — 13th https://www.archives.gov/milestone-documents/13th-amendment · Emancipation Proclamation https://www.archives.gov/milestone-documents/emancipation-proclamation · Du Bois, *Black Reconstruction* https://archive.org/details/blackreconstruc00dubo · James, *The Black Jacobins* · Davis, *The Problem of Slavery in the Age of Revolution* · LOC African American Odyssey https://www.loc.gov/exhibits/african-american-odyssey/ · *Table* — Slavevoyages https://www.slavevoyages.org/ · IPUMS https://www.ipums.org/
 8. **Falsifier:** if emancipation were mostly moral suasion, the 13th and the war cell die. Haitian Revolution (1791–1804) as prior Atlantic file.
 9. **Grain:** cycle (decades), war as terminal campaign. Not a tweet.
 10. **Org:** Black churches, mutual aid, abolition societies, Union Army as terminal SMO.
@@ -93,7 +107,7 @@ Fight: war as mechanism vs Garrison. Canon: Du Bois, *Black Reconstruction* http
 4. **Authority:** cover = statute/docket/“home rule”; threat = terror; cloak = local procedure.
 5. **Date:** *Plessy* 1896 finalizes legal caste; nadir through mid-20th c.
 6. **Effect / dinner:** Redemption governments, cheap labor, White primary.
-7. **Receipt:** 14th https://www.archives.gov/milestone-documents/14th-amendment · 15th https://www.archives.gov/milestone-documents/15th-amendment · *Plessy* https://www.oyez.org/cases/1850-1900/163us537 · EJI lynching https://lynchinginamerica.eji.org/ · NAACP papers https://www.loc.gov/collections/manuscripts-from-the-naacp/
+7. **Receipt:** *History* — 14th https://www.archives.gov/milestone-documents/14th-amendment · 15th https://www.archives.gov/milestone-documents/15th-amendment · *Plessy* https://www.oyez.org/cases/1850-1900/163us537 · Foner, *Reconstruction* · Woodward, *Strange Career of Jim Crow* · Wells, *Southern Horrors* · NAACP papers https://www.loc.gov/collections/manuscripts-from-the-naacp/ · *Table* — EJI lynching https://lynchinginamerica.eji.org/
 8. **Falsifier:** if Dunning (“Reconstruction = corruption”) were the file, Du Bois/Foner tables of Black officeholding and terror die. Dunning lost in the academy; lives as restoration plot.
 9. **Grain:** counter-cycle, not one riot.
 10. **Org:** Redeemer parties, paramilitaries, courts; Black churches + early NAACP (1909) as surviving structures.
@@ -106,7 +120,7 @@ Fight: war as mechanism vs Garrison. Canon: Du Bois, *Black Reconstruction* http
 4. **Authority:** cover = docket/statute (*Brown*, CRA, VRA); medium = pulpit/TV; threat = state violence against sit-ins.
 5. **Date:** *Brown* 1954; CRA 1964; VRA 1965; Fair Housing 1968 — statutes final; implementation provisional.
 6. **Effect / dinner:** Black vote as a file; King-law vs post-1965 street split inside the coalition.
-7. **Receipt:** *Brown* https://www.oyez.org/cases/1940-1955/347us483 · CRA https://www.archives.gov/milestone-documents/civil-rights-act · VRA https://www.archives.gov/milestone-documents/voting-rights-act · King letter https://www.africa.upenn.edu/Articles_Gen/Letter_Birmingham.html · McAdam https://press.uchicago.edu/ucp/books/book/chicago/P/bo5939918.html
+7. **Receipt:** *History* — *Brown* https://www.oyez.org/cases/1940-1955/347us483 · CRA https://www.archives.gov/milestone-documents/civil-rights-act · VRA https://www.archives.gov/milestone-documents/voting-rights-act · King letter https://www.africa.upenn.edu/Articles_Gen/Letter_Birmingham.html · McAdam https://press.uchicago.edu/ucp/books/book/chicago/P/bo5939918.html · Payne, *I’ve Got the Light of Freedom* · Morris, *Origins of the Civil Rights Movement* · SNCC Digital Gateway https://snccdigital.org/
 8. **Falsifier:** if “King woke the nation,” McAdam’s opportunity + indigenous org cells die. Payne (*I’ve Got the Light of Freedom*): local people, not only King. *Shelby* 2013 as later legal counterwave https://www.oyez.org/cases/2012/12-96
 9. **Grain:** campaign cluster inside a century cycle.
 10. **Org:** Black churches, Black colleges, NAACP. Opportunity: WWII, Great Migration, Northern vote, Cold War embarrassment.
@@ -121,7 +135,7 @@ Live split later, not here: crime/schools vs police/repair is §1.6.
 4. **Authority:** cover = party program; threat = gun both ways; cloak = FBI classification.
 5. **Date:** late 1960s–70s; COINTELPRO 1967–71 as dated file.
 6. **Effect / dinner:** pride as program; org destruction; imprisonment pipeline starts as file.
-7. **Receipt:** FBI Vault https://vault.fbi.gov/cointel-pro · IA https://archive.org/details/FBI-COINTELPRO-BLACK · Church Committee https://www.intelligence.senate.gov/resources/intelligence-related-commissions
+7. **Receipt:** *History* — FBI Vault COINTELPRO https://vault.fbi.gov/cointel-pro · IA https://archive.org/details/FBI-COINTELPRO-BLACK · Church Committee https://www.intelligence.senate.gov/resources/intelligence-related-commissions · Bloom & Martin, *Black against Empire* · Joseph, *Waiting ’Til the Midnight Hour* · Carmichael & Hamilton, *Black Power* (primary frame)
 8. **Falsifier:** “Black Power killed the movement” dies if COINTELPRO + Vietnam + urban risings are the opportunity/threat cells.
 9. **Grain:** campaign inside the long cycle — not the whole Black freedom wave.
 10. **Org:** Panthers, SNCC, NOI. Bloom & Martin, *Black against Empire*.
@@ -134,7 +148,7 @@ Live split later, not here: crime/schools vs police/repair is §1.6.
 4. **Authority:** cover = statute/docket (sentencing, *Croson*/*Adarand*); medium = TV; cloak = procedure.
 5. **Date:** War on Drugs onward; mass incarceration peak ~2000s. Provisional until BJS says otherwise.
 6. **Effect / dinner:** carceral labor/control; formal equality stays on paper.
-7. **Receipt:** BJS https://bjs.ojp.gov/ · FBI CDE https://cde.ucr.cjis.gov/ · Forman, *Locking Up Our Own* (needed counter to Alexander-as-gospel). Pair *The New Jim Crow* with tables, not as sole file.
+7. **Receipt:** *History* — Alexander, *The New Jim Crow* (pair with tables, not gospel) · Forman, *Locking Up Our Own* · Wacquant, *Punishing the Poor* · Western, *Punishment and Inequality* · Wilson, *The Truly Disadvantaged* · *Table* — BJS https://bjs.ojp.gov/ · FBI CDE https://cde.ucr.cjis.gov/
 8. **Falsifier:** if “Jim Crow 2.0” is the whole act, Forman’s Black tough-on-crime support cell dies — or Alexander’s scale cell dies. Test with BJS, not slogans.
 9. **Grain:** counter-frame + policy cycle, not one mayor.
 10. **Org:** parties, prosecutors, think tanks, courts.
@@ -147,7 +161,7 @@ Live split later, not here: crime/schools vs police/repair is §1.6.
 4. **Authority:** cover = viral video / some dockets; medium = For You/TV; threat = gun.
 5. **Date:** 2013 Trayvon-as-frame; 2020 Floyd scale-shift. Live = provisional.
 6. **Effect / dinner:** some policy boards; qualified immunity mostly uneaten; DA races.
-7. **Receipt:** Mapping Police Violence https://mappingpoliceviolence.org/ · WaPo fatal force https://www.washingtonpost.com/graphics/investigations/police-shootings-database/ · Pew race/police https://www.pewresearch.org/topic/race-ethnicity/ · Gallup police https://news.gallup.com/
+7. **Receipt:** *History* — Taylor, *From #BlackLivesMatter to Black Liberation* · Francis on NAACP vs connective BLM · Kerner Commission (1968) as prior file https://www.ojp.gov/ncjrs/virtual-library/abstracts/report-national-advisory-commission-civil-disorders-kerner · *Table* — Mapping Police Violence https://mappingpoliceviolence.org/ · WaPo fatal force https://www.washingtonpost.com/graphics/investigations/police-shootings-database/ · Pew https://www.pewresearch.org/topic/race-ethnicity/ · Gallup https://news.gallup.com/
 8. **Falsifier:** “does racism exist” is not a cell. If crime tables don’t move the live split, you are in the plot. Live split: **crime and schools vs police and repair.**
 9. **Grain:** campaign + connective action. Not Reconstruction. Bennett & Segerberg https://doi.org/10.1080/1369118X.2012.670661
 10. **Org:** thin chapters + phones. Counter: FOP, DA machines.
@@ -166,7 +180,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = combination-law repeal then custom; threat = street; medium = paper.
 5. **Date:** 19th c. UK Combination repeal 1824–25; US conspiracy doctrine dies slowly.
 6. **Effect / dinner:** shop control for trades; exclusion of the unskilled.
-7. **Receipt:** strike series (historical Commissioner of Labor; later BLS https://www.bls.gov/).
+7. **Receipt:** *History* — Thompson, *The Making of the English Working Class* · Webb & Webb, *History of Trade Unionism* · Commons, *History of Labour in the United States* · Haymarket (Chicago History Museum) https://www.chicagohistory.org/ · *Table* — historical strike series; BLS https://www.bls.gov/
 8. **Falsifier:** if “the working class” acts as one body, Thompson’s craft culture cell dies.
 9. **Grain:** cycle of trades, not the Internationale.
 10. **Org:** lodges. Thompson, *Making of the English Working Class*; Webbs.
@@ -179,7 +193,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = party/union procedure; threat = mass picket; medium = paper.
 5. **Date:** ~1890s–1940s. NLRA 1935 as US statute cell.
 6. **Effect / dinner:** parties enter the state; Internationals split.
-7. **Receipt:** NLRA https://www.nlrb.gov/guidance/key-reference-materials/national-labor-relations-act · ILO https://www.ilo.org/ · Silver, *Forces of Labor* https://www.cambridge.org/core/books/forces-of-labor/24F7A6E01DA0617159FCCC7A6F68FC40 · ILOSTAT https://ilostat.ilo.org/
+7. **Receipt:** *History* — NLRA https://www.nlrb.gov/guidance/key-reference-materials/national-labor-relations-act · ILO founding 1919 https://www.ilo.org/ · Polanyi, *The Great Transformation* · Hobsbawm, *Age of Extremes* · Silver, *Forces of Labor* https://www.cambridge.org/core/books/forces-of-labor/24F7A6E01DA0617159FCCC7A6F68FC40 · *Table* — ILOSTAT https://ilostat.ilo.org/
 8. **Falsifier:** Leninist “vanguard did it” dies if Silver’s Marx-type vs Polanyi-type unrest tables hold.
 9. **Grain:** cycle.
 10. **Org:** IWW, CIO, SPD, Labour, PCI, Second International then Comintern.
@@ -192,7 +206,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute (Wagner, Social Security, Beveridge); medium = radio/TV.
 5. **Date:** 1930s–70s density peak. Taft-Hartley 1947 US legal counterwave.
 6. **Effect / dinner:** decommodification for the compact’s people; New Left later says sold out.
-7. **Receipt:** OECD union density https://www.oecd.org/en/data.html · BLS union https://www.bls.gov/cps/cpslutabs.htm · Esping-Andersen, *Three Worlds of Welfare Capitalism*.
+7. **Receipt:** *History* — Esping-Andersen, *Three Worlds of Welfare Capitalism* · Lichtenstein, *State of the Union* · Piven & Cloward, *Poor People’s Movements* · Beveridge Report (UK National Archives) · Social Security Act 1935 (NARA) · *Table* — OECD union density https://www.oecd.org/en/data.html · BLS union https://www.bls.gov/cps/cpslutabs.htm
 8. **Falsifier:** “labor did it” vs “firms wanted skills” (VoC) vs Piven/Cloward disruption. Table: density + strikes + welfare spend.
 9. **Grain:** cycle the state ate.
 10. **Org:** CIO-AFL, Labour/SPD/SAP.
@@ -205,7 +219,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute/invoice/IMF procedure; medium = TV; plot = TINA.
 5. **Date:** ~1979–2008. PATCO 1981 US crest event inside the cycle.
 6. **Effect / dinner:** capital mobility eats; union density falls.
-7. **Receipt:** WTO https://www.wto.org/ · IMF https://www.imf.org/ · WID https://wid.world/ · BLS.
+7. **Receipt:** *History* — Harvey, *A Brief History of Neoliberalism* · Blyth, *Austerity* · Streeck, *Buying Time* · Hall on Keynesianism→monetarism · PATCO as event · *Table* — WTO https://www.wto.org/ · IMF https://www.imf.org/ · WID https://wid.world/ · BLS
 8. **Falsifier:** if “neoliberal cabal” is Who, specify instruments or the Who cell is vibes. Fight: Blyth (ideas) vs Harvey (class) vs Frieden (mobility).
 9. **Grain:** cycle, not one speech.
 10. **Org:** parties, treasuries, employer associations. Overlap §8.5.
@@ -218,7 +232,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = vote/statute; medium = For You; threat = none required.
 5. **Date:** 2008– . Live = provisional.
 6. **Effect / dinner:** not the Internationale. Live split: **size of the state, who captured it, prices.**
-7. **Receipt:** BLS CPI https://www.bls.gov/cpi/ · ANES https://electionstudies.org/ · Pew https://www.pewresearch.org/
+7. **Receipt:** *History* — Gitlin on Occupy · della Porta on anti-austerity · Cramer, *The Politics of Resentment* · *Table* — BLS CPI https://www.bls.gov/cpi/ · ANES https://electionstudies.org/ · Pew https://www.pewresearch.org/
 8. **Falsifier:** if Occupy were the cycle, the right-populist vote cell dies.
 9. **Grain:** cycle opening, not one park.
 10. **Org:** thin then parties + a few unions (logistics, UAW).
@@ -235,7 +249,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute (Organic Act 1916); medium = paper.
 5. **Date:** 1890s–1950s.
 6. **Effect / dinner:** public lands; conservation is **not** the 2010s climate fight.
-7. **Receipt:** NPS https://www.nps.gov/ · USFS https://www.fs.usda.gov/ · WDPA https://www.protectedplanet.net/ · Cronon, “The Trouble with Wilderness.”
+7. **Receipt:** *History* — Nash, *Wilderness and the American Mind* · Hays, *Conservation and the Gospel of Efficiency* · Cronon, “The Trouble with Wilderness” · NPS Organic Act history https://www.nps.gov/ · USFS https://www.fs.usda.gov/ · *Table* — WDPA https://www.protectedplanet.net/
 8. **Falsifier:** if wilderness = democracy, Cronon’s elite-anti-modern cell bites.
 9. **Grain:** cycle.
 10. **Org:** Sierra Club (1892), Boone and Crockett, agencies.
@@ -248,7 +262,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute (NEPA, CAA, CWA, ESA); medium = TV/paper.
 5. **Date:** Carson 1962; EPA 1970. Statutes final; enforcement provisional.
 6. **Effect / dinner:** EPA-type law. EJ later: who lives next to the plant (Bullard).
-7. **Receipt:** EPA history https://www.epa.gov/history · ESA https://www.fws.gov/law/endangered-species-act · Carson LOC https://www.loc.gov/item/2021666185/ · EEA https://www.eea.europa.eu/
+7. **Receipt:** *History* — Carson, *Silent Spring* (LOC bib) https://www.loc.gov/item/2021666185/ · Gottlieb, *Forcing the Spring* · Hays, *Beauty, Health, and Permanence* · EPA history https://www.epa.gov/history · ESA https://www.fws.gov/law/endangered-species-act · *Table* — EEA https://www.eea.europa.eu/
 8. **Falsifier:** wilderness frame ≠ public-health frame. If you mash them, the Who cell is wrong.
 9. **Grain:** cycle.
 10. **Org:** SMOs + agencies + Green parties (EU).
@@ -274,7 +288,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute (IRA, ETS, Energiewende); medium = For You; threat = none required.
 5. **Date:** 2010s– . Live provisional.
 6. **Effect / dinner:** measures vs **cost**. High affect. Conservation §3.1 is not this fight.
-7. **Receipt:** IEA https://www.iea.org/ · OWID energy https://ourworldindata.org/energy · MIDEM https://forum-midem.de/ · Pew climate https://www.pewresearch.org/topic/environment/climate-energy/
+7. **Receipt:** *History* — McAdam on US climate as a failed mass movement (orgs/opportunity) · Fisher on youth climate · Paris Agreement as event (UNFCCC) https://unfccc.int/ · *Table* — IEA https://www.iea.org/ · OWID energy https://ourworldindata.org/energy · MIDEM https://forum-midem.de/ · Pew climate https://www.pewresearch.org/topic/environment/climate-energy/
 8. **Falsifier:** if “the science” is the splitter, German cost/affect tables die.
 9. **Grain:** live campaign inside §3.3 cycle.
 10. **Org:** FFF, XR, Green parties, counter-parties.
@@ -291,7 +305,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute/docket (Wolfenden → 1967 UK; *Lawrence* 2003 US late); medium = paper then TV.
 5. **Date:** Wolfenden 1957; Stonewall 1969 crest **event**; *Lawrence* 2003 US criminal final.
 6. **Effect / dinner:** the state exits the bedroom (uneven). Plot: illness vs sin vs liberty.
-7. **Receipt:** Wolfenden https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/relationships/collections1/sexual-offences-act-1967/wolfenden-report-/ · *Lawrence* https://www.oyez.org/cases/2002/02-102 · ILGA https://ilga.org/
+7. **Receipt:** *History* — Wolfenden https://www.parliament.uk/about/living-heritage/transformingsociety/private-lives/relationships/collections1/sexual-offences-act-1967/wolfenden-report-/ · *Lawrence* https://www.oyez.org/cases/2002/02-102 · D’Emilio, *Sexual Politics, Sexual Communities* · Duberman, *Stonewall* · Chauncey, *Gay New York* · Weeks, *Coming Out* · *Table* — ILGA https://ilga.org/
 8. **Falsifier:** Stonewall-as-origin dies if D’Emilio’s homophile decades exist.
 9. **Grain:** cycle; Stonewall is a crest event.
 10. **Org:** Mattachine, DOB, then GLF.
@@ -304,7 +318,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = procedure (FDA); medium = TV; threat = death as the file.
 5. **Date:** 1980s–90s. Quilt as memorial medium, not the statute.
 6. **Effect / dinner:** accelerated approval; patients rewrite expertise (Epstein). This crest is **FDA + death**, not marriage.
-7. **Receipt:** ACT UP Oral History https://www.actuporalhistory.org/ · CDC HIV https://www.cdc.gov/hiv/ · UNAIDS https://www.unaids.org/
+7. **Receipt:** *History* — ACT UP Oral History https://www.actuporalhistory.org/ · Gould, *Moving Politics* · Epstein, *Impure Science* · France, *How to Survive a Plague* · *Table* — CDC HIV https://www.cdc.gov/hiv/ · UNAIDS https://www.unaids.org/
 8. **Falsifier:** “identity movement” dies if trial-protocol cells are the act.
 9. **Grain:** campaign with body-count file.
 10. **Org:** ACT UP chapters, TAG. Gould, *Moving Politics*.
@@ -317,7 +331,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = docket (*Windsor* 2013, *Obergefell* 2015); medium = TV.
 5. **Date:** 2015 US final for marriage. UK partnership 2004 / marriage 2013.
 6. **Effect / dinner:** **this was the operational win.** Plot vs fact: marriage was operational. Current loyalty tests are §4.4.
-7. **Receipt:** *Obergefell* https://www.oyez.org/cases/2014/14-556/ · *Windsor* https://www.oyez.org/cases/2012/12-307 · Pew LGBT https://www.pewresearch.org/topic/lgbtq/ · Gallup https://news.gallup.com/
+7. **Receipt:** *History* — *Obergefell* https://www.oyez.org/cases/2014/14-556/ · *Windsor* https://www.oyez.org/cases/2012/12-307 · Klarman, *From the Closet to the Altar* · Eskridge on marriage litigation · *Table* — Pew LGBT https://www.pewresearch.org/topic/lgbtq/ · Gallup https://news.gallup.com/
 8. **Falsifier:** court-created vs opinion-followed (Klarman). Test with Pew flip, not a sermon.
 9. **Grain:** cycle closed on the marriage file.
 10. **Org:** law SMOs + churches split.
@@ -330,7 +344,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute/docket/clinical procedure; medium = For You; cloak = some medical privacy.
 5. **Date:** 2010s– . Live = provisional. Cass 2024 is a dated clinical receipt, not a tweet.
 6. **Effect / dinner:** live split: **same-sex rights vs gender identity as the file.** Not “did Stonewall happen.”
-7. **Receipt:** Cass final https://cass.independent-review.uk/home/publications/final-report/ · UKSC https://www.supremecourt.uk/ · *Bostock* https://www.oyez.org/cases/2019/17-1618 · Equality Act 2010 https://www.legislation.gov.uk/ukpga/2010/15 · ONS https://www.ons.gov.uk/
+7. **Receipt:** *History* — Stryker, *Transgender History* · Equality Act 2010 https://www.legislation.gov.uk/ukpga/2010/15 · *Bostock* https://www.oyez.org/cases/2019/17-1618 · UKSC https://www.supremecourt.uk/ · Cass as dated clinical file https://cass.independent-review.uk/home/publications/final-report/ · *Table* — ONS https://www.ons.gov.uk/ · pair advocacy with vital stats, not For You
 8. **Falsifier:** if this is “the 1970s movement,” §4.1–4.3 receipts die. Pair advocacy with vital stats.
 9. **Grain:** intra-coalition campaign. Do not renumber Stonewall.
 10. **Org:** Stonewall UK vs Sex Matters/For Women Scotland; WPATH vs Cass-aligned clinicians; ADF as sacral-family.
@@ -347,7 +361,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute (19th); medium = pulpit/paper.
 5. **Date:** Seneca Falls 1848 event; 19th 1920 US final (not all women — 15th split is a file). NZ 1893.
 6. **Effect / dinner:** **denominator.** Plot: republican motherhood vs the person who votes.
-7. **Receipt:** LOC suffrage https://www.loc.gov/exhibitions/women-fight-for-the-vote/ · 19th https://www.archives.gov/milestone-documents/19th-amendment · IDEA https://www.idea.int/
+7. **Receipt:** *History* — LOC suffrage exhibition (Seneca Falls through 19th) https://www.loc.gov/exhibitions/women-fight-for-the-vote/ · 19th https://www.archives.gov/milestone-documents/19th-amendment · Flexner, *Century of Struggle* · Cott, *The Grounding of Modern Feminism* · DuBois, *Feminism and Suffrage* · *Table* — IDEA enfranchisement dates https://www.idea.int/
 8. **Falsifier:** “first wave” is a later label (Cott). Racism-in-suffrage is a file, not a gotcha that deletes the 19th.
 9. **Grain:** cycle.
 10. **Org:** NAWSA, NWP, WCTU. Flexner; DuBois *Feminism and Suffrage*.
@@ -360,7 +374,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = statute/docket (ECOA 1974, Title IX, *Griswold*/*Roe*); medium = TV.
 5. **Date:** 1960s–80s. *Dobbs* 2022 later counterwave on the body cell.
 6. **Effect / dinner:** own wage. Plot: desire = betrayal (loyalty test, not the BLS). Slogan on this crest (**not the cause**): Irina Dunn, Sydney ~1970, “A woman needs a man like a fish needs a bicycle” (Steinem popularized). Dunn = Patricia Irene “Irina” Dunn (b. 17 Mar 1948, Shanghai; Sydney Uni; Australian Senator NSW 1988–90). https://biography.senate.gov.au/dunn-patricia-irene/ · https://en.wikipedia.org/wiki/Irina_Dunn
-7. **Receipt:** Title IX https://www.ed.gov/laws-and-policy/civil-rights-laws/title-ix-and-sex-discrimination · ECOA https://www.ftc.gov/legal-library/browse/statutes/equal-credit-opportunity-act · *Griswold* https://www.oyez.org/cases/1964/496 · *Roe* https://www.oyez.org/cases/1971/70-18 · *Dobbs* https://www.oyez.org/cases/2021/19-1392 · BLS women’s databook https://www.bls.gov/opub/reports/womens-databook/ · NCHS https://www.cdc.gov/nchs/
+7. **Receipt:** *History* — Title IX https://www.ed.gov/laws-and-policy/civil-rights-laws/title-ix-and-sex-discrimination · ECOA https://www.ftc.gov/legal-library/browse/statutes/equal-credit-opportunity-act · *Griswold* https://www.oyez.org/cases/1964/496 · *Roe* https://www.oyez.org/cases/1971/70-18 · *Dobbs* https://www.oyez.org/cases/2021/19-1392 · Echols, *Daring to Be Bad* · Friedan as **frame** not data · Goldin, *Career and Family* · *Table* — BLS women’s databook https://www.bls.gov/opub/reports/womens-databook/ · NCHS https://www.cdc.gov/nchs/
 8. **Falsifier:** if Dunn moved the wage, the BLS cell dies. Goldin: hours/contraception tables. Fight: liberal vs radical vs socialist-feminist.
 9. **Grain:** cycle — the operational crest of the family.
 10. **Org:** NOW, CR, campuses.
@@ -373,7 +387,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = thin statute (VAWA 1994 rare); medium = campus/TV.
 5. **Date:** ~1990s–2000s.
 6. **Effect / dinner:** syllabus thick, law thin. Expression / who counts.
-7. **Receipt:** Crenshaw 1989 https://scholarship.law.columbia.edu/faculty_scholarship/3007/ · GSS https://gss.norc.org/ · WVS https://www.worldvaluessurvey.org/
+7. **Receipt:** *History* — Crenshaw 1989 https://scholarship.law.columbia.edu/faculty_scholarship/3007/ · Henry, *Not My Mother’s Sister* · hooks, *Feminist Theory* · Fraser vs Butler (read as frames) · *Table* — GSS https://gss.norc.org/ · WVS https://www.worldvaluessurvey.org/
 8. **Falsifier:** if “third wave” is a four-act equal of 1st/2nd, the statute cell is empty. Henry: maybe a publishing category. Still claim-making.
 9. **Grain:** campaign of frames, not a personhood denominator.
 10. **Org:** campuses, NGOs. Butler/Fraser = frames, not gospel.
@@ -386,7 +400,7 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 4. **Authority:** cover = HR procedure / docket / Title IX; medium = For You.
 5. **Date:** ~2012– . Live provisional.
 6. **Effect / dinner:** needed half = file. Ridiculous half = misandry as class-hate frame (misogyny the pair). Not a clean 5th wave.
-7. **Receipt:** EEOC https://www.eeoc.gov/sexual-harassment · Pew https://www.pewresearch.org/ · Pew social trends https://www.pewresearch.org/research-teams/social-trends/
+7. **Receipt:** *History* — Fileborn & Loney-Howes (eds.), *#MeToo and the Politics of Social Change* · MacKinnon on unfinished law · Banet-Weiser · EEOC as the institutional file https://www.eeoc.gov/sexual-harassment · *Table* — Pew https://www.pewresearch.org/ · Pew social trends https://www.pewresearch.org/research-teams/social-trends/ · NCVS · EEOC charge stats
 8. **Falsifier:** mash 5.4 with 4.4 and the target cell is wrong. Split settlement/conviction **table** from feed.
 9. **Grain:** connective campaign, not 1848.
 10. **Org:** thin SMOs (Time’s Up as org-collapse case) + campus offices. Bennett & Segerberg.
@@ -407,7 +421,7 @@ Repeats: **build the people → expand → aftershock in the metropole → restr
 4. **Authority:** cover = flag/statute; medium = print (Anderson).
 5. **Date:** 1848; unifications; Wilson names it 1918.
 6. **Effect / dinner:** nation as legitimate people.
-7. **Receipt:** Fourteen Points https://avalon.law.yale.edu/20th_century/wilson14.asp · Anderson https://www.versobooks.com/products/1126-imagined-communities · Gellner https://www.cornellpress.cornell.edu/book/9780801475009/nations-and-nationalism/
+7. **Receipt:** *History* — Fourteen Points https://avalon.law.yale.edu/20th_century/wilson14.asp · Anderson, *Imagined Communities* https://www.versobooks.com/products/1126-imagined-communities · Gellner, *Nations and Nationalism* https://www.cornellpress.cornell.edu/book/9780801475009/nations-and-nationalism/ · Hobsbawm, *Nations and Nationalism since 1780* · Brubaker, *Nationalism Reframed* · Smith, *Ethnic Origins of Nations*
 8. **Falsifier:** modernist (industry/print make nations) vs Smith ethnosymbolism vs Brubaker (don’t reify groups).
 9. **Grain:** cycle.
 10. **Org:** parties, armies, presses.
@@ -420,7 +434,7 @@ Repeats: **build the people → expand → aftershock in the metropole → restr
 4. **Authority:** cover = UN/flag; threat = war; medium = radio.
 5. **Date:** ~1945–1975. See §8 for the monograph (don’t footnote this).
 6. **Effect / dinner:** flags; then who is the people *inside* the flag (§8.4).
-7. **Receipt:** UN decolonization https://www.un.org/dppa/decolonization/ · NAVCO https://www.navcodata.org/ · V-Dem https://www.v-dem.net/
+7. **Receipt:** *History* — UN decolonization https://www.un.org/dppa/decolonization/ · Fanon, *The Wretched of the Earth* · Cooper, *Africa Since 1940* · Horne, *A Savage War of Peace* · Westad, *The Global Cold War* · *Table* — NAVCO https://www.navcodata.org/ · V-Dem https://www.v-dem.net/
 8. **Falsifier:** “the Global South” as one Who — cell dies. Pick India or Algeria or Ghana.
 9. **Grain:** wave of campaigns.
 10. **Org:** INC, FLN, Viet Minh, ANC, etc.
@@ -433,7 +447,7 @@ Repeats: **build the people → expand → aftershock in the metropole → restr
 4. **Authority:** cover = statute (Hart–Celler 1965; Commonwealth Acts; Anwerbestopp 1973); invoice = labor demand.
 5. **Date:** postwar boom then stop.
 6. **Effect / dinner:** reconstruction labor vs “never meant to stay.”
-7. **Receipt:** MPI https://www.migrationpolicy.org/ · Pew migration https://www.pewresearch.org/topic/immigration-migration/ · UNHCR https://www.unhcr.org/refugee-statistics
+7. **Receipt:** *History* — Castles & Miller, *The Age of Migration* · Brubaker, *Citizenship and Nationhood in France and Germany* · Portes & Rumbaut · Hart–Celler 1965 as statute-event · *Table* — MPI https://www.migrationpolicy.org/ · Pew migration https://www.pewresearch.org/topic/immigration-migration/ · UNHCR https://www.unhcr.org/refugee-statistics
 8. **Falsifier:** push-pull economics vs citizenship regime (jus soli/sanguinis) as the real machine — Brubaker.
 9. **Grain:** cycle after empire.
 10. **Org:** ministries, firms, then parties.
@@ -446,7 +460,7 @@ Repeats: **build the people → expand → aftershock in the metropole → restr
 4. **Authority:** cover = flag/statute; medium = For You/TV; threat = chaos plot.
 5. **Date:** 2010s– . Live provisional.
 6. **Effect / dinner:** hospitality vs order. Same scarce goods.
-7. **Receipt:** UNHCR (above) · NatCen/BSA https://natcen.ac.uk/british-social-attitudes · MIDEM https://forum-midem.de/ · ANES.
+7. **Receipt:** *History* — Mudde on populism · Norris & Inglehart, *Cultural Backlash* (test; don’t swallow) · *Table* — UNHCR https://www.unhcr.org/refugee-statistics · NatCen/BSA https://natcen.ac.uk/british-social-attitudes · MIDEM https://forum-midem.de/ · ANES
 8. **Falsifier:** if US family-law is the splitter here, UK/DE tables die.
 9. **Grain:** live cycle, not a meme.
 10. **Org:** parties + courts + NGOs.
@@ -661,7 +675,8 @@ Attention engineers built watch-time. They did not schedule Reconstruction. Pepe
 - Counterwave: restoration plot against the last crest
 - Operational fact: the old “you must” got cheaper to exit (cells 1–5 + 7)
 - Mobilizing plot: disagreement = betrayal
-- Clean story: 1–5 filled, no receipt/falsifier
+- Receipt: history file (archive/monograph/primary) **and** table. Poll-only is a dashboard.
+- Clean story: 1–5 filled, no history file and no falsifier
 - Grain: event ≠ campaign ≠ cycle
 - Collective action frames (Snow & Benford): diagnosis / villain / remedy
 - Framing (Entman): problem, cause, moral, remedy
