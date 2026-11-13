@@ -30,6 +30,34 @@ When **exit gets cheap**, the old “you must” dies. The slogan **names** it. 
 
 ---
 
+## How to learn (retention lock)
+
+Lasswell rebuilt for **acts**, not speeches. Decoder — not a syllabus, not Nisaba. Use it on every row in this file and on every live claim. Formal ancestor: Harold D. Lasswell, “The Structure and Function of Communication in Society” (1948) — who / says what / in which channel / to whom / with what effect. Here the “says what / channel” slots become **the act** and **the cover**.
+
+1. **Who** — role name (sovereign, firm, union, church, party, PMC, cartel), not vibes and not a Grey Pope
+2. **Does what** — the act (evict, sanction, smear, shoot, tax, bless, certify)
+3. **To whom** — target class / body / group
+4. **Under what authority** — split the tag so you don’t mash unlike things:
+   - **cover:** flag / invoice / statute / procedure / docket
+   - **medium:** pulpit / paper / TV / For You / virality
+   - **threat:** fear / gun / chaos
+   - **cloak:** privacy / classification / NDA
+5. **Date** — as-of + provisional vs final
+
+Then, or you still don’t have a fact:
+
+6. **With what effect — and who gets dinner after.** Lasswell’s last slot. Optional only for a single news row. Required if you are learning a cycle.
+7. **Receipt** — stranger-openable (statute / table / docket). Advocacy ≠ census.
+8. **Falsifier** — which cell dies first if you’re wrong. If you can’t name it, you are in the mobilizing plot.
+9. **Grain** — event ≠ campaign ≠ cycle. Don’t let a tweet impersonate 1865.
+10. **Resources / org** — roster + budget (McCarthy & Zald). “Who” as a role-noun is not an SMO.
+
+If 1–5 won’t fill: **story.**  
+If 1–5 fill and 7–8 won’t: **clean story** (more dangerous).  
+A cycle still needs one crest + one fight + one table. This lock tells you whether a *sentence* is a fact. The numbered sections tell you whether the *wave* happened.
+
+---
+
 ## 0. What a cycle is (theory you actually open)
 
 A cycle of contention is a **temporally clustered rise and fall of collective claim-making** — protests, strikes, campaigns, revolutions, countermobilization — that **diffuses** across groups and sites, then **exhausts** or **institutionalizes** (Tarrow, *Power in Movement*, ch. on cycles).
@@ -222,7 +250,7 @@ Carriers: craft unions, industrial unions, socialist/labor/communist parties, Ca
 
 - **Fact:** capital mobility, union decline, inflation-first macro, privatization. Thatcher/Reagan as **opportunity for capital**, not a slogan inventing globalization.
 - **Plot:** there is no alternative; markets as morality.
-- **Carriers:** parties after 1970s inflation; central banks; IMF conditionality (Global South overlap §9.5); employer offensives (PATCO 1981 as US crest).
+- **Carriers:** parties after 1970s inflation; central banks; IMF conditionality (Global South overlap §8.5); employer offensives (PATCO 1981 as US crest).
 - **File:** Volcker; UK Employment Acts 1980s; WTO 1995 https://www.wto.org/ · IMF history https://www.imf.org/
 - **Canon:** Harvey, *A Brief History of Neoliberalism* · Streeck, *Buying Time* · Blyth, *Austerity* · Hall, “The Political Power of Economic Ideas” (Keynesianism to monetarism).
 - **Fight:** ideas (Blyth) vs class power (Harvey) vs capital-mobility constraint (Frieden). Do not treat “neoliberalism” as a cabal name; specify **policy instruments**.
@@ -397,7 +425,7 @@ Repeats: **build the people → expand → aftershock in the metropole → restr
 
 ### 6.2 Decolonization (~1945–1975) — flags
 
-See also §9 (do not skip the Global South monograph).  
+See also §8 (do not skip the Global South monograph).  
 - **File:** UN decolonization https://www.un.org/dppa/decolonization/ · UN Charter Ch. XI–XIII.
 - **Canon:** Cooper, *Africa Since 1940*; Westad, *The Global Cold War*; Fanon, *The Wretched of the Earth*.
 - **Data:** Polity/V-Dem independence dates; COW state system.
@@ -661,6 +689,9 @@ Pull date when you refresh. Start: Pew + Reuters DNR + MIDEM/NatCen + ACLED.
 - **Wave of feminism** — numbered crests inside personhood
 - **Decommodification** — Esping-Andersen / Polanyi
 - **Palingenetic myth** — Griffin on fascism
+- **Lasswell formula** — who / says what / channel / to whom / effect (1948). This file’s lock swaps speech for **act + cover + as-of**
+- **Clean story** — 1–5 filled, no receipt/falsifier
+- **Grain** — event ≠ campaign ≠ cycle
 
 One line: when exit gets cheap, the old “you must” dies; the slogan names it; the medium purifies it; the counterwave sells yesterday as salvation.
 
@@ -727,7 +758,7 @@ Open the hub → latest report → rewrite **Live** lines and §14 only. If a UR
 
 ## 17. Someday reading path (does not replace the shop)
 
-**Term 0:** this file + Tarrow cycle chapter + Snow/Benford 1986 abstract + McCarthy/Zald 1977 abstract.  
+**Term 0:** this file’s **How to learn** lock + Tarrow cycle chapter + Snow/Benford 1986 abstract + McCarthy/Zald 1977 abstract. Practice the five cells on one news row until a receipt appears or the row dies.  
 **Term 1:** McAdam *Political Process* (one case done properly) + *Brown*/CRA/VRA files.  
 **Term 2:** Chenoweth + NAVCO codebook + one ACLED pull.  
 **Term 3:** one Global South monograph (Algeria *or* India *or* Iran ’79) — not a thread.  
