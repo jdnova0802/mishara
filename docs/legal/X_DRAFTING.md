@@ -31,6 +31,15 @@ CADENCE:
 - Owned posts: 3/week — Mon, Wed, Fri
 - Replies: 5/day Mon–Fri
 - No weekend posting unless a live thread already has a buyer in it
+- Zone: America/New_York (Eastern). Desk hours, not For You night.
+
+TIMES (Eastern):
+- Owned (one shot, Mon/Wed/Fri): 10:00–11:30 a.m.
+- Replies (spread; skip the slot if no live case):
+  • 9:00–10:30 a.m. — 2
+  • 12:30–2:00 p.m. — 2
+  • 4:00–5:30 p.m. — 1 if the thread is still moving
+- Do not dump five replies at once. Do not sit Friday at 6 p.m. Do not chase generic “best time to post” charts.
 
 OWNED POSTS = ONE CAMPAIGN
 - Screenshot-safe
@@ -97,7 +106,7 @@ Those live in replies or study docs only.
 
 STOP if the draft is: culture war, a myth, a brand explainer, a cheaper SKU hero, a 15th vertical, or a remembered insurance premium.
 
-When a week’s copy is needed: three owned posts (Fri / Mon / Wed), short, same law, different mouth — then reply posture (5/day cap, buyer dialect, weld only if they ask cost). Nothing else.
+When a week’s copy is needed: three owned posts (Fri / Mon / Wed) in the 10:00–11:30 a.m. Eastern window, short, same law, different mouth — then reply posture (5/day cap, times above, buyer dialect, weld only if they ask cost). Nothing else.
 
 Next three owned targets unless superseded:
 - Fri: Receipt sentence. Second line allowed. Link /verify. No CGL. No price. No demo dollars.
