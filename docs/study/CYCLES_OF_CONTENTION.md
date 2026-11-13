@@ -80,6 +80,30 @@ If 1–5 will not fill, the crest is a story. If 1–5 fill and 7–8 will not, 
 
 **Fight of the field:** collective-behavior breakdown vs resource mobilization vs political process vs new social movements vs connective action. A prospectus picks one fight and one case.
 
+### What else besides history and stats (the third pile: *method*)
+
+A crest is not PhD-depth because it has a book and a Pew chart. The committee also asks **how you know**. Missing this pile is how dashboards and sermons both get through.
+
+| Owed | What it is | Open |
+|---|---|---|
+| **Method** | process tracing vs event catalog vs survey vs legal-doctrinal history. Pick one. | George & Bennett, *Case Studies and Process Tracing*; Tilly event catalogs; CNTS/Banks protest counts — **know the bias** (they undercount the unorganized) |
+| **Periodization fight** | when the cycle starts/ends is itself a claim | Cott on “waves of feminism” as a later label; D’Emilio vs Stonewall-as-origin |
+| **Comparison** | one control case that is *not* the US For You | Skocpol (France/Russia/China); Kitschelt four-country anti-nuclear |
+| **Source criticism** | who wrote the archive; silences; language | Trouillot, *Silencing the Past*; non-English files (ANOM Aix, Kew, BL IOR, national gazettes) |
+| **Networks / bio availability** | who can show up | McAdam, *Freedom Summer*; Diani on social-movement networks |
+| **Emotion / affect** | not vibes — a measured mechanism | Gould, *Moving Politics*; Jasper; Goodwin, Jasper, Polletta, *Passionate Politics* |
+| **Money** | 990s, dues, party finance — fuel, not Grey Pope | ProPublica Nonprofit Explorer https://projects.propublica.org/nonprofits/ |
+| **Repression file** | state repertoire against the crest | PTS https://www.politicalterrorscale.org/ · CIRI / V-Dem civil liberties · FBI Vault |
+| **Space / repertoire** | streets, plants, borders, platforms | Tilly *The Politics of Collective Violence*; ACLED geo; maps are data |
+| **Oral history** | when the living still contradict the monograph | ACT UP Oral History; SNCC Digital Gateway; USHMM, etc. — still not a census |
+| **Legal doctrine** | what the holding actually was, not the slogan | Oyez + the opinion PDF, not a thread |
+
+della Porta & Diani, *Social Movements* (handbook) · Kriesi · Koopmans (discursive opportunity) · Melucci / Touraine (NSM — Europe 1970s, not a US clone) · McAdam, *Freedom Summer*.
+
+**Honest depth of *this file*:** §§1–7 are at **research-map** depth (claim row + history + table + fight). §§8–12 were compressed; they are now brought to the same *minimum* (history · table · falsifier · method owed). §12 remainder lines are **prospectus hooks**, not dissertations. No map is a PhD. A PhD is one crest, one method, one archive language, one table.
+
+Non-English / extra-US history hubs: Archives nationales d’outre-mer https://recherche-anom.culture.gouv.fr/ · UK National Archives Kew https://www.nationalarchives.gov.uk/ · BL India Office https://www.bl.uk/collection-guides/india-office-records · Constitute https://www.constituteproject.org/
+
 ---
 
 ## 1. Black freedom (US-weighted; rhymes elsewhere)
@@ -505,7 +529,7 @@ Live: often **who is the people + who certifies law**. Plot leak: “they” as 
 4. **Authority:** cover = constitution/party; threat = gun in some factions.
 5. **Date:** 1979 Iran as dated revolution; do not collapse Roy’s “failure of political Islam” into ISIS.
 6. **Effect / dinner:** votes + courts + sometimes regime.
-7. **Receipt:** Constitute https://www.constituteproject.org/ · Kurzman *ASR* 1996 https://www.jstor.org/stable/2096328 · Arab Barometer https://www.arabbarometer.org/ · Mitchell; Abrahamian; Roy; Kepel; Wickham.
+7. **Receipt:** *History* — Mitchell, *The Society of the Muslim Brothers* · Abrahamian, *Iran Between Two Revolutions* · Roy, *The Failure of Political Islam* · Kepel, *Jihad* · Wickham · Kurzman *ASR* 1996 https://www.jstor.org/stable/2096328 · Constitute https://www.constituteproject.org/ · *Table* — Arab Barometer https://www.arabbarometer.org/ · V-Dem religion-in-state
 8. **Falsifier:** essentialism — if “Islam did it,” opportunity/org cells die.
 9. **Grain:** multiple campaigns, not one faith-blob.
 10. **Org:** ikhwan, parties, ulama networks.
@@ -518,7 +542,7 @@ Live: often **who is the people + who certifies law**. Plot leak: “they” as 
 4. **Authority:** cover = vote/statute; medium = TV/For You; threat = riot as some events.
 5. **Date:** Ayodhya crest; 2014– state capture provisional-to-final by election.
 6. **Effect / dinner:** BJP eats the state.
-7. **Receipt:** Jaffrelot https://cup.columbia.edu/book/the-hindu-nationalist-movement-in-india/9780231103350/ · Lokniti https://www.lokniti.org/
+7. **Receipt:** *History* — Jaffrelot https://cup.columbia.edu/book/the-hindu-nationalist-movement-in-india/9780231103350/ · Hansen, *The Saffron Wave* · *Table* — Lokniti https://www.lokniti.org/ · ECI results
 8. **Falsifier:** catch-all conservative party vs cultural nationalism — test with CSDS, not a thread.
 9. **Grain:** cycle.
 10. **Org:** RSS, VHP, BJP, ABVP.
@@ -531,41 +555,58 @@ Same lock. Local names (MaBaTha, religious Zionism as a **faction** inside a nat
 
 ## 8. Anti-colonial / Global South (not a footnote)
 
-Read **one country monograph**. “The Global South” is not a Who.
+Read **one country monograph**. “The Global South” is not a Who. Method owed: **archive language** (French for Algeria, not only Horne in English).
 
 ### 8.1 High imperialism + protonationalism (19th c.–WWI)
 
-Who: empires + early congresses (INC 1885). Does: certify partition / extract. Receipt: BL India Office https://www.bl.uk/ · Cain & Hopkins; Hobson/Lenin as **plots+analyses**. Grain: cycle.
+- **History:** BL India Office Records https://www.bl.uk/collection-guides/india-office-records · ANOM https://recherche-anom.culture.gouv.fr/ · Cain & Hopkins, *British Imperialism* · Robinson & Gallagher, “The Imperialism of Free Trade” · INC 1885 as org-event. Hobson/Lenin = plots + analyses, not the file.
+- **Table:** COW state system; trade/extract series.
+- **Falsifier:** if “the West” is Who, the firm/colonial-office cells are empty.
+- **Method owed:** imperial gazette vs nationalist memoir — source criticism.
 
 ### 8.2 Wilson / Lenin moment + mandates
 
-Who: US/UK/France sovereigns + Lenin as competing certifier. Does: name self-determination; mandate as halfway cover. Receipt: Fourteen Points (above); Pedersen *The Guardians*; Manela *Wilsonian Moment*. Use mandate texts, not only Sykes–Picot as plot.
+- **History:** Fourteen Points https://avalon.law.yale.edu/20th_century/wilson14.asp · League Covenant · mandate texts (Pedersen, *The Guardians*) · Manela, *The Wilsonian Moment*. Sykes–Picot is the plot everyone knows — use the **mandate**.
+- **Table:** mandate populations; later UN trust list.
+- **Falsifier:** self-determination named ≠ independence delivered.
 
 ### 8.3 Independence wave (~1945–1975)
 
-Who: parties/armies (pick one: FLN, INC, Kwame’s CPP…). Does: certify flags. Date: India 1947, Ghana 1957, Algeria 1962, etc. Receipt: Fanon; Cooper *Africa Since 1940*; Horne *Savage War of Peace*; Westad *Global Cold War*; Prashad survey **pair with archives**. Falsifier: nation ate the social revolution (Fanon’s warning) vs nationalist triumph. NAVCO/V-Dem.
+- **History:** Fanon, *The Wretched of the Earth* · Cooper, *Africa Since 1940* · Horne, *A Savage War of Peace* · Westad, *The Global Cold War* · UN decolonization https://www.un.org/dppa/decolonization/ · Prashad, *The Darker Nations* (survey — pair with archives).
+- **Table:** NAVCO https://www.navcodata.org/ · V-Dem https://www.v-dem.net/
+- **Falsifier:** nationalist triumph vs “the nation ate the social revolution” (Fanon).
+- **Method owed:** pick **one** flag. Comparison is a second chapter.
 
 ### 8.4 Post-colony — who is the people *inside* the flag
 
-Who: new sovereigns + ethnic/religious parties. Does: evict/shoot/certify the inner people. Not a US race clone. Canon: Mamdani *Citizen and Subject*; Horowitz; Varshney.
+- **History:** Mamdani, *Citizen and Subject* · Horowitz, *Ethnic Groups in Conflict* · Varshney. Not a US race clone.
+- **Table:** V-Dem exclusion; UCDP https://ucdp.uu.se/
+- **Falsifier:** “decolonization finished the cycle.”
 
 ### 8.5 Structural adjustment / next contention
 
-Who: IMF/Bank + finance ministries; then populist or religious-political carriers. Does: conditionality as constraint; tax/cut. Receipt: IMF https://www.imf.org/ · World Bank data https://data.worldbank.org/ . Pair Stiglitz-as-plot with Kentikelenis tables.
+- **History:** Kentikelenis, Stubbs, King on IMF conditionality · Babb. Stiglitz is plot-adjacent.
+- **Table:** IMF https://www.imf.org/ · World Bank Open Data https://data.worldbank.org/
+- **Falsifier:** if “the IMF did a cycle,” specify instruments or Who is a cabal-noun.
 
 ---
 
 ## 9. Agrarian, land, caste
 
-Fact: who eats, who holds title. Weak on Western For You. Huge on body count.
+Who eats, who holds title. Weak on Western For You. Huge on body count.
 
 ### 9.1 Peasant / land reform
 
-Who: peasant leagues, CCP, Zapatistas, MST. Does: take/certify title. Receipt: Scott *Weapons of the Weak* https://yalebooks.yale.edu/book/9780300036411/weapons-of-the-weak/ · Moore *Social Origins* · Wolf *Peasant Wars* · MST https://mst.org.br/ (movement site — pair IBGE) · FAO https://www.fao.org/ . Falsifier: Scott moral economy vs Popkin rational peasant. Grain: cycle. Org: leagues/parties, not a vibe.
+- **History:** Moore, *Social Origins of Dictatorship and Democracy* · Wolf, *Peasant Wars* · Scott, *Weapons of the Weak* https://yalebooks.yale.edu/book/9780300036411/weapons-of-the-weak/ · *The Moral Economy of the Peasant* · Paige, *Agrarian Revolution* · Skocpol (agrarian-bureaucratic).
+- **Table:** FAO https://www.fao.org/ · land inequality (WID) · MST https://mst.org.br/ is a **movement** file, not a census — pair IBGE.
+- **Falsifier:** Scott moral economy vs Popkin, *The Rational Peasant*.
+- **Method owed:** village ethnography + cadastral table. CCP is an org, not a vibe.
 
 ### 9.2 Caste (India — different legal file)
 
-Who: Ambedkarite movement, Bahujan parties, state reservations. Does: certify against caste disability. Receipt: *Annihilation of Caste*; Constitute India https://www.constituteproject.org/ · Jaffrelot *India’s Silent Revolution*. Not a US race clone. Data: NSS/NFHS, CSDS.
+- **History:** Ambedkar, *Annihilation of Caste* (primary) · Constitution of India https://www.constituteproject.org/ · Jaffrelot, *India’s Silent Revolution*.
+- **Table:** NSS / NFHS · IHDS · CSDS/Lokniti https://www.lokniti.org/
+- **Falsifier:** US race clone — the legal file is reservations + Constitution, not CRA 1964.
 
 ---
 
@@ -579,14 +620,17 @@ Who: Ambedkarite movement, Bahujan parties, state reservations. Does: certify ag
 4. **Authority:** cover = party then statute; threat = gun; medium = paper/radio.
 5. **Date:** interwar. Paxton process (five stages), not Eco’s essay as codebook.
 6. **Effect / dinner:** regime or failure. Watch what they **do**.
-7. **Receipt:** Paxton https://www.penguinrandomhouse.com/books/128540/the-anatomy-of-fascism-by-robert-o-paxton/ · Griffin; Payne; Mann *Fascists*. V-Dem historical.
-8. **Falsifier:** if Who = “everyone I oppose,” all cells are plot.
+7. **Receipt:** *History* — Paxton https://www.penguinrandomhouse.com/books/128540/the-anatomy-of-fascism-by-robert-o-paxton/ · Griffin, *The Nature of Fascism* · Payne · Mann, *Fascists* · Kershaw. *Table* — interwar elections; V-Dem historical.
+8. **Falsifier:** if Who = “everyone I oppose,” all cells are plot. Generic fascism (Griffin) vs historical individuality.
 9. **Grain:** movement → regime cycle.
-10. **Org:** parties, squads. Not a mood.
+10. **Org:** parties, squads. Not a mood. **Method owed:** Paxton’s stages as process tracing, not a vibe checklist.
 
 ### 10.2 Springs / squares / color revolutions
 
-Who: square publics + some parties; phones as medium. Does: occupy; certify opening. Effect: often **exhaustion** when no org remains (Tufekci). Receipt: NAVCO · ACLED · Tufekci https://www.twitterandteargas.org/ · Chenoweth https://cup.columbia.edu/book/why-civil-resistance-works/9780231156837 . Falsifier: Twitter-did-it. 3.5% is a heuristic — read the codebook. Live: order vs opening. Bukele-type *mano dura* = countermovement-in-office — pair UNODC homicide https://www.unodc.org/ not vibes.
+- **History:** Garton Ash, *The Magic Lantern* · Beissinger, *Nationalist Mobilization and the Collapse of the Soviet State* · Lynch, *The Arab Uprising* · Kuran, *Private Truths, Public Lies* · Tufekci https://www.twitterandteargas.org/ · Chenoweth & Stephan https://cup.columbia.edu/book/why-civil-resistance-works/9780231156837
+- **Table:** NAVCO codebook (3.5% is a **heuristic**) · ACLED · V-Dem · UNODC https://www.unodc.org/ for *mano dura* as countermovement-in-office.
+- **Falsifier:** Twitter-did-it vs Tufekci (tactical freeze, no analog org).
+- **Method owed:** event catalog **and** org remnants after the square empties.
 
 ---
 
@@ -594,44 +638,57 @@ Who: square publics + some parties; phones as medium. Does: occupy; certify open
 
 ### 11.1 Disability
 
-Who: ILC, ADAPT, disability SMOs — not a feed. Does: certify access (ADA 1990, DDA 1995, CRPD 2006). Receipt: https://www.ada.gov/ · CRPD https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-persons-disabilities · Scotch; Shapiro *No Pity*. Grain: cycle of statute.
+- **History:** Scotch, *From Good Will to Civil Rights* · Shapiro, *No Pity* · Oliver social model (**frame**) · ADA https://www.ada.gov/ · CRPD https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-persons-disabilities
+- **Table:** ACS disability; OECD; WHO World Report on Disability.
+- **Falsifier:** charity-as-the-whole-cycle.
+- **Method owed:** what “reasonable accommodation” held + SMO archives, not a feed.
 
 ### 11.2 Public health
 
-Who: sanitary boards, WHO/CDC, then “they lied” countermovements. Does: certify vaccines/water; counter smears. Epidemic **waves** are a different machine (epi curves) that reset contention. Receipt: WHO https://www.who.int/ · CDC https://www.cdc.gov/ · OWID vaccines https://ourworldindata.org/vaccination · HMD https://www.mortality.org/ . Foucault is a frame — pair mortality tables.
+- **History:** Rosenberg, *The Cholera Years* · Porter, *The Greatest Benefit to Mankind* · Colgrove on vaccination. Epidemic **waves** are epi curves — a different machine that **resets** contention.
+- **Table:** WHO https://www.who.int/ · CDC https://www.cdc.gov/ · OWID vaccines https://ourworldindata.org/vaccination · HMD https://www.mortality.org/
+- **Falsifier:** Foucault-as-gospel without mortality tables.
+- **Method owed:** vital registration + contemporaneous pamphlets (anti-vax is old).
 
 ### 11.3 Drugs
 
-Who: sovereign (prohibition) vs harm-reduction orgs vs cartels as other actors. Does: sanction/legalize; shoot in the war. Two curves: **overdose file** vs moral panic. Receipt: CDC WONDER https://wonder.cdc.gov/ · SAMHSA https://www.samhsa.gov/data · Musto *American Disease*. Cannabis tables ≠ fentanyl tables.
+- **History:** Musto, *The American Disease* · Courtwright, *Forces of Habit* · MacCoun & Reuter, *Drug War Heresies*.
+- **Table:** CDC WONDER https://wonder.cdc.gov/ · SAMHSA https://www.samhsa.gov/data
+- **Falsifier:** cannabis tables mashed with fentanyl — two files.
+- **Method owed:** overdose curve vs moral-panic curve, plotted separately.
 
 ### 11.4 CJ / police / prison
 
-Overlaps §1.5–1.6. Who: prosecutors, police, prison unions vs abolition orgs. Does: imprison/shoot vs certify abolition. Live split: abolition vs order. Receipt: BJS https://bjs.ojp.gov/ · Pfaff *Locked In* as needed counter to simple Rockefeller stories. Pair homicide **and** imprisonment.
+Overlaps §1.5–1.6.
+- **History:** Garland, *The Culture of Control* · Western · Forman · Pfaff, *Locked In*.
+- **Table:** BJS https://bjs.ojp.gov/ · FBI CDE https://cde.ucr.cjis.gov/ — pair **homicide and imprisonment**.
+- **Falsifier:** abolition-vs-order as a slogan without both tables.
+- **Method owed:** jurisdiction grain (county DA, not “America”).
 
 ---
 
-## 12. One-line others (crests, not four-act families)
+## 12. Remainder crests (prospectus hooks — not four-act dissertations)
 
-Still a lock: if Who/act/receipt won’t fill, skip.
+If Who/act/history/table will not fill, it is not a crest yet. Each line is a **possible** chapter, not a finished one.
 
-- **Indigenous / land-back:** sovereign vs nations; certify title. UN DRIP https://www.un.org/development/desa/indigenouspeoples/declaration-on-the-rights-of-indigenous-peoples.html · NARA treaties.
-- **Children’s rights / anti-child-labor:** ILO C138/C182 https://www.ilo.org/ · Zelizer.
-- **Animal welfare:** real SMOs, weak mass splitter. Singer = frame.
-- **Temperance:** prohibition → repeal (completed cycle). 18th/21st NARA. Template of a finished wave. Okrent *Last Call*.
-- **Housing / tenants:** evict vs certify tenure. Eviction Lab https://evictionlab.org/
-- **Anti-war / nuclear / 1968 student:** episodic; opportunity closes. Kitschelt https://www.jstor.org/stable/193922
-- **Gun rights vs gun control (US):** *Heller* https://www.oyez.org/cases/2007/07-290 · Pew guns.
-- **Human rights / R2P vs sovereignty:** Moyn *Last Utopia* (late, thin). ICC https://www.icc-cpi.int/ · UN R2P.
-- **Consumer / Nader / antitrust:** FTC/DOJ https://www.justice.gov/atr
-- **Tax revolts / austerity:** Prop 13; Blyth; Pew taxes.
-- **Compulsory schooling / curriculum:** Tyack; PDK/Pew polls.
-- **Digital rights / privacy:** GDPR https://gdpr.eu/ · EPIC https://epic.org/ · Snowden as crest (IC reports = receipt).
-- **Open-source / leaks:** thin-org connective repertoire.
-- **Manosphere / MGTOW:** counter-**feed** to feminism 2–4, org-thin. Not a NatCen cleavage. GSS.
-- **AI doom vs abundance:** heat, not a mass cleavage everywhere yet. Pew AI https://www.pewresearch.org/
+- **Indigenous / land-back:** *History* Deloria; Simpson; UN DRIP https://www.un.org/development/desa/indigenouspeoples/declaration-on-the-rights-of-indigenous-peoples.html · NARA treaties. *Table* reservation/land title series. *Method owed:* treaty language, not a feed.
+- **Children’s rights / anti-child-labor:** *History* Zelizer, *Pricing the Priceless Child*. *Table* ILO C138/C182 https://www.ilo.org/
+- **Animal welfare:** *History* Singer as **frame**; Francione vs welfarists. *Table* weak mass splitter; SMO 990s. Resource-mobilization case.
+- **Temperance:** *History* Okrent, *Last Call* · 18th/21st NARA. Completed cycle (prohibition → repeal). Template.
+- **Housing / tenants:** *History* Madden & Marcuse; Desmond, *Evicted*. *Table* Eviction Lab https://evictionlab.org/
+- **Anti-war / nuclear / 1968:** *History* Suri, *Power and Protest*; Gitlin, *The Sixties*. *Table/comparison* Kitschelt four-country https://www.jstor.org/stable/193922 . Episodic: opportunity closes.
+- **Gun rights vs gun control (US):** *History* *Heller* https://www.oyez.org/cases/2007/07-290 · Goss, *Disarmed*. *Table* Pew guns.
+- **Human rights / R2P vs sovereignty:** *History* Moyn, *The Last Utopia* (HR as late, thin). *Table/file* ICC https://www.icc-cpi.int/ · UN R2P.
+- **Consumer / Nader / antitrust:** *History* *Unsafe at Any Speed* as crest. *Table/file* FTC/DOJ https://www.justice.gov/atr
+- **Tax revolts / austerity:** *History* Prop 13; Blyth, *Austerity*. *Table* Pew taxes.
+- **Compulsory schooling / curriculum:** *History* Tyack, *The One Best System*; Ravitch (both eras). *Table* PDK/Pew polls.
+- **Digital rights / privacy:** *History* Snowden as crest (IC reports). *Table/file* GDPR https://gdpr.eu/ · EPIC https://epic.org/
+- **Open-source / leaks:** thin-org connective repertoire. Coleman, *Coding Freedom*.
+- **Manosphere / MGTOW:** counter-**feed** to feminism 2–4, org-thin. Not a NatCen cleavage. GSS. Computational papers (Ribeiro et al.) ≠ electorate.
+- **AI doom vs abundance:** heat. Pew AI https://www.pewresearch.org/ — not a mass cleavage everywhere yet.
 - **Print → broadcast → For You:** medium companion, not a people-movement.
-- **Expertise vs vibes / secularization vs revival:** frames; local org names.
-- **Food / peasant / land:** §9. Global South more than Western For You.
+- **Expertise vs vibes / secularization vs revival:** frames; local org names. ARDA https://www.thearda.com/
+- **Food / peasant / land:** §9.
 
 ---
 
