@@ -216,9 +216,9 @@ These are **opinion tables**, not deployment. Concern ≠ payroll. Refresh from 
 
 - Villain classes, feminism waves, “globalists” → **cycles of contention** or **hegemony**.
 - Who revolts / loyalty tests → contention lock (`docs/study/CYCLE_ROW.md` / `CYCLES_OF_CONTENTION.md`).
-- Who holds the table of states → hegemonic cycles (Modelski/Wallerstein/Arrighi — separate).
-- What clips on For You → medium/attention.
-- How many young men → cohort.
+- Who holds the table of states → `docs/study/HEGEMONIC_CYCLES.md`
+- What clips on For You → `docs/study/MEDIUM_ATTENTION_WAVES.md`
+- How many young men / TFR → `docs/study/DEMOGRAPHIC_WAVES.md`
 
 ---
 

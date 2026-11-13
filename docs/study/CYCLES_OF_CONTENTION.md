@@ -8,7 +8,7 @@ A wave, operationally: law, money, or tech changes who can exit an old “you mu
 
 `Need(old institution) ≈ 1 / (new wage or law × exit option × frame × medium)`  *(heuristic, not a law of nature)*
 
-Companion machines (do not mash): Perez techno-economic paradigms; cohort/age-structure; hegemonic cycles; medium/attention. Those ask what got cheap / how many bodies / who holds the table / what clips. This file asks **who revolts, with what orgs, under what opportunity, with what frame, with what receipt**.
+Companion machines (do not mash): Perez techno-economic paradigms (`docs/study/TECHNO_ECONOMIC_WAVES.md`); cohort/age-structure (`docs/study/DEMOGRAPHIC_WAVES.md`); hegemonic cycles (`docs/study/HEGEMONIC_CYCLES.md`); medium/attention (`docs/study/MEDIUM_ATTENTION_WAVES.md`). Those ask what got cheap / how many bodies / who holds the table / what clips. This file asks **who revolts, with what orgs, under what opportunity, with what frame, with what receipt**.
 
 Date every data pull `YYYY-MM-DD`. Do not renumber 19th-century crests because TikTok moved. Advocacy ≠ census. Wikipedia is a finding aid. A dissertation is **one numbered crest + one historiographic fight + one historical file + one dataset**. Mass splitter ≠ feed noise: electorates and comment sections are not the same animal.
 
