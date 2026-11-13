@@ -1,47 +1,70 @@
-# Social-movement waves (cycles of contention)
+# Cycles of contention
 
-**Not Nisaba. Not a tweet. Not a camp. Not a feminism syllabus — feminism is one family, not the spine.**
+**Subject:** *contentious politics* (Charles Tilly, Sidney Tarrow, Doug McAdam). Street phrase: social-movement waves. Feminism is one family inside this file, not the spine. Not Nisaba. Not a camp.
 
-Formal name of the subject: *contentious politics*. Wave shape: **cycle of contention** (Tilly, Tarrow, McAdam). Street phrase: social-movement waves.
+A **cycle of contention** is a temporally clustered rise and fall of collective claim-making — protest, strike, campaign, revolution, countermobilization — that diffuses across groups and sites, then exhausts or institutionalizes (Tarrow, *Power in Movement*).
 
-A wave is: law, money, or tech changes who can exit an old “you must” → a slogan names it → a medium (pulpit, print, TV, For You) purifies it → a counterwave sells restoration.
+A wave, operationally: law, money, or tech changes who can exit an old “you must” → a slogan names it → a medium (pulpit, print, TV, For You) purifies it → a counterwave sells restoration.
 
-`Need(old institution) ≈ 1 / (new wage or law × exit option × frame × medium)`
+`Need(old institution) ≈ 1 / (new wage or law × exit option × frame × medium)`  *(heuristic, not a law of nature)*
 
-Every numbered crest below is filled with the **HOW TO LEARN** lock. If a cell won’t fill, that crest is still a story. A cycle still needs one crest + one fight + one table. Date live pulls `YYYY-MM-DD`. Don’t renumber 19th-century crests because TikTok moved. Advocacy ≠ census.
+Companion machines (do not mash): Perez techno-economic paradigms; cohort/age-structure; hegemonic cycles; medium/attention. Those ask what got cheap / how many bodies / who holds the table / what clips. This file asks **who revolts, with what orgs, under what opportunity, with what frame, with what receipt**.
 
-Companion machines (do not mash): Perez (what got cheap); cohort; hegemony; medium/attention. This file is **who acts, on whom, under what cover, with what receipt**.
+Date every data pull `YYYY-MM-DD`. Do not renumber 19th-century crests because TikTok moved. Advocacy ≠ census. Wikipedia is a finding aid. A dissertation is **one numbered crest + one historiographic fight + one dataset**. Mass splitter ≠ feed noise: electorates and comment sections are not the same animal.
 
 ---
 
-## HOW TO LEARN (retention lock)
+## 0. Theory and unit of analysis
 
-Lasswell rebuilt for acts, not speeches. Decoder — not a syllabus, not Nisaba.
+**Mechanism stack:** political opportunity/threat (McAdam, Meyer) → mobilizing structures (McCarthy & Zald) → framing (Snow & Benford; Entman) → repertoires (Tilly) → diffusion/scale shift (Tarrow; della Porta) → countermovement (Meyer & Staggenborg) → outcome (law, collapse, co-optation, schism, or a feed).
+
+**Unit of analysis for every numbered crest below** (Lasswell 1948 rebuilt for *acts*, not speeches — the grammar of a claim-making row, not the name of this file):
 
 1. Who — role (sovereign, firm, union, church, party, PMC, cartel), not vibes
 2. Does what — the act (evict, sanction, smear, shoot, tax, bless, certify)
 3. To whom — target class / body / group
-4. Under what authority — split the tag:
-     cover:  flag / invoice / statute / procedure / docket
-     medium: pulpit / paper / TV / For You
-     threat: fear / gun / chaos
-     cloak:  privacy / classification / NDA
+4. Under what authority — cover: flag / invoice / statute / procedure / docket · medium: pulpit / paper / TV / For You · threat: fear / gun / chaos · cloak: privacy / classification / NDA
 5. Date — as-of + provisional vs final
-
-Then, or you still don’t have a fact:
 6. With what effect — and who gets dinner after
-7. Receipt — stranger-openable (statute / table / docket). Advocacy ≠ census
-8. Falsifier — which cell dies first if you’re wrong
-9. Grain — event ≠ campaign ≠ cycle (don’t let a tweet impersonate 1865)
-10. Resources / org — roster + budget, not a role-noun alone
+7. Receipt — stranger-openable statute / table / docket
+8. Falsifier — which cell dies first if the row is wrong (the live fight)
+9. Grain — event ≠ campaign ≠ cycle
+10. Resources / org — roster + budget (an SMO, not a role-noun)
 
-If 1–5 won’t fill: story.
-If 1–5 fill and 7–8 won’t: clean story.
-A cycle still needs one crest + one fight + one table.
+If 1–5 will not fill, the crest is a story. If 1–5 fill and 7–8 will not, it is a **clean story**.
 
-Ancestor: Lasswell, “The Structure and Function of Communication in Society” (1948). Field receipts: Tarrow, *Power in Movement* https://www.cambridge.org/core/books/power-in-movement/E9FC85E59075F0705549710D6A8BD858 · McAdam–Tarrow–Tilly, *Dynamics of Contention* https://www.cambridge.org/core/books/dynamics-of-contention/A80D780ED387E3B4F1161A087ED6C547 · McCarthy & Zald, *AJS* 1977 https://doi.org/10.1086/226464 · Snow/Benford frames https://www.jstor.org/stable/2095581 · Entman https://doi.org/10.1111/j.1460-2466.1993.tb01304.x · Meyer & Staggenborg countermovements https://www.journals.uchicago.edu/doi/10.1086/230825 · NAVCO https://www.navcodata.org/ · ACLED https://acleddata.com/ · V-Dem https://www.v-dem.net/
+### Core
 
-Mass splitter vs feed noise: electorates and comment sections are not the same animal.
+- Tarrow, *Power in Movement* https://www.cambridge.org/core/books/power-in-movement/E9FC85E59075F0705549710D6A8BD858 · DOI https://doi.org/10.1017/CBO9780511813245
+- McAdam, Tarrow, Tilly, *Dynamics of Contention* https://www.cambridge.org/core/books/dynamics-of-contention/A80D780ED387E3B4F1161A087ED6C547
+- Tilly & Tarrow, *Contentious Politics* — search https://global.oup.com/
+- McAdam, *Political Process and the Development of Black Insurgency, 1930–1970* https://press.uchicago.edu/ucp/books/book/chicago/P/bo5939918.html · https://archive.org/details/politicalprocess00mcad
+- McCarthy & Zald, “Resource Mobilization and Social Movements,” *AJS* 1977 https://doi.org/10.1086/226464
+- Meyer, “Protest and Political Opportunities,” *ARS* 2004 https://doi.org/10.1146/annurev.soc.30.012703.110545
+- Meyer & Staggenborg, “Movements, Countermovements…,” *AJS* 1996 https://www.journals.uchicago.edu/doi/10.1086/230825
+- Goodwin & Jasper, “Caught in a Winding, Snarling Vine,” *Sociological Forum* 1999 https://www.jstor.org/stable/684696 — the POS critique a committee will ask
+- Olson, *The Logic of Collective Action* https://www.hup.harvard.edu/books/9780674537514
+
+### Framing
+
+- Snow, Rochford, Worden, Benford, “Frame Alignment Processes,” *ASR* 1986 https://www.jstor.org/stable/2095581
+- Benford & Snow, “Framing Processes and Social Movements,” *ARS* 2000 https://doi.org/10.1146/annurev.soc.26.1.611
+- Entman, “Framing,” *Journal of Communication* 1993 https://doi.org/10.1111/j.1460-2466.1993.tb01304.x
+- Lasswell, “The Structure and Function of Communication in Society” (1948)
+
+### Outcomes / resistance / medium
+
+- Skocpol, *States and Social Revolutions* https://www.cambridge.org/core/books/states-and-social-revolutions/A70A01464C786EE7DC6C47D1EA9B0DB3
+- Chenoweth & Stephan, *Why Civil Resistance Works* https://cup.columbia.edu/book/why-civil-resistance-works/9780231156837 · NAVCO https://www.navcodata.org/ · https://dataverse.harvard.edu/dataverse/navco
+- Paxton, *The Anatomy of Fascism* https://www.penguinrandomhouse.com/books/128540/the-anatomy-of-fascism-by-robert-o-paxton/
+- Bennett & Segerberg, “The Logic of Connective Action” (2012) https://doi.org/10.1080/1369118X.2012.670661
+- Tufekci, *Twitter and Tear Gas* https://www.twitterandteargas.org/
+
+### Cross-national datasets
+
+- ACLED https://acleddata.com/ · V-Dem https://www.v-dem.net/ · codebook https://www.v-dem.net/documents/24/codebook_v13.pdf · UCDP https://ucdp.uu.se/ · OWID https://ourworldindata.org/
+
+**Fight of the field:** collective-behavior breakdown vs resource mobilization vs political process vs new social movements vs connective action. A prospectus picks one fight and one case.
 
 ---
 
@@ -336,11 +359,11 @@ Rhymes elsewhere: Haitian Revolution; ANC; *movimento negro* — same scarce goo
 3. **To whom:** the husband-as-institution; employers; campuses.
 4. **Authority:** cover = statute/docket (ECOA 1974, Title IX, *Griswold*/*Roe*); medium = TV.
 5. **Date:** 1960s–80s. *Dobbs* 2022 later counterwave on the body cell.
-6. **Effect / dinner:** own wage. Plot: desire = betrayal (loyalty test, not the BLS).
-7. **Slogan on this crest (not the cause):** Irina Dunn, Sydney ~1970, “A woman needs a man like a fish needs a bicycle” (Steinem popularized). Dunn = Patricia Irene “Irina” Dunn (b. 17 Mar 1948, Shanghai; Sydney Uni; Australian Senator NSW 1988–90). https://biography.senate.gov.au/dunn-patricia-irene/ · https://en.wikipedia.org/wiki/Irina_Dunn
-8. **Receipt:** Title IX https://www.ed.gov/laws-and-policy/civil-rights-laws/title-ix-and-sex-discrimination · ECOA https://www.ftc.gov/legal-library/browse/statutes/equal-credit-opportunity-act · *Griswold* https://www.oyez.org/cases/1964/496 · *Roe* https://www.oyez.org/cases/1971/70-18 · *Dobbs* https://www.oyez.org/cases/2021/19-1392 · BLS women’s databook https://www.bls.gov/opub/reports/womens-databook/ · NCHS https://www.cdc.gov/nchs/
-9. **Falsifier:** if Dunn moved the wage, the BLS cell dies. Goldin: hours/contraception tables. Fight: liberal vs radical vs socialist-feminist.
-10. **Grain:** cycle — the operational crest of the family. **Org:** NOW, CR, campuses.
+6. **Effect / dinner:** own wage. Plot: desire = betrayal (loyalty test, not the BLS). Slogan on this crest (**not the cause**): Irina Dunn, Sydney ~1970, “A woman needs a man like a fish needs a bicycle” (Steinem popularized). Dunn = Patricia Irene “Irina” Dunn (b. 17 Mar 1948, Shanghai; Sydney Uni; Australian Senator NSW 1988–90). https://biography.senate.gov.au/dunn-patricia-irene/ · https://en.wikipedia.org/wiki/Irina_Dunn
+7. **Receipt:** Title IX https://www.ed.gov/laws-and-policy/civil-rights-laws/title-ix-and-sex-discrimination · ECOA https://www.ftc.gov/legal-library/browse/statutes/equal-credit-opportunity-act · *Griswold* https://www.oyez.org/cases/1964/496 · *Roe* https://www.oyez.org/cases/1971/70-18 · *Dobbs* https://www.oyez.org/cases/2021/19-1392 · BLS women’s databook https://www.bls.gov/opub/reports/womens-databook/ · NCHS https://www.cdc.gov/nchs/
+8. **Falsifier:** if Dunn moved the wage, the BLS cell dies. Goldin: hours/contraception tables. Fight: liberal vs radical vs socialist-feminist.
+9. **Grain:** cycle — the operational crest of the family.
+10. **Org:** NOW, CR, campuses.
 
 ### 5.3 Third (~1990s–2000s)
 
@@ -707,4 +730,4 @@ How to update: open the hub → latest report → rewrite only Live lines and ma
 
 Theory (doesn’t update yearly — the name of the subject): Tarrow *Power in Movement*; Tilly & Tarrow *Contentious Politics*; Snow & Benford; Entman; McCarthy & Zald; Lasswell 1948.
 
-**Term 0:** this lock on one news row until a receipt appears or the row dies. Then one numbered crest + one fight + one table. Does not replace the shop.
+**Someday path (does not replace the shop):** Tarrow cycle chapter + Snow/Benford 1986 + McCarthy/Zald 1977 → McAdam *Political Process* as one case done properly → Chenoweth + NAVCO codebook → one Global South monograph (Algeria *or* India *or* Iran 1979). Quarterly Pew/DNR/ACLED pull; change the live-splitter paragraph only. If a book makes you feel initiated, put it down and open a table.
