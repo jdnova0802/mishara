@@ -1,6 +1,6 @@
 # Peoples & Ethnicities Atlas — Sub-Saharan Africa
 
-Not Nisaba. Families first (Niger-Congo/Bantu, Nilotic, Cushitic, Khoisan), then named groups. Many states **do not census ethnicity** (Nigeria 2006). Pull **2026-11-14**.
+Families first (Niger-Congo/Bantu, Nilotic, Cushitic, Khoisan), then named groups. Many states **do not census ethnicity** (Nigeria 2006). Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ---
 
@@ -21,7 +21,7 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 2. **Language:** Yoruba (Volta-Niger, Niger-Congo). Literary 19th c. (Crowther); spoken far older.
 3. **Homeland:** Southwestern Nigeria / Republic of Benin / Togo (Yoruba-speaking belt). Origin traditions: Ilé-Ifẹ̀.
 4. **Subdivisions:** Ọ̀yọ́, Ẹ̀gbá, Ìjẹ̀bú, Ìjẹ̀ṣà, Ọ̀wọ̀, Ìkálẹ̀, Ketu, etc. “Yoruba” as a 19th-c. umbrella (Peel).
-5. **Population:** Nigeria **2006 census did not publish ethnicity**. NPC 2006 total population is not a Yoruba count. **OPEN.** Afrobarometer / DHS language is a survey proxy, not NPC. Benin INSAE: **OPEN** this pass.
+5. **Population:** Nigeria **2006 census did not publish ethnicity**. NPC (Nigeria’s National Population Commission) 2006 total population is not a Yoruba count. **OPEN.** Afrobarometer / DHS language is a survey proxy, not NPC. Benin INSAE: **OPEN** this pass.
 6. **Rupture:** 19th-c. Yoruba wars and the fall of Oyo; Atlantic slave trade (Yoruba-speakers as a large documented share of Brazilian/Cuban arrivals — numbers **OPEN** as a people-count).
 7. **Religion:** Mix: Protestant/Catholic/Pentecostal, Islam (especially Ilorin), and Ifá/Òrìṣà. Not “animist default.”
 8. **Flattening:** “Yoruba = Nigeria southwest = one tribe.” City-state history contradicts tribe-as-unit.
@@ -49,13 +49,13 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 
 ## Hausa–Fulani (umbrella — flag it)
 
-1. **Name:** “Hausa–Fulani” is a **Nigerian political umbrella**, not one ethnolinguistic people. Hausa: *Hausawa*. Fulani: *Fulɓe* (Pulaar/Fulfulde).
+1. **Name:** “Hausa–Fulani” is a **Nigerian political umbrella**, not one ethnolinguistic people (ethnolinguistic: pertaining to a group defined by shared language as a marker of ethnic identity). Hausa: *Hausawa*. Fulani: *Fulɓe* (Pulaar/Fulfulde).
 2. **Language:** Hausa (Chadic, **Afroasiatic** — not Niger-Congo). Fulfulde (Atlantic, Niger-Congo). Different families.
 3. **Homeland:** Hausa: northern Nigeria / southern Niger (Kano, Katsina, Zaria, etc.). Fulɓe: Sahel-wide (Senegal to Cameroon), pastoral and urban (Torodbe clerical).
 4. **Subdivisions:** Hausa city-states; Fulɓe: cattle Fulani vs town Fulani; Sokoto Caliphate overlay (1804) produced the political mash.
 5. **Population:** No NPC ethnicity. Niger/Cameroon/Senegal have language tables — **not pulled as a single total this pass. OPEN.** Do not add “Hausa–Fulani 30% of Nigeria” as if it were 2006.
 6. **Rupture:** 1804–08 Sokoto jihad (Usman dan Fodio) — dated political fusion.
-7. **Religion:** Sunni Islam (Maliki, Tijani/Qadiri) as the regional majority among both; not identical to ethnicity.
+7. **Religion:** Sunni Islam (Maliki, one of the four Sunni legal schools; Tijani and Qadiri are Sufi *tariqa*s — organized mystical orders) as the regional majority among both; not identical to ethnicity.
 8. **Flattening:** Treating Hausa–Fulani as one census tribe; filing Hausa under Niger-Congo.
 9. **Receipt:** History — Last, *The Sokoto Caliphate*; Hogben/Kirk-Greene. Linguistics — Hausa = Chadic. Census — NPC 2006 none; Niger INS **OPEN**.
 10. **Falsifier:** If Hausa were Niger-Congo, cell 2 dies. If NPC published a combined “Hausa-Fulani” code as one language, the umbrella warning still holds linguistically.
@@ -102,7 +102,7 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 3. **Homeland:** Northern Ethiopian highlands (Gondar, Gojjam, Wollo, Shewa).
 4. **Subdivisions:** Regional; Orthodox vs Muslim Amhara (Wollo). Not “all highland Ethiopians” (Tigray, Agaw).
 5. **Population:** Ethiopia CSA Census **2007** (last published full census): Amhara **19,867,817 (26.9%)**. **2012/2020s estimates exist; 2024 census not used here. OPEN for post-2007.** Do not use 2020s media “30 million.”
-6. **Rupture:** 1974 fall of Haile Selassie; 1991 EPRDF ethnic federalism (Amhara as one *kilil*).
+6. **Rupture:** 1974 fall of Haile Selassie; 1991 EPRDF ethnic federalism (Amhara as one *kilil* — an Ethiopian ethnolinguistic regional state; not a Soviet ASSR, though both are territorial nationality units. Soviet *korenizatsiya* / ASSR machinery is the Caucasus–Central Asia analogue, not used here).
 7. **Religion:** Ethiopian Orthodox Tewahedo majority; Muslim Amhara are real.
 8. **Flattening:** “Amhara = Abyssinia = Ethiopia”; filing Amhara as Cushitic.
 9. **Receipt:** CSA 2007 National Census. History — Tadesse Tamrat; Bahru Zewde.
@@ -133,9 +133,9 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 2. **Language:** Somali (Cushitic). Osmanya/Latin scripts 20th c.; language older.
 3. **Homeland:** Horn: Somalia, eastern Ethiopia (Somali Region), Djibouti, northern Kenya.
 4. **Subdivisions:** Clan (Darod, Hawiye, Dir, Rahanweyn/Digil-Mirifle, Isaaq) — **primary political units**; “Somali” is the ethnolinguistic umbrella. Do not pretend clan is not load-bearing.
-5. **Population:** Somalia has **no complete conventional census** in the 2020s comparable to CSA 2007. UNFPA 2014 Population Estimation Survey is a survey, not a full census. Ethiopia 2007 Somali **4,581,794 (6.2%)**. Kenya 2019 census Somali **OPEN** this pass (KNBS published ethnicity). **Do not print 15 million as if counted.**
+5. **Population:** Somalia has **no complete conventional census** in the 2020s comparable to CSA 2007. UNFPA (United Nations Population Fund) 2014 Population Estimation Survey is a survey, not a full census. Ethiopia 2007 Somali **4,581,794 (6.2%)**. Kenya 2019 census Somali **OPEN** this pass (KNBS published ethnicity). **Do not print 15 million as if counted.**
 6. **Rupture:** 1991 state collapse; 1977–78 Ogaden War; colonial partition (British/Italian/French/Ethiopian).
-7. **Religion:** Sunni Islam (Shafiʿi) as near-default — here the default **matches**.
+7. **Religion:** Sunni Islam (Shafiʿi, one of the four Sunni legal schools) as near-default — here the default **matches**.
 8. **Flattening:** “Somalis are Arabs”; or Somalia’s borders = the people (they don’t).
 9. **Receipt:** CSA 2007 (Ethiopia Somali). UNFPA Somalia 2014 PESS (estimate). History — Lewis; Samatar.
 10. **Falsifier:** If Somalia published a 2020s full census ethnicity table, cell 5 changes. If Somali were Semitic, cell 2 dies.

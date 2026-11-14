@@ -1,6 +1,6 @@
 # Peoples & Ethnicities Atlas — Oceania
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
@@ -8,7 +8,7 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 - **Papuan:** a **cover term** for many non-Austronesian families of New Guinea and nearby islands — **not one family**. “Melanesian” as a 19th-c. racial type is a flattening; **Melanesia** as a geography contains both Austronesian and Papuan languages.
 - **Australian Aboriginal languages:** **~250 languages**, multiple families (Pama-Nyungan is the large family; others in the north). **Not one family and not one people.** Torres Strait Islander languages include **Meriam Mir** (Papuan) and **Kala Lagaw Ya** (Pama-Nyungan) — **not** “the same as Aboriginal.”
 
-New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting machines**.
+New Zealand, Australia, PNG, Fiji, and US Census NHPI (Native Hawaiian and Other Pacific Islander) are **different counting machines**.
 
 ---
 
@@ -17,7 +17,7 @@ New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting m
 1. **Self-designation vs. external name:** Self: nation-specific (*Arrernte*, *Yolŋu*, *Noongar*, *Koori*, *Murri*…). External: “Aboriginal,” “Aborigine” (the second often avoided). **Not** a single ethnolinguistic people.
 2. **Language:** Many families; Pama-Nyungan covers most of the continent; non-Pama-Nyungan in the north. English and Kriol as lingua francas. Deep-time presence is archaeology/genetics — **a separate machine from the Census Indigenous status question**.
 3. **Homeland:** Australian continent and some islands (not Torres Strait as a default). How they got there: Pleistocene settlement (dating contested in the literature — **do not pick a year as census**).
-4. **Subdivisions:** Language nations / native-title groups; Stolen Generations as a **legal-historical** split, not a census code. **Torres Strait is a different ABS status.**
+4. **Subdivisions:** Language nations / native-title groups; Stolen Generations as a **legal-historical** split, not a census code. **Torres Strait is a different ABS (Australian Bureau of Statistics) status.**
 5. **Population:** ABS **Census 2021** Indigenous status:
    - **Aboriginal and/or Torres Strait Islander 812,728 (3.2%)** of the counted population, up from **649,171 (2.8%)** in 2016.
    - Of those: **Aboriginal 742,882 (2.9%)**; **Torres Strait Islander 33,765 (0.1%)**; **both 36,083 (0.1%)**.
@@ -81,7 +81,7 @@ New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting m
    - **Stats NZ 2023** ethnic total-response **Pacific peoples** is a NZ **destination** machine (Samoan, Tongan, Cook Islands Māori, etc. in NZ) — **not** the Pacific’s population. Figure is in the same 2023 workbook as Māori (**do not use as Oceania**).
    - **US Census 2020:** Native Hawaiian and Other Pacific Islander **alone or in combination 1.6 million** — **US residents**, not the Pacific. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
    - **PNG, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga** national censuses are the **homeland machines**. PNG has **no single “Papuan ethnicity” census**. Fiji Bureau of Statistics ethnicity (**iTaukei** vs Indian) **OPEN** as the latest integer this pass (census exists). Samoa/Tonga almost-entirely Polynesian citizenship envelopes are **not** ethnicity tables.
-   - **Hawaiian:** US Census detailed NHPI — Native Hawaiian alone/combination **OPEN** integer this pass (DHC-A published it).
+   - **Hawaiian:** US Census detailed NHPI — Native Hawaiian alone/combination **OPEN** integer this pass (DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A) published it).
 6. **Rupture:** Dated colonizations **differ**: Hawai‘i **1893/98**; Samoa split **1899**; Fiji cession **1874** + Indian indenture **1879–1916**; PNG **1975** independence; nuclear testing in Micronesia (Bikini **1946**) as a dated US rupture.
 7. **Religion:** Christianity as majority overlay across much of the island Pacific (LMS, Methodist, Catholic, LDS in pockets). Highland PNG is **not** that default everywhere.
 8. **Flattening:** Three races; Fijian Indian as Melanesian; NZ “Pacific peoples” as the homeland; NHPI 1.6M as Oceania.

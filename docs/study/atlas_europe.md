@@ -1,24 +1,24 @@
 # Peoples & Ethnicities Atlas — Europe
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-**Indo-European branches in this file:**
+**Indo-European branches in this section:**
 
 - **Slavic:** East (Russian, Ukrainian, Belarusian); West (Polish, Czech, Slovak); South (Serbian, Croatian, Bosnian — **standard languages in a dialect continuum**, not three biological peoples).
-- **Romance / Germanic / Celtic:** present in Europe; **not** in the user’s named list — do not pad French/German/Irish as Europe-file entries (Irish/Italian/German/Polish-as-US-ancestry live in `atlas_americas_diaspora.md`).
+- **Romance / Germanic / Celtic:** present in Europe; **not** in the user’s named list — do not pad French/German/Irish as Europe-section entries (Irish/Italian/German/Polish-as-US-ancestry live in the Americas diaspora section).
 - **Indo-Aryan in Europe:** Romani.
 
 **Non-Indo-European outliers:**
 
 - **Basque** (isolate).
 - **Uralic / Finno-Ugric:** Finnic (**Finnish, Estonian** — **not Baltic**); Sámi.
-- **Kartvelian** (Georgian etc.): **already the Caucasus file**. Cross-reference. **Do not duplicate.**
+- **Kartvelian** (Georgian etc.): **already the Caucasus & Central Asia section (not in this checkout)**. Cross-reference. **Do not duplicate.**
 
 Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Estonian is **not** Baltic.
 
-**Census machines:** Rosstat VPN-2020/21 (nationality voluntary); Ukraine **2001** (last completed); Belstat **2019**; GUS Poland **2021**; CZSO **2021**; Slovakia **2021**; SORS Serbia **2022**; DZS Croatia **2021**; BHAS Bosnia **2013**. Romani: census self-ID vs Council of Europe estimates — **two machines**.
+**Census machines:** Rosstat VPN-2020/21 (All-Russian Population Census / *Vserossiyskaya perepis’ naseleniya*; nationality voluntary); Ukraine **2001** (last completed); Belstat **2019**; GUS (Statistics Poland / Główny Urząd Statystyczny) Poland **2021**; CZSO (Czech Statistical Office) **2021**; Slovakia **2021**; SORS (Statistical Office of the Republic of Serbia) Serbia **2022**; DZS (Croatian Bureau of Statistics) Croatia **2021**; BHAS (Agency for Statistics of Bosnia and Herzegovina) Bosnia **2013**. Romani: census self-ID vs Council of Europe estimates — **two machines**.
 
 ---
 
@@ -47,7 +47,7 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 5. **Population:**
    - **Ukraine 2001 census:** **Ukrainians 37,541,700 (77.8%)** of a ~48.5M universe. Last completed national census. https://web.archive.org/web/20200430211623/http://2001.ukrcensus.gov.ua/eng/results/general/nationality/
    - **Rosstat 2021:** Ukrainians in Russia **884,007** (among those stating nationality) — **different country**.
-   - **2022–** displacement: UNHCR/IOM are **registration/estimate machines**, not a replacement census. **Do not fossilize a 2024 resident-Ukrainian total here.**
+   - **2022–** displacement: UNHCR (United Nations High Commissioner for Refugees)/IOM are **registration/estimate machines**, not a replacement census. **Do not fossilize a 2024 resident-Ukrainian total here.**
 6. **Rupture:** **1917–21** failed state(s); **1932–33** Holodomor; **24 August 1991** independence; **24 February 2022** full-scale invasion.
 7. **Religion:** Orthodox (jurisdictions split — OCU vs UOC); Greek Catholic in Galicia. Not “Russian Orthodox default.”
 8. **Flattening:** Ukrainian as a Russian dialect; 2001 as a 2024 headcount.
@@ -198,7 +198,7 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 2. **Language:** Basque / *Euskara* (**isolate**, not Indo-European, not Romance). Aquitanian as ancient attestation (Roman-era names).
 3. **Homeland:** Western Pyrenees (Hegoalde in Spain: CAE + Navarra; Iparralde in France). Not a Franco-era invention.
 4. **Subdivisions:** Bizkaia, Gipuzkoa, Araba, Navarra, and three French provinces; French census **does not** ask ethnicity.
-5. **Population:** Eustat / INE Spain: Basque **language** and **identity** are different questions (euskaldun vs Basque nationality). Spain does not have a US-style race census. **Eustat sociolinguistic surveys** count speakers; INE padron counts residents of the CAE. **Do not print a single “number of Basques.”** CAE resident population is a **territory envelope**. Speaker counts **OPEN** as the latest Eustat sociolinguistic survey integer this pass (survey exists; cell not copied).
+5. **Population:** Eustat / INE Spain (Eustat is the Basque statistical office; INE is Spain’s Instituto Nacional de Estadística): Basque **language** and **identity** are different questions (euskaldun vs Basque nationality). Spain does not have a US-style race census. **Eustat sociolinguistic surveys** count speakers; INE padron counts residents of the CAE. **Do not print a single “number of Basques.”** CAE resident population is a **territory envelope**. Speaker counts **OPEN** as the latest Eustat sociolinguistic survey integer this pass (survey exists; cell not copied).
 6. **Rupture:** **1512** conquest of Navarra; **1876** end of foral wars; **Franco 1939–75** language repression; **1979** Gernika Statute.
 7. **Religion:** Historically Catholic; secularization like the rest of northern Spain — not a pagan-census default.
 8. **Flattening:** Basque as “Spanish dialect”; using CAE residents as ethnic Basques (immigrants live there too).
@@ -247,7 +247,7 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 2. **Language:** Finnish (**Finnic, Uralic**). Written 16th c. (Agricola); *Kalevala* is 19th-c. compilation, not a census. Swedish is a **national language** of Finland, not a Finnic language.
 3. **Homeland:** East of the Baltic, inland lakes. Sámi are indigenous further north — **not** “northern Finns.”
 4. **Subdivisions:** Finland-Swedes (Swedish-speakers) are a **language minority**, often ethnically distinct in self-ID; Karelian is a sister Finnic language (mostly in Russia).
-5. **Population:** Statistics Finland publishes **language**, not US-style ethnicity: Finnish-, Swedish-, Sámi-speakers as mother tongue. **Finnish-speaking majority** is the official handle. Exact latest mother-tongue integer **OPEN this pass** (PxWeb table exists; not copied). Do not use “5.5 million Finns” as ethnicity.
+5. **Population:** Statistics Finland publishes **language**, not US-style ethnicity: Finnish-, Swedish-, Sámi-speakers as mother tongue (a census-question category for the language learned at home, distinct from ethnicity or citizenship). **Finnish-speaking majority** is the official handle. Exact latest mother-tongue integer **OPEN this pass** (PxWeb table exists; not copied). Do not use “5.5 million Finns” as ethnicity.
 6. **Rupture:** **1809** from Sweden to Russia; **6 December 1917** independence; **1939–40** Winter War.
 7. **Religion:** Evangelical Lutheran as cultural majority; not Orthodox default (that’s a Karelian/Russian stereotype).
 8. **Flattening:** Finnish as Baltic or Slavic; Sweden-Finns as the whole people; Sámi as Finns.

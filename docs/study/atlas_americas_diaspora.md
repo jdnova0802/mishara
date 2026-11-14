@@ -1,21 +1,21 @@
 # Peoples & Ethnicities Atlas — Americas diaspora (US-centred machines)
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-This file is **not** a list of African and European homelands (those are other atlas files). It is the **US (and adjacent) counting ontology** for people whose **defining rupture is Atlantic crossing / US racial law / Spanish imperial categories**.
+This section is **not** a list of African and European homelands (those are other atlas sections). It is the **US (and adjacent) counting ontology** for people whose **defining rupture is Atlantic crossing / US racial law / Spanish imperial categories**.
 
 **African-descent splits — genuinely different migration histories:**
 
 - **African American (US slavery descent)** — 1619/colonial–1865 enslaved population and their descendants; Jim Crow as the domestic sequel.
 - **Afro-Caribbean** — British/French/Spanish/Dutch Caribbean slavery then 20th-c. migration to the US (and UK/Canada).
-- **Afro-Latino** — Spanish-American slavery and *casta* / *negro* / *mulato* categories; US Census **Hispanic is a separate question from race**.
+- **Afro-Latino** — Spanish-American slavery and *casta* (Spanish colonial caste ranks; *mestizo* mixed Indigenous–European; *creole* / *criollo* New-World-born) / *negro* / *mulato* categories; US Census **Hispanic is a separate question from race**.
 - **Recent African immigrant** — post-1965/1980s–present national-origin immigration (Nigeria, Ethiopia, Ghana, Somalia…).
 
 **European “white” ancestries** in the US Census are **self-reported detailed White origins**, not 1920s national quotas as biology. Discrimination histories **differed** (Irish, Italian, Polish, German, Scots-Irish).
 
-**Hispanic/Latino** is an **OMB administrative ethnicity** bundling populations with **no shared ethnicity, language, or race**. Mexican, Puerto Rican, Cuban, Salvadoran, etc. are the load-bearing groups.
+**Hispanic/Latino** is an **OMB (U.S. Office of Management and Budget) administrative ethnicity** bundling populations with **no shared ethnicity, language, or race**. Mexican, Puerto Rican, Cuban, Salvadoran, etc. are the load-bearing groups.
 
 Canada/Caribbean national censuses are **other machines** when used.
 
@@ -27,11 +27,11 @@ Canada/Caribbean national censuses are **other machines** when used.
 2. **Language:** English (AAVE as a variety); Gullah-Geechee as a dated coastal creole. West African languages were **broken by the slave regime** — not a surviving family default. Historical sources: 18th–19th c. runaway ads, WPA narratives.
 3. **Homeland:** West/West-Central Africa as origin of the enslaved; **US South as the demographic homeland of the caste**. How they got there: transatlantic slave trade to British/French/Spanish North America. 1619 is a **dated Virginia marker**, not the only landing.
 4. **Subdivisions:** Southern vs Great Migration cities vs rural Black Belt; Gullah-Geechee; Louisiana Creole (overlap with Afro-Latino French/Spanish). **Do not mash with Nigerian-Americans.**
-5. **Population — Census 2020 Detailed DHC-A (two numbers, labeled):**
+5. **Population — Census 2020 Detailed DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A; two numbers, labeled):**
    - **African American alone 22.1 million**; **alone or in any combination 24.6 million.**
    - This is a **detailed origin** inside the Black race category, **not** the full Black race group (**Black alone or in combination 46.9 million** in the 2020 race story — **includes** Caribbean and African write-ins and multiracial).
    - https://www.census.gov/newsroom/press-releases/2023/2020-census-detailed-dhc-file-a.html
-   - ACS “Black or African American” alone is a **race** envelope, not the 22.1M detailed line. Do not mash.
+   - ACS (U.S. Census Bureau’s American Community Survey) “Black or African American” alone is a **race** envelope, not the 22.1M detailed line. Do not mash.
 6. **Rupture:** **1865** Thirteenth Amendment / emancipation; **1896** *Plessy*; **1964–65** Civil Rights and Voting Rights Acts. 1619 and 1808 (US international trade ban) as earlier dated marks. The **trade’s volume** is a separate historiographic machine (Eltis/Voyages) — not the 2020 census.
 7. **Religion:** Historically Black Protestant churches as the modal US pattern; not Muslim default (Nation of Islam is real and **small** relative to Black churches).
 8. **Flattening:** All US Black as slavery-descent African American; 46.9M as the 22.1M line; African immigrants as the same people.
@@ -67,7 +67,7 @@ Canada/Caribbean national censuses are **other machines** when used.
    Brazil IBGE *preta/parda* is a **different country ontology** — **OPEN** as IBGE 2022 if used; do not mash with US Hispanic.
 6. **Rupture:** Spanish/Portuguese abolition dates (**Cuba 1886**, **Brazil 13 May 1888**); US: 1898 (Puerto Rico/Cuba) as imperial overlay.
 7. **Religion:** Catholic majority overlay; Pentecostal growth; not Nation of Islam default.
-8. **Flattening:** All Latinos as mestizo; all Black Hispanics as African American; Brazil as Hispanic.
+8. **Flattening:** All Latinos as mestizo (*mestizo*: mixed Indigenous–European category in Spanish American usage); all Black Hispanics as African American; Brazil as Hispanic.
 9. **Receipt:** History — Andrews, *Afro-Latin America*; Telles. Census — 2020 Hispanic 62.1M as the **wrong envelope** (named so it is not used); race-by-Hispanic cross-tab as the right machine (OPEN integer).
 10. **Falsifier:** Using 62.1M as Afro-Latino; treating Hispanic as a race.
 11. **OPEN:** 2020 Black × Hispanic cross-tab; IBGE 2022.
@@ -84,7 +84,7 @@ Canada/Caribbean national censuses are **other machines** when used.
 6. **Rupture:** **1965** Hart-Celler; **1980** Refugee Act; country-specific dates (Somalia **1991**, Ethiopia 1970s–80s, Sudan/South Sudan wars).
 7. **Religion:** Follows origin (Nigerian mix, Somali Muslim, Ethiopian Orthodox/Protestant) — **not** Black Church default.
 8. **Flattening:** “Africans” as one US people; Somali as African American.
-9. **Receipt:** History — country files in `atlas_subsaharan_africa.md`. Census — 2020 DHC-A Sub-Saharan block.
+9. **Receipt:** History — country entries in the Sub-Saharan Africa section. Census — 2020 DHC-A Sub-Saharan block.
 10. **Falsifier:** Sub-Saharan combination ≠ 2.8 million; merging with 24.6M African American.
 11. **OPEN:** ACS 2023 national-origin updates.
 
@@ -132,8 +132,8 @@ Canada/Caribbean national censuses are **other machines** when used.
 5. **Population:** 2020 DHC-A: **Polish 8.6 million** alone or in combination.
 6. **Rupture:** Partitions; **1918**; **1939–45**; US: 1924 quotas. Discrimination: “dumb Polack” industrial nativism — **real, not equivalent to racial slavery**.
 7. **Religion:** Catholic majority among non-Jewish Polish Americans.
-8. **Flattening:** Polish = Russian; 8.6M as GUS Poland.
-9. **Receipt:** History — Pacyga; Brożek. Census — 2020 DHC-A. Poland GUS is `atlas_europe.md`.
+8. **Flattening:** Polish = Russian; 8.6M as GUS (Statistics Poland / Główny Urząd Statystyczny) Poland.
+9. **Receipt:** History — Pacyga; Brożek. Census — 2020 DHC-A. Poland GUS is in the Europe section.
 10. **Falsifier:** Polish combination ≠ 8.6 million.
 11. **OPEN:** Jewish vs Catholic split in the 8.6M (Census does not give it).
 
@@ -176,7 +176,7 @@ Canada/Caribbean national censuses are **other machines** when used.
 1. **Self-designation vs. external name:** Self: Mexican, Puerto Rican, Cuban, Salvadoran, Dominican, “Latino,” “Hispanic,” “Chicano,” etc. External: OMB **Hispanic or Latino origin** — **one yes/no ethnicity question**, any race.
 2. **Language:** Spanish as a **common colonial language**, not a shared ethnicity. Indigenous languages, English, Portuguese (Brazil **excluded**).
 3. **Homeland:** No single homeland. Mexico, Puerto Rico, Cuba, Central America, Andes, Spain — **different histories**. 1848 Mexican Cession is a **US-Mexico** rupture, not a Cuban one.
-4. **Subdivisions the category flattens — this is the point of the entry:** Mexican vs Puerto Rican vs Cuban vs Salvadoran vs Dominican vs Colombian vs Guatemalan vs Spaniard vs “Other Hispanic.” Race: White, Black, AIAN, Some Other Race, multiracial. **No shared ethnicity.**
+4. **Subdivisions the category flattens — this is the point of the entry:** Mexican vs Puerto Rican vs Cuban vs Salvadoran vs Dominican vs Colombian vs Guatemalan vs Spaniard vs “Other Hispanic.” Race: White, Black, AIAN (American Indian and Alaska Native), Some Other Race, multiracial. **No shared ethnicity.**
 5. **Population:**
    - **2020 Census:** **Hispanic or Latino 62.1 million (18.7%)**, up from **50.5 million (16.3%)** in 2010. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
    - **Specific origin** (ACS B03001 / 2020 DHC) splits Mexican, Puerto Rican, Cuban, etc. **Exact 2020 Mexican-origin integer OPEN this pass** (Bureau published it; not copied). Do not invent “37 million Mexicans.”
