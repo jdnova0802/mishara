@@ -10,6 +10,8 @@ A wave, operationally: law, money, or tech changes who can exit an old “you mu
 
 Companion machines (do not mash): Perez techno-economic paradigms (`docs/study/TECHNO_ECONOMIC_WAVES.md`); cohort/age-structure (`docs/study/DEMOGRAPHIC_WAVES.md`); hegemonic cycles (`docs/study/HEGEMONIC_CYCLES.md`); medium/attention (`docs/study/MEDIUM_ATTENTION_WAVES.md`). Those ask what got cheap / how many bodies / who holds the table / what clips. This file asks **who revolts, with what orgs, under what opportunity, with what frame, with what receipt**.
 
+Live splitters only (police killings, BLS ratio, EEOC charges, Eurostat asylum, GISS, CDC overdose, vote shares that still move): `python study/cycles_live/refresh.py` — config `study/cycles_live/live_points.yaml`. That script never edits this file and never touches historical crests.
+
 Date every data pull `YYYY-MM-DD`. Do not renumber 19th-century crests because TikTok moved. Advocacy ≠ census. Wikipedia is a finding aid, never a footnote. Load-bearing table URLs in this map are census/NARA/Oyez/Church Committee/official returns (pull 2026-11-14). OPEN cells stay OPEN. A dissertation is **one numbered crest + one historiographic fight + one historical file + one dataset**. Mass splitter ≠ feed noise: electorates and comment sections are not the same animal.
 
 **History first, tables second.** A cycle is a thing that happened in time — archives, statutes-as-events, monographs, oral history. Stats measure scale and the *live* splitter (prices, votes, density). Pew without Foner is a dashboard. Foner without BLS is a sermon. You need both. You are not tripping.
