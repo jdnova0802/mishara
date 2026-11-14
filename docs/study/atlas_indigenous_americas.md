@@ -1,12 +1,12 @@
 # Peoples & Ethnicities Atlas — Indigenous Americas
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
 Two **legal-demographic regimes**, not one “Indian” residual.
 
-**North America (US / Canada / Greenland as adjacent):** “Tribe/nation” is a **sovereignty and recognition structure** (US: federally recognized tribes via BIA; Canada: First Nations, Inuit, Métis as Constitution Act 1982 categories). US Census **AIAN** is a **race question**, not a tribal roll. IHS user counts are a **service machine**. Tribal enrollment is a **citizenship machine**. Do not mash them.
+**North America (US / Canada / Greenland as adjacent):** “Tribe/nation” is a **sovereignty and recognition structure** (US: federally recognized tribes via BIA; Canada: First Nations, Inuit, Métis as Constitution Act 1982 categories). US Census **AIAN (American Indian and Alaska Native)** is a **race question**, not a tribal roll. IHS user counts are a **service machine**. Tribal enrollment is a **citizenship machine**. Do not mash them.
 
 **Mesoamerica and Andes / Southern Cone — language families:**
 
@@ -29,7 +29,7 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 4. **Subdivisions the umbrella flattens:**
    - **US federally recognized tribes:** **574** (BIA, 2023). State-recognized and unrecognized nations are **other lists**.
    - **US Census 2020 race:** AIAN **alone 3.7 million (1.1%)**; **alone or in combination 9.7 million (2.9%)**. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
-   - **Detailed DHC-A 2020:** American Indian alone **2,159,802** vs alone-or-in-combination **6,363,796**; Alaska Native alone **133,311** / combination **241,797**; Latin American Indian alone **766,112** / combination **1,319,523** (Aztec and Maya examples drove much of that line). https://www.census.gov/library/stories/2023/10/2020-census-dhc-a-aian-population.html
+   - **Detailed DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A) 2020:** American Indian alone **2,159,802** vs alone-or-in-combination **6,363,796**; Alaska Native alone **133,311** / combination **241,797**; Latin American Indian alone **766,112** / combination **1,319,523** (Aztec and Maya examples drove much of that line). https://www.census.gov/library/stories/2023/10/2020-census-dhc-a-aian-population.html
    - **Tribal enrollment / IHS:** IHS service population ~**2.6 million** in 574 tribes (HHS/IHS — **users/eligibility**, not Census 9.7M).
    - **Canada 2021 Census** Indigenous identity (First Nations, Métis, Inuit) is a **Statistics Canada machine** — **OPEN** the integer this pass (table exists; not copied). Do not add to US 9.7M.
 5. **Population:** Use the **labeled machines in cell 4**. There is **no** single “North American Indian” total. Navajo Nation is the largest **enrollment** nation in US public figures — **OPEN** the exact 2020 DHC-A Navajo alone integer this pass (Bureau published detailed tribes).
@@ -47,9 +47,9 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 1. **Self-designation vs. external name:** Self: nation-specific (*K’iche’*, *Yucatec Maya*, *Mam*, *Q’eqchi’*, *Tsotsil*…). External: “Maya” (an archaeological-linguistic umbrella, also a Guatemala census *pueblo*).
 2. **Language:** Mayan family (not Uto-Aztecan, not Nahuatl). Hieroglyphic attestation Classic period (1st millennium CE). Living languages are not “decipherment leftovers.”
 3. **Homeland:** Mesoamerican highlands and Yucatán / Chiapas / Guatemala / Belize / Honduras. Not “extinct with the Classic collapse” (that collapse is a political-urban rupture, ~9th c., not a people-death).
-4. **Subdivisions:** Guatemala census *pueblo Maya* vs Mexican **language** (Yucatec Maya, Tseltal, Tsotsil are separate INEGI lines). K’iche’ ≠ Yucatec.
+4. **Subdivisions:** Guatemala census *pueblo Maya* vs Mexican **language** (Yucatec Maya, Tseltal, Tsotsil are separate INEGI (Mexico’s Instituto Nacional de Estadística y Geografía) lines). K’iche’ ≠ Yucatec.
 5. **Population (machines not mashed):**
-   - **Guatemala INE Censo 2018:** **Maya 6,207,503 (41.7%)** of **14,901,286**. *Pueblo* self-ID, not a language test. https://censo2018.ine.gob.gt/archivos/resultados_censo2018.pdf
+   - **Guatemala INE (Guatemala’s Instituto Nacional de Estadística) Censo 2018:** **Maya 6,207,503 (41.7%)** of **14,901,286**. *Pueblo* self-ID, not a language test. https://censo2018.ine.gob.gt/archivos/resultados_censo2018.pdf
    - **Mexico INEGI 2020**, speakers aged 3+ : **Maya (Yucatec) 774,755**; **Tseltal 589,144**; **Tsotsil 550,274**; plus other Mayan languages (Ch’ol **254,715**, etc.). https://web.archive.org/web/20221201161756/https://cuentame.inegi.org.mx/hipertexto/todas_lenguas.htm
    - Do not add Guatemala *pueblo* 6.21M to Yucatec speakers 0.77M (different questions, Tseltal/Tsotsil would be omitted or double-counted).
 6. **Rupture:** 16th-c. invasion (dated campaigns, e.g. Guatemala 1524); **1981–83** Guatemalan genocide against Maya (CEH) as the modern rupture.
@@ -84,8 +84,8 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 3. **Homeland:** Andes (Peru, Bolivia, Ecuador, parts of Argentina/Colombia/Chile). Inca roads are a dated overlay.
 4. **Subdivisions:** Southern Quechua vs Ancash vs Kichwa (Ecuador) — **not one language**. Aymara is **not** a dialect.
 5. **Population (machines not mashed):**
-   - **Peru INEI Censo 2017**, self-ID **age 12+** (universe **23,196,391**): **Quechua 5,176,809 (22.3%)**. Language among Andean Indigenous self-ID: **2,893,670** learned Quechua in childhood (a **subset machine**). https://m.inei.gob.pe/prensa/noticias/inei-difunde-base-de-datos-de-los-censos-nacionales-2017-y-el-perfil-sociodemografico-del-peru-10935/ ; Andes resumen https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1642/resumen.pdf
-   - **Bolivia INE 2012:** Quechua self-ID **1,281,116** (ODPIB citing INE — use as INE 2012, not 2017 Peru).
+   - **Peru INEI (Peru’s Instituto Nacional de Estadística e Informática) Censo 2017**, self-ID **age 12+** (universe **23,196,391**): **Quechua 5,176,809 (22.3%)**. Language among Andean Indigenous self-ID: **2,893,670** learned Quechua in childhood (a **subset machine**). https://m.inei.gob.pe/prensa/noticias/inei-difunde-base-de-datos-de-los-censos-nacionales-2017-y-el-perfil-sociodemografico-del-peru-10935/ ; Andes resumen https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1642/resumen.pdf
+   - **Bolivia INE (Bolivia’s Instituto Nacional de Estadística) 2012:** Quechua self-ID **1,281,116** (ODPIB citing INE — use as INE 2012, not 2017 Peru).
    - Do not add Peru 5.18M (age 12+) to Bolivia 1.28M as one question.
 6. **Rupture:** **1532–33** Cajamarca / Cuzco; **1780–81** Túpac Amaru II; **1820s** republics (Indigenous majority without Indigenous states).
 7. **Religion:** Catholic overlay + Andean practice (*Pachamama*). Evangelical growth is real. Not “sun-worship census.”
@@ -105,7 +105,7 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 5. **Population:**
    - **Peru INEI 2017** age 12+: **Aymara 548,292 (2.4%)**. Childhood language among Andean Indigenous: Aymara **392,228**.
    - **Bolivia INE 2012:** Aymara self-ID **1,191,352**.
-   - **Chile INE 2017:** Aymara **156,754** of **2,185,792** who identified with a pueblo originario. https://www.ine.gob.cl/docs/default-source/genero/documentos-de-análisis/documentos/radiografia-de-genero-pueblos-originarios-chile2017.pdf
+   - **Chile INE (Chile’s Instituto Nacional de Estadística) 2017:** Aymara **156,754** of **2,185,792** who identified with a pueblo originario. https://www.ine.gob.cl/docs/default-source/genero/documentos-de-análisis/documentos/radiografia-de-genero-pueblos-originarios-chile2017.pdf
    - Three machines, three years, three questions. Do not add.
 6. **Rupture:** 16th-c. invasion; **1952** Bolivian revolution (agrarian); **2005–** MAS period as a dated political rupture, not ethnogenesis.
 7. **Religion:** Catholic overlay + Andean practice. Not Quechua-by-another-name.

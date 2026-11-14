@@ -1,17 +1,32 @@
 # Peoples & Ethnicities Atlas
 
-Not Nisaba. Descriptive / ethnographic reference. History first, census second. Wikipedia is a finding aid. OPEN rather than invented. Pull date **2026-11-14**.
+Descriptive / ethnographic reference. History first, census second. Wikipedia is a finding aid. OPEN rather than invented. Pull date **2026-11-14**.
 
-The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus \& Central Asian Turkic/Iranian peoples**) are **not in this checkout** and are not reconstructed here.
+The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus \& Central Asian Turkic/Iranian peoples**) are **not in this checkout** and are not reconstructed here. When present, they use this same 11-field template.
 
-Concatenated from `docs/study/atlas_*.md`. MENA and Sub-Saharan Africa keep their original grid labels. The eight rebuilt domains use `###` headers and cell 1 **Self-designation vs. external name**.
+MENA and Sub-Saharan Africa keep their original grid labels (**Name** for field 1 in some entries). The eight later domains use `###` headers and cell 1 **Self-designation vs. external name**.
+
+## How to read an entry
+
+Every entry in this atlas uses the same fixed 11-field template. The field labels stay in this form throughout; they are not restated under each group. In any **Falsifier** line, “cell N” means field N on this list (so “cell 5” is Current population + distribution).
+
+1. **Self-designation vs. external name** — what the group calls itself vs. what outsiders call it
+2. **Language family + language(s)** — what family the language belongs to and what is actually spoken
+3. **Core historical homeland** — where the group is from and how they got there
+4. **Major internal subdivisions** — the real distinct populations hiding inside an umbrella name, if any
+5. **Current population + distribution** — how many, where, as of when, from what source
+6. **Defining historical rupture** — the dated event that shaped the group
+7. **Religious composition** — what is actually practiced, especially where it defies assumption
+8. **Flattening/stereotype corrected** — the specific false generalization this entry fixes
+9. **Receipt** — the real source behind the claims
+10. **Falsifier** — the one fact that would prove the entry wrong
+11. **OPEN** — anything unverifiable, flagged honestly instead of guessed
 
 ---
 
-
 # Peoples & Ethnicities Atlas — Middle East & North Africa
 
-Not Nisaba. History first, census second. “Arab” is an umbrella of mutually unintelligible dialect clusters plus named non-Arab peoples. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. “Arab” is an umbrella of mutually unintelligible dialect clusters plus named non-Arab peoples. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ---
 
@@ -25,7 +40,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 6. **Rupture:** 1918–1920 end of Ottoman Syria and the Mandate partition (Sykes–Picot implementation / San Remo 1920) — dated political split of one dialect area into four states.
 7. **Religion:** Sunni majority; large Christian (Greek Orthodox, Maronite, Melkite) and Druze minorities — not a Muslim default.
 8. **Flattening:** “Arabs all speak the same Arabic.” Levantine and Moroccan Darija are not mutually intelligible in ordinary speech.
-9. **Receipt:** History — Kennedy, *The Great Arab Conquests*; Hourani, *A History of the Arab Peoples*. Census — no ISO ethnologue-substitute: national statistical offices (Syria CBS; Lebanon CAS; Jordan DoS). Mandate texts: Avalon / UK National Archives San Remo.
+9. **Receipt:** History — Kennedy, *The Great Arab Conquests*; Hourani, *A History of the Arab Peoples*. Census — no ISO ethnologue-substitute: national statistical offices (Syria CBS (Central Bureau of Statistics); Lebanon CAS; Jordan DoS). Mandate texts: Avalon / UK National Archives San Remo.
 10. **Falsifier:** If a 2020s national census in Lebanon, Syria, Jordan, and Palestine used one code “Levantine” with a published total, cell 5’s OPEN dies. If dialect surveys showed Levantine–Egyptian mutual intelligibility at near-native, cell 8 dies.
 11. **OPEN:** Post-2011 Syrian resident population; Lebanese sectarian counts (political, not a census); summed Levantine-speaker total.
 
@@ -37,7 +52,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 2. **Language:** Egyptian Arabic (Cairene as media standard). Coptic (last stage of Egyptian, Afroasiatic) survives as liturgy, not as a mass vernacular.
 3. **Homeland:** Nile Valley and Delta. Continuity of settlement with language shift Arabic ← Coptic/Egyptian after the 7th c.
 4. **Subdivisions:** Saʿīdī (Upper Egypt) vs Bahari (Delta/Cairo); Nubian (Nobiin/Kenzi) are **not** dialect-Egyptians. “Egyptian” as citizenship ≠ Copt as ethno-religion.
-5. **Population:** CAPMAS does **not** publish an ethnicity table for “Egyptian Arab.” Total Egypt population is a citizenship envelope, not this entry’s people-count. **OPEN** as ethnolinguistic subset. Copts: see Copt entry (range).
+5. **Population:** CAPMAS (Egypt’s Central Agency for Public Mobilization and Statistics) does **not** publish an ethnicity table for “Egyptian Arab.” Total Egypt population is a citizenship envelope, not this entry’s people-count. **OPEN** as ethnolinguistic subset. Copts: see Copt entry (range).
 6. **Rupture:** 640s CE Arab-Muslim conquest (dated process, not a single day); 1952 Free Officers as the modern state rupture.
 7. **Religion:** Muslim majority (Sunni); Christian minority almost entirely Coptic (see Copt).
 8. **Flattening:** Treating Copts as “Arab Christians” identical to Levantine Greek Orthodox — different language history and church.
@@ -52,12 +67,12 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 1. **Name:** Self: *Khalījī*. External: “Gulf Arab.”
 2. **Language:** Gulf Arabic (east Arabian). Distinct from Najdi and Hijazi. South Arabian (Mehri, Soqotri) are **not** Arabic.
 3. **Homeland:** Western Gulf littoral / eastern Arabia. Maritime and pearling economies; oil-state citizenship later.
-4. **Subdivisions:** Ḥaḍar vs Bedouin; ʿAjam (Persian-origin Gulf families); Baharna (Shia eastern Arabia); Huwala. GCC citizenship is **not** ethnicity — majority residents in UAE/Qatar/Kuwait are non-citizen.
+4. **Subdivisions:** Ḥaḍar vs Bedouin; ʿAjam (Persian-origin Gulf families); Baharna (Shia eastern Arabia); Huwala. GCC citizenship is **not** ethnicity — majority residents in UAE (United Arab Emirates) / Qatar / Kuwait are non-citizen.
 5. **Population:** Do not use GCC total population as “Gulf Arabs.” Citizen shares are the relevant envelope and are **OPEN as a summed khalījī ethnolinguistic figure**. UAE/Qatar citizen minorities inside huge foreign-resident totals (national statistical centres).
 6. **Rupture:** 1930s–60s oil concessions and independence (Kuwait 1961, UAE 1971) — labor migration that inverted citizen/resident ratios.
-7. **Religion:** Sunni (Maliki/Hanbali) majority among citizens; sizable Shia (Baharna, eastern Saudi).
+7. **Religion:** Sunni (Maliki/Hanbali — two of the four Sunni legal schools, with Hanafi and Shafiʿi) majority among citizens; sizable Shia (Baharna, eastern Saudi).
 8. **Flattening:** Counting Filipino/South Asian residents as “Gulf Arabs” because they live in Doha.
-9. **Receipt:** History — Onley, *The Arabian Frontier of the British Raj*; Crystal on Kuwait. Census — UAE FCSC / Qatar PSA / Kuwait CSB: **citizen vs non-citizen** tables, not ethnicity.
+9. **Receipt:** History — Onley, *The Arabian Frontier of the British Raj*; Crystal on Kuwait. Census — UAE FCSC / Qatar PSA (Planning and Statistics Authority) / Kuwait CSB: **citizen vs non-citizen** tables, not ethnicity.
 10. **Falsifier:** If a GCC-wide language census coded Gulf Arabic speakers among citizens, cell 5 OPEN dies.
 11. **OPEN:** Citizen-only Arabic-speaker totals by state, dated the same year.
 
@@ -69,9 +84,9 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 2. **Language:** Maghrebi Arabic (Moroccan, Algerian, Tunisian, Libyan). Heavy Berber, Latin, French, Spanish contact. Not mutually intelligible with Levantine without MSA or French as bridge.
 3. **Homeland:** Maghreb. Arabization layered on Amazigh-speaking populations after 7th c. and especially Banu Hilal (11th c.).
 4. **Subdivisions:** Moroccan vs Algerian vs Tunisian vs Libyan Darija; Hassaniya (Sahara) is a separate Arabic. Amazigh-speakers are **not** a Darija subgroup.
-5. **Population:** No Maghreb-wide “Darija ethnicity” census. Morocco HCP and Algeria ONS publish **language-use**, not Arab-vs-Amazigh ethnicity, in ways that are politically contested. **OPEN** as a people-count. Use language tables, not “percent Arab” CIA-style figures.
+5. **Population:** No Maghreb-wide “Darija ethnicity” census. Morocco HCP (Morocco’s Haut-Commissariat au Plan) and Algeria ONS publish **language-use**, not Arab-vs-Amazigh ethnicity, in ways that are politically contested. **OPEN** as a people-count. Use language tables, not “percent Arab” CIA-style figures.
 6. **Rupture:** Banu Hilal / Banu Sulaym migrations (11th c.) as the dialect-history rupture; 1830–1962 French Algeria as the colonial rupture for Algeria.
-7. **Religion:** Sunni (Maliki) majority; Ibadi (Mzab, Djerba, Nafusa) is not “just Maghrebi Sunni.”
+7. **Religion:** Sunni (Maliki, one of the four Sunni legal schools) majority; Ibadi (Mzab, Djerba, Nafusa) is not “just Maghrebi Sunni.”
 8. **Flattening:** “Moroccans are Arabs.” HCP language data show widespread Tamazight; identity is mixed and politicized (2011 constitution recognizes Tamazight).
 9. **Receipt:** History — Brett & Fentress, *The Berbers*; Ibn Khaldun on Hilal. Census — Haut-Commissariat au Plan (Morocco) Recensement 2014 language module; Algeria ONS. Constitution of Morocco 2011 Art. 5 (Tamazight official).
 10. **Falsifier:** If HCP 2014 (or later) showed zero Tamazight use, cell 8 dies. If Levantine–Darija oral mutual intelligibility tested high, the dialect-cluster split dies.
@@ -101,11 +116,11 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 2. **Language:** Iranian (Indo-European): Kurmanji, Sorani, Southern Kurdish; Zazaki and Gorani are related Iranian languages, **not** automatically “Kurdish dialects” — speakers may or may not identify as Kurdish.
 3. **Homeland:** Zagros / upper Tigris–Euphrates (southeastern Turkey, northern Iraq, western Iran, northern Syria). Not a 20th-c. invention of the map, though “Kurdistan” as a state is.
 4. **Subdivisions:** Kurmanji (Turkey, Syria, Caucasus, some Iraq); Sorani (Iraq/Iran); Faili; Yazidi (see Yazidi — religion ≠ automatically a separate ethnicity, but many Yazidis reject “Kurdish” as political identity).
-5. **Population:** No census in Turkey or Iraq 2024 enumerates ethnicity (Iraq Nov 2024 census **explicitly omitted** ethnicity/language). Iran 2016 census ethnic tables are **nationality** (Iranian/Afghan), not Persian/Kurd. All “30 million Kurds” figures are estimates. **Range, contestation named:** low scholarly/census-adjacent estimates vs high political estimates; this pass does **not** pick a number. Iraq KRG resident population ≠ “number of Kurds.”
+5. **Population:** No census in Turkey or Iraq 2024 enumerates ethnicity (Iraq Nov 2024 census **explicitly omitted** ethnicity/language). Iran 2016 census ethnic tables are **nationality** (Iranian/Afghan), not Persian/Kurd. All “30 million Kurds” figures are estimates. **Range, contestation named:** low scholarly/census-adjacent estimates vs high political estimates; this pass does **not** pick a number. Iraq KRG (Kurdistan Regional Government) resident population ≠ “number of Kurds.”
 6. **Rupture:** 1920 Treaty of Sèvres (Kurdish clauses) then 1923 Lausanne omitting them; 1988 Anfal (Iraq); 2017 KRG independence referendum (non-implemented).
-7. **Religion:** Sunni (Shafiʿi) majority; Alevi Kurds (Turkey); Shia Faili; Yarsan; Yazidi.
+7. **Religion:** Sunni (Shafiʿi, one of the four Sunni legal schools) majority; Alevi Kurds (Turkey); Shia Faili; Yarsan; Yazidi.
 8. **Flattening:** “Kurds are a Turkish minority” (ignores Iraq/Iran/Syria) or “all Yazidis are Kurds.”
-9. **Receipt:** History — McDowall, *A Modern History of the Kurds*; Izady. Census — Turkey TURKSTAT (no ethnicity); Iraq 2024 census methodology (ethnicity omitted — Rudaw/SBS reporting of the questionnaire, 2024); Iran SCI 2016 via UNdata nationality, not ethnicity https://data.un.org/Data.aspx?d=POP&f=tableCode%3A26%3BcountryCode%3A364%3BrefYear%3A2016
+9. **Receipt:** History — McDowall, *A Modern History of the Kurds*; Izady. Census — Turkey TURKSTAT (no ethnicity); Iraq 2024 census methodology (ethnicity omitted — Rudaw/SBS reporting of the questionnaire, 2024); Iran SCI (Statistical Centre of Iran) 2016 via UNdata nationality, not ethnicity https://data.un.org/Data.aspx?d=POP&f=tableCode%3A26%3BcountryCode%3A364%3BrefYear%3A2016
 10. **Falsifier:** If Iraq 2024 published a Kurdish ethnicity count for Kirkuk and the KRG, cell 5’s “no census” clause dies. If Zazaki were shown to be a Kurmanji dialect by mutual intelligibility, cell 2’s split dies.
 11. **OPEN:** Any single-year, four-country Kurdish headcount; post-2011 Syrian Kurdish resident count.
 
@@ -119,7 +134,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 4. **Subdivisions:** Tehrani, Isfahani, Shirazi, Khorasani; Tajik and Dari are varieties of Persian **across borders** (see Caucasus/Central Asia file if present). Azeri, Kurd, Baloch, Arab, Lur, Gilak, Mazandarani are **not** “Persian.”
 5. **Population:** Iran census 2016 total **79,926,270** (SCI / UNdata) is **not** a Persian count — ethnicity was not the table (nationality: Iranian 78,166,822). Language-based Ethnologue-style 49.6M “Persian in Iran (2016)” is **not** the census — **OPEN** as ethnicity. Do not use CIA 51% as if it were SCI.
 6. **Rupture:** 651 CE Sasanian collapse / Islamic conquest; 1925–41 Pahlavi nation-building (Persian as state language).
-7. **Religion:** Twelver Shia as state default; Zoroastrian, Jewish, Christian, Baha'i minorities. 2016 religion table: Muslims 79,598,054; Assyrian/Chaldean Christians 84,027 (SCI via provincial religion tabulation).
+7. **Religion:** Twelver Shia (the majority Shia branch that recognizes twelve Imams) as state default; Zoroastrian, Jewish, Christian, Baha'i minorities. 2016 religion table: Muslims 79,598,054; Assyrian/Chaldean Christians 84,027 (SCI via provincial religion tabulation).
 8. **Flattening:** “Iranians are Persians” / “Persians are Arabs.”
 9. **Receipt:** History — Daryaee; Axworthy. Census — SCI 2016 total via UNdata (link above); religion: SCI 2016 provincial religion table (Assyrian/Chaldean 84,027). Constitution Art. 15 (Persian official; regional languages permitted).
 10. **Falsifier:** If SCI published a 2016 mother-tongue table with Persian vs Azeri vs Kurd, cell 5 OPEN dies.
@@ -139,7 +154,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 8. **Flattening:** “Iraqi Christians” as one ethnicity; or ancient-Assyria continuity as if it were a census fact.
 9. **Receipt:** History — Gaunt, *Massacres, Resistance, Protectors*; Donabed. Census — Iran SCI 2016 religion (84,027). Iraq 2024: no ethnicity question.
 10. **Falsifier:** If Iraq published an Assyrian/Chaldean ethnicity count in 2024, cell 5 changes. If Neo-Aramaic were shown extinct in Iraq, the language cell dies.
-11. **OPEN:** Global total; US ACS “Assyrian/Chaldean/Syriac” latest ACS table not pulled this pass.
+11. **OPEN:** Global total; US ACS (U.S. Census Bureau’s American Community Survey) “Assyrian/Chaldean/Syriac” latest ACS table not pulled this pass.
 
 ---
 
@@ -147,9 +162,9 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 
 1. **Name:** Self: *al-Muwaḥḥidūn*; *Durūz* is the external/common name.
 2. **Language:** Arabic (Levantine). No separate Druze language. Sacred texts (Epistles of Wisdom) in Arabic.
-3. **Homeland:** Southern Lebanon / Syria (Jabal al-Druze, Golan), northern Israel (Carmel, Galilee). Origin: 11th-c. Fatimid Ismaili split (Egypt) then closed community in the Levant.
+3. **Homeland:** Southern Lebanon / Syria (Jabal al-Druze, Golan), northern Israel (Carmel, Galilee). Origin: 11th-c. Fatimid Ismaili (Ismaili: Shia branch recognizing a living/line of Imams distinct from Twelvers) split (Egypt) then closed community in the Levant.
 4. **Subdivisions:** Lebanese, Syrian, Israeli, Jordanian civic statuses — same religion, different states. ʿUqqāl / juhhāl (initiated / uninitiated).
-5. **Population:** Israel CBS folds Druze into “Arabs” in the Independence Day 2024 release (**2.089 million Arabs** = Muslims + Arab Christians + Druze) — **no Druze-only figure in that PDF**. Syrian/Lebanese Druze **OPEN** (Lebanon: no census since 1932). Do not use a 1.1 million advocacy total as census.
+5. **Population:** Israel CBS (Israel Central Bureau of Statistics) folds Druze into “Arabs” in the Independence Day 2024 release (**2.089 million Arabs** = Muslims + Arab Christians + Druze) — **no Druze-only figure in that PDF**. Syrian/Lebanese Druze **OPEN** (Lebanon: no census since 1932). Do not use a 1.1 million advocacy total as census.
 6. **Rupture:** 1021 CE (al-Hakim disappearance / closing of the daʿwa); 1925 Great Syrian Revolt (Druze-led, not only Druze).
 7. **Religion:** Druze (closed, not Islamic in self-description of many; legally often filed under Muslim in some states — contestation).
 8. **Flattening:** “Druze are Muslims” as an ethnographic default; or “Druze are an Israeli invention.”
@@ -182,7 +197,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 3. **Homeland:** Nile Valley. Continuity from late antique Egypt; not a foreign implant.
 4. **Subdivisions:** Coptic Orthodox (vast majority); Coptic Catholic; Coptic Protestant. Upper Egyptian vs Cairene. Diaspora (US, Australia, Gulf).
 5. **Population:** **Contested range, both sides named.** CAPMAS does not publish religion in a way the Church accepts as a Copt count. Church/community claims often ~10% of Egypt; some demographic work (Pew Forum 2010s Christian estimates for Egypt) is lower, around mid-single-digits of the national total. This file **does not pick**. Egypt total population is not a Copt count.
-6. **Rupture:** 451 CE Council of Chalcedon (miaphysite split); 640s Islamic conquest; 2011–13 as a modern security rupture (not a demographic census).
+6. **Rupture:** 451 CE Council of Chalcedon (miaphysite split from the Chalcedonian churches; Coptic Orthodox is Oriental Orthodox and autocephalous — headed by its own pope, not under Constantinople or Rome); 640s Islamic conquest; 2011–13 as a modern security rupture (not a demographic census).
 7. **Religion:** Coptic Orthodox default; not “Arab Muslim with a church.”
 8. **Flattening:** “Copts are Arab Christians like Maronites” (different language history); or “Copts are 10%” stated as CAPMAS.
 9. **Receipt:** History — Mikhail; Davis, *Coptic Christology*. Census — CAPMAS (no ethnicity/religion table used as Copt count here). Pew *Global Christianity* (2011) as a **survey estimate**, not Egypt’s census — cite as estimate if used, not as CAPMAS.
@@ -209,7 +224,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 
 ## Palestinians (internally split)
 
-1. **Name:** Self: *Filasṭīnī*. External: “Palestinian.” Civic: PA / Hamas / Israel “Arab” / UNRWA “Palestine refugee” — **three different counting machines**.
+1. **Name:** Self: *Filasṭīnī*. External: “Palestinian.” Civic: PA / Hamas / Israel “Arab” / UNRWA (United Nations Relief and Works Agency for Palestine Refugees) “Palestine refugee” — **three different counting machines**.
 2. **Language:** South Levantine Arabic. Hebrew among 1948 citizens of Israel.
 3. **Homeland:** Historic Palestine (Mandate). How they got there: indigenous Arabic-speaking society of the late Ottoman/Mandate Levant, not a post-1948 invention.
 4. **Subdivisions — do not flatten:**
@@ -219,7 +234,7 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
    - **Diaspora / UNRWA-registered refugees** (Jordan, Lebanon, Syria, and outside)
    These are not four “dialects”; they are four **legal-demographic regimes**.
 5. **Population (dated, machines not mashed):**
-   - **PCBS** *Palestine in Figures*, end-**2024**: State of Palestine **5,490,307** (West Bank **3,360,583**; Gaza **2,129,724**). PCBS notes Gaza estimates moved after Oct 2023 deaths/missing/exits. https://www.pcbs.gov.ps/media/hnvfzsjf/book2715.pdf
+   - **PCBS (Palestinian Central Bureau of Statistics)** *Palestine in Figures*, end-**2024**: State of Palestine **5,490,307** (West Bank **3,360,583**; Gaza **2,129,724**). PCBS notes Gaza estimates moved after Oct 2023 deaths/missing/exits. https://www.pcbs.gov.ps/media/hnvfzsjf/book2715.pdf
    - Same PCBS world table, end-2024: **1948 territories 1,793,465**; Arab countries **6,404,573**; foreign countries **1,197,492**; world **14,885,837**. **1948 figure is PCBS, not CBS** — do not mash.
    - **Israel CBS** Independence Day **2024**: **2.089 million Arabs** (21.1% of 9.900 million) — Muslims + Arab Christians + Druze; **not** “Palestinians only.” https://www.cbs.gov.il/he/mediarelease/DocLib/2024/141/11_24_141e.pdf
    - **UNRWA** 2024 oPt registered refugees: **2,474,003** (Gaza **1,556,061**; West Bank incl. EJ **917,942**) — **registration, not a census of all Palestinians.** https://www.unrwa.org/sites/default/files/unrwa_wha_report_for_2024.pdf
@@ -230,11 +245,10 @@ Not Nisaba. History first, census second. “Arab” is an umbrella of mutually 
 10. **Falsifier:** If PCBS Gaza end-2024 ≠ 2,129,724 in the cited book, cell 5 dies. If CBS “Arabs” were a Palestinian-only code, the mash warning dies. If UNRWA registration equaled PCBS Palestine total, the “two machines” claim dies (it does not: 2.47M registered in oPt vs 5.49M PCBS residents).
 11. **OPEN:** Harmonized 1948 count (PCBS 1.79M vs CBS 2.09M Arabs); Gaza war mortality as a population adjustment (PCBS itself flags the estimate); UNRWA outside oPt (Jordan 2.39M registered Aug 2023 per PCBS book2710 — registration ≠ resident).
 
----
 
 # Peoples & Ethnicities Atlas — Sub-Saharan Africa
 
-Not Nisaba. Families first (Niger-Congo/Bantu, Nilotic, Cushitic, Khoisan), then named groups. Many states **do not census ethnicity** (Nigeria 2006). Pull **2026-11-14**.
+Families first (Niger-Congo/Bantu, Nilotic, Cushitic, Khoisan), then named groups. Many states **do not census ethnicity** (Nigeria 2006). Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ---
 
@@ -255,7 +269,7 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 2. **Language:** Yoruba (Volta-Niger, Niger-Congo). Literary 19th c. (Crowther); spoken far older.
 3. **Homeland:** Southwestern Nigeria / Republic of Benin / Togo (Yoruba-speaking belt). Origin traditions: Ilé-Ifẹ̀.
 4. **Subdivisions:** Ọ̀yọ́, Ẹ̀gbá, Ìjẹ̀bú, Ìjẹ̀ṣà, Ọ̀wọ̀, Ìkálẹ̀, Ketu, etc. “Yoruba” as a 19th-c. umbrella (Peel).
-5. **Population:** Nigeria **2006 census did not publish ethnicity**. NPC 2006 total population is not a Yoruba count. **OPEN.** Afrobarometer / DHS language is a survey proxy, not NPC. Benin INSAE: **OPEN** this pass.
+5. **Population:** Nigeria **2006 census did not publish ethnicity**. NPC (Nigeria’s National Population Commission) 2006 total population is not a Yoruba count. **OPEN.** Afrobarometer / DHS language is a survey proxy, not NPC. Benin INSAE: **OPEN** this pass.
 6. **Rupture:** 19th-c. Yoruba wars and the fall of Oyo; Atlantic slave trade (Yoruba-speakers as a large documented share of Brazilian/Cuban arrivals — numbers **OPEN** as a people-count).
 7. **Religion:** Mix: Protestant/Catholic/Pentecostal, Islam (especially Ilorin), and Ifá/Òrìṣà. Not “animist default.”
 8. **Flattening:** “Yoruba = Nigeria southwest = one tribe.” City-state history contradicts tribe-as-unit.
@@ -283,13 +297,13 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 
 ## Hausa–Fulani (umbrella — flag it)
 
-1. **Name:** “Hausa–Fulani” is a **Nigerian political umbrella**, not one ethnolinguistic people. Hausa: *Hausawa*. Fulani: *Fulɓe* (Pulaar/Fulfulde).
+1. **Name:** “Hausa–Fulani” is a **Nigerian political umbrella**, not one ethnolinguistic people (ethnolinguistic: pertaining to a group defined by shared language as a marker of ethnic identity). Hausa: *Hausawa*. Fulani: *Fulɓe* (Pulaar/Fulfulde).
 2. **Language:** Hausa (Chadic, **Afroasiatic** — not Niger-Congo). Fulfulde (Atlantic, Niger-Congo). Different families.
 3. **Homeland:** Hausa: northern Nigeria / southern Niger (Kano, Katsina, Zaria, etc.). Fulɓe: Sahel-wide (Senegal to Cameroon), pastoral and urban (Torodbe clerical).
 4. **Subdivisions:** Hausa city-states; Fulɓe: cattle Fulani vs town Fulani; Sokoto Caliphate overlay (1804) produced the political mash.
 5. **Population:** No NPC ethnicity. Niger/Cameroon/Senegal have language tables — **not pulled as a single total this pass. OPEN.** Do not add “Hausa–Fulani 30% of Nigeria” as if it were 2006.
 6. **Rupture:** 1804–08 Sokoto jihad (Usman dan Fodio) — dated political fusion.
-7. **Religion:** Sunni Islam (Maliki, Tijani/Qadiri) as the regional majority among both; not identical to ethnicity.
+7. **Religion:** Sunni Islam (Maliki, one of the four Sunni legal schools; Tijani and Qadiri are Sufi *tariqa*s — organized mystical orders) as the regional majority among both; not identical to ethnicity.
 8. **Flattening:** Treating Hausa–Fulani as one census tribe; filing Hausa under Niger-Congo.
 9. **Receipt:** History — Last, *The Sokoto Caliphate*; Hogben/Kirk-Greene. Linguistics — Hausa = Chadic. Census — NPC 2006 none; Niger INS **OPEN**.
 10. **Falsifier:** If Hausa were Niger-Congo, cell 2 dies. If NPC published a combined “Hausa-Fulani” code as one language, the umbrella warning still holds linguistically.
@@ -336,7 +350,7 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 3. **Homeland:** Northern Ethiopian highlands (Gondar, Gojjam, Wollo, Shewa).
 4. **Subdivisions:** Regional; Orthodox vs Muslim Amhara (Wollo). Not “all highland Ethiopians” (Tigray, Agaw).
 5. **Population:** Ethiopia CSA Census **2007** (last published full census): Amhara **19,867,817 (26.9%)**. **2012/2020s estimates exist; 2024 census not used here. OPEN for post-2007.** Do not use 2020s media “30 million.”
-6. **Rupture:** 1974 fall of Haile Selassie; 1991 EPRDF ethnic federalism (Amhara as one *kilil*).
+6. **Rupture:** 1974 fall of Haile Selassie; 1991 EPRDF ethnic federalism (Amhara as one *kilil* — an Ethiopian ethnolinguistic regional state; not a Soviet ASSR, though both are territorial nationality units. Soviet *korenizatsiya* / ASSR machinery is the Caucasus–Central Asia analogue, not used here).
 7. **Religion:** Ethiopian Orthodox Tewahedo majority; Muslim Amhara are real.
 8. **Flattening:** “Amhara = Abyssinia = Ethiopia”; filing Amhara as Cushitic.
 9. **Receipt:** CSA 2007 National Census. History — Tadesse Tamrat; Bahru Zewde.
@@ -367,9 +381,9 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 2. **Language:** Somali (Cushitic). Osmanya/Latin scripts 20th c.; language older.
 3. **Homeland:** Horn: Somalia, eastern Ethiopia (Somali Region), Djibouti, northern Kenya.
 4. **Subdivisions:** Clan (Darod, Hawiye, Dir, Rahanweyn/Digil-Mirifle, Isaaq) — **primary political units**; “Somali” is the ethnolinguistic umbrella. Do not pretend clan is not load-bearing.
-5. **Population:** Somalia has **no complete conventional census** in the 2020s comparable to CSA 2007. UNFPA 2014 Population Estimation Survey is a survey, not a full census. Ethiopia 2007 Somali **4,581,794 (6.2%)**. Kenya 2019 census Somali **OPEN** this pass (KNBS published ethnicity). **Do not print 15 million as if counted.**
+5. **Population:** Somalia has **no complete conventional census** in the 2020s comparable to CSA 2007. UNFPA (United Nations Population Fund) 2014 Population Estimation Survey is a survey, not a full census. Ethiopia 2007 Somali **4,581,794 (6.2%)**. Kenya 2019 census Somali **OPEN** this pass (KNBS published ethnicity). **Do not print 15 million as if counted.**
 6. **Rupture:** 1991 state collapse; 1977–78 Ogaden War; colonial partition (British/Italian/French/Ethiopian).
-7. **Religion:** Sunni Islam (Shafiʿi) as near-default — here the default **matches**.
+7. **Religion:** Sunni Islam (Shafiʿi, one of the four Sunni legal schools) as near-default — here the default **matches**.
 8. **Flattening:** “Somalis are Arabs”; or Somalia’s borders = the people (they don’t).
 9. **Receipt:** CSA 2007 (Ethiopia Somali). UNFPA Somalia 2014 PESS (estimate). History — Lewis; Samatar.
 10. **Falsifier:** If Somalia published a 2020s full census ethnicity table, cell 5 changes. If Somali were Semitic, cell 2 dies.
@@ -407,22 +421,21 @@ Falsifier for the frame: if Bantu were Cushitic, or Amhara were Cushitic, the fi
 10. **Falsifier:** If Ju, Tuu, and Khoe were one language family, cell 2 dies. If Census 2022 listed San ethnicity with a number, cell 5 OPEN dies.
 11. **OPEN:** Country headcounts; CKGR remaining residents as of a named year.
 
----
 
 # Peoples & Ethnicities Atlas — South Asia
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-Language family is not race and is not caste.
+Language family is not race and is not caste. Entries here are ethnolinguistic (pertaining to a group defined by shared language as a marker of ethnic identity).
 
-- **Indo-Aryan** (Indo-European): Punjabi, Bengali, Sindhi, Sinhala. Hindi-belt languages are not this file.
-- **Dravidian:** Tamil (this file). Telugu, Kannada, Malayalam exist; not listed here — do not pad.
+- **Indo-Aryan** (Indo-European): Punjabi, Bengali, Sindhi, Sinhala. Hindi-belt languages are not this section.
+- **Dravidian:** Tamil (this section). Telugu, Kannada, Malayalam exist; not listed here — do not pad.
 - **Iranian** (Indo-European): Pashto (Pashtun).
 - **Munda / Austroasiatic:** Santali, Mundari, Ho, Khasi (Mon-Khmer in the northeast). Named so the frame is not a two-family cartoon. No Munda people-entry in the user’s list — do not invent one.
 - **Caste (*jāti* / *varṇa*)** overlays language in India; it is **not** ethnicity and is not a substitute for C-16.
-- **Census machines:** Census of India **2011** Table **C-16** (mother tongue, Paper 1 of 2018) is the last published full language table. **2021/22 Indian census language tables not published as of this pull — OPEN.** Pakistan Bureau of Statistics **Census 2017** Table 11 is mother tongue, not ethnicity. Bangladesh Bureau of Statistics **2022** is a citizenship census. Sri Lanka Department of Census and Statistics **2012** is ethnicity. Myanmar Department of Population **2014** refused the name Rohingya. UNHCR/GoB registration is a refugee machine, not a people-count of all Rohingya.
+- **Census machines:** Census of India **2011** Table **C-16** (mother tongue — a census-question category for the language learned at home, distinct from ethnicity or citizenship; Paper 1 of 2018) is the last published full language table. **2021/22 Indian census language tables not published as of this pull — OPEN.** Pakistan Bureau of Statistics **Census 2017** Table 11 is mother tongue, not ethnicity. Bangladesh Bureau of Statistics **2022** is a citizenship census. Sri Lanka Department of Census and Statistics **2012** is ethnicity. Myanmar Department of Population **2014** refused the name Rohingya. UNHCR (United Nations High Commissioner for Refugees) / GoB registration is a refugee machine, not a people-count of all Rohingya.
 
 Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rather than Iranian, the filing dies.
 
@@ -435,7 +448,7 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 3. **Homeland:** Five-river Punjab. How they got there: long-settled Indo-Aryan speech in the plains; **not** a 1947 invention. The 1947 border cut the homeland.
 4. **Subdivisions the umbrella flattens:** Indian vs Pakistani civic regimes; Sikh vs Hindu vs Muslim Punjabi (religion ≠ language); Majhi / Doabi / Malwai / Pothohari dialect belts; Jat, Khatri, Dalit *jātis* (caste, not a language count). UK/Canada “Punjabi” ethnicity ≠ Indian C-16.
 5. **Population (machines not mashed):**
-   - **India, C-16 2011 (mother tongue, language-group total):** **Punjabi 33,124,726.** This is India only, language not ethnicity. ORGI, *Language*, Paper 1 of 2018, Statement 4. https://censusindia.mha.gov.in/nada/index.php/catalog/42458/download/46089/C-16_25062018.pdf
+   - **India, C-16 2011 (mother tongue, language-group total):** **Punjabi 33,124,726.** This is India only, language not ethnicity. ORGI (India’s Office of the Registrar General & Census Commissioner), *Language*, Paper 1 of 2018, Statement 4. https://censusindia.mha.gov.in/nada/index.php/catalog/42458/download/46089/C-16_25062018.pdf
    - **Pakistan, PBS Census 2017 Table 11 (mother tongue):** **Punjabi 80,536,390** of **207,684,626.** Percentage in the salient-features table: **38.78%.** Language, not a “Punjabi ethnicity” code. https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table11n.pdf ; percentages: https://www.pbs.gov.pk/wp-content/uploads/2020/07/sailent_feature_census_2017.pdf
    - Do **not** add 33.12M + 80.54M as one people: different states, different questions (India language-group vs Pakistan mother-tongue code), different years.
 6. **Rupture:** **15 August 1947** Partition of British India (Punjab among the worst killing fields). Death toll **contested range** — do not pick.
@@ -474,14 +487,14 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 4. **Subdivisions — three legal histories, do not mash:** Indian Tamil; **Sri Lanka Tamil**; **Indian-origin / Malayaga Tamil** in Sri Lanka (19th-c. plantation; 1948–64 citizenship acts). Muslim Tamil-speakers (Rowthers; many Sri Lankan Moors speak Tamil but may reject “Tamil” ethnicity).
 5. **Population (machines not mashed):**
    - **India C-16 2011:** **Tamil 69,026,881.**
-   - **Sri Lanka DCS Census of Population and Housing 2012** (ethnicity, not language): **Sri Lanka Tamil 2,269,266 (11.2%)**; **Indian Tamil 839,504 (4.1%)**; island total **20,359,439**. DCS visualization / UNFPA reprint of DCS. https://www.statistics.gov.lk/pophousat/cph2012visualization/htdocs/index.php?action=Data&indId=10&usecase=indicator
+   - **Sri Lanka DCS Census of Population and Housing 2012** (ethnicity, not language): **Sri Lanka Tamil 2,269,266 (11.2%)**; **Indian Tamil 839,504 (4.1%)**; island total **20,359,439**. DCS visualization / UNFPA (United Nations Population Fund) reprint of DCS. https://www.statistics.gov.lk/pophousat/cph2012visualization/htdocs/index.php?action=Data&indId=10&usecase=indicator
    - Do not add Indian C-16 + both Sri Lankan lines as one ethnicity.
 6. **Rupture:** 1983–2009 Sri Lankan civil war; **May 2009** defeat of the LTTE. 1948–64 Ceylon citizenship acts for plantation Tamils as a separate legal rupture.
 7. **Religion:** Hindu majority among Indian and Sri Lanka Tamils; Christian minorities; Tamil-speaking Muslims as a cross-cut (Moors are a DCS ethnicity line: **1,892,638** in 2012 — not “Tamil”).
 8. **Flattening:** All Sri Lankan Tamils as LTTE; plantation Tamils as the same census line as Jaffna.
 9. **Receipt:** History — Hellmann-Rajanayagam; Wickramasinghe, *Sri Lanka in the Modern Age*. Census — ORGI C-16; DCS 2012 (URL above).
 10. **Falsifier:** C-16 69,026,881 wrong; DCS 2012 Sri Lanka Tamil ≠ 2,269,266; Tamil as Indo-Aryan.
-11. **OPEN:** India 2021; Malaysia DOSM 2020 “Indian” is **not** Tamil (Malay, Chinese, Indian, Other Bumiputera — Indian **1,998,778** citizens is an administrative bundle). Singapore Tamil as a CMIO category **not pulled as a table this pass**.
+11. **OPEN:** India 2021; Malaysia DOSM (Malaysia’s Department of Statistics) 2020 “Indian” is **not** Tamil (Malay, Chinese, Indian, Other Bumiputera — Malaysia’s legal umbrella for Malays and other indigenous groups — Indian **1,998,778** citizens is an administrative bundle). Singapore Tamil as a CMIO category (Singapore’s Chinese–Malay–Indian–Other race grid) **not pulled as a table this pass**.
 
 ---
 
@@ -508,13 +521,13 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 1. **Self-designation vs. external name:** Self: *Paṣtūn* / *Pakhtun*; collective *Afghan* in older usage is **not** the same as the modern Afghan state. External: “Pashtun,” “Pathan” (exonym, still in South Asian English).
 2. **Language:** Pashto (Eastern Iranian, Indo-European). Not Indo-Aryan. Attestation: early modern Pashto literature (Khushal Khan Khattak, 17th c.); the language is older than that corpus.
 3. **Homeland:** Eastern Iranian plateau / Suleiman–Hindu Kush: southern Afghanistan and western Pakistan (Khyber Pakhtunkhwa, northern Balochistan, FATA as of 2017 geography). Not a Pakistani “tribal remnant” invented by the British, though the Durand Line (**1893**) is a dated border.
-4. **Subdivisions:** Sarban, Bettani, Gharghashti, Karlani confederations; Durani vs Ghilzai as political historical split; Pakistani vs Afghan civic statuses. “Pathan” in India C-16 is **not** this file’s people-count.
+4. **Subdivisions:** Sarban, Bettani, Gharghashti, Karlani confederations; Durani vs Ghilzai as political historical split; Pakistani vs Afghan civic statuses. “Pathan” in India C-16 is **not** this section’s people-count.
 5. **Population (machines not mashed):**
    - **Pakistan PBS 2017 Table 11:** **Pashto (PUSHTO) 37,885,441** mother tongue (**18.24%** of 207,684,626). KP **76.86%** Pashto; FATA **98.40%**. This is **language**, not a tribe roll.
    - **Afghanistan:** no complete conventional census comparable to PBS 2017. NSIA estimates exist; they are **not** a Pashtun ethnicity census. **OPEN** as an Afghan Pashtun headcount. Do not print “40 million Pashtuns” as if counted.
    - Do not add PBS Pashto to an Afghan estimate.
 6. **Rupture:** **1893** Durand Line; **1978–79** Saur coup / Soviet invasion as the modern demographic rupture (refugees into Pakistan — UNHCR stocks are a **registration machine**, not the people).
-7. **Religion:** Sunni (Hanafi) majority; Shia among Turi and some others. Not “Hindu Pathan” as default.
+7. **Religion:** Sunni (Hanafi — one of the four Sunni legal schools, with Shafiʿi, Maliki, and Hanbali) majority; Shia among Turi and some others. Not “Hindu Pathan” as default.
 8. **Flattening:** “Afghans are Pashtuns” (Tajik, Hazara, Uzbek, Aimak are not); filing Pashto under Indo-Aryan.
 9. **Receipt:** History — Caroe, *The Pathans* (colonial, use as a dated source not a census); Barfield, *Afghanistan*. Census — PBS Table 11. Afghanistan: absence of a completed ethnicity census is the receipt.
 10. **Falsifier:** PBS Pashto ≠ 37,885,441; Pashto as Indo-Aryan; a completed Afghan census ethnicity table would kill cell 5’s OPEN.
@@ -573,26 +586,25 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 
 ---
 
-**India 2021/22:** language tables unpublished as of pull — OPEN across this file, not a license to invent.
+**India 2021/22:** language tables unpublished as of pull — OPEN across this section, not a license to invent.
 
----
 
 # Peoples & Ethnicities Atlas — East Asia
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-- **Sino-Tibetan:** Sinitic (Han as an umbrella of Sinitic lects) and Tibeto-Burman (Tibetan in this file).
+- **Sino-Tibetan:** Sinitic (Han as an umbrella of Sinitic lects) and Tibeto-Burman (Tibetan in this section).
 - **Japonic:** Japanese, Ryukyuan languages (Ryukyuan are **not** “dialects of Tokyo Japanese” in the linguistic sense).
 - **Koreanic:** Korean. Isolate family in the usual classification; Altaic is a discarded packing crate.
 - **Mongolic:** Mongolian (Khalkha and other Mongolic languages).
 - **Turkic:** Uyghur (Southeastern Turkic). Kazakh in Xinjiang is Turkic too — not this entry.
 - **Ainuic:** Ainu. **Not** Japonic.
 
-**Census machines:** PRC National Bureau of Statistics **Seventh National Population Census** (reference **1 Nov 2020**) publishes *minzu* (official 56-nationality grid). That grid **is** the PRC counting machine — it is not a dialect map. Japan Statistics Bureau **2020 Population Census** counts **nationality**, not ethnicity. Mongolia NSO **2020** counts ethnicity among citizens. ROK KOSTAT censuses **nationality/residence**, not “Korean race.” DPRK: no usable ethnicity census.
+**Census machines:** PRC (People’s Republic of China) National Bureau of Statistics **Seventh National Population Census** (reference **1 Nov 2020**) publishes *minzu* (official 56-nationality grid). That grid **is** the PRC counting machine — it is not a dialect map. Japan Statistics Bureau **2020 Population Census** counts **nationality**, not ethnicity. Mongolia NSO (National Statistics Office of Mongolia) **2020** counts ethnicity among citizens. ROK (Republic of Korea) KOSTAT (Statistics Korea) censuses **nationality/residence**, not “Korean race.” DPRK (Democratic People’s Republic of Korea): no usable ethnicity census.
 
-Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if present).
+Kartvelian / Caucasus is **not** this section (cross-ref the Caucasus & Central Asia domain if present).
 
 ---
 
@@ -601,7 +613,7 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 1. **Self-designation vs. external name:** Self: *Hànzú* / *Hànrén*. External: “Chinese” (collapses citizenship, Sinitic language, and *minzu*). “Han” is itself an **umbrella**.
 2. **Language:** Sinitic branch of Sino-Tibetan. Not one language: Mandarin, Wu, Yue (Cantonese), Min, Hakka, Xiang, Gan, Jin, etc., are not mutually intelligible in ordinary speech. Old Chinese attested in Shang–Zhou inscriptions (2nd–1st millennium BCE); the *minzu* name is a later political aggregation.
 3. **Homeland:** Yellow–Yangtze agricultural core with historically documented expansion south and west. “Always everywhere in China” is false (southwest, northeast, and Xinjiang have dated incorporation histories).
-4. **Subdivisions the umbrella flattens:** Mandarin vs Yue vs Min vs Wu vs Hakka as **lects**; regional identities (Cantonese, Hokkien, Shanghainese, Sichuanese); overseas *huáqiáo* / *huárén* (Singapore CMIO “Chinese,” Malaysia DOSM “Chinese”) are **civic-ethnic codes**, not NBS *minzu*. Hui are a **separate** PRC *minzu* (Muslim, Sinitic-speaking) — not Han.
+4. **Subdivisions the umbrella flattens:** Mandarin vs Yue vs Min vs Wu vs Hakka as **lects**; regional identities (Cantonese, Hokkien, Shanghainese, Sichuanese); overseas *huáqiáo* / *huárén* (Singapore CMIO (Chinese–Malay–Indian–Other, Singapore’s four official race categories) “Chinese,” Malaysia DOSM (Malaysia’s Department of Statistics) “Chinese”) are **civic-ethnic codes**, not NBS (China’s National Bureau of Statistics) *minzu*. Hui are a **separate** PRC *minzu* (Muslim, Sinitic-speaking) — not Han.
 5. **Population:**
    - **NBS Seventh Census, 2020-11-01:** mainland 31 provinces + PLA **1,411,778,724**; **Han 1,286,311,334 (91.11%)**; minorities **125,467,390 (8.89%)**. English communiqué: Han **1,286.31 million**. https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901082.html ; https://www.stats.gov.cn/english/PressRelease/202105/t20210510_1817185.html
    - This is **PRC *minzu* Han**, not “all Sinitic speakers on earth” and not ROC/Taiwan population (Taiwan 2020 year-end **23,561,236** is listed in the same NBS bulletin as a **separate** figure, not as Han *minzu*).
@@ -635,7 +647,7 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 
 1. **Self-designation vs. external name:** Self: *Bod-pa* / *Pöpa*. External: “Tibetan”; PRC *minzu* *Zàngzú* includes Amdo/Kham speakers who may not use “Tibetan” as an English self-name.
 2. **Language:** Tibetic (Tibeto-Burman, Sino-Tibetan). Old Tibetan attested from the 7th–9th c. (imperial inscriptions, Dunhuang). Amdo, Kham, Ü-Tsang are not one spoken language.
-3. **Homeland:** Tibetan Plateau. How they got there: plateau societies predating the PRC TAR; 7th-c. Tibetan Empire is a dated political crystallization, not the first human presence.
+3. **Homeland:** Tibetan Plateau. How they got there: plateau societies predating the PRC TAR (Tibet Autonomous Region); 7th-c. Tibetan Empire is a dated political crystallization, not the first human presence.
 4. **Subdivisions:** Ü-Tsang, Kham, Amdo; exile community (India Dharamsala, Nepal) vs TAR vs Sichuan/Qinghai/Gansu *minzu* Tibetan. Monpa/Lhoba are **other** PRC *minzu*.
 5. **Population:** Census Yearbook 2020: **Tibetan 7,060,731 (0.50%)**. TAR population mix is not “number of Tibetans” (Han live in the TAR). Exile CTA figures are a **different machine** — **OPEN** as a fetched CTA table this pass.
 6. **Rupture:** **1950–51** Seventeen-Point Agreement / PLA entry; **1959** Lhasa uprising and Dalai Lama’s flight.
@@ -665,7 +677,7 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 8. **Flattening:** Inner Mongolia’s population as Mongol; Khalkha as the only Mongol; PRC *minzu* = NSO ethnicity.
 9. **Receipt:** History — Atwood, *Encyclopedia of Mongolia and the Mongol Empire*; Bawden. Census — NSO 2020 (table 3.6 / 4.1); PRC Yearbook 2020.
 10. **Falsifier:** NSO Khalkh ≠ 2,659,985; PRC Mongol ≠ 6,290,204; Mongolic as Turkic.
-11. **OPEN:** Russia 2021 Buryat/Kalmyk lines as a third machine (Rosstat VPN-2020 Volume 5 — not loaded as the people here).
+11. **OPEN:** Russia 2021 Buryat/Kalmyk lines as a third machine (Rosstat VPN-2020 (All-Russian Population Census / *Vserossiyskaya perepis’ naseleniya*) Volume 5 — not loaded as the people here).
 
 ---
 
@@ -724,21 +736,20 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 10. **Falsifier:** If the R5 survey total ≠ 11,450, cell 5 dies. If the 2020 national census had published an Ainu ethnicity count, the “no question” clause dies. If Ainu were Japonic, cell 2 dies.
 11. **OPEN:** National self-ID; Sakhalin/Kuril; speaker counts vs ancestry survey.
 
----
 
 # Peoples & Ethnicities Atlas — Southeast Asia
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
 - **Austroasiatic:** Vietnamese (Vietic), Khmer (Mon-Khmer). Mon exists; not listed — do not pad.
-- **Tai–Kadai:** Thai / Lao / Shan cluster. This file names **Thai**.
+- **Tai–Kadai:** Thai / Lao / Shan cluster. This section names **Thai**.
 - **Austronesian:** Malay, the Philippine ethnolinguistic mosaic (Tagalog is one node, not the people “Filipino”).
 - **Sino-Tibetan (Burmese / Tibeto-Burman):** Burmese (Bamar). Karen, Chin, Kachin are other Tibeto-Burman/related lines — not this Bamar entry.
-- **Hmong-Mien:** Hmong (Miao in PRC is a **larger *minzu* umbrella**, not identical).
+- **Hmong-Mien:** Hmong (Miao in PRC (People’s Republic of China) is a **larger *minzu* umbrella**, not identical).
 
-**Census machines:** Vietnam GSO/NSO **2019**; Cambodia NIS **2019**; Thailand NSO **2010** (UNdata ethnicity); Myanmar DoP **2014** (ethnicity detail incomplete); Malaysia DOSM **2020**; Philippines PSA **2020** (ethnicity by descent, **not** a single “Filipino” people).
+**Census machines:** Vietnam GSO/NSO (Vietnam’s General Statistics Office / National Statistics Office) **2019**; Cambodia NIS (Cambodia’s National Institute of Statistics) **2019**; Thailand NSO (Thailand’s National Statistical Office) **2010** (UNdata ethnicity); Myanmar DoP **2014** (ethnicity detail incomplete); Malaysia DOSM (Malaysia’s Department of Statistics) **2020**; Philippines PSA (Philippine Statistics Authority) **2020** (ethnicity by descent, **not** a single “Filipino” people).
 
 ---
 
@@ -821,20 +832,20 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 5. **Population (machines not mashed):**
    - **Vietnam GSO 2019:** Mông is named among **six minorities >1 million**. Exact integer **not in the two-page press** — **OPEN** the digit; do not invent 1.39M from a non-GSO aggregator.
    - **PRC 2020 Miao 11,067,929** is *minzu* Miao, **not** Hmong-only.
-   - **US Census 2020 Detailed DHC-A:** Hmong as an Asian detailed group — **OPEN** the exact integer this pass (the Bureau published it; not loaded here). Do not use “300,000” from memory.
+   - **US Census 2020 Detailed DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A):** Hmong as an Asian detailed group — **OPEN** the exact integer this pass (the Bureau published it; not loaded here). Do not use “300,000” from memory.
    - Laos/Thailand Hmong: national tables **OPEN** this pass.
 6. **Rupture:** **1960s–75** Secret War in Laos / 1975 exodus; **US Refugee Act** era resettlement as a dated diaspora machine.
 7. **Religion:** Mix: customary practice, Protestant Christianity (especially diaspora and some Vietnamese highlands), not a Buddhist default.
 8. **Flattening:** Miao = Hmong; “mountain Chinese”; all US Asian as one.
 9. **Receipt:** History — Culas & Michaud; Quincy on Laos Hmong (use as history, not US Census). Census — GSO 2019 press (Mông >1M); PRC Yearbook 2020 Miao as a **warning not to mash**.
 10. **Falsifier:** Treating Miao 11.07M as Hmong; Hmong as a Sinitic dialect.
-11. **OPEN:** GSO Mông integer; ACS/2020 DHC-A Hmong; Laos 2015 census Hmong.
+11. **OPEN:** GSO Mông integer; ACS (U.S. Census Bureau’s American Community Survey)/2020 DHC-A Hmong; Laos 2015 census Hmong.
 
 ---
 
 ### Malay
 
-1. **Self-designation vs. external name:** Self: *Melayu*. External: “Malay.” Malaysia’s **Bumiputera** is a **larger legal umbrella** (Malay + other Bumiputera).
+1. **Self-designation vs. external name:** Self: *Melayu*. External: “Malay.” Malaysia’s **Bumiputera** is a **larger legal umbrella** for Malays and other indigenous groups (Malay + other Bumiputera).
 2. **Language:** Malay (Austronesian, Malayo-Polynesian). Old Malay inscriptions (Kedukan Bukit, 7th c.). Indonesian / Bahasa Malaysia are standardized registers of the same family — **Indonesia is not this ethnicity entry**.
 3. **Homeland:** Malay Peninsula, eastern Sumatra, coastal Borneo. Srivijaya/Melaka as dated polities. Patani Malays in southern Thailand are this language cluster, not NSO “Thai.”
 4. **Subdivisions:** Malaysian Malay vs Bruneian vs Indonesian *suku Melayu* vs Thai Malay; **Bumiputera ≠ Malay** (DOSM: Malay **16,912,998**; Other Bumiputera **3,736,535**).
@@ -846,7 +857,7 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 8. **Flattening:** Bumiputera = Malay; Indonesian citizenship = Malay; all Muslims in Malaysia as Malay (Indian Muslims exist).
 9. **Receipt:** History — Andaya & Andaya, *A History of Malaysia*; Wolters on Srivijaya. Census — DOSM 2020 / UNdata (URLs above).
 10. **Falsifier:** DOSM Malay ≠ 16,912,998; Malay as Austroasiatic.
-11. **OPEN:** BPS Indonesian Malay; Singapore CMIO Malay; Thai 2010 “Thai” flattening of Patani.
+11. **OPEN:** BPS Indonesian Malay; Singapore CMIO Malay (Singapore Chinese–Malay–Indian–Other race grid); Thai 2010 “Thai” flattening of Patani.
 
 ---
 
@@ -865,29 +876,28 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 10. **Falsifier:** If PSA 2020 had a single ethnicity “Filipino” as the majority line, the umbrella warning dies. Tagalog 26.0% of 108.67M is the largest **named** ethnicity, not a majority people.
 11. **OPEN:** Exact integer for Tagalog (PSA published percent and universe; the product is a derived figure — prefer the percent + 108.67M as stated).
 
----
 
 # Peoples & Ethnicities Atlas — Europe
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-**Indo-European branches in this file:**
+**Indo-European branches in this section:**
 
 - **Slavic:** East (Russian, Ukrainian, Belarusian); West (Polish, Czech, Slovak); South (Serbian, Croatian, Bosnian — **standard languages in a dialect continuum**, not three biological peoples).
-- **Romance / Germanic / Celtic:** present in Europe; **not** in the user’s named list — do not pad French/German/Irish as Europe-file entries (Irish/Italian/German/Polish-as-US-ancestry live in `atlas_americas_diaspora.md`).
+- **Romance / Germanic / Celtic:** present in Europe; **not** in the user’s named list — do not pad French/German/Irish as Europe-section entries (Irish/Italian/German/Polish-as-US-ancestry live in the Americas diaspora section).
 - **Indo-Aryan in Europe:** Romani.
 
 **Non-Indo-European outliers:**
 
 - **Basque** (isolate).
 - **Uralic / Finno-Ugric:** Finnic (**Finnish, Estonian** — **not Baltic**); Sámi.
-- **Kartvelian** (Georgian etc.): **already the Caucasus file**. Cross-reference. **Do not duplicate.**
+- **Kartvelian** (Georgian etc.): **already the Caucasus & Central Asia section (not in this checkout)**. Cross-reference. **Do not duplicate.**
 
 Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Estonian is **not** Baltic.
 
-**Census machines:** Rosstat VPN-2020/21 (nationality voluntary); Ukraine **2001** (last completed); Belstat **2019**; GUS Poland **2021**; CZSO **2021**; Slovakia **2021**; SORS Serbia **2022**; DZS Croatia **2021**; BHAS Bosnia **2013**. Romani: census self-ID vs Council of Europe estimates — **two machines**.
+**Census machines:** Rosstat VPN-2020/21 (All-Russian Population Census / *Vserossiyskaya perepis’ naseleniya*; nationality voluntary); Ukraine **2001** (last completed); Belstat **2019**; GUS (Statistics Poland / Główny Urząd Statystyczny) Poland **2021**; CZSO (Czech Statistical Office) **2021**; Slovakia **2021**; SORS (Statistical Office of the Republic of Serbia) Serbia **2022**; DZS (Croatian Bureau of Statistics) Croatia **2021**; BHAS (Agency for Statistics of Bosnia and Herzegovina) Bosnia **2013**. Romani: census self-ID vs Council of Europe estimates — **two machines**.
 
 ---
 
@@ -916,7 +926,7 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 5. **Population:**
    - **Ukraine 2001 census:** **Ukrainians 37,541,700 (77.8%)** of a ~48.5M universe. Last completed national census. https://web.archive.org/web/20200430211623/http://2001.ukrcensus.gov.ua/eng/results/general/nationality/
    - **Rosstat 2021:** Ukrainians in Russia **884,007** (among those stating nationality) — **different country**.
-   - **2022–** displacement: UNHCR/IOM are **registration/estimate machines**, not a replacement census. **Do not fossilize a 2024 resident-Ukrainian total here.**
+   - **2022–** displacement: UNHCR (United Nations High Commissioner for Refugees)/IOM are **registration/estimate machines**, not a replacement census. **Do not fossilize a 2024 resident-Ukrainian total here.**
 6. **Rupture:** **1917–21** failed state(s); **1932–33** Holodomor; **24 August 1991** independence; **24 February 2022** full-scale invasion.
 7. **Religion:** Orthodox (jurisdictions split — OCU vs UOC); Greek Catholic in Galicia. Not “Russian Orthodox default.”
 8. **Flattening:** Ukrainian as a Russian dialect; 2001 as a 2024 headcount.
@@ -1067,7 +1077,7 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 2. **Language:** Basque / *Euskara* (**isolate**, not Indo-European, not Romance). Aquitanian as ancient attestation (Roman-era names).
 3. **Homeland:** Western Pyrenees (Hegoalde in Spain: CAE + Navarra; Iparralde in France). Not a Franco-era invention.
 4. **Subdivisions:** Bizkaia, Gipuzkoa, Araba, Navarra, and three French provinces; French census **does not** ask ethnicity.
-5. **Population:** Eustat / INE Spain: Basque **language** and **identity** are different questions (euskaldun vs Basque nationality). Spain does not have a US-style race census. **Eustat sociolinguistic surveys** count speakers; INE padron counts residents of the CAE. **Do not print a single “number of Basques.”** CAE resident population is a **territory envelope**. Speaker counts **OPEN** as the latest Eustat sociolinguistic survey integer this pass (survey exists; cell not copied).
+5. **Population:** Eustat / INE Spain (Eustat is the Basque statistical office; INE is Spain’s Instituto Nacional de Estadística): Basque **language** and **identity** are different questions (euskaldun vs Basque nationality). Spain does not have a US-style race census. **Eustat sociolinguistic surveys** count speakers; INE padron counts residents of the CAE. **Do not print a single “number of Basques.”** CAE resident population is a **territory envelope**. Speaker counts **OPEN** as the latest Eustat sociolinguistic survey integer this pass (survey exists; cell not copied).
 6. **Rupture:** **1512** conquest of Navarra; **1876** end of foral wars; **Franco 1939–75** language repression; **1979** Gernika Statute.
 7. **Religion:** Historically Catholic; secularization like the rest of northern Spain — not a pagan-census default.
 8. **Flattening:** Basque as “Spanish dialect”; using CAE residents as ethnic Basques (immigrants live there too).
@@ -1116,7 +1126,7 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 2. **Language:** Finnish (**Finnic, Uralic**). Written 16th c. (Agricola); *Kalevala* is 19th-c. compilation, not a census. Swedish is a **national language** of Finland, not a Finnic language.
 3. **Homeland:** East of the Baltic, inland lakes. Sámi are indigenous further north — **not** “northern Finns.”
 4. **Subdivisions:** Finland-Swedes (Swedish-speakers) are a **language minority**, often ethnically distinct in self-ID; Karelian is a sister Finnic language (mostly in Russia).
-5. **Population:** Statistics Finland publishes **language**, not US-style ethnicity: Finnish-, Swedish-, Sámi-speakers as mother tongue. **Finnish-speaking majority** is the official handle. Exact latest mother-tongue integer **OPEN this pass** (PxWeb table exists; not copied). Do not use “5.5 million Finns” as ethnicity.
+5. **Population:** Statistics Finland publishes **language**, not US-style ethnicity: Finnish-, Swedish-, Sámi-speakers as mother tongue (a census-question category for the language learned at home, distinct from ethnicity or citizenship). **Finnish-speaking majority** is the official handle. Exact latest mother-tongue integer **OPEN this pass** (PxWeb table exists; not copied). Do not use “5.5 million Finns” as ethnicity.
 6. **Rupture:** **1809** from Sweden to Russia; **6 December 1917** independence; **1939–40** Winter War.
 7. **Religion:** Evangelical Lutheran as cultural majority; not Orthodox default (that’s a Karelian/Russian stereotype).
 8. **Flattening:** Finnish as Baltic or Slavic; Sweden-Finns as the whole people; Sámi as Finns.
@@ -1128,17 +1138,16 @@ Baltic languages (Lithuanian, Latvian) are Indo-European and **not** Finnic. Est
 
 **Kartvelian:** see Caucasus file. **Do not duplicate Georgian/Mingrelian here.**
 
----
 
 # Peoples & Ethnicities Atlas — Indigenous Americas
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
 Two **legal-demographic regimes**, not one “Indian” residual.
 
-**North America (US / Canada / Greenland as adjacent):** “Tribe/nation” is a **sovereignty and recognition structure** (US: federally recognized tribes via BIA; Canada: First Nations, Inuit, Métis as Constitution Act 1982 categories). US Census **AIAN** is a **race question**, not a tribal roll. IHS user counts are a **service machine**. Tribal enrollment is a **citizenship machine**. Do not mash them.
+**North America (US / Canada / Greenland as adjacent):** “Tribe/nation” is a **sovereignty and recognition structure** (US: federally recognized tribes via BIA; Canada: First Nations, Inuit, Métis as Constitution Act 1982 categories). US Census **AIAN (American Indian and Alaska Native)** is a **race question**, not a tribal roll. IHS user counts are a **service machine**. Tribal enrollment is a **citizenship machine**. Do not mash them.
 
 **Mesoamerica and Andes / Southern Cone — language families:**
 
@@ -1161,7 +1170,7 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 4. **Subdivisions the umbrella flattens:**
    - **US federally recognized tribes:** **574** (BIA, 2023). State-recognized and unrecognized nations are **other lists**.
    - **US Census 2020 race:** AIAN **alone 3.7 million (1.1%)**; **alone or in combination 9.7 million (2.9%)**. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
-   - **Detailed DHC-A 2020:** American Indian alone **2,159,802** vs alone-or-in-combination **6,363,796**; Alaska Native alone **133,311** / combination **241,797**; Latin American Indian alone **766,112** / combination **1,319,523** (Aztec and Maya examples drove much of that line). https://www.census.gov/library/stories/2023/10/2020-census-dhc-a-aian-population.html
+   - **Detailed DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A) 2020:** American Indian alone **2,159,802** vs alone-or-in-combination **6,363,796**; Alaska Native alone **133,311** / combination **241,797**; Latin American Indian alone **766,112** / combination **1,319,523** (Aztec and Maya examples drove much of that line). https://www.census.gov/library/stories/2023/10/2020-census-dhc-a-aian-population.html
    - **Tribal enrollment / IHS:** IHS service population ~**2.6 million** in 574 tribes (HHS/IHS — **users/eligibility**, not Census 9.7M).
    - **Canada 2021 Census** Indigenous identity (First Nations, Métis, Inuit) is a **Statistics Canada machine** — **OPEN** the integer this pass (table exists; not copied). Do not add to US 9.7M.
 5. **Population:** Use the **labeled machines in cell 4**. There is **no** single “North American Indian” total. Navajo Nation is the largest **enrollment** nation in US public figures — **OPEN** the exact 2020 DHC-A Navajo alone integer this pass (Bureau published detailed tribes).
@@ -1179,9 +1188,9 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 1. **Self-designation vs. external name:** Self: nation-specific (*K’iche’*, *Yucatec Maya*, *Mam*, *Q’eqchi’*, *Tsotsil*…). External: “Maya” (an archaeological-linguistic umbrella, also a Guatemala census *pueblo*).
 2. **Language:** Mayan family (not Uto-Aztecan, not Nahuatl). Hieroglyphic attestation Classic period (1st millennium CE). Living languages are not “decipherment leftovers.”
 3. **Homeland:** Mesoamerican highlands and Yucatán / Chiapas / Guatemala / Belize / Honduras. Not “extinct with the Classic collapse” (that collapse is a political-urban rupture, ~9th c., not a people-death).
-4. **Subdivisions:** Guatemala census *pueblo Maya* vs Mexican **language** (Yucatec Maya, Tseltal, Tsotsil are separate INEGI lines). K’iche’ ≠ Yucatec.
+4. **Subdivisions:** Guatemala census *pueblo Maya* vs Mexican **language** (Yucatec Maya, Tseltal, Tsotsil are separate INEGI (Mexico’s Instituto Nacional de Estadística y Geografía) lines). K’iche’ ≠ Yucatec.
 5. **Population (machines not mashed):**
-   - **Guatemala INE Censo 2018:** **Maya 6,207,503 (41.7%)** of **14,901,286**. *Pueblo* self-ID, not a language test. https://censo2018.ine.gob.gt/archivos/resultados_censo2018.pdf
+   - **Guatemala INE (Guatemala’s Instituto Nacional de Estadística) Censo 2018:** **Maya 6,207,503 (41.7%)** of **14,901,286**. *Pueblo* self-ID, not a language test. https://censo2018.ine.gob.gt/archivos/resultados_censo2018.pdf
    - **Mexico INEGI 2020**, speakers aged 3+ : **Maya (Yucatec) 774,755**; **Tseltal 589,144**; **Tsotsil 550,274**; plus other Mayan languages (Ch’ol **254,715**, etc.). https://web.archive.org/web/20221201161756/https://cuentame.inegi.org.mx/hipertexto/todas_lenguas.htm
    - Do not add Guatemala *pueblo* 6.21M to Yucatec speakers 0.77M (different questions, Tseltal/Tsotsil would be omitted or double-counted).
 6. **Rupture:** 16th-c. invasion (dated campaigns, e.g. Guatemala 1524); **1981–83** Guatemalan genocide against Maya (CEH) as the modern rupture.
@@ -1216,8 +1225,8 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 3. **Homeland:** Andes (Peru, Bolivia, Ecuador, parts of Argentina/Colombia/Chile). Inca roads are a dated overlay.
 4. **Subdivisions:** Southern Quechua vs Ancash vs Kichwa (Ecuador) — **not one language**. Aymara is **not** a dialect.
 5. **Population (machines not mashed):**
-   - **Peru INEI Censo 2017**, self-ID **age 12+** (universe **23,196,391**): **Quechua 5,176,809 (22.3%)**. Language among Andean Indigenous self-ID: **2,893,670** learned Quechua in childhood (a **subset machine**). https://m.inei.gob.pe/prensa/noticias/inei-difunde-base-de-datos-de-los-censos-nacionales-2017-y-el-perfil-sociodemografico-del-peru-10935/ ; Andes resumen https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1642/resumen.pdf
-   - **Bolivia INE 2012:** Quechua self-ID **1,281,116** (ODPIB citing INE — use as INE 2012, not 2017 Peru).
+   - **Peru INEI (Peru’s Instituto Nacional de Estadística e Informática) Censo 2017**, self-ID **age 12+** (universe **23,196,391**): **Quechua 5,176,809 (22.3%)**. Language among Andean Indigenous self-ID: **2,893,670** learned Quechua in childhood (a **subset machine**). https://m.inei.gob.pe/prensa/noticias/inei-difunde-base-de-datos-de-los-censos-nacionales-2017-y-el-perfil-sociodemografico-del-peru-10935/ ; Andes resumen https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1642/resumen.pdf
+   - **Bolivia INE (Bolivia’s Instituto Nacional de Estadística) 2012:** Quechua self-ID **1,281,116** (ODPIB citing INE — use as INE 2012, not 2017 Peru).
    - Do not add Peru 5.18M (age 12+) to Bolivia 1.28M as one question.
 6. **Rupture:** **1532–33** Cajamarca / Cuzco; **1780–81** Túpac Amaru II; **1820s** republics (Indigenous majority without Indigenous states).
 7. **Religion:** Catholic overlay + Andean practice (*Pachamama*). Evangelical growth is real. Not “sun-worship census.”
@@ -1237,7 +1246,7 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 5. **Population:**
    - **Peru INEI 2017** age 12+: **Aymara 548,292 (2.4%)**. Childhood language among Andean Indigenous: Aymara **392,228**.
    - **Bolivia INE 2012:** Aymara self-ID **1,191,352**.
-   - **Chile INE 2017:** Aymara **156,754** of **2,185,792** who identified with a pueblo originario. https://www.ine.gob.cl/docs/default-source/genero/documentos-de-análisis/documentos/radiografia-de-genero-pueblos-originarios-chile2017.pdf
+   - **Chile INE (Chile’s Instituto Nacional de Estadística) 2017:** Aymara **156,754** of **2,185,792** who identified with a pueblo originario. https://www.ine.gob.cl/docs/default-source/genero/documentos-de-análisis/documentos/radiografia-de-genero-pueblos-originarios-chile2017.pdf
    - Three machines, three years, three questions. Do not add.
 6. **Rupture:** 16th-c. invasion; **1952** Bolivian revolution (agrarian); **2005–** MAS period as a dated political rupture, not ethnogenesis.
 7. **Religion:** Catholic overlay + Andean practice. Not Quechua-by-another-name.
@@ -1282,26 +1291,25 @@ Na-Dene, Algic, Eskaleut, etc. exist in the north — named in the US/Canada str
 10. **Falsifier:** Using national Guaraní-speaker % as ethnicity; Guaraní as Quechuan.
 11. **OPEN:** Paraguay 2022 language integer; Indigenous Guaraní headcounts by country.
 
----
 
 # Peoples & Ethnicities Atlas — Americas diaspora (US-centred machines)
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-This file is **not** a list of African and European homelands (those are other atlas files). It is the **US (and adjacent) counting ontology** for people whose **defining rupture is Atlantic crossing / US racial law / Spanish imperial categories**.
+This section is **not** a list of African and European homelands (those are other atlas sections). It is the **US (and adjacent) counting ontology** for people whose **defining rupture is Atlantic crossing / US racial law / Spanish imperial categories**.
 
 **African-descent splits — genuinely different migration histories:**
 
 - **African American (US slavery descent)** — 1619/colonial–1865 enslaved population and their descendants; Jim Crow as the domestic sequel.
 - **Afro-Caribbean** — British/French/Spanish/Dutch Caribbean slavery then 20th-c. migration to the US (and UK/Canada).
-- **Afro-Latino** — Spanish-American slavery and *casta* / *negro* / *mulato* categories; US Census **Hispanic is a separate question from race**.
+- **Afro-Latino** — Spanish-American slavery and *casta* (Spanish colonial caste ranks; *mestizo* mixed Indigenous–European; *creole* / *criollo* New-World-born) / *negro* / *mulato* categories; US Census **Hispanic is a separate question from race**.
 - **Recent African immigrant** — post-1965/1980s–present national-origin immigration (Nigeria, Ethiopia, Ghana, Somalia…).
 
 **European “white” ancestries** in the US Census are **self-reported detailed White origins**, not 1920s national quotas as biology. Discrimination histories **differed** (Irish, Italian, Polish, German, Scots-Irish).
 
-**Hispanic/Latino** is an **OMB administrative ethnicity** bundling populations with **no shared ethnicity, language, or race**. Mexican, Puerto Rican, Cuban, Salvadoran, etc. are the load-bearing groups.
+**Hispanic/Latino** is an **OMB (U.S. Office of Management and Budget) administrative ethnicity** bundling populations with **no shared ethnicity, language, or race**. Mexican, Puerto Rican, Cuban, Salvadoran, etc. are the load-bearing groups.
 
 Canada/Caribbean national censuses are **other machines** when used.
 
@@ -1313,11 +1321,11 @@ Canada/Caribbean national censuses are **other machines** when used.
 2. **Language:** English (AAVE as a variety); Gullah-Geechee as a dated coastal creole. West African languages were **broken by the slave regime** — not a surviving family default. Historical sources: 18th–19th c. runaway ads, WPA narratives.
 3. **Homeland:** West/West-Central Africa as origin of the enslaved; **US South as the demographic homeland of the caste**. How they got there: transatlantic slave trade to British/French/Spanish North America. 1619 is a **dated Virginia marker**, not the only landing.
 4. **Subdivisions:** Southern vs Great Migration cities vs rural Black Belt; Gullah-Geechee; Louisiana Creole (overlap with Afro-Latino French/Spanish). **Do not mash with Nigerian-Americans.**
-5. **Population — Census 2020 Detailed DHC-A (two numbers, labeled):**
+5. **Population — Census 2020 Detailed DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A; two numbers, labeled):**
    - **African American alone 22.1 million**; **alone or in any combination 24.6 million.**
    - This is a **detailed origin** inside the Black race category, **not** the full Black race group (**Black alone or in combination 46.9 million** in the 2020 race story — **includes** Caribbean and African write-ins and multiracial).
    - https://www.census.gov/newsroom/press-releases/2023/2020-census-detailed-dhc-file-a.html
-   - ACS “Black or African American” alone is a **race** envelope, not the 22.1M detailed line. Do not mash.
+   - ACS (U.S. Census Bureau’s American Community Survey) “Black or African American” alone is a **race** envelope, not the 22.1M detailed line. Do not mash.
 6. **Rupture:** **1865** Thirteenth Amendment / emancipation; **1896** *Plessy*; **1964–65** Civil Rights and Voting Rights Acts. 1619 and 1808 (US international trade ban) as earlier dated marks. The **trade’s volume** is a separate historiographic machine (Eltis/Voyages) — not the 2020 census.
 7. **Religion:** Historically Black Protestant churches as the modal US pattern; not Muslim default (Nation of Islam is real and **small** relative to Black churches).
 8. **Flattening:** All US Black as slavery-descent African American; 46.9M as the 22.1M line; African immigrants as the same people.
@@ -1353,7 +1361,7 @@ Canada/Caribbean national censuses are **other machines** when used.
    Brazil IBGE *preta/parda* is a **different country ontology** — **OPEN** as IBGE 2022 if used; do not mash with US Hispanic.
 6. **Rupture:** Spanish/Portuguese abolition dates (**Cuba 1886**, **Brazil 13 May 1888**); US: 1898 (Puerto Rico/Cuba) as imperial overlay.
 7. **Religion:** Catholic majority overlay; Pentecostal growth; not Nation of Islam default.
-8. **Flattening:** All Latinos as mestizo; all Black Hispanics as African American; Brazil as Hispanic.
+8. **Flattening:** All Latinos as mestizo (*mestizo*: mixed Indigenous–European category in Spanish American usage); all Black Hispanics as African American; Brazil as Hispanic.
 9. **Receipt:** History — Andrews, *Afro-Latin America*; Telles. Census — 2020 Hispanic 62.1M as the **wrong envelope** (named so it is not used); race-by-Hispanic cross-tab as the right machine (OPEN integer).
 10. **Falsifier:** Using 62.1M as Afro-Latino; treating Hispanic as a race.
 11. **OPEN:** 2020 Black × Hispanic cross-tab; IBGE 2022.
@@ -1370,7 +1378,7 @@ Canada/Caribbean national censuses are **other machines** when used.
 6. **Rupture:** **1965** Hart-Celler; **1980** Refugee Act; country-specific dates (Somalia **1991**, Ethiopia 1970s–80s, Sudan/South Sudan wars).
 7. **Religion:** Follows origin (Nigerian mix, Somali Muslim, Ethiopian Orthodox/Protestant) — **not** Black Church default.
 8. **Flattening:** “Africans” as one US people; Somali as African American.
-9. **Receipt:** History — country files in `atlas_subsaharan_africa.md`. Census — 2020 DHC-A Sub-Saharan block.
+9. **Receipt:** History — country entries in the Sub-Saharan Africa section. Census — 2020 DHC-A Sub-Saharan block.
 10. **Falsifier:** Sub-Saharan combination ≠ 2.8 million; merging with 24.6M African American.
 11. **OPEN:** ACS 2023 national-origin updates.
 
@@ -1418,8 +1426,8 @@ Canada/Caribbean national censuses are **other machines** when used.
 5. **Population:** 2020 DHC-A: **Polish 8.6 million** alone or in combination.
 6. **Rupture:** Partitions; **1918**; **1939–45**; US: 1924 quotas. Discrimination: “dumb Polack” industrial nativism — **real, not equivalent to racial slavery**.
 7. **Religion:** Catholic majority among non-Jewish Polish Americans.
-8. **Flattening:** Polish = Russian; 8.6M as GUS Poland.
-9. **Receipt:** History — Pacyga; Brożek. Census — 2020 DHC-A. Poland GUS is `atlas_europe.md`.
+8. **Flattening:** Polish = Russian; 8.6M as GUS (Statistics Poland / Główny Urząd Statystyczny) Poland.
+9. **Receipt:** History — Pacyga; Brożek. Census — 2020 DHC-A. Poland GUS is in the Europe section.
 10. **Falsifier:** Polish combination ≠ 8.6 million.
 11. **OPEN:** Jewish vs Catholic split in the 8.6M (Census does not give it).
 
@@ -1462,7 +1470,7 @@ Canada/Caribbean national censuses are **other machines** when used.
 1. **Self-designation vs. external name:** Self: Mexican, Puerto Rican, Cuban, Salvadoran, Dominican, “Latino,” “Hispanic,” “Chicano,” etc. External: OMB **Hispanic or Latino origin** — **one yes/no ethnicity question**, any race.
 2. **Language:** Spanish as a **common colonial language**, not a shared ethnicity. Indigenous languages, English, Portuguese (Brazil **excluded**).
 3. **Homeland:** No single homeland. Mexico, Puerto Rico, Cuba, Central America, Andes, Spain — **different histories**. 1848 Mexican Cession is a **US-Mexico** rupture, not a Cuban one.
-4. **Subdivisions the category flattens — this is the point of the entry:** Mexican vs Puerto Rican vs Cuban vs Salvadoran vs Dominican vs Colombian vs Guatemalan vs Spaniard vs “Other Hispanic.” Race: White, Black, AIAN, Some Other Race, multiracial. **No shared ethnicity.**
+4. **Subdivisions the category flattens — this is the point of the entry:** Mexican vs Puerto Rican vs Cuban vs Salvadoran vs Dominican vs Colombian vs Guatemalan vs Spaniard vs “Other Hispanic.” Race: White, Black, AIAN (American Indian and Alaska Native), Some Other Race, multiracial. **No shared ethnicity.**
 5. **Population:**
    - **2020 Census:** **Hispanic or Latino 62.1 million (18.7%)**, up from **50.5 million (16.3%)** in 2010. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
    - **Specific origin** (ACS B03001 / 2020 DHC) splits Mexican, Puerto Rican, Cuban, etc. **Exact 2020 Mexican-origin integer OPEN this pass** (Bureau published it; not copied). Do not invent “37 million Mexicans.”
@@ -1474,11 +1482,10 @@ Canada/Caribbean national censuses are **other machines** when used.
 10. **Falsifier:** If 2020 Hispanic ≠ 62.1 million; if OMB treated Hispanic as a race in 2020 (it did not; 2024 OMB revision is a **later** rule change — flag, don’t back-apply).
 11. **OPEN:** 2020 Mexican / Puerto Rican / Cuban origin integers; ACS 2023 B03001; 2024 OMB implementation timeline.
 
----
 
 # Peoples & Ethnicities Atlas — Oceania
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
@@ -1486,7 +1493,7 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 - **Papuan:** a **cover term** for many non-Austronesian families of New Guinea and nearby islands — **not one family**. “Melanesian” as a 19th-c. racial type is a flattening; **Melanesia** as a geography contains both Austronesian and Papuan languages.
 - **Australian Aboriginal languages:** **~250 languages**, multiple families (Pama-Nyungan is the large family; others in the north). **Not one family and not one people.** Torres Strait Islander languages include **Meriam Mir** (Papuan) and **Kala Lagaw Ya** (Pama-Nyungan) — **not** “the same as Aboriginal.”
 
-New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting machines**.
+New Zealand, Australia, PNG, Fiji, and US Census NHPI (Native Hawaiian and Other Pacific Islander) are **different counting machines**.
 
 ---
 
@@ -1495,7 +1502,7 @@ New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting m
 1. **Self-designation vs. external name:** Self: nation-specific (*Arrernte*, *Yolŋu*, *Noongar*, *Koori*, *Murri*…). External: “Aboriginal,” “Aborigine” (the second often avoided). **Not** a single ethnolinguistic people.
 2. **Language:** Many families; Pama-Nyungan covers most of the continent; non-Pama-Nyungan in the north. English and Kriol as lingua francas. Deep-time presence is archaeology/genetics — **a separate machine from the Census Indigenous status question**.
 3. **Homeland:** Australian continent and some islands (not Torres Strait as a default). How they got there: Pleistocene settlement (dating contested in the literature — **do not pick a year as census**).
-4. **Subdivisions:** Language nations / native-title groups; Stolen Generations as a **legal-historical** split, not a census code. **Torres Strait is a different ABS status.**
+4. **Subdivisions:** Language nations / native-title groups; Stolen Generations as a **legal-historical** split, not a census code. **Torres Strait is a different ABS (Australian Bureau of Statistics) status.**
 5. **Population:** ABS **Census 2021** Indigenous status:
    - **Aboriginal and/or Torres Strait Islander 812,728 (3.2%)** of the counted population, up from **649,171 (2.8%)** in 2016.
    - Of those: **Aboriginal 742,882 (2.9%)**; **Torres Strait Islander 33,765 (0.1%)**; **both 36,083 (0.1%)**.
@@ -1559,7 +1566,7 @@ New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting m
    - **Stats NZ 2023** ethnic total-response **Pacific peoples** is a NZ **destination** machine (Samoan, Tongan, Cook Islands Māori, etc. in NZ) — **not** the Pacific’s population. Figure is in the same 2023 workbook as Māori (**do not use as Oceania**).
    - **US Census 2020:** Native Hawaiian and Other Pacific Islander **alone or in combination 1.6 million** — **US residents**, not the Pacific. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
    - **PNG, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga** national censuses are the **homeland machines**. PNG has **no single “Papuan ethnicity” census**. Fiji Bureau of Statistics ethnicity (**iTaukei** vs Indian) **OPEN** as the latest integer this pass (census exists). Samoa/Tonga almost-entirely Polynesian citizenship envelopes are **not** ethnicity tables.
-   - **Hawaiian:** US Census detailed NHPI — Native Hawaiian alone/combination **OPEN** integer this pass (DHC-A published it).
+   - **Hawaiian:** US Census detailed NHPI — Native Hawaiian alone/combination **OPEN** integer this pass (DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A) published it).
 6. **Rupture:** Dated colonizations **differ**: Hawai‘i **1893/98**; Samoa split **1899**; Fiji cession **1874** + Indian indenture **1879–1916**; PNG **1975** independence; nuclear testing in Micronesia (Bikini **1946**) as a dated US rupture.
 7. **Religion:** Christianity as majority overlay across much of the island Pacific (LMS, Methodist, Catholic, LDS in pockets). Highland PNG is **not** that default everywhere.
 8. **Flattening:** Three races; Fijian Indian as Melanesian; NZ “Pacific peoples” as the homeland; NHPI 1.6M as Oceania.
@@ -1567,41 +1574,40 @@ New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting m
 10. **Falsifier:** Treating Papuan as Austronesian; using 1.6M NHPI as a world Polynesian count; Fiji Indians as iTaukei.
 11. **OPEN:** Fiji latest iTaukei integer; PNG 2000/2011 census (no ethnicity); Native Hawaiian DHC-A; Samoa/Tonga 2021/22 censuses as citizenship envelopes.
 
----
 
 # Peoples & Ethnicities Atlas — Religious / ethnic overlap
 
-Not Nisaba. **Last file:** it cites the domain files; it does not replace them. Pull **2026-11-14**.
+**Last section:** it cites the other domain sections; it does not replace them. Pull **2026-11-14**. Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-Religion is not ethnicity. Ethnicity is not religion. Censuses sometimes **force them together** (Bosniak, Copt, Malay-in-Malaysia, Jewish as a people in other files). This file names the **umbrellas that get used as peoples** and points to the actual people-entries.
+Religion is not ethnicity. Ethnicity is not religion. Censuses sometimes **force them together** (Bosniak, Copt, Malay-in-Malaysia, Jewish as a people in other sections). This section names the **umbrellas that get used as peoples** and points to the actual people-entries.
 
 **Pew Research Center** *Global Religious Composition* estimates (2010 and 2020 dataset) are a **survey/census-compilation machine** for *religion*, not a people-count. They are the right machine for “how many Muslims,” the **wrong** machine for “the Muslim people.” https://www.pewresearch.org/dataset/dataset-of-global-religious-composition-estimates-for-2010-and-2020/
 
-National religion tables (PBS 2017 Pakistan **96.47%** Muslim; GSO 2019 Vietnam **13.7%** identifying a religion) measure **what they measure**.
+National religion tables (PBS (Pakistan Bureau of Statistics) 2017 Pakistan **96.47%** Muslim; GSO (Vietnam’s General Statistics Office) 2019 Vietnam **13.7%** identifying a religion) measure **what they measure**.
 
 ---
 
 ### “Muslim” (non-ethnic)
 
 1. **Self-designation vs. external name:** Self: *muslim* / *muʾmin* (religious). External: “Muslims” as a **bloc people** (US “Muslim world,” Indian “Muslim vote”). That bloc is **not an ethnicity**.
-2. **Language:** None. Arabic is liturgical for ṣalāh in many communities; **mother tongues are the people-files:** Arabic dialect clusters (`atlas_mena.md`), Persian, Turkish/Turkic (Caucasus/Central Asia file if present; Uyghur in `atlas_east_asia.md`), Punjabi/Bengali/Pashto (`atlas_south_asia.md`), Malay (`atlas_southeast_asia.md`), Somali/Hausa (`atlas_subsaharan_africa.md`), Bosnian (`atlas_europe.md`), Aymara/Quechua conversions are not the Andean default (`atlas_indigenous_americas.md`).
+2. **Language:** None. Arabic is liturgical for ṣalāh in many communities; **mother tongues** (a census-question category for the language learned at home, distinct from ethnicity or citizenship) **are the people-sections:** Arabic dialect clusters (see the Middle East & North Africa section), Persian, Turkish/Turkic (Caucasus & Central Asia section if present — not in this checkout; Uyghur in the East Asia section), Punjabi/Bengali/Pashto (see the South Asia section), Malay (see the Southeast Asia section), Somali/Hausa (see the Sub-Saharan Africa section), Bosnian (see the Europe section), Aymara/Quechua conversions are not the Andean default (see the Indigenous Americas section).
 3. **Homeland:** None. Hijaz is origin of the religion (**7th c.**); it is not the homeland of Bengali Muslims or Javanese Muslims.
-4. **Subdivisions the umbrella flattens — cite the files:**
-   - **Arab (MENA):** Levantine, Egyptian, Gulf, Maghrebi Arabic-speakers — **mutually unintelligible vernaculars** (`atlas_mena.md`). Amazigh Muslims are **not** Arabs.
-   - **Persian / Iranian:** Persians as Shia-majority *minzu*-adjacent (`atlas_mena.md`); not Arabs.
-   - **Turkic:** Uyghur Sunni (`atlas_east_asia.md`); Turkish/Azeri/Uzbek in the Caucasus–Central Asia file — **do not invent those counts here**.
-   - **South Asian:** Punjabi, Bengali, Sindhi, Pashtun Muslims (`atlas_south_asia.md`). PBS 2017: Pakistan **96.47%** Muslim as **citizenship religion**, not a Punjabi count.
-   - **Southeast Asian:** Malay (DOSM 2020 Malay **16,912,998**, Islam legally tied to Malay in Malaysia); Javanese/Indonesian Islam is **not** DOSM Malay (`atlas_southeast_asia.md`).
-   - **Sub-Saharan:** Somali (Cushitic, Islam as near-default); Hausa–Fulani umbrella (`atlas_subsaharan_africa.md`); **not** Arab.
-   - **European:** Bosniaks (`atlas_europe.md`); Albanian Muslims are **not in the Europe named list** — do not pad.
+4. **Subdivisions the umbrella flattens — cite the sections:**
+   - **Arab (MENA):** Levantine, Egyptian, Gulf, Maghrebi Arabic-speakers — **mutually unintelligible vernaculars** (see the Middle East & North Africa section). Amazigh Muslims are **not** Arabs.
+   - **Persian / Iranian:** Persians as Shia-majority *minzu*-adjacent (see the Middle East & North Africa section); not Arabs.
+   - **Turkic:** Uyghur Sunni (see the East Asia section); Turkish/Azeri/Uzbek in the Caucasus & Central Asia section — **do not invent those counts here**.
+   - **South Asian:** Punjabi, Bengali, Sindhi, Pashtun Muslims (see the South Asia section). PBS 2017: Pakistan **96.47%** Muslim as **citizenship religion**, not a Punjabi count.
+   - **Southeast Asian:** Malay (DOSM (Malaysia’s Department of Statistics) 2020 Malay **16,912,998**, Islam legally tied to Malay in Malaysia); Javanese/Indonesian Islam is **not** DOSM Malay (see the Southeast Asia section).
+   - **Sub-Saharan:** Somali (Cushitic, Islam as near-default); Hausa–Fulani umbrella (see the Sub-Saharan Africa section); **not** Arab.
+   - **European:** Bosniaks (see the Europe section); Albanian Muslims are **not in the Europe named list** — do not pad.
 5. **Population:** **No ethnolinguistic total.** Pew 2020 religious-composition estimates are the global **religion** machine — **OPEN the 2020 rounded Muslim total this pass** (dataset fetched as existing; country worksheet not copied). PBS / BBS / DOSM / SORS give **country religion or ethnicity**, not “Ummah.”
    Do not add Pakistan 207.7M × 96.47% to DOSM Malay and call it a people.
-6. **Rupture:** **622** Hijra / **632** death of the Prophet as religious dates; **1924** abolition of the Ottoman caliphate as a **political** rupture for the umbrella. People-level ruptures stay in their files (1947, 1971, 2017 Rakhine, 1804 Sokoto).
+6. **Rupture:** **622** Hijra / **632** death of the Prophet as religious dates; **1924** abolition of the Ottoman caliphate as a **political** rupture for the umbrella. People-level ruptures stay in their sections (1947, 1971, 2017 Rakhine, 1804 Sokoto).
 7. **Religion:** Tautological at the umbrella; **madhhab and Sunni/Shia/Ibadi** are the internal split (Alawi, Druze, Ahmadiyya — some states file them as Muslim **against self-description**; see Druze/Alawi in MENA).
 8. **Flattening:** “Muslims are Arabs”; “Pakistanis are Arabs”; Malay = Arab; Bosniak = Turk.
-9. **Receipt:** History — Hodgson, *The Venture of Islam* (civilization, not census); Pew 2020 dataset (religion). People-counts — the domain files named above.
+9. **Receipt:** History — Hodgson, *The Venture of Islam* (civilization, not census); Pew 2020 dataset (religion). People-counts — the domain sections named above.
 10. **Falsifier:** A census code “Muslim” as ethnicity that matches Pew religion totals (it doesn’t). If Levantine and Darija were one vernacular, MENA’s dialect split would die — that fight is **not** won by the word Muslim.
 11. **OPEN:** Pew 2020 global Muslim rounded count; Indonesia BPS religion vs ethnicity.
 
@@ -1610,18 +1616,18 @@ National religion tables (PBS 2017 Pakistan **96.47%** Muslim; GSO 2019 Vietnam 
 ### Christian denominational–ethnic overlaps (cross-ref, do not duplicate)
 
 1. **Self-designation vs. external name:** Church names that **function as peoples** in MENA: Copt, Maronite, Assyrian/Chaldean/Syriac. External: “Arab Christians” (sometimes accepted, sometimes refused).
-2. **Language:** Coptic liturgy + Arabic vernacular (Copts); Arabic (Maronites); Neo-Aramaic (Assyrian/Chaldean) — **`atlas_mena.md`**. Not Latin as ethnicity. Not Greek as ethnicity for Levantine Orthodox (though the church is Greek Orthodox).
+2. **Language:** Coptic liturgy + Arabic vernacular (Copts); Arabic (Maronites); Neo-Aramaic (Assyrian/Chaldean) — see the Middle East & North Africa section. Not Latin as ethnicity. Not Greek as ethnicity for Levantine Orthodox (though the church is Greek Orthodox).
 3. **Homeland:** Nile (Copts); Mount Lebanon (Maronites); Nineveh/Hakkari/Urmia/Tur Abdin (Assyrians). **Not** “the Christian world.”
 4. **Subdivisions already in MENA — do not rewrite the 11 cells:**
-   - **Copts:** CAPMAS does not publish a Copt count the Church accepts; **range, both sides named** in `atlas_mena.md`.
-   - **Assyrian / Chaldean / Syriac:** Iran SCI 2016 religion **84,027** “Assyrian and Chaldean Christians”; Iraq 2024 **omitted ethnicity**.
+   - **Copts:** CAPMAS (Egypt’s Central Agency for Public Mobilization and Statistics) does not publish a Copt count the Church accepts; **range, both sides named** in the Middle East & North Africa section above.
+   - **Assyrian / Chaldean / Syriac:** Iran SCI (Statistical Centre of Iran) 2016 religion **84,027** “Assyrian and Chaldean Christians”; Iraq 2024 **omitted ethnicity**.
    - **Maronite:** Lebanon **no census since 1932** — OPEN in MENA practice; do not invent a 2024 Maronite integer here.
-   - **European Christians** (Serb Orthodox, Croat Catholic, Polish Catholic) are **ethnoreligious in the Balkans/Poland** — see `atlas_europe.md`. That is overlap, **not** the MENA church-nations.
+   - **European Christians** (Serb Orthodox, Croat Catholic, Polish Catholic) are **ethnoreligious in the Balkans/Poland** — see the Europe section. That is overlap, **not** the MENA church-nations.
 5. **Population:** **Sum is forbidden.** Each church-people keeps its own machine. Pew Christian totals are **religion**.
-6. **Rupture:** **451** Chalcedon (Copts); **1914–18** Sayfo (Assyrians); Lebanese Civil War **1975–90** (Maronites among others). Do not pick one date for “Christians.”
+6. **Rupture:** **451** Chalcedon (Copts; the council that split Chalcedonian from Oriental Orthodox churches; Coptic Orthodox is autocephalous); **1914–18** Sayfo (Assyrians); Lebanese Civil War **1975–90** (Maronites among others). Do not pick one date for “Christians.”
 7. **Religion:** The point of the entry: **church is the people-code** in these cases, unlike “Christian” in the US Census (which is not a race).
-8. **Flattening:** Copt = Maronite = Greek Orthodox = “Arab Christian.” MENA file already kills that.
-9. **Receipt:** `atlas_mena.md` Copt / Assyrian / (Druze is **not** Christian). History — cited there.
+8. **Flattening:** Copt = Maronite = Greek Orthodox = “Arab Christian.” The Middle East & North Africa section already kills that.
+9. **Receipt:** Middle East & North Africa section, Copt / Assyrian / (Druze is **not** Christian). History — cited there.
 10. **Falsifier:** If this file printed a new Copt total not in the MENA file, it would be a mash. It doesn’t.
 11. **OPEN:** Same OPENs as MENA (Lebanon census; Iraq ethnicity; CAPMAS religion table).
 
@@ -1630,7 +1636,7 @@ National religion tables (PBS 2017 Pakistan **96.47%** Muslim; GSO 2019 Vietnam 
 ### “Hindu” (not purely ethnic)
 
 1. **Self-designation vs. external name:** Self: *Hindū* as religion; *Hindustānī* as a geographic-civic mash. External: “Hindus” as a people (Indian majoritarian usage and diaspora census religion ticks).
-2. **Language:** None. Indo-Aryan and Dravidian and others: Hindi-belt, Bengali, Tamil, etc. (`atlas_south_asia.md`). Nepali, Sinhala Buddhist (Sinhala is **not** Hindu default — `atlas_south_asia.md` Sinhalese).
+2. **Language:** None. Indo-Aryan and Dravidian and others: Hindi-belt, Bengali, Tamil, etc. (see the South Asia section). Nepali, Sinhala Buddhist (Sinhala is **not** Hindu default — see the South Asia section, Sinhalese).
 3. **Homeland:** None as an ethnicity. Indian subcontinent as the **religious geography**; Bali Hinduism and Caribbean Hinduism are **dated transplants** (indenture), not a second ethnogenesis of “the Hindu people.”
 4. **Subdivisions the umbrella flattens:**
    - **Language nations:** Tamil Hindus vs Bengali Hindus vs Hindi-belt — **different C-16 lines**.
@@ -1639,8 +1645,8 @@ National religion tables (PBS 2017 Pakistan **96.47%** Muslim; GSO 2019 Vietnam 
    - **Indo-Caribbean** Hindus (Guyana, Trinidad, Suriname) — plantation indenture after **1838**; US/UK census “Asian Indian” **race** is not Hindu.
    - **Sikhs** are **not** Hindus (Punjabi entry). **Jains** not Hindu. **Buddhists** in India (Ambedkarite) not Hindu.
 5. **Population:**
-   - **India:** Census of India **2011** religion table is the last published full religion count — **OPEN the 2011 Hindu integer this pass if not loaded** (the table exists at ORGI; C-16 language was loaded, C-1 religion was not copied here). Do not use C-16 Hindi speakers as Hindus.
-   - **Nepal** Hindu majority is a **Nepal CBS** machine — **OPEN**.
+   - **India:** Census of India **2011** religion table is the last published full religion count — **OPEN the 2011 Hindu integer this pass if not loaded** (the table exists at ORGI (India’s Office of the Registrar General & Census Commissioner); C-16 language was loaded, C-1 religion was not copied here). Do not use C-16 Hindi speakers as Hindus.
+   - **Nepal** Hindu majority is a **Nepal CBS (Nepal’s Central Bureau of Statistics)** machine — **OPEN**.
    - Pew 2020 Hindu **religion** estimates: global religion machine — **OPEN** rounded total this pass.
    - **Do not** add Indian Hindus to Bali Hindus to Guyanese Hindus as one ethnicity.
 6. **Rupture:** **1947** Partition (religion as the border); **1950** Indian Constitution (Hindu personal law umbrella — legal, contested); **1992** Babri Masjid as a dated political rupture, not ethnogenesis.
@@ -1652,6 +1658,4 @@ National religion tables (PBS 2017 Pakistan **96.47%** Muslim; GSO 2019 Vietnam 
 
 ---
 
-**Jewish** ethnoreligious subdivisions are a **completed domain not in this checkout**. Do not reconstruct them here. If that file is present in another branch, **cross-reference; do not duplicate.**
-
----
+**Jewish** ethnoreligious subdivisions are a **completed domain not in this checkout**. Do not reconstruct them here. If that section is present in another branch, **cross-reference; do not duplicate.**
