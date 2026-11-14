@@ -1,0 +1,218 @@
+# Live splitters only. Historical/static crests are not in this file
+# and refresh.py will never touch them.
+# last_known_value / last_pulled_date seeded from docs/study/CYCLES_OF_CONTENTION.md
+# pull 2026-11-14 unless noted.
+
+user_agent: CyclesLiveRefresh/0.1 (jdnova0802/mishara study map; not a crawler)
+sleep_seconds: 0.8
+
+points:
+  - id: 1.6.mpv_annual_killings
+    crest_id: "1.6"
+    label: "police killings, annual count (all manners)"
+    source_name: Mapping Police Violence / Campaign Zero
+    source_url: https://campaignzero.org/research/mapping-police-violence-2024-was-the-deadliest-year-for-police-violence/
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 1365
+    last_pulled_date: "2026-11-14"
+    unit: "people killed, calendar 2024"
+    threshold: 50
+    threshold_mode: abs
+    notes: "mappingpoliceviolence.org returned 403. No public CSV/API. Do not scrape the wrap page."
+
+  - id: 1.6.fbi_homicide_rate
+    crest_id: "1.6"
+    label: "FBI UCR national homicide rate"
+    source_name: FBI Crime Data Explorer
+    source_url: https://cde.ucr.cjis.gov/
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 5.0
+    last_pulled_date: "2026-11-14"
+    unit: "homicides per 100k, 2024"
+    threshold: 0.3
+    threshold_mode: abs
+    notes: "CDE API requires an api.data.gov key. HTML app is not a stable scrape target."
+
+  - id: 1.6.wapo_fatal_shootings
+    crest_id: "1.6"
+    label: "Washington Post Fatal Force on-duty shootings, latest complete year"
+    source_name: Washington Post Fatal Force GitHub CSV
+    source_url: https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v2/fatal-police-shootings-data.csv
+    fetch_method: api
+    fetcher: wapo_fatal_shootings_year
+    last_known_value: null
+    last_pulled_date: null
+    unit: "on-duty shootings, complete calendar year"
+    threshold: 50
+    threshold_mode: abs
+    notes: "Grain is shootings, not MPV all-killings. First successful run fills last_known_value."
+
+  - id: 5.2.bls_weekly_earnings_ratio
+    crest_id: "5.2"
+    label: "BLS female-to-male median usual weekly earnings ratio (full-time)"
+    source_name: BLS Public Data API (CPS)
+    source_url: https://api.bls.gov/publicAPI/v2/timeseries/data/
+    fetch_method: api
+    fetcher: bls_weekly_earnings_ratio
+    last_known_value: 82.7
+    last_pulled_date: "2026-11-14"
+    unit: "percent, women/men weekly (doc 2024 annual weekly; fetcher uses latest quarter)"
+    threshold: 2.0
+    threshold_mode: abs
+    notes: "Women LEU0252881500 / men LEU0252882400. Report page 403'd from this host; API is the machine path."
+
+  - id: 5.4.eeoc_sh_receipts
+    crest_id: "5.4"
+    label: "EEOC Title VII sexual-harassment charge receipts, latest FY"
+    source_name: EEOC Table E2c xlsx
+    source_url: https://www.eeoc.gov/data/enforcement-and-litigation-statistics-0
+    fetch_method: scrape
+    fetcher: eeoc_table_e2c_receipts
+    last_known_value: 7609
+    last_pulled_date: "2026-11-14"
+    unit: "EEOC-only receipts, FY2018 in the map; fetcher returns latest FY on the sheet"
+    threshold: 500
+    threshold_mode: abs
+    notes: "Listing page must still expose a Table_E2c .xlsx. Receipts row, last FY column."
+
+  - id: 6.4.eurostat_asylum_frst
+    crest_id: "6.4"
+    label: "EU first-time asylum applications, latest year"
+    source_name: Eurostat migr_asyappctza
+    source_url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/migr_asyappctza
+    fetch_method: api
+    fetcher: eurostat_asylum_first
+    last_known_value: 1048900
+    last_pulled_date: "2026-11-14"
+    unit: "first-time applicants, EU27_2020, calendar year (map cited 2023 ~1,048,900)"
+    threshold: 100000
+    threshold_mode: abs
+    notes: "applicant=FRST, citizen=TOTAL, sex=T, age=TOTAL, geo=EU27_2020."
+
+  - id: 6.4.afd_federal_vote
+    crest_id: "6.4"
+    label: "AfD latest Bundestag vote share"
+    source_name: Der Bundeswahlleiter / bpb
+    source_url: https://www.bundeswahlleiterin.de/
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 20.8
+    last_pulled_date: "2026-11-14"
+    unit: "percent, federal 2025"
+    threshold: 2.0
+    threshold_mode: abs
+    notes: "No weekly API. Re-check after the next Bundestag election."
+
+  - id: 6.4.rn_ep_vote
+    crest_id: "6.4"
+    label: "RN latest national vote share (EP 2024 Interior)"
+    source_name: Ministère de l'Intérieur
+    source_url: https://www.archives-resultats-elections.interieur.gouv.fr/resultats/europeennes2024/ensemble_geographique/index.php
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 31.37
+    last_pulled_date: "2026-11-14"
+    unit: "percent of expressed votes, EP 2024"
+    threshold: 2.0
+    threshold_mode: abs
+    notes: "Official HTML, no SDMX. Next EP is 2029; legislative pages are a different series."
+
+  - id: 6.5.ocha_gaza_killed
+    crest_id: "6.5"
+    label: "OCHA Gaza reported killed (MoH via OCHA)"
+    source_name: OCHA oPt / HDX
+    source_url: https://www.ochaopt.org/
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 42718
+    last_pulled_date: "2024-10-22"
+    unit: "Palestinians killed, Gaza MoH via OCHA update 22 Oct 2024"
+    threshold: 5000
+    threshold_mode: abs
+    notes: "HDX package is a Google Sheet, not a stable CSV. Do not scrape ochaopt HTML."
+
+  - id: 6.5.peacenow_settlements
+    crest_id: "6.5"
+    label: "Peace Now government-approved West Bank settlements"
+    source_name: Peace Now Settlements Watch
+    source_url: https://peacenow.org.il/en/settlements-watch
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 146
+    last_pulled_date: "2026-11-14"
+    unit: "settlements excluding East Jerusalem"
+    threshold: 5
+    threshold_mode: abs
+    notes: "HTML watch page, no machine-readable series found."
+
+  - id: 3.3.giss_annual_anomaly
+    crest_id: "3.3"
+    label: "NASA GISS global annual temperature anomaly (J-D, 1951-1980 baseline)"
+    source_name: NASA GISS LOTI CSV
+    source_url: https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv
+    fetch_method: api
+    fetcher: giss_annual_jd
+    last_known_value: 1.19
+    last_pulled_date: "2026-11-14"
+    unit: "degrees C, latest complete calendar year"
+    threshold: 0.10
+    threshold_mode: abs
+    notes: "Uses J-D column. Incomplete current year (*** ) is skipped."
+
+  - id: 3.3.gallup_gop_serious_threat
+    crest_id: "3.3"
+    label: "Gallup Republicans — global warming serious threat in my lifetime"
+    source_name: Gallup
+    source_url: https://news.gallup.com/poll/659387/record-high-call-global-warming-serious-threat.aspx
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 14
+    last_pulled_date: "2026-11-14"
+    unit: "percent, 2025"
+    threshold: 2.0
+    threshold_mode: abs
+    notes: "Poll page HTML; no public API. Partisan gap is the falsifier cell."
+
+  - id: 11.3.cdc_overdose_12mo
+    crest_id: "11.3"
+    label: "CDC NVSS provisional drug-overdose deaths, 12-month-ending"
+    source_name: CDC data.cdc.gov VSRR
+    source_url: https://data.cdc.gov/resource/xkb8-kh2a.json
+    fetch_method: api
+    fetcher: cdc_overdose_12mo
+    last_known_value: 75000
+    last_pulled_date: "2026-11-14"
+    unit: "12-month-ending deaths (map cited ~75,000 calendar 2024; fetcher is 12-month-ending US)"
+    threshold: 10000
+    threshold_mode: abs
+    notes: "WONDER is a form POST, not a GET. Socrata VSRR is the machine path. Grain differs from calendar-year."
+
+  - id: 7.2.pew_white_evangelical_gop
+    crest_id: "7.2"
+    label: "Pew white evangelical Protestant GOP identity/lean"
+    source_name: Pew Research
+    source_url: https://www.pewresearch.org/politics/2024/04/09/party-identification-among-religious-groups-and-religiously-unaffiliated-voters/
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 85
+    last_pulled_date: "2026-11-14"
+    unit: "percent of registered voters, 2024"
+    threshold: 2.0
+    threshold_mode: abs
+    notes: "Chart-heavy HTML. PRRI 84% 2024 vote share is a different series — do not mash."
+
+  - id: 7.4.eci_bjp_seats
+    crest_id: "7.4"
+    label: "BJP Lok Sabha seats, latest general election"
+    source_name: Election Commission of India
+    source_url: https://www.eci.gov.in/statistical-reports
+    fetch_method: manual_flag
+    fetcher: null
+    last_known_value: 240
+    last_pulled_date: "2026-11-14"
+    unit: "seats of 543, 2024"
+    threshold: 10
+    threshold_mode: abs
+    notes: "No live API. Next Lok Sabha is the next pull. PDFs, not JSON."
