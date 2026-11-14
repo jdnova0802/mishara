@@ -2,6 +2,8 @@
 
 Not Nisaba. Descriptive / ethnographic reference. History first, census second. Wikipedia is a finding aid. OPEN rather than invented. Pull date **2026-11-14**.
 
+One-file copy: [`docs/study/PEOPLES_ETHNICITIES_ATLAS.md`](PEOPLES_ETHNICITIES_ATLAS.md).
+
 The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus & Central Asian Turkic/Iranian peoples**) are **not in this checkout**. Do not invent them. Remaining domains below are built to the same 11-cell grid.
 
 | File | Domain |
