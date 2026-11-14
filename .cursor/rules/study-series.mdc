@@ -4,7 +4,7 @@ globs: docs/study/**
 alwaysApply: true
 ---
 
-When writing or editing any file under `docs/study/` (Peoples & Ethnicities Atlas, Religion as Institution, Standards & Certification, War & Alliance, Class & Social Mobility, and later maps), follow `docs/study/STUDY_SERIES_RULES.md` in full.
+When writing or editing any file under `docs/study/` (Peoples & Ethnicities Atlas, Religion as Institution, Standards & Certification, War & Alliance, Class & Social Mobility, International Pricing & Trade, and later maps), follow `docs/study/STUDY_SERIES_RULES.md` in full.
 
 Hard checks before marking a study document complete:
 
