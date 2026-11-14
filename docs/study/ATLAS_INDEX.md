@@ -2,6 +2,8 @@
 
 Descriptive / ethnographic reference. History first, census second. Wikipedia is a finding aid. OPEN rather than invented. Pull date **2026-11-14**.
 
+Standing rules for this series (counting machines, OPEN, Wikipedia as finding aid, acronym first-use): [`docs/study/STUDY_SERIES_RULES.md`](STUDY_SERIES_RULES.md).
+
 One-file copy: [`docs/study/PEOPLES_ETHNICITIES_ATLAS.md`](PEOPLES_ETHNICITIES_ATLAS.md).
 
 Related (different 11-field grid — institutions, not peoples): [`docs/study/RELIGION_AS_INSTITUTION_MAP.md`](RELIGION_AS_INSTITUTION_MAP.md).
