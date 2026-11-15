@@ -9,3 +9,4 @@ gate/.env
 venv/
 nisaba-132-133/node_modules/
 nisaba-132-133/dist/
+agent-spend-drill/out/

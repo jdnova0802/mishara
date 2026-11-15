@@ -1,0 +1,16 @@
+{
+  "spec": "gate-agent-spend-drill-v1",
+  "agent_id": "drill_agent",
+  "plain": "One autonomous spend attempt. The cap is $50.00. The agent tries $9,999.00. The mouth must answer NEVER.",
+  "goal": {
+    "merchant": "Rogue Merchant LLC",
+    "amount_cents": 999900,
+    "merchant_category": "computer_software_stores"
+  },
+  "limit": {
+    "max_amount": "50.00",
+    "expected_merchant": "Acme Supplies"
+  },
+  "expected_word": "NEVER",
+  "mouth_path": "/demo/issuing/mouth"
+}
