@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Evidence layer{% endblock %}
+{% block meta %}
+<meta name="description" content="{{ m.plain }}">
+<meta name="robots" content="index,follow">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Identity, payment, evidence — the missing third lane",
+  "dateModified": "{{ m.as_of }}",
+  "author": {"@type": "Organization", "name": "Nisaba LLC"},
+  "url": "{{ m.page }}"
+}
+</script>
+{% endblock %}
+{% block content %}
+<style>
+  .el { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem 4rem; }
+  .el-kicker { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .el h1 { font-size: clamp(1.6rem, 3vw, 2.1rem); letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
+  .el-flow { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .el-flow b { color: var(--text); font-weight: 600; }
+  .el-stack { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; align-items: stretch; }
+  @media (max-width: 800px) { .el-stack { grid-template-columns: 1fr; } }
+  .el-lane { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 0.85rem 0.85rem 0.5rem; display: flex; flex-direction: column; min-height: 100%; }
+  .el-lane-h { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .el-lane-h strong { display: block; color: var(--text); font-size: 1.05rem; letter-spacing: -0.02em; text-transform: none; margin-top: 0.15rem; }
+  .el-lane.evidence { border-color: #2dd4bf66; box-shadow: inset 0 0 0 1px #2dd4bf22; }
+  .el-box { margin-top: 0.65rem; padding: 0.65rem 0.7rem; border: 1px solid var(--border); border-radius: 8px; background: #0c0e14; }
+  .el-box a { color: var(--text); font-weight: 600; font-size: 0.92rem; }
+  .el-box p { color: var(--muted); font-size: 0.8rem; margin-top: 0.3rem; line-height: 1.45; }
+  .el-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.12rem 0.4rem; border-radius: 999px; margin-left: 0.35rem; vertical-align: 1px; }
+  .el-tag.shipping { background: #4ade8022; color: #4ade80; }
+  .el-tag.draft { background: #fbbf2422; color: #fbbf24; }
+  .el-tag.proposed { background: #8b92a822; color: #b4bacd; }
+  .el-copy { margin-top: 2.25rem; max-width: 42rem; }
+  .el-copy p { margin-bottom: 0.9rem; color: #d5d8e2; }
+  .el-copy ul { margin: 0.4rem 0 1rem 1.1rem; color: var(--muted); }
+  .el-copy li { margin: 0.35rem 0; }
+  .el-copy .close { color: var(--text); }
+  .el-svg { width: 100%; height: auto; margin: 0 0 1.25rem; display: block; }
+  .el-meta { color: var(--muted); font-size: 0.8rem; margin-top: 1.5rem; }
+</style>
+<div class="el">
+  <p class="el-kicker">Reference · {{ m.as_of }} · not a product page</p>
+  <h1>Who → how it paid → what happened</h1>
+  <p class="el-flow">Three lanes. Public maps draw the first two. The third is the gap.</p>
+
+  <svg class="el-svg" viewBox="0 0 960 88" role="img" aria-label="Flow: identity who, payment how it paid, evidence what happened">
+    <rect x="8" y="18" width="292" height="52" rx="8" fill="#12141c" stroke="#252836"/>
+    <rect x="334" y="18" width="292" height="52" rx="8" fill="#12141c" stroke="#252836"/>
+    <rect x="660" y="18" width="292" height="52" rx="8" fill="#12141c" stroke="#2dd4bf66"/>
+    <text x="154" y="40" text-anchor="middle" fill="#8b92a8" font-size="11" font-family="system-ui,sans-serif">IDENTITY</text>
+    <text x="154" y="58" text-anchor="middle" fill="#e8eaf0" font-size="16" font-family="system-ui,sans-serif">who</text>
+    <text x="480" y="40" text-anchor="middle" fill="#8b92a8" font-size="11" font-family="system-ui,sans-serif">PAYMENT</text>
+    <text x="480" y="58" text-anchor="middle" fill="#e8eaf0" font-size="16" font-family="system-ui,sans-serif">how it paid</text>
+    <text x="806" y="40" text-anchor="middle" fill="#8b92a8" font-size="11" font-family="system-ui,sans-serif">EVIDENCE</text>
+    <text x="806" y="58" text-anchor="middle" fill="#e8eaf0" font-size="16" font-family="system-ui,sans-serif">what happened</text>
+    <polygon points="308,44 326,44 326,38 348,48 326,58 326,52 308,52" fill="#5eead4"/>
+    <polygon points="634,44 652,44 652,38 674,48 652,58 652,52 634,52" fill="#5eead4"/>
+  </svg>
+
+  <div class="el-stack">
+    {% for lane in m.lanes %}
+    <section class="el-lane {{ lane.id }}" id="lane-{{ lane.id }}">
+      <p class="el-lane-h">{{ lane.flow }}<strong>{{ lane.title }}</strong></p>
+      {% for it in lane.entries %}
+      <article class="el-box">
+        <a href="{{ it.href }}"{% if not it.self %} rel="noopener"{% endif %}>{{ it.name }}</a>
+        <span class="el-tag {{ it.tag }}">{{ it.tag }}</span>
+        <p>{{ it.note }}</p>
+      </article>
+      {% endfor %}
+    </section>
+    {% endfor %}
+  </div>
+
+  <article class="el-copy" id="note">
+    <p>Public agentic-commerce comparisons split the stack into identity and payment. They do not place evidence — a stranger-checkable record of allow or refuse — as a third axis. Three pages that already rank on that split:</p>
+    <ul>
+      {% for c in m.comparisons %}
+      <li><a href="{{ c.href }}" rel="noopener">{{ c.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <p>ATXP’s tables, ACP Info’s radar, and kya.fi’s tracker tag live vs vaporware for who the agent is and how it pays. Accountability is a dashboard column or out of scope. Hive, AGTP-LOG, Agent Record, and Gate sit on the missing lane — and they do not share a wire.</p>
+    <p>Named occupancy, November 2026: Hive Transparency Log is a live RFC 9162-style Merkle log with COSE receipts at witness.thehiveryiq.com. <code>draft-hood-agtp-log-03</code> is an informational IETF draft (expires 3 May 2027). The Agent Record draft is an individual I-D. Gate issues Ed25519 prefinality JWTs a stranger can POST to <code>/v1/prefinality/verify</code> today. Gate’s tree is CT-shaped, not 9162-hash-compatible, and the mouth is not production-hardened.</p>
+    <p class="close">Nothing in that lane is production-shippable at Gate's maturity yet.</p>
+  </article>
+  <p class="el-meta">{{ m.spec }} · JSON: <a href="{{ url_for('well_known_evidence_layer') }}">/.well-known/evidence-layer.json</a> · no checkout on this page</p>
+</div>
+{% endblock %}
