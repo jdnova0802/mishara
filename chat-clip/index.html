@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>chat clip</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #111;
+    color: #ececec;
+    font: 15px/1.4 ui-sans-serif, system-ui, sans-serif;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 16px 48px;
+    display: grid;
+    gap: 12px;
+  }
+  textarea {
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+    background: #1a1a1a;
+    color: #ececec;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    font: 14px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  button {
+    appearance: none;
+    border: 0;
+    background: #ececec;
+    color: #111;
+    font: 600 14px ui-sans-serif, system-ui, sans-serif;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.5; cursor: wait; }
+  #status { color: #9a9a9a; font-size: 13px; min-height: 1.2em; }
+  canvas { display: none; }
+  video {
+    width: 270px;
+    height: 480px;
+    background: #000;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+</style>
+</head>
+<body>
+<main>
+  <textarea id="src" placeholder="Paste a real transcript. Label turns like:&#10;&#10;User: …&#10;Assistant: …"></textarea>
+  <div><button id="go" type="button">Render clip</button></div>
+  <p id="status"></p>
+  <video id="preview" controls playsinline></video>
+  <canvas id="stage" width="720" height="1280"></canvas>
+</main>
+<script>
+const W = 720;
+const H = 1280;
+const FPS = 30;
+const MAX_MS = 15000;
+const HASH_MS = 1800;
+const PAD = 36;
+const BUBBLE_MAX = 560;
+const FONT = "28px ui-sans-serif, system-ui, sans-serif";
+const HASH_FONT = "15px ui-monospace, SFMono-Regular, Menlo, monospace";
+
+const SPEAKER = /^(user|you|human|me|assistant|chatgpt|claude|gemini|grok|ai|system|model)\s*[:\-—]\s*/i;
+const SPEAKER_ONLY = /^(user|you|human|me|assistant|chatgpt|claude|gemini|grok|ai|system|model)\s*$/i;
+
+function isUser(role) {
+  return /^(user|you|human|me)$/i.test(role);
+}
+
+function parseTranscript(raw) {
+  const lines = raw.replace(/\r\n/g, "\n").split("\n");
+  const msgs = [];
+  let cur = null;
+  for (const line of lines) {
+    const tagged = line.match(SPEAKER);
+    if (tagged) {
+      if (cur && cur.text.trim()) msgs.push(cur);
+      cur = { role: tagged[1], text: line.slice(tagged[0].length) };
+      continue;
+    }
+    if (SPEAKER_ONLY.test(line.trim())) {
+      if (cur && cur.text.trim()) msgs.push(cur);
+      cur = { role: line.trim(), text: "" };
+      continue;
+    }
+    if (!cur) cur = { role: "Assistant", text: line };
+    else cur.text += (cur.text ? "\n" : "") + line;
+  }
+  if (cur && cur.text.trim()) msgs.push(cur);
+  return msgs.map((m) => ({ user: isUser(m.role), text: m.text.trim() })).filter((m) => m.text);
+}
+
+function wrap(ctx, text, maxWidth) {
+  const out = [];
+  for (const para of text.split("\n")) {
+    const words = para.split(/\s+/).filter(Boolean);
+    if (!words.length) { out.push(""); continue; }
+    let line = words[0];
+    for (let i = 1; i < words.length; i++) {
+      const trial = line + " " + words[i];
+      if (ctx.measureText(trial).width <= maxWidth) line = trial;
+      else { out.push(line); line = words[i]; }
+    }
+    out.push(line);
+  }
+  return out.length ? out : [""];
+}
+
+function layout(ctx, msgs) {
+  ctx.font = FONT;
+  const lineH = 36;
+  const vpad = 20;
+  const hpad = 22;
+  const inner = BUBBLE_MAX - hpad * 2;
+  const items = msgs.map((m) => {
+    const lines = wrap(ctx, m.text, inner);
+    const textW = Math.max(...lines.map((l) => ctx.measureText(l).width), 8);
+    const w = Math.min(BUBBLE_MAX, Math.ceil(textW) + hpad * 2);
+    const h = lines.length * lineH + vpad * 2;
+    return { ...m, lines, w, h, lineH, vpad, hpad };
+  });
+  const gap = 16;
+  let total = gap;
+  for (const it of items) total += it.h + gap;
+  let y = Math.max(PAD + 24, H - PAD - 64 - total);
+  for (const it of items) {
+    it.y = y;
+    it.x = it.user ? W - PAD - it.w : PAD;
+    y += it.h + gap;
+  }
+  return items;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  const rr = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.closePath();
+}
+
+function drawChat(ctx, items, t, appearMs) {
+  ctx.fillStyle = "#0e0e10";
+  ctx.fillRect(0, 0, W, H);
+  ctx.font = FONT;
+  ctx.textBaseline = "top";
+  for (let i = 0; i < items.length; i++) {
+    const start = i * appearMs;
+    if (t < start) continue;
+    const a = Math.min(1, (t - start) / 220);
+    const it = items[i];
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.translate(0, (1 - a) * 12);
+    ctx.fillStyle = it.user ? "#2f6feb" : "#2a2a2e";
+    roundRect(ctx, it.x, it.y, it.w, it.h, 22);
+    ctx.fill();
+    ctx.fillStyle = "#f4f4f5";
+    let ly = it.y + it.vpad;
+    for (const line of it.lines) {
+      ctx.fillText(line, it.x + it.hpad, ly);
+      ly += it.lineH;
+    }
+    ctx.restore();
+  }
+}
+
+function drawHash(ctx, hex) {
+  ctx.fillStyle = "#0e0e10";
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = "#c8c8c8";
+  ctx.font = HASH_FONT;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("sha256:" + hex, W / 2, H / 2);
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+}
+
+async function sha256hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function pickMime() {
+  const types = [
+    "video/webm;codecs=vp9",
+    "video/webm;codecs=vp8",
+    "video/webm",
+    "video/mp4",
+  ];
+  return types.find((t) => MediaRecorder.isTypeSupported(t)) || "";
+}
+
+async function renderClip(raw) {
+  const msgs = parseTranscript(raw);
+  if (!msgs.length) throw new Error("No labeled turns. Start lines with User: or Assistant:");
+  const canvas = document.getElementById("stage");
+  const ctx = canvas.getContext("2d");
+  const items = layout(ctx, msgs.slice(-8));
+  const hex = await sha256hex(raw);
+  const n = items.length;
+  const bodyMs = Math.min(MAX_MS - HASH_MS, Math.max(2400, n * 1600));
+  const totalMs = bodyMs + HASH_MS;
+  const appearMs = bodyMs / n;
+  const mime = pickMime();
+  if (!mime) throw new Error("This browser cannot record video.");
+  const stream = canvas.captureStream(FPS);
+  const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 4_000_000 });
+  const chunks = [];
+  rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+  const done = new Promise((resolve, reject) => {
+    rec.onstop = () => resolve(new Blob(chunks, { type: mime }));
+    rec.onerror = () => reject(rec.error || new Error("record failed"));
+  });
+  rec.start();
+  const t0 = performance.now();
+  await new Promise((resolve) => {
+    function tick(now) {
+      const t = now - t0;
+      if (t < bodyMs) drawChat(ctx, items, t, appearMs);
+      else drawHash(ctx, hex);
+      if (t < totalMs) requestAnimationFrame(tick);
+      else {
+        drawHash(ctx, hex);
+        resolve();
+      }
+    }
+    drawChat(ctx, items, 0, appearMs);
+    requestAnimationFrame(tick);
+  });
+  await new Promise((r) => setTimeout(r, 80));
+  rec.stop();
+  const blob = await done;
+  stream.getTracks().forEach((tr) => tr.stop());
+  const ext = mime.includes("mp4") ? "mp4" : "webm";
+  return { blob, ext, hex, seconds: totalMs / 1000 };
+}
+
+const go = document.getElementById("go");
+const status = document.getElementById("status");
+const preview = document.getElementById("preview");
+go.addEventListener("click", async () => {
+  const raw = document.getElementById("src").value;
+  go.disabled = true;
+  status.textContent = "Rendering…";
+  preview.removeAttribute("src");
+  try {
+    const { blob, ext, hex, seconds } = await renderClip(raw);
+    const url = URL.createObjectURL(blob);
+    preview.src = url;
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "chat-clip." + ext;
+    a.click();
+    status.textContent = seconds.toFixed(1) + "s · sha256:" + hex;
+  } catch (err) {
+    status.textContent = err instanceof Error ? err.message : "Failed.";
+  } finally {
+    go.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
