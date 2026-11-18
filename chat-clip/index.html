@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>chat clip</title>
+<title>Chat clip — ≤15s</title>
+<meta name="description" content="Paste a labeled transcript. Get a phone-width clip under 15 seconds. Last frame is sha256 of the paste.">
+<meta name="robots" content="index,follow">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -55,11 +57,17 @@
 </head>
 <body>
 <main>
+  <h1 style="margin:0;font:700 22px ui-sans-serif,system-ui,sans-serif;">Chat clip</h1>
+  <p style="margin:0;color:#9a9a9a;max-width:36rem;">Paste a labeled transcript. Render a 720×1280 clip, ≤15s. Last frame is <code>sha256</code> of the raw paste. You post it. No second URL on the video.</p>
   <textarea id="src" placeholder="Paste a real transcript. Label turns like:&#10;&#10;User: …&#10;Assistant: …"></textarea>
-  <div><button id="go" type="button">Render clip</button></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button id="go" type="button">Render clip</button>
+    <button id="dl" type="button" disabled>Download</button>
+  </div>
   <p id="status"></p>
   <video id="preview" controls playsinline></video>
   <canvas id="stage" width="720" height="1280"></canvas>
+  <p style="color:#666;font-size:13px;margin:8px 0 0;"><a href="/issuing-mouth" style="color:#9a9a9a;">Issuing mouth</a> · Gate</p>
 </main>
 <script>
 const W = 720;
@@ -253,27 +261,38 @@ async function renderClip(raw) {
 }
 
 const go = document.getElementById("go");
+const dl = document.getElementById("dl");
 const status = document.getElementById("status");
 const preview = document.getElementById("preview");
+let lastUrl = "";
+let lastName = "chat-clip.webm";
 go.addEventListener("click", async () => {
   const raw = document.getElementById("src").value;
   go.disabled = true;
+  dl.disabled = true;
   status.textContent = "Rendering…";
   preview.removeAttribute("src");
   try {
     const { blob, ext, hex, seconds } = await renderClip(raw);
+    if (lastUrl) URL.revokeObjectURL(lastUrl);
     const url = URL.createObjectURL(blob);
+    lastUrl = url;
+    lastName = "chat-clip." + ext;
     preview.src = url;
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "chat-clip." + ext;
-    a.click();
+    dl.disabled = false;
     status.textContent = seconds.toFixed(1) + "s · sha256:" + hex;
   } catch (err) {
     status.textContent = err instanceof Error ? err.message : "Failed.";
   } finally {
     go.disabled = false;
   }
+});
+dl.addEventListener("click", () => {
+  if (!lastUrl) return;
+  const a = document.createElement("a");
+  a.href = lastUrl;
+  a.download = lastName;
+  a.click();
 });
 </script>
 </body>
