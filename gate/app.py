@@ -180,6 +180,11 @@ except ImportError:
     import bound
 
 try:
+    from gate import owned_write as owned_write_mod
+except ImportError:
+    import owned_write as owned_write_mod
+
+try:
     from gate import exclusive
 except ImportError:
     import exclusive
@@ -467,6 +472,7 @@ PUBLIC_WELLKNOWN = frozenset(
         "/.well-known/stair.json",
         "/.well-known/dsp-reject.json",
         "/.well-known/issuing-mouth.json",
+        "/.well-known/owned-write.json",
         "/.well-known/spend-mandate.json",
         "/.well-known/sink-mouth.json",
         "/.well-known/regulator.json",
@@ -1411,14 +1417,73 @@ def _demo_gate():
     return True, None
 
 
-def run_welded_act(fuse_id: str, action: str):
-    """Clearance permit only. Gate never executes the irreversible write here.
+def run_welded_act(
+    fuse_id: str,
+    action: str,
+    *,
+    write_url: str | None = None,
+    exclusive_owned: bool = False,
+    allow_invoke: bool = False,
+):
+    """Hop first. Default: clearance only (write_executed false).
 
-    `acted` means clearance would allow the exclusive door to proceed — not that
-    money left or a bind committed. `write_executed` is always false from Gate.
+    Caller-owned live mode (write_url + exclusive_owned + API key): on deny the
+    owned function is not called; on allow Gate POSTs write_url once. PAS targets
+    are refused. their_production stays false. Licensed-operator 48h path untouched.
     """
-    hop, status, extra = velaru_fuse("POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id})
-    extra = dict(extra or {})
+    extra = {"X-Gate-Closed-World": "1", "X-Gate-Write-Executed": "0"}
+    owned_url = (write_url or "").strip() or None
+
+    if owned_url and not allow_invoke:
+        err = {
+            "error": {
+                "code": "owned_write_key_required",
+                "message": "Caller-owned live mode is key-only. Demo/MCP cannot invoke a write_url.",
+            },
+            "write_executed": False,
+            "write_invoked": False,
+            "their_production": False,
+        }
+        return err, 400, extra
+
+    target = None
+    if owned_url:
+        if not exclusive_owned:
+            err = {
+                "error": {
+                    "code": "exclusive_owned_required",
+                    "message": (
+                        "Caller-owned live mode requires exclusive_owned=true — "
+                        "this function is the only mouth for that payout/withdraw."
+                    ),
+                },
+                "write_executed": False,
+                "write_invoked": False,
+                "their_production": False,
+            }
+            return err, 400, extra
+        target = owned_write_mod.classify_target(
+            owned_url,
+            public_url=advertised_url(),
+            allow_loopback=bool(GATE_DEV_MODE),
+        )
+        if not target.get("ok"):
+            err = {
+                "error": {
+                    "code": target.get("code") or "write_url_refused",
+                    "message": target.get("message") or "write_url refused",
+                },
+                "write_executed": False,
+                "write_invoked": False,
+                "their_production": False,
+                "pas_write_forbidden": target.get("code") == "pas_write_forbidden",
+            }
+            return err, 400, extra
+
+    hop, status, hop_extra = velaru_fuse(
+        "POST", "/api/v1/fuse/hop", fuse_id=fuse_id, json={"fuse_id": fuse_id}
+    )
+    extra.update(hop_extra or {})
     extra["X-Gate-Closed-World"] = "1"
     extra["X-Gate-Write-Executed"] = "0"
 
@@ -1426,36 +1491,84 @@ def run_welded_act(fuse_id: str, action: str):
         if isinstance(hop, dict):
             hop["acted"] = False
             hop["write_executed"] = False
+            hop["write_invoked"] = False
             hop["side_effect"] = False
-            hop["clearance_only"] = True
+            hop["clearance_only"] = not bool(owned_url)
+            hop["owned_write"] = bool(owned_url)
             hop["action"] = action
             hop["welded"] = True
             hop["closed_world"] = True
+            hop["their_production"] = False
             bound.attach(hop, status, closed_world=True)
         return hop, status, extra
 
     allowed = bool(isinstance(hop, dict) and hop.get("verdict") is True)
+    invoke_result = None
+    write_invoked = False
+    write_executed = False
+    if owned_url and allowed:
+        invoke_body = {
+            "spec": owned_write_mod.SPEC,
+            "fuse_id": fuse_id,
+            "action": action,
+            "clearance_allows": True,
+            "halt": False,
+        }
+        invoke_result = owned_write_mod.invoke(target["write_url"], invoke_body)
+        write_invoked = bool(invoke_result.get("invoked"))
+        write_executed = bool(invoke_result.get("ok"))
+        extra["X-Gate-Write-Executed"] = "1" if write_executed else "0"
+    elif owned_url and not allowed:
+        extra["X-Gate-Write-Executed"] = "0"
+
+    clearance_only = not bool(owned_url)
+    if owned_url:
+        if not allowed:
+            message = (
+                "Clearance refuse — owned function was not called. write_executed=false."
+            )
+        elif write_executed:
+            message = (
+                "Clearance permit — Gate POSTed the caller-owned function. "
+                "Not a PAS weld. their_production stays false."
+            )
+        else:
+            message = (
+                "Clearance permit — owned function invoke failed. Fail closed. "
+                "write_executed=false."
+            )
+    else:
+        message = (
+            "Clearance permit — hop LIVE/verdict true. Gate did not execute the write. "
+            "Exclusive door (worker/Gosu) must enforce; bypass is out of protocol."
+            if allowed
+            else "Clearance refuse — DEAD or verdict false. No side door. write_executed=false."
+        )
+
     result = {
-        "spec": "gate-welded-act-v2",
+        "spec": "gate-welded-act-v2" if not owned_url else owned_write_mod.SPEC,
         "welded": True,
         "closed_world": True,
-        "clearance_only": True,
-        "side_effect": False,
-        "write_executed": False,
+        "clearance_only": clearance_only,
+        "owned_write": bool(owned_url),
+        "side_effect": write_invoked,
+        "write_executed": write_executed,
+        "write_invoked": write_invoked,
         "action": action,
         "acted": allowed,
         "clearance_allows": allowed,
         "halt": not allowed,
         "fuse_id": fuse_id,
         "hop": hop,
-        "message": (
-            "Clearance permit — hop LIVE/verdict true. Gate did not execute the write. "
-            "Exclusive door (worker/Gosu) must enforce; bypass is out of protocol."
-            if allowed
-            else "Clearance refuse — DEAD or verdict false. No side door. write_executed=false."
-        ),
+        "message": message,
         "their_production": False,
     }
+    if invoke_result is not None:
+        result["owned_invoke"] = {
+            "ok": invoke_result.get("ok"),
+            "status": invoke_result.get("status"),
+            "error": invoke_result.get("error"),
+        }
     extra["X-Gate-Acted"] = "1" if allowed else "0"
     bound.attach(result, 200, closed_world=True)
     return result, 200, extra
@@ -1469,9 +1582,16 @@ def demo_act():
     body = request.get_json(silent=True) or {}
     fuse_id = (body.get("fuse_id") or "fuse_velaru_drill").strip()
     action = (body.get("action") or "demo").strip()[:128]
+    if body.get("write_url"):
+        return jsonify({
+            "error": {
+                "code": "owned_write_key_required",
+                "message": "Demo cannot invoke a caller write_url.",
+            }
+        }), 400
     if not demo_limit.validate_demo_fuse(fuse_id):
         return jsonify({"error": {"code": "demo_fuse_only", "message": "Demo limited to public fuses."}}), 400
-    data, status, extra = run_welded_act(fuse_id, action)
+    data, status, extra = run_welded_act(fuse_id, action, allow_invoke=False)
     if isinstance(data, dict):
         data["demo"] = True
         data["signup_url"] = f"{advertised_url()}/signup"
@@ -1995,6 +2115,7 @@ def well_known_gate():
             "demo_pas": f"{advertised_url()}/demo/pas/bind-check",
             "ocsp": f"{advertised_url()}/v1/fuse/lookup",
             "act": f"{advertised_url()}/v1/act",
+            "owned_write": f"{advertised_url()}/.well-known/owned-write.json",
             "pas_bind": f"{advertised_url()}/v1/pas/bind-check",
             "policycenter_pre_bind": f"{advertised_url()}/v1/pas/policycenter/pre-bind",
             "mga_authority": f"{advertised_url()}/v1/pas/mga-authority",
@@ -3419,6 +3540,11 @@ def well_known_issuing_mouth():
     return jsonify(issuing_mouth_mod.manifest(advertised_url()))
 
 
+@app.route("/.well-known/owned-write.json")
+def well_known_owned_write():
+    return jsonify(owned_write_mod.manifesto(advertised_url()))
+
+
 @app.route("/.well-known/spend-mandate.json")
 def well_known_spend_mandate():
     return jsonify(spend_mandate_mod.spec(advertised_url()))
@@ -4480,9 +4606,11 @@ def _mcp_call_tool(name: str, arguments: dict):
     if name == "welded_act":
         fuse_id = (arguments.get("fuse_id") or "fuse_velaru_drill").strip()
         action = (arguments.get("action") or "mcp").strip()[:128]
+        if arguments.get("write_url"):
+            return {"error": {"code": "owned_write_key_required", "message": "MCP cannot invoke write_url."}}
         if not keyed and not demo_limit.validate_demo_fuse(fuse_id):
             return {"error": {"code": "demo_fuse_only"}}
-        data, status, _ = run_welded_act(fuse_id, action)
+        data, status, _ = run_welded_act(fuse_id, action, allow_invoke=False)
         if isinstance(data, dict):
             if not keyed:
                 data["demo"] = True
@@ -5270,9 +5398,17 @@ def welded_act():
     body = request.get_json(silent=True) or {}
     fuse_id = (body.get("fuse_id") or "").strip()
     action = (body.get("action") or "commit").strip()[:128]
+    write_url = (body.get("write_url") or "").strip() or None
+    exclusive_owned = owned_write_mod.truthy(body.get("exclusive_owned"))
     if not fuse_id:
         return {"error": {"code": "fuse_id_required", "message": "fuse_id required"}}, 400
-    return run_welded_act(fuse_id, action)
+    return run_welded_act(
+        fuse_id,
+        action,
+        write_url=write_url,
+        exclusive_owned=exclusive_owned,
+        allow_invoke=True,
+    )
 
 
 @app.route("/v1/pas/bind-check", methods=["POST"])
@@ -5758,7 +5894,12 @@ def openapi_full():
                         },
                     }
                 },
-                "/v1/act": {"post": {"summary": "Welded closed-world act — hop first, DEAD never acts", "security": [{"BearerAuth": []}]}},
+                "/v1/act": {
+                    "post": {
+                        "summary": "Welded closed-world act — hop first, DEAD never acts. Optional caller-owned write_url (not PAS).",
+                        "security": [{"BearerAuth": []}],
+                    }
+                },
                 "/v1/pas/bind-check": {"post": {"summary": "PAS bind ALLOW/BLOCK demo. fuse_id + job ids only.", "security": [{"BearerAuth": []}]}},
                 "/v1/prefinality/evaluate": {
                     "get": {
