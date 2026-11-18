@@ -133,7 +133,7 @@ Offense (jailbreak leaderboards, GCG, AgentDojo attack papers as an end in thems
 | OWASP cheat sheet | Specifies atomic consume-before-execute; **no reference implementation** in the sheet. |
 | AgentCap (paper) | Evaluation on AgentDojo / InjecAgent — **not** a production payments or ICS tool bridge. |
 | AttriGuard | Research prototype; **2× agent execution** cost class. |
-| Gate `/v1/act` (this repo, owned-write) | Clearance vs invoke is the same **propose/authorize** split. It is **not** wired as a general agent-tool capability kernel, and default `write_executed=false`. Treat as an existence proof of the *shape*, not a completed agent-security product. |
+| Gate `/v1/act` (this repo, owned-write) | Clearance vs invoke is the same **propose/authorize** split. It is **not** wired as a general agent-tool capability kernel, and default `write_executed=false`. Treat as an existence proof of the *shape*, not a completed agent-security product. Line-by-line vs AttriGuard / AgentCap / OWASP: `docs/study/ACT_VS_AGENTCAP_ATTRIGUARD.md`. |
 
 ### Media
 
@@ -159,4 +159,4 @@ Offense (jailbreak leaderboards, GCG, AgentDojo attack papers as an end in thems
 2. **ePrint 2026/934 + TCHES 12690 into a production C/Rust tree that has no masking.**  
 3. **libiec61850 #607 / #606 / #626 / #629** — listener-on-replay, cross-`stNum` replay, R-Session HMAC-80 and no SPDU replay.  
 4. **IEEE CSR 2025 physical GOOSE check + icsnpp-goose**, not another `stNum` rule.  
-5. **AgentCap/AttriGuard-class authorize-at-tool-boundary on a real mouth (spend or `Operate`), not AgentDojo.**
+5. **AgentCap/AttriGuard-class authorize-at-tool-boundary on a real mouth (spend or `Operate`), not AgentDojo.** Smallest Gate step: exact-call bind + consume-once (`ACT_VS_AGENTCAP_ATTRIGUARD.md` §2). No AgentDojo ASR on `/v1/act` yet (§3).
