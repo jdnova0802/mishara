@@ -61,7 +61,7 @@
 <body>
 <main>
   <h1>Pip</h1>
-  <p class="lede">Paste a labeled exchange. Render a 720×1280 clip, ≤15s. Bubbles step in with a typing beat. Last frame is sha256 of the paste. You post it.</p>
+  <p class="lede">Paste a labeled exchange. Render a 720×1280 clip, ≤15s. Bubbles step in with a typing beat. Download is MP4 for Reels/TikTok. Last frame is an export fingerprint of the pasted bytes — file integrity of this export, not proof the chat happened.</p>
   <textarea id="src" placeholder="Speaker labels, like:&#10;&#10;Alex: are you actually going&#10;Sam: already in the car"></textarea>
   <div style="display:flex;gap:8px;flex-wrap:wrap;">
     <button id="go" type="button">Render</button>
@@ -203,12 +203,16 @@ function drawBubble(ctx, it, a) {
 function drawHash(ctx, hex) {
   drawPaper(ctx);
   ctx.fillStyle = INK;
-  ctx.font = HASH_FONT;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText("sha256", W / 2, H / 2 - 40);
-  ctx.fillText(hex.slice(0, 32), W / 2, H / 2);
-  ctx.fillText(hex.slice(32), W / 2, H / 2 + 32);
+  ctx.font = "700 28px ui-sans-serif, system-ui, sans-serif";
+  ctx.fillText("export fingerprint", W / 2, H / 2 - 92);
+  ctx.font = "600 20px ui-sans-serif, system-ui, sans-serif";
+  ctx.fillText("file integrity of this paste", W / 2, H / 2 - 56);
+  ctx.fillText("not a live-chat proof", W / 2, H / 2 - 28);
+  ctx.font = HASH_FONT;
+  ctx.fillText(hex.slice(0, 32), W / 2, H / 2 + 16);
+  ctx.fillText(hex.slice(32), W / 2, H / 2 + 48);
 }
 
 async function sha256hex(text) {
@@ -306,8 +310,22 @@ async function renderClip(raw) {
   mixed.getTracks().forEach((tr) => tr.stop());
   vstream.getTracks().forEach((tr) => tr.stop());
   if (audioCtx.state !== "closed") await audioCtx.close();
-  const ext = mime.includes("mp4") ? "mp4" : "webm";
-  return { blob, ext, hex, seconds: totalMs / 1000 };
+  return { blob, mime, hex, seconds: totalMs / 1000 };
+}
+
+async function toMp4(blob) {
+  if ((blob.type || "").includes("mp4")) return { blob, via: "native" };
+  const r = await fetch("/encode", {
+    method: "POST",
+    body: blob,
+    headers: { "content-type": blob.type || "video/webm" },
+  });
+  if (!r.ok) {
+    const err = new Error("mp4_encode_failed");
+    err.status = r.status;
+    throw err;
+  }
+  return { blob: await r.blob(), via: "ffmpeg" };
 }
 
 const go = document.getElementById("go");
@@ -315,7 +333,7 @@ const dl = document.getElementById("dl");
 const status = document.getElementById("status");
 const preview = document.getElementById("preview");
 let lastUrl = "";
-let lastName = "pip-clip.webm";
+let lastName = "pip-clip.mp4";
 go.addEventListener("click", async () => {
   const raw = document.getElementById("src").value;
   go.disabled = true;
@@ -323,13 +341,31 @@ go.addEventListener("click", async () => {
   status.textContent = "Rendering…";
   preview.removeAttribute("src");
   try {
-    const { blob, ext, hex, seconds } = await renderClip(raw);
+    const { blob, hex, seconds } = await renderClip(raw);
+    status.textContent = "Encoding MP4…";
+    let out = blob;
+    let name = "pip-clip.webm";
+    let note = "WebM fallback — MP4 encode unavailable";
+    try {
+      const mp4 = await toMp4(blob);
+      out = mp4.blob;
+      name = "pip-clip.mp4";
+      note = mp4.via === "native" ? "MP4 native" : "MP4 via ffmpeg";
+    } catch (_) {
+      /* keep WebM; status says so */
+    }
     if (lastUrl) URL.revokeObjectURL(lastUrl);
-    lastUrl = URL.createObjectURL(blob);
-    lastName = "pip-clip." + ext;
+    lastUrl = URL.createObjectURL(out);
+    lastName = name;
     preview.src = lastUrl;
     dl.disabled = false;
-    status.textContent = seconds.toFixed(1) + "s · sha256:" + hex;
+    status.textContent =
+      seconds.toFixed(1) +
+      "s · " +
+      note +
+      " · export fingerprint " +
+      hex +
+      " · file integrity of this paste, not a live-chat proof";
   } catch (err) {
     status.textContent = err instanceof Error ? err.message : "Failed.";
   } finally {

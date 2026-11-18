@@ -3625,21 +3625,6 @@ def chat_clip_page():
     return send_from_directory(directory, "index.html")
 
 
-def _pip_dir() -> str:
-    here = os.path.dirname(os.path.abspath(__file__))
-    return os.path.normpath(os.path.join(here, "..", "pip"))
-
-
-@app.route("/pip")
-def pip_clip_page():
-    """Pip: unbranded paste → chat clip. Not a Gate/Velaru receipt. Not a messenger skin."""
-    directory = _pip_dir()
-    path = os.path.join(directory, "index.html")
-    if not os.path.isfile(path):
-        abort(404)
-    return send_from_directory(directory, "index.html")
-
-
 @app.route("/issuing-mouth")
 def issuing_mouth_page():
     return render_template(
