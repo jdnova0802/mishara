@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pip — chat clip</title>
+<meta name="description" content="Paste a labeled conversation. Get a short animated chat clip. Original skin. Not a messenger clone.">
+<meta name="robots" content="index,follow">
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f3efe6;
+    color: #1a1714;
+    font: 15px/1.45 "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px 16px 64px;
+    display: grid;
+    gap: 12px;
+  }
+  h1 { margin: 0; font: 700 28px/1 ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.03em; }
+  .lede { margin: 0; color: #5c564c; max-width: 36rem; }
+  textarea {
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+    background: #fffdf8;
+    color: #1a1714;
+    border: 1px solid #cfc6b4;
+    border-radius: 2px;
+    padding: 12px;
+    font: 14px/1.45 ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  button {
+    appearance: none;
+    border: 0;
+    background: #1a1714;
+    color: #f3efe6;
+    font: 600 14px ui-sans-serif, system-ui, sans-serif;
+    padding: 10px 14px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.45; cursor: wait; }
+  button.ghost { background: transparent; color: #1a1714; border: 1px solid #1a1714; }
+  #status { color: #5c564c; font: 13px ui-sans-serif, system-ui, sans-serif; min-height: 1.2em; }
+  canvas { display: none; }
+  video {
+    width: 270px;
+    height: 480px;
+    background: #1a1714;
+    border-radius: 2px;
+    object-fit: cover;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Pip</h1>
+  <p class="lede">Paste a labeled exchange. Render a 720×1280 clip, ≤15s. Bubbles step in with a typing beat. Last frame is sha256 of the paste. You post it.</p>
+  <textarea id="src" placeholder="Speaker labels, like:&#10;&#10;Alex: are you actually going&#10;Sam: already in the car"></textarea>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <button id="go" type="button">Render</button>
+    <button id="dl" class="ghost" type="button" disabled>Download</button>
+  </div>
+  <p id="status"></p>
+  <video id="preview" controls playsinline></video>
+  <canvas id="stage" width="720" height="1280"></canvas>
+</main>
+<script>
+/* Skin: paper field, 2px corners, no tails, speaker names above rectangles. */
+const W = 720;
+const H = 1280;
+const FPS = 30;
+const MAX_MS = 15000;
+const HASH_MS = 1600;
+const PAD = 40;
+const BUBBLE_MAX = 520;
+const FONT = "600 32px ui-sans-serif, system-ui, sans-serif";
+const NAME_FONT = "700 22px ui-sans-serif, system-ui, sans-serif";
+const HASH_FONT = "22px ui-monospace, SFMono-Regular, Menlo, monospace";
+const PAPER = "#e8e2d4";
+const INK = "#1a1714";
+const A_FILL = "#fffdf8";
+const B_FILL = "#9c3b1e";
+const B_INK = "#fff6ee";
+const SPEAKER = /^([A-Za-z][A-Za-z0-9_\-]{0,24}|user|you|human|me|assistant|chatgpt|claude|gemini|grok|ai|system|model)\s*[:\-—]\s*/i;
+
+function parseTranscript(raw) {
+  const lines = raw.replace(/\r\n/g, "\n").split("\n");
+  const msgs = [];
+  let cur = null;
+  for (const line of lines) {
+    const tagged = line.match(SPEAKER);
+    if (tagged) {
+      if (cur && cur.text.trim()) msgs.push(cur);
+      cur = { role: tagged[1], text: line.slice(tagged[0].length) };
+      continue;
+    }
+    if (!cur) cur = { role: "A", text: line };
+    else cur.text += (cur.text ? "\n" : "") + line;
+  }
+  if (cur && cur.text.trim()) msgs.push(cur);
+  const order = [];
+  return msgs.map((m) => {
+    const role = m.role.trim();
+    if (!order.includes(role)) order.push(role);
+    return { role, side: order.indexOf(role) % 2, text: m.text.trim() };
+  }).filter((m) => m.text);
+}
+
+function wrap(ctx, text, maxWidth) {
+  const out = [];
+  ctx.font = FONT;
+  for (const para of text.split("\n")) {
+    const words = para.split(/\s+/).filter(Boolean);
+    if (!words.length) { out.push(""); continue; }
+    let line = words[0];
+    for (let i = 1; i < words.length; i++) {
+      const trial = line + " " + words[i];
+      if (ctx.measureText(trial).width <= maxWidth) line = trial;
+      else { out.push(line); line = words[i]; }
+    }
+    out.push(line);
+  }
+  return out.length ? out : [""];
+}
+
+function layout(ctx, msgs) {
+  const lineH = 34;
+  const vpad = 16;
+  const hpad = 18;
+  const inner = BUBBLE_MAX - hpad * 2;
+  const items = msgs.map((m) => {
+    ctx.font = FONT;
+    const lines = wrap(ctx, m.text, inner);
+    const textW = Math.max(...lines.map((l) => ctx.measureText(l).width), 8);
+    const w = Math.min(BUBBLE_MAX, Math.ceil(textW) + hpad * 2);
+    const h = lines.length * lineH + vpad * 2;
+    return { ...m, lines, w, h, lineH, vpad, hpad };
+  });
+  const gap = 28;
+  let total = 12;
+  for (const it of items) total += it.h + gap + 18;
+  let y = Math.max(PAD + 48, H - PAD - 48 - total);
+  for (const it of items) {
+    it.y = y + 18;
+    it.x = it.side === 0 ? PAD : W - PAD - it.w;
+    y += it.h + gap + 18;
+  }
+  return items;
+}
+
+function drawPaper(ctx) {
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = INK;
+  ctx.fillRect(0, 0, 8, H);
+}
+
+function drawTyping(ctx, item, t) {
+  const cx = item.side === 0 ? item.x + 36 : item.x + item.w - 36;
+  const cy = item.y + 22;
+  ctx.fillStyle = item.side === 0 ? A_FILL : B_FILL;
+  ctx.fillRect(cx - 34, cy - 16, 68, 32);
+  for (let i = 0; i < 3; i++) {
+    const on = Math.floor(t / 140) % 3 === i;
+    ctx.beginPath();
+    ctx.fillStyle = item.side === 0 ? INK : B_INK;
+    ctx.globalAlpha = on ? 1 : 0.35;
+    ctx.arc(cx - 16 + i * 16, cy, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function drawBubble(ctx, it, a) {
+  ctx.save();
+  ctx.globalAlpha = a;
+  ctx.font = NAME_FONT;
+  ctx.fillStyle = INK;
+  ctx.textBaseline = "bottom";
+  ctx.textAlign = it.side === 0 ? "left" : "right";
+  ctx.fillText(it.role, it.side === 0 ? it.x : it.x + it.w, it.y - 6);
+  ctx.fillStyle = it.side === 0 ? A_FILL : B_FILL;
+  ctx.fillRect(it.x, it.y, it.w, it.h);
+  ctx.fillStyle = it.side === 0 ? INK : B_INK;
+  ctx.font = FONT;
+  ctx.textAlign = "left";
+  ctx.textBaseline = "top";
+  let ly = it.y + it.vpad;
+  for (const line of it.lines) {
+    ctx.fillText(line, it.x + it.hpad, ly);
+    ly += it.lineH;
+  }
+  ctx.restore();
+}
+
+function drawHash(ctx, hex) {
+  drawPaper(ctx);
+  ctx.fillStyle = INK;
+  ctx.font = HASH_FONT;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("sha256", W / 2, H / 2 - 40);
+  ctx.fillText(hex.slice(0, 32), W / 2, H / 2);
+  ctx.fillText(hex.slice(32), W / 2, H / 2 + 32);
+}
+
+async function sha256hex(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function pickMime() {
+  const types = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"];
+  return types.find((t) => MediaRecorder.isTypeSupported(t)) || "";
+}
+
+function blip(ctx, dest, t, freq) {
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = "triangle";
+  o.frequency.value = freq;
+  g.gain.value = 0.0001;
+  o.connect(g);
+  g.connect(dest);
+  g.connect(ctx.destination);
+  const now = ctx.currentTime;
+  g.gain.setValueAtTime(0.0001, now);
+  g.gain.exponentialRampToValueAtTime(0.04, now + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+  o.start(now);
+  o.stop(now + 0.1);
+}
+
+async function renderClip(raw) {
+  const msgs = parseTranscript(raw);
+  if (!msgs.length) throw new Error("No labeled turns. Start a line with a name and a colon.");
+  const canvas = document.getElementById("stage");
+  const ctx = canvas.getContext("2d");
+  const items = layout(ctx, msgs.slice(-8));
+  const hex = await sha256hex(raw);
+  const n = items.length;
+  const typeMs = 420;
+  const appearMs = 220;
+  const holdMs = 700;
+  const step = typeMs + appearMs + holdMs;
+  const tailMs = 900;
+  const bodyMs = Math.min(MAX_MS - HASH_MS, Math.max(step * n + tailMs, 2800));
+  const totalMs = Math.min(MAX_MS, bodyMs + HASH_MS);
+  const mime = pickMime();
+  if (!mime) throw new Error("This browser cannot record video.");
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const dest = audioCtx.createMediaStreamDestination();
+  const vstream = canvas.captureStream(FPS);
+  const mixed = new MediaStream([
+    ...vstream.getVideoTracks(),
+    ...dest.stream.getAudioTracks(),
+  ]);
+  const rec = new MediaRecorder(mixed, { mimeType: mime, videoBitsPerSecond: 3_500_000 });
+  const chunks = [];
+  rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+  const done = new Promise((resolve, reject) => {
+    rec.onstop = () => resolve(new Blob(chunks, { type: mime }));
+    rec.onerror = () => reject(rec.error || new Error("record failed"));
+  });
+  rec.start();
+  const t0 = performance.now();
+  let lastType = -1;
+  let lastPop = -1;
+  await new Promise((resolve) => {
+    function tick(now) {
+      const t = now - t0;
+      drawPaper(ctx);
+      if (t < bodyMs) {
+        const idx = Math.min(n - 1, Math.floor(t / step));
+        for (let i = 0; i < n; i++) {
+          const start = i * step;
+          if (t < start) continue;
+          const local = t - start;
+          if (local < typeMs) {
+            drawTyping(ctx, items[i], local);
+            if (i !== lastType) { blip(audioCtx, dest, t, 420); lastType = i; }
+          } else {
+            const a = Math.min(1, (local - typeMs) / appearMs);
+            drawBubble(ctx, items[i], a);
+            if (a >= 1 && i !== lastPop) { blip(audioCtx, dest, t, 640); lastPop = i; }
+          }
+        }
+      } else {
+        drawHash(ctx, hex);
+      }
+      if (t < totalMs) requestAnimationFrame(tick);
+      else { drawHash(ctx, hex); resolve(); }
+    }
+    requestAnimationFrame(tick);
+  });
+  await new Promise((r) => setTimeout(r, 80));
+  rec.stop();
+  const blob = await done;
+  mixed.getTracks().forEach((tr) => tr.stop());
+  vstream.getTracks().forEach((tr) => tr.stop());
+  if (audioCtx.state !== "closed") await audioCtx.close();
+  const ext = mime.includes("mp4") ? "mp4" : "webm";
+  return { blob, ext, hex, seconds: totalMs / 1000 };
+}
+
+const go = document.getElementById("go");
+const dl = document.getElementById("dl");
+const status = document.getElementById("status");
+const preview = document.getElementById("preview");
+let lastUrl = "";
+let lastName = "pip-clip.webm";
+go.addEventListener("click", async () => {
+  const raw = document.getElementById("src").value;
+  go.disabled = true;
+  dl.disabled = true;
+  status.textContent = "Rendering…";
+  preview.removeAttribute("src");
+  try {
+    const { blob, ext, hex, seconds } = await renderClip(raw);
+    if (lastUrl) URL.revokeObjectURL(lastUrl);
+    lastUrl = URL.createObjectURL(blob);
+    lastName = "pip-clip." + ext;
+    preview.src = lastUrl;
+    dl.disabled = false;
+    status.textContent = seconds.toFixed(1) + "s · sha256:" + hex;
+  } catch (err) {
+    status.textContent = err instanceof Error ? err.message : "Failed.";
+  } finally {
+    go.disabled = false;
+  }
+});
+dl.addEventListener("click", () => {
+  if (!lastUrl) return;
+  const a = document.createElement("a");
+  a.href = lastUrl;
+  a.download = lastName;
+  a.click();
+});
+</script>
+</body>
+</html>
