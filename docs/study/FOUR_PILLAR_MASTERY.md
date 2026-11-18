@@ -153,3 +153,5 @@ FIPS 203 ──► mlkem-native PR ──► that binary on a probe
 ```
 
 If a checkpoint is skipped, the next phase is sightseeing. Re-run this file against the artifacts, not against hours logged.
+
+Named Field / Code / Media gaps (what is still open vs already settled) live in `docs/study/FOUR_PILLAR_GAP_ANALYSIS.md`. Use that file to pick work; use this file to sequence it.
