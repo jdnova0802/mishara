@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pipclip
+    runtime: docker
+    plan: starter
+    rootDir: pip
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "10000"
