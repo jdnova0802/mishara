@@ -280,6 +280,11 @@ except ImportError:
     import issuing_mouth as issuing_mouth_mod
 
 try:
+    from gate import evidence_layer as evidence_layer_mod
+except ImportError:
+    import evidence_layer as evidence_layer_mod
+
+try:
     from gate import spend_mandate as spend_mandate_mod
 except ImportError:
     import spend_mandate as spend_mandate_mod
@@ -724,6 +729,7 @@ def cors_discovery(resp):
             "/health",
             "/robots.txt",
             "/sitemap.xml",
+            "/evidence-layer",
             "/bound",
             "/only",
             "/floor",
@@ -2190,6 +2196,8 @@ def well_known_gate():
             "never_api": f"{advertised_url()}/v1/never",
             "issuing_mouth": f"{advertised_url()}/issuing-mouth",
             "issuing_mouth_json": f"{advertised_url()}/.well-known/issuing-mouth.json",
+            "evidence_layer": f"{advertised_url()}/evidence-layer",
+            "evidence_layer_json": f"{advertised_url()}/.well-known/evidence-layer.json",
             "issuing_dogfood": f"{advertised_url()}/demo/issuing/mouth",
             "issuing_webhook": f"{advertised_url()}/v1/issuing/authorization",
             "spend_mandate": f"{advertised_url()}/.well-known/spend-mandate.json",
@@ -3614,6 +3622,19 @@ def issuing_mouth_page():
         public_url=advertised_url(),
         mouth=issuing_mouth_mod.manifest(advertised_url()),
         cfg=issuing_mouth_mod.config(),
+    )
+
+
+@app.route("/.well-known/evidence-layer.json")
+def well_known_evidence_layer():
+    return jsonify(evidence_layer_mod.manifest(advertised_url()))
+
+
+@app.route("/evidence-layer")
+def evidence_layer_page():
+    return render_template(
+        "evidence_layer.html",
+        m=evidence_layer_mod.manifest(advertised_url()),
     )
 
 
@@ -5694,6 +5715,8 @@ def sitemap():
         "/regulator",
         "/record",
         "/issuing-mouth",
+        "/evidence-layer",
+        "/.well-known/evidence-layer.json",
         "/diligence",
         "/mcp",
         "/privacy",
@@ -5783,6 +5806,7 @@ def llms_txt():
         f"- Fee schedule: {advertised_url()}/register",
         f"- Pricing: {advertised_url()}/pricing",
         f"- Trust: {advertised_url()}/trust",
+        f"- Evidence layer (identity / payment / evidence map): {advertised_url()}/evidence-layer",
         f"- Regulator verify (NAIC / HMT mapping): {advertised_url()}/regulator",
         f"- Bind Room: {advertised_url()}/bind-room",
         f"- Operator invoice: {advertised_url()}/.well-known/operator.json",
