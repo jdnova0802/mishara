@@ -59,6 +59,7 @@
   -H "Content-Type: application/json" \
   -d '{"fuse_id":"fuse_velaru_drill","action":"bind"}'</pre>
     <p>Caller-owned live mode (your payout/withdraw function only — not PolicyCenter): add <code class="inline">write_url</code> and <code class="inline">exclusive_owned: true</code>. Deny does not POST the function. PAS URLs are refused. Does not replace the 48-hour licensed-operator weld. See <a href="/.well-known/owned-write.json">owned-write.json</a>.</p>
+    <p>Volume clip (not a weld): <a href="/clip">/clip</a> — paste a labeled transcript, download a ≤15s phone video. Last frame is sha256 of the paste.</p>
   </div>
 
   <div class="card">

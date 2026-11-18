@@ -25,6 +25,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_from_directory,
     session,
     url_for,
 )
@@ -586,6 +587,7 @@ def _harden_buyer_surface(resp):
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
             "font-src 'self' https://fonts.gstatic.com data:; "
             "img-src 'self' data: https:; "
+            "media-src 'self' blob:; "
             "connect-src 'self' https://www.google-analytics.com "
             "https://www.googletagmanager.com https://velaru.xyz https://*.velaru.xyz "
             "https://checkout.stripe.com; "
@@ -2115,6 +2117,7 @@ def well_known_gate():
             "demo_pas": f"{advertised_url()}/demo/pas/bind-check",
             "ocsp": f"{advertised_url()}/v1/fuse/lookup",
             "act": f"{advertised_url()}/v1/act",
+            "chat_clip": f"{advertised_url()}/clip",
             "owned_write": f"{advertised_url()}/.well-known/owned-write.json",
             "pas_bind": f"{advertised_url()}/v1/pas/bind-check",
             "policycenter_pre_bind": f"{advertised_url()}/v1/pas/policycenter/pre-bind",
@@ -3605,6 +3608,21 @@ def mandate_revoke(mandate_id: str):
     if not out:
         return jsonify({"error": "unknown_mandate"}), 404
     return jsonify(out), 200
+
+
+def _chat_clip_dir() -> str:
+    here = os.path.dirname(os.path.abspath(__file__))
+    return os.path.normpath(os.path.join(here, "..", "chat-clip"))
+
+
+@app.route("/clip")
+def chat_clip_page():
+    """Public paste → ≤15s phone clip. Last frame is sha256 of the raw paste."""
+    directory = _chat_clip_dir()
+    path = os.path.join(directory, "index.html")
+    if not os.path.isfile(path):
+        abort(404)
+    return send_from_directory(directory, "index.html")
 
 
 @app.route("/issuing-mouth")
