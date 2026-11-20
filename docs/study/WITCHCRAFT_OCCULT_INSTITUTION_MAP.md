@@ -22,6 +22,35 @@ Every entry uses the same fixed 11-field template. Field labels stay in this for
 10. **Falsifier** — the one fact that would prove the entry wrong
 11. **OPEN** — anything undisclosed or unverifiable, named honestly
 
+**Types are not one column.** “Witchcraft” in English is a crime-word, a census write-in, a Wiccan lineage name, a trade, and a slur on African-diaspora houses. The index below is the do-not-mash list. Full 11-field rows for types with a statute, docket, roll, charter, or filing follow the legal-machine rows. Types with no copied filing stay in the index with **OPEN** rather than a fake HQ.
+
+| Type (self / common) | What it is | What it is not |
+|---|---|---|
+| Gardnerian / British Traditional Wicca (**BTW**) | Lineage initiatory Wicca after Gerald Gardner, public after 1951/1954 | All Wicca; all “traditional witchcraft”; Hoodoo |
+| Alexandrian | Lineage after Alex and Maxine Sanders, 1960s Britain | Gardnerian (related, not the same Book of Shadows chain) |
+| Church and School of Wicca (Frost) | 1968 correspondence church; *Dettmer*’s “Church of Wicca” in the record | Gardnerian coven; CoG |
+| Dianic (Z Budapest / Susan B. Anthony Coven No. 1) | Women-centered feminist Wicca, Winter Solstice **1971** | Mixed-gender BTW; Reclaiming |
+| Reclaiming | Feminist/political Craft, Bay Area **1978–80**; CA religious corp **1991** | Dianic-only; Feri (Starhawk was Feri-initiated; Reclaiming is another body) |
+| Feri / Faery (Anderson) | Lineage of Victor and Cora Anderson | Gardnerian; a 990 church this pass |
+| Cochrane / Clan of Tubal Cain / “Traditional Witchcraft” | Non-Wiccan British Craft after Robert Cochrane (d. **1966**) | Gardnerian; a census of “traditional witches” |
+| Eclectic / solitary Wicca | Self-described practice with no lineage HQ | A denomination that can depose covens |
+| Druidry (Order of Bards, Ovates and Druids (**OBOD**); Ár nDraíocht Féin (**ADF**)) | Neo-Druid orders; **VA** emblem **(65)** Awen | Wicca (**ADF** FAQ: “Is ADF Wiccan? No”) |
+| Heathenry / Ásatrú | Reconstructionist Germanic; Iceland roll + US 501(c)(3)s; **VA** **(55)** Hammer of Thor | Wicca; “Viking Wicca” |
+| Thelema / **OTO** | Thelemic order, US 990 | Wicca |
+| Hermetic Order of the Golden Dawn | Ceremonial magic order, Isis-Urania warrant **1 March 1888** | A Wiccan coven; today’s many successor trademarks mashed |
+| Church of Satan / The Satanic Temple | Two legal persons (taxed vs 501(c)(3) church) | Wicca; 1692 Salem |
+| Lucumí / Santería | Orisha house; *Lukumi* **508 U.S. 520** | Wicca; Hoodoo |
+| Haitian Vodou | National/religious complex of Haiti; **ONS** write-in “Vodun” | Lucumí; New Orleans tourist “voodoo”; Wicca |
+| Hoodoo / rootwork | African-American conjure as a **trade and custom**, not a church | Lucumí priesthood; Wicca |
+| Palo | Kongo-derived Cuban *reglas*; not Lucumí | Hoodoo; Wicca |
+| Brujería | Spanish-language umbrella that mashes folk Catholicism, Lucumí, and occult retail | One tradition |
+| Stregheria | Modern Italian-American Craft; Leland *Aradia* (**1899**) is a **book**, not a roll | Pre-Christian Italian state church |
+| Cunning-folk | English paid unwitching/healing trade (early modern–19th c.) | Gardnerian; a living 501(c)(3) |
+| Pennsylvania German *Braucherei* / powwow | German-American healing charm tradition; Hohman *Long Lost Friend* | Wicca |
+| Chaos magic | Late-20th-c. technique current (Spare / Peter J. Carroll), not a church | A census religion |
+| Pagan Federation | UK umbrella **CIO** (Charitable Incorporated Organisation) **1207576**, not a type of Craft | All 74,000 **ONS** “Pagan” write-ins |
+| Witchcraft-as-accusation | Harm-accusation in a court or rumor mill (1692; some African statutes) | Self-identified Wicca |
+
 ---
 
 ### Frame: several machines, not one church
@@ -228,9 +257,204 @@ Every entry uses the same fixed 11-field template. Field labels stay in this for
 
 ---
 
+### Gardnerian / British Traditional Wicca (lineage, not a Vatican)
+
+1. **Institution name:** Self: Gardnerian Wicca / the Craft / *Wica* as Gardner spelled it in early public writing. External: “the witches,” “all Wicca.” **BTW** here means initiatory British Traditional Wicca in Gardner’s line (and close kin), **not** every person who wrote “Wicca” on **ONS**.
+2. **Governance:** Lineage and coven: a high priestess/high priest initiate others; there is no international ordinary. CoG later offered a confederation some covens joined; most Gardnerian covens never became CoG’s legal members. No pope.
+3. **Legal status:** Public existence in England follows the **1951** repeal of 1735, not a church charter. Gardner, *Witchcraft Today* (**1954**), is a **book**, not articles of incorporation. United States: *Dettmer* is Frost’s Church of Wicca in the caption, **not** a Gardnerian grand lodge.
+4. **Reach:** Lineage wherever an initiator took it (Britain, then North America, then elsewhere). Lineage is not jurisdiction. A New York coven cannot depose an Australian one.
+5. **Finance:** No Gardnerian world treasury. CoG and Circle Sanctuary 990s are **other** persons. **OPEN** any Gardner estate/copyright royalty total this pass.
+6. **Rupture:** **22 June 1951** (1735 gone). **1954** (*Witchcraft Today*). Gardner’s claimed New Forest coven of the 1930s–40s is a **historical claim**, not a filing — do not treat it as proven incorporation.
+7. **Subdivisions:** Gardnerian ≠ Alexandrian ≠ Frost correspondence church ≠ Dianic ≠ Reclaiming ≠ Cochrane Traditional Witchcraft. “Eclectic Wicca” is not a lineage.
+8. **Misconception:** “Gardner invented all witchcraft.” English cunning-folk, 1692 dockets, and Lucumí houses predate or sit beside him as other machines. “BTW is CoG.” CoG’s preamble says non-joining covens are still the religion.
+9. **Receipt:** Fraudulent Mediums Act 1951 (statute row); Gardner, *Witchcraft Today* (1954) as the public-book rupture. CoG charter (confederation row) for what Gardnerian is *not*.
+10. **Falsifier:** If *Witchcraft Today* were published before the 1951 repeal as a registered church’s articles, cell 3 dies.
+11. **OPEN:** Documentary proof of the New Forest coven as an organization; Gardnerian initiate counts.
+
+---
+
+### Alexandrian Wicca (Sanders line)
+
+1. **Institution name:** Self: Alexandrian. External: “Gardnerian with extra Kabbalah,” mashed. Named for Alex Sanders (and Maxine Sanders), not Alexander the Great.
+2. **Governance:** Initiatory coven lineage, parallel in *form* to Gardnerian (degrees, priestess/priest), **not** a subsidiary of a Gardnerian corporation.
+3. **Legal status:** No copied 501(c)(3) or UK charity for “the Alexandrian Church” this pass. Practitioners may be CoG members, solitaries, or nothing.
+4. **Reach:** Britain then export. Not Iceland’s roll.
+5. **Finance:** **OPEN**.
+6. **Rupture:** Public 1960s Britain (Sanders as a media “King of the Witches”). Exact first-initiation date as a primary document: **OPEN** this pass rather than a magazine year.
+7. **Subdivisions:** Alexandrian ≠ Gardnerian (even where books of shadows look related). Later “Algard” and other hybrids are **other** labels.
+8. **Misconception:** “Alexandrian is just Gardnerian with a different logo.” Cell 1’s name and initiators are different; do not collapse the chains because an outsider cannot see the difference.
+9. **Receipt:** No 990. Until a primary initiation register or contemporaneous filing is copied, the receipt is the **absence** of a single legal person — plus the type-index rule.
+10. **Falsifier:** If a single Alexandrian legal person held ordinary jurisdiction over all Sanders-line covens, cell 2 dies.
+11. **OPEN:** First public dated document in Sanders’s own hand; any UK company/charity in the name.
+
+---
+
+### Church and School of Wicca (Frost) — the *Dettmer* correspondence body
+
+1. **Institution name:** Self: Church and School of Wicca. Founders: Gavin Frost and Yvonne Frost. External: “Wicca” as if this *were* Gardner. Library of Congress Name Authority File: `no2015009876` (Church and School of Wicca). https://id.loc.gov/authorities/names/no2015009876.html
+2. **Governance:** Correspondence school + church; Frosts as archbishop/bishop in their own description. This is **not** coven-lineage BTW.
+3. **Legal status:** Founded **1968**. Secondary literature (and the Frosts’ own publicity) claims an **IRS** determination in **1972** as the first federally recognized Wiccan church — **OPEN** the determination-letter PDF/**EIN** this pass (do not print an **EIN** we did not copy). *Dettmer*’s plaintiff studied “a correspondence course provided by the Church of Wicca” (**799 F.2d 929**).
+4. **Reach:** Mail-order students; later Hinton, West Virginia, as a headquarters in the Name Authority File. Not CoG’s California person.
+5. **Finance:** **OPEN** (no 990 copied).
+6. **Rupture:** **1968** founding; **1972** claimed **IRS** letter (**OPEN** file); **4 September 1986** *Dettmer* uses this church’s doctrine as the religion in the record.
+7. **Subdivisions:** School of Wicca (course) ≠ Church of Wicca (religious body) in their own branding; still one founder pair. ≠ Gardnerian.
+8. **Misconception:** “*Dettmer* established Gardnerian Wicca.” The appellate facts are a Frost correspondence student, not a Gardnerian initiate.
+9. **Receipt:** 799 F.2d 929; LC/NAF `no2015009876`.
+10. **Falsifier:** If *Dettmer*’s Church of Wicca were captioned as Covenant of the Goddess or a Gardnerian grand lodge, cell 3 dies.
+11. **OPEN:** **IRS** determination letter and **EIN**.
+
+---
+
+### Dianic Wicca (Susan B. Anthony Coven No. 1)
+
+1. **Institution name:** Self: Dianic Tradition / Dianic Wicca. Founding coven: Susan B. Anthony Coven No. 1. Founder: Zsuzsanna Emese Budapest (Z Budapest). External: “feminist Wicca” as if all Reclaiming and all BTW.
+2. **Governance:** Women-centered coven; Budapest as founding high priestess. Later Los Angeles ministry inherited by Ruth Rhiannon Barrett (**1980**, coven renamed Moon Birch Grove per the coven’s own archived herstory). Name revived **2007**, then released **2016**. That is **succession of a coven name**, not a Vatican.
+3. **Legal status:** Coven founded Winter Solstice **1971** (Los Angeles). Archived coven site: incorporated in California through Women’s Spirituality Forum, Inc.; that Forum “received its tax-exempt 501(c)(3) status” in **1985** as a “federally recognized Dianic church.” https://web.archive.org/web/20181105160521/http://susanbanthonycoven.com/membership/ **EIN OPEN** this pass.
+4. **Reach:** United States feminist Craft; not **ONS** “Wicca” as a whole (mixed-gender write-ins sit in the same code).
+5. **Finance:** **OPEN**.
+6. **Rupture:** **Winter Solstice 1971**. California fortune-telling arrest of Budapest (Venice) is a **municipal** machine — **OPEN** the docket number this pass; do not treat a newspaper as the judgment.
+7. **Subdivisions:** Budapest Dianic (women-born membership as that coven stated) ≠ mixed-gender “Dianic” covens that later used the adjective ≠ Reclaiming.
+8. **Misconception:** “Dianic is just Wicca for women, same as Gardner with the God deleted.” Cell 2’s membership rule and 1971 founding are a different machine. “All Goddess spirituality is Dianic.” Reclaiming and BTW also use Goddess language.
+9. **Receipt:** Archived SBA Coven membership/herstory page (URL above).
+10. **Falsifier:** If the coven’s own herstory did not date founding to Winter Solstice 1971, cell 6 dies.
+11. **OPEN:** Women’s Spirituality Forum **EIN**; tarot-arrest case caption.
+
+---
+
+### Reclaiming (tradition ≠ one coven)
+
+1. **Institution name:** Self: Reclaiming tradition / Reclaiming Collective. External: “Starhawk’s church.” Reclaiming’s own history: a *tradition and community*, “not a church or organization with any kind of formal membership that one can ‘join’” — **and** a California 501(c)(3) named Reclaiming Collective exists beside that sentence. Keep both.
+2. **Governance:** Early Collective: consensus, no chair (1978–1997 working group). **1997**: reorganized as a Wheel. Principles of Unity as the agreement, not a primate.
+3. **Legal status:** California nonprofit religious corporation **Reclaiming Collective**, incorporated **1 March 1991** (CA file **1517630**). **EIN 94-3200019**; **IRS** ruling **April 1994**; foundation type church (990 not required). https://reclaimingcollective.wordpress.com/a-brief-history-of-reclaiming/
+4. **Reach:** Bay Area origin; “several dozen regional communities” on Reclaiming’s own site — that is **self-description**, not a census.
+5. **Finance:** Church 990 exception — dollar revenue **OPEN**.
+6. **Rupture:** Classes by Starhawk (Miriam Simos) and Diane Baker **1978–80**; *The Spiral Dance* book and first public Spiral Dance ritual **31 October 1979** (World Religions and Spirituality Project (**WRSP**) chronology). Incorporation **1991** / **IRS** **1994**.
+7. **Subdivisions:** Reclaiming tradition (anyone affirming Principles of Unity) ≠ Reclaiming Collective, Inc. (the SF 501(c)(3)) ≠ other local Reclaiming 501(c)(3)s ≠ Feri (Victor/Cora Anderson lineage; Starhawk was Feri-initiated in **1976** per WRSP — that is a **prior** initiation, not a merger of orders).
+8. **Misconception:** “Reclaiming is Dianic.” Mixed-gender from the early Collective. “Reclaiming is Feri.” Cell 7.
+9. **Receipt:** Reclaiming “Brief History” page; CA 1517630; **EIN 94-3200019** as listed on nonprofit indexes (copy a 990 if one appears).
+10. **Falsifier:** If CA 1517630 were not a religious nonprofit named Reclaiming Collective, cell 3 dies.
+11. **OPEN:** Determination-letter PDF; other regional Reclaiming **EIN**s.
+
+---
+
+### Feri / Faery and Cochrane Traditional Witchcraft (lineages without a copied 990)
+
+1. **Institution name:** Two **different** non-Gardnerian Crafts, listed together only to stop mash: (A) Feri/Faery Tradition (Victor and Cora Anderson, United States). (B) Cochrane / Clan of Tubal Cain / 1960s British “Traditional Witchcraft” after Robert Cochrane (Roy Bowers), died **1966**. External: both get called “the old Craft” as if one.
+2. **Governance:** Teacher-to-student / coven lineage. No copied board.
+3. **Legal status:** No **EIN** copied this pass for either as a national church. Practitioners may hold other 501(c)(3) memberships.
+4. **Reach:** Feri: US West Coast origin then students. Cochrane: Britain then US “Traditional Witchcraft” publishers. Neither is Iceland.
+5. **Finance:** **OPEN**.
+6. **Rupture:** Cochrane’s death **1966** as the dated end of that founder. Feri’s public book trail is later (Cora Anderson writings) — first primary publication date **OPEN** this pass.
+7. **Subdivisions:** Feri ≠ Cochrane ≠ Gardnerian ≠ Reclaiming. “Traditional Witchcraft” as a 1990s–2010s marketing label is **not** automatically Clan of Tubal Cain.
+8. **Misconception:** “If it isn’t Gardnerian it is ancient European survival.” These are 20th-c. named lineages. Survival claims are **historical hypotheses**, not filings.
+9. **Receipt:** Type-index rule; WRSP Reclaiming entry for the **1976** Feri initiation date of Starhawk (secondary chronology — **OPEN** Anderson primary).
+10. **Falsifier:** If Feri and Clan of Tubal Cain were one legal person, cell 1 dies.
+11. **OPEN:** Anderson and Cochrane primary documents as copied texts; any 990.
+
+---
+
+### Druidry — OBOD CIC vs ADF (not Wicca, two corporations)
+
+1. **Institution name:** Self: Druids. Two living corporate machines here: **OBOD** (Order of Bards, Ovates & Druids) and **ADF** (Ár nDraíocht Féin: A Druid Fellowship, Inc.). External: “Celtic Wicca.” **ADF** FAQ: “Is ADF Wiccan? The short answer is ‘No’.” https://www.adf.org/faq/
+2. **Governance:** **OBOD**: correspondence order in the Ross Nichols / Philip Carr-Gomm line (history on druidry.org — treat founder narrative as self-description). **ADF**: Mother Grove (board) charters groves; one member / one vote plus seniority up to ten votes (**ADF** FAQ). Delaware nonprofit per that FAQ.
+3. **Legal status:**
+   - **OBOD**: Companies House **14689683**, ORDER OF BARDS OVATES & DRUIDS Community Interest Company (**CIC**), incorporated **27 February 2023**, active, guarantee, Standard Industrial Classification (**SIC**) 94990. https://find-and-update.company-information.service.gov.uk/company/14689683 Last accounts made up to **28 February 2026**. This **CIC** is **not** automatically a Charity Commission charity.
+   - **ADF**: Self: 501(c)(3), founded **1983**, Delaware. **EIN OPEN** this pass (do not use a colliding Hawaiian **EIN**).
+   - **VA** emblem **(65) Druid (Awen)** is a marker, not either corporation.
+4. **Reach:** **OBOD** international membership (self-description). **ADF** groves as chartered local congregations. Neither governs Wicca.
+5. **Finance:** **OBOD** accounts exist at Companies House — **OPEN** the sterling totals this pass (not copied from the PDF). **ADF** 990: **OPEN** without **EIN**. **Pagan Federation** money is **not** Druid money (next row).
+6. **Rupture:** **ADF 1983**. **OBOD CIC 27 February 2023** (the legal person now on the register; the spiritual order claims an older start — do not treat 2023 as the invention of Druidry).
+7. **Subdivisions:** **OBOD** ≠ **ADF** ≠ United Ancient Order of Druids (fraternal 501(c)(8) **EIN 23-7504815**, another machine) ≠ **VA** 65 ≠ Wicca. Reconstructive “hearth” Druidry with no order is **OPEN**.
+8. **Misconception:** “Druids are the Celtic section of Wicca.” **ADF**’s own FAQ forbids that mash. “OBOD is a church of England charity.” It is a **CIC** on 14689683.
+9. **Receipt:** Companies House 14689683; adf.org/faq/; **NCA** emblem 65.
+10. **Falsifier:** If 14689683 were a dissolved company, cell 3’s **OBOD** row dies. If **ADF**’s FAQ said it was a Wiccan tradition, cell 1 dies.
+11. **OPEN:** **ADF EIN**; **OBOD** CIC accounts line items; **OBOD** pre-2023 unincorporated status.
+
+---
+
+### Heathenry — The Troth (US) is not Ásatrúarfélagið (Iceland)
+
+1. **Institution name:** Self: Heathenry / Ásatrú / Forn Siðr / The Troth. External: “Norse Wicca.” **The Troth Inc.** is a US 501(c)(3). Ásatrúarfélagið is the Iceland roll (earlier row). **Do not add membership.**
+2. **Governance:** The Troth: nine-member Board (“High Rede”), officers, volunteer (thetroth.org/our-organization/). Inclusive membership rule is **that corporation’s** policy, not Iceland’s statute.
+3. **Legal status:** **EIN 74-2482506**; tax-exempt since **June 1989**. https://projects.propublica.org/nonprofits/organizations/742482506 Texas corporation / New York charity recognition as the Troth’s own site states — **OPEN** the Texas file number. **VA** **(55)** Hammer of Thor is the marker, not The Troth’s logo license.
+4. **Reach:** International self-description; legal person is US. American kindreds that never joined The Troth are still kindreds.
+5. **Finance:** FY **2017** 990-EZ (filed 9 Nov 2018): **revenue $54,379**; **net assets $100,013**. FY **2018–2025** (as posted): **990-N**, gross receipts **< $50,000**. Do not treat $100,013 as “American Ásatrú.”
+6. **Rupture:** **June 1989** **IRS** ruling for this **EIN**. Iceland 1972/73 is a **different** rupture.
+7. **Subdivisions:** The Troth ≠ Ásatrúarfélagið ≠ Reykjavíkurgoðorð ≠ Asatru Folk Assembly (a **different** US corp — **EIN OPEN** this pass; do not mash). **VA** 55 ≠ any of them.
+8. **Misconception:** “Heathenry is Wicca with runes.” Different gods-set, different orgs, different **VA** number. “The Troth is the Icelandic state heathen church.” Cell 1.
+9. **Receipt:** ProPublica 74-2482506; thetroth.org/our-organization/; **Hagstofa** row for the Iceland numbers.
+10. **Falsifier:** If 74-2482506’s 2017 net assets ≠ $100,013 on that extract, cell 5 dies.
+11. **OPEN:** Asatru Folk Assembly **EIN**; Troth Texas filing number; 2024–2025 dollar table (990-N has none).
+
+---
+
+### Hermetic Order of the Golden Dawn (ceremonial magic, 1888 warrant)
+
+1. **Institution name:** Self: Hermetic Order of the Golden Dawn. External: “Victorian witches,” “Crowley’s Wicca.” Ceremonial-magic order. **OTO** is later and **other**.
+2. **Governance:** Three chiefs at founding: William Wynn Westcott, Samuel Liddell MacGregor Mathers, William Robert Woodman. Temples (Isis-Urania and later) with grade structure. **1900** schism (London vs Mathers) then Stella Matutina / Alpha et Omega / Waite’s Independent and Rectified Rite — **successor names are other machines**.
+3. **Legal status:** Founding instrument commonly dated **1 March 1888** (Isis-Urania warrant). Not a 2026 501(c)(3) in that name as a single surviving person. Modern groups using “Golden Dawn” in a trademark are **later** corporations — **OPEN** which trademark owner is which.
+4. **Reach:** London 1888; temples in Britain, Paris, later US. Not **ONS** “Wicca.”
+5. **Finance:** **OPEN** (Victorian subscriptions not copied).
+6. **Rupture:** **1 March 1888**. **1900** revolt/schism. Israel Regardie’s publication of Stella Matutina ritual texts (**1937–41**) is a **book** rupture that made the system public — not a reconstitution of 1888’s legal person.
+7. **Subdivisions:** Golden Dawn 1888–1900 ≠ Stella Matutina ≠ Alpha et Omega ≠ Fellowship of the Rosy Cross ≠ **OTO** ≠ Wicca. Yeats, Florence Farr, Crowley as **members** are not the order’s EIN.
+8. **Misconception:** “The Golden Dawn is the parent corporation of Wicca.” Gardner read in a world that had GD-derived books; that is influence, not share ownership. “One Golden Dawn still meets under the 1888 warrant.” Cell 2’s schism.
+9. **Receipt:** Dated warrant 1 March 1888 as standard in GD chronology (Museum of Freemasonry / order timelines). Treat Anna Sprengel letters as **contested** (Mathers’ 1900 accusation of Westcott forgery) — **OPEN** as authentic.
+10. **Falsifier:** If Isis-Urania were chartered in 1954 as a Wiccan coven, cell 1 dies.
+11. **OPEN:** Surviving 1888 warrant as an archival image this pass; which 2026 trademark owner, if any, holds “Hermetic Order of the Golden Dawn” in the US.
+
+---
+
+### Hoodoo / rootwork vs Lucumí vs Vodou vs Palo vs brujería (do not mash the Atlantic)
+
+1. **Institution name:** Five **different** machines outsiders call “witchcraft”: **Hoodoo/rootwork** (African-American conjure as work-for-hire and home custom); **Lucumí/Santería** (already *Lukumi* **508 U.S. 520**); **Haitian Vodou** (Haitian national/religious complex; **ONS** “Vodun”); **Palo** (Kongo-derived Cuban *regla*); **brujería** (Spanish umbrella). External: “voodoo witches.”
+2. **Governance:** Lucumí: *casa*/ile and priests (*oriaté*, *santero/a*). Vodou: *ounfò* and *oungan/manbo*. Palo: *munanso* and *palero/a*. Hoodoo: **no** required priesthood; a worker and a client. Brujería: **no** single governance.
+3. **Legal status:** Lucumí: US Free Exercise holding 1993 for the Hialeah ordinances. Vodou: Haitian public/religious life — **OPEN** the 2003 concordat-style recognition claim as a copied statute this pass. Hoodoo: typically **trade and custom**; a worker may be a 501(c)(3) minister of something else, or nothing. **VA** **(63)** African Ancestral Traditionalist is a **marker**, not a Cuban house.
+4. **Reach:** Hoodoo: US South then Great Migration cities. Lucumí: Cuba / US (Florida, NY, NJ). Vodou: Haiti / diaspora. Palo: Cuba / diaspora. Brujería: wherever Spanish-speaking occult retail and folk practice sit. Do not export Hialeah to Port-au-Prince.
+5. **Finance:** No consolidated “Black magic **GDP**.” Lukumi corp 990 **OPEN**. Botanica retail **GMV OPEN**.
+6. **Rupture:** **11 June 1993** for Lucumí’s US ordinance fight. Hoodoo’s dated book-machine includes Zora Neale Hurston’s *Mules and Men* (**1935**) as **ethnography**, not a church charter. Haitian independence **1804** is the political frame for Vodou’s public life — not a Wiccan sabbat.
+7. **Subdivisions:** New Orleans tourist “Voodoo” corporations ≠ Haitian Vodou. Espiritismo ≠ Lucumí. Hoodoo candle-shop Christianity ≠ a Lucumí *asiento*.
+8. **Misconception:** “They’re all West African witchcraft, same as Wicca’s Horned God.” Different languages, different initiations, different courts. “Hoodoo is a denomination of Santería.” Cell 2: no required priesthood.
+9. **Receipt:** 508 U.S. 520 (Lucumí); **ONS** Vodun write-in as a **code**, not a Haitian census; **NCA** emblem 63. Hurston 1935 as a finding aid for Hoodoo, not a 990.
+10. **Falsifier:** If 508 U.S. 520’s petitioner were a Hoodoo worker without a Santería church, cell 1’s Lucumí row dies.
+11. **OPEN:** Haitian statutory recognition text; Palo/Vodou US 501(c)(3) **EIN**s as named; any state “fortune-telling” statute still targeting Hoodoo as such.
+
+---
+
+### Cunning-folk and *Braucherei* (trades, not covens)
+
+1. **Institution name:** Self (historical): cunning-man/woman, wise-man, unwitcher (England); *Braucherei* / powwow (Pennsylvania German). External: “the village witch” as if Gardner.
+2. **Governance:** Individual trade reputation. No synod.
+3. **Legal status:** In England, overlap with vagrancy/fortune-telling and, before 1735, with witchcraft felonies when an accusation landed. After 1735/1951/2008, leftover is consumer/fraud law (statute row). Pennsylvania powwow: folk practice inside (often) Lutheran/Reformed households — **not** a Wiccan church.
+4. **Reach:** Early modern–19th-c. England (Owen Davies, *Cunning-Folk*, as the modern historical monograph — **secondary**; primary is quarter-sessions and advertisements). Pennsylvania German counties for *Braucherei*. John George Hohman, *The Long Lost Friend* (first American printing **1820**) is a **book**, not a denomination.
+5. **Finance:** Fee-for-service. No 990.
+6. **Rupture:** 1735 (pretence offence catches “common cunning-folk” more than hanging). 1820 Hohman printing for the Pennsylvania book-machine.
+7. **Subdivisions:** English cunning-folk ≠ Scottish *spaewife* ≠ Irish *bean feasa* ≠ Pennsylvania powwow ≠ 20th-c. Wicca.
+8. **Misconception:** “Cunning-folk were secret Gardnerians.” Chronology forbids it. “Powwow is Native American religion.” The Pennsylvania German word is from *brauch*, not from a Plains powwow.
+9. **Receipt:** Statute row for the English legal envelope; Hohman 1820 as the named book. Davies as finding aid, not the legal basis cell.
+10. **Falsifier:** If Hohman’s 1820 book were a Gardnerian Book of Shadows, cell 4 dies.
+11. **OPEN:** A named quarter-sessions indictment copied this pass; Pennsylvania statutory treatment of powwow as medicine vs religion.
+
+---
+
+### Pagan Federation (UK umbrella, not a type of Craft)
+
+1. **Institution name:** Self: The Pagan Federation. External: “British Wicca’s government.” It is an **advocacy/membership charity** covering multiple Pagan paths, not a lineage.
+2. **Governance:** Trustees; President and Chair S. Kerr on the 2024/25 annual report. CIO - Association, Charity Commission **1207576**, registered **22 March 2024**, governing document amended **16 August 2026**. https://register-of-charities.charitycommission.gov.uk/en/charity-search/-/charity-details/5199677/full-print Predecessor limited company **PAGAN FEDERATION 04056879** incorporated **22 August 2000**, **dissolved 24 March 2026**. https://find-and-update.company-information.service.gov.uk/company/04056879 Do not treat the dissolved company as the live charity.
+3. **Legal status:** England and Wales charity. Objects in the 2024/25 report: advance public education about Pagan beliefs; promote equality/religious harmony; eliminate discrimination against Pagans consistent with the Equality Act 2010. Beltane launch as “53rd anniversary” in that report ⇒ association origin **1971**, **CIO** origin **2024**.
+4. **Reach:** UK representation/education. Not CoG. Not **OBOD**. Not **ONS**.
+5. **Finance — year ended 21 March 2025** (trustees’ report / receipts-and-payments): **total receipts £43,903** (2023/24 £43,175); **total payments £44,772**; **funds £12,970** unrestricted (2023/24 £13,839); Q4 membership **1,964** (Q4 2023/24 **2,009**). https://www.paganfed.org/wp-content/uploads/PF-24_25-Annual-Report-Sept-2025.pdf Do **not** add 1,964 to **ONS** 74,000.
+6. **Rupture:** **1971** (self-dated anniversary). **22 March 2024** (CIO). **24 March 2026** (old company dissolved).
+7. **Subdivisions:** PF members who are Wiccan ≠ PF members who are Druid/Heathen/other. PF ≠ Pagan Dawn magazine as a separate **P&L** line inside the same report (trading receipts £8,623).
+8. **Misconception:** “The Pagan Federation is the UK’s Wiccan church, membership = census Pagans.” 1,964 vs 74,000 are different machines. “Charity 298314.” Live number is **1207576**.
+9. **Receipt:** Charity Commission 1207576; Companies House 04056879 (dissolved); 2024/25 annual report PDF.
+10. **Falsifier:** If year-ended 21 March 2025 total receipts ≠ £43,903 in that report, cell 5 dies. If 1207576 were not the live charity, cell 2 dies.
+11. **OPEN:** Scotland/Northern Ireland charity numbers if any; 1971 founding document.
+
+---
+
 ## What this map is not
 
-- Not a ritual manual. Not Maqlû. Not a list of herbs.
+- Not a ritual manual. Not Maqlû. Not a list of herbs. Not a complete folklore catalogue of every regional “witch” word on Earth — those stay **OPEN** unless a statute, roll, or filing exists.
 - Not Religion as Institution’s Holy See / Al-Azhar / *marjaʿiyya* rows. Those are other corporations and states.
 - Not the Peoples Atlas. “Witch” is not an ethnicity.
 - Not Socionomics. Mood is not a 990.
@@ -240,10 +464,10 @@ Every entry uses the same fixed 11-field template. Field labels stay in this for
 
 Same three-pile habit as the four-pillar study docs, applied to **this** map:
 
-- **Field (primary legal/statistical paper):** 508 U.S. 520 (Library of Congress **U.S.** Reports PDF); 799 F.2d 929; 617 F. Supp. 592; Fraudulent Mediums Act 1951 as on legislation.gov.uk; S.I. 2008/1277 repeal note; **ONS** Census 2021 religion bulletin (29 November 2022); **Hagstofa MAN10001** JSON-stat pull 20 November 2026; **NCA** emblems page (updated 21 May 2026); **ACLU** 23 April 2007 release; **IRS** churches automatic-exemption page; ProPublica extracts for **EIN 23-7456553**, **82-3404757**, **33-0715197**; CoG 1998 charter PDF; oto-usa.org/usgl/; churchofsatan.com donate and tax essays; asatru.is about page; Massachusetts Acts 2001 Chapter 122.
+- **Field (primary legal/statistical paper):** 508 U.S. 520 (Library of Congress **U.S.** Reports PDF); 799 F.2d 929; 617 F. Supp. 592; Fraudulent Mediums Act 1951 as on legislation.gov.uk; S.I. 2008/1277 repeal note; **ONS** Census 2021 religion bulletin (29 November 2022); **Hagstofa MAN10001** JSON-stat pull 20 November 2026; **NCA** emblems page (updated 21 May 2026); **ACLU** 23 April 2007 release; **IRS** churches automatic-exemption page; ProPublica extracts for **EIN 23-7456553**, **82-3404757**, **33-0715197**, **74-2482506**; CoG 1998 charter PDF; oto-usa.org/usgl/; churchofsatan.com donate and tax essays; asatru.is about page; Massachusetts Acts 2001 Chapter 122; Companies House **14689683** and **04056879**; Charity Commission **1207576** and PF 2024/25 report; **ADF** FAQ; Reclaiming CA **1517630** / **EIN 94-3200019**; LC/NAF `no2015009876`.
 - **Code (the filing as a machine):** Form 990 / 990-EZ / 990-N as **IRS** schemas; **EIN** as the join key; **Hagstofa** Skipting codes 0 vs 6 (total members vs parish-fee payers); **TS031** write-in codes as separate variables; **VA** emblem numbers 37 / 55 / 63 / 65 as catalog keys, not theologies.
 - **Media (finding aids only):** Parliament heritage “Witchcraft” page; Circle Sanctuary quest narrative; ProPublica Nonprofit Explorer; GuideStar **TST** profile. None of those override a statute or a 990 line.
 
 ## Acronyms used (first expansions are in the body)
 
-**ACS, ACLU, ARDA, AU, CMA, CoG, CoS, DPP, EIN, FOI, FTC, GDP, GMV, IRS, IRC, NCA, NISRA, NRS, ONS, OTO, PACER, RLUIPA, TS031, TST, USGL, VA, 4th Cir.**
+**ACS, ACLU, ADF, ARDA, AU, BTW, CIC, CIO, CMA, CoG, CoS, DPP, EIN, FOI, FTC, GDP, GMV, IRS, IRC, NCA, NISRA, NRS, OBOD, ONS, OTO, PACER, RLUIPA, SIC, TS031, TST, USGL, VA, WRSP, 4th Cir.**
