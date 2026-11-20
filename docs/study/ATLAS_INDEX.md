@@ -4,6 +4,8 @@ Descriptive / ethnographic reference. History first, census second. Wikipedia is
 
 One-file copy: [`docs/study/PEOPLES_ETHNICITIES_ATLAS.md`](PEOPLES_ETHNICITIES_ATLAS.md).
 
+Related (different 11-field grid — institutions, not peoples): [`docs/study/RELIGION_AS_INSTITUTION_MAP.md`](RELIGION_AS_INSTITUTION_MAP.md).
+
 The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus & Central Asian Turkic/Iranian peoples**) are **not in this checkout**. Do not invent them.
 
 ## How to read an entry
