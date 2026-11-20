@@ -14,6 +14,8 @@ Related (different 12-field grid — war, alliance, and coercion mechanics): [`d
 
 Related (different 11-field grid — class and social mobility measures): [`docs/study/CLASS_SOCIAL_MOBILITY_MAP.md`](CLASS_SOCIAL_MOBILITY_MAP.md).
 
+Related (different 11-field grid — international pricing and trade mechanisms): [`docs/study/INTERNATIONAL_PRICING_TRADE_MAP.md`](INTERNATIONAL_PRICING_TRADE_MAP.md).
+
 The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus & Central Asian Turkic/Iranian peoples**) are **not in this checkout**. Do not invent them.
 
 ## How to read an entry
