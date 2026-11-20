@@ -1,19 +1,19 @@
 # Peoples & Ethnicities Atlas — East Asia
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-- **Sino-Tibetan:** Sinitic (Han as an umbrella of Sinitic lects) and Tibeto-Burman (Tibetan in this file).
+- **Sino-Tibetan:** Sinitic (Han as an umbrella of Sinitic lects) and Tibeto-Burman (Tibetan in this section).
 - **Japonic:** Japanese, Ryukyuan languages (Ryukyuan are **not** “dialects of Tokyo Japanese” in the linguistic sense).
 - **Koreanic:** Korean. Isolate family in the usual classification; Altaic is a discarded packing crate.
 - **Mongolic:** Mongolian (Khalkha and other Mongolic languages).
 - **Turkic:** Uyghur (Southeastern Turkic). Kazakh in Xinjiang is Turkic too — not this entry.
 - **Ainuic:** Ainu. **Not** Japonic.
 
-**Census machines:** PRC National Bureau of Statistics **Seventh National Population Census** (reference **1 Nov 2020**) publishes *minzu* (official 56-nationality grid). That grid **is** the PRC counting machine — it is not a dialect map. Japan Statistics Bureau **2020 Population Census** counts **nationality**, not ethnicity. Mongolia NSO **2020** counts ethnicity among citizens. ROK KOSTAT censuses **nationality/residence**, not “Korean race.” DPRK: no usable ethnicity census.
+**Census machines:** PRC (People’s Republic of China) National Bureau of Statistics **Seventh National Population Census** (reference **1 Nov 2020**) publishes *minzu* (official 56-nationality grid). That grid **is** the PRC counting machine — it is not a dialect map. Japan Statistics Bureau **2020 Population Census** counts **nationality**, not ethnicity. Mongolia NSO (National Statistics Office of Mongolia) **2020** counts ethnicity among citizens. ROK (Republic of Korea) KOSTAT (Statistics Korea) censuses **nationality/residence**, not “Korean race.” DPRK (Democratic People’s Republic of Korea): no usable ethnicity census.
 
-Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if present).
+Kartvelian / Caucasus is **not** this section (cross-ref the Caucasus & Central Asia domain if present).
 
 ---
 
@@ -22,7 +22,7 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 1. **Self-designation vs. external name:** Self: *Hànzú* / *Hànrén*. External: “Chinese” (collapses citizenship, Sinitic language, and *minzu*). “Han” is itself an **umbrella**.
 2. **Language:** Sinitic branch of Sino-Tibetan. Not one language: Mandarin, Wu, Yue (Cantonese), Min, Hakka, Xiang, Gan, Jin, etc., are not mutually intelligible in ordinary speech. Old Chinese attested in Shang–Zhou inscriptions (2nd–1st millennium BCE); the *minzu* name is a later political aggregation.
 3. **Homeland:** Yellow–Yangtze agricultural core with historically documented expansion south and west. “Always everywhere in China” is false (southwest, northeast, and Xinjiang have dated incorporation histories).
-4. **Subdivisions the umbrella flattens:** Mandarin vs Yue vs Min vs Wu vs Hakka as **lects**; regional identities (Cantonese, Hokkien, Shanghainese, Sichuanese); overseas *huáqiáo* / *huárén* (Singapore CMIO “Chinese,” Malaysia DOSM “Chinese”) are **civic-ethnic codes**, not NBS *minzu*. Hui are a **separate** PRC *minzu* (Muslim, Sinitic-speaking) — not Han.
+4. **Subdivisions the umbrella flattens:** Mandarin vs Yue vs Min vs Wu vs Hakka as **lects**; regional identities (Cantonese, Hokkien, Shanghainese, Sichuanese); overseas *huáqiáo* / *huárén* (Singapore CMIO (Chinese–Malay–Indian–Other, Singapore’s four official race categories) “Chinese,” Malaysia DOSM (Malaysia’s Department of Statistics) “Chinese”) are **civic-ethnic codes**, not NBS (China’s National Bureau of Statistics) *minzu*. Hui are a **separate** PRC *minzu* (Muslim, Sinitic-speaking) — not Han.
 5. **Population:**
    - **NBS Seventh Census, 2020-11-01:** mainland 31 provinces + PLA **1,411,778,724**; **Han 1,286,311,334 (91.11%)**; minorities **125,467,390 (8.89%)**. English communiqué: Han **1,286.31 million**. https://www.stats.gov.cn/sj/zxfb/202302/t20230203_1901082.html ; https://www.stats.gov.cn/english/PressRelease/202105/t20210510_1817185.html
    - This is **PRC *minzu* Han**, not “all Sinitic speakers on earth” and not ROC/Taiwan population (Taiwan 2020 year-end **23,561,236** is listed in the same NBS bulletin as a **separate** figure, not as Han *minzu*).
@@ -56,7 +56,7 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 
 1. **Self-designation vs. external name:** Self: *Bod-pa* / *Pöpa*. External: “Tibetan”; PRC *minzu* *Zàngzú* includes Amdo/Kham speakers who may not use “Tibetan” as an English self-name.
 2. **Language:** Tibetic (Tibeto-Burman, Sino-Tibetan). Old Tibetan attested from the 7th–9th c. (imperial inscriptions, Dunhuang). Amdo, Kham, Ü-Tsang are not one spoken language.
-3. **Homeland:** Tibetan Plateau. How they got there: plateau societies predating the PRC TAR; 7th-c. Tibetan Empire is a dated political crystallization, not the first human presence.
+3. **Homeland:** Tibetan Plateau. How they got there: plateau societies predating the PRC TAR (Tibet Autonomous Region); 7th-c. Tibetan Empire is a dated political crystallization, not the first human presence.
 4. **Subdivisions:** Ü-Tsang, Kham, Amdo; exile community (India Dharamsala, Nepal) vs TAR vs Sichuan/Qinghai/Gansu *minzu* Tibetan. Monpa/Lhoba are **other** PRC *minzu*.
 5. **Population:** Census Yearbook 2020: **Tibetan 7,060,731 (0.50%)**. TAR population mix is not “number of Tibetans” (Han live in the TAR). Exile CTA figures are a **different machine** — **OPEN** as a fetched CTA table this pass.
 6. **Rupture:** **1950–51** Seventeen-Point Agreement / PLA entry; **1959** Lhasa uprising and Dalai Lama’s flight.
@@ -86,7 +86,7 @@ Kartvelian / Caucasus is **not** this file (cross-ref the Caucasus domain if pre
 8. **Flattening:** Inner Mongolia’s population as Mongol; Khalkha as the only Mongol; PRC *minzu* = NSO ethnicity.
 9. **Receipt:** History — Atwood, *Encyclopedia of Mongolia and the Mongol Empire*; Bawden. Census — NSO 2020 (table 3.6 / 4.1); PRC Yearbook 2020.
 10. **Falsifier:** NSO Khalkh ≠ 2,659,985; PRC Mongol ≠ 6,290,204; Mongolic as Turkic.
-11. **OPEN:** Russia 2021 Buryat/Kalmyk lines as a third machine (Rosstat VPN-2020 Volume 5 — not loaded as the people here).
+11. **OPEN:** Russia 2021 Buryat/Kalmyk lines as a third machine (Rosstat VPN-2020 (All-Russian Population Census / *Vserossiyskaya perepis’ naseleniya*) Volume 5 — not loaded as the people here).
 
 ---
 

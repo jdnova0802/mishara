@@ -1,17 +1,17 @@
 # Peoples & Ethnicities Atlas — South Asia
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
-Language family is not race and is not caste.
+Language family is not race and is not caste. Entries here are ethnolinguistic (pertaining to a group defined by shared language as a marker of ethnic identity).
 
-- **Indo-Aryan** (Indo-European): Punjabi, Bengali, Sindhi, Sinhala. Hindi-belt languages are not this file.
-- **Dravidian:** Tamil (this file). Telugu, Kannada, Malayalam exist; not listed here — do not pad.
+- **Indo-Aryan** (Indo-European): Punjabi, Bengali, Sindhi, Sinhala. Hindi-belt languages are not this section.
+- **Dravidian:** Tamil (this section). Telugu, Kannada, Malayalam exist; not listed here — do not pad.
 - **Iranian** (Indo-European): Pashto (Pashtun).
 - **Munda / Austroasiatic:** Santali, Mundari, Ho, Khasi (Mon-Khmer in the northeast). Named so the frame is not a two-family cartoon. No Munda people-entry in the user’s list — do not invent one.
 - **Caste (*jāti* / *varṇa*)** overlays language in India; it is **not** ethnicity and is not a substitute for C-16.
-- **Census machines:** Census of India **2011** Table **C-16** (mother tongue, Paper 1 of 2018) is the last published full language table. **2021/22 Indian census language tables not published as of this pull — OPEN.** Pakistan Bureau of Statistics **Census 2017** Table 11 is mother tongue, not ethnicity. Bangladesh Bureau of Statistics **2022** is a citizenship census. Sri Lanka Department of Census and Statistics **2012** is ethnicity. Myanmar Department of Population **2014** refused the name Rohingya. UNHCR/GoB registration is a refugee machine, not a people-count of all Rohingya.
+- **Census machines:** Census of India **2011** Table **C-16** (mother tongue — a census-question category for the language learned at home, distinct from ethnicity or citizenship; Paper 1 of 2018) is the last published full language table. **2021/22 Indian census language tables not published as of this pull — OPEN.** Pakistan Bureau of Statistics **Census 2017** Table 11 is mother tongue, not ethnicity. Bangladesh Bureau of Statistics **2022** is a citizenship census. Sri Lanka Department of Census and Statistics **2012** is ethnicity. Myanmar Department of Population **2014** refused the name Rohingya. UNHCR (United Nations High Commissioner for Refugees) / GoB registration is a refugee machine, not a people-count of all Rohingya.
 
 Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rather than Iranian, the filing dies.
 
@@ -24,7 +24,7 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 3. **Homeland:** Five-river Punjab. How they got there: long-settled Indo-Aryan speech in the plains; **not** a 1947 invention. The 1947 border cut the homeland.
 4. **Subdivisions the umbrella flattens:** Indian vs Pakistani civic regimes; Sikh vs Hindu vs Muslim Punjabi (religion ≠ language); Majhi / Doabi / Malwai / Pothohari dialect belts; Jat, Khatri, Dalit *jātis* (caste, not a language count). UK/Canada “Punjabi” ethnicity ≠ Indian C-16.
 5. **Population (machines not mashed):**
-   - **India, C-16 2011 (mother tongue, language-group total):** **Punjabi 33,124,726.** This is India only, language not ethnicity. ORGI, *Language*, Paper 1 of 2018, Statement 4. https://censusindia.mha.gov.in/nada/index.php/catalog/42458/download/46089/C-16_25062018.pdf
+   - **India, C-16 2011 (mother tongue, language-group total):** **Punjabi 33,124,726.** This is India only, language not ethnicity. ORGI (India’s Office of the Registrar General & Census Commissioner), *Language*, Paper 1 of 2018, Statement 4. https://censusindia.mha.gov.in/nada/index.php/catalog/42458/download/46089/C-16_25062018.pdf
    - **Pakistan, PBS Census 2017 Table 11 (mother tongue):** **Punjabi 80,536,390** of **207,684,626.** Percentage in the salient-features table: **38.78%.** Language, not a “Punjabi ethnicity” code. https://www.pbs.gov.pk/wp-content/uploads/2020/07/Table11n.pdf ; percentages: https://www.pbs.gov.pk/wp-content/uploads/2020/07/sailent_feature_census_2017.pdf
    - Do **not** add 33.12M + 80.54M as one people: different states, different questions (India language-group vs Pakistan mother-tongue code), different years.
 6. **Rupture:** **15 August 1947** Partition of British India (Punjab among the worst killing fields). Death toll **contested range** — do not pick.
@@ -63,14 +63,14 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 4. **Subdivisions — three legal histories, do not mash:** Indian Tamil; **Sri Lanka Tamil**; **Indian-origin / Malayaga Tamil** in Sri Lanka (19th-c. plantation; 1948–64 citizenship acts). Muslim Tamil-speakers (Rowthers; many Sri Lankan Moors speak Tamil but may reject “Tamil” ethnicity).
 5. **Population (machines not mashed):**
    - **India C-16 2011:** **Tamil 69,026,881.**
-   - **Sri Lanka DCS Census of Population and Housing 2012** (ethnicity, not language): **Sri Lanka Tamil 2,269,266 (11.2%)**; **Indian Tamil 839,504 (4.1%)**; island total **20,359,439**. DCS visualization / UNFPA reprint of DCS. https://www.statistics.gov.lk/pophousat/cph2012visualization/htdocs/index.php?action=Data&indId=10&usecase=indicator
+   - **Sri Lanka DCS Census of Population and Housing 2012** (ethnicity, not language): **Sri Lanka Tamil 2,269,266 (11.2%)**; **Indian Tamil 839,504 (4.1%)**; island total **20,359,439**. DCS visualization / UNFPA (United Nations Population Fund) reprint of DCS. https://www.statistics.gov.lk/pophousat/cph2012visualization/htdocs/index.php?action=Data&indId=10&usecase=indicator
    - Do not add Indian C-16 + both Sri Lankan lines as one ethnicity.
 6. **Rupture:** 1983–2009 Sri Lankan civil war; **May 2009** defeat of the LTTE. 1948–64 Ceylon citizenship acts for plantation Tamils as a separate legal rupture.
 7. **Religion:** Hindu majority among Indian and Sri Lanka Tamils; Christian minorities; Tamil-speaking Muslims as a cross-cut (Moors are a DCS ethnicity line: **1,892,638** in 2012 — not “Tamil”).
 8. **Flattening:** All Sri Lankan Tamils as LTTE; plantation Tamils as the same census line as Jaffna.
 9. **Receipt:** History — Hellmann-Rajanayagam; Wickramasinghe, *Sri Lanka in the Modern Age*. Census — ORGI C-16; DCS 2012 (URL above).
 10. **Falsifier:** C-16 69,026,881 wrong; DCS 2012 Sri Lanka Tamil ≠ 2,269,266; Tamil as Indo-Aryan.
-11. **OPEN:** India 2021; Malaysia DOSM 2020 “Indian” is **not** Tamil (Malay, Chinese, Indian, Other Bumiputera — Indian **1,998,778** citizens is an administrative bundle). Singapore Tamil as a CMIO category **not pulled as a table this pass**.
+11. **OPEN:** India 2021; Malaysia DOSM (Malaysia’s Department of Statistics) 2020 “Indian” is **not** Tamil (Malay, Chinese, Indian, Other Bumiputera — Malaysia’s legal umbrella for Malays and other indigenous groups — Indian **1,998,778** citizens is an administrative bundle). Singapore Tamil as a CMIO category (Singapore’s Chinese–Malay–Indian–Other race grid) **not pulled as a table this pass**.
 
 ---
 
@@ -97,13 +97,13 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 1. **Self-designation vs. external name:** Self: *Paṣtūn* / *Pakhtun*; collective *Afghan* in older usage is **not** the same as the modern Afghan state. External: “Pashtun,” “Pathan” (exonym, still in South Asian English).
 2. **Language:** Pashto (Eastern Iranian, Indo-European). Not Indo-Aryan. Attestation: early modern Pashto literature (Khushal Khan Khattak, 17th c.); the language is older than that corpus.
 3. **Homeland:** Eastern Iranian plateau / Suleiman–Hindu Kush: southern Afghanistan and western Pakistan (Khyber Pakhtunkhwa, northern Balochistan, FATA as of 2017 geography). Not a Pakistani “tribal remnant” invented by the British, though the Durand Line (**1893**) is a dated border.
-4. **Subdivisions:** Sarban, Bettani, Gharghashti, Karlani confederations; Durani vs Ghilzai as political historical split; Pakistani vs Afghan civic statuses. “Pathan” in India C-16 is **not** this file’s people-count.
+4. **Subdivisions:** Sarban, Bettani, Gharghashti, Karlani confederations; Durani vs Ghilzai as political historical split; Pakistani vs Afghan civic statuses. “Pathan” in India C-16 is **not** this section’s people-count.
 5. **Population (machines not mashed):**
    - **Pakistan PBS 2017 Table 11:** **Pashto (PUSHTO) 37,885,441** mother tongue (**18.24%** of 207,684,626). KP **76.86%** Pashto; FATA **98.40%**. This is **language**, not a tribe roll.
    - **Afghanistan:** no complete conventional census comparable to PBS 2017. NSIA estimates exist; they are **not** a Pashtun ethnicity census. **OPEN** as an Afghan Pashtun headcount. Do not print “40 million Pashtuns” as if counted.
    - Do not add PBS Pashto to an Afghan estimate.
 6. **Rupture:** **1893** Durand Line; **1978–79** Saur coup / Soviet invasion as the modern demographic rupture (refugees into Pakistan — UNHCR stocks are a **registration machine**, not the people).
-7. **Religion:** Sunni (Hanafi) majority; Shia among Turi and some others. Not “Hindu Pathan” as default.
+7. **Religion:** Sunni (Hanafi — one of the four Sunni legal schools, with Shafiʿi, Maliki, and Hanbali) majority; Shia among Turi and some others. Not “Hindu Pathan” as default.
 8. **Flattening:** “Afghans are Pashtuns” (Tajik, Hazara, Uzbek, Aimak are not); filing Pashto under Indo-Aryan.
 9. **Receipt:** History — Caroe, *The Pathans* (colonial, use as a dated source not a census); Barfield, *Afghanistan*. Census — PBS Table 11. Afghanistan: absence of a completed ethnicity census is the receipt.
 10. **Falsifier:** PBS Pashto ≠ 37,885,441; Pashto as Indo-Aryan; a completed Afghan census ethnicity table would kill cell 5’s OPEN.
@@ -162,4 +162,4 @@ Falsifier for the frame: if Tamil were Indo-Aryan, or Pashto were Indo-Aryan rat
 
 ---
 
-**India 2021/22:** language tables unpublished as of pull — OPEN across this file, not a license to invent.
+**India 2021/22:** language tables unpublished as of pull — OPEN across this section, not a license to invent.

@@ -1,16 +1,16 @@
 # Peoples & Ethnicities Atlas — Southeast Asia
 
-Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md` (domain map plus the 11-field grid legend). Entries use the 11-field template in the grid legend (cell N = field N).
 
 ## Frame
 
 - **Austroasiatic:** Vietnamese (Vietic), Khmer (Mon-Khmer). Mon exists; not listed — do not pad.
-- **Tai–Kadai:** Thai / Lao / Shan cluster. This file names **Thai**.
+- **Tai–Kadai:** Thai / Lao / Shan cluster. This section names **Thai**.
 - **Austronesian:** Malay, the Philippine ethnolinguistic mosaic (Tagalog is one node, not the people “Filipino”).
 - **Sino-Tibetan (Burmese / Tibeto-Burman):** Burmese (Bamar). Karen, Chin, Kachin are other Tibeto-Burman/related lines — not this Bamar entry.
-- **Hmong-Mien:** Hmong (Miao in PRC is a **larger *minzu* umbrella**, not identical).
+- **Hmong-Mien:** Hmong (Miao in PRC (People’s Republic of China) is a **larger *minzu* umbrella**, not identical).
 
-**Census machines:** Vietnam GSO/NSO **2019**; Cambodia NIS **2019**; Thailand NSO **2010** (UNdata ethnicity); Myanmar DoP **2014** (ethnicity detail incomplete); Malaysia DOSM **2020**; Philippines PSA **2020** (ethnicity by descent, **not** a single “Filipino” people).
+**Census machines:** Vietnam GSO/NSO (Vietnam’s General Statistics Office / National Statistics Office) **2019**; Cambodia NIS (Cambodia’s National Institute of Statistics) **2019**; Thailand NSO (Thailand’s National Statistical Office) **2010** (UNdata ethnicity); Myanmar DoP **2014** (ethnicity detail incomplete); Malaysia DOSM (Malaysia’s Department of Statistics) **2020**; Philippines PSA (Philippine Statistics Authority) **2020** (ethnicity by descent, **not** a single “Filipino” people).
 
 ---
 
@@ -93,20 +93,20 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 5. **Population (machines not mashed):**
    - **Vietnam GSO 2019:** Mông is named among **six minorities >1 million**. Exact integer **not in the two-page press** — **OPEN** the digit; do not invent 1.39M from a non-GSO aggregator.
    - **PRC 2020 Miao 11,067,929** is *minzu* Miao, **not** Hmong-only.
-   - **US Census 2020 Detailed DHC-A:** Hmong as an Asian detailed group — **OPEN** the exact integer this pass (the Bureau published it; not loaded here). Do not use “300,000” from memory.
+   - **US Census 2020 Detailed DHC-A (U.S. Census Detailed Demographic and Housing Characteristics File A):** Hmong as an Asian detailed group — **OPEN** the exact integer this pass (the Bureau published it; not loaded here). Do not use “300,000” from memory.
    - Laos/Thailand Hmong: national tables **OPEN** this pass.
 6. **Rupture:** **1960s–75** Secret War in Laos / 1975 exodus; **US Refugee Act** era resettlement as a dated diaspora machine.
 7. **Religion:** Mix: customary practice, Protestant Christianity (especially diaspora and some Vietnamese highlands), not a Buddhist default.
 8. **Flattening:** Miao = Hmong; “mountain Chinese”; all US Asian as one.
 9. **Receipt:** History — Culas & Michaud; Quincy on Laos Hmong (use as history, not US Census). Census — GSO 2019 press (Mông >1M); PRC Yearbook 2020 Miao as a **warning not to mash**.
 10. **Falsifier:** Treating Miao 11.07M as Hmong; Hmong as a Sinitic dialect.
-11. **OPEN:** GSO Mông integer; ACS/2020 DHC-A Hmong; Laos 2015 census Hmong.
+11. **OPEN:** GSO Mông integer; ACS (U.S. Census Bureau’s American Community Survey)/2020 DHC-A Hmong; Laos 2015 census Hmong.
 
 ---
 
 ### Malay
 
-1. **Self-designation vs. external name:** Self: *Melayu*. External: “Malay.” Malaysia’s **Bumiputera** is a **larger legal umbrella** (Malay + other Bumiputera).
+1. **Self-designation vs. external name:** Self: *Melayu*. External: “Malay.” Malaysia’s **Bumiputera** is a **larger legal umbrella** for Malays and other indigenous groups (Malay + other Bumiputera).
 2. **Language:** Malay (Austronesian, Malayo-Polynesian). Old Malay inscriptions (Kedukan Bukit, 7th c.). Indonesian / Bahasa Malaysia are standardized registers of the same family — **Indonesia is not this ethnicity entry**.
 3. **Homeland:** Malay Peninsula, eastern Sumatra, coastal Borneo. Srivijaya/Melaka as dated polities. Patani Malays in southern Thailand are this language cluster, not NSO “Thai.”
 4. **Subdivisions:** Malaysian Malay vs Bruneian vs Indonesian *suku Melayu* vs Thai Malay; **Bumiputera ≠ Malay** (DOSM: Malay **16,912,998**; Other Bumiputera **3,736,535**).
@@ -118,7 +118,7 @@ Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/
 8. **Flattening:** Bumiputera = Malay; Indonesian citizenship = Malay; all Muslims in Malaysia as Malay (Indian Muslims exist).
 9. **Receipt:** History — Andaya & Andaya, *A History of Malaysia*; Wolters on Srivijaya. Census — DOSM 2020 / UNdata (URLs above).
 10. **Falsifier:** DOSM Malay ≠ 16,912,998; Malay as Austroasiatic.
-11. **OPEN:** BPS Indonesian Malay; Singapore CMIO Malay; Thai 2010 “Thai” flattening of Patani.
+11. **OPEN:** BPS Indonesian Malay; Singapore CMIO Malay (Singapore Chinese–Malay–Indian–Other race grid); Thai 2010 “Thai” flattening of Patani.
 
 ---
 
