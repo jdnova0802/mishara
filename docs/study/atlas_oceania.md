@@ -1,96 +1,90 @@
 # Peoples & Ethnicities Atlas — Oceania
 
-Not Nisaba. Aboriginal ≠ Torres Strait; Polynesia ≠ Melanesia ≠ Micronesia. Pull **2026-11-14**. Stats NZ xlsx and ABS fetched this pass.
+Not Nisaba. History first, census second. Pull **2026-11-14**. Companion: `docs/study/ATLAS_INDEX.md`.
+
+## Frame
+
+- **Austronesian (Oceanic):** **Polynesian** and **Micronesian** (and Island Melanesian Austronesian languages). Māori is Eastern Polynesian. This is a **language family**, not a race.
+- **Papuan:** a **cover term** for many non-Austronesian families of New Guinea and nearby islands — **not one family**. “Melanesian” as a 19th-c. racial type is a flattening; **Melanesia** as a geography contains both Austronesian and Papuan languages.
+- **Australian Aboriginal languages:** **~250 languages**, multiple families (Pama-Nyungan is the large family; others in the north). **Not one family and not one people.** Torres Strait Islander languages include **Meriam Mir** (Papuan) and **Kala Lagaw Ya** (Pama-Nyungan) — **not** “the same as Aboriginal.”
+
+New Zealand, Australia, PNG, Fiji, and US Census NHPI are **different counting machines**.
 
 ---
 
-## Aboriginal Australians
+### Aboriginal Australian
 
-1. **Name:** Self: nation names (*Wiradjuri, Arrernte, Yolŋu, Noongar, Palawa…*). External: Aboriginal; “Aborigine” (dated). “Indigenous Australians” **bundles** Aboriginal + Torres Strait Islander — **don’t use as one people**.
-2. **Language:** Pama-Nyungan family covers most of the continent; non-Pama-Nyungan in the north. **Not one language.** English/Kriol now majority L1 — language ≠ identity (ABS).
-3. **Homeland:** Australian continent and Tasmania. Deep-time occupancy (archaeology **dates contested in detail**; do not print a single “65,000 years” as if ABS). How Britain got there: **1788** Sydney; 19th-c. frontier.
-4. **Subdivisions:** Nations/language groups; Stolen Generations as a **legal-historical** split in families, not a census ethnicity. Tasmania Palawa vs mainland.
-5. **Population:** ABS Census **2021**: Aboriginal and Torres Strait Islander **983,700 (3.8%)** of 25,422,788 — **combined**. Aboriginal-only vs TSI-only vs both are **separate** ABS lines — **OPEN the three-way split this pass** (the 983,700 is the combined usual-resident count). https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/aboriginal-and-torres-strait-islander-population-census/2021
-6. **Rupture:** 1788; frontier wars (death toll **no single official census — OPEN/contested**); Stolen Generations (20th c., Bringing Them Home 1997); 1967 referendum (census/race power — **not “citizenship granted” as the folk line**).
-7. **Religion:** Christian + no religion + Aboriginal beliefs in census religion (ABS religion is not nation).
-8. **Flattening:** Aboriginal = TSI = Māori = “Pacific Islander”; one Aboriginal language; 1967 as citizenship origin.
-9. **Receipt:** ABS 2021 (983,700; 3.8%). History — Reynolds; Broome. Bringing Them Home (HREOC 1997).
-10. **Falsifier:** If 2021 combined ≠ 983,700; if TSI were a Pama-Nyungan nation of the desert.
-11. **OPEN:** Aboriginal-only N; language counts; frontier death range.
-
----
-
-## Torres Strait Islanders
-
-1. **Name:** Self: island/nation names (*Meriam, Kala Lagaw Ya* speakers, etc.). External: Torres Strait Islander.
-2. **Language:** **Two families:** Kala Lagaw Ya (Pama-Nyungan, western/central) and Meriam Mir (**Papuan**, eastern — **Melanesian linguistic link**). Not “an Aboriginal dialect.”
-3. **Homeland:** Torres Strait islands; also mainland (especially Queensland) communities.
-4. **Subdivisions:** Eastern vs Western language; Australian vs PNG maritime border (1978 treaty).
-5. **Population:** Inside ABS **2021 983,700 combined**. TSI-only count **OPEN this pass** (ABS publishes it; not copied from the headline 3.8%).
-6. **Rupture:** 1870s– missionary/colonial annexation (Queensland 1879); **Mabo 1992** (Mer, native title) as the legal rupture.
-7. **Religion:** Christian majority (London Missionary Society 1871 is the dated church arrival).
-8. **Flattening:** TSI = Aboriginal; TSI = Polynesian.
-9. **Receipt:** ABS 2021. *Mabo v Queensland (No 2)* 1992. History — Beckett; Sharp.
-10. **Falsifier:** If Meriam Mir were Pama-Nyungan; if Mabo were an Aboriginal desert case only.
-11. **OPEN:** TSI-only 2021 N.
+1. **Self-designation vs. external name:** Self: nation-specific (*Arrernte*, *Yolŋu*, *Noongar*, *Koori*, *Murri*…). External: “Aboriginal,” “Aborigine” (the second often avoided). **Not** a single ethnolinguistic people.
+2. **Language:** Many families; Pama-Nyungan covers most of the continent; non-Pama-Nyungan in the north. English and Kriol as lingua francas. Deep-time presence is archaeology/genetics — **a separate machine from the Census Indigenous status question**.
+3. **Homeland:** Australian continent and some islands (not Torres Strait as a default). How they got there: Pleistocene settlement (dating contested in the literature — **do not pick a year as census**).
+4. **Subdivisions:** Language nations / native-title groups; Stolen Generations as a **legal-historical** split, not a census code. **Torres Strait is a different ABS status.**
+5. **Population:** ABS **Census 2021** Indigenous status:
+   - **Aboriginal and/or Torres Strait Islander 812,728 (3.2%)** of the counted population, up from **649,171 (2.8%)** in 2016.
+   - Of those: **Aboriginal 742,882 (2.9%)**; **Torres Strait Islander 33,765 (0.1%)**; **both 36,083 (0.1%)**.
+   - https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/census-population-and-housing-counts-aboriginal-and-torres-strait-islander-australians/latest-release
+   - ABS flags that **identification change**, not only births, moved the count (43.5% of the 2016–21 increase demographic; rest includes identification). https://www.abs.gov.au/statistics/people/aboriginal-and-torres-strait-islander-peoples/understanding-change-counts-aboriginal-and-torres-strait-islander-australians-census/latest-release
+   - This is **self-ID status**, not a language census and not 250 nation rolls.
+6. **Rupture:** **1788** First Fleet; **1901** Federation / White Australia; state Stolen Generations (dates vary; NSW Aborigines Protection Act **1909** as one dated machine); **1967** referendum (Census/Constitution); **1992** *Mabo* (native title — Torres Strait, legal effects for the continent).
+7. **Religion:** Christian missions + nation practice. Not a single church. Not “uncontacted” as a 2021 default.
+8. **Flattening:** One Aboriginal language; 812,728 as a tribal enrollment; folding Torres Strait into Aboriginal without the ABS split; treating 1788 as ethnogenesis.
+9. **Receipt:** History — Reynolds; Broome, *Aboriginal Australians*. Census — ABS 2021 (URLs above). Language diversity — Bowern / AIATSIS as linguistics, not ABS.
+10. **Falsifier:** 2021 Aboriginal-only ≠ 742,882; Aboriginal languages as one family; 812,728 as 2016.
+11. **OPEN:** Language-speaker table vs status; 2026 census.
 
 ---
 
-## Māori
+### Torres Strait Islander
 
-1. **Name:** Self: *Māori*; iwi names (*Ngāpuhi, Ngāti Porou, Ngāi Tahu…*). External: “Native” (historical statute).
-2. **Language:** *Te reo Māori* (Eastern Polynesian, Austronesian). Related to Cook Islands Māori, Tahitian, Hawaiian — **not** to Aboriginal Australian families.
-3. **Homeland:** Aotearoa. Arrival: Polynesian voyaging (archaeological **date range**, often 13th c. CE — **don’t print a single year as census**).
-4. **Subdivisions:** Iwi/hapū are the political grain. **Ethnicity vs descent** are two Stats NZ questions.
-5. **Population:** Stats NZ Census **2023** (fetched xlsx):
-   - **Māori ethnicity:** **887,493** (2013: 598,602; 2018: 775,836)
-   - **Māori descent:** **978,246** (2018: 869,850)
-   Total people 2023 in that table: see Stats NZ national counts. Descent > ethnicity.  
-   https://www.stats.govt.nz/assets/Uploads/2023-Census-population-counts-by-ethnic-group-age-and-Maori-descent-and-dwelling-counts/Downloads/2023-Census-national-and-subnational-usually-resident-population-counts-and-dwelling-counts.xlsx
-6. **Rupture:** **1840** Te Tiriti o Waitangi / Treaty (two texts — **the bilingual contest is the point**); land wars 1860s; Waitangi Tribunal 1975.
-7. **Religion:** Christian historically; unaffiliated rising; Māori religious movements (Rātana, Ringatū) **named**.
-8. **Flattening:** Māori = Aboriginal; ethnicity = descent; all iwi as one census tribe without iwi data (2023 iwi affiliation published separately by Te Kāhui Raraunga — **OPEN iwi table this pass**).
-9. **Receipt:** Stats NZ 2023 xlsx (887,493 / 978,246). History — Orange, *The Treaty of Waitangi*; Belich.
-10. **Falsifier:** If 2023 ethnicity ≠ 887,493; if te reo were Pama-Nyungan.
-11. **OPEN:** Iwi affiliation N; te reo speaker census line.
+1. **Self-designation vs. external name:** Self: nation/island-specific (Mer, Badu, Saibai…). External: “Torres Strait Islander.” **Not** “Aboriginal.”
+2. **Language:** **Meriam Mir** (Eastern, **Papuan**); **Kala Lagaw Ya / Kalaw Kawaw Ya** (Western-Central, **Pama-Nyungan**); Yumplatok (Torres Strait Creole). The strait is a **language-family border**, not a footnote to Aboriginal Australia.
+3. **Homeland:** Torres Strait islands between Cape York and Papua. How they got there: island societies with documented Papuan and Australian connections — **do not pick a single origin myth as census**.
+4. **Subdivisions:** Eastern vs Western vs Central island groups; mainland Torres Strait Islander diaspora (Queensland cities).
+5. **Population:** ABS 2021: **Torres Strait Islander only 33,765**; **both Aboriginal and Torres Strait Islander 36,083**. Do not use 812,728. Same ABS release as Aboriginal.
+6. **Rupture:** **1871** LMS missionaries (dated); **1879** Queensland annexation; **1992** *Mabo v Queensland (No 2)* (Meriam plaintiffs).
+7. **Religion:** Christianity as majority overlay (LMS). Not the same mission history as every desert nation.
+8. **Flattening:** Torres Strait as Aboriginal; one language; *Mabo* as an Aboriginal-only case (the lead plaintiffs were Meriam).
+9. **Receipt:** History — Beckett, *Torres Strait Islanders*; the *Mabo* judgment as law. Census — ABS 2021.
+10. **Falsifier:** TSI-only ≠ 33,765; Meriam Mir as Pama-Nyungan.
+11. **OPEN:** Island-by-island counts; PNG Western Province relations (different state).
 
 ---
 
-## Polynesian / Micronesian / Melanesian split
+### Māori
 
-These are **regional-linguistic** labels from 19th-c. ethnology. They remain useful **if** you name languages; they fail as races.
+1. **Self-designation vs. external name:** Self: *tangata whenua*, *Māori* (the latter is an umbrella that formed in contrast to *Pākehā*). External: “Maori.”
+2. **Language:** *Te reo Māori* (Eastern Polynesian, Austronesian). Oral literature pre-dates the 19th-c. orthography; Cook-era wordlists are early European attestation, not the language’s start.
+3. **Homeland:** Aotearoa New Zealand. How they got there: East Polynesian voyaging (dating of settlement **contested in decades**, not a census — often placed in the **13th c. CE** in current archaeology; do not print a single year as fact).
+4. **Subdivisions:** *Iwi* / *hapū* (Ngāpuhi, Ngāti Porou, Tainui, Ngāi Tahu…). **Māori ethnicity ≠ Māori descent** in Stats NZ (two questions).
+5. **Population — two Stats NZ 2023 machines:**
+   - **Ethnic group (total response):** **Māori 887,493** in 2023 (2018: **775,836**; 2013: **598,602**).
+   - **Māori descent:** **978,246** in 2023 (2018: **869,850**; 2013: **668,721**).
+   - Descent > ethnicity. Do not mash. https://www.stats.govt.nz/assets/Uploads/2023-Census-population-counts-by-ethnic-group-age-and-maori-descent-and-dwelling-counts/Downloads/2023-Census-national-and-subnational-usually-resident-population-counts-and-dwelling-counts.xlsx
+6. **Rupture:** **1840** Treaty of Waitangi / *Tiriti o Waitangi* (two texts); **1860s** New Zealand Wars; Waitangi Tribunal (**1975**) as a dated legal machine.
+7. **Religion:** Mix: Christian (including Ratana, Ringatū) and unaffiliated. Not a “Pacific Islander Mormon” default.
+8. **Flattening:** Ethnicity = descent; Māori as “Melanesian”; 887,493 as iwi enrollment.
+9. **Receipt:** History — Walker, *Ka Whawhai Tonu Matou*; Orange on the Treaty. Census — Stats NZ 2023 (figures above).
+10. **Falsifier:** 2023 Māori ethnicity ≠ 887,493; descent ≠ 978,246; te reo as Papuan.
+11. **OPEN:** Iwi affiliation 2023 (Te Whata / Stats NZ — published on a separate track).
 
-### Polynesian
-1. Triangle: Hawaiʻi, Rapa Nui, Aotearoa; plus Samoa, Tonga, Tahiti, Cook Islands, Tuvalu, Niue, Tokelau.
-2. Languages: Nuclear Polynesian / Tongic (Austronesian).
-3. Stats NZ **2023 Pacific ethnic group 442,632**; **Samoan 213,069**; **Tongan 97,572**; **Cook Islands Māori 80,532**; **Niuean 30,867**; **Fijian 19,338**; **Tokelauan 8,676** (same xlsx). **Fijian in NZ is not “all Melanesia.”**
-4. US: Native Hawaiian Census 2020 **OPEN** this pass (NHPI category is an OMB mash of Poly/Micro/Mela).
-5. Rupture: 18th–19th c. mission/colonial (dated per archipelago: Hawaiʻi 1893/98; Samoa partition 1899; Rapa Nui 1888 Chile).
-6. Flattening: All Pacific = Polynesian; Fijian = Samoan; Māori = Samoan (related, not the same).
-7. Receipt: Stats NZ 2023. History — Kirch; Howe.
-8. Falsifier: Samoan 2023 ≠ 213,069; Hawaiian as Micronesian.
-9. OPEN: US 2020 Native Hawaiian N; Rapa Nui Chile census.
+---
 
-### Micronesian
-1. Self: *CHamoru* (Guam/CNMI), *Refaluwasch* (Carolinian), Marshallese, Chuukese, Palauan, Kiribati (Gilbertese), Yapese, Pohnpeian, Kosraean — **not one people**.
-2. Languages: Micronesian family (Oceanic) **except** CHamoru and Palauan (Western Malayo-Polynesian outliers) — **the region is not one family**.
-3. Compact of Free Association (1986–) as the US-migration machine (Marshallese in AR/OK, Chuukese in Guam/HI).
-4. Population: **OPEN** per US territory census 2020; Kiribati NSO **OPEN**. Do not print “Micronesian 2 million.”
-5. Rupture: 1946–58 US nuclear tests (Bikini/Enewetak) — **Marshallese**; WWII.
-6. Flattening: CHamoru = Marshallese; Micronesia = Polynesia.
-7. Receipt: US Census 2020 NHPI (mash — use country-of-origin ACS). History — Hezel.
-8. Falsifier: If CHamoru were Nuclear Polynesian.
-9. OPEN: 2020 CHamoru N; Marshallese in US.
+### Polynesian / Micronesian / Melanesian split (geographic-linguistic, not three races)
 
-### Melanesian
-1. Named: Fijian (*iTaukei*), Kanak (New Caledonia), Papua New Guinea **hundreds of languages**, Solomon Islands, Vanuatu, West Papua.
-2. Languages: Oceanic Austronesian **plus** Papuan families (non-Austronesian) — **“Melanesia” is not a language family**. PNG: **800+** languages (Ethnologue count is a catalog, not a census ethnicity).
-3. Fiji Census: iTaukei vs Indo-Fijian (1879–1916 girmit) — **two peoples in one state**. Fiji 2017: iTaukei **OPEN exact** this pass.
-4. PNG Census 2020: **no single ethnicity**; wantok/language. **OPEN**.
-5. Rupture: Fiji 1879 indenture; New Caledonia 1878/1917 Kanak revolts; West Papua 1969 “Act of Free Choice” (**contested**); Bougainville 1988–98.
-6. Flattening: PNG = one tribe; Fijian = Samoan; Kanak = Aboriginal Australian.
-7. Receipt: Fiji Bureau of Statistics (fetch before N); NC ISEE. History — Narayan; Connell.
-8. Falsifier: If Papuan languages were Austronesian as a family; if iTaukei = Indo-Fijian.
-9. OPEN: Fiji 2017 ethnic Ns; West Papua counts (Indonesian census *Papua* is geography).
-
-**Pacific flattening corrected:** OMB “Native Hawaiian and Other Pacific Islander” is a **US race box**, not an ethnolinguistic people. Stats NZ “Pacific peoples” is a **statistical cluster** of Samoan/Tongan/Cook Islands/etc.
+1. **Self-designation vs. external name:** Self: Samoan, Tongan, Fijian (*iTaukei*), Chamorro, Marshallese, Hawaiian (*Kānaka Maoli*), PNG nation-specific names, etc. External: 19th-c. **Polynesia / Micronesia / Melanesia** racial map. **Use as geography + language, not as biology.**
+2. **Language:**
+   - **Polynesian:** Oceanic Austronesian (Samoan, Tongan, Hawaiian, Tahitian, Māori…).
+   - **Micronesian:** Oceanic Austronesian (Chuukese, Pohnpeian, Marshallese, Kiribati) **plus** Palauan/Chamorro as other Austronesian.
+   - **Melanesia:** **both** Oceanic Austronesian (Fijian, many Solomons/Vanuatu) **and Papuan** (New Guinea highlands). **The racial term mashed the two.**
+3. **Homeland:** Pacific islands; New Guinea as the Papuan core. How people got there: Austronesian expansion (dating contested) overlaying earlier Papuan-speaking populations in the west.
+4. **Subdivisions the three-fold map flattens:** PNG’s **800+ languages**; Fiji’s **iTaukei vs Fiji Indians** (indenture — **not Melanesian**); Hawai‘i as Polynesian **and** US state; Guam Chamorro as Micronesian geography with a Spanish/US colonial stack.
+5. **Population — do not invent a “Melanesian total”:**
+   - **Stats NZ 2023** ethnic total-response **Pacific peoples** is a NZ **destination** machine (Samoan, Tongan, Cook Islands Māori, etc. in NZ) — **not** the Pacific’s population. Figure is in the same 2023 workbook as Māori (**do not use as Oceania**).
+   - **US Census 2020:** Native Hawaiian and Other Pacific Islander **alone or in combination 1.6 million** — **US residents**, not the Pacific. https://www.census.gov/library/stories/2021/08/improved-race-ethnicity-measures-reveal-united-states-population-much-more-multiracial.html
+   - **PNG, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga** national censuses are the **homeland machines**. PNG has **no single “Papuan ethnicity” census**. Fiji Bureau of Statistics ethnicity (**iTaukei** vs Indian) **OPEN** as the latest integer this pass (census exists). Samoa/Tonga almost-entirely Polynesian citizenship envelopes are **not** ethnicity tables.
+   - **Hawaiian:** US Census detailed NHPI — Native Hawaiian alone/combination **OPEN** integer this pass (DHC-A published it).
+6. **Rupture:** Dated colonizations **differ**: Hawai‘i **1893/98**; Samoa split **1899**; Fiji cession **1874** + Indian indenture **1879–1916**; PNG **1975** independence; nuclear testing in Micronesia (Bikini **1946**) as a dated US rupture.
+7. **Religion:** Christianity as majority overlay across much of the island Pacific (LMS, Methodist, Catholic, LDS in pockets). Highland PNG is **not** that default everywhere.
+8. **Flattening:** Three races; Fijian Indian as Melanesian; NZ “Pacific peoples” as the homeland; NHPI 1.6M as Oceania.
+9. **Receipt:** History — Campbell, *Worlds Apart*; Howe; Kirch on Polynesian settlement (archaeology machine). Census — US 2020 NHPI 1.6M; Stats NZ 2023 Pacific as NZ; ABS/Stats NZ already cited for Australia/NZ Indigenous.
+10. **Falsifier:** Treating Papuan as Austronesian; using 1.6M NHPI as a world Polynesian count; Fiji Indians as iTaukei.
+11. **OPEN:** Fiji latest iTaukei integer; PNG 2000/2011 census (no ethnicity); Native Hawaiian DHC-A; Samoa/Tonga 2021/22 censuses as citizenship envelopes.
