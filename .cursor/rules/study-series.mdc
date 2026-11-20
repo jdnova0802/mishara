@@ -1,0 +1,16 @@
+---
+description: Standing rules for docs/study citation-grade maps (Atlas and companions)
+globs: docs/study/**
+alwaysApply: true
+---
+
+When writing or editing any file under `docs/study/` (Peoples & Ethnicities Atlas, Religion as Institution, Standards & Certification, War & Alliance, Class & Social Mobility, and later maps), follow `docs/study/STUDY_SERIES_RULES.md` in full.
+
+Hard checks before marking a study document complete:
+
+- Counting machines never mashed. Name the source machine; do not average or merge figures across methodologies.
+- OPEN rather than invented. Classified, disputed, or uncopied facts stay OPEN.
+- Wikipedia is a finding aid, never a final citation.
+- **Acronym discipline, every doc, every entry:** every acronym, initialism, or technical term gets expanded in full parenthetically at its *first occurrence in that document* — even if it was already expanded in an earlier companion doc, even if it seems self-evident, even if it's a well-known body (UN agencies, international courts, government offices included). Each document is self-contained; a reader opening only this one file should never hit an unexplained acronym. Before marking any document complete, do one full pass checking every capitalized 2+ letter string against this rule.
+
+Do not skip the first-use expansion pass because a companion doc already expanded the same term.

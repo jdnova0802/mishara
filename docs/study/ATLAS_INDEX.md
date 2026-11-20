@@ -2,11 +2,15 @@
 
 Descriptive / ethnographic reference. History first, census second. Wikipedia is a finding aid. OPEN rather than invented. Pull date **2026-11-14**.
 
+Standing rules for this series (counting machines, OPEN, Wikipedia as finding aid, acronym first-use): [`docs/study/STUDY_SERIES_RULES.md`](STUDY_SERIES_RULES.md).
+
 One-file copy: [`docs/study/PEOPLES_ETHNICITIES_ATLAS.md`](PEOPLES_ETHNICITIES_ATLAS.md).
 
 Related (different 11-field grid — institutions, not peoples): [`docs/study/RELIGION_AS_INSTITUTION_MAP.md`](RELIGION_AS_INSTITUTION_MAP.md).
 
 Related (different 12-field grid — standards, accreditation, and certification): [`docs/study/STANDARDS_CERTIFICATION_MAP.md`](STANDARDS_CERTIFICATION_MAP.md).
+
+Related (different 12-field grid — war, alliance, and coercion mechanics): [`docs/study/WAR_ALLIANCE_SYSTEMS_MAP.md`](WAR_ALLIANCE_SYSTEMS_MAP.md).
 
 The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus & Central Asian Turkic/Iranian peoples**) are **not in this checkout**. Do not invent them.
 
