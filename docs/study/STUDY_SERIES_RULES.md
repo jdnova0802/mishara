@@ -1,6 +1,6 @@
 # Study-series standing rules
 
-Applies to **every** document in `docs/study/` — Peoples & Ethnicities Atlas, Religion as Institution Map, Standards & Certification Map, War & Alliance Systems Map, Class & Social Mobility Map, International Pricing & Trade Map, Socionomics & Social Mood Theory Map, Witchcraft & Occult as Institution Map, and anything built after. Each document is self-contained. These rules are not optional per-doc flavor.
+Applies to **every** document in `docs/study/` — Peoples & Ethnicities Atlas, Religion as Institution Map, Standards & Certification Map, War & Alliance Systems Map, Class & Social Mobility Map, International Pricing & Trade Map, Socionomics & Social Mood Theory Map, Witchcraft & Occult as Institution Map, Practice / Study / Maps order (Dual Throne replacement), and anything built after. Each document is self-contained. These rules are not optional per-doc flavor.
 
 **Counting machines never mashed.** A census table, a registration roll, a treaty article, a budget line, and a vendor summary are different machines. Never merge casualty, troop, spending, membership, or headcount figures across sources with different methodologies. Name the machine; if two machines disagree, report both.
 
