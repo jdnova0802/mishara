@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import os
+import time
 import unittest
 
 os.environ.setdefault("GATE_DEV_MODE", "1")
@@ -483,6 +484,124 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertEqual(
             body["claim_scope"]["boundary"], "gate_issuing_workflow_category_lock"
         )
+
+    def _timeout_auth(self, auth_id: str, *, stripe_approved: bool, reason: str) -> dict:
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+        auth["approved"] = stripe_approved
+        auth["request_history"] = [{"reason": reason}]
+        return auth
+
+    def test_webhook_timeout_receipt_is_not_clear(self):
+        auth_id = "iauth_timeoutsplit1"
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+
+        def evaluate_fn(body):
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertTrue(out["approved"])
+        self.assertTrue(out["clear"])
+        self.assertTrue(out["within_stripe_timeout"])
+
+        created = self._timeout_auth(auth_id, stripe_approved=True, reason="webhook_timeout")
+        recon = mouth.reconcile_stripe_authorization(
+            created,
+            public_url="https://gate.example",
+            event_type="issuing_authorization.created",
+        )
+        self.assertFalse(recon["clear"])
+        self.assertTrue(recon["mouth_split"])
+        self.assertEqual(recon["stripe_reason"], "webhook_timeout")
+        self.assertTrue(recon["stripe_approved"])
+        self.assertTrue(recon["gate_approved"])
+        self.assertEqual(recon["decision"], "NO_GO")
+        verified = pf.verify_receipt_jwt(recon["receipt"])
+        self.assertTrue(verified["valid"])
+        self.assertEqual(verified["decision"], "NO_GO")
+        self.assertEqual(verified["payload"]["stripe_reason"], "webhook_timeout")
+        self.assertTrue(verified["payload"]["stripe_approved"])
+        self.assertTrue(verified["payload"]["gate_approved"])
+        self.assertFalse(verified["payload"]["clear"])
+
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}")
+        self.assertEqual(public.status_code, 200)
+        body = public.get_json()
+        self.assertFalse(body["clear"])
+        self.assertFalse(body["approved"])
+        self.assertEqual(body["stripe_reason"], "webhook_timeout")
+        self.assertTrue(body["mouth_split"])
+        self.assertNotEqual((body.get("decision") or "").upper(), "CLEAR")
+
+    def test_webhook_error_receipt_is_not_clear(self):
+        auth_id = "iauth_errorsplit1"
+        created = self._timeout_auth(auth_id, stripe_approved=False, reason="webhook_error")
+        recon = mouth.reconcile_stripe_authorization(
+            created,
+            public_url="https://gate.example",
+            event_type="issuing_authorization.updated",
+            demo=True,
+        )
+        self.assertFalse(recon["clear"])
+        self.assertEqual(recon["stripe_reason"], "webhook_error")
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}")
+        self.assertEqual(public.status_code, 200)
+        self.assertFalse(public.get_json()["clear"])
+
+    def test_events_endpoint_binds_timeout(self):
+        auth_id = "iauth_eventsplit1"
+        auth = self._timeout_auth(auth_id, stripe_approved=True, reason="webhook_timeout")
+        r = self.client.post(
+            "/v1/issuing/events",
+            json={
+                "type": "issuing_authorization.created",
+                "data": {"object": auth},
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["reconciled"])
+        self.assertFalse(body["clear"])
+        self.assertEqual(body["stripe_reason"], "webhook_timeout")
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}").get_json()
+        self.assertFalse(public["clear"])
+        self.assertEqual(public["stripe_reason"], "webhook_timeout")
+
+    def test_late_decide_then_timeout_event_is_not_clear(self):
+        """Sleep past Stripe's 2s window, then bind the residual timeout reason."""
+        auth_id = "iauth_latesleep1"
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+
+        def evaluate_fn(body):
+            time.sleep(2.05)
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertFalse(out["within_stripe_timeout"])
+        self.assertTrue(out["approved"])
+
+        created = self._timeout_auth(auth_id, stripe_approved=True, reason="webhook_timeout")
+        mouth.reconcile_stripe_authorization(
+            created,
+            public_url="https://gate.example",
+            event_type="issuing_authorization.created",
+        )
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}").get_json()
+        self.assertFalse(public["clear"])
+        self.assertEqual(public["stripe_reason"], "webhook_timeout")
+        self.assertTrue(public["gate_approved"])
+        self.assertTrue(public["stripe_approved"])
+
+    def test_timeout_doctrine_is_decline_not_autopilot(self):
+        d = mouth.timeout_doctrine()
+        self.assertEqual(d["required_timeout_behavior"], "decline")
+        self.assertTrue(d["not_autopilot_approve"])
+        self.assertTrue(d["cannot_set_from_this_repo"])
+        m = self.client.get("/.well-known/issuing-mouth.json").get_json()
+        self.assertIn("issuing_authorization.created", m["webhook"]["events"])
+        self.assertIn("/v1/issuing/events", m["webhook"]["events_url"])
 
 
 if __name__ == "__main__":

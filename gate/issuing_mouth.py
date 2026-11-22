@@ -25,6 +25,38 @@ WORKFLOW_SPEC = "gate-issuing-workflow-lock-v1"
 # Matches stripe==11.6.0 and the live endpoint api_version.
 STRIPE_RESPONSE_API_VERSION = "2025-02-24.acacia"
 
+# Stripe residual decision after Gate is late or returns an invalid body.
+# These reasons mean the public receipt must not say Clear — even if Gate's
+# in-process decide() minted GO, and even if Stripe Autopilot approved.
+MOUTH_SPLIT_REASONS = frozenset({"webhook_timeout", "webhook_error"})
+ASYNC_ISSUING_EVENTS = frozenset(
+    {"issuing_authorization.created", "issuing_authorization.updated"}
+)
+
+
+def timeout_doctrine() -> dict[str, Any]:
+    """Required Stripe Dashboard setting. This repo cannot flip the dashboard."""
+    return {
+        "spec": "gate-issuing-timeout-doctrine-v1",
+        "stripe_timeout_seconds": 2,
+        "required_timeout_behavior": "decline",
+        "not_autopilot_approve": True,
+        "dashboard": (
+            "Stripe Dashboard → Issuing → Real-time authorization → "
+            "Webhook timeout → Decline (not Autopilot / not approve)"
+        ),
+        "docs": "https://docs.stripe.com/issuing/controls/real-time-authorizations",
+        "cannot_set_from_this_repo": True,
+        "async_events": sorted(ASYNC_ISSUING_EVENTS),
+        "mouth_split_reasons": sorted(MOUTH_SPLIT_REASONS),
+        "plain": (
+            "If Gate does not answer in 2s, Stripe's timeout setting decides. "
+            "DENY-as-product holds only when that setting is Decline and "
+            "created/updated events bind webhook_timeout or webhook_error "
+            "into the receipt so it cannot say Clear."
+        ),
+    }
+
 
 def issuing_enabled() -> bool:
     return os.getenv("GATE_ISSUING_ENABLED", "").strip().lower() in ("1", "true", "yes", "on")
@@ -68,10 +100,14 @@ def config() -> dict[str, Any]:
         "plain": (
             "Apply Issuing for agents (own business) in Stripe Dashboard, "
             "set GATE_ISSUING_ENABLED=1, point issuing_authorization.request "
-            "at POST /v1/issuing/authorization. Set Stripe spending_controls as MCC "
+            "at POST /v1/issuing/authorization, and point "
+            "issuing_authorization.created + issuing_authorization.updated at "
+            "POST /v1/issuing/events. Set Stripe spending_controls as MCC "
             "floor; set card metadata allowed_categories for Gate workflow lock. "
-            "Dogfood works without approval."
+            "Set Issuing realtime webhook timeout to Decline — Autopilot-approve "
+            "is a rival referee. Dogfood works without approval."
         ),
+        "timeout_doctrine": timeout_doctrine(),
     }
 
 
@@ -506,6 +542,198 @@ def decide(
         "money_real": config()["money_real"],
         "gate_holds_funds": False,
         "write_executed": False,
+        "gate_approved": approved,
+        "stripe_reason": None,
+        "stripe_approved": None,
+        "clear": False if not approved else True,
+    }
+
+
+def latest_request_history(auth: dict | None) -> dict[str, Any]:
+    auth = auth if isinstance(auth, dict) else {}
+    hist = auth.get("request_history")
+    if not isinstance(hist, list) or not hist:
+        return {}
+    last = hist[-1]
+    return last if isinstance(last, dict) else {}
+
+
+def stripe_request_reason(auth: dict | None) -> str | None:
+    reason = (latest_request_history(auth).get("reason") or "").strip()
+    return reason or None
+
+
+def mouth_split_reason(reason: str | None) -> bool:
+    return (reason or "") in MOUTH_SPLIT_REASONS
+
+
+def _stripe_approved_flag(auth: dict | None) -> bool | None:
+    auth = auth if isinstance(auth, dict) else {}
+    if "approved" not in auth:
+        return None
+    return bool(auth.get("approved"))
+
+
+def reconcile_stripe_authorization(
+    auth: dict,
+    *,
+    public_url: str,
+    event_type: str = "",
+    demo: bool = False,
+) -> dict[str, Any]:
+    """Bind Stripe's residual reason into the stored receipt.
+
+    webhook_timeout / webhook_error must not publish Clear, even when Gate's
+    in-process decide() said GO or Stripe Autopilot later approved.
+    """
+    try:
+        from gate import db as gate_db
+    except ImportError:
+        import db as gate_db
+    try:
+        from gate import prefinality as prefinality_mod
+    except ImportError:
+        import prefinality as prefinality_mod
+    try:
+        from gate import seal_anchor as seal_anchor_mod
+    except ImportError:
+        import seal_anchor as seal_anchor_mod
+
+    auth = auth if isinstance(auth, dict) else {}
+    authorization_id = (auth.get("id") or "").strip()
+    reason = stripe_request_reason(auth)
+    stripe_ok = _stripe_approved_flag(auth)
+    split = mouth_split_reason(reason)
+    row = (
+        gate_db.get_prefinality_evaluation_by_authorization(authorization_id)
+        if authorization_id
+        else None
+    )
+
+    gate_approved = None
+    if row is not None:
+        if row.get("gate_approved") is not None:
+            gate_approved = bool(row.get("gate_approved"))
+        else:
+            gate_approved = (row.get("decision") or "").upper() == "GO"
+
+    if split:
+        decision = "NO_GO"
+        clear = False
+        halt = True
+    elif row is not None:
+        decision = (row.get("decision") or "NO_GO").upper()
+        if decision not in ("GO", "NO_GO", "HOLD"):
+            decision = "NO_GO"
+        clear = decision == "GO" and not split
+        halt = decision != "GO"
+    else:
+        decision = "NO_GO"
+        clear = False
+        halt = True
+
+    body = authorization_to_evaluate_body(auth)
+    transfer = body.get("transfer") if isinstance(body.get("transfer"), dict) else {}
+    mandate = body.get("mandate") if isinstance(body.get("mandate"), dict) else {}
+    agent_id = (mandate.get("agent_id") or "").strip() or (row or {}).get("agent_id")
+    fingerprint = (row or {}).get("fingerprint") or prefinality_mod.transfer_fingerprint(
+        rail=RAIL, transfer=transfer
+    )
+    evaluation_id = (row or {}).get("id") or f"pf_{authorization_id or 'issuing'}"
+    created_at = (row or {}).get("created_at") or prefinality_mod._iso(prefinality_mod._utc_now())
+    signals = list((row or {}).get("signals") or [])
+    if split and reason and reason not in signals:
+        signals.append(reason)
+    if event_type and event_type not in signals:
+        signals.append(event_type.replace("issuing_authorization.", "stripe_"))
+
+    issuer = (
+        (public_url or "")
+        .replace("https://", "")
+        .replace("http://", "")
+        .split("/")[0]
+        or "gate.velaru.xyz"
+    )
+    receipt = prefinality_mod.mint_receipt_jwt(
+        evaluation_id=evaluation_id,
+        rail=RAIL,
+        decision=decision,
+        fingerprint=fingerprint or "",
+        signals=signals,
+        agent_id=agent_id,
+        ttl_seconds=int(body.get("ttl_seconds") or 120),
+        issuer=issuer,
+        demo=demo or bool((row or {}).get("demo")),
+        stripe_reason=reason,
+        stripe_approved=stripe_ok,
+        gate_approved=gate_approved,
+        clear=clear,
+    )
+
+    amount_val = None
+    try:
+        amount_val = float(transfer.get("amount")) if transfer.get("amount") is not None else None
+    except (TypeError, ValueError):
+        amount_val = None
+    if amount_val is None and row and row.get("amount") is not None:
+        try:
+            amount_val = float(row.get("amount"))
+        except (TypeError, ValueError):
+            amount_val = None
+
+    gate_db.upsert_prefinality_evaluation(
+        evaluation_id=evaluation_id,
+        account_id=(row or {}).get("account_id"),
+        rail=RAIL,
+        decision=decision,
+        fingerprint=fingerprint or "",
+        agent_id=agent_id,
+        signals=signals,
+        receipt_jwt=receipt,
+        created_at=created_at,
+        amount=amount_val,
+        currency=(transfer.get("currency") or (row or {}).get("currency") or "").strip().upper()
+        or None,
+        counterparty=(transfer.get("counterparty") or (row or {}).get("counterparty") or None),
+        authorization_id=authorization_id or None,
+        card_id=(body.get("context") or {}).get("card_id") or (row or {}).get("card_id"),
+        merchant_category=(transfer.get("merchant_category") or (row or {}).get("merchant_category")),
+        event_id=event_type or None,
+        mandate=mandate if mandate else None,
+        demo=demo or bool((row or {}).get("demo")),
+        stripe_reason=reason,
+        stripe_approved=stripe_ok,
+        gate_approved=gate_approved,
+    )
+    if receipt:
+        try:
+            stamp = seal_anchor_mod.log_stamp(receipt)
+            if stamp and stamp.get("leaf_hash"):
+                gate_db.record_clearance_stamp(
+                    evaluation_id=evaluation_id,
+                    receipt_hash=stamp["leaf_hash"],
+                    upstream_id=authorization_id or "",
+                    created_at=created_at,
+                    replace=True,
+                )
+        except Exception:
+            pass
+
+    return {
+        "spec": SPEC,
+        "authorization_id": authorization_id or None,
+        "event_type": event_type or None,
+        "decision": decision,
+        "clear": clear,
+        "halt": halt,
+        "approved": False if split else (decision == "GO"),
+        "gate_approved": gate_approved,
+        "stripe_approved": stripe_ok,
+        "stripe_reason": reason,
+        "mouth_split": split,
+        "receipt": receipt,
+        "signals": signals,
+        "fingerprint": fingerprint,
     }
 
 
@@ -749,9 +977,19 @@ def manifest(public_url: str) -> dict[str, Any]:
         },
         "webhook": {
             "url": f"{base}/v1/issuing/authorization",
-            "events": ["issuing_authorization.request"],
-            "response": {"approved": "boolean — true only on Gate GO"},
-            "timeout_note": "Stripe waits ~2 seconds; mouth fail-closes on HOLD/NO_GO/error",
+            "events_url": f"{base}/v1/issuing/events",
+            "events": [
+                "issuing_authorization.request",
+                "issuing_authorization.created",
+                "issuing_authorization.updated",
+            ],
+            "response": {"approved": "boolean — true only on Gate GO; ignored on created/updated"},
+            "timeout_note": (
+                "Stripe waits ~2 seconds; mouth fail-closes on HOLD/NO_GO/error. "
+                "Set dashboard webhook timeout to Decline. created/updated bind "
+                "webhook_timeout / webhook_error so the public receipt cannot say Clear."
+            ),
+            "timeout_doctrine": timeout_doctrine(),
         },
         "dogfood": f"{base}/demo/issuing/mouth",
         "page": f"{base}/issuing-mouth",

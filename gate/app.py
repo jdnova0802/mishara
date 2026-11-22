@@ -3769,10 +3769,25 @@ def issuing_authorization_webhook():
         return _issuing_webhook_response({"error": "invalid signature"}, 400)
 
     etype = event.get("type") or ""
+    auth = event.get("data", {}).get("object") if isinstance(event.get("data"), dict) else {}
+    if etype in issuing_mouth_mod.ASYNC_ISSUING_EVENTS:
+        out = issuing_mouth_mod.reconcile_stripe_authorization(
+            auth if isinstance(auth, dict) else {},
+            public_url=advertised_url(),
+            event_type=etype,
+        )
+        return _issuing_webhook_response(
+            {
+                "received": True,
+                "reconciled": True,
+                "authorization_id": out.get("authorization_id"),
+                "stripe_reason": out.get("stripe_reason"),
+                "clear": out.get("clear"),
+            },
+            200,
+        )
     if etype != "issuing_authorization.request":
         return _issuing_webhook_response({"received": True, "ignored": etype}, 200)
-
-    auth = event["data"]["object"]
 
     def _eval(evaluate_body: dict) -> dict:
         return run_prefinality_evaluate(evaluate_body, account_id=None)
@@ -3782,6 +3797,66 @@ def issuing_authorization_webhook():
     # plus a Stripe-Version header. Without the header the reason_message is
     # "Invalid Stripe API version: " and the charge is closed as webhook_error.
     return _issuing_webhook_response(out["stripe_response"], 200)
+
+
+def _issuing_async_event_response(auth: dict, event_type: str, *, demo: bool = False):
+    out = issuing_mouth_mod.reconcile_stripe_authorization(
+        auth if isinstance(auth, dict) else {},
+        public_url=advertised_url(),
+        event_type=event_type,
+        demo=demo,
+    )
+    return jsonify(
+        {
+            "received": True,
+            "reconciled": True,
+            "authorization_id": out.get("authorization_id"),
+            "stripe_reason": out.get("stripe_reason"),
+            "stripe_approved": out.get("stripe_approved"),
+            "gate_approved": out.get("gate_approved"),
+            "clear": out.get("clear"),
+            "decision": out.get("decision"),
+            "mouth_split": out.get("mouth_split"),
+        }
+    ), 200
+
+
+@app.route("/v1/issuing/events", methods=["POST"])
+def issuing_authorization_events():
+    """Regular Stripe webhook: issuing_authorization.created / .updated.
+
+    Realtime /v1/issuing/authorization must stay <2s for .request. These events
+    bind Stripe's residual reason (webhook_timeout / webhook_error) into the
+    public receipt after the 2s window.
+    """
+    payload = request.data
+    sig = request.headers.get("Stripe-Signature", "")
+    secret = (
+        os.getenv("STRIPE_ISSUING_EVENTS_WEBHOOK_SECRET")
+        or issuing_mouth_mod.webhook_secret()
+    )
+
+    if not secret and GATE_DEV_MODE:
+        body = request.get_json(silent=True) or {}
+        etype = (body.get("type") or "").strip()
+        auth = body.get("data", {}).get("object") if isinstance(body.get("data"), dict) else body
+        if etype not in issuing_mouth_mod.ASYNC_ISSUING_EVENTS:
+            etype = etype or "issuing_authorization.created"
+        if not isinstance(auth, dict):
+            return jsonify({"error": "authorization object required"}), 400
+        return _issuing_async_event_response(auth, etype, demo=True)
+
+    if not secret:
+        return jsonify({"error": "issuing events webhook not configured"}), 500
+    try:
+        event = stripe.Webhook.construct_event(payload, sig, secret)
+    except (ValueError, stripe.error.SignatureVerificationError):
+        return jsonify({"error": "invalid signature"}), 400
+    etype = event.get("type") or ""
+    if etype not in issuing_mouth_mod.ASYNC_ISSUING_EVENTS:
+        return jsonify({"received": True, "ignored": etype}), 200
+    auth = event["data"]["object"]
+    return _issuing_async_event_response(auth if isinstance(auth, dict) else {}, etype)
 
 
 @app.route("/v1/issuing/authorization/<authorization_id>", methods=["GET"])
@@ -3806,11 +3881,30 @@ def issuing_authorization_receipt(authorization_id: str):
     verified = (
         prefinality_mod.verify_receipt_jwt(receipt_jwt) if receipt_jwt else {}
     )
+    payload = verified.get("payload") if isinstance(verified.get("payload"), dict) else {}
+    stripe_reason = row.get("stripe_reason") or payload.get("stripe_reason")
+    mouth_split = issuing_mouth_mod.mouth_split_reason(stripe_reason)
+    stripe_approved = row.get("stripe_approved")
+    if stripe_approved is None and "stripe_approved" in payload:
+        stripe_approved = bool(payload.get("stripe_approved"))
+    gate_approved = row.get("gate_approved")
+    if gate_approved is None and "gate_approved" in payload:
+        gate_approved = bool(payload.get("gate_approved"))
+    if gate_approved is None:
+        gate_approved = (decision or "").upper() == "GO"
+    clear = False if mouth_split else (
+        payload["clear"] if "clear" in payload else ((decision or "").upper() == "GO")
+    )
     body = {
         "spec": issuing_mouth_mod.SPEC,
         "authorization_id": authorization_id,
         "decision": decision,
-        "approved": (decision or "").upper() == "GO",
+        "approved": bool(clear),
+        "gate_approved": bool(gate_approved) if gate_approved is not None else None,
+        "stripe_approved": stripe_approved,
+        "stripe_reason": stripe_reason,
+        "mouth_split": mouth_split,
+        "clear": bool(clear),
         "amount": amount_s,
         "currency": row.get("currency"),
         "counterparty": row.get("counterparty"),
