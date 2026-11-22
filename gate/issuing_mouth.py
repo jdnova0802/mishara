@@ -11,6 +11,7 @@ Two layers (card workflow-lock hunt):
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import time
@@ -594,11 +595,6 @@ def reconcile_stripe_authorization(
         from gate import prefinality as prefinality_mod
     except ImportError:
         import prefinality as prefinality_mod
-    try:
-        from gate import seal_anchor as seal_anchor_mod
-    except ImportError:
-        import seal_anchor as seal_anchor_mod
-
     auth = auth if isinstance(auth, dict) else {}
     authorization_id = (auth.get("id") or "").strip()
     reason = stripe_request_reason(auth)
@@ -707,15 +703,14 @@ def reconcile_stripe_authorization(
     )
     if receipt:
         try:
-            stamp = seal_anchor_mod.log_stamp(receipt)
-            if stamp and stamp.get("leaf_hash"):
-                gate_db.record_clearance_stamp(
-                    evaluation_id=evaluation_id,
-                    receipt_hash=stamp["leaf_hash"],
-                    upstream_id=authorization_id or "",
-                    created_at=created_at,
-                    replace=True,
-                )
+            leaf = hashlib.sha256(receipt.encode("utf-8")).hexdigest()
+            gate_db.record_clearance_stamp(
+                evaluation_id=evaluation_id,
+                receipt_hash=leaf,
+                upstream_id=authorization_id or "",
+                created_at=created_at,
+                replace=True,
+            )
         except Exception:
             pass
 
@@ -944,8 +939,9 @@ def manifest(public_url: str) -> dict[str, Any]:
             "workflow lock with claim_scope. gate_mandate_id loads a bound spend "
             "mandate. Disagreement is mandate_diverged. Omitting the id is "
             "mandate_omitted when that agent or that Stripe card already has a live "
-            "mandate. Every auth hits Gate Clear; declines mint stranger-verifiable "
-            "receipts. Gate never holds card float."
+            "mandate. Leasehold on Stripe's authorization franchise — Autopilot, "
+            "spending_controls, and in-plane audit can bypass. Declines mint "
+            "stranger-verifiable receipts. Gate never holds card float."
         ),
         "spend_mandate": {
             "spec": "gate-spend-mandate-v1",

@@ -193,6 +193,7 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertEqual(body["amount"], "1.07")
         self.assertEqual(body["counterparty"], "Kindle Svcs")
         self.assertEqual(body["receipt"], "header.payload.sig")
+        self.assertIsNone(body.get("receipt_inclusion_proof"))
         self.assertNotIn("card_id", body)
         missing = self.client.get("/v1/issuing/authorization/iauth_missinglookup1")
         self.assertEqual(missing.status_code, 404)
@@ -596,6 +597,30 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertEqual(public["stripe_reason"], "webhook_timeout")
         self.assertTrue(public["gate_approved"])
         self.assertTrue(public["stripe_approved"])
+
+    def test_issuing_receipt_attaches_inclusion_proof(self):
+        from gate import evidence_log as evidence_log_mod
+
+        auth_id = "iauth_merkleproof1"
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+
+        def evaluate_fn(body):
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertTrue(out["approved"])
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}").get_json()
+        bundle = public.get("receipt_inclusion_proof")
+        self.assertIsInstance(bundle, dict)
+        self.assertEqual(public["reconstruct"], "merkle")
+        self.assertTrue(
+            evidence_log_mod.verify_inclusion(
+                leaf_hash=bundle["receipt_hash"],
+                root_hash=bundle["tree_head"]["root_hash"],
+                proof=bundle["inclusion"],
+            )
+        )
 
     def test_timeout_doctrine_is_decline_not_autopilot(self):
         d = mouth.timeout_doctrine()

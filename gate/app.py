@@ -3926,6 +3926,20 @@ def issuing_authorization_receipt(authorization_id: str):
                 decision=decision,
                 recorded_at=row.get("created_at"),
             )
+    bundle = None
+    eval_id = row.get("id")
+    if eval_id:
+        try:
+            rows = gate_db.with_clearance_stamps(gate_db.list_bind_events_chronological())
+            bundle = evidence_log_mod.proof_bundle(rows, eval_id)
+        except Exception:
+            bundle = None
+    if bundle:
+        body["receipt_inclusion_proof"] = bundle
+        body["reconstruct"] = "merkle"
+    else:
+        body["reconstruct"] = None
+        body["receipt_inclusion_proof"] = None
     return jsonify(body), 200
 
 

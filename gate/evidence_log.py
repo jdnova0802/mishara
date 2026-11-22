@@ -5,7 +5,13 @@ Strangers verify:
 2. tree only grew (consistency proof vs prior head — optional client cache)
 3. optional independent witness co-signs the tree head (not Gate's primary key)
 
-RFC 9162 algorithms simplified for Gate's flat receipt list.
+RFC 9162 §§2.1.1 domain separation:
+  leaf node  = SHA-256(0x00 || data)
+  inner node = SHA-256(0x01 || left || right)
+
+Tree shape is still Gate pairwise with odd-leaf duplication, not the RFC 9162
+unbalanced k = 2^n split. Prefixes close the second-preimage class; the
+unbalanced-tree difference is a remaining spec gap.
 """
 from __future__ import annotations
 
@@ -23,6 +29,9 @@ except ImportError:
 
 SPEC = "gate-evidence-log-v1"
 WITNESS_SPEC = "gate-evidence-witness-v1"
+MERKLE_ALG = "rfc9162-sha256-domain-separated"
+LEAF_PREFIX = b"\x00"
+NODE_PREFIX = b"\x01"
 EMPTY_LEAF = hashlib.sha256(b"gate-evidence-empty").digest()
 
 
@@ -129,16 +138,26 @@ def _leaf_bytes(receipt_hash_hex: str) -> bytes:
     return bytes.fromhex(receipt_hash_hex)
 
 
+def rfc9162_leaf_hash(data: bytes) -> bytes:
+    """RFC 9162 leaf: HASH(0x00 || data)."""
+    return _d(LEAF_PREFIX + data)
+
+
+def node_hash(left: bytes, right: bytes) -> bytes:
+    """RFC 9162 inner node: HASH(0x01 || left || right)."""
+    return _d(NODE_PREFIX + left + right)
+
+
 def merkle_root(leaf_hashes_hex: list[str]) -> str:
     if not leaf_hashes_hex:
         return EMPTY_LEAF.hex()
-    level = [_leaf_bytes(h) for h in leaf_hashes_hex]
+    level = [rfc9162_leaf_hash(_leaf_bytes(h)) for h in leaf_hashes_hex]
     while len(level) > 1:
         nxt = []
         for i in range(0, len(level), 2):
             left = level[i]
             right = level[i + 1] if i + 1 < len(level) else left
-            nxt.append(_d(left + right))
+            nxt.append(node_hash(left, right))
         level = nxt
     return level[0].hex()
 
@@ -146,14 +165,14 @@ def merkle_root(leaf_hashes_hex: list[str]) -> str:
 def _tree_levels(leaf_hashes_hex: list[str]) -> list[list[bytes]]:
     if not leaf_hashes_hex:
         return [[EMPTY_LEAF]]
-    levels = [[_leaf_bytes(h) for h in leaf_hashes_hex]]
+    levels = [[rfc9162_leaf_hash(_leaf_bytes(h)) for h in leaf_hashes_hex]]
     level = levels[0]
     while len(level) > 1:
         nxt = []
         for i in range(0, len(level), 2):
             left = level[i]
             right = level[i + 1] if i + 1 < len(level) else left
-            nxt.append(_d(left + right))
+            nxt.append(node_hash(left, right))
         levels.append(nxt)
         level = nxt
     return levels
@@ -183,6 +202,7 @@ def inclusion_proofs(leaf_hashes_hex: list[str]) -> list[dict]:
                 "leaf_hash": leaf_hashes_hex[index],
                 "siblings": siblings,
                 "root_hash": root,
+                "merkle_alg": MERKLE_ALG,
             }
         )
     return out
@@ -191,21 +211,34 @@ def inclusion_proofs(leaf_hashes_hex: list[str]) -> list[dict]:
 def inclusion_proof(leaf_hashes_hex: list[str], index: int) -> dict:
     """Merkle inclusion proof for leaf at index (0-based)."""
     if not leaf_hashes_hex:
-        return {"index": 0, "tree_size": 0, "siblings": [], "leaf_hash": EMPTY_LEAF.hex()}
+        return {
+            "index": 0,
+            "tree_size": 0,
+            "siblings": [],
+            "leaf_hash": EMPTY_LEAF.hex(),
+            "merkle_alg": MERKLE_ALG,
+        }
     if index < 0 or index >= len(leaf_hashes_hex):
         raise IndexError("leaf index out of range")
     return inclusion_proofs(leaf_hashes_hex)[index]
 
 
 def verify_inclusion(*, leaf_hash: str, root_hash: str, proof: dict) -> bool:
-    h = bytes.fromhex(leaf_hash)
+    """leaf_hash is the receipt data hex (preimage), not the 0x00-prefixed node."""
+    try:
+        h = rfc9162_leaf_hash(_leaf_bytes(leaf_hash))
+    except ValueError:
+        return False
     idx = proof.get("index", 0)
     for sib_hex in proof.get("siblings") or []:
-        sib = bytes.fromhex(sib_hex)
+        try:
+            sib = bytes.fromhex(sib_hex)
+        except ValueError:
+            return False
         if idx % 2 == 0:
-            h = _d(h + sib)
+            h = node_hash(h, sib)
         else:
-            h = _d(sib + h)
+            h = node_hash(sib, h)
         idx //= 2
     return h.hex() == root_hash
 
@@ -250,6 +283,7 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
     head = {
         "spec": SPEC,
         "tree_size": len(leaf_hashes_hex),
+        "merkle_alg": MERKLE_ALG,
         "root_hash": root,
         "timestamp": now,
         "public_key_fingerprint": receipt_mod.receipt_public_key_fingerprint(),
@@ -316,6 +350,7 @@ def proof_bundle(rows: list[dict], event_id: str) -> dict | None:
         "spec": "gate-evidence-proof-v1",
         "event_id": event_id,
         "receipt_hash": row["receipt_hash"],
+        "merkle_alg": MERKLE_ALG,
         "inclusion": proof,
         "tree_head": head,
         "verify_inclusion": "Recompute root from leaf_hash + siblings; compare to tree_head.root_hash",
