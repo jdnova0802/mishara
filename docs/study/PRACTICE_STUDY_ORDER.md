@@ -212,3 +212,67 @@ Kabbalah — Fortune only to learn English names of the ten emanations (sefirot)
 Èṣù — 508 U.S. 520 for the United States legal fact of the religion; practice only in a house.
 
 Wicca, as a different subject — Pagan studies and the institution-map of crime, church, census, and consumer law. Not this curriculum.
+
+---
+
+## SOURCES
+
+Wikipedia is a finding aid, not a receipt. Where a verse, docket, or edition was not opened this pass, the line says so.
+
+Legal (United States)
+- Church of the Lukumi Babalu Aye, Inc. v. City of Hialeah, 508 U.S. 520 (argued 4 November 1992, decided 11 June 1993). Free Exercise: Hialeah ordinances targeting Santería sacrifice fail. Official U.S. Reports: https://tile.loc.gov/storage-services/service/ll/usrep/usrep508/usrep508520/usrep508520.pdf
+- Dettmer v. Landon, 799 F.2d 929 (4th Cir., decided 4 September 1986), affirming that “the doctrine taught by the Church of Wicca is a religion” and vacating the item-injunction. https://law.justia.com/cases/federal/appellate-courts/F2/799/929/117777/
+- District court below: Dettmer v. Landon, 617 F. Supp. 592 (E.D. Va. 28 August 1985).
+
+Lakṣmī / Śrī
+- Śrī Sūkta: Ṛgveda Khila 2.6 in Isidor Scheftelowitz, Die Apokryphen des Ṛgveda (Breslau, 1906). Living recitation is commonly 15 verses plus a closing verse. Alakṣmī is named in the recited hymn (standard vv. 5, 6, 8: refuge in Śrī so Alakṣmī vanish; the bilva driving inner and outer Alakṣmī; “kṣutpipāsāmalāṃ jyeṣṭhām alakṣmīṃ nāśayāmy aham”).
+- Lakṣmī Tantra: Pāñcarātra text. English: Sanjukta Gupta, trans., Lakṣmī Tantra: A Pāñcarātra Text (Leiden: Brill, 1972).
+- Friday as Lakṣmī’s weekday (Śukravāra) is living household custom, not a line of Śrī Sūkta. OPEN a copied Purāṇa or paddhati verse that commands Friday-only worship; the custom does not need that verse to be real, and this note does not invent one.
+- Salt on Dīpāvalī / Dhanteras: regional folk, reported in Marathi festival journalism, not Scheftelowitz and not Gupta. Two folk streams contradict each other. Not used as a rule here.
+
+Śiva / Trika
+- Śiva Sūtras; Spanda Kārikās; Utpaladeva and Abhinavagupta (Pratyabhijñā). English starting points: Jaideva Singh’s translations; Mark S. G. Dyczkowski, The Doctrine of Vibration (SUNY, 1987); Alexis Sanderson’s papers on the Śaiva systems (e.g. “Śaivism and the Tantric Traditions”).
+
+Kālī / Durgā
+- Ten-wisdom-goddess frame: David Kinsley, Tantric Visions of the Divine Feminine: The Ten Mahāvidyās (University of California Press, 1997).
+- Devī Māhātmya: Thomas B. Coburn, Encountering the Goddess: A Translation of the Devī-Māhātmya and a Study of Its Interpretation (SUNY, 1991). Sanskrit in the Mārkaṇḍeya Purāṇa.
+
+Gaṇeśa
+- Paul B. Courtright, Gaṇeśa: Lord of Obstacles, Lord of Beginnings (Oxford University Press, 1985). Monograph, not scripture.
+
+Rādhā–Kṛṣṇa
+- Bhāgavata Purāṇa, esp. the tenth book. English study/translation starting point: Edwin F. Bryant, Krishna: The Beautiful Legend of God (Penguin, 2003).
+- Jayadeva, Gīta Govinda.
+
+Èṣù / Lucumí
+- 508 U.S. 520 (above) for the United States legal fact.
+- William Bascom, Ifa Divination: Communication between Gods and Men in West Africa (Indiana University Press, 1969).
+- Henry John Drewal, John Pemberton III, and Rowland Abiodun, Yoruba: Nine Centuries of African Art and Thought (Center for African Art / Abrams, 1989).
+- David H. Brown, Santería Enthroned (University of Chicago Press, 2003), for the Cuban-United States house form.
+
+Death / purification (Tibetan)
+- Bar do thos grol cycles. History of the English book: Bryan J. Cuevas, The Hidden History of the Tibetan Book of the Dead (Oxford University Press, 2003). Translation often used: Gyurme Dorje, trans., The Tibetan Book of the Dead (Penguin, 2005), or Fremantle and Trungpa (Shambhala, 1975) as a reception, not the critical text.
+- Consciousness transference (phowa) and Vajrasattva in the preliminaries (ngöndro): Patrul Rinpoche, The Words of My Perfect Teacher; Jamgön Kongtrul’s ngöndro manuals. These are lineage books. They are not a license to self-administer transference.
+
+Thoth / Egypt (why he is not the death seat)
+- Erik Hornung, The Ancient Egyptian Books of the Afterlife (Cornell University Press, 1999): Amduat and related underworld books.
+- Jan Assmann, Death and Salvation in Ancient Egypt (Cornell University Press, 2005).
+- R. O. Faulkner, The Ancient Egyptian Book of the Dead. Thoth as scribe of the weighing is in that corpus; the journey itself is Osirian.
+
+Kabbalah
+- Sefer Yetzirah — Aryeh Kaplan, Sefer Yetzirah: The Book of Creation (rev. ed., Weiser, 1997) as a widely used English.
+- Zohar — Daniel C. Matt, trans., The Zohar: Pritzker Edition (Stanford University Press).
+- Luria — Lawrence Fine, Physician of the Soul, Healer of the Cosmos (Stanford, 2003).
+- Field: Gershom Scholem, Major Trends in Jewish Mysticism (Schocken, 1941/1946); Moshe Idel, Kabbalah: New Perspectives (Yale, 1988).
+- Dion Fortune, The Mystical Qabalah (1935): English exposition. Not a source text.
+- Hermetic order: Ellic Howe, The Magicians of the Golden Dawn (Routledge, 1972), on the Isis-Urania warrant of 1 March 1888.
+
+Wicca as a different subject
+- Dettmer (above).
+- Ronald Hutton, The Triumph of the Moon: A History of Modern Pagan Witchcraft (Oxford University Press, 1999; 2nd ed. 2019).
+- Institution map in this repo: docs/study/WITCHCRAFT_OCCULT_INSTITUTION_MAP.md.
+
+What this note is not citing
+- Dual Throne Protocol (Nisaba private PDF): a working title, not a source for any tradition above.
+- Festival websites for salt-and-broom as if they were Scheftelowitz.
+- A Purāṇa verse for “Friday only,” until one is copied.
