@@ -45,8 +45,9 @@ A stranger verifying a Never/DENIED can now read the boundary of the claim witho
 Env (air-gap from `GATE_RECEIPT_*`):
 - `GATE_WITNESS_PRIVATE_KEY`
 - `GATE_WITNESS_PUBLIC_KEY`
+- `GATE_WITNESS_SEPARATE_OPERATOR=1` — only when the witness key is a real second operator, not this process
 
-Co-signs the same `head_hash` as Gate's primary `head_signature`. No consortium partner required yet — capacity exists. When unconfigured, strangers see `configured: false` rather than an implied single-party forever.
+Co-signs the same `head_hash` as Gate's primary `head_signature`. `required` stays **false** until that flag is set **and** the fingerprint differs from Gate's receipt key. Same-process keys are capacity, not independent witnessing. Issuing `LIVE` does not require the cosign until `required` is true.
 
 ---
 

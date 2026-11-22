@@ -3940,6 +3940,29 @@ def issuing_authorization_receipt(authorization_id: str):
     else:
         body["reconstruct"] = None
         body["receipt_inclusion_proof"] = None
+    witness = ((bundle or {}).get("tree_head") or {}).get("witness") or {}
+    witness_ok = bool(
+        witness.get("required")
+        and witness.get("signed")
+        and witness.get("distinct_from_gate_key")
+    )
+    body["independent_witness"] = {
+        "required": evidence_log_mod.witness_required(),
+        "configured": evidence_log_mod.witness_configured(),
+        "signed": bool(witness.get("signed")),
+        "separate_operator": evidence_log_mod.witness_separate_operator(),
+        "plain": (
+            "Same-process GATE_WITNESS_* is not an independent operator. "
+            "Issuing LIVE does not require a cosign until "
+            "GATE_WITNESS_SEPARATE_OPERATOR=1 with a distinct key."
+        ),
+    }
+    # LIVE on this mouth: Clear, no Stripe mouth-split, and witness if required.
+    body["live"] = bool(clear) and (
+        (not evidence_log_mod.witness_required()) or witness_ok
+    )
+    if evidence_log_mod.witness_required() and not witness_ok:
+        body["live"] = False
     return jsonify(body), 200
 
 

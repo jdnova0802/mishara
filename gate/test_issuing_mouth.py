@@ -621,6 +621,8 @@ class IssuingMouthTests(unittest.TestCase):
                 proof=bundle["inclusion"],
             )
         )
+        self.assertFalse(public["independent_witness"]["required"])
+        self.assertIn("not an independent operator", public["independent_witness"]["plain"])
 
     def test_timeout_doctrine_is_decline_not_autopilot(self):
         d = mouth.timeout_doctrine()

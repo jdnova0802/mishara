@@ -102,6 +102,7 @@ class TlogWitnessTests(unittest.TestCase):
         body = wk.get_json()
         self.assertEqual(body["spec"], tlog_witness.SPEC)
         self.assertTrue(body["configured"])
+        self.assertFalse(body["required"])
         self.assertNotIn("their_production", body)
         gate = self.client.get("/.well-known/gate.json").get_json()
         self.assertIn("evidence-witness.json", gate["evidence_witness"])

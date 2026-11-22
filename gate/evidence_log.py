@@ -104,6 +104,25 @@ def witness_configured() -> bool:
     return bool(witness_public_key_bytes())
 
 
+def witness_separate_operator() -> bool:
+    """Human-attested air-gap. Keys in this process are not 'separate' by default."""
+    return os.getenv("GATE_WITNESS_SEPARATE_OPERATOR", "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+
+
+def witness_required() -> bool:
+    """LIVE on Issuing receipts requires cosign only when a distinct off-box key exists."""
+    if not witness_configured() or not witness_separate_operator():
+        return False
+    w_fp = witness_public_key_fingerprint()
+    gate_fp = receipt_mod.receipt_public_key_fingerprint()
+    return bool(w_fp and gate_fp and w_fp != gate_fp)
+
+
 def _sign_witness(head_hash_hex: str) -> str | None:
     key = _witness_private_key()
     if not key:
@@ -311,11 +330,13 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
         "public_key_b64": witness_public_key_b64(),
         "signature": w_sig,
         "signed_over": "same head_hash as head_signature",
-        "required": False,
+        "required": witness_required(),
+        "separate_operator": witness_separate_operator(),
         "plain": (
-            "Independent co-sign of the periodic tree head — not Gate's primary "
-            "receipt key. Air-gap GATE_WITNESS_* from GATE_RECEIPT_*. "
-            "Consortium partner optional; capacity is infrastructure now."
+            "Cosign capacity on GATE_WITNESS_*. required=true only when "
+            "GATE_WITNESS_SEPARATE_OPERATOR=1 and the witness fingerprint is "
+            "distinct from GATE_RECEIPT_*. Same-process keys are not independent. "
+            "Do not treat this block as an independent witness until required is true."
         ),
     }
     try:
