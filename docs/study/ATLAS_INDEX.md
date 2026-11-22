@@ -20,6 +20,8 @@ Related (different 11-field grid — socionomics and social-mood claims; Mind ca
 
 Related (different 11-field grid — witchcraft/occult as crime, church, census write-in, and consumer law; **not** a spellbook): [`docs/study/WITCHCRAFT_OCCULT_INSTITUTION_MAP.md`](WITCHCRAFT_OCCULT_INSTITUTION_MAP.md).
 
+Related (different 11-field grid — **practice lineup** vs MAPS/BRANCHES study; Dual Throne Protocol replacement, **not** a Money Chain note): [`docs/study/PRACTICE_STUDY_ORDER.md`](PRACTICE_STUDY_ORDER.md).
+
 The two domains named as already complete (**Jewish diaspora subdivisions**; **Caucasus & Central Asian Turkic/Iranian peoples**) are **not in this checkout**. Do not invent them.
 
 ## How to read an entry
