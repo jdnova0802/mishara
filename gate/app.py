@@ -3204,7 +3204,25 @@ def well_known_receipt_proof(event_id: str):
     rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, event_id)
     if not bundle:
-        abort(404)
+        row = db.get_bind_event(event_id)
+        if not row:
+            abort(404)
+        return (
+            jsonify(
+                {
+                    "ok": False,
+                    "event_id": event_id,
+                    "predates_current_proof_scheme": True,
+                    "reason": "no_current_inclusion_proof",
+                    "proof_scheme_plain": (
+                        "this receipt predates the current proof scheme, or has "
+                        "no Merkle leaf under the RFC 9162-style domain-separated "
+                        "tree"
+                    ),
+                }
+            ),
+            409,
+        )
     return jsonify(bundle)
 
 
@@ -3301,6 +3319,43 @@ def well_known_evidence_head():
     rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     leaves = evidence_log_mod.log_from_rows(rows)
     return jsonify(evidence_log_mod.signed_tree_head(leaves))
+
+
+@app.route("/v1/evidence/verify-inclusion", methods=["POST"])
+def evidence_verify_inclusion():
+    """Check a saved inclusion proof against current or pre-2026-11-22 pairwise hashing."""
+    try:
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import evidence_log as evidence_log_mod
+
+    body = request.get_json(silent=True) or {}
+    inclusion_body = body.get("receipt_inclusion_proof") or body
+    inc = (
+        inclusion_body.get("inclusion")
+        if isinstance(inclusion_body.get("inclusion"), dict)
+        else inclusion_body
+    )
+    if not isinstance(inc, dict):
+        inc = {}
+    leaf = (
+        inclusion_body.get("receipt_hash")
+        or inc.get("leaf_hash")
+        or body.get("leaf_hash")
+        or ""
+    )
+    root = (
+        ((inclusion_body.get("tree_head") or {}).get("root_hash"))
+        or inc.get("root_hash")
+        or body.get("root_hash")
+        or ""
+    )
+    report = evidence_log_mod.verify_inclusion_report(
+        leaf_hash=str(leaf),
+        root_hash=str(root),
+        proof=inc,
+    )
+    return jsonify(report), 200 if report.get("ok") else 400
 
 
 @app.route("/.well-known/seal.json")
@@ -3769,10 +3824,25 @@ def issuing_authorization_webhook():
         return _issuing_webhook_response({"error": "invalid signature"}, 400)
 
     etype = event.get("type") or ""
+    auth = event.get("data", {}).get("object") if isinstance(event.get("data"), dict) else {}
+    if etype in issuing_mouth_mod.ASYNC_ISSUING_EVENTS:
+        out = issuing_mouth_mod.reconcile_stripe_authorization(
+            auth if isinstance(auth, dict) else {},
+            public_url=advertised_url(),
+            event_type=etype,
+        )
+        return _issuing_webhook_response(
+            {
+                "received": True,
+                "reconciled": True,
+                "authorization_id": out.get("authorization_id"),
+                "stripe_reason": out.get("stripe_reason"),
+                "clear": out.get("clear"),
+            },
+            200,
+        )
     if etype != "issuing_authorization.request":
         return _issuing_webhook_response({"received": True, "ignored": etype}, 200)
-
-    auth = event["data"]["object"]
 
     def _eval(evaluate_body: dict) -> dict:
         return run_prefinality_evaluate(evaluate_body, account_id=None)
@@ -3782,6 +3852,66 @@ def issuing_authorization_webhook():
     # plus a Stripe-Version header. Without the header the reason_message is
     # "Invalid Stripe API version: " and the charge is closed as webhook_error.
     return _issuing_webhook_response(out["stripe_response"], 200)
+
+
+def _issuing_async_event_response(auth: dict, event_type: str, *, demo: bool = False):
+    out = issuing_mouth_mod.reconcile_stripe_authorization(
+        auth if isinstance(auth, dict) else {},
+        public_url=advertised_url(),
+        event_type=event_type,
+        demo=demo,
+    )
+    return jsonify(
+        {
+            "received": True,
+            "reconciled": True,
+            "authorization_id": out.get("authorization_id"),
+            "stripe_reason": out.get("stripe_reason"),
+            "stripe_approved": out.get("stripe_approved"),
+            "gate_approved": out.get("gate_approved"),
+            "clear": out.get("clear"),
+            "decision": out.get("decision"),
+            "mouth_split": out.get("mouth_split"),
+        }
+    ), 200
+
+
+@app.route("/v1/issuing/events", methods=["POST"])
+def issuing_authorization_events():
+    """Regular Stripe webhook: issuing_authorization.created / .updated.
+
+    Realtime /v1/issuing/authorization must stay <2s for .request. These events
+    bind Stripe's residual reason (webhook_timeout / webhook_error) into the
+    public receipt after the 2s window.
+    """
+    payload = request.data
+    sig = request.headers.get("Stripe-Signature", "")
+    secret = (
+        os.getenv("STRIPE_ISSUING_EVENTS_WEBHOOK_SECRET")
+        or issuing_mouth_mod.webhook_secret()
+    )
+
+    if not secret and GATE_DEV_MODE:
+        body = request.get_json(silent=True) or {}
+        etype = (body.get("type") or "").strip()
+        auth = body.get("data", {}).get("object") if isinstance(body.get("data"), dict) else body
+        if etype not in issuing_mouth_mod.ASYNC_ISSUING_EVENTS:
+            etype = etype or "issuing_authorization.created"
+        if not isinstance(auth, dict):
+            return jsonify({"error": "authorization object required"}), 400
+        return _issuing_async_event_response(auth, etype, demo=True)
+
+    if not secret:
+        return jsonify({"error": "issuing events webhook not configured"}), 500
+    try:
+        event = stripe.Webhook.construct_event(payload, sig, secret)
+    except (ValueError, stripe.error.SignatureVerificationError):
+        return jsonify({"error": "invalid signature"}), 400
+    etype = event.get("type") or ""
+    if etype not in issuing_mouth_mod.ASYNC_ISSUING_EVENTS:
+        return jsonify({"received": True, "ignored": etype}), 200
+    auth = event["data"]["object"]
+    return _issuing_async_event_response(auth if isinstance(auth, dict) else {}, etype)
 
 
 @app.route("/v1/issuing/authorization/<authorization_id>", methods=["GET"])
@@ -3806,11 +3936,30 @@ def issuing_authorization_receipt(authorization_id: str):
     verified = (
         prefinality_mod.verify_receipt_jwt(receipt_jwt) if receipt_jwt else {}
     )
+    payload = verified.get("payload") if isinstance(verified.get("payload"), dict) else {}
+    stripe_reason = row.get("stripe_reason") or payload.get("stripe_reason")
+    mouth_split = issuing_mouth_mod.mouth_split_reason(stripe_reason)
+    stripe_approved = row.get("stripe_approved")
+    if stripe_approved is None and "stripe_approved" in payload:
+        stripe_approved = bool(payload.get("stripe_approved"))
+    gate_approved = row.get("gate_approved")
+    if gate_approved is None and "gate_approved" in payload:
+        gate_approved = bool(payload.get("gate_approved"))
+    if gate_approved is None:
+        gate_approved = (decision or "").upper() == "GO"
+    clear = False if mouth_split else (
+        payload["clear"] if "clear" in payload else ((decision or "").upper() == "GO")
+    )
     body = {
         "spec": issuing_mouth_mod.SPEC,
         "authorization_id": authorization_id,
         "decision": decision,
-        "approved": (decision or "").upper() == "GO",
+        "approved": bool(clear),
+        "gate_approved": bool(gate_approved) if gate_approved is not None else None,
+        "stripe_approved": stripe_approved,
+        "stripe_reason": stripe_reason,
+        "mouth_split": mouth_split,
+        "clear": bool(clear),
         "amount": amount_s,
         "currency": row.get("currency"),
         "counterparty": row.get("counterparty"),
@@ -3832,6 +3981,57 @@ def issuing_authorization_receipt(authorization_id: str):
                 decision=decision,
                 recorded_at=row.get("created_at"),
             )
+    bundle = None
+    eval_id = row.get("id")
+    if eval_id:
+        try:
+            rows = gate_db.with_clearance_stamps(gate_db.list_bind_events_chronological())
+            bundle = evidence_log_mod.proof_bundle(rows, eval_id)
+        except Exception:
+            bundle = None
+    if bundle:
+        body["receipt_inclusion_proof"] = bundle
+        body["reconstruct"] = "merkle"
+        inc = bundle.get("inclusion") or {}
+        merkle_report = evidence_log_mod.verify_inclusion_report(
+            leaf_hash=bundle.get("receipt_hash") or inc.get("leaf_hash") or "",
+            root_hash=(bundle.get("tree_head") or {}).get("root_hash")
+            or inc.get("root_hash")
+            or "",
+            proof=inc,
+        )
+        body["proof_scheme_plain"] = merkle_report.get("proof_scheme_plain")
+        body["predates_current_proof_scheme"] = bool(
+            merkle_report.get("predates_current_proof_scheme")
+        )
+    else:
+        body["reconstruct"] = None
+        body["receipt_inclusion_proof"] = None
+        body["proof_scheme_plain"] = evidence_log_mod.PROOF_SCHEME_PLAIN
+        body["predates_current_proof_scheme"] = False
+    witness = ((bundle or {}).get("tree_head") or {}).get("witness") or {}
+    witness_ok = bool(
+        witness.get("required")
+        and witness.get("signed")
+        and witness.get("distinct_from_gate_key")
+    )
+    body["independent_witness"] = {
+        "required": evidence_log_mod.witness_required(),
+        "configured": evidence_log_mod.witness_configured(),
+        "signed": bool(witness.get("signed")),
+        "separate_operator": evidence_log_mod.witness_separate_operator(),
+        "plain": (
+            "Same-process GATE_WITNESS_* is not an independent operator. "
+            "Issuing LIVE does not require a cosign until "
+            "GATE_WITNESS_SEPARATE_OPERATOR=1 with a distinct key."
+        ),
+    }
+    # LIVE on this mouth: Clear, no Stripe mouth-split, and witness if required.
+    body["live"] = bool(clear) and (
+        (not evidence_log_mod.witness_required()) or witness_ok
+    )
+    if evidence_log_mod.witness_required() and not witness_ok:
+        body["live"] = False
     return jsonify(body), 200
 
 
@@ -4380,6 +4580,38 @@ def prefinality_verify():
     }
     if verified.get("message"):
         out["message"] = verified.get("message")
+    inclusion_body = body.get("receipt_inclusion_proof") or body.get("inclusion")
+    if isinstance(inclusion_body, dict):
+        try:
+            from gate import evidence_log as evidence_log_mod
+        except ImportError:
+            import evidence_log as evidence_log_mod
+
+        inc = inclusion_body.get("inclusion") if isinstance(
+            inclusion_body.get("inclusion"), dict
+        ) else inclusion_body
+        leaf = (
+            inclusion_body.get("receipt_hash")
+            or inc.get("leaf_hash")
+            or body.get("leaf_hash")
+            or ""
+        )
+        root = (
+            ((inclusion_body.get("tree_head") or {}).get("root_hash"))
+            or inc.get("root_hash")
+            or body.get("root_hash")
+            or ""
+        )
+        merkle_report = evidence_log_mod.verify_inclusion_report(
+            leaf_hash=str(leaf),
+            root_hash=str(root),
+            proof=inc if isinstance(inc, dict) else {},
+        )
+        out["merkle_inclusion"] = merkle_report
+        out["proof_scheme_plain"] = merkle_report.get("proof_scheme_plain")
+        out["predates_current_proof_scheme"] = bool(
+            merkle_report.get("predates_current_proof_scheme")
+        )
     return jsonify(out), 200 if verified.get("valid") else 400
 
 

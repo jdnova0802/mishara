@@ -203,7 +203,7 @@ def manifest(public_url: str) -> dict:
         "lookup": f"{public_url}/.well-known/exclusion.json?job_id={{job_id}}",
         "lineage": [
             "Laurie–Kasper Revocation Transparency (sorted Merkle non-inclusion)",
-            "RFC 9162 Certificate Transparency (inclusion + consistency)",
+            "RFC 9162-style domain separation on Gate's pairwise odd-leaf tree (not RFC 9162 k=2^n)",
         ],
         "claim_scope": "Signed into exclusion proof — boundary is Gate's redeemed-ticket map + IN_FLIGHT probe",
         "write_state": "ABSENT | IN_FLIGHT | SPENT — Never during IN_FLIGHT ≠ Never during ABSENT",

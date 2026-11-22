@@ -4,7 +4,9 @@ Pull **2026-11-22**. Four new lenses only. Not repeating epidemiology / syndromi
 
 Format: **discipline → named concept → what the current framing misses → verified against**. If a candidate was checked and did not bite, it is listed as empty, not forced.
 
-Code checked this pass: `gate/issuing_mouth.py` (sub-2s mouth, fail-closed on exception, Stripe body is `{approved}` only), `gate/app.py` issuing receipt GET (JSON Web Token (JWT) verify, no Merkle inclusion), `gate/evidence_log.py` (comment claims Request for Comments (RFC) 9162; tree is Bitcoin-style `SHA-256(left||right)` with odd-leaf duplication, no `0x00`/`0x01` domain separation), `gate/outbound/THEORY_FLOOR_THREE_GAPS.md` (witness co-sign capacity exists, `required: false`). No `autopilot` / `webhook_timeout` string in the repo.
+Code checked this pass: `gate/issuing_mouth.py` (sub-2s mouth, fail-closed on exception, Stripe body is `{approved}` only), `gate/app.py` issuing receipt GET (JSON Web Token (JWT) verify, no Merkle inclusion), `gate/evidence_log.py` (comment claimed Request for Comments (RFC) 9162; tree was Bitcoin-style `SHA-256(left||right)` with odd-leaf duplication, no `0x00`/`0x01` domain separation), `gate/outbound/THEORY_FLOOR_THREE_GAPS.md` (witness co-sign capacity exists, `required: false`). No `autopilot` / `webhook_timeout` string in the repo.
+
+**Status after PR #305 (honesty, not a claim of RFC conformance):** prefixes `HASH(0x00||d)` / `HASH(0x01||left||right)` shipped. Tree shape is still pairwise odd-leaf duplication. Call that **RFC 9162-style domain separation**, not RFC 9162. Issuing GET now attaches inclusion. Timeout Autopilot hole is a receipt bind, not a force-reversal.
 
 ---
 
@@ -20,13 +22,13 @@ What that language actually is, today:
 |---|---|
 | Stripe declined / approved this `iauth_*` as Gate decided | JWT signature under Gate’s receipt key, plus (on some other endpoints) inclusion of a **receipt hash** in a tree **Gate built** |
 | The halt that was presented is the halt that was LIVE | Tree membership of a hash Gate chose to append |
-| RFC 9162 inclusion / consistency | A simplified tree: leaf = raw receipt hash; internal = `SHA-256(left \|\| right)`; odd last leaf duplicated. RFC 9162 requires `HASH(0x00 \|\| d)` leaves and `HASH(0x01 \|\| left \|\| right)` internals so an internal node cannot be reinterpreted as a leaf |
+| RFC 9162 inclusion / consistency | **At review:** simplified tree, no type prefixes. **After #305:** RFC 9162-style `0x00`/`0x01` prefixes on the same pairwise odd-leaf tree. Still not RFC 9162 unbalanced `k = 2^n`. |
 
-Soundness holds for “this hash is in this tree, under collision-resistance of SHA-256,” if the verifier implements Gate’s algorithm (not RFC 9162). Completeness fails for the **intended** statement “this was the live Stripe decision”:
+Soundness holds for “this hash is in this tree, under collision-resistance of SHA-256,” if the verifier implements Gate’s algorithm (RFC 9162-style prefixes, not RFC 9162 tree construction). Completeness fails for the **intended** statement “this was the live Stripe decision”:
 
 1. The webhook HTTP body is only `{approved: bool}`. Stripe’s transcript of what happened is `request_history.reason` (`webhook_approved` / `webhook_declined` / `webhook_error` / `webhook_timeout`). That field is not bound into the receipt JWT or the Merkle leaf.
 2. `GET /v1/issuing/authorization/<id>` returns the JWT and does **not** attach `receipt_inclusion_proof`. Prefinality reconstruct on the live Issuing mouth is signature-of-operator, not inclusion-in-log.
-3. Domain-separation gap: claiming RFC 9162 while hashing without type prefixes is a real second-preimage class the RFC was written to close. The comment in `evidence_log.py` (“RFC 9162 algorithms simplified”) is the miss.
+3. Domain-separation gap **at review:** claiming RFC 9162 while hashing without type prefixes. **After #305:** prefixes shipped; remaining miss is claiming the tree itself is RFC 9162.
 
 Zero-knowledge (the same Goldwasser–Micali–Rackoff paper) does **not** currently expose a missing theorem Gate is violating. It exposes a **trade**: stranger-openable no-login receipts publish `counterparty` / merchant category. A zero-knowledge proof of “policy held” without publishing the merchant would be a different product (see rank). Not forced as a Gate bug.
 
@@ -95,7 +97,7 @@ Specific, not generic “add retries”:
 ### Sharpenings of Gate / T4 (lower risk — this quarter)
 
 1. **Issuing timeout doctrine as config + receipt.** Document and set Stripe timeout / Autopilot to **decline**. Subscribe to `issuing_authorization.created` / `.updated`. If `request_history.reason` is `webhook_timeout` or `webhook_error`, the public receipt must **not** say Clear. Bind that reason into the JWT (or a second signed line). This is the Gettier hole and the fail-closed hole; one fix.
-2. **Stop claiming RFC 9162, or implement it.** Domain-separated hashes. Issuing stranger GET must carry inclusion proof or drop “reconstruct = Merkle” from that mouth’s copy.
+2. **Stop claiming RFC 9162, or implement it.** Domain-separated hashes shipped (#305). Tree shape still not RFC 9162. Issuing stranger GET now carries inclusion. Remaining copy must say **RFC 9162-style domain separation**.
 3. **Witness `required: true` for LIVE on issuing receipts** once a second key exists. Capacity is already in `evidence_log.py`. Do not advertise independent witness while `configured: false`.
 4. **T4 copy correction (no build).** Say **leasehold toll on Stripe’s authorization franchise**, not Georgist ground rent on an unavoidable site. Name Autopilot, spending controls, and in-plane audit as substitutes. Ordoliberalism does not license a private mint of clearance; drop the harmony claim or pick one tradition.
 

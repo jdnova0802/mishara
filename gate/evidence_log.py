@@ -5,7 +5,13 @@ Strangers verify:
 2. tree only grew (consistency proof vs prior head — optional client cache)
 3. optional independent witness co-signs the tree head (not Gate's primary key)
 
-RFC 9162 algorithms simplified for Gate's flat receipt list.
+RFC 9162-style domain separation (prefixes only):
+  leaf node  = SHA-256(0x00 || data)
+    inner node = SHA-256(0x01 || left || right)
+
+Tree shape is still Gate pairwise with odd-leaf duplication, not RFC 9162's
+unbalanced k = 2^n split. Prefixes close the second-preimage class; do not
+claim the tree itself is RFC 9162.
 """
 from __future__ import annotations
 
@@ -23,7 +29,19 @@ except ImportError:
 
 SPEC = "gate-evidence-log-v1"
 WITNESS_SPEC = "gate-evidence-witness-v1"
+MERKLE_ALG = "rfc9162-sha256-domain-separated"
+LEGACY_MERKLE_ALG = "gate-sha256-pairwise-v0"
+LEAF_PREFIX = b"\x00"
+NODE_PREFIX = b"\x01"
 EMPTY_LEAF = hashlib.sha256(b"gate-evidence-empty").digest()
+PROOF_SCHEME_PLAIN = (
+    "RFC 9162-style domain separation (0x00 leaf / 0x01 node prefixes) on a "
+    "pairwise odd-leaf tree — not RFC 9162 unbalanced k=2^n"
+)
+LEGACY_PROOF_SCHEME_PLAIN = (
+    "pre-2026-11-22 pairwise SHA-256(left||right) with odd-leaf duplication "
+    "and no domain-separation prefixes"
+)
 
 
 def _b64decode_raw(s: str | None) -> bytes | None:
@@ -95,6 +113,25 @@ def witness_configured() -> bool:
     return bool(witness_public_key_bytes())
 
 
+def witness_separate_operator() -> bool:
+    """Human-attested air-gap. Keys in this process are not 'separate' by default."""
+    return os.getenv("GATE_WITNESS_SEPARATE_OPERATOR", "").strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+
+
+def witness_required() -> bool:
+    """LIVE on Issuing receipts requires cosign only when a distinct off-box key exists."""
+    if not witness_configured() or not witness_separate_operator():
+        return False
+    w_fp = witness_public_key_fingerprint()
+    gate_fp = receipt_mod.receipt_public_key_fingerprint()
+    return bool(w_fp and gate_fp and w_fp != gate_fp)
+
+
 def _sign_witness(head_hash_hex: str) -> str | None:
     key = _witness_private_key()
     if not key:
@@ -129,16 +166,34 @@ def _leaf_bytes(receipt_hash_hex: str) -> bytes:
     return bytes.fromhex(receipt_hash_hex)
 
 
+def rfc9162_leaf_hash(data: bytes) -> bytes:
+    """RFC 9162-style leaf: HASH(0x00 || data). Tree shape is not RFC 9162."""
+    return _d(LEAF_PREFIX + data)
+
+
+def node_hash(left: bytes, right: bytes) -> bytes:
+    """RFC 9162-style inner node: HASH(0x01 || left || right)."""
+    return _d(NODE_PREFIX + left + right)
+
+
+def legacy_leaf_hash(data: bytes) -> bytes:
+    return hashlib.sha256(data).digest()
+
+
+def legacy_node_hash(left: bytes, right: bytes) -> bytes:
+    return hashlib.sha256(left + right).digest()
+
+
 def merkle_root(leaf_hashes_hex: list[str]) -> str:
     if not leaf_hashes_hex:
         return EMPTY_LEAF.hex()
-    level = [_leaf_bytes(h) for h in leaf_hashes_hex]
+    level = [rfc9162_leaf_hash(_leaf_bytes(h)) for h in leaf_hashes_hex]
     while len(level) > 1:
         nxt = []
         for i in range(0, len(level), 2):
             left = level[i]
             right = level[i + 1] if i + 1 < len(level) else left
-            nxt.append(_d(left + right))
+            nxt.append(node_hash(left, right))
         level = nxt
     return level[0].hex()
 
@@ -146,14 +201,14 @@ def merkle_root(leaf_hashes_hex: list[str]) -> str:
 def _tree_levels(leaf_hashes_hex: list[str]) -> list[list[bytes]]:
     if not leaf_hashes_hex:
         return [[EMPTY_LEAF]]
-    levels = [[_leaf_bytes(h) for h in leaf_hashes_hex]]
+    levels = [[rfc9162_leaf_hash(_leaf_bytes(h)) for h in leaf_hashes_hex]]
     level = levels[0]
     while len(level) > 1:
         nxt = []
         for i in range(0, len(level), 2):
             left = level[i]
             right = level[i + 1] if i + 1 < len(level) else left
-            nxt.append(_d(left + right))
+            nxt.append(node_hash(left, right))
         levels.append(nxt)
         level = nxt
     return levels
@@ -183,6 +238,7 @@ def inclusion_proofs(leaf_hashes_hex: list[str]) -> list[dict]:
                 "leaf_hash": leaf_hashes_hex[index],
                 "siblings": siblings,
                 "root_hash": root,
+                "merkle_alg": MERKLE_ALG,
             }
         )
     return out
@@ -191,27 +247,89 @@ def inclusion_proofs(leaf_hashes_hex: list[str]) -> list[dict]:
 def inclusion_proof(leaf_hashes_hex: list[str], index: int) -> dict:
     """Merkle inclusion proof for leaf at index (0-based)."""
     if not leaf_hashes_hex:
-        return {"index": 0, "tree_size": 0, "siblings": [], "leaf_hash": EMPTY_LEAF.hex()}
+        return {
+            "index": 0,
+            "tree_size": 0,
+            "siblings": [],
+            "leaf_hash": EMPTY_LEAF.hex(),
+            "merkle_alg": MERKLE_ALG,
+        }
     if index < 0 or index >= len(leaf_hashes_hex):
         raise IndexError("leaf index out of range")
     return inclusion_proofs(leaf_hashes_hex)[index]
 
 
-def verify_inclusion(*, leaf_hash: str, root_hash: str, proof: dict) -> bool:
-    h = bytes.fromhex(leaf_hash)
+def _fold_inclusion(leaf_node: bytes, proof: dict, node_fn) -> bytes | None:
     idx = proof.get("index", 0)
+    h = leaf_node
     for sib_hex in proof.get("siblings") or []:
-        sib = bytes.fromhex(sib_hex)
+        try:
+            sib = bytes.fromhex(sib_hex)
+        except ValueError:
+            return None
         if idx % 2 == 0:
-            h = _d(h + sib)
+            h = node_fn(h, sib)
         else:
-            h = _d(sib + h)
+            h = node_fn(sib, h)
         idx //= 2
-    return h.hex() == root_hash
+    return h
+
+
+def verify_inclusion(*, leaf_hash: str, root_hash: str, proof: dict) -> bool:
+    """Accept current RFC 9162-style proofs, or pre-change pairwise proofs.
+
+    leaf_hash is the receipt data hex (preimage), not the 0x00-prefixed node.
+    """
+    return verify_inclusion_report(
+        leaf_hash=leaf_hash, root_hash=root_hash, proof=proof
+    )["ok"]
+
+
+def verify_inclusion_report(*, leaf_hash: str, root_hash: str, proof: dict) -> dict:
+    """Same check as verify_inclusion, with a stranger-readable scheme note."""
+    try:
+        data = _leaf_bytes(leaf_hash)
+    except ValueError:
+        return {
+            "ok": False,
+            "scheme": None,
+            "predates_current_proof_scheme": False,
+            "reason": "leaf_hash_not_hex",
+            "proof_scheme_plain": "leaf hash is not hex",
+        }
+    current = _fold_inclusion(rfc9162_leaf_hash(data), proof, node_hash)
+    if current is not None and current.hex() == root_hash:
+        return {
+            "ok": True,
+            "scheme": MERKLE_ALG,
+            "predates_current_proof_scheme": False,
+            "reason": None,
+            "proof_scheme_plain": PROOF_SCHEME_PLAIN,
+        }
+    legacy = _fold_inclusion(legacy_leaf_hash(data), proof, legacy_node_hash)
+    if legacy is not None and legacy.hex() == root_hash:
+        return {
+            "ok": True,
+            "scheme": LEGACY_MERKLE_ALG,
+            "predates_current_proof_scheme": True,
+            "reason": None,
+            "proof_scheme_plain": LEGACY_PROOF_SCHEME_PLAIN,
+        }
+    return {
+        "ok": False,
+        "scheme": None,
+        "predates_current_proof_scheme": True,
+        "reason": "inclusion_mismatch_current_and_legacy",
+        "proof_scheme_plain": (
+            "this receipt predates the current proof scheme, or the inclusion "
+            "path does not match either the RFC 9162-style domain-separated "
+            "tree or the pre-2026-11-22 pairwise tree"
+        ),
+    }
 
 
 def consistency_proof(old_size: int, leaf_hashes_hex: list[str]) -> dict:
-    """RFC 9162-shaped append-only check: old tree is the prefix of the new tree."""
+    """Append-only check: old tree is the prefix of the new tree."""
     n = len(leaf_hashes_hex)
     if old_size < 0 or old_size > n:
         return {
@@ -250,6 +368,8 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
     head = {
         "spec": SPEC,
         "tree_size": len(leaf_hashes_hex),
+        "merkle_alg": MERKLE_ALG,
+        "proof_scheme_plain": PROOF_SCHEME_PLAIN,
         "root_hash": root,
         "timestamp": now,
         "public_key_fingerprint": receipt_mod.receipt_public_key_fingerprint(),
@@ -277,11 +397,13 @@ def signed_tree_head(leaf_hashes_hex: list[str]) -> dict:
         "public_key_b64": witness_public_key_b64(),
         "signature": w_sig,
         "signed_over": "same head_hash as head_signature",
-        "required": False,
+        "required": witness_required(),
+        "separate_operator": witness_separate_operator(),
         "plain": (
-            "Independent co-sign of the periodic tree head — not Gate's primary "
-            "receipt key. Air-gap GATE_WITNESS_* from GATE_RECEIPT_*. "
-            "Consortium partner optional; capacity is infrastructure now."
+            "Cosign capacity on GATE_WITNESS_*. required=true only when "
+            "GATE_WITNESS_SEPARATE_OPERATOR=1 and the witness fingerprint is "
+            "distinct from GATE_RECEIPT_*. Same-process keys are not independent. "
+            "Do not treat this block as an independent witness until required is true."
         ),
     }
     try:
@@ -316,7 +438,14 @@ def proof_bundle(rows: list[dict], event_id: str) -> dict | None:
         "spec": "gate-evidence-proof-v1",
         "event_id": event_id,
         "receipt_hash": row["receipt_hash"],
+        "merkle_alg": MERKLE_ALG,
+        "proof_scheme_plain": PROOF_SCHEME_PLAIN,
+        "predates_current_proof_scheme": False,
         "inclusion": proof,
         "tree_head": head,
-        "verify_inclusion": "Recompute root from leaf_hash + siblings; compare to tree_head.root_hash",
+        "verify_inclusion": (
+            "Recompute root from leaf_hash + siblings under the current "
+            "RFC 9162-style prefixes, or the pre-2026-11-22 pairwise fallback; "
+            "compare to tree_head.root_hash"
+        ),
     }

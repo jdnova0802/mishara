@@ -109,7 +109,7 @@
 <section class="i-stage">
   <div class="i-inner">
     <h1 class="i-brand"><span>Gate · Stripe Issuing</span>Auth mouth</h1>
-    <p class="i-lede">Every agent card authorization hits Gate Clear. GO settles. NEVER is stranger-openable. Float stays at Stripe — Gate never holds it.</p>
+    <p class="i-lede">Leasehold toll on Stripe's authorization franchise — not an unavoidable crossing. Autopilot, Stripe spending controls, and in-plane audit can bypass Gate. GO is clearance on that lease. NEVER is stranger-openable. Float stays at Stripe.</p>
 
     <div class="i-status">
       <span class="i-pill {% if cfg.money_real %}on{% else %}off{% endif %}">money_real · {{ 'true' if cfg.money_real else 'false' }}</span>
@@ -128,9 +128,9 @@
 
     <ol class="i-steps">
       <li><strong>1. Apply Issuing</strong>Own-business path in Stripe Dashboard — not platform sales. Docs: <a href="https://docs.stripe.com/issuing/agents" rel="noopener">docs.stripe.com/issuing/agents</a></li>
-      <li><strong>2. Point the webhook</strong><code>issuing_authorization.request</code> → <code>{{ public_url }}/v1/issuing/authorization</code></li>
+      <li><strong>2. Point the webhooks</strong>Realtime <code>issuing_authorization.request</code> → <code>{{ public_url }}/v1/issuing/authorization</code>. Created/updated → <code>{{ public_url }}/v1/issuing/events</code>. Dashboard timeout → Decline, not Autopilot.</li>
       <li><strong>3. Put mandate on the card</strong>Metadata: <code>agent_id</code>, <code>max_amount</code>, optional <code>expected_merchant</code></li>
-      <li><strong>4. Meter</strong>Every GO is clearance on live spend. Never receipts are the wedge soft controls can't mint.</li>
+      <li><strong>4. Meter</strong>GO is clearance on this lease, not exclusivity. Stripe spending_controls can decline before the webhook. Never receipts are the wedge soft controls can't mint.</li>
     </ol>
     <p class="i-meta" style="margin-top: 1.5rem;"><a href="/clip">Paste a chat → 15s clip</a> for a post. Hash on the last frame is the paste, not a dashboard.</p>
   </div>

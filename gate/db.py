@@ -573,6 +573,7 @@ def record_clearance_stamp(
     receipt_hash: str,
     upstream_id: str = "",
     created_at: str,
+    replace: bool = False,
 ) -> None:
     eid = (evaluation_id or "").strip()
     leaf = (receipt_hash or "").strip().lower()
@@ -582,6 +583,13 @@ def record_clearance_stamp(
         _ensure_clearance_stamps(conn)
         conn.execute(
             """
+            INSERT INTO clearance_stamps (evaluation_id, receipt_hash, upstream_id, created_at)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(evaluation_id) DO UPDATE SET
+              receipt_hash=excluded.receipt_hash,
+              upstream_id=COALESCE(excluded.upstream_id, upstream_id),
+              created_at=excluded.created_at
+            """ if replace else """
             INSERT INTO clearance_stamps (evaluation_id, receipt_hash, upstream_id, created_at)
             VALUES (?, ?, ?, ?)
             ON CONFLICT(evaluation_id) DO NOTHING
@@ -1005,6 +1013,9 @@ _PREFINALITY_EXTRA_COLUMNS = (
     ("event_id", "TEXT"),
     ("mandate_json", "TEXT"),
     ("demo", "INTEGER NOT NULL DEFAULT 0"),
+    ("stripe_reason", "TEXT"),
+    ("stripe_approved", "INTEGER"),
+    ("gate_approved", "INTEGER"),
 )
 
 
@@ -1063,6 +1074,9 @@ def record_prefinality_evaluation(
     event_id: str | None = None,
     mandate: dict | None = None,
     demo: bool = False,
+    stripe_reason: str | None = None,
+    stripe_approved: bool | None = None,
+    gate_approved: bool | None = None,
 ) -> None:
     import json
 
@@ -1074,8 +1088,9 @@ def record_prefinality_evaluation(
             """INSERT OR IGNORE INTO prefinality_evaluations
                (id, account_id, rail, decision, fingerprint, agent_id, signals_json,
                 receipt_jwt, created_at, amount, currency, counterparty, authorization_id,
-                card_id, merchant_category, event_id, mandate_json, demo)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                card_id, merchant_category, event_id, mandate_json, demo,
+                stripe_reason, stripe_approved, gate_approved)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
             (
                 evaluation_id,
                 account_id,
@@ -1095,6 +1110,100 @@ def record_prefinality_evaluation(
                 event_id,
                 json.dumps(mandate or {}) if mandate is not None else None,
                 1 if demo else 0,
+                (stripe_reason or "").strip() or None,
+                None if stripe_approved is None else (1 if stripe_approved else 0),
+                None if gate_approved is None else (1 if gate_approved else 0),
+            ),
+        )
+
+
+def upsert_prefinality_evaluation(
+    *,
+    evaluation_id: str,
+    account_id: str | None,
+    rail: str,
+    decision: str,
+    fingerprint: str,
+    agent_id: str | None,
+    signals: list,
+    receipt_jwt: str | None,
+    created_at: str,
+    amount: float | None = None,
+    currency: str | None = None,
+    counterparty: str | None = None,
+    authorization_id: str | None = None,
+    card_id: str | None = None,
+    merchant_category: str | None = None,
+    event_id: str | None = None,
+    mandate: dict | None = None,
+    demo: bool = False,
+    stripe_reason: str | None = None,
+    stripe_approved: bool | None = None,
+    gate_approved: bool | None = None,
+) -> None:
+    """Overwrite the stored Issuing decision after Stripe created/updated.
+
+    Realtime INSERT OR IGNORE must not block a later webhook_timeout bind.
+    """
+    import json
+
+    aid = (authorization_id or "").strip() or None
+    with db() as conn:
+        _ensure_prefinality_table(conn)
+        existing = None
+        if aid:
+            existing = conn.execute(
+                "SELECT id FROM prefinality_evaluations WHERE authorization_id = ?",
+                (aid,),
+            ).fetchone()
+        row_id = (existing["id"] if existing else None) or evaluation_id
+        conn.execute(
+            """INSERT INTO prefinality_evaluations
+               (id, account_id, rail, decision, fingerprint, agent_id, signals_json,
+                receipt_jwt, created_at, amount, currency, counterparty, authorization_id,
+                card_id, merchant_category, event_id, mandate_json, demo,
+                stripe_reason, stripe_approved, gate_approved)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+               ON CONFLICT(id) DO UPDATE SET
+                 decision=excluded.decision,
+                 fingerprint=excluded.fingerprint,
+                 agent_id=COALESCE(excluded.agent_id, agent_id),
+                 signals_json=excluded.signals_json,
+                 receipt_jwt=excluded.receipt_jwt,
+                 amount=COALESCE(excluded.amount, amount),
+                 currency=COALESCE(excluded.currency, currency),
+                 counterparty=COALESCE(excluded.counterparty, counterparty),
+                 authorization_id=COALESCE(excluded.authorization_id, authorization_id),
+                 card_id=COALESCE(excluded.card_id, card_id),
+                 merchant_category=COALESCE(excluded.merchant_category, merchant_category),
+                 event_id=excluded.event_id,
+                 mandate_json=COALESCE(excluded.mandate_json, mandate_json),
+                 stripe_reason=excluded.stripe_reason,
+                 stripe_approved=excluded.stripe_approved,
+                 gate_approved=COALESCE(excluded.gate_approved, gate_approved)
+            """,
+            (
+                row_id,
+                account_id,
+                rail,
+                decision.upper(),
+                fingerprint,
+                agent_id,
+                json.dumps(signals or []),
+                receipt_jwt,
+                created_at,
+                amount,
+                currency,
+                counterparty,
+                aid,
+                card_id,
+                merchant_category,
+                event_id,
+                json.dumps(mandate or {}) if mandate is not None else None,
+                1 if demo else 0,
+                (stripe_reason or "").strip() or None,
+                None if stripe_approved is None else (1 if stripe_approved else 0),
+                None if gate_approved is None else (1 if gate_approved else 0),
             ),
         )
 
@@ -1249,6 +1358,9 @@ def get_prefinality_evaluation_by_authorization(authorization_id: str) -> dict |
         except ValueError:
             item["signals"] = []
     item.pop("signals_json", None)
+    for flag in ("stripe_approved", "gate_approved", "demo"):
+        if item.get(flag) is not None:
+            item[flag] = bool(item[flag])
     return item
 
 
@@ -1272,6 +1384,9 @@ def get_prefinality_evaluation(evaluation_id: str) -> dict | None:
         except ValueError:
             item["signals"] = []
     item.pop("signals_json", None)
+    for flag in ("stripe_approved", "gate_approved", "demo"):
+        if item.get(flag) is not None:
+            item[flag] = bool(item[flag])
     return item
 
 

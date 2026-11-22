@@ -212,6 +212,14 @@ class WitnessCosignTests(unittest.TestCase):
         )
         # Gate primary signature still present.
         self.assertTrue(head["head_signature"])
+        self.assertFalse(w["required"])
+        os.environ["GATE_WITNESS_SEPARATE_OPERATOR"] = "1"
+        try:
+            self.assertTrue(evidence_log.witness_required())
+            head2 = evidence_log.signed_tree_head(leaves)
+            self.assertTrue(head2["witness"]["required"])
+        finally:
+            os.environ.pop("GATE_WITNESS_SEPARATE_OPERATOR", None)
 
     def test_witness_absent_still_exposes_capacity(self):
         saved = {
@@ -225,6 +233,7 @@ class WitnessCosignTests(unittest.TestCase):
             self.assertFalse(w["signed"])
             self.assertIsNone(w["signature"])
             self.assertFalse(w["required"])
+            self.assertFalse(evidence_log.witness_required())
         finally:
             if saved["priv"]:
                 os.environ["GATE_WITNESS_PRIVATE_KEY"] = saved["priv"]

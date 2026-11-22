@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import os
+import time
 import unittest
 
 os.environ.setdefault("GATE_DEV_MODE", "1")
@@ -127,6 +129,9 @@ class IssuingMouthTests(unittest.TestCase):
         page = self.client.get("/issuing-mouth")
         self.assertEqual(page.status_code, 200)
         self.assertIn(b"Auth mouth", page.data)
+        self.assertIn(b"authorization franchise", page.data)
+        self.assertIn(b"Leasehold", page.data)
+        self.assertNotIn(b"ground rent", page.data)
 
     def test_health_lists_issuing_mouth(self):
         h = self.client.get("/health")
@@ -189,6 +194,7 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertEqual(body["amount"], "1.07")
         self.assertEqual(body["counterparty"], "Kindle Svcs")
         self.assertEqual(body["receipt"], "header.payload.sig")
+        self.assertIsNone(body.get("receipt_inclusion_proof"))
         self.assertNotIn("card_id", body)
         missing = self.client.get("/v1/issuing/authorization/iauth_missinglookup1")
         self.assertEqual(missing.status_code, 404)
@@ -483,6 +489,188 @@ class IssuingMouthTests(unittest.TestCase):
         self.assertEqual(
             body["claim_scope"]["boundary"], "gate_issuing_workflow_category_lock"
         )
+
+    def _timeout_auth(self, auth_id: str, *, stripe_approved: bool, reason: str) -> dict:
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+        auth["approved"] = stripe_approved
+        auth["request_history"] = [{"reason": reason}]
+        return auth
+
+    def test_webhook_timeout_receipt_is_not_clear(self):
+        auth_id = "iauth_timeoutsplit1"
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+
+        def evaluate_fn(body):
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertTrue(out["approved"])
+        self.assertTrue(out["clear"])
+        self.assertTrue(out["within_stripe_timeout"])
+
+        created = self._timeout_auth(auth_id, stripe_approved=True, reason="webhook_timeout")
+        recon = mouth.reconcile_stripe_authorization(
+            created,
+            public_url="https://gate.example",
+            event_type="issuing_authorization.created",
+        )
+        self.assertFalse(recon["clear"])
+        self.assertTrue(recon["mouth_split"])
+        self.assertEqual(recon["stripe_reason"], "webhook_timeout")
+        self.assertTrue(recon["stripe_approved"])
+        self.assertTrue(recon["gate_approved"])
+        self.assertEqual(recon["decision"], "NO_GO")
+        verified = pf.verify_receipt_jwt(recon["receipt"])
+        self.assertTrue(verified["valid"])
+        self.assertEqual(verified["decision"], "NO_GO")
+        self.assertEqual(verified["payload"]["stripe_reason"], "webhook_timeout")
+        self.assertTrue(verified["payload"]["stripe_approved"])
+        self.assertTrue(verified["payload"]["gate_approved"])
+        self.assertFalse(verified["payload"]["clear"])
+
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}")
+        self.assertEqual(public.status_code, 200)
+        body = public.get_json()
+        self.assertFalse(body["clear"])
+        self.assertFalse(body["approved"])
+        self.assertEqual(body["stripe_reason"], "webhook_timeout")
+        self.assertTrue(body["mouth_split"])
+        self.assertNotEqual((body.get("decision") or "").upper(), "CLEAR")
+
+    def test_webhook_error_receipt_is_not_clear(self):
+        auth_id = "iauth_errorsplit1"
+        created = self._timeout_auth(auth_id, stripe_approved=False, reason="webhook_error")
+        recon = mouth.reconcile_stripe_authorization(
+            created,
+            public_url="https://gate.example",
+            event_type="issuing_authorization.updated",
+            demo=True,
+        )
+        self.assertFalse(recon["clear"])
+        self.assertEqual(recon["stripe_reason"], "webhook_error")
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}")
+        self.assertEqual(public.status_code, 200)
+        self.assertFalse(public.get_json()["clear"])
+
+    def test_events_endpoint_binds_timeout(self):
+        auth_id = "iauth_eventsplit1"
+        auth = self._timeout_auth(auth_id, stripe_approved=True, reason="webhook_timeout")
+        r = self.client.post(
+            "/v1/issuing/events",
+            json={
+                "type": "issuing_authorization.created",
+                "data": {"object": auth},
+            },
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["reconciled"])
+        self.assertFalse(body["clear"])
+        self.assertEqual(body["stripe_reason"], "webhook_timeout")
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}").get_json()
+        self.assertFalse(public["clear"])
+        self.assertEqual(public["stripe_reason"], "webhook_timeout")
+
+    def test_late_decide_then_timeout_event_is_not_clear(self):
+        """Sleep past Stripe's 2s window, then bind the residual timeout reason."""
+        auth_id = "iauth_latesleep1"
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+
+        def evaluate_fn(body):
+            time.sleep(2.05)
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertFalse(out["within_stripe_timeout"])
+        self.assertTrue(out["approved"])
+
+        created = self._timeout_auth(auth_id, stripe_approved=True, reason="webhook_timeout")
+        mouth.reconcile_stripe_authorization(
+            created,
+            public_url="https://gate.example",
+            event_type="issuing_authorization.created",
+        )
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}").get_json()
+        self.assertFalse(public["clear"])
+        self.assertEqual(public["stripe_reason"], "webhook_timeout")
+        self.assertTrue(public["gate_approved"])
+        self.assertTrue(public["stripe_approved"])
+
+    def test_issuing_receipt_attaches_inclusion_proof(self):
+        from gate import evidence_log as evidence_log_mod
+
+        auth_id = "iauth_merkleproof1"
+        auth = mouth.dogfood_authorization(amount_cents=107, max_amount="5.00")
+        auth["id"] = auth_id
+
+        def evaluate_fn(body):
+            return pf.evaluate(body, public_url="https://gate.example")
+
+        out = mouth.decide(auth, evaluate_fn=evaluate_fn)
+        self.assertTrue(out["approved"])
+        public = self.client.get(f"/v1/issuing/authorization/{auth_id}").get_json()
+        bundle = public.get("receipt_inclusion_proof")
+        self.assertIsInstance(bundle, dict)
+        self.assertEqual(public["reconstruct"], "merkle")
+        self.assertTrue(
+            evidence_log_mod.verify_inclusion(
+                leaf_hash=bundle["receipt_hash"],
+                root_hash=bundle["tree_head"]["root_hash"],
+                proof=bundle["inclusion"],
+            )
+        )
+        self.assertFalse(public["independent_witness"]["required"])
+        self.assertIn("not an independent operator", public["independent_witness"]["plain"])
+        self.assertIn("RFC 9162-style", public["proof_scheme_plain"])
+        self.assertFalse(public["predates_current_proof_scheme"])
+        self.assertIn("RFC 9162-style", bundle["proof_scheme_plain"])
+
+    def test_timeout_doctrine_names_residual_not_clawback_todo(self):
+        d = mouth.timeout_doctrine()
+        self.assertFalse(d["force_reversal"])
+        self.assertFalse(d["auto_refund_on_timeout_disagree"])
+        self.assertIn("Residual, not a todo", d["residual_race"])
+        self.assertIn("No clawback", d["plain"])
+
+    def test_legacy_inclusion_endpoint_explains_predates_scheme(self):
+        from gate import evidence_log as evidence_log_mod
+
+        h0 = hashlib.sha256(b"saved-a").hexdigest()
+        h1 = hashlib.sha256(b"saved-b").hexdigest()
+        left = evidence_log_mod.legacy_leaf_hash(bytes.fromhex(h0))
+        right = evidence_log_mod.legacy_leaf_hash(bytes.fromhex(h1))
+        old_root = evidence_log_mod.legacy_node_hash(left, right).hex()
+        r = self.client.post(
+            "/v1/evidence/verify-inclusion",
+            json={"leaf_hash": h0, "root_hash": old_root, "index": 0, "siblings": [right.hex()]},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["ok"])
+        self.assertTrue(body["predates_current_proof_scheme"])
+        miss = self.client.post(
+            "/v1/evidence/verify-inclusion",
+            json={
+                "leaf_hash": h0,
+                "root_hash": "00" * 32,
+                "index": 0,
+                "siblings": [right.hex()],
+            },
+        )
+        self.assertEqual(miss.status_code, 400)
+        self.assertIn("predates the current proof scheme", miss.get_json()["proof_scheme_plain"])
+
+    def test_timeout_doctrine_is_decline_not_autopilot(self):
+        d = mouth.timeout_doctrine()
+        self.assertEqual(d["required_timeout_behavior"], "decline")
+        self.assertTrue(d["not_autopilot_approve"])
+        self.assertTrue(d["cannot_set_from_this_repo"])
+        m = self.client.get("/.well-known/issuing-mouth.json").get_json()
+        self.assertIn("issuing_authorization.created", m["webhook"]["events"])
+        self.assertIn("/v1/issuing/events", m["webhook"]["events_url"])
 
 
 if __name__ == "__main__":

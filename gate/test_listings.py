@@ -1756,6 +1756,12 @@ class OperatorInvoiceTests(unittest.TestCase):
         self.assertGreaterEqual(len(sci_data["science"]), 4)
         self.assertGreaterEqual(len(sci_data["tech"]), 5)
         self.assertEqual(sci_data["first_weld"]["write"], "withdraw")
+        self.assertEqual(
+            sci_data["t4_pitch"]["price"],
+            "leasehold toll on Stripe's authorization franchise",
+        )
+        self.assertNotIn("Georgist", sci_data["t4_pitch"]["price"])
+        self.assertTrue(any("Autopilot" in s for s in sci_data["t4_pitch"]["substitutes"]))
         self.assertIn("can and may", sci_data["tech_thesis"])
         tech_ids = {t["id"] for t in sci_data["tech"]}
         self.assertTrue(

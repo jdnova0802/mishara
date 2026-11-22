@@ -308,6 +308,10 @@ def mint_receipt_jwt(
     issuer: str | None = None,
     claim_scope: dict | None = None,
     demo: bool = False,
+    stripe_reason: str | None = None,
+    stripe_approved: bool | None = None,
+    gate_approved: bool | None = None,
+    clear: bool | None = None,
 ) -> str | None:
     key = _signing_key(demo=demo)
     if not key:
@@ -327,6 +331,14 @@ def mint_receipt_jwt(
         "fp": fingerprint,
         "sig": signals,
     }
+    if stripe_reason:
+        payload["stripe_reason"] = stripe_reason
+    if stripe_approved is not None:
+        payload["stripe_approved"] = bool(stripe_approved)
+    if gate_approved is not None:
+        payload["gate_approved"] = bool(gate_approved)
+    if clear is not None:
+        payload["clear"] = bool(clear)
     # Demo/dogfood receipts are signed (stranger-verifiable) but must never action a
     # live rail. Live gates (e.g. RTP) refuse any receipt carrying demo=true.
     if demo:
@@ -548,6 +560,8 @@ def evaluate(
         issuer=public_url.replace("https://", "").replace("http://", "").split("/")[0] or "gate.velaru.xyz",
         claim_scope=scope,
         demo=demo,
+        gate_approved=(decision == "GO"),
+        clear=(decision == "GO"),
     )
 
     if signing_required() and not receipt:
@@ -579,6 +593,7 @@ def evaluate(
         event_id=(context.get("event_id") or "").strip() or None,
         mandate=mandate if isinstance(mandate, dict) else None,
         demo=demo,
+        gate_approved=(decision == "GO"),
     )
 
     log_stamp = None

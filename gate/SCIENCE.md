@@ -49,7 +49,7 @@ Nuclear football: **state only**. We may someday be a tiny component under them 
 - Land: `/operator` (one door)  
 - **First weld = payout clear**; grid is next  
 - Find **driver edges**, not vanity hubs  
-- Price **authority dissipation** (weld + bps)  
+- Price a **leasehold toll on Stripe's authorization franchise** (weld + bps). Not Georgist ground rent. Substitutes: Autopilot, Stripe spending controls, in-plane audit (JetStream-class). Tradition: public-choice / Demsetz franchise — not ordoliberalism, not private-chartalism.  
 - Contracts/copy: collaborate; mouth only; favor to civilization  
 - Ads floor: `/privacy` + `/terms`; `their_production` false; pixels off by default  
 

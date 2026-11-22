@@ -5,8 +5,10 @@ distinct from GATE_RECEIPT_* cosigns it only after the tree is consistent with
 the last checkpoint this process stored. That is the C2SP add-checkpoint job:
 https://c2sp.org/tlog-witness@v1.1.0
 
-Not a dashboard. Not required for the tree to exist. Independent watchers can
-still cache evidence-head.json; this is the signed, offline-checkable form.
+Not a dashboard. Not required for the tree to exist unless
+GATE_WITNESS_SEPARATE_OPERATOR=1 with a distinct key. Same-process
+GATE_WITNESS_* is capacity, not an independent operator. Watchers can still
+cache evidence-head.json; this is the signed, offline-checkable form.
 """
 from __future__ import annotations
 
@@ -201,6 +203,12 @@ def manifest(public_url: str = "") -> dict[str, Any]:
         "spec": SPEC,
         "origin": origin(),
         "configured": evidence_log_mod.witness_configured(),
+        "required": evidence_log_mod.witness_required(),
+        "separate_operator": evidence_log_mod.witness_separate_operator(),
+        "plain": (
+            "Independent witnessing is not advertised until required is true "
+            "(distinct key + GATE_WITNESS_SEPARATE_OPERATOR)."
+        ),
         "add_checkpoint": f"{base}/v1/evidence-witness/add-checkpoint" if base else "/v1/evidence-witness/add-checkpoint",
         "head": f"{base}/.well-known/evidence-head.json" if base else "/.well-known/evidence-head.json",
         "last": last,
