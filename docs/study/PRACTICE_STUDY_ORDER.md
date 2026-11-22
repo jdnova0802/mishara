@@ -217,62 +217,67 @@ Wicca, as a different subject — Pagan studies and the institution-map of crime
 
 ## SOURCES
 
-Wikipedia is a finding aid, not a receipt. Where a verse, docket, or edition was not opened this pass, the line says so.
+Wikipedia is a finding aid, not a receipt. Links below are the court PDF, the edition, or the publisher page — not a search result.
 
 Legal (United States)
-- Church of the Lukumi Babalu Aye, Inc. v. City of Hialeah, 508 U.S. 520 (argued 4 November 1992, decided 11 June 1993). Free Exercise: Hialeah ordinances targeting Santería sacrifice fail. Official U.S. Reports: https://tile.loc.gov/storage-services/service/ll/usrep/usrep508/usrep508520/usrep508520.pdf
-- Dettmer v. Landon, 799 F.2d 929 (4th Cir., decided 4 September 1986), affirming that “the doctrine taught by the Church of Wicca is a religion” and vacating the item-injunction. https://law.justia.com/cases/federal/appellate-courts/F2/799/929/117777/
-- District court below: Dettmer v. Landon, 617 F. Supp. 592 (E.D. Va. 28 August 1985).
+- Church of the Lukumi Babalu Aye, Inc. v. City of Hialeah, 508 U.S. 520 (argued 4 November 1992, decided 11 June 1993). Official U.S. Reports PDF: https://tile.loc.gov/storage-services/service/ll/usrep/usrep508/usrep508520/usrep508520.pdf — HTML: https://www.law.cornell.edu/supremecourt/text/508/520
+- Dettmer v. Landon, 799 F.2d 929 (4th Cir., decided 4 September 1986): https://law.justia.com/cases/federal/appellate-courts/F2/799/929/117777/
+- Dettmer v. Landon, 617 F. Supp. 592 (E.D. Va. 28 August 1985): https://law.justia.com/cases/federal/district-courts/FSupp/617/592/2246829/
 
 Lakṣmī / Śrī
-- Śrī Sūkta: Ṛgveda Khila 2.6 in Isidor Scheftelowitz, Die Apokryphen des Ṛgveda (Breslau, 1906). Living recitation is commonly 15 verses plus a closing verse. Alakṣmī is named in the recited hymn (standard vv. 5, 6, 8: refuge in Śrī so Alakṣmī vanish; the bilva driving inner and outer Alakṣmī; “kṣutpipāsāmalāṃ jyeṣṭhām alakṣmīṃ nāśayāmy aham”).
-- Lakṣmī Tantra: Pāñcarātra text. English: Sanjukta Gupta, trans., Lakṣmī Tantra: A Pāñcarātra Text (Leiden: Brill, 1972).
-- Friday as Lakṣmī’s weekday (Śukravāra) is living household custom, not a line of Śrī Sūkta. OPEN a copied Purāṇa or paddhati verse that commands Friday-only worship; the custom does not need that verse to be real, and this note does not invent one.
-- Salt on Dīpāvalī / Dhanteras: regional folk, reported in Marathi festival journalism, not Scheftelowitz and not Gupta. Two folk streams contradict each other. Not used as a rule here.
+- Śrī Sūkta, Ṛgveda Khila 2.6. Critical edition: Isidor Scheftelowitz, Die Apokryphen des Ṛgveda (Breslau, 1906), Internet Archive: https://archive.org/details/in.ernet.dli.2015.134238 — digital text on Scheftelowitz: https://titus.uni-frankfurt.de/texte/etcs/ind/aind/ved/rv/rvkh/rvkht.htm
+- Recited hymn (accented): https://sanskritdocuments.org/doc_veda/s-sukta-accent.html (finding aid for the living 15+1 verses; Alakṣmī in vv. 5, 6, 8)
+- Lakṣmī Tantra, trans. Sanjukta Gupta (Brill, 1972): https://brill.com/display/title/5862
+- Friday as Lakṣmī’s weekday is living household custom, not a line of Śrī Sūkta. No Purāṇa verse commanding Friday-only worship is copied here.
+- Salt on Dīpāvalī / Dhanteras is regional folk, not Scheftelowitz and not Gupta.
 
 Śiva / Trika
-- Śiva Sūtras; Spanda Kārikās; Utpaladeva and Abhinavagupta (Pratyabhijñā). English starting points: Jaideva Singh’s translations; Mark S. G. Dyczkowski, The Doctrine of Vibration (SUNY, 1987); Alexis Sanderson’s papers on the Śaiva systems (e.g. “Śaivism and the Tantric Traditions”).
+- Mark S. G. Dyczkowski, The Doctrine of Vibration (SUNY, 1987): https://sunypress.edu/Books/T/The-Doctrine-of-Vibration
+- Alexis Sanderson, “Śaivism and the Tantric Traditions,” in The World’s Religions (1988): https://www.alexissanderson.com/ — chapter PDF commonly circulated from that page / https://www.taylorfrancis.com/chapters/edit/10.4324/9780203168554-48/śaivism-tantric-traditions-alexis-sanderson
+- Jaideva Singh translations of the Śiva Sūtras and Spanda Kārikās: Motilal Banarsidass catalogue (search title).
 
 Kālī / Durgā
-- Ten-wisdom-goddess frame: David Kinsley, Tantric Visions of the Divine Feminine: The Ten Mahāvidyās (University of California Press, 1997).
-- Devī Māhātmya: Thomas B. Coburn, Encountering the Goddess: A Translation of the Devī-Māhātmya and a Study of Its Interpretation (SUNY, 1991). Sanskrit in the Mārkaṇḍeya Purāṇa.
+- David Kinsley, Tantric Visions of the Divine Feminine: The Ten Mahāvidyās (University of California Press, 1997): https://www.ucpress.edu/book/9780520204997/tantric-visions-of-the-divine-feminine
+- Thomas B. Coburn, Encountering the Goddess (SUNY, 1991): https://sunypress.edu/Books/E/Encountering-the-Goddess
 
 Gaṇeśa
-- Paul B. Courtright, Gaṇeśa: Lord of Obstacles, Lord of Beginnings (Oxford University Press, 1985). Monograph, not scripture.
+- Paul B. Courtright, Gaṇeśa: Lord of Obstacles, Lord of Beginnings (Oxford University Press, 1985): https://global.oup.com/academic/product/ganesa-9780195037425
 
 Rādhā–Kṛṣṇa
-- Bhāgavata Purāṇa, esp. the tenth book. English study/translation starting point: Edwin F. Bryant, Krishna: The Beautiful Legend of God (Penguin, 2003).
-- Jayadeva, Gīta Govinda.
+- Edwin F. Bryant, Krishna: The Beautiful Legend of God (Bhāgavata Purāṇa Book X) (Penguin, 2003): https://www.penguinrandomhouse.com/books/289351/krishna-the-beautiful-legend-of-god-by-edwin-f-bryant/
+- Jayadeva, Gīta Govinda — standard Sanskrit; English starting point Barbara Stoler Miller, Love Song of the Dark Lord (Columbia University Press): https://cup.columbia.edu/book/love-song-of-the-dark-lord/9780231110525
 
 Èṣù / Lucumí
-- 508 U.S. 520 (above) for the United States legal fact.
-- William Bascom, Ifa Divination: Communication between Gods and Men in West Africa (Indiana University Press, 1969).
-- Henry John Drewal, John Pemberton III, and Rowland Abiodun, Yoruba: Nine Centuries of African Art and Thought (Center for African Art / Abrams, 1989).
-- David H. Brown, Santería Enthroned (University of Chicago Press, 2003), for the Cuban-United States house form.
+- 508 U.S. 520 (links above).
+- William Bascom, Ifa Divination (Indiana University Press, 1969): https://iupress.org/9780253207647/ifa-divination/
+- David H. Brown, Santería Enthroned (University of Chicago Press, 2003): https://press.uchicago.edu/ucp/books/book/chicago/S/bo3640982.html
+- Henry John Drewal, John Pemberton III, and Rowland Abiodun, Yoruba: Nine Centuries of African Art and Thought (Center for African Art / Abrams, 1989): museum/exhibition catalogue; WorldCat: https://search.worldcat.org/title/19844781
 
 Death / purification (Tibetan)
-- Bar do thos grol cycles. History of the English book: Bryan J. Cuevas, The Hidden History of the Tibetan Book of the Dead (Oxford University Press, 2003). Translation often used: Gyurme Dorje, trans., The Tibetan Book of the Dead (Penguin, 2005), or Fremantle and Trungpa (Shambhala, 1975) as a reception, not the critical text.
-- Consciousness transference (phowa) and Vajrasattva in the preliminaries (ngöndro): Patrul Rinpoche, The Words of My Perfect Teacher; Jamgön Kongtrul’s ngöndro manuals. These are lineage books. They are not a license to self-administer transference.
+- Bryan J. Cuevas, The Hidden History of the Tibetan Book of the Dead (Oxford University Press, 2003): https://academic.oup.com/book/50280 — DOI https://doi.org/10.1093/oso/9780195154139.001.0001
+- Gyurme Dorje, trans., The Tibetan Book of the Dead (Penguin, 2005): https://www.penguinrandomhouse.com/books/290599/the-tibetan-book-of-the-dead-by-gyurme-dorje/
+- Francesca Fremantle and Chögyam Trungpa, The Tibetan Book of the Dead (Shambhala, 1975): reception, not the critical text — https://www.shambhala.com/the-tibetan-book-of-the-dead-1519.html
+- Patrul Rinpoche, The Words of My Perfect Teacher: https://www.shambhala.com/the-words-of-my-perfect-teacher-1890.html
 
-Thoth / Egypt (why he is not the death seat)
-- Erik Hornung, The Ancient Egyptian Books of the Afterlife (Cornell University Press, 1999): Amduat and related underworld books.
-- Jan Assmann, Death and Salvation in Ancient Egypt (Cornell University Press, 2005).
-- R. O. Faulkner, The Ancient Egyptian Book of the Dead. Thoth as scribe of the weighing is in that corpus; the journey itself is Osirian.
+Thoth / Egypt
+- Erik Hornung, The Ancient Egyptian Books of the Afterlife (Cornell University Press, 1999): https://www.cornellpress.cornell.edu/book/9780801435157/the-ancient-egyptian-books-of-the-afterlife/
+- Jan Assmann, Death and Salvation in Ancient Egypt (Cornell University Press, 2005): https://www.cornellpress.cornell.edu/book/9780801442414/death-and-salvation-in-ancient-egypt/
+- R. O. Faulkner, The Ancient Egyptian Book of the Dead (British Museum Press / reprint): British Museum publication page via search; commonly https://www.britishmuseumshoponline.org/the-ancient-egyptian-book-of-the-dead.html
 
 Kabbalah
-- Sefer Yetzirah — Aryeh Kaplan, Sefer Yetzirah: The Book of Creation (rev. ed., Weiser, 1997) as a widely used English.
-- Zohar — Daniel C. Matt, trans., The Zohar: Pritzker Edition (Stanford University Press).
-- Luria — Lawrence Fine, Physician of the Soul, Healer of the Cosmos (Stanford, 2003).
-- Field: Gershom Scholem, Major Trends in Jewish Mysticism (Schocken, 1941/1946); Moshe Idel, Kabbalah: New Perspectives (Yale, 1988).
-- Dion Fortune, The Mystical Qabalah (1935): English exposition. Not a source text.
-- Hermetic order: Ellic Howe, The Magicians of the Golden Dawn (Routledge, 1972), on the Isis-Urania warrant of 1 March 1888.
+- Aryeh Kaplan, Sefer Yetzirah (Weiser, 1997): https://redwheelweiser.com/book/sefer-yetzirah-9780877288558/
+- Daniel C. Matt, trans., The Zohar: Pritzker Edition (Stanford University Press): https://www.sup.org/books/series/?series=The%20Zohar:%20Pritzker%20Edition
+- Lawrence Fine, Physician of the Soul, Healer of the Cosmos (Stanford, 2003): https://www.sup.org/books/title/?id=4369
+- Gershom Scholem, Major Trends in Jewish Mysticism: https://www.penguinrandomhouse.com/books/161961/major-trends-in-jewish-mysticism-by-gershom-scholem/
+- Moshe Idel, Kabbalah: New Perspectives (Yale, 1988): https://yalebooks.yale.edu/book/9780300046991/kabbalah/
+- Dion Fortune, The Mystical Qabalah (1935): edition list via search; public-domain status varies by printing — do not treat Internet copies as the 1935 text without checking the imprint.
+- Ellic Howe, The Magicians of the Golden Dawn (Routledge, 1972): https://www.routledge.com/The-Magicians-of-the-Golden-Dawn-A-Documentary-History-of-a-Magical-Order/Howe/p/book/9780710073393
 
 Wicca as a different subject
-- Dettmer (above).
-- Ronald Hutton, The Triumph of the Moon: A History of Modern Pagan Witchcraft (Oxford University Press, 1999; 2nd ed. 2019).
-- Institution map in this repo: docs/study/WITCHCRAFT_OCCULT_INSTITUTION_MAP.md.
+- Dettmer (links above).
+- Ronald Hutton, The Triumph of the Moon (Oxford University Press, 2nd ed. 2019): https://global.oup.com/academic/product/the-triumph-of-the-moon-9780198827368
 
 What this note is not citing
-- Dual Throne Protocol (Nisaba private PDF): a working title, not a source for any tradition above.
+- Dual Throne Protocol (private PDF): a working title, not a source for any tradition above.
 - Festival websites for salt-and-broom as if they were Scheftelowitz.
 - A Purāṇa verse for “Friday only,” until one is copied.
