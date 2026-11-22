@@ -7,7 +7,7 @@ Not global absence. Scoped negative attestation:
 
 Lineage (public, not invented here):
 - Haber–Stornetta linked timestamping (1991) — hash-chained commitments
-- Certificate Transparency (RFC 9162) — Merkle inclusion + consistency proofs
+- Certificate Transparency (RFC 9162-style domain separation on Gate's pairwise tree; not RFC 9162 unbalanced k=2^n)
 - Proof-of-Behavior (IETF draft) — DENIED recorded before execution
 - Counterfactual receipts / evidentiary absence (2025–2026 regulatory filings)
 - MA-Commit / monotonic accountability (2026) — permission to spend cannot be
@@ -142,7 +142,7 @@ def manifest(public_url: str) -> dict:
         "inclusion_proof": f"{public_url}/.well-known/receipt/{{event_id}}/proof.json",
         "lineage": [
             "Haber–Stornetta linked timestamping (1991)",
-            "RFC 9162 Certificate Transparency Merkle proofs",
+            "RFC 9162-style domain separation (pairwise odd-leaf tree, not RFC 9162 k=2^n)",
             "IETF draft Proof-of-Behavior (pre-execution DENIED)",
             "Counterfactual receipts / proving what didn't happen (2025–2026)",
             "MA-Commit monotonic accountability for irreversible execution (2026)",

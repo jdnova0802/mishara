@@ -48,13 +48,23 @@ def timeout_doctrine() -> dict[str, Any]:
         ),
         "docs": "https://docs.stripe.com/issuing/controls/real-time-authorizations",
         "cannot_set_from_this_repo": True,
+        "force_reversal": False,
+        "auto_refund_on_timeout_disagree": False,
+        "residual_race": (
+            "After timeout→Decline is set, a window remains between Stripe's "
+            "2s timer and Gate noticing created/updated. An Autopilot approval "
+            "in that window is a live card-network auth. No issuing-platform "
+            "force-reversal exists. Residual, not a todo."
+        ),
         "async_events": sorted(ASYNC_ISSUING_EVENTS),
         "mouth_split_reasons": sorted(MOUTH_SPLIT_REASONS),
         "plain": (
             "If Gate does not answer in 2s, Stripe's timeout setting decides. "
             "DENY-as-product holds only when that setting is Decline and "
             "created/updated events bind webhook_timeout or webhook_error "
-            "into the receipt so it cannot say Clear."
+            "into the receipt so it cannot say Clear. No clawback: a timeout "
+            "approval that already hit the card network cannot be unwound by "
+            "this repo."
         ),
     }
 

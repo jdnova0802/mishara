@@ -24,6 +24,16 @@ Use a **regular** Stripe webhook endpoint for created/updated (not the synchrono
 
 If `request_history.reason` is `webhook_timeout` or `webhook_error`, the public receipt JWT has `clear: false` and `dec: NO_GO`. `gate_approved` (what Gate's process would have said) and `stripe_approved` (what Stripe recorded) stay distinct. Autopilot-approve + Gate-GO still **must not** say Clear.
 
-## New gap (not closed here)
+## Residual structural limit (not a todo)
 
-If Autopilot **approves** on timeout, money may still move on the card network while Gate publishes `clear: false`. That receipt means **Gate did not Clear**, not **the charge did not happen**. No clawback in this change.
+Once Stripe Autopilot **approves** an authorization during a timeout, that is a **live card-network transaction**. The Issuing platform has **no force-reversal** in that moment. Later tools are refund, merchant expiry, or dispute — after the fact.
+
+Even after the Dashboard timeout→Decline setting is flipped, there is still a race between Stripe's 2-second timer firing and Gate's process noticing (`issuing_authorization.created` / `.updated`). If Autopilot approved in that window, Gate's later `approved: false` cannot unwind the network auth. That race is a **permanent residual risk**. Further mouth code cannot close it to zero.
+
+The public receipt's job in that window is honesty: `clear: false` / `disputed_clearance` means **Gate did not Clear**, not **the charge did not happen**.
+
+## Compensating control checked (not implemented)
+
+`POST /v1/issuing/authorizations/{id}/reverse` exists in Stripe's API. **Test mode only.** Live Issuing authorizations are not force-reversed by the issuer; capture, merchant expiry, refund, or dispute are the production paths.
+
+An automated refund/reversal the moment Gate sees a `webhook_timeout` approval it disagrees with is **not a feasible compensating control** on live cards. Wiring test-mode reverse on every timeout would also fire against merchants who already have a valid approval — wrong default. Do not add that loop.

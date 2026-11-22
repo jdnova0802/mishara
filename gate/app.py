@@ -3204,7 +3204,25 @@ def well_known_receipt_proof(event_id: str):
     rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     bundle = evidence_log_mod.proof_bundle(rows, event_id)
     if not bundle:
-        abort(404)
+        row = db.get_bind_event(event_id)
+        if not row:
+            abort(404)
+        return (
+            jsonify(
+                {
+                    "ok": False,
+                    "event_id": event_id,
+                    "predates_current_proof_scheme": True,
+                    "reason": "no_current_inclusion_proof",
+                    "proof_scheme_plain": (
+                        "this receipt predates the current proof scheme, or has "
+                        "no Merkle leaf under the RFC 9162-style domain-separated "
+                        "tree"
+                    ),
+                }
+            ),
+            409,
+        )
     return jsonify(bundle)
 
 
@@ -3301,6 +3319,43 @@ def well_known_evidence_head():
     rows = db.with_clearance_stamps(db.list_bind_events_chronological())
     leaves = evidence_log_mod.log_from_rows(rows)
     return jsonify(evidence_log_mod.signed_tree_head(leaves))
+
+
+@app.route("/v1/evidence/verify-inclusion", methods=["POST"])
+def evidence_verify_inclusion():
+    """Check a saved inclusion proof against current or pre-2026-11-22 pairwise hashing."""
+    try:
+        from gate import evidence_log as evidence_log_mod
+    except ImportError:
+        import evidence_log as evidence_log_mod
+
+    body = request.get_json(silent=True) or {}
+    inclusion_body = body.get("receipt_inclusion_proof") or body
+    inc = (
+        inclusion_body.get("inclusion")
+        if isinstance(inclusion_body.get("inclusion"), dict)
+        else inclusion_body
+    )
+    if not isinstance(inc, dict):
+        inc = {}
+    leaf = (
+        inclusion_body.get("receipt_hash")
+        or inc.get("leaf_hash")
+        or body.get("leaf_hash")
+        or ""
+    )
+    root = (
+        ((inclusion_body.get("tree_head") or {}).get("root_hash"))
+        or inc.get("root_hash")
+        or body.get("root_hash")
+        or ""
+    )
+    report = evidence_log_mod.verify_inclusion_report(
+        leaf_hash=str(leaf),
+        root_hash=str(root),
+        proof=inc,
+    )
+    return jsonify(report), 200 if report.get("ok") else 400
 
 
 @app.route("/.well-known/seal.json")
@@ -3937,9 +3992,23 @@ def issuing_authorization_receipt(authorization_id: str):
     if bundle:
         body["receipt_inclusion_proof"] = bundle
         body["reconstruct"] = "merkle"
+        inc = bundle.get("inclusion") or {}
+        merkle_report = evidence_log_mod.verify_inclusion_report(
+            leaf_hash=bundle.get("receipt_hash") or inc.get("leaf_hash") or "",
+            root_hash=(bundle.get("tree_head") or {}).get("root_hash")
+            or inc.get("root_hash")
+            or "",
+            proof=inc,
+        )
+        body["proof_scheme_plain"] = merkle_report.get("proof_scheme_plain")
+        body["predates_current_proof_scheme"] = bool(
+            merkle_report.get("predates_current_proof_scheme")
+        )
     else:
         body["reconstruct"] = None
         body["receipt_inclusion_proof"] = None
+        body["proof_scheme_plain"] = evidence_log_mod.PROOF_SCHEME_PLAIN
+        body["predates_current_proof_scheme"] = False
     witness = ((bundle or {}).get("tree_head") or {}).get("witness") or {}
     witness_ok = bool(
         witness.get("required")
@@ -4511,6 +4580,38 @@ def prefinality_verify():
     }
     if verified.get("message"):
         out["message"] = verified.get("message")
+    inclusion_body = body.get("receipt_inclusion_proof") or body.get("inclusion")
+    if isinstance(inclusion_body, dict):
+        try:
+            from gate import evidence_log as evidence_log_mod
+        except ImportError:
+            import evidence_log as evidence_log_mod
+
+        inc = inclusion_body.get("inclusion") if isinstance(
+            inclusion_body.get("inclusion"), dict
+        ) else inclusion_body
+        leaf = (
+            inclusion_body.get("receipt_hash")
+            or inc.get("leaf_hash")
+            or body.get("leaf_hash")
+            or ""
+        )
+        root = (
+            ((inclusion_body.get("tree_head") or {}).get("root_hash"))
+            or inc.get("root_hash")
+            or body.get("root_hash")
+            or ""
+        )
+        merkle_report = evidence_log_mod.verify_inclusion_report(
+            leaf_hash=str(leaf),
+            root_hash=str(root),
+            proof=inc if isinstance(inc, dict) else {},
+        )
+        out["merkle_inclusion"] = merkle_report
+        out["proof_scheme_plain"] = merkle_report.get("proof_scheme_plain")
+        out["predates_current_proof_scheme"] = bool(
+            merkle_report.get("predates_current_proof_scheme")
+        )
     return jsonify(out), 200 if verified.get("valid") else 400
 
 

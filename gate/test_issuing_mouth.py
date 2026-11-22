@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import os
 import time
 import unittest
@@ -623,6 +624,44 @@ class IssuingMouthTests(unittest.TestCase):
         )
         self.assertFalse(public["independent_witness"]["required"])
         self.assertIn("not an independent operator", public["independent_witness"]["plain"])
+        self.assertIn("RFC 9162-style", public["proof_scheme_plain"])
+        self.assertFalse(public["predates_current_proof_scheme"])
+        self.assertIn("RFC 9162-style", bundle["proof_scheme_plain"])
+
+    def test_timeout_doctrine_names_residual_not_clawback_todo(self):
+        d = mouth.timeout_doctrine()
+        self.assertFalse(d["force_reversal"])
+        self.assertFalse(d["auto_refund_on_timeout_disagree"])
+        self.assertIn("Residual, not a todo", d["residual_race"])
+        self.assertIn("No clawback", d["plain"])
+
+    def test_legacy_inclusion_endpoint_explains_predates_scheme(self):
+        from gate import evidence_log as evidence_log_mod
+
+        h0 = hashlib.sha256(b"saved-a").hexdigest()
+        h1 = hashlib.sha256(b"saved-b").hexdigest()
+        left = evidence_log_mod.legacy_leaf_hash(bytes.fromhex(h0))
+        right = evidence_log_mod.legacy_leaf_hash(bytes.fromhex(h1))
+        old_root = evidence_log_mod.legacy_node_hash(left, right).hex()
+        r = self.client.post(
+            "/v1/evidence/verify-inclusion",
+            json={"leaf_hash": h0, "root_hash": old_root, "index": 0, "siblings": [right.hex()]},
+        )
+        self.assertEqual(r.status_code, 200)
+        body = r.get_json()
+        self.assertTrue(body["ok"])
+        self.assertTrue(body["predates_current_proof_scheme"])
+        miss = self.client.post(
+            "/v1/evidence/verify-inclusion",
+            json={
+                "leaf_hash": h0,
+                "root_hash": "00" * 32,
+                "index": 0,
+                "siblings": [right.hex()],
+            },
+        )
+        self.assertEqual(miss.status_code, 400)
+        self.assertIn("predates the current proof scheme", miss.get_json()["proof_scheme_plain"])
 
     def test_timeout_doctrine_is_decline_not_autopilot(self):
         d = mouth.timeout_doctrine()
