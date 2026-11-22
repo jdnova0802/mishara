@@ -128,6 +128,9 @@ class IssuingMouthTests(unittest.TestCase):
         page = self.client.get("/issuing-mouth")
         self.assertEqual(page.status_code, 200)
         self.assertIn(b"Auth mouth", page.data)
+        self.assertIn(b"authorization franchise", page.data)
+        self.assertIn(b"Leasehold", page.data)
+        self.assertNotIn(b"ground rent", page.data)
 
     def test_health_lists_issuing_mouth(self):
         h = self.client.get("/health")

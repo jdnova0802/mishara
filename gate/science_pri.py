@@ -101,7 +101,8 @@ SCIENCE = (
         ],
         "gate_law": (
             "intervention = measure(evidence) -> control(LIVE|DENY) -> record(receipt). "
-            "Silent free yes is illegal. Weld + bps price authority dissipation."
+            "Silent free yes is illegal. Price is a leasehold toll on the "
+            "authorization franchise, not ground rent on an unavoidable site."
         ),
     },
     {
@@ -310,8 +311,15 @@ DISTRIBUTION = (
         "detail": "Map ActGraph; weld unmatched irreversible writes. Skip vanity logos off the write path.",
     },
     {
-        "rule": "Price dissipation",
-        "detail": "Weld + bps = thermodynamic toll on sorting LIVE/DENY — not seat licenses.",
+        "rule": "Price a leasehold, not land",
+        "detail": (
+            "Leasehold toll on Stripe's authorization franchise — weld + bps. "
+            "Not Georgist ground rent on an unavoidable crossing. Stripe Autopilot, "
+            "Stripe spending_controls, and in-plane audit (JetStream-class) are "
+            "existing substitutes. Tradition: public-choice / Demsetz franchise "
+            "bidding. Not ordoliberal Ordnungspolitik (state sets the rules) and "
+            "not private-chartalism (Gate as mint of clearance)."
+        ),
     },
     {
         "rule": "Contribute path explicit",
@@ -340,6 +348,22 @@ def manifest(public_url: str) -> dict[str, Any]:
         "tier_s": list(TIER_S),
         "contribute_ladder": list(CONTRIBUTE_LADDER),
         "distribution": list(DISTRIBUTION),
+        "t4_pitch": {
+            "spec": "gate-t4-leasehold-v1",
+            "price": "leasehold toll on Stripe's authorization franchise",
+            "not": "Georgist ground rent on an unavoidable crossing",
+            "tradition": (
+                "public-choice / Demsetz franchise bidding. Stripe is the franchisor. "
+                "Dropped: Georgism (land that cannot be reproduced), ordoliberal "
+                "Ordnungspolitik (the state sets the rules of the game), "
+                "private-chartalism (Gate as mint of clearance)."
+            ),
+            "substitutes": [
+                "Stripe Autopilot — rival referee on webhook timeout",
+                "Stripe spending_controls — can decline before Gate's webhook fires",
+                "In-plane audit (JetStream-class) — different good, buyer's control plane",
+            ],
+        },
         "own_tier_s": False,
         "force_production_weld": False,
         "their_production": False,
