@@ -13,7 +13,7 @@ Phase 3 URLs checked 2026-11-24, America/New_York (HTTP 200, or a named redirect
 ORDER DECISION (settled before the roadmap)
 ────────────────────────────────
 
-Hiring-priority-first wins. Phase 1 = AI/adversarial-ML security (SDT folded in). Phase 2 = cryptography. Phase 3 = perception/control for the later physical-autonomy company.
+Hiring-priority-first wins. Phase 1 = AI/adversarial-ML security (SDT folded in). Phase 2 = cryptography. Phase 3 = perception/control for the later physical-autonomy company. Subject companion (not this Do-list): `docs/study/PERCEPTION_CONTROL_MAP.md`. Standing study order: `docs/study/STANDING_PRIORITY_LIST.md`.
 
 Why not build-order-first (crypto → measure → attack):
 • That sequence describes complementary *career skills across lanes*, not a dependency chain inside one curriculum. You do not need a working ML-KEM or TLS stack to red-team prompt injection, score attack success rates, or tune a detector threshold.

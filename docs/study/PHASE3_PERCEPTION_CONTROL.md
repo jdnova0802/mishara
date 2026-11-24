@@ -1,6 +1,6 @@
 # Phase 3 — Perception / Control (home curriculum)
 
-Canonical three-phase lock (plain English, Phase 1–2 verbatim + this phase): `docs/study/HOME_LEARNABLE_CURRICULUM.md`.
+Canonical three-phase lock (plain English, Phase 1–2 verbatim + this phase): `docs/study/HOME_LEARNABLE_CURRICULUM.md`. Subject companion (what the Deep *is*, how the machines fail — not this Do-list): `docs/study/PERCEPTION_CONTROL_MAP.md`.
 
 Checkpoint format, same rigor as Phase 1 (artificial-intelligence / adversarial-machine-learning security with signal-detection-theory scoring) and Phase 2 (hybrid Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) + Transport Layer Security (TLS) crypto). This is the Deep physical subject: estimation and control for autonomous stacks. It is **not** mechanical/aerospace shop work.
 
