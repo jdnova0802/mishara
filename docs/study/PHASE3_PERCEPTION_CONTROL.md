@@ -1,5 +1,7 @@
 # Phase 3 — Perception / Control (home curriculum)
 
+Canonical three-phase lock (plain English, Phase 1–2 verbatim + this phase): `docs/study/HOME_LEARNABLE_CURRICULUM.md`.
+
 Checkpoint format, same rigor as Phase 1 (artificial-intelligence / adversarial-machine-learning security with signal-detection-theory scoring) and Phase 2 (hybrid Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM) + Transport Layer Security (TLS) crypto). This is the Deep physical subject: estimation and control for autonomous stacks. It is **not** mechanical/aerospace shop work.
 
 **Cadence:** about **30 hours/week**, Thursday–Saturday only. Sunday–Wednesday warehouse overnight: **no study**. Do not split a milestone across a week unless the Do-list says so.
