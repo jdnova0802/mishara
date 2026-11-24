@@ -22,7 +22,7 @@ No fourth Deep. Computer networking is **not** Director. Palantir-style fusion i
 
 **Reference library:** atlases, cycles, peoples, religion-as-institution, war/alliance *as lookup*, standards, class, trade, socionomics, chokepoints, history, the Big Table.
 
-**Methodology notes:** how to learn, fluency map, X lineup, the Morning, sādhana, Nisaba study foundation, standing priority list. These never compete with Deep hours.
+**Methodology notes:** how to learn, mechanism-map decoder, fluency map, X lineup, the Morning, sādhana, Nisaba study foundation, standing priority list. These never compete with Deep hours.
 
 ---
 
@@ -95,7 +95,8 @@ Covered-by-another-title is marked **holds**. Ops/week-scoped is marked **retire
 | Note | Holds? |
 |------|--------|
 | Deep vs. Director Fluency Map | **Holds** the tier rule |
-| How to Learn | **Holds** |
+| How to Learn | **Holds** cycle-row decoder. Does **not** audit mechanism maps |
+| Mechanism Map Decoder | **Holds** (`docs/study/MECHANISM_MAP_DECODER.md`). Plain-English mechanism-map genre only. Do **not** run on 11-field claims grids |
 | The Morning | **Holds** daily ops |
 | Nisaba Study Foundation | **Holds** |
 | Sādhana Curriculum | **Holds** practice order, not a Deep |

@@ -1,6 +1,6 @@
 # STANDING PRIORITY LIST — fluency tiers (not an X week)
 
-Replaces **Priority List (X week)** in Maps/Branches. That note was a calendar. This note is the standing rule for *what study even is*. Week-scoped outbound (X replies, Show HN, diligence) lives in The Morning / Final X Content Lineup / `docs/legal/X_DRAFTING.md` — not here.
+Replaces **Priority List (X week)** in Maps/Branches. That note was a calendar. This note is the standing rule for *what study even is*. Week-scoped outbound (X replies, Show HN, diligence) lives in The Morning / Final X Content Lineup / `docs/legal/X_DRAFTING.md` — not here. Mechanism-map study trust is audited by `docs/study/MECHANISM_MAP_DECODER.md` (not How to Learn, not a claims grid).
 
 Pull **24 Nov 2026**, America/New_York.
 
@@ -96,6 +96,7 @@ Do not schedule. Do not “finish the atlas” instead of Phase 1.
 
 - Deep vs. Director Fluency Map
 - How to Learn
+- Mechanism Map Decoder (`docs/study/MECHANISM_MAP_DECODER.md`) — audit lock for plain-English mechanism maps; not a Deep; not the 11-field claims-grid decoder
 - The Morning
 - Nisaba Study Foundation
 - Sādhana Curriculum
